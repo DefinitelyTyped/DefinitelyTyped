@@ -30,7 +30,17 @@
  */
 declare module "perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
-    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http" | "dns";
+    type EntryType =
+        | "dns" // Node.js only
+        | "function" // Node.js only
+        | "gc" // Node.js only
+        | "http2" // Node.js only
+        | "http" // Node.js only
+        | "mark" // available on the Web
+        | "measure" // available on the Web
+        | "net" // Node.js only
+        | "node" // Node.js only
+        | "resource"; // available on the Web
     interface NodeGCPerformanceDetail {
         /**
          * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
@@ -240,6 +250,24 @@ declare module "perf_hooks" {
          * @return The PerformanceMark entry that was created
          */
         mark(name?: string, options?: MarkOptions): PerformanceMark;
+        /**
+         * Creates a new `PerformanceResourceTiming` entry in the Resource Timeline.
+         * A `PerformanceResourceTiming` is a subclass of `PerformanceEntry` whose `performanceEntry.entryType` is always `'resource'`.
+         * Performance resources are used to mark moments in the Resource Timeline.
+         * @param timingInfo [Fetch Timing Info](https://fetch.spec.whatwg.org/#fetch-timing-info)
+         * @param requestedUrl The resource url
+         * @param initiatorType The initiator name, e.g: 'fetch'
+         * @param global
+         * @param cacheMode The cache mode must be an empty string ('') or 'local'
+         * @since v18.2.0, v16.17.0
+         */
+        markResourceTiming(
+            timingInfo: object,
+            requestedUrl: string,
+            initiatorType: string,
+            global: object,
+            cacheMode: "" | "local",
+        ): PerformanceResourceTiming;
         /**
          * Creates a new PerformanceMeasure entry in the Performance Timeline.
          * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
@@ -454,6 +482,105 @@ declare module "perf_hooks" {
                 },
         ): void;
     }
+    /**
+     * Provides detailed network timing data regarding the loading of an application's resources.
+     *
+     * The constructor of this class is not exposed to users directly.
+     * @since v18.2.0, v16.17.0
+     */
+    class PerformanceResourceTiming extends PerformanceEntry {
+        readonly entryType: "resource";
+        protected constructor();
+        /**
+         * The high resolution millisecond timestamp at immediately before dispatching the `fetch`
+         * request. If the resource is not intercepted by a worker the property will always return 0.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly workerStart: number;
+        /**
+         * The high resolution millisecond timestamp that represents the start time of the fetch which
+         * initiates the redirect.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly redirectStart: number;
+        /**
+         * The high resolution millisecond timestamp that will be created immediately after receiving
+         * the last byte of the response of the last redirect.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly redirectEnd: number;
+        /**
+         * The high resolution millisecond timestamp immediately before the Node.js starts to fetch the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly fetchStart: number;
+        /**
+         * The high resolution millisecond timestamp immediately before the Node.js starts the domain name lookup
+         * for the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly domainLookupStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately after the Node.js finished
+         * the domain name lookup for the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly domainLookupEnd: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately before Node.js starts to
+         * establish the connection to the server to retrieve the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly connectStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately after Node.js finishes
+         * establishing the connection to the server to retrieve the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly connectEnd: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately before Node.js starts the
+         * handshake process to secure the current connection.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly secureConnectionStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately before Node.js receives the
+         * first byte of the response from the server.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly requestStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately after Node.js receives the
+         * last byte of the resource or immediately before the transport connection is closed, whichever comes first.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly responseEnd: number;
+        /**
+         * A number representing the size (in octets) of the fetched resource. The size includes the response header
+         * fields plus the response payload body.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly transferSize: number;
+        /**
+         * A number representing the size (in octets) received from the fetch (HTTP or cache), of the payload body, before
+         * removing any applied content-codings.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly encodedBodySize: number;
+        /**
+         * A number representing the size (in octets) received from the fetch (HTTP or cache), of the message body, after
+         * removing any applied content-codings.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly decodedBodySize: number;
+        /**
+         * Returns a `object` that is the JSON representation of the `PerformanceResourceTiming` object
+         * @since v18.2.0, v16.17.0
+         */
+        toJSON(): any;
+    }
+
     namespace constants {
         const NODE_PERFORMANCE_GC_MAJOR: number;
         const NODE_PERFORMANCE_GC_MINOR: number;

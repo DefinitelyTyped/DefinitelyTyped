@@ -116,7 +116,7 @@ const utf16Array3 = Encoding.convert(utf8Array, {
     type: "arraybuffer",
     bom: true, // With BOM
 });
-utf16Array3; // $ExpectType ArrayBuffer
+utf16Array3; // $ExpectType Uint16Array
 
 const utf16Array4 = Encoding.convert(utf8Array, {
     to: "UTF16", // to_encoding

@@ -144,7 +144,22 @@ declare module "node:test" {
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
     namespace test {
-        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, suite, test, todo };
+        export {
+            after,
+            afterEach,
+            before,
+            beforeEach,
+            describe,
+            it,
+            mock,
+            only,
+            run,
+            skip,
+            snapshot,
+            suite,
+            test,
+            todo,
+        };
     }
     /**
      * The `suite()` function is imported from the `node:test` module.
@@ -462,6 +477,12 @@ declare module "node:test" {
      */
     class TestContext {
         /**
+         * An object containing assertion methods bound to the test context.
+         * The top-level functions from the `node:assert` module are exposed here for the purpose of creating test plans.
+         * @since v22.2.0
+         */
+        readonly assert: TestContextAssert;
+        /**
          * This function is used to create a hook running before subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
@@ -504,10 +525,51 @@ declare module "node:test" {
          */
         diagnostic(message: string): void;
         /**
+         * The name of the test and each of its ancestors, separated by `>`.
+         * @since v22.3.0
+         */
+        readonly fullName: string;
+        /**
          * The name of the test.
          * @since v18.8.0, v16.18.0
          */
         readonly name: string;
+        /**
+         * Used to set the number of assertions and subtests that are expected to run within the test.
+         * If the number of assertions and subtests that run does not match the expected count, the test will fail.
+         *
+         * To make sure assertions are tracked, the assert functions on `context.assert` must be used,
+         * instead of importing from the `node:assert` module.
+         * ```js
+         * test('top level test', (t) => {
+         *   t.plan(2);
+         *   t.assert.ok('some relevant assertion here');
+         *   t.test('subtest', () => {});
+         * });
+         * ```
+         *
+         * When working with asynchronous code, the `plan` function can be used to ensure that the correct number of assertions are run:
+         * ```js
+         * test('planning with streams', (t, done) => {
+         *   function* generate() {
+         *     yield 'a';
+         *     yield 'b';
+         *     yield 'c';
+         *   }
+         *   const expected = ['a', 'b', 'c'];
+         *   t.plan(expected.length);
+         *   const stream = Readable.from(generate());
+         *   stream.on('data', (chunk) => {
+         *     t.assert.strictEqual(chunk, expected.shift());
+         *   });
+         *   stream.on('end', () => {
+         *     done();
+         *   });
+         * });
+         * ```
+         * @since v22.2.0
+         */
+        plan(count: number): void;
         /**
          * If `shouldRunOnlyTests` is truthy, the test context will only run tests that
          * have the `only` option set. Otherwise, all tests are run. If Node.js was not
@@ -584,6 +646,106 @@ declare module "node:test" {
          */
         readonly mock: MockTracker;
     }
+    interface TestContextAssert {
+        /**
+         * Identical to the `deepEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        deepEqual: typeof import("node:assert").deepEqual;
+        /**
+         * Identical to the `deepStrictEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        deepStrictEqual: typeof import("node:assert").deepStrictEqual;
+        /**
+         * Identical to the `doesNotMatch` function from the `node:assert` module, but bound to the test context.
+         */
+        doesNotMatch: typeof import("node:assert").doesNotMatch;
+        /**
+         * Identical to the `doesNotReject` function from the `node:assert` module, but bound to the test context.
+         */
+        doesNotReject: typeof import("node:assert").doesNotReject;
+        /**
+         * Identical to the `doesNotThrow` function from the `node:assert` module, but bound to the test context.
+         */
+        doesNotThrow: typeof import("node:assert").doesNotThrow;
+        /**
+         * Identical to the `equal` function from the `node:assert` module, but bound to the test context.
+         */
+        equal: typeof import("node:assert").equal;
+        /**
+         * Identical to the `fail` function from the `node:assert` module, but bound to the test context.
+         */
+        fail: typeof import("node:assert").fail;
+        /**
+         * Identical to the `ifError` function from the `node:assert` module, but bound to the test context.
+         */
+        ifError: typeof import("node:assert").ifError;
+        /**
+         * Identical to the `match` function from the `node:assert` module, but bound to the test context.
+         */
+        match: typeof import("node:assert").match;
+        /**
+         * Identical to the `notDeepEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        notDeepEqual: typeof import("node:assert").notDeepEqual;
+        /**
+         * Identical to the `notDeepStrictEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        notDeepStrictEqual: typeof import("node:assert").notDeepStrictEqual;
+        /**
+         * Identical to the `notEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        notEqual: typeof import("node:assert").notEqual;
+        /**
+         * Identical to the `notStrictEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        notStrictEqual: typeof import("node:assert").notStrictEqual;
+        /**
+         * Identical to the `ok` function from the `node:assert` module, but bound to the test context.
+         */
+        ok: typeof import("node:assert").ok;
+        /**
+         * Identical to the `rejects` function from the `node:assert` module, but bound to the test context.
+         */
+        rejects: typeof import("node:assert").rejects;
+        /**
+         * Identical to the `strictEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        strictEqual: typeof import("node:assert").strictEqual;
+        /**
+         * Identical to the `throws` function from the `node:assert` module, but bound to the test context.
+         */
+        throws: typeof import("node:assert").throws;
+        /**
+         * This function implements assertions for snapshot testing.
+         * ```js
+         * test('snapshot test with default serialization', (t) => {
+         *   t.assert.snapshot({ value1: 1, value2: 2 });
+         * });
+         *
+         * test('snapshot test with custom serialization', (t) => {
+         *   t.assert.snapshot({ value3: 3, value4: 4 }, {
+         *     serializers: [(value) => JSON.stringify(value)]
+         *   });
+         * });
+         * ```
+         *
+         * Only available through the [--experimental-test-snapshots](https://nodejs.org/api/cli.html#--experimental-test-snapshots) flag.
+         * @since v22.3.0
+         * @experimental
+         */
+        snapshot(value: any, options?: AssertSnapshotOptions): void;
+    }
+    interface AssertSnapshotOptions {
+        /**
+         * An array of synchronous functions used to serialize `value` into a string.
+         * `value` is passed as the only argument to the first serializer function.
+         * The return value of each serializer is passed as input to the next serializer.
+         * Once all serializers have run, the resulting value is coerced to a string.
+         *
+         * If no serializers are provided, the test runner's default serializers are used.
+         */
+        serializers?: ReadonlyArray<(value: any) => any> | undefined;
+    }
 
     /**
      * An instance of `SuiteContext` is passed to each suite function in order to
@@ -643,6 +805,14 @@ declare module "node:test" {
          * @default false
          */
         todo?: boolean | string | undefined;
+        /**
+         * The number of assertions and subtests expected to be run in the test.
+         * If the number of assertions run in the test does not match the number
+         * specified in the plan, the test will fail.
+         * @default undefined
+         * @since v22.2.0
+         */
+        plan?: number | undefined;
     }
     /**
      * This function creates a hook that runs before executing a suite.
@@ -759,6 +929,30 @@ declare module "node:test" {
     type FunctionPropertyNames<T> = {
         [K in keyof T]: T[K] extends Function ? K : never;
     }[keyof T];
+    interface MockModuleOptions {
+        /**
+         * If false, each call to `require()` or `import()` generates a new mock module.
+         * If true, subsequent calls will return the same module mock, and the mock module is inserted into the CommonJS cache.
+         * @default false
+         */
+        cache?: boolean | undefined;
+        /**
+         * The value to use as the mocked module's default export.
+         *
+         * If this value is not provided, ESM mocks do not include a default export.
+         * If the mock is a CommonJS or builtin module, this setting is used as the value of `module.exports`.
+         * If this value is not provided, CJS and builtin mocks use an empty object as the value of `module.exports`.
+         */
+        defaultExport?: any;
+        /**
+         * An object whose keys and values are used to create the named exports of the mock module.
+         *
+         * If the mock is a CommonJS or builtin module, these values are copied onto `module.exports`.
+         * Therefore, if a mock is created with both named exports and a non-object default export,
+         * the mock will throw an exception when used as a CJS or builtin module.
+         */
+        namedExports?: object | undefined;
+    }
     /**
      * The `MockTracker` class is used to manage mocking functionality. The test runner
      * module provides a top level `mock` export which is a `MockTracker` instance.
@@ -923,6 +1117,18 @@ declare module "node:test" {
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
 
         /**
+         * This function is used to mock the exports of ECMAScript modules, CommonJS modules, and Node.js builtin modules.
+         * Any references to the original module prior to mocking are not impacted.
+         *
+         * Only available through the [--experimental-test-module-mocks](https://nodejs.org/api/cli.html#--experimental-test-module-mocks) flag.
+         * @since v22.3.0
+         * @experimental
+         * @param specifier A string identifying the module to mock.
+         * @param options Optional configuration options for the mock module.
+         */
+        module(specifier: string, options?: MockModuleOptions): MockModuleContext;
+
+        /**
          * This function restores the default behavior of all mocks that were previously
          * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be
          * used to reset their behavior or
@@ -1078,6 +1284,17 @@ declare module "node:test" {
          * Resets the implementation of the mock function to its original behavior. The
          * mock can still be used after calling this function.
          * @since v19.1.0, v18.13.0
+         */
+        restore(): void;
+    }
+    /**
+     * @since v22.3.0
+     * @experimental
+     */
+    class MockModuleContext {
+        /**
+         * Resets the implementation of the mock module.
+         * @since v22.3.0
          */
         restore(): void;
     }
@@ -1303,6 +1520,35 @@ declare module "node:test" {
          */
         [Symbol.dispose](): void;
     }
+    /**
+     * Only available through the [--experimental-test-snapshots](https://nodejs.org/api/cli.html#--experimental-test-snapshots) flag.
+     * @since v22.3.0
+     * @experimental
+     */
+    namespace snapshot {
+        /**
+         * This function is used to customize the default serialization mechanism used by the test runner.
+         *
+         * By default, the test runner performs serialization by calling `JSON.stringify(value, null, 2)` on the provided value.
+         * `JSON.stringify()` does have limitations regarding circular structures and supported data types.
+         * If a more robust serialization mechanism is required, this function should be used to specify a list of custom serializers.
+         *
+         * Serializers are called in order, with the output of the previous serializer passed as input to the next.
+         * The final result must be a string value.
+         * @since v22.3.0
+         * @param serializers An array of synchronous functions used as the default serializers for snapshot tests.
+         */
+        function setDefaultSnapshotSerializers(serializers: ReadonlyArray<(value: any) => any>): void;
+        /**
+         * This function is used to set a custom resolver for the location of the snapshot file used for snapshot testing.
+         * By default, the snapshot filename is the same as the entry point filename with `.snapshot` appended.
+         * @since v22.3.0
+         * @param fn A function which returns a string specifying the location of the snapshot file.
+         * The function receives the path of the test file as its only argument.
+         * If `process.argv[1]` is not associated with a file (for example in the REPL), the input is undefined.
+         */
+        function setResolveSnapshotPath(fn: (path: string | undefined) => string): void;
+    }
     export {
         after,
         afterEach,
@@ -1315,6 +1561,7 @@ declare module "node:test" {
         only,
         run,
         skip,
+        snapshot,
         suite,
         SuiteContext,
         test,
@@ -1713,31 +1960,47 @@ declare module "node:test/reporters" {
         | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
+    interface ReporterConstructorWrapper<T extends new(...args: any[]) => Transform> {
+        new(...args: ConstructorParameters<T>): InstanceType<T>;
+        (...args: ConstructorParameters<T>): InstanceType<T>;
+    }
+
     /**
      * The `dot` reporter outputs the test results in a compact format,
      * where each passing test is represented by a `.`,
      * and each failing test is represented by a `X`.
+     * @since v20.0.0
      */
     function dot(source: TestEventGenerator): AsyncGenerator<"\n" | "." | "X", void>;
     /**
      * The `tap` reporter outputs the test results in the [TAP](https://testanything.org/) format.
+     * @since v20.0.0
      */
     function tap(source: TestEventGenerator): AsyncGenerator<string, void>;
-    /**
-     * The `spec` reporter outputs the test results in a human-readable format.
-     */
-    class Spec extends Transform {
+    class SpecReporter extends Transform {
         constructor();
     }
     /**
+     * The `spec` reporter outputs the test results in a human-readable format.
+     * @since v20.0.0
+     */
+    const spec: ReporterConstructorWrapper<typeof SpecReporter>;
+    /**
      * The `junit` reporter outputs test results in a jUnit XML format.
+     * @since v21.0.0
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
-    /**
-     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--experimental-test-coverage) flag.
-     */
-    class Lcov extends Transform {
-        constructor(opts?: TransformOptions);
+    class LcovReporter extends Transform {
+        constructor(opts?: Omit<TransformOptions, "writableObjectMode">);
     }
-    export { dot, junit, Lcov as lcov, Spec as spec, tap, TestEvent };
+    /**
+     * The `lcov` reporter outputs test coverage when used with the
+     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--experimental-test-coverage) flag.
+     * @since v22.0.0
+     */
+    // TODO: change the export to a wrapper function once node@0db38f0 is merged (breaking change)
+    // const lcov: ReporterConstructorWrapper<typeof LcovReporter>;
+    const lcov: LcovReporter;
+
+    export { dot, junit, lcov, spec, tap, TestEvent };
 }

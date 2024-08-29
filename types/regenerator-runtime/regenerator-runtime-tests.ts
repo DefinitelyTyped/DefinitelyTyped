@@ -13,7 +13,7 @@ declare const anyIterable: Iterable<object>;
 declare const anyIterableIterator: IterableIterator<object>;
 declare const anyGenerator: Generator<object, object, object>;
 
-regenerator.values(anyArray); // $ExpectType IterableIterator<object> || BuiltinIterator<object, any, any>
+regenerator.values(anyArray); // $ExpectType IterableIterator<object> || ArrayIterator<object>
 expectType<Iterator<object>>(regenerator.values(anyIterable));
 regenerator.values(anyIterableIterator); // $ExpectType IterableIterator<object>
 regenerator.values(anyGenerator); // $ExpectType Generator<object, object, object>

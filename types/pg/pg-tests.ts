@@ -218,6 +218,12 @@ const poolOne = new Pool({
     connectionString: "postgresql://dbuser:secretpassword@database.server.com:3211/mydb",
 });
 
+class MyClient extends Client {
+    constructor() {
+        super();
+    }
+}
+
 const pool = new Pool({
     host: "localhost",
     port: 5432,
@@ -230,6 +236,7 @@ const pool = new Pool({
     log: (...args) => {
         console.log.apply(console, args);
     },
+    "Client": MyClient,
 });
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {
@@ -237,6 +244,10 @@ pool.connect((err, client, done) => {
         console.error("error fetching client from pool", err);
         return;
     }
+
+    // $ExpectType PoolOptions
+    pool.options;
+
     // @ts-expect-error
     client.query("SELECT");
     client?.query("SELECT $1::int AS number", ["1"], (err, result) => {

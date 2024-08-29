@@ -676,6 +676,7 @@ interface XRPlane {
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
     lastChangedTime: DOMHighResTimeStamp;
+    semanticLabel?: string;
 }
 
 interface XRFrame {

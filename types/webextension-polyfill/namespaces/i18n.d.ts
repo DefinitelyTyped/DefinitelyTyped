@@ -4,13 +4,6 @@
 
 /**
  * Namespace: browser.i18n
- *
- * Use the <code>browser.i18n</code> infrastructure to implement internationalization across your whole app or extension.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 export namespace I18n {
     /**

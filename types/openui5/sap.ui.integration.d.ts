@@ -1,4 +1,4 @@
-// For Library Version: 1.126.0
+// For Library Version: 1.127.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1504,6 +1504,20 @@ declare module "sap/ui/integration/widgets/Card" {
       bIgnoreKeyFallback?: boolean
     ): string;
     /**
+     * Gets current value of property {@link #getUseProgressiveDisclosure useProgressiveDisclosure}.
+     *
+     * If the card should change depending on its size. This property is temporary. Should be used to enable
+     * the feature for cards where it is needed.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.127
+     * @experimental (since 1.127)
+     *
+     * @returns Value of property `useProgressiveDisclosure`
+     */
+    getUseProgressiveDisclosure(): boolean;
+    /**
      * Hide the blocking message that is shown in the card by `showBlockingMessage` call.
      *
      * @experimental (since 1.114)
@@ -1877,6 +1891,27 @@ declare module "sap/ui/integration/widgets/Card" {
        * New value for property `referenceId`
        */
       sReferenceId?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getUseProgressiveDisclosure useProgressiveDisclosure}.
+     *
+     * If the card should change depending on its size. This property is temporary. Should be used to enable
+     * the feature for cards where it is needed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.127
+     * @experimental (since 1.127)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setUseProgressiveDisclosure(
+      /**
+       * New value for property `useProgressiveDisclosure`
+       */
+      bUseProgressiveDisclosure?: boolean
     ): this;
     /**
      * Show blocking message in the card's content area. Should be used after the `manifestApplied` event or
@@ -2431,6 +2466,15 @@ declare module "sap/ui/integration/widgets/Card" {
       | (CardPreviewMode | keyof typeof CardPreviewMode)
       | PropertyBindingInfo
       | `{${string}}`;
+
+    /**
+     * If the card should change depending on its size. This property is temporary. Should be used to enable
+     * the feature for cards where it is needed.
+     *
+     * @since 1.127
+     * @experimental (since 1.127)
+     */
+    useProgressiveDisclosure?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Actions definitions from which actions in the header menu of the card are created. **Note**: This aggregation

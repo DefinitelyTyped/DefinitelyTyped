@@ -123,7 +123,7 @@ function utilTests(someNode: Node) {
     // $ExpectType Expression
     const jsonataExpr = util.prepareJSONataExpression("expr", someNode);
 
-    // $ExpectType any
+    // @ts-expect-error
     util.evaluateJSONataExpression(jsonataExpr, {});
     // $ExpectType void
     util.evaluateJSONataExpression(jsonataExpr, {}, (err: Error | null, res: any): void => {});

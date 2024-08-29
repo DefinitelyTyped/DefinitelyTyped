@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.126.0
+// For Library Version: 1.127.0
 
 declare module "sap/base/assert" {
   /**
@@ -6272,6 +6272,10 @@ declare module "sap/ui/performance/trace/Interaction" {
      * The default PassportAction for startup
      */
     passportAction: string;
+    /**
+     * The root context ID
+     */
+    rootId: string;
   };
 
   /**
@@ -7150,6 +7154,43 @@ declare module "sap/ui/test/opaQunit" {
      */
     async?: boolean
   ): void;
+}
+
+declare module "sap/ui/test/utils/nextUIUpdate" {
+  /**
+   * Return a Promise that resolves when the next Rendering is ready. If no rendering is sheduled it resolves
+   * immediately.
+   *
+   * **Note:** No module from `sap/ui/test` should be used for productive coding!
+   *
+   * @since 1.127
+   *
+   * @returns A promise resolving when the next UI update is finished or rejecting when the next update fails.
+   */
+  export default function nextUIUpdate(
+    /**
+     * An optional sinon clock. When using sinon faketimers the clock must be ticked to ensure async rendering.
+     * Async rendering is done with a setTimeout(0) so, when given, we tick the clock by 1.
+     */
+    clock?: {
+      tick: Function;
+    }
+  ): Promise<undefined>;
+}
+
+declare module "sap/ui/test/utils/waitForThemeApplied" {
+  /**
+   * Checks whether the theme has already been applied and if not, waits for the 'applied' event to be fired.
+   *
+   * Returns a rejected promise if the Core is not ready yet.
+   *
+   * **Note:** No module from `sap/ui/test` should be used for productive coding!
+   *
+   * @since 1.127
+   *
+   * @returns Promise that resolves when the theme has been applied
+   */
+  export default function waitForThemeApplied(): Promise<undefined>;
 }
 
 declare module "sap/ui/util/Mobile" {
@@ -14060,6 +14101,27 @@ declare module "sap/ui/core/library" {
   }
 
   /**
+   * Defines the selection mode of the menu items.
+   *
+   * This enum is part of the 'sap/ui/core/library' module export and must be accessed by the property 'ItemSelectionMode'.
+   *
+   * @since 1.127.0
+   */
+  export enum ItemSelectionMode {
+    /**
+     * Multi selection mode (more than one menu item can be selected).
+     */
+    MultiSelect = "undefined",
+    /**
+     * No selection mode.
+     */
+    None = "undefined",
+    /**
+     * Single selection mode (only one menu item can be selected).
+     */
+    SingleSelect = "undefined",
+  }
+  /**
    * Marker interface for controls that can be used in `content` aggregation of the `sap.m.Title` control.
    *
    * @since 1.87
@@ -18795,7 +18857,7 @@ declare module "sap/ui/core/Control" {
      *
      * @returns Current accessibility state of the control.
      */
-    getAccessibilityInfo(): AccessibilityInfo;
+    getAccessibilityInfo?(): AccessibilityInfo;
     /**
      * Gets current value of property blocked.
      *
@@ -19462,7 +19524,7 @@ declare module "sap/ui/core/Core" {
      * @deprecated (since 1.118) - without replacement. In the next major version, synchronously rendering UI
      * updates is no longer supported as it can lead to unnecessary intermediate DOM updates or layout shifting
      * etc. Controls should rather use invalidation and apps should not trigger rendering at all but rather
-     * rely on the framework's automatic update mechanisms. Test code can use the test module `sap/ui/qunit/utils/nextUIUpdate`
+     * rely on the framework's automatic update mechanisms. Test code can use the test module `sap/ui/test/utils/nextUIUpdate`
      * as a convenient way to wait for the next asynchronous rendering.
      */
     applyChanges(): void;
@@ -24383,7 +24445,7 @@ declare module "sap/ui/core/Element" {
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
-    enhanceAccessibilityState(
+    enhanceAccessibilityState?(
       /**
        * The Control/Element for which ARIA properties are collected
        */
@@ -24530,6 +24592,36 @@ declare module "sap/ui/core/Element" {
        */
       sModelName?: string
     ): ContextBinding | undefined;
+    /**
+     * ID of the element which is the current target of the association {@link #getFieldHelpDisplay fieldHelpDisplay},
+     * or `null`.
+     */
+    getFieldHelpDisplay(): ID | null;
+    /**
+     * This function (if available on the concrete subclass) provides information for the field help.
+     *
+     * Applications must not call this hook method directly, it is called by the framework.
+     *
+     * Subclasses should implement this hook to provide any necessary information for displaying field help:
+     *
+     *
+     * ```javascript
+     *
+     * MyElement.prototype.getFieldHelpInfo = function() {
+     *    return {
+     *      label: "some label"
+     *    };
+     * };
+     * ```
+     *
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Field Help Information of the element.
+     */
+    getFieldHelpInfo?(): {
+      label: string;
+    };
     /**
      * Returns the DOM Element that should get the focus or `null` if there's no such element currently.
      *
@@ -24741,6 +24833,19 @@ declare module "sap/ui/core/Element" {
      */
     isFocusable(): boolean;
     /**
+     * Handles the 'focusfail' event by attempting to find and focus on a tabbable element. The 'focusfail'
+     * event is triggered when the current element, which initially holds the focus, becomes disabled or invisible.
+     * The event is received by the parent of the element that failed to retain the focus.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    onfocusfail(
+      /**
+       * The event object containing the source element that failed to gain focus.
+       */
+      oEvent: Event
+    ): void;
+    /**
      * This function either calls set[sPropertyName] or get[sPropertyName] with the specified property name
      * depending if an `oValue` is provided or not.
      *
@@ -24858,6 +24963,19 @@ declare module "sap/ui/core/Element" {
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     rerender(): void;
+    /**
+     * Sets the associated {@link #getFieldHelpDisplay fieldHelpDisplay}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFieldHelpDisplay(
+      /**
+       * ID of an element which becomes the new target of this fieldHelpDisplay association; alternatively, an
+       * element instance may be given
+       */
+      oFieldHelpDisplay: ID | UI5Element
+    ): this;
     /**
      * Sets the {@link sap.ui.core.LayoutData} defining the layout constraints for this control when it is used
      * inside a layout.
@@ -25102,6 +25220,12 @@ declare module "sap/ui/core/Element" {
       | DragDropBase
       | AggregationBindingInfo
       | `{${string}}`;
+
+    /**
+     * Reference to the element to show the field help for this control; if unset, field help is show on the
+     * control itself.
+     */
+    fieldHelpDisplay?: UI5Element | string;
   }
 
   export namespace MetadataOptions {
@@ -33817,14 +33941,64 @@ declare module "sap/ui/core/mvc/ControllerExtension" {
      * **Note:** This static method is automatically propagated to subclasses of `ControllerExtension`.
      *
      *
-     * @returns A controller extension class
+     * @returns The adapted controller extension class
      */
-    static override(
+    static override<
+      TheExtension extends new () => ControllerExtension,
+      AddtlProps extends object,
+    >(
+      this: TheExtension,
       /**
        * The custom extension definition
        */
-      oExtension: Record<string, Function>
-    ): Function;
+      customExtension: AddtlProps
+    ): new () => InstanceType<TheExtension> & AddtlProps;
+    /**
+     * A marker method for applying controller extensions to controller class members in TypeScript code.
+     * This method is only used to make TypeScript usage compatible to the UI5 runtime behavior, where an extension
+     * *class* is assigned when the controller is defined, but each controller instance gets an *instance* of
+     * this extension. This method call is removed in the class transformer when the ES class is transformed
+     * to the traditional UI5 class definition syntax.
+     *
+     * To allow for proper removal, it may only be called directly on the base class `ControllerExtension`,
+     * at the place where a controller extension is assigned to a member property of the new controller class.
+     * The class transformation then removes this call. If it is not removed because it is used in any other
+     * way, then it throws an error at runtime.
+     *
+     * Usage example:
+     * ```javascript
+     * import Routing from "sap/fe/core/controllerextensions/Routing";
+     * import ControllerExtension from "sap/ui/core/mvc/ControllerExtension";
+     * ...
+     * export default class App extends Controller {
+     *    routing = ControllerExtension.use(Routing);
+     * ```
+     *
+     * Usage example with overriding extension callbacks:
+     * ```javascript
+     * import Routing from "sap/fe/core/controllerextensions/Routing";
+     * import ControllerExtension from "sap/ui/core/mvc/ControllerExtension";
+     * ...
+     * export default class App extends Controller {
+     *    routing = ControllerExtension.use(Routing.override({
+     *       ...
+     *    }));
+     * ```
+     *
+     *
+     *
+     * @returns An instance of the given `ControllerExtension`. **NOTE:** this is only a dummy return type for
+     * proper usage in TypeScript. This method does not actually return an instance of `ControllerExtension`,
+     * but only throws an error at runtime. The sole purpose of this method is to mimic the actual runtime behavior
+     * where a *class* is given when a controller is defined, but an *instance* is present in each controller
+     * instance.
+     */
+    static use<TheExtension extends ControllerExtension>(
+      /**
+       * The ControllerExtension to use
+       */
+      extensionClass: new () => TheExtension
+    ): TheExtension;
     /**
      * Returns an Element of the connected view with the given local ID.
      *
@@ -71048,7 +71222,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * of reset or failure.
      *
      * Since 1.125.0, deleting a node in a recursive hierarchy (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation})
-     * is supported. As a precondition, the context must not be both {@link #setKeepAlive kept-alive} and hidden
+     * is supported. As a precondition, the context must not be both {@link #setKeepAlive kept alive} and hidden
      * (for example due to a filter), and the group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
      * Such a deletion is not a pending change.
      * See:
@@ -71106,14 +71280,22 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     destroy(): void;
     /**
-     * Expands the group node that this context points to.
+     * Expands the group node that this context points to. Since 1.127.0, it is possible to expand a group node
+     * by a given number of levels.
      * See:
      * 	#collapse
      * 	#isExpanded
      *
      * @since 1.77.0
      */
-    expand(): void;
+    expand(
+      /**
+       * The number of levels to expand (@experimental as of version 1.127.0), `iLevels >= Number.MAX_SAFE_INTEGER`
+       * can be used to expand all levels. If a node is expanded a second time, the expand state of the descendants
+       * is not changed.
+       */
+      iLevels?: number
+    ): void;
     /**
      * Returns the binding this context belongs to.
      *
@@ -72068,7 +72250,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
        * because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since 1.97.0)
        * or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding. Since
        * 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding }
-       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * are treated as kept alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
        * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
@@ -73109,7 +73291,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since 1.97.0)
        * or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding. Since
        * 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding }
-       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * are treated as kept alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
        * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
@@ -74183,6 +74365,11 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * results in "@com.sap.vocabularies.Common.v1.Label" and a slash does not make any difference as long as
      * the annotation does not have a "$Type" property.  A technical property (that is, a numerical segment
      * or one starting with a "$") immediately before "@sapui.name" is invalid, for example "/$EntityContainer@sapui.name".
+     *  Since 1.127.0, "@sapui.name" can also be used to access the resulting name of an entity set via
+     * a navigation property binding. This allows XML Templating to use "${entitySet>@sapui.name}" no matter
+     * whether the variable "entitySet" refers to "/TEAMS" or "/TEAMS/$NavigationPropertyBinding/TEAM_2_EMPLOYEES".
+     * This way, "/TEAMS@sapui.name" results in "TEAMS" and "/TEAMS/$NavigationPropertyBinding/TEAM_2_EMPLOYEES@sapui.name"
+     * results either in a simple name like "EMPLOYEES" or maybe in a path like "some.other.EntityContainer/SomeEntitySet".
      *  The path must not continue after "@sapui.name".
      *
      * If the current object is a string value, that string value is treated as a relative path and followed
@@ -74659,7 +74846,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         synchronizationMode?: string;
         /**
          * The group ID that is used for update requests. If no update group ID is specified, `mParameters.groupId`
-         * is used. Valid update group IDs are `undefined`, '$auto', '$direct' or an application group ID.
+         * is used. Valid update group IDs are `undefined`, '$auto', '$auto.*', '$direct' or an application group
+         * ID.
          */
         updateGroupId?: string;
         /**
@@ -75023,9 +75211,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * If the target type specified in the corresponding control property's binding info is "any" and the binding
      * is relative or points to metadata, the binding may have an object value; in this case and unless the
      * binding refers to an action advertisement the binding's mode must be {@link sap.ui.model.BindingMode.OneTime}.
-     * {@link sap.ui.model.BindingMode.OneWay OneWay} is also supported (@experimental as of version 1.126.0),
-     * but client-side updates of the object are not supported and `$$patchWithoutSideEffects` should be used
-     * for the parent entity.
+     * {@link sap.ui.model.BindingMode.OneWay OneWay} is also supported (@experimental as of version 1.126.0)
+     * for complex types and collections thereof; for entity types, use {@link #bindContext} instead.
      * See:
      * 	sap.ui.base.ManagedObject#bindProperty
      * 	sap.ui.model.Model#bindProperty
@@ -75920,7 +76107,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
        * because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since 1.97.0)
        * or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding. Since
        * 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding root binding }
-       * are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
+       * are treated as kept alive by this flag. Since 1.99.0, the same happens for bindings using the `$$ownRequest`
        * parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
@@ -84474,8 +84661,6 @@ declare module "sap/ui/test/RecordReplay" {
 }
 /**
  * Root namespace for JavaScript functionality provided by SAP SE.
- *
- * The `sap` namespace is automatically registered with the OpenAjax hub if it exists.
  */
 declare namespace sap {
   /**
@@ -87751,6 +87936,8 @@ declare namespace sap {
 
     "sap/ui/dom/includeStylesheet": undefined;
 
+    "sap/ui/dom/isElementCovered": undefined;
+
     "sap/ui/dom/isHidden": undefined;
 
     "sap/ui/dom/jquery/Aria": undefined;
@@ -88128,6 +88315,10 @@ declare namespace sap {
     "sap/ui/test/PageObjectFactory": undefined;
 
     "sap/ui/test/RecordReplay": undefined;
+
+    "sap/ui/test/utils/nextUIUpdate": undefined;
+
+    "sap/ui/test/utils/waitForThemeApplied": undefined;
 
     "sap/ui/thirdparty/jquery": undefined;
 

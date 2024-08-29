@@ -91,3 +91,11 @@ new Awesomplete(input, {
         });
     },
 });
+
+new Awesomplete(input, {
+    container: (element) => {
+        const container = document.createElement("div");
+        container.appendChild(element);
+        return container;
+    },
+});

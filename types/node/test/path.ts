@@ -33,6 +33,8 @@ path.resolve("wwwroot", "static_files/png/", "../gif/image.gif");
 // if currently in /home/myself/node, it returns
 //    '/home/myself/node/wwwroot/static_files/gif/image.gif'
 
+path.matchesGlob("/foo/bar", "/foo/*"); // ExpectType boolean
+
 path.isAbsolute("/foo/bar"); // true
 path.isAbsolute("/baz/.."); // true
 path.isAbsolute("qux/"); // false

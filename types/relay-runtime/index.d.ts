@@ -60,6 +60,7 @@ export {
     HandleFieldPayload,
     HasUpdatableSpread,
     InvalidationState,
+    LiveState,
     LogEvent,
     LogFunction,
     MissingFieldHandler,
@@ -91,6 +92,7 @@ export {
     SingularReaderSelector,
     Snapshot,
     StoreUpdater,
+    suspenseSentinel,
     UpdatableFragmentData,
     UpdatableQueryData,
 } from "./lib/store/RelayStoreTypes";

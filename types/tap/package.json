@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/tap": "workspace:."
     },
-    "owners": [
-        {
-            "name": "zkldi",
-            "githubUsername": "zkldi"
-        }
-    ]
+    "owners": []
 }
