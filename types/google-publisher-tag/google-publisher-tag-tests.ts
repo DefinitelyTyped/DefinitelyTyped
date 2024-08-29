@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20240729
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/1b9687184a46e7cf847a897b13539b78c3393305
+// Tests for Google Publisher Tag 1.20240826
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/7aa971520f419d3ec8c3a7384996db1fcd82613e
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -646,16 +646,16 @@ function test_googletag_config_adExpansionConfig() {
     });
 }
 
-// Test for googletag.config.PageSettingsConfig.adYield
-function test_googletag_config_pageSettingsConfig_adYield() {
+// Test for googletag.config.PageSettingsConfig.threadYield
+function test_googletag_config_pageSettingsConfig_threadYield() {
     // Disable yielding.
-    googletag.setConfig({ adYield: "DISABLED" });
+    googletag.setConfig({ threadYield: "DISABLED" });
 
     // Enable yielding for all slots.
-    googletag.setConfig({ adYield: "ENABLED_ALL_SLOTS" });
+    googletag.setConfig({ threadYield: "ENABLED_ALL_SLOTS" });
 
     // Enable yielding only for slots outside of the viewport (default).
-    googletag.setConfig({ adYield: null });
+    googletag.setConfig({ threadYield: null });
 }
 
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments
