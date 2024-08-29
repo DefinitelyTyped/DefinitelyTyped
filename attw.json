@@ -178,6 +178,7 @@
         "carbon__themes",
         "carbon__type",
         "casperjs",
+        "chai/v4",
         "channel-io",
         "chartjs-plugin-colorschemes",
         "chartjs-plugin-doughnutlabel-rebourne",
