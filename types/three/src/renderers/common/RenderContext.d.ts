@@ -37,5 +37,7 @@ declare class RenderContext {
     activeMipmapLevel?: number | undefined;
     occlusionQueryCount?: number | undefined;
     constructor();
+    getCacheKey(): string;
 }
+export declare function getCacheKey(renderContext: RenderContext): string;
 export default RenderContext;

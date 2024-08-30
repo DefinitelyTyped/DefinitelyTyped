@@ -2,9 +2,9 @@ import TextureNode from "../accessors/TextureNode.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 import UniformNode from "../core/UniformNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export default class DepthOfFieldNode extends TempNode {
+declare class DepthOfFieldNode extends TempNode {
     textureNode: TextureNode;
     viewZNode: Node;
 
@@ -15,6 +15,8 @@ export default class DepthOfFieldNode extends TempNode {
     constructor(textureNode: TextureNode, viewZNode: Node, focusNode: Node, apertureNode: Node, maxblurNode: Node);
 }
 
+export default DepthOfFieldNode;
+
 export const dof: (
     node: NodeRepresentation,
     viewZNode: NodeRepresentation,
@@ -22,9 +24,3 @@ export const dof: (
     aperture?: NodeRepresentation,
     maxblur?: NodeRepresentation,
 ) => ShaderNodeObject<DepthOfFieldNode>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        dof: typeof dof;
-    }
-}
