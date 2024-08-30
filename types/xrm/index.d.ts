@@ -6105,7 +6105,7 @@ declare namespace Xrm {
          * @returns On success, returns a promise containing a JSON object with the retrieved attributes and their values.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrieverecord External Link: retrieveRecord (Client API reference)}
          */
-        retrieveRecord(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<any>;
+        retrieveRecord<T = any>(entityLogicalName: string, id: string, options?: string): Async.PromiseLike<T>;
 
         /**
          * Retrieves a collection of entity records.
@@ -6123,11 +6123,11 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrievemultiplerecords External Link: retrieveMultipleRecords (Client API reference)}
          */
-        retrieveMultipleRecords(
+        retrieveMultipleRecords<T = any>(
             entityLogicalName: string,
             options?: string,
             maxPageSize?: number,
-        ): Async.PromiseLike<RetrieveMultipleResult>;
+        ): Async.PromiseLike<RetrieveMultipleResult<T>>;
 
         /**
          * Updates an entity record.
