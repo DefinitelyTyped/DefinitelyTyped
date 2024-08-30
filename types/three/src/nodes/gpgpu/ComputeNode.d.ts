@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class ComputeNode extends Node {
     isComputeNode: true;
@@ -17,7 +17,7 @@ export const compute: (
     workgroupSize: number[],
 ) => ShaderNodeObject<ComputeNode>;
 
-declare module "../shadernode/ShaderNode.js" {
+declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         compute: typeof compute;
     }

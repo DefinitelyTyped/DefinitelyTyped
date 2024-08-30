@@ -1,22 +1,18 @@
 import { Light } from "../../lights/Light.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
-import LightingNode from "./LightingNode.js";
+import { NodeBuilder } from "../Nodes.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export default class LightsNode extends Node {
-    lightNodes: LightingNode[];
+declare class LightsNode extends Node {
+    constructor(lights?: Light[]);
 
-    constructor(lightNodes?: LightingNode[]);
+    setupLightsNode(builder: NodeBuilder): void;
 
-    get hasLight(): boolean;
-    getLightNodeByHash(hash: string): LightingNode | null;
+    setLights(lights: Light[]): this;
 
-    fromLights(lights: Light[]): this;
-
-    static setReference<T extends Light>(
-        lightClass: { new(): T },
-        lightNodeClass: { new(light: T): LightingNode },
-    ): void;
+    getLights(): Light[];
 }
+
+export default LightsNode;
 
 export const lights: (lights: Light[]) => ShaderNodeObject<LightsNode>;

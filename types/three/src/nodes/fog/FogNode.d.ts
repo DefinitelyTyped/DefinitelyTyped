@@ -1,8 +1,8 @@
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export default class FogNode extends Node {
+declare class FogNode extends Node {
     isFogNode: true;
     colorNode: Node | null;
     factorNode: Node | null;
@@ -12,13 +12,9 @@ export default class FogNode extends Node {
     getViewZNode(builder: NodeBuilder): Node;
 }
 
+export default FogNode;
+
 export const fog: (
     colorNode: NodeRepresentation | null,
     factorNode: NodeRepresentation | null,
 ) => ShaderNodeObject<FogNode>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        fog: typeof fog;
-    }
-}

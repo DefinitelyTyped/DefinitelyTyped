@@ -1,4 +1,4 @@
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 
 export default class PropertyNode extends Node {
