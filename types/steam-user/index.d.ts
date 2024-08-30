@@ -1007,8 +1007,8 @@ interface Events {
     gifts: [gifts: Gift[]];
     ownershipCached: [];
     changelist: [changenumber: number, apps: number[], packages: number[]];
-    appUpdate: [appid: number, data: ProductInfo];
-    packageUpdate: [appid: number, data: ProductInfo];
+    appUpdate: [appid: number, data: AppInfo];
+    packageUpdate: [packageid: number, data: PackageInfo];
     marketingMessages: [timestamp: Date, messages: Array<{ id: string; url: string; flags: number }>];
     tradeRequest: [steamID: SteamID, respond: (accept: boolean) => void];
     tradeResponse: [steamID: SteamID, response: SteamUser.EEconTradeResponse, restrictions: TradeRestrictions];

@@ -292,3 +292,13 @@ user.activateAuthSessionTickets(730, [Buffer.alloc(42), Buffer.alloc(43)]);
 user.activateAuthSessionTickets(730, Buffer.alloc(44));
 // $ExpectType Promise<UserOwnedApps>
 user.getUserOwnedApps(new SteamID("76561197960287930"));
+
+user.on("appUpdate", (appid, data) => {
+    // $ExpectType AppInfo
+    data;
+});
+
+user.on("packageUpdate", (packageid, data) => {
+    // $ExpectType PackageInfo
+    data;
+});
