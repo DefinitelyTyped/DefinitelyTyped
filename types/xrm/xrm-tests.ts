@@ -253,11 +253,7 @@ Xrm.WebApi.retrieveMultipleRecords(
         <order attribute='fullname' descending='false' />
     </entity>
     </fetch>`,
-).then((response:Xrm.RetrieveMultipleResult<{
-    contactid: string,
-    fullname: string,
-    telephone1: string
-}>) => {
+).then((response: Xrm.RetrieveMultipleResult<{ contactid: string; fullname: string; telephone1: string }>) => {
     console.log("Query Returned : " + response.entities.length);
 });
 
