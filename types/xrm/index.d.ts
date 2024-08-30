@@ -6159,11 +6159,11 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI RetrieveMultiple request response
      */
-    interface RetrieveMultipleResult {
+    interface RetrieveMultipleResult<T = any> {
         /**
          * An array of JSON objects, where each object represents the retrieved entity record containing attributes and their values as key: value pairs. The Id of the entity record is retrieved by default.
          */
-        entities: any[];
+        entities: T[];
         /**
          * If the number of records being retrieved is more than the value specified in the maxPageSize parameter, this attribute returns the URL to return next set of records.
          */
