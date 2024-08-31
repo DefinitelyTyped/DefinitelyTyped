@@ -21,7 +21,7 @@ cal.addEvent({
     end: new Date(Date.now() + 60 * 60 * 1000),
     title: "an event",
     resourceId: 123,
-    resourceIds: ["234"]
+    resourceIds: ["234"],
 });
 cal.getEventById(234);
 cal.getEventById("234");
