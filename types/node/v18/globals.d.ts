@@ -55,7 +55,7 @@ declare global {
     interface GCFunction {
         (options: {
             execution?: "sync";
-            type?: "major-snapshot" | "major" | "minor";
+            type?: "major" | "minor";
         }): void;
         (options: {
             execution: "async";
