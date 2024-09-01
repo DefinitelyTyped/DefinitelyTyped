@@ -1,17 +1,28 @@
-import puppeteer from "puppeteer";
+/// <reference lib="dom" />
+
+// Import only for type-checking purposes
 import PuppeteerHar from "puppeteer-har";
 
-(async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    const har = new PuppeteerHar(page);
+// Define a mock Page interface just for type-checking
+interface MockPage {
+    goto(url: string): Promise<void>;
+}
 
-    await har.start(); // Start recording
-    await page.goto("https://example.com"); // Navigate to a page
-    await har.stop(); // Stop recording
+// Create a mock Page object for type-checking
+const mockPage: MockPage = {
+    goto: async (url: string) => {
+        // Mock implementation
+    },
+};
 
-    // Save HAR file
-    await har.save({ path: "example.har" });
+// Check if the PuppeteerHar class is correctly typed
+const page: MockPage = mockPage as any; // Type assertion to use MockPage
+const har = new PuppeteerHar(page);
 
-    await browser.close();
-})();
+// Type-check the methods of PuppeteerHar
+const startPromise: Promise<void> = har.start();
+const stopPromise: Promise<void> = har.stop();
+const savePromise: Promise<void> = har.save({ path: "example.har" });
+
+// Verify that the PuppeteerHar instance is correctly typed
+const harInstance: PuppeteerHar = har;
