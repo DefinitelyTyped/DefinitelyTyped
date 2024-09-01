@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * LiveVideoInputStream
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -14,5 +14,5 @@ export default class LiveVideoInputStream extends AbstractCrudObject {
         stream_id: "stream_id";
         stream_url: "stream_url";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<LiveVideoInputStream>;
+    get(fields: string[], params?: Record<string, any>): Promise<LiveVideoInputStream>;
 }

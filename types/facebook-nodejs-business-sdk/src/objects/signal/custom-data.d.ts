@@ -1,7 +1,7 @@
-import BusinessDataCustomData from '../businessdataapi/custom-data';
-import ServerCustomData from '../serverside/custom-data';
-import SignalUserData from './user-data';
-import SignalContent from './content';
+import BusinessDataCustomData from "../businessdataapi/custom-data";
+import ServerCustomData from "../serverside/custom-data";
+import SignalUserData from "./user-data";
+import SignalContent from "./content";
 /**
  * CustomData represents the Custom Data Parameters for both Conversion API and Business Data API.
  */
@@ -12,7 +12,7 @@ export default class CustomData {
      * params both Business Data API & Conversion API consume
      * @param {Number} value value of the item Eg: 123.45
      * @param {String} currency currency involved in the transaction Eg: usd
-     * @param {SignalContent[]} contents Array of Content Objects. Use {Content} class to define a content.
+     * @param {Array<SignalContent>} contents Array of Content Objects. Use {Content} class to define a content.
      * @param {String} order_id Unique id representing the order
      * @param {String} status Status of the registration in Registration event.
      *                        Use only with CompleteRegistration events for Conversion API.
@@ -20,7 +20,7 @@ export default class CustomData {
      * params only Conversion API consumes
      * @param {String} content_name name of the Content Eg: lettuce
      * @param {String} content_category category of the content Eg: grocery
-     * @param {string[]} content_ids list of content unique ids involved in the event
+     * @param {Array<String>} content_ids list of content unique ids involved in the event
      * @param {String} content_type Type of the Content group or Product SKU
      * @param {Number} predicted_ltv Predicted LifeTime Value for the customer involved in the event
      * @param {Number} num_items Number of items involved
@@ -35,7 +35,7 @@ export default class CustomData {
      * @param {String} original_order_id Original order id for refund. For Refund event only.
      * @param {String} message Reason for refund. For Refund event only.
      */
-    constructor(value: number, currency: string, content_name: string, content_category: string, content_ids: string[], contents: SignalContent[], content_type: string, order_id: string, predicted_ltv: number, num_items: number, search_string: string, status: string, item_number: string, delivery_category: string, custom_properties: Record<any, any>, shipping_contact: SignalUserData, billing_contact: SignalUserData, external_order_id: string, original_order_id: string, message: string);
+    constructor(value: number, currency: string, content_name: string, content_category: string, content_ids: string[], contents: SignalContent[], content_type: string, order_id: string, predicted_ltv: number, num_items: number, search_string: string, status: string, item_number: string, delivery_category: string, custom_properties: Record<string, any>, shipping_contact: SignalUserData, billing_contact: SignalUserData, external_order_id: string, original_order_id: string, message: string);
     /**
      * Gets the value of the custom data.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -86,7 +86,7 @@ export default class CustomData {
     set contents(contents: SignalContent[]);
     /**
      * Sets the contents for the custom data.
-     * @param {Content[]} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
+     * @param {Array<Content>} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
     setContents(contents: SignalContent[]): CustomData;
@@ -292,7 +292,7 @@ export default class CustomData {
      * @see {@link https://developers.facebook.com/docs/marketing-api/server-side-api/parameters/custom-data#custom-properties}
      * Eg: '{ 'warehouse_location' : 'washington', 'package_size' : 'L'}'
      */
-    get custom_properties(): Record<any, any>;
+    get custom_properties(): Record<string, any>;
     /**
      * Sets the custom properties to be included in the Custom Data.
      * If our predefined object properties don't suit your needs, you can include your own, custom properties. Custom properties can be used with both standard and custom events, and can help you further define custom audiences.
@@ -300,7 +300,7 @@ export default class CustomData {
      * @see {@link https://developers.facebook.com/docs/marketing-api/server-side-api/parameters/custom-data#custom-properties}
      * @param {Object} custom_properties custom properties property bag to be included in the Custom Data. Eg: '{ 'warehouse_location' : 'washington', 'package_size' : 'L'}'
      */
-    set custom_properties(custom_properties: Record<any, any>);
+    set custom_properties(custom_properties: Record<string, any>);
     /**
      * Sets the search string for the custom data.
      * @param custom_properties A custom properties property bag to be included in the Custom Data.
@@ -310,7 +310,7 @@ export default class CustomData {
      * Eg: '{ 'warehouse_location' : 'washington', 'package_size' : 'L'}'
      * * @returns {Object} custom_properties property bag.
      */
-    setCustomProperties(custom_properties: Record<any, any>): CustomData;
+    setCustomProperties(custom_properties: Record<string, any>): CustomData;
     /**
      * Adds the custom property (key, value) to the custom property bag.
      * @param {string} key The Key for the property to be added.

@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * BusinessOwnedObjectOnBehalfOfRequest
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -20,5 +20,5 @@ export default class BusinessOwnedObjectOnBehalfOfRequest extends AbstractCrudOb
         pending_email_verification: "PENDING_EMAIL_VERIFICATION";
         pending_integrity_review: "PENDING_INTEGRITY_REVIEW";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<BusinessOwnedObjectOnBehalfOfRequest>;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessOwnedObjectOnBehalfOfRequest>;
 }

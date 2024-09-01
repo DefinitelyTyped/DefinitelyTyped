@@ -1,5 +1,5 @@
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@novnc/novnc/core/rfb" {
+declare module "@novnc/novnc/lib/rfb" {
     /**
      * An `object` specifying the credentials to provide to the server when authenticating.
      */
@@ -309,7 +309,7 @@ declare module "@novnc/novnc/core/rfb" {
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@novnc/novnc/core/util/browser" {
+declare module "@novnc/novnc/lib/util/browser" {
     let isTouchDevice: boolean;
     let dragThreshold: number;
 
@@ -324,7 +324,7 @@ declare module "@novnc/novnc/core/util/browser" {
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@novnc/novnc/core/input/util" {
+declare module "@novnc/novnc/lib/input/util" {
     interface KeyboardEventBase {
         char?: string;
         charCode?: number;

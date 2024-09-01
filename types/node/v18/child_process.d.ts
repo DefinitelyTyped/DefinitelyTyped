@@ -1391,8 +1391,8 @@ declare module "child_process" {
      * @param modulePath The module to run in the child.
      * @param args List of string arguments.
      */
-    function fork(modulePath: string, options?: ForkOptions): ChildProcess;
-    function fork(modulePath: string, args?: readonly string[], options?: ForkOptions): ChildProcess;
+    function fork(modulePath: string | URL, options?: ForkOptions): ChildProcess;
+    function fork(modulePath: string | URL, args?: readonly string[], options?: ForkOptions): ChildProcess;
     interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
         maxBuffer?: number | undefined;

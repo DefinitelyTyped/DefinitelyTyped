@@ -1,4 +1,4 @@
-// For Library Version: 1.125.0
+// For Library Version: 1.127.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -3015,8 +3015,11 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
 
   /**
    * Implements a plugin to enable a special multi-selection behavior:
-   * 	 - No Select All checkbox, select all can only be done via range selection
-   * 	 - Dedicated Deselect All button to clear the selection
+   * 	 - Select All checkbox for selecting rows up to the set limit.
+   * If the number of selected rows is smaller than the limit, all these rows can be selected at once with
+   * a single operation. If there are more rows than the limit, the first x rows are selected until the limit
+   * x has been reached.
+   * 	 - Dedicated Deselect All button for removing the selection
    * 	 - The number of indices which can be selected in a range is defined by the `limit` property. If the
    *     user tries to select more indices, the selection is automatically limited, and the table scrolls to the
    *     last selected index.
@@ -5324,15 +5327,15 @@ declare module "sap/ui/table/rowmodes/Type" {
    */
   enum Type {
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Auto}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Auto}
      */
     Auto = "Auto",
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Fixed}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Fixed}
      */
     Fixed = "Fixed",
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Interactive}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Interactive}
      */
     Interactive = "Interactive",
   }
@@ -5638,8 +5641,10 @@ declare module "sap/ui/table/Table" {
    * This allows the Table control to handle huge amounts of data. Nevertheless, restrictions apply regarding
    * the number of displayed columns. Keep the number as low as possible to improve performance. Due to the
    * nature of tables, the used control for column templates also has a big influence on the performance.
-   *   The Table control relies completely on data binding, and its supported feature set is tightly
-   * coupled to the data model and binding being used.
+   * Because of the described reuse of the controls during scrolling, all data-related changes must be based
+   * on bindings. Static changes, such as calling mutator functions or defining a one-time binding, must be
+   * avoided.   The Table control relies completely on data binding, and its supported feature set
+   * is tightly coupled to the data model and binding being used.
    */
   export default class Table extends Control {
     /**
@@ -5857,6 +5862,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5885,6 +5891,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6358,6 +6365,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6387,6 +6395,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6843,6 +6852,7 @@ declare module "sap/ui/table/Table" {
      * The passed function and listener object must match the ones used for event registration.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7034,6 +7044,7 @@ declare module "sap/ui/table/Table" {
      * The passed function and listener object must match the ones used for event registration.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7638,6 +7649,10 @@ declare module "sap/ui/table/Table" {
      * Gets current value of property {@link #getEnableColumnReordering enableColumnReordering}.
      *
      * Flag to enable or disable column reordering
+     *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
      *
      * Default value is `true`.
      *
@@ -8531,6 +8546,10 @@ declare module "sap/ui/table/Table" {
      *
      * Flag to enable or disable column reordering
      *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
@@ -9285,6 +9304,10 @@ declare module "sap/ui/table/Table" {
 
     /**
      * Flag to enable or disable column reordering
+     *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
      */
     enableColumnReordering?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -9685,6 +9708,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     firstVisibleRowChanged?: (
       oEvent: Table$FirstVisibleRowChangedEvent
@@ -9694,6 +9718,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     busyStateChanged?: (oEvent: Table$BusyStateChangedEvent) => void;
 

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/d3-3d",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Niekes/d3-3d"
+    ],
+    "type": "module",
+    "dependencies": {
+        "csstype": "*"
+    },
+    "devDependencies": {
+        "@types/d3-3d": "workspace:.",
+        "@types/d3-selection": "*"
+    },
+    "owners": [
+        {
+            "name": "Amin Yahyaabadi",
+            "githubUsername": "aminya"
+        }
+    ]
+}

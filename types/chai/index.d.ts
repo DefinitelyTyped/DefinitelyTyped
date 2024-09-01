@@ -99,16 +99,12 @@ declare namespace Chai {
 
     // chai.Assertion.prototype.assert arguments
     type AssertionArgs = [
-        // 'expression to be tested'
-        // This parameter is unused and the docs list its type as
-        // 'Philosophical', which is mentioned nowhere else in the source. Do
-        // with that what you will!
-        any,
-        Message, // message if value fails
-        Message, // message if negated value fails
-        any, // expected value
+        any, // expression to be tested
+        Message, // message or function that returns message to display if expression fails
+        Message, // negatedMessage or function that returns negatedMessage to display if expression fails
+        any?, // expected value
         any?, // actual value
-        boolean?, // showDiff
+        boolean?, // showDiff, when set to `true`, assert will display a diff in addition to the message if expression fails
     ];
 
     export interface AssertionPrototype {
@@ -872,7 +868,7 @@ declare namespace Chai {
         include<T>(haystack: T, needle: Partial<T>, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * @param haystack   Container string.
          * @param needle   Potential substring of haystack.
@@ -881,7 +877,7 @@ declare namespace Chai {
         notInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of values in haystack.
          * @param haystack   Container array, set or map.
@@ -895,7 +891,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of values in haystack.
          * @param haystack   WeakSet container.
@@ -905,7 +901,7 @@ declare namespace Chai {
         notInclude<T extends object>(haystack: WeakSet<T>, needle: T, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -940,7 +936,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack includes needle. Deep equality is used.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -950,7 +946,7 @@ declare namespace Chai {
         deepInclude<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * @param haystack   Container string.
          * @param needle   Potential substring of haystack.
@@ -961,7 +957,7 @@ declare namespace Chai {
         notDeepInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * T   Type of values in haystack.
          * @param haystack   Container array, set or map.
@@ -975,7 +971,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -1109,7 +1105,7 @@ declare namespace Chai {
         property<T>(object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
-         * Asserts that object has a property named by property.
+         * Asserts that object does not have a property named by property.
          *
          * T   Type of object.
          * @param object   Container object.

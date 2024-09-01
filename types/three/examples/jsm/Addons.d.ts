@@ -71,7 +71,6 @@ export * from "./interactive/InteractiveGroup.js";
 export * from "./interactive/SelectionBox.js";
 export * from "./interactive/SelectionHelper.js";
 
-export { default as IESSpotLight } from "./lights/IESSpotLight.js";
 export * from "./lights/LightProbeGenerator.js";
 export * from "./lights/RectAreaLightUniformsLib.js";
 
@@ -101,7 +100,6 @@ export * from "./loaders/KMZLoader.js";
 export * from "./loaders/KTX2Loader.js";
 export * from "./loaders/KTXLoader.js";
 export * from "./loaders/LDrawLoader.js";
-export * from "./loaders/LogLuvLoader.js";
 export * from "./loaders/LottieLoader.js";
 export * from "./loaders/LUT3dlLoader.js";
 export * from "./loaders/LUTCubeLoader.js";
@@ -125,6 +123,7 @@ export * from "./loaders/TGALoader.js";
 export * from "./loaders/TIFFLoader.js";
 export * from "./loaders/TiltLoader.js";
 export * from "./loaders/TTFLoader.js";
+export * from "./loaders/UltraHDRLoader.js";
 export * from "./loaders/USDZLoader.js";
 export * from "./loaders/VOXLoader.js";
 export * from "./loaders/VRMLLoader.js";
@@ -170,8 +169,13 @@ export * from "./objects/ReflectorForSSRPass.js";
 export * from "./objects/Refractor.js";
 export * from "./objects/ShadowMesh.js";
 export * from "./objects/Sky.js";
+export * from "./objects/SkyMesh.js";
 export * from "./objects/Water.js";
 export { Water as Water2 } from "./objects/Water2.js";
+export type { WaterOptions as Water2Options } from "./objects/Water2.js";
+export { WaterMesh as Water2Mesh } from "./objects/Water2Mesh.js";
+export type { WaterMeshOptions as Water2MeshOptions } from "./objects/Water2Mesh.js";
+export * from "./objects/WaterMesh.js";
 
 export * from "./physics/AmmoPhysics.js";
 export * from "./physics/RapierPhysics.js";

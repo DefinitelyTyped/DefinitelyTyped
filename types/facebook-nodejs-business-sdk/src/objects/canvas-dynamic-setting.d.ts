@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CanvasDynamicSetting
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -9,5 +9,5 @@ export default class CanvasDynamicSetting extends AbstractCrudObject {
         product_set_id: "product_set_id";
         id: "id";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<CanvasDynamicSetting>;
+    get(fields: string[], params?: Record<string, any>): Promise<CanvasDynamicSetting>;
 }

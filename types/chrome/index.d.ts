@@ -2536,6 +2536,24 @@ declare namespace chrome.devtools.network {
 }
 
 ////////////////////
+// Dev Tools - Performance
+////////////////////
+/**
+ * The chrome.devtools.performance API allows developers to interact with the recording features of the Performance panel in Chrome DevTools. You can use this API to get notifications when recording starts or stops.
+ * @since Chrome 128
+ */
+declare namespace chrome.devtools.performance {
+    export interface ProfilingStartedEvent extends chrome.events.Event<() => void> {}
+
+    export interface ProfilingStoppedEvent extends chrome.events.Event<() => void> {}
+
+    /** Fired when the Performance panel begins recording performance data. */
+    export var onProfilingStarted: ProfilingStartedEvent;
+    /** Fired when the Performance panel stops recording performance data. */
+    export var onProfilingStopped: ProfilingStoppedEvent;
+}
+
+////////////////////
 // Dev Tools - Panels
 ////////////////////
 /**
@@ -2622,9 +2640,7 @@ declare namespace chrome.devtools.panels {
         onSelectionChanged: SelectionChangedEvent;
     }
 
-    export interface ExtensionSidebarPaneShownEvent
-        extends chrome.events.Event<(window: chrome.windows.Window) => void>
-    {}
+    export interface ExtensionSidebarPaneShownEvent extends chrome.events.Event<(window: Window) => void> {}
 
     export interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> {}
 

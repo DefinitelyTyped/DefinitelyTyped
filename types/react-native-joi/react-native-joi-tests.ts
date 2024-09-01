@@ -50,7 +50,8 @@ validOpts = { stripUnknown: bool };
 validOpts = { stripUnknown: { arrays: bool } };
 validOpts = { stripUnknown: { objects: bool } };
 validOpts = { stripUnknown: { arrays: bool, objects: bool } };
-validOpts = { presence: "optional" || "required" || "forbidden" };
+declare const presence: "optional" | "required" | "forbidden" | undefined;
+validOpts = { presence };
 validOpts = { context: obj };
 validOpts = { noDefaults: bool };
 validOpts = {

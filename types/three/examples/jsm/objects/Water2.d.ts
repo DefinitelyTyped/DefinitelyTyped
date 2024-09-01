@@ -1,6 +1,6 @@
 import { BufferGeometry, ColorRepresentation, Mesh, ShaderMaterial, Texture, Vector2 } from "three";
 
-export interface Water2Options {
+export interface WaterOptions {
     color?: ColorRepresentation | undefined;
     textureWidth?: number | undefined;
     textureHeight?: number | undefined;
@@ -17,5 +17,5 @@ export interface Water2Options {
 
 export class Water extends Mesh {
     material: ShaderMaterial;
-    constructor(geometry: BufferGeometry, options: Water2Options);
+    constructor(geometry: BufferGeometry, options: WaterOptions);
 }

@@ -1,13 +1,24 @@
+import { BufferAttributeJSON } from "./../core/BufferAttribute.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { InstancedBufferAttribute } from "../core/InstancedBufferAttribute.js";
-import { Object3DEventMap } from "../core/Object3D.js";
+import { JSONMeta, Object3DEventMap } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Box3 } from "../math/Box3.js";
 import { Color } from "../math/Color.js";
 import { Matrix4 } from "../math/Matrix4.js";
 import { Sphere } from "../math/Sphere.js";
 import { DataTexture } from "../textures/DataTexture.js";
-import { Mesh } from "./Mesh.js";
+import { Mesh, MeshJSONObject } from "./Mesh.js";
+
+export interface InstancedMeshJSONObject extends MeshJSONObject {
+    count: number;
+    instanceMatrix: BufferAttributeJSON;
+    instanceColor?: BufferAttributeJSON;
+}
+
+export interface InstancedMeshJSON extends MeshJSONObject {
+    object: InstancedMeshJSONObject;
+}
 
 export interface InstancedMeshEventMap extends Object3DEventMap {
     dispose: {};
@@ -163,4 +174,6 @@ export class InstancedMesh<
      * Call this method whenever this instance is no longer used in your app.
      */
     dispose(): this;
+
+    toJSON(meta?: JSONMeta): InstancedMeshJSON;
 }

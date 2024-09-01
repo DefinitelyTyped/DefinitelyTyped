@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/plotly.js",
-    "version": "2.29.9999",
+    "version": "2.33.9999",
     "projects": [
         "https://plot.ly/javascript/",
         "https://github.com/plotly/plotly.js"
@@ -55,10 +55,6 @@
             "githubUsername": "skippercool"
         },
         {
-            "name": "Michael Adams",
-            "githubUsername": "mtadams007"
-        },
-        {
             "name": "Michael Arnett",
             "githubUsername": "marnett-git"
         },
@@ -89,6 +85,10 @@
         {
             "name": "John Abdou",
             "githubUsername": "jpabdou"
+        },
+        {
+            "name": "Martin Borst",
+            "githubUsername": "mrtnbrst"
         }
     ]
 }

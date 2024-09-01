@@ -292,15 +292,27 @@ export interface PlotlyHTMLElement extends HTMLElement {
 
 export interface ToImgopts {
     format: "jpeg" | "png" | "webp" | "svg";
-    width: number;
-    height: number;
+    /**
+     * If null, uses current graph width
+     */
+    width: number | null;
+    /**
+     * If null, uses current graph height
+     */
+    height: number | null;
     scale?: number | undefined;
 }
 
 export interface DownloadImgopts {
     format: "jpeg" | "png" | "webp" | "svg";
-    width: number;
-    height: number;
+    /**
+     * If null, uses current graph width
+     */
+    width: number | null;
+    /**
+     * If null, uses current graph height
+     */
+    height: number | null;
     filename: string;
 }
 
@@ -586,6 +598,40 @@ export interface TickFormatStop {
     templateitemname: string;
 }
 
+export interface AutoRangeOptions {
+    clipmax: DTickValue;
+    clipmin: DTickValue;
+    include: DTickValue;
+    maxallowed: DTickValue;
+    minallowed: DTickValue;
+}
+
+export interface MinorAxisLayout {
+    dtick: DTickValue;
+    gridcolor: Color;
+    griddash: Dash;
+    gridwidth: number;
+    nticks: number;
+    showgrid: boolean;
+    tick0: DTickValue;
+    tickcolor: Color;
+    ticklen: number;
+    tickmode: "auto" | "linear" | "array";
+    ticks: "outside" | "inside" | "";
+    tickvals: any[];
+    tickwidth: number;
+}
+
+export interface RangeBreak {
+    bounds: any[];
+    dvalue: number;
+    enabled: boolean;
+    name: string;
+    pattern: "day of week" | "hour" | "";
+    templateitemname: string;
+    values: any[];
+}
+
 export interface Axis {
     /**
      * A single toggle to hide the axis while preserving interaction like dragging.
@@ -607,7 +653,8 @@ export interface Axis {
      */
     titlefont: Partial<Font>;
     type: AxisType;
-    autorange: true | false | "reversed";
+    autorange: true | false | "reversed" | "min reversed" | "max reversed" | "min" | "max";
+    autorangeoptions: Partial<AutoRangeOptions>;
     /**
      * 'If *normal*, the range is computed in relation to the extrema
      * of the input data.
@@ -822,6 +869,11 @@ export interface Axis {
      * Only has an effect on *multicategory* axes.
      */
     dividerwidth: number;
+
+    autotypenumbers: "convert types" | "strict";
+    labelalias: DTickValue;
+    maxallowed: DTickValue;
+    minallowed: DTickValue;
 }
 
 export type Calendar =
@@ -842,8 +894,16 @@ export type Calendar =
     | "thai"
     | "ummalqura";
 
-export type XAxisName = "x" | "x2" | "x3" | "x4" | "x5" | "x6" | "x7" | "x8" | "x9" | "x10" | "x11";
-export type YAxisName = "y" | "y2" | "y3" | "y4" | "y5" | "y6" | "y7" | "y8" | "y9" | "y10" | "y11";
+// regex from documentation: "/^x([2-9]|[1-9][0-9]+)?( domain)?$/" | "/^y([2-9]|[1-9][0-9]+)?( domain)?$/"
+// regex allows for an unlimited amount of digits for the 'axis number', but the following typescript definition is limited to two digits
+type xYAxisNames = `${
+    | ""
+    | `${2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
+    | `${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`}${"" | " domain"}`;
+
+export type XAxisName = `x${xYAxisNames}`;
+export type YAxisName = `y${xYAxisNames}`;
+
 export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
@@ -867,6 +927,28 @@ export interface LayoutAxis extends Axis {
     angle: any;
     griddash: Dash;
     l2p: (v: Datum) => number;
+
+    autotickangles: number[];
+    insiderange: any[];
+    matches: AxisName;
+    minor: Partial<MinorAxisLayout>;
+    rangebreaks: Array<Partial<RangeBreak>>;
+    ticklabelmode: "instant" | "period";
+    ticklabeloverflow: "allow" | "hide past div" | "hide past domain";
+    ticklabelposition:
+        | "outside"
+        | "inside"
+        | "outside top"
+        | "inside top"
+        | "outside left"
+        | "inside left"
+        | "outside right"
+        | "inside right"
+        | "outside bottom"
+        | "inside bottom";
+    ticklabelstep: number;
+    tickson: "labels" | "boundaries";
+    uirevision: DTickValue;
 }
 
 export interface SceneAxis extends Axis {

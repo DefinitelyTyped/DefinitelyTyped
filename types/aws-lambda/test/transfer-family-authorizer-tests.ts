@@ -120,3 +120,14 @@ const getPathBasedDirectoryResponse = (event: TransferFamilyAuthorizerEvent): Tr
 
     return response;
 };
+
+/**
+ * Example that constructs test event for an undefined password for key based auth
+ */
+const testEvent: TransferFamilyAuthorizerEvent = {
+    username: "testinguser",
+    protocol: "SFTP",
+    serverId: "10.10.10.10.10",
+    sourceIp: "0.0.0.0.0",
+};
+const getPathBasedDirectoryResponseResult = getPathBasedDirectoryResponse(testEvent);

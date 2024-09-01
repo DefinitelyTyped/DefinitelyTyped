@@ -1,6 +1,7 @@
 //
 
 interface VaporStoreOptions {
+    signedStorageUrl?: string | undefined;
     bucket?: string | undefined;
     cancelToken?: string | undefined;
     contentType?: string | undefined;

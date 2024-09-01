@@ -86,63 +86,6 @@ import { promisify } from "node:util";
 }
 
 {
-    // crypto_cipher_decipher_string_test
-    const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-    const clearText = "This is the clear text.";
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-    let cipherText: string = cipher.update(clearText, "utf8", "hex");
-    cipherText += cipher.final("hex");
-
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-    let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-    clearText2 += decipher.final("utf8");
-
-    assert.equal(clearText2, clearText);
-}
-
-{
-    // crypto_cipher_decipher_buffer_test
-    const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-    const clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-    const cipherBuffers: Buffer[] = [];
-    cipherBuffers.push(cipher.update(clearText));
-    cipherBuffers.push(cipher.final());
-
-    const cipherText: Buffer = Buffer.concat(cipherBuffers);
-
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-    const decipherBuffers: Buffer[] = [];
-    decipherBuffers.push(decipher.update(cipherText));
-    decipherBuffers.push(decipher.final());
-
-    const clearText2: Buffer = Buffer.concat(decipherBuffers);
-
-    assert.deepEqual(clearText2, clearText);
-}
-
-{
-    // crypto_cipher_decipher_dataview_test
-    const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-    const clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
-    const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-    const cipherBuffers: Buffer[] = [];
-    cipherBuffers.push(cipher.update(clearText));
-    cipherBuffers.push(cipher.final());
-
-    const cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
-
-    const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-    const decipherBuffers: Buffer[] = [];
-    decipherBuffers.push(decipher.update(cipherText));
-    decipherBuffers.push(decipher.final());
-
-    const clearText2: Buffer = Buffer.concat(decipherBuffers);
-
-    assert.deepEqual(clearText2, clearText);
-}
-
-{
     // crypto_cipheriv_decipheriv_aad_ccm_test
     const key: string | null = "keykeykeykeykeykeykeykey";
     const nonce = crypto.randomBytes(12);
@@ -1110,6 +1053,28 @@ import { promisify } from "node:util";
         key,
         dsaEncoding: "der",
     });
+
+    const jwk = key.export({ format: "jwk" });
+    crypto.sign("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    });
+    crypto.sign("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    }, callback);
+    promisify(crypto.sign)("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    }).then((signature: Buffer) => {});
+    crypto.createSign("sha256").update(Buffer.from("asd")).sign({
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    });
 }
 
 {
@@ -1165,6 +1130,47 @@ import { promisify } from "node:util";
     crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
         {
             key,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+
+    const jwk = key.export({ format: "jwk" });
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+        callback,
+    );
+    promisify(crypto.verify)(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    ).then((result: boolean) => {});
+    crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
+        {
+            format: "jwk",
+            key: jwk,
             dsaEncoding: "der",
         },
         Buffer.from("sig"),

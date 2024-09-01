@@ -6,7 +6,7 @@ export default class Http {
      * @param   {Object}  [data]
      * @return  {Promise}
      */
-    static request(method: string, url: string, data: Record<any, any>, files: Record<any, any>, useMultipartFormData: boolean, showHeader: boolean): Promise<any>;
+    static request(method: string, url: string, data: Record<string, any>, files: Record<string, any>, useMultipartFormData: Boolean, showHeader: Boolean): Promise<any>;
     /**
      * XmlHttpRequest request
      * @param   {String}  method
@@ -28,5 +28,5 @@ export default class Http {
      *   multipart/form-data.
      * @return  {Promise}
      */
-    static requestPromise(method: string, url: string, data: Record<any, any>, files: Record<any, any>, useMultipartFormData?: boolean, showHeader?: boolean): Promise<any>;
+    static requestPromise(method: string, url: string, data: Record<string, any>, files: Record<string, any>, useMultipartFormData?: Boolean, showHeader?: Boolean): Promise<any>;
 }

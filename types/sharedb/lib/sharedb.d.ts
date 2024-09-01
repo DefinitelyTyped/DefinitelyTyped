@@ -119,11 +119,13 @@ export interface Type {
     invert?(op: any): any;
     normalize?(op: any): any;
     transformCursor?(cursor: any, op: any, isOwnOp: boolean): any;
+    transformPresence?<T>(presence: T, op: any, isOwnOp: boolean): T;
     serialize?(snapshot: any): any;
     deserialize?(data: any): any;
     [key: string]: any;
 }
 export interface Types {
+    defaultType: Type;
     register: (type: Type) => void;
     map: { [key: string]: Type };
 }

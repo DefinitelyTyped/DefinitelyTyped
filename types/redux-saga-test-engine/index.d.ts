@@ -38,7 +38,7 @@ type Options<TLookup, TEffects> =
     | KeyValuePairs<TLookup, any>
     | any[][]; // This is loose, but covers `const sagaEnv = [...]` then call `collectPuts(fn, sagaEnv)` case. Other inference only works with double nested array passed inline rather than via a predefined variable.
 declare function createSagaTestEngine<const TEffectConstraint extends EffectTypes>(
-    effects?: Readonly<TEffectConstraint[]>,
+    effects?: readonly TEffectConstraint[],
 ): (
     genFunc: (...genArgs: any[]) => Iterator<unknown, any, unknown>,
     opts: Options<Effect<EffectTypesWithErrorKey>, TEffectConstraint>,

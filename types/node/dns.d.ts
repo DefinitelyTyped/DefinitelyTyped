@@ -41,8 +41,8 @@
  * });
  * ```
  *
- * See the [Implementation considerations section](https://nodejs.org/docs/latest-v20.x/api/dns.html#implementation-considerations) for more information.
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/dns.js)
+ * See the [Implementation considerations section](https://nodejs.org/docs/latest-v22.x/api/dns.html#implementation-considerations) for more information.
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/dns.js)
  */
 declare module "dns" {
     import * as dnsPromises from "node:dns/promises";
@@ -71,7 +71,7 @@ declare module "dns" {
          */
         family?: number | "IPv4" | "IPv6" | undefined;
         /**
-         * One or more [supported `getaddrinfo`](https://nodejs.org/docs/latest-v20.x/api/dns.html#supported-getaddrinfo-flags) flags. Multiple flags may be
+         * One or more [supported `getaddrinfo`](https://nodejs.org/docs/latest-v22.x/api/dns.html#supported-getaddrinfo-flags) flags. Multiple flags may be
          * passed by bitwise `OR`ing their values.
          */
         hints?: number | undefined;
@@ -84,16 +84,17 @@ declare module "dns" {
          * When `verbatim`, the resolved addresses are return unsorted. When `ipv4first`, the resolved addresses are sorted
          * by placing IPv4 addresses before IPv6 addresses. When `ipv6first`, the resolved addresses are sorted by placing IPv6
          * addresses before IPv4 addresses. Default value is configurable using
-         * {@link setDefaultResultOrder} or [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder).
+         * {@link setDefaultResultOrder} or [`--dns-result-order`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--dns-result-orderorder).
          * @default `verbatim` (addresses are not reordered)
+         * @since v22.1.0
          */
         order?: "ipv4first" | "ipv6first" | "verbatim" | undefined;
         /**
          * When `true`, the callback receives IPv4 and IPv6 addresses in the order the DNS resolver returned them. When `false`, IPv4
          * addresses are placed before IPv6 addresses. This option will be deprecated in favor of `order`. When both are specified,
          * `order` has higher precedence. New code should only use `order`. Default value is configurable using {@link setDefaultResultOrder}
-         * or [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder).
          * @default true (addresses are not reordered)
+         * @deprecated Please use `order` option
          */
         verbatim?: boolean | undefined;
     }
@@ -132,7 +133,7 @@ declare module "dns" {
      * The implementation uses an operating system facility that can associate names
      * with addresses and vice versa. This implementation can have subtle but
      * important consequences on the behavior of any Node.js program. Please take some
-     * time to consult the [Implementation considerations section](https://nodejs.org/docs/latest-v20.x/api/dns.html#implementation-considerations)
+     * time to consult the [Implementation considerations section](https://nodejs.org/docs/latest-v22.x/api/dns.html#implementation-considerations)
      * before using `dns.lookup()`.
      *
      * Example usage:
@@ -154,7 +155,7 @@ declare module "dns" {
      * // addresses: [{"address":"2606:2800:220:1:248:1893:25c8:1946","family":6}]
      * ```
      *
-     * If this method is invoked as its [util.promisify()](https://nodejs.org/docs/latest-v20.x/api/util.html#utilpromisifyoriginal) ed
+     * If this method is invoked as its [util.promisify()](https://nodejs.org/docs/latest-v22.x/api/util.html#utilpromisifyoriginal) ed
      * version, and `all` is not set to `true`, it returns a `Promise` for an `Object` with `address` and `family` properties.
      * @since v0.1.90
      */
@@ -194,7 +195,7 @@ declare module "dns" {
      * If `address` is not a valid IP address, a `TypeError` will be thrown.
      * The `port` will be coerced to a number. If it is not a legal port, a `TypeError` will be thrown.
      *
-     * On an error, `err` is an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object,
+     * On an error, `err` is an [`Error`](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) object,
      * where `err.code` is the error code.
      *
      * ```js
@@ -205,7 +206,7 @@ declare module "dns" {
      * });
      * ```
      *
-     * If this method is invoked as its [util.promisify()](https://nodejs.org/docs/latest-v20.x/api/util.html#utilpromisifyoriginal) ed
+     * If this method is invoked as its [util.promisify()](https://nodejs.org/docs/latest-v22.x/api/util.html#utilpromisifyoriginal) ed
      * version, it returns a `Promise` for an `Object` with `hostname` and `service` properties.
      * @since v0.11.14
      */
@@ -322,7 +323,7 @@ declare module "dns" {
      *
      * <omitted>
      *
-     * On error, `err` is an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object,
+     * On error, `err` is an [`Error`](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) object,
      * where `err.code` is one of the `DNS error codes`.
      * @since v0.1.27
      * @param hostname Host name to resolve.
@@ -663,8 +664,8 @@ declare module "dns" {
      * Performs a reverse DNS query that resolves an IPv4 or IPv6 address to an
      * array of host names.
      *
-     * On error, `err` is an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code` is
-     * one of the [DNS error codes](https://nodejs.org/docs/latest-v20.x/api/dns.html#error-codes).
+     * On error, `err` is an [`Error`](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) object, where `err.code` is
+     * one of the [DNS error codes](https://nodejs.org/docs/latest-v22.x/api/dns.html#error-codes).
      * @since v0.1.16
      */
     export function reverse(
@@ -672,7 +673,7 @@ declare module "dns" {
         callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void,
     ): void;
     /**
-     * Get the default value for `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).
+     * Get the default value for `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v22.x/api/dns.html#dnspromiseslookuphostname-options).
      * The value could be:
      *
      * * `ipv4first`: for `order` defaulting to `ipv4first`.
@@ -727,7 +728,7 @@ declare module "dns" {
      */
     export function getServers(): string[];
     /**
-     * Set the default value of `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).
+     * Set the default value of `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v22.x/api/dns.html#dnspromiseslookuphostname-options).
      * The value could be:
      *
      * * `ipv4first`: sets default `order` to `ipv4first`.
@@ -735,38 +736,38 @@ declare module "dns" {
      * * `verbatim`: sets default `order` to `verbatim`.
      *
      * The default is `verbatim` and {@link setDefaultResultOrder} have higher
-     * priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder). When using
-     * [worker threads](https://nodejs.org/docs/latest-v20.x/api/worker_threads.html), {@link setDefaultResultOrder} from the main
+     * priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--dns-result-orderorder). When using
+     * [worker threads](https://nodejs.org/docs/latest-v22.x/api/worker_threads.html), {@link setDefaultResultOrder} from the main
      * thread won't affect the default dns orders in workers.
      * @since v16.4.0, v14.18.0
      * @param order must be `'ipv4first'`, `'ipv6first'` or `'verbatim'`.
      */
     export function setDefaultResultOrder(order: "ipv4first" | "ipv6first" | "verbatim"): void;
     // Error codes
-    export const NODATA: "NODATA";
-    export const FORMERR: "FORMERR";
-    export const SERVFAIL: "SERVFAIL";
-    export const NOTFOUND: "NOTFOUND";
-    export const NOTIMP: "NOTIMP";
-    export const REFUSED: "REFUSED";
-    export const BADQUERY: "BADQUERY";
-    export const BADNAME: "BADNAME";
-    export const BADFAMILY: "BADFAMILY";
-    export const BADRESP: "BADRESP";
-    export const CONNREFUSED: "TIMEOUT";
-    export const TIMEOUT: "TIMEOUT";
+    export const NODATA: "ENODATA";
+    export const FORMERR: "EFORMERR";
+    export const SERVFAIL: "ESERVFAIL";
+    export const NOTFOUND: "ENOTFOUND";
+    export const NOTIMP: "ENOTIMP";
+    export const REFUSED: "EREFUSED";
+    export const BADQUERY: "EBADQUERY";
+    export const BADNAME: "EBADNAME";
+    export const BADFAMILY: "EBADFAMILY";
+    export const BADRESP: "EBADRESP";
+    export const CONNREFUSED: "ECONNREFUSED";
+    export const TIMEOUT: "ETIMEOUT";
     export const EOF: "EOF";
-    export const FILE: "FILE";
-    export const NOMEM: "NOMEM";
-    export const DESTRUCTION: "DESTRUCTION";
-    export const BADSTR: "BADSTR";
-    export const BADFLAGS: "BADFLAGS";
-    export const NONAME: "NONAME";
-    export const BADHINTS: "BADHINTS";
-    export const NOTINITIALIZED: "NOTINITIALIZED";
-    export const LOADIPHLPAPI: "LOADIPHLPAPI";
-    export const ADDRGETNETWORKPARAMS: "ADDRGETNETWORKPARAMS";
-    export const CANCELLED: "CANCELLED";
+    export const FILE: "EFILE";
+    export const NOMEM: "ENOMEM";
+    export const DESTRUCTION: "EDESTRUCTION";
+    export const BADSTR: "EBADSTR";
+    export const BADFLAGS: "EBADFLAGS";
+    export const NONAME: "ENONAME";
+    export const BADHINTS: "EBADHINTS";
+    export const NOTINITIALIZED: "ENOTINITIALIZED";
+    export const LOADIPHLPAPI: "ELOADIPHLPAPI";
+    export const ADDRGETNETWORKPARAMS: "EADDRGETNETWORKPARAMS";
+    export const CANCELLED: "ECANCELLED";
     export interface ResolverOptions {
         /**
          * Query timeout in milliseconds, or `-1` to use the default timeout.
@@ -782,7 +783,7 @@ declare module "dns" {
      * An independent resolver for DNS requests.
      *
      * Creating a new resolver uses the default server settings. Setting
-     * the servers used for a resolver using [`resolver.setServers()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnssetserversservers) does not affect
+     * the servers used for a resolver using [`resolver.setServers()`](https://nodejs.org/docs/latest-v22.x/api/dns.html#dnssetserversservers) does not affect
      * other resolvers:
      *
      * ```js

@@ -47,6 +47,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     showHideTests(viewer);
     worldUpTests(viewer);
     selectionTests(viewer);
+    errorCodeTests();
     await bulkPropertiesTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
@@ -757,4 +758,39 @@ async function dbIdRemappingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
         _processLoadResult.call(this, result);
         this.model.idRemap = result.dbidOldToNew;
     };
+}
+
+function errorCodeTests(): void {
+    // $ExpectType ErrorCodes.UNKNOWN_FAILURE
+    Autodesk.Viewing.ErrorCodes.UNKNOWN_FAILURE;
+    // $ExpectType ErrorCodes.BAD_DATA
+    Autodesk.Viewing.ErrorCodes.BAD_DATA;
+    // $ExpectType ErrorCodes.NETWORK_FAILURE
+    Autodesk.Viewing.ErrorCodes.NETWORK_FAILURE;
+    // $ExpectType ErrorCodes.NETWORK_ACCESS_DENIED
+    Autodesk.Viewing.ErrorCodes.NETWORK_ACCESS_DENIED;
+    // $ExpectType ErrorCodes.NETWORK_FILE_NOT_FOUND
+    Autodesk.Viewing.ErrorCodes.NETWORK_FILE_NOT_FOUND;
+    // $ExpectType ErrorCodes.NETWORK_SERVER_ERROR
+    Autodesk.Viewing.ErrorCodes.NETWORK_SERVER_ERROR;
+    // $ExpectType ErrorCodes.NETWORK_UNHANDLED_RESPONSE_CODE
+    Autodesk.Viewing.ErrorCodes.NETWORK_UNHANDLED_RESPONSE_CODE;
+    // $ExpectType ErrorCodes.BROWSER_WEBGL_NOT_SUPPORTED
+    Autodesk.Viewing.ErrorCodes.BROWSER_WEBGL_NOT_SUPPORTED;
+    // $ExpectType ErrorCodes.BAD_DATA_NO_VIEWABLE_CONTENT
+    Autodesk.Viewing.ErrorCodes.BAD_DATA_NO_VIEWABLE_CONTENT;
+    // $ExpectType ErrorCodes.BROWSER_WEBGL_DISABLED
+    Autodesk.Viewing.ErrorCodes.BROWSER_WEBGL_DISABLED;
+    // $ExpectType ErrorCodes.BAD_DATA_MODEL_IS_EMPTY
+    Autodesk.Viewing.ErrorCodes.BAD_DATA_MODEL_IS_EMPTY;
+    // $ExpectType ErrorCodes.RTC_ERROR
+    Autodesk.Viewing.ErrorCodes.RTC_ERROR;
+    // $ExpectType ErrorCodes.UNSUPORTED_FILE_EXTENSION
+    Autodesk.Viewing.ErrorCodes.UNSUPORTED_FILE_EXTENSION;
+    // $ExpectType ErrorCodes.VIEWER_INTERNAL_ERROR
+    Autodesk.Viewing.ErrorCodes.VIEWER_INTERNAL_ERROR;
+    // $ExpectType ErrorCodes.WEBGL_LOST_CONTEXT
+    Autodesk.Viewing.ErrorCodes.WEBGL_LOST_CONTEXT;
+    // $ExpectType ErrorCodes.LOAD_CANCELED
+    Autodesk.Viewing.ErrorCodes.LOAD_CANCELED;
 }

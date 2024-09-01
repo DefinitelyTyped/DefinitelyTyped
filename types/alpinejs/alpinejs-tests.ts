@@ -322,9 +322,9 @@ import Alpine, {
 
     const el = document.body;
 
-    // $ExpectType: () => void
+    // $ExpectType () => void
     Alpine.setStyles(el, "visibility: hidden");
-    // $ExpectType: () => void
+    // $ExpectType () => void
     Alpine.setStyles(el, { visibility: "hidden" });
 }
 
@@ -492,7 +492,7 @@ import Alpine, {
         alpine.magic("foo", () => {});
     };
 
-    // $ExpectType: void
+    // $ExpectType void
     Alpine.plugin(MyAlpinePlugin);
 }
 

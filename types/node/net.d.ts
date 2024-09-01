@@ -10,7 +10,7 @@
  * ```js
  * const net = require('node:net');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/net.js)
  */
 declare module "net" {
     import * as stream from "node:stream";

@@ -3,7 +3,7 @@
     "name": "@types/voca",
     "version": "1.4.9999",
     "projects": [
-        "https://vocajs.com/"
+        "https://vocajs.pages.dev/"
     ],
     "devDependencies": {
         "@types/voca": "workspace:."

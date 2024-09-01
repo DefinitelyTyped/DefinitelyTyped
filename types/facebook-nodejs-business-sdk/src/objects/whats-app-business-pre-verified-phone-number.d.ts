@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
+import Cursor from "./../cursor";
 /**
  * WhatsAppBusinessPreVerifiedPhoneNumber
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -19,11 +19,9 @@ export default class WhatsAppBusinessPreVerifiedPhoneNumber extends AbstractCrud
         not_verified: "NOT_VERIFIED";
         verified: "VERIFIED";
     }>;
-    getPartners(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPartners(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPartners(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createRequestCode(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    createVerifyCode(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<WhatsAppBusinessPreVerifiedPhoneNumber>;
+    getPartners(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createRequestCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createVerifyCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<WhatsAppBusinessPreVerifiedPhoneNumber>;
 }

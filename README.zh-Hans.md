@@ -137,7 +137,7 @@ declare module "libname" {
 
 我们使用机器人来确保能像自助服务一样处理提交至 Definitely Typed 的大量拉取请求。欲知详情，请阅读[此处](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/)。下图简要展示了拉取请求的生命周期：
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+<img src="https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
 
 #### 部分克隆
 
@@ -419,7 +419,7 @@ const enum Enum { // eslint-disable-line no-const-enum
 Definitely Typed 有“类型定义所有者”的概念——即愿意维护特定模块类型声明的人。
 
 - 如果你将自己添加到了列表中，当他人发起关于此软件包的 PR 或 issue 时，你将会收到通知（通过你的 GitHub 用户名）。
-- 对于维护本仓库的[机器人](https://github.com/DefinitelyTyped/dt-mergebot)而言，你的 PR 审核将会具有更高优先级以及重要性。
+- 对于维护本仓库的[机器人](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot)而言，你的 PR 审核将会具有更高优先级以及重要性。
 - 为维护稳定的社区环境，DT 维护者对类型定义所有者给予了较高的信任，因此将你自己添加为所有者时，请三思而后行。
 
 若要将你自己添加为类型定义所有者，编辑 `package.json` 中的 `owners` 数组：

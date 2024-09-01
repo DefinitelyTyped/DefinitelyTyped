@@ -6,7 +6,7 @@
  * ```js
  * const util = require('node:util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/util.js)
  */
 declare module "util" {
     import * as types from "node:util/types";
@@ -1269,7 +1269,7 @@ declare module "util" {
      * );
      * ```
      *
-     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v20.x/api/util.html#modifiers).
+     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v22.x/api/util.html#modifiers).
      * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
      * @param text The text to to be formatted.
      * @since v20.12.0
@@ -1480,6 +1480,12 @@ declare module "util" {
          * Whether this command accepts positional arguments.
          */
         allowPositionals?: boolean | undefined;
+        /**
+         * If `true`, allows explicitly setting boolean options to `false` by prefixing the option name with `--no-`.
+         * @default false
+         * @since v22.4.0
+         */
+        allowNegative?: boolean | undefined;
         /**
          * Return the parsed tokens. This is useful for extending the built-in behavior,
          * from adding additional checks through to reprocessing the tokens in different ways.

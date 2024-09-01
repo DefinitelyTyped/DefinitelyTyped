@@ -89,6 +89,7 @@ export const UniformsLib: {
         directionalLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
@@ -112,6 +113,7 @@ export const UniformsLib: {
         spotLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
@@ -133,6 +135,7 @@ export const UniformsLib: {
         pointLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};

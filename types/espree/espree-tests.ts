@@ -34,3 +34,7 @@ const full_options: Options = {
 };
 
 const empty_options: Options = {};
+
+const latest_options: Options = {
+    ecmaVersion: 16,
+};

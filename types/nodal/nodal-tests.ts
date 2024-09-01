@@ -1,6 +1,6 @@
 import * as Nodal from "nodal";
 
-let BlogPost: typeof Nodal.Model;
+let BlogPost!: typeof Nodal.Model;
 
 class User extends Nodal.Model {
     public beforeSave(callback: (err?: Error) => void) {

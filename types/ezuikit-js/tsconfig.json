@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "Node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "ezuikit-js-tests.ts"
+    ]
+}

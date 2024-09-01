@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ProfilePictureSource
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -19,8 +19,5 @@ export default class ProfilePictureSource extends AbstractCrudObject {
         album: "album";
         small: "small";
         thumbnail: "thumbnail";
-    }>;
-    static get BreakingChange(): Readonly<{
-        profile_picture: "PROFILE_PICTURE";
     }>;
 }

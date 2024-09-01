@@ -49,7 +49,7 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/worker_threads.js)
  */
 declare module "worker_threads" {
     import { Blob } from "node:buffer";
@@ -237,6 +237,9 @@ declare module "worker_threads" {
         off(event: "message", listener: (value: any) => void): this;
         off(event: "messageerror", listener: (error: Error) => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
+        addEventListener: EventTarget["addEventListener"];
+        dispatchEvent: EventTarget["dispatchEvent"];
+        removeEventListener: EventTarget["removeEventListener"];
     }
     interface WorkerOptions {
         /**
@@ -406,6 +409,24 @@ declare module "worker_threads" {
          * @since v10.5.0
          */
         postMessage(value: any, transferList?: readonly TransferListItem[]): void;
+        /**
+         * Sends a value to another worker, identified by its thread ID.
+         * @param threadId The target thread ID. If the thread ID is invalid, a `ERR_WORKER_MESSAGING_FAILED` error will be thrown.
+         * If the target thread ID is the current thread ID, a `ERR_WORKER_MESSAGING_SAME_THREAD` error will be thrown.
+         * @param value The value to send.
+         * @param transferList If one or more `MessagePort`-like objects are passed in value, a `transferList` is required for those items
+         * or `ERR_MISSING_MESSAGE_PORT_IN_TRANSFER_LIST` is thrown. See `port.postMessage()` for more information.
+         * @param timeout Time to wait for the message to be delivered in milliseconds. By default it's `undefined`, which means wait forever.
+         * If the operation times out, a `ERR_WORKER_MESSAGING_TIMEOUT` error is thrown.
+         * @since v22.5.0
+         */
+        postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
+        postMessageToThread(
+            threadId: number,
+            value: any,
+            transferList: readonly TransferListItem[],
+            timeout?: number,
+        ): Promise<void>;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has

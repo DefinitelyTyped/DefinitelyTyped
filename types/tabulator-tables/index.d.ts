@@ -1315,7 +1315,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      *
      * You can set accessors on a per column basis using the accessor option in the column definition object.
      */
-    accessor?: CustomAccessor | undefined;
+    accessor?: CustomAccessor | undefined | "rownum";
 
     /** Each accessor function has its own matching params option, for example accessorDownload has accessorDownloadParams. */
     accessorParams?: CustomAccessorParams | undefined;
@@ -1648,6 +1648,7 @@ export type Formatter =
     | "handle"
     | "rowSelection"
     | "responsiveCollapse"
+    | "toggle"
     | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
 
 export type FormatterParams =
@@ -1662,6 +1663,7 @@ export type FormatterParams =
     | StarRatingParams
     | RowSelectionParams
     | JSONRecord
+    | ToggleSwitchParams
     | ((cell: CellComponent) => {});
 
 export type Editor =
@@ -1778,6 +1780,17 @@ export interface StarRatingParams {
 
 export interface RowSelectionParams {
     rowRange?: RowRangeLookup | undefined;
+}
+
+export interface ToggleSwitchParams {
+    size?: number | undefined;
+    max?: number | undefined;
+    onValue?: string | number | undefined;
+    offValue?: string | number | undefined;
+    onTruthy?: boolean | undefined;
+    onColor?: string | undefined;
+    offColor?: string | undefined;
+    clickable?: boolean | undefined;
 }
 
 export interface SharedEditorParams {
@@ -2849,7 +2862,7 @@ declare class Tabulator {
     /** Destructor. */
     destroy: () => void;
 
-    setData: (data: any, params?: any, config?: any) => Promise<void>;
+    setData: (data?: any, params?: any, config?: any) => Promise<void>;
 
     /** You can remove all data from the table using clearData */
     clearData: () => void;

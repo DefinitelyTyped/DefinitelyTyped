@@ -1,5 +1,5 @@
-import UserData from './user-data';
-import CustomData from './custom-data';
+import UserData from "./user-data";
+import CustomData from "./custom-data";
 /**
  * Event for Business Data API
  */
@@ -18,7 +18,7 @@ export default class Event {
      * @param {String} event_id This ID can be any string chosen by the advertiser.
      * @param {UserData} user_data A map that contains user data. See UserData Class for options.
      * @param {CustomData} custom_data A map that contains user data. See CustomData Class for options.
-     * @param {string[]} data_processing_options Processing options you would like to enable for a specific event.
+     * @param {Array<string>} data_processing_options Processing options you would like to enable for a specific event.
      * @param {Number} data_processing_options_country A country that you want to associate to this data processing option.
      * @param {Number} data_processing_options_state A state that you want to associate with this data processing option.
      */
@@ -75,7 +75,7 @@ export default class Event {
     get data_processing_options(): string[];
     /**
      * Sets the data_processing_options for the current event.
-     * @param {string[]} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
+     * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      * @see {@link https://developers.facebook.com/docs/marketing-apis/data-processing-options}
      */
     set data_processing_options(data_processing_options: string[]);
@@ -103,5 +103,5 @@ export default class Event {
     /**
      * Convert to Json object for api call
      */
-    toJson(): Record<any, any>;
+    toJson(): Record<string, any>;
 }

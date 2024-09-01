@@ -333,7 +333,7 @@ export interface SlotInfo {
 }
 
 export type Culture = string;
-export type FormatInput = number | string | Date;
+export type FormatInput = number | string | Date | DateRange;
 
 export interface DateLocalizerSpec {
     firstOfWeek: (culture: Culture) => number;

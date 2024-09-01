@@ -21,3 +21,8 @@
     const resinit: ResponseInit = {};
     resinit.status; // $ExpectType number | undefined
 }
+
+{
+    const abort = new AbortController();
+    AbortSignal.any([abort.signal]); // $ExpectType AbortSignal
+}

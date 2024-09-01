@@ -1,4 +1,4 @@
-// For Library Version: 1.125.0
+// For Library Version: 1.127.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -283,6 +283,15 @@ declare module "sap/ui/unified/library" {
      */
     Expanded = "Expanded",
   }
+  /**
+   * Interface for controls which are suitable to add as items of sap.m.Menu.
+   *
+   * @since 1.127.0
+   */
+  export interface IMenuItem {
+    __implements__sap_ui_unified_IMenuItem: boolean;
+  }
+
   /**
    * Marker interface for controls that process instances of `window.Blob`, such as `window.File`. The implementation
    * of this Interface should implement the following Interface methods:
@@ -5323,8 +5332,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import CalendarType from "sap/ui/core/CalendarType";
-
   import CalendarLegend from "sap/ui/unified/CalendarLegend";
 
   import {
@@ -5687,28 +5694,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     getMonths(): int;
     /**
-     * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
-     *
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * @since 1.108.0
-     *
-     * @returns Value of property `primaryCalendarType`
-     */
-    getPrimaryCalendarType(): CalendarType;
-    /**
-     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
-     *
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * @since 1.109.0
-     *
-     * @returns Value of property `secondaryCalendarType`
-     */
-    getSecondaryCalendarType(): CalendarType;
-    /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -5946,42 +5931,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       iMonths?: int
     ): this;
     /**
-     * Sets a new value for property {@link #getPrimaryCalendarType primaryCalendarType}.
-     *
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @since 1.108.0
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setPrimaryCalendarType(
-      /**
-       * New value for property `primaryCalendarType`
-       */
-      sPrimaryCalendarType: CalendarType
-    ): this;
-    /**
-     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
-     *
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @since 1.109.0
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setSecondaryCalendarType(
-      /**
-       * New value for property `secondaryCalendarType`
-       */
-      sSecondaryCalendarType: CalendarType
-    ): this;
-    /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
      *
      * If set, a header with the years is shown to visualize what month belongs to what year.
@@ -6071,22 +6020,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * @since 1.108.0
-     */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * @since 1.109.0
-     */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -6188,8 +6121,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
   import UI5Date from "sap/ui/core/date/UI5Date";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import CalendarType from "sap/ui/core/CalendarType";
 
   import CalendarLegend from "sap/ui/unified/CalendarLegend";
 
@@ -6568,28 +6499,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      */
     getLegend(): ID | null;
     /**
-     * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
-     *
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * @since 1.108.0
-     *
-     * @returns Value of property `primaryCalendarType`
-     */
-    getPrimaryCalendarType(): CalendarType;
-    /**
-     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
-     *
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * @since 1.109.0
-     *
-     * @returns Value of property `secondaryCalendarType`
-     */
-    getSecondaryCalendarType(): CalendarType;
-    /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -6845,42 +6754,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       oLegend: ID | CalendarLegend
     ): this;
     /**
-     * Sets a new value for property {@link #getPrimaryCalendarType primaryCalendarType}.
-     *
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @since 1.108.0
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setPrimaryCalendarType(
-      /**
-       * New value for property `primaryCalendarType`
-       */
-      sPrimaryCalendarType: CalendarType
-    ): this;
-    /**
-     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
-     *
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @since 1.109.0
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setSecondaryCalendarType(
-      /**
-       * New value for property `secondaryCalendarType`
-       */
-      sSecondaryCalendarType: CalendarType
-    ): this;
-    /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
      *
      * If set, a header with the years is shown to visualize what month belongs to what year.
@@ -6980,22 +6853,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * @since 1.108.0
-     */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * @since 1.109.0
-     */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -17992,7 +17849,7 @@ declare module "sap/ui/unified/Menu" {
 
   import { IContextMenu, ID, Dock, Collision } from "sap/ui/core/library";
 
-  import MenuItemBase from "sap/ui/unified/MenuItemBase";
+  import { IMenuItem } from "sap/ui/unified/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -18002,6 +17859,8 @@ declare module "sap/ui/unified/Menu" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import MenuItemBase from "sap/ui/unified/MenuItemBase";
 
   import Event from "sap/ui/base/Event";
 
@@ -18099,7 +17958,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The item to add; if empty, nothing is inserted
        */
-      oItem: MenuItemBase
+      oItem: IMenuItem
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
@@ -18227,7 +18086,7 @@ declare module "sap/ui/unified/Menu" {
      *
      * The available actions to be displayed as items of the menu.
      */
-    getItems(): MenuItemBase[];
+    getItems(): IMenuItem[];
     /**
      * Gets current value of property {@link #getMaxVisibleItems maxVisibleItems}.
      *
@@ -18260,8 +18119,18 @@ declare module "sap/ui/unified/Menu" {
      */
     getPageSize(): int;
     /**
-     * Checks for the provided `sap.ui.unified.MenuItemBase` in the aggregation {@link #getItems items}. and
-     * returns its index if found or -1 otherwise.
+     * Returns all items that have `selected` properties set to `true`. **Note:** Only items with `selected`
+     * property set that are members of `MenuItemGroup` with `ItemSelectionMode` property set to {@link sap.ui.core.ItemSelectionMode.SingleSelect }
+     * or {@link sap.ui.unified.ItemSelectionMode.MultiSelect}> are taken into account.
+     *
+     * @since 1.127.0
+     *
+     * @returns Array of all selected items
+     */
+    getSelectedItems(): any[];
+    /**
+     * Checks for the provided `sap.ui.unified.IMenuItem` in the aggregation {@link #getItems items}. and returns
+     * its index if found or -1 otherwise.
      *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
@@ -18270,7 +18139,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The item whose index is looked for
        */
-      oItem: MenuItemBase
+      oItem: IMenuItem
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
@@ -18282,7 +18151,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The item to insert; if empty, nothing is inserted
        */
-      oItem: MenuItemBase,
+      oItem: IMenuItem,
       /**
        * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
        * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
@@ -18367,7 +18236,7 @@ declare module "sap/ui/unified/Menu" {
      *
      * @returns An array of the removed elements (might be empty)
      */
-    removeAllItems(): MenuItemBase[];
+    removeAllItems(): IMenuItem[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -18391,8 +18260,8 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The item to remove or its index or id
        */
-      vItem: int | string | MenuItemBase
-    ): MenuItemBase | null;
+      vItem: int | string | IMenuItem
+    ): IMenuItem | null;
     /**
      * Sets a new value for property {@link #getAriaDescription ariaDescription}.
      *
@@ -18515,11 +18384,7 @@ declare module "sap/ui/unified/Menu" {
     /**
      * The available actions to be displayed as items of the menu.
      */
-    items?:
-      | MenuItemBase[]
-      | MenuItemBase
-      | AggregationBindingInfo
-      | `{${string}}`;
+    items?: IMenuItem[] | IMenuItem | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Reference to accessible labels (ids of existing DOM elements or controls) for assistive technologies
@@ -18562,6 +18427,8 @@ declare module "sap/ui/unified/MenuItem" {
     $MenuItemBaseSettings,
   } from "sap/ui/unified/MenuItemBase";
 
+  import { IMenuItem } from "sap/ui/unified/library";
+
   import { ID, URI } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
@@ -18576,7 +18443,8 @@ declare module "sap/ui/unified/MenuItem" {
    *
    * @since 1.21.0
    */
-  export default class MenuItem extends MenuItemBase {
+  export default class MenuItem extends MenuItemBase implements IMenuItem {
+    __implements__sap_ui_unified_IMenuItem: boolean;
     /**
      * Constructor for a new MenuItem element.
      *
@@ -18668,6 +18536,13 @@ declare module "sap/ui/unified/MenuItem" {
      */
     getIcon(): URI;
     /**
+     * @since 1.127.0
+     *
+     * @returns Returns `true` if the `MenuItem` is selected and is part of group with single or multi selection
+     * mode, `false` otherwise.
+     */
+    getSelected(): boolean;
+    /**
      * Gets current value of property {@link #getShortcutText shortcutText}.
      *
      * Defines the shortcut text that should be displayed on the menu item on non-mobile devices. **Note:**
@@ -18731,6 +18606,20 @@ declare module "sap/ui/unified/MenuItem" {
       sIcon?: URI
     ): this;
     /**
+     * Sets the `selected` state of the `MenuItem` and deselect other selected `MenuItem` controls if selection
+     * mode is `SingleSelect`.
+     *
+     * @since 1.127.0
+     *
+     * @returns Returns `this` to allow method chaining
+     */
+    setSelected(
+      /**
+       * Whether the state is selected or not
+       */
+      bState: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getShortcutText shortcutText}.
      *
      * Defines the shortcut text that should be displayed on the menu item on non-mobile devices. **Note:**
@@ -18784,6 +18673,16 @@ declare module "sap/ui/unified/MenuItem" {
      * displayed on the item.
      */
     icon?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the `MenuItem` is selected (default is set to `false`). A selected `MenuItem` has
+     * a check mark rendered at its end. **Note: ** selection functionality works only if the menu item is a
+     * member of `MenuItemGroup` with `itemSelectionMode` set to {@link sap.ui.core.ItemSelectionMode.SingleSelect }
+     * or {@link sap.ui.unified.ItemSelectionMode.MultiSelect}.
+     *
+     * @since 1.127.0
+     */
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the shortcut text that should be displayed on the menu item on non-mobile devices. **Note:**
@@ -19193,11 +19092,239 @@ declare module "sap/ui/unified/MenuItemBase" {
   >;
 }
 
+declare module "sap/ui/unified/MenuItemGroup" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import { IMenuItem } from "sap/ui/unified/library";
+
+  import { ItemSelectionMode } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Group item to be used inside a menu. A menu items group represents a collection of menu items that can
+   * have the same selection mode (e.g. {@link sap.ui.core.ItemSelectionMode.None}, {@link sap.ui.core.ItemSelectionMode.SingleSelect},
+   * or {@link sap.ui.unified.ItemSelectionMode.MultiSelect}).
+   *
+   * @since 1.127.0
+   */
+  export default class MenuItemGroup extends UI5Element implements IMenuItem {
+    __implements__sap_ui_unified_IMenuItem: boolean;
+    /**
+     * Constructor for a new MenuItemGroup element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MenuItemGroupSettings
+    );
+    /**
+     * Constructor for a new MenuItemGroup element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MenuItemGroupSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.MenuItemGroup with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MenuItemGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.MenuItemGroup.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Override of the default setter that adds a group reference to the item's `group` association.
+     *
+     *
+     * @returns `this` to allow method chaining
+     */
+    addItem(
+      /**
+       * Menu item to be added
+       */
+      oItem: IMenuItem,
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): this;
+    /**
+     * Destroys all items from `items` aggregation.
+     *
+     *
+     * @returns `this` to allow method chaining
+     */
+    destroyItems(
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): this;
+    /**
+     * Gets content of aggregation {@link #getItems items}.
+     *
+     * The available items of the menu. **Note:** Adding MenuItemGroup as an item to the MenuItemGroup is not
+     * supported.
+     */
+    getItems(): IMenuItem[];
+    /**
+     * Gets current value of property {@link #getItemSelectionMode itemSelectionMode}.
+     *
+     * Defines the selection mode of the child items (e.g. `None`, `SingleSelect`, `MultiSelect`)
+     *
+     * Default value is `None`.
+     *
+     *
+     * @returns Value of property `itemSelectionMode`
+     */
+    getItemSelectionMode(): ItemSelectionMode;
+    /**
+     * Checks for the provided `sap.ui.unified.IMenuItem` in the aggregation {@link #getItems items}. and returns
+     * its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfItem(
+      /**
+       * The item whose index is looked for
+       */
+      oItem: IMenuItem
+    ): int;
+    /**
+     * Override of the default setter that adds a group reference to the item's `group` association.
+     *
+     *
+     * @returns `this` to allow method chaining
+     */
+    insertItem(
+      /**
+       * Menu item to be added
+       */
+      oItem: IMenuItem,
+      /**
+       * Index at which the item should be inserted
+       */
+      iIndex: int,
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): this;
+    /**
+     * Removes all items from `items` aggregation.
+     *
+     *
+     * @returns array containing the removed items, or null if there are no items to remove
+     */
+    removeAllItems(
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): any[] | null;
+    /**
+     * Removes an item from `items` aggregation.
+     *
+     *
+     * @returns the removed object, or `null` if there are no items to remove
+     */
+    removeItem(
+      /**
+       * Menu item to be removed (as index, ID or object)
+       */
+      vItem: int | string | IMenuItem,
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): IMenuItem | null;
+    /**
+     * Override of the default setter that also ensures single selection if necessary.
+     *
+     *
+     * @returns `this` to allow method chaining
+     */
+    setItemSelectionMode(
+      /**
+       * item selection mode to be set
+       */
+      sSelectionMode: string,
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the MenuItemGroup constructor.
+   */
+  export interface $MenuItemGroupSettings extends $ElementSettings {
+    /**
+     * Defines the selection mode of the child items (e.g. `None`, `SingleSelect`, `MultiSelect`)
+     */
+    itemSelectionMode?: ItemSelectionMode | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The available items of the menu. **Note:** Adding MenuItemGroup as an item to the MenuItemGroup is not
+     * supported.
+     */
+    items?: IMenuItem[] | IMenuItem | AggregationBindingInfo | `{${string}}`;
+  }
+}
+
 declare module "sap/ui/unified/MenuTextFieldItem" {
   import {
     default as MenuItemBase,
     $MenuItemBaseSettings,
   } from "sap/ui/unified/MenuItemBase";
+
+  import { IMenuItem } from "sap/ui/unified/library";
 
   import { URI, ValueState } from "sap/ui/core/library";
 
@@ -19214,7 +19341,11 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
    *
    * @since 1.21.0
    */
-  export default class MenuTextFieldItem extends MenuItemBase {
+  export default class MenuTextFieldItem
+    extends MenuItemBase
+    implements IMenuItem
+  {
+    __implements__sap_ui_unified_IMenuItem: boolean;
     /**
      * Constructor for a new MenuTextFieldItem element.
      *
@@ -22173,6 +22304,8 @@ declare namespace sap {
     "sap/ui/unified/MenuItem": undefined;
 
     "sap/ui/unified/MenuItemBase": undefined;
+
+    "sap/ui/unified/MenuItemGroup": undefined;
 
     "sap/ui/unified/MenuTextFieldItem": undefined;
 

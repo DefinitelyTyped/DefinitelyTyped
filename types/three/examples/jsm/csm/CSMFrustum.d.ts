@@ -10,7 +10,7 @@ export interface CSMFrustumParameters {
     maxFar?: number;
 }
 
-export default class CSMFrustum {
+export class CSMFrustum {
     constructor(data?: CSMFrustumParameters);
     vertices: CSMFrustumVerticies;
     setFromProjectionMatrix(projectionMatrix: Matrix4, maxFar: number): CSMFrustumVerticies;

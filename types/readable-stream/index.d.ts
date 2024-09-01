@@ -352,7 +352,7 @@ declare namespace _Readable {
         ): Promise<T>;
         _destroy(err: Error | null, callback: (error: Error | null) => void): void;
         destroy(err?: Error, callback?: (error: Error | null) => void): this;
-        pipe<S extends _IWritable>(dest: S, pipeOpts?: { end?: boolean | undefined }): S;
+        pipe<S extends NodeJS.WritableStream>(dest: S, pipeOpts?: { end?: boolean | undefined }): S;
         addListener(ev: string | symbol, fn: (...args: any[]) => void): this;
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 

@@ -1802,6 +1802,41 @@ declare namespace googletag {
              * Settings to control publisher provided signals (PPS).
              */
             pps?: PublisherProvidedSignalsConfig | null;
+
+            /**
+             * Setting to control whether GPT should yield the JS thread when
+             * rendering creatives.
+             *
+             * GPT will yield only for browsers that support the Scheduler.postTask
+             * API.
+             *
+             * Supported values:
+             *  - `null` (default): GPT will yield the JS thread for slots outside of
+             *    the viewport.
+             *  - `ENABLED_ALL_SLOTS`: GPT will yield the JS thread for all slots
+             *    regardless of whether the slot is within the viewport.
+             *  - `DISABLED`: GPT will not yield the JS thread.
+             *
+             * @example
+             *   // Disable yielding.
+             *   googletag.setConfig({threadYield: 'DISABLED'});
+             *
+             *   // Enable yielding for all slots.
+             *   googletag.setConfig({threadYield: 'ENABLED_ALL_SLOTS'});
+             *
+             *   // Enable yielding only for slots outside of the viewport (default).
+             *   googletag.setConfig({threadYield: null});
+             *
+             * @see [Scheduler: postTask() method](https://developer.mozilla.org/docs/Web/API/Scheduler/postTask)
+             */
+            threadYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
+
+            /**
+             * @deprecated Use
+             * {@link googletag.config.PageSettingsConfig.threadYield | threadYield}
+             * instead. This will be removed in the near future.
+             */
+            adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
         }
 
         /**
@@ -2211,7 +2246,12 @@ declare namespace googletag {
             push(provider: SecureSignalProvider): void;
 
             /**
-             * Clears all cached signals from local storage.
+             * Clears all signals for all collectors from cache.
+             *
+             * Calling this method may reduce the likelihood of signals being included
+             * in ad requests for the current and potentially later page views. Due to
+             * this, it should only be called when meaningful state changes occur,
+             * such as events that indicate a new user (log in, log out, sign up, etc.).
              */
             clearAllCache(): void;
         }

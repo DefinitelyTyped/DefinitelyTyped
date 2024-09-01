@@ -20,6 +20,7 @@
 import "./global"; // Type global environment
 
 // Expose everything to autoimport
+import "./browser";
 import "./crypto";
 import "./data";
 import "./encoding";
@@ -122,11 +123,6 @@ export interface Checkers<VT> {
 
 // === Common types ===
 // --------------------
-
-/**
- * Array of numbers. The number range is from 0 to 255.
- */
-export type bytes = number[];
 
 // === JSON ===
 // ------------
