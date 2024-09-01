@@ -9,8 +9,7 @@
         "@types/puppeteer": "*"
     },
     "devDependencies": {
-        "@types/puppeteer-har": "workspace:.",
-        "puppeteer-har": "^1.1.2"
+        "@types/puppeteer-har": "workspace:."
     },
     "owners": [
         {
