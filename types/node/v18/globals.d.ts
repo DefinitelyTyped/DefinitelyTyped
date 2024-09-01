@@ -59,7 +59,7 @@ declare global {
         }): void;
         (options: {
             execution: "async";
-            type?: "major-snapshot" | "major" | "minor";
+            type?: "major" | "minor";
         }): Promise<void>;
         (options?: boolean): void;
     }
