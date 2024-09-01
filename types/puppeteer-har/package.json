@@ -10,7 +10,6 @@
     },
     "devDependencies": {
         "@types/puppeteer-har": "workspace:.",
-        "puppeteer": "^23.2.1",
         "puppeteer-har": "^1.1.2"
     },
     "owners": [
