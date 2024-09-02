@@ -62,3 +62,6 @@ screenshotOptions = { nonexistent: 'some-value' };
 
 // Test that ScheenshotOptions also accepts saveNewImageOnError and overwriteImageOnChange which are not in Puppeteer.ScreenshotOptions
 screenshotOptions = { saveNewImageOnError: true, overwriteImageOnChange: true };
+
+// $ExpectType Promise<TesterFunction>
+ScreenshotTester();
