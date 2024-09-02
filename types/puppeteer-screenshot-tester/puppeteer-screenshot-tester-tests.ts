@@ -55,10 +55,10 @@ outputSettings = {
 };
 
 // Test that ScheenshotOptions only accepts those properties which are in Puppeteer.ScreenshotOptions
-let screenshotOptions: ScreenshotOptions
+let screenshotOptions: ScreenshotOptions;
 screenshotOptions = { fullPage: true };
 // @ts-expect-error
-screenshotOptions = { nonexistent: 'some-value' };
+screenshotOptions = { nonexistent: "some-value" };
 
 // Test that ScheenshotOptions also accepts saveNewImageOnError and overwriteImageOnChange which are not in Puppeteer.ScreenshotOptions
 screenshotOptions = { saveNewImageOnError: true, overwriteImageOnChange: true };

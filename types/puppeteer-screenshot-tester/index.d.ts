@@ -1,4 +1,4 @@
-import { Page, ScreenshotOptions as PuppeteerScreenshotOptions} from "puppeteer";
+import { Page, ScreenshotOptions as PuppeteerScreenshotOptions } from "puppeteer";
 
 interface OutputSettingsPng {
     forceExt?: null | ".png";
@@ -37,7 +37,11 @@ declare namespace ScreenshotTester {
     }
 }
 
-type TesterFunction = (page: Page, name?: string, screenshotOptions?: ScreenshotTester.ScreenshotOptions) => Promise<boolean>
+type TesterFunction = (
+    page: Page,
+    name?: string,
+    screenshotOptions?: ScreenshotTester.ScreenshotOptions,
+) => Promise<boolean>;
 declare function ScreenshotTester(
     threshold?: number,
     includeAntialiasing?: boolean,
