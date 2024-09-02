@@ -338,6 +338,7 @@
 /types/ascii-cats/                                        @peterblazejewicz
 /types/ascii2mathml/                                      @RagibHasin
 /types/asciichart/                                        @pokutuna
+/types/ase-utils/                                         @Chocobo1
 /types/asenv/                                             @remisery
 /types/asn1/                                              @jgeurts @shortstuffsushi
 /types/aspect-fit/                                        @ChocolateLoverRaj
@@ -1897,6 +1898,7 @@
 /types/eslint-plugin-mocha/                               @rhysd
 /types/eslint-plugin-prettier/                            @ikatyang @JounQin
 /types/eslint-plugin-security/                            @rhysd
+/types/eslint-plugin-tailwindcss/                         @eagerestwolf
 /types/eslint-scope/                                      @mysticatea
 /types/eslint-utils/                                      @JoshuaKGoldberg
 /types/eslint__eslintrc/                                  @gdlol
@@ -1930,6 +1932,13 @@
 /types/eureka-js-client/                                  @karl-run @tombarton @jpsullivan
 /types/evaluatex/                                         @forabi-cosuno
 /types/evaporate/                                         @kookster
+/types/event-calendar__core/                              @syncsynchalt
+/types/event-calendar__day-grid/                          @syncsynchalt
+/types/event-calendar__interaction/                       @syncsynchalt
+/types/event-calendar__list/                              @syncsynchalt
+/types/event-calendar__resource-time-grid/                @syncsynchalt
+/types/event-calendar__resource-timeline/                 @syncsynchalt
+/types/event-calendar__time-grid/                         @syncsynchalt
 /types/event-emitter/                                     @LKay
 /types/event-emitter-es6/                                 @ahstro
 /types/event-hooks-webpack-plugin/                        @pine @peterblazejewicz
@@ -3182,6 +3191,7 @@
 /types/hapipal__avocat/                                   @timcosta
 /types/hapipal__schmervice/                               @timcosta @damusix
 /types/hapipal__toys/                                     @timcosta
+/types/happen/                                            @k-yle
 /types/happo-cypress/                                     @alexanderpolyankin @Belco90
 /types/happyguestmx__web-utilities/                       @HappyGuest
 /types/happypack/                                         @akashishu777
@@ -4802,6 +4812,7 @@
 /types/mapbox__polyline/                                  @Kern0 @mklopets
 /types/mapbox__rehype-prism/                              @remcohaszing
 /types/mapbox__s3urls/                                    @sebastianvera
+/types/mapbox__sexagesimal/                               @k-yle
 /types/mapbox__shelf-pack/                                @Perlmint
 /types/mapbox__sphericalmercator/                         @nhusher @mbullington
 /types/mapbox__spritezero/                                @peterblazejewicz
@@ -5730,7 +5741,6 @@
 /types/passport-github2/                                  @yasupeke @mthmulders @codepunkt @ivan94
 /types/passport-google-id-token/                          @Wyfy0107
 /types/passport-google-oauth/                             @staticfunction
-/types/passport-google-oauth2/                            @bluehatbrit
 /types/passport-google-oauth20/                           @yasupeke @ezintz @ngtan @acerbic
 /types/passport-http/                                     @krizalys @tlaziuk @cjbarth @jamesadarich
 /types/passport-http-bearer/                              @isman-usoh
