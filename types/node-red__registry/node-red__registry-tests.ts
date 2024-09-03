@@ -1,4 +1,5 @@
 import registry = require("@node-red/registry");
+import http = require("node:http");
 
 function registryTests() {
     interface ExtendedNodeRedSettings extends registry.NodeAPISettingsWithData {
@@ -165,8 +166,8 @@ function registryTests() {
             RED.httpNode;
             // $ExpectType Express
             RED.httpAdmin;
-            // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse>
-            RED.server;
+
+            const server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse> = RED.server;
 
             // $ExpectType string
             RED._("myNode.label");
