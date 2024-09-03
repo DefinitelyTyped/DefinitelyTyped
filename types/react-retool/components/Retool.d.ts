@@ -1,13 +1,13 @@
-import { FunctionComponent, CSSProperties, IframeHTMLAttributes } from "react";
+import { CSSProperties, FunctionComponent, IframeHTMLAttributes } from "react";
 
-export interface  RetoolProps {
-    width?: IframeHTMLAttributes<HTMLIFrameElement>['width'];
-    height?: IframeHTMLAttributes<HTMLIFrameElement>['height'];
-    url: IframeHTMLAttributes<HTMLIFrameElement>['src'];
+export interface RetoolProps {
+    width?: IframeHTMLAttributes<HTMLIFrameElement>["width"];
+    height?: IframeHTMLAttributes<HTMLIFrameElement>["height"];
+    url: IframeHTMLAttributes<HTMLIFrameElement>["src"];
     data?: Record<string, unknown>;
     onData?: (data: unknown) => void;
-    sandbox?: true | IframeHTMLAttributes<HTMLIFrameElement>['sandbox'];
-    allow?: IframeHTMLAttributes<HTMLIFrameElement>['allow'];
+    sandbox?: true | IframeHTMLAttributes<HTMLIFrameElement>["sandbox"];
+    allow?: IframeHTMLAttributes<HTMLIFrameElement>["allow"];
     styling?: CSSProperties;
 }
 
