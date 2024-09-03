@@ -3,7 +3,7 @@
 declare namespace PDFKit {
     interface PDFGradient {
         new(document: any): PDFGradient;
-        stop(pos: number, color?: string | Array<number> | PDFKit.PDFGradient, opacity?: number): PDFGradient;
+        stop(pos: number, color?: string | number[] | PDFKit.PDFGradient, opacity?: number): PDFGradient;
         embed(): void;
         apply(): void;
     }
