@@ -13,6 +13,13 @@
     },
     "owners": [
         {
+            "githubUsername": "kentwalters"
+        },
+        {
+            "name": "Ben Baker",
+            "githubUsername":"BenjamynBaker"
+        },
+        {
             "name": "Yehor Krasnov",
             "githubUsername": "immortaljoker"
         }
