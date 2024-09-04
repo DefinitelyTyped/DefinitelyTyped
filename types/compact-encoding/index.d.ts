@@ -95,13 +95,13 @@ declare const cenc: {
     /** Encodes a fixed size int64 using cenc.uint64 with ZigZag encoding. */
     int64: cenc.Encoder<number>;
     /** Encodes a fixed size biguint64. */
-    biguint64: cenc.Encoder<number>;
+    biguint64: cenc.Encoder<bigint>;
     /** Encodes a fixed size bigint64 using cenc.biguint64 with ZigZag encoding. */
-    bigint64: cenc.Encoder<number>;
+    bigint64: cenc.Encoder<bigint>;
     /** Encodes a biguint with its word count uint prefixed. */
-    biguint: cenc.Encoder<number>;
+    biguint: cenc.Encoder<bigint>;
     /** Encodes a bigint using cenc.biguint with ZigZag encoding. */
-    bigint: cenc.Encoder<number>;
+    bigint: cenc.Encoder<bigint>;
     /** Encodes a fixed size float32. */
     float32: cenc.Encoder<number>;
     /** Encodes a fixed size float64. */
