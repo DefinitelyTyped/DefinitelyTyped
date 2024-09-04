@@ -15,7 +15,7 @@ let map = new naver.maps.Map("map", {
             overlayType: "bg",
         }),
     }),
-    mapTypeId: 'normal' // or naver.maps.MapTypeId.NORMAL
+    mapTypeId: "normal", // or naver.maps.MapTypeId.NORMAL
 });
 
 /**
