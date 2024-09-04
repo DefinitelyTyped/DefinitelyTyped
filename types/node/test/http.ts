@@ -63,13 +63,9 @@ import * as url from "node:url";
     }
 
     class MyServerResponse<
-        Request extends MyIncomingMessage = MyIncomingMessage,
+        Request extends http.IncomingMessage = http.IncomingMessage,
     > extends http.ServerResponse<Request> {
         bar: typeof bar;
-
-        getFoo() {
-            return this.req.foo;
-        }
     }
 
     function reqListener(req: MyIncomingMessage, res: MyServerResponse): void {}
@@ -79,7 +75,6 @@ import * as url from "node:url";
         foo = req.foo;
         bar = res.bar;
         foo = res.req.foo;
-        foo = res.getFoo();
     });
     server = new http.Server({ IncomingMessage: MyIncomingMessage, ServerResponse: MyServerResponse }, reqListener);
 
