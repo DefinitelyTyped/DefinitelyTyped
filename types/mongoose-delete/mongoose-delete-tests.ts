@@ -99,22 +99,22 @@ type deletedType = PetDocument["deleted"];
 type deletedAtType = PetDocument["deletedAt"];
 
 // Additional Methods for overrides
-Pet.countDocumentsDeleted({ age: 10 });
-Pet.countDocumentsWithDeleted({ age: 10 });
-Pet.findDeleted({ age: 10 });
-Pet.findWithDeleted({ age: 10 });
-Pet.findOneDeleted({ age: 10 });
-Pet.findOneWithDeleted({ age: 10 });
-Pet.findOneAndUpdateDeleted({ age: 10 }, { name: "Fluffy" });
-Pet.findOneAndUpdateWithDeleted({ age: 10 }, { name: "Fluffy" });
-Pet.updateDeleted({ age: 10 }, { name: "Fluffy" });
-Pet.updateWithDeleted({ age: 10 }, { name: "Fluffy" });
-Pet.updateOneDeleted({ age: 10 }, { name: "Fluffy" });
-Pet.updateOneWithDeleted({ age: 10 }, { name: "Fluffy" });
-Pet.updateManyDeleted({ age: 10 }, { name: "Fluffy" });
-Pet.updateManyWithDeleted({ age: 10 }, { name: "Fluffy" });
-Pet.aggregateDeleted([{ $match: { age: 10 } }]);
-Pet.aggregateWithDeleted([{ $match: { age: 10 } }]);
+Pet.countDocumentsDeleted({ name: "Fuzzy" });
+Pet.countDocumentsWithDeleted({ name: "Fuzzy" });
+Pet.findDeleted({ name: "Fuzzy" });
+Pet.findWithDeleted({ name: "Fuzzy" });
+Pet.findOneDeleted({ name: "Fuzzy" });
+Pet.findOneWithDeleted({ name: "Fuzzy" });
+Pet.findOneAndUpdateDeleted({ name: "Fuzzy" }, { name: "Fluffy" });
+Pet.findOneAndUpdateWithDeleted({ name: "Fuzzy" }, { name: "Fluffy" });
+Pet.updateDeleted({ name: "Fuzzy" }, { name: "Fluffy" });
+Pet.updateWithDeleted({ name: "Fuzzy" }, { name: "Fluffy" });
+Pet.updateOneDeleted({ name: "Fuzzy" }, { name: "Fluffy" });
+Pet.updateOneWithDeleted({ name: "Fuzzy" }, { name: "Fluffy" });
+Pet.updateManyDeleted({ name: "Fuzzy" }, { name: "Fluffy" });
+Pet.updateManyWithDeleted({ name: "Fuzzy" }, { name: "Fluffy" });
+Pet.aggregateDeleted([{ $match: { name: "Fuzzy" } }]);
+Pet.aggregateWithDeleted([{ $match: { name: "Fuzzy" } }]);
 
 // $ExpectType string[]
 Pet3.getNames();
