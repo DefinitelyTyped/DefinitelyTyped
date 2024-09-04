@@ -589,7 +589,7 @@ declare namespace naver.maps {
         SATELLITE = "satellite",
         HYBRID = "hybrid",
     }
-    type MapTypeIdLiteral = `${MapTypeId}`
+    type MapTypeIdLiteral = `${MapTypeId}`;
 
     /**
      * PointingIcon
