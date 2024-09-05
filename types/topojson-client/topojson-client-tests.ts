@@ -99,8 +99,8 @@ const prop3: GeoJSON.GeoJsonProperties = topojson.feature(topoWithProp, topoWith
 
 geoMP = topojson.merge(us, selectedGeometries);
 geoMP = topojson.merge(us, {
-  type: "GeometryCollection",
-  geometries: selectedGeometries,
+    type: "GeometryCollection",
+    geometries: selectedGeometries,
 });
 
 topoMP = topojson.mergeArcs(us, selectedGeometries);
