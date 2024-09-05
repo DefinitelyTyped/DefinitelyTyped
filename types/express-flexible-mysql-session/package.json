@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/express-flexible-mysql-session",
+    "version": "1.0.0-beta",
+    "projects": [
+        "https://github.com/mattwoolford/express-flexible-mysql-session#readme"
+    ],
+    "dependencies": {
+        "@types/express-session": "*",
+        "mysql2": "3.9.8"
+    },
+    "devDependencies": {
+        "@types/express-flexible-mysql-session": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Akim95",
+            "githubUsername": "Akim95"
+        },
+        {
+            "name": "Sebastian Krüger",
+            "githubUsername": "mathe42"
+        },
+        {
+            "name": "Ionaru",
+            "githubUsername": "Ionaru"
+        },
+        {
+            "name": "Matt Woolford",
+            "githubUsername": "mattwoolford"
+        }
+    ]
+}
