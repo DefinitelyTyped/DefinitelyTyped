@@ -18,7 +18,7 @@ export function parse(
 export function parsedTypeParse(
     parsedType: ParsedType,
     input: string,
-    options?: ParseOptions
+    options?: ParseOptions,
 ): unknown;
 
 export const VERSION: string;

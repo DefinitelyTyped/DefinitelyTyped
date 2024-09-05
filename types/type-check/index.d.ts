@@ -17,7 +17,7 @@ export function typeCheck(type: string, input: unknown, options?: Options): bool
 
 // This is, in fact, a single element tuple.
 // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-export type ParsedType = [ParsedTypeData]
+export type ParsedType = [ParsedTypeData];
 
 export interface ParsedTypeData {
     type: string;
