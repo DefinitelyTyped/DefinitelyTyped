@@ -2,12 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.contentScripts
- */
 import { ExtensionTypes } from "./extensionTypes";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.contentScripts
+ */
 export namespace ContentScripts {
     /**
      * Details of a content script registered programmatically

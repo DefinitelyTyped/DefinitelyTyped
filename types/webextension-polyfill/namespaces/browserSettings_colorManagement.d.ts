@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.browserSettings.colorManagement
- *
- * Use the <code>browserSettings.colorManagement</code> API to query and set items related to color management.
- * Permissions: "browserSettings"
- */
 import { Types } from "./types";
 
+/**
+ * Namespace: browser.browserSettings.colorManagement
+ */
 export namespace BrowserSettingsColorManagement {
     interface Static {
         /**

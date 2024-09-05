@@ -1,10 +1,12 @@
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import ViewportTextureNode from "./ViewportTextureNode.js";
 
-export default class ViewportDepthTextureNode extends ViewportTextureNode {
+declare class ViewportDepthTextureNode extends ViewportTextureNode {
     constructor(uvNode?: Node, levelNode?: Node | null);
 }
+
+export default ViewportDepthTextureNode;
 
 export const viewportDepthTexture: (
     uvNode?: NodeRepresentation,

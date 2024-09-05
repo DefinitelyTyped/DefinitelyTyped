@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mokapi",
-    "version": "0.9.9999",
+    "version": "0.10.9999",
     "nonNpm": true,
     "nonNpmDescription": "Mokapi",
     "projects": [

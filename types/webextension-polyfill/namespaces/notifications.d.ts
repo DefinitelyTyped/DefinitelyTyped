@@ -2,13 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.notifications
- *
- * Permissions: "notifications"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.notifications
+ */
 export namespace Notifications {
     type TemplateType = "basic" | "image" | "list" | "progress";
 

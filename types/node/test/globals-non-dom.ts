@@ -51,3 +51,16 @@
     });
     server.send("some data");
 }
+
+{
+    const stream = new ReadableStream<string>({ start: (controller) => controller.enqueue("hello") }); // $ExpectType ReadableStream<string>
+    const compressionStream = new CompressionStream("gzip");
+    const encodedStream = stream.pipeThrough(new TextEncoderStream()); // $ExpectType ReadableStream<Uint8Array>
+    const compressedStream = encodedStream.pipeThrough(compressionStream); // $ExpectType ReadableStream<any>
+    compressedStream.pipeThrough(new DecompressionStream("gzip")); // $ExpectType ReadableStream<any>
+    void (async () => {
+        for await (const value of compressedStream) {
+            console.log(value);
+        }
+    })();
+}

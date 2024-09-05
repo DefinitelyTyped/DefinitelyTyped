@@ -557,9 +557,25 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     set alphaTest(value: number);
 
     /**
+     * An optional callback that is executed immediately before the material is used to render a 3D object.
+     * Unlike properties, the callback is not supported by {@link .clone()}, {@link .copy()} and {@link .toJSON()}.
+     * This callback is only supported in `WebGLRenderer` (not `WebGPURenderer`).
+     */
+    onBeforeRender(
+        renderer: WebGLRenderer,
+        scene: Scene,
+        camera: Camera,
+        geometry: BufferGeometry,
+        object: Object3D,
+        group: Group,
+    ): void;
+
+    /**
      * An optional callback that is executed immediately before the shader program is compiled.
-     * This function is called with the associated WebGL program parameters and renderer.
+     * This function is called with the shader source code as a parameter.
      * Useful for the modification of built-in materials.
+     * Unlike properties, the callback is not supported by {@link .clone()}, {@link .copy()} and {@link .toJSON()}.
+     * This callback is only supported in `WebGLRenderer` (not `WebGPURenderer`).
      * @param parameters WebGL program parameters
      * @param renderer WebGLRenderer context that is initializing the material
      */
@@ -612,16 +628,4 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @deprecated onBuild() has been removed.
      */
     onBuild(object: Object3D, parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
-
-    /**
-     * @deprecated onBeforeRender() has been removed.
-     */
-    onBeforeRender(
-        renderer: WebGLRenderer,
-        scene: Scene,
-        camera: Camera,
-        geometry: BufferGeometry,
-        object: Object3D,
-        group: Group,
-    ): void;
 }

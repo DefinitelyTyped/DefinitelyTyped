@@ -127,7 +127,7 @@ declare namespace naver.maps {
         mapDataControlOptions?: MapDataControlOptions;
         mapTypeControl?: boolean;
         mapTypeControlOptions?: MapTypeControlOptions;
-        mapTypeId?: string;
+        mapTypeId?: MapTypeIdLiteral;
         mapTypes?: MapTypeRegistry;
         maxBounds?: Bounds | BoundsLiteral;
         maxZoom?: number;
@@ -589,6 +589,7 @@ declare namespace naver.maps {
         SATELLITE = "satellite",
         HYBRID = "hybrid",
     }
+    type MapTypeIdLiteral = `${MapTypeId}`;
 
     /**
      * PointingIcon

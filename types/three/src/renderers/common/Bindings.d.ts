@@ -35,8 +35,8 @@ declare class Bindings extends DataMap<{
     getForCompute(computeNode: ComputeNode): BindGroup[];
     updateForCompute(computeNode: ComputeNode): void;
     updateForRender(renderObject: RenderObject): void;
-    _updateBindings(object: ComputeNode | RenderObject, bindings: BindGroup[]): void;
+    _updateBindings(bindings: BindGroup[]): void;
     _init(bindGroup: BindGroup): void;
-    _update(object: ComputeNode | RenderObject, bindGroup: BindGroup, bindings: BindGroup[]): void;
+    _update(bindGroup: BindGroup, bindings: BindGroup[]): void;
 }
 export default Bindings;

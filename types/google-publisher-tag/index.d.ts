@@ -1819,15 +1819,22 @@ declare namespace googletag {
              *
              * @example
              *   // Disable yielding.
-             *   googletag.setConfig({adYield: 'DISABLED'});
+             *   googletag.setConfig({threadYield: 'DISABLED'});
              *
              *   // Enable yielding for all slots.
-             *   googletag.setConfig({adYield: 'ENABLED_ALL_SLOTS'});
+             *   googletag.setConfig({threadYield: 'ENABLED_ALL_SLOTS'});
              *
              *   // Enable yielding only for slots outside of the viewport (default).
-             *   googletag.setConfig({adYield: null});
+             *   googletag.setConfig({threadYield: null});
              *
              * @see [Scheduler: postTask() method](https://developer.mozilla.org/docs/Web/API/Scheduler/postTask)
+             */
+            threadYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
+
+            /**
+             * @deprecated Use
+             * {@link googletag.config.PageSettingsConfig.threadYield | threadYield}
+             * instead. This will be removed in the near future.
              */
             adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
         }

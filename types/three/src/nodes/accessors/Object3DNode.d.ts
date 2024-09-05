@@ -1,6 +1,6 @@
 import { Object3D } from "../../core/Object3D.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class Object3DNode extends Node {
     scope: string;
