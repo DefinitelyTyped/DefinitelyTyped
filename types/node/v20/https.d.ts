@@ -10,9 +10,7 @@ declare module "https" {
     import { URL } from "node:url";
     type ServerOptions<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
-        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse<
-            InstanceType<Request>
-        >,
+        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse,
     > = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions<Request, Response>;
     type RequestOptions =
         & http.RequestOptions
@@ -36,9 +34,7 @@ declare module "https" {
     }
     interface Server<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
-        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse<
-            InstanceType<Request>
-        >,
+        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse,
     > extends http.Server<Request, Response> {}
     /**
      * See `http.Server` for more information.
@@ -46,9 +42,7 @@ declare module "https" {
      */
     class Server<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
-        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse<
-            InstanceType<Request>
-        >,
+        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse,
     > extends tls.Server {
         constructor(requestListener?: http.RequestListener<Request, Response>);
         constructor(
@@ -312,15 +306,11 @@ declare module "https" {
      */
     function createServer<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
-        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse<
-            InstanceType<Request>
-        >,
+        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse,
     >(requestListener?: http.RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
-        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse<
-            InstanceType<Request>
-        >,
+        Response extends typeof http.ServerResponse<InstanceType<Request>> = typeof http.ServerResponse,
     >(
         options: ServerOptions<Request, Response>,
         requestListener?: http.RequestListener<Request, Response>,
