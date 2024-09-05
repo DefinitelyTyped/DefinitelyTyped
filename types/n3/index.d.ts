@@ -262,7 +262,7 @@ export class Reasoner<
     InQuad extends RDF.BaseQuad = RDF.Quad,
 > {
     constructor(store: Store<Q_RDF, Q_N3, OutQuad, InQuad>);
-    reason(rules: Rule[] | RDF.DatasetCore<RDF.Quad>): void
+    reason(rules: Rule[] | RDF.DatasetCore<RDF.Quad>): void;
 }
 
 export class Store<
@@ -310,7 +310,7 @@ export class Store<
         predicate?: Term | null,
         object?: Term | null,
         graph?: Term | null,
-    ): RDF.Stream<Q_RDF> & RDF.DatasetCore<OutQuad, InQuad>;
+    ): RDF.Stream<Q_RDF> & RDF.Dataset<OutQuad, InQuad>;
     countQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): number;
     forEach(callback: QuadCallback<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): void;
     every(callback: QuadPredicate<Q_N3>, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): boolean;
