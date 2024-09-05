@@ -12,7 +12,7 @@
         "@types/exif-js": "workspace:."
     },
     "owners": [
-         {
+        {
             "name": "Dmitry Zhukov",
             "githubUsername": "darkoutx"
         }
