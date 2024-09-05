@@ -1,5 +1,3 @@
-import { bytes } from "k6";
-
 // open
 // @ts-expect-error
 open();

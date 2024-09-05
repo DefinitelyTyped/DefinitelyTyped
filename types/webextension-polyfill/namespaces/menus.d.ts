@@ -2,22 +2,13 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.menus
- *
- * Use the browser.menus API to add items to the browser's menus. You can choose what types of objects your context menu
- * additions apply to, such as images, hyperlinks, and pages.
- * Permissions: "menus"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 import { Extension } from "./extension";
 import { Tabs } from "./tabs";
 
+/**
+ * Namespace: browser.menus
+ */
 export namespace Menus {
     /**
      * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts
@@ -300,7 +291,6 @@ export namespace Menus {
         visible?: boolean;
 
         /**
-         * @param info
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          */
         onclick?(info: OnClickData, tab: Tabs.Tab): void;
@@ -431,7 +421,6 @@ export namespace Menus {
          * Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation
          * callback fires (the details will be in $(ref:runtime.lastError)).
          *
-         * @param createProperties
          * @param callback Optional. Called when the item has been created in the browser. If there were any problems creating the
          * item, details will be available in $(ref:runtime.lastError).
          * @returns The ID of the newly created item.
@@ -465,8 +454,6 @@ export namespace Menus {
         /**
          * Show the matching menu items from this extension instead of the default menu. This should be called during a
          * 'contextmenu' DOM event handler, and only applies to the menu that opens after this event.
-         *
-         * @param contextOptions
          */
         overrideContext(contextOptions: OverrideContextContextOptionsType): void;
 

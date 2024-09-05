@@ -19,8 +19,8 @@ It may be helpful for contributors experiencing any issues with their PRs and pa
 
 - Most recent build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) cleanly: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=push)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Apush)
 - All packages are type-checking/linting cleanly: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
-- All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour and a half: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-- [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+- All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour and a half: [![Publish Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-publisher.yml)
+- [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml/badge.svg)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/watchdog-typescript-bot.yml)
 - Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
 If anything here seems wrong or any of the above are failing, please let us know in [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript).
@@ -146,7 +146,7 @@ its dependencies. If you need to run tests for packages that _depend_ on `@types
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life cycle of a pull request to DT:
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+<img src="https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
 
 #### Partial clone
 
@@ -172,7 +172,7 @@ For a more manageable clone that includes _only_ the type packages relevant to y
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
 - [Run `pnpm test <package to test>`](#running-tests).
 
-When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
+When you make a PR to edit an existing package, `dt-bot` should @-mention the package's owners.
 If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Create a new package
@@ -513,12 +513,12 @@ CI will fail if this file contains the wrong contents and provide the intended v
 
 ### Definition owners
 
-> TL;DR: do not modify `.github/CODEOWNERS`, always modify list of the owners in the `index.d.ts` header
+> TL;DR: do not modify `.github/CODEOWNERS`, always modify list of the owners in `package.json`.
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types.
 
 - Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-- Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+- Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) which maintains this repo.
 - The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
 
 To add yourself as a Definition Owner, modify the `owners` array in `package.json`:
@@ -558,7 +558,7 @@ Roughly:
 
 > PRs which only change the types of a module and have corresponding tests changes will be merged much faster
 
-PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
+PRs that have been approved by an owner listed in the definition's `package.json` are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
 
 #### I'd like to submit a change to a very popular project, why are they treated differently?
 
@@ -639,7 +639,7 @@ For an npm package, `export =` is accurate if `node -p 'require("foo")'` works t
 
 #### I want to use features from very new TypeScript versions.
 
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: X.Y`. This will set the lowest minimum supported version.
+Then you will have set the minimum supported version by specifying `"minimumTypeScriptVersion": "X.Y"` in `package.json`.
 
 However, if your project needs to maintain types that are compatible with, say, 3.7 and above _at the same time as_ types that are compatible with 3.6 or below, you will need to use the `typesVersions` feature.
 You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
@@ -661,8 +661,6 @@ Here's a short example to get you started:
 2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.6/` in this example).
    `ts3.6/` will support TypeScript versions 3.6 and below, so copy the existing types and tests there.
 
-   You'll need to delete the definition header from `ts3.6/index.d.ts` since only the root `index.d.ts` is supposed to have it.
-
 3. Back in the root of the package, add the TypeScript 3.7 features you want to use.
    When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
 
@@ -672,7 +670,7 @@ Here's a short example to get you started:
 
 This may belong in [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator#readme). See the guidelines there.
 If the standard is still a draft, it belongs here.
-Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
+Use a name beginning with `dom-` and include a link to the standard as the "Project" link in `package.json`.
 When it graduates draft mode, we may remove it from Definitely Typed and deprecate the associated `@types` package.
 
 #### How do Definitely Typed package versions relate to versions of the corresponding library?

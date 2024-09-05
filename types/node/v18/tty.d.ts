@@ -21,7 +21,7 @@
  * ```
  *
  * In most cases, there should be little to no reason for an application to
- * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
+ * manually create instances of the `tty.ReadStream` and `tty.WriteStream` classes.
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tty.js)
  */
 declare module "tty" {
@@ -147,7 +147,7 @@ declare module "tty" {
          * * 256 colors: `FORCE_COLOR = 2`
          * * 16,777,216 colors: `FORCE_COLOR = 3`
          *
-         * Disabling color support is also possible by using the `NO_COLOR` and`NODE_DISABLE_COLORS` environment variables.
+         * Disabling color support is also possible by using the `NO_COLOR` and `NODE_DISABLE_COLORS` environment variables.
          * @since v9.9.0
          * @param [env=process.env] An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */

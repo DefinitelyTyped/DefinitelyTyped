@@ -227,7 +227,7 @@ LexerActionType.TYPE; // $ExpectType LexerActionType.TYPE
 const lexerAtnConfigInstance = new LexerATNConfig(atnStateInstance, atnConfigInstance);
 lexerAtnConfigInstance.lexerActionExecutor; // $ExpectType LexerActionExecutor | null
 lexerAtnConfigInstance.passedThroughNonGreedyDecision; // $ExpectType boolean
-lexerAtnConfigInstance.checkNonGreedyDecision(atnConfigInstance, atnStateInstance); // $ExpectType
+lexerAtnConfigInstance.checkNonGreedyDecision(atnConfigInstance, atnStateInstance); // $ExpectType boolean
 
 // LexerATNSimulator
 const dfaInstance = new DFA(atnInstance, 0);
@@ -426,7 +426,7 @@ PredictionMode.hasConflictingAltSet(bitsetCollection); // $ExpectType boolean
 PredictionMode.allSubsetsEqual(bitsetCollection); // $ExpectType boolean
 PredictionMode.getUniqueAlt(bitsetCollection); // $ExpectType number
 PredictionMode.getAlts(bitsetCollection); // $ExpectType BitSet
-PredictionMode.getConflictingAltSubsets(atnConfigSetInstance); // $ExpectType
+PredictionMode.getConflictingAltSubsets(atnConfigSetInstance); // $ExpectType BitSet[]
 PredictionMode.getStateToAltMap(atnConfigSetInstance); // $ExpectType AltDict
 PredictionMode.hasStateAssociatedWithOneAlt(atnConfigSetInstance); // $ExpectType boolean
 PredictionMode.getSingleViableAlt(bitsetCollection); // $ExpectType number

@@ -4173,10 +4173,10 @@ declare namespace _ {
     interface LodashThrottle {
         (wait: number): LodashThrottle1x1;
         <T extends (...args: any) => any>(wait: lodash.__, func: T): LodashThrottle1x2<T>;
-        <T extends (...args: any) => any>(wait: number, func: T): lodash.DebouncedFunc<T>;
+        <T extends (...args: any) => any>(wait: number, func: T): lodash.DebouncedFuncLeading<T>;
     }
-    type LodashThrottle1x1 = <T extends (...args: any) => any>(func: T) => lodash.DebouncedFunc<T>;
-    type LodashThrottle1x2<T extends (...args: any) => any> = (wait: number) => lodash.DebouncedFunc<T>;
+    type LodashThrottle1x1 = <T extends (...args: any) => any>(func: T) => lodash.DebouncedFuncLeading<T>;
+    type LodashThrottle1x2<T extends (...args: any) => any> = (wait: number) => lodash.DebouncedFuncLeading<T>;
     interface LodashThru {
         <T, TResult>(interceptor: (value: T) => TResult): LodashThru1x1<T, TResult>;
         <T>(interceptor: lodash.__, value: T): LodashThru1x2<T>;

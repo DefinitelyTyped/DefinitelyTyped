@@ -19,7 +19,7 @@ interface Navigator {
 }
 
 /**
- * WebGL Context Compatability
+ * WebGL Context Compatibility
  *
  * ref: https://immersive-web.github.io/webxr/#contextcompatibility
  */
@@ -267,6 +267,28 @@ interface XRInputSource {
 declare abstract class XRInputSource implements XRInputSource {}
 
 /**
+ * This Gamepad API interface represents hardware in the controller designed to provide haptic feedback to the user (if available), most commonly vibration hardware.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GamepadHapticActuator)
+ */
+interface GamepadHapticActuator {
+    /**
+     * The pulse() method of the GamepadHapticActuator interface makes the hardware pulse at a certain intensity for a specified duration.
+     * @remarks Repeated calls to pulse() override the previous calls if they are still ongoing.
+     * @param value A double representing the intensity of the pulse. This can vary depending on the hardware type, but generally takes a value between 0.0 (no intensity) and 1.0 (full intensity).
+     * @param duration A double representing the duration of the pulse, in milliseconds.
+     * @returns A promise that resolves with a value of true when the pulse has successfully completed.
+     *
+     * @remarks This feature should be documented in the Gamepad API, but it is not yet implemented in any browser thus missing there. However, it is commonly used in WebXR applications and causes issues for people if omitted.
+     */
+    pulse(value: number, duration: number): Promise<boolean>;
+}
+
+interface Gamepad {
+    readonly hapticActuators: readonly GamepadHapticActuator[];
+}
+
+/**
  * Represents a list of XRInputSources. It is used in favor of a frozen array type when the contents
  * of the list are expected to change over time, such as with the XRSession inputSources attribute.
  * ref: https://immersive-web.github.io/webxr/#xrinputsourcearray-interface
@@ -387,7 +409,7 @@ interface XRSessionInit {
 }
 
 interface XRSessionEventMap {
-    inputsourceschange: XRInputSourceChangeEvent;
+    inputsourceschange: XRInputSourcesChangeEvent;
     end: XRSessionEvent;
     visibilitychange: XRSessionEvent;
     frameratechange: XRSessionEvent;
@@ -460,7 +482,7 @@ interface XRSession extends EventTarget {
     updateTargetFrameRate(rate: number): Promise<void>;
 
     onend: XRSessionEventHandler;
-    oninputsourceschange: XRInputSourceChangeEventHandler;
+    oninputsourceschange: XRInputSourcesChangeEventHandler;
     onselect: XRInputSourceEventHandler;
     onselectstart: XRInputSourceEventHandler;
     onselectend: XRInputSourceEventHandler;
@@ -546,13 +568,13 @@ declare abstract class XRView implements XRView {}
  * available to an XRSession.
  * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
  */
-interface XRInputSourceChangeEvent extends XRSessionEvent {
+interface XRInputSourcesChangeEvent extends XRSessionEvent {
     readonly removed: readonly XRInputSource[];
     readonly added: readonly XRInputSource[];
 }
 
-interface XRInputSourceChangeEventHandler {
-    (evt: XRInputSourceChangeEvent): any;
+interface XRInputSourcesChangeEventHandler {
+    (evt: XRInputSourcesChangeEvent): any;
 }
 
 // Experimental/Draft features
@@ -654,6 +676,7 @@ interface XRPlane {
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
     lastChangedTime: DOMHighResTimeStamp;
+    semanticLabel?: string;
 }
 
 interface XRFrame {
@@ -878,6 +901,7 @@ interface XRCompositionLayer extends XRLayer {
     blendTextureSourceAlpha: boolean;
     chromaticAberrationCorrection?: boolean | undefined;
     readonly mipLevels: number;
+    quality: XRLayerQuality;
     readonly needsRedraw: boolean;
     destroy(): void;
 
@@ -915,6 +939,8 @@ declare abstract class XRCompositionLayer implements XRCompositionLayer {}
 type XRTextureType = "texture" | "texture-array";
 
 type XRLayerLayout = "default" | "mono" | "stereo" | "stereo-left-right" | "stereo-top-bottom";
+
+type XRLayerQuality = "default" | "text-optimized" | "graphics-optimized";
 
 interface XRProjectionLayerInit {
     scaleFactor?: number | undefined;
@@ -1162,4 +1188,61 @@ interface XRSession {
 /**
  * END: WebXR DOM Overlays Module
  * https://immersive-web.github.io/dom-overlays/
+ */
+
+/**
+ * BEGIN: WebXR Depth Sensing Module
+ * https://www.w3.org/TR/webxr-depth-sensing-1/
+ */
+
+type XRDepthUsage = "cpu-optimized" | "gpu-optimized";
+
+type XRDepthDataFormat = "luminance-alpha" | "float32" | "unsigned-short";
+
+interface XRDepthStateInit {
+    usagePreference: XRDepthUsage[];
+    dataFormatPreference: XRDepthDataFormat[];
+}
+
+interface XRSessionInit {
+    depthSensing?: XRDepthStateInit | undefined;
+}
+
+interface XRSession {
+    readonly depthUsage?: XRDepthUsage | undefined;
+    readonly depthDataFormat?: XRDepthDataFormat | undefined;
+}
+
+interface XRDepthInformation {
+    readonly width: number;
+    readonly height: number;
+
+    readonly normDepthBufferFromNormView: XRRigidTransform;
+    readonly rawValueToMeters: number;
+}
+
+interface XRCPUDepthInformation extends XRDepthInformation {
+    readonly data: ArrayBuffer;
+
+    getDepthInMeters(x: number, y: number): number;
+}
+
+interface XRFrame {
+    getDepthInformation(view: XRView): XRCPUDepthInformation | null | undefined;
+}
+
+interface XRWebGLDepthInformation extends XRDepthInformation {
+    readonly texture: WebGLTexture;
+
+    readonly textureType: XRTextureType;
+    readonly imageIndex?: number | null | undefined;
+}
+
+interface XRWebGLBinding {
+    getDepthInformation(view: XRView): XRWebGLDepthInformation | null | undefined;
+}
+
+/**
+ * END: WebXR Depth Sensing Module
+ * https://www.w3.org/TR/webxr-depth-sensing-1/
  */

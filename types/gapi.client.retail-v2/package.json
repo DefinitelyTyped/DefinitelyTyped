@@ -3,7 +3,7 @@
     "name": "@types/gapi.client.retail-v2",
     "version": "0.0.9999",
     "nonNpm": true,
-    "nonNpmDescription": "Retail API v2",
+    "nonNpmDescription": "Vertex AI Search for Retail API v2",
     "projects": [
         "https://cloud.google.com/recommendations"
     ],

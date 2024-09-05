@@ -42,6 +42,10 @@ export interface ReactTestRenderer {
 export interface TestRendererOptions {
     createNodeMock(element: ReactElement): any;
 }
+
+/**
+ * @deprecated See https://react.dev/warnings/react-test-renderer
+ */
 export function create(nextElement: ReactElement, options?: TestRendererOptions): ReactTestRenderer;
 
 // VoidOrUndefinedOnly is here to forbid any sneaky "Promise" returns.
@@ -59,6 +63,7 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
  * @param callback An asynchronous, void callback that will execute as a single, complete React commit.
  *
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+ * @deprecated See https://react.dev/warnings/react-test-renderer
  */
 // VoidOrUndefinedOnly is here to forbid any sneaky return values
 export function act(callback: () => Promise<VoidOrUndefinedOnly>): Promise<undefined>;
@@ -72,6 +77,7 @@ export function act(callback: () => Promise<VoidOrUndefinedOnly>): Promise<undef
  * @param callback A synchronous, void callback that will execute as a single, complete React commit.
  *
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+ * @deprecated See https://react.dev/warnings/react-test-renderer
  */
 export function act(callback: () => VoidOrUndefinedOnly): DebugPromiseLike;
 

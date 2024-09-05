@@ -4,7 +4,7 @@ declare namespace ComponentFramework {
     /**
      * Interface for the Power Apps Controls (Standard)
      */
-    interface StandardControl<TInputs, TOutputs> {
+    interface StandardControl<TInputs, TOutputs, TEvents = IEventBag> {
         /**
          * Used to initialize the control instance. Controls can kick off remote server calls and other initialization actions here.
          * Data-set values are not initialized here, use updateView.
@@ -16,7 +16,7 @@ declare namespace ComponentFramework {
          * @param container If a control is marked control-type='standard', it will receive an empty div element within which it can render its content.
          */
         init(
-            context: Context<TInputs>,
+            context: Context<TInputs, TEvents>,
             notifyOutputChanged?: () => void,
             state?: Dictionary,
             container?: HTMLDivElement,
@@ -28,7 +28,7 @@ declare namespace ComponentFramework {
          * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names
          * defined in the manifest, as well as utility functions
          */
-        updateView(context: Context<TInputs>): void;
+        updateView(context: Context<TInputs, TEvents>): void;
 
         /**
          * Called when the control is to be removed from the DOM tree. Controls should use this call for cleanup.
@@ -46,7 +46,7 @@ declare namespace ComponentFramework {
     /**
      * Interface for Power Apps React controls
      */
-    interface ReactControl<TInputs, TOutputs> extends StandardControl<TInputs, TOutputs> {
+    interface ReactControl<TInputs, TOutputs, TEvents = IEventBag> extends StandardControl<TInputs, TOutputs, TEvents> {
         /**
          * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
          * offline status, control metadata values such as label, visible, etc.
@@ -54,7 +54,7 @@ declare namespace ComponentFramework {
          * defined in the manifest, as well as utility functions
          * @returns a React element
          */
-        updateView(context: Context<TInputs>): React.ReactElement;
+        updateView(context: Context<TInputs, TEvents>): React.ReactElement;
     }
 
     /**
@@ -767,7 +767,7 @@ declare namespace ComponentFramework {
     /**
      * The entire property bag interface available to control via Context Object
      */
-    interface Context<TInputs> {
+    interface Context<TInputs, TEvents = IEventBag> {
         client: Client;
         device: Device;
         factory: Factory;
@@ -780,12 +780,14 @@ declare namespace ComponentFramework {
         webAPI: WebApi;
         parameters: TInputs;
         updatedProperties: string[];
-
+        events: TEvents;
         /**
          * Fluent v9 theming
          */
         fluentDesignLanguage?: FluentDesignState;
     }
+
+    type IEventBag = Record<string, (params?: unknown) => void>;
 
     /**
      * The interface for the context.client
@@ -1167,6 +1169,34 @@ declare namespace ComponentFramework {
          * @param lookupOptions Options for opening the lookup dialog.
          */
         lookupObjects(lookupOptions: UtilityApi.LookupOptions): Promise<LookupValue[]>;
+
+        /**
+         * Loads a control dependency on demand.
+         *
+         * The dependency should be defined in the control manifest resources section
+         * with `load-type="onDemand"`.
+         * @param dependencyName Dependency name to load. Should match the name used in the manifest to define the dependency.
+         * @returns Promise that resolves when the dependency is loaded.
+         *
+         * @remarks
+         * This method is only available in Unified Interface (Model Driven Apps).
+         * Make sure to check if the method is available before calling it.
+         *
+         * @tutorial
+         * To define a dependency in the manifest, add a resources section like the following:
+         * ```xml
+         * <resources>
+         *      <dependency type="control" name="pubprefix_ControlNamespace.ControlName" load-type="onDemand">
+         * </resources>
+         * ```
+         * In the control code, you can load the dependency like this:
+         * ```ts
+         * context.utils.loadDependency("pubprefix_ControlNamespace.ControlName").then(() => {
+         *     // Dependent control is loaded and ready to use
+         * });
+         * ```
+         */
+        loadDependency?(dependencyName: string): Promise<unknown>;
     }
 
     /**

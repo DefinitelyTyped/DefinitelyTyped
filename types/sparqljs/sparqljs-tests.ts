@@ -144,10 +144,7 @@ function updateQueries() {
         updates: [
             {
                 updateType: "insertdelete",
-                graph: {
-                    type: "graph",
-                    name: DataFactory.namedNode("http://example.com/foo"),
-                },
+                graph: DataFactory.namedNode("http://example.com/foo"),
                 insert: [bgp],
                 delete: [bgp],
                 where: [],

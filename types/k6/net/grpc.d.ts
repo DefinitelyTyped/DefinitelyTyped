@@ -121,6 +121,9 @@ declare namespace grpc {
         /** Invokes an unary RPC request. */
         invoke(url: string, request: object, params?: Params): Response;
 
+        /** Asynchronously invokes an unary RPC request. */
+        asyncInvoke(url: string, request: object, params?: Params): Promise<Response>;
+
         /** Close the connection. */
         close(): void;
     }

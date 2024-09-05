@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/pendo-io-browser",
-    "version": "2.18.9999",
+    "version": "2.19.9999",
     "nonNpm": true,
     "nonNpmDescription": "Pendo.io Agent",
     "projects": [

@@ -1,10 +1,21 @@
 import { Camera } from "../cameras/Camera.js";
+import { Object3DJSONObject } from "../core/Object3D.js";
 import { Frustum } from "../math/Frustum.js";
 import { Matrix4 } from "../math/Matrix4.js";
-import { Vector2 } from "../math/Vector2.js";
+import { Vector2, Vector2Tuple } from "../math/Vector2.js";
 import { Vector4 } from "../math/Vector4.js";
 import { WebGLRenderTarget } from "../renderers/WebGLRenderTarget.js";
 import { Light } from "./Light.js";
+
+export interface LightShadowJSON {
+    intensity?: number;
+    bias?: number;
+    normalBias?: number;
+    radius?: number;
+    mapSize?: Vector2Tuple;
+
+    camera: Omit<Object3DJSONObject, "matrix">;
+}
 
 /**
  * Serves as a base class for the other shadow classes.
@@ -23,6 +34,11 @@ export class LightShadow<TCamera extends Camera = Camera> {
      * @remark This is used to generate a depth map of the scene; objects behind other objects from the light's perspective will be in shadow.
      */
     camera: TCamera;
+
+    /**
+     * The intensity of the shadow. The default is `1`. Valid values are in the range `[0, 1]`.
+     */
+    intensity: number;
 
     /**
      * Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.
@@ -122,7 +138,7 @@ export class LightShadow<TCamera extends Camera = Camera> {
     /**
      * Serialize this LightShadow.
      */
-    toJSON(): {};
+    toJSON(): LightShadowJSON;
 
     /**
      * Gets the shadow cameras frustum

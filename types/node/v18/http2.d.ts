@@ -764,7 +764,7 @@ declare module "http2" {
          *
          * The maximum number of outstanding (unacknowledged) pings is determined by the`maxOutstandingPings` configuration option. The default maximum is 10.
          *
-         * If provided, the `payload` must be a `Buffer`, `TypedArray`, or `DataView`containing 8 bytes of data that will be transmitted with the `PING` and
+         * If provided, the `payload` must be a `Buffer`, `TypedArray`, or `DataView` containing 8 bytes of data that will be transmitted with the `PING` and
          * returned with the ping acknowledgment.
          *
          * The callback will be invoked with three arguments: an error argument that will
@@ -1902,7 +1902,7 @@ declare module "http2" {
         write(chunk: string | Uint8Array, encoding: BufferEncoding, callback?: (err: Error) => void): boolean;
         /**
          * Sends a status `100 Continue` to the client, indicating that the request body
-         * should be sent. See the `'checkContinue'` event on `Http2Server` and`Http2SecureServer`.
+         * should be sent. See the `'checkContinue'` event on `Http2Server` and `Http2SecureServer`.
          * @since v8.4.0
          */
         writeContinue(): void;

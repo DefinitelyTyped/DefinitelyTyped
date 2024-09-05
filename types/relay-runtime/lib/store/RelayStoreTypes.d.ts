@@ -354,6 +354,11 @@ export interface RecordProxy<T = {}> {
     ): [H] extends [never] ? RecordProxy[] | null
         : NonNullable<H> extends Array<infer U> ? Array<RecordProxy<U>> | (H extends null ? null : never)
         : never;
+    getOrCreateLinkedRecord<K extends keyof T>(
+        name: K,
+        typeName: string,
+        args?: Variables | null,
+    ): RecordProxy<NonNullable<T[K]>>;
     getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy<T>;
     getType(): string;
     getValue<K extends keyof T>(name: K, args?: Variables | null): T[K];
@@ -695,7 +700,7 @@ export interface Environment {
     /**
      * Returns an Observable of GraphQLResponse resulting from executing the
      * provided Query or Subscription operation responses, the result of which is
-     * then normalized and comitted to the publish queue.
+     * then normalized and committed to the publish queue.
      *
      * Note: Observables are lazy, so calling this method will do nothing until
      * the result is subscribed to:
@@ -727,9 +732,9 @@ export interface Environment {
 
     /**
      * Called by Relay when it encounters a missing field that has been annotated
-     * with `@required(action: LOG)`.
+     * with `@required(action: LOG)` or `@required(action: THROW)`.
      */
-    requiredFieldLogger: RequiredFieldLogger;
+    relayFieldLogger: RelayFieldLogger;
 }
 
 /**
@@ -927,29 +932,35 @@ export type MissingFieldHandler =
         ) => Array<DataID | null | undefined> | null | undefined;
     };
 
+export type RelayFieldLoggerEvent =
+    | Readonly<{
+        kind: "missing_field.log";
+        owner: string;
+        fieldPath: string;
+    }>
+    | Readonly<{
+        kind: "missing_field.throw";
+        owner: string;
+        fieldPath: string;
+    }>
+    | Readonly<{
+        kind: "relay_resolver.error";
+        owner: string;
+        fieldPath: string;
+        error: Error;
+    }>
+    | Readonly<{
+        kind: "relay_field_payload.error";
+        owner: string;
+        fieldPath: string;
+        error: Error;
+    }>;
+
 /**
- * A handler for events related to @required fields or Relay Resolvers. Currently reports missing
- * fields with either `action: LOG` or `action: THROW` or when a Relay Resolver throws.
+ * A handler for events related to `@required` fields. Currently reports missing
+ * fields with either `action: LOG` or `action: THROW`.
  */
-export type RequiredFieldLogger = (
-    arg:
-        | Readonly<{
-            kind: "missing_field.log";
-            owner: string;
-            fieldPath: string;
-        }>
-        | Readonly<{
-            kind: "missing_field.throw";
-            owner: string;
-            fieldPath: string;
-        }>
-        | Readonly<{
-            kind: "relay_resolver.error";
-            owner: string;
-            fieldPath: string;
-            error: Error;
-        }>,
-) => void;
+export type RelayFieldLogger = (event: RelayFieldLoggerEvent) => void;
 
 /**
  * The results of normalizing a query.
@@ -1075,3 +1086,30 @@ export type HasUpdatableSpread<TData = unknown> = Readonly<{
     " $data"?: TData | undefined;
     $updatableFragmentSpreads: FragmentType;
 }>;
+
+/**
+ * The return type of a Live Resolver. Models an external value which can
+ * be read lazily and which might change over time. The subscribe method
+ * returns a callback which should be called when the value _may_ have changed.
+ *
+ * While over-notification (subscription notifications when the read value has
+ * not actually changed) is suported, for performance reasons, it is recommended
+ * that the provider of the LiveState value confirms that the value has indeed
+ * change before notifying Relay of the change.
+ */
+export interface LiveState<T> {
+    /**
+     * Returns the current value of the live state.
+     */
+    read(): T;
+
+    /**
+     * Subscribes to changes in the live state. The state provider should
+     * call the callback when the value of the live state changes.
+     * If the returned unsubscribe function is invoked, the state provider
+     * should stop calling the callback for state updates.
+     */
+    subscribe(callback: () => void): () => void;
+}
+
+export function suspenseSentinel(): never;

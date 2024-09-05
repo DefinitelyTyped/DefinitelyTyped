@@ -1,6 +1,7 @@
 import _ = require("../index");
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
+export const uniqueSymbol: unique symbol;
 declare module "../index" {
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
     type PartialObject<T> = GlobalPartial<T>;

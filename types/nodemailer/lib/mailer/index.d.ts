@@ -33,7 +33,7 @@ declare namespace Mail {
     }
 
     interface AttachmentLike {
-        /** String, Buffer or a Stream contents for the attachmentent */
+        /** String, Buffer or a Stream contents for the attachment */
         content?: string | Buffer | Readable | undefined;
         /** path to a file or an URL (data uris are allowed as well) if you want to stream the file instead of including it (better for larger attachments) */
         path?: string | Url | undefined;

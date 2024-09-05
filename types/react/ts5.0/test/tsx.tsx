@@ -170,6 +170,7 @@ React.createContext();
 const UndefinedContext = React.createContext(undefined);
 // @ts-expect-error Forgot value even if it can be undefined
 <UndefinedContext.Provider />;
+<UndefinedContext.Provider value={undefined} />;
 
 // unstable APIs should not be part of the typings
 // @ts-expect-error
@@ -760,6 +761,16 @@ function elementTypeTests() {
         }
     }
 
+    const ReturnPromiseReactNode = async ({ children }: { children?: React.ReactNode }) => children;
+    // @ts-expect-error experimental release channel only
+    const FCPromiseReactNode: React.FC = ReturnReactNode;
+    class RenderPromiseReactNode extends React.Component<{ children?: React.ReactNode }> {
+        // @ts-expect-error class components cannot render async
+        async render() {
+            return this.props.children;
+        }
+    }
+
     const ReturnWithLegacyContext = (props: { foo: string }, context: { bar: number }) => {
         return (
             <div>
@@ -863,6 +874,13 @@ function elementTypeTests() {
     <RenderPromise />;
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(RenderPromise);
+
+    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
+    <ReturnPromiseReactNode />;
+    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
+    React.createElement(ReturnPromiseReactNode);
+    <FCPromiseReactNode />;
+    React.createElement(FCPromiseReactNode);
 
     <ReturnWithLegacyContext foo="one" />;
     React.createElement(ReturnWithLegacyContext, { foo: "one" });

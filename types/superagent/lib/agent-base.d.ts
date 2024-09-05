@@ -20,7 +20,7 @@ declare class Agent {
     key(...args: any[]): this;
     pfx(...args: any[]): this;
     cert(...args: any[]): this;
-    disableTLSCert(...args: any[]): this;
+    disableTLSCerts(...args: any[]): this;
 }
 
 export = Agent;

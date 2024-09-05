@@ -6,7 +6,7 @@ import yargsSingleton = require("yargs/yargs");
 
 import * as fs from "fs";
 import * as path from "path";
-import { Arguments, CompletionCallback } from "yargs";
+import { Arguments, BuilderArguments, CompletionCallback } from "yargs";
 
 const stringVal = "string";
 
@@ -401,13 +401,13 @@ async function Argv$commandModule() {
 
     const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {
         builder: async yargs => {
-            // $ExpectType: string
+            // $ExpectType string
             (await yargs.argv).a;
             return yargs.number("b").default("b", parseInt((await yargs.argv).a, 10));
         },
 
         handler: argv => {
-            // $ExpectType: number
+            // $ExpectType number
             argv.b;
         },
     };
@@ -463,7 +463,7 @@ async function Argv$commandModule() {
 
     const commandArgs = builder(yargs).argv;
 
-    // $ExpectType: { [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: (string | number)[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: (string | number)[]; $0: string; } | Promise<{ [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: (string | number)[]; $0: string; }>
     commandArgs;
 
     // Backwards compatibility with older types
@@ -1617,4 +1617,15 @@ function Argv$commandCommandModuleArray() {
     };
 
     yargs.command([CommandOne, CommandTwo]);
+}
+
+function BuilderArguments() {
+    const builder = (yargs: yargs.Argv) => {
+        return yargs.option("a", { default: "foo" });
+    };
+
+    const handler = (argv: BuilderArguments<typeof builder>) => {
+        // $ExpectType string
+        argv.a;
+    };
 }

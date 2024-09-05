@@ -23,6 +23,7 @@ import { P3 } from "./p3/types";
 import { Prophoto } from "./prophoto/types";
 import { Rec2020 } from "./rec2020/types";
 import { Rgb } from "./rgb/types";
+import { Xyb } from "./xyb/types";
 import { Xyz50 } from "./xyz50/types";
 import { Xyz65 } from "./xyz65/types";
 import { Yiq } from "./yiq/types";
@@ -53,6 +54,7 @@ export type Color =
     | Prophoto
     | Rec2020
     | Rgb
+    | Xyb
     | Xyz50
     | Xyz65
     | Yiq;

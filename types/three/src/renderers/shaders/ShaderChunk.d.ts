@@ -42,7 +42,6 @@ export const ShaderChunk: {
     fog_fragment: string;
     fog_pars_fragment: string;
     gradientmap_pars_fragment: string;
-    lightmap_fragment: string;
     lightmap_pars_fragment: string;
     lights_lambert_fragment: string;
     lights_lambert_pars_fragment: string;

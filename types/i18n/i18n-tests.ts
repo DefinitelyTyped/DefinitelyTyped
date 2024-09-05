@@ -300,3 +300,13 @@ i18nInstanceWithConstructorOptions.__n("example", 2, { me: "marcus" }); // two t
 i18nInstanceWithConstructorOptions.__n("example", 5, { me: "marcus" }); // two to five (included) for marcus
 i18nInstanceWithConstructorOptions.__n("example", 3, { me: "marcus" }); // two to five (included) for marcus
 i18nInstanceWithConstructorOptions.__n("example", 6, { me: "marcus" }); // and a catchall rule for marcus
+
+const i18nObjectNotation = new I18n();
+
+i18nObjectNotation.configure({
+    locales: ["en", "de"],
+    directory: __dirname + "/locales",
+    objectNotation: "->",
+});
+
+i18nObjectNotation.__("object->notation");

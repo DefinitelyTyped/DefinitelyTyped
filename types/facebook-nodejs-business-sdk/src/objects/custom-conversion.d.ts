@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
+import Cursor from "./../cursor";
 /**
  * CustomConversion
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -49,10 +49,19 @@ export default class CustomConversion extends AbstractCrudObject {
         submit_application: "SUBMIT_APPLICATION";
         subscribe: "SUBSCRIBE";
     }>;
-    getStats(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getStats(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getStats(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<CustomConversion>;
-    update(fields: string[], params?: Record<any, any>): Promise<CustomConversion>;
+    static get ActionSourceType(): Readonly<{
+        app: "app";
+        business_messaging: "business_messaging";
+        chat: "chat";
+        email: "email";
+        other: "other";
+        phone_call: "phone_call";
+        physical_store: "physical_store";
+        system_generated: "system_generated";
+        website: "website";
+    }>;
+    getStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<CustomConversion>;
+    update(fields: string[], params?: Record<string, any>): Promise<CustomConversion>;
 }

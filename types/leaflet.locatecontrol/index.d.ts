@@ -10,8 +10,7 @@ declare module "leaflet" {
             stopFollowing(): void;
             setView(): void;
         }
-        interface LocateOptions {
-            position?: string | undefined;
+        interface LocateOptions extends ControlOptions {
             layer?: Layer | undefined;
             setView?: boolean | string | undefined;
             keepCurrentZoomLevel?: boolean | undefined;

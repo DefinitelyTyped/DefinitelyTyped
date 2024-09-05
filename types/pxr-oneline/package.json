@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/pxr-oneline",
-    "version": "1.4.9999",
+    "version": "1.5.9999",
     "nonNpm": true,
     "nonNpmDescription": "The OneLine handles all the logic needed for a publisher to serve ads.",
     "projects": [

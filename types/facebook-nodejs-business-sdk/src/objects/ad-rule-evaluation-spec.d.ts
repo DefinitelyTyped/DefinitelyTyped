@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdRuleEvaluationSpec
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -14,5 +14,5 @@ export default class AdRuleEvaluationSpec extends AbstractCrudObject {
         schedule: "SCHEDULE";
         trigger: "TRIGGER";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<AdRuleEvaluationSpec>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdRuleEvaluationSpec>;
 }

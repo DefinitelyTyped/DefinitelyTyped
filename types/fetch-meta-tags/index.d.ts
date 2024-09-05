@@ -6,4 +6,4 @@ export interface fetchedMeta {
     image?: string;
 }
 
-export default function fetchMeta(site: string): fetchedMeta;
+export default function fetchMeta(site: string): Promise<fetchedMeta>;

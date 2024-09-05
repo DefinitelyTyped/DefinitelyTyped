@@ -289,6 +289,7 @@ declare namespace micromatch {
         isExtglob: boolean;
         isGlobstar: boolean;
         negated: boolean;
+        negatedExtglob: boolean;
     }
 
     interface ScanInfoToken {

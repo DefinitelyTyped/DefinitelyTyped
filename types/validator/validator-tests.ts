@@ -922,8 +922,19 @@ const any: any = null;
     result = validator.isURL("sample", isURLOptions);
 
     result = validator.isUUID("sample");
-    result = validator.isUUID("sample", 5);
     result = validator.isUUID("sample", "all");
+    result = validator.isUUID("sample", "1");
+    result = validator.isUUID("sample", "2");
+    result = validator.isUUID("sample", "3");
+    result = validator.isUUID("sample", "4");
+    result = validator.isUUID("sample", "5");
+    result = validator.isUUID("sample", "7");
+    result = validator.isUUID("sample", 1);
+    result = validator.isUUID("sample", 2);
+    result = validator.isUUID("sample", 3);
+    result = validator.isUUID("sample", 4);
+    result = validator.isUUID("sample", 5);
+    result = validator.isUUID("sample", 7);
 
     result = validator.isUppercase("sample");
 

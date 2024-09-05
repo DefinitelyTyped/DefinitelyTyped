@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-is",
-    "version": "18.2.9999",
+    "version": "18.3.9999",
     "projects": [
         "https://reactjs.org/"
     ],

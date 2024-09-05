@@ -3,7 +3,7 @@
     "name": "@types/gapi.client.drive-v3",
     "version": "0.0.9999",
     "nonNpm": true,
-    "nonNpmDescription": "Drive API v3",
+    "nonNpmDescription": "Google Drive API v3",
     "projects": [
         "https://developers.google.com/drive/"
     ],

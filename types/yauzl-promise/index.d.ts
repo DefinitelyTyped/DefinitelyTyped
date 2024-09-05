@@ -8,84 +8,70 @@ import { Readable } from "stream";
 // This class is not directly compatible with @types/yauzl 's ZipFile as this library changes the function signatures
 // Therefore, it is replaced, albeit with a significant portion
 export class ZipFile extends EventEmitter implements AsyncIterable<Entry> {
-    // This chunk taken directly from @types/yauzl
-    autoClose: boolean;
+    /** This property can also be a Buffer if the option 'decodeStrings' is false */
     comment: string;
-    decodeStrings: boolean;
-    emittedError: boolean;
-    entriesRead: number;
     entryCount: number;
-    fileSize: number;
+    entryCountIsCertain: boolean;
     isOpen: boolean;
-    lazyEntries: boolean;
-    readEntryCursor: boolean;
+    isZip64: boolean;
+
+    // These options do exist in the ZipFile class, but are not officially documented.
+    // Keeping them for backward compatibility with previous types version.
+    decodeStrings: boolean;
     validateEntrySizes: boolean;
 
-    constructor(
-        reader: RandomAccessReader,
-        centralDirectoryOffset: number,
-        fileSize: number,
-        entryCount: number,
-        comment: string,
-        autoClose: boolean,
-        lazyEntries: boolean,
-        decodeStrings: boolean,
-        validateEntrySizes: boolean,
-    );
-
-    // These funcitons are custom to yauzl-promise
-
     close(): Promise<void>;
-    readEntry(): Promise<Entry>;
+    readEntry(): Promise<Entry | null>;
     readEntries(numEntries?: number): Promise<Entry[]>;
-    walkEntries(callback: (entry: Entry) => Promise<void> | void, numEntries?: number): Promise<void>;
     openReadStream(entry: Entry, options?: ZipFileOptions): Promise<Readable>;
     [Symbol.asyncIterator](): AsyncIterator<Entry>;
 }
 
 export interface ZipFileOptions {
-    decompress: boolean | null;
-    decrypt: boolean | null;
-    validateCrc32: boolean | null;
-    start: number | null;
-    end: number | null;
+    decompress?: boolean | null | undefined;
+    decrypt?: boolean | null | undefined;
+    validateCrc32?: boolean | null | undefined;
+    start?: number | null | undefined;
+    end?: number | null | undefined;
 }
 
 export interface Options {
-    decodeStrings?: boolean | undefined;
-    validateEntrySizes?: boolean | undefined;
-    validateFilenames?: boolean | undefined;
-    strictFilenames?: boolean | undefined;
-    supportMacArchive?: boolean | undefined;
+    decodeStrings?: boolean | null | undefined;
+    validateEntrySizes?: boolean | null | undefined;
+    validateFilenames?: boolean | null | undefined;
+    strictFilenames?: boolean | null | undefined;
+    supportMacArchive?: boolean | null | undefined;
 }
 
 export class Entry {
+    /** This property can also be a Buffer if the option 'decodeStrings' is false */
     comment: string;
     compressedSize: number;
     compressionMethod: number;
     crc32: number;
     externalFileAttributes: number;
-    extraFieldLength: number;
     extraFields: Array<{ id: number; data: Buffer }>;
-    fileCommentLength: number;
+    fileDataOffset: null | number;
+    fileHeaderOffset: number;
+    /** This property can also be a Buffer if the option 'decodeStrings' is false */
     filename: string;
     filenameLength: number;
     generalPurposeBitFlag: number;
     internalFileAttributes: number;
-    lastModFileDate: number;
-    lastModFileTime: number;
-    relativeOffsetOfLocalHeader: number;
+    lastModDate: number;
+    lastModTime: number;
     uncompressedSize: number;
+    uncompressedSizeIsCertain: boolean;
     versionMadeBy: number;
     versionNeededToExtract: number;
 
-    getLastModDate(): Date;
+    getLastMod(): Date;
     isEncrypted(): boolean;
     isCompressed(): boolean;
     openReadStream(options?: ZipFileOptions): Promise<Readable>;
 }
 
-export abstract class RandomAccessReader {
+export abstract class Reader {
     _createReadStream(start: number, length: number): Readable;
     _read(start: number, length: number): Promise<Buffer>;
     _open(): Promise<{}>;
@@ -93,17 +79,13 @@ export abstract class RandomAccessReader {
 }
 
 export function open(path: string, options?: Options): Promise<ZipFile>;
-// export function open(path: string): Promise<ZipFile>;
 export function fromFd(fd: number, options?: Options): Promise<ZipFile>;
-// export function fromFd(fd: number): Promise<ZipFile>;
 export function fromBuffer(buffer: Buffer, options?: Options): Promise<ZipFile>;
-// export function fromBuffer(buffer: Buffer): Promise<ZipFile>;
-export function fromRandomAccessReader(
-    reader: RandomAccessReader,
+export function fromReader(
+    reader: Reader,
     totalSize: number,
     options?: Options,
 ): Promise<ZipFile>;
-// export function fromRandomAccessReader(reader: RandomAccessReader, totalSize: number): Promise<ZipFile>;
 
 export function dosDateTimeToDate(date: number, time: number): Date;
-export function validateFilename(filename: string): string | null;
+export function validateFilename(filename: string): void;

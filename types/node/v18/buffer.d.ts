@@ -1,3 +1,7 @@
+// If lib.dom.d.ts or lib.webworker.d.ts is loaded, then use the global types.
+// Otherwise, use the types from node.
+type _Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : import("buffer").Blob;
+
 /**
  * `Buffer` objects are used to represent a fixed-length sequence of bytes. Many
  * Node.js APIs support `Buffer`s.
@@ -79,7 +83,7 @@ declare module "buffer" {
      * Throws if the `fromEnc` or `toEnc` specify invalid character encodings or if
      * conversion from `fromEnc` to `toEnc` is not permitted.
      *
-     * Encodings supported by `buffer.transcode()` are: `'ascii'`, `'utf8'`,`'utf16le'`, `'ucs2'`, `'latin1'`, and `'binary'`.
+     * Encodings supported by `buffer.transcode()` are: `'ascii'`, `'utf8'`, `'utf16le'`, `'ucs2'`, `'latin1'`, and `'binary'`.
      *
      * The transcoding process will use substitution characters if a given byte
      * sequence cannot be adequately represented in the target encoding. For instance:
@@ -212,10 +216,7 @@ declare module "buffer" {
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
-    import { Blob as NodeBlob } from "buffer";
-    // This conditional type will be the existing global Blob in a browser, or
-    // the copy below in a Node environment.
-    type __Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : NodeBlob;
+
     global {
         namespace NodeJS {
             export { BufferEncoding };
@@ -410,9 +411,9 @@ declare module "buffer" {
                 encoding?: BufferEncoding,
             ): number;
             /**
-             * Returns a new `Buffer` which is the result of concatenating all the `Buffer`instances in the `list` together.
+             * Returns a new `Buffer` which is the result of concatenating all the `Buffer` instances in the `list` together.
              *
-             * If the list has no items, or if the `totalLength` is 0, then a new zero-length`Buffer` is returned.
+             * If the list has no items, or if the `totalLength` is 0, then a new zero-length `Buffer` is returned.
              *
              * If `totalLength` is not provided, it is calculated from the `Buffer` instances
              * in `list` by adding their lengths.
@@ -771,7 +772,7 @@ declare module "buffer" {
              * // (This result is equal to: [buf1, buf3, buf2].)
              * ```
              *
-             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd`arguments can be used to limit the comparison to specific ranges within `target`and `buf` respectively.
+             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd` arguments can be used to limit the comparison to specific ranges within `target` and `buf` respectively.
              *
              * ```js
              * import { Buffer } from 'node:buffer';
@@ -787,7 +788,7 @@ declare module "buffer" {
              * // Prints: 1
              * ```
              *
-             * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`,`targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
+             * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`, `targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
              * @since v0.11.13
              * @param target A `Buffer` or {@link Uint8Array} with which to compare `buf`.
              * @param [targetStart=0] The offset within `target` at which to begin comparison.
@@ -1205,7 +1206,7 @@ declare module "buffer" {
              */
             readBigInt64LE(offset?: number): bigint;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as an unsigned, little-endian integer supporting
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned, little-endian integer supporting
              * up to 48 bits of accuracy.
              *
              * This function is also available under the `readUintLE` alias.
@@ -1229,7 +1230,7 @@ declare module "buffer" {
              */
             readUintLE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as an unsigned big-endian integer supporting
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned big-endian integer supporting
              * up to 48 bits of accuracy.
              *
              * This function is also available under the `readUintBE` alias.
@@ -1255,7 +1256,7 @@ declare module "buffer" {
              */
             readUintBE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as a little-endian, two's complement signed value
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a little-endian, two's complement signed value
              * supporting up to 48 bits of accuracy.
              *
              * ```js
@@ -1272,7 +1273,7 @@ declare module "buffer" {
              */
             readIntLE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as a big-endian, two's complement signed value
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a big-endian, two's complement signed value
              * supporting up to 48 bits of accuracy.
              *
              * ```js
@@ -2191,31 +2192,6 @@ declare module "buffer" {
              */
             lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
             /**
-             * Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) of `[index, byte]` pairs from the contents
-             * of `buf`.
-             *
-             * ```js
-             * import { Buffer } from 'node:buffer';
-             *
-             * // Log the entire contents of a `Buffer`.
-             *
-             * const buf = Buffer.from('buffer');
-             *
-             * for (const pair of buf.entries()) {
-             *   console.log(pair);
-             * }
-             * // Prints:
-             * //   [0, 98]
-             * //   [1, 117]
-             * //   [2, 102]
-             * //   [3, 102]
-             * //   [4, 101]
-             * //   [5, 114]
-             * ```
-             * @since v1.1.0
-             */
-            entries(): IterableIterator<[number, number]>;
-            /**
              * Equivalent to `buf.indexOf() !== -1`.
              *
              * ```js
@@ -2245,62 +2221,6 @@ declare module "buffer" {
              * @return `true` if `value` was found in `buf`, `false` otherwise.
              */
             includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;
-            /**
-             * Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) of `buf` keys (indices).
-             *
-             * ```js
-             * import { Buffer } from 'node:buffer';
-             *
-             * const buf = Buffer.from('buffer');
-             *
-             * for (const key of buf.keys()) {
-             *   console.log(key);
-             * }
-             * // Prints:
-             * //   0
-             * //   1
-             * //   2
-             * //   3
-             * //   4
-             * //   5
-             * ```
-             * @since v1.1.0
-             */
-            keys(): IterableIterator<number>;
-            /**
-             * Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) for `buf` values (bytes). This function is
-             * called automatically when a `Buffer` is used in a `for..of` statement.
-             *
-             * ```js
-             * import { Buffer } from 'node:buffer';
-             *
-             * const buf = Buffer.from('buffer');
-             *
-             * for (const value of buf.values()) {
-             *   console.log(value);
-             * }
-             * // Prints:
-             * //   98
-             * //   117
-             * //   102
-             * //   102
-             * //   101
-             * //   114
-             *
-             * for (const value of buf) {
-             *   console.log(value);
-             * }
-             * // Prints:
-             * //   98
-             * //   117
-             * //   102
-             * //   102
-             * //   101
-             * //   114
-             * ```
-             * @since v1.1.0
-             */
-            values(): IterableIterator<number>;
         }
         var Buffer: BufferConstructor;
         /**
@@ -2313,7 +2233,7 @@ declare module "buffer" {
          * **and should never be used in new code, because they use strings to represent**
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
+         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
          * @legacy Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
@@ -2329,23 +2249,20 @@ declare module "buffer" {
          * **and should never be used in new code, because they use strings to represent**
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
+         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
          * @legacy Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.
          */
         function btoa(data: string): string;
-        interface Blob extends __Blob {}
+        interface Blob extends _Blob {}
         /**
          * `Blob` class is a global reference for `require('node:buffer').Blob`
          * https://nodejs.org/api/buffer.html#class-blob
          * @since v18.0.0
          */
-        var Blob: typeof globalThis extends {
-            onmessage: any;
-            Blob: infer T;
-        } ? T
-            : typeof NodeBlob;
+        var Blob: typeof globalThis extends { onmessage: any; Blob: infer T } ? T
+            : typeof import("buffer").Blob;
     }
 }
 declare module "node:buffer" {

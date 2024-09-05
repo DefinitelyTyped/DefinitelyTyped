@@ -22,7 +22,7 @@ declare class ByteBuffer {
     static DEFAULT_CAPACITY: number;
 
     /**
-     * Default endianess of false for big endian.
+     * Default endianness of false for big endian.
      */
     static DEFAULT_ENDIAN: boolean;
 

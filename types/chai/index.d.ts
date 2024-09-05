@@ -9,6 +9,10 @@ declare namespace Chai {
         exists: boolean;
     }
 
+    interface Constructor<T> {
+        new(...args: any[]): T;
+    }
+
     interface ErrorConstructor {
         new(...args: any[]): Error;
     }
@@ -95,16 +99,12 @@ declare namespace Chai {
 
     // chai.Assertion.prototype.assert arguments
     type AssertionArgs = [
-        // 'expression to be tested'
-        // This parameter is unused and the docs list its type as
-        // 'Philosophical', which is mentioned nowhere else in the source. Do
-        // with that what you will!
-        any,
-        Message, // message if value fails
-        Message, // message if negated value fails
-        any, // expected value
+        any, // expression to be tested
+        Message, // message or function that returns message to display if expression fails
+        Message, // negatedMessage or function that returns negatedMessage to display if expression fails
+        any?, // expected value
         any?, // actual value
-        boolean?, // showDiff
+        boolean?, // showDiff, when set to `true`, assert will display a diff in addition to the message if expression fails
     ];
 
     export interface AssertionPrototype {
@@ -417,20 +417,18 @@ declare namespace Chai {
         /**
          * Asserts that object is truthy.
          *
-         * T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        isOk<T>(value: T, message?: string): void;
+        isOk(value: unknown, message?: string): asserts value;
 
         /**
          * Asserts that object is truthy.
          *
-         * T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        ok<T>(value: T, message?: string): void;
+        ok(value: unknown, message?: string): asserts value;
 
         /**
          * Asserts that object is falsy.
@@ -559,20 +557,18 @@ declare namespace Chai {
         /**
          * Asserts that value is true.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isTrue<T>(value: T, message?: string): void;
+        isTrue(value: unknown, message?: string): asserts value is true;
 
         /**
          * Asserts that value is false.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isFalse<T>(value: T, message?: string): void;
+        isFalse(value: unknown, message?: string): asserts value is false;
 
         /**
          * Asserts that value is not true.
@@ -581,25 +577,23 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotTrue<T>(value: T, message?: string): void;
+        isNotTrue<T>(value: T, message?: string): asserts value is Exclude<T, true>;
 
         /**
          * Asserts that value is not false.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotFalse<T>(value: T, message?: string): void;
+        isNotFalse<T>(value: T, message?: string): asserts value is Exclude<T, false>;
 
         /**
          * Asserts that value is null.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNull<T>(value: T, message?: string): void;
+        isNull(value: unknown, message?: string): asserts value is null;
 
         /**
          * Asserts that value is not null.
@@ -608,7 +602,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotNull<T>(value: T, message?: string): void;
+        isNotNull<T>(value: T, message?: string): asserts value is Exclude<T, null>;
 
         /**
          * Asserts that value is NaN.
@@ -635,25 +629,25 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message    Message to display on error.
          */
-        exists<T>(value: T, message?: string): void;
+        exists<T>(value: T, message?: string): asserts value is NonNullable<T>;
 
         /**
          * Asserts that the target is either null or undefined.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message    Message to display on error.
          */
-        notExists<T>(value: T, message?: string): void;
+        notExists(value: unknown, message?: string): asserts value is
+            | null
+            | undefined;
 
         /**
          * Asserts that value is undefined.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isUndefined<T>(value: T, message?: string): void;
+        isUndefined(value: unknown, message?: string): asserts value is undefined;
 
         /**
          * Asserts that value is not undefined.
@@ -662,7 +656,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isDefined<T>(value: T, message?: string): void;
+        isDefined<T>(value: T, message?: string): asserts value is Exclude<T, undefined>;
 
         /**
          * Asserts that value is a function.
@@ -808,22 +802,27 @@ declare namespace Chai {
         /**
          * Asserts that value is an instance of constructor.
          *
-         * T   Type of value.
+         * T   Expected type of value.
          * @param value   Actual value.
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        instanceOf<T>(value: T, constructor: Function, message?: string): void;
+        instanceOf<T>(
+            value: unknown,
+            constructor: Constructor<T>,
+            message?: string,
+        ): asserts value is T;
 
         /**
          * Asserts that value is not an instance of constructor.
          *
          * T   Type of value.
+         * U   Type that value shouldn't be an instance of.
          * @param value   Actual value.
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        notInstanceOf<T>(value: T, type: Function, message?: string): void;
+        notInstanceOf<T, U>(value: T, type: Constructor<U>, message?: string): asserts value is Exclude<T, U>;
 
         /**
          * Asserts that haystack includes needle.
@@ -869,7 +868,7 @@ declare namespace Chai {
         include<T>(haystack: T, needle: Partial<T>, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * @param haystack   Container string.
          * @param needle   Potential substring of haystack.
@@ -878,7 +877,7 @@ declare namespace Chai {
         notInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of values in haystack.
          * @param haystack   Container array, set or map.
@@ -892,7 +891,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of values in haystack.
          * @param haystack   WeakSet container.
@@ -902,7 +901,7 @@ declare namespace Chai {
         notInclude<T extends object>(haystack: WeakSet<T>, needle: T, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -937,7 +936,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack includes needle. Deep equality is used.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -947,7 +946,7 @@ declare namespace Chai {
         deepInclude<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * @param haystack   Container string.
          * @param needle   Potential substring of haystack.
@@ -958,7 +957,7 @@ declare namespace Chai {
         notDeepInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * T   Type of values in haystack.
          * @param haystack   Container array, set or map.
@@ -972,7 +971,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -1106,7 +1105,7 @@ declare namespace Chai {
         property<T>(object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
-         * Asserts that object has a property named by property.
+         * Asserts that object does not have a property named by property.
          *
          * T   Type of object.
          * @param object   Container object.
@@ -1482,6 +1481,19 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         includeDeepMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that `subset` isn't included in `superset` in any order. Uses a
+         * deep equality check. Duplicates are ignored.
+         *
+         * assert.notIncludeDeepMembers([ { a: 1 }, { b: 2 }, { c: 3 } ], [ { b: 2 }, { f: 5 } ], 'not include deep members');
+         *
+         * T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeDeepMembers<T>(superset: T[], subset: T[], message?: string): void;
 
         /**
          * Asserts that non-object, non-array value inList appears in the flat array list.

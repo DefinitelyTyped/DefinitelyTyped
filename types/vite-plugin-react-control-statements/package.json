@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/vite-plugin-react-control-statements",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/kirankunigiri/vite-plugin-react-control-statements"
+    ],
+    "dependencies": {
+        "@types/react": "^18.0.0"
+    },
+    "devDependencies": {
+        "@types/vite-plugin-react-control-statements": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kiran Kunigiri",
+            "githubUsername": "kirankunigiri"
+        }
+    ]
+}

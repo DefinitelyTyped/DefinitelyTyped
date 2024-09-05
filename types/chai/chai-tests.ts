@@ -1202,6 +1202,19 @@ function use() {
         }
     }
 
+    function testAssertionPrototypeArgs(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
+        const Assertion = chai.Assertion;
+
+        Assertion.addMethod("testAssertion", function(expected: Object) {
+            this.assert(
+                true,
+                "expected message",
+                "negated expected message",
+                // 4th and subsequent args are optional
+            );
+        });
+    }
+
     chai.use(chaiSubset);
 }
 
@@ -1464,6 +1477,8 @@ class CrashyObject {
         throw new Error("Arg's inspect() called even though the test passed");
     }
 }
+
+declare function foobar<T>(): T;
 
 suite("assert", () => {
     test("assert", () => {
@@ -2488,5 +2503,101 @@ suite("assert", () => {
             { matcha: "yum" },
             "Should have correct value of the property",
         );
+    });
+
+    test("notIncludeDeepMembers", () => {
+        assert.notIncludeDeepMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }], "not include deep members");
+    });
+});
+
+suite("narrowing", () => {
+    test("assert", () => {
+        const x = foobar<null | number>();
+        assert(typeof x === "number");
+        const y: number = x;
+    });
+
+    test("isOk", () => {
+        const x = foobar<null | number>();
+        assert.isOk(typeof x === "number");
+        const y: number = x;
+    });
+
+    test("ok", () => {
+        const x = foobar<null | number>();
+        assert.ok(typeof x === "number");
+        const y: number = x;
+    });
+
+    test("isTrue", () => {
+        const x = foobar<true | number>();
+        assert.isTrue(x);
+        const y: true = x;
+    });
+
+    test("isFalse", () => {
+        const x = foobar<false | number>();
+        assert.isFalse(x);
+        const y: false = x;
+    });
+
+    test("isNotTrue", () => {
+        const x = foobar<true | number>();
+        assert.isNotTrue(x);
+        const y: number = x;
+    });
+
+    test("isNotFalse", () => {
+        const x = foobar<false | number>();
+        assert.isNotFalse(x);
+        const y: number = x;
+    });
+
+    test("isNull", () => {
+        const x = foobar<null | number>();
+        assert.isNull(x);
+        const y: null = x;
+    });
+
+    test("isNotNull", () => {
+        const x = foobar<null | number>();
+        assert.isNotNull(x);
+        const y: number = x;
+    });
+
+    test("exists", () => {
+        const x = foobar<null | undefined | number>();
+        assert.exists(x);
+        const y: number = x;
+    });
+
+    test("notExists", () => {
+        const x = foobar<null | undefined | number>();
+        assert.notExists(x);
+        const y: null | undefined = x;
+    });
+
+    test("isUndefined", () => {
+        const x = foobar<undefined | number>();
+        assert.isUndefined(x);
+        const y: undefined = x;
+    });
+
+    test("isDefined", () => {
+        const x = foobar<undefined | number>();
+        assert.isDefined(x);
+        const y: number = x;
+    });
+
+    test("instanceOf", () => {
+        const x = foobar<Foo | null>();
+        assert.instanceOf(x, Foo);
+        const y: Foo = x;
+    });
+
+    test("notInstanceOf", () => {
+        const x = foobar<Foo | null>();
+        assert.notInstanceOf(x, Foo);
+        const y: null = x;
     });
 });

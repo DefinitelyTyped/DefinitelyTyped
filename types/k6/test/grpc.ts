@@ -31,6 +31,9 @@ response.message; // $ExpectType object
 response.status;
 response.trailers;
 
+// $ExpectType Promise<Response>
+client.asyncInvoke("main.RouteGuide/GetFeature", req, params);
+
 const params_with_string_timeout = {
     metadata: { "x-my-header": "k6test" },
     tags: { k6test: "yes" },

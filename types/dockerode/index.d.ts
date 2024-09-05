@@ -973,6 +973,13 @@ declare namespace Dockerode {
         target?: string | undefined;
         outputs?: string | undefined;
         nocache?: boolean | undefined;
+
+        /**
+         * Version of the builder backend to use.
+         *  - `1` is the first generation classic (deprecated) builder in the Docker daemon (default)
+         *  - `2` is [BuildKit](https://github.com/moby/buildkit)
+         */
+        version?: "1" | "2" | undefined;
     }
 
     interface ImageDistributionOptions {
@@ -999,9 +1006,13 @@ declare namespace Dockerode {
     }
 
     interface AuthConfig {
-        username: string;
-        password: string;
-        serveraddress: string;
+        username?: string;
+        password?: string;
+        auth?: string;
+        serveraddress?: string;
+        identitytoken?: string;
+        registrytoken?: string;
+        /** @deprecated */
         email?: string | undefined;
     }
 
@@ -2124,8 +2135,8 @@ declare class Dockerode {
     getEvents(callback: Callback<NodeJS.ReadableStream>): void;
     getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
 
-    pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
-    pull(repoTag: string, options?: {}): Promise<any>;
+    pull(repoTag: string, options: {}, callback: Callback<NodeJS.ReadableStream>, auth?: {}): Dockerode.Image;
+    pull(repoTag: string, options?: {}): Promise<NodeJS.ReadableStream>;
 
     run(
         image: string,

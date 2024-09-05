@@ -31,6 +31,7 @@ declare class Masonry {
     destroy?(): void;
     getItemElements?(): any[];
     data?(element: Element): Masonry;
+    option?(options: Masonry.Options): void;
 }
 
 declare namespace Masonry {

@@ -12,6 +12,7 @@ export interface ConcatHelper extends Opaque<"helper:concat"> {}
 export interface FnHelper extends Opaque<"helper:fn"> {}
 export interface GetHelper extends Opaque<"helper:get"> {}
 export interface HashHelper extends Opaque<"helper:hash"> {}
+export interface UniqueIdHelper extends Opaque<"helper:unique-id"> {}
 
 /**
  * Use the `{{array}}` helper to create an array to pass as an option to your components.
@@ -48,6 +49,14 @@ export const get: GetHelper;
  * @see https://api.emberjs.com/ember/4.1/classes/Ember.Templates.helpers/methods/hash?anchor=hash
  */
 export const hash: HashHelper;
+
+/**
+ * Use the `{{unique-id}}` helper to generate a unique ID string suitable for use as an ID
+ * attribute in the DOM.
+ *
+ * @see https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/unique-id?anchor=unique-id
+ */
+export const uniqueId: UniqueIdHelper;
 
 /**
   `capabilities` returns a capabilities configuration which can be used to modify

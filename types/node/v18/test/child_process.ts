@@ -142,6 +142,24 @@ import { promisify } from "node:util";
 }
 
 {
+    const forked = childProcess.fork(new URL("file://test"), ["asd"] as readonly string[], {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: "inherit",
+        execPath: "",
+        execArgv: ["asda"],
+        signal: new AbortSignal(),
+        killSignal: "SIGABRT",
+        timeout: 123,
+    });
+    const ipc: Pipe = forked.channel!;
+    const hasRef: boolean = ipc.hasRef();
+    ipc.close();
+    ipc.unref();
+    ipc.ref();
+}
+
+{
     const forked = childProcess.fork("./", {
         windowsVerbatimArguments: true,
         silent: false,
@@ -152,7 +170,21 @@ import { promisify } from "node:util";
 }
 
 {
+    const forked = childProcess.fork(new URL("file://test"), {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: ["inherit"],
+        execPath: "",
+        execArgv: ["asda"],
+    });
+}
+
+{
     const forked = childProcess.fork("./");
+}
+
+{
+    const forked = childProcess.fork(new URL("file://test"));
 }
 
 async function testPromisify() {

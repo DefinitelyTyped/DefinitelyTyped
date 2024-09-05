@@ -138,11 +138,23 @@ const providerSpecificVerifyFunction: OAuth2Strategy.VerifyFunction<
 > = (accessToken, refreshToken, results, profile, verified) => {
     results.someProviderResultField;
     profile.someProviderProfileField;
+    verified(null, false);
 };
 const providerSpecificVerifyFunctionWithRequest: OAuth2Strategy.VerifyFunctionWithRequest<
     ProviderSpecificProfile,
     ProviderSpecificResults
 > = (req, accessToken, refreshToken, results, profile, verified) => {
+    let err: unknown;
     results.someProviderResultField;
     profile.someProviderProfileField;
+    verified(err);
 };
+
+class ExtendedStrategy extends OAuth2Strategy {
+    constructor(options: StrategyOptions, verify: OAuth2Strategy.VerifyFunction) {
+        super(options, verify);
+    }
+
+    userProfile(accessToken: string, done: (errx?: unknown, profile?: any) => void): void {
+    }
+}

@@ -6,7 +6,7 @@
         "https://github.com/npm/cli/tree/latest/workspaces/arborist#readme"
     ],
     "dependencies": {
-        "@npm/types": "*",
+        "@npm/types": "^1",
         "@types/cacache": "*",
         "@types/node": "*",
         "@types/npmcli__package-json": "*",
@@ -19,6 +19,10 @@
         {
             "name": "Emily M Klassen",
             "githubUsername": "forivall"
+        },
+        {
+            "name": "Russell Haering",
+            "githubUsername": "russellhaering"
         }
     ]
 }

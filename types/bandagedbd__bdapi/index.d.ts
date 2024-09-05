@@ -6,7 +6,6 @@ export {};
 
 declare global {
     const BdApi: BdApiModule.BdApi;
-    const _: typeof _;
 
     interface Window {
         BdApi: BdApiModule.BdApi;

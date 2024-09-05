@@ -23,7 +23,7 @@ import {
     sub,
     TempNode,
     vec3,
-} from "three/addons/nodes/Nodes.js";
+} from "three/webgpu";
 
 const luminanceNode = new ShaderNode<{ color: Node }>(({ color }) => {
     const LUMA = vec3(0.2125, 0.7154, 0.0721);

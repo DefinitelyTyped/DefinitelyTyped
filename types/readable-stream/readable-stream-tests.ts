@@ -101,7 +101,7 @@ function test() {
     streamT.unpipe(streamW);
     streamT._transformState.afterTransform = (err, data) => {};
 
-    const streamD = new RS_Duplex({
+    let streamD = new RS_Duplex({
         read(size: number) {
             assertType<number>(size);
         },
@@ -111,6 +111,12 @@ function test() {
             assertType<(err?: Error | null) => void>(cb);
         },
         writableObjectMode: false,
+    });
+    streamD = RS_Duplex.from(streamR);
+    streamD = RS_Duplex.from([streamR, streamW]);
+    streamD = RS_Duplex.from({
+        readable: streamR,
+        writable: streamW,
     });
     assertType<boolean>(streamD.allowHalfOpen);
     assertType<boolean>(streamD.readable);

@@ -117,6 +117,7 @@ declare namespace TelegramBot {
         request?: Options | undefined;
         baseApiUrl?: string | undefined;
         filepath?: boolean | undefined;
+        testEnvironment?: boolean | undefined;
     }
 
     interface StartPollingOptions extends ConstructorOptions {

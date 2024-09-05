@@ -320,6 +320,19 @@ declare namespace Tags {
         readOnly?: boolean | undefined;
 
         /**
+         * Toggles "disabled" state.
+         * @default undefined
+         */
+        disabled?: boolean | undefined;
+
+        /**
+         * Toggles if user can manually type/paste/edit tags.
+         * If `false`, tags may only be added from the whitelist.
+         * @default true
+         */
+        userInput?: boolean | undefined;
+
+        /**
          * Settings for the tagify component.
          *
          * This property __cannot be updated__, i.e. setting this to a different

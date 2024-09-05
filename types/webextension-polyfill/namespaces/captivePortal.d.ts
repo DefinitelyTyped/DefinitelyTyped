@@ -2,15 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.captivePortal
- *
- * This API provides the ability detect the captive portal state of the users connection.
- * Permissions: "captivePortal"
- */
 import { Events } from "./events";
 import { Types } from "./types";
 
+/**
+ * Namespace: browser.captivePortal
+ */
 export namespace CaptivePortal {
     interface OnStateChangedDetailsType {
         /**
@@ -39,8 +36,6 @@ export namespace CaptivePortal {
 
         /**
          * Fired when the captive portal state changes.
-         *
-         * @param details
          */
         onStateChanged: Events.Event<(details: OnStateChangedDetailsType) => void>;
 
@@ -48,8 +43,6 @@ export namespace CaptivePortal {
          * This notification will be emitted when the captive portal service has determined that we can connect to the internet.
          * The service will pass either `captive` if there is an unlocked captive portal present,
          * or `clear` if no captive portal was detected.
-         *
-         * @param status
          */
         onConnectivityAvailable: Events.Event<(status: OnConnectivityAvailableStatusEnum) => void>;
 

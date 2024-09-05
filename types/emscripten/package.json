@@ -5,6 +5,8 @@
     "projects": [
         "https://emscripten.org"
     ],
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Unrelated to the abandoned npm package of the same name",
     "devDependencies": {
         "@types/emscripten": "workspace:."
     },

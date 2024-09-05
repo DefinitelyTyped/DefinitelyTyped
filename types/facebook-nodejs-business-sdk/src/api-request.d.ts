@@ -7,8 +7,8 @@ declare class APIRequest {
     _endpoint: string;
     _path: string[];
     _fields: string[];
-    _params: Record<any, any>;
-    _fileParams: Record<any, any>;
+    _params: Record<string, any>;
+    _fileParams: Record<string, any>;
     _fileCounter: number;
     /**
      * @param {string} nodeId The node id to perform the api call.
@@ -33,24 +33,24 @@ declare class APIRequest {
     get endpoint(): string;
     /**
      * Getter function for path tokens
-     * @return {string[]} Array of path tokens
+     * @return {Array<string>} Array of path tokens
      */
     get path(): string[];
     /**
      * Getter function for requested fields
-     * @return {string[]} Array of request fields
+     * @return {Array<string>} Array of request fields
      */
     get fields(): string[];
     /**
      * Getter function for API params
      * @return {Object} Object containing API Params
      */
-    get params(): Record<any, any>;
+    get params(): Record<string, any>;
     /**
      * Getter function for API fileparams
      * @return {Object} Object containing API fileParams
      */
-    get fileParams(): Record<any, any>;
+    get fileParams(): Record<string, any>;
     /**
      * @param {string} filePath Path to file attached to the request
      * @return {APIReqeust} APIRequest instance
@@ -81,6 +81,6 @@ declare class APIRequest {
      * @param {Object} params An object containing param keys and values
      * @return {APIRequest} APIRequest instance
      */
-    addParams(params: Record<any, any>): APIRequest;
+    addParams(params: Record<string, any>): APIRequest;
 }
 export default APIRequest;

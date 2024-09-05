@@ -115,7 +115,7 @@ let md: MarkdownIt;
 }
 
 {
-    const linkify: LinkifyIt.LinkifyIt = md.linkify;
+    const linkify: LinkifyIt = md.linkify;
     md.linkify.tlds(".py", false);
 }
 
@@ -383,8 +383,6 @@ let md: MarkdownIt;
 
         state.level = 0;
 
-        state.result = "";
-
         state.bMarks.push(16);
         state.eMarks.push(16);
         state.tShift.push(0);
@@ -479,7 +477,6 @@ let md: MarkdownIt;
         state.delimiters.push({
             marker: marker,
             length: scanned.length,
-            jump: 0,
             token: state.tokens.length - 1,
             end: -1,
             open: scanned.can_open,

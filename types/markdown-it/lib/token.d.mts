@@ -1,9 +1,9 @@
 export type Nesting = 1 | 0 | -1;
 
-/**
- * Create new token and fill passed properties.
- */
 export default class Token {
+    /**
+     * Create new token and fill passed properties.
+     */
     constructor(type: string, tag: string, nesting: Nesting);
 
     /**
@@ -17,26 +17,26 @@ export default class Token {
     tag: string;
 
     /**
-     * HTML attributes. Format: `[[name1, value1], [name2, value2]]`
+     * HTML attributes. Format: `[ [ name1, value1 ], [ name2, value2 ] ]`
      */
     attrs: Array<[string, string]> | null;
 
     /**
-     * Source map info. Format: `[line_begin, line_end]`
+     * Source map info. Format: `[ line_begin, line_end ]`
      */
     map: [number, number] | null;
 
     /**
      * Level change (number in {-1, 0, 1} set), where:
      *
-     * - `1` means the tag is opening
-     * - `0` means the tag is self-closing
+     * -  `1` means the tag is opening
+     * -  `0` means the tag is self-closing
      * - `-1` means the tag is closing
      */
     nesting: Nesting;
 
     /**
-     * nesting level, the same as `state.level`
+     * Nesting level, the same as `state.level`
      */
     level: number;
 
@@ -57,7 +57,9 @@ export default class Token {
     markup: string;
 
     /**
-     * Fence info string
+     * - Info string for "fence" tokens
+     * - The value "auto" for autolink "link_open" and "link_close" tokens
+     * - The string value of the item marker for ordered-list "list_item_open" tokens
      */
     info: string;
 
@@ -84,7 +86,7 @@ export default class Token {
     attrIndex(name: string): number;
 
     /**
-     * Add `[name, value]` attribute to list. Init attrs if necessary
+     * Add `[ name, value ]` attribute to list. Init attrs if necessary
      */
     attrPush(attrData: [string, string]): void;
 

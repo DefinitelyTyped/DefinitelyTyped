@@ -1,10 +1,26 @@
-import { Object3D } from "../core/Object3D.js";
+import { JSONMeta, Object3D, Object3DJSON, Object3DJSONObject } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Color } from "../math/Color.js";
-import { Euler } from "../math/Euler.js";
+import { Euler, EulerTuple } from "../math/Euler.js";
 import { CubeTexture } from "../textures/CubeTexture.js";
 import { Texture } from "../textures/Texture.js";
-import { FogBase } from "./Fog.js";
+import { Fog, FogJSON } from "./Fog.js";
+import { FogExp2, FogExp2JSON } from "./FogExp2.js";
+
+export interface SceneJSONObject extends Object3DJSONObject {
+    fog?: FogJSON | FogExp2JSON;
+
+    backgroundBlurriness?: number;
+    backgroundIntensity?: number;
+    backgroundRotation: EulerTuple;
+
+    environmentIntensity?: number;
+    environmentRotation: EulerTuple;
+}
+
+export interface SceneJSON extends Object3DJSON {
+    object: SceneJSONObject;
+}
 
 /**
  * Scenes allow you to set up what and where is to be rendered by three.js
@@ -37,7 +53,7 @@ export class Scene extends Object3D {
      * A {@link Fog | fog} instance defining the type of fog that affects everything rendered in the scene.
      * @defaultValue `null`
      */
-    fog: FogBase | null;
+    fog: Fog | FogExp2 | null;
 
     /**
      * Sets the blurriness of the background. Only influences environment maps assigned to {@link THREE.Scene.background | Scene.background}.
@@ -98,5 +114,5 @@ export class Scene extends Object3D {
      * Convert the {@link Scene} to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
      * @param meta Object containing metadata such as textures or images for the scene.
      */
-    toJSON(meta?: any): any;
+    toJSON(meta?: JSONMeta): SceneJSON;
 }

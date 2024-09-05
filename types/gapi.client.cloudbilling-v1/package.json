@@ -5,7 +5,7 @@
     "nonNpm": true,
     "nonNpmDescription": "Cloud Billing API v1",
     "projects": [
-        "https://cloud.google.com/billing/"
+        "https://cloud.google.com/billing/docs/apis"
     ],
     "dependencies": {
         "@maxim_mazurok/gapi.client.cloudbilling-v1": "latest"

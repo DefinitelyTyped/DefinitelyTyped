@@ -32,12 +32,12 @@ fInst.ttl; // $ExpectType number
 fInst.versionHex; // $ExpectType string
 fInst.ivHex; // $ExpectType string
 fInst.iv; // $ExpectType WordArray
-fInst.secret; // $ExpectType: Secret | undefined
+fInst.secret; // $ExpectType Secret | undefined
 fernet.ttl; // $ExpectType number
 fernet.versionHex; // $ExpectType string
 fernet.ivHex; // $ExpectType string
 fernet.iv; // $ExpectType WordArray
-fernet.secret; // $ExpectType: Secret | undefined
+fernet.secret; // $ExpectType Secret | undefined
 
 fInst.parseHex("123"); // $ExpectType number
 fInst.decode64toHex("123"); // $ExpectType string

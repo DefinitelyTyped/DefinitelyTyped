@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
 /**
  * PageCallToAction
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -64,6 +64,7 @@ export default class PageCallToAction extends AbstractCrudObject {
         buy_tickets: "BUY_TICKETS";
         call_now: "CALL_NOW";
         charity_donate: "CHARITY_DONATE";
+        check_in: "CHECK_IN";
         contact_us: "CONTACT_US";
         donate_now: "DONATE_NOW";
         email: "EMAIL";
@@ -105,7 +106,7 @@ export default class PageCallToAction extends AbstractCrudObject {
         shop_on_facebook: "SHOP_ON_FACEBOOK";
         website: "WEBSITE";
     }>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<PageCallToAction>;
-    update(fields: string[], params?: Record<any, any>): Promise<PageCallToAction>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<PageCallToAction>;
+    update(fields: string[], params?: Record<string, any>): Promise<PageCallToAction>;
 }

@@ -1,5 +1,5 @@
-import { Component, FormEvent, FormEventHandler, FormHTMLAttributes } from "react";
-import { FormErrors, FormSubmitHandler, Omit } from "../index";
+import { Component, FormHTMLAttributes } from "react";
+import { FormSubmitHandler, Omit } from "../index";
 
 interface FormSubmitProp<FormData = {}, P = {}, ErrorType = string> {
     onSubmit?: FormSubmitHandler<FormData, P, ErrorType> | undefined;

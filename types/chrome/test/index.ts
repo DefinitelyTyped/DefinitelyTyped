@@ -867,6 +867,14 @@ chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.
     console.log("request: ", request);
 });
 
+chrome.devtools.performance.onProfilingStarted.addListener(() => {
+    console.log("Profiling started");
+});
+
+chrome.devtools.performance.onProfilingStopped.addListener(() => {
+    console.log("Profiling stopped");
+});
+
 chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
     harLog; // $ExpectType HARLog
     console.log("harLog: ", harLog);
@@ -2060,6 +2068,9 @@ function testFileSystemProvider() {
             if (options.cloudIdentifier) {
                 entryMetadata.cloudIdentifier = { providerName: "provider-name", id: "id" };
             }
+            if (options.cloudFileInfo) {
+                entryMetadata.cloudFileInfo = { versionTag: "versionA" };
+            }
         },
     );
 
@@ -2090,10 +2101,20 @@ function testFileSystemProvider() {
         ) => {},
     );
 
+    // Checking onCreateDirectoryRequested.
     chrome.fileSystemProvider.onCreateDirectoryRequested.addListener(
         (
             options: chrome.fileSystemProvider.CreateDirectoryRequestedEventOptions,
             successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
+
+    // Checking onOpenFileRequested.
+    chrome.fileSystemProvider.onOpenFileRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.OpenFileRequestedEventOptions,
+            successCallback: (metadata?: chrome.fileSystemProvider.EntryMetadata) => void,
             errorCallback: (error: string) => void,
         ) => {},
     );

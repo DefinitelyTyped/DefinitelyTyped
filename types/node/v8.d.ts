@@ -4,7 +4,7 @@
  * ```js
  * const v8 = require('node:v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.11.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/v8.js)
  */
 declare module "v8" {
     import { Readable } from "node:stream";
@@ -70,7 +70,7 @@ declare module "v8" {
     /**
      * Returns an object with the following properties:
      *
-     * `does_zap_garbage` is a 0/1 boolean, which signifies whether the`--zap_code_space` option is enabled or not. This makes V8 overwrite heap
+     * `does_zap_garbage` is a 0/1 boolean, which signifies whether the `--zap_code_space` option is enabled or not. This makes V8 overwrite heap
      * garbage with a bit pattern. The RSS footprint (resident set size) gets bigger
      * because it continuously touches all heap pages and that makes them less likely
      * to get swapped out by the operating system.
@@ -170,7 +170,7 @@ declare module "v8" {
      * after the VM has started may result in unpredictable behavior, including
      * crashes and data loss; or it may simply do nothing.
      *
-     * The V8 options available for a version of Node.js may be determined by running`node --v8-options`.
+     * The V8 options available for a version of Node.js may be determined by running `node --v8-options`.
      *
      * Usage:
      *
@@ -183,6 +183,50 @@ declare module "v8" {
      * @since v1.0.0
      */
     function setFlagsFromString(flags: string): void;
+    /**
+     * This is similar to the [`queryObjects()` console API](https://developer.chrome.com/docs/devtools/console/utilities#queryObjects-function)
+     * provided by the Chromium DevTools console. It can be used to search for objects that have the matching constructor on its prototype chain
+     * in the heap after a full garbage collection, which can be useful for memory leak regression tests. To avoid surprising results, users should
+     * avoid using this API on constructors whose implementation they don't control, or on constructors that can be invoked by other parties in the
+     * application.
+     *
+     * To avoid accidental leaks, this API does not return raw references to the objects found. By default, it returns the count of the objects
+     * found. If `options.format` is `'summary'`, it returns an array containing brief string representations for each object. The visibility provided
+     * in this API is similar to what the heap snapshot provides, while users can save the cost of serialization and parsing and directly filter the
+     * target objects during the search.
+     *
+     * Only objects created in the current execution context are included in the results.
+     *
+     * ```js
+     * import { queryObjects } from 'node:v8';
+     * class A { foo = 'bar'; }
+     * console.log(queryObjects(A)); // 0
+     * const a = new A();
+     * console.log(queryObjects(A)); // 1
+     * // [ "A { foo: 'bar' }" ]
+     * console.log(queryObjects(A, { format: 'summary' }));
+     *
+     * class B extends A { bar = 'qux'; }
+     * const b = new B();
+     * console.log(queryObjects(B)); // 1
+     * // [ "B { foo: 'bar', bar: 'qux' }" ]
+     * console.log(queryObjects(B, { format: 'summary' }));
+     *
+     * // Note that, when there are child classes inheriting from a constructor,
+     * // the constructor also shows up in the prototype chain of the child
+     * // classes's prototoype, so the child classes's prototoype would also be
+     * // included in the result.
+     * console.log(queryObjects(A));  // 3
+     * // [ "B { foo: 'bar', bar: 'qux' }", 'A {}', "A { foo: 'bar' }" ]
+     * console.log(queryObjects(A, { format: 'summary' }));
+     * ```
+     * @param ctor The constructor that can be used to search on the prototype chain in order to filter target objects in the heap.
+     * @since v20.13.0
+     * @experimental
+     */
+    function queryObjects(ctor: Function): number | string[];
+    function queryObjects(ctor: Function, options: { format: "count" }): number;
+    function queryObjects(ctor: Function, options: { format: "summary" }): string[];
     /**
      * Generates a snapshot of the current V8 heap and returns a Readable
      * Stream that may be used to read the JSON serialized representation.
@@ -356,7 +400,7 @@ declare module "v8" {
         transferArrayBuffer(id: number, arrayBuffer: ArrayBuffer): void;
         /**
          * Reads the underlying wire format version. Likely mostly to be useful to
-         * legacy code reading old wire format versions. May not be called before`.readHeader()`.
+         * legacy code reading old wire format versions. May not be called before `.readHeader()`.
          */
         getWireFormatVersion(): number;
         /**
@@ -365,7 +409,7 @@ declare module "v8" {
          */
         readUint32(): number;
         /**
-         * Read a raw 64-bit unsigned integer and return it as an array `[hi, lo]`with two 32-bit unsigned integer entries.
+         * Read a raw 64-bit unsigned integer and return it as an array `[hi, lo]` with two 32-bit unsigned integer entries.
          * For use inside of a custom `deserializer._readHostObject()`.
          */
         readUint64(): [number, number];
@@ -422,7 +466,7 @@ declare module "v8" {
     function stopCoverage(): void;
     /**
      * The API is a no-op if `--heapsnapshot-near-heap-limit` is already set from the command line or the API is called more than once.
-     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
+     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
      * @experimental
      * @since v18.10.0, v16.18.0
      */
@@ -438,7 +482,7 @@ declare module "v8" {
          */
         start(): void;
         /**
-         * Stop collecting GC data and return an object.The content of object
+         * Stop collecting GC data and return an object. The content of object
          * is as follows.
          *
          * ```json

@@ -570,14 +570,14 @@ declare namespace jwplayer {
     }
 
     interface Source {
-        default: boolean;
+        default?: boolean;
         drm?: DRMConfig;
         file: string;
-        label: string;
+        label?: string;
         liveSyncDuration?: number;
         mimeType?: string;
         preload?: Preload;
-        type: string;
+        type?: string;
     }
 
     interface Track {

@@ -3,8 +3,8 @@ import { Matrix4 } from "../math/Matrix4.js";
 import { Quaternion } from "../math/Quaternion.js";
 import { Sphere } from "../math/Sphere.js";
 import { Vector2 } from "../math/Vector2.js";
-import { Vector3 } from "../math/Vector3.js";
-import { BufferAttribute } from "./BufferAttribute.js";
+import { Vector3, Vector3Tuple } from "../math/Vector3.js";
+import { BufferAttribute, BufferAttributeJSON } from "./BufferAttribute.js";
 import { EventDispatcher } from "./EventDispatcher.js";
 import { GLBufferAttribute } from "./GLBufferAttribute.js";
 import { InterleavedBufferAttribute } from "./InterleavedBufferAttribute.js";
@@ -14,6 +14,47 @@ export type NormalOrGLBufferAttributes = Record<
     string,
     BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute
 >;
+
+export interface BufferGeometryJSON {
+    metadata?: { version: number; type: string; generator: string };
+
+    uuid: string;
+    type: string;
+
+    name?: string;
+    userData?: Record<string, unknown>;
+
+    data?: {
+        attributes: Record<string, BufferAttributeJSON>;
+
+        index?: { type: string; array: number[] };
+
+        morphAttributes?: Record<string, BufferAttributeJSON[]>;
+        morphTargetsRelative?: boolean;
+
+        groups?: GeometryGroup[];
+
+        boundingSphere?: { center: Vector3Tuple; radius: number };
+    };
+}
+
+export interface GeometryGroup {
+    /**
+     * Specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index.
+     * @remarks Expects a `Integer`
+     */
+    start: number;
+    /**
+     * Specifies how many vertices (or indices) are included.
+     * @remarks Expects a `Integer`
+     */
+    count: number;
+    /**
+     * Specifies the material array index to use.
+     * @remarks Expects a `Integer`
+     */
+    materialIndex?: number | undefined;
+}
 
 /**
  * A representation of mesh, line, or point geometry
@@ -144,23 +185,7 @@ export class BufferGeometry<
      * @remarks Use {@link addGroup | .addGroup} to add groups, rather than modifying this array directly.
      * @defaultValue `[]`
      */
-    groups: Array<{
-        /**
-         * Specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index.
-         * @remarks Expects a `Integer`
-         */
-        start: number;
-        /**
-         * Specifies how many vertices (or indices) are included.
-         * @remarks Expects a `Integer`
-         */
-        count: number;
-        /**
-         * Specifies the material array index to use.
-         * @remarks Expects a `Integer`
-         */
-        materialIndex?: number | undefined;
-    }>;
+    groups: GeometryGroup[];
 
     /**
      * Bounding box for the {@link THREE.BufferGeometry | BufferGeometry}, which can be calculated with {@link computeBoundingBox | .computeBoundingBox()}.
@@ -376,7 +401,7 @@ export class BufferGeometry<
     /**
      * Convert the buffer geometry to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
      */
-    toJSON(): {};
+    toJSON(): BufferGeometryJSON;
 
     /**
      * Creates a clone of this BufferGeometry

@@ -8,6 +8,8 @@
  * - [PointerEvent](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/PointerEvent)
  * - [TouchEvent](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/TouchEvent)
  * - [Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export type EvaluationArgument = object;
 
@@ -20,36 +22,48 @@ export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unbo
     : Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
     : Arg;
 
-/*
+/**
  * CPUProfile is the mandatory input to be passed into {@link Page}'s
  * `throttleCPU` method.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface CPUProfile {
-    /*
+    /**
      * rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     rate: number;
 }
 
-/*
+/**
  * NetworkProfile is the mandatory input to be passed into {@link Page}'s
  * `throttleNetwork` method.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface NetworkProfile {
-    /*
+    /**
      * Minimum latency from request sent to response headers received (ms).
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     latency: number;
 
-    /*
+    /**
      * Maximal aggregated download throughput (bytes/sec). -1 disables download
      * throttling.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     download: number;
 
-    /*
+    /**
      * Maximal aggregated upload throughput (bytes/sec). -1 disables upload
      * throttling.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     upload: number;
 }
@@ -57,16 +71,22 @@ export interface NetworkProfile {
 export interface SelectOptionsObject {
     /**
      * Matches by `option.value`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     value?: string;
 
     /**
      * Matches by `option.label`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     label?: string;
 
     /**
      * Matches by the index.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     index?: number;
 }
@@ -95,6 +115,8 @@ export interface TimeoutOptions {
     /**
      * Maximum time in milliseconds. Pass 0 to disable the timeout. Default is overridden by the setDefaultTimeout option on `BrowserContext` or `Page`.
      * Defaults to 30000.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     timeout?: number;
 }
@@ -104,6 +126,8 @@ export interface StrictnessOptions {
      * When `true`, the call requires selector to resolve to a single element.
      * If given selector resolves to more than one element, the call throws
      * an exception. Defaults to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     strict?: boolean;
 }
@@ -111,6 +135,8 @@ export interface StrictnessOptions {
 export interface EventSequenceOptions {
     /**
      * Delay between events in milliseconds. Defaults to 0.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     delay?: number;
 }
@@ -118,16 +144,22 @@ export interface EventSequenceOptions {
 export interface File {
     /**
      * File name
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     name: string;
 
     /**
      * File type
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     mimeType: string;
 
     /**
      * File content
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     buffer: ArrayBuffer;
 }
@@ -136,12 +168,16 @@ export type ElementHandleOptions = {
     /**
      * Setting this to `true` will bypass the actionability checks (visible,
      * stable, enabled). Defaults to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     force?: boolean;
 
     /**
      * If set to `true` and a navigation occurs from performing this action, it will not wait for it to complete.
      * Defaults to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     noWaitAfter?: boolean;
 } & TimeoutOptions;
@@ -151,6 +187,8 @@ export type ElementHandlePointerOptions = ElementHandleOptions & {
      * Setting this to `true` will perform the actionability checks without
      * performing the action. Useful to wait until the element is ready for the
      * action without performing it. Defaults to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     trial?: boolean;
 };
@@ -159,6 +197,8 @@ export type ElementClickOptions = ElementHandlePointerOptions & {
     /**
      * A point to use relative to the top left corner of the element. If not supplied,
      * a visible point of the element is used.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     position?: { x: number; y: number };
 };
@@ -167,6 +207,8 @@ export interface KeyboardModifierOptions {
     /**
      * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the action.
      * If not specified, currently pressed modifiers are used.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     modifiers?: KeyboardModifier[];
 }
@@ -176,6 +218,8 @@ export type KeyboardPressOptions =
         /**
          * If set to `true` and a navigation occurs from performing this action, it
          * will not wait for it to complete. Defaults to `false`.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         noWaitAfter?: boolean;
     }
@@ -188,6 +232,8 @@ export type MouseClickOptions = {
     /**
      * The mouse button to use during the action.
      * Defaults to `left`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     button?: MouseButton;
 } & EventSequenceOptions;
@@ -196,6 +242,8 @@ export type MouseMultiClickOptions = MouseClickOptions & {
     /**
      * The number of times the action is performed.
      * Defaults to 1.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     clickCount?: number;
 };
@@ -204,11 +252,15 @@ export interface MouseDownUpOptions {
     /**
      * The mouse button to use during the action.
      * Defaults to `left`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     button?: MouseButton;
 
     /**
      * Defaults to 1.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     clickCount?: number;
 }
@@ -225,6 +277,8 @@ export type ContentLoadOptions = {
      * when there are no network connections for at least `500` ms. Don't use
      * this method for testing especially with chatty websites where the event
      * may never fire, rely on web assertions to assess readiness instead.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitUntil?: LifecycleEvent;
 } & TimeoutOptions;
@@ -232,6 +286,8 @@ export type ContentLoadOptions = {
 export type NavigationOptions = {
     /**
      * Referer header value.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     referer?: string;
 } & ContentLoadOptions;
@@ -239,18 +295,24 @@ export type NavigationOptions = {
 export interface ResourceTiming {
     /**
      * Request start time in milliseconds elapsed since January 1, 1970 00:00:00 UTC
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     startTime: number;
 
     /**
      * Time immediately before the browser starts the domain name lookup for the resource.
      * The value is given in milliseconds relative to `startTime`, -1 if not available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     domainLookupStart: number;
 
     /**
      * Time immediately after the browser ends the domain name lookup for the resource.
      * The value is given in milliseconds relative to `startTime`, -1 if not available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     domainLookupEnd: number;
 
@@ -258,12 +320,16 @@ export interface ResourceTiming {
      * Time immediately before the user agent starts establishing the connection to the server
      * to retrieve the resource. The value is given in milliseconds relative to `startTime`,
      * -1 if not available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     connectStart: number;
 
     /**
      * Time immediately before the browser starts the handshake process to secure the current
      * connection. The value is given in milliseconds relative to `startTime`, -1 if not available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     secureConnectionStart: number;
 
@@ -271,6 +337,8 @@ export interface ResourceTiming {
      * Time immediately after the user agent establishes the connection to the server
      * to retrieve the resource. The value is given in milliseconds relative to `startTime`,
      * -1 if not available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     connectEnd: number;
 
@@ -278,6 +346,8 @@ export interface ResourceTiming {
      * Time immediately before the browser starts requesting the resource from the server,
      * cache, or local resource. The value is given in milliseconds relative to `startTime`,
      * -1 if not available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     requestStart: number;
 
@@ -285,6 +355,8 @@ export interface ResourceTiming {
      * Time immediately after the browser receives the first byte of the response from the server,
      * cache, or local resource. The value is given in milliseconds relative to `startTime`,
      * -1 if not available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     responseStart: number;
 
@@ -292,6 +364,8 @@ export interface ResourceTiming {
      * Time immediately after the browser receives the last byte of the resource or immediately
      * before the transport connection is closed, whichever comes first. The value is given
      * in milliseconds relative to `startTime`, -1 if not available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     responseEnd: number;
 }
@@ -300,35 +374,47 @@ export interface SecurityDetailsObject {
     /**
      * Common Name component of the Issuer field. The value is extracted from the
      * certificate. This should only be used for informational purposes.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     issuer?: string;
 
     /**
      * The specific TLS protocol used. For example `TLS 1.3`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     protocol?: string;
 
     /**
      * Common Name component of the Subject field. The value is extracted from the
      * certificate. This should only be used for informational purposes.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     subjectName?: string;
 
     /**
      * Unix timestamp (in seconds) specifying the exact date/time when this cert
      * becomes valid.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     validFrom?: number;
 
     /**
      * Unix timestamp (in seconds) specifying the exact date/time when this cert
      * becomes invalid.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     validTo?: number;
 
     /**
      * String with hex encoded SHA256 fingerprint of the certificate. The value is
      * extracted from the certificate.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     sanList?: string[];
 }
@@ -337,22 +423,30 @@ export interface Rect {
     /**
      * The x coordinate of the element in pixels.
      * (0, 0) is the top left corner of the viewport.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     x: number;
 
     /**
      * The y coordinate of the element in pixels.
      * (0, 0) is the top left corner of the viewport.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     y: number;
 
     /**
      * The width of the element in pixels.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     width: number;
 
     /**
      * The height of the element in pixels.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     height: number;
 }
@@ -362,12 +456,16 @@ export type ImageFormat = "jpeg" | "png";
 export interface ScreenshotOptions {
     /**
      * The file path to save the image to. The screenshot type will be inferred from file extension.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     path?: string;
 
     /**
      * The screenshot format.
      * @default 'png'
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     type?: ImageFormat;
 
@@ -375,12 +473,16 @@ export interface ScreenshotOptions {
      * Hide default white background and allow capturing screenshots with transparency.
      * Not applicable to `jpeg` images.
      * @default false
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     omitBackground?: boolean;
 
     /**
      * The quality of the image, between 0-100. Not applicable to `png` images.
      * @default 100
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     quality?: number;
 }
@@ -390,6 +492,8 @@ export interface ScreenshotOptions {
  * - `raf` - use `requestAnimationFrame` callback to poll
  * - `mutation` - use a mutation observer
  * - `interval` - use a polling interval
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export type PollingMethod = "raf" | "mutation" | "interval";
 
@@ -397,11 +501,15 @@ export interface PollingOptions {
     /**
      * Polling method to use.
      * @default 'raf'
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     polling?: "raf" | "mutation" | "interval";
 
     /**
      * Polling interval in milliseconds if `polling` is set to `interval`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     interval?: number;
 }
@@ -410,6 +518,8 @@ export interface ElementStateFilter {
     /**
      * The element state to filter for.
      * @default 'visible'
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     state?: ElementState;
 }
@@ -417,6 +527,8 @@ export interface ElementStateFilter {
 /**
  * BrowserPermissions defines all the possible permissions that can be granted
  * to the browser application.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export type BrowserPermissions =
     | "geolocation"
@@ -439,6 +551,8 @@ export interface NewBrowserContextOptions {
     /**
      * Setting this to `true` will bypass a page's Content-Security-Policy.
      * Defaults to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     bypassCSP?: boolean;
 
@@ -446,6 +560,8 @@ export interface NewBrowserContextOptions {
      * Emulates `'prefers-colors-scheme'` media feature, supported values
      * are `'light'`, `'dark'`, and `'no-preference'`. Default to
      * `'light'`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     colorScheme?: "light" | "dark" | "no-preference";
 
@@ -453,6 +569,8 @@ export interface NewBrowserContextOptions {
      * Sets the resolution ratio in physical pixels to the resolution in
      * CSS pixels i.e. if set higher than 1, then images will look
      * sharper on high pixel density screens. Defaults to 1.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     deviceScaleFactor?: number;
 
@@ -460,25 +578,35 @@ export interface NewBrowserContextOptions {
      * Contains additional HTTP headers to be sent with every request,
      * where the keys are HTTP headers and values are HTTP header
      * values. Defaults to null.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     extraHTTPHeaders?: { [key: string]: string };
 
     /**
      * Sets the user's geographical location. Defaults to null.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     geolocation?: {
         /**
          * latitude should be between -90 and 90.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         latitude: number;
 
         /**
          * longitude should be between -180 and 180.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         longitude: number;
 
         /**
          * accuracy should only be a non-negative number. Defaults to 0.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         accuracy: number;
     };
@@ -486,11 +614,15 @@ export interface NewBrowserContextOptions {
     /**
      * Whether to simulate a device with touch events. Defaults to
      * `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     hasTouch?: boolean;
 
     /**
      * Sets the credentials for HTTP authentication using Basic Auth.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     httpCredentials?: {
         username: string;
@@ -501,34 +633,46 @@ export interface NewBrowserContextOptions {
     /**
      * Whether to ignore HTTPS errors that may be caused by invalid
      * certificates. Defaults to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     ignoreHTTPSErrors?: boolean;
 
     /**
      * Whether to simulate a mobile device. Defaults to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isMobile?: boolean;
 
     /**
      * Whether to activate JavaScript support for the context. Defaults
      * to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     javaScriptEnabled?: boolean;
 
     /**
      * Specifies the user's locale following ICU locale (e.g. 'en_US').
      * Defaults to host system locale.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     locale?: string;
 
     /**
      * Whether to emulate an offline network. Defaults to `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     offline?: boolean;
 
     /**
      * Permissions to grant for the context's pages. Defaults to
      * null.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     permissions?: BrowserPermissions[];
 
@@ -536,6 +680,8 @@ export interface NewBrowserContextOptions {
      * Minimizes the amount of motion by emulating the
      * 'prefers-reduced-motion' media feature. Defaults to
      * `'no-preference'`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     reducedMotion?: "reduce" | "no-preference";
 
@@ -543,15 +689,21 @@ export interface NewBrowserContextOptions {
      * Sets a window screen size for all pages in the context. It can
      * only be used when the viewport is set. Defaults to
      * `{'width': 1280, 'height': 720}`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     screen?: {
         /**
          * Page width in pixels.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         width: number;
 
         /**
          * Page height in pixels.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         height: number;
     };
@@ -560,27 +712,37 @@ export interface NewBrowserContextOptions {
      * Changes the context's timezone. See ICU's metaZones.txt for a
      * list of supported timezone IDs. Defaults to what is set on the
      * system.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     timezoneID?: string;
 
     /**
      * Specifies the user agent to use in the context. Defaults to what
      * is set on the by the browser.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     userAgent?: string;
 
     /**
      * Sets a viewport size for all pages in the context. null disables
      * the default viewport. Defaults to `{'width': 1280, 'height': 720}`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     viewport?: {
         /**
          * Page width in pixels.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         width: number;
 
         /**
          * Page height in pixels.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         height: number;
     };
@@ -589,16 +751,22 @@ export interface NewBrowserContextOptions {
 /**
  * The `browser` named export is the entry point for all your tests,
  * it interacts with the actual web browser via Chrome DevTools Protocol (CDP).
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export const browser: Browser;
 
 /**
  * `Browser` represents the main web browser instance.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Browser {
     /**
      * Closes the current `BrowserContext`. If there is no active
      * `BrowserContext`, this method will throw an error.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     closeContext(): void;
 
@@ -606,12 +774,16 @@ export interface Browser {
      * Returns the current `BrowserContext`. There is a 1-to-1 mapping between
      * `Browser` and `BrowserContext`. If no `BrowserContext` has been
      * initialized, it will return null.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     context(): BrowserContext;
 
     /**
      * Indicates whether the CDP connection to the browser process is active or
      * not.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isConnected(): boolean;
 
@@ -624,6 +796,8 @@ export interface Browser {
      * this restriction, if one already exists, it must be closed first before
      * creating a new one.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     newContext(
         options?: NewBrowserContextOptions,
@@ -638,13 +812,24 @@ export interface Browser {
      * this restriction, if one already exists, it must be closed first before
      * creating a new one.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     newPage(
         options?: NewBrowserContextOptions,
     ): Page;
 
     /**
+     * Returns the browser application's user agent.
+     *
+     * @deprecated Use "k6/browser" module instead.
+     */
+    userAgent(): string;
+
+    /**
      * Returns the browser application's version.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     version(): string;
 }
@@ -652,6 +837,8 @@ export interface Browser {
 /**
  * `BrowserContext` provides a way to operate multiple independent sessions, with
  * separate pages, cache, and cookies.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface BrowserContext {
     /**
@@ -678,11 +865,15 @@ export interface BrowserContext {
      * ```
      *
      * @param script Script to be evaluated in all pages in the browser context.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     addInitScript(script: string | { content?: string }): void;
 
     /**
      * Returns the `Browser` instance that this `BrowserContext` belongs to.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     browser(): Browser;
 
@@ -697,6 +888,8 @@ export interface BrowserContext {
      *   { name: 'bar', value: 'barvalue', sameSite: 'Strict', domain: 'test.k6.io', path: '/bar' },
      * ]);
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     addCookies(cookies: Cookie[]): void;
 
@@ -710,6 +903,8 @@ export interface BrowserContext {
      * context.clearCookies();
      * context.cookies().length; // 0
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     clearCookies(): void;
 
@@ -730,6 +925,8 @@ export interface BrowserContext {
      * // Get all cookies for the specified URLs and filter by name
      * const cookies = context.cookies('https://k6.io', 'https://test.k6.io').filter(c => c.name === 'foo');
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     cookies(...urls: string[]): Cookie[];
 
@@ -738,11 +935,15 @@ export interface BrowserContext {
      * ```js
      * context.clearPermissions();
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     clearPermissions(): void;
 
     /**
      * Close the `BrowserContext` and all its `Page`s.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     close(): void;
 
@@ -751,15 +952,21 @@ export interface BrowserContext {
      * ```js
      * context.grantPermissions(['geolocation']);
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     grantPermissions(
         /**
          * A string array of permissions to grant.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         permissions: BrowserPermissions[],
         options?: {
             /**
              * The origin to grant permissions to, e.g. 'https://test.k6.com'.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             origin: string;
         },
@@ -767,20 +974,28 @@ export interface BrowserContext {
 
     /**
      * Creates a new `Page` in the `BrowserContext`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     newPage(): Page;
 
     /**
      * Returns a list of `Page`s that belongs to the `BrowserContext`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     pages(): Page[];
 
     /**
      * Sets the default navigation timeout in milliseconds.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setDefaultNavigationTimeout(
         /**
          * The timeout in milliseconds.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         timeout: number,
     ): void;
@@ -788,31 +1003,43 @@ export interface BrowserContext {
     /**
      * Sets the default maximum timeout for all methods accepting a timeout
      * option in milliseconds.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setDefaultTimeout(
         /**
          * The timeout in milliseconds.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         timeout: number,
     ): void;
 
     /**
      * Sets the `BrowserContext`'s geolocation.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setGeolocation(
         geolocation?: {
             /**
              * latitude should be between -90 and 90.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             latitude: number;
 
             /**
              * longitude should be between -180 and 180.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             longitude: number;
 
             /**
              * accuracy should only be a non-negative number. Defaults to 0.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             accuracy: number;
         },
@@ -820,11 +1047,15 @@ export interface BrowserContext {
 
     /**
      * Toggles the `BrowserContext`'s connectivity on/off.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setOffline(
         /**
          * Whether to emulate the BrowserContext being disconnected (`true`)
          * or connected (`false`). Defaults to `false`.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         offline: boolean,
     ): void;
@@ -851,16 +1082,22 @@ export interface BrowserContext {
      * // Wait for the predicate to pass.
      * await promise
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForEvent(
         /**
          * Name of event to wait for. The only supported event is 'page'. If any
          * other value is used an error will be thrown.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         event: "page",
         /**
          * This is an optional argument. It can either be a predicate function or
          * an options object.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         optionsOrPredicate?: {
             /**
@@ -870,12 +1107,16 @@ export interface BrowserContext {
              *
              * If {@link Page} is passed to predicate, this signals that a new page
              * has been created.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             predicate?: (page: Page) => boolean;
 
             /**
              * Maximum time to wait in milliseconds. Defaults to 30000 milliseconds or
              * the timeout set by setDefaultTimeout on the {@link BrowserContext}.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         } | ((page: Page) => boolean),
@@ -902,21 +1143,29 @@ export interface BrowserContext {
  * await msg.args()[0].jsonValue(); // hello
  * await msg.args()[1].jsonValue(); // 42
  * ```
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface ConsoleMessage {
     /**
      * List of arguments passed to a `console` function call. See also
      * `page.on('console')`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     args(): JSHandle[];
 
     /**
      * The page that produced this console message, if any.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     page(): null | Page;
 
     /**
      * The text of the console message.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     text(): string;
 
@@ -925,6 +1174,8 @@ export interface ConsoleMessage {
      * `'warning'`, `'dir'`, `'dirxml'`, `'table'`, `'trace'`, `'clear'`,
      * `'startGroup'`, `'startGroupCollapsed'`, `'endGroup'`, `'assert'`,
      * `'profile'`, `'profileEnd'`, `'count'`, `'timeEnd'`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     type(): string;
 }
@@ -934,6 +1185,8 @@ export interface ConsoleMessage {
  *
  * @see
  * {@link BrowserContext} has methods to {@link BrowserContext.addCookies | add}, {@link BrowserContext.cookies | query} and {@link BrowserContext.clearCookies | clear} cookies.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Cookie {
     /**
@@ -941,6 +1194,8 @@ export interface Cookie {
      *
      * @defaultValue
      * The default is `''`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     name: string;
 
@@ -949,6 +1204,8 @@ export interface Cookie {
      *
      * @defaultValue
      * The default is `''`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     value: string;
 
@@ -956,6 +1213,8 @@ export interface Cookie {
      * The {@link Cookie | cookie}'s URL.
      *
      * Required unless one of {@link Cookie.domain | domain} or {@link Cookie.path | path} are specified.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     url?: string;
 
@@ -963,6 +1222,8 @@ export interface Cookie {
      * The {@link Cookie | cookie}'s domain.
      *
      * Required unless one of {@link Cookie.url | url} or {@link Cookie.path | path} are specified.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     domain?: string;
 
@@ -973,6 +1234,8 @@ export interface Cookie {
      *
      * @defaultValue
      * The default is `'/'`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     path?: string;
 
@@ -983,6 +1246,8 @@ export interface Cookie {
      *
      * @defaultValue
      * The default is `-1`, meaning a session cookie.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     expires?: number;
 
@@ -991,6 +1256,8 @@ export interface Cookie {
      *
      * @defaultValue
      * The default is `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     httpOnly?: boolean;
 
@@ -999,6 +1266,8 @@ export interface Cookie {
      *
      * @defaultValue
      * The default is `false`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     secure?: boolean;
 
@@ -1009,6 +1278,8 @@ export interface Cookie {
      *
      * @defaultValue
      * The default is `'Lax'`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     sameSite?: CookieSameSite;
 }
@@ -1018,17 +1289,23 @@ export interface Cookie {
  *
  * @defaultValue
  * The default is `'Lax'`.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export type CookieSameSite = "Strict" | "Lax" | "None";
 
 /**
  * ElementHandle represents an in-page DOM element.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface ElementHandle extends JSHandle {
     /**
      * Finds an element matching the specified selector in the `ElementHandle`'s subtree.
      * @param selector A selector to query element for.
      * @returns An `ElementHandle` pointing to the result element or `null`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     $(selector: string): ElementHandle | null;
 
@@ -1036,30 +1313,233 @@ export interface ElementHandle extends JSHandle {
      * Finds all elements matching the specified selector in the `ElementHandle`'s subtree.
      * @param selector A selector to query element for.
      * @returns A list of `ElementHandle`s pointing to the result elements.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     $$(selector: string): ElementHandle[];
 
     /**
      * This method returns the bounding box of the element.
      * @returns Element's bounding box.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     boundingBox(): Rect;
 
     /**
+     * Checks the checkbox element.
+     * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
+     */
+    check(options?: ElementClickOptions & StrictnessOptions): void;
+
+    /**
+     * Clicks the element.
+     * @param options The options to use.
+     * @returns A promise that resolves when the element is clicked.
+     *
+     * @deprecated Use "k6/browser" module instead.
+     */
+    click(
+        options?: {
+            /**
+             * The mouse button (`left`, `middle` or `right`) to use during the action.
+             * Defaults to `left`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            button?: MouseButton;
+
+            /**
+             * The number of times the action is performed. Defaults to `1`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            clickCount?: number;
+
+            /**
+             * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            delay?: number;
+
+            /**
+             * Setting this to `true` will bypass the actionability checks (`visible`,
+             * `stable`, `enabled`). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            force?: boolean;
+
+            /**
+             * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
+             * action. If not specified, currently pressed modifiers are used,
+             * otherwise defaults to `null`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            modifiers?: KeyboardModifier[];
+
+            /**
+             * If set to `true` and a navigation occurs from performing this action, it
+             * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            noWaitAfter?: boolean;
+
+            /**
+             * A point to use relative to the top left corner of the element. If not
+             * supplied, a visible point of the element is used.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            position?: {
+                x: number;
+
+                y: number;
+            };
+
+            /**
+             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
+             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+             * `page` methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            timeout?: number;
+
+            /**
+             * Setting this to `true` will perform the actionability checks without
+             * performing the action. Useful to wait until the element is ready for the
+             * action without performing it. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            trial?: boolean;
+        },
+    ): Promise<void>;
+
+    /**
      * Get the content frame for element handles.
      * @returns The content frame handle of the element handle.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     contentFrame(): Frame;
+
+    /**
+     * Double clicks the element.
+     * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
+     */
+    dblclick(
+        options?: {
+            /**
+             * The mouse button (`left`, `middle` or `right`) to use during the action.
+             * Defaults to `left`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            button?: MouseButton;
+
+            /**
+             * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            delay?: number;
+
+            /**
+             * Setting this to `true` will bypass the actionability checks (`visible`,
+             * `stable`, `enabled`). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            force?: boolean;
+
+            /**
+             * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
+             * action. If not specified, currently pressed modifiers are used,
+             * otherwise defaults to `null`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            modifiers?: KeyboardModifier[];
+
+            /**
+             * If set to `true` and a navigation occurs from performing this action, it
+             * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            noWaitAfter?: boolean;
+
+            /**
+             * A point to use relative to the top left corner of the element. If not
+             * supplied, a visible point of the element is used.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            position?: {
+                x: number;
+
+                y: number;
+            };
+
+            /**
+             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
+             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+             * `page` methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            timeout?: number;
+
+            /**
+             * Setting this to `true` will perform the actionability checks without
+             * performing the action. Useful to wait until the element is ready for the
+             * action without performing it. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
+             */
+            trial?: boolean;
+        },
+    ): void;
+
+    /**
+     * Dispatches a DOM event to the element.
+     * @param type DOM event type: `"click"` etc.
+     * @param eventInit Optional event-specific initialization properties.
+     * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
+     */
+    dispatchEvent(
+        type: string,
+        eventInit?: EvaluationArgument,
+    ): void;
 
     /**
      * Fill the `input` or `textarea` element with the provided `value`.
      * @param value Value to fill for the `input` or `textarea` element.
      * @param options Element handle options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     fill(value: string, options?: ElementHandleOptions): void;
 
     /**
      * Focuses the element.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     focus(): void;
 
@@ -1067,72 +1547,96 @@ export interface ElementHandle extends JSHandle {
      * Fetch the element's attribute value.
      * @param name Attribute name to get the value for.
      * @returns Attribute value.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     getAttribute(name: string): string | null;
 
     /**
      * Scrolls element into view and hovers over its center point.
      * @param options Hover options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     hover(options?: ElementClickOptions & KeyboardModifierOptions): void;
 
     /**
      * Returns the `element.innerHTML`.
      * @returns Element's innerHTML.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     innerHTML(): string;
 
     /**
      * Returns the `element.innerText`.
      * @returns Element's innerText.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     innerText(): string;
 
     /**
      * Returns `input.value` for the selected `input`, `textarea` or `select` element.
      * @returns The input value of the element.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     inputValue(options?: TimeoutOptions): string;
 
     /**
      * Checks if a checkbox or radio is checked.
      * @returns Whether the element is checked.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isChecked(): boolean;
 
     /**
      * Checks if the element is disabled.
      * @returns Whether the element is disabled.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isDisabled(): boolean;
 
     /**
      * Checks if the element is editable.
      * @returns Whether the element is editable.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isEditable(): boolean;
 
     /**
      * Checks if the element is enabled.
      * @returns Whether the element is enabled.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isEnabled(): boolean;
 
     /**
      * Checks if the element is hidden.
      * @returns Whether the element is hidden.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isHidden(): boolean;
 
     /**
      * Checks if the element is visible.
      * @returns Whether the element is visible.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isVisible(): boolean;
 
     /**
      * Returns the frame containing the given element.
      * @returns The frame that contains the element handle.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     ownerFrame(): Frame;
 
@@ -1140,6 +1644,8 @@ export interface ElementHandle extends JSHandle {
      * Focuses the element, and then uses `keyboard.down` and `keyboard.up` with the specified key.
      * @param key A keyboard key name or a single character to press.
      * @param options Keyboard press options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     press(key: string, options?: KeyboardPressOptions): void;
 
@@ -1148,6 +1654,8 @@ export interface ElementHandle extends JSHandle {
      * screenshot of it.
      * @param options Screenshot options.
      * @returns An `ArrayBuffer` with the screenshot data.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     screenshot(options?: ScreenshotOptions & TimeoutOptions): ArrayBuffer;
 
@@ -1155,6 +1663,8 @@ export interface ElementHandle extends JSHandle {
      * This method checks whether the element is actionable using provided options, and
      * then tries to scroll it into view, unless it is completely visible.
      * @param options Element handle options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     scrollIntoViewIfNeeded(options?: ElementHandleOptions): void;
 
@@ -1163,6 +1673,8 @@ export interface ElementHandle extends JSHandle {
      * @param values Values of options to select.
      * @param options Element handle options.
      * @returns List of selected options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     selectOption(
         values: string | ElementHandle | SelectOptionsObject | string[] | ElementHandle[] | SelectOptionsObject[],
@@ -1172,6 +1684,8 @@ export interface ElementHandle extends JSHandle {
     /**
      * Focuses the element and selects all its text content.
      * @param options Element handle options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     selectText(options?: ElementHandleOptions): void;
 
@@ -1184,6 +1698,8 @@ export interface ElementHandle extends JSHandle {
      * The {@link ElementHandle | element handle} must be an [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
      * @param files
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setInputFiles(files: File | File[], options?: {
         /**
@@ -1191,6 +1707,8 @@ export interface ElementHandle extends JSHandle {
          * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
          * {@link Page}.
          * @default 30000
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         timeout?: number;
 
@@ -1198,6 +1716,8 @@ export interface ElementHandle extends JSHandle {
          * If set to `true` and a navigation occurs from performing this action, it
          * does not wait for it to complete.
          * @default false
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         noWaitAfter?: boolean;
     }): void;
@@ -1206,12 +1726,16 @@ export interface ElementHandle extends JSHandle {
      * Scrolls element into view if needed, and then uses `page.tapscreen` to tap in the center of the element
      * or at the specified position.
      * @param options Tap options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     tap(options?: MouseMoveOptions): void;
 
     /**
      * Returns the `node.textContent`.
      * @returns The text content of the element.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     textContent(): string;
 
@@ -1219,6 +1743,8 @@ export interface ElementHandle extends JSHandle {
      * Scrolls element into view, focuses element and types text.
      * @param text Text to type into the element.
      * @param options Typing options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     type(text: string, options?: KeyboardPressOptions): void;
 
@@ -1226,6 +1752,8 @@ export interface ElementHandle extends JSHandle {
      * Scrolls element into view, and if it's an input element of type
      * checkbox that is already checked, clicks on it to mark it as unchecked.
      * @param options Click options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     uncheck(options?: ElementClickOptions & StrictnessOptions): void;
 
@@ -1233,6 +1761,8 @@ export interface ElementHandle extends JSHandle {
      * Returns when the element satisfies the `state`.
      * @param state Wait for element to satisfy this state.
      * @param options Wait options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForElementState(state: InputElementState, options?: TimeoutOptions): void;
 
@@ -1240,6 +1770,8 @@ export interface ElementHandle extends JSHandle {
      * Returns when the child element matching `selector` satisfies the `state`.
      * @param selector A selector to query for.
      * @param options Wait options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForSelector(
         selector: string,
@@ -1249,12 +1781,16 @@ export interface ElementHandle extends JSHandle {
 
 /**
  * Frame represents the frame within a page. A page is made up of hierarchy of frames.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Frame {
     /**
      * Finds an element matching the specified selector within the `Frame`.
      * @param selector A selector to query element for.
      * @returns An `ElementHandle` pointing to the result element or `null`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     $(selector: string): ElementHandle | null;
 
@@ -1262,6 +1798,8 @@ export interface Frame {
      * Finds all elements matching the specified selector within the `Frame`.
      * @param selector A selector to query element for.
      * @returns A list of `ElementHandle`s pointing to the result elements.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     $$(selector: string): ElementHandle[];
 
@@ -1269,6 +1807,8 @@ export interface Frame {
      * Checks the first checkbox element found that matches selector.
      * @param selector The selector to use.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     check(selector: string, options?: ElementClickOptions & StrictnessOptions): void;
 
@@ -1276,6 +1816,8 @@ export interface Frame {
      * Uncheck the first found element that matches the selector.
      * @param selector The selector to use.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     uncheck(selector: string, options?: ElementClickOptions & StrictnessOptions): void;
 
@@ -1284,6 +1826,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns A promise that resolves when the element is clicked.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     click(selector: string, options?: MouseMultiClickOptions & StrictnessOptions): Promise<void>;
 
@@ -1291,6 +1835,8 @@ export interface Frame {
      * Double clicks the element.
      * @param selector The selector to use.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     dblclick(selector: string, options?: MouseClickOptions & MouseMoveOptions & StrictnessOptions): void;
 
@@ -1299,6 +1845,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param value The value to fill.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     fill(selector: string, value: string, options?: ElementHandleOptions & StrictnessOptions): void;
 
@@ -1306,6 +1854,8 @@ export interface Frame {
      * Focuses the first element found that matches the selector.
      * @param selector The selector to use.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     focus(selector: string, options?: TimeoutOptions & StrictnessOptions): void;
 
@@ -1313,6 +1863,8 @@ export interface Frame {
      * Hovers the first element found that matches the selector.
      * @param selector The selector to use.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     hover(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): void;
 
@@ -1320,6 +1872,8 @@ export interface Frame {
      * Taps the first element found that matches the selector.
      * @param selector The selector to use.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     tap(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): void;
 
@@ -1328,6 +1882,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param key The key to press.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     press(selector: string, key: string, options?: KeyboardPressOptions & StrictnessOptions): void;
 
@@ -1336,6 +1892,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param text The text to type.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     type(selector: string, text: string, options?: KeyboardPressOptions & StrictnessOptions): void;
 
@@ -1345,6 +1903,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param values The values to select.
      * @returns The array of option values of the first element found.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     selectOption(
         selector: string,
@@ -1358,6 +1918,8 @@ export interface Frame {
      * @param type The type of event to dispatch.
      * @param eventInit The event initialization properties.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     dispatchEvent(
         selector: string,
@@ -1373,6 +1935,8 @@ export interface Frame {
      *
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
 
@@ -1385,30 +1949,40 @@ export interface Frame {
      *
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 
     /**
      * Get the page that owns frame.
      * @returns The page that owns frame.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     page(): Page;
 
     /**
      * Get the parent frame.
      * @returns The parent frame, or `null` if there is no parent frame.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     parentFrame(): Frame | null;
 
     /**
      * Get a list of all child frames.
      * @returns A list of all child frames.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     childFrames(): Frame[];
 
     /**
      * Get the `ElementHandle` for this frame.
      * @returns The `ElementHandle` for this frame.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     frameElement(): ElementHandle;
 
@@ -1417,6 +1991,8 @@ export interface Frame {
      * @param url The URL to navigate to.
      * @param options The options to use.
      * @returns A promise that resolves to the HTTP response object.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     goto(url: string, options?: NavigationOptions): Promise<Response | null>;
 
@@ -1424,36 +2000,48 @@ export interface Frame {
      * Replace the entire HTML document content.
      * @param html The HTML to use.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setContent(html: string, options?: ContentLoadOptions): void;
 
     /**
      * Get the name of the frame.
      * @returns The name of the frame.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     name(): string;
 
     /**
      * Get the title of the frame.
      * @returns The title of the frame.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     title(): string;
 
     /**
      * Get the URL of the frame.
      * @returns The URL of the frame.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     url(): string;
 
     /**
      * Get the HTML content of the frame.
      * @returns The HTML content of the frame.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     content(): string;
 
     /**
      * Get whether the frame is detached or not.
      * @returns `true` if the frame is detached, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isDetached(): boolean;
 
@@ -1461,6 +2049,8 @@ export interface Frame {
      * Сreates and returns a new locator for this frame.
      * @param selector The selector to use.
      * @returns The new locator.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     locator(selector: string): Locator;
 
@@ -1469,6 +2059,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns The `innerHTML` attribute of the first element found.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     innerHTML(selector: string, options?: TimeoutOptions & StrictnessOptions): string;
 
@@ -1477,6 +2069,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns The `innerText` attribute of the first element found.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     innerText(selector: string, options?: TimeoutOptions & StrictnessOptions): string;
 
@@ -1485,6 +2079,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns The text content of the first element found.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     textContent(selector: string, options?: TimeoutOptions & StrictnessOptions): string;
 
@@ -1494,6 +2090,8 @@ export interface Frame {
      * @param name The name of the attribute to get.
      * @param options The options to use.
      * @returns The value of the attribute.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     getAttribute(selector: string, name: string, options?: TimeoutOptions & StrictnessOptions): string;
 
@@ -1502,6 +2100,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns The input value of the first element found.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     inputValue(selector: string, options?: TimeoutOptions & StrictnessOptions): string;
 
@@ -1510,6 +2110,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns `true` if the checkbox is checked, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isChecked(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
 
@@ -1518,6 +2120,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns `true` if the element is disabled, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isDisabled(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
 
@@ -1526,6 +2130,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns `true` if the element is enabled, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isEnabled(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
 
@@ -1534,6 +2140,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns `true` if the element is editable, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isEditable(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
 
@@ -1542,6 +2150,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns `true` if the element is hidden, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isHidden(selector: string, options?: StrictnessOptions): boolean;
 
@@ -1550,6 +2160,8 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns `true` if the element is visible, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isVisible(selector: string, options?: StrictnessOptions): boolean;
 
@@ -1565,6 +2177,8 @@ export interface Frame {
      * elements satisfying the selector, the first will be used.
      * @param files
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setInputFiles(selector: string, files: File | File[], options?: {
         /**
@@ -1572,6 +2186,8 @@ export interface Frame {
          * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
          * {@link Page}
          * @default 30000
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         timeout?: number;
 
@@ -1579,6 +2195,8 @@ export interface Frame {
          * If set to `true` and a navigation occurs from performing this action, it
          * will not wait for it to complete.
          * @default false
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         noWaitAfter?: boolean;
     }): void;
@@ -1587,6 +2205,8 @@ export interface Frame {
      * Wait for the given function to return a truthy value.
      * @param predicate The function to call and wait for.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForFunction<R, Arg>(
         pageFunction: PageFunction<Arg, R>,
@@ -1599,6 +2219,8 @@ export interface Frame {
      * This will unblock if that lifecycle event has already been received.
      * @param state The load state to wait for, defaults to `load`.
      * @param options The options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForLoadState(state?: LifecycleEvent, options?: TimeoutOptions): void;
 
@@ -1606,6 +2228,8 @@ export interface Frame {
      * Waits for the navigation event to happen.
      * @param options The options to use.
      * @returns A promise that resolves to the response of the navigation when it happens.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForNavigation(options?: ContentLoadOptions): Promise<Response | null>;
 
@@ -1614,29 +2238,39 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      * @returns The first element found that matches the selector.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForSelector(selector: string, options?: ElementStateFilter & TimeoutOptions & StrictnessOptions): ElementHandle;
 
     /**
      * Wait for the given timeout to elapse.
      * @param timeout The timeout to wait for.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForTimeout(timeout: number): void;
 }
 
 /**
  * JSHandle represents an in-page JavaScript object.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface JSHandle<T = any> {
     /**
      * Returns either `null` or the object handle itself, if the object handle is
      * an instance of `ElementHandle`.
      * @returns The ElementHandle if available.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     asElement(): ElementHandle | null;
 
     /**
      * Stops referencing the element handle.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     dispose(): void;
 
@@ -1646,6 +2280,8 @@ export interface JSHandle<T = any> {
      * @param pageFunction The function to be evaluated.
      * @param args The arguments to pass to the page function.
      * @returns The return value of `pageFunction`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
 
@@ -1656,31 +2292,41 @@ export interface JSHandle<T = any> {
      * @param pageFunction The function to be evaluated.
      * @param args The arguments to pass to the page function.
      * @returns A JSHandle of the return value of `pageFunction`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 
     /**
-     * Fethes a map with own property names of of the `JSHandle` with their values as
+     * Fetches a map with own property names of of the `JSHandle` with their values as
      * `JSHandle` instances.
      * @returns A map with property names as keys and `JSHandle` instances for the property values.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     getProperties(): Map<string, JSHandle>;
 
     /**
      * Fetches a JSON representation of the object.
      * @returns A JSON representation of the object.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     jsonValue(): any;
 }
 
 /**
  * Keyboard provides an API for managing a virtual keyboard.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Keyboard {
     /**
      * Sends a key down message to a session target.
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
      * @param key Name of key to press, such as `ArrowLeft`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     down(key: string): void;
 
@@ -1688,6 +2334,8 @@ export interface Keyboard {
      * Dispatches an `input` event with the given `text`.
      * This method does not emit `keyDown`, `keyUp` or `keyPress` events.
      * @param text Event text.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     insertText(text: string): void;
 
@@ -1696,6 +2344,8 @@ export interface Keyboard {
      * A press message consists of successive key down and up messages.
      * @param key Sequence of keys to press.
      * @param options Specifies the typing options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     press(key: string, options?: { delay?: number }): void;
 
@@ -1706,6 +2356,8 @@ export interface Keyboard {
      * Modifier keys `Shift`, `Control`, `Alt`, `Meta` are _not_ respected.
      * @param text A text to type into a focused element.
      * @param options Specifies the typing options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     type(text: string, options?: { delay?: number }): void;
 
@@ -1713,6 +2365,8 @@ export interface Keyboard {
      * Sends a key up message to a session target.
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
      * @param key Name of key to release, such as `ArrowLeft`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     up(key: string): void;
 }
@@ -1726,6 +2380,8 @@ export interface Keyboard {
  * underlying frame navigates.
  * - Makes it easier to work with dynamic web pages and SPAs built with Svelte,
  * React, Vue, etc.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Locator {
     /**
@@ -1739,6 +2395,8 @@ export interface Locator {
      * ```
      *
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     clear(options?: ElementHandleOptions): void;
 
@@ -1746,24 +2404,32 @@ export interface Locator {
      * Mouse click on the chosen element.
      * @param options Options to use.
      * @returns Promise which resolves when the element is successfully clicked.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
      * Mouse double click on the chosen element.
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     dblclick(options?: MouseMoveOptions & MouseMultiClickOptions): void;
 
     /**
      * Use this method to select an `input type="checkbox"`.
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     check(options?: ElementClickOptions): void;
 
     /**
      * Use this method to unselect an `input type="checkbox"`.
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     uncheck(options?: ElementClickOptions): void;
 
@@ -1771,6 +2437,8 @@ export interface Locator {
      * Checks to see if the `input type="checkbox"` is selected or not.
      * @param options Options to use.
      * @returns `true` if the element is checked, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isChecked(options?: TimeoutOptions): boolean;
 
@@ -1778,6 +2446,8 @@ export interface Locator {
      * Checks if the element is editable.
      * @param options Options to use.
      * @returns `true` if the element is editable, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isEditable(options?: TimeoutOptions): boolean;
 
@@ -1785,6 +2455,8 @@ export interface Locator {
      * Checks if the element is `enabled`.
      * @param options Options to use.
      * @returns `true` if the element is enabled, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isEnabled(options?: TimeoutOptions): boolean;
 
@@ -1792,18 +2464,24 @@ export interface Locator {
      * Checks if the element is `disabled`.
      * @param options Options to use.
      * @returns `true` if the element is disabled, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isDisabled(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is `visible`.
      * @returns `true` if the element is visible, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isVisible(): boolean;
 
     /**
      * Checks if the element is `hidden`.
      * @returns `true` if the element is hidden, `false` otherwise.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isHidden(): boolean;
 
@@ -1811,12 +2489,16 @@ export interface Locator {
      * Fill an `input`, `textarea` or `contenteditable` element with the provided value.
      * @param value Value to fill for the `input` or `textarea` element.
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     fill(value: string, options?: ElementHandleOptions): void;
 
     /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     focus(options?: TimeoutOptions): void;
 
@@ -1825,6 +2507,8 @@ export interface Locator {
      * @param name Attribute name to retrieve value for.
      * @param options Options to use.
      * @returns Attribute value.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     getAttribute(name: string, options?: TimeoutOptions): string | null;
 
@@ -1832,6 +2516,8 @@ export interface Locator {
      * Returns the `element.innerHTML`.
      * @param options Options to use.
      * @returns Element's innerHTML.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     innerHTML(options?: TimeoutOptions): string;
 
@@ -1839,6 +2525,8 @@ export interface Locator {
      * Returns the `element.innerText`.
      * @param options Options to use.
      * @returns Element's innerText.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     innerText(options?: TimeoutOptions): string;
 
@@ -1846,6 +2534,8 @@ export interface Locator {
      * Returns the `element.textContent`.
      * @param options Options to use.
      * @returns Element's textContent.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     textContent(options?: TimeoutOptions): string;
 
@@ -1853,6 +2543,8 @@ export interface Locator {
      * Returns `input.value` for the selected `input`, `textarea` or `select` element.
      * @param options Options to use.
      * @returns The input value of the element.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     inputValue(options?: TimeoutOptions): string;
 
@@ -1862,6 +2554,8 @@ export interface Locator {
      * @param values Values of options to select.
      * @param options Options to use.
      * @returns List of selected options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     selectOption(
         values: string | string[] | { value?: string; label?: string; index?: number },
@@ -1873,6 +2567,8 @@ export interface Locator {
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
      * @param key Name of the key to press or a character to generate, such as `ArrowLeft` or `a`.
      * @param options Keyboard press options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     press(key: string, options?: KeyboardPressOptions): void;
 
@@ -1880,18 +2576,24 @@ export interface Locator {
      * Type a text into the input field.
      * @param text Text to type into the input field.
      * @param options Typing options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     type(text: string, options?: KeyboardPressOptions): void;
 
     /**
      * Hover over the element.
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     hover(options?: MouseMoveOptions): void;
 
     /**
      * Tap on the chosen element.
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     tap(options?: MouseMoveOptions): void;
 
@@ -1900,18 +2602,24 @@ export interface Locator {
      * @param type DOM event type.
      * @param eventInit Event-specific properties.
      * @param options Options to use.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions): void;
 
     /**
      * Wait for the element to be in a particular state e.g. `visible`.
      * @param options Wait options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitFor(options?: { state?: ElementState } & TimeoutOptions): void;
 }
 
 /**
  * Mouse provides an API for managing a virtual mouse.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Mouse {
     /**
@@ -1919,6 +2627,8 @@ export interface Mouse {
      * @param x The x position.
      * @param y The y position.
      * @param options The click options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     click(x: number, y: number, options?: MouseMultiClickOptions): void;
 
@@ -1928,12 +2638,16 @@ export interface Mouse {
      * @param x The x position.
      * @param y The y position.
      * @param options The click options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     dblclick(x: number, y: number, options?: MouseClickOptions): void;
 
     /**
      * Dispatches a `mousedown` event.
      * @param options The mouse down options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     down(options?: MouseDownUpOptions): void;
 
@@ -1942,12 +2656,16 @@ export interface Mouse {
      * @param x The x position.
      * @param y The y position.
      * @param options The mouse move options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     move(x: number, y: number, options?: { steps?: number }): void;
 
     /**
      * Dispatches a `mouseup` event.
      * @param options The mouse up options.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     up(options?: MouseDownUpOptions): void;
 }
@@ -1955,11 +2673,15 @@ export interface Mouse {
 /**
  * Page provides methods to interact with a single tab in a running web browser
  * instance. One instance of the browser can have many page instances.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Page {
     /**
      * Activates the browser tab so that it comes into focus and actions can be
      * performed against it.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     bringToFront(): void;
 
@@ -1970,6 +2692,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     check(
         selector: string,
@@ -1977,18 +2701,24 @@ export interface Page {
             /**
              * Setting this to `true` will bypass the actionability checks (visible,
              * stable, enabled). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             force?: boolean;
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
             /**
              * A point to use relative to the top left corner of the element. If not
              * supplied, a visible point of the element is used.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             position?: {
                 x: number;
@@ -2000,6 +2730,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2009,6 +2741,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
 
@@ -2016,6 +2750,8 @@ export interface Page {
              * Setting this to `true` will perform the actionability checks without
              * performing the action. Useful to wait until the element is ready for the
              * action without performing it. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             trial?: boolean;
         },
@@ -2028,6 +2764,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     click(
         selector: string,
@@ -2035,22 +2773,30 @@ export interface Page {
             /**
              * The mouse button (`left`, `middle` or `right`) to use during the action.
              * Defaults to `left`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             button?: MouseButton;
 
             /**
              * The number of times the action is performed. Defaults to `1`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             clickCount?: number;
 
             /**
              * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             delay?: number;
 
             /**
              * Setting this to `true` will bypass the actionability checks (`visible`,
              * `stable`, `enabled`). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             force?: boolean;
 
@@ -2058,18 +2804,24 @@ export interface Page {
              * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
              * action. If not specified, currently pressed modifiers are used,
              * otherwise defaults to `null`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             modifiers?: KeyboardModifier[];
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
             /**
              * A point to use relative to the top left corner of the element. If not
              * supplied, a visible point of the element is used.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             position?: {
                 x: number;
@@ -2081,6 +2833,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2090,6 +2844,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
 
@@ -2097,6 +2853,8 @@ export interface Page {
              * Setting this to `true` will perform the actionability checks without
              * performing the action. Useful to wait until the element is ready for the
              * action without performing it. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             trial?: boolean;
         },
@@ -2104,16 +2862,22 @@ export interface Page {
 
     /**
      * This will close the tab that this page is associated with.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     close(): void;
 
     /**
      * Gets the HTML contents of the page.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     content(): string;
 
     /**
      * Gets the `BrowserContext` that the page belongs to.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     context(): BrowserContext;
 
@@ -2124,6 +2888,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     dblclick(
         selector: string,
@@ -2131,17 +2897,23 @@ export interface Page {
             /**
              * The mouse button (`left`, `middle` or `right`) to use during the action.
              * Defaults to `left`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             button?: MouseButton;
 
             /**
              * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             delay?: number;
 
             /**
              * Setting this to `true` will bypass the actionability checks (`visible`,
              * `stable`, `enabled`). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             force?: boolean;
 
@@ -2149,18 +2921,24 @@ export interface Page {
              * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
              * action. If not specified, currently pressed modifiers are used,
              * otherwise defaults to `null`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             modifiers?: KeyboardModifier[];
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
             /**
              * A point to use relative to the top left corner of the element. If not
              * supplied, a visible point of the element is used.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             position?: {
                 x: number;
@@ -2172,6 +2950,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2181,6 +2961,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
 
@@ -2188,6 +2970,8 @@ export interface Page {
              * Setting this to `true` will perform the actionability checks without
              * performing the action. Useful to wait until the element is ready for the
              * action without performing it. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             trial?: boolean;
         },
@@ -2201,6 +2985,8 @@ export interface Page {
      * @param type DOM event type: `"click"` etc.
      * @param eventInit Optional event-specific initialization properties.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     dispatchEvent(
         selector: string,
@@ -2211,6 +2997,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2220,6 +3008,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2230,23 +3020,31 @@ export interface Page {
      * and/or the `'prefers-colors-scheme'` media feature, using the `colorScheme`
      * argument.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     emulateMedia(options?: {
         /**
          * Emulates `'prefers-colors-scheme'` media feature, supported values are
          * `'light'`, `'dark'`, and `'no-preference'`.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         colorScheme?: "light" | "dark" | "no-preference";
 
         /**
          * Changes the CSS media type of the page. The only allowed values are
          * `'screen'`, and `'print'`.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         media?: "screen" | "print";
 
         /**
          * Emulates `'prefers-reduced-motion'` media feature, supported values are
          * `'reduce'`, `'no-preference'`.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         reducedMotion?: "reduce" | "no-preference";
     }): void;
@@ -2262,6 +3060,8 @@ export interface Page {
      * - achromatopsia: the inability to perceive any color except for shades of
      * grey (extremely rare).
      * @param type
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     emulateVisionDeficiency(
         type: "none" | "blurredVision" | "deuteranopia" | "protanopia" | "tritanopia" | "achromatopsia",
@@ -2274,6 +3074,8 @@ export interface Page {
      *
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
 
@@ -2286,6 +3088,8 @@ export interface Page {
      *
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 
@@ -2300,6 +3104,8 @@ export interface Page {
      * @param value Value to fill for the `<input>`, `<textarea>` or
      * `[contenteditable]` element.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     fill(
         selector: string,
@@ -2308,12 +3114,16 @@ export interface Page {
             /**
              * Setting this to `true` will bypass the actionability checks (`visible`,
              * `stable`, `enabled`). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             force?: boolean;
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
@@ -2321,6 +3131,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2330,6 +3142,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2343,6 +3157,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     focus(
         selector: string,
@@ -2351,6 +3167,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2360,6 +3178,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2367,6 +3187,8 @@ export interface Page {
 
     /**
      * Frames returns an array of frames on the page.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     frames(): Frame[];
 
@@ -2379,6 +3201,8 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param name Attribute name to get the value for.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     getAttribute(
         selector: string,
@@ -2388,6 +3212,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2397,6 +3223,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2411,6 +3239,8 @@ export interface Page {
      * @param url URL to navigate page to. The url should include scheme, e.g.
      * `https://`.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     goto(url: string, options?: NavigationOptions): Promise<null | Response>;
 
@@ -2422,6 +3252,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     hover(
         selector: string,
@@ -2429,6 +3261,8 @@ export interface Page {
             /**
              * Setting this to `true` will bypass the actionability checks (`visible`,
              * `stable`, `enabled`). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             force?: boolean;
 
@@ -2436,18 +3270,24 @@ export interface Page {
              * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
              * action. If not specified, currently pressed modifiers are used,
              * otherwise defaults to `null`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             modifiers?: KeyboardModifier[];
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
             /**
              * A point to use relative to the top left corner of the element. If not
              * supplied, a visible point of the element is used.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             position?: {
                 x: number;
@@ -2459,6 +3299,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2468,6 +3310,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
 
@@ -2475,6 +3319,8 @@ export interface Page {
              * Setting this to `true` will perform the actionability checks without
              * performing the action. Useful to wait until the element is ready for the
              * action without performing it. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             trial?: boolean;
         },
@@ -2488,6 +3334,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     innerHTML(
         selector: string,
@@ -2496,6 +3344,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2505,6 +3355,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2518,6 +3370,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     innerText(
         selector: string,
@@ -2526,6 +3380,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2535,6 +3391,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2549,6 +3407,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     inputValue(
         selector: string,
@@ -2557,6 +3417,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2566,6 +3428,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2579,6 +3443,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isChecked(
         selector: string,
@@ -2587,6 +3453,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2596,6 +3464,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2603,6 +3473,8 @@ export interface Page {
 
     /**
      * Indicates that the page has been closed.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isClosed(): boolean;
 
@@ -2614,6 +3486,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isDisabled(
         selector: string,
@@ -2622,6 +3496,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2631,6 +3507,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2644,6 +3522,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isEditable(
         selector: string,
@@ -2652,6 +3532,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2661,6 +3543,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2674,6 +3558,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isEnabled(
         selector: string,
@@ -2682,6 +3568,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2691,6 +3579,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2704,6 +3594,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isHidden(selector: string, options?: StrictnessOptions): boolean;
 
@@ -2715,12 +3607,16 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Returns the keyboard instance to interact with a virtual keyboard on the
      * page.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     keyboard: Keyboard;
 
@@ -2730,17 +3626,23 @@ export interface Page {
      * where the underlying dom changes.
      *
      * @param selector A selector to use when resolving DOM element.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     locator(selector: string): Locator;
 
     /**
      * The page's main frame. Page is made up of frames in a hierarchical. At the
      * top is mainFrame. A page is guaranteed to have a mainFrame.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     mainFrame(): Frame;
 
     /**
      * Returns the mouse instance to interact with a virtual mouse on the page.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     mouse: Mouse;
 
@@ -2763,12 +3665,16 @@ export interface Page {
      * });
      * page.evaluate(() => console.log('hello', 5, { foo: 'bar' }));
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     on(event: "console", listener: (consoleMessage: ConsoleMessage) => void): void;
 
     /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     opener(): Page | null;
 
@@ -2798,6 +3704,8 @@ export interface Page {
      * @param key Name of the key to press or a character to generate, such as
      * `ArrowLeft` or `a`.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     press(
         selector: string,
@@ -2805,12 +3713,16 @@ export interface Page {
         options?: {
             /**
              * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             delay?: number;
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
@@ -2818,6 +3730,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2827,6 +3741,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2836,6 +3752,8 @@ export interface Page {
      * This reloads the current page Returns the main resource response.
      *
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     reload(options?: {
         /**
@@ -2847,6 +3765,8 @@ export interface Page {
          * page.setDefaultTimeout(timeout) methods.
          *
          * Setting the value to `0` will disable the timeout.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         timeout?: number;
 
@@ -2861,6 +3781,8 @@ export interface Page {
          * when there are no network connections for at least `500` ms. Don't use
          * this method for testing especially with chatty websites where the event
          * may never fire, rely on web assertions to assess readiness instead.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): null | Response;
@@ -2869,30 +3791,42 @@ export interface Page {
      * Returns the buffer with the captured screenshot from the browser.
      *
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     screenshot(
         options?: {
             /**
              * An object which specifies clipping of the resulting image.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             clip?: {
                 /**
                  * x-coordinate of top-left corner of clip area
+                 *
+                 * @deprecated Use "k6/browser" module instead.
                  */
                 x: number;
 
                 /**
                  * y-coordinate of top-left corner of clip area
+                 *
+                 * @deprecated Use "k6/browser" module instead.
                  */
                 y: number;
 
                 /**
                  * width of clipping area
+                 *
+                 * @deprecated Use "k6/browser" module instead.
                  */
                 width: number;
 
                 /**
                  * height of clipping area
+                 *
+                 * @deprecated Use "k6/browser" module instead.
                  */
                 height: number;
             };
@@ -2900,6 +3834,8 @@ export interface Page {
             /**
              * When true, takes a screenshot of the full scrollable page, instead of
              * the currently visible viewport. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             fullPage?: boolean;
         } & ScreenshotOptions,
@@ -2918,6 +3854,8 @@ export interface Page {
      * one of the passed options is selected. Object can be made up of keys with
      * value, label or index.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     selectOption(
         selector: string,
@@ -2926,12 +3864,16 @@ export interface Page {
             /**
              * Setting this to `true` will bypass the actionability checks (visible,
              * stable, enabled). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             force?: boolean;
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
@@ -2939,6 +3881,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -2948,6 +3892,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -2958,6 +3904,8 @@ export interface Page {
      *
      * @param html HTML markup to assign to the page.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setContent(
         html: string,
@@ -2971,6 +3919,8 @@ export interface Page {
              * page.setDefaultTimeout(timeout) methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
 
@@ -2985,6 +3935,8 @@ export interface Page {
              * when there are no network connections for at least `500` ms. Don't use
              * this method for testing especially with chatty websites where the event
              * may never fire, rely on web assertions to assess readiness instead.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             waitUntil?: "load" | "domcontentloaded" | "networkidle";
         },
@@ -2998,6 +3950,8 @@ export interface Page {
      * - page.waitForNavigation([options])
      *
      * @param timeout in milliseconds
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setDefaultNavigationTimeout(timeout: number): void;
 
@@ -3006,6 +3960,8 @@ export interface Page {
      * `timeout` option.
      *
      * @param timeout in milliseconds
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setDefaultTimeout(timeout: number): void;
 
@@ -3015,6 +3971,8 @@ export interface Page {
      *
      * @param headers An object containing the additional HTTP headers.
      * All header values must be strings.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setExtraHTTPHeaders(headers: { [key: string]: string }): void;
 
@@ -3030,6 +3988,8 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param files
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setInputFiles(selector: string, files: File | File[], options?: {
         /**
@@ -3037,6 +3997,8 @@ export interface Page {
          * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
          * {@link Page}
          * @default 30000
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         timeout?: number;
 
@@ -3044,6 +4006,8 @@ export interface Page {
          * If set to `true` and a navigation occurs from performing this action, it
          * will not wait for it to complete.
          * @default false
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         noWaitAfter?: boolean;
     }): void;
@@ -3052,15 +4016,21 @@ export interface Page {
      * This will update the page's width and height.
      *
      * @param viewportSize
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     setViewportSize(viewportSize: {
         /**
          * page width in pixels.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         width: number;
 
         /**
          * page height in pixels.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         height: number;
     }): void;
@@ -3073,6 +4043,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     tap(
         selector: string,
@@ -3080,6 +4052,8 @@ export interface Page {
             /**
              * Setting this to `true` will bypass the actionability checks (visible,
              * stable, enabled). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             force?: boolean;
 
@@ -3087,18 +4061,24 @@ export interface Page {
              * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
              * action. If not specified, currently pressed modifiers are used,
              * otherwise defaults to `null`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             modifiers?: KeyboardModifier[];
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
             /**
              * A point to use relative to the top left corner of the element. If not
              * supplied, a visible point of the element is used.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             position?: {
                 x: number;
@@ -3110,6 +4090,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -3119,6 +4101,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
 
@@ -3126,6 +4110,8 @@ export interface Page {
              * Setting this to `true` will perform the actionability checks without
              * performing the action. Useful to wait until the element is ready for the
              * action without performing it. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             trial?: boolean;
         },
@@ -3139,6 +4125,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     textContent(
         selector: string,
@@ -3147,6 +4135,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -3156,6 +4146,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -3171,6 +4163,8 @@ export interface Page {
      * ```js
      * page.throttleCPU({ rate: 4 });
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     throttleCPU(profile: CPUProfile): void;
 
@@ -3207,17 +4201,23 @@ export interface Page {
      *     page.throttleNetwork(networkProfiles['Slow 3G']);
      * ... // redacted
      * ```
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     throttleNetwork(profile: NetworkProfile): void;
 
     /**
      * Returns the page's title.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     title(): string;
 
     /**
      * Returns the touchscreen instance to interact with a virtual touchscreen on
      * the page.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     touchscreen: Touchscreen;
 
@@ -3230,6 +4230,8 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param text The text to type into the element.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     type(
         selector: string,
@@ -3237,12 +4239,16 @@ export interface Page {
         options?: {
             /**
              * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             delay?: number;
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
@@ -3250,6 +4256,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -3259,6 +4267,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -3272,6 +4282,8 @@ export interface Page {
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     uncheck(
         selector: string,
@@ -3279,18 +4291,24 @@ export interface Page {
             /**
              * Setting this to `true` will bypass the actionability checks (visible,
              * stable, enabled). Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             force?: boolean;
 
             /**
              * If set to `true` and a navigation occurs from performing this action, it
              * will not wait for it to complete. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             noWaitAfter?: boolean;
 
             /**
              * A point to use relative to the top left corner of the element. If not
              * supplied, a visible point of the element is used.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             position?: {
                 x: number;
@@ -3302,6 +4320,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -3311,6 +4331,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
 
@@ -3318,6 +4340,8 @@ export interface Page {
              * Setting this to `true` will perform the actionability checks without
              * performing the action. Useful to wait until the element is ready for the
              * action without performing it. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             trial?: boolean;
         },
@@ -3325,20 +4349,28 @@ export interface Page {
 
     /**
      * Returns the page's URL.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     url(): string;
 
     /**
      * Returns the page's size (width and height).
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     viewportSize(): {
         /**
          * page width in pixels.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         width: number;
 
         /**
          * page height in pixels.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         height: number;
     };
@@ -3349,6 +4381,8 @@ export interface Page {
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForFunction<R, Arg>(
         pageFunction: PageFunction<Arg, R>,
@@ -3358,6 +4392,8 @@ export interface Page {
              * `requestAnimationFrame` callback. If `polling` is a number, then it is
              * treated as an interval in milliseconds at which the function would be
              * executed. Defaults to `raf`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             polling?: number | "raf";
 
@@ -3367,6 +4403,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -3387,6 +4425,8 @@ export interface Page {
      * this method for testing especially with chatty websites where the event
      * may never fire, rely on web assertions to assess readiness instead.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForLoadState(
         state?: "load" | "domcontentloaded" | "networkidle",
@@ -3400,6 +4440,8 @@ export interface Page {
              * page.setDefaultTimeout(timeout) methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -3410,6 +4452,8 @@ export interface Page {
      * resource response.
      *
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForNavigation(options?: {
         /**
@@ -3421,6 +4465,8 @@ export interface Page {
          * page.setDefaultTimeout(timeout) methods.
          *
          * Setting the value to `0` will disable the timeout.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         timeout?: number;
 
@@ -3435,6 +4481,8 @@ export interface Page {
          * when there are no network connections for at least `500` ms. Don't use
          * this method for testing especially with chatty websites where the event
          * may never fire, rely on web assertions to assess readiness instead.
+         *
+         * @deprecated Use "k6/browser" module instead.
          */
         waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): Promise<null | Response>;
@@ -3447,6 +4495,8 @@ export interface Page {
      *
      * @param selector A selector to query for.
      * @param options
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForSelector(
         selector: string,
@@ -3459,6 +4509,8 @@ export interface Page {
              * `visibility:hidden`.
              * - `'hidden'` - wait for element to be either detached from DOM, or have
              * an empty bounding box or `visibility:hidden`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             state?: "attached" | "detached" | "visible" | "hidden";
 
@@ -3466,6 +4518,8 @@ export interface Page {
              * When `true`, the call requires selector to resolve to a single element.
              * If given selector resolves to more than one element, the call throws
              * an exception. Defaults to `false`.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             strict?: boolean;
 
@@ -3475,6 +4529,8 @@ export interface Page {
              * `page` methods.
              *
              * Setting the value to `0` will disable the timeout.
+             *
+             * @deprecated Use "k6/browser" module instead.
              */
             timeout?: number;
         },
@@ -3488,11 +4544,15 @@ export interface Page {
      * Waits for the given `timeout` in milliseconds.
      *
      * @param timeout A timeout to wait for
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     waitForTimeout(timeout: number): void;
 
     /**
      * This method returns all of the dedicated WebWorkers associated with the page.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     workers(): Worker[];
 
@@ -3503,6 +4563,8 @@ export interface Page {
      * If no elements match the selector, the return value resolves to `null`.
      * To wait for an element on the page, use locator.waitFor([options]).
      * @param selector A selector to query for.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     $(selector: string): ElementHandle | null;
 
@@ -3512,23 +4574,31 @@ export interface Page {
      * The method finds all elements matching the specified selector within the
      * page. If no elements match the selector, the return value resolves to `[]`.
      * @param selector A selector to query for.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     $$(selector: string): ElementHandle[];
 }
 
 /**
  * Request represents requests which are sent by a page.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Request {
     /**
      * An object with HTTP headers associated with the request. All header names are
      * lower-case.
      * @returns The headers object.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     allHeaders(): Record<string, string>;
 
     /**
      * @returns the Frame that initiated this request
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     frame(): Frame;
 
@@ -3536,6 +4606,8 @@ export interface Request {
      * An object with HTTP headers associated with the request. All header names are
      * lower-case.
      * @returns An object with HTTP headers associated with the request.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     headers(): Record<string, string>;
 
@@ -3544,6 +4616,8 @@ export interface Request {
      * header names are not lower-cased. Headers with multiple entries, such as
      * `Set-Cookie`, appear in the array multiple times.
      * @returns An array of all the request HTTP headers.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     headersArray(): Array<{ name: string; value: string }>;
 
@@ -3551,29 +4625,39 @@ export interface Request {
      * Retuns the value of the header matching the name. The name is case insensitive.
      * @param name Header name to retrieve value for.
      * @returns The value of the header matching the name.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     headerValue(name: string): string | null;
 
     /**
      * @returns a boolean stating whether the request is for a navigation
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     isNavigationRequest(): boolean;
 
     /**
      * Request's method (GET, POST, etc.)
      * @returns request's method name
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     method(): string;
 
     /**
      * Contains the request's post body, if any.
      * @returns request's post body
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     postData(): string;
 
     /**
      * Request's post body in a binary form, if any.
      * @returns an ArrayBuffer with request's post data
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     postDataBuffer(): ArrayBuffer | null;
 
@@ -3583,6 +4667,8 @@ export interface Request {
      * `media`, `font`, `script`, `texttrack`, `xhr`, `fetch`, `eventsource`,
      * `websocket`, `manifest`, `other`.
      * @returns resource type name
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     resourceType(): ResourceType;
 
@@ -3590,12 +4676,16 @@ export interface Request {
      * Returns the matching `Response` object, or `null` if the response was not received
      * due to error.
      * @returns The `Response` object, or `null` if the response was not received due to error.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     response(): Response | null;
 
     /**
      * Returns resource size information for given request.
      * @returns Resource size information for given request.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     size(): { body: number; headers: number };
 
@@ -3604,35 +4694,47 @@ export interface Request {
      * become available upon the response, `responseEnd` becomes available when request
      * finishes.
      * @returns Resource timing information for given request.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     timing(): ResourceTiming;
 
     /**
      * URL of the request.
      * @returns request URL
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     url(): string;
 }
 
 /**
  * Response represents responses which are received by page.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Response {
     /**
      * An object with HTTP headers associated with the response. All header names are
      * lower-case.
      * @returns The headers object.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     allHeaders(): Record<string, string>;
 
     /**
      * Returns the response body.
      * @returns A buffer with response body.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     body(): ArrayBuffer;
 
     /**
      * @returns the Frame that initiated this response
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     frame(): Frame;
 
@@ -3640,6 +4742,8 @@ export interface Response {
      * An object with HTTP headers associated with the response. All header names are
      * lower-case.
      * @returns The headers object.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     headers(): Record<string, string>;
 
@@ -3648,6 +4752,8 @@ export interface Response {
      * names are not lower-cased. Headers with multiple entries, such as `Set-Cookie`,
      * appear in the array multiple times.
      * @returns An array of all the request HTTP headers.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     headersArray(): Array<{ name: string; value: string }>;
 
@@ -3658,6 +4764,8 @@ export interface Response {
      * no headers are found, `null` is returned.
      * @param name Header name to retrieve value for.
      * @returns The header value for the given name.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     headerValue(name: string): string | null;
 
@@ -3666,6 +4774,8 @@ export interface Response {
      * The name is case insensitive.
      * @param name Header name to retrieve values for.
      * @returns An array of header values for the given name.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     headerValues(name: string): string[];
 
@@ -3673,6 +4783,8 @@ export interface Response {
      * Returns the JSON representation of response body. Throws if response body is not
      * parsable via `JSON.parse`.
      * @returns JSON representation of response body.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     json(): any;
 
@@ -3680,48 +4792,64 @@ export interface Response {
      * Contains a boolean stating whether the response was successful (status in the
      * range 200-299) or not.
      * @returns a boolean stating whether the response was successful
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     ok(): boolean;
 
     /**
      * The request that was used to produce the response.
      * @returns the matching `Request` object
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     request(): Request;
 
     /**
      * Security details associated with this response.
      * @returns A matching `SecurityDetailsObject`
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     securityDetails(): SecurityDetailsObject | null;
 
     /**
      * Returns the IP address and port of the server for this response.
      * @returns The IP address and port of the server
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     serverAddr(): { ipAddress: string; port: number } | null;
 
     /**
      * Contains the status code of the response (e.g., 200 for a success).
      * @returns the status code of the response
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     status(): number;
 
     /**
      * Contains the status text of the response (e.g. usually an "OK" for a success).
      * @returns the status text of the response
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     statusText(): string;
 
     /**
      * The size of the response body and the headers.
      * @returns The size of the response body and the headers.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     size(): { body: number; headers: number };
 
     /**
      * Contains the URL of the response.
      * @returns the URL of the response
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     url(): string;
 }
@@ -3730,23 +4858,31 @@ export interface Response {
  * Touchscreen provides an api for interacting with a virtual touchscreen. It
  * operates in main-frame CSS pixels relative to the top-left corner of the
  * viewport.
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Touchscreen {
     /**
      * Taps on the specified position (`x`,`y`), which internally dispatches a `touchstart` and `touchend` event.
      * @param x The x position.
      * @param y The y position.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     tap(x: number, y: number): void;
 }
 
 /**
  * The Worker represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+ *
+ * @deprecated Use "k6/browser" module instead.
  */
 export interface Worker {
     /**
      * Get the URL of the web worker.
      * @return The URL of the web worker.
+     *
+     * @deprecated Use "k6/browser" module instead.
      */
     url(): string;
 }

@@ -17,7 +17,7 @@ export type FindAccount = (
     token?: AuthorizationCode | AccessToken | DeviceCode | BackchannelAuthenticationRequest,
 ) => CanBePromise<Account | undefined>;
 export type TokenFormat = "opaque" | "jwt";
-export type FapiProfile = "1.0 ID2" | "1.0 Final";
+export type FapiProfile = "1.0 ID2" | "1.0 Final" | "2.0";
 
 export type TTLFunction<T> = (ctx: KoaContextWithOIDC, token: T, client: Client) => number;
 
@@ -56,6 +56,7 @@ export interface AllClientMetadata {
     redirect_uris?: string[] | undefined;
     grant_types?: string[] | undefined;
     response_types?: ResponseType[] | undefined;
+    response_modes?: string[] | undefined;
 
     application_type?: "web" | "native" | undefined;
     client_id_issued_at?: number | undefined;
@@ -103,7 +104,6 @@ export interface AllClientMetadata {
     authorization_signed_response_alg?: SigningAlgorithm | undefined;
     authorization_encrypted_response_alg?: EncryptionAlgValues | undefined;
     authorization_encrypted_response_enc?: EncryptionEncValues | undefined;
-    web_message_uris?: string[] | undefined;
     tls_client_certificate_bound_access_tokens?: boolean | undefined;
 
     require_signed_request_object?: boolean | undefined;
@@ -604,9 +604,9 @@ declare class IdToken {
 
 declare class Client {
     responseTypeAllowed(type: ResponseType): boolean;
+    responseModeAllowed(type: string, responseType: ResponseType, fapiProfile: FapiProfile | undefined): boolean;
     grantTypeAllowed(type: string): boolean;
     redirectUriAllowed(redirectUri: string): boolean;
-    webMessageUriAllowed(webMessageUri: string): boolean;
     requestUriAllowed(requestUri: string): boolean;
     postLogoutRedirectUriAllowed(postLogoutRedirectUri: string): boolean;
     includeSid(): boolean;
@@ -621,6 +621,7 @@ declare class Client {
     readonly grantTypes?: string[] | undefined;
     readonly redirectUris?: string[] | undefined;
     readonly responseTypes?: ResponseType[] | undefined;
+    readonly responseModes?: string[] | undefined;
 
     readonly applicationType?: "web" | "native" | undefined;
     readonly clientIdIssuedAt?: number | undefined;
@@ -670,7 +671,6 @@ declare class Client {
     readonly authorizationSignedResponseAlg?: string | undefined;
     readonly authorizationEncryptedResponseAlg?: string | undefined;
     readonly authorizationEncryptedResponseEnc?: string | undefined;
-    readonly webMessageUris?: string[] | undefined;
     readonly tlsClientCertificateBoundAccessTokens?: boolean | undefined;
 
     readonly backchannelUserCodeParameter?: boolean | undefined;
@@ -681,7 +681,27 @@ declare class Client {
     [key: string]: unknown;
 
     static find(id: string): Promise<Client | undefined>;
+    static validate(metadata: ClientMetadata): Promise<void>;
 }
+
+export type {
+    AccessToken,
+    AuthorizationCode,
+    BackchannelAuthenticationRequest,
+    Client,
+    ClientCredentials,
+    DeviceCode,
+    Grant,
+    IdToken,
+    InitialAccessToken,
+    Interaction,
+    OIDCContext,
+    PushedAuthorizationRequest,
+    RefreshToken,
+    RegistrationAccessToken,
+    ReplayDetection,
+    Session,
+};
 
 export interface ResourceServer {
     scope: string;
@@ -756,7 +776,6 @@ declare class OIDCContext {
     readonly prompts: Set<string>;
     readonly result?: InteractionResults | undefined;
 
-    readonly webMessageUriCheckPerformed?: boolean | undefined;
     readonly redirectUriCheckPerformed?: boolean | undefined;
     readonly trusted?: string[] | undefined;
     readonly registrationAccessToken?: RegistrationAccessToken | undefined;
@@ -905,7 +924,7 @@ export interface CookiesSetOptions {
     overwrite?: boolean | undefined;
 }
 
-declare class JWTStructured {
+export interface JWTStructured {
     header?: UnknownObject | undefined;
     payload: UnknownObject;
 }
@@ -966,7 +985,11 @@ export interface Configuration {
 
     discovery?: UnknownObject | undefined;
 
-    extraParams?: string[] | undefined;
+    extraParams?: string[] | {
+        [param: string]:
+            | null
+            | ((ctx: KoaContextWithOIDC, value: string | undefined, client: Client) => CanBePromise<void>);
+    } | undefined;
 
     features?:
         | {
@@ -979,6 +1002,13 @@ export interface Configuration {
             claimsParameter?:
                 | {
                     enabled?: boolean | undefined;
+                    assertClaimsParameter?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            claims: ClaimsParameter,
+                            client: Client,
+                        ) => CanBePromise<void>)
+                        | undefined;
                 }
                 | undefined;
 
@@ -1092,6 +1122,7 @@ export interface Configuration {
                     enabled?: boolean | undefined;
                     nonceSecret?: Buffer | undefined;
                     requireNonce?: (ctx: KoaContextWithOIDC) => boolean;
+                    allowReplay?: boolean;
                 }
                 | undefined;
 
@@ -1161,6 +1192,7 @@ export interface Configuration {
             pushedAuthorizationRequests?:
                 | {
                     requirePushedAuthorizationRequests?: boolean | undefined;
+                    allowUnregisteredRedirectUris?: boolean | undefined;
                     enabled?: boolean | undefined;
                 }
                 | undefined;
@@ -2134,6 +2166,9 @@ export namespace interactionPolicy {
     }
 
     class Check {
+        static readonly REQUEST_PROMPT: true;
+        static readonly NO_NEED_TO_PROMPT: false;
+
         constructor(
             reason: string,
             description: string,
@@ -2292,9 +2327,6 @@ export namespace errors {
     class UnsupportedResponseType extends OIDCProviderError {
         constructor(description?: string, detail?: string);
     }
-    class WebMessageUriMismatch extends OIDCProviderError {
-        constructor(description?: string, detail?: string);
-    }
     class CustomOIDCProviderError extends OIDCProviderError {
         constructor(message: string, description?: string);
     }
@@ -2302,3 +2334,5 @@ export namespace errors {
         constructor(message: string, description?: string);
     }
 }
+
+export { Provider };

@@ -39,6 +39,7 @@ export interface WebGLProgramParameters {
     precision: "lowp" | "mediump" | "highp";
 
     batching: boolean;
+    batchingColor: boolean;
     instancing: boolean;
     instancingColor: boolean;
     instancingMorph: boolean;
@@ -72,6 +73,8 @@ export interface WebGLProgramParameters {
     clearcoatMap: boolean;
     clearcoatNormalMap: boolean;
     clearcoatRoughnessMap: boolean;
+
+    dispersion: boolean;
 
     iridescence: boolean;
     iridescenceMap: boolean;
@@ -184,7 +187,6 @@ export interface WebGLProgramParameters {
     shadowMapType: ShadowMapType;
 
     toneMapping: ToneMapping;
-    useLegacyLights: boolean;
 
     decodeVideoTexture: boolean;
 

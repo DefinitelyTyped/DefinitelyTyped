@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * VideoCopyrightRule
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -18,5 +18,5 @@ export default class VideoCopyrightRule extends AbstractCrudObject {
         rules_selector: "RULES_SELECTOR";
         rules_tab: "RULES_TAB";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<VideoCopyrightRule>;
+    get(fields: string[], params?: Record<string, any>): Promise<VideoCopyrightRule>;
 }

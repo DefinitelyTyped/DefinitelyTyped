@@ -4,6 +4,17 @@ import MongooseDelete = require("mongoose-delete");
 interface PetDocument extends MongooseDelete.SoftDeleteDocument {
     name: string;
 }
+
+// Custom methods
+interface PetMethods {
+    checkName(name: string): boolean;
+}
+
+// Custom Static methods
+interface PetModel extends MongooseDelete.SoftDeleteModel<PetDocument, {}, PetMethods> {
+    getNames(): string[];
+}
+
 const PetSchema = new mongoose.Schema<PetDocument>({
     name: String,
 });
@@ -41,6 +52,8 @@ const idUser = new mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 const Pet = mongoose.model<PetDocument, MongooseDelete.SoftDeleteModel<PetDocument>>("Pet", PetSchema);
 
 const Pet2 = mongoose.model("Pet", PetSchema) as MongooseDelete.SoftDeleteModel<PetDocument>;
+
+const Pet3 = mongoose.model<PetDocument, PetModel>("Pet", PetSchema);
 
 const fluffy = new Pet({ name: "Fluffy" });
 
@@ -102,3 +115,6 @@ Pet.updateManyDeleted({ age: 10 }, { name: "Fluffy" });
 Pet.updateManyWithDeleted({ age: 10 }, { name: "Fluffy" });
 Pet.aggregateDeleted([{ $match: { age: 10 } }]);
 Pet.aggregateWithDeleted([{ $match: { age: 10 } }]);
+
+// $ExpectType string[]
+Pet3.getNames();

@@ -1,6 +1,121 @@
 declare module "process" {
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
+
+    interface BuiltInModule {
+        "assert": typeof import("assert");
+        "node:assert": typeof import("node:assert");
+        "assert/strict": typeof import("assert/strict");
+        "node:assert/strict": typeof import("node:assert/strict");
+        "async_hooks": typeof import("async_hooks");
+        "node:async_hooks": typeof import("node:async_hooks");
+        "buffer": typeof import("buffer");
+        "node:buffer": typeof import("node:buffer");
+        "child_process": typeof import("child_process");
+        "node:child_process": typeof import("node:child_process");
+        "cluster": typeof import("cluster");
+        "node:cluster": typeof import("node:cluster");
+        "console": typeof import("console");
+        "node:console": typeof import("node:console");
+        "constants": typeof import("constants");
+        "node:constants": typeof import("node:constants");
+        "crypto": typeof import("crypto");
+        "node:crypto": typeof import("node:crypto");
+        "dgram": typeof import("dgram");
+        "node:dgram": typeof import("node:dgram");
+        "diagnostics_channel": typeof import("diagnostics_channel");
+        "node:diagnostics_channel": typeof import("node:diagnostics_channel");
+        "dns": typeof import("dns");
+        "node:dns": typeof import("node:dns");
+        "dns/promises": typeof import("dns/promises");
+        "node:dns/promises": typeof import("node:dns/promises");
+        "domain": typeof import("domain");
+        "node:domain": typeof import("node:domain");
+        "events": typeof import("events");
+        "node:events": typeof import("node:events");
+        "fs": typeof import("fs");
+        "node:fs": typeof import("node:fs");
+        "fs/promises": typeof import("fs/promises");
+        "node:fs/promises": typeof import("node:fs/promises");
+        "http": typeof import("http");
+        "node:http": typeof import("node:http");
+        "http2": typeof import("http2");
+        "node:http2": typeof import("node:http2");
+        "https": typeof import("https");
+        "node:https": typeof import("node:https");
+        "inspector": typeof import("inspector");
+        "node:inspector": typeof import("node:inspector");
+        "inspector/promises": typeof import("inspector/promises");
+        "node:inspector/promises": typeof import("node:inspector/promises");
+        "module": typeof import("module");
+        "node:module": typeof import("node:module");
+        "net": typeof import("net");
+        "node:net": typeof import("node:net");
+        "os": typeof import("os");
+        "node:os": typeof import("node:os");
+        "path": typeof import("path");
+        "node:path": typeof import("node:path");
+        "path/posix": typeof import("path/posix");
+        "node:path/posix": typeof import("node:path/posix");
+        "path/win32": typeof import("path/win32");
+        "node:path/win32": typeof import("node:path/win32");
+        "perf_hooks": typeof import("perf_hooks");
+        "node:perf_hooks": typeof import("node:perf_hooks");
+        "process": typeof import("process");
+        "node:process": typeof import("node:process");
+        "punycode": typeof import("punycode");
+        "node:punycode": typeof import("node:punycode");
+        "querystring": typeof import("querystring");
+        "node:querystring": typeof import("node:querystring");
+        "readline": typeof import("readline");
+        "node:readline": typeof import("node:readline");
+        "readline/promises": typeof import("readline/promises");
+        "node:readline/promises": typeof import("node:readline/promises");
+        "repl": typeof import("repl");
+        "node:repl": typeof import("node:repl");
+        "node:sea": typeof import("node:sea");
+        "node:sqlite": typeof import("node:sqlite");
+        "stream": typeof import("stream");
+        "node:stream": typeof import("node:stream");
+        "stream/consumers": typeof import("stream/consumers");
+        "node:stream/consumers": typeof import("node:stream/consumers");
+        "stream/promises": typeof import("stream/promises");
+        "node:stream/promises": typeof import("node:stream/promises");
+        "stream/web": typeof import("stream/web");
+        "node:stream/web": typeof import("node:stream/web");
+        "string_decoder": typeof import("string_decoder");
+        "node:string_decoder": typeof import("node:string_decoder");
+        "node:test": typeof import("node:test");
+        "node:test/reporters": typeof import("node:test/reporters");
+        "timers": typeof import("timers");
+        "node:timers": typeof import("node:timers");
+        "timers/promises": typeof import("timers/promises");
+        "node:timers/promises": typeof import("node:timers/promises");
+        "tls": typeof import("tls");
+        "node:tls": typeof import("node:tls");
+        "trace_events": typeof import("trace_events");
+        "node:trace_events": typeof import("node:trace_events");
+        "tty": typeof import("tty");
+        "node:tty": typeof import("node:tty");
+        "url": typeof import("url");
+        "node:url": typeof import("node:url");
+        "util": typeof import("util");
+        "node:util": typeof import("node:util");
+        "sys": typeof import("util");
+        "node:sys": typeof import("node:util");
+        "util/types": typeof import("util/types");
+        "node:util/types": typeof import("node:util/types");
+        "v8": typeof import("v8");
+        "node:v8": typeof import("node:v8");
+        "vm": typeof import("vm");
+        "node:vm": typeof import("node:vm");
+        "wasi": typeof import("wasi");
+        "node:wasi": typeof import("node:wasi");
+        "worker_threads": typeof import("worker_threads");
+        "node:worker_threads": typeof import("node:worker_threads");
+        "zlib": typeof import("zlib");
+        "node:zlib": typeof import("node:zlib");
+    }
     global {
         var process: NodeJS.Process;
         namespace NodeJS {
@@ -21,10 +136,25 @@ declare module "process" {
                 rss(): number;
             }
             interface MemoryUsage {
+                /**
+                 * Resident Set Size, is the amount of space occupied in the main memory device (that is a subset of the total allocated memory) for the
+                 * process, including all C++ and JavaScript objects and code.
+                 */
                 rss: number;
+                /**
+                 * Refers to V8's memory usage.
+                 */
                 heapTotal: number;
+                /**
+                 * Refers to V8's memory usage.
+                 */
                 heapUsed: number;
                 external: number;
+                /**
+                 * Refers to memory allocated for `ArrayBuffer`s and `SharedArrayBuffer`s, including all Node.js Buffers. This is also included
+                 * in the external value. When Node.js is used as an embedded library, this value may be `0` because allocations for `ArrayBuffer`s
+                 * may not be tracked in that case.
+                 */
                 arrayBuffers: number;
             }
             interface CpuUsage {
@@ -64,6 +194,7 @@ declare module "process" {
                 | "arm"
                 | "arm64"
                 | "ia32"
+                | "loong64"
                 | "mips"
                 | "mipsel"
                 | "ppc"
@@ -143,27 +274,76 @@ declare module "process" {
             }
             interface HRTime {
                 (time?: [number, number]): [number, number];
+                /**
+                 * The `bigint` version of the `{@link hrtime()}` method returning the current high-resolution real time in nanoseconds as a `bigint`.
+                 *
+                 * Unlike `{@link hrtime()}`, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
+                 * ```js
+                 * import { hrtime } from 'node:process';
+                 *
+                 * const start = hrtime.bigint();
+                 * // 191051479007711n
+                 *
+                 * setTimeout(() => {
+                 *   const end = hrtime.bigint();
+                 *   // 191052633396993n
+                 *
+                 *   console.log(`Benchmark took ${end - start} nanoseconds`);
+                 *   // Benchmark took 1154389282 nanoseconds
+                 * }, 1000);
+                 * ```
+                 */
                 bigint(): bigint;
+            }
+            interface ProcessPermission {
+                /**
+                 * Verifies that the process is able to access the given scope and reference.
+                 * If no reference is provided, a global scope is assumed, for instance, `process.permission.has('fs.read')`
+                 * will check if the process has ALL file system read permissions.
+                 *
+                 * The reference has a meaning based on the provided scope. For example, the reference when the scope is File System means files and folders.
+                 *
+                 * The available scopes are:
+                 *
+                 * * `fs` - All File System
+                 * * `fs.read` - File System read operations
+                 * * `fs.write` - File System write operations
+                 * * `child` - Child process spawning operations
+                 * * `worker` - Worker thread spawning operation
+                 *
+                 * ```js
+                 * // Check if the process has permission to read the README file
+                 * process.permission.has('fs.read', './README.md');
+                 * // Check if the process has read permission operations
+                 * process.permission.has('fs.read');
+                 * ```
+                 * @since v20.0.0
+                 */
+                has(scope: string, reference?: string): boolean;
             }
             interface ProcessReport {
                 /**
+                 * Write reports in a compact format, single-line JSON, more easily consumable by log processing systems
+                 * than the default multi-line format designed for human consumption.
+                 * @since v13.12.0, v12.17.0
+                 */
+                compact: boolean;
+                /**
                  * Directory where the report is written.
+                 * The default value is the empty string, indicating that reports are written to the current
                  * working directory of the Node.js process.
-                 * @default '' indicating that reports are written to the current
                  */
                 directory: string;
                 /**
-                 * Filename where the report is written.
-                 * The default value is the empty string.
-                 * @default '' the output filename will be comprised of a timestamp,
-                 * PID, and sequence number.
+                 * Filename where the report is written. If set to the empty string, the output filename will be comprised
+                 * of a timestamp, PID, and sequence number. The default value is the empty string.
                  */
                 filename: string;
                 /**
-                 * Returns a JSON-formatted diagnostic report for the running process.
-                 * The report's JavaScript stack trace is taken from err, if present.
+                 * Returns a JavaScript Object representation of a diagnostic report for the running process.
+                 * The report's JavaScript stack trace is taken from `err`, if present.
                  */
-                getReport(err?: Error): string;
+                getReport(err?: Error): object;
                 /**
                  * If true, a diagnostic report is generated on fatal errors,
                  * such as out of memory errors or failed C++ assertions.
@@ -189,18 +369,19 @@ declare module "process" {
                 /**
                  * Writes a diagnostic report to a file. If filename is not provided, the default filename
                  * includes the date, time, PID, and a sequence number.
-                 * The report's JavaScript stack trace is taken from err, if present.
+                 * The report's JavaScript stack trace is taken from `err`, if present.
                  *
+                 * If the value of filename is set to `'stdout'` or `'stderr'`, the report is written
+                 * to the stdout or stderr of the process respectively.
                  * @param fileName Name of the file where the report is written.
                  * This should be a relative path, that will be appended to the directory specified in
                  * `process.report.directory`, or the current working directory of the Node.js process,
                  * if unspecified.
-                 * @param error A custom error used for reporting the JavaScript stack.
+                 * @param err A custom error used for reporting the JavaScript stack.
                  * @return Filename of the generated report.
                  */
-                writeReport(fileName?: string): string;
-                writeReport(error?: Error): string;
                 writeReport(fileName?: string, err?: Error): string;
+                writeReport(err?: Error): string;
             }
             interface ResourceUsage {
                 fsRead: number;
@@ -306,12 +487,11 @@ declare module "process" {
                  * For more information see `Stream compatibility`.
                  *
                  * In "old" streams mode the `stdin` stream is paused by default, so one
-                 * must call `process.stdin.resume()` to read from it. Note also that calling`process.stdin.resume()` itself would switch stream to "old" mode.
+                 * must call `process.stdin.resume()` to read from it. Note also that calling `process.stdin.resume()` itself would switch stream to "old" mode.
                  */
                 stdin: ReadStream & {
                     fd: 0;
                 };
-                openStdin(): Socket;
                 /**
                  * The `process.argv` property returns an array containing the command-line
                  * arguments passed when the Node.js process was launched. The first element will
@@ -371,13 +551,13 @@ declare module "process" {
                  * the same execution environment as the parent.
                  *
                  * ```bash
-                 * node --harmony script.js --version
+                 * node --icu-data-dir=./foo --require ./bar.js script.js --version
                  * ```
                  *
                  * Results in `process.execArgv`:
                  *
                  * ```js
-                 * ['--harmony']
+                 * ["--icu-data-dir=./foo", "--require", "./bar.js"]
                  * ```
                  *
                  * And `process.argv`:
@@ -454,23 +634,59 @@ declare module "process" {
                  */
                 debugPort: number;
                 /**
+                 * The `process.dlopen()` method allows dynamically loading shared objects. It is primarily used by `require()` to load C++ Addons, and
+                 * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
+                 * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
+                 *
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v22.x/api/os.html#dlopen-constants)`
+                 * documentation for details.
+                 *
+                 * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
+                 * are then accessible via `module.exports`.
+                 *
+                 * The example below shows how to load a C++ Addon, named `local.node`, that exports a `foo` function. All the symbols are loaded before the call returns, by passing the `RTLD_NOW` constant.
+                 * In this example the constant is assumed to be available.
+                 *
+                 * ```js
+                 * import { dlopen } from 'node:process';
+                 * import { constants } from 'node:os';
+                 * import { fileURLToPath } from 'node:url';
+                 *
+                 * const module = { exports: {} };
+                 * dlopen(module, fileURLToPath(new URL('local.node', import.meta.url)),
+                 *        constants.dlopen.RTLD_NOW);
+                 * module.exports.foo();
+                 * ```
+                 */
+                dlopen(module: object, filename: string, flags?: number): void;
+                /**
                  * The `process.emitWarning()` method can be used to emit custom or application
                  * specific process warnings. These can be listened for by adding a handler to the `'warning'` event.
                  *
                  * ```js
                  * import { emitWarning } from 'node:process';
                  *
-                 * // Emit a warning with a code and additional detail.
-                 * emitWarning('Something happened!', {
-                 *   code: 'MY_WARNING',
-                 *   detail: 'This is some additional information',
-                 * });
-                 * // Emits:
-                 * // (node:56338) [MY_WARNING] Warning: Something happened!
-                 * // This is some additional information
+                 * // Emit a warning using a string.
+                 * emitWarning('Something happened!');
+                 * // Emits: (node: 56338) Warning: Something happened!
                  * ```
                  *
-                 * In this example, an `Error` object is generated internally by`process.emitWarning()` and passed through to the `'warning'` handler.
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * // Emit a warning using a string and a type.
+                 * emitWarning('Something Happened!', 'CustomWarning');
+                 * // Emits: (node:56338) CustomWarning: Something Happened!
+                 * ```
+                 *
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * emitWarning('Something happened!', 'CustomWarning', 'WARN001');
+                 * // Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+                 * ```js
+                 *
+                 * In each of the previous examples, an `Error` object is generated internally by `process.emitWarning()` and passed through to the `'warning'` handler.
                  *
                  * ```js
                  * import process from 'node:process';
@@ -484,7 +700,30 @@ declare module "process" {
                  * });
                  * ```
                  *
-                 * If `warning` is passed as an `Error` object, the `options` argument is ignored.
+                 * If `warning` is passed as an `Error` object, it will be passed through to the `'warning'` event handler
+                 * unmodified (and the optional `type`, `code` and `ctor` arguments will be ignored):
+                 *
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * // Emit a warning using an Error object.
+                 * const myWarning = new Error('Something happened!');
+                 * // Use the Error name property to specify the type name
+                 * myWarning.name = 'CustomWarning';
+                 * myWarning.code = 'WARN001';
+                 *
+                 * emitWarning(myWarning);
+                 * // Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+                 * ```
+                 *
+                 * A `TypeError` is thrown if `warning` is anything other than a string or `Error` object.
+                 *
+                 * While process warnings use `Error` objects, the process warning mechanism is not a replacement for normal error handling mechanisms.
+                 *
+                 * The following additional handling is implemented if the warning `type` is `'DeprecationWarning'`:
+                 * * If the `--throw-deprecation` command-line flag is used, the deprecation warning is thrown as an exception rather than being emitted as an event.
+                 * * If the `--no-deprecation` command-line flag is used, the deprecation warning is suppressed.
+                 * * If the `--trace-deprecation` command-line flag is used, the deprecation warning is printed to `stderr` along with the full stack trace.
                  * @since v8.0.0
                  * @param warning The warning to emit.
                  */
@@ -572,7 +811,7 @@ declare module "process" {
                  * parent thread's `process.env`, or whatever was specified as the `env` option
                  * to the `Worker` constructor. Changes to `process.env` will not be visible
                  * across `Worker` threads, and only the main thread can make changes that
-                 * are visible to the operating system or to native add-ons. On Windows, a copy of`process.env` on a `Worker` instance operates in a case-sensitive manner
+                 * are visible to the operating system or to native add-ons. On Windows, a copy of `process.env` on a `Worker` instance operates in a case-sensitive manner
                  * unlike the main thread.
                  * @since v0.1.27
                  */
@@ -596,13 +835,13 @@ declare module "process" {
                  *
                  * Calling `process.exit()` will force the process to exit as quickly as possible
                  * even if there are still asynchronous operations pending that have not yet
-                 * completed fully, including I/O operations to `process.stdout` and`process.stderr`.
+                 * completed fully, including I/O operations to `process.stdout` and `process.stderr`.
                  *
-                 * In most situations, it is not actually necessary to call `process.exit()`explicitly. The Node.js process will exit on its own _if there is no additional_
+                 * In most situations, it is not actually necessary to call `process.exit()` explicitly. The Node.js process will exit on its own _if there is no additional_
                  * _work pending_ in the event loop. The `process.exitCode` property can be set to
                  * tell the process which exit code to use when the process exits gracefully.
                  *
-                 * For instance, the following example illustrates a _misuse_ of the`process.exit()` method that could lead to data printed to stdout being
+                 * For instance, the following example illustrates a _misuse_ of the `process.exit()` method that could lead to data printed to stdout being
                  * truncated and lost:
                  *
                  * ```js
@@ -619,7 +858,7 @@ declare module "process" {
                  * are sometimes _asynchronous_ and may occur over multiple ticks of the Node.js
                  * event loop. Calling `process.exit()`, however, forces the process to exit _before_ those additional writes to `stdout` can be performed.
                  *
-                 * Rather than calling `process.exit()` directly, the code _should_ set the`process.exitCode` and allow the process to exit naturally by avoiding
+                 * Rather than calling `process.exit()` directly, the code _should_ set the `process.exitCode` and allow the process to exit naturally by avoiding
                  * scheduling any additional work for the event loop:
                  *
                  * ```js
@@ -642,7 +881,7 @@ declare module "process" {
                  * @since v0.1.13
                  * @param [code=0] The exit code. For string type, only integer strings (e.g.,'1') are allowed.
                  */
-                exit(code?: number): never;
+                exit(code?: number | string | null | undefined): never;
                 /**
                  * A number which will be the process exit code, when the process either
                  * exits gracefully, or is exited via {@link exit} without specifying
@@ -650,15 +889,74 @@ declare module "process" {
                  *
                  * Specifying a code to {@link exit} will override any
                  * previous setting of `process.exitCode`.
+                 * @default undefined
                  * @since v0.11.8
                  */
-                exitCode?: number | undefined;
+                exitCode?: number | string | number | undefined;
+                finalization: {
+                    /**
+                     * This function registers a callback to be called when the process emits the `exit` event if the `ref` object was not garbage collected.
+                     * If the object `ref` was garbage collected before the `exit` event is emitted, the callback will be removed from the finalization registry, and it will not be called on process exit.
+                     *
+                     * Inside the callback you can release the resources allocated by the `ref` object.
+                     * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function,
+                     * this means that there is a possibility that the callback will not be called under special circumstances.
+                     *
+                     * The idea of ​​this function is to help you free up resources when the starts process exiting, but also let the object be garbage collected if it is no longer being used.
+                     * @param ref The reference to the resource that is being tracked.
+                     * @param callback The callback function to be called when the resource is finalized.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    register<T extends object>(ref: T, callback: (ref: T, event: "exit") => void): void;
+                    /**
+                     * This function behaves exactly like the `register`, except that the callback will be called when the process emits the `beforeExit` event if `ref` object was not garbage collected.
+                     *
+                     * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function, this means that there is a possibility that the callback will not be called under special circumstances.
+                     * @param ref The reference to the resource that is being tracked.
+                     * @param callback The callback function to be called when the resource is finalized.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    registerBeforeExit<T extends object>(ref: T, callback: (ref: T, event: "beforeExit") => void): void;
+                    /**
+                     * This function remove the register of the object from the finalization registry, so the callback will not be called anymore.
+                     * @param ref The reference to the resource that was registered previously.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    unregister(ref: object): void;
+                };
+                /**
+                 * The `process.getActiveResourcesInfo()` method returns an array of strings containing
+                 * the types of the active resources that are currently keeping the event loop alive.
+                 *
+                 * ```js
+                 * import { getActiveResourcesInfo } from 'node:process';
+                 * import { setTimeout } from 'node:timers';
+
+                 * console.log('Before:', getActiveResourcesInfo());
+                 * setTimeout(() => {}, 1000);
+                 * console.log('After:', getActiveResourcesInfo());
+                 * // Prints:
+                 * //   Before: [ 'TTYWrap', 'TTYWrap', 'TTYWrap' ]
+                 * //   After: [ 'TTYWrap', 'TTYWrap', 'TTYWrap', 'Timeout' ]
+                 * ```
+                 * @since v17.3.0, v16.14.0
+                 */
+                getActiveResourcesInfo(): string[];
+                /**
+                 * Provides a way to load built-in modules in a globally available function.
+                 * @param id ID of the built-in module being requested.
+                 */
+                getBuiltinModule<ID extends keyof BuiltInModule>(id: ID): BuiltInModule[ID];
+                getBuiltinModule(id: string): object | undefined;
                 /**
                  * The `process.getgid()` method returns the numerical group identity of the
                  * process. (See [`getgid(2)`](http://man7.org/linux/man-pages/man2/getgid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgid) {
                  *   console.log(`Current gid: ${process.getgid()}`);
@@ -677,7 +975,7 @@ declare module "process" {
                  * associated numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgid &#x26;&#x26; process.setgid) {
                  *   console.log(`Current gid: ${process.getgid()}`);
@@ -702,7 +1000,7 @@ declare module "process" {
                  * (See [`getuid(2)`](http://man7.org/linux/man-pages/man2/getuid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getuid) {
                  *   console.log(`Current uid: ${process.getuid()}`);
@@ -721,7 +1019,7 @@ declare module "process" {
                  * numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getuid &#x26;&#x26; process.setuid) {
                  *   console.log(`Current uid: ${process.getuid()}`);
@@ -745,7 +1043,7 @@ declare module "process" {
                  * the process. (See [`geteuid(2)`](http://man7.org/linux/man-pages/man2/geteuid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.geteuid) {
                  *   console.log(`Current uid: ${process.geteuid()}`);
@@ -764,7 +1062,7 @@ declare module "process" {
                  * associated numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.geteuid &#x26;&#x26; process.seteuid) {
                  *   console.log(`Current uid: ${process.geteuid()}`);
@@ -789,7 +1087,7 @@ declare module "process" {
                  * of the Node.js process. (See [`getegid(2)`](http://man7.org/linux/man-pages/man2/getegid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getegid) {
                  *   console.log(`Current gid: ${process.getegid()}`);
@@ -808,7 +1106,7 @@ declare module "process" {
                  * the associated a numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getegid &#x26;&#x26; process.setegid) {
                  *   console.log(`Current gid: ${process.getegid()}`);
@@ -834,7 +1132,7 @@ declare module "process" {
                  * Node.js ensures it always is.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgroups) {
                  *   console.log(process.getgroups()); // [ 16, 21, 297 ]
@@ -854,7 +1152,7 @@ declare module "process" {
                  * The `groups` array can contain numeric group IDs, group names, or both.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgroups &#x26;&#x26; process.setgroups) {
                  *   try {
@@ -883,7 +1181,7 @@ declare module "process" {
                  * not abort. Actions configured to take place on exceptions such as report
                  * generations will be affected too
                  *
-                 * To unset the capture function,`process.setUncaughtExceptionCaptureCallback(null)` may be used. Calling this
+                 * To unset the capture function, `process.setUncaughtExceptionCaptureCallback(null)` may be used. Calling this
                  * method with a non-`null` argument while another capture function is set will
                  * throw an error.
                  *
@@ -906,7 +1204,7 @@ declare module "process" {
                  * This function enables or disables the [Source Map v3](https://sourcemaps.info/spec.html) support for
                  * stack traces.
                  *
-                 * It provides same features as launching Node.js process with commandline options`--enable-source-maps`.
+                 * It provides same features as launching Node.js process with commandline options `--enable-source-maps`.
                  *
                  * Only source maps in JavaScript files that are loaded after source maps has been
                  * enabled will be parsed and loaded.
@@ -1090,8 +1388,8 @@ declare module "process" {
                  * When a new value is assigned, different platforms will impose different maximum
                  * length restrictions on the title. Usually such restrictions are quite limited.
                  * For instance, on Linux and macOS, `process.title` is limited to the size of the
-                 * binary name plus the length of the command-line arguments because setting the`process.title` overwrites the `argv` memory of the process. Node.js v0.8
-                 * allowed for longer process title strings by also overwriting the `environ`memory but that was potentially insecure and confusing in some (rather obscure)
+                 * binary name plus the length of the command-line arguments because setting the `process.title` overwrites the `argv` memory of the process. Node.js v0.8
+                 * allowed for longer process title strings by also overwriting the `environ` memory but that was potentially insecure and confusing in some (rather obscure)
                  * cases.
                  *
                  * Assigning a value to `process.title` might not result in an accurate label
@@ -1102,7 +1400,7 @@ declare module "process" {
                 title: string;
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
-                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`,`'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
+                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'node:process';
@@ -1153,14 +1451,21 @@ declare module "process" {
                 /**
                  * Gets the amount of memory available to the process (in bytes) based on
                  * limits imposed by the OS. If there is no such constraint, or the constraint
-                 * is unknown, `undefined` is returned.
+                 * is unknown, `0` is returned.
                  *
                  * See [`uv_get_constrained_memory`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_get_constrained_memory) for more
                  * information.
                  * @since v19.6.0, v18.15.0
                  * @experimental
                  */
-                constrainedMemory(): number | undefined;
+                constrainedMemory(): number;
+                /**
+                 * Gets the amount of free memory that is still available to the process (in bytes).
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v22.x/api/process.html#processavailablememory) for more information.
+                 * @experimental
+                 * @since v20.13.0
+                 */
+                availableMemory(): number;
                 /**
                  * The `process.cpuUsage()` method returns the user and system CPU time usage of
                  * the current process, in an object with properties `user` and `system`, whose
@@ -1278,6 +1583,14 @@ declare module "process" {
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
+                 * This API is available through the [--experimental-permission](https://nodejs.org/api/cli.html#--experimental-permission) flag.
+                 *
+                 * `process.permission` is an object whose methods are used to manage permissions for the current process.
+                 * Additional documentation is available in the [Permission Model](https://nodejs.org/api/permissions.html#permission-model).
+                 * @since v20.0.0
+                 */
+                permission: ProcessPermission;
+                /**
                  * The `process.release` property returns an `Object` containing metadata related
                  * to the current release, including URLs for the source tarball and headers-only
                  * tarball.
@@ -1294,7 +1607,7 @@ declare module "process" {
                  * }
                  * ```
                  *
-                 * In custom builds from non-release versions of the source tree, only the`name` property may be present. The additional properties should not be
+                 * In custom builds from non-release versions of the source tree, only the `name` property may be present. The additional properties should not be
                  * relied upon to exist.
                  * @since v3.0.0
                  */
@@ -1313,7 +1626,7 @@ declare module "process" {
                  * `process.umask()` returns the Node.js process's file mode creation mask. Child
                  * processes inherit the mask from the parent process.
                  * @since v0.1.19
-                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential   *
+                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential
                  * security vulnerability. There is no safe, cross-platform alternative API.
                  */
                 umask(): number;
@@ -1357,13 +1670,13 @@ declare module "process" {
                  * The message goes through serialization and parsing. The resulting message might
                  * not be the same as what is originally sent.
                  * @since v0.5.9
-                 * @param options used to parameterize the sending of certain types of handles.`options` supports the following properties:
+                 * @param options used to parameterize the sending of certain types of handles. `options` supports the following properties:
                  */
                 send?(
                     message: any,
                     sendHandle?: any,
                     options?: {
-                        swallowErrors?: boolean | undefined;
+                        keepOpen?: boolean | undefined;
                     },
                     callback?: (error: Error | null) => void,
                 ): boolean;
@@ -1374,13 +1687,13 @@ declare module "process" {
                  *
                  * The effect of calling `process.disconnect()` is the same as calling `ChildProcess.disconnect()` from the parent process.
                  *
-                 * If the Node.js process was not spawned with an IPC channel,`process.disconnect()` will be `undefined`.
+                 * If the Node.js process was not spawned with an IPC channel, `process.disconnect()` will be `undefined`.
                  * @since v0.7.2
                  */
                 disconnect(): void;
                 /**
-                 * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.connected` property will return`true` so long as the IPC
-                 * channel is connected and will return `false` after`process.disconnect()` is called.
+                 * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.connected` property will return `true` so long as the IPC
+                 * channel is connected and will return `false` after `process.disconnect()` is called.
                  *
                  * Once `process.connected` is `false`, it is no longer possible to send messages
                  * over the IPC channel using `process.send()`.
@@ -1391,11 +1704,11 @@ declare module "process" {
                  * The `process.allowedNodeEnvironmentFlags` property is a special,
                  * read-only `Set` of flags allowable within the `NODE_OPTIONS` environment variable.
                  *
-                 * `process.allowedNodeEnvironmentFlags` extends `Set`, but overrides`Set.prototype.has` to recognize several different possible flag
+                 * `process.allowedNodeEnvironmentFlags` extends `Set`, but overrides `Set.prototype.has` to recognize several different possible flag
                  * representations. `process.allowedNodeEnvironmentFlags.has()` will
                  * return `true` in the following cases:
                  *
-                 * * Flags may omit leading single (`-`) or double (`--`) dashes; e.g.,`inspect-brk` for `--inspect-brk`, or `r` for `-r`.
+                 * * Flags may omit leading single (`-`) or double (`--`) dashes; e.g., `inspect-brk` for `--inspect-brk`, or `r` for `-r`.
                  * * Flags passed through to V8 (as listed in `--v8-options`) may replace
                  * one or more _non-leading_ dashes for an underscore, or vice-versa;
                  * e.g., `--perf_basic_prof`, `--perf-basic-prof`, `--perf_basic-prof`,
@@ -1430,11 +1743,11 @@ declare module "process" {
                  */
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
-                 * `process.report` is an object whose methods are used to generate diagnostic
-                 * reports for the current process. Additional documentation is available in the `report documentation`.
+                 * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v22.x/api/report.html).
                  * @since v11.8.0
                  */
-                report?: ProcessReport | undefined;
+                report: ProcessReport;
                 /**
                  * ```js
                  * import { resourceUsage } from 'node:process';
@@ -1467,7 +1780,30 @@ declare module "process" {
                  */
                 resourceUsage(): ResourceUsage;
                 /**
-                 * The `process.traceDeprecation` property indicates whether the`--trace-deprecation` flag is set on the current Node.js process. See the
+                 * The initial value of `process.throwDeprecation` indicates whether the `--throw-deprecation` flag is set on the current Node.js process. `process.throwDeprecation`
+                 * is mutable, so whether or not deprecation warnings result in errors may be altered at runtime. See the documentation for the 'warning' event and the emitWarning()
+                 * method for more information.
+                 *
+                 * ```bash
+                 * $ node --throw-deprecation -p "process.throwDeprecation"
+                 * true
+                 * $ node -p "process.throwDeprecation"
+                 * undefined
+                 * $ node
+                 * > process.emitWarning('test', 'DeprecationWarning');
+                 * undefined
+                 * > (node:26598) DeprecationWarning: test
+                 * > process.throwDeprecation = true;
+                 * true
+                 * > process.emitWarning('test', 'DeprecationWarning');
+                 * Thrown:
+                 * [DeprecationWarning: test] { name: 'DeprecationWarning' }
+                 * ```
+                 * @since v0.9.12
+                 */
+                throwDeprecation: boolean;
+                /**
+                 * The `process.traceDeprecation` property indicates whether the `--trace-deprecation` flag is set on the current Node.js process. See the
                  * documentation for the `'warning' event` and the `emitWarning() method` for more information about this
                  * flag's behavior.
                  * @since v0.8.0
