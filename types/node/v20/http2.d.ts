@@ -1054,13 +1054,9 @@ declare module "http2" {
     }
     export interface ServerHttp2Session<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends Http2Session {
         readonly server:
             | Http2Server<Http1Request, Http1Response, Http2Request, Http2Response>
@@ -1252,13 +1248,9 @@ declare module "http2" {
     }
     export interface ServerSessionOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends SessionOptions {
         Http1IncomingMessage?: Http1Request | undefined;
         Http1ServerResponse?: Http1Response | undefined;
@@ -1268,33 +1260,21 @@ declare module "http2" {
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
     export interface SecureServerSessionOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends ServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response>, tls.TlsOptions {}
     export interface ServerOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends ServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response> {}
     export interface SecureServerOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends SecureServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response> {
         allowHTTP1?: boolean | undefined;
         origins?: string[] | undefined;
@@ -1309,13 +1289,9 @@ declare module "http2" {
     }
     export interface Http2Server<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends net.Server, HTTP2ServerCommon {
         addListener(
             event: "checkContinue",
@@ -1429,13 +1405,9 @@ declare module "http2" {
     }
     export interface Http2SecureServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends tls.Server, HTTP2ServerCommon {
         addListener(
             event: "checkContinue",
@@ -2490,13 +2462,9 @@ declare module "http2" {
     ): Http2Server;
     export function createServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     >(
         options: ServerOptions<Http1Request, Http1Response, Http2Request, Http2Response>,
         onRequestHandler?: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
@@ -2534,13 +2502,9 @@ declare module "http2" {
     ): Http2SecureServer;
     export function createSecureServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     >(
         options: SecureServerOptions<Http1Request, Http1Response, Http2Request, Http2Response>,
         onRequestHandler?: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
@@ -2578,13 +2542,9 @@ declare module "http2" {
      */
     export function performServerHandshake<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
-            InstanceType<Http1Request>
-        >,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
-            InstanceType<Http2Request>
-        >,
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     >(
         socket: stream.Duplex,
         options?: ServerOptions<Http1Request, Http1Response, Http2Request, Http2Response>,
