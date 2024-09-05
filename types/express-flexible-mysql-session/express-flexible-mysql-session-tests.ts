@@ -23,7 +23,7 @@ const sessionStore = new MySQLStore({
         columnNames: {
             session_id: "session_id",
             expires: "expires",
-            some: "info"
+            some: "info",
         },
     },
     waitForConnections: true,

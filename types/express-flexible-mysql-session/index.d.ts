@@ -6,9 +6,7 @@ export = MySQLStore;
 declare function MySQLStore(session: typeof expressSession): typeof MySQLStoreClass;
 
 declare namespace MySQLStore {
-
     interface CustomSchemaOption {
-
         createDatabaseTable: false;
         /**
          * Whether to extract data into custom columns (cannot be `true` if `createDatabaseTable` is `true`)
@@ -34,68 +32,67 @@ declare namespace MySQLStore {
     type SchemaOptions = DefaultPresetSchema | CustomSchema;
 
     type Options =
-        Pick<PoolOptions, "waitForConnections" | "connectionLimit" | "maxIdle" | "idleTimeout" | "queueLimit"> & SchemaOptions &
-    {
-        /**
-         * Host name for database connection
-         */
-        host?: string | undefined;
+        & Pick<PoolOptions, "waitForConnections" | "connectionLimit" | "maxIdle" | "idleTimeout" | "queueLimit">
+        & SchemaOptions
+        & {
+            /**
+             * Host name for database connection
+             */
+            host?: string | undefined;
 
-        /**
-         * Port number for database connection
-         */
-        port?: number | undefined;
+            /**
+             * Port number for database connection
+             */
+            port?: number | undefined;
 
-        /**
-         * Database user
-         */
-        user?: string | undefined;
+            /**
+             * Database user
+             */
+            user?: string | undefined;
 
-        /**
-         * Password for the above database user
-         */
-        password?: string | undefined;
+            /**
+             * Password for the above database user
+             */
+            password?: string | undefined;
 
-        /**
-         * Database name
-         */
-        database?: string | undefined;
+            /**
+             * Database name
+             */
+            database?: string | undefined;
 
-        /**
-         * Whether or not to automatically check for and clear expired sessions
-         */
-        clearExpired?: boolean | undefined;
+            /**
+             * Whether or not to automatically check for and clear expired sessions
+             */
+            clearExpired?: boolean | undefined;
 
-        /**
-         * How frequently expired sessions will be cleared; milliseconds
-         */
-        checkExpirationInterval?: number | undefined;
+            /**
+             * How frequently expired sessions will be cleared; milliseconds
+             */
+            checkExpirationInterval?: number | undefined;
 
-        /**
-         * The maximum age of a valid session; milliseconds
-         */
-        expiration?: number | undefined;
+            /**
+             * The maximum age of a valid session; milliseconds
+             */
+            expiration?: number | undefined;
 
-        /**
-         * Whether or not to end the database connection when the store is closed.
-         * The default value of this option depends on whether or not a connection was passed to the constructor.
-         * If a connection object is passed to the constructor, the default value for this option is false.
-         */
-        endConnectionOnClose?: boolean | undefined;
+            /**
+             * Whether or not to end the database connection when the store is closed.
+             * The default value of this option depends on whether or not a connection was passed to the constructor.
+             * If a connection object is passed to the constructor, the default value for this option is false.
+             */
+            endConnectionOnClose?: boolean | undefined;
 
-        /**
-         * Whether or not to disable touch
-         */
-        disableTouch?: boolean | undefined;
+            /**
+             * Whether or not to disable touch
+             */
+            disableTouch?: boolean | undefined;
 
-        charset?: string | undefined;
-    }
+            charset?: string | undefined;
+        };
     interface Schema<UsingCustomColumns extends boolean> {
         tableName: string;
-        columnNames: ( UsingCustomColumns extends false
-                        ? Partial<ColumnNames>
-                        : { [ session_key: string ]: string }
-                     );
+        columnNames: UsingCustomColumns extends false ? Partial<ColumnNames>
+            : { [session_key: string]: string };
     }
     interface ColumnNames {
         session_id: string;
