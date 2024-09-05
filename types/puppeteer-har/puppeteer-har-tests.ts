@@ -28,6 +28,6 @@ const savePromise: Promise<void> = har.save({ path: "example.har" });
 const harInstance: PuppeteerHar = har;
 
 // Ensure that the methods return the correct types
-startPromise.then(() => console.log('Start method passed type check'));
-stopPromise.then(() => console.log('Stop method passed type check'));
-savePromise.then(() => console.log('Save method passed type check'));
+startPromise.then(() => console.log("Start method passed type check"));
+stopPromise.then(() => console.log("Stop method passed type check"));
+savePromise.then(() => console.log("Save method passed type check"));
