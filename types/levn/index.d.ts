@@ -5,7 +5,7 @@ export interface CastableCustomType extends CustomType {
 }
 
 export interface ParseOptions {
-    customTypes?: Record<string, CastableCustomType>;
+    customTypes?: Record<string, CastableCustomType> | undefined;
     explicit?: boolean | undefined;
 }
 
