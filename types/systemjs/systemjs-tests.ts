@@ -90,8 +90,8 @@ System.addImportMap({
         },
     },
     integrity: {
-        a: 'sha256-5e3e'
-    }
+        a: "sha256-5e3e",
+    },
 });
 
 System.getImportMap();
