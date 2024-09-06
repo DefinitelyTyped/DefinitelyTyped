@@ -754,36 +754,45 @@ function testWindows() {
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
-    function getCallback(loadedData: { [key: string]: any }) {
-        var myValue: { x: number } = loadedData["myKey"];
+    interface StorageData {
+        myKey: {
+            x: number;
+            y: number;
+            z?: number;
+        };
+        myKey2: string;
     }
 
-    chrome.storage.sync.get(getCallback);
-    chrome.storage.sync.get("myKey", getCallback);
-    chrome.storage.sync.get(["myKey", "myKey2"], getCallback);
-    chrome.storage.sync.get({ foo: 1, bar: 2 }, getCallback);
-    chrome.storage.sync.get(null, getCallback);
+    function getCallback(loadedData: StorageData) {
+        console.log(loadedData.myKey.x + loadedData.myKey.y);
+    }
+
+    chrome.storage.sync.get<StorageData>(getCallback);
+    chrome.storage.sync.get<StorageData>("myKey", getCallback);
+    chrome.storage.sync.get<StorageData>(["myKey", "myKey2"], getCallback);
+    chrome.storage.sync.get<StorageData>({ myKey: { x: 1, y: 2 } }, getCallback);
+    chrome.storage.sync.get<StorageData>(null, getCallback);
 
     function getBytesInUseCallback(bytesInUse: number) {
         console.log(bytesInUse);
     }
 
     chrome.storage.sync.getBytesInUse(getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse("myKey", getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse(["myKey", "myKey2"], getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse(null, getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse<StorageData>("myKey", getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse<StorageData>(["myKey", "myKey2"], getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse<StorageData>(null, getBytesInUseCallback);
 
     function doneCallback() {
         console.log("done");
     }
 
-    chrome.storage.sync.set({ foo: 1, bar: 2 });
-    chrome.storage.sync.set({ foo: 1, bar: 2 }, doneCallback);
+    chrome.storage.sync.set<StorageData>({ myKey: { x: 1, y: 2 } });
+    chrome.storage.sync.set<StorageData>({ myKey2: "hello world" }, doneCallback);
 
-    chrome.storage.sync.remove("myKey");
-    chrome.storage.sync.remove("myKey", doneCallback);
-    chrome.storage.sync.remove(["myKey", "myKey2"]);
-    chrome.storage.sync.remove(["myKey", "myKey2"], doneCallback);
+    chrome.storage.sync.remove<StorageData>("myKey");
+    chrome.storage.sync.remove<StorageData>("myKey", doneCallback);
+    chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"]);
+    chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"], doneCallback);
 
     chrome.storage.sync.clear();
     chrome.storage.sync.clear(doneCallback);
