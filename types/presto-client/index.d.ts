@@ -333,7 +333,7 @@ export class Client {
     /**
      * Stop query immediately.
      */
-    kill(query_id: string, callback: (error: PrestoRequestError | null) => void): void;
+    kill(query_id: string, callback?: (error: PrestoRequestError | null) => void): void;
     nodes(callback: (error: PrestoRequestError | null, data: any[]) => void): void;
     /**
      * Get node list of presto cluster and return it.

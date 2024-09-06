@@ -38,6 +38,9 @@ client.execute({
     },
 });
 
+// $ExpectType (query_id: string, callback?: ((error: PrestoRequestError | null) => void) | undefined) => void
+client.kill;
+
 const requestError: PrestoRequestError = {
     message: "execution error:SQL statement is empty",
     error: undefined,
