@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@types/essentia.js",
+  "version": "1.0.0",
+  "projects": ["https://github.com/MTG/essentia.js"],
+  "dependencies": {},
+  "typeScriptVersion": "4.0"
+}
