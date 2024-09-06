@@ -16,7 +16,7 @@ async function topLevel() {
     const assistant = await window.ai.assistant.create({
         topK: 1,
         temperature: 0,
-        signal: new AbortSignal(),
+        signal: (new AbortController()).signal,
         systemPrompt: "foo",
         initialPrompts: [{ role: "assistant", content: "foo" }, { role: "user", content: "foo" }],
         monitor(m: AICreateMonitor) {
@@ -37,13 +37,13 @@ async function topLevel() {
 
     assistant.addEventListener("contextoverflow", () => {});
 
-    const promptTokens: number = await assistant.countPromptTokens("foo", { signal: new AbortSignal() });
+    const promptTokens: number = await assistant.countPromptTokens("foo", { signal: (new AbortController()).signal });
     console.log(promptTokens);
 
-    const assistantResult: string = await assistant.prompt("foo", { signal: new AbortSignal() });
+    const assistantResult: string = await assistant.prompt("foo", { signal: (new AbortController()).signal });
     console.log(assistantResult);
 
-    for await (const chunk of assistant.promptStreaming("foo", { signal: new AbortSignal() })) {
+    for await (const chunk of assistant.promptStreaming("foo", { signal: (new AbortController()).signal })) {
         console.log(chunk);
     }
 
@@ -59,7 +59,7 @@ async function topLevel() {
         format: "plain-text",
         type: "tl;dr",
         sharedContext: "foo",
-        signal: new AbortSignal(),
+        signal: (new AbortController()).signal,
         monitor(m: AICreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
@@ -76,10 +76,15 @@ async function topLevel() {
         summarizerCapabilities.supportsInputLanguage("de"),
     );
 
-    const summarizerResult: string = await summarizer.summarize("foo", { signal: new AbortSignal(), context: "foo" });
+    const summarizerResult: string = await summarizer.summarize("foo", {
+        signal: (new AbortController()).signal,
+        context: "foo",
+    });
     console.log(summarizerResult);
 
-    for await (const chunk of summarizer.summarizeStreaming("foo", { signal: new AbortSignal(), context: "foo" })) {
+    for await (
+        const chunk of summarizer.summarizeStreaming("foo", { signal: (new AbortController()).signal, context: "foo" })
+    ) {
         console.log(chunk);
     }
 
@@ -92,7 +97,7 @@ async function topLevel() {
         format: "plain-text",
         length: "long",
         sharedContext: "foo",
-        signal: new AbortSignal(),
+        signal: (new AbortController()).signal,
         monitor(m: AICreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
@@ -109,10 +114,12 @@ async function topLevel() {
         writerCapabilities.supportsInputLanguage("de"),
     );
 
-    const writerResult: string = await writer.write("foo", { signal: new AbortSignal(), context: "foo" });
+    const writerResult: string = await writer.write("foo", { signal: (new AbortController()).signal, context: "foo" });
     console.log(writerResult);
 
-    for await (const chunk of writer.writeStreaming("foo", { signal: new AbortSignal(), context: "foo" })) {
+    for await (
+        const chunk of writer.writeStreaming("foo", { signal: (new AbortController()).signal, context: "foo" })
+    ) {
         console.log(chunk);
     }
 
@@ -125,7 +132,7 @@ async function topLevel() {
         format: "plain-text",
         length: "as-is",
         sharedContext: "foo",
-        signal: new AbortSignal(),
+        signal: (new AbortController()).signal,
         monitor(m: AICreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
                 console.log(e.loaded, e.total);
@@ -142,10 +149,15 @@ async function topLevel() {
         rewriterCapabilities.supportsInputLanguage("de"),
     );
 
-    const rewriterResult: string = await rewriter.rewrite("foo", { signal: new AbortSignal(), context: "foo" });
+    const rewriterResult: string = await rewriter.rewrite("foo", {
+        signal: (new AbortController()).signal,
+        context: "foo",
+    });
     console.log(rewriterResult);
 
-    for await (const chunk of rewriter.rewriteStreaming("foo", { signal: new AbortSignal(), context: "foo" })) {
+    for await (
+        const chunk of rewriter.rewriteStreaming("foo", { signal: (new AbortController()).signal, context: "foo" })
+    ) {
         console.log(chunk);
     }
 
