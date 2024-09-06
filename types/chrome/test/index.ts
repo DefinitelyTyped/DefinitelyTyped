@@ -778,10 +778,10 @@ function testStorage() {
     // @ts-expect-error
     chrome.storage.sync.get({ myKey: { badKey: true } }, getCallbackTyped);
     chrome.storage.sync.get(null, (data) => {
-        data.myKey;
+        console.log(data.myKey);
     });
     chrome.storage.sync.get((data) => {
-        data.myKey;
+        console.log(data.badKey);
     });
 
     chrome.storage.sync.get<StorageData>(getCallbackTyped);
