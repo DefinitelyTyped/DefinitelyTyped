@@ -1527,7 +1527,7 @@ declare module "util" {
                         T["options"][LongOption]["multiple"],
                         Array<ExtractOptionValue<T, T["options"][LongOption]>>,
                         ExtractOptionValue<T, T["options"][LongOption]>
-                      >;
+                    >;
             }
             : {});
 
