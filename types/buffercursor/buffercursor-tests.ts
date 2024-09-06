@@ -1,5 +1,5 @@
-import BufferCursor from 'buffercursor';
-import { Buffer } from 'node:buffer';
+import BufferCursor from "buffercursor";
+import { Buffer } from "node:buffer";
 
 const buffer = Buffer.from([0x00, 0x01, 0x02, 0x03]);
 const cursor = new BufferCursor(buffer);
@@ -24,7 +24,7 @@ try {
     cursor.seek(100);
 } catch (error) {
     if (error instanceof BufferCursor.BufferCursorOverflow) {
-        console.log('Caught overflow error as expected');
+        console.log("Caught overflow error as expected");
     }
 }
 
@@ -43,5 +43,5 @@ cursor.seek(buffer.length - 1);
 try {
     cursor.readUInt16BE();
 } catch (error) {
-    console.log('Caught boundary overflow error as expected');
+    console.log("Caught boundary overflow error as expected");
 }

@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import VError = require('verror');
+import VError = require("verror");
 
 /**
  * A cursor for reading from and writing to a buffer.
