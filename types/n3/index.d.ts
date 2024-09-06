@@ -191,20 +191,31 @@ export interface ParserOptions {
     blankNodePrefix?: string | undefined;
 }
 
+export interface StreamParserOptions extends ParserOptions {
+    options?: boolean | undefined;
+}
+
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
 
 export type PrefixCallback = (prefix: string, prefixNode: RDF.NamedNode) => void;
+
+export type CommentCallback = (comment: string) => void;
 
 export class Parser<Q extends BaseQuad = Quad> {
     constructor(options?: ParserOptions);
     parse(input: string, callback?: null, prefixCallback?: PrefixCallback): Q[];
     parse(input: string | EventEmitter, callback: ParseCallback<Q>, prefixCallback?: PrefixCallback): void;
+    parse(input: string | EventEmitter, callback: {
+        onQuad: ParseCallback<Q>;
+        onPrefix?: PrefixCallback;
+        onComment?: CommentCallback;
+    }): void;
 }
 
 export class StreamParser<Q extends BaseQuad = Quad> extends stream.Transform
     implements RDF.Stream<Q>, RDF.Sink<EventEmitter, RDF.Stream<Q>>
 {
-    constructor(options?: ParserOptions);
+    constructor(options?: StreamParserOptions);
     import(stream: EventEmitter): RDF.Stream<Q>;
 }
 

@@ -90,6 +90,34 @@ function test_doc_rdf_to_triples_and_prefixes() {
     );
 }
 
+function test_doc_rdf_to_triples_and_prefixes_object_callback() {
+    const parser: N3.Parser = new N3.Parser();
+    parser.parse(
+        `@prefix c: <http://example.org/cartoons#>.
+        c:Tom a c:Cat.
+        c:Jerry a c:Mouse;
+                c:smarterThan c:Tom.`,
+        {
+            onQuad: () => {},
+        },
+    );
+}
+
+function test_doc_rdf_to_triples_and_prefixes_object_callback_on_comment() {
+    const parser: N3.Parser = new N3.Parser();
+    parser.parse(
+        `@prefix c: <http://example.org/cartoons#>.
+        c:Tom a c:Cat.
+        c:Jerry a c:Mouse;
+                c:smarterThan c:Tom.`,
+        {
+            onQuad: () => {},
+            onComment: () => {},
+            onPrefix: () => {},
+        },
+    );
+}
+
 function test_doc_rdf_to_triples_2() {
     const parser1: N3.Parser = new N3.Parser({ format: "N-Triples" });
     const parser2: N3.Parser = new N3.Parser({ format: "application/trig" });
