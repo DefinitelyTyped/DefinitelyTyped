@@ -5,6 +5,21 @@ const client = new Client({
     timeout: 60,
 });
 
+// $ExpectType string
+client.userAgent;
+
+// $ExpectType number
+client.port;
+
+// $ExpectType string
+client.source;
+
+// $ExpectType number
+client.checkInterval;
+
+// $ExpectType boolean
+client.enableVerboseStateCallback;
+
 client.execute({
     query: "SELECT count(*) as cnt FROM tblname WHERE ...",
     catalog: "hive",
