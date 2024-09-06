@@ -61,3 +61,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     delete s["foo"];
     s.clear();
 }
+
+{
+    const e = new DOMException(); // $ExpectType DOMException
+    e.message; // $ExpectType string
+    e.name; // $ExpectType string
+}

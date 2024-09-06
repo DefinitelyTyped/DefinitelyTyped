@@ -90,3 +90,5 @@ System.addImportMap({
         },
     },
 });
+
+System.getImportMap();

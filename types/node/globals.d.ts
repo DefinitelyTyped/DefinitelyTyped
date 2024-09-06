@@ -12,7 +12,6 @@ type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").RequestInit;
 type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").ResponseInit;
-type _File = typeof globalThis extends { onmessage: any } ? {} : import("node:buffer").File;
 type _WebSocket = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").WebSocket;
 type _EventSource = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").EventSource;
 // #endregion Fetch and friends
@@ -59,6 +58,76 @@ type _Storage = typeof globalThis extends { onabort: any } ? {} : {
     setItem(key: string, value: string): void;
     [key: string]: any;
 };
+
+// #region DOMException
+type _DOMException = typeof globalThis extends { onmessage: any } ? {} : NodeDOMException;
+interface NodeDOMException extends Error {
+    /**
+     * @deprecated
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/code)
+     */
+    readonly code: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/message) */
+    readonly message: string;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/name) */
+    readonly name: string;
+    readonly INDEX_SIZE_ERR: 1;
+    readonly DOMSTRING_SIZE_ERR: 2;
+    readonly HIERARCHY_REQUEST_ERR: 3;
+    readonly WRONG_DOCUMENT_ERR: 4;
+    readonly INVALID_CHARACTER_ERR: 5;
+    readonly NO_DATA_ALLOWED_ERR: 6;
+    readonly NO_MODIFICATION_ALLOWED_ERR: 7;
+    readonly NOT_FOUND_ERR: 8;
+    readonly NOT_SUPPORTED_ERR: 9;
+    readonly INUSE_ATTRIBUTE_ERR: 10;
+    readonly INVALID_STATE_ERR: 11;
+    readonly SYNTAX_ERR: 12;
+    readonly INVALID_MODIFICATION_ERR: 13;
+    readonly NAMESPACE_ERR: 14;
+    readonly INVALID_ACCESS_ERR: 15;
+    readonly VALIDATION_ERR: 16;
+    readonly TYPE_MISMATCH_ERR: 17;
+    readonly SECURITY_ERR: 18;
+    readonly NETWORK_ERR: 19;
+    readonly ABORT_ERR: 20;
+    readonly URL_MISMATCH_ERR: 21;
+    readonly QUOTA_EXCEEDED_ERR: 22;
+    readonly TIMEOUT_ERR: 23;
+    readonly INVALID_NODE_TYPE_ERR: 24;
+    readonly DATA_CLONE_ERR: 25;
+}
+interface NodeDOMExceptionConstructor {
+    prototype: DOMException;
+    new(message?: string, nameOrOptions?: string | { name?: string; cause?: unknown }): DOMException;
+    readonly INDEX_SIZE_ERR: 1;
+    readonly DOMSTRING_SIZE_ERR: 2;
+    readonly HIERARCHY_REQUEST_ERR: 3;
+    readonly WRONG_DOCUMENT_ERR: 4;
+    readonly INVALID_CHARACTER_ERR: 5;
+    readonly NO_DATA_ALLOWED_ERR: 6;
+    readonly NO_MODIFICATION_ALLOWED_ERR: 7;
+    readonly NOT_FOUND_ERR: 8;
+    readonly NOT_SUPPORTED_ERR: 9;
+    readonly INUSE_ATTRIBUTE_ERR: 10;
+    readonly INVALID_STATE_ERR: 11;
+    readonly SYNTAX_ERR: 12;
+    readonly INVALID_MODIFICATION_ERR: 13;
+    readonly NAMESPACE_ERR: 14;
+    readonly INVALID_ACCESS_ERR: 15;
+    readonly VALIDATION_ERR: 16;
+    readonly TYPE_MISMATCH_ERR: 17;
+    readonly SECURITY_ERR: 18;
+    readonly NETWORK_ERR: 19;
+    readonly ABORT_ERR: 20;
+    readonly URL_MISMATCH_ERR: 21;
+    readonly QUOTA_EXCEEDED_ERR: 22;
+    readonly TIMEOUT_ERR: 23;
+    readonly INVALID_NODE_TYPE_ERR: 24;
+    readonly DATA_CLONE_ERR: 25;
+}
+// #endregion DOMException
 
 declare global {
     // Declare "static" methods in Error
@@ -236,6 +305,24 @@ declare global {
         value: T,
         transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
     ): T;
+
+    // #region DOMException
+    /**
+     * @since v17.0.0
+     * An abnormal event (called an exception) which occurs as a result of calling a method or accessing a property of a web API.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException)
+     */
+    interface DOMException extends _DOMException {}
+
+    /**
+     * @since v17.0.0
+     *
+     * The WHATWG `DOMException` class. See [DOMException](https://developer.mozilla.org/docs/Web/API/DOMException) for more details.
+     */
+    var DOMException: typeof globalThis extends { onmessage: any; DOMException: infer T } ? T
+        : NodeDOMExceptionConstructor;
+    // #endregion DOMException
 
     /*----------------------------------------------*
     *                                               *
@@ -484,18 +571,14 @@ declare global {
         : typeof import("undici-types").Headers;
 
     interface MessageEvent extends _MessageEvent {}
+    /**
+     * @since v15.0.0
+     */
     var MessageEvent: typeof globalThis extends {
         onmessage: any;
         MessageEvent: infer T;
     } ? T
         : typeof import("undici-types").MessageEvent;
-
-    interface File extends _File {}
-    var File: typeof globalThis extends {
-        onmessage: any;
-        File: infer T;
-    } ? T
-        : typeof import("node:buffer").File;
 
     interface WebSocket extends _WebSocket {}
     var WebSocket: typeof globalThis extends { onmessage: any; WebSocket: infer T } ? T
@@ -504,6 +587,8 @@ declare global {
     interface EventSource extends _EventSource {}
     /**
      * Only available through the [--experimental-eventsource](https://nodejs.org/api/cli.html#--experimental-eventsource) flag.
+     *
+     * @since v22.3.0
      */
     var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
         : typeof import("undici-types").EventSource;
