@@ -1,7 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.57
+// Google Maps JS API Version: 3.58
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -97,6 +97,16 @@ declare namespace google.maps {
      * <code>null</code>, the layer will be removed.
      */
     setMap(map: google.maps.Map | null): void;
+  }
+  /**
+   * The display options for the Camera control.
+   */
+  export interface CameraControlOptions {
+    /**
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_START_BLOCK_END}
+     */
+    position?: google.maps.ControlPosition | null;
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -4082,6 +4092,14 @@ declare namespace google.maps {
      * set when the map is initialized.
      */
     backgroundColor?: string | null;
+    /**
+     * The enabled/disabled state of the Camera control.
+     */
+    cameraControl?: boolean | null;
+    /**
+     * The display options for the Camera control.
+     */
+    cameraControlOptions?: google.maps.CameraControlOptions | null;
     /**
      * The initial Map center.
      */
