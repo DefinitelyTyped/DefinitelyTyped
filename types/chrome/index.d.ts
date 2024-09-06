@@ -8437,7 +8437,9 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with an object containing items
          * @since MV3
          */
-        get<T = { [key: string]: any }>(keys?: keyof T | Array<keyof T> | Partial<T> | null): Promise<T>;
+        get<T = { [key: string]: any }>(
+            keys?: keyof T | Array<keyof T> | (T extends object ? Partial<T> : never) | null,
+        ): Promise<T>;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8446,7 +8448,7 @@ declare namespace chrome.storage {
          * Parameter items: Object with items in their key-value mappings.
          */
         get<T = { [key: string]: any }>(
-            keys: keyof T | Array<keyof T> | Partial<T> | null,
+            keys: keyof T | Array<keyof T> | (T extends object ? Partial<T> : never) | null,
             callback: (items: T) => void,
         ): void;
         /**
