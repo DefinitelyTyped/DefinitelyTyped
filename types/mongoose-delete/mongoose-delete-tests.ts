@@ -3,6 +3,7 @@ import MongooseDelete = require("mongoose-delete");
 
 interface PetDocument extends MongooseDelete.SoftDeleteDocument {
     name: string;
+    age: number;
 }
 
 // Custom methods
