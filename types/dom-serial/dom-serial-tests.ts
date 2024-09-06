@@ -28,6 +28,15 @@ async function connect() {
     port.writable.getWriter();
     port.readable.getReader();
 
+    const signals = await port.getSignals();
+    const cts = signals.clearToSend;
+
+    await port.setSignals({
+        dataTerminalReady: true,
+        requestToSend: false,
+        break: false,
+    });
+
     await port.close();
 
     await port.forget();

@@ -21,6 +21,19 @@ type ParityType = "none" | "even" | "odd" | "mark" | "space";
 
 type FlowControlType = "none" | "hardware";
 
+interface SerialOutputSignals {
+    dataTerminalReady?: boolean;
+    requestToSend?: boolean;
+    break?: boolean;
+}
+
+interface SerialInputSignals {
+    dataCarrierDetect: boolean;
+    clearToSend: boolean;
+    ringIndicator: boolean;
+    dataSetReady: boolean;
+}
+
 interface SerialOptions {
     baudRate: number;
     dataBits?: number | undefined;
@@ -39,6 +52,8 @@ interface SerialPort extends EventTarget {
     close(): Promise<void>;
     getInfo(): Partial<SerialPortInfo>;
     forget(): Promise<void>;
+    setSignals(signals: SerialOutputSignals): Promise<void>;
+    getSignals(): Promise<SerialInputSignals>;
 }
 
 interface SerialPortRequestOptions {
