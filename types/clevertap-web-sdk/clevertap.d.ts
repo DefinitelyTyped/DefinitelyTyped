@@ -1,4 +1,4 @@
-type Region = "sg1" | "in1" | "us1" | "aps3" | "mec1";
+type Region = "sg1" | "in1" | "us1" | "aps3" | "mec1" | "eu1";
 
 interface PrivacyData {
     optOut?: boolean;
@@ -105,7 +105,7 @@ declare class CleverTap {
     notifications: NotificationHandler;
     user: User;
     session: Session;
-    setLogLevel(logLevel: 0 | 1 | 2 | 3): void;
+    setLogLevel(logLevel: 0 | 1 | 2 | 3 | 4): void;
     getCleverTapID(): string | null;
     logout(): void;
     clear(): void;
@@ -138,8 +138,8 @@ declare class CleverTap {
     getInboxMessageCount: () => number | undefined;
     getLocation: (lat: number, lng: number) => void;
     defineVariable: (name: string, defaultValue: string | number | boolean) => any;
-    syncVariables(onSyncSuccess: () => void, onSyncFailure: (error: Error) => void): Promise<void>;
-    fetchVariables(onFetchCallback: () => void): void;
+    syncVariables(onSyncSuccess?: () => void, onSyncFailure?: (error: Error) => void): Promise<void>;
+    fetchVariables(onFetchCallback?: () => void): void;
     addVariablesChangedCallback(callback: () => void): void;
     addOneTimeVariablesChangedCallback(callback: () => void): void;
 }
