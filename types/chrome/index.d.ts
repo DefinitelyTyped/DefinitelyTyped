@@ -2,6 +2,9 @@
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />
 
+// NoInfer for old TypeScript versions
+type NoInferX<T> = T[][T extends any ? 0 : never];
+
 ////////////////////
 // Global object
 ////////////////////
@@ -8438,7 +8441,7 @@ declare namespace chrome.storage {
          * @since MV3
          */
         get<T = { [key: string]: any }>(
-            keys?: keyof T | Array<keyof T> | (T extends object ? Partial<T> : never) | null,
+            keys?: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
         ): Promise<T>;
         /**
          * Gets one or more items from storage.
@@ -8448,7 +8451,7 @@ declare namespace chrome.storage {
          * Parameter items: Object with items in their key-value mappings.
          */
         get<T = { [key: string]: any }>(
-            keys: keyof T | Array<keyof T> | (T extends object ? Partial<T> : never) | null,
+            keys: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
             callback: (items: T) => void,
         ): void;
         /**

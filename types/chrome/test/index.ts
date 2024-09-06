@@ -763,36 +763,68 @@ function testStorage() {
         myKey2: string;
     }
 
-    function getCallback(loadedData: StorageData) {
+    function getCallback(loadedData: { [key: string]: any }) {
         console.log(loadedData.myKey.x + loadedData.myKey.y);
     }
 
-    chrome.storage.sync.get<StorageData>(getCallback);
-    chrome.storage.sync.get<StorageData>("myKey", getCallback);
-    chrome.storage.sync.get<StorageData>(["myKey", "myKey2"], getCallback);
-    chrome.storage.sync.get<StorageData>({ myKey: { x: 1, y: 2 } }, getCallback);
-    chrome.storage.sync.get<StorageData>(null, getCallback);
+    function getCallbackTyped(loadedData: StorageData) {
+        console.log(loadedData.myKey.x + loadedData.myKey.y);
+    }
+
+    chrome.storage.sync.get("myKey", getCallback);
+    chrome.storage.sync.get("badKey", getCallback);
+    // @ts-expect-error
+    chrome.storage.sync.get("badKey", getCallbackTyped);
+    // @ts-expect-error
+    chrome.storage.sync.get({ myKey: { badKey: true } }, getCallbackTyped);
+    chrome.storage.sync.get(null, (data) => {
+        data.myKey;
+    });
+    chrome.storage.sync.get((data) => {
+        data.myKey;
+    });
+
+    chrome.storage.sync.get<StorageData>(getCallbackTyped);
+    chrome.storage.sync.get<StorageData>("myKey", getCallbackTyped);
+    chrome.storage.sync.get<StorageData>(["myKey", "myKey2"], getCallbackTyped);
+    chrome.storage.sync.get<StorageData>({ myKey: { x: 1, y: 2 } }, getCallbackTyped);
+    // @ts-expect-error
+    chrome.storage.sync.get<StorageData>({ myKey: { badKey: true } }, getCallback);
+    // @ts-expect-error
+    chrome.storage.sync.get<StorageData>({ myKey: { badKey: true } }, getCallbackTyped);
+    chrome.storage.sync.get<StorageData>(null, getCallbackTyped);
 
     function getBytesInUseCallback(bytesInUse: number) {
         console.log(bytesInUse);
     }
 
     chrome.storage.sync.getBytesInUse(getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse("myKey", getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse("badKey", getBytesInUseCallback);
+
     chrome.storage.sync.getBytesInUse<StorageData>("myKey", getBytesInUseCallback);
     chrome.storage.sync.getBytesInUse<StorageData>(["myKey", "myKey2"], getBytesInUseCallback);
     chrome.storage.sync.getBytesInUse<StorageData>(null, getBytesInUseCallback);
+    // @ts-expect-error
+    chrome.storage.sync.getBytesInUse<StorageData>(["badKey", "myKey2"], getBytesInUseCallback);
 
     function doneCallback() {
         console.log("done");
     }
 
+    chrome.storage.sync.set({ badKey: true });
     chrome.storage.sync.set<StorageData>({ myKey: { x: 1, y: 2 } });
     chrome.storage.sync.set<StorageData>({ myKey2: "hello world" }, doneCallback);
+    // @ts-expect-error
+    chrome.storage.sync.set<StorageData>({ badKey: "hello world" }, doneCallback);
 
+    chrome.storage.sync.remove("badKey");
     chrome.storage.sync.remove<StorageData>("myKey");
     chrome.storage.sync.remove<StorageData>("myKey", doneCallback);
     chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"]);
     chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"], doneCallback);
+    // @ts-expect-error
+    chrome.storage.sync.remove<StorageData>(["badKey", "myKey2"], doneCallback);
 
     chrome.storage.sync.clear();
     chrome.storage.sync.clear(doneCallback);
