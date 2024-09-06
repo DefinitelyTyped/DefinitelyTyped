@@ -512,3 +512,30 @@ function test_store_factory() {
     const baseQuads: RDF.BaseQuad[] = [];
     dataset = store.dataset(baseQuads);
 }
+
+function test_reasoner() {
+    const store = new N3.Store();
+    new N3.Reasoner(store).reason([{
+        premise: [
+            new N3.Quad(
+                new N3.Variable("?s"),
+                new N3.NamedNode("a"),
+                new N3.Variable("?o"),
+            ),
+            new N3.Quad(
+                new N3.Variable("?o"),
+                new N3.NamedNode("subClassOf"),
+                new N3.Variable("?o2"),
+            ),
+        ],
+        conclusion: [
+            new N3.Quad(
+                new N3.Variable("?s"),
+                new N3.NamedNode("a"),
+                new N3.Variable("?o2"),
+            ),
+        ],
+    }]);
+    new N3.Reasoner(store).reason(new N3.Store());
+    new N3.Reasoner(store).reason(new N3.Store<RDF.BaseQuad>());
+}

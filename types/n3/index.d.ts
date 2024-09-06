@@ -250,6 +250,21 @@ export class StoreFactory implements RDF.DatasetCoreFactory<RDF.BaseQuad, Quad, 
     dataset(quads?: RDF.BaseQuad[]): Store;
 }
 
+export interface Rule {
+    premise: RDF.Quad[];
+    conclusion: RDF.Quad[];
+}
+
+export class Reasoner<
+    Q_RDF extends RDF.BaseQuad = RDF.Quad,
+    Q_N3 extends BaseQuad = Quad,
+    OutQuad extends RDF.BaseQuad = RDF.Quad,
+    InQuad extends RDF.BaseQuad = RDF.Quad,
+> {
+    constructor(store: Store<Q_RDF, Q_N3, OutQuad, InQuad>);
+    reason(rules: Rule[] | RDF.DatasetCore<RDF.Quad>): void;
+}
+
 export class Store<
     Q_RDF extends RDF.BaseQuad = RDF.Quad,
     Q_N3 extends BaseQuad = Quad,
