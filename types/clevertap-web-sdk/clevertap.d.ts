@@ -1,4 +1,4 @@
-type Region = "sg1" | "in1" | "us1" | "aps3" | "mec1" | "eu1";
+type Region = "sg1" | "in1" | "us1" | "aps3" | "mec1" | "eu1" | "sk1";
 
 interface PrivacyData {
     optOut?: boolean;
