@@ -1,7 +1,7 @@
 import chaiAlmost = require("chai-almost");
 
 async function testPlugin() {
-    const { use } = await import('chai')
+    const { use } = await import("chai");
     // Normally, call use(chaiAlmost(...)) only once, this is just to check that TypeScript correctly handles both.
     use(chaiAlmost(0.01)); // custom tolerance 0.01
     use(chaiAlmost()); // default tolerance 1e-6 (= 0.000001)

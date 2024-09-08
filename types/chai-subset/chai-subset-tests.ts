@@ -1,6 +1,6 @@
 import chaiSubset = require("chai-subset");
 
-import('chai').then(({use}) => use(chaiSubset));
+import("chai").then(({ use }) => use(chaiSubset));
 const assert: Chai.AssertStatic = {} as any;
 const expect: Chai.ExpectStatic = {} as any;
 

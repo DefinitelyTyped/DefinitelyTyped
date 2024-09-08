@@ -1,6 +1,6 @@
 import chaiQuantifiers = require("chai-quantifiers");
 
-import('chai').then(({ use }) => use(chaiQuantifiers));
+import("chai").then(({ use }) => use(chaiQuantifiers));
 
 const expect: Chai.ExpectStatic = {} as any;
 

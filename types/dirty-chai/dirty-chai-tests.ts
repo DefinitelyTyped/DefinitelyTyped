@@ -1,8 +1,8 @@
 import chaiAsPromised = require("chai-as-promised");
-import('chai').then(chai => chai.use(chaiAsPromised));
+import("chai").then(chai => chai.use(chaiAsPromised));
 
 import dirtyChai = require("dirty-chai");
-import('chai').then(chai => chai.use(dirtyChai));
+import("chai").then(chai => chai.use(dirtyChai));
 
 const expect: Chai.ExpectStatic = {} as any;
 

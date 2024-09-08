@@ -2,8 +2,8 @@
 import * as angular from "angular";
 import "angular-mocks";
 
-const expect: Chai.ExpectStatic = <any>{};
-const assert: Chai.AssertStatic = <any>{};
+const expect: Chai.ExpectStatic = <any> {};
+const assert: Chai.AssertStatic = <any> {};
 
 class MyService {
     constructor(private readonly $q: angular.IQService) {}

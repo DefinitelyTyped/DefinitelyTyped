@@ -2,7 +2,7 @@ import chaiJestSnapshot = require("chai-jest-snapshot");
 
 const expect: Chai.ExpectStatic = {} as any;
 
-import('chai').then(chai => chai.use(chaiJestSnapshot));
+import("chai").then(chai => chai.use(chaiJestSnapshot));
 
 expect({}).to.matchSnapshot();
 expect({}).to.matchSnapshot(true);

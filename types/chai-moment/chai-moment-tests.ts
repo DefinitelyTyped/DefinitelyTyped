@@ -3,7 +3,7 @@ import chaiMoment = require("chai-moment");
 const assert: Chai.AssertStatic = {} as any;
 const expect: Chai.ExpectStatic = {} as any;
 
-import('chai').then(({use}) => use(chaiMoment));
+import("chai").then(({ use }) => use(chaiMoment));
 
 const g: ChaiMoment.Granularity = "month";
 

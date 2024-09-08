@@ -12,7 +12,7 @@ class Test2 extends React.Component {
     }
 }
 
-import('chai').then(chai => chai.use(chaiEnzyme()));
+import("chai").then(chai => chai.use(chaiEnzyme()));
 
 const wrapper = shallow(<Test />);
 

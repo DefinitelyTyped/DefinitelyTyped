@@ -2,7 +2,7 @@
 
 import chaiFuzzy = require("chai-fuzzy");
 
-import('chai').then(chai => chai.use(chaiFuzzy));
+import("chai").then(chai => chai.use(chaiFuzzy));
 var expect: Chai.ExpectStatic = {} as any;
 var assert: Chai.AssertStatic = {} as any;
 

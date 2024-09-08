@@ -1871,7 +1871,11 @@ declare global {
              * @param keys   Keys to check
              * @param message    Message to display on error.
              */
-            containsAllKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+            containsAllKeys<T>(
+                object: T,
+                keys: Array<Object | string> | { [key: string]: any },
+                message?: string,
+            ): void;
 
             /**
              * Asserts that `object` has none of the `keys` provided.
@@ -1883,7 +1887,11 @@ declare global {
              * @param keys   Keys to check
              * @param message    Message to display on error.
              */
-            doesNotHaveAnyKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+            doesNotHaveAnyKeys<T>(
+                object: T,
+                keys: Array<Object | string> | { [key: string]: any },
+                message?: string,
+            ): void;
 
             /**
              * Asserts that `object` does not have at least one of the `keys` provided.
@@ -1895,7 +1903,11 @@ declare global {
              * @param keys   Keys to check
              * @param message    Message to display on error.
              */
-            doesNotHaveAllKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+            doesNotHaveAllKeys<T>(
+                object: T,
+                keys: Array<Object | string> | { [key: string]: any },
+                message?: string,
+            ): void;
 
             /**
              * Asserts that `object` has at least one of the `keys` provided.

@@ -2,7 +2,7 @@ import chaiJsonPattern = require("chai-json-pattern");
 
 const expect: Chai.ExpectStatic = {} as any;
 
-import('chai').then(({use}) => use(chaiJsonPattern));
+import("chai").then(({ use }) => use(chaiJsonPattern));
 
 expect({ a: 2 }).to.matchPattern(`{
     "a": Number AND range(0, 5),

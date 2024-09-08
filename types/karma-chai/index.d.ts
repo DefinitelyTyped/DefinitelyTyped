@@ -1,4 +1,4 @@
-import 'chai';
+import "chai";
 
 declare global {
     var assert: Chai.AssertStatic;

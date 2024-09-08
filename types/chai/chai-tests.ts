@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import {expect, assert, Should, util, use} from "chai";
+import { assert, expect, Should, use, util } from "chai";
 
 const should = Should();
 

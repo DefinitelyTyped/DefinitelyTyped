@@ -1,6 +1,6 @@
 import chaiRougly = require("chai-roughly");
 
-import('chai').then(({use}) => use(chaiRougly));
+import("chai").then(({ use }) => use(chaiRougly));
 
 const expect: Chai.ExpectStatic = {} as any;
 

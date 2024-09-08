@@ -1,6 +1,6 @@
 import chaiDateTime = require("chai-datetime");
 
-import('chai').then(chai => chai.use(chaiDateTime));
+import("chai").then(chai => chai.use(chaiDateTime));
 
 const expect: Chai.ExpectStatic = {} as any;
 const assert: Chai.AssertStatic = {} as any;

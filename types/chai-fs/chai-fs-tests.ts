@@ -3,7 +3,7 @@ import Chaifs = require("chai-fs");
 const assert: Chai.AssertStatic = {} as any;
 const expect: Chai.ExpectStatic = {} as any;
 
-import('chai').then(({use}) => use(Chaifs));
+import("chai").then(({ use }) => use(Chaifs));
 
 const name = "name";
 const path = "tmp/";

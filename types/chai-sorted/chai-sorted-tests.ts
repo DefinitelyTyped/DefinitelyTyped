@@ -1,6 +1,6 @@
 import chaiSorted = require("chai-sorted");
 
-import('chai').then(({use}) => use(chaiSorted));
+import("chai").then(({ use }) => use(chaiSorted));
 const expect = {} as Chai.ExpectStatic;
 
 // Test sorted

@@ -3,7 +3,7 @@ import ChaiArrays = require("chai-arrays");
 const assert: Chai.AssertStatic = {} as any;
 const expect: Chai.ExpectStatic = {} as any;
 
-import('chai').then(({use}) => use(ChaiArrays));
+import("chai").then(({ use }) => use(ChaiArrays));
 
 const arr: any[] = [1, 2, 3];
 const str = "abcdef";
