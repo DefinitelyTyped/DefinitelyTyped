@@ -6,21 +6,27 @@ const dxfString = "";
 const helper = new Helper(dxfString);
 
 // $ExpectType FileInfo | null
+const parsed = helper.parse();
 helper.parsed;
 
 // $ExpectType Entity[] | null
-helper.denormalised;
+helper.denormalise();
+
+// $ExpectType LayerGroupedEntities | null
+helper.group();
 
 // $ExpectType string
 helper.toSVG();
 
-// $ExpectType Polyline[]
+// $ExpectType PolylineExport
 helper.toPolylines();
 
-const { entities } = helper.parsed!;
+if (parsed) {
+    const { entities } = parsed;
 
-// $ExpectType PointEntityData[]
-const points = entities.filter(entity => entity.TYPE === "POINT") as Entities.Point[];
+    // $ExpectType Point[]
+    const points = entities.filter(entity => entity.TYPE === "POINT") as Entities.Point[];
 
-// $ExpectType PolylineEntityData[]
-const polylines = entities.filter(entity => entity.TYPE === "POLYLINE") as Entities.Polyline[];
+    // $ExpectType Polyline[]
+    const polylines = entities.filter(entity => entity.TYPE === "POLYLINE") as Entities.Polyline[];
+}
