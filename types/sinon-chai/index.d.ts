@@ -1,9 +1,10 @@
 /// <reference types="sinon" />
+/// <reference types="chai" />
 
-import * as Chai from "chai";
 import * as Sinon from "sinon";
 
-declare module "chai" {
+declare global {
+    export namespace Chai {
     interface LanguageChains {
         always: Assertion;
     }
@@ -90,6 +91,7 @@ declare module "chai" {
          */
         thrown(obj?: Error | typeof Error | string): Assertion;
     }
+}
 }
 
 declare const sinonChai: Chai.ChaiPlugin;

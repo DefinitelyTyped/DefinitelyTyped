@@ -1,16 +1,19 @@
-import { Assertion, ChaiPlugin } from "chai";
+/// <reference types="chai" />
 
-declare module "chai" {
-    interface Assertion {
-        html: ChaiHtml.HtmlAssertion;
+declare global {
+    namespace Chai {
+        interface Assertion {
+            html: ChaiHtml.HtmlAssertion;
+        }
     }
 }
 
 declare namespace ChaiHtml {
-    interface HtmlAssertion extends Assertion {
-        ignoringComments: Assertion;
+    interface HtmlAssertion extends Chai.Assertion {
+        ignoringComments: Chai.Assertion;
     }
 }
 
-declare const chaiHtml: ChaiPlugin;
+declare const chaiHtml: Chai.ChaiPlugin;
+declare namespace chaiHtml {}
 export default chaiHtml;
