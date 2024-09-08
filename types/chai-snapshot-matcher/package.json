@@ -6,7 +6,7 @@
         "https://github.com/tlameiras/chai-snapshot#readme"
     ],
     "dependencies": {
-        "@types/chai": "<5",
+        "@types/chai": "*",
         "@types/mocha": "*"
     },
     "devDependencies": {

@@ -6,7 +6,7 @@
         "https://github.com/oprogramador/deep-equal-in-any-order#readme"
     ],
     "devDependencies": {
-        "@types/chai": "<5",
+        "@types/chai": "*",
         "@types/deep-equal-in-any-order": "workspace:."
     },
     "owners": [

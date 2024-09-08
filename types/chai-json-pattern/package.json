@@ -7,7 +7,7 @@
         "http://chaijs.com"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-json-pattern": "workspace:."

@@ -1,10 +1,7 @@
 /// <reference types="node" />
-import * as Chai from "chai";
+import {expect, assert, Should, util, use} from "chai";
 
-const expect = Chai.expect;
-const assert: typeof Chai.assert = Chai.assert; // assertion aliases require explicit type annotation
-const should = Chai.should();
-const util = Chai.util;
+const should = Should();
 
 function assertion() {
     expect("test").to.be.a("string");
@@ -1097,7 +1094,7 @@ function _throw() {
     should.throw(badFn, Error, "hello", "blah");
 }
 
-function use() {
+function testUse() {
     // Modified from:
     //   https://www.npmjs.com/package/chai-subset
     // But with added type annotations and some modifications to make the
@@ -1211,7 +1208,7 @@ function use() {
         });
     }
 
-    Chai.use(chaiSubset);
+    use(chaiSubset);
 }
 
 class Klass {

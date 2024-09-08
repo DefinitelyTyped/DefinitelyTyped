@@ -6,7 +6,7 @@
         "https://github.com/GaneshSPatil/chai-arrays"
     ],
     "dependencies": {
-        "@types/chai": "v4"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-arrays": "workspace:."

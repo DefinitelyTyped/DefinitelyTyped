@@ -6,7 +6,7 @@
         "https://github.com/zation/chai-like"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-like": "workspace:."

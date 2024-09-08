@@ -1,10 +1,9 @@
-import chai = require("chai");
 import chaiUuid = require("chai-uuid");
 
-const { assert, expect, should, use } = chai;
+const assert: Chai.AssertStatic = {} as any;
+const expect: Chai.ExpectStatic = {} as any;
 
-use(chaiUuid);
-should();
+import('chai').then(({use}) => use(chaiUuid));
 
 // bdd style
 expect("67cb8aa1-61bb-4b9b-8ca9-9dc0b278d5f7").to.be.uuid("v4");

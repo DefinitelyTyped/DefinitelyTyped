@@ -1,9 +1,9 @@
-import chai = require("chai");
 import chaiDateTime = require("chai-datetime");
 
-chai.use(chaiDateTime);
-const expect = chai.expect;
-const assert = chai.assert;
+import('chai').then(chai => chai.use(chaiDateTime));
+
+const expect: Chai.ExpectStatic = {} as any;
+const assert: Chai.AssertStatic = {} as any;
 
 function test_equalTime() {
     const date: Date = new Date(2014, 1, 1);

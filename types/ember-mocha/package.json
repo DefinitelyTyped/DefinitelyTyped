@@ -11,7 +11,7 @@
         "@types/mocha": "*"
     },
     "devDependencies": {
-        "@types/chai": "<5",
+        "@types/chai": "*",
         "@types/ember-mocha": "workspace:.",
         "@types/htmlbars-inline-precompile": "*"
     },

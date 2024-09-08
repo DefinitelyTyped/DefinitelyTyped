@@ -6,7 +6,7 @@
         "http://xdissent.github.io/karma-chai"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/karma-chai": "workspace:."

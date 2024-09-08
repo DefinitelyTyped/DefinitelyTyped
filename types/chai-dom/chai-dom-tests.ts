@@ -1,8 +1,7 @@
-import chai = require("chai");
 import chaiDom = require("chai-dom");
 
-chai.use(chaiDom);
-var expect = chai.expect;
+import('chai').then(chai => chai.use(chaiDom));
+var expect: Chai.ExpectStatic = {}  as any;
 
 function test() {
     var testElement = "<div></div>";

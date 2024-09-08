@@ -6,7 +6,7 @@
         "https://github.com/elliotf/chai-fuzzy"
     ],
     "dependencies": {
-        "@types/chai": "v4"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-fuzzy": "workspace:."

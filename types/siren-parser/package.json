@@ -6,7 +6,7 @@
         "https://github.com/Brightspace/node-siren-parser"
     ],
     "dependencies": {
-        "@types/chai": "<5",
+        "@types/chai": "*",
         "@types/superagent": "*"
     },
     "devDependencies": {

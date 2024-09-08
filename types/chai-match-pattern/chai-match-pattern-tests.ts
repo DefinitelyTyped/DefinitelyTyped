@@ -1,9 +1,10 @@
-import chai = require("chai");
 import chaiMatchPattern = require("chai-match-pattern");
-chai.use(chaiMatchPattern);
+
+import('chai').then(chai => chai.use(chaiMatchPattern));
+const expect: Chai.ExpectStatic = {} as any;
 
 const _ = chaiMatchPattern.getLodashModule();
 
 _.isDateString("foo");
 
-chai.expect({ foo: "bar" }).to.matchPattern({ foo: "bar" });
+expect({ foo: "bar" }).to.matchPattern({ foo: "bar" });

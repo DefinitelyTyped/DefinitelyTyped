@@ -6,7 +6,7 @@
         "https://github.com/Turbo87/chai-roughly#readme"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-roughly": "workspace:."

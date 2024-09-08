@@ -1,3 +1,4 @@
+/// <reference types="chai" />
 import {
     CacheStream,
     camelCaseKeys,
@@ -16,8 +17,7 @@ import {
     wordWrap,
 } from "hexo-util";
 
-import chai = require("chai");
-const { expect } = chai;
+const expect: Chai.ExpectStatic = {} as any;
 
 import { createHash } from "crypto";
 import { join } from "path";

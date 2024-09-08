@@ -1,9 +1,8 @@
-import chai = require("chai");
 import chaiJsonPattern = require("chai-json-pattern");
 
-const { expect, use } = chai;
+const expect: Chai.ExpectStatic = {} as any;
 
-use(chaiJsonPattern);
+import('chai').then(({use}) => use(chaiJsonPattern));
 
 expect({ a: 2 }).to.matchPattern(`{
     "a": Number AND range(0, 5),

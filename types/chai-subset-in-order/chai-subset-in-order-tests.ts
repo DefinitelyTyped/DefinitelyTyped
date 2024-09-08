@@ -1,9 +1,9 @@
-import chai = require("chai");
 import chaiSubsetInOrder = require("chai-subset-in-order");
 
-const { assert, expect, use } = chai;
+const assert: Chai.AssertStatic = {} as any;
+const expect: Chai.ExpectStatic = {} as any;
 
-use(chaiSubsetInOrder);
+import('chai').then(({use}) => use(chaiSubsetInOrder));
 
 expect({ foo: 2, bar: 3 }).to.containSubsetInOrder({ foo: 2 });
 expect({ foo: 2, bar: 3 }).to.containSubsetInOrder({ bar: 3 });

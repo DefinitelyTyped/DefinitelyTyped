@@ -6,7 +6,7 @@
         "https://github.com/nmuldavin/chai-almost#readme"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-almost": "workspace:."

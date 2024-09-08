@@ -9,7 +9,7 @@
         "@types/d3": "^3"
     },
     "devDependencies": {
-        "@types/chai": "<5",
+        "@types/chai": "*",
         "@types/d3kit": "workspace:."
     },
     "owners": [

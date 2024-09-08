@@ -6,7 +6,7 @@
         "https://github.com/picardy/chai-moment"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-moment": "workspace:."

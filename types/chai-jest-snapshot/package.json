@@ -6,7 +6,7 @@
         "https://github.com/suchipi/chai-jest-snapshot#readme"
     ],
     "dependencies": {
-        "@types/chai": "<5",
+        "@types/chai": "*",
         "@types/mocha": "*"
     },
     "devDependencies": {

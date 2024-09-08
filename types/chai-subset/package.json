@@ -6,7 +6,7 @@
         "https://github.com/debitoor/chai-subset"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-subset": "workspace:."

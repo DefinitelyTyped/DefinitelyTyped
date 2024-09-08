@@ -1,9 +1,8 @@
-import chai = require("chai");
 import chaiStyle = require("chai-style");
 
-chai.use(chaiStyle);
+import('chai').then(({use}) => use(chaiStyle));
 
-const { expect } = chai;
+const expect: Chai.ExpectStatic = {} as any;
 
 declare const element: unknown;
 

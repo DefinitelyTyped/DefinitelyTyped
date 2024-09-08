@@ -8,7 +8,7 @@ const { describe, it, before, after, beforeEach, afterEach } = null as any as {
     };
 };
 
-var expect = chai.expect;
+var expect: Chai.ExpectStatic = {} as any;
 describe("Skeleton", function() {
     var element: Element, $element: d3.Selection<any>, $svg: d3.Selection<any>, skeleton: d3kit.Skeleton;
 

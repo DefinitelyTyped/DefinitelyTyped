@@ -6,7 +6,7 @@
         "https://github.com/krampstudio/chai-xml"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-xml": "workspace:."

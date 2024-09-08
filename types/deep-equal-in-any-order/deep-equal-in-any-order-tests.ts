@@ -1,9 +1,8 @@
-import chai = require("chai");
 import deepEqualInAnyOrder = require("deep-equal-in-any-order");
 
-const { expect, use } = chai;
+const expect: Chai.ExpectStatic = {} as any;
 
-use(deepEqualInAnyOrder);
+import('chai').then(({use}) => use(deepEqualInAnyOrder));
 
 expect([1, 2]).to.deep.equalInAnyOrder([2, 1]);
 expect([1, 2]).to.not.deep.equalInAnyOrder([2, 1, 3]);

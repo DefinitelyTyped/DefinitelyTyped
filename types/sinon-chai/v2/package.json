@@ -6,7 +6,7 @@
         "https://github.com/domenic/sinon-chai"
     ],
     "dependencies": {
-        "@types/chai": "<5",
+        "@types/chai": "*",
         "@types/sinon": "*"
     },
     "devDependencies": {

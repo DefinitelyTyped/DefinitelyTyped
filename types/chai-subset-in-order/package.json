@@ -6,7 +6,7 @@
         "https://github.com/oprogramador/chai-subset-in-order"
     ],
     "dependencies": {
-        "@types/chai": "<5"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-subset-in-order": "workspace:."
