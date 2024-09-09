@@ -674,6 +674,7 @@ declare module "stream" {
             removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "resume", listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
             [Symbol.asyncIterator](): AsyncIterableIterator<any>;
             /**
              * Calls `readable.destroy()` with an `AbortError` and returns a promise that fulfills when the stream is finished.

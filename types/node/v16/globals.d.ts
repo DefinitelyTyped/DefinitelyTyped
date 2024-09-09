@@ -205,6 +205,7 @@ declare namespace NodeJS {
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
+        iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<string | Buffer>;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
 
