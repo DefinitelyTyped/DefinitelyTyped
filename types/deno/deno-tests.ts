@@ -5,3 +5,4 @@
 
 Deno.mkdirSync("dir"); // $ExpectType void
 Deno.readTextFileSync("dir/file.txt"); // $ExpectType string
+new Deno.errors.NotFound(); // $ExpectType NotFound

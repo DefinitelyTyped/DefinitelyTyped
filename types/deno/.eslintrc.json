@@ -1,0 +1,10 @@
+{
+    "rules": {
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-invalid-void-type": "off",
+        "@typescript-eslint/array-type": "off",
+        "jsdoc/check-tag-names": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off"
+    }
+}

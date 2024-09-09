@@ -25,13 +25,13 @@ declare namespace Deno {
    *
    * @category Errors
    */
-  export namespace errors {
+  namespace errors {
     /**
      * Raised when the underlying operating system indicates that the file
      * was not found.
      *
      * @category Errors */
-    export class NotFound extends Error {}
+    class NotFound extends Error {}
     /**
      * Raised when the underlying operating system indicates the current user
      * which the Deno process is running under does not have the appropriate
@@ -39,43 +39,43 @@ declare namespace Deno {
      * `--allow-*` flag.
      *
      * @category Errors */
-    export class PermissionDenied extends Error {}
+    class PermissionDenied extends Error {}
     /**
      * Raised when the underlying operating system reports that a connection to
      * a resource is refused.
      *
      * @category Errors */
-    export class ConnectionRefused extends Error {}
+    class ConnectionRefused extends Error {}
     /**
      * Raised when the underlying operating system reports that a connection has
      * been reset. With network servers, it can be a _normal_ occurrence where a
      * client will abort a connection instead of properly shutting it down.
      *
      * @category Errors */
-    export class ConnectionReset extends Error {}
+    class ConnectionReset extends Error {}
     /**
      * Raised when the underlying operating system reports an `ECONNABORTED`
      * error.
      *
      * @category Errors */
-    export class ConnectionAborted extends Error {}
+    class ConnectionAborted extends Error {}
     /**
      * Raised when the underlying operating system reports an `ENOTCONN` error.
      *
      * @category Errors */
-    export class NotConnected extends Error {}
+    class NotConnected extends Error {}
     /**
      * Raised when attempting to open a server listener on an address and port
      * that already has a listener.
      *
      * @category Errors */
-    export class AddrInUse extends Error {}
+    class AddrInUse extends Error {}
     /**
      * Raised when the underlying operating system reports an `EADDRNOTAVAIL`
      * error.
      *
      * @category Errors */
-    export class AddrNotAvailable extends Error {}
+    class AddrNotAvailable extends Error {}
     /**
      * Raised when trying to write to a resource and a broken pipe error occurs.
      * This can happen when trying to write directly to `stdout` or `stderr`
@@ -83,97 +83,97 @@ declare namespace Deno {
      * external to the Deno runtime.
      *
      * @category Errors */
-    export class BrokenPipe extends Error {}
+    class BrokenPipe extends Error {}
     /**
      * Raised when trying to create a resource, like a file, that already
      * exits.
      *
      * @category Errors */
-    export class AlreadyExists extends Error {}
+    class AlreadyExists extends Error {}
     /**
      * Raised when an operation to returns data that is invalid for the
      * operation being performed.
      *
      * @category Errors */
-    export class InvalidData extends Error {}
+    class InvalidData extends Error {}
     /**
      * Raised when the underlying operating system reports that an I/O operation
      * has timed out (`ETIMEDOUT`).
      *
      * @category Errors */
-    export class TimedOut extends Error {}
+    class TimedOut extends Error {}
     /**
      * Raised when the underlying operating system reports an `EINTR` error. In
      * many cases, this underlying IO error will be handled internally within
      * Deno, or result in an @{link BadResource} error instead.
      *
      * @category Errors */
-    export class Interrupted extends Error {}
+    class Interrupted extends Error {}
     /**
      * Raised when the underlying operating system would need to block to
      * complete but an asynchronous (non-blocking) API is used.
      *
      * @category Errors */
-    export class WouldBlock extends Error {}
+    class WouldBlock extends Error {}
     /**
      * Raised when expecting to write to a IO buffer resulted in zero bytes
      * being written.
      *
      * @category Errors */
-    export class WriteZero extends Error {}
+    class WriteZero extends Error {}
     /**
      * Raised when attempting to read bytes from a resource, but the EOF was
      * unexpectedly encountered.
      *
      * @category Errors */
-    export class UnexpectedEof extends Error {}
+    class UnexpectedEof extends Error {}
     /**
      * The underlying IO resource is invalid or closed, and so the operation
      * could not be performed.
      *
      * @category Errors */
-    export class BadResource extends Error {}
+    class BadResource extends Error {}
     /**
      * Raised in situations where when attempting to load a dynamic import,
      * too many redirects were encountered.
      *
      * @category Errors */
-    export class Http extends Error {}
+    class Http extends Error {}
     /**
      * Raised when the underlying IO resource is not available because it is
      * being awaited on in another block of code.
      *
      * @category Errors */
-    export class Busy extends Error {}
+    class Busy extends Error {}
     /**
      * Raised when the underlying Deno API is asked to perform a function that
      * is not currently supported.
      *
      * @category Errors */
-    export class NotSupported extends Error {}
+    class NotSupported extends Error {}
     /**
      * Raised when too many symbolic links were encountered when resolving the
      * filename.
      *
      * @category Errors */
-    export class FilesystemLoop extends Error {}
+    class FilesystemLoop extends Error {}
     /**
      * Raised when trying to open, create or write to a directory.
      *
      * @category Errors */
-    export class IsADirectory extends Error {}
+    class IsADirectory extends Error {}
     /**
      * Raised when performing a socket operation but the remote host is
      * not reachable.
      *
      * @category Errors */
-    export class NetworkUnreachable extends Error {}
+    class NetworkUnreachable extends Error {}
     /**
      * Raised when trying to perform an operation on a path that is not a
      * directory, when directory is required.
      *
      * @category Errors */
-    export class NotADirectory extends Error {}
+    class NotADirectory extends Error {}
   }
 
   /** The current process ID of this instance of the Deno CLI.
@@ -184,7 +184,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export const pid: number;
+  const pid: number;
 
   /**
    * The process ID of parent process of this instance of the Deno CLI.
@@ -195,10 +195,10 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export const ppid: number;
+  const ppid: number;
 
   /** @category Runtime */
-  export interface MemoryUsage {
+  interface MemoryUsage {
     /** The number of bytes of the current Deno's process resident set size,
      * which is the amount of memory occupied in main memory (RAM). */
     rss: number;
@@ -217,7 +217,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export function memoryUsage(): MemoryUsage;
+  function memoryUsage(): MemoryUsage;
 
   /**
    * Get the `hostname` of the machine the Deno process is running on.
@@ -231,7 +231,7 @@ declare namespace Deno {
    * @tags allow-sys
    * @category Runtime
    */
-  export function hostname(): string;
+  function hostname(): string;
 
   /**
    * Returns an array containing the 1, 5, and 15 minute load averages. The
@@ -251,7 +251,7 @@ declare namespace Deno {
    * @tags allow-sys
    * @category Runtime
    */
-  export function loadavg(): number[];
+  function loadavg(): number[];
 
   /**
    * The information for a network interface returned from a call to
@@ -259,7 +259,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export interface NetworkInterfaceInfo {
+  interface NetworkInterfaceInfo {
     /** The network interface name. */
     name: string;
     /** The IP protocol version. */
@@ -288,7 +288,7 @@ declare namespace Deno {
    * @tags allow-sys
    * @category Network
    */
-  export function networkInterfaces(): NetworkInterfaceInfo[];
+  function networkInterfaces(): NetworkInterfaceInfo[];
 
   /**
    * Displays the total amount of free and used physical and swap memory in the
@@ -305,14 +305,14 @@ declare namespace Deno {
    * @tags allow-sys
    * @category Runtime
    */
-  export function systemMemoryInfo(): SystemMemoryInfo;
+  function systemMemoryInfo(): SystemMemoryInfo;
 
   /**
    * Information returned from a call to {@linkcode Deno.systemMemoryInfo}.
    *
    * @category Runtime
    */
-  export interface SystemMemoryInfo {
+  interface SystemMemoryInfo {
     /** Total installed memory in bytes. */
     total: number;
     /** Unused memory in bytes. */
@@ -343,7 +343,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export const noColor: boolean;
+  const noColor: boolean;
 
   /**
    * Returns the release version of the Operating System.
@@ -359,7 +359,7 @@ declare namespace Deno {
    * @tags allow-sys
    * @category Runtime
    */
-  export function osRelease(): string;
+  function osRelease(): string;
 
   /**
    * Returns the Operating System uptime in number of seconds.
@@ -373,7 +373,7 @@ declare namespace Deno {
    * @tags allow-sys
    * @category Runtime
    */
-  export function osUptime(): number;
+  function osUptime(): number;
 
   /**
    * Options which define the permissions within a test or worker context.
@@ -384,7 +384,7 @@ declare namespace Deno {
    * set of permissions to the test context.
    *
    * @category Permissions */
-  export type PermissionOptions =
+  type PermissionOptions =
     | "inherit"
     | "none"
     | PermissionOptionsObject;
@@ -394,7 +394,7 @@ declare namespace Deno {
    * context at a highly specific level.
    *
    * @category Permissions */
-  export interface PermissionOptionsObject {
+  interface PermissionOptionsObject {
     /** Specifies if the `env` permission should be requested or revoked.
      * If set to `"inherit"`, the current `env` permission will be inherited.
      * If set to `true`, the global `env` permission will be requested.
@@ -533,7 +533,7 @@ declare namespace Deno {
    * steps within the current test.
    *
    * @category Testing */
-  export interface TestContext {
+  interface TestContext {
     /** The current test name. */
     name: string;
     /** The string URL of the current test. */
@@ -616,7 +616,7 @@ declare namespace Deno {
   }
 
   /** @category Testing */
-  export interface TestStepDefinition {
+  interface TestStepDefinition {
     /** The test function that will be tested when this step is executed. The
      * function can take an argument which will provide information about the
      * current step's context. */
@@ -651,7 +651,7 @@ declare namespace Deno {
   }
 
   /** @category Testing */
-  export interface TestDefinition {
+  interface TestDefinition {
     fn: (t: TestContext) => void | Promise<void>;
     /** The name of the test. */
     name: string;
@@ -728,12 +728,12 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export const test: DenoTest;
+  const test: DenoTest;
 
   /**
    * @category Testing
    */
-  export interface DenoTest {
+  interface DenoTest {
     /** Register a test which will be run when `deno test` is used on the command
      * line and the containing module looks like a test module.
      *
@@ -1023,7 +1023,7 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export interface BenchContext {
+  interface BenchContext {
     /** The current benchmark name. */
     name: string;
     /** The string URL of the current benchmark. */
@@ -1070,7 +1070,7 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export interface BenchDefinition {
+  interface BenchDefinition {
     /** The test function which will be benchmarked. */
     fn: (b: BenchContext) => void | Promise<void>;
     /** The name of the test, which will be used in displaying the results. */
@@ -1143,7 +1143,7 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export function bench(b: BenchDefinition): void;
+  function bench(b: BenchDefinition): void;
 
   /**
    * Register a benchmark test which will be run when `deno bench` is used on
@@ -1168,7 +1168,7 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export function bench(
+  function bench(
     name: string,
     fn: (b: BenchContext) => void | Promise<void>,
   ): void;
@@ -1196,7 +1196,7 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export function bench(fn: (b: BenchContext) => void | Promise<void>): void;
+  function bench(fn: (b: BenchContext) => void | Promise<void>): void;
 
   /**
    * Register a benchmark test which will be run when `deno bench` is used on
@@ -1229,7 +1229,7 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export function bench(
+  function bench(
     name: string,
     options: Omit<BenchDefinition, "fn" | "name">,
     fn: (b: BenchContext) => void | Promise<void>,
@@ -1264,7 +1264,7 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export function bench(
+  function bench(
     options: Omit<BenchDefinition, "fn">,
     fn: (b: BenchContext) => void | Promise<void>,
   ): void;
@@ -1298,7 +1298,7 @@ declare namespace Deno {
    *
    * @category Testing
    */
-  export function bench(
+  function bench(
     options: Omit<BenchDefinition, "fn" | "name">,
     fn: (b: BenchContext) => void | Promise<void>,
   ): void;
@@ -1315,7 +1315,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export function exit(code?: number): never;
+  function exit(code?: number): never;
 
   /** The exit code for the Deno process.
    *
@@ -1332,7 +1332,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export var exitCode: number;
+  var exitCode: number;
 
   /** An interface containing methods to interact with the process environment
    * variables.
@@ -1340,7 +1340,7 @@ declare namespace Deno {
    * @tags allow-env
    * @category Runtime
    */
-  export interface Env {
+  interface Env {
     /** Retrieve the value of an environment variable.
      *
      * Returns `undefined` if the supplied environment variable is not defined.
@@ -1419,7 +1419,7 @@ declare namespace Deno {
    * @tags allow-env
    * @category Runtime
    */
-  export const env: Env;
+  const env: Env;
 
   /**
    * Returns the path to the current deno executable.
@@ -1433,7 +1433,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category Runtime
    */
-  export function execPath(): string;
+  function execPath(): string;
 
   /**
    * Change the current working directory to the specified path.
@@ -1454,7 +1454,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category Runtime
    */
-  export function chdir(directory: string | URL): void;
+  function chdir(directory: string | URL): void;
 
   /**
    * Return a string representing the current working directory.
@@ -1473,7 +1473,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category Runtime
    */
-  export function cwd(): string;
+  function cwd(): string;
 
   /**
    * Creates `newpath` as a hard link to `oldpath`.
@@ -1487,7 +1487,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function link(oldpath: string, newpath: string): Promise<void>;
+  function link(oldpath: string, newpath: string): Promise<void>;
 
   /**
    * Synchronously creates `newpath` as a hard link to `oldpath`.
@@ -1501,14 +1501,14 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function linkSync(oldpath: string, newpath: string): void;
+  function linkSync(oldpath: string, newpath: string): void;
 
   /**
    * A enum which defines the seek mode for IO related APIs that support
    * seeking.
    *
    * @category I/O */
-  export enum SeekMode {
+  enum SeekMode {
     /* Seek from the start of the file/resource. */
     Start = 0,
     /* Seek from the current position within the file/resource. */
@@ -1526,7 +1526,7 @@ declare namespace Deno {
    * for migration instructions.
    *
    * @category I/O */
-  export interface Reader {
+  interface Reader {
     /** Reads up to `p.byteLength` bytes into `p`. It resolves to the number of
      * bytes read (`0` < `n` <= `p.byteLength`) and rejects if any error
      * encountered. Even if `read()` resolves to `n` < `p.byteLength`, it may
@@ -1562,7 +1562,7 @@ declare namespace Deno {
    * for migration instructions.
    *
    * @category I/O */
-  export interface ReaderSync {
+  interface ReaderSync {
     /** Reads up to `p.byteLength` bytes into `p`. It resolves to the number
      * of bytes read (`0` < `n` <= `p.byteLength`) and rejects if any error
      * encountered. Even if `readSync()` returns `n` < `p.byteLength`, it may use
@@ -1598,7 +1598,7 @@ declare namespace Deno {
    * for migration instructions.
    *
    * @category I/O */
-  export interface Writer {
+  interface Writer {
     /** Writes `p.byteLength` bytes from `p` to the underlying data stream. It
      * resolves to the number of bytes written from `p` (`0` <= `n` <=
      * `p.byteLength`) or reject with the error encountered that caused the
@@ -1625,7 +1625,7 @@ declare namespace Deno {
    * for migration instructions.
    *
    * @category I/O */
-  export interface WriterSync {
+  interface WriterSync {
     /** Writes `p.byteLength` bytes from `p` to the underlying data
      * stream. It returns the number of bytes written from `p` (`0` <= `n`
      * <= `p.byteLength`) and any error encountered that caused the write to
@@ -1647,7 +1647,7 @@ declare namespace Deno {
    * for migration instructions.
    *
    * @category I/O */
-  export interface Closer {
+  interface Closer {
     /** Closes the resource, "freeing" the backing file/resource. */
     close(): void;
   }
@@ -1657,7 +1657,7 @@ declare namespace Deno {
    * within an open file/resource asynchronously.
    *
    * @category I/O */
-  export interface Seeker {
+  interface Seeker {
     /** Seek sets the offset for the next `read()` or `write()` to offset,
      * interpreted according to `whence`: `Start` means relative to the
      * start of the file, `Current` means relative to the current offset,
@@ -1678,7 +1678,7 @@ declare namespace Deno {
    * within an open file/resource synchronously.
    *
    * @category I/O */
-  export interface SeekerSync {
+  interface SeekerSync {
     /** Seek sets the offset for the next `readSync()` or `writeSync()` to
      * offset, interpreted according to `whence`: `Start` means relative
      * to the start of the file, `Current` means relative to the current
@@ -1719,7 +1719,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function open(
+  function open(
     path: string | URL,
     options?: OpenOptions,
   ): Promise<FsFile>;
@@ -1750,7 +1750,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function openSync(path: string | URL, options?: OpenOptions): FsFile;
+  function openSync(path: string | URL, options?: OpenOptions): FsFile;
 
   /** Creates a file if none exists or truncates an existing file and resolves to
    *  an instance of {@linkcode Deno.FsFile}.
@@ -1764,7 +1764,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function create(path: string | URL): Promise<FsFile>;
+  function create(path: string | URL): Promise<FsFile>;
 
   /** Creates a file if none exists or truncates an existing file and returns
    *  an instance of {@linkcode Deno.FsFile}.
@@ -1778,7 +1778,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function createSync(path: string | URL): FsFile;
+  function createSync(path: string | URL): FsFile;
 
   /**
    * Flushes any pending data and metadata operations of the given file stream
@@ -1797,7 +1797,7 @@ declare namespace Deno {
    *
    * @category File System
    */
-  export function fsync(rid: number): Promise<void>;
+  function fsync(rid: number): Promise<void>;
 
   /**
    * Synchronously flushes any pending data and metadata operations of the given
@@ -1816,7 +1816,7 @@ declare namespace Deno {
    *
    * @category File System
    */
-  export function fsyncSync(rid: number): void;
+  function fsyncSync(rid: number): void;
 
   /** The Deno abstraction for reading and writing files.
    *
@@ -1835,7 +1835,7 @@ declare namespace Deno {
    *
    * @category File System
    */
-  export class FsFile
+  class FsFile
     implements
       Reader,
       ReaderSync,
@@ -2260,13 +2260,13 @@ declare namespace Deno {
    *
    * @category I/O
    */
-  export function consoleSize(): {
+  function consoleSize(): {
     columns: number;
     rows: number;
   };
 
   /** @category I/O */
-  export interface SetRawOptions {
+  interface SetRawOptions {
     /**
      * The `cbreak` option can be used to indicate that characters that
      * correspond to a signal should still be generated. When disabling raw
@@ -2293,7 +2293,7 @@ declare namespace Deno {
    *
    * @category I/O
    */
-  export const stdin: Reader & ReaderSync & Closer & {
+  const stdin: Reader & ReaderSync & Closer & {
     /** A readable stream interface to `stdin`. */
     readonly readable: ReadableStream<Uint8Array>;
     /**
@@ -2332,7 +2332,7 @@ declare namespace Deno {
    *
    * @category I/O
    */
-  export const stdout: Writer & WriterSync & Closer & {
+  const stdout: Writer & WriterSync & Closer & {
     /** A writable stream interface to `stdout`. */
     readonly writable: WritableStream<Uint8Array>;
     /**
@@ -2357,7 +2357,7 @@ declare namespace Deno {
    *
    * @category I/O
    */
-  export const stderr: Writer & WriterSync & Closer & {
+  const stderr: Writer & WriterSync & Closer & {
     /** A writable stream interface to `stderr`. */
     readonly writable: WritableStream<Uint8Array>;
     /**
@@ -2378,7 +2378,7 @@ declare namespace Deno {
    * {@linkcode Deno.openSync}.
    *
    * @category File System */
-  export interface OpenOptions {
+  interface OpenOptions {
     /** Sets the option for read access. This option, when `true`, means that
      * the file should be read-able if opened.
      *
@@ -2431,7 +2431,7 @@ declare namespace Deno {
    * {@linkcode Deno.readFileSync}.
    *
    * @category File System */
-  export interface ReadFileOptions {
+  interface ReadFileOptions {
     /**
      * An abort signal to allow cancellation of the file read operation.
      * If the signal becomes aborted the readFile operation will be stopped
@@ -2450,7 +2450,7 @@ declare namespace Deno {
    *
    * @category I/O
    */
-  export function readAll(r: Reader): Promise<Uint8Array>;
+  function readAll(r: Reader): Promise<Uint8Array>;
 
   /**
    * Synchronously reads Reader `r` until EOF (`null`) and returns the content
@@ -2462,14 +2462,14 @@ declare namespace Deno {
    *
    * @category I/O
    */
-  export function readAllSync(r: ReaderSync): Uint8Array;
+  function readAllSync(r: ReaderSync): Uint8Array;
 
   /**
    * Options which can be set when using {@linkcode Deno.mkdir} and
    * {@linkcode Deno.mkdirSync}.
    *
    * @category File System */
-  export interface MkdirOptions {
+  interface MkdirOptions {
     /** If set to `true`, means that any intermediate directories will also be
      * created (as with the shell command `mkdir -p`).
      *
@@ -2503,7 +2503,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function mkdir(
+  function mkdir(
     path: string | URL,
     options?: MkdirOptions,
   ): Promise<void>;
@@ -2523,7 +2523,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function mkdirSync(path: string | URL, options?: MkdirOptions): void;
+  function mkdirSync(path: string | URL, options?: MkdirOptions): void;
 
   /**
    * Options which can be set when using {@linkcode Deno.makeTempDir},
@@ -2531,7 +2531,7 @@ declare namespace Deno {
    * {@linkcode Deno.makeTempFileSync}.
    *
    * @category File System */
-  export interface MakeTempOptions {
+  interface MakeTempOptions {
     /** Directory where the temporary directory should be created (defaults to
      * the env variable `TMPDIR`, or the system's default, usually `/tmp`).
      *
@@ -2569,7 +2569,7 @@ declare namespace Deno {
    * @category File System
    */
   // TODO(ry) Doesn't check permissions.
-  export function makeTempDir(options?: MakeTempOptions): Promise<string>;
+  function makeTempDir(options?: MakeTempOptions): Promise<string>;
 
   /** Synchronously creates a new temporary directory in the default directory
    * for temporary files, unless `dir` is specified. Other optional options
@@ -2593,7 +2593,7 @@ declare namespace Deno {
    * @category File System
    */
   // TODO(ry) Doesn't check permissions.
-  export function makeTempDirSync(options?: MakeTempOptions): string;
+  function makeTempDirSync(options?: MakeTempOptions): string;
 
   /** Creates a new temporary file in the default directory for temporary
    * files, unless `dir` is specified.
@@ -2617,7 +2617,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function makeTempFile(options?: MakeTempOptions): Promise<string>;
+  function makeTempFile(options?: MakeTempOptions): Promise<string>;
 
   /** Synchronously creates a new temporary file in the default directory for
    * temporary files, unless `dir` is specified.
@@ -2641,7 +2641,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function makeTempFileSync(options?: MakeTempOptions): string;
+  function makeTempFileSync(options?: MakeTempOptions): string;
 
   /** Changes the permission of a specific file/directory of specified path.
    * Ignores the process's umask.
@@ -2675,7 +2675,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function chmod(path: string | URL, mode: number): Promise<void>;
+  function chmod(path: string | URL, mode: number): Promise<void>;
 
   /** Synchronously changes the permission of a specific file/directory of
    * specified path. Ignores the process's umask.
@@ -2693,7 +2693,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function chmodSync(path: string | URL, mode: number): void;
+  function chmodSync(path: string | URL, mode: number): void;
 
   /** Change owner of a regular file or directory.
    *
@@ -2714,7 +2714,7 @@ declare namespace Deno {
    * @param uid user id (UID) of the new owner, or `null` for no change
    * @param gid group id (GID) of the new owner, or `null` for no change
    */
-  export function chown(
+  function chown(
     path: string | URL,
     uid: number | null,
     gid: number | null,
@@ -2739,7 +2739,7 @@ declare namespace Deno {
    * @param uid user id (UID) of the new owner, or `null` for no change
    * @param gid group id (GID) of the new owner, or `null` for no change
    */
-  export function chownSync(
+  function chownSync(
     path: string | URL,
     uid: number | null,
     gid: number | null,
@@ -2750,7 +2750,7 @@ declare namespace Deno {
    * {@linkcode Deno.removeSync}.
    *
    * @category File System */
-  export interface RemoveOptions {
+  interface RemoveOptions {
     /** If set to `true`, path will be removed even if it's a non-empty directory.
      *
      * @default {false} */
@@ -2772,7 +2772,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function remove(
+  function remove(
     path: string | URL,
     options?: RemoveOptions,
   ): Promise<void>;
@@ -2792,7 +2792,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function removeSync(path: string | URL, options?: RemoveOptions): void;
+  function removeSync(path: string | URL, options?: RemoveOptions): void;
 
   /** Synchronously renames (moves) `oldpath` to `newpath`. Paths may be files or
    * directories. If `newpath` already exists and is not a directory,
@@ -2813,7 +2813,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function renameSync(
+  function renameSync(
     oldpath: string | URL,
     newpath: string | URL,
   ): void;
@@ -2838,7 +2838,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function rename(
+  function rename(
     oldpath: string | URL,
     newpath: string | URL,
   ): Promise<void>;
@@ -2856,7 +2856,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function readTextFile(
+  function readTextFile(
     path: string | URL,
     options?: ReadFileOptions,
   ): Promise<string>;
@@ -2874,7 +2874,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function readTextFileSync(path: string | URL): string;
+  function readTextFileSync(path: string | URL): string;
 
   /** Reads and resolves to the entire contents of a file as an array of bytes.
    * `TextDecoder` can be used to transform the bytes to string if required.
@@ -2891,7 +2891,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function readFile(
+  function readFile(
     path: string | URL,
     options?: ReadFileOptions,
   ): Promise<Uint8Array>;
@@ -2911,7 +2911,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function readFileSync(path: string | URL): Uint8Array;
+  function readFileSync(path: string | URL): Uint8Array;
 
   /** Provides information about a file and is returned by
    * {@linkcode Deno.stat}, {@linkcode Deno.lstat}, {@linkcode Deno.statSync},
@@ -2920,7 +2920,7 @@ declare namespace Deno {
    *
    * @category File System
    */
-  export interface FileInfo {
+  interface FileInfo {
     /** True if this is info for a regular file. Mutually exclusive to
      * `FileInfo.isDirectory` and `FileInfo.isSymlink`. */
     isFile: boolean;
@@ -3016,7 +3016,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function realPath(path: string | URL): Promise<string>;
+  function realPath(path: string | URL): Promise<string>;
 
   /** Synchronously returns absolute normalized path, with symbolic links
    * resolved.
@@ -3038,14 +3038,14 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function realPathSync(path: string | URL): string;
+  function realPathSync(path: string | URL): string;
 
   /**
    * Information about a directory entry returned from {@linkcode Deno.readDir}
    * and {@linkcode Deno.readDirSync}.
    *
    * @category File System */
-  export interface DirEntry {
+  interface DirEntry {
     /** The file name of the entry. It is just the entity name and does not
      * include the full path. */
     name: string;
@@ -3076,7 +3076,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function readDir(path: string | URL): AsyncIterable<DirEntry>;
+  function readDir(path: string | URL): AsyncIterable<DirEntry>;
 
   /** Synchronously reads the directory given by `path` and returns an iterable
    * of {@linkcode Deno.DirEntry}. The order of entries is not guaranteed.
@@ -3094,7 +3094,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function readDirSync(path: string | URL): Iterable<DirEntry>;
+  function readDirSync(path: string | URL): Iterable<DirEntry>;
 
   /** Copies the contents and permissions of one file to another specified path,
    * by default creating a new file if needed, else overwriting. Fails if target
@@ -3111,7 +3111,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function copyFile(
+  function copyFile(
     fromPath: string | URL,
     toPath: string | URL,
   ): Promise<void>;
@@ -3131,7 +3131,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function copyFileSync(
+  function copyFileSync(
     fromPath: string | URL,
     toPath: string | URL,
   ): void;
@@ -3150,7 +3150,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function readLink(path: string | URL): Promise<string>;
+  function readLink(path: string | URL): Promise<string>;
 
   /** Synchronously returns the full path destination of the named symbolic
    * link.
@@ -3167,7 +3167,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function readLinkSync(path: string | URL): string;
+  function readLinkSync(path: string | URL): string;
 
   /** Resolves to a {@linkcode Deno.FileInfo} for the specified `path`. If
    * `path` is a symlink, information for the symlink will be returned instead
@@ -3184,7 +3184,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function lstat(path: string | URL): Promise<FileInfo>;
+  function lstat(path: string | URL): Promise<FileInfo>;
 
   /** Synchronously returns a {@linkcode Deno.FileInfo} for the specified
    * `path`. If `path` is a symlink, information for the symlink will be
@@ -3201,7 +3201,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function lstatSync(path: string | URL): FileInfo;
+  function lstatSync(path: string | URL): FileInfo;
 
   /** Resolves to a {@linkcode Deno.FileInfo} for the specified `path`. Will
    * always follow symlinks.
@@ -3217,7 +3217,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function stat(path: string | URL): Promise<FileInfo>;
+  function stat(path: string | URL): Promise<FileInfo>;
 
   /** Synchronously returns a {@linkcode Deno.FileInfo} for the specified
    * `path`. Will always follow symlinks.
@@ -3233,13 +3233,13 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function statSync(path: string | URL): FileInfo;
+  function statSync(path: string | URL): FileInfo;
 
   /** Options for writing to a file.
    *
    * @category File System
    */
-  export interface WriteFileOptions {
+  interface WriteFileOptions {
     /** If set to `true`, will append to a file instead of overwriting previous
      * contents.
      *
@@ -3283,7 +3283,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function writeFile(
+  function writeFile(
     path: string | URL,
     data: Uint8Array | ReadableStream<Uint8Array>,
     options?: WriteFileOptions,
@@ -3307,7 +3307,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function writeFileSync(
+  function writeFileSync(
     path: string | URL,
     data: Uint8Array,
     options?: WriteFileOptions,
@@ -3326,7 +3326,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function writeTextFile(
+  function writeTextFile(
     path: string | URL,
     data: string | ReadableStream<string>,
     options?: WriteFileOptions,
@@ -3345,7 +3345,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function writeTextFileSync(
+  function writeTextFileSync(
     path: string | URL,
     data: string,
     options?: WriteFileOptions,
@@ -3374,7 +3374,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function truncate(name: string, len?: number): Promise<void>;
+  function truncate(name: string, len?: number): Promise<void>;
 
   /** Synchronously truncates (or extends) the specified file, to reach the
    * specified `len`. If `len` is not specified then the entire file contents
@@ -3401,13 +3401,13 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function truncateSync(name: string, len?: number): void;
+  function truncateSync(name: string, len?: number): void;
 
   /** @category Runtime
    *
    * @deprecated This will be removed in Deno 2.0.
    */
-  export interface OpMetrics {
+  interface OpMetrics {
     opsDispatched: number;
     opsDispatchedSync: number;
     opsDispatchedAsync: number;
@@ -3434,14 +3434,14 @@ declare namespace Deno {
    *
    * @category File System
    */
-  export type FsEventFlag = "rescan";
+  type FsEventFlag = "rescan";
 
   /**
    * Represents a unique file system event yielded by a
    * {@linkcode Deno.FsWatcher}.
    *
    * @category File System */
-  export interface FsEvent {
+  interface FsEvent {
     /** The kind/type of the file system event. */
     kind:
       | "any"
@@ -3464,7 +3464,7 @@ declare namespace Deno {
    *
    * @category File System
    */
-  export interface FsWatcher extends AsyncIterable<FsEvent>, Disposable {
+  interface FsWatcher extends AsyncIterable<FsEvent>, Disposable {
     /** Stops watching the file system and closes the watcher resource. */
     close(): void;
     /**
@@ -3517,7 +3517,7 @@ declare namespace Deno {
    * @tags allow-read
    * @category File System
    */
-  export function watchFs(
+  function watchFs(
     paths: string | string[],
     options?: { recursive: boolean },
   ): FsWatcher;
@@ -3526,7 +3526,7 @@ declare namespace Deno {
    * signals and what their standard behaviors are OS dependent.
    *
    * @category Runtime */
-  export type Signal =
+  type Signal =
     | "SIGABRT"
     | "SIGALRM"
     | "SIGBREAK"
@@ -3580,7 +3580,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export function addSignalListener(signal: Signal, handler: () => void): void;
+  function addSignalListener(signal: Signal, handler: () => void): void;
 
   /** Removes the given signal listener that has been registered with
    * {@linkcode Deno.addSignalListener}.
@@ -3598,7 +3598,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export function removeSignalListener(
+  function removeSignalListener(
     signal: Signal,
     handler: () => void,
   ): void;
@@ -3670,7 +3670,7 @@ declare namespace Deno {
    * @tags allow-run
    * @category Subprocess
    */
-  export class Command {
+  class Command {
     constructor(command: string | URL, options?: CommandOptions);
     /**
      * Executes the {@linkcode Deno.Command}, waiting for it to finish and
@@ -3704,7 +3704,7 @@ declare namespace Deno {
    *
    * @category Subprocess
    */
-  export class ChildProcess implements AsyncDisposable {
+  class ChildProcess implements AsyncDisposable {
     get stdin(): WritableStream<Uint8Array>;
     get stdout(): ReadableStream<Uint8Array>;
     get stderr(): ReadableStream<Uint8Array>;
@@ -3738,7 +3738,7 @@ declare namespace Deno {
    *
    * @category Subprocess
    */
-  export interface CommandOptions {
+  interface CommandOptions {
     /** Arguments to pass to the process. */
     args?: string[];
     /**
@@ -3800,7 +3800,7 @@ declare namespace Deno {
   /**
    * @category Subprocess
    */
-  export interface CommandStatus {
+  interface CommandStatus {
     /** If the child process exits with a 0 status code, `success` will be set
      * to `true`, otherwise `false`. */
     success: boolean;
@@ -3817,7 +3817,7 @@ declare namespace Deno {
    *
    * @category Subprocess
    */
-  export interface CommandOutput extends CommandStatus {
+  interface CommandOutput extends CommandStatus {
     /** The buffered output from the child process' `stdout`. */
     readonly stdout: Uint8Array;
     /** The buffered output from the child process' `stderr`. */
@@ -3827,7 +3827,7 @@ declare namespace Deno {
   /** Option which can be specified when performing {@linkcode Deno.inspect}.
    *
    * @category I/O */
-  export interface InspectOptions {
+  interface InspectOptions {
     /** Stylize output with ANSI colors.
      *
      * @default {false} */
@@ -3914,13 +3914,13 @@ declare namespace Deno {
    *
    * @category I/O
    */
-  export function inspect(value: unknown, options?: InspectOptions): string;
+  function inspect(value: unknown, options?: InspectOptions): string;
 
   /** The name of a privileged feature which needs permission.
    *
    * @category Permissions
    */
-  export type PermissionName =
+  type PermissionName =
     | "run"
     | "read"
     | "write"
@@ -3937,7 +3937,7 @@ declare namespace Deno {
    *
    * @category Permissions
    */
-  export type PermissionState =
+  type PermissionState =
     | "granted"
     | "denied"
     | "prompt";
@@ -3951,7 +3951,7 @@ declare namespace Deno {
    * host.**
    *
    * @category Permissions */
-  export interface RunPermissionDescriptor {
+  interface RunPermissionDescriptor {
     name: "run";
     /** An `allow-run` or `deny-run` permission can be scoped to a specific executable,
      * which would be relative to the start-up CWD of the Deno CLI. */
@@ -3967,7 +3967,7 @@ declare namespace Deno {
    * to read, the underlying operating system may apply additional permissions.
    *
    * @category Permissions */
-  export interface ReadPermissionDescriptor {
+  interface ReadPermissionDescriptor {
     name: "read";
     /** An `allow-read` or `deny-read` permission can be scoped to a specific path (and if
      * the path is a directory, any sub paths). */
@@ -3983,7 +3983,7 @@ declare namespace Deno {
    * to write, the underlying operating system may apply additional permissions.
    *
    * @category Permissions */
-  export interface WritePermissionDescriptor {
+  interface WritePermissionDescriptor {
     name: "write";
     /** An `allow-write` or `deny-write` permission can be scoped to a specific path (and if
      * the path is a directory, any sub paths). */
@@ -3996,7 +3996,7 @@ declare namespace Deno {
    * connection to a specific host and port.
    *
    * @category Permissions */
-  export interface NetPermissionDescriptor {
+  interface NetPermissionDescriptor {
     name: "net";
     /** Optional host string of the form `"<hostname>[:<port>]"`. Examples:
      *
@@ -4013,7 +4013,7 @@ declare namespace Deno {
    * variable.
    *
    * @category Permissions */
-  export interface EnvPermissionDescriptor {
+  interface EnvPermissionDescriptor {
     name: "env";
     /** Optional environment variable name (e.g. `PATH`). */
     variable?: string;
@@ -4025,7 +4025,7 @@ declare namespace Deno {
    * specific piece of information.
    *
    * @category Permissions */
-  export interface SysPermissionDescriptor {
+  interface SysPermissionDescriptor {
     name: "sys";
     /** The specific information to scope the permission to. */
     kind?:
@@ -4052,7 +4052,7 @@ declare namespace Deno {
    * specific path on the host.
    *
    * @category Permissions */
-  export interface FfiPermissionDescriptor {
+  interface FfiPermissionDescriptor {
     name: "ffi";
     /** Optional path on the local host to scope the permission to. */
     path?: string | URL;
@@ -4066,7 +4066,7 @@ declare namespace Deno {
    *
    * @category Permissions
    */
-  export type PermissionDescriptor =
+  type PermissionDescriptor =
     | RunPermissionDescriptor
     | ReadPermissionDescriptor
     | WritePermissionDescriptor
@@ -4079,7 +4079,7 @@ declare namespace Deno {
    * {@linkcode PermissionStatus} instances.
    *
    * @category Permissions */
-  export interface PermissionStatusEventMap {
+  interface PermissionStatusEventMap {
     "change": Event;
   }
 
@@ -4087,7 +4087,7 @@ declare namespace Deno {
    * API which can provide updates to any state changes of the permission.
    *
    * @category Permissions */
-  export class PermissionStatus extends EventTarget {
+  class PermissionStatus extends EventTarget {
     // deno-lint-ignore no-explicit-any
     onchange: ((this: PermissionStatus, ev: Event) => any) | null;
     readonly state: PermissionState;
@@ -4147,7 +4147,7 @@ declare namespace Deno {
    * user experience.
    *
    * @category Permissions */
-  export class Permissions {
+  class Permissions {
     /** Resolves to the current status of a permission.
      *
      * Note, if the permission is already granted, `request()` will not prompt
@@ -4303,7 +4303,7 @@ declare namespace Deno {
    *
    * @category Permissions
    */
-  export const permissions: Permissions;
+  const permissions: Permissions;
 
   /** Information related to the build of the current Deno runtime.
    *
@@ -4316,7 +4316,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export const build: {
+  const build: {
     /** The [LLVM](https://llvm.org/) target triple, which is the combination
      * of `${arch}-${vendor}-${os}` and represent the specific build target that
      * the current runtime was built for. */
@@ -4352,7 +4352,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export const version: {
+  const version: {
     /** Deno CLI's version. For example: `"1.26.0"`. */
     deno: string;
     /** The V8 version used by Deno. For example: `"10.7.100.0"`.
@@ -4387,7 +4387,7 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export const args: string[];
+  const args: string[];
 
   /** The URL of the entrypoint module entered from the command-line. It
    * requires read permission to the CWD.
@@ -4397,13 +4397,13 @@ declare namespace Deno {
    * @tags allow-read
    * @category Runtime
    */
-  export const mainModule: string;
+  const mainModule: string;
 
   /** Options that can be used with {@linkcode symlink} and
    * {@linkcode symlinkSync}.
    *
    * @category File System */
-  export interface SymlinkOptions {
+  interface SymlinkOptions {
     /** Specify the symbolic link type as file, directory or NTFS junction. This
      * option only applies to Windows and is ignored on other operating systems. */
     type: "file" | "dir" | "junction";
@@ -4424,7 +4424,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function symlink(
+  function symlink(
     oldpath: string | URL,
     newpath: string | URL,
     options?: SymlinkOptions,
@@ -4445,7 +4445,7 @@ declare namespace Deno {
    * @tags allow-read, allow-write
    * @category File System
    */
-  export function symlinkSync(
+  function symlinkSync(
     oldpath: string | URL,
     newpath: string | URL,
     options?: SymlinkOptions,
@@ -4465,7 +4465,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function utimeSync(
+  function utimeSync(
     path: string | URL,
     atime: number | Date,
     mtime: number | Date,
@@ -4485,7 +4485,7 @@ declare namespace Deno {
    * @tags allow-write
    * @category File System
    */
-  export function utime(
+  function utime(
     path: string | URL,
     atime: number | Date,
     mtime: number | Date,
@@ -4495,7 +4495,7 @@ declare namespace Deno {
    * request.
    *
    * @category Web Sockets */
-  export interface WebSocketUpgrade {
+  interface WebSocketUpgrade {
     /** The response object that represents the HTTP response to the client,
      * which should be used to the {@linkcode RequestEvent} `.respondWith()` for
      * the upgrade to be successful. */
@@ -4509,7 +4509,7 @@ declare namespace Deno {
    * {@linkcode Deno.upgradeWebSocket} upgrade of a {@linkcode Request}
    *
    * @category Web Sockets */
-  export interface UpgradeWebSocketOptions {
+  interface UpgradeWebSocketOptions {
     /** Sets the `.protocol` property on the client side web socket to the
      * value provided here, which should be one of the strings specified in the
      * `protocols` parameter when requesting the web socket. This is intended
@@ -4558,7 +4558,7 @@ declare namespace Deno {
    *
    * @category Web Sockets
    */
-  export function upgradeWebSocket(
+  function upgradeWebSocket(
     request: Request,
     options?: UpgradeWebSocketOptions,
   ): WebSocketUpgrade;
@@ -4587,7 +4587,7 @@ declare namespace Deno {
    * @tags allow-run
    * @category Subprocess
    */
-  export function kill(pid: number, signo?: Signal): void;
+  function kill(pid: number, signo?: Signal): void;
 
   /** The type of the resource record to resolve via DNS using
    * {@linkcode Deno.resolveDns}.
@@ -4596,7 +4596,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export type RecordType =
+  type RecordType =
     | "A"
     | "AAAA"
     | "ANAME"
@@ -4614,7 +4614,7 @@ declare namespace Deno {
    * Options which can be set when using {@linkcode Deno.resolveDns}.
    *
    * @category Network */
-  export interface ResolveDnsOptions {
+  interface ResolveDnsOptions {
     /** The name server to be used for lookups.
      *
      * If not specified, defaults to the system configuration. For example
@@ -4640,7 +4640,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export interface CaaRecord {
+  interface CaaRecord {
     /** If `true`, indicates that the corresponding property tag **must** be
      * understood if the semantics of the CAA record are to be correctly
      * interpreted by an issuer.
@@ -4660,7 +4660,7 @@ declare namespace Deno {
    * specified, it will return an array of objects with this interface.
    *
    * @category Network */
-  export interface MxRecord {
+  interface MxRecord {
     /** A priority value, which is a relative value compared to the other
      * preferences of MX records for the domain. */
     preference: number;
@@ -4672,7 +4672,7 @@ declare namespace Deno {
    * specified, it will return an array of objects with this interface.
    *
    * @category Network */
-  export interface NaptrRecord {
+  interface NaptrRecord {
     order: number;
     preference: number;
     flags: string;
@@ -4685,7 +4685,7 @@ declare namespace Deno {
    * specified, it will return an array of objects with this interface.
    *
    * @category Network */
-  export interface SoaRecord {
+  interface SoaRecord {
     mname: string;
     rname: string;
     serial: number;
@@ -4700,7 +4700,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export interface SrvRecord {
+  interface SrvRecord {
     priority: number;
     weight: number;
     port: number;
@@ -4731,7 +4731,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function resolveDns(
+  function resolveDns(
     query: string,
     recordType: "A" | "AAAA" | "ANAME" | "CNAME" | "NS" | "PTR",
     options?: ResolveDnsOptions,
@@ -4761,7 +4761,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function resolveDns(
+  function resolveDns(
     query: string,
     recordType: "CAA",
     options?: ResolveDnsOptions,
@@ -4791,7 +4791,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function resolveDns(
+  function resolveDns(
     query: string,
     recordType: "MX",
     options?: ResolveDnsOptions,
@@ -4821,7 +4821,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function resolveDns(
+  function resolveDns(
     query: string,
     recordType: "NAPTR",
     options?: ResolveDnsOptions,
@@ -4851,7 +4851,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function resolveDns(
+  function resolveDns(
     query: string,
     recordType: "SOA",
     options?: ResolveDnsOptions,
@@ -4881,7 +4881,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function resolveDns(
+  function resolveDns(
     query: string,
     recordType: "SRV",
     options?: ResolveDnsOptions,
@@ -4911,7 +4911,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function resolveDns(
+  function resolveDns(
     query: string,
     recordType: "TXT",
     options?: ResolveDnsOptions,
@@ -4941,7 +4941,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function resolveDns(
+  function resolveDns(
     query: string,
     recordType: RecordType,
     options?: ResolveDnsOptions,
@@ -4960,14 +4960,14 @@ declare namespace Deno {
    *
    * @category Runtime
    */
-  export function refTimer(id: number): void;
+  function refTimer(id: number): void;
 
   /**
    * Make the timer of the given `id` not block the event loop from finishing.
    *
    * @category Runtime
    */
-  export function unrefTimer(id: number): void;
+  function unrefTimer(id: number): void;
 
   /**
    * Returns the user id of the process on POSIX platforms. Returns null on Windows.
@@ -4981,7 +4981,7 @@ declare namespace Deno {
    * @tags allow-sys
    * @category Runtime
    */
-  export function uid(): number | null;
+  function uid(): number | null;
 
   /**
    * Returns the group id of the process on POSIX platforms. Returns null on windows.
@@ -4995,13 +4995,13 @@ declare namespace Deno {
    * @tags allow-sys
    * @category Runtime
    */
-  export function gid(): number | null;
+  function gid(): number | null;
 
   /** Additional information for an HTTP request and its connection.
    *
    * @category HTTP Server
    */
-  export interface ServeHandlerInfo<Addr extends Deno.Addr = Deno.Addr> {
+  interface ServeHandlerInfo<Addr extends Deno.Addr = Deno.Addr> {
     /** The remote address of the connection. */
     remoteAddr: Addr;
     /** The completion promise */
@@ -5016,7 +5016,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export type ServeHandler<Addr extends Deno.Addr = Deno.Addr> = (
+  type ServeHandler<Addr extends Deno.Addr = Deno.Addr> = (
     request: Request,
     info: ServeHandlerInfo<Addr>,
   ) => Response | Promise<Response>;
@@ -5036,7 +5036,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export interface ServeDefaultExport {
+  interface ServeDefaultExport {
     /** A handler for HTTP requests. Consumes a request and returns a response.
      *
      * If a handler throws, the server calling the handler will assume the impact
@@ -5054,7 +5054,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export interface ServeOptions<Addr extends Deno.Addr = Deno.Addr> {
+  interface ServeOptions<Addr extends Deno.Addr = Deno.Addr> {
     /** An {@linkcode AbortSignal} to close the server and all connections. */
     signal?: AbortSignal;
 
@@ -5071,7 +5071,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export interface ServeTcpOptions extends ServeOptions<Deno.NetAddr> {
+  interface ServeTcpOptions extends ServeOptions<Deno.NetAddr> {
     /** The transport to use. */
     transport?: "tcp";
 
@@ -5102,7 +5102,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export interface ServeUnixOptions extends ServeOptions<Deno.UnixAddr> {
+  interface ServeUnixOptions extends ServeOptions<Deno.UnixAddr> {
     /** The transport to use. */
     transport?: "unix";
 
@@ -5113,7 +5113,7 @@ declare namespace Deno {
   /**
    * @category HTTP Server
    */
-  export interface ServeInit<Addr extends Deno.Addr = Deno.Addr> {
+  interface ServeInit<Addr extends Deno.Addr = Deno.Addr> {
     /** The handler to invoke to process each incoming request. */
     handler: ServeHandler<Addr>;
   }
@@ -5122,7 +5122,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export interface HttpServer<Addr extends Deno.Addr = Deno.Addr>
+  interface HttpServer<Addr extends Deno.Addr = Deno.Addr>
     extends AsyncDisposable {
     /** A promise that resolves once server finishes - eg. when aborted using
      * the signal passed to {@linkcode ServeOptions.signal}.
@@ -5159,7 +5159,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export function serve(
+  function serve(
     handler: ServeHandler<Deno.NetAddr>,
   ): HttpServer<Deno.NetAddr>;
   /** Serves HTTP requests with the given option bag and handler.
@@ -5207,7 +5207,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export function serve(
+  function serve(
     options: ServeUnixOptions,
     handler: ServeHandler<Deno.UnixAddr>,
   ): HttpServer<Deno.UnixAddr>;
@@ -5267,7 +5267,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export function serve(
+  function serve(
     options:
       | ServeTcpOptions
       | (ServeTcpOptions & TlsCertifiedKeyOptions),
@@ -5297,7 +5297,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export function serve(
+  function serve(
     options: ServeUnixOptions & ServeInit<Deno.UnixAddr>,
   ): HttpServer<Deno.UnixAddr>;
   /** Serves HTTP requests with the given option bag.
@@ -5325,7 +5325,7 @@ declare namespace Deno {
    *
    * @category HTTP Server
    */
-  export function serve(
+  function serve(
     options:
       & (ServeTcpOptions | (ServeTcpOptions & TlsCertifiedKeyOptions))
       & ServeInit<Deno.NetAddr>,
@@ -5336,7 +5336,7 @@ declare namespace Deno {
  * @category GPU
  * @experimental
  */
-declare interface GPUObjectBase {
+interface GPUObjectBase {
   label: string;
 }
 
@@ -5344,7 +5344,7 @@ declare interface GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUObjectDescriptorBase {
+interface GPUObjectDescriptorBase {
   label?: string;
 }
 
@@ -5432,7 +5432,7 @@ declare class GPU {
  * @category GPU
  * @experimental
  */
-declare interface GPURequestAdapterOptions {
+interface GPURequestAdapterOptions {
   powerPreference?: GPUPowerPreference;
   forceFallbackAdapter?: boolean;
 }
@@ -5441,7 +5441,7 @@ declare interface GPURequestAdapterOptions {
  * @category GPU
  * @experimental
  */
-declare type GPUPowerPreference = "low-power" | "high-performance";
+type GPUPowerPreference = "low-power" | "high-performance";
 
 /**
  * @category GPU
@@ -5460,7 +5460,7 @@ declare class GPUAdapter {
  * @category GPU
  * @experimental
  */
-declare interface GPUDeviceDescriptor extends GPUObjectDescriptorBase {
+interface GPUDeviceDescriptor extends GPUObjectDescriptorBase {
   requiredFeatures?: GPUFeatureName[];
   requiredLimits?: Record<string, number>;
 }
@@ -5469,7 +5469,7 @@ declare interface GPUDeviceDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUFeatureName =
+type GPUFeatureName =
   | "depth-clip-control"
   | "depth32float-stencil8"
   | "pipeline-statistics-query"
@@ -5575,13 +5575,13 @@ declare class GPUBuffer implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare type GPUBufferMapState = "unmapped" | "pending" | "mapped";
+type GPUBufferMapState = "unmapped" | "pending" | "mapped";
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUBufferDescriptor extends GPUObjectDescriptorBase {
+interface GPUBufferDescriptor extends GPUObjectDescriptorBase {
   size: number;
   usage: GPUBufferUsageFlags;
   mappedAtCreation?: boolean;
@@ -5591,13 +5591,13 @@ declare interface GPUBufferDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUBufferUsageFlags = number;
+type GPUBufferUsageFlags = number;
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUFlagsConstant = number;
+type GPUFlagsConstant = number;
 
 /**
  * @category GPU
@@ -5620,7 +5620,7 @@ declare class GPUBufferUsage {
  * @category GPU
  * @experimental
  */
-declare type GPUMapModeFlags = number;
+type GPUMapModeFlags = number;
 
 /**
  * @category GPU
@@ -5655,7 +5655,7 @@ declare class GPUTexture implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUTextureDescriptor extends GPUObjectDescriptorBase {
+interface GPUTextureDescriptor extends GPUObjectDescriptorBase {
   size: GPUExtent3D;
   mipLevelCount?: number;
   sampleCount?: number;
@@ -5669,13 +5669,13 @@ declare interface GPUTextureDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUTextureDimension = "1d" | "2d" | "3d";
+type GPUTextureDimension = "1d" | "2d" | "3d";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUTextureUsageFlags = number;
+type GPUTextureUsageFlags = number;
 
 /**
  * @category GPU
@@ -5701,7 +5701,7 @@ declare class GPUTextureView implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUTextureViewDescriptor extends GPUObjectDescriptorBase {
+interface GPUTextureViewDescriptor extends GPUObjectDescriptorBase {
   format?: GPUTextureFormat;
   dimension?: GPUTextureViewDimension;
   aspect?: GPUTextureAspect;
@@ -5715,7 +5715,7 @@ declare interface GPUTextureViewDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUTextureViewDimension =
+type GPUTextureViewDimension =
   | "1d"
   | "2d"
   | "2d-array"
@@ -5727,13 +5727,13 @@ declare type GPUTextureViewDimension =
  * @category GPU
  * @experimental
  */
-declare type GPUTextureAspect = "all" | "stencil-only" | "depth-only";
+type GPUTextureAspect = "all" | "stencil-only" | "depth-only";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUTextureFormat =
+type GPUTextureFormat =
   | "r8unorm"
   | "r8snorm"
   | "r8uint"
@@ -5842,7 +5842,7 @@ declare class GPUSampler implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUSamplerDescriptor extends GPUObjectDescriptorBase {
+interface GPUSamplerDescriptor extends GPUObjectDescriptorBase {
   addressModeU?: GPUAddressMode;
   addressModeV?: GPUAddressMode;
   addressModeW?: GPUAddressMode;
@@ -5859,25 +5859,25 @@ declare interface GPUSamplerDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUAddressMode = "clamp-to-edge" | "repeat" | "mirror-repeat";
+type GPUAddressMode = "clamp-to-edge" | "repeat" | "mirror-repeat";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUFilterMode = "nearest" | "linear";
+type GPUFilterMode = "nearest" | "linear";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUMipmapFilterMode = "nearest" | "linear";
+type GPUMipmapFilterMode = "nearest" | "linear";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUCompareFunction =
+type GPUCompareFunction =
   | "never"
   | "less"
   | "equal"
@@ -5899,7 +5899,7 @@ declare class GPUBindGroupLayout implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUBindGroupLayoutDescriptor extends GPUObjectDescriptorBase {
+interface GPUBindGroupLayoutDescriptor extends GPUObjectDescriptorBase {
   entries: GPUBindGroupLayoutEntry[];
 }
 
@@ -5907,7 +5907,7 @@ declare interface GPUBindGroupLayoutDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUBindGroupLayoutEntry {
+interface GPUBindGroupLayoutEntry {
   binding: number;
   visibility: GPUShaderStageFlags;
 
@@ -5921,7 +5921,7 @@ declare interface GPUBindGroupLayoutEntry {
  * @category GPU
  * @experimental
  */
-declare type GPUShaderStageFlags = number;
+type GPUShaderStageFlags = number;
 
 /**
  * @category GPU
@@ -5937,7 +5937,7 @@ declare class GPUShaderStage {
  * @category GPU
  * @experimental
  */
-declare interface GPUBufferBindingLayout {
+interface GPUBufferBindingLayout {
   type?: GPUBufferBindingType;
   hasDynamicOffset?: boolean;
   minBindingSize?: number;
@@ -5947,13 +5947,13 @@ declare interface GPUBufferBindingLayout {
  * @category GPU
  * @experimental
  */
-declare type GPUBufferBindingType = "uniform" | "storage" | "read-only-storage";
+type GPUBufferBindingType = "uniform" | "storage" | "read-only-storage";
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUSamplerBindingLayout {
+interface GPUSamplerBindingLayout {
   type?: GPUSamplerBindingType;
 }
 
@@ -5961,7 +5961,7 @@ declare interface GPUSamplerBindingLayout {
  * @category GPU
  * @experimental
  */
-declare type GPUSamplerBindingType =
+type GPUSamplerBindingType =
   | "filtering"
   | "non-filtering"
   | "comparison";
@@ -5970,7 +5970,7 @@ declare type GPUSamplerBindingType =
  * @category GPU
  * @experimental
  */
-declare interface GPUTextureBindingLayout {
+interface GPUTextureBindingLayout {
   sampleType?: GPUTextureSampleType;
   viewDimension?: GPUTextureViewDimension;
   multisampled?: boolean;
@@ -5980,7 +5980,7 @@ declare interface GPUTextureBindingLayout {
  * @category GPU
  * @experimental
  */
-declare type GPUTextureSampleType =
+type GPUTextureSampleType =
   | "float"
   | "unfilterable-float"
   | "depth"
@@ -5991,7 +5991,7 @@ declare type GPUTextureSampleType =
  * @category GPU
  * @experimental
  */
-declare type GPUStorageTextureAccess =
+type GPUStorageTextureAccess =
   | "write-only"
   | "read-only"
   | "read-write";
@@ -6000,7 +6000,7 @@ declare type GPUStorageTextureAccess =
  * @category GPU
  * @experimental
  */
-declare interface GPUStorageTextureBindingLayout {
+interface GPUStorageTextureBindingLayout {
   access: GPUStorageTextureAccess;
   format: GPUTextureFormat;
   viewDimension?: GPUTextureViewDimension;
@@ -6018,7 +6018,7 @@ declare class GPUBindGroup implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUBindGroupDescriptor extends GPUObjectDescriptorBase {
+interface GPUBindGroupDescriptor extends GPUObjectDescriptorBase {
   layout: GPUBindGroupLayout;
   entries: GPUBindGroupEntry[];
 }
@@ -6027,7 +6027,7 @@ declare interface GPUBindGroupDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUBindingResource =
+type GPUBindingResource =
   | GPUSampler
   | GPUTextureView
   | GPUBufferBinding;
@@ -6036,7 +6036,7 @@ declare type GPUBindingResource =
  * @category GPU
  * @experimental
  */
-declare interface GPUBindGroupEntry {
+interface GPUBindGroupEntry {
   binding: number;
   resource: GPUBindingResource;
 }
@@ -6045,7 +6045,7 @@ declare interface GPUBindGroupEntry {
  * @category GPU
  * @experimental
  */
-declare interface GPUBufferBinding {
+interface GPUBufferBinding {
   buffer: GPUBuffer;
   offset?: number;
   size?: number;
@@ -6063,7 +6063,7 @@ declare class GPUPipelineLayout implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUPipelineLayoutDescriptor extends GPUObjectDescriptorBase {
+interface GPUPipelineLayoutDescriptor extends GPUObjectDescriptorBase {
   bindGroupLayouts: GPUBindGroupLayout[];
 }
 
@@ -6071,13 +6071,13 @@ declare interface GPUPipelineLayoutDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUCompilationMessageType = "error" | "warning" | "info";
+type GPUCompilationMessageType = "error" | "warning" | "info";
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUCompilationMessage {
+interface GPUCompilationMessage {
   readonly message: string;
   readonly type: GPUCompilationMessageType;
   readonly lineNum: number;
@@ -6088,8 +6088,8 @@ declare interface GPUCompilationMessage {
  * @category GPU
  * @experimental
  */
-declare interface GPUCompilationInfo {
-  readonly messages: ReadonlyArray<GPUCompilationMessage>;
+interface GPUCompilationInfo {
+  readonly messages: readonly GPUCompilationMessage[];
 }
 
 /**
@@ -6106,7 +6106,7 @@ declare class GPUPipelineError extends DOMException {
  * @category GPU
  * @experimental
  */
-declare interface GPUPipelineErrorInit {
+interface GPUPipelineErrorInit {
   reason: GPUPipelineErrorReason;
 }
 
@@ -6114,7 +6114,7 @@ declare interface GPUPipelineErrorInit {
  * @category GPU
  * @experimental
  */
-declare type GPUPipelineErrorReason = "validation" | "internal";
+type GPUPipelineErrorReason = "validation" | "internal";
 
 /**
  * @category GPU
@@ -6128,7 +6128,7 @@ declare class GPUShaderModule implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUShaderModuleDescriptor extends GPUObjectDescriptorBase {
+interface GPUShaderModuleDescriptor extends GPUObjectDescriptorBase {
   code: string;
   sourceMap?: any;
 }
@@ -6137,13 +6137,13 @@ declare interface GPUShaderModuleDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUAutoLayoutMode = "auto";
+type GPUAutoLayoutMode = "auto";
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUPipelineDescriptorBase extends GPUObjectDescriptorBase {
+interface GPUPipelineDescriptorBase extends GPUObjectDescriptorBase {
   layout: GPUPipelineLayout | GPUAutoLayoutMode;
 }
 
@@ -6151,7 +6151,7 @@ declare interface GPUPipelineDescriptorBase extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUPipelineBase {
+interface GPUPipelineBase {
   getBindGroupLayout(index: number): GPUBindGroupLayout;
 }
 
@@ -6159,7 +6159,7 @@ declare interface GPUPipelineBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUProgrammableStage {
+interface GPUProgrammableStage {
   module: GPUShaderModule;
   entryPoint?: string;
   constants?: Record<string, number>;
@@ -6179,8 +6179,7 @@ declare class GPUComputePipeline implements GPUObjectBase, GPUPipelineBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUComputePipelineDescriptor
-  extends GPUPipelineDescriptorBase {
+interface GPUComputePipelineDescriptor extends GPUPipelineDescriptorBase {
   compute: GPUProgrammableStage;
 }
 
@@ -6198,8 +6197,7 @@ declare class GPURenderPipeline implements GPUObjectBase, GPUPipelineBase {
  * @category GPU
  * @experimental
  */
-declare interface GPURenderPipelineDescriptor
-  extends GPUPipelineDescriptorBase {
+interface GPURenderPipelineDescriptor extends GPUPipelineDescriptorBase {
   vertex: GPUVertexState;
   primitive?: GPUPrimitiveState;
   depthStencil?: GPUDepthStencilState;
@@ -6211,7 +6209,7 @@ declare interface GPURenderPipelineDescriptor
  * @category GPU
  * @experimental
  */
-declare interface GPUPrimitiveState {
+interface GPUPrimitiveState {
   topology?: GPUPrimitiveTopology;
   stripIndexFormat?: GPUIndexFormat;
   frontFace?: GPUFrontFace;
@@ -6223,7 +6221,7 @@ declare interface GPUPrimitiveState {
  * @category GPU
  * @experimental
  */
-declare type GPUPrimitiveTopology =
+type GPUPrimitiveTopology =
   | "point-list"
   | "line-list"
   | "line-strip"
@@ -6234,19 +6232,19 @@ declare type GPUPrimitiveTopology =
  * @category GPU
  * @experimental
  */
-declare type GPUFrontFace = "ccw" | "cw";
+type GPUFrontFace = "ccw" | "cw";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUCullMode = "none" | "front" | "back";
+type GPUCullMode = "none" | "front" | "back";
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUMultisampleState {
+interface GPUMultisampleState {
   count?: number;
   mask?: number;
   alphaToCoverageEnabled?: boolean;
@@ -6256,7 +6254,7 @@ declare interface GPUMultisampleState {
  * @category GPU
  * @experimental
  */
-declare interface GPUFragmentState extends GPUProgrammableStage {
+interface GPUFragmentState extends GPUProgrammableStage {
   targets: (GPUColorTargetState | null)[];
 }
 
@@ -6264,7 +6262,7 @@ declare interface GPUFragmentState extends GPUProgrammableStage {
  * @category GPU
  * @experimental
  */
-declare interface GPUColorTargetState {
+interface GPUColorTargetState {
   format: GPUTextureFormat;
 
   blend?: GPUBlendState;
@@ -6275,7 +6273,7 @@ declare interface GPUColorTargetState {
  * @category GPU
  * @experimental
  */
-declare interface GPUBlendState {
+interface GPUBlendState {
   color: GPUBlendComponent;
   alpha: GPUBlendComponent;
 }
@@ -6284,7 +6282,7 @@ declare interface GPUBlendState {
  * @category GPU
  * @experimental
  */
-declare type GPUColorWriteFlags = number;
+type GPUColorWriteFlags = number;
 
 /**
  * @category GPU
@@ -6302,7 +6300,7 @@ declare class GPUColorWrite {
  * @category GPU
  * @experimental
  */
-declare interface GPUBlendComponent {
+interface GPUBlendComponent {
   operation?: GPUBlendOperation;
   srcFactor?: GPUBlendFactor;
   dstFactor?: GPUBlendFactor;
@@ -6312,7 +6310,7 @@ declare interface GPUBlendComponent {
  * @category GPU
  * @experimental
  */
-declare type GPUBlendFactor =
+type GPUBlendFactor =
   | "zero"
   | "one"
   | "src"
@@ -6331,7 +6329,7 @@ declare type GPUBlendFactor =
  * @category GPU
  * @experimental
  */
-declare type GPUBlendOperation =
+type GPUBlendOperation =
   | "add"
   | "subtract"
   | "reverse-subtract"
@@ -6342,7 +6340,7 @@ declare type GPUBlendOperation =
  * @category GPU
  * @experimental
  */
-declare interface GPUDepthStencilState {
+interface GPUDepthStencilState {
   format: GPUTextureFormat;
 
   depthWriteEnabled: boolean;
@@ -6363,7 +6361,7 @@ declare interface GPUDepthStencilState {
  * @category GPU
  * @experimental
  */
-declare interface GPUStencilFaceState {
+interface GPUStencilFaceState {
   compare?: GPUCompareFunction;
   failOp?: GPUStencilOperation;
   depthFailOp?: GPUStencilOperation;
@@ -6374,7 +6372,7 @@ declare interface GPUStencilFaceState {
  * @category GPU
  * @experimental
  */
-declare type GPUStencilOperation =
+type GPUStencilOperation =
   | "keep"
   | "zero"
   | "replace"
@@ -6388,13 +6386,13 @@ declare type GPUStencilOperation =
  * @category GPU
  * @experimental
  */
-declare type GPUIndexFormat = "uint16" | "uint32";
+type GPUIndexFormat = "uint16" | "uint32";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUVertexFormat =
+type GPUVertexFormat =
   | "uint8x2"
   | "uint8x4"
   | "sint8x2"
@@ -6431,13 +6429,13 @@ declare type GPUVertexFormat =
  * @category GPU
  * @experimental
  */
-declare type GPUVertexStepMode = "vertex" | "instance";
+type GPUVertexStepMode = "vertex" | "instance";
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUVertexState extends GPUProgrammableStage {
+interface GPUVertexState extends GPUProgrammableStage {
   buffers?: (GPUVertexBufferLayout | null)[];
 }
 
@@ -6445,7 +6443,7 @@ declare interface GPUVertexState extends GPUProgrammableStage {
  * @category GPU
  * @experimental
  */
-declare interface GPUVertexBufferLayout {
+interface GPUVertexBufferLayout {
   arrayStride: number;
   stepMode?: GPUVertexStepMode;
   attributes: GPUVertexAttribute[];
@@ -6455,7 +6453,7 @@ declare interface GPUVertexBufferLayout {
  * @category GPU
  * @experimental
  */
-declare interface GPUVertexAttribute {
+interface GPUVertexAttribute {
   format: GPUVertexFormat;
   offset: number;
 
@@ -6466,7 +6464,7 @@ declare interface GPUVertexAttribute {
  * @category GPU
  * @experimental
  */
-declare interface GPUImageDataLayout {
+interface GPUImageDataLayout {
   offset?: number;
   bytesPerRow?: number;
   rowsPerImage?: number;
@@ -6484,7 +6482,7 @@ declare class GPUCommandBuffer implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUCommandBufferDescriptor extends GPUObjectDescriptorBase {}
+interface GPUCommandBufferDescriptor extends GPUObjectDescriptorBase {}
 
 /**
  * @category GPU
@@ -6551,13 +6549,13 @@ declare class GPUCommandEncoder implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUCommandEncoderDescriptor extends GPUObjectDescriptorBase {}
+interface GPUCommandEncoderDescriptor extends GPUObjectDescriptorBase {}
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUImageCopyBuffer extends GPUImageDataLayout {
+interface GPUImageCopyBuffer extends GPUImageDataLayout {
   buffer: GPUBuffer;
 }
 
@@ -6565,7 +6563,7 @@ declare interface GPUImageCopyBuffer extends GPUImageDataLayout {
  * @category GPU
  * @experimental
  */
-declare interface GPUImageCopyTexture {
+interface GPUImageCopyTexture {
   texture: GPUTexture;
   mipLevel?: number;
   origin?: GPUOrigin3D;
@@ -6576,7 +6574,7 @@ declare interface GPUImageCopyTexture {
  * @category GPU
  * @experimental
  */
-declare interface GPUProgrammablePassEncoder {
+interface GPUProgrammablePassEncoder {
   setBindGroup(
     index: number,
     bindGroup: GPUBindGroup,
@@ -6632,7 +6630,7 @@ declare class GPUComputePassEncoder
  * @category GPU
  * @experimental
  */
-declare interface GPUComputePassTimestampWrites {
+interface GPUComputePassTimestampWrites {
   querySet: GPUQuerySet;
   beginningOfPassWriteIndex?: number;
   endOfPassWriteIndex?: number;
@@ -6642,7 +6640,7 @@ declare interface GPUComputePassTimestampWrites {
  * @category GPU
  * @experimental
  */
-declare interface GPUComputePassDescriptor extends GPUObjectDescriptorBase {
+interface GPUComputePassDescriptor extends GPUObjectDescriptorBase {
   timestampWrites?: GPUComputePassTimestampWrites;
 }
 
@@ -6650,7 +6648,7 @@ declare interface GPUComputePassDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare interface GPURenderEncoderBase {
+interface GPURenderEncoderBase {
   setPipeline(pipeline: GPURenderPipeline): undefined;
 
   setIndexBuffer(
@@ -6771,7 +6769,7 @@ declare class GPURenderPassEncoder
  * @category GPU
  * @experimental
  */
-declare interface GPURenderPassTimestampWrites {
+interface GPURenderPassTimestampWrites {
   querySet: GPUQuerySet;
   beginningOfPassWriteIndex?: number;
   endOfPassWriteIndex?: number;
@@ -6781,7 +6779,7 @@ declare interface GPURenderPassTimestampWrites {
  * @category GPU
  * @experimental
  */
-declare interface GPURenderPassDescriptor extends GPUObjectDescriptorBase {
+interface GPURenderPassDescriptor extends GPUObjectDescriptorBase {
   colorAttachments: (GPURenderPassColorAttachment | null)[];
   depthStencilAttachment?: GPURenderPassDepthStencilAttachment;
   occlusionQuerySet?: GPUQuerySet;
@@ -6792,7 +6790,7 @@ declare interface GPURenderPassDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare interface GPURenderPassColorAttachment {
+interface GPURenderPassColorAttachment {
   view: GPUTextureView;
   resolveTarget?: GPUTextureView;
 
@@ -6805,7 +6803,7 @@ declare interface GPURenderPassColorAttachment {
  * @category GPU
  * @experimental
  */
-declare interface GPURenderPassDepthStencilAttachment {
+interface GPURenderPassDepthStencilAttachment {
   view: GPUTextureView;
 
   depthClearValue?: number;
@@ -6823,13 +6821,13 @@ declare interface GPURenderPassDepthStencilAttachment {
  * @category GPU
  * @experimental
  */
-declare type GPULoadOp = "load" | "clear";
+type GPULoadOp = "load" | "clear";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUStoreOp = "store" | "discard";
+type GPUStoreOp = "store" | "discard";
 
 /**
  * @category GPU
@@ -6843,7 +6841,7 @@ declare class GPURenderBundle implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPURenderBundleDescriptor extends GPUObjectDescriptorBase {}
+interface GPURenderBundleDescriptor extends GPUObjectDescriptorBase {}
 
 /**
  * @category GPU
@@ -6906,7 +6904,7 @@ declare class GPURenderBundleEncoder
  * @category GPU
  * @experimental
  */
-declare interface GPURenderPassLayout extends GPUObjectDescriptorBase {
+interface GPURenderPassLayout extends GPUObjectDescriptorBase {
   colorFormats: (GPUTextureFormat | null)[];
   depthStencilFormat?: GPUTextureFormat;
   sampleCount?: number;
@@ -6916,7 +6914,7 @@ declare interface GPURenderPassLayout extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare interface GPURenderBundleEncoderDescriptor extends GPURenderPassLayout {
+interface GPURenderBundleEncoderDescriptor extends GPURenderPassLayout {
   depthReadOnly?: boolean;
   stencilReadOnly?: boolean;
 }
@@ -6965,7 +6963,7 @@ declare class GPUQuerySet implements GPUObjectBase {
  * @category GPU
  * @experimental
  */
-declare interface GPUQuerySetDescriptor extends GPUObjectDescriptorBase {
+interface GPUQuerySetDescriptor extends GPUObjectDescriptorBase {
   type: GPUQueryType;
   count: number;
 }
@@ -6974,19 +6972,19 @@ declare interface GPUQuerySetDescriptor extends GPUObjectDescriptorBase {
  * @category GPU
  * @experimental
  */
-declare type GPUQueryType = "occlusion" | "timestamp";
+type GPUQueryType = "occlusion" | "timestamp";
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUDeviceLostReason = "destroyed";
+type GPUDeviceLostReason = "destroyed";
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUDeviceLostInfo {
+interface GPUDeviceLostInfo {
   readonly reason: GPUDeviceLostReason;
   readonly message: string;
 }
@@ -7027,7 +7025,7 @@ declare class GPUInternalError extends GPUError {
  * @category GPU
  * @experimental
  */
-declare type GPUErrorFilter = "out-of-memory" | "validation" | "internal";
+type GPUErrorFilter = "out-of-memory" | "validation" | "internal";
 
 /**
  * @category GPU
@@ -7046,7 +7044,7 @@ declare class GPUUncapturedErrorEvent extends Event {
  * @category GPU
  * @experimental
  */
-declare interface GPUUncapturedErrorEventInit extends EventInit {
+interface GPUUncapturedErrorEventInit extends EventInit {
   error: GPUError;
 }
 
@@ -7054,7 +7052,7 @@ declare interface GPUUncapturedErrorEventInit extends EventInit {
  * @category GPU
  * @experimental
  */
-declare interface GPUColorDict {
+interface GPUColorDict {
   r: number;
   g: number;
   b: number;
@@ -7065,13 +7063,13 @@ declare interface GPUColorDict {
  * @category GPU
  * @experimental
  */
-declare type GPUColor = number[] | GPUColorDict;
+type GPUColor = number[] | GPUColorDict;
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUOrigin3DDict {
+interface GPUOrigin3DDict {
   x?: number;
   y?: number;
   z?: number;
@@ -7081,13 +7079,13 @@ declare interface GPUOrigin3DDict {
  * @category GPU
  * @experimental
  */
-declare type GPUOrigin3D = number[] | GPUOrigin3DDict;
+type GPUOrigin3D = number[] | GPUOrigin3DDict;
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUExtent3DDict {
+interface GPUExtent3DDict {
   width: number;
   height?: number;
   depthOrArrayLayers?: number;
@@ -7097,19 +7095,19 @@ declare interface GPUExtent3DDict {
  * @category GPU
  * @experimental
  */
-declare type GPUExtent3D = number[] | GPUExtent3DDict;
+type GPUExtent3D = number[] | GPUExtent3DDict;
 
 /**
  * @category GPU
  * @experimental
  */
-declare type GPUCanvasAlphaMode = "opaque" | "premultiplied";
+type GPUCanvasAlphaMode = "opaque" | "premultiplied";
 
 /**
  * @category GPU
  * @experimental
  */
-declare interface GPUCanvasConfiguration {
+interface GPUCanvasConfiguration {
   device: GPUDevice;
   format: GPUTextureFormat;
   usage?: GPUTextureUsageFlags;
@@ -7123,7 +7121,7 @@ declare interface GPUCanvasConfiguration {
  * @category GPU
  * @experimental
  */
-declare interface GPUCanvasContext {
+interface GPUCanvasContext {
   configure(configuration: GPUCanvasConfiguration): undefined;
   unconfigure(): undefined;
   getCurrentTexture(): GPUTexture;
@@ -7131,26 +7129,26 @@ declare interface GPUCanvasContext {
 
 declare namespace Deno {
   /** @category Network */
-  export interface NetAddr {
+  interface NetAddr {
     transport: "tcp" | "udp";
     hostname: string;
     port: number;
   }
 
   /** @category Network */
-  export interface UnixAddr {
+  interface UnixAddr {
     transport: "unix" | "unixpacket";
     path: string;
   }
 
   /** @category Network */
-  export type Addr = NetAddr | UnixAddr;
+  type Addr = NetAddr | UnixAddr;
 
   /** A generic network listener for stream-oriented protocols.
    *
    * @category Network
    */
-  export interface Listener<T extends Conn = Conn, A extends Addr = Addr>
+  interface Listener<T extends Conn = Conn, A extends Addr = Addr>
     extends AsyncIterable<T>, Disposable {
     /** Waits for and resolves to the next connection to the `Listener`. */
     accept(): Promise<T>;
@@ -7187,22 +7185,22 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export type TlsListener = Listener<TlsConn, NetAddr>;
+  type TlsListener = Listener<TlsConn, NetAddr>;
 
   /** Specialized listener that accepts TCP connections.
    *
    * @category Network
    */
-  export type TcpListener = Listener<TcpConn, NetAddr>;
+  type TcpListener = Listener<TcpConn, NetAddr>;
 
   /** Specialized listener that accepts Unix connections.
    *
    * @category Network
    */
-  export type UnixListener = Listener<UnixConn, UnixAddr>;
+  type UnixListener = Listener<UnixConn, UnixAddr>;
 
   /** @category Network */
-  export interface Conn<A extends Addr = Addr>
+  interface Conn<A extends Addr = Addr>
     extends Reader, Writer, Closer, Disposable {
     /** The local address of the connection. */
     readonly localAddr: A;
@@ -7226,7 +7224,7 @@ declare namespace Deno {
   }
 
   /** @category Network */
-  export interface TlsHandshakeInfo {
+  interface TlsHandshakeInfo {
     /**
      * Contains the ALPN protocol selected during negotiation with the server.
      * If no ALPN protocol selected, returns `null`.
@@ -7235,7 +7233,7 @@ declare namespace Deno {
   }
 
   /** @category Network */
-  export interface TlsConn extends Conn<NetAddr> {
+  interface TlsConn extends Conn<NetAddr> {
     /** Runs the client or server handshake protocol to completion if that has
      * not happened yet. Calling this method is optional; the TLS handshake
      * will be completed automatically as soon as data is sent or received. */
@@ -7243,7 +7241,7 @@ declare namespace Deno {
   }
 
   /** @category Network */
-  export interface ListenOptions {
+  interface ListenOptions {
     /** The port to listen on.
      *
      * Set to `0` to listen on any available port.
@@ -7261,7 +7259,7 @@ declare namespace Deno {
   }
 
   /** @category Network */
-  export interface TcpListenOptions extends ListenOptions {
+  interface TcpListenOptions extends ListenOptions {
   }
 
   /** Listen announces on the local transport address.
@@ -7278,7 +7276,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function listen(
+  function listen(
     options: TcpListenOptions & { transport?: "tcp" },
   ): TcpListener;
 
@@ -7287,7 +7285,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export interface UnixListenOptions {
+  interface UnixListenOptions {
     /** A path to the Unix Socket. */
     path: string;
   }
@@ -7304,7 +7302,7 @@ declare namespace Deno {
    * @category Network
    */
   // deno-lint-ignore adjacent-overload-signatures
-  export function listen(
+  function listen(
     options: UnixListenOptions & { transport: "unix" },
   ): UnixListener;
 
@@ -7313,7 +7311,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export type TlsCertifiedKeyOptions =
+  type TlsCertifiedKeyOptions =
     | TlsCertifiedKeyPem
     | TlsCertifiedKeyFromFile
     | TlsCertifiedKeyConnectTls;
@@ -7335,7 +7333,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export interface TlsCertifiedKeyPem {
+  interface TlsCertifiedKeyPem {
     /** The format of this key material, which must be PEM. */
     keyFormat?: "pem";
     /** Private key in `PEM` format. RSA, EC, and PKCS8-format keys are supported. */
@@ -7351,7 +7349,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export interface TlsCertifiedKeyFromFile {
+  interface TlsCertifiedKeyFromFile {
     /** Path to a file containing a PEM formatted CA certificate. Requires
      * `--allow-read`.
      *
@@ -7378,7 +7376,7 @@ declare namespace Deno {
    *
    * @category Network
    */
-  export interface TlsCertifiedKeyConnectTls {
+  interface TlsCertifiedKeyConnectTls {
     /**
      * Certificate chain in `PEM` format.
      *
@@ -7398,7 +7396,7 @@ declare namespace Deno {
   }
 
   /** @category Network */
-  export interface ListenTlsOptions extends TcpListenOptions {
+  interface ListenTlsOptions extends TcpListenOptions {
     transport?: "tcp";
 
     /** Application-Layer Protocol Negotiation (ALPN) protocols to announce to
@@ -7424,12 +7422,12 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function listenTls(
+  function listenTls(
     options: ListenTlsOptions & TlsCertifiedKeyOptions,
   ): TlsListener;
 
   /** @category Network */
-  export interface ConnectOptions {
+  interface ConnectOptions {
     /** The port to connect to. */
     port: number;
     /** A literal IP address or host name that can be resolved to an IP address.
@@ -7456,10 +7454,10 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function connect(options: ConnectOptions): Promise<TcpConn>;
+  function connect(options: ConnectOptions): Promise<TcpConn>;
 
   /** @category Network */
-  export interface TcpConn extends Conn<NetAddr> {
+  interface TcpConn extends Conn<NetAddr> {
     /**
      * Enable/disable the use of Nagle's algorithm.
      *
@@ -7471,13 +7469,13 @@ declare namespace Deno {
   }
 
   /** @category Network */
-  export interface UnixConnectOptions {
+  interface UnixConnectOptions {
     transport: "unix";
     path: string;
   }
 
   /** @category Network */
-  export interface UnixConn extends Conn<UnixAddr> {}
+  interface UnixConn extends Conn<UnixAddr> {}
 
   /** Connects to the hostname (default is "127.0.0.1") and port on the named
    * transport (default is "tcp"), and resolves to the connection (`Conn`).
@@ -7496,10 +7494,10 @@ declare namespace Deno {
    * @category Network
    */
   // deno-lint-ignore adjacent-overload-signatures
-  export function connect(options: UnixConnectOptions): Promise<UnixConn>;
+  function connect(options: UnixConnectOptions): Promise<UnixConn>;
 
   /** @category Network */
-  export interface ConnectTlsOptions {
+  interface ConnectTlsOptions {
     /** The port to connect to. */
     port: number;
     /** A literal IP address or host name that can be resolved to an IP address.
@@ -7546,7 +7544,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function connectTls(options: ConnectTlsOptions): Promise<TlsConn>;
+  function connectTls(options: ConnectTlsOptions): Promise<TlsConn>;
 
   /** Establishes a secure connection over TLS (transport layer security) using
    * an optional cert file, client certificate, hostname (default is "127.0.0.1") and
@@ -7568,12 +7566,12 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function connectTls(
+  function connectTls(
     options: ConnectTlsOptions & TlsCertifiedKeyOptions,
   ): Promise<TlsConn>;
 
   /** @category Network */
-  export interface StartTlsOptions {
+  interface StartTlsOptions {
     /** A literal IP address or host name that can be resolved to an IP address.
      *
      * @default {"127.0.0.1"} */
@@ -7616,7 +7614,7 @@ declare namespace Deno {
    * @tags allow-net
    * @category Network
    */
-  export function startTls(
+  function startTls(
     conn: TcpConn,
     options?: StartTlsOptions,
   ): Promise<TlsConn>;
@@ -7644,7 +7642,7 @@ declare namespace Deno {
    * @category File System
    * @experimental
    */
-  export function umask(mask?: number): number;
+  function umask(mask?: number): number;
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -7653,7 +7651,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeNumberType =
+  type NativeNumberType =
     | "u8"
     | "i8"
     | "u16"
@@ -7670,7 +7668,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeBigIntType =
+  type NativeBigIntType =
     | "u64"
     | "i64"
     | "usize"
@@ -7683,7 +7681,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeBooleanType = "bool";
+  type NativeBooleanType = "bool";
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -7692,7 +7690,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativePointerType = "pointer";
+  type NativePointerType = "pointer";
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -7701,7 +7699,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeBufferType = "buffer";
+  type NativeBufferType = "buffer";
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -7710,7 +7708,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeFunctionType = "function";
+  type NativeFunctionType = "function";
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -7719,7 +7717,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeVoidType = "void";
+  type NativeVoidType = "void";
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -7728,56 +7726,58 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeStructType = { readonly struct: readonly NativeType[] };
+  interface NativeStructType {
+    readonly struct: readonly NativeType[];
+  }
 
   /**
    * @category FFI
    * @experimental
    */
-  export const brand: unique symbol;
+  const brand: unique symbol;
 
   /**
    * @category FFI
    * @experimental
    */
-  export type NativeU8Enum<T extends number> = "u8" & { [brand]: T };
+  type NativeU8Enum<T extends number> = "u8" & { [brand]: T };
   /**
    * @category FFI
    * @experimental
    */
-  export type NativeI8Enum<T extends number> = "i8" & { [brand]: T };
+  type NativeI8Enum<T extends number> = "i8" & { [brand]: T };
   /**
    * @category FFI
    * @experimental
    */
-  export type NativeU16Enum<T extends number> = "u16" & { [brand]: T };
+  type NativeU16Enum<T extends number> = "u16" & { [brand]: T };
   /**
    * @category FFI
    * @experimental
    */
-  export type NativeI16Enum<T extends number> = "i16" & { [brand]: T };
+  type NativeI16Enum<T extends number> = "i16" & { [brand]: T };
   /**
    * @category FFI
    * @experimental
    */
-  export type NativeU32Enum<T extends number> = "u32" & { [brand]: T };
+  type NativeU32Enum<T extends number> = "u32" & { [brand]: T };
   /**
    * @category FFI
    * @experimental
    */
-  export type NativeI32Enum<T extends number> = "i32" & { [brand]: T };
+  type NativeI32Enum<T extends number> = "i32" & { [brand]: T };
   /**
    * @category FFI
    * @experimental
    */
-  export type NativeTypedPointer<T extends PointerObject> = "pointer" & {
+  type NativeTypedPointer<T extends PointerObject> = "pointer" & {
     [brand]: T;
   };
   /**
    * @category FFI
    * @experimental
    */
-  export type NativeTypedFunction<T extends UnsafeCallbackDefinition> =
+  type NativeTypedFunction<T extends UnsafeCallbackDefinition> =
     & "function"
     & {
       [brand]: T;
@@ -7790,7 +7790,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeType =
+  type NativeType =
     | NativeNumberType
     | NativeBigIntType
     | NativeBooleanType
@@ -7804,7 +7804,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type NativeResultType = NativeType | NativeVoidType;
+  type NativeResultType = NativeType | NativeVoidType;
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -7814,7 +7814,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type ToNativeType<T extends NativeType = NativeType> = T extends
+  type ToNativeType<T extends NativeType = NativeType> = T extends
     NativeStructType ? BufferSource
     : T extends NativeNumberType ? T extends NativeU8Enum<infer U> ? U
       : T extends NativeI8Enum<infer U> ? U
@@ -7840,7 +7840,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type ToNativeResultType<
+  type ToNativeResultType<
     T extends NativeResultType = NativeResultType,
   > = T extends NativeStructType ? BufferSource
     : T extends NativeNumberType ? T extends NativeU8Enum<infer U> ? U
@@ -7868,7 +7868,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type ToNativeParameterTypes<T extends readonly NativeType[]> =
+  type ToNativeParameterTypes<T extends readonly NativeType[]> =
     //
     [(T[number])[]] extends [T] ? ToNativeType<T[number]>[]
       : [readonly (T[number])[]] extends [T]
@@ -7886,7 +7886,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type FromNativeType<T extends NativeType = NativeType> = T extends
+  type FromNativeType<T extends NativeType = NativeType> = T extends
     NativeStructType ? Uint8Array
     : T extends NativeNumberType ? T extends NativeU8Enum<infer U> ? U
       : T extends NativeI8Enum<infer U> ? U
@@ -7912,7 +7912,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type FromNativeResultType<
+  type FromNativeResultType<
     T extends NativeResultType = NativeResultType,
   > = T extends NativeStructType ? Uint8Array
     : T extends NativeNumberType ? T extends NativeU8Enum<infer U> ? U
@@ -7938,7 +7938,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type FromNativeParameterTypes<
+  type FromNativeParameterTypes<
     T extends readonly NativeType[],
   > =
     //
@@ -7958,7 +7958,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export interface ForeignFunction<
+  interface ForeignFunction<
     Parameters extends readonly NativeType[] = readonly NativeType[],
     Result extends NativeResultType = NativeResultType,
     NonBlocking extends boolean = boolean,
@@ -7986,7 +7986,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export interface ForeignStatic<Type extends NativeType = NativeType> {
+  interface ForeignStatic<Type extends NativeType = NativeType> {
     /** Name of the symbol, defaults to the key name in symbols object. */
     name?: string;
     /** The type of the foreign static value. */
@@ -8005,7 +8005,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export interface ForeignLibraryInterface {
+  interface ForeignLibraryInterface {
     [name: string]: ForeignFunction | ForeignStatic;
   }
 
@@ -8016,7 +8016,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type StaticForeignSymbol<T extends ForeignFunction | ForeignStatic> =
+  type StaticForeignSymbol<T extends ForeignFunction | ForeignStatic> =
     T extends ForeignFunction ? FromForeignFunction<T>
       : T extends ForeignStatic ? FromNativeType<T["type"]>
       : never;
@@ -8026,7 +8026,7 @@ declare namespace Deno {
    *  @category FFI
    *  @experimental
    */
-  export type FromForeignFunction<T extends ForeignFunction> =
+  type FromForeignFunction<T extends ForeignFunction> =
     T["parameters"] extends readonly [] ? () => StaticForeignSymbolReturnType<T>
       : (
         ...args: ToNativeParameterTypes<T["parameters"]>
@@ -8037,7 +8037,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type StaticForeignSymbolReturnType<T extends ForeignFunction> =
+  type StaticForeignSymbolReturnType<T extends ForeignFunction> =
     ConditionalAsync<T["nonblocking"], FromNativeResultType<T["result"]>>;
 
   /** **UNSTABLE**: New API, yet to be vetted.
@@ -8045,7 +8045,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type ConditionalAsync<IsAsync extends boolean | undefined, T> =
+  type ConditionalAsync<IsAsync extends boolean | undefined, T> =
     IsAsync extends true ? Promise<T> : T;
 
   /** **UNSTABLE**: New API, yet to be vetted.
@@ -8055,7 +8055,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type StaticForeignLibraryInterface<T extends ForeignLibraryInterface> =
+  type StaticForeignLibraryInterface<T extends ForeignLibraryInterface> =
     {
       [K in keyof T]: T[K]["optional"] extends true
         ? StaticForeignSymbol<T[K]> | null
@@ -8078,7 +8078,9 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type PointerObject<T = unknown> = { [brand]: T };
+  interface PointerObject<T = unknown> {
+    [brand]: T;
+  }
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -8088,7 +8090,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type PointerValue<T = unknown> = null | PointerObject<T>;
+  type PointerValue<T = unknown> = null | PointerObject<T>;
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -8097,14 +8099,14 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export class UnsafePointer {
+  class UnsafePointer {
     /** Create a pointer from a numeric value. This one is <i>really</i> dangerous! */
     static create<T = unknown>(value: bigint): PointerValue<T>;
     /** Returns `true` if the two pointers point to the same address. */
     static equals<T = unknown>(a: PointerValue<T>, b: PointerValue<T>): boolean;
     /** Return the direct memory pointer to the typed array in memory. */
     static of<T = unknown>(
-      value: Deno.UnsafeCallback | BufferSource,
+      value: UnsafeCallback | BufferSource,
     ): PointerValue<T>;
     /** Return a new pointer offset from the original by `offset` bytes. */
     static offset<T = unknown>(
@@ -8125,7 +8127,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export class UnsafePointerView {
+  class UnsafePointerView {
     constructor(pointer: PointerObject);
 
     pointer: PointerObject;
@@ -8209,7 +8211,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export class UnsafeFnPointer<const Fn extends ForeignFunction> {
+  class UnsafeFnPointer<const Fn extends ForeignFunction> {
     /** The pointer to the function. */
     pointer: PointerObject<Fn>;
     /** The definition of the function. */
@@ -8230,7 +8232,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export interface UnsafeCallbackDefinition<
+  interface UnsafeCallbackDefinition<
     Parameters extends readonly NativeType[] = readonly NativeType[],
     Result extends NativeResultType = NativeResultType,
   > {
@@ -8247,7 +8249,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export type UnsafeCallbackFunction<
+  type UnsafeCallbackFunction<
     Parameters extends readonly NativeType[] = readonly NativeType[],
     Result extends NativeResultType = NativeResultType,
   > = Parameters extends readonly [] ? () => ToNativeResultType<Result> : (
@@ -8278,7 +8280,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export class UnsafeCallback<
+  class UnsafeCallback<
     const Definition extends UnsafeCallbackDefinition =
       UnsafeCallbackDefinition,
   > {
@@ -8362,7 +8364,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export interface DynamicLibrary<S extends ForeignLibraryInterface> {
+  interface DynamicLibrary<S extends ForeignLibraryInterface> {
     /** All of the registered library along with functions for calling them. */
     symbols: StaticForeignLibraryInterface<S>;
     /** Removes the pointers associated with the library symbols.
@@ -8423,7 +8425,7 @@ declare namespace Deno {
    * @category FFI
    * @experimental
    */
-  export function dlopen<const S extends ForeignLibraryInterface>(
+  function dlopen<const S extends ForeignLibraryInterface>(
     filename: string | URL,
     symbols: S,
   ): DynamicLibrary<S>;
@@ -8445,11 +8447,11 @@ declare namespace Deno {
    * @category GPU
    * @experimental
    */
-  export class UnsafeWindowSurface {
+  class UnsafeWindowSurface {
     constructor(
       system: "cocoa" | "win32" | "x11" | "wayland",
-      windowHandle: Deno.PointerValue<unknown>,
-      displayHandle: Deno.PointerValue<unknown>,
+      windowHandle: PointerValue<unknown>,
+      displayHandle: PointerValue<unknown>,
     );
     getContext(context: "webgpu"): GPUCanvasContext;
     present(): void;
@@ -8469,7 +8471,7 @@ declare namespace Deno {
    * @category Fetch
    * @experimental
    */
-  export interface HttpClient extends Disposable {
+  interface HttpClient extends Disposable {
     /** Close the HTTP client. */
     close(): void;
   }
@@ -8481,7 +8483,7 @@ declare namespace Deno {
    * @category Fetch
    * @experimental
    */
-  export interface CreateHttpClientOptions {
+  interface CreateHttpClientOptions {
     /** A list of root certificates that will be used in addition to the
      * default root certificates to verify the peer's certificate.
      *
@@ -8520,7 +8522,7 @@ declare namespace Deno {
    * @category Fetch
    * @experimental
    */
-  export interface Proxy {
+  interface Proxy {
     /** The string URL of the proxy server to use. */
     url: string;
     /** The basic auth credentials to be used against the proxy server. */
@@ -8535,7 +8537,7 @@ declare namespace Deno {
    * @category Fetch
    * @experimental
    */
-  export interface BasicAuth {
+  interface BasicAuth {
     /** The username to be used against the proxy server. */
     username: string;
     /** The password to be used against the proxy server. */
@@ -8564,7 +8566,7 @@ declare namespace Deno {
    * @category Fetch
    * @experimental
    */
-  export function createHttpClient(
+  function createHttpClient(
     options: CreateHttpClientOptions,
   ): HttpClient;
 
@@ -8586,7 +8588,7 @@ declare namespace Deno {
    * @category Fetch
    * @experimental
    */
-  export function createHttpClient(
+  function createHttpClient(
     options: CreateHttpClientOptions & TlsCertifiedKeyOptions,
   ): HttpClient;
 
@@ -8597,7 +8599,7 @@ declare namespace Deno {
    * @category Network
    * @experimental
    */
-  export interface MulticastV4Membership {
+  interface MulticastV4Membership {
     /** Leaves the multicast group. */
     leave: () => Promise<void>;
     /** Sets the multicast loopback option. If enabled, multicast packets will be looped back to the local socket. */
@@ -8613,7 +8615,7 @@ declare namespace Deno {
    * @category Network
    * @experimental
    */
-  export interface MulticastV6Membership {
+  interface MulticastV6Membership {
     /** Leaves the multicast group. */
     leave: () => Promise<void>;
     /** Sets the multicast loopback option. If enabled, multicast packets will be looped back to the local socket. */
@@ -8627,7 +8629,7 @@ declare namespace Deno {
    * @category Network
    * @experimental
    */
-  export interface DatagramConn extends AsyncIterable<[Uint8Array, Addr]> {
+  interface DatagramConn extends AsyncIterable<[Uint8Array, Addr]> {
     /** Joins an IPv4 multicast group. */
     joinMulticastV4(
       address: string,
@@ -8661,7 +8663,7 @@ declare namespace Deno {
    * @category Network
    * @experimental
    */
-  export interface TcpListenOptions extends ListenOptions {
+  interface TcpListenOptions extends ListenOptions {
     /** When `true` the SO_REUSEPORT flag will be set on the listener. This
      * allows multiple processes to listen on the same address and port.
      *
@@ -8684,7 +8686,7 @@ declare namespace Deno {
    * @category Network
    * @experimental
    */
-  export interface UdpListenOptions extends ListenOptions {
+  interface UdpListenOptions extends ListenOptions {
     /** When `true` the specified address will be reused, even if another
      * process has already bound a socket on it. This effectively steals the
      * socket from the listener.
@@ -8720,7 +8722,7 @@ declare namespace Deno {
    * @category Network
    * @experimental
    */
-  export function listenDatagram(
+  function listenDatagram(
     options: UdpListenOptions & { transport: "udp" },
   ): DatagramConn;
 
@@ -8741,7 +8743,7 @@ declare namespace Deno {
    * @category Network
    * @experimental
    */
-  export function listenDatagram(
+  function listenDatagram(
     options: UnixListenOptions & { transport: "unixpacket" },
   ): DatagramConn;
 
@@ -8762,7 +8764,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export function openKv(path?: string): Promise<Deno.Kv>;
+  function openKv(path?: string): Promise<Kv>;
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -8771,7 +8773,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export type CronScheduleExpression = number | { exact: number | number[] } | {
+  type CronScheduleExpression = number | { exact: number | number[] } | {
     start?: number;
     end?: number;
     every?: number;
@@ -8784,7 +8786,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export interface CronSchedule {
+  interface CronSchedule {
     minute?: CronScheduleExpression;
     hour?: CronScheduleExpression;
     dayOfMonth?: CronScheduleExpression;
@@ -8816,7 +8818,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export function cron(
+  function cron(
     name: string,
     schedule: string | CronSchedule,
     handler: () => Promise<void> | void,
@@ -8848,7 +8850,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export function cron(
+  function cron(
     name: string,
     schedule: string | CronSchedule,
     options: { backoffSchedule?: number[]; signal?: AbortSignal },
@@ -8873,7 +8875,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export type KvKey = readonly KvKeyPart[];
+  type KvKey = readonly KvKeyPart[];
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -8910,7 +8912,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export type KvKeyPart =
+  type KvKeyPart =
     | Uint8Array
     | string
     | number
@@ -8928,7 +8930,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export type KvConsistencyLevel = "strong" | "eventual";
+  type KvConsistencyLevel = "strong" | "eventual";
 
   /** **UNSTABLE**: New API, yet to be vetted.
    *
@@ -8943,7 +8945,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export type KvListSelector =
+  type KvListSelector =
     | { prefix: KvKey }
     | { prefix: KvKey; start: KvKey }
     | { prefix: KvKey; end: KvKey }
@@ -8982,7 +8984,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export type KvMutation =
+  type KvMutation =
     & { key: KvKey }
     & (
       | { type: "set"; value: unknown; expireIn?: number }
@@ -9002,7 +9004,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export class KvListIterator<T> implements AsyncIterableIterator<KvEntry<T>> {
+  class KvListIterator<T> implements AsyncIterableIterator<KvEntry<T>> {
     /**
      * Returns the cursor of the current position in the iteration. This cursor
      * can be used to resume the iteration from the current position in the
@@ -9025,7 +9027,11 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export type KvEntry<T> = { key: KvKey; value: T; versionstamp: string };
+  interface KvEntry<T> {
+    key: KvKey;
+    value: T;
+    versionstamp: string;
+  }
 
   /**
    * **UNSTABLE**: New API, yet to be vetted.
@@ -9038,7 +9044,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export type KvEntryMaybe<T> = KvEntry<T> | {
+  type KvEntryMaybe<T> = KvEntry<T> | {
     key: KvKey;
     value: null;
     versionstamp: null;
@@ -9051,7 +9057,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export interface KvListOptions {
+  interface KvListOptions {
     /**
      * The maximum number of key-value pairs to return. If not specified, all
      * matching key-value pairs will be returned.
@@ -9106,7 +9112,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export interface KvCommitResult {
+  interface KvCommitResult {
     ok: true;
     /** The versionstamp of the value committed to KV. */
     versionstamp: string;
@@ -9116,7 +9122,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export interface KvCommitError {
+  interface KvCommitError {
     ok: false;
   }
 
@@ -9130,7 +9136,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export interface AtomicCheck {
+  interface AtomicCheck {
     key: KvKey;
     versionstamp: string | null;
   }
@@ -9172,7 +9178,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export class AtomicOperation {
+  class AtomicOperation {
     /**
      * Add to the operation a check that ensures that the versionstamp of the
      * key-value pair in the KV store matches the given versionstamp. If the
@@ -9230,7 +9236,7 @@ declare namespace Deno {
       value: unknown,
       options?: {
         delay?: number;
-        keysIfUndelivered?: Deno.KvKey[];
+        keysIfUndelivered?: KvKey[];
         backoffSchedule?: number[];
       },
     ): this;
@@ -9289,7 +9295,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export class Kv implements Disposable {
+  class Kv implements Disposable {
     /**
      * Retrieve the value and versionstamp for the given key from the database
      * in the form of a {@linkcode Deno.KvEntryMaybe}. If no value exists for
@@ -9461,7 +9467,7 @@ declare namespace Deno {
       value: unknown,
       options?: {
         delay?: number;
-        keysIfUndelivered?: Deno.KvKey[];
+        keysIfUndelivered?: KvKey[];
         backoffSchedule?: number[];
       },
     ): Promise<KvCommitResult>;
@@ -9560,7 +9566,7 @@ declare namespace Deno {
    * @category Cloud
    * @experimental
    */
-  export class KvU64 {
+  class KvU64 {
     /** Create a new `KvU64` instance from the given bigint value. If the value
      * is signed or greater than 64-bits, an error will be thrown. */
     constructor(value: bigint);
@@ -9576,12 +9582,12 @@ declare namespace Deno {
    * @category Jupyter
    * @experimental
    */
-  export namespace jupyter {
+  namespace jupyter {
     /**
      * @category Jupyter
      * @experimental
      */
-    export interface DisplayOptions {
+    interface DisplayOptions {
       raw?: boolean;
       update?: boolean;
       display_id?: string;
@@ -9591,10 +9597,10 @@ declare namespace Deno {
      * @category Jupyter
      * @experimental
      */
-    export type VegaObject = {
+    interface VegaObject {
       $schema: string;
       [key: string]: unknown;
-    };
+    }
 
     /**
      * A collection of supported media types and data for Jupyter frontends.
@@ -9602,7 +9608,7 @@ declare namespace Deno {
      * @category Jupyter
      * @experimental
      */
-    export type MediaBundle = {
+    interface MediaBundle {
       "text/plain"?: string;
       "text/html"?: string;
       "image/svg+xml"?: string;
@@ -9628,21 +9634,21 @@ declare namespace Deno {
 
       // Must support a catch all for custom media types / mimetypes
       [key: string]: string | object | undefined;
-    };
+    }
 
     /**
      * @category Jupyter
      * @experimental
      */
-    export const $display: unique symbol;
+    const $display: unique symbol;
 
     /**
      * @category Jupyter
      * @experimental
      */
-    export type Displayable = {
+    interface Displayable {
       [$display]: () => MediaBundle | Promise<MediaBundle>;
-    };
+    }
 
     /**
      * Display function for Jupyter Deno Kernel.
@@ -9654,7 +9660,7 @@ declare namespace Deno {
      * @category Jupyter
      * @experimental
      */
-    export function display(
+    function display(
       obj: unknown,
       options?: DisplayOptions,
     ): Promise<void>;
@@ -9682,7 +9688,7 @@ declare namespace Deno {
      * @category Jupyter
      * @experimental
      */
-    export function md(
+    function md(
       strings: TemplateStringsArray,
       ...values: unknown[]
     ): Displayable;
@@ -9702,7 +9708,7 @@ declare namespace Deno {
      * @category Jupyter
      * @experimental
      */
-    export function html(
+    function html(
       strings: TemplateStringsArray,
       ...values: unknown[]
     ): Displayable;
@@ -9721,7 +9727,7 @@ declare namespace Deno {
      * @category Jupyter
      * @experimental
      */
-    export function svg(
+    function svg(
       strings: TemplateStringsArray,
       ...values: unknown[]
     ): Displayable;
@@ -9735,7 +9741,7 @@ declare namespace Deno {
      * @category Jupyter
      * @experimental
      */
-    export function format(obj: unknown): Promise<MediaBundle>;
+    function format(obj: unknown): Promise<MediaBundle>;
 
     /**
      * Broadcast a message on IO pub channel.
@@ -9759,7 +9765,7 @@ declare namespace Deno {
      * @category Jupyter
      * @experimental
      */
-    export function broadcast(
+    function broadcast(
       msgType: string,
       content: Record<string, unknown>,
       extra?: {

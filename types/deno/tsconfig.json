@@ -1,13 +1,22 @@
 {
     "compilerOptions": {
+        "module": "Node16",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "target": "ESNext",
+        "types": [],
         "lib": [
-            "ES2023",
+            "ESNext",
             "ESNext.Disposable",
             "DOM"
         ]
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "deno-tests.ts"
+    ]
 }
