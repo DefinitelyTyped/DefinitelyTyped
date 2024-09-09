@@ -710,6 +710,7 @@
 /types/buffer-split/                                      @ciffelia
 /types/buffer-to-stream/                                  @tpluscode
 /types/buffer-xor/                                        @danwbyrne
+/types/buffercursor/                                      @gierschv
 /types/bufferhelper/                                      @maxbogus
 /types/buffers/                                           @rhencke
 /types/bufferstream/                                      @Bartvds
@@ -1024,6 +1025,7 @@
 /types/commondir/                                         @leonard-thieu
 /types/commonmark/                                        @nicojs @leonard-thieu
 /types/commonmark-react-renderer/                         @Methuselah96
+/types/compact-encoding/                                  @EvanHahn
 /types/compact-timezone-list/                             @buddhanag12
 /types/compare/                                           @BendingBender
 /types/compare-func/                                      @fennibay
@@ -1578,6 +1580,7 @@
 /types/doi-regex/                                         @thewilkybarkid
 /types/dojo/                                              @vansimke
 /types/dom-background-sync/                               @h-joo @frigus02 @mprobst
+/types/dom-chromium-ai/                                   @christianliebel @tomayac
 /types/dom-chromium-installation-events/                  @dartess
 /types/dom-close-watcher/                                 @tbondwilkinson
 /types/dom-css/                                           @LeoDog896
@@ -3788,7 +3791,7 @@
 /types/jquery.dropotron/                                  @cyrilschumacher
 /types/jquery.dynatree/                                   @fdecampredon
 /types/jquery.elang/                                      @sumegizoltan
-/types/jquery.fancytree/                                  @alphaleonis @abedi-ir @niikoo @Nitecube @hosni
+/types/jquery.fancytree/                                  @alphaleonis @abedio @niikoo @Nitecube @hosni
 /types/jquery.fileupload/                                 @rob-alarcon
 /types/jquery.filtertable/                                @totpero
 /types/jquery.finger/                                     @maxackley
@@ -4337,6 +4340,7 @@
 /types/levelup/                                           @MeirionHughes @danwbyrne @carsonfarmer @istherepie
 /types/levelup/v1/                                        @blittle @tarruda
 /types/levenshtein/                                       @geoffreak
+/types/levn/                                              @JoshuaKGoldberg
 /types/lexicographic-integer/                             @me
 /types/lfsr/                                              @mildsunrise
 /types/lgtv2/                                             @ovidiupruteanu
@@ -6151,6 +6155,7 @@
 /types/pump/                                              @tlaziuk @jcordial
 /types/pumpify/                                           @JustinBeckwith @aoberoi
 /types/punycode/                                          @yavanosta
+/types/puppeteer-har/                                     @jordaz14
 /types/puppeteer-lottie/                                  @peterblazejewicz
 /types/purdy/                                             @YellowKirby
 /types/pure-render-decorator/                             @seansfkelley
@@ -6763,6 +6768,7 @@
 /types/react-responsive-embed/                            @Methuselah96
 /types/react-responsive-masonry/                          @themashcodee
 /types/react-responsive-spritesheet/                      @triangularcube
+/types/react-retool/                                      @kentwalters @BenjamynBaker @immortaljoker
 /types/react-router-bootstrap/                            @vlesierse @LKay @olmobrutall @maxerenberg
 /types/react-router-config/                               @johnnyreilly @mathieutu
 /types/react-router-hash-link/                            @zoompie @michael-vasyliv @EliRobinson
@@ -7160,7 +7166,7 @@
 /types/root__asn1/                                        @yoursunny
 /types/rosbag/                                            @Rovula
 /types/rosie/                                             @abner @subvertallchris @abukurov @adam187
-/types/roslib/                                            @Pro @dgorobopec @alumag
+/types/roslib/                                            @Pro @alumag
 /types/round/                                             @ChocolateLoverRaj
 /types/route-cache/                                       @yutak23
 /types/route-parser/                                      @ianks @bobbuehler
@@ -7562,7 +7568,6 @@
 /types/skilja/                                            @stscoundrel
 /types/slack-mock/                                        @kkalavantavanich @ffflorian
 /types/slack-node/                                        @geoffreak
-/types/slack-winston/                                     @BlueHatbRit
 /types/slackdown/                                         @nju33
 /types/slackify-html/                                     @hypexr
 /types/slate/                                             @andykent @majelbstoat @JanLoebel @YangusKhan @kalley @Kornil @isubasti @jackall3n @benjiro @kaydelaney @0ctothorp @Jay0328 @bmingles
