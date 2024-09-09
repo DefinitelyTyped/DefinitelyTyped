@@ -770,3 +770,15 @@ async function testTransferringStreamWithPostMessage() {
 {
     new Blob(["1", "2"]).stream().getReader({ mode: "byob" });
 }
+
+{
+    Readable.from([1, 2, 3]).iterator();
+}
+
+{
+    Readable.from([1, 2, 3]).iterator({});
+}
+
+{
+    Readable.from([1, 2, 3]).iterator({ destroyOnReturn: false });
+}
