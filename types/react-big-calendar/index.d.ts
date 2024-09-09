@@ -347,7 +347,7 @@ export interface DateLocalizerSpec {
     lte?: typeof lte;
     gt?: typeof gt;
     gte?: typeof gte;
-    eq?:: typeof eq;
+    eq?: typeof eq;
     neq?: typeof neq;
     startOf?: typeof startOf;
     endOf?: typeof endOf;
