@@ -7,11 +7,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "target": "ESNext",
         "types": [],
         "lib": [
             "ESNext",
-            "ESNext.Disposable",
             "DOM"
         ]
     },
