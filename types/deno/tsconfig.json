@@ -9,8 +9,8 @@
         "strictFunctionTypes": true,
         "types": [],
         "lib": [
-            "ESNext",
-            "DOM"
+            "DOM",
+            "ESNext"
         ]
     },
     "files": [
