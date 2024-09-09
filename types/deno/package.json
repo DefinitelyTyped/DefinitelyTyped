@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/deno",
+    "version": "2.0.0-rc.1",
+    "type": "module",
+    "projects": [
+        "https://deno.com"
+    ],
+    "owners": [
+        {
+            "name": "David Sherret",
+            "githubUsername": "dsherret"
+        },
+        {
+            "name": "Bartek Iwańczuk",
+            "githubUsername": "bartlomieju"
+        }
+    ]
+}

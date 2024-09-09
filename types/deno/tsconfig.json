@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "lib": [
+            "ES2023",
+            "ESNext.Disposable",
+            "DOM"
+        ]
+    }
+}
