@@ -1,5 +1,5 @@
 import Koa = require("koa");
-import render = require("koa-ejs");
+import render = require("@koa/ejs");
 import * as ejs from "ejs";
 
 const app = new Koa();

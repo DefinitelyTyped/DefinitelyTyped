@@ -1,7 +1,7 @@
 {
     "private": true,
-    "name": "@types/koa-ejs",
-    "version": "4.3.9999",
+    "name": "@types/koa__ejs",
+    "version": "5.1.9999",
     "projects": [
         "https://github.com/koajs/ejs"
     ],
@@ -10,7 +10,7 @@
         "@types/koa": "*"
     },
     "devDependencies": {
-        "@types/koa-ejs": "workspace:."
+        "@types/koa__ejs": "workspace:."
     },
     "owners": [
         {

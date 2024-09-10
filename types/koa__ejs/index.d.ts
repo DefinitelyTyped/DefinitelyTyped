@@ -1,7 +1,7 @@
 import * as Ejs from "ejs";
 import * as Koa from "koa";
 
-declare module "Koa" {
+declare module "koa" {
     interface ExtendableContext {
         /** Properties values can be of any format; e.g. string, number, boolean, or even nested objects of these types */
         render: (template: string, properties?: { [name: string]: any }) => Promise<string>;
