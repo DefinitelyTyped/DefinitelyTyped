@@ -1,7 +1,7 @@
 import { Texture } from "../../textures/Texture.js";
 import Node from "../core/Node.js";
 import UniformNode from "../core/UniformNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class TextureNode extends UniformNode<Texture> {
     readonly isTextureNode: true;
@@ -27,7 +27,25 @@ export default class TextureNode extends UniformNode<Texture> {
 
     getDefaultUV(): Node;
 
+    setSampler(value: boolean): this;
+
+    getSampler(): boolean;
+
+    uv(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
+
+    blur(amountNode: NodeRepresentation): ShaderNodeObject<Node>;
+
+    level(levelNode: NodeRepresentation): ShaderNodeObject<Node>;
+
+    size(levelNode: NodeRepresentation): ShaderNodeObject<Node>;
+
+    bias(biasNode: NodeRepresentation): ShaderNodeObject<Node>;
+
+    compare(compareNode: NodeRepresentation): ShaderNodeObject<Node>;
+
     grad(gradeNodeX: NodeRepresentation, gradeNodeY: NodeRepresentation): ShaderNodeObject<Node>;
+
+    depth(depthNode: NodeRepresentation): ShaderNodeObject<Node>;
 
     clone(): this;
 }
@@ -38,10 +56,11 @@ export const texture: (
     levelNode?: NodeRepresentation,
     biasNode?: NodeRepresentation,
 ) => ShaderNodeObject<TextureNode>;
-export const sampler: (aTexture: Texture | TextureNode) => ShaderNodeObject<Node>;
+export const textureLoad: (
+    value: Texture,
+    uvNode?: NodeRepresentation,
+    levelNode?: NodeRepresentation,
+    biasNode?: NodeRepresentation,
+) => ShaderNodeObject<TextureNode>;
 
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        texture: typeof texture;
-    }
-}
+export const sampler: (aTexture: Texture | TextureNode) => ShaderNodeObject<Node>;

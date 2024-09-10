@@ -1,6 +1,6 @@
 import { Matrix4 } from "../../math/Matrix4.js";
 import { UniformNode } from "../Nodes.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Object3DNode from "./Object3DNode.js";
 
 /**

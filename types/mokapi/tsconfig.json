@@ -19,7 +19,6 @@
         "test/global-test.ts",
         "test/http-test.ts",
         "test/kafka-test.ts",
-        "test/ldap-test.ts",
         "test/mustache-test.ts",
         "test/yaml-test.ts"
     ]

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/dom-chromium-ai",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-chromium-ai",
+    "projects": [
+        "https://github.com/explainers-by-googlers/writing-assistance-apis",
+        "https://github.com/explainers-by-googlers/prompt-api"
+    ],
+    "minimumTypeScriptVersion": "5.5",
+    "devDependencies": {
+        "@types/dom-chromium-ai": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Liebel",
+            "githubUsername": "christianliebel"
+        },
+        {
+            "name": "Thomas Steiner",
+            "githubUsername": "tomayac"
+        }
+    ]
+}

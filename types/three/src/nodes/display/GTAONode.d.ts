@@ -5,7 +5,7 @@ import TextureNode from "../accessors/TextureNode.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 import UniformNode from "../core/UniformNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class GTAONode extends TempNode {
     depthNode: Node;
@@ -31,16 +31,10 @@ declare class GTAONode extends TempNode {
     setSize(width: number, height: number): void;
 }
 
+export default GTAONode;
+
 export const ao: (
     depthNode: NodeRepresentation,
     normalNode: NodeRepresentation,
     camera: Camera,
 ) => ShaderNodeObject<GTAONode>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        ao: typeof ao;
-    }
-}
-
-export default GTAONode;

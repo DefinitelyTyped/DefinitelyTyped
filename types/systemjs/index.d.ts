@@ -62,6 +62,11 @@ declare const System: {
      * Any existing map entries will be overridden with the new values.
      */
     addImportMap(importMap: System.ImportMap): void;
+
+    /**
+     * Gets combined import map.
+     */
+    getImportMap(): System.ImportMap;
 };
 
 declare namespace System {

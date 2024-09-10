@@ -12,6 +12,7 @@ FB.init({
     cookie: true,
     xfbml: true,
     autoLogAppEvents: false,
+    localStorage: false,
 });
 
 FB.getLoginStatus(function(response: fb.StatusResponse) {

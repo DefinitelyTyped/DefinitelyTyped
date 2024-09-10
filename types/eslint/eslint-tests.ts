@@ -618,6 +618,7 @@ linter.verify(
 );
 linter.verify(SOURCE, { rules: { "no-console": "warn" } }, "test.js");
 linter.verify(SOURCE, { rules: { "no-console": "off" } }, "test.js");
+linter.verify(SOURCE, { rules: { "no-void": [2, { allowAsStatement: true }] } }, "test.js");
 
 const lintingResult = linter.verify(SOURCE, {});
 
@@ -797,6 +798,7 @@ linterWithFlatConfig.verify(
 );
 linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-console": "warn" } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-console": "off" } }], "test.js");
+linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-void": [2, { allowAsStatement: true }] } }], "test.js");
 
 linterWithFlatConfig.verify(SOURCE, { linterOptions: {} }, "test.js");
 linterWithFlatConfig.verify(SOURCE, { linterOptions: {} }, { filename: "test.js" });
@@ -879,6 +881,7 @@ linterWithEslintrcConfig.verify(
 );
 linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "warn" } }, "test.js");
 linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "off" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-void": [2, { allowAsStatement: true }] } }, "test.js");
 
 linterWithEslintrcConfig.getRules();
 

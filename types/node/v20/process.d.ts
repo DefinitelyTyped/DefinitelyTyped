@@ -45,9 +45,8 @@ declare module "process" {
         "node:https": typeof import("node:https");
         "inspector": typeof import("inspector");
         "node:inspector": typeof import("node:inspector");
-        // FIXME: module is missed
-        // "inspector/promises": typeof import("inspector/promises");
-        // "node:inspector/promises": typeof import("node:inspector/promises");
+        "inspector/promises": typeof import("inspector/promises");
+        "node:inspector/promises": typeof import("node:inspector/promises");
         "module": typeof import("module");
         "node:module": typeof import("node:module");
         "net": typeof import("net");

@@ -13,6 +13,23 @@ export enum VIEW_EVENTS {
     CAMERA_MOVED = "camera-moved",
 }
 
+export interface ViewEventMap {
+    "layers-initialized": {};
+    "layer-removed": { layerId: string };
+    "layer-added": { layerId: string };
+    "initialized": {};
+    "layers-order-changed": {
+        previous: { sequence: string[] };
+        new: { sequence: string[] };
+    };
+    "camera-moved": {
+        coord: Coordinates;
+        range: number;
+        heading: number;
+        tilt: number;
+    };
+}
+
 export interface RendererOptions {
     antialias?: boolean;
     alpha?: boolean;
@@ -34,7 +51,7 @@ export interface ViewOptions {
 export type FrameRequester = (dt: number, updateLoopRestarted: boolean, ...args: any) => void;
 
 // TODO: Define public API
-export default class View extends THREE.EventDispatcher<THREE.Event> {
+export default class View extends THREE.EventDispatcher<ViewEventMap> {
     constructor(crs: string, viewerDiv: HTMLElement, options?: ViewOptions);
 
     domElement: HTMLElement;

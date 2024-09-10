@@ -2,15 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.networkStatus
- *
- * This API provides the ability to determine the status of and detect changes in the network connection.
- * This API can only be used in privileged extensions.
- * Permissions: "networkStatus"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.networkStatus
+ */
 export namespace NetworkStatus {
     interface NetworkLinkInfo {
         /**

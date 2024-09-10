@@ -1,31 +1,38 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type ViewportNodeScope =
     | typeof ViewportNode.COORDINATE
     | typeof ViewportNode.RESOLUTION
-    | typeof ViewportNode.TOP_LEFT
-    | typeof ViewportNode.BOTTOM_LEFT
-    | typeof ViewportNode.TOP_RIGHT
-    | typeof ViewportNode.BOTTOM_RIGHT;
+    | typeof ViewportNode.VIEWPORT
+    | typeof ViewportNode.UV;
 
-export default class ViewportNode extends Node {
-    static COORDINATE: "coordinate";
-    static RESOLUTION: "resolution";
-    static TOP_LEFT: "topLeft";
-    static BOTTOM_LEFT: "bottomLeft";
-    static TOP_RIGHT: "topRight";
-    static BOTTOM_RIGHT: "bottomRight";
-
+declare class ViewportNode extends Node {
     scope: ViewportNodeScope;
-    isViewportNode: true;
+
+    readonly isViewportNode: true;
 
     constructor(scope: ViewportNodeScope);
+
+    static COORDINATE: "coordinate";
+    static RESOLUTION: "resolution";
+    static VIEWPORT: "viewport";
+    static UV: "uv";
 }
+
+export default ViewportNode;
 
 export const viewportCoordinate: ShaderNodeObject<ViewportNode>;
 export const viewportResolution: ShaderNodeObject<ViewportNode>;
+export const viewport: ShaderNodeObject<ViewportNode>;
+export const viewportUV: ShaderNodeObject<ViewportNode>;
+
+/**
+ * @deprecated "viewportTopLeft" is deprecated. Use "viewportUV" instead.
+ */
 export const viewportTopLeft: ShaderNodeObject<ViewportNode>;
+
+/**
+ * @deprecated "viewportBottomLeft" is deprecated. Use "viewportUV.flipY()" instead.
+ */
 export const viewportBottomLeft: ShaderNodeObject<ViewportNode>;
-export const viewportTopRight: ShaderNodeObject<ViewportNode>;
-export const viewportBottomRight: ShaderNodeObject<ViewportNode>;

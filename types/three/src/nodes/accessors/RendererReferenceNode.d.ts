@@ -1,5 +1,5 @@
 import Renderer from "../../renderers/common/Renderer.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import ReferenceNode from "./ReferenceNode.js";
 
 export default class RendererReferenceNode extends ReferenceNode<Renderer> {
