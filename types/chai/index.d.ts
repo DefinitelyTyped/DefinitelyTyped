@@ -2100,7 +2100,7 @@ declare global {
     }
 }
 
-export function use(fn: Chai.ChaiPlugin): void;
+export function use(fn: Chai.ChaiPlugin): Chai.ChaiStatic;
 
 export const util: Chai.ChaiUtils;
 export const config: Chai.Config;
