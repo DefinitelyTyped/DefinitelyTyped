@@ -6,7 +6,8 @@
         "https://github.com/burnpiro/puppeteer-screenshot-tester#readme"
     ],
     "dependencies": {
-        "puppeteer": "*"
+        "puppeteer": "*",
+        "sharp": "*"
     },
     "devDependencies": {
         "@types/puppeteer-screenshot-tester": "workspace:."

@@ -1,7 +1,7 @@
 import ScreenshotTester, { ErrorSettings, OutputSettings, ScreenshotOptions } from "puppeteer-screenshot-tester";
 
-// Test that when forceExt is a PNG, the compressionLevel can only go from 0 to 9
 let outputSettings: OutputSettings;
+// Test limits of the compressionclevel that goes from 0 to 9
 outputSettings = {
     forceExt: ".png",
     // @ts-expect-error
@@ -21,7 +21,7 @@ outputSettings = {
     compressionLevel: 10,
 };
 
-// Test that when forceExt is JPG, JPEG or WEBP, the compressionLevel can only go from 1 to 100
+// Test limits of the compression that goes from 1 to 100
 // @ts-expect-error
 outputSettings = {
     forceExt: ".jpg",

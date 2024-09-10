@@ -1,14 +1,20 @@
 import { Page, ScreenshotOptions as PuppeteerScreenshotOptions } from "puppeteer";
+import { JpegOptions, PngOptions, WebpOptions } from "sharp";
 
-interface OutputSettingsPng {
+interface PngOutputSettings {
     forceExt?: null | ".png";
     compressionLevel?: null | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-    overrides?: {};
+    overrides?: PngOptions;
 }
-interface OutputSettingsOthers {
-    forceExt?: null | ".jpg" | ".jpeg" | "webp";
+interface JpegOutputSettings {
+    forceExt?: null | ".jpg" | ".jpeg";
     compressionLevel?: null | OneTo100;
-    overrides?: {};
+    overrides?: JpegOptions;
+}
+interface WebpOutputSettings {
+    forceExt?: null | ".webp";
+    compressionLevel?: null | OneTo100;
+    overrides?: WebpOptions;
 }
 
 declare namespace ScreenshotTester {
@@ -18,7 +24,7 @@ declare namespace ScreenshotTester {
         includeRectangles?: Rectangle[];
     }
 
-    type OutputSettings = OutputSettingsPng | OutputSettingsOthers;
+    type OutputSettings = PngOutputSettings | JpegOutputSettings | WebpOutputSettings;
 
     interface ErrorSettings {
         /**
@@ -47,6 +53,7 @@ type TesterFunction = (
     name?: string,
     screenshotOptions?: ScreenshotTester.ScreenshotOptions,
 ) => Promise<boolean>;
+
 declare function ScreenshotTester(
     threshold?: number,
     includeAntialiasing?: boolean,
