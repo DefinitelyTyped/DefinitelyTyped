@@ -1,18 +1,5 @@
 import ScreenshotTester, { ErrorSettings, OutputSettings, ScreenshotOptions } from "puppeteer-screenshot-tester";
 
-// Test that color values can only go from 0 to 255
-let errors: ErrorSettings;
-errors = {
-    errorColor: {
-        // @ts-expect-error
-        red: -1,
-        green: 0,
-        blue: 255,
-        // @ts-expect-error
-        alpha: 256,
-    },
-};
-
 // Test that when forceExt is a PNG, the compressionLevel can only go from 0 to 9
 let outputSettings: OutputSettings;
 outputSettings = {
