@@ -1,4 +1,4 @@
-import ScreenshotTester, { ErrorSettings, OutputSettings, ScreenshotOptions } from "puppeteer-screenshot-tester";
+import ScreenshotTester, { OutputSettings, ScreenshotOptions } from "puppeteer-screenshot-tester";
 
 let outputSettings: OutputSettings;
 // Test limits of the compressionclevel that goes from 0 to 9
