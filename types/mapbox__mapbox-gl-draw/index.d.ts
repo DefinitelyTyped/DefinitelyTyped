@@ -24,7 +24,7 @@ type EventOf<T extends MapboxDraw.DrawEventType, Target = unknown> = keyof Mapbo
     } & MapboxDraw.DrawEvents[T];
 
 declare module "mapbox-gl" {
-    interface Map {
+    interface Map$1 {
         on<T extends MapboxDraw.DrawEventType>(type: T, listener: (event: EventOf<T>) => void): this;
         off<T extends MapboxDraw.DrawEventType>(type: T, listener: (event: EventOf<T>) => void): this;
     }
