@@ -2,17 +2,17 @@ import { Page, ScreenshotOptions as PuppeteerScreenshotOptions } from "puppeteer
 import { JpegOptions, PngOptions, WebpOptions } from "sharp";
 
 interface PngOutputSettings {
-    forceExt?: null | ".png";
+    forceExt?: null | "png";
     compressionLevel?: null | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
     overrides?: PngOptions;
 }
 interface JpegOutputSettings {
-    forceExt?: null | ".jpg" | ".jpeg";
+    forceExt?: null | "jpg" | "jpeg";
     compressionLevel?: null | OneTo100;
     overrides?: JpegOptions;
 }
 interface WebpOutputSettings {
-    forceExt?: null | ".webp";
+    forceExt?: null | "webp";
     compressionLevel?: null | OneTo100;
     overrides?: WebpOptions;
 }

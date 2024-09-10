@@ -3,40 +3,40 @@ import ScreenshotTester, { ErrorSettings, OutputSettings, ScreenshotOptions } fr
 let outputSettings: OutputSettings;
 // Test limits of the compressionclevel that goes from 0 to 9
 outputSettings = {
-    forceExt: ".png",
+    forceExt: "png",
     // @ts-expect-error
     compressionLevel: -1,
 };
 outputSettings = {
-    forceExt: ".png",
+    forceExt: "png",
     compressionLevel: 0,
 };
 outputSettings = {
-    forceExt: ".png",
+    forceExt: "png",
     compressionLevel: 9,
 };
 // @ts-expect-error
 outputSettings = {
-    forceExt: ".png",
+    forceExt: "png",
     compressionLevel: 10,
 };
 
 // Test limits of the compression that goes from 1 to 100
 // @ts-expect-error
 outputSettings = {
-    forceExt: ".jpg",
+    forceExt: "jpg",
     compressionLevel: 0,
 };
 outputSettings = {
-    forceExt: ".jpg",
+    forceExt: "jpg",
     compressionLevel: 1,
 };
 outputSettings = {
-    forceExt: ".jpg",
+    forceExt: "jpg",
     compressionLevel: 100,
 };
 outputSettings = {
-    forceExt: ".jpg",
+    forceExt: "jpg",
     // @ts-expect-error
     compressionLevel: 101,
 };
