@@ -4,10 +4,10 @@ import { JpegOptions, PngOptions, WebpOptions } from "sharp";
 interface PngOutputSettings {
     /**
      * If not null or undefined, overrides the extension provided in
-     * either the type or path options of the ScreenshotOptions and therefore
-     * will affect which image formatter is used.
-     * If the extension is not declared neither in forceExt, path or type properties,
-     * the overall default will finally be 'png'.
+     * either the type or path options of the ScreenshotOptions and
+     * therefore will affect which image formatter is used.
+     * If the extension is not declared neither in forceExt, path or
+     * type properties, the overall default will finally be 'png'.
      *
      * @defaultValue `null`
      */
@@ -32,9 +32,9 @@ interface PngOutputSettings {
 
 interface JpegOutputSettings {
     /**
-     * If not null or undefined, overrides the extension provided in
-     * either the type or path options of the ScreenshotOptions and therefore
-     * will affect which image formatter is used.
+     * If not null or undefined, overrides the extension provided in either
+     * the type or path options of the ScreenshotOptions and therefore will
+     * affect which image formatter is used.
      *
      * @defaultValue `null`
      */
@@ -59,9 +59,9 @@ interface JpegOutputSettings {
 
 interface WebpOutputSettings {
     /**
-     * If not null or undefined, overrides the extension provided in
-     * either the type or path options of the ScreenshotOptions and therefore
-     * will affect which image formatter is used.
+     * If not null or undefined, overrides the extension provided in either
+     * the type or path options of the ScreenshotOptions and therefore will
+     * affect which image formatter is used.
      *
      * @defaultValue `null`
      */
