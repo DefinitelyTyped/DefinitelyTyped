@@ -1,6 +1,7 @@
 import MapboxDraw, {
     constants,
-    DrawCustomMode, DrawEvent,
+    DrawCustomMode,
+    DrawEvent,
     DrawFeature,
     DrawMode,
     DrawUpdateEvent,
@@ -34,7 +35,7 @@ draw.delete(["1", "2"]);
 draw.getSelectedIds();
 
 // $ExpectType MapboxDraw
-draw.changeMode("direct_select", {featureId: "1"});
+draw.changeMode("direct_select", { featureId: "1" });
 
 // @ts-expect-error
 draw.changeMode("direct_select");
@@ -44,7 +45,7 @@ draw.changeMode("simple_select");
 
 const drawLineSelect: DrawMode = "draw_line_string";
 // $ExpectType MapboxDraw
-draw.changeMode(drawLineSelect, {featureId: "1", from: [1]});
+draw.changeMode(drawLineSelect, { featureId: "1", from: [1] });
 
 // $ExpectType MapboxDraw
 draw.changeMode("draw_point");
@@ -113,7 +114,7 @@ const customMode: CustomMode = {
         this.customMethod();
 
         // $ExpectType void
-        this.updateUIClasses({mouse: constants.cursors.ADD});
+        this.updateUIClasses({ mouse: constants.cursors.ADD });
 
         // $ExpectType void
         this.changeMode(constants.modes.SIMPLE_SELECT);
@@ -125,32 +126,32 @@ const customMode: CustomMode = {
         lib.CommonSelectors.isVertex(e);
 
         // $ExpectType { lng: number; lat: number; }
-        lib.constrainFeatureMovement([drawFeature], {lng: e.lngLat.lng, lat: e.lngLat.lat});
+        lib.constrainFeatureMovement([drawFeature], { lng: e.lngLat.lng, lat: e.lngLat.lat });
 
         // $ExpectType Feature<Point, GeoJsonProperties> | null
         lib.createMidPoint("1", feature, feature);
 
         // $ExpectType Feature<Point, GeoJsonProperties>[]
-        lib.createSupplementaryPoints(feature, {midpoints: false});
+        lib.createSupplementaryPoints(feature, { midpoints: false });
 
         // $ExpectType Feature<Point, GeoJsonProperties>
         lib.createVertex("1", [e.lngLat.lng, e.lngLat.lat], "0", true);
 
         // $ExpectType number
-        lib.euclideanDistance({x: 10, y: 20}, {x: 100, y: 200});
+        lib.euclideanDistance({ x: 10, y: 20 }, { x: 100, y: 200 });
 
         // lib.doubleClickZoom.disable(this);
         // lib.doubleClickZoom.enable(this);
         // lib.getFeatureAtAndSetCursors(e, this);
 
         // $ExpectType boolean
-        lib.isClick({}, {point: {x: 10, y: 20}, time: 200});
+        lib.isClick({}, { point: { x: 10, y: 20 }, time: 200 });
 
         // $ExpectType boolean
         lib.isEventAtCoordinates(e, [[10, 180]]);
 
         // $ExpectType boolean
-        lib.isTap({point: {x: 5, y: 10}, time: 50}, {point: {x: 10, y: 20}, time: 200});
+        lib.isTap({ point: { x: 5, y: 10 }, time: 50 }, { point: { x: 10, y: 20 }, time: 200 });
 
         // $ExpectType Position[]
         lib.mapEventToBoundingBox(e);
@@ -158,13 +159,13 @@ const customMode: CustomMode = {
         // TODO: add tests to ModeHandler
 
         // $ExpectType void
-        lib.moveFeatures([drawFeature], {lng: 12, lat: 13});
+        lib.moveFeatures([drawFeature], { lng: 12, lat: 13 });
 
         // $ExpectType DrawFeature[]
         lib.sortFeatures([drawFeature]);
 
         // $ExpectType boolean
-        lib.stringSetsAreEqual([{id: "Feature1"}, {id: "Feature2"}], [{id: "Feature1"}, {id: "Feature2"}]);
+        lib.stringSetsAreEqual([{ id: "Feature1" }, { id: "Feature2" }], [{ id: "Feature1" }, { id: "Feature2" }]);
 
         // $ExpectType StringSet
         lib.StringSet(["1", 2]);
@@ -196,19 +197,19 @@ const customMode: CustomMode = {
     },
 };
 
-customMode.onStop = function () {
+customMode.onStop = function() {
     // $ExpectType Map$1
-    this.map
+    this.map;
 
     // $ExpectType Map$1
-    this.map.on('draw.create' as any, (event: DrawEvent) => {
+    this.map.on("draw.create" as any, (event: DrawEvent) => {
         // $ExpectType keyof DrawEvents
-        event.type
+        event.type;
     });
 
     // $ExpectType Map$1
-    this.map.fire('draw.create' as any, {featureId: "1"});
-}
+    this.map.fire("draw.create" as any, { featureId: "1" });
+};
 
 // @ts-expect-error
 const CustomModeMissingDisplayFeatures: DrawCustomMode<{}, {}> = {};
@@ -287,4 +288,3 @@ if (drawFeature.type === "MultiPolygon") {
     // $ExpectType DrawPolygon[]
     drawFeature.features;
 }
-
