@@ -11,7 +11,16 @@ import {
     MultiPolygon,
     Point,
     Polygon,
+    Position,
 } from "geojson";
+
+const position1: Position = [1, 2];
+const position2: Position = [1, 2, 3];
+const legacyPosition: Position = [1, 2, 3, 4];
+// @ts-expect-error
+const invalidPosition1: Position = [];
+// @ts-expect-error
+const invalidPosition2: Position = [1];
 
 let featureCollection: FeatureCollection = {
     type: "FeatureCollection",
