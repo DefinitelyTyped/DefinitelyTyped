@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/snaply",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jeanpierrecarvalho/snaply#readme"
+    ],
+    "devDependencies": {
+        "@types/snaply": "workspace:.",
+        "snaply": "^1.0.5"
+    },
+    "owners": [
+        {
+            "name": "Jean-Pierre Carvalho",
+            "githubUsername": "jeanpierrecarvalho"
+        }
+    ]
+}
