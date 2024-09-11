@@ -1851,7 +1851,7 @@ declare namespace chrome.cookies {
     export interface CookiePartitionKey {
         /** Indicates if the cookie was set in a cross-cross site context. This prevents a top-level site embedded in a cross-site context from accessing cookies set by the top-level site in a same-site context. */
         hasCrossSiteAncestor?: boolean;
-        /** Identifiers of all the browser tabs that share this cookie store. */
+        /** The top-level site the partitioned cookie is available in. */
         topLevelSite?: string;
     }
 
@@ -1859,7 +1859,7 @@ declare namespace chrome.cookies {
     export interface CookieStore {
         /** The unique identifier for the cookie store. */
         id: string;
-        /** he top-level site the partitioned cookie is available in. */
+        /** Identifiers of all the browser tabs that share this cookie store. */
         tabIds: number[];
     }
 
