@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { assert, expect, Should, use, util } from "chai";
+import { assert, config, expect, Should, use, util } from "chai";
 
 const should = Should();
 
@@ -2594,3 +2594,16 @@ suite("narrowing", () => {
         const y: null = x;
     });
 });
+
+function configuringDeepEqual() {
+    config.deepEqual = (expected, actual) => {
+        return util.eql(expected, actual, {
+            comparator: (expected, actual) => {
+                // for non number comparison, use the default behavior
+                if (typeof expected !== "number") return null;
+                // allow a difference of 10 between compared numbers
+                return typeof actual === "number" && Math.abs(actual - expected) < 10;
+            },
+        });
+    };
+}
