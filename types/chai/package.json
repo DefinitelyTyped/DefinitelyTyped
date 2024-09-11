@@ -8,7 +8,7 @@
     ],
     "devDependencies": {
         "@types/chai": "workspace:.",
-        "@types/deep-equal": "*",
+        "@types/deep-eql": "*",
         "@types/node": "*"
     },
     "owners": [
