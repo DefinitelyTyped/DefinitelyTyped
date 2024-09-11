@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/systemjs",
-    "version": "6.13.9999",
+    "version": "6.15.9999",
     "projects": [
         "https://github.com/systemjs/systemjs"
     ],

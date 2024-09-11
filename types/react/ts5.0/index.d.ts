@@ -1598,7 +1598,7 @@ declare namespace React {
      * ```
      */
     function forwardRef<T, P = {}>(
-        render: ForwardRefRenderFunction<T, P>,
+        render: ForwardRefRenderFunction<T, PropsWithoutRef<P>>,
     ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /**

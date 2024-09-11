@@ -1,63 +1,9 @@
-import { Dashicon } from "@wordpress/components";
-import { ComponentProps, ComponentType, JSX, ReactNode } from "react";
-
-declare namespace PluginSidebar {
-    interface Props {
-        children: ReactNode;
-        /**
-         * An optional class name added to the sidebar body.
-         */
-        className?: string | undefined;
-        /**
-         * A Dashicon slug or a custom JSX element to be rendered when the sidebar is pinned to
-         * toolbar.
-         */
-        icon?: ComponentProps<typeof Dashicon>["icon"] | JSX.Element | undefined;
-        /**
-         * Whether to allow to pin sidebar to toolbar.
-         * @defaultValue `true`
-         */
-        isPinnable?: boolean | undefined;
-        /**
-         * A string identifying the sidebar. Must be unique for every sidebar registered within the
-         * scope of your plugin.
-         */
-        name: string;
-        /**
-         * Title displayed at the top of the sidebar.
-         */
-        title: string;
-    }
-}
+import { PluginSidebar as EditorPluginSidebar } from "@wordpress/editor";
 
 /**
- * Renders a sidebar when activated. The contents within the `PluginSidebar` will appear as content
- * within the sidebar.
- *
- * @see {@link PluginSidebarMoreMenuItem }
- *
- * @example
- * ```jsx
- * const { PanelBody } = wp.components;
- * const { PluginSidebar } = wp.editPost;
- *
- * const MyPluginSidebar = () => (
- *     <PluginSidebar
- *         name="my-sidebar"
- *         title="My sidebar title"
- *         icon="smiley"
- *     >
- *         <PanelBody>
- *             My sidebar content
- *         </PanelBody>
- *     </PluginSidebar>
- * );
- *
- * // If you wish to display the sidebar, you can with use the
- * // `PluginSidebarMoreMenuItem` component or the `wp.data.dispatch` API
- * wp.data.dispatch('core/edit-post').openGeneralSidebar('plugin-name/my-sidebar');
- * ```
+ * @deprecated Import PluginSidebar from '@wordpress/editor' instead.
+ * @see https://make.wordpress.org/core/2024/06/18/editor-unified-extensibility-apis-in-6-6/
  */
-declare const PluginSidebar: ComponentType<PluginSidebar.Props>;
+declare const PluginSidebar: typeof EditorPluginSidebar;
 
 export default PluginSidebar;

@@ -694,7 +694,8 @@ braintree.client.create(
 
                         verifyPayload.nonce; // The nonce returned from the 3ds lookup call
                         verifyPayload.liabilityShifted; // boolean
-                        verifyPayload.liabilityShiftPossible; // boolean
+                        verifyPayload.liabilityShiftPossible;
+                        verifyPayload.threeDSecureInfo.status; // boolean
                     },
                 );
             },

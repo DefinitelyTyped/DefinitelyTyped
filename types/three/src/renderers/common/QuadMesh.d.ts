@@ -6,6 +6,8 @@ import Renderer from "./Renderer.js";
 export default class QuadMesh extends Mesh {
     camera: OrthographicCamera;
 
+    readonly isQuadMesh: true;
+
     constructor(material?: Material | null);
 
     renderAsync(renderer: Renderer): Promise<void>;

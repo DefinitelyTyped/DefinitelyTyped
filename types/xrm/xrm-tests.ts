@@ -242,6 +242,21 @@ Xrm.WebApi.retrieveMultipleRecords(
     console.log("Query Returned : " + response.entities.length);
 });
 
+// Confirm generics on query
+Xrm.WebApi.retrieveMultipleRecords(
+    "contact",
+    `?fetchXml=<fetch version='1.0' mapping='logical' distinct='false'>
+    <entity name='contact'>
+        <attribute name='fullname' />
+        <attribute name='telephone1' />
+        <attribute name='contactid' />
+        <order attribute='fullname' descending='false' />
+    </entity>
+    </fetch>`,
+).then((response: Xrm.RetrieveMultipleResult<{ contactid: string; fullname: string; telephone1: string }>) => {
+    console.log("Query Returned : " + response.entities.length);
+});
+
 // Demonstrate add/removeTabStateChange
 const contextHandler = (context: Xrm.Page.EventContext) => {
     context.getEventSource();

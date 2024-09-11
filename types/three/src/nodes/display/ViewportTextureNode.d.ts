@@ -2,9 +2,9 @@ import { FramebufferTexture } from "../../textures/FramebufferTexture.js";
 import TextureNode from "../accessors/TextureNode.js";
 import { NodeUpdateType } from "../core/constants.js";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export default class ViewportTextureNode extends TextureNode {
+declare class ViewportTextureNode extends TextureNode {
     generateMipmaps: boolean;
 
     readonly isOutputTextureNode: true;
@@ -13,6 +13,8 @@ export default class ViewportTextureNode extends TextureNode {
 
     constructor(uvNode?: Node, levelNode?: Node | null, framebufferTexture?: FramebufferTexture | null);
 }
+
+export default ViewportTextureNode;
 
 export const viewportTexture: (
     uvNode?: Node,
@@ -24,10 +26,3 @@ export const viewportMipTexture: (
     levelNode?: Node | null,
     framebufferTexture?: FramebufferTexture | null,
 ) => ShaderNodeObject<Node>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        viewportTexture: typeof viewportTexture;
-        viewportMipTexture: typeof viewportMipTexture;
-    }
-}

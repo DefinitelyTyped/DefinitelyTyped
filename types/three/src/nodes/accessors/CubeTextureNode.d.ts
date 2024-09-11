@@ -1,6 +1,6 @@
 import { CubeTexture } from "../../textures/CubeTexture.js";
 import Node from "../core/Node.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import TextureNode from "./TextureNode.js";
 
 declare class CubeTextureNode extends TextureNode {
@@ -26,9 +26,3 @@ export const cubeTexture: (
     levelNode?: NodeRepresentation,
     biasNode?: NodeRepresentation,
 ) => ShaderNodeObject<CubeTextureNode>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        cubeTexture: typeof cubeTexture;
-    }
-}

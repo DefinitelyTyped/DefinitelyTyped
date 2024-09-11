@@ -3,14 +3,19 @@ type ObjectConstructor = new(...args: any[]) => any;
 declare namespace o {
     type AssertionDescriber = (description: string) => void;
 
+    interface Call<Args extends any[]> {
+        this: ((...args: unknown[]) => unknown) | undefined;
+        args: Args;
+    }
+
     interface Spy<Args extends any[], Returns> {
         (...args: Args): Returns;
         /** The number of times the function has been called */
         readonly callCount: number;
-        /** The arguments that were passed to the function in the last time it was called */
+        /** The arguments that were passed to the function the last time it was called */
         readonly args: Args;
-        /** List of arguments that were passed to the function each tine it was called */
-        readonly calls: Args[];
+        /** The calls made to the spy.  Each array value is an object containing the `this` calling context and an `args` array. */
+        readonly calls: Array<Call<Args>>;
     }
 
     interface Assertion<T> {

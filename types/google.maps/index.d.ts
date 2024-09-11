@@ -1,7 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.57
+// Google Maps JS API Version: 3.58
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -97,6 +97,16 @@ declare namespace google.maps {
      * <code>null</code>, the layer will be removed.
      */
     setMap(map: google.maps.Map | null): void;
+  }
+  /**
+   * The display options for the Camera control.
+   */
+  export interface CameraControlOptions {
+    /**
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_START_BLOCK_END}
+     */
+    position?: google.maps.ControlPosition | null;
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -314,6 +324,31 @@ declare namespace google.maps {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
+   * Identifiers for map color schemes. Specify these by value, or by using the
+   * constant&#39;s name. For example, <code>'FOLLOW_SYSTEM'</code> or
+   * <code>google.maps.ColorScheme.FOLLOW_SYSTEM</code>.
+   *
+   * Access by calling `const {ColorScheme} = await
+   * google.maps.importLibrary("core")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum ColorScheme {
+    /**
+     * The dark color scheme for a map.
+     */
+    DARK = 'DARK',
+    /**
+     * The color scheme is selected based on system preferences.
+     */
+    FOLLOW_SYSTEM = 'FOLLOW_SYSTEM',
+    /**
+     * The light color scheme for a map. Default value for legacy Maps JS.
+     */
+    LIGHT = 'LIGHT',
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
    * An enum representing the spatial relationship between the area and the
    * target location.
    *
@@ -513,6 +548,7 @@ declare namespace google.maps {
     getCameraParams(): google.maps.CameraParams;
   }
   export interface CoreLibrary {
+    ColorScheme: typeof google.maps.ColorScheme;
     ControlPosition: typeof google.maps.ControlPosition;
     event: typeof google.maps.event;
     LatLng: typeof google.maps.LatLng;
@@ -2166,11 +2202,11 @@ declare namespace google.maps {
      * populated for reverse geocoding requests and only when {@link
      * google.maps.ExtraGeocodeComputation.ADDRESS_DESCRIPTORS} is enabled.
      */
-    address_descriptor?: google.maps.AddressDescriptor;
+    address_descriptor?: google.maps.AddressDescriptor | null;
     /**
      * The plus code associated with the location.
      */
-    plus_code?: google.maps.places.PlacePlusCode;
+    plus_code?: google.maps.places.PlacePlusCode | null;
     /**
      * The list of {@link google.maps.GeocoderResult}s.
      */
@@ -4057,6 +4093,14 @@ declare namespace google.maps {
      */
     backgroundColor?: string | null;
     /**
+     * The enabled/disabled state of the Camera control.
+     */
+    cameraControl?: boolean | null;
+    /**
+     * The display options for the Camera control.
+     */
+    cameraControlOptions?: google.maps.CameraControlOptions | null;
+    /**
      * The initial Map center.
      */
     center?: google.maps.LatLng | null | google.maps.LatLngLiteral;
@@ -4066,6 +4110,13 @@ declare namespace google.maps {
      * @defaultValue <code>true</code>
      */
     clickableIcons?: boolean | null;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * The initial Map color scheme. This option can only be set when the map is
+     * initialized.
+     * @defaultValue {@link google.maps.ColorScheme.LIGHT}
+     */
+    colorScheme?: string | null;
     /**
      * Size in pixels of the controls appearing on the map. This value must be
      * supplied directly when creating the Map, updating this value later may
@@ -12312,7 +12363,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring center change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {CenterChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12323,7 +12374,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring center change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {CenterChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12356,6 +12407,7 @@ declare namespace google.maps.maps3d {
      * occurred. Please note, that at coarser levels, less accurate data will be
      * returned. Also, sea floor elevation may be returned for the altitude
      * value when clicking at the water surface from higher camera positions.
+     * This event bubbles up through the DOM tree.
      */
     position: google.maps.LatLngAltitude | null;
   }
@@ -12363,7 +12415,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring heading change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {HeadingChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12374,7 +12426,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring heading change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {HeadingChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12602,8 +12654,7 @@ declare namespace google.maps.maps3d {
      */
     extruded?: boolean | null;
     /**
-     * The fill color. All CSS3 colors are supported except for extended named
-     * colors.
+     * The fill color. All CSS3 colors are supported.
      */
     fillColor?: string | null;
     /**
@@ -12629,8 +12680,7 @@ declare namespace google.maps.maps3d {
      */
     outerCoordinates?: Iterable<google.maps.LatLngLiteral> | null;
     /**
-     * The stroke color. All CSS3 colors are supported except for extended named
-     * colors.
+     * The stroke color. All CSS3 colors are supported.
      */
     strokeColor?: string | null;
     /**
@@ -12760,8 +12810,7 @@ declare namespace google.maps.maps3d {
      */
     geodesic?: boolean | null;
     /**
-     * The outer color. All CSS3 colors are supported except for extended named
-     * colors.
+     * The outer color. All CSS3 colors are supported.
      */
     outerColor?: string | null;
     /**
@@ -12774,8 +12823,7 @@ declare namespace google.maps.maps3d {
      */
     outerWidth?: number | null;
     /**
-     * The stroke color. All CSS3 colors are supported except for extended named
-     * colors.
+     * The stroke color. All CSS3 colors are supported.
      */
     strokeColor?: string | null;
     /**
@@ -12855,7 +12903,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring range change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {RangeChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12866,7 +12914,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring range change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {RangeChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12878,7 +12926,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring roll change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {RollChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12889,7 +12937,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring roll change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {RollChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12901,7 +12949,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring a steady state of
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {SteadyChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12912,7 +12960,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring a steady state of
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {SteadyChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -12929,7 +12977,7 @@ declare namespace google.maps.maps3d {
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
    * This event is created from monitoring tilt change on
-   * <code>Map3DElement</code>.
+   * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
    * Access by calling `const {TiltChangeEvent} = await
    * google.maps.importLibrary("maps3d")`. See
@@ -12940,7 +12988,7 @@ declare namespace google.maps.maps3d {
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
      * This event is created from monitoring tilt change on
-     * <code>Map3DElement</code>.
+     * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
      *
      * Access by calling `const {TiltChangeEvent} = await
      * google.maps.importLibrary("maps3d")`. See
@@ -13507,7 +13555,7 @@ declare namespace google.maps.places {
   export interface AutocompleteRequest {
     /**
      * Included primary <a
-     * href="https://developers.google.com/maps/documentation/places/javascript/place-types">Place
+     * href="https://developers.google.com/maps/documentation/javascript/place-types">Place
      * type</a> (for example, &quot;restaurant&quot; or
      * &quot;gas_station&quot;). <br/><br/> A Place is only returned if its
      * primary type is included in this list. Up to 5 values can be specified.
@@ -14457,6 +14505,12 @@ declare namespace google.maps.places {
      */
     displayName?: string | null;
     /**
+     * The language of the location&#39;s display name. <code>null</code> if
+     * there is no name. <code>undefined</code> if the name data has not been
+     * loaded from the server.
+     */
+    displayNameLanguageCode?: string | null;
+    /**
      * The editorial summary for this place. <code>null</code> if there is no
      * editorial summary. <code>undefined</code> if this field has not yet been
      * requested.
@@ -14600,6 +14654,24 @@ declare namespace google.maps.places {
      * <li><code>Very Expensive</code></li> </ul>
      */
     priceLevel?: google.maps.places.PriceLevel | null;
+    /**
+     * The location&#39;s primary type. <code>null</code> if there is no type.
+     * <code>undefined</code> if the type data has not been loaded from the
+     * server.
+     */
+    primaryType?: string | null;
+    /**
+     * The location&#39;s primary type display name. <code>null</code> if there
+     * is no type. <code>undefined</code> if the type data has not been loaded
+     * from the server.
+     */
+    primaryTypeDisplayName?: string | null;
+    /**
+     * The language of the location&#39;s primary type display name.
+     * <code>null</code> if there is no type. <code>undefined</code> if the type
+     * data has not been loaded from the server.
+     */
+    primaryTypeDisplayNameLanguageCode?: string | null;
     /**
      * A rating, between 1.0 to 5.0, based on user reviews of this Place.
      */

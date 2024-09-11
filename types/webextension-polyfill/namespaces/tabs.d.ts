@@ -2,17 +2,14 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.tabs
- *
- * Use the <code>browser.tabs</code> API to interact with the browser's tab system. You can use this API to create, modify,
- * and rearrange tabs in the browser.
- */
 import { Events } from "./events";
 import { ExtensionTypes } from "./extensionTypes";
 import { Runtime } from "./runtime";
 import { Windows } from "./windows";
 
+/**
+ * Namespace: browser.tabs
+ */
 export namespace Tabs {
     /**
      * An event that caused a muted state change.
@@ -239,6 +236,12 @@ export namespace Tabs {
          * Optional.
          */
         pendingUrl?: string;
+
+        /**
+         * The ID of the group that the tab belongs to.
+         * Optional.
+         */
+        groupId?: number;
     }
 
     /**
@@ -856,6 +859,28 @@ export namespace Tabs {
     }
 
     /**
+     * The options to add the tab(s) to a group.
+     */
+    interface GroupOptionsType {
+        /**
+         * Configurations for creating a group. Cannot be used if groupId is already specified.
+         * Optional.
+         */
+        createProperties?: GroupOptionsTypeCreatePropertiesType;
+
+        /**
+         * The ID of the group to add the tabs to. If not specified, a new group will be created.
+         * Optional.
+         */
+        groupId?: number;
+
+        /**
+         * The tab ID or list of tab IDs to add to the specified group.
+         */
+        tabIds: number | number[];
+    }
+
+    /**
      * Lists the changes to the state of the tab that was updated.
      */
     interface OnUpdatedChangeInfoType {
@@ -1011,6 +1036,17 @@ export namespace Tabs {
         newZoomFactor: number;
 
         zoomSettings: ZoomSettings;
+    }
+
+    /**
+     * Configurations for creating a group. Cannot be used if groupId is already specified.
+     */
+    interface GroupOptionsTypeCreatePropertiesType {
+        /**
+         * The window of the new group. Defaults to the current window.
+         * Optional.
+         */
+        windowId?: number;
     }
 
     /**
@@ -1350,6 +1386,14 @@ export namespace Tabs {
          * @param tabId Optional. The ID of the tab to navigate backward.
          */
         goBack(tabId?: number): Promise<void>;
+
+        /**
+         * Chrome API (only available for Chrome)
+         * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
+         *
+         * @param options The options to add the tab(s) to a group.
+         */
+        group?(options: GroupOptionsType): Promise<number>;
 
         /**
          * Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired,

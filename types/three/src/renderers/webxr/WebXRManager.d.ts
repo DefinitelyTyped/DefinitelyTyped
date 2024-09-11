@@ -1,5 +1,3 @@
-// https://threejs.org/docs/#api/en/renderers/webxr/WebXRManager
-
 /// <reference types="webxr" />
 
 import { ArrayCamera } from "../../cameras/ArrayCamera.js";

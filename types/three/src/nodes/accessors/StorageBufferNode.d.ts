@@ -1,8 +1,8 @@
 import StorageBufferAttribute from "../../renderers/common/StorageBufferAttribute.js";
 import StorageInstancedBufferAttribute from "../../renderers/common/StorageInstancedBufferAttribute.js";
 import { GPUBufferBindingType } from "../../renderers/webgpu/utils/WebGPUConstants.js";
-import { NodeOrType, NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
-import StorageArrayElementNode from "../utils/StoargeArrayElementNode.js";
+import { NodeOrType, NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import StorageArrayElementNode from "../utils/StorageArrayElementNode.js";
 import BufferNode from "./BufferNode.js";
 
 export default class StorageBufferNode extends BufferNode {

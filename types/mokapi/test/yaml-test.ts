@@ -4,7 +4,8 @@ import { parse, stringify } from "mokapi/yaml";
 // @ts-expect-error
 parse(1);
 parse("");
-const json: JSONValue = parse("");
+const person = parse("");
+person.name;
 
 // @ts-expect-error
 const n1: number = stringify(1);

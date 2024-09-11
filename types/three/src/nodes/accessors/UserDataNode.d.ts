@@ -1,4 +1,4 @@
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import ReferenceNode from "./ReferenceNode.js";
 
 export type NodeUserData = Record<string, any>;

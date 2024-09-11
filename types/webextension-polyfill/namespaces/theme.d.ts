@@ -2,14 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.theme
- *
- * The theme API allows customizing of visual elements of the browser.
- */
 import { Events } from "./events";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.theme
+ */
 export namespace Theme {
     /**
      * Info provided in the onUpdated listener.

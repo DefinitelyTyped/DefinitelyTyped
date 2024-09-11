@@ -2,16 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.action
- *
- * Use browser actions to put icons in the main browser toolbar, to the right of the address bar. In addition to its icon,
- * a browser action can also have a tooltip, a badge, and a popup.
- * Permissions: "manifest:action", "manifest:browser_action"
- */
 import { Events } from "./events";
 import { Tabs } from "./tabs";
 
+/**
+ * Namespace: browser.action
+ */
 export namespace Action {
     /**
      * Specifies to which tab or window the value should be set, or from which one it should be retrieved.

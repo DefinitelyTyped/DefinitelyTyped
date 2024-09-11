@@ -53,7 +53,7 @@ export class OutlinePass extends Pass {
     tempPulseColor2: Color;
     textureMatrix: Matrix4;
 
-    dispose(): void;
+    updateSelectionCache(): void;
     changeVisibilityOfSelectedObjects(bVisible: boolean): void;
     changeVisibilityOfNonSelectedObjects(bVisible: boolean): void;
     updateTextureMatrix(): void;

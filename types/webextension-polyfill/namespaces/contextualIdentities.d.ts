@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.contextualIdentities
- *
- * Use the <code>browser.contextualIdentities</code> API to query and modify contextual identity, also called as containers.
- * Permissions: "contextualIdentities"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.contextualIdentities
+ */
 export namespace ContextualIdentities {
     /**
      * Represents information about a contextual identity.

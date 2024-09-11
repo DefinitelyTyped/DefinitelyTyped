@@ -2,14 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.downloads
- *
- * Permissions: "downloads"
- */
 import { Events } from "./events";
 import { ExtensionTypes } from "./extensionTypes";
 
+/**
+ * Namespace: browser.downloads
+ */
 export namespace Downloads {
     type FilenameConflictAction = "uniquify" | "overwrite" | "prompt";
 

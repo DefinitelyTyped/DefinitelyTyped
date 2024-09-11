@@ -1,9 +1,13 @@
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 
-export type IndexNodeScope = typeof IndexNode.VERTEX | typeof IndexNode.INSTANCE | typeof IndexNode.DRAW;
+export type IndexNodeScope =
+    | typeof IndexNode.VERTEX
+    | typeof IndexNode.INSTANCE
+    | typeof IndexNode.INVOCATION_LOCAL
+    | typeof IndexNode.DRAW;
 
-export default class IndexNode extends Node {
+declare class IndexNode extends Node {
     scope: IndexNodeScope;
 
     readonly isInstanceNode: true;
@@ -12,9 +16,13 @@ export default class IndexNode extends Node {
 
     static VERTEX: "vertex";
     static INSTANCE: "instance";
+    static INVOCATION_LOCAL: "invocationLocal";
     static DRAW: "draw";
 }
 
+export default IndexNode;
+
 export const vertexIndex: ShaderNodeObject<IndexNode>;
 export const instanceIndex: ShaderNodeObject<IndexNode>;
+export const invocationLocalIndex: ShaderNodeObject<IndexNode>;
 export const drawIndex: ShaderNodeObject<IndexNode>;

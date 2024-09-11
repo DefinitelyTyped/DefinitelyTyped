@@ -43,6 +43,10 @@ export class KTX2Loader extends Loader<CompressedTexture> {
      */
     detectSupport(renderer: WebGLRenderer | WebGPURenderer): this;
 
+    init(): Promise<void>;
+
+    parse(buffer: ArrayBuffer, onLoad?: (texture: CompressedTexture) => void, onError?: (err: unknown) => void): void;
+
     /**
      * Disposes the loader object, de-allocating any Web Workers created.
      */

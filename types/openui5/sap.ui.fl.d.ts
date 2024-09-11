@@ -1,4 +1,4 @@
-// For Library Version: 1.127.0
+// For Library Version: 1.128.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1506,13 +1506,19 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewInbound": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddTechnicalAttributes": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeDataSource": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeOutbound": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/app/RemoveAllInboundsExceptOne": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetAch": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/SetDescription": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
 
@@ -1553,6 +1559,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/controlVariants/URLHandler": undefined;
 
     "sap/ui/fl/apply/_internal/extensionPoint/Registry": undefined;
+
+    "sap/ui/fl/apply/_internal/flexObjects/AnnotationChange": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/AppDescriptorChange": undefined;
 
@@ -1656,8 +1664,6 @@ declare namespace sap {
 
     "sap/ui/fl/registry/Settings": undefined;
 
-    "sap/ui/fl/support/_internal/getAllUIChanges": undefined;
-
     "sap/ui/fl/support/_internal/getChangeDependencies": undefined;
 
     "sap/ui/fl/support/_internal/getFlexSettings": undefined;
@@ -1714,7 +1720,7 @@ declare namespace sap {
 
     "sap/ui/fl/write/_internal/flexState/compVariants/CompVariantState": undefined;
 
-    "sap/ui/fl/write/_internal/flexState/FlexObjectState": undefined;
+    "sap/ui/fl/write/_internal/flexState/FlexObjectManager": undefined;
 
     "sap/ui/fl/write/_internal/flexState/UI2Personalization/UI2PersonalizationState": undefined;
 

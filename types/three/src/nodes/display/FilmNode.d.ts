@@ -1,6 +1,6 @@
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class FilmNode extends TempNode {
     inputNode: Node;
@@ -10,16 +10,10 @@ declare class FilmNode extends TempNode {
     constructor(inputNode: Node, intensityNode?: Node | null, uvNode?: Node | null);
 }
 
+export default FilmNode;
+
 export const film: (
     inputNode: NodeRepresentation,
     intensityNode?: NodeRepresentation | null,
     uvNode?: NodeRepresentation | null,
 ) => ShaderNodeObject<FilmNode>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        film: typeof film;
-    }
-}
-
-export default FilmNode;

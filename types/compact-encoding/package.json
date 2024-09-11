@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/compact-encoding",
+    "version": "2.15.9999",
+    "projects": [
+        "https://github.com/compact-encoding/compact-encoding"
+    ],
+    "devDependencies": {
+        "@types/compact-encoding": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Hahn",
+            "githubUsername": "EvanHahn"
+        }
+    ]
+}

@@ -13750,7 +13750,7 @@ interface HTMLElement {
     /**
      * @requires Permissions: 'pointerLock'
      */
-    requestPointerLock(): void;
+    requestPointerLock(): Promise<void>;
     /**
      * @requires Permissions: 'pointerLock'
      */

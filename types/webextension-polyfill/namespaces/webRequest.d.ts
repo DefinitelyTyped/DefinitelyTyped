@@ -2,15 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.webRequest
- *
- * Use the <code>browser.webRequest</code> API to observe and analyze traffic and to intercept, block,
- * or modify requests in-flight.
- * Permissions: "webRequest"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.webRequest
+ */
 export namespace WebRequest {
     type ResourceType =
         | "main_frame"

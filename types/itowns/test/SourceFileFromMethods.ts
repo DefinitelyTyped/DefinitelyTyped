@@ -56,3 +56,8 @@ view.addEventListener(itowns.GLOBE_VIEW_EVENTS.GLOBE_INITIALIZED, () => {
     // Move the camera to visualize all data.
     view.controls?.lookAtCoordinate(sourceFromFetcherAndParser.extent, false);
 });
+
+view.addEventListener(itowns.VIEW_EVENTS.COLOR_LAYERS_ORDER_CHANGED, (event) => {
+    event.previous.sequence; // $ExpectType string[]
+    event.new.sequence; // $ExpectType string[]
+});

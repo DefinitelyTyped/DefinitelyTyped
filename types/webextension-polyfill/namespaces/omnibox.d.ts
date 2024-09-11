@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.omnibox
- *
- * The omnibox API allows you to register a keyword with Firefox's address bar.
- * Permissions: "manifest:omnibox"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.omnibox
+ */
 export namespace Omnibox {
     /**
      * The style type.

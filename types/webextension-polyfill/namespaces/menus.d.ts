@@ -2,17 +2,13 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.menus
- *
- * Use the browser.menus API to add items to the browser's menus. You can choose what types of objects your context menu
- * additions apply to, such as images, hyperlinks, and pages.
- * Permissions: "menus"
- */
 import { Events } from "./events";
 import { Extension } from "./extension";
 import { Tabs } from "./tabs";
 
+/**
+ * Namespace: browser.menus
+ */
 export namespace Menus {
     /**
      * The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts

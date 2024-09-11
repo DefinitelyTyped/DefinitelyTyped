@@ -34,6 +34,7 @@ import Version from "sap/base/util/Version";
 import UploadItem from "sap/m/upload/UploadItem";
 import DragDropInfo from "sap/ui/core/dnd/DragDropInfo";
 import nextUIUpdate from "sap/ui/test/utils/nextUIUpdate";
+import Link from "sap/m/Link";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -231,3 +232,7 @@ drag.getKeyboardHandling();
 
 // 1.127
 nextUIUpdate();
+
+// 1.128
+const link = new Link();
+link.getEndIcon();

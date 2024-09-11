@@ -117,13 +117,25 @@ test(undefined, undefined, t => {
     // $ExpectType void
     t.todo();
     // $ExpectType void
-    t.after(() => {});
+    t.after(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.afterEach(() => {});
+    t.afterEach(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.beforeEach(() => {});
+    t.beforeEach(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.before(() => {});
+    t.before(t => {
+        // $ExpectType TestContext
+        t;
+    });
 
     // $ExpectType string
     t.name;
@@ -456,33 +468,33 @@ beforeEach(() => {});
 after(() => {});
 beforeEach(() => {});
 // - with callback
-before((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+before((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-beforeEach((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+beforeEach((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-after((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+after((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-afterEach((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+afterEach((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void

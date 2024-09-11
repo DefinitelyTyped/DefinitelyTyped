@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.devtools.network
- *
- * Use the <code>chrome.devtools.network</code> API to retrieve the information about network requests displayed by the
- * Developer Tools in the Network panel.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.devtools.network
+ */
 export namespace DevtoolsNetwork {
     /**
      * Represents a network request for a document resource (script, image and so on). See HAR Specification for reference.

@@ -1,6 +1,6 @@
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import OperatorNode from "./OperatorNode.js";
 
 export type MathNodeMethod1 =
@@ -210,7 +210,7 @@ export const rand: (uv: NodeRepresentation) => ShaderNodeObject<OperatorNode>;
 export const mixElement: Ternary;
 export const smoothstepElement: Ternary;
 
-declare module "../shadernode/ShaderNode.js" {
+declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         all: typeof all;
         any: typeof any;

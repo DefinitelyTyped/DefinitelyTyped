@@ -1,5 +1,6 @@
-import { KafkaEventHandler, KafkaRecord, produce, ProduceResult } from "mokapi/kafka";
+import { produce, produceAsync, ProduceResult } from "mokapi/kafka";
 
+produce();
 // @ts-expect-error
 produce(1);
 // @ts-expect-error
@@ -25,6 +26,28 @@ produce({
         "Content-Type": "application/json",
     },
 });
+produce({
+    // @ts-expect-error
+    messages: {},
+});
+produce({
+    messages: [{}],
+});
+produce({
+    messages: [{
+        partition: 0,
+        key: "foo",
+        data: { name: "bar" },
+        value: "{\"name\": \"bar\"}",
+        headers: {
+            "message-key": "123456",
+        },
+    }],
+});
+
+produceAsync();
+produceAsync({ topic: "foo" });
+
 const args: ProduceResult = produce({});
 // @ts-expect-error
 args.cluster = "foo";
@@ -40,28 +63,3 @@ args.key = "foo";
 args.value = "foo";
 // @ts-expect-error
 args.headers = "foo";
-
-// @ts-expect-error
-let h: KafkaEventHandler = () => {};
-// @ts-expect-error
-h = (r: KafkaRecord) => {};
-h = (r: KafkaRecord): boolean => {
-    return false;
-};
-h = (record: KafkaRecord): boolean => {
-    // @ts-expect-error
-    record.offset = 12;
-    // @ts-expect-error
-    record.key = 123;
-    record.key = "key";
-    // @ts-expect-error
-    record.value = 12;
-    record.value = "value";
-    // @ts-expect-error
-    record.headers = 123;
-    record.headers = {};
-    record.headers = null;
-    record.headers = { foo: "bar" };
-
-    return false;
-};

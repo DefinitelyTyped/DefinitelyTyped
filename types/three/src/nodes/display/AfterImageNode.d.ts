@@ -2,7 +2,7 @@ import TextureNode from "../accessors/TextureNode.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 import UniformNode from "../core/UniformNode.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class AfterImageNode extends TempNode {
     textureNode: TextureNode;
@@ -17,9 +17,3 @@ export default class AfterImageNode extends TempNode {
 }
 
 export const afterImage: (node: Node, damp?: number) => ShaderNodeObject<AfterImageNode>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        afterImage: typeof afterImage;
-    }
-}

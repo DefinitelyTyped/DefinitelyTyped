@@ -1,5 +1,5 @@
 import UniformNode from "../core/UniformNode.js";
-import { NodeOrType, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeOrType, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class BufferNode extends UniformNode<unknown> {
     isBufferNode: true;

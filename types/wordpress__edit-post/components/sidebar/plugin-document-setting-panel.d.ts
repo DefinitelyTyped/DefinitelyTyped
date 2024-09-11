@@ -1,49 +1,9 @@
-import { Dashicon, Slot } from "@wordpress/components";
-import { ComponentProps, FC, JSX, ReactNode } from "react";
-
-declare namespace PluginDocumentSettingPanel {
-    interface Props {
-        children: ReactNode;
-        /**
-         * The machine-friendly name for the panel.
-         */
-        name?: string | undefined;
-        /**
-         * An optional class name added to the row.
-         */
-        className?: string | undefined;
-        /**
-         * The title of the panel.
-         */
-        title?: string | undefined;
-        /**
-         * A Dashicon slug or a custom JSX element to be rendered when the sidebar is pinned to
-         * toolbar.
-         */
-        icon?: ComponentProps<typeof Dashicon>["icon"] | JSX.Element | undefined;
-    }
-}
+import { PluginDocumentSettingPanel as EditorPluginDocumentSettingPanel } from "@wordpress/editor";
 
 /**
- * Renders items below the Status & Availability panel in the Document Sidebar.
- *
- * @example
- * ```jsx
- * const { registerPlugin } = wp.plugins;
- * const { PluginDocumentSettingPanel } = wp.editPost;
- *
- * const MyDocumentSettingTest = () => (
- *     <PluginDocumentSettingPanel className="my-document-setting-plugin" title="My Panel">
- *         <p>My Document Setting Panel</p>
- *     </PluginDocumentSettingPanel>
- * );
- *
- * registerPlugin( 'document-setting-test', { render: MyDocumentSettingTest } );
- * ```
+ * @deprecated Import PluginDocumentSettingPanel from '@wordpress/editor' instead.
+ * @see https://make.wordpress.org/core/2024/06/18/editor-unified-extensibility-apis-in-6-6/
  */
-declare const PluginDocumentSettingPanel: {
-    (props: PluginDocumentSettingPanel.Props): JSX.Element;
-    Slot: FC<Omit<ComponentProps<typeof Slot>, "name">>;
-};
+declare const PluginDocumentSettingPanel: typeof EditorPluginDocumentSettingPanel;
 
 export default PluginDocumentSettingPanel;

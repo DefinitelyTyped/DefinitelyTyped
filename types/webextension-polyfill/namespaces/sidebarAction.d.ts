@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.sidebarAction
- *
- * Use sidebar actions to add a sidebar to Firefox.
- * Permissions: "manifest:sidebar_action"
  */
 export namespace SidebarAction {
     /**

@@ -138,6 +138,7 @@ declare class NavigateEvent extends Event {
     readonly canIntercept: boolean;
     readonly userInitiated: boolean;
     readonly hashChange: boolean;
+    readonly hasUAVisualTransition: boolean;
     readonly destination: NavigationDestination;
     readonly signal: AbortSignal;
     readonly formData: FormData | null;

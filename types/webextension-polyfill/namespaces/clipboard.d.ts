@@ -4,10 +4,6 @@
 
 /**
  * Namespace: browser.clipboard
- *
- * Offers the ability to write to the clipboard. Reading is not supported because the clipboard can already be read through
- * the standard web platform APIs.
- * Permissions: "clipboardWrite"
  */
 export namespace Clipboard {
     /**

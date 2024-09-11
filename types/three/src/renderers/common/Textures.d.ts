@@ -34,6 +34,7 @@ interface TextureData {
     initialized?: boolean;
     version?: number;
     isDefaultTexture?: boolean;
+    generation?: number;
 }
 interface TextureOptions {
     width?: number;

@@ -1,5 +1,5 @@
 import UniformNode from "../core/UniformNode.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type TimerNodeScope =
     | typeof TimerNode.LOCAL

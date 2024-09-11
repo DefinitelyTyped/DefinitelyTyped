@@ -126,6 +126,8 @@ const uniDiffPatch = Diff.structuredPatch("oldFile.ts", "newFile.ts", one, other
 });
 verifyPatchMethods(one, other, uniDiffPatch);
 
+const formatted: string = Diff.formatPatch(uniDiffPatch);
+
 const uniDiffStr = Diff.createPatch("file.ts", one, other, "old", "new", { context: 1 });
 verifyApplyMethods(one, other, uniDiffStr);
 

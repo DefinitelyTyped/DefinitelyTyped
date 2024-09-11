@@ -1,4 +1,4 @@
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
 import NodeVarying from "./NodeVarying.js";
@@ -14,7 +14,7 @@ export default class VaryingNode extends Node {
 
 export const varying: (node: NodeRepresentation, name?: string) => ShaderNodeObject<VaryingNode>;
 
-declare module "../shadernode/ShaderNode.js" {
+declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         varying: typeof varying;
     }

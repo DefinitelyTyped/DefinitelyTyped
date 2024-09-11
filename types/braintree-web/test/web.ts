@@ -1036,6 +1036,7 @@ braintree.client.create(
                         verifyPayload.liabilityShifted || verifyPayload.threeDSecureInfo.liabilityShifted; // boolean
                         verifyPayload.liabilityShiftPossible || verifyPayload.threeDSecureInfo.liabilityShiftPossible; // boolean
                         verifyPayload.binData.issuingBank; // The issuing bank.
+                        verifyPayload.threeDSecureInfo.status; // The 3D Secure status.
                     },
                 );
 

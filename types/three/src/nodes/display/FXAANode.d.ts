@@ -1,6 +1,6 @@
 import TextureNode from "../accessors/TextureNode.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class FXAANode extends TempNode {
     textureNode: TextureNode;
@@ -8,12 +8,6 @@ declare class FXAANode extends TempNode {
     constructor(textureNode: TextureNode);
 }
 
-export const fxaa: (node: NodeRepresentation) => ShaderNodeObject<FXAANode>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        fxaa: typeof fxaa;
-    }
-}
-
 export default FXAANode;
+
+export const fxaa: (node: NodeRepresentation) => ShaderNodeObject<FXAANode>;

@@ -2,15 +2,13 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.devtools
- *
- * Permissions: "manifest:devtools_page"
- */
 import { DevtoolsInspectedWindow } from "./devtools_inspectedWindow";
 import { DevtoolsNetwork } from "./devtools_network";
 import { DevtoolsPanels } from "./devtools_panels";
 
+/**
+ * Namespace: browser.devtools
+ */
 export namespace Devtools {
     interface Static {
         inspectedWindow: DevtoolsInspectedWindow.Static;

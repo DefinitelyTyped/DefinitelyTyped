@@ -216,6 +216,7 @@ declare namespace Calendar {
         startEditable?: boolean;
         durationEditable?: boolean;
         resourceIds?: string | number | Array<string | number>;
+        resourceId?: string | number | Array<string | number>;
         display?: "auto" | "background";
         backgroundColor?: string;
         textColor?: string;

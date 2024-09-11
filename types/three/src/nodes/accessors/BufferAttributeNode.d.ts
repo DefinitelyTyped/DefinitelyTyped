@@ -32,22 +32,22 @@ export declare const bufferAttribute: (
     type?: string | null,
     stride?: number,
     offset?: number,
-) => import("../shadernode/ShaderNode.js").ShaderNodeObject<BufferAttributeNode>;
+) => import("../tsl/TSLCore.js").ShaderNodeObject<BufferAttributeNode>;
 export declare const dynamicBufferAttribute: (
     array: TypedArray | InterleavedBuffer | BufferAttribute,
     type?: string | null,
     stride?: number,
     offset?: number,
-) => import("../shadernode/ShaderNode.js").ShaderNodeObject<BufferAttributeNode>;
+) => import("../tsl/TSLCore.js").ShaderNodeObject<BufferAttributeNode>;
 export declare const instancedBufferAttribute: (
     array: TypedArray | InterleavedBuffer | BufferAttribute,
     type?: string | null,
     stride?: number,
     offset?: number,
-) => import("../shadernode/ShaderNode.js").ShaderNodeObject<BufferAttributeNode>;
+) => import("../tsl/TSLCore.js").ShaderNodeObject<BufferAttributeNode>;
 export declare const instancedDynamicBufferAttribute: (
     array: TypedArray | InterleavedBuffer | BufferAttribute,
     type?: string | null,
     stride?: number,
     offset?: number,
-) => import("../shadernode/ShaderNode.js").ShaderNodeObject<BufferAttributeNode>;
+) => import("../tsl/TSLCore.js").ShaderNodeObject<BufferAttributeNode>;

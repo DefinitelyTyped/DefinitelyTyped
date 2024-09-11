@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/levn",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/gkz/levn"
+    ],
+    "dependencies": {
+        "@types/type-check": "*"
+    },
+    "devDependencies": {
+        "@types/levn": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Goldberg",
+            "githubUsername": "JoshuaKGoldberg"
+        }
+    ]
+}

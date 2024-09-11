@@ -1,25 +1,28 @@
-declare namespace TypeCheck {
-    export interface CustomType {
-        [typeName: string]: {
-            typeOf: string;
-            validate: (x: any) => any;
-        };
-    }
+export const VERSION: string;
 
-    export interface Options {
-        customTypes: CustomType;
-    }
-
-    export interface TC {
-        VERSION: string;
-        typeCheck: (typeDescription: string, inst: any, options?: Options) => boolean;
-        parseType: (typeDescription: string) => Object;
-        parsedTypeCheck: (parsedType: any, obj: any) => boolean;
-    }
+export interface CustomType {
+    typeOf: string;
+    validate: (input: unknown) => boolean;
 }
 
-declare var typecheck: TypeCheck.TC;
-
-declare module "type-check" {
-    export = typecheck;
+export interface CustomTypes {
+    [typeName: string]: CustomType;
 }
+
+export interface Options {
+    customTypes?: CustomTypes;
+}
+
+export function typeCheck(type: string, input: unknown, options?: Options): boolean;
+
+// This is, in fact, a single element tuple.
+// eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+export type ParsedType = [ParsedTypeData];
+
+export interface ParsedTypeData {
+    type: string;
+}
+
+export function parseType(type: string): ParsedType;
+
+export function parsedTypeCheck(parsedType: ParsedType, input: string, options?: Options): boolean;

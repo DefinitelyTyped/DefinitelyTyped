@@ -1,5 +1,5 @@
 import AttributeNode from "../core/AttributeNode.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export default class VertexColorNode extends AttributeNode {
     readonly isVertexColorNode: true;

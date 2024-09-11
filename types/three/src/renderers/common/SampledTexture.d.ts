@@ -3,12 +3,18 @@ import Binding from "./Binding.js";
 
 declare class SampledTexture extends Binding {
     id: number;
+
     texture: Texture | null;
     version: number;
     store: boolean;
+    generation: number | null;
+
     readonly isSampledTexture: true;
+
     constructor(name: string, texture: Texture | null);
-    get needsBindingsUpdate(): boolean;
+
+    needsBindingsUpdate(generation: number): boolean;
+
     update(): boolean;
 }
 

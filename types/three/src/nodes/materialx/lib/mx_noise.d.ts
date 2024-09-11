@@ -1,6 +1,6 @@
 import Node from "../../core/Node.js";
 import VarNode from "../../core/VarNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../../tsl/TSLCore.js";
 
 export const mx_select: (
     b_immutable: NodeRepresentation,

@@ -10,7 +10,9 @@ import { Color } from "../../math/Color.js";
 import { Plane } from "../../math/Plane.js";
 import { Vector2 } from "../../math/Vector2.js";
 import { Vector4 } from "../../math/Vector4.js";
-import { ComputeNode, LightsNode, MRTNode } from "../../nodes/Nodes.js";
+import MRTNode from "../../nodes/core/MRTNode.js";
+import ComputeNode from "../../nodes/gpgpu/ComputeNode.js";
+import LightsNode from "../../nodes/lighting/LightsNode.js";
 import { Scene } from "../../scenes/Scene.js";
 import { FramebufferTexture } from "../../textures/FramebufferTexture.js";
 import { Texture } from "../../textures/Texture.js";
@@ -22,6 +24,7 @@ import Bindings from "./Bindings.js";
 import Color4 from "./Color4.js";
 import Geometries from "./Geometries.js";
 import Info from "./Info.js";
+import NodeLibrary from "./nodes/NodeLibrary.js";
 import Nodes from "./nodes/Nodes.js";
 import Pipelines from "./Pipelines.js";
 import QuadMesh from "./QuadMesh.js";
@@ -38,6 +41,7 @@ export interface RendererParameters {
     alpha?: boolean | undefined;
     antialias?: boolean | undefined;
     samples?: number | undefined;
+    getFallback?: ((error: unknown) => Backend) | null | undefined;
 }
 declare class Renderer {
     readonly isRenderer: true;
@@ -58,6 +62,10 @@ declare class Renderer {
     stencil: boolean;
     clippingPlanes: readonly Plane[];
     info: Info;
+    nodes: {
+        library: NodeLibrary;
+    };
+    _getFallback: ((error: unknown) => Backend) | null;
     _pixelRatio: number;
     _width: number;
     _height: number;
@@ -142,12 +150,16 @@ declare class Renderer {
                 glFragmentShader: WebGLShader,
             ) => void)
             | null;
+        getShaderAsync: (scene: Scene, camera: Camera, object: Object3D) => Promise<{
+            fragmentShader: string | null;
+            vertexShader: string | null;
+        }>;
     };
     localClippingEnabled?: boolean | undefined;
     constructor(backend: Backend, parameters?: RendererParameters);
     init(): Promise<void>;
     get coordinateSystem(): import("../../constants.js").CoordinateSystem;
-    compileAsync(scene: Scene, camera: Camera, targetScene?: Scene | null): Promise<void>;
+    compileAsync(scene: Object3D, camera: Camera, targetScene?: Object3D | null): Promise<void>;
     renderAsync(scene: Scene, camera: Camera): Promise<void>;
     setMRT(mrt: MRTNode | null): this;
     getMRT(): MRTNode | null;
@@ -194,6 +206,7 @@ declare class Renderer {
     clearColorAsync(): Promise<void>;
     clearDepthAsync(): Promise<void>;
     clearStencilAsync(): Promise<void>;
+    get currentToneMapping(): ToneMapping;
     get currentColorSpace(): ColorSpace;
     dispose(): void;
     setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipmapLevel?: number): void;
@@ -268,10 +281,9 @@ declare class Renderer {
         scene: Scene,
         camera: Camera,
         lightsNode: LightsNode,
-        group: GeometryGroup,
         passId?: string,
     ): void;
     get compute(): (computeNodes: ComputeNode | ComputeNode[]) => Promise<void>;
-    get compile(): (scene: Scene, camera: Camera, targetScene?: Scene | null) => Promise<void>;
+    get compile(): (scene: Object3D, camera: Camera, targetScene?: Object3D | null) => Promise<void>;
 }
 export default Renderer;

@@ -2,17 +2,13 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.runtime
- *
- * Use the <code>browser.runtime</code> API to retrieve the background page, return details about the manifest,
- * and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the
- * relative path of URLs to fully-qualified URLs.
- */
 import { Events } from "./events";
 import { Manifest } from "./manifest";
 import { Tabs } from "./tabs";
 
+/**
+ * Namespace: browser.runtime
+ */
 export namespace Runtime {
     /**
      * A filter to match against existing extension context. Matching contexts must match all specified filters.

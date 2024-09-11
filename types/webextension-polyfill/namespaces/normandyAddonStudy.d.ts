@@ -2,15 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.normandyAddonStudy
- *
- * Normandy Study API
- * Permissions: "normandyAddonStudy"
- */
 import { Events } from "./events";
 import { ExtensionTypes } from "./extensionTypes";
 
+/**
+ * Namespace: browser.normandyAddonStudy
+ */
 export namespace NormandyAddonStudy {
     interface Study {
         /**

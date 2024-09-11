@@ -2,15 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.devtools.panels
- *
- * Use the <code>chrome.devtools.panels</code> API to integrate your extension into Developer Tools window UI: create your
- * own panels, access existing panels, and add sidebars.
- */
 import { Events } from "./events";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.devtools.panels
+ */
 export namespace DevtoolsPanels {
     /**
      * Represents the Elements panel.

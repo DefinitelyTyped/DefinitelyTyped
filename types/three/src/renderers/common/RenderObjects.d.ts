@@ -37,7 +37,7 @@ declare class RenderObjects {
         camera: Camera,
         lightsNode: LightsNode,
         renderContext: RenderContext,
-        passId: string | undefined,
+        passId?: string | undefined,
     ): RenderObject;
     getChainMap(
         passId?: string,

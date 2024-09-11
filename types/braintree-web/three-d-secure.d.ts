@@ -27,6 +27,25 @@ export interface ThreeDSecureInfo {
     threeDSecureVersion: string;
     eciFlag: string;
     threeDSecureAuthenticationId: string;
+    status:
+        | "authenticate_attempt_successful"
+        | "authenticate_error"
+        | "authenticate_failed_acs_error"
+        | "authenticate_failed"
+        | "authenticate_frictionless_failed"
+        | "authenticate_rejected"
+        | "authenticate_successful"
+        | "authenticate_unable_to_authenticate"
+        | "authentication_unavailable"
+        | "challenge_required"
+        | "data_only_successful"
+        | "lookup_bypassed"
+        | "lookup_card_error"
+        | "lookup_error"
+        | "lookup_failed_acs_error"
+        | "lookup_not_enrolled"
+        | "unsupported_account_type"
+        | "unsupported_card";
 }
 
 export interface ThreeDSecureVerifyPayload {

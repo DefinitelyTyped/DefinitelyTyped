@@ -304,6 +304,51 @@ e.store.name;
 <e.PostVisibilityLabel />;
 
 //
+// PluginDocumentSettingPanel
+//
+<e.PluginDocumentSettingPanel name="dts-test" title="Test panel" />;
+
+//
+// PluginSidebarMoreMenuItem
+//
+<e.PluginSidebarMoreMenuItem target="my-sidebar">
+    My sidebar title
+</e.PluginSidebarMoreMenuItem>;
+
+//
+// PluginSidebar
+//
+<e.PluginSidebar name="my-sidebar" title="My sidebar title">
+    My sidebar content
+</e.PluginSidebar>;
+
+//
+// PluginPostStatusInfo
+//
+<e.PluginPostStatusInfo className="my-plugin-post-status-info">
+    My post status info
+</e.PluginPostStatusInfo>;
+
+//
+// PluginPostPublishPanel
+//
+<e.PluginPostPublishPanel className="my-plugin-post-publish-panel" title="My panel title" initialOpen={true}>
+    My panel content
+</e.PluginPostPublishPanel>;
+
+//
+// PluginPrePublishPanel
+//
+<e.PluginPrePublishPanel className="my-plugin-pre-publish-panel" title="My panel title" initialOpen={true}>
+    My panel content
+</e.PluginPrePublishPanel>;
+
+// PluginMoreMenuItem
+<e.PluginMoreMenuItem onClick={() => console.log("Clicked!")}>
+    My button title
+</e.PluginMoreMenuItem>;
+
+//
 // TableOfContents
 //
 <e.TableOfContents />;

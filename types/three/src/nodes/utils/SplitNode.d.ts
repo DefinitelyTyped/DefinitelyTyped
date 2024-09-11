@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { SwizzleOption } from "../shadernode/ShaderNode.js";
+import { SwizzleOption } from "../tsl/TSLCore.js";
 
 /** swizzle node */
 export default class SplitNode extends Node {

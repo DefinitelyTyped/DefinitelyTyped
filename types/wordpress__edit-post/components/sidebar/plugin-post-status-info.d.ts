@@ -1,35 +1,9 @@
-import { Slot } from "@wordpress/components";
-import { ComponentProps, FC, JSX, ReactNode } from "react";
-
-declare namespace PluginPostStatusInfo {
-    interface Props {
-        children: ReactNode;
-        /**
-         * An optional class name added to the row.
-         */
-        className?: string | undefined;
-    }
-}
+import { PluginPostStatusInfo as EditorPluginPostStatusInfo } from "@wordpress/editor";
 
 /**
- * Renders a row in the Status & Visibility panel of the Document sidebar.
- * It should be noted that this is named and implemented around the function it serves
- * and not its location, which may change in future iterations.
- *
- * @example
- * ```jsx
- * const { PluginPostStatusInfo } = wp.editPost;
- *
- * const MyPluginPostStatusInfo = () => (
- *     <PluginPostStatusInfo className="my-plugin-post-status-info">
- *         My post status info
- *     </PluginPostStatusInfo>
- * );
- * ```
+ * @deprecated Import PluginPostStatusInfo from '@wordpress/editor' instead.
+ * @see https://make.wordpress.org/core/2024/06/18/editor-unified-extensibility-apis-in-6-6/
  */
-declare const PluginPostStatusInfo: {
-    (props: PluginPostStatusInfo.Props): JSX.Element;
-    Slot: FC<Omit<ComponentProps<typeof Slot>, "name">>;
-};
+declare const PluginPostStatusInfo: typeof EditorPluginPostStatusInfo;
 
 export default PluginPostStatusInfo;

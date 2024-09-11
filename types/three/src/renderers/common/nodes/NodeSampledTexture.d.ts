@@ -7,15 +7,15 @@ type GPUStorageTextureAccess = "read-only" | "read-write" | "write-only";
 declare class NodeSampledTexture extends SampledTexture {
     textureNode: TextureNode | undefined;
     groupNode: UniformGroupNode;
+
     access: "read-write" | "read-only" | "write-only";
+
     constructor(
         name: string,
         textureNode: TextureNode | undefined,
         groupNode: UniformGroupNode,
-        access: GPUStorageTextureAccess | null,
+        access?: GPUStorageTextureAccess | null,
     );
-    get needsBindingsUpdate(): boolean;
-    update(): boolean;
 }
 
 declare class NodeSampledCubeTexture extends NodeSampledTexture {

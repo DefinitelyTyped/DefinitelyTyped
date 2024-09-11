@@ -5,6 +5,21 @@ const client = new Client({
     timeout: 60,
 });
 
+// $ExpectType string
+client.userAgent;
+
+// $ExpectType number
+client.port;
+
+// $ExpectType string
+client.source;
+
+// $ExpectType number
+client.checkInterval;
+
+// $ExpectType boolean
+client.enableVerboseStateCallback;
+
 client.execute({
     query: "SELECT count(*) as cnt FROM tblname WHERE ...",
     catalog: "hive",
@@ -37,6 +52,9 @@ client.execute({
         // handle the error
     },
 });
+
+// $ExpectType (query_id: string, callback?: ((error: PrestoRequestError | null) => void) | undefined) => void
+client.kill;
 
 const requestError: PrestoRequestError = {
     message: "execution error:SQL statement is empty",

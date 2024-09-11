@@ -2,15 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.bookmarks
- *
- * Use the <code>browser.bookmarks</code> API to create, organize, and otherwise manipulate bookmarks.
- * Also see $(topic:override)[Override Pages], which you can use to create a custom Bookmark Manager page.
- * Permissions: "bookmarks"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.bookmarks
+ */
 export namespace Bookmarks {
     /**
      * Indicates the reason why this node is unmodifiable. The <var>managed</var> value indicates that this node was configured

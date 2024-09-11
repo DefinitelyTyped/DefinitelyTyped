@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.declarativeNetRequest
- *
- * Use the declarativeNetRequest API to block or modify network requests by specifying declarative rules.
- * Permissions: "declarativeNetRequest", "declarativeNetRequestWithHostAccess"
  */
 export namespace DeclarativeNetRequest {
     /**

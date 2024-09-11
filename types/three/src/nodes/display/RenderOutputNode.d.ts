@@ -1,7 +1,7 @@
 import { ColorSpace, ToneMapping } from "../../constants.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class RenderOutputNode extends TempNode {
     colorNode: Node;
@@ -21,7 +21,7 @@ export const renderOutput: (
     outputColorSpace?: ColorSpace | null,
 ) => ShaderNodeObject<RenderOutputNode>;
 
-declare module "../shadernode/ShaderNode.js" {
+declare module "../tsl/TSLCore.js" {
     interface NodeElements {
         renderOutput: typeof renderOutput;
     }

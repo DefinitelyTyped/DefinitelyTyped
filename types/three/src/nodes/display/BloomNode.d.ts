@@ -2,7 +2,7 @@ import TextureNode from "../accessors/TextureNode.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 import UniformNode from "../core/UniformNode.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 
 declare class BloomNode extends TempNode {
     inputNode: Node;
@@ -25,11 +25,5 @@ export const bloom: (
     radius?: number,
     threshold?: number,
 ) => ShaderNodeObject<BloomNode>;
-
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        bloom: typeof bloom;
-    }
-}
 
 export default BloomNode;

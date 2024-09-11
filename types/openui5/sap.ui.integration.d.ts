@@ -1,4 +1,4 @@
-// For Library Version: 1.127.0
+// For Library Version: 1.128.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -104,7 +104,7 @@ declare module "sap/ui/integration/library" {
    */
   export enum CardBlockingMessageType {
     /**
-     * An error ocurred in the card.
+     * An error occurred in the card.
      */
     Error = "Error",
     /**
@@ -253,6 +253,45 @@ declare module "sap/ui/integration/library" {
     parameters: object;
   };
 
+  /**
+   * Card message strip types.
+   *
+   * This enum is part of the 'sap/ui/integration/library' module export and must be accessed by the property
+   * 'CardMessageType'.
+   *
+   * @experimental (since 1.128)
+   */
+  export enum CardMessageType {
+    /**
+     * Message is an error
+     */
+    Error = "Error",
+    /**
+     * Message should be just an information
+     */
+    Information = "Information",
+    /**
+     * Informs the user that the content is busy at that moment with a loading operation. Blocks the content
+     * from interaction.
+     */
+    Loading = "Loading",
+    /**
+     * Message has no specific level
+     */
+    None = "None",
+    /**
+     * Message is a success message
+     */
+    Success = "Success",
+    /**
+     * Message is an informative brief toast message. For this type the default behavior is to auto close.
+     */
+    Toast = "Toast",
+    /**
+     * Message is a warning
+     */
+    Warning = "Warning",
+  }
   /**
    * Preview modes for `{@link sap.ui.integration.widgets.Card}`. Helpful in scenarios when the end user is
    * choosing or configuring a card.
@@ -716,6 +755,7 @@ declare module "sap/ui/integration/widgets/Card" {
     CardDisplayVariant,
     CardPreviewMode,
     CardArea,
+    CardMessageType,
     CardActionType,
   } from "sap/ui/integration/library";
 
@@ -729,7 +769,7 @@ declare module "sap/ui/integration/widgets/Card" {
 
   import Event from "sap/ui/base/Event";
 
-  import { URI, ID, MessageType } from "sap/ui/core/library";
+  import { URI, ID } from "sap/ui/core/library";
 
   import Host from "sap/ui/integration/Host";
 
@@ -1951,7 +1991,12 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * Type of the message.
        */
-      sType: MessageType
+      sType: CardMessageType | keyof typeof CardMessageType,
+      /**
+       * Close the message automatically. Default is `false` for most message types. It is `true` for message
+       * type `Toast`. **Note** This property has no effect for message type `Loading`.
+       */
+      bAutoClose: boolean
     ): void;
     /**
      * Triggers an action inside the card.
@@ -2291,7 +2336,12 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * Type of the message.
        */
-      sType: MessageType
+      sType: CardMessageType | keyof typeof CardMessageType,
+      /**
+       * Close the message automatically. Default is `false` for most message types. It is `true` for message
+       * type `Toast`. **Note** This property has no effect for message type `Loading`.
+       */
+      bAutoClose: boolean
     ): void;
     /**
      * Triggers an action inside the card.
