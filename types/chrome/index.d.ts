@@ -1822,6 +1822,8 @@ declare namespace chrome.cookies {
         domain: string;
         /** The name of the cookie. */
         name: string;
+        /** The partition key for reading or modifying cookies with the Partitioned attribute. */
+        partitionKey?: CookiePartitionKey;
         /** The ID of the cookie store containing this cookie, as provided in getAllCookieStores(). */
         storeId: string;
         /** The value of the cookie. */
@@ -1845,11 +1847,19 @@ declare namespace chrome.cookies {
         sameSite: SameSiteStatus;
     }
 
+    /** Represents a partitioned cookie's partition key. */
+    export interface CookiePartitionKey {
+        /** Indicates if the cookie was set in a cross-cross site context. This prevents a top-level site embedded in a cross-site context from accessing cookies set by the top-level site in a same-site context. */
+        hasCrossSiteAncestor?: boolean;
+        /** Identifiers of all the browser tabs that share this cookie store. */
+        topLevelSite?: string;
+    }
+
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
     export interface CookieStore {
         /** The unique identifier for the cookie store. */
         id: string;
-        /** Identifiers of all the browser tabs that share this cookie store. */
+        /** he top-level site the partitioned cookie is available in. */
         tabIds: number[];
     }
 
@@ -1858,6 +1868,8 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. Filters the cookies by name.  */
         name?: string | undefined;
+        /** The partition key for reading or modifying cookies with the Partitioned attribute. */
+        partitionKey?: CookiePartitionKey | undefined;
         /** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
         url?: string | undefined;
         /** Optional. The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.  */
@@ -1875,6 +1887,8 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. The name of the cookie. Empty by default if omitted.  */
         name?: string | undefined;
+        /** The partition key for reading or modifying cookies with the Partitioned attribute. */
+        partitionKey?: CookiePartitionKey | undefined;
         /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
         /** Optional. The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.  */
@@ -1898,6 +1912,7 @@ declare namespace chrome.cookies {
 
     export interface Details {
         name: string;
+        partitionKey?: CookiePartitionKey | undefined;
         url: string;
         storeId?: string | undefined;
     }
