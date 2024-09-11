@@ -1,4 +1,4 @@
-import deepEqual from "deep-eql";
+import deepEqual = require("deep-eql");
 
 declare global {
     namespace Chai {
