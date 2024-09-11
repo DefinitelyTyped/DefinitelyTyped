@@ -75,7 +75,7 @@ O Definitely Typed apenas testa packages em versões do TypeScript que têm meno
 Os packages `@types` têm etiquetas para versões do TypeScript que suportam explicitamente, então normalmente podes usar versões mais antigas dos pacotes que antecedem o período de 2 anos.
 Por exemplo, se executares o comando `npm dist-tags @types/react`, verás que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:
 
-| Tag    | Versão |
+| Tag    | Versão  |
 | ------ | ------- |
 | latest | 16.9.23 |
 | ts2.0  | 15.0.1  |
@@ -104,7 +104,6 @@ O Definitely Typed só funciona devido a contribuições de utilizadores como tu
 Antes de partilhares a tua melhoria com o mundo, usa os types no teu próprio projeto, criando um ficheiro `typename.d.ts` e preenchendo os exports:
 
 ```ts
-
 declaremodule"libname" {
 
 // Types inside here
@@ -112,7 +111,6 @@ declaremodule"libname" {
 exportfunctionhelloWorldMessage():string;
 
 }
-
 ```
 
 #### Testa editando um pacote existente
@@ -136,14 +134,14 @@ Deverás conseguir fazer importações de `"foo"` no teu código e ele será red
 De seguida, faz a build _e_ executa o código para garantir que a tua definição de tipos corresponde ao que acontece em tempo de execução.
 
 Logo após testar as tuas definições com código real, faz uma [PR](#faz-uma-pull-request)
-e segue as instruções para [editar um pacote existente](#edita-um-pacote-existente) ou
-[criar um novo pacote](#cria-um-novo-pacote).
+e segue as instruções para [editar um pacote existente](#edita-um-package-existente) ou
+[criar um novo pacote](#cria-um-novo-package).
 
 ### Faz uma pull request
 
 Depois de testares o teu package, podes partilhá-lo no Definitely Typed.
 
-Primeiro, [faz um fork](https://guides.github.com/activities/forking/) deste repositório, [clona-o](#partial-clone), instala o [node](https://nodejs.org/) e executa `pnpm install`. Nota que o comando `pnpm install` vai instalar _todo_
+Primeiro, [faz um fork](https://guides.github.com/activities/forking/) deste repositório, [clona-o](#clone-parcial), instala o [node](https://nodejs.org/) e executa `pnpm install`. Nota que o comando `pnpm install` vai instalar _todo_
 o repositório, incluindo pacotes que não estás a editar. Se preferires instalar apenas um subconjunto, podes executar `pnpm install -w --filter "{./types/foo}..."` para instalar `@types/foo` e todas as suas dependências. Se precisares de executar testes para packages que _dependem_ de `@types/foo`, podes usar o comando `pnpm install -w --filter "...{./types/foo}..."` para puxar todos os pacotes relacionados para teste.
 
 > [!NOTA]
@@ -172,9 +170,9 @@ Para um clone mais gerível, que inclua _apenas_ os pacotes de tipos relevantes 
 #### Edita um package existente
 
 - `cd types/meu-pacote-para-editar`
-- Faz as alterações. Não te esqueças de [editar os testes](#my-package-tests).
-  Se estiveres a fazer alterações que podem "quebrar" o package, lembra-te de [atualizar a versão principal](#se-uma-biblioteca-for-atualizada-para-uma-nova-versao-major-com-mudancas-dramaticas-como-devo-atualizar-a-declaracao-de-tipos).
-- [Executa `npm test nome-do-pacote`](#verificacao).
+- Faz as alterações. Não te esqueças de [editar os testes](#correr-os-testes).
+  Se estiveres a fazer alterações que podem "quebrar" o package, lembra-te de [atualizar a versão principal](#se-uma-biblioteca-for-atualizada-para-uma-nova-versao-major-com-mudancas-significativas-como-devo-atualizar-a-declaracao-de-tipos).
+- Executa `npm test nome-do-pacote`.
 
 Quando fizeres um PR para editar um package existente, o `dt-bot` deverá mencionar (usando "@") os antigos autores.
 Se ele não o fizer, podes tu mesmo fazer isso no comentário associado à PR.
@@ -188,11 +186,11 @@ Se estás a adicionar tipos para um package do npm, cria um diretório com o mes
 
 O teu pacote deverá ter a seguinte estrutura:
 
-| Ficheiro                                    | Propósito                                                                                                          |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `index.d.ts`                              | Contém os tipos para o pacote.                                                                                     |
-| [`<my-package>-tests.ts`](#my-package-tests) | Contém código de exemplo que testa os tipos. Este código_não_ é executado, mas os seus tipos são verificados. |
-| [`tsconfig.json`](#tsconfigjson)             | Permite que executes `tsc` dentro do pacote.                                                                      |
+| Ficheiro                         | Propósito                                                                                                     |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `index.d.ts`                     | Contém os tipos para o pacote.                                                                                |
+| `<my-package>-tests.ts`          | Contém código de exemplo que testa os tipos. Este código_não_ é executado, mas os seus tipos são verificados. |
+| [`tsconfig.json`](#tsconfigjson) | Permite que executes `tsc` dentro do pacote.                                                                  |
 
 Gera esses ficheiros executando `npx dts-gen --dt --name nome-do-teu-pacote --template module` se tiveres a versão 5.2.0 ou mais recente do npm ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-teu-pacote --template module` se tiveres uma versão mais antiga.
 Consulta todas as opções em [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
@@ -270,22 +268,22 @@ Todos os problemas reportados pelo `attw` têm documentação com links na saíd
 então o `package.json` do DefinitelyTyped deve ser algo assim:
 
 ```json5
-  {
-      "name": "@types/my-package",
-      "version": "1.0.9999",
-      "type": "module",
-      "types": "index.d.ts",
-      "exports": {
-          ".": {
-              "import": "./index.d.ts",
-              "require": "./index.d.cts"
-          },
-          "./subpath": {
-              "import": "./subpath.d.ts",
-               "require": "./subpath.d.cts"
-          }
-      }
-  }
+{
+    "name": "@types/my-package",
+    "version": "1.0.9999",
+    "type": "module",
+    "types": "index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        },
+        "./subpath": {
+            "import": "./subpath.d.ts",
+             "require": "./subpath.d.cts"
+        }
+    }
+}
 ```
 
 Repara que cada subcaminho `exports` é refletido, e que cada ficheiro JavaScript tem um ficheiro de declaração correspondente com a extensão correta — um ficheiro `.d.ts` tipa um ficheiro `.js`, e não um ficheiro `.mjs` ou `.cjs`!
@@ -302,25 +300,25 @@ Repara que cada subcaminho `exports` é refletido, e que cada ficheiro JavaScrip
 Alterar o `export default` para `export =` cria um erro:
 
 ```ts
-  export interface Options {
-      // ...
-  }
-  declare function doSomething(options: Options): void;
-  export = doSomething;
-  // ^^^^^^^^^^^^^^^^^
-  // Erro: Não pode ser usada uma atribuição de exportação num módulo com outros elementos exportados.
+export interface Options {
+    // ...
+}
+declare function doSomething(options: Options): void;
+export = doSomething;
+// ^^^^^^^^^^^^^^^^^
+// Erro: Não pode ser usada uma atribuição de exportação num módulo com outros elementos exportados.
 ```
 
 Para corrigir isto, move os tipos para dentro de um namespace com o mesmo nome da função:
 
 ```ts
-  declare namespace doSomething {
-      export interface Options {
-          // ...
-      }
-  }
-  declare function doSomething(options: doSomething.Options): void;
-  export = doSomething;
+declare namespace doSomething {
+    export interface Options {
+        // ...
+    }
+}
+declare function doSomething(options: doSomething.Options): void;
+export = doSomething;
 ```
 
 Se precisares de ajuda para resolver um problema, pergunta no canal do DefinitelyTyped no [servidor de Discord da Comunidade TypeScript](https://discord.gg/typescript).
@@ -452,8 +450,6 @@ Este ficheiro é obrigatório e deve seguir este modelo:
     ]
 }
 ```
-
-
 
 O ficheiro `package.json` especifica **todas** as dependências, incluindo outros packages `@types`.
 
@@ -712,7 +708,7 @@ Como o diretório raiz deve conter sempre as declarações de tipo para as últi
 Por exemplo, a biblioteca [`history`](https://github.com/ReactTraining/history/) introduziu mudanças significativas entre a versão `2.x` e `3.x`.
 No entanto, como muitos utilizadores ainda estavam a utilizar a antiga versão `2.x`, o mantenedor que queria atualizar as declarações de tipo dessa biblioteca para a versão `3.x` adicionou uma pasta `v2` dentro do repositório "history", contendo as declarações de tipo para a versão anterior.
 
-No momento de escrita, o ficheiro [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/history/v2/tsconfig.json) está assim:
+No momento de escrita, o ficheiro history v2 `tsconfig.json` está assim:
 
 ```json
 {

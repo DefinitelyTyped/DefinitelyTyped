@@ -186,11 +186,11 @@ If the package you are adding typings for is not on npm, make sure the name you 
 
 Your package should have this structure:
 
-| File                                          | Purpose                                                                                             |
-| --------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `index.d.ts`                                | This contains the typings for the package.                                                          |
+| File                                           | Purpose                                                                                             |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `index.d.ts`                                   | This contains the typings for the package.                                                          |
 | [`<my-package>-tests.ts`](#my-package-teststs) | This contains sample code which tests the typings. This code does_not_ run, but it is type-checked. |
-| [`tsconfig.json`](#tsconfigjson)               | This allows you to run `tsc` within the package.                                                  |
+| [`tsconfig.json`](#tsconfigjson)               | This allows you to run `tsc` within the package.                                                    |
 | [`.eslintrc.json`](#linter-eslintrcjson)       | (Rarely) Needed only to disable lint rules written for eslint.                                      |
 | [`package.json`](#packagejson)                 | Contains metadata for the package, including its name, version and dependencies.                    |
 | [`.npmignore`](#npmignore)                     | Specifies which files are intended to be included in the package.                                   |
