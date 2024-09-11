@@ -171,7 +171,7 @@ Para um clone mais gerível, que inclua _apenas_ os pacotes de tipos relevantes 
 
 - `cd types/meu-pacote-para-editar`
 - Faz as alterações. Não te esqueças de [editar os testes](#correr-os-testes).
-  Se estiveres a fazer alterações que podem "quebrar" o package, lembra-te de [atualizar a versão principal](#se-uma-biblioteca-for-atualizada-para-uma-nova-versao-major-com-mudancas-significativas-como-devo-atualizar-a-declaracao-de-tipos).
+  Se estiveres a fazer alterações que podem "quebrar" o package, lembra-te de atualizar a versão principal.
 - Executa `npm test nome-do-pacote`.
 
 Quando fizeres um PR para editar um package existente, o `dt-bot` deverá mencionar (usando "@") os antigos autores.
