@@ -400,7 +400,9 @@ export interface Coins {
 }
 
 export interface PlatformsInfo {
+    id: string;
     name: string;
+    nativeCoinSymbol: string;
 }
 
 export interface Platforms {
