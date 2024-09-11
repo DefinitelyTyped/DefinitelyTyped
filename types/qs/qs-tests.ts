@@ -381,7 +381,12 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 });
 
 (() => {
-    var singleValueArray = qs.stringify({ foo: [null], bar: "baz" }, { arrayFormat: 'comma', commaRoundTrip: true, encode: false, strictNullHandling: true });
+    var singleValueArray = qs.stringify({ foo: [null], bar: "baz" }, { 
+        arrayFormat: 'comma',
+        commaRoundTrip: true,
+        encode: false,
+        strictNullHandling: true,
+    });
     assert.deepEqual(singleValueArray, "foo[]&bar=baz");
 });
 
