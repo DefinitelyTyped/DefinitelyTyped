@@ -661,7 +661,7 @@ export interface ExportNamedDeclaration extends BaseModuleDeclaration {
     source?: Literal | null | undefined;
 }
 
-export interface ExportSpecifier extends Omit<BaseModuleSpecifier, 'local'> {
+export interface ExportSpecifier extends Omit<BaseModuleSpecifier, "local"> {
     type: "ExportSpecifier";
     local: Identifier | Literal;
     exported: Identifier | Literal;
