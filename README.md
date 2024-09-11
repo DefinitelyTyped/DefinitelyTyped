@@ -2,7 +2,7 @@
 
 > The repository for _high quality_ TypeScript type definitions.
 
-_You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) and [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!_
+_You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt_PT.md), [Português do Brasil](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) and [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!_
 
 _Link to [Admin manual](./docs/admin.md)_
 
@@ -157,7 +157,7 @@ You can clone the entire repository [as per usual](https://docs.github.com/en/gi
 
 For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout) and [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) features. This will reduce clone time and improve git performance.
 
-> :warning: This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
+> ⚠️ This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
 
 1. `git clone --sparse --filter=blob:none <forkedUrl>`
    - `--sparse` initializes the sparse-checkout file so the working directory starts with only the files in the root of the repository.
@@ -186,14 +186,14 @@ If the package you are adding typings for is not on npm, make sure the name you 
 
 Your package should have this structure:
 
-| File                                           | Purpose                                                                                              |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `index.d.ts`                                   | This contains the typings for the package.                                                           |
-| [`<my-package>-tests.ts`](#my-package-teststs) | This contains sample code which tests the typings. This code does _not_ run, but it is type-checked. |
-| [`tsconfig.json`](#tsconfigjson)               | This allows you to run `tsc` within the package.                                                     |
-| [`.eslintrc.json`](#linter-eslintrcjson)       | (Rarely) Needed only to disable lint rules written for eslint.                                       |
-| [`package.json`](#packagejson)                 | Contains metadata for the package, including its name, version and dependencies.                     |
-| [`.npmignore`](#npmignore)                     | Specifies which files are intended to be included in the package.                                    |
+| File                                          | Purpose                                                                                             |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `index.d.ts`                                | This contains the typings for the package.                                                          |
+| [`<my-package>-tests.ts`](#my-package-teststs) | This contains sample code which tests the typings. This code does_not_ run, but it is type-checked. |
+| [`tsconfig.json`](#tsconfigjson)               | This allows you to run `tsc` within the package.                                                  |
+| [`.eslintrc.json`](#linter-eslintrcjson)       | (Rarely) Needed only to disable lint rules written for eslint.                                      |
+| [`package.json`](#packagejson)                 | Contains metadata for the package, including its name, version and dependencies.                    |
+| [`.npmignore`](#npmignore)                     | Specifies which files are intended to be included in the package.                                   |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module`.
 See all options at [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
@@ -276,7 +276,6 @@ All problems reported by `attw` have documentation linked in the output. Some ru
   ```
 
   Notice that each `exports` subpath is reflected, and each JavaScript file has a corresponding declaration file with a matching file extension—a `.d.ts` file types a `.js` file, not a `.mjs` or `.cjs` file!
-
 - When the implementation package uses `module.exports = ...`, the DefinitelyTyped package should use `export =`, not `export default`. (Alternatively, if the `module.exports` is just an object of named properties, the DefinitelyTyped package can use a series of named exports.) The most common obstacle to correcting this problem is confusion about how to export types in addition to the primary export. For example, assume these types are incorrectly using `export default`:
 
   ```ts
@@ -400,7 +399,7 @@ TL;DR: `esModuleInterop` and `allowSyntheticDefaultImports` are _not allowed_ in
 >
 > ```tsx
 > // component.d.ts
-> declare class Component {​​​​​}​​​​​
+> declare class Component {}
 > // CJS export, modeling `module.exports = Component` in JS
 > export = Component;
 >
@@ -657,10 +656,8 @@ Here's a short example to get you started:
        }
    }
    ```
-
 2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.6/` in this example).
    `ts3.6/` will support TypeScript versions 3.6 and below, so copy the existing types and tests there.
-
 3. Back in the root of the package, add the TypeScript 3.7 features you want to use.
    When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
 
@@ -706,7 +703,7 @@ Only the last case is typically problematic.
   So, there may be a lag of days, weeks or even months before a helpful community member sends a PR to update the type declaration package for a new library release.
   If you're impacted by this, you can be the change you want to see in the world and you can be that helpful community member!
 
-:exclamation: If you're updating type declarations for a library, always set the `major.minor` version in `package.json` to match the library version that you're documenting! :exclamation:
+❗️ If you're updating type declarations for a library, always set the `major.minor` version in `package.json` to match the library version that you're documenting! ❗️
 
 #### If a library is updated to a new major version with breaking changes, how should I update its type declaration package?
 
