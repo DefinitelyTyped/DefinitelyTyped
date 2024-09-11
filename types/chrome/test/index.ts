@@ -1856,11 +1856,11 @@ async function testBrowsingDataForPromise() {
 // https://developer.chrome.com/docs/extensions/reference/cookies
 async function testCoookies() {
     // await chrome.cookies.getAll(); // TODO: fix the overload to make details optional
-    await chrome.cookies.getAll({partitionKey: {}})
-    await chrome.cookies.remove({name: 'test-cookie', url: 'https://example.com'})
-    await chrome.cookies.remove({name: 'test-cookie', url: 'https://example.com', partitionKey: {}})
-    await chrome.cookies.set({name: 'test-cookie', url: 'https://example.com', value: 'cookie-value'})
-    await chrome.cookies.set({name: 'test-cookie', url: 'https://example.com', partitionKey: {}})
+    await chrome.cookies.getAll({ partitionKey: {} });
+    await chrome.cookies.remove({ name: "test-cookie", url: "https://example.com" });
+    await chrome.cookies.remove({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
+    await chrome.cookies.set({ name: "test-cookie", url: "https://example.com", value: "cookie-value" });
+    await chrome.cookies.set({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/commands
