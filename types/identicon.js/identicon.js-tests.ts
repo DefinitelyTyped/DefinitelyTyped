@@ -1,4 +1,4 @@
-import Identicon, {Svg} from "identicon.js";
+import Identicon, { Svg } from "identicon.js";
 
 // create an identicon with only a hash and a size
 new Identicon("d3b07384d113edec49eaa6238ad5ff00", 420).toString();
