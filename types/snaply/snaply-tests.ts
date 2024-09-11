@@ -2,17 +2,17 @@ import { deepClone, isFunction, isObject } from 'snaply';
 
 {
   const obj = { a: 1, b: { c: 2 } };
-  const cloned = deepClone(obj); // $ExpectType any
-  cloned.b.c; // $ExpectType any
+  const cloned = deepClone(obj); // $ExpectType { a: number; b: { c: number; }; } 
+  cloned.b.c; // $ExpectType number
 
   const arr = [1, 2, 3];
-  const clonedArr = deepClone(arr); // $ExpectType any
+  const clonedArr = deepClone(arr); // $ExpectType number[]
 
   const map = new Map();
-  const clonedMap = deepClone(map); // $ExpectType any
+  const clonedMap = deepClone(map); // $ExpectType  Map<any, any>
 
   const weakMap = new WeakMap();
-  const clonedWeakMap = deepClone(weakMap); // $ExpectType any
+  const clonedWeakMap = deepClone(weakMap); // $ExpectType  WeakMap<object, any>
 }
 
 {
