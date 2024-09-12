@@ -3,8 +3,8 @@
     "name": "@types/prop-types",
     "version": "15.7.9999",
     "projects": [
-        "https://github.com/reactjs/prop-types",
-        "https://facebook.github.io/react"
+        "https://github.com/facebook/prop-types",
+        "https://react.dev/"
     ],
     "devDependencies": {
         "@types/prop-types": "workspace:.",
