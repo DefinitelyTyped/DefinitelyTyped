@@ -536,6 +536,12 @@ declare module "node:test" {
          */
         diagnostic(message: string): void;
         /**
+         * The absolute path of the test file that created the current test. If a test file imports
+         * additional modules that generate tests, the imported tests will return the path of the root test file.
+         * @since v22.6.0
+         */
+        readonly filePath: string | undefined;
+        /**
          * The name of the test and each of its ancestors, separated by `>`.
          * @since v22.3.0
          */
@@ -765,6 +771,12 @@ declare module "node:test" {
      * @since v18.7.0, v16.17.0
      */
     class SuiteContext {
+        /**
+         * The absolute path of the test file that created the current suite. If a test file imports
+         * additional modules that generate suites, the imported suites will return the path of the root test file.
+         * @since v22.6.0
+         */
+        readonly filePath: string | undefined;
         /**
          * The name of the suite.
          * @since v18.8.0, v16.18.0
