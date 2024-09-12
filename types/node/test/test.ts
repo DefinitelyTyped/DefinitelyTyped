@@ -140,6 +140,8 @@ test(undefined, undefined, t => {
     // $ExpectType string
     t.name;
     // $ExpectType string
+    t.filePath;
+    // $ExpectType string
     t.fullName;
     // $ExpectType AbortSignal
     t.signal;
@@ -340,6 +342,8 @@ describe(s => {
     s;
     // $ExpectType string
     s.name;
+    // $ExpectType string
+    s.filePath;
 });
 
 // Test callback mode
