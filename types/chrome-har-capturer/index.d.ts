@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { EventEmitter } from "events"
+import { EventEmitter } from "events";
 
 export interface Page<U> {
     id: string;
@@ -61,9 +61,9 @@ export interface Entry {
             text: any;
             encoding: string | undefined;
         };
-    }
-    cache: {},
-    _fromDiskCache: any,
+    };
+    cache: {};
+    _fromDiskCache: any;
     timings: {
         blocked: any;
         dns: number;
@@ -72,13 +72,13 @@ export interface Entry {
         wait: number;
         receive: number;
         ssl: number;
-    },
-    serverIPAddress: any,
-    connection: string,
-    _initiator: any,
-    _priority: any,
-    _webSocketMessages: any,
-    _resourceType: any
+    };
+    serverIPAddress: any;
+    connection: string;
+    _initiator: any;
+    _priority: any;
+    _webSocketMessages: any;
+    _resourceType: any;
 }
 
 export interface HAR<U> {
@@ -94,12 +94,12 @@ export interface HAR<U> {
     };
 }
 
-export type LoaderEvents = 'load' | 'done' | 'fail' | 'har'
+export type LoaderEvents = "load" | "done" | "fail" | "har";
 export interface LoaderEventCallback<U> {
-    'load': (url: string, index: number, urls: string[]) => void
-    'done': (url: string, index: number, urls: string[]) => void
-    'fail': (url: string, err: any, index: number, urls: string[]) => void
-    'har': (har: HAR<U>) => void
+    "load": (url: string, index: number, urls: string[]) => void;
+    "done": (url: string, index: number, urls: string[]) => void;
+    "fail": (url: string, err: any, index: number, urls: string[]) => void;
+    "har": (har: HAR<U>) => void;
 }
 
 export interface RunOptions<T> {
@@ -129,17 +129,17 @@ export interface RunOptions<T> {
     parallel?: boolean;
     /**
      * function returning a Promise executed before each page load
-     * 
+     *
      * @param url the current URL
      * @param client CDP client instance
      * @param index index of url in urls
      * @param urls input URL array
      * @returns Promise executed before each page load
      */
-    preHook?: (url: string, client: any, index: number, urls: string[]) => Promise<void>
+    preHook?: (url: string, client: any, index: number, urls: string[]) => Promise<void>;
     /**
      * function returning a Promise executed after each page load event
-     * 
+     *
      * If this hook resolves to a value then it is included in the resulting HAR object as the value of the _user key of the this URL's page object.
      * @param url the current URL
      * @param client CDP client instance
@@ -147,14 +147,13 @@ export interface RunOptions<T> {
      * @param urls input URL array
      * @returns Promise executed after each page load event
      */
-    postHook?: (url: string, client: any, index: number, urls: string[]) => Promise<T>
+    postHook?: (url: string, client: any, index: number, urls: string[]) => Promise<T>;
 }
 
 export class Loader<U> extends EventEmitter {
-    addListener<K extends LoaderEvents>(eventName: K, listener: LoaderEventCallback<U>[K]): this
-
+    addListener<K extends LoaderEvents>(eventName: K, listener: LoaderEventCallback<U>[K]): this;
 }
-export function run<U = undefined>(urls: string[], options: RunOptions<U>): Loader<U>
+export function run<U = undefined>(urls: string[], options: RunOptions<U>): Loader<U>;
 
 export interface LogOptions {
     /** if true also expect the requests body. Defaults to false. */
@@ -162,8 +161,8 @@ export interface LogOptions {
 }
 
 export interface Log {
-    method: string,
-    params: Record<string, any>
+    method: string;
+    params: Record<string, any>;
 }
 
 export function fromLog(url: string, log: Log[], options: LogOptions): HAR<never>;
