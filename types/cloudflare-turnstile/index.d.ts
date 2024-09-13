@@ -61,7 +61,7 @@ declare namespace Turnstile {
      * The widget size.
      * Can take the following values: normal, compact.
      */
-    type WidgetSize = "normal" | "compact";
+    type WidgetSize = "normal" | "compact" | "flexible";
 
     /**
      * How to retry on widget failure.
