@@ -47,8 +47,5 @@
         "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
-    "type": "module",
-    "dependencies": {
-        "@types/node": "^22.5.9999"
-    }
+    "type": "module"
 }
