@@ -140,7 +140,7 @@ o.spec("ospec typings", () => {
     const {
         callCount, // $ExpectType number
         args, // $ExpectType any[]
-        calls, // $ExpectType any[][]
+        calls, // $ExpectType Call<any[]>[]
     } = dummySpy;
 
     const myFunc = (a: string, b?: boolean) => 42;
@@ -151,7 +151,7 @@ o.spec("ospec typings", () => {
     spiedFunc(..._args1); // $ExpectType number
     spiedFunc(..._args2); // $ExpectType number
     spiedFunc.args; // $ExpectType [string, (boolean | undefined)?] || [a: string, b?: boolean | undefined]
-    spiedFunc.calls; // $ExpectType [string, (boolean | undefined)?][] || [a: string, b?: boolean | undefined][]
+    spiedFunc.calls; // $ExpectType Call<[string, (boolean | undefined)?]>[] || Call<[a: string, b?: boolean | undefined]>[]
 
     // ======================================================================
 

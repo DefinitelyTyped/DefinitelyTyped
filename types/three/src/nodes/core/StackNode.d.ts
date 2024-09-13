@@ -9,9 +9,19 @@ export default class StackNode extends Node {
 
     add(node: Node): this;
 
-    if(boolNode: Node, method: () => void): this;
+    If(boolNode: Node, method: () => void): this;
 
-    elseIf(node: Node, method: () => void): this;
+    ElseIf(node: Node, method: () => void): this;
 
+    Else(node: Node, method: () => void): this;
+
+    /**
+     * @deprecated Use {@link StackNode#ElseIf Else()} instead.
+     */
+    elseif(node: Node, method: () => void): this;
+
+    /**
+     * @deprecated Use {@link StackNode#Else Else()} instead.
+     */
     else(node: Node, method: () => void): this;
 }

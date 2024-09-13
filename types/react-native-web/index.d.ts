@@ -793,7 +793,7 @@ export interface UIManager {
     ): void;
     updateView(node: number, props: any): void;
     configureNextLayoutAnimation(config: any, onAnimationDidEnd: GenericFunction): void;
-    setLayoutAnimationEnabledExperimental(): void;
+    setLayoutAnimationEnabledExperimental(value: boolean): void;
 }
 
 export interface Vibration {
@@ -1507,4 +1507,6 @@ declare module "react-native" {
         paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
         paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
     }
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface UIManagerStatic extends UIManager {}
 }

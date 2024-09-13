@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.browsingData
- *
- * Use the <code>chrome.browsingData</code> API to remove browsing data from a user's local profile.
- * Permissions: "browsingData"
- */
 import { ExtensionTypes } from "./extensionTypes";
 
+/**
+ * Namespace: browser.browsingData
+ */
 export namespace BrowsingData {
     /**
      * Options that determine exactly what data will be removed.

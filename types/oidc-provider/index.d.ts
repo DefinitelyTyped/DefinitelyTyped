@@ -2166,6 +2166,9 @@ export namespace interactionPolicy {
     }
 
     class Check {
+        static readonly REQUEST_PROMPT: true;
+        static readonly NO_NEED_TO_PROMPT: false;
+
         constructor(
             reason: string,
             description: string,

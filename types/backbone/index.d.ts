@@ -554,7 +554,7 @@ declare namespace Backbone {
          * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
          * That works only if you set it in the constructor or the initialize method.
          */
-        events(): EventsHash;
+        events: _Result<EventsHash>;
 
         // A conditional type used here to prevent `TS2532: Object is possibly 'undefined'`
         model: TModel extends Model ? TModel : undefined;

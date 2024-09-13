@@ -185,7 +185,7 @@ nw.Screen.chooseDesktopMedia(["window", "screen"], function(streamId) {
  */
 var dcm = nw.Screen.DesktopCaptureMonitor;
 nw.Screen.Init();
-dcm.on("added", function(id, name, order, type) {
+dcm.on("added", function(id, name, order, type, primary) {
     // select first stream and shutdown
     var constraints = {
         audio: {
@@ -250,7 +250,7 @@ nw.App.registerGlobalHotKey(shortcut);
 
 // You can also add listener to shortcut's active and failed event.
 shortcut.on("active", function() {
-    console.log("Global desktop keyboard shortcut: " + this.key + " active.");
+    console.log("Global desktop keyboard shortcut: " + shortcut.key + " active.");
 });
 
 shortcut.on("failed", function(msg: any) {
@@ -273,7 +273,7 @@ tray.menu = menu;
 
 // Remove the tray
 tray.remove();
-tray = null;
+Object.assign(tray, null);
 
 /**
  * nw.Window Tests
@@ -313,9 +313,9 @@ nw.Window.getAll(function(windows: NWJS_Helpers.win[]) {
 });
 
 win.on("close", function() {
-    this.hide(); // Pretend to be closed already
+    win.hide(); // Pretend to be closed already
     console.log("We're closing...");
-    this.close(true); // then close it forcely
+    win.close(true); // then close it forcely
 });
 
 win.close();
@@ -340,7 +340,7 @@ win.capturePage(
 nw.Window.open("popup.html", {}, function(win) {
     // Release the 'win' object here after the new window is closed.
     win.on("closed", function() {
-        win = null;
+        Object.assign(win, null);
     });
 
     // Listen for window click event
@@ -356,13 +356,13 @@ nw.Window.open("popup.html", {}, function(win) {
     // Listen to main window's close event
     nw.Window.get().on("close", function() {
         // Hide the window to give user the feeling of closing immediately
-        this.hide();
+        win.hide();
 
         // If the new window is still open then close it.
         if (win != null) win.close(true);
 
         // After closing the new window, close the main window.
-        this.close(true);
+        win.close(true);
     });
 });
 

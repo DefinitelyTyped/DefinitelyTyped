@@ -1,9 +1,9 @@
 import { NormalMapTypes } from "../../constants.js";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
-export default class NormalMapNode extends TempNode {
+declare class NormalMapNode extends TempNode {
     node: Node;
     scaleNode: Node | null;
 
@@ -12,10 +12,6 @@ export default class NormalMapNode extends TempNode {
     constructor(node: Node, scaleNode?: Node | null);
 }
 
-export const normalMap: (node: Node, scaleNode?: Node) => ShaderNodeObject<NormalMapNode>;
+export default NormalMapNode;
 
-declare module "../shadernode/ShaderNode.js" {
-    interface NodeElements {
-        normalMap: typeof normalMap;
-    }
-}
+export const normalMap: (node: Node, scaleNode?: Node) => ShaderNodeObject<NormalMapNode>;

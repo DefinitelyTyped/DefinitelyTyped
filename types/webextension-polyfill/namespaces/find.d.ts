@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.find
- *
- * Use the <code>browser.find</code> API to interact with the browser's <code>Find</code> interface.
- * Permissions: "find"
  */
 export namespace Find {
     interface RangeData {

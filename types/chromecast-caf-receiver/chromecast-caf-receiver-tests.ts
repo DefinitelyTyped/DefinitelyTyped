@@ -146,6 +146,7 @@ const options = new cast.framework.CastReceiverOptions();
 options.versionCode = 0;
 options.useShakaForHls = true;
 options.shakaVersion = "4.3.5";
+options.shakaVariant = cast.framework.ShakaVariant.DEBUG;
 
 cast.framework.CastReceiverContext.getInstance().addEventListener(
     [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],

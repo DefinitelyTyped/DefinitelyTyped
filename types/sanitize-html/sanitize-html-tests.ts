@@ -78,3 +78,8 @@ sanitize(unsafe, {
     nestingLimit: 6,
     parseStyleAttributes: false,
 });
+
+// ensure new DisallowedTagsModes are accepted
+sanitize(unsafe, {
+    disallowedTagsMode: "completelyDiscard",
+});

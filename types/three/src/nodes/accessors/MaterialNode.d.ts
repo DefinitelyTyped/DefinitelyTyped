@@ -1,7 +1,7 @@
 import { Vector2 } from "../../math/Vector2.js";
 import Node from "../core/Node.js";
 import UniformNode from "../core/UniformNode.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 
 export type MaterialNodeScope =
     | typeof MaterialNode.ALPHA_TEST
@@ -101,10 +101,10 @@ export const materialSpecularStrength: ShaderNodeObject<MaterialNode>;
 export const materialReflectivity: ShaderNodeObject<MaterialNode>;
 export const materialRoughness: ShaderNodeObject<MaterialNode>;
 export const materialMetalness: ShaderNodeObject<MaterialNode>;
-export const materialNormal: ShaderNodeObject<MaterialNode>;
+export const materialNormal: ShaderNodeObject<Node>;
 export const materialClearcoat: ShaderNodeObject<MaterialNode>;
 export const materialClearcoatRoughness: ShaderNodeObject<MaterialNode>;
-export const materialClearcoatNormal: ShaderNodeObject<MaterialNode>;
+export const materialClearcoatNormal: ShaderNodeObject<Node>;
 export const materialRotation: ShaderNodeObject<MaterialNode>;
 export const materialSheen: ShaderNodeObject<MaterialNode>;
 export const materialSheenRoughness: ShaderNodeObject<MaterialNode>;

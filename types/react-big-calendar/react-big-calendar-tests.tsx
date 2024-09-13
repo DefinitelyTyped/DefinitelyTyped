@@ -352,7 +352,8 @@ class CalendarResource {
                         today: "Today",
                         agenda: "Agenda",
                         noEventsInRange: "There are no events in this range.",
-                        showMore: total => `+${total} more`,
+                        showMore: (total, remainingEvents, events) =>
+                            `+${total} more. Remaining: ${remainingEvents[0].title}. Events: ${events.length}`,
                     }}
                     timeslots={24}
                     defaultView={"month"}

@@ -1597,7 +1597,7 @@ declare namespace React {
      * ```
      */
     function forwardRef<T, P = {}>(
-        render: ForwardRefRenderFunction<T, P>,
+        render: ForwardRefRenderFunction<T, PropsWithoutRef<P>>,
     ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /**
@@ -2428,9 +2428,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
-        /** @deprecated */
+        /** @deprecated Use `onKeyUp` or `onKeyDown` instead */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
-        /** @deprecated */
+        /** @deprecated Use `onKeyUpCapture` or `onKeyDownCapture` instead */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;
@@ -2901,7 +2901,7 @@ declare namespace React {
         draggable?: Booleanish | undefined;
         hidden?: boolean | undefined;
         id?: string | undefined;
-        inert?: boolean | undefined;
+        inert?: "true" | "false" | undefined;
         lang?: string | undefined;
         nonce?: string | undefined;
         slot?: string | undefined;

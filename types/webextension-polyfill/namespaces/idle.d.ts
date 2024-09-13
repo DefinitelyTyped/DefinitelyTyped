@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.idle
- *
- * Use the <code>browser.idle</code> API to detect when the machine's idle state changes.
- * Permissions: "idle"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.idle
+ */
 export namespace Idle {
     type IdleState = "active" | "idle" | "locked";
 

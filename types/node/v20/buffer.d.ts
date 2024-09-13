@@ -1,3 +1,8 @@
+// If lib.dom.d.ts or lib.webworker.d.ts is loaded, then use the global types.
+// Otherwise, use the types from node.
+type _Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : import("buffer").Blob;
+type _File = typeof globalThis extends { onmessage: any; File: any } ? {} : import("buffer").File;
+
 /**
  * `Buffer` objects are used to represent a fixed-length sequence of bytes. Many
  * Node.js APIs support `Buffer`s.
@@ -171,6 +176,18 @@ declare module "buffer" {
          */
         arrayBuffer(): Promise<ArrayBuffer>;
         /**
+         * The `blob.bytes()` method returns the byte of the `Blob` object as a `Promise<Uint8Array>`.
+         *
+         * ```js
+         * const blob = new Blob(['hello']);
+         * blob.bytes().then((bytes) => {
+         *   console.log(bytes); // Outputs: Uint8Array(5) [ 104, 101, 108, 108, 111 ]
+         * });
+         * ```
+         * @since v20.16.0
+         */
+        bytes(): Promise<Uint8Array>;
+        /**
          * Creates and returns a new `Blob` containing a subset of this `Blob` objects
          * data. The original `Blob` is not altered.
          * @since v15.7.0, v14.18.0
@@ -221,10 +238,7 @@ declare module "buffer" {
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
-    import { Blob as NodeBlob } from "buffer";
-    // This conditional type will be the existing global Blob in a browser, or
-    // the copy below in a Node environment.
-    type __Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : NodeBlob;
+
     global {
         namespace NodeJS {
             export { BufferEncoding };
@@ -2264,17 +2278,22 @@ declare module "buffer" {
          * @param data An ASCII (Latin1) string.
          */
         function btoa(data: string): string;
-        interface Blob extends __Blob {}
+        interface Blob extends _Blob {}
         /**
          * `Blob` class is a global reference for `require('node:buffer').Blob`
          * https://nodejs.org/api/buffer.html#class-blob
          * @since v18.0.0
          */
-        var Blob: typeof globalThis extends {
-            onmessage: any;
-            Blob: infer T;
-        } ? T
-            : typeof NodeBlob;
+        var Blob: typeof globalThis extends { onmessage: any; Blob: infer T } ? T
+            : typeof import("buffer").Blob;
+        interface File extends _File {}
+        /**
+         * `File` class is a global reference for `require('node:buffer').File`
+         * https://nodejs.org/api/buffer.html#class-file
+         * @since v20.0.0
+         */
+        var File: typeof globalThis extends { onmessage: any; File: infer T } ? T
+            : typeof import("buffer").File;
     }
 }
 declare module "node:buffer" {

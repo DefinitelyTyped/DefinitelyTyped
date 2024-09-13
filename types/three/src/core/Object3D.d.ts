@@ -299,6 +299,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     onBeforeShadow(
         renderer: WebGLRenderer,
         scene: Scene,
+        camera: Camera,
         shadowCamera: Camera,
         geometry: BufferGeometry,
         depthMaterial: Material,
@@ -317,6 +318,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     onAfterShadow(
         renderer: WebGLRenderer,
         scene: Scene,
+        camera: Camera,
         shadowCamera: Camera,
         geometry: BufferGeometry,
         depthMaterial: Material,

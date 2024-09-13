@@ -484,32 +484,36 @@ declare module "node:test" {
         readonly assert: TestContextAssert;
         /**
          * This function is used to create a hook running before subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+         * @param fn The hook function. The first argument to this function is a `TestContext` object.
+         * If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
-         * @since v20.1.0
+         * @since v20.1.0, v18.17.0
          */
-        before: typeof before;
+        before(fn?: TestContextHookFn, options?: HookOptions): void;
         /**
          * This function is used to create a hook running before each subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+         * @param fn The hook function. The first argument to this function is a `TestContext` object.
+         * If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
-        beforeEach: typeof beforeEach;
+        beforeEach(fn?: TestContextHookFn, options?: HookOptions): void;
         /**
          * This function is used to create a hook that runs after the current test finishes.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+         * @param fn The hook function. The first argument to this function is a `TestContext` object.
+         * If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.13.0
          */
-        after: typeof after;
+        after(fn?: TestContextHookFn, options?: HookOptions): void;
         /**
          * This function is used to create a hook running after each subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+         * @param fn The hook function. The first argument to this function is a `TestContext` object.
+         * If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
-        afterEach: typeof afterEach;
+        afterEach(fn?: TestContextHookFn, options?: HookOptions): void;
         /**
          * This function is used to write diagnostics to the output. Any diagnostic
          * information is included at the end of the test's results. This function does
@@ -880,10 +884,15 @@ declare module "node:test" {
      */
     function afterEach(fn?: HookFn, options?: HookOptions): void;
     /**
-     * The hook function. If the hook uses callbacks, the callback function is passed as the
-     * second argument.
+     * The hook function. The first argument is the context in which the hook is called.
+     * If the hook uses callbacks, the callback function is passed as the second argument.
      */
-    type HookFn = (s: SuiteContext, done: (result?: any) => void) => any;
+    type HookFn = (c: TestContext | SuiteContext, done: (result?: any) => void) => any;
+    /**
+     * The hook function. The first argument is a `TestContext` object.
+     * If the hook uses callbacks, the callback function is passed as the second argument.
+     */
+    type TestContextHookFn = (t: TestContext, done: (result?: any) => void) => any;
     /**
      * Configuration options for hooks.
      * @since v18.8.0
@@ -1960,31 +1969,47 @@ declare module "node:test/reporters" {
         | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
+    interface ReporterConstructorWrapper<T extends new(...args: any[]) => Transform> {
+        new(...args: ConstructorParameters<T>): InstanceType<T>;
+        (...args: ConstructorParameters<T>): InstanceType<T>;
+    }
+
     /**
      * The `dot` reporter outputs the test results in a compact format,
      * where each passing test is represented by a `.`,
      * and each failing test is represented by a `X`.
+     * @since v20.0.0
      */
     function dot(source: TestEventGenerator): AsyncGenerator<"\n" | "." | "X", void>;
     /**
      * The `tap` reporter outputs the test results in the [TAP](https://testanything.org/) format.
+     * @since v20.0.0
      */
     function tap(source: TestEventGenerator): AsyncGenerator<string, void>;
-    /**
-     * The `spec` reporter outputs the test results in a human-readable format.
-     */
-    class Spec extends Transform {
+    class SpecReporter extends Transform {
         constructor();
     }
     /**
+     * The `spec` reporter outputs the test results in a human-readable format.
+     * @since v20.0.0
+     */
+    const spec: ReporterConstructorWrapper<typeof SpecReporter>;
+    /**
      * The `junit` reporter outputs test results in a jUnit XML format.
+     * @since v21.0.0
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
-    /**
-     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--experimental-test-coverage) flag.
-     */
-    class Lcov extends Transform {
-        constructor(opts?: TransformOptions);
+    class LcovReporter extends Transform {
+        constructor(opts?: Omit<TransformOptions, "writableObjectMode">);
     }
-    export { dot, junit, Lcov as lcov, Spec as spec, tap, TestEvent };
+    /**
+     * The `lcov` reporter outputs test coverage when used with the
+     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--experimental-test-coverage) flag.
+     * @since v22.0.0
+     */
+    // TODO: change the export to a wrapper function once node@0db38f0 is merged (breaking change)
+    // const lcov: ReporterConstructorWrapper<typeof LcovReporter>;
+    const lcov: LcovReporter;
+
+    export { dot, junit, lcov, spec, tap, TestEvent };
 }

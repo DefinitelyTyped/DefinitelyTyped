@@ -4,7 +4,7 @@ import NodeBuilder from "../../../nodes/core/NodeBuilder.js";
 import NodeUniform from "../../../nodes/core/NodeUniform.js";
 import NodeVar from "../../../nodes/core/NodeVar.js";
 import StructTypeNode from "../../../nodes/core/StructTypeNode.js";
-import { ShaderNode } from "../../../nodes/shadernode/ShaderNode.js";
+import { ShaderNode } from "../../../nodes/tsl/TSLCore.js";
 import { Texture } from "../../../textures/Texture.js";
 import NodeUniformsGroup from "../../common/nodes/NodeUniformsGroup.js";
 
@@ -19,7 +19,7 @@ export default class WGSLNodeBuilder extends NodeBuilder {
     builtins: { [key in BuiltinStage]: Map<string, BuiltinType> };
     uniformGroups: { [key in NodeShaderStage]: NodeUniformsGroup };
 
-    needsColorSpaceToLinear(texture: Texture): boolean;
+    needsToWorkingColorSpace(texture: Texture): boolean;
     _generateTextureSample(
         texture: Texture,
         textureProperty: string,

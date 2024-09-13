@@ -1,4 +1,4 @@
-// For Library Version: 1.127.0
+// For Library Version: 1.128.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -97,6 +97,23 @@ declare module "sap/f/library" {
    */
   export type AvatarType = AvatarType1;
 
+  /**
+   * Enumeration for different visibility options for the card badge.
+   *
+   * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'CardBadgeVisibilityMode'.
+   *
+   * @since 1.128
+   */
+  export enum CardBadgeVisibilityMode {
+    /**
+     * Badge will be hidden after header is focused.
+     */
+    Disappear = "Disappear",
+    /**
+     * Badge will not be hidden after header is focused.
+     */
+    Persist = "Persist",
+  }
   /**
    * Defines the areas within the `sap.f.DynamicPageTitle` control.
    *
@@ -2017,6 +2034,234 @@ declare module "sap/f/cards/BaseHeader" {
      * @experimental (since 1.118) - For usage only by Work Zone.
      */
     bannerLines?: Text[] | Text | AggregationBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/f/cards/CardBadgeCustomData" {
+  import { URI } from "sap/ui/core/library";
+
+  import Metadata from "sap/ui/base/Metadata";
+
+  import { CardBadgeVisibilityMode } from "sap/f/library";
+
+  /**
+   * Contains a single key/value pair of custom data attached to an `Element`.
+   *
+   * For more information, see {@link sap.ui.core.Element#data Element.prototype.data} and {@link https://ui5.sap.com/#/topic/91f0c3ee6f4d1014b6dd926db0e91070 Custom Data - Attaching Data Objects to Controls}.
+   *
+   * @since 1.128
+   */
+  export default class CardBadgeCustomData
+    extends /* was: sap..ui.core.CustomData */ Object
+  {
+    /**
+     * Constructor for a new `CardBadgeCustomData` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new element, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: object
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.cards.CardBadgeCustomData with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap..ui.core.CustomData.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, CardBadgeCustomData>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.cards.CardBadgeCustomData.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): Metadata;
+    /**
+     * Gets current value of property {@link #getAnnouncementText announcementText}.
+     *
+     * Defines text which will is overriding default announcement.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.128
+     *
+     * @returns Value of property `announcementText`
+     */
+    getAnnouncementText(): string;
+    /**
+     * Gets current value of property {@link #getIcon icon}.
+     *
+     * Icon URI. This may be either an icon font or image path.
+     *
+     * @since 1.128
+     *
+     * @returns Value of property `icon`
+     */
+    getIcon(): URI;
+    /**
+     * Gets current value of property {@link #getState state}.
+     *
+     * Defines the color of the badge. The allowed values are from the enum type `sap.ui.core.IndicationColor`.
+     * Additionally values from `sap.ui.core.ValueState` can be used, but this is not recommended by design
+     * guidelines.
+     *
+     * Default value is `IndicationColor.Indication05`.
+     *
+     * @since 1.128
+     *
+     * @returns Value of property `state`
+     */
+    getState(): string;
+    /**
+     * Gets current value of property {@link #getVisibilityMode visibilityMode}.
+     *
+     * Describes the corresponding visibility mode, see also {@link sap.f.CardBadgeVisibilityMode}.
+     *
+     * Default value is `Disappear`.
+     *
+     * @since 1.128
+     *
+     * @returns Value of property `visibilityMode`
+     */
+    getVisibilityMode():
+      | CardBadgeVisibilityMode
+      | keyof typeof CardBadgeVisibilityMode;
+    /**
+     * Gets current value of property {@link #getVisible visible}.
+     *
+     * Defines the cards badge visibility.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.128
+     *
+     * @returns Value of property `visible`
+     */
+    getVisible(): boolean;
+    /**
+     * Sets a new value for property {@link #getAnnouncementText announcementText}.
+     *
+     * Defines text which will is overriding default announcement.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAnnouncementText(
+      /**
+       * New value for property `announcementText`
+       */
+      sAnnouncementText?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIcon icon}.
+     *
+     * Icon URI. This may be either an icon font or image path.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIcon(
+      /**
+       * New value for property `icon`
+       */
+      sIcon?: URI
+    ): this;
+    /**
+     * Sets a new value for property {@link #getState state}.
+     *
+     * Defines the color of the badge. The allowed values are from the enum type `sap.ui.core.IndicationColor`.
+     * Additionally values from `sap.ui.core.ValueState` can be used, but this is not recommended by design
+     * guidelines.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `IndicationColor.Indication05`.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setState(
+      /**
+       * New value for property `state`
+       */
+      sState?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getVisibilityMode visibilityMode}.
+     *
+     * Describes the corresponding visibility mode, see also {@link sap.f.CardBadgeVisibilityMode}.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Disappear`.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setVisibilityMode(
+      /**
+       * New value for property `visibilityMode`
+       */
+      sVisibilityMode?:
+        | CardBadgeVisibilityMode
+        | keyof typeof CardBadgeVisibilityMode
+    ): this;
+    /**
+     * Sets a new value for property {@link #getVisible visible}.
+     *
+     * Defines the cards badge visibility.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setVisible(
+      /**
+       * New value for property `visible`
+       */
+      bVisible?: boolean
+    ): this;
   }
 }
 
@@ -5345,6 +5590,19 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
       | AccessibleLandmarkRole
       | keyof typeof AccessibleLandmarkRole;
     /**
+     * Gets current value of property {@link #getHeaderContentLabel headerContentLabel}.
+     *
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.f.DynamicPage`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * @since 1.127.0
+     *
+     * @returns Value of property `headerContentLabel`
+     */
+    getHeaderContentLabel(): string;
+    /**
      * Gets current value of property {@link #getHeaderLabel headerLabel}.
      *
      * Texts which describe the landmark of the header container of the corresponding `sap.f.DynamicPage` control.
@@ -5475,6 +5733,26 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
        * New value for property `footerRole`
        */
       sFooterRole?: AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeaderContentLabel headerContentLabel}.
+     *
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.f.DynamicPage`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.127.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderContentLabel(
+      /**
+       * New value for property `headerContentLabel`
+       */
+      sHeaderContentLabel?: string
     ): this;
     /**
      * Sets a new value for property {@link #getHeaderLabel headerLabel}.
@@ -5631,6 +5909,16 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * is set.
      */
     footerLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.f.DynamicPage`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * @since 1.127.0
+     */
+    headerContentLabel?: string | PropertyBindingInfo;
   }
 }
 
@@ -7553,6 +7841,61 @@ declare module "sap/f/FlexibleColumnLayout" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnsDistributionChange columnsDistributionChange }
+     * event of this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fired when user resize columns.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachColumnsDistributionChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (
+        p1: FlexibleColumnLayout$ColumnsDistributionChangeEvent
+      ) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:columnsDistributionChange columnsDistributionChange }
+     * event of this `sap.f.FlexibleColumnLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
+     *
+     * Fired when user resize columns.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachColumnsDistributionChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (
+        p1: FlexibleColumnLayout$ColumnsDistributionChangeEvent
+      ) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.FlexibleColumnLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:endColumnNavigate endColumnNavigate} event of
      * this `sap.f.FlexibleColumnLayout`.
      *
@@ -8010,6 +8353,28 @@ declare module "sap/f/FlexibleColumnLayout" {
       oListener?: object
     ): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:columnsDistributionChange columnsDistributionChange }
+     * event of this `sap.f.FlexibleColumnLayout`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachColumnsDistributionChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (
+        p1: FlexibleColumnLayout$ColumnsDistributionChangeEvent
+      ) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:endColumnNavigate endColumnNavigate} event
      * of this `sap.f.FlexibleColumnLayout`.
      *
@@ -8133,6 +8498,20 @@ declare module "sap/f/FlexibleColumnLayout" {
        * Parameters to pass along with the event
        */
       mParameters?: FlexibleColumnLayout$ColumnResizeEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:columnsDistributionChange columnsDistributionChange} to attached listeners.
+     *
+     * @since 1.128
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireColumnsDistributionChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: FlexibleColumnLayout$ColumnsDistributionChangeEventParameters
     ): this;
     /**
      * Fires event {@link #event:endColumnNavigate endColumnNavigate} to attached listeners.
@@ -9232,6 +9611,15 @@ declare module "sap/f/FlexibleColumnLayout" {
      * @since 1.76
      */
     columnResize?: (oEvent: FlexibleColumnLayout$ColumnResizeEvent) => void;
+
+    /**
+     * Fired when user resize columns.
+     *
+     * @since 1.128
+     */
+    columnsDistributionChange?: (
+      oEvent: FlexibleColumnLayout$ColumnsDistributionChangeEvent
+    ) => void;
   }
 
   /**
@@ -9515,6 +9903,34 @@ declare module "sap/f/FlexibleColumnLayout" {
    */
   export type FlexibleColumnLayout$ColumnResizeEvent = Event<
     FlexibleColumnLayout$ColumnResizeEventParameters,
+    FlexibleColumnLayout
+  >;
+
+  /**
+   * Parameters of the FlexibleColumnLayout#columnsDistributionChange event.
+   */
+  export interface FlexibleColumnLayout$ColumnsDistributionChangeEventParameters {
+    /**
+     * The current `media` - dekstop or tablet.
+     */
+    media?: string;
+
+    /**
+     * The value of the `layout` property.
+     */
+    layout?: string;
+
+    /**
+     * Sizes of all columns in percentages, separated by '/'.
+     */
+    columnsSizes?: string;
+  }
+
+  /**
+   * Event object of the FlexibleColumnLayout#columnsDistributionChange event.
+   */
+  export type FlexibleColumnLayout$ColumnsDistributionChangeEvent = Event<
+    FlexibleColumnLayout$ColumnsDistributionChangeEventParameters,
     FlexibleColumnLayout
   >;
 
@@ -10043,6 +10459,771 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * If not set, a predefined text is used.
      */
     lastColumnForwardArrowLabel?: string | PropertyBindingInfo;
+  }
+}
+
+declare module "sap/f/FlexibleColumnLayoutData" {
+  import {
+    default as LayoutData,
+    $LayoutDataSettings,
+  } from "sap/ui/core/LayoutData";
+
+  import FlexibleColumnLayoutDataForDesktop from "sap/f/FlexibleColumnLayoutDataForDesktop";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import FlexibleColumnLayoutDataForTablet from "sap/f/FlexibleColumnLayoutDataForTablet";
+
+  /**
+   * Holds layout data for `sap.f.FlexibleColumnLayout`. Allows LayoutData of type `sap.f.FlexibleColumnLayoutDataForDesktop`
+   * or `sap.f.FlexibleColumnLayoutFlexibleColumnLayoutDataForTablet`
+   *
+   * @since 1.128
+   */
+  export default class FlexibleColumnLayoutData extends LayoutData {
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutData`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new element.
+       */
+      mSettings?: $FlexibleColumnLayoutDataSettings
+    );
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutData`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new element, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new element.
+       */
+      mSettings?: $FlexibleColumnLayoutDataSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.FlexibleColumnLayoutData with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.LayoutData.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayoutData>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.FlexibleColumnLayoutData.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the desktopLayoutData in the aggregation {@link #getDesktopLayoutData desktopLayoutData}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyDesktopLayoutData(): this;
+    /**
+     * Destroys the tabletLayoutData in the aggregation {@link #getTabletLayoutData tabletLayoutData}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyTabletLayoutData(): this;
+    /**
+     * Gets content of aggregation {@link #getDesktopLayoutData desktopLayoutData}.
+     *
+     * Allows LayoutData of type `sap.f.FlexibleColumnLayoutDataForDesktop`
+     */
+    getDesktopLayoutData(): FlexibleColumnLayoutDataForDesktop;
+    /**
+     * Gets content of aggregation {@link #getTabletLayoutData tabletLayoutData}.
+     *
+     * Allows LayoutData of type `sap.f.FlexibleColumnLayoutDataForTablet`
+     */
+    getTabletLayoutData(): FlexibleColumnLayoutDataForTablet;
+    /**
+     * Sets the aggregated {@link #getDesktopLayoutData desktopLayoutData}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDesktopLayoutData(
+      /**
+       * The desktopLayoutData to set
+       */
+      oDesktopLayoutData: FlexibleColumnLayoutDataForDesktop
+    ): this;
+    /**
+     * Sets the aggregated {@link #getTabletLayoutData tabletLayoutData}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTabletLayoutData(
+      /**
+       * The tabletLayoutData to set
+       */
+      oTabletLayoutData: FlexibleColumnLayoutDataForTablet
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the FlexibleColumnLayoutData constructor.
+   */
+  export interface $FlexibleColumnLayoutDataSettings
+    extends $LayoutDataSettings {
+    /**
+     * Allows LayoutData of type `sap.f.FlexibleColumnLayoutDataForDesktop`
+     */
+    desktopLayoutData?: FlexibleColumnLayoutDataForDesktop;
+
+    /**
+     * Allows LayoutData of type `sap.f.FlexibleColumnLayoutDataForTablet`
+     */
+    tabletLayoutData?: FlexibleColumnLayoutDataForTablet;
+  }
+}
+
+declare module "sap/f/FlexibleColumnLayoutDataForDesktop" {
+  import {
+    default as LayoutData,
+    $LayoutDataSettings,
+  } from "sap/ui/core/LayoutData";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Holds layout data for columns of `sap.f.FlexibleColumnLayout` on desktop.
+   *
+   * @since 1.128
+   */
+  export default class FlexibleColumnLayoutDataForDesktop extends LayoutData {
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutDataForDesktop`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new element.
+       */
+      mSettings?: $FlexibleColumnLayoutDataForDesktopSettings
+    );
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutDataForDesktop`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new element, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new element.
+       */
+      mSettings?: $FlexibleColumnLayoutDataForDesktopSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.FlexibleColumnLayoutDataForDesktop with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.LayoutData.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayoutDataForDesktop>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.FlexibleColumnLayoutDataForDesktop.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getThreeColumnsBeginExpandedEndHidden threeColumnsBeginExpandedEndHidden}.
+     *
+     * Columns distribution of ThreeColumnsBeginExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     *
+     * Default value is `"67/33/0"`.
+     *
+     *
+     * @returns Value of property `threeColumnsBeginExpandedEndHidden`
+     */
+    getThreeColumnsBeginExpandedEndHidden(): string;
+    /**
+     * Gets current value of property {@link #getThreeColumnsEndExpanded threeColumnsEndExpanded}.
+     *
+     * Columns distribution of ThreeColumnsEndExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * Default value is `"25/25/50"`.
+     *
+     *
+     * @returns Value of property `threeColumnsEndExpanded`
+     */
+    getThreeColumnsEndExpanded(): string;
+    /**
+     * Gets current value of property {@link #getThreeColumnsMidExpanded threeColumnsMidExpanded}.
+     *
+     * Columns distribution of ThreeColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * Default value is `"25/50/25"`.
+     *
+     *
+     * @returns Value of property `threeColumnsMidExpanded`
+     */
+    getThreeColumnsMidExpanded(): string;
+    /**
+     * Gets current value of property {@link #getThreeColumnsMidExpandedEndHidden threeColumnsMidExpandedEndHidden}.
+     *
+     * Columns distribution of ThreeColumnsMidExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     *
+     * Default value is `"33/67/0"`.
+     *
+     *
+     * @returns Value of property `threeColumnsMidExpandedEndHidden`
+     */
+    getThreeColumnsMidExpandedEndHidden(): string;
+    /**
+     * Gets current value of property {@link #getTwoColumnsBeginExpanded twoColumnsBeginExpanded}.
+     *
+     * Columns distribution of TwoColumnsBeginExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * Default value is `"67/33/0"`.
+     *
+     *
+     * @returns Value of property `twoColumnsBeginExpanded`
+     */
+    getTwoColumnsBeginExpanded(): string;
+    /**
+     * Gets current value of property {@link #getTwoColumnsMidExpanded twoColumnsMidExpanded}.
+     *
+     * Columns distribution of TwoColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * Default value is `"33/67/0"`.
+     *
+     *
+     * @returns Value of property `twoColumnsMidExpanded`
+     */
+    getTwoColumnsMidExpanded(): string;
+    /**
+     * Sets a new value for property {@link #getThreeColumnsBeginExpandedEndHidden threeColumnsBeginExpandedEndHidden}.
+     *
+     * Columns distribution of ThreeColumnsBeginExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"67/33/0"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setThreeColumnsBeginExpandedEndHidden(
+      /**
+       * New value for property `threeColumnsBeginExpandedEndHidden`
+       */
+      sThreeColumnsBeginExpandedEndHidden?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getThreeColumnsEndExpanded threeColumnsEndExpanded}.
+     *
+     * Columns distribution of ThreeColumnsEndExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"25/25/50"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setThreeColumnsEndExpanded(
+      /**
+       * New value for property `threeColumnsEndExpanded`
+       */
+      sThreeColumnsEndExpanded?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getThreeColumnsMidExpanded threeColumnsMidExpanded}.
+     *
+     * Columns distribution of ThreeColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"25/50/25"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setThreeColumnsMidExpanded(
+      /**
+       * New value for property `threeColumnsMidExpanded`
+       */
+      sThreeColumnsMidExpanded?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getThreeColumnsMidExpandedEndHidden threeColumnsMidExpandedEndHidden}.
+     *
+     * Columns distribution of ThreeColumnsMidExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"33/67/0"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setThreeColumnsMidExpandedEndHidden(
+      /**
+       * New value for property `threeColumnsMidExpandedEndHidden`
+       */
+      sThreeColumnsMidExpandedEndHidden?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTwoColumnsBeginExpanded twoColumnsBeginExpanded}.
+     *
+     * Columns distribution of TwoColumnsBeginExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"67/33/0"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTwoColumnsBeginExpanded(
+      /**
+       * New value for property `twoColumnsBeginExpanded`
+       */
+      sTwoColumnsBeginExpanded?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTwoColumnsMidExpanded twoColumnsMidExpanded}.
+     *
+     * Columns distribution of TwoColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"33/67/0"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTwoColumnsMidExpanded(
+      /**
+       * New value for property `twoColumnsMidExpanded`
+       */
+      sTwoColumnsMidExpanded?: string
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the FlexibleColumnLayoutDataForDesktop constructor.
+   */
+  export interface $FlexibleColumnLayoutDataForDesktopSettings
+    extends $LayoutDataSettings {
+    /**
+     * Columns distribution of TwoColumnsBeginExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     */
+    twoColumnsBeginExpanded?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of TwoColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     */
+    twoColumnsMidExpanded?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of ThreeColumnsBeginExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     */
+    threeColumnsBeginExpandedEndHidden?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of ThreeColumnsEndExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     */
+    threeColumnsEndExpanded?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of ThreeColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     */
+    threeColumnsMidExpanded?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of ThreeColumnsMidExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     */
+    threeColumnsMidExpandedEndHidden?: string | PropertyBindingInfo;
+  }
+}
+
+declare module "sap/f/FlexibleColumnLayoutDataForTablet" {
+  import {
+    default as LayoutData,
+    $LayoutDataSettings,
+  } from "sap/ui/core/LayoutData";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Holds layout data for columns of `sap.f.FlexibleColumnLayout` on tablet.
+   *
+   * @since 1.128
+   */
+  export default class FlexibleColumnLayoutDataForTablet extends LayoutData {
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutDataForTablet`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new element.
+       */
+      mSettings?: $FlexibleColumnLayoutDataForTabletSettings
+    );
+    /**
+     * Constructor for a new `sap.f.FlexibleColumnLayoutDataForTablet`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new element, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new element.
+       */
+      mSettings?: $FlexibleColumnLayoutDataForTabletSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.FlexibleColumnLayoutDataForTablet with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.LayoutData.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FlexibleColumnLayoutDataForTablet>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.FlexibleColumnLayoutDataForTablet.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getThreeColumnsBeginExpandedEndHidden threeColumnsBeginExpandedEndHidden}.
+     *
+     * Columns distribution of ThreeColumnsBeginExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     *
+     * Default value is `"67/33/0"`.
+     *
+     *
+     * @returns Value of property `threeColumnsBeginExpandedEndHidden`
+     */
+    getThreeColumnsBeginExpandedEndHidden(): string;
+    /**
+     * Gets current value of property {@link #getThreeColumnsEndExpanded threeColumnsEndExpanded}.
+     *
+     * Columns distribution of ThreeColumnsEndExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * Default value is `"0/33/67"`.
+     *
+     *
+     * @returns Value of property `threeColumnsEndExpanded`
+     */
+    getThreeColumnsEndExpanded(): string;
+    /**
+     * Gets current value of property {@link #getThreeColumnsMidExpanded threeColumnsMidExpanded}.
+     *
+     * Columns distribution of ThreeColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * Default value is `"0/67/33"`.
+     *
+     *
+     * @returns Value of property `threeColumnsMidExpanded`
+     */
+    getThreeColumnsMidExpanded(): string;
+    /**
+     * Gets current value of property {@link #getThreeColumnsMidExpandedEndHidden threeColumnsMidExpandedEndHidden}.
+     *
+     * Columns distribution of ThreeColumnsMidExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     *
+     * Default value is `"33/67/0"`.
+     *
+     *
+     * @returns Value of property `threeColumnsMidExpandedEndHidden`
+     */
+    getThreeColumnsMidExpandedEndHidden(): string;
+    /**
+     * Gets current value of property {@link #getTwoColumnsBeginExpanded twoColumnsBeginExpanded}.
+     *
+     * Columns distribution of TwoColumnsBeginExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * Default value is `"67/33/0"`.
+     *
+     *
+     * @returns Value of property `twoColumnsBeginExpanded`
+     */
+    getTwoColumnsBeginExpanded(): string;
+    /**
+     * Gets current value of property {@link #getTwoColumnsMidExpanded twoColumnsMidExpanded}.
+     *
+     * Columns distribution of TwoColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * Default value is `"33/67/0"`.
+     *
+     *
+     * @returns Value of property `twoColumnsMidExpanded`
+     */
+    getTwoColumnsMidExpanded(): string;
+    /**
+     * Sets a new value for property {@link #getThreeColumnsBeginExpandedEndHidden threeColumnsBeginExpandedEndHidden}.
+     *
+     * Columns distribution of ThreeColumnsBeginExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"67/33/0"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setThreeColumnsBeginExpandedEndHidden(
+      /**
+       * New value for property `threeColumnsBeginExpandedEndHidden`
+       */
+      sThreeColumnsBeginExpandedEndHidden?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getThreeColumnsEndExpanded threeColumnsEndExpanded}.
+     *
+     * Columns distribution of ThreeColumnsEndExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"0/33/67"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setThreeColumnsEndExpanded(
+      /**
+       * New value for property `threeColumnsEndExpanded`
+       */
+      sThreeColumnsEndExpanded?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getThreeColumnsMidExpanded threeColumnsMidExpanded}.
+     *
+     * Columns distribution of ThreeColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"0/67/33"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setThreeColumnsMidExpanded(
+      /**
+       * New value for property `threeColumnsMidExpanded`
+       */
+      sThreeColumnsMidExpanded?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getThreeColumnsMidExpandedEndHidden threeColumnsMidExpandedEndHidden}.
+     *
+     * Columns distribution of ThreeColumnsMidExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"33/67/0"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setThreeColumnsMidExpandedEndHidden(
+      /**
+       * New value for property `threeColumnsMidExpandedEndHidden`
+       */
+      sThreeColumnsMidExpandedEndHidden?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTwoColumnsBeginExpanded twoColumnsBeginExpanded}.
+     *
+     * Columns distribution of TwoColumnsBeginExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"67/33/0"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTwoColumnsBeginExpanded(
+      /**
+       * New value for property `twoColumnsBeginExpanded`
+       */
+      sTwoColumnsBeginExpanded?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTwoColumnsMidExpanded twoColumnsMidExpanded}.
+     *
+     * Columns distribution of TwoColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"33/67/0"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTwoColumnsMidExpanded(
+      /**
+       * New value for property `twoColumnsMidExpanded`
+       */
+      sTwoColumnsMidExpanded?: string
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the FlexibleColumnLayoutDataForTablet constructor.
+   */
+  export interface $FlexibleColumnLayoutDataForTabletSettings
+    extends $LayoutDataSettings {
+    /**
+     * Columns distribution of TwoColumnsBeginExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     */
+    twoColumnsBeginExpanded?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of TwoColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     */
+    twoColumnsMidExpanded?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of ThreeColumnsBeginExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     */
+    threeColumnsBeginExpandedEndHidden?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of ThreeColumnsEndExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     */
+    threeColumnsEndExpanded?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of ThreeColumnsMidExpanded layout in the format "begin/mid/end", where values are
+     * set in percentages.
+     */
+    threeColumnsMidExpanded?: string | PropertyBindingInfo;
+
+    /**
+     * Columns distribution of ThreeColumnsMidExpandedEndHidden layout in the format "begin/mid/end", where
+     * values are set in percentages.
+     */
+    threeColumnsMidExpandedEndHidden?: string | PropertyBindingInfo;
   }
 }
 
@@ -22066,6 +23247,8 @@ declare namespace sap {
 
     "sap/f/cards/BaseHeader": undefined;
 
+    "sap/f/cards/CardBadgeCustomData": undefined;
+
     "sap/f/cards/Header": undefined;
 
     "sap/f/cards/loading/PlaceholderBaseRenderer": undefined;
@@ -22087,6 +23270,12 @@ declare namespace sap {
     "sap/f/FlexibleColumnLayout": undefined;
 
     "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo": undefined;
+
+    "sap/f/FlexibleColumnLayoutData": undefined;
+
+    "sap/f/FlexibleColumnLayoutDataForDesktop": undefined;
+
+    "sap/f/FlexibleColumnLayoutDataForTablet": undefined;
 
     "sap/f/FlexibleColumnLayoutSemanticHelper": undefined;
 

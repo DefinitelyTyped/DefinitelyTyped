@@ -117,13 +117,25 @@ test(undefined, undefined, t => {
     // $ExpectType void
     t.todo();
     // $ExpectType void
-    t.after(() => {});
+    t.after(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.afterEach(() => {});
+    t.afterEach(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.beforeEach(() => {});
+    t.beforeEach(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.before(() => {});
+    t.before(t => {
+        // $ExpectType TestContext
+        t;
+    });
 
     // $ExpectType string
     t.name;
@@ -456,33 +468,33 @@ beforeEach(() => {});
 after(() => {});
 beforeEach(() => {});
 // - with callback
-before((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+before((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-beforeEach((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+beforeEach((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-after((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+after((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-afterEach((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+afterEach((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
@@ -805,13 +817,17 @@ dot("" as any);
 tap();
 // $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 tap("" as any);
-// $ExpectType Spec
+// $ExpectType SpecReporter
 new spec();
+// $ExpectType SpecReporter
+spec();
 // @ts-expect-error
 junit();
 // $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 junit("" as any);
-// $ExpectType Lcov
+// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
+lcov();
+// @ts-expect-error (TODO: change to expect type LcovReporter once lcov is a wrapper function)
 new lcov();
 
 describe("Mock Timers Test Suite", () => {

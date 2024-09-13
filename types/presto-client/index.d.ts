@@ -321,6 +321,23 @@ export interface QueryOptions {
 
 export class Client {
     constructor(options: ClientOptions);
+
+    userAgent: string;
+    host: string;
+    port: number;
+    user: string;
+    protocol: "http:" | "https:";
+    catalog?: string;
+    schema?: string;
+    source: string;
+    checkInterval: number;
+    enableVerboseStateCallback: boolean;
+    jsonParser: {
+        parse: (data: any) => any;
+    };
+    timeout: null | number;
+    ssl: ClientOptions["ssl"];
+
     /**
      * This is an API to execute queries. (Using "/v1/statement" HTTP RPC.).
      * Execute query on Presto cluster, and fetch results.
@@ -333,7 +350,7 @@ export class Client {
     /**
      * Stop query immediately.
      */
-    kill(query_id: string, callback: (error: PrestoRequestError | null) => void): void;
+    kill(query_id: string, callback?: (error: PrestoRequestError | null) => void): void;
     nodes(callback: (error: PrestoRequestError | null, data: any[]) => void): void;
     /**
      * Get node list of presto cluster and return it.

@@ -3,12 +3,12 @@ interface IRemoteReferenceType {
     SHARED_ID: "shareId";
 }
 
-const RemoteReferenceType: IRemoteReferenceType;
+declare const RemoteReferenceType: IRemoteReferenceType;
 
-declare type LocalValueJSON = {
+export interface LocalValueJSON {
     type: string;
     value?: any;
-};
+}
 
 declare class LocalValue<T> {
     constructor(type: string, value: T);
@@ -44,13 +44,13 @@ declare class LocalValue<T> {
     toJson(): LocalValueJSON;
 }
 
-declare type RemoteValueJSON<T> = {
+interface RemoteValueJSON<T> {
     type?: string;
     handle?: string;
     internalId?: string;
     value?: T;
     sharedId?: string;
-};
+}
 
 type MappedInternalType<T> = T extends Map<any, any> ? ReferenceValue
     : T extends RegExp ? RegExpValue
@@ -66,10 +66,10 @@ declare class RemoteValue<T> {
     deserializeValue(value: MappedInternalType<T> | null, type: string): T;
 }
 
-declare type ReferenceValueJSON = {
+interface ReferenceValueJSON {
     handle?: string;
     shareId?: string;
-};
+}
 
 declare class ReferenceValue {
     constructor(handle: string, shareId: string);
@@ -84,4 +84,14 @@ declare class RegExpValue {
     flags: string | null;
 }
 
-export { LocalValue, ReferenceValue, RegExpValue, RemoteReferenceType, RemoteValue };
+declare class SerializationOptions {
+    constructor(
+        maxDomDepth: number,
+        maxObjectDepth?: number | null,
+        includeShadowTree?: string,
+    );
+    maxDomDepth: number;
+    maxObjectDepth: number | null;
+    includeShadowTree: string;
+}
+export { LocalValue, ReferenceValue, RegExpValue, RemoteReferenceType, RemoteValue, SerializationOptions };
