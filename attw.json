@@ -6,7 +6,6 @@
         "cjs-resolves-to-esm"
     ],
     "failingPackages": [
-        "absolute",
         "acc-wizard",
         "activex-access",
         "activex-adodb",
