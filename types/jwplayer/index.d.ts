@@ -820,6 +820,7 @@ declare namespace jwplayer {
         play: PlayParam;
         playlist: PlaylistParam;
         playlistItem: PlaylistItemParam;
+        playlistComplete: PlaylistCompleteParam;
         ready: ReadyParam;
         resize: ResizeParam;
         visualQuality: VisualQualityParam;
