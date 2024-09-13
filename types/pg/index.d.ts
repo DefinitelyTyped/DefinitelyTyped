@@ -184,6 +184,9 @@ export class Pool extends events.EventEmitter {
     readonly waitingCount: number;
     readonly expiredCount: number;
 
+    readonly ending: boolean;
+    readonly ended: boolean;
+
     options: PoolOptions;
 
     connect(): Promise<PoolClient>;

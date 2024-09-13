@@ -251,6 +251,12 @@ pool.connect((err, client, done) => {
     // $ExpectType PoolOptions
     pool.options;
 
+    // $ExpectType boolean
+    pool.ending;
+
+    // $ExpectType boolean
+    pool.ended;
+
     // @ts-expect-error
     client.query("SELECT");
     client?.query("SELECT $1::int AS number", ["1"], (err, result) => {
