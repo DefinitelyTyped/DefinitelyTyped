@@ -332,6 +332,13 @@ declare module "node:test" {
          */
         forceExit?: boolean | undefined;
         /**
+         * An array containing the list of glob patterns to match test files.
+         * This option cannot be used together with `files`. If omitted, files are run according to the
+         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+         * @since v22.6.0
+         */
+        globPatterns?: readonly string[] | undefined;
+        /**
          * Sets inspector port of test child process.
          * If a nullish value is provided, each process gets its own port,
          * incremented from the primary's `process.debugPort`.

@@ -28,6 +28,7 @@ run();
 // $ExpectType TestsStream
 run({
     concurrency: false,
+    globPatterns: ["*.spec.js"],
 });
 
 // run with all options and number concurrency
