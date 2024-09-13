@@ -15,7 +15,6 @@
         }
     ],
     "dependencies": {
-        "chrome-har-capturer": "*",
         "@types/node": "*"
     }
 }
