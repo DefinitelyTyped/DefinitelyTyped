@@ -1,19 +1,14 @@
 {
     "private": true,
     "name": "opus-recorder",
-    "version": "0.0.0",
-    "license": "MIT",
-    "contributors": [
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/chris-rudmin/opus-recorder"
+    ],
+    "owners": [
         {
             "name": "KenjiGinjo",
             "githubUsername": "KenjiGinjo"
         }
-    ],
-    "types": "index",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-        "directory": "types/opus-recorder"
-    },
-    "typeScriptVersion": "2.0"
+    ]
 }
