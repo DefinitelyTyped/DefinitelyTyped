@@ -32,7 +32,6 @@
         "crypto/index.d.ts",
         "browser/index.d.ts",
 
-        "experimental/browser/index.d.ts",
         "experimental/fs/index.d.ts",
         "experimental/redis/index.d.ts",
         "experimental/timers/index.d.ts",
@@ -44,7 +43,6 @@
         "test/data.ts",
         "test/encoding.ts",
         "test/execution.ts",
-        "test/experimental/browser.ts",
         "test/experimental/fs.ts",
         "test/experimental/streams.ts",
         "test/grpc.ts",
