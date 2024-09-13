@@ -78,15 +78,30 @@ export interface TLSParams {
 
 export interface Params {
     /**
-     * @deprecated Use metadata instead.
+     * Object with key-value pairs representing custom metadata the user would like to add to the request.
      */
-    headers?: object;
-
     metadata?: object;
 
+    /**
+     * Key-value pairs where the keys are names of tags and the values are tag values
+     */
     tags?: object;
 
+    /**
+     * Request timeout to use.
+     */
     timeout?: string | number;
+
+    /**
+     * Specify if response messages should be discarded.
+     */
+    discardResponseMessage?: boolean;
+}
+
+export interface GrpcError {
+    code: number;
+    details: string[] | object[];
+    message: string;
 }
 
 export interface GrpcError {
