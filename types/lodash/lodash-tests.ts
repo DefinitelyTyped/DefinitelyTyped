@@ -4253,6 +4253,14 @@ fp.now(); // $ExpectType number
     _(anything).isEqual(anything); // $ExpectType boolean
     _.chain(anything).isEqual(anything); // $ExpectType PrimitiveChain<boolean>
 
+    // Make sure types are inferred correctly when isEquals is passed directly as comparator
+    const distinctUntilChanged = <T>(comparator: (a: T, b: T) => boolean) => {
+        return (a: T,b: T): T => comparator(a,b) ? a : b;
+    };
+    const n1: number = 1;
+    const n2: number = 2;
+    distinctUntilChanged(_.isEqual)(n1, n2); // $ExpectType number
+
     fp.isEqual(anything, anything); // $ExpectType boolean
     fp.isEqual(anything)(anything); // $ExpectType boolean
     fp.equals(anything)(anything); // $ExpectType boolean

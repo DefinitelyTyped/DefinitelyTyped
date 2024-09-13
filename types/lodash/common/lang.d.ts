@@ -617,7 +617,7 @@ declare module "../index" {
          * object === other;
          * // => false
          */
-        isEqual(value: any, other: any): boolean;
+        isEqual<T = any, U = any>(value: T, other: U): boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
