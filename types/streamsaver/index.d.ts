@@ -8,7 +8,7 @@ export as namespace streamSaver;
 export function createWriteStream(
     filename: string,
     options?: CreateWriteStreamOptions,
-): WritableStream;
+): WritableStream<Uint8Array>;
 
 export interface CreateWriteStreamOptions<I = any, O = any> {
     /**
