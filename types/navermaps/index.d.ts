@@ -110,42 +110,79 @@ declare namespace naver.maps {
      */
     interface MapOptions {
         // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.html#.MapOptions
+        /** 지도 요소의 배경으로 사용할 이미지 URL 또는 CSS 색상값입니다. */
         background?: string;
+        /** 지도 기본 타일의 불투명도를 설정합니다. 값의 범위는 0~1입니다. */
         baseTileOpacity?: number;
+        /** 지도의 초기 좌표 경계입니다. */
         bounds?: Bounds | BoundsLiteral;
+        /** 지도의 초기 중심 좌표입니다. */
         center?: Coord | CoordLiteral; // default naver.maps.LatLng(37.5666103, 126.9783882)
+        /** 지도의 초기 줌 레벨입니다. */
         zoom?: number; // default 16
+        /** 사용자가 지도 위에서 마우스 버튼을 더블 클릭해 지도를 확대하는 기능의 사용 여부입니다. */
         disableDoubleClickZoom?: boolean;
+        /** 사용자가 지도 위에서 한 손가락으로 더블 탭해 지도를 확대하는 기능의 사용 여부입니다. */
         disableDoubleTapZoom?: boolean;
+        /** 사용자가 지도를 드래그했을 때 관성 효과(사용자가 동작을 끝낸 후에도 계속되는 지도의 움직임)의 사용 여부입니다. */
         disableKineticPan?: boolean;
+        /** 사용자가 지도 위에서 두 손가락으로 두 번 탭해 지도를 축소하는 기능의 사용 여부입니다. */
         disableTwoFingerTapZoom?: boolean;
+        /** 마우스 또는 손가락을 이용한 지도 이동(패닝) 허용 여부입니다. */
         draggable?: boolean;
+        /** 키보드 방향 키를 이용한 지도 이동(패닝) 허용 여부입니다. */
         keyboardShortcuts?: boolean;
+        /** NAVER 로고 컨트롤의 표시 여부입니다. */
         logoControl?: boolean;
+        /** NAVER 로고 컨트롤의 옵션입니다. */
         logoControlOptions?: LogoControlOptions;
+        /** 지도 데이터 저작권 컨트롤의 표시 여부입니다. */
         mapDataControl?: boolean;
+        /** 지도 데이터 저작권 컨트롤의 옵션입니다. */
         mapDataControlOptions?: MapDataControlOptions;
+        /** 지도 유형 컨트롤의 표시 여부입니다. */
         mapTypeControl?: boolean;
+        /** 지도 유형 컨트롤의 옵션입니다. */
         mapTypeControlOptions?: MapTypeControlOptions;
+        /** 지도의 초기 지도 유형 id입니다. */
         mapTypeId?: MapTypeIdLiteral;
+        /** 지도 유형의 컬렉션을 포함하는 객체입니다. */
         mapTypes?: MapTypeRegistry;
+        /** 지도에서 보이는 최대 좌표 경계입니다. */
         maxBounds?: Bounds | BoundsLiteral;
+        /** 지도의 최대 줌 레벨입니다. */
         maxZoom?: number;
+        /** 지도의 최소 줌 레벨입니다. */
         minZoom?: number;
+        /** 지도 뷰포트의 안쪽 여백(패딩)입니다 */
         padding?: padding;
+        /** 핀치 제스처를 이용한 지도 확대/축소 허용 여부입니다. */
         pinchZoom?: boolean;
+        /** 지도 크기 조정 시 고정할 원점입니다. */
         resizeOrigin?: Position;
+        /** 지도 축척 컨트롤의 표시 여부입니다. */
         scaleControl?: boolean;
+        /** 지도 축척 컨트롤의 옵션입니다. */
         scaleControlOptions?: ScaleControlOptions;
+        /** 마우스 스크롤 휠을 이용한 지도 확대/축소 허용 여부입니다. */
         scrollWheel?: boolean;
+        /** 지도의 초기 크기입니다. */
         size?: Size | SizeLiteral;
+        /** 도형, 마커 등 오버레이의 줌 효과 적용 대상입니다. */
         overlayZoomEffect?: null | string;
+        /** 지도의 크기보다 여유있게 로딩할 타일의 개수를 지정합니다. */
         tileSpare?: number;
+        /** 지도 타일을 전환할 때 페이드 인 효과(타일이 서서히 나타나는 것)의 사용 여부입니다. */
         tileTransition?: boolean;
+        /** 지도 타일을 전환할 때 페이드 인 효과(타일이 서서히 나타나는 것)의 지속 시간 입니다. */
         tileDuration?: number;
+        /** 줌 컨트롤의 표시 여부입니다. */
         zoomControl?: boolean;
+        /** 줌 컨트롤의 옵션입니다. */
         zoomControlOptions?: ZoomControlOptions;
+        /** 줌 효과 시 고정하여 적용할 기준 좌표입니다 */
         zoomOrigin?: Coord | CoordLiteral;
+        /** 빈 타일 이미지 URL을 설정할 수 있는 옵션입니다. */
         blankTileImage?: null | string;
     }
 
