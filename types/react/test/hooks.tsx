@@ -266,9 +266,9 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // make sure the generic argument does reject actual potentially undefined inputs
     // @ts-expect-error
     React.useState<number>(undefined)[0];
-    // don't allow void calls to update the state with the default overload
+    // don't allow void calls to update when the generic doesn't include undefined, e.g. when an initial value is set.
     // @ts-expect-error
-    React.useState(0)[1]();
+    React.useState('initialValue')[1]();
 
     // make sure useState does not widen
     {
