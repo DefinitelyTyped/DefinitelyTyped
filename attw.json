@@ -1452,7 +1452,6 @@
         "pretty-proptypes",
         "prismic-dom",
         "progressjs",
-        "promise-fn-retry",
         "promise-pg",
         "promise-pool",
         "promise-sftp",
