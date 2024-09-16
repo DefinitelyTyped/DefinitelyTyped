@@ -15,6 +15,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "index.d.ts",
         "emulator.d.ts",
         "andrdoid-emulator-webrtc-tests.tsx"
     ]
