@@ -574,6 +574,7 @@ declare module "../index" {
          * @param array The array to query.
          * @return Returns the first element of array.
          */
+        head<T extends readonly unknown[]>(array: T): number extends T['length'] ? T[number] | undefined : T[0];
         head<T>(array: List<T> | null | undefined): T | undefined;
     }
     interface String {

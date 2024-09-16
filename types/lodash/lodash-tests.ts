@@ -555,6 +555,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     _.head("abc"); // $ExpectType string | undefined
     _.head(list); // $ExpectType AbcObject | undefined
+    _.head([1, 2, 3]); // $ExpectType number | undefined
+    _.head([]); // $ExpectType undefined
+    _.head([] as []); // $ExpectType undefined
+    _.head([1, 2, 3] as const); // $ExpectType 1
+    _.head([1, 2, 3] as [number, number, number]); // $ExpectType number
 
     _("abc").head(); // $ExpectType string | undefined
     _(list).head(); // $ExpectType AbcObject | undefined
