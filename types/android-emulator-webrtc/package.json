@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/android-emulator-webrtc",
-    "version": "1.0.18",
+    "version": "1.0.9999",
     "projects": [
         "https://github.com/google/android-emulator-webrtc"
     ],
