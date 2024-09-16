@@ -509,14 +509,14 @@ type PopupButton =
         text?: string;
     }
     & (
-    | {
-    type: "default" | "destructive";
-    text: string;
-}
-    | {
-    type: "ok" | "close" | "cancel";
-    text?: string;
-}
+        | {
+            type: "default" | "destructive";
+            text: string;
+        }
+        | {
+            type: "ok" | "close" | "cancel";
+            text?: string;
+        }
     );
 
 /**
