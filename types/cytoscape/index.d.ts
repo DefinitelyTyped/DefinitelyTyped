@@ -3897,6 +3897,29 @@ declare namespace cytoscape {
              * A value between [0 1].
              */
             "border-opacity"?: PropertyValueNode<number> | undefined;
+            /**
+             * The position of the node’s border.
+             * One of: center, inside, outside.
+             */
+            "border-position"?: PropertyValueNode<"center" | "inside" | "outside"> | undefined;
+            /**
+             * The cap style of the node’s border.
+             * One of: butt, round, square.
+             */
+            "border-cap"?: PropertyValueNode<"butt" | "round" | "square"> | undefined;
+            /**
+             * The join style of the node’s border.
+             * One of: miter, bevel, round.
+             */
+            "border-join"?: PropertyValueNode<"miter" | "bevel" | "round"> | undefined;
+            /**
+             * The dashed line pattern which specifies alternating lengths of lines and gaps. (e.g. [6, 3]).
+             */
+            "border-dash-pattern"?: PropertyValueNode<number[]> | undefined;
+            /**
+             * The dashed line offset (e.g. 24). It is useful for creating edge animations.
+             */
+            "border-dash-offset"?: PropertyValueNode<number> | undefined;
         }
 
         /**
