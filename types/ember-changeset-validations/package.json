@@ -5,10 +5,16 @@
     "projects": [
         "https://github.com/poteto/ember-changeset-validations"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/ember__array": "*"
     },
+    "peerDependenciesMeta": {
+      "@types/ember__array": {
+        "optional": true
+      }
+    },
     "devDependencies": {
+        "@types/ember__array": "^4.0.10",
         "@types/ember-changeset-validations": "workspace:."
     },
     "owners": [
