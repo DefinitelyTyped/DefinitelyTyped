@@ -650,6 +650,7 @@ declare module "node:test" {
          */
         readonly mock: MockTracker;
     }
+    import { strictEqual } from "node:assert";
     interface TestContextAssert {
         /**
          * Identical to the `deepEqual` function from the `node:assert` module, but bound to the test context.
@@ -714,7 +715,7 @@ declare module "node:test" {
         /**
          * Identical to the `strictEqual` function from the `node:assert` module, but bound to the test context.
          */
-        strictEqual: typeof import("node:assert").strictEqual;
+        strictEqual: <T>(...args: Parameters<typeof strictEqual<T>>) => ReturnType<typeof strictEqual<T>>;
         /**
          * Identical to the `throws` function from the `node:assert` module, but bound to the test context.
          */

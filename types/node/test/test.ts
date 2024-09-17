@@ -975,7 +975,7 @@ const invalidTestContext = new TestContext();
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
 
-test("planning with streams", (t: TestContext, done) => {
+test("planning with streams", (t, done) => {
     function* generate() {
         yield "a";
         yield "b";
@@ -993,6 +993,10 @@ test("planning with streams", (t: TestContext, done) => {
         done();
     });
 });
+
+test("assert.strictEqual in TestContextAssert", (t) => {
+    t.assert.strictEqual(1, 1)
+})
 
 // Test snapshot assertion.
 test(t => {
