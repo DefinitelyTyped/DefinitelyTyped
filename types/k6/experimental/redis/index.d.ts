@@ -814,3 +814,8 @@ export interface ClusterOptions {
      */
     nodes: RedisConnectionURL[] | SocketOptions[];
 }
+
+declare let _default: {
+    Client: Client;
+};
+export default _default;

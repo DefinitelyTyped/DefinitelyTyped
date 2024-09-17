@@ -1,5 +1,5 @@
-import { CookieJar } from "../http";
-import { ReadableStream } from "./streams";
+import { CookieJar } from "../../http/index.js";
+import { ReadableStream } from "../streams/index.js";
 
 /**
  * This module provides an experimental implementation of the WebSocket API
