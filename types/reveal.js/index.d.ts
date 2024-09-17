@@ -1067,7 +1067,7 @@ declare namespace Reveal {
          *
          * @defaultValue `false`
          */
-        showNotes?: boolean;
+        showNotes?: boolean | "separate-page";
 
         /**
          * Flags if slides with data-visibility="hidden" should be kep visible
