@@ -1289,9 +1289,13 @@ async function testBrowserActionForPromise() {
 async function testCookieForPromise() {
     await chrome.cookies.getAllCookieStores();
     await chrome.cookies.getAll({});
+    await chrome.cookies.getAll({ partitionKey: {} });
     await chrome.cookies.set({ url: "url1" });
+    await chrome.cookies.set({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
     await chrome.cookies.remove({ url: "url1", name: "name1" });
+    await chrome.cookies.remove({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
     await chrome.cookies.get({ url: "url1", name: "name1" });
+    await chrome.cookies.get({ url: "url1", name: "name1", partitionKey: {} });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/management
@@ -1851,16 +1855,6 @@ async function testBrowsingDataForPromise() {
     await chrome.browsingData.removeCache({});
     await chrome.browsingData.removeHistory({});
     await chrome.browsingData.removeIndexedDB({});
-}
-
-// https://developer.chrome.com/docs/extensions/reference/cookies
-async function testCoookies() {
-    // await chrome.cookies.getAll(); // TODO: fix the overload to make details optional
-    await chrome.cookies.getAll({ partitionKey: {} });
-    await chrome.cookies.remove({ name: "test-cookie", url: "https://example.com" });
-    await chrome.cookies.remove({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
-    await chrome.cookies.set({ name: "test-cookie", url: "https://example.com", value: "cookie-value" });
-    await chrome.cookies.set({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/commands
