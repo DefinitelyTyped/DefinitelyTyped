@@ -106,6 +106,7 @@ const ComponentWithChildren3: React.FunctionComponent<React.PropsWithChildren<Co
     defaultChecked
     defaultValue="some value"
     contentEditable
+    enterKeyHint="done"
     suppressContentEditableWarning
     suppressHydrationWarning
 >
