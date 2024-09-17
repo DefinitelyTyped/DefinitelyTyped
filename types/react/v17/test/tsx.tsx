@@ -63,6 +63,7 @@ VoidFunctionComponent2.defaultProps = {
     defaultChecked
     defaultValue="some value"
     contentEditable
+    enterKeyHint="done"
     suppressContentEditableWarning
     suppressHydrationWarning
 >
