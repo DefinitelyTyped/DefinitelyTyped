@@ -1822,7 +1822,10 @@ declare namespace chrome.cookies {
         domain: string;
         /** The name of the cookie. */
         name: string;
-        /** The partition key for reading or modifying cookies with the Partitioned attribute. */
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
         partitionKey?: CookiePartitionKey;
         /** The ID of the cookie store containing this cookie, as provided in getAllCookieStores(). */
         storeId: string;
@@ -1868,7 +1871,10 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. Filters the cookies by name.  */
         name?: string | undefined;
-        /** The partition key for reading or modifying cookies with the Partitioned attribute. */
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
         partitionKey?: CookiePartitionKey | undefined;
         /** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
         url?: string | undefined;
@@ -1887,7 +1893,10 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. The name of the cookie. Empty by default if omitted.  */
         name?: string | undefined;
-        /** The partition key for reading or modifying cookies with the Partitioned attribute. */
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
         partitionKey?: CookiePartitionKey | undefined;
         /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
@@ -1912,6 +1921,10 @@ declare namespace chrome.cookies {
 
     export interface Details {
         name: string;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
         partitionKey?: CookiePartitionKey | undefined;
         url: string;
         storeId?: string | undefined;
