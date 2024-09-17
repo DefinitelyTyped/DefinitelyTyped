@@ -986,7 +986,10 @@ test("planning with streams", (t: TestContext, done) => {
 
     const stream = Readable.from(generate());
     stream.on("data", (chunk) => {
-        t.assert.strictEqual(chunk, expected.shift());
+        t.assert.strictEqual(chunk, expected.shift()!);
+
+        // $ExpectType string
+        chunk;
     });
 
     stream.on("end", () => {
