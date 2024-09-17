@@ -34,7 +34,6 @@
 
         "experimental/fs/index.d.ts",
         "experimental/redis/index.d.ts",
-        "experimental/timers/index.d.ts",
         "experimental/tracing/index.d.ts",
         "experimental/webcrypto/index.d.ts",
         "experimental/websockets/index.d.ts",
