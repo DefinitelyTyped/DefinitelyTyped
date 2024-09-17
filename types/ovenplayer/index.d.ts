@@ -1,14 +1,12 @@
-interface OvenPlayer {
-    debug(debug: boolean): boolean;
-    generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
-    create(container: string, config: OvenPlayerConfig): OvenPlayerInstance;
-    getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
-    getPlayerByIndex(index: number): OvenPlayerInstance | null;
-    getPlayerList(): OvenPlayerInstance[];
-    removePlayer(player: OvenPlayerInstance): void;
-}
+export function debug(debug: boolean): boolean;
+export function generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
+export function create(container: string, config: OvenPlayerConfig): OvenPlayerInstance;
+export function getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
+export function getPlayerByIndex(index: number): OvenPlayerInstance | null;
+export function getPlayerList(): OvenPlayerInstance[];
+export function removePlayer(player: OvenPlayerInstance): void;
 
-interface OvenPlayerPlayListItem {
+export interface OvenPlayerPlayListItem {
     title?: string;
     image?: string;
     duration?: number;
@@ -17,15 +15,15 @@ interface OvenPlayerPlayListItem {
     tracks?: Array<Pick<OvenPlayerTrack, "file" | "kind" | "label">>;
 }
 
-type OvenPlayerPlayList = OvenPlayerPlayListItem[];
+export type OvenPlayerPlayList = OvenPlayerPlayListItem[];
 
-interface OvenPlayerIceServer {
+export interface OvenPlayerIceServer {
     urls: string[];
     username?: string;
     credential?: string;
 }
 
-interface OvenPlayerConfig {
+export interface OvenPlayerConfig {
     aspectRatio?: string;
     title?: string;
     waterMark?: {
@@ -116,14 +114,14 @@ interface OvenPlayerConfig {
     image?: string;
 }
 
-interface OvenPlayerWebRTCStream {
+export interface OvenPlayerWebRTCStream {
     host: string;
     application: string;
     stream: string;
     label?: string;
 }
 
-interface OvenPlayerSource {
+export interface OvenPlayerSource {
     type: "webrtc" | "llhls" | "hls" | "lldash" | "dash" | "mp4";
     file: string;
     label?: string;
@@ -132,7 +130,7 @@ interface OvenPlayerSource {
     sectionEnd?: number;
 }
 
-type OvenPlayerState =
+export type OvenPlayerState =
     | "idle"
     | "complete"
     | "paused"
@@ -145,7 +143,7 @@ type OvenPlayerState =
     | "adPaused"
     | "adComplete";
 
-interface OvenPlayerHandler {
+export interface OvenPlayerHandler {
     /**
      * Player initialization complete. And you can use API methods.
      */
@@ -261,7 +259,7 @@ interface OvenPlayerHandler {
     (eventName: "error", callback: (eventData: OvenPlayerEvents["error"]) => void): void;
 }
 
-interface OvenPlayerEvents {
+export interface OvenPlayerEvents {
     ready: undefined;
     metaChanged: {
         /** Current media's duration (In seconds) */
@@ -368,7 +366,7 @@ interface OvenPlayerEvents {
     };
 }
 
-interface OvenPlayerInstance {
+export interface OvenPlayerInstance {
     getVersion(): string;
     getConfig(): OvenPlayerConfig;
     getContainerElement(): HTMLDivElement;
@@ -420,7 +418,7 @@ interface OvenPlayerInstance {
     remove(): void;
 }
 
-interface OvenPlayerQuality {
+export interface OvenPlayerQuality {
     bitrate: string;
     height: number;
     index: number;
@@ -428,7 +426,7 @@ interface OvenPlayerQuality {
     width: number;
 }
 
-interface OvenPlayerBrowser {
+export interface OvenPlayerBrowser {
     browser: string;
     browserMajorVersion: number;
     browserVersion: string;
@@ -440,7 +438,7 @@ interface OvenPlayerBrowser {
     ua: string;
 }
 
-interface OvenPlayerTrack {
+export interface OvenPlayerTrack {
     file: string;
     kind: string;
     label: string;
@@ -448,23 +446,3 @@ interface OvenPlayerTrack {
     id: string;
     name: string;
 }
-
-export {
-    OvenPlayerBrowser,
-    OvenPlayerConfig,
-    OvenPlayerEvents,
-    OvenPlayerHandler,
-    OvenPlayerIceServer,
-    OvenPlayerInstance,
-    OvenPlayerPlayList,
-    OvenPlayerQuality,
-    OvenPlayerSource,
-    OvenPlayerState,
-    OvenPlayerTrack,
-    OvenPlayerWebRTCStream,
-};
-
-declare const OvenPlayer: OvenPlayer;
-
-export as namespace OvenPlayer;
-export default OvenPlayer;
