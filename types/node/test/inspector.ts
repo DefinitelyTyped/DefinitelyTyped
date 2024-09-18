@@ -63,7 +63,7 @@ session.on("Debugger.resumed", () => {});
 inspector.console;
 
 // $ExpectType void
-inspector.Network.loadingFinished({ requestId: '12345', timestamp: 1234567890000 });
+inspector.Network.loadingFinished({ requestId: "12345", timestamp: 1234567890000 });
 
 // $ExpectType Promise<EvaluateReturnType>
 new promiseSession().post("Runtime.evaluate", { expression: "2 + 2" });

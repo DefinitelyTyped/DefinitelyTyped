@@ -619,7 +619,7 @@ addAbortSignal(new AbortSignal(), new Readable());
 }
 
 {
-    const [ duplexLeft, duplexRight ] = duplexPair();
+    const [duplexLeft, duplexRight] = duplexPair();
     // $ExpectType Duplex
     duplexLeft;
     // $ExpectType Duplex
