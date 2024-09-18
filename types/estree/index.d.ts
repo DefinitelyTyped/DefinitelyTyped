@@ -353,7 +353,7 @@ export interface UnaryExpression extends BaseExpression {
 export interface BinaryExpression extends BaseExpression {
     type: "BinaryExpression";
     operator: BinaryOperator;
-    left: Expression;
+    left: Expression | PrivateIdentifier;
     right: Expression;
 }
 

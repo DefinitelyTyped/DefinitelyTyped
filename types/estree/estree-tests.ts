@@ -222,7 +222,8 @@ boolean = unaryExpression.prefix;
 
 // BinaryExpression
 var binaryExpression: ESTree.BinaryExpression;
-expression = binaryExpression.left;
+var expressionOrPrivateIdentifier: ESTree.Expression | ESTree.PrivateIdentifier;
+expressionOrPrivateIdentifier = binaryExpression.left;
 expression = binaryExpression.right;
 
 // ConditionalExpression
