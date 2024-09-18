@@ -766,7 +766,6 @@ declare namespace vhtml {
             vocab?: string | undefined;
 
             // Non-standard Attributes
-            autocapitalize?: string | undefined;
             autocorrect?: string | undefined;
             autosave?: string | undefined;
             color?: string | undefined;
@@ -780,6 +779,11 @@ declare namespace vhtml {
             unselectable?: "on" | "off" | undefined;
 
             // Living Standard
+            /**
+             * Controls automatic text capitalization
+             * @see https://html.spec.whatwg.org/multipage/interaction.html#attr-autocapitalize
+             */
+            autocapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
             /**
              * Hints at the type of data that might be entered by the user while editing the element or its contents
              * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute

@@ -1451,6 +1451,7 @@ declare namespace Rax {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
         className?: string | undefined;
         contentEditable?: boolean | undefined;
         contextMenu?: string | undefined;
@@ -1485,7 +1486,6 @@ declare namespace Rax {
         vocab?: string | undefined;
 
         // Non-standard Attributes
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;

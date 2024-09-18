@@ -33,6 +33,7 @@ declare namespace __ReactMDL {
         allowTransparency?: boolean | undefined;
         alt?: string | undefined;
         async?: boolean | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
         autoComplete?: string | undefined;
         autoFocus?: boolean | undefined;
         autoPlay?: boolean | undefined;
@@ -150,7 +151,6 @@ declare namespace __ReactMDL {
         vocab?: string | undefined;
 
         // Non-standard Attributes
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;

@@ -147,7 +147,7 @@ const htmlAttributesTest = (
 
         <div
             accesskey="test"
-            autocapitalize="test"
+            autocapitalize="off"
             autocorrect="test"
             autosave="test"
             class="test"

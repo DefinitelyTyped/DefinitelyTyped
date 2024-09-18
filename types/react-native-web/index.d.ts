@@ -1093,7 +1093,7 @@ export interface TextProps extends ViewPropsWithoutStyle {
 export const Text: FunctionComponent<TextProps & RefAttributes<HTMLElement & PlatformMethods>>;
 
 export interface TextInputProps extends ViewPropsWithoutStyle {
-    autoCapitalize?: "characters" | "none" | "sentences" | "words";
+    autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
     autoComplete?: string;
     autoCompleteType?: string; // Compat with React Native (Bug react-native#26003)
     autoCorrect?: boolean;

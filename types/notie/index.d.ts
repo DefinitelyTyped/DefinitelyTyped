@@ -66,7 +66,7 @@ export interface InputOptions {
     /** @default 'top' */
     position?: Position | undefined;
     /** @default 'none' */
-    autocapitalize?: string | undefined;
+    autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
     /** @default 'off' */
     autocomplete?: string | undefined;
     /** @default 'off' */
