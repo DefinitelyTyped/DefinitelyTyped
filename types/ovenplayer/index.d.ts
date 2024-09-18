@@ -1,5 +1,4 @@
 declare namespace OvenPlayer {
-
     interface OvenPlayerPlayListItem {
         title?: string;
         image?: string;
@@ -157,7 +156,10 @@ declare namespace OvenPlayer {
         /**
          * Fired when the playback rate has been changed
          */
-        (eventName: "playbackRateChanged", callback: (eventData: OvenPlayerEvents["playbackRateChanged"]) => void): void;
+        (
+            eventName: "playbackRateChanged",
+            callback: (eventData: OvenPlayerEvents["playbackRateChanged"]) => void,
+        ): void;
         /**
          * Fired after a seek has been requested either by scrubbing the control bar or through the API.
          */
@@ -189,7 +191,10 @@ declare namespace OvenPlayer {
         /**
          * Fired when the active quality level is changed. It happens in response to, e.g., a user clicking an option in the quality menu or a script calling `setCurrentQuality`.
          */
-        (eventName: "qualityLevelChanged", callback: (eventData: OvenPlayerEvents["qualityLevelChanged"]) => void): void;
+        (
+            eventName: "qualityLevelChanged",
+            callback: (eventData: OvenPlayerEvents["qualityLevelChanged"]) => void,
+        ): void;
         /**
          * Fired when VTTCue is changed.
          */
@@ -440,19 +445,25 @@ declare namespace OvenPlayer {
         id: string;
         name: string;
     }
-
 }
 
 interface OvenPlayerInterface {
     debug(this: OvenPlayerInterface, debug: boolean): boolean;
-    generateWebrtcUrls(this: OvenPlayerInterface, sources: OvenPlayer.OvenPlayerWebRTCStream | OvenPlayer.OvenPlayerWebRTCStream[]): OvenPlayer.OvenPlayerSource[];
-    create(this: OvenPlayerInterface, container: string, config: OvenPlayer.OvenPlayerConfig): OvenPlayer.OvenPlayerInstance;
+    generateWebrtcUrls(
+        this: OvenPlayerInterface,
+        sources: OvenPlayer.OvenPlayerWebRTCStream | OvenPlayer.OvenPlayerWebRTCStream[],
+    ): OvenPlayer.OvenPlayerSource[];
+    create(
+        this: OvenPlayerInterface,
+        container: string,
+        config: OvenPlayer.OvenPlayerConfig,
+    ): OvenPlayer.OvenPlayerInstance;
     getPlayerByContainerId(this: OvenPlayerInterface, containerId: string): OvenPlayer.OvenPlayerInstance | null;
     getPlayerByIndex(this: OvenPlayerInterface, index: number): OvenPlayer.OvenPlayerInstance | null;
     getPlayerList(this: OvenPlayerInterface): OvenPlayer.OvenPlayerInstance[];
     removePlayer(this: OvenPlayerInterface, player: OvenPlayer.OvenPlayerInstance): void;
 }
 
-declare const OvenPlayer: OvenPlayerInterface
+declare const OvenPlayer: OvenPlayerInterface;
 
-export = OvenPlayer
+export = OvenPlayer;
