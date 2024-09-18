@@ -284,6 +284,13 @@ identifierOrNull = classDeclaration.id;
 // @ts-expect-error Use MaybeNamedClassDeclaration for default exports
 classDeclaration.id = null;
 
+var identifierOrLiteral: ESTree.Identifier | ESTree.Literal;
+identifierOrLiteral = importSpecifier.imported;
+identifierOrLiteral = exportSpecifier.local;
+identifierOrLiteral = exportSpecifier.exported;
+var identifierOrLiteralOrNull: ESTree.Identifier | ESTree.Literal | null;
+identifierOrLiteralOrNull = exportAllDeclaration.exported;
+
 // Clauses
 // SwitchCase
 string = switchCase.type;
