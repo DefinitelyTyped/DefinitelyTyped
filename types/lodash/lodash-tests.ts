@@ -560,6 +560,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.head([] as []); // $ExpectType undefined
     _.head([1, 2, 3] as const); // $ExpectType 1
     _.head([1, 2, 3] as [number, number, number]); // $ExpectType number
+    _.head([1, 2, 3] as [...number[]]); // $ExpectType number | undefined
+    _.head([1, 2, 3] as [number, ...number[]]); // $ExpectType number
 
     _("abc").head(); // $ExpectType string | undefined
     _(list).head(); // $ExpectType AbcObject | undefined
