@@ -1,0 +1,15 @@
+{
+  "name": "@types/morphing-scroll",
+  "version": "1.0.3",
+  "description": "Type definitions for morphing-scroll✨",
+  "author": "Georg Schilin",
+  "license": "MIT",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "types",
+    "morphing-scroll"
+  ],
+  "peerDependencies": {
+    "morphing-scroll": "*"
+  }
+}
