@@ -1,16 +1,16 @@
 {
+  "name": "@types/morphing-scroll",
+  "version": "1.0.9999",
   "private": true,
   "devDependencies": {
     "@types/morphing-scroll": "workspace:."
   },
-  "version": "1.0.3.9999",
   "projects": [
     "https://github.com/voodoofugu/morphing-scroll"
   ],
   "owners": [
     {
       "name": "Georg Schilin",
-      "url": "https://github.com/voodoofugu",
       "githubUsername": "voodoofugu"
     }
   ]
