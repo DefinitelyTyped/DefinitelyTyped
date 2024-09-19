@@ -1,15 +1,17 @@
 {
-  "name": "@types/morphing-scroll",
-  "version": "1.0.3",
-  "description": "Type definitions for morphing-scroll✨",
-  "author": "Georg Schilin",
-  "license": "MIT",
-  "types": "dist/index.d.ts",
-  "keywords": [
-    "types",
-    "morphing-scroll"
+  "private": true,
+  "devDependencies": {
+    "@types/morphing-scroll": "workspace:."
+  },
+  "version": "1.0.3.9999",
+  "projects": [
+    "https://github.com/voodoofugu/morphing-scroll"
   ],
-  "peerDependencies": {
-    "morphing-scroll": "*"
-  }
+  "owners": [
+    {
+      "name": "Georg Schilin",
+      "url": "https://github.com/voodoofugu",
+      "githubUsername": "voodoofugu"
+    }
+  ]
 }
