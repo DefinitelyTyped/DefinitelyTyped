@@ -46,3 +46,6 @@ const strokeOpacityStyleTest = <svg style={strokeOpacityStyle} />;
 
 const strokeWidthStyle: React.CSSProperties = { strokeWidth: "10px" };
 const strokeWidthStyleTest = <svg style={strokeWidthStyle} />;
+
+const propertyWidth: React.CSS.Property.Width = "10px";
+const propertyWidthTest = <div style={width:propertyWidth}/>
