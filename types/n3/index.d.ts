@@ -95,7 +95,9 @@ export class Quad extends BaseQuad implements RDF.Quad {
 
 export class Triple extends Quad implements RDF.Quad {}
 
-export interface DataFactoryInterface<Q_In extends RDF.BaseQuad = RDF.Quad, Q_Out extends BaseQuad = Quad> extends RDF.DataFactory<Q_In, Q_Out> {
+export interface DataFactoryInterface<Q_In extends RDF.BaseQuad = RDF.Quad, Q_Out extends BaseQuad = Quad>
+    extends RDF.DataFactory<Q_In, Q_Out>
+{
     namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
     blankNode(value?: string): BlankNode;
     literal(value: string | number, languageOrDatatype?: string | RDF.NamedNode): Literal;
