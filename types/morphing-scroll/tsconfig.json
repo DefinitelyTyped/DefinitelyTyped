@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "commonjs",
+    "noEmit": true,
+    "types": [],
     "target": "es6",
     "lib": ["es6"],
     "strict": true,
@@ -8,5 +10,5 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["*.d.ts"]
+  "files": ["index.d.ts"]
 }

@@ -1,3 +1,5 @@
-.DS_Store
-node_modules
-dist
+*
+!**/*.d.ts
+!**/*.d.cts
+!**/*.d.mts
+!**/*.d.*.ts
