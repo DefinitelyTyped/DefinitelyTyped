@@ -772,7 +772,7 @@ export interface BrowserContext {
     /**
      * Creates a new `Page` in the `BrowserContext`.
      */
-    newPage(): Promise<Page>;
+    newPage(options?: NewBrowserContextOptions): Promise<Page>;
 
     /**
      * Returns a list of `Page`s that belongs to the `BrowserContext`.
