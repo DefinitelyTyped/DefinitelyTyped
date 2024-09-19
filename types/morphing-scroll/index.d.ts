@@ -1,15 +1,15 @@
 import React from "react";
 
-type IntersectionTrackerProps = {
+interface IntersectionTrackerProps {
   children: React.ReactNode;
-  root?: Element | null;
+  root?: any;
   threshold?: number;
   rootMargin?: number[] | number;
-  style?: React.CSSProperties;
+  style?: any;
   visibleContent?: boolean;
   onVisible?: () => void;
   intersectionDeley?: number;
-};
+}
 declare const IntersectionTracker: React.FC<IntersectionTrackerProps>;
 
 interface MorphingScrollType {
@@ -34,12 +34,12 @@ interface MorphingScrollType {
   thumbElement?: React.ReactNode;
   edgeGradient?: boolean | string;
   objectsWrapperMinSize?: number;
-  onScrollValue?: [(scrollTop: number) => boolean, () => void][];
+  onScrollValue?: Array<[(scrollTop: number) => boolean, () => void]>;
   children: React.ReactNode;
 }
 declare const MorphingScroll: React.FC<MorphingScrollType>;
 
-type ResizeTrackerProps = {
+interface ResizeTrackerProps {
   children: (width: number, height: number) => React.ReactNode;
   onResize?: (width: number, height: number) => void;
   style?: React.CSSProperties;
