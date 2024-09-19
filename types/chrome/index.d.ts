@@ -3211,7 +3211,7 @@ declare namespace chrome.enterprise.platformKeys {
     export interface Token {
         /**
          * Uniquely identifies this Token.
-         * Static IDs are "user" and "system", referring to the platform's user-specific and the system-wide hardware token, respectively. Any other tokens (with other identifiers) might be returned by enterprise.platformKeys.getTokens.
+         * Static IDs are `user` and `system`, referring to the platform's user-specific and the system-wide hardware token, respectively. Any other tokens (with other identifiers) might be returned by enterprise.platformKeys.getTokens.
          */
         id: string;
         /**
@@ -3240,7 +3240,7 @@ declare namespace chrome.enterprise.platformKeys {
          * Which Enterprise Key to challenge.
          * @since Chrome 110
          */
-        scope: Scope;
+        scope: `${Scope}`;
         /**
          * If present, registers the challenged key with the specified scope's token.
          * The key can then be associated with a certificate and used like any other signing key.
@@ -3254,20 +3254,26 @@ declare namespace chrome.enterprise.platformKeys {
         /**
          * Which algorithm the registered key should use.
          */
-        algorithm: Algorithm;
+        algorithm: `${Algorithm}`;
     }
 
     /**
-     * @since Chrome 110
      * Type of key to generate.
+     * @since Chrome 110
      */
-    type Algorithm = "RSA" | "ECDSA";
+    export enum Algorithm {
+        ECDSA = "ECDSA",
+        RSA = "RSA",
+    }
 
     /**
-     * @since Chrome 110
      * Whether to use the Enterprise User Key or the Enterprise Machine Key.
+     * @since Chrome 110
      */
-    type Scope = "USER" | "MACHINE";
+    export enum Scope {
+        USER = "USER",
+        MACHINE = "MACHINE",
+    }
 
     /**
      * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
@@ -3275,6 +3281,7 @@ declare namespace chrome.enterprise.platformKeys {
      * Parameter tokens: The list of available tokens.
      */
     export function getTokens(callback: (tokens: Token[]) => void): void;
+
     /**
      * Returns the list of all client certificates available from the given token. Can be used to check for the existence and expiration of client certificates that are usable for a certain authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3282,6 +3289,7 @@ declare namespace chrome.enterprise.platformKeys {
      * Parameter certificates: The list of certificates, each in DER encoding of a X.509 certificate.
      */
     export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
+
     /**
      * Imports certificate to the given token if the certified key is already stored in this token. After a successful certification request, this function should be used to store the obtained certificate and to make it available to the operating system and browser for authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3289,6 +3297,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back when this operation is finished.
      */
     export function importCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+
     /**
      * Removes certificate from the given token if present. Should be used to remove obsolete certificates so that they are not considered during authentication and do not clutter the certificate choice. Should be used to free storage in the certificate store.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3296,6 +3305,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back when this operation is finished.
      */
     export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+
     /**
      * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
      *
@@ -3311,6 +3321,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @since Chrome 110
      */
     export function challengeKey(options: ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
+
     /**
      * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
      *
@@ -3328,11 +3339,13 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back with the challenge response.
      * @since Chrome 50
      */
+
     export function challengeMachineKey(
         challenge: ArrayBuffer,
         registerKey: boolean,
         callback: (response: ArrayBuffer) => void,
     ): void;
+
     export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
     /**
      * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
@@ -3351,6 +3364,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back with the challenge response.
      * @since Chrome 50
      */
+
     export function challengeUserKey(
         challenge: ArrayBuffer,
         registerKey: boolean,

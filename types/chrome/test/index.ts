@@ -2290,15 +2290,27 @@ function testUserScripts() {
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
 }
 
-function testPlatformKeys() {
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
+function testEnterPrisePlatformKeys() {
+    chrome.enterprise.platformKeys.Scope;
+    chrome.enterprise.platformKeys.Algorithm;
+
     chrome.enterprise.platformKeys.challengeKey({ // $ExpectType void
         scope: "MACHINE",
         challenge: new ArrayBuffer(0),
         registerKey: { algorithm: "ECDSA" },
     }, () => {});
 
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), response => {}); // $ExpectType void
 
-    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.getCertificates("tokenId", certificates => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.getTokens(tokens => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.importCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.removeCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
 }
