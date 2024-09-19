@@ -1,14 +1,10 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "noEmit": true,
-    "types": [],
-    "target": "es6",
-    "lib": ["es6"],
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "target": "es5",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "strict": true
   },
   "files": ["index.d.ts"]
 }
