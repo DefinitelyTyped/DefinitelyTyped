@@ -174,7 +174,6 @@ declare namespace passport {
          */
         userProperty?: string | undefined;
         passReqToCallback?: boolean | undefined;
-        prompt?: string | undefined;
     }
 
     interface InitializeOptions {
