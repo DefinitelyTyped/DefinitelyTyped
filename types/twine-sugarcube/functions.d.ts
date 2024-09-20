@@ -97,6 +97,7 @@ declare global {
      *  sequentially.
      *
      * @since 2.16.0
+     * @since 2.37.0 Added the ability to load JS Modules.
      *
      * @example Basic usage
      * // Import all scripts concurrently
@@ -364,6 +365,59 @@ declare global {
      * or [[stand your ground|Eaten by a grue]]?
      */
     function time(): number;
+
+    interface TriggerEventOptions {
+        /**
+         * Whether the event bubbles
+         * @default true
+         */
+        bubbles?: boolean;
+        /**
+         * Whether the event is cancelable
+         * @default true
+         */
+        cancelable?: boolean;
+        /**
+         * Whether the event triggers listeners outside of a shadow root
+         * @default false
+         */
+        composed?: boolean;
+        /**
+         * Custom data sent with the event Although any type is allowable, an object is often the most practical.
+         */
+        detail?: unknown;
+    }
+
+    /**
+     * Dispatches a synthetic event with the given name, optionally on the given targets and with the given options.
+     * @param name The name of the event to trigger. Both native and custom events are supported.
+     * @param targets he target(s) to trigger the event on. If omitted, will default to document.
+     * @param options The options to be used when dispatching the event
+     * @since SugarCube 2.37.0
+     * @example
+     * // Dispatch a custom fnord event on document
+     * triggerEvent('fnord');
+     *
+     * // Dispatch a click event on the element bearing the ID some-menu
+     * triggerEvent('click', document.getElementById('some-menu'));
+     *
+     * // Dispatch a custom update-meter event on document while specifying some options
+     * triggerEvent('update-meter', document, {
+     * 	detail : {
+     * 		tags : ['health', 'magick']
+     * 	}
+     * });
+     *
+     * // Various ways to dispatch a mouseover event on all elements bearing the class flippable
+     * triggerEvent('mouseover', document.getElementsByClassName('flippable'));
+     * triggerEvent('mouseover', document.querySelectorAll('.flippable'));
+     * triggerEvent('mouseover', jQuery('.flippable'));
+     */
+    function triggerEvent(
+        name: string,
+        targets?: Document | HTMLElement | JQuery | NodeList | HTMLElement[],
+        options?: TriggerEventOptions,
+    ): void;
 
     /**
      * Returns the number of passages that the player has visited.
