@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "strict": true,
-    "esModuleInterop": true
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [],
+    "lib": ["es6", "dom"]
   },
-  "files": ["index.d.ts"]
+  "include": ["index.d.ts", "morphing-scroll-tests.ts"]
 }
