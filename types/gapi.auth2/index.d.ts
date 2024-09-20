@@ -187,6 +187,11 @@ declare namespace gapi.auth2 {
         hosted_domain?: string | undefined;
 
         /**
+         * Enable or disable the use of browser FedCM APIs during sign-in.
+         */
+        use_fedcm?: boolean | undefined;
+
+        /**
          * Used only for OpenID 2.0 client migration. Set to the value of the realm that you are currently using for OpenID 2.0,
          * as described in <a href="https://developers.google.com/accounts/docs/OpenID#openid-connect">OpenID 2.0 (Migration)</a>.
          */
@@ -203,6 +208,21 @@ declare namespace gapi.auth2 {
          * The default redirect_uri is the current URL stripped of query parameters and hash fragment.
          */
         redirect_uri?: string | undefined;
+
+        /**
+         * Whether to enable granular permissions. If set to false, the more granular Google Account permissions will be disabled
+         * for OAuth client IDs created before 2019. No effect for OAuth Client IDs created during or after 2019, since more granular
+         * permissions is always enabled for them.
+         */
+        enable_granular_consent?: boolean | undefined;
+
+        /**
+         * If this value is set, new Client IDs created before July 29th, 2022 can use the older Google Platform Library.
+         * By default, newly created Client IDs are now blocked from using the Platform Library and instead must use the newer
+         * Google Identity Services library. You may choose any value, a descriptive name such as product or plugin name is
+         * recommended for identification. Example: plugin_name: 'YOUR_STRING_HERE'
+         */
+        plugin_name?: string | undefined;
     }
 
     class SigninOptionsBuilder {
