@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "devDependencies": {
+    "@types/react": "^17.0.0",
     "@types/morphing-scroll": "workspace:."
   },
   "projects": [

@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": [],
-    "lib": ["es6", "dom"]
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "target": "es6",
+    "outDir": "./dist"
   },
   "files": [
     "index.d.ts",
