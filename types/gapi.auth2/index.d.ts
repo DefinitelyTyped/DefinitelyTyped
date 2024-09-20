@@ -187,7 +187,10 @@ declare namespace gapi.auth2 {
         hosted_domain?: string | undefined;
 
         /**
-         * Enable or disable the use of browser FedCM APIs during sign-in.
+         * Enable or disable the use of browser FedCM APIs during sign-in. This parameter is used to opt in or opt out of the FedCM based
+         * sign in flow before enforcement. By default this is undefined and will follow the regular rollout of FedCM based flow.
+         * Setting it to true will explicitly opt into the new flow, while setting it to false will opt out of the new flow until
+         * final enforcement date. See <a href="https://developers.google.com/identity/sign-in/web/gsi-with-fedcm">Devsite</a> for details.
          */
         use_fedcm?: boolean | undefined;
 
