@@ -4,7 +4,8 @@
     "target": "es5",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true
   },
   "files": ["index.d.ts"]
 }
