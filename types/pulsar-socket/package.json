@@ -2,7 +2,6 @@
     "private": true,
     "name": "@types/pulsar-socket",
     "version": "1.0.9999",
-    "types": "index.d.ts",
     "projects": [
         "https://https://github.com/gab-h3nrique/pulsar-client"
     ],
