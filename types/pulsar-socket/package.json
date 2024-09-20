@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/pulsar-socket",
+    "version": "1.0.9999",
+    "types": "index.d.ts",
+    "projects": [
+        "https://https://github.com/gab-h3nrique/pulsar-client"
+    ],
+    "devDependencies": {
+        "@types/pulsar-socket": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gabriel Henrique",
+            "githubUsername": "gab-h3nrique"
+        }
+    ]
+}
