@@ -346,6 +346,7 @@ declare class SteamUser extends EventEmitter {
             unknownApps: number[],
             unknownPackages: number[],
         ) => void,
+        requestType?: number,
     ): Promise<ProductInfo>;
 
     /**
