@@ -67,7 +67,7 @@
 * @since v0.1 by [`Gabriel henrique`](https://github.com/gab-h3nrique)
 * 
 */
-function Pulsar(urlParam?: string, tokenParam?: string): Client;
+declare function Pulsar(urlParam?: string, tokenParam?: string): Client;
 /**
  * 
  * An interface representing the WebSocket client instance.
