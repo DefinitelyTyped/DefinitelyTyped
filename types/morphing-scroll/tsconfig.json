@@ -5,5 +5,8 @@
     "types": [],
     "lib": ["es6", "dom"]
   },
-  "include": ["index.d.ts", "morphing-scroll-tests.ts"]
+  "files": [
+    "index.d.ts",
+    "morphing-scroll-tests.ts"
+  ]
 }
