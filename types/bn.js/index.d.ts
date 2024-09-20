@@ -58,6 +58,11 @@ declare class BN {
     static min(left: BN, right: BN): BN;
 
     /**
+     * @description  Copy to dest number
+     */
+    copy(dest: BN): void;
+
+    /**
      * @description  clone number
      */
     clone(): BN;

@@ -393,6 +393,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode> | null;
+
+        /**
+         * A name for this Suspense boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
     }
     /**
      * This feature is not yet available for server-side rendering.

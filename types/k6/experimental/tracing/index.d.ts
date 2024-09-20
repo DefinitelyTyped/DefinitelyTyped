@@ -8,7 +8,7 @@
  * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/tracing/
  */
 
-import { RefinedParams, RefinedResponse, RequestBody, ResponseType } from "../http";
+import { RefinedParams, RefinedResponse, RequestBody, ResponseType } from "../../http/index.js";
 
 /**
  * The instrumentHTTP function instruments the k6 http module
@@ -204,3 +204,5 @@ export interface Options {
 export interface HttpURL {
     __brand: "http-url";
 }
+
+export * as default from "k6/experimental/tracing";

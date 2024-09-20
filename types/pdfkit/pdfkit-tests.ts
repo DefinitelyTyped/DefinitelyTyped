@@ -30,6 +30,7 @@ var doc = new PDFDocument({
         printing: "lowResolution",
     },
     font: "Arial",
+    fontLayoutCache: true,
 });
 
 doc.addPage({

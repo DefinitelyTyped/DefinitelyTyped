@@ -927,7 +927,7 @@
 /types/cleave.js/                                         @clentfort @jasongi-at-sportsbet @sashashakun
 /types/clerk.io/                                          @madsenmm @andershagbard
 /types/clevertap/                                         @droyson
-/types/clevertap-web-sdk/                                 @sinhaayush7 @KambleSonam
+/types/clevertap-web-sdk/                                 @sinhaayush7 @KambleSonam @kkyusuftk @darshanclevertap
 /types/cli/                                               @kayahr
 /types/cli-box/                                           @athasach
 /types/cli-color/                                         @OpportunityLiu
@@ -1262,6 +1262,7 @@
 /types/cypress-dotenv/                                    @daikiojm @peterblazejewicz
 /types/cypress-image-snapshot/                            @Keysox
 /types/cypress__code-coverage/                            @k-yle
+/types/cyrb53/                                            @igrek8
 /types/cytoscape/                                         @phreed @wy193777 @ypconstante @janniclas @gsbelarus @peterjferrarotto @spaxe @Veckodag @jsve
 /types/cytoscape-avsdf/                                   @rogerdubbs
 /types/cytoscape-canvas/                                  @hellomusa
@@ -4153,7 +4154,6 @@
 /types/koa-csrf/                                          @haskaalo @kirillshvets
 /types/koa-dec-router/                                    @aarystan
 /types/koa-docs/                                          @4doge
-/types/koa-ejs/                                           @mattb-prg
 /types/koa-etag/                                          @wingsbob
 /types/koa-favicon/                                       @hellopao
 /types/koa-generic-session/                               @nsimmons @javiertury
@@ -4202,6 +4202,7 @@
 /types/koa2-ratelimit/                                    @Ovyerus
 /types/koa2-session-redis/                                @DimaMukhin
 /types/koa__cors/                                         @Xstoudi @sjmcdowall
+/types/koa__ejs/                                          @mattb-prg
 /types/koa__multer/                                       @benstevens48 @nomnes
 /types/koa__router/                                       @hellopao @schfkt @JounQin @romain-faust @Guillaume-Mayer @falinor @jdforsythe
 /types/koji-tools/                                        @bdjeffyp
@@ -6157,6 +6158,7 @@
 /types/punycode/                                          @yavanosta
 /types/puppeteer-har/                                     @jordaz14
 /types/puppeteer-lottie/                                  @peterblazejewicz
+/types/puppeteer-screenshot-tester/                       @ferllop
 /types/purdy/                                             @YellowKirby
 /types/pure-render-decorator/                             @seansfkelley
 /types/purify/                                            @ffflorian
@@ -7661,7 +7663,7 @@
 /types/spark-md5/                                         @bastienmoulia @ffflorian
 /types/sparkpost/                                         @geoffreak @bondz @vvu
 /types/sparkpost/v1/                                      @geoffreak
-/types/sparql-http-client/                                @tpluscode
+/types/sparql-http-client/                                @tpluscode @ludovicm67
 /types/sparqljs/                                          @AlexeyMz @rubensworks
 /types/sparqljs/v2/                                       @AlexeyMz
 /types/sparse-bitfield/                                   @BendingBender
@@ -8449,6 +8451,7 @@
 /types/vextab/                                            @WeMakeMachines
 /types/vhost/                                             @XVincentX @cssinate
 /types/vhtml/                                             @pastelmind
+/types/video-name-parser/                                 @hackergrrl
 /types/video-react/                                       @fabio-nettis
 /types/video.js/                                          @vbortone @scleriot @SWBennett06 @IgelCampus @giofreitas @gjanblaszczyk @meikidd @joeflateau @ckybonist @peterblazejewicz @princefishthrower
 /types/videojs-contrib-quality-levels/                    @nhardy

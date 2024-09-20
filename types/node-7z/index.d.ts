@@ -146,8 +146,6 @@ interface CommandLineSwitches {
     sortByType?: boolean | undefined;
     /** Compress files open for writing (-ssw) */
     openFiles?: boolean | undefined;
-    /** Overwrite mode (-ao) */
-    overwrite?: "a" | "s" | "t" | "u" | undefined;
     /** Recurse subdirectories. For -r0 usage use $raw (-r) */
     recursive?: boolean | undefined;
     /** Store symbolic links as links (WIM and TAR formats only) (-snl) */
@@ -184,6 +182,8 @@ interface CommandLineSwitches {
     logLevel?: string | undefined;
     /** Set Output directory (-o) */
     outputDir?: string | undefined;
+    /** Overwrite mode (-ao) */
+    overwrite?: "a" | "s" | "t" | "u" | undefined;
     /** Set Password (-p) */
     password?: string | undefined;
     /** Create SFX archive (-sfx) */
@@ -197,7 +197,7 @@ interface CommandLineSwitches {
     /** Exclude archive filenames (-ax) */
     excludeArchive?: string[] | undefined;
     /** Exclude filenames (-x) */
-    exlude?: string[] | undefined;
+    exclude?: string[] | undefined;
     /** Include filenames (-i) */
     include?: string[] | undefined;
     /** Include archive filenames (-ai) */
@@ -284,7 +284,7 @@ declare function rename(archive: string, target: string[][], options?: SevenZipO
  * @param archive Archive to test
  * @param options Seven Zip Options
  */
-declare function test(archive: string, options: SevenZipOptions): ZipStream;
+declare function test(archive: string, options?: SevenZipOptions): ZipStream;
 /**
  * Update older files in the archive and add files that are not already in the archiv
  * @param archive Archive to update

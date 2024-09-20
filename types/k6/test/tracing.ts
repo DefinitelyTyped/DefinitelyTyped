@@ -1,4 +1,4 @@
-import tracing from "k6/experimental/tracing";
+import tracing, { Client } from "k6/experimental/tracing";
 import http, { RefinedResponse } from "k6/http";
 
 const address = "http://example.com";
