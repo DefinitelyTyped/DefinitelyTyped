@@ -101,8 +101,15 @@ user.getProductInfo([730], [420])
 user.getProductChanges(0)
     .then(response => {
         void response.currentChangeNumber;
+        void response.appChanges.length;
+        void response.packageChanges.length;
     })
     .catch(err => console.error(err));
+
+user.getProductChanges(0, (err, currentChangeNumber, appChanges, packageChanges) => {
+    void appChanges.length;
+    void packageChanges.length;
+});
 
 const owned = user.getOwnedApps();
 console.log(owned);
