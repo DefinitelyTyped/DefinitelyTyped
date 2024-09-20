@@ -6,9 +6,6 @@
   "devDependencies": {
     "@types/morphing-scroll": "workspace:."
   },
-  "peerDependencies": {
-    "react": "*"
-  },
   "projects": [
     "https://github.com/voodoofugu/morphing-scroll"
   ],
