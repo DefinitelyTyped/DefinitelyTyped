@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsencrypt",
+    "version": "3.3.9999",
+    "projects": [
+        "http://www.travistidwell.com/jsencrypt"
+    ],
+    "devDependencies": {
+        "@types/jsencrypt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "travist",
+            "githubUsername": "travist"
+        }
+    ]
+}
