@@ -5,7 +5,6 @@ export interface JSEncryptOptions {
     log?: boolean;
 }
 /**
- *
  * @param {Object} [options = {}] - An object to customize JSEncrypt behaviour
  * possible parameters are:
  * - default_key_size        {number}  default: 1024 the key size in bit
