@@ -1,81 +1,128 @@
-import * as events from "node:events";
+// These should be equivalent
+import events = require("node:events");
+import { EventEmitter } from "node:events";
+{
+    let module: typeof events;
+    module = EventEmitter;
+    module = events.EventEmitter;
+}
 
-const emitter: events = new events.EventEmitter();
+const emitter = new EventEmitter();
 declare const listener: (...args: any[]) => void;
 declare const event: string | symbol;
-declare const any: any;
 
 {
-    let result: events.EventEmitter;
+    // dtslint won't alias the EventEmitter type, so we use this instead
+    function $ExpectEventEmitterType(...expr: EventEmitter[]) {}
 
-    result = emitter.addListener(event, listener);
-    result = emitter.on(event, listener);
-    result = emitter.once(event, listener);
-    result = emitter.prependListener(event, listener);
-    result = emitter.prependOnceListener(event, listener);
-    result = emitter.removeListener(event, listener);
-    result = emitter.off(event, listener);
-    result = emitter.removeAllListeners();
-    result = emitter.removeAllListeners(event);
-    result = emitter.setMaxListeners(42);
-}
+    $ExpectEventEmitterType(
+        emitter.addListener(event, listener),
+    );
 
-{
-    let result: number;
+    // $ExpectType boolean
+    emitter.emit(event);
+    // $ExpectType boolean
+    emitter.emit(event, ...[]);
 
-    result = events.EventEmitter.defaultMaxListeners;
-    result = events.EventEmitter.listenerCount(emitter, event); // deprecated
+    // $ExpectType (string | symbol)[]
+    emitter.eventNames();
 
-    const promise: Promise<any[]> = events.once(new events.EventEmitter(), "error");
+    // $ExpectType number
+    emitter.getMaxListeners();
 
-    result = emitter.getMaxListeners();
-    result = emitter.listenerCount(event);
+    // $ExpectType number
+    emitter.listenerCount(event);
+    // $ExpectType number
+    emitter.listenerCount(event, listener);
 
-    const handler: Function = () => {};
-    result = emitter.listenerCount(event, handler);
-}
+    $ExpectEventEmitterType(
+        emitter.off(event, listener),
+    );
 
-{
-    let result: Promise<number[]>;
+    $ExpectEventEmitterType(
+        emitter.on(event, listener),
+    );
 
-    result = events.once(emitter, event);
+    $ExpectEventEmitterType(
+        emitter.once(event, listener),
+    );
 
-    emitter.emit(event, 42);
-}
+    $ExpectEventEmitterType(
+        emitter.prependListener(event, listener),
+    );
 
-{
-    let result: Function[];
+    $ExpectEventEmitterType(
+        emitter.prependOnceListener(event, listener),
+    );
 
-    result = emitter.listeners(event);
-}
+    $ExpectEventEmitterType(
+        emitter.removeAllListeners(),
+        emitter.removeAllListeners(event),
+    );
 
-{
-    let result: boolean;
+    $ExpectEventEmitterType(
+        emitter.removeListener(event, listener),
+    );
 
-    result = emitter.emit(event);
-    result = emitter.emit(event, any);
-    result = emitter.emit(event, any, any);
-    result = emitter.emit(event, any, any, any);
-}
+    $ExpectEventEmitterType(
+        emitter.setMaxListeners(42),
+    );
 
-{
-    let result: Array<string | symbol>;
+    // $ExpectType Function[]
+    emitter.rawListeners(event);
 
-    result = emitter.eventNames();
-}
-
-{
-    class Networker extends events.EventEmitter {
-        constructor() {
-            super();
-
-            this.emit("mingling");
-        }
+    if (emitter[EventEmitter.captureRejectionSymbol]) {
+        // $ExpectType void
+        emitter[EventEmitter.captureRejectionSymbol](new Error(), event);
+        // $ExpectType void
+        emitter[EventEmitter.captureRejectionSymbol](new Error(), event, ...[]);
+    } else {
+        // $ExpectType undefined
+        emitter[EventEmitter.captureRejectionSymbol];
     }
 }
 
 {
-    const emitter2: events.EventEmitter = new events();
+    // $ExpectType number
+    EventEmitter.defaultMaxListeners;
+    EventEmitter.defaultMaxListeners = 50;
+
+    // $ExpectType Function[]
+    EventEmitter.getEventListeners(emitter, event);
+
+    // $ExpectType number
+    EventEmitter.getMaxListeners(emitter);
+
+    // $ExpectType Promise<any[]>
+    EventEmitter.once(emitter, event);
+
+    // $ExpectType boolean
+    EventEmitter.captureRejections;
+    EventEmitter.captureRejections = true;
+
+    // $ExpectType number
+    EventEmitter.listenerCount(emitter, event);
+
+    // $ExpectType AsyncIterableIterator<any[]>
+    EventEmitter.on(emitter, event);
+
+    // $ExpectType void
+    EventEmitter.setMaxListeners(50, emitter);
+}
+
+{
+    class Networker extends EventEmitter {
+        static {
+            // Check that namespace variables are accessible as constructor properties
+            this.captureRejections = true;
+            this.defaultMaxListeners = 25;
+        }
+
+        constructor() {
+            super();
+            this.emit("mingling");
+        }
+    }
 }
 
 {
@@ -90,45 +137,34 @@ declare const any: any;
 }
 
 async function test() {
-    for await (const e of events.on(new events.EventEmitter(), "test")) {
-        console.log(e);
+    for await (const e of events.on(new EventEmitter(), "test")) {
+        // $ExpectType any[]
+        e;
     }
-    events.on(new events.EventEmitter(), "test", { signal: new AbortController().signal });
+    events.on(new EventEmitter(), "test", { signal: new AbortController().signal });
 }
 
 {
-    emitter.on(events.errorMonitor, listener);
-    emitter.on(events.EventEmitter.errorMonitor, listener);
+    const errorMonitor: typeof events.errorMonitor = EventEmitter.errorMonitor;
+    emitter.on(errorMonitor, listener);
 }
 
 {
-    let errorMonitor1: typeof events.errorMonitor = events.errorMonitor;
-    errorMonitor1 = events.EventEmitter.errorMonitor;
-
-    let errorMonitor2: typeof events.EventEmitter.errorMonitor = events.EventEmitter.errorMonitor;
-    errorMonitor2 = events.errorMonitor;
+    const captureRejectionSymbol: typeof events.captureRejectionSymbol = EventEmitter.captureRejectionSymbol;
+    emitter[captureRejectionSymbol] = (err: Error, name: string, ...args: any[]) => {};
 }
 
 {
-    let captureRejectionSymbol1: typeof events.captureRejectionSymbol = events.captureRejectionSymbol;
-    captureRejectionSymbol1 = events.EventEmitter.captureRejectionSymbol;
-
-    let captureRejectionSymbol2: typeof events.EventEmitter.captureRejectionSymbol =
-        events.EventEmitter.captureRejectionSymbol;
-    captureRejectionSymbol2 = events.captureRejectionSymbol;
-}
-
-{
-    events.EventEmitter.setMaxListeners();
-    events.EventEmitter.setMaxListeners(42);
+    events.setMaxListeners();
+    events.setMaxListeners(42);
 
     const eventTarget = new EventTarget();
-    events.EventEmitter.setMaxListeners(42, eventTarget);
+    events.setMaxListeners(42, eventTarget);
     // @ts-expect-error - ensure constructor does not return a constructor
     new eventTarget();
 
-    const eventEmitter = new events.EventEmitter();
-    events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
+    const eventEmitter = new EventEmitter();
+    events.setMaxListeners(42, eventTarget, eventEmitter);
 }
 
 {
@@ -155,14 +191,18 @@ async function test() {
         name: "test",
     });
 
-    emitter.asyncId; // $ExpectType number
-    emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
-    emitter.triggerAsyncId; // $ExpectType number
+    // $ExpectType number
+    emitter.asyncId;
+    // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.asyncResource;
+    // $ExpectType number
+    emitter.triggerAsyncId;
+    // $ExpectType void
     emitter.emitDestroy();
 }
 
 {
-    class MyEmitter extends events.EventEmitter {
+    class MyEmitter extends EventEmitter {
         addListener(event: string, listener: () => void): this {
             return this;
         }
