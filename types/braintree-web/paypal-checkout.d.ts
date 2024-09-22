@@ -162,7 +162,7 @@ export interface PayPalCheckoutUpdatePaymentOptions {
     /**
      * The currency code of the amount, such as 'USD'. Required when using the Checkout flow.
      */
-    currency: string
+    currency: string;
     /**
      * List of {@link paypal.ShippingOption|shipping options} offered by the payee or merchant to the payer to ship or pick up their items.
      * @see {@link https://braintree.github.io/braintree-web/current/PayPalCheckout.html#~shippingOption}
@@ -188,7 +188,7 @@ export interface PayPalCheckoutUpdatePaymentOptions {
         /**
          * Handling amount
          */
-        handling?: string
+        handling?: string;
         /**
          * Tax amount
          */
@@ -213,7 +213,7 @@ export interface PayPalCheckoutUpdatePaymentServerDataReturn {
         error: string | null;
         errorDescription: string | null;
         processorResponseCode: string | null;
-    }
+    };
     _httpStatus: number;
 }
 
@@ -421,9 +421,9 @@ export interface PayPalCheckout {
     teardown(): Promise<void>;
 
     /**
-     * Use this function to update {@link paypal.LineItem|line items} and/or {@link paypal.ShippingOption|shipping options} associated with a 
-     * PayPalCheckout flow (paymentId). When a {@link callback} is defined, this function returns undefined and invokes the callback. 
-     * The second callback argument, `data`, is the returned server data. If no callback is provided, `updatePayment` returns a 
+     * Use this function to update {@link paypal.LineItem|line items} and/or {@link paypal.ShippingOption|shipping options} associated with a
+     * PayPalCheckout flow (paymentId). When a {@link callback} is defined, this function returns undefined and invokes the callback.
+     * The second callback argument, `data`, is the returned server data. If no callback is provided, `updatePayment` returns a
      * promise that resolves with the server data.
      * @example
      * // this paypal object is created by the PayPal JS SDK
