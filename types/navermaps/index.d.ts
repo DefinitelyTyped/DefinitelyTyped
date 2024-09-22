@@ -801,7 +801,7 @@ declare namespace naver.maps {
         /**
          * The opacity of the polygon's stroke.
          *
-         * 도형의 선 불투명도입니다. 
+         * 도형의 선 불투명도입니다.
          */
         strokeOpacity?: number;
         /**
@@ -819,7 +819,7 @@ declare namespace naver.maps {
         /**
          * The line cap of the polygon's stroke.
          *
-         * 도형에 사용되는 선의 마감 스타일입니다. 
+         * 도형에 사용되는 선의 마감 스타일입니다.
          */
         strokeLineCap?: StrokeLineCapType;
         /**
@@ -837,7 +837,7 @@ declare namespace naver.maps {
         /**
          * The opacity of the polygon's fill.
          *
-         * 도형 영역을 채울 색상의 불투명도입니다. 
+         * 도형 영역을 채울 색상의 불투명도입니다.
          */
         fillOpacity?: number;
         /**
@@ -885,7 +885,7 @@ declare namespace naver.maps {
         /**
          * The opacity of the polyline's stroke.
          *
-         * 도형의 선 불투명도입니다. 
+         * 도형의 선 불투명도입니다.
          */
         strokeOpacity?: number;
         /**
@@ -903,7 +903,7 @@ declare namespace naver.maps {
         /**
          * The line cap of the polyline's stroke.
          *
-         * 도형에 사용되는 선의 마감 스타일입니다. 
+         * 도형에 사용되는 선의 마감 스타일입니다.
          */
         strokeLineCap?: StrokeLineCapType;
         /**
@@ -939,19 +939,19 @@ declare namespace naver.maps {
         /**
          * The size of the pointing icon at the start of the polyline.
          *
-         * 도형의 시작점에 표시할 아이콘의 크기(픽셀)입니다. 
+         * 도형의 시작점에 표시할 아이콘의 크기(픽셀)입니다.
          */
         startIconSize?: number;
         /**
          * The pointing icon at the end of the polyline.
          *
-         * 도형의 끝점에 표시할 아이콘입니다. 
+         * 도형의 끝점에 표시할 아이콘입니다.
          */
         endIcon?: PointingIcon;
         /**
          * The size of the pointing icon at the end of the polyline.
          *
-         * 도형의 끝점에 표시할 아이콘의 크기(픽셀)입니다. 
+         * 도형의 끝점에 표시할 아이콘의 크기(픽셀)입니다.
          */
         endIconSize?: number;
     }
