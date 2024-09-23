@@ -37,14 +37,14 @@ interface WebApp {
      */
     themeParams: ThemeParams;
     /**
-     *  True if the Web App is expanded to the maximum available height. False,
-     *  if the Web App occupies part of the screen and can be expanded to the
+     *  True if the Web App is expanded to the maximum available height.
+     *  False, if the Web App occupies part of the screen and can be expanded to the
      *  full height using the expand() method.
      */
     isExpanded: boolean;
     /**
-     * The current height of the visible area of the Web App. Also available in
-     * CSS as the variable var(--tg-viewport-height).
+     * The current height of the visible area of the Web App.
+     * Also available in CSS as the variable var(--tg-viewport-height).
      *
      * The application can display just the top part of the Web App, with its
      * lower part remaining outside the screen area. From this position, the
