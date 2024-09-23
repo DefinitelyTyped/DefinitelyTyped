@@ -702,4 +702,7 @@ export const version6Tests = async (): Promise<void> => {
     const offset = 1, len = 100;
     await lob.getData(offset);
     await lob.getData(offset + 3, len);
+
+    console.log(defaultOracledb.DB_TYPE_VECTOR);
+    console.log(defaultOracledb.JsonId);
 };
