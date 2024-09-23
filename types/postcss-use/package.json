@@ -6,7 +6,7 @@
         "https://github.com/postcss/postcss-use"
     ],
     "dependencies": {
-        "postcss": "^6.0.17"
+        "postcss": "^8.4.31"
     },
     "devDependencies": {
         "@types/postcss-use": "workspace:."
