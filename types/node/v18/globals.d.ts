@@ -111,6 +111,8 @@ declare global {
     interface RequireResolve extends NodeJS.RequireResolve {}
     interface NodeModule extends NodeJS.Module {}
 
+    var global: typeof globalThis;
+
     var process: NodeJS.Process;
     var console: Console;
 
@@ -181,53 +183,6 @@ declare global {
             any(signals: AbortSignal[]): AbortSignal;
         };
     // #endregion borrowed
-
-    // #region Disposable
-    interface SymbolConstructor {
-        /**
-         * A method that is used to release resources held by an object. Called by the semantics of the `using` statement.
-         */
-        readonly dispose: unique symbol;
-
-        /**
-         * A method that is used to asynchronously release resources held by an object. Called by the semantics of the `await using` statement.
-         */
-        readonly asyncDispose: unique symbol;
-    }
-
-    interface Disposable {
-        [Symbol.dispose](): void;
-    }
-
-    interface AsyncDisposable {
-        [Symbol.asyncDispose](): PromiseLike<void>;
-    }
-    // #endregion Disposable
-
-    // #region ArrayLike.at()
-    interface RelativeIndexable<T> {
-        /**
-         * Takes an integer value and returns the item at that index,
-         * allowing for positive and negative integers.
-         * Negative integers count back from the last item in the array.
-         */
-        at(index: number): T | undefined;
-    }
-    interface String extends RelativeIndexable<string> {}
-    interface Array<T> extends RelativeIndexable<T> {}
-    interface ReadonlyArray<T> extends RelativeIndexable<T> {}
-    interface Int8Array extends RelativeIndexable<number> {}
-    interface Uint8Array extends RelativeIndexable<number> {}
-    interface Uint8ClampedArray extends RelativeIndexable<number> {}
-    interface Int16Array extends RelativeIndexable<number> {}
-    interface Uint16Array extends RelativeIndexable<number> {}
-    interface Int32Array extends RelativeIndexable<number> {}
-    interface Uint32Array extends RelativeIndexable<number> {}
-    interface Float32Array extends RelativeIndexable<number> {}
-    interface Float64Array extends RelativeIndexable<number> {}
-    interface BigInt64Array extends RelativeIndexable<bigint> {}
-    interface BigUint64Array extends RelativeIndexable<bigint> {}
-    // #endregion ArrayLike.at() end
 
     /**
      * @since v17.0.0
