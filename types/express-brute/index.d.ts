@@ -23,7 +23,7 @@ declare class ExpressBrute {
      * @param {Request}     request     The HTTP request.
      * @param {Response}    response    The HTTP response.
      * @param {Function}    next        The next middleware.
-     * @return {RequestHandler} The Request handler.
+     * @return {void}
      */
     prevent: express.RequestHandler;
 
