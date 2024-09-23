@@ -277,6 +277,14 @@ declare namespace OracleDB {
         oraTypeNum: 127;
     };
 
+    class JsonId {
+        /**
+         * It returns a SODA document key '_id' in hex string.
+         * @since 6.5.0
+         */
+        toJSON(): string;
+    }
+
     /** Constant for the dir property of execute() bindParams, queryStream() and executeMany() bindDefs. */
     const BIND_IN: number;
     /** Constant for the dir property of execute() bindParams, queryStream() and executeMany() bindDefs. */
