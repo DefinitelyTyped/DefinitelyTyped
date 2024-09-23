@@ -672,6 +672,7 @@ declare module "node:test" {
          * test('example', t => {
          *   t.assert.deepStrictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
          * });
+         * ```
          */
         deepStrictEqual: typeof import("node:assert").deepStrictEqual;
         /**
@@ -711,6 +712,7 @@ declare module "node:test" {
          * test('example', t => {
          *   t.assert.ifError(err); // Error: 't' needs an explicit type annotation.
          * });
+         * ```
          */
         ifError: typeof import("node:assert").ifError;
         /**
@@ -750,6 +752,7 @@ declare module "node:test" {
          * test('example', t => {
          *   t.assert.ok(condition)); // Error: 't' needs an explicit type annotation.
          * });
+         * ```
          */
         ok: typeof import("node:assert").ok;
         /**
@@ -773,6 +776,7 @@ declare module "node:test" {
          * test('example', t => {
          *   t.assert.strictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
          * });
+         * ```
          */
         strictEqual: typeof import("node:assert").strictEqual;
         /**
