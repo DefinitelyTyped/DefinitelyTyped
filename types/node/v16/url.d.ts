@@ -687,6 +687,9 @@ declare module "url" {
          */
         toJSON(): string;
     }
+    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+        [Symbol.iterator](): URLSearchParamsIterator<T>;
+    }
     /**
      * The `URLSearchParams` API provides read and write access to the query of a `URL`. The `URLSearchParams` class can also be used standalone with one of the
      * four following constructors.
@@ -755,7 +758,7 @@ declare module "url" {
          *
          * Alias for `urlSearchParams[@@iterator]()`.
          */
-        entries(): IterableIterator<[string, string]>;
+        entries(): URLSearchParamsIterator<[string, string]>;
         /**
          * Iterates over each name-value pair in the query and invokes the given function.
          *
@@ -803,7 +806,7 @@ declare module "url" {
          * //   foo
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): URLSearchParamsIterator<string>;
         /**
          * Sets the value in the `URLSearchParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value` and remove all others. If not,
@@ -848,8 +851,8 @@ declare module "url" {
         /**
          * Returns an ES6 `Iterator` over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string, string]>;
+        values(): URLSearchParamsIterator<string>;
+        [Symbol.iterator](): URLSearchParamsIterator<[string, string]>;
     }
 
     import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";

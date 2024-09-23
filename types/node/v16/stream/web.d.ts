@@ -154,6 +154,10 @@ declare module "stream/web" {
         (reason: any): void | PromiseLike<void>;
     }
 
+    interface ReadableStreamAsyncIterator<T> extends NodeJS.AsyncIterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+        [Symbol.asyncIterator](): ReadableStreamAsyncIterator<T>;
+    }
+
     /** This Streams API interface represents a readable stream of byte data. */
     interface ReadableStream<R = any> {
         readonly locked: boolean;
@@ -162,8 +166,8 @@ declare module "stream/web" {
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
-        values(options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
-        [Symbol.asyncIterator](): AsyncIterableIterator<R>;
+        values(options?: { preventCancel?: boolean }): ReadableStreamAsyncIterator<R>;
+        [Symbol.asyncIterator](): ReadableStreamAsyncIterator<R>;
     }
 
     const ReadableStream: {

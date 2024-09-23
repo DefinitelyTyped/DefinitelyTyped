@@ -6,3 +6,4 @@
 
 /// <reference path="disposable.d.ts" />
 /// <reference path="indexable.d.ts" />
+/// <reference path="iterators.d.ts" />

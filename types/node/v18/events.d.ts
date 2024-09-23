@@ -280,7 +280,7 @@ declare module "events" {
             emitter: NodeJS.EventEmitter,
             eventName: string,
             options?: StaticEventEmitterOptions,
-        ): AsyncIterableIterator<any>;
+        ): NodeJS.AsyncIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
          *

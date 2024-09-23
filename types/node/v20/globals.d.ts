@@ -336,7 +336,7 @@ declare global {
             unpipe(destination?: WritableStream): this;
             unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
             wrap(oldStream: ReadableStream): this;
-            [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<string | Buffer>;
         }
 
         interface WritableStream extends EventEmitter {
@@ -404,6 +404,18 @@ declare global {
 
         interface ReadOnlyDict<T> {
             readonly [key: string]: T | undefined;
+        }
+
+        /** An iterable iterator returned by the Node.js API. */
+        // Default TReturn/TNext in v20 is `any`, for compatibility with the previously-used IterableIterator.
+        interface Iterator<T, TReturn = any, TNext = any> extends IteratorObject<T, TReturn, TNext> {
+            [Symbol.iterator](): NodeJS.Iterator<T, TReturn, TNext>;
+        }
+
+        /** An async iterable iterator returned by the Node.js API. */
+        // Default TReturn/TNext in v20 is `any`, for compatibility with the previously-used AsyncIterableIterator.
+        interface AsyncIterator<T, TReturn = any, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<T, TReturn, TNext>;
         }
     }
 
