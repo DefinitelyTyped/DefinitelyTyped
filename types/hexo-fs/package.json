@@ -9,7 +9,7 @@
         "@types/bluebird": "*",
         "@types/graceful-fs": "*",
         "@types/node": "*",
-        "chokidar": "^2.1.2"
+        "chokidar": "^3.0.0"
     },
     "devDependencies": {
         "@types/chai": "*",
