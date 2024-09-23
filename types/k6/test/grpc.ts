@@ -48,7 +48,7 @@ stream.on("data", data => {
 });
 
 stream.on("data", (_, metadata) => {
-    metadata; // $ExpectType object | StreamMessageMetadata
+    metadata; // $ExpectType StreamMessageMetadata
 });
 
 stream.write({ latitude: 410248224, longitude: -747127767 });
