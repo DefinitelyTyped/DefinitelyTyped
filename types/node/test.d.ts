@@ -486,7 +486,7 @@ declare module "node:test" {
         /**
          * An object containing assertion methods bound to the test context.
          * The top-level functions from the `node:assert` module are exposed here for the purpose of creating test plans.
-         * @since v22.2.0
+         * @since v22.2.0, v20.15.0
          */
         readonly assert: TestContextAssert;
         /**
@@ -670,6 +670,22 @@ declare module "node:test" {
         deepEqual: typeof import("node:assert").deepEqual;
         /**
          * Identical to the `deepStrictEqual` function from the `node:assert` module, but bound to the test context.
+         *
+         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
+         * type annotation, otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.deepStrictEqual(actual, expected);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.deepStrictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          */
         deepStrictEqual: typeof import("node:assert").deepStrictEqual;
         /**
@@ -694,6 +710,22 @@ declare module "node:test" {
         fail: typeof import("node:assert").fail;
         /**
          * Identical to the `ifError` function from the `node:assert` module, but bound to the test context.
+         *
+         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
+         * type annotation, otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.ifError(err);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.ifError(err); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          */
         ifError: typeof import("node:assert").ifError;
         /**
@@ -718,6 +750,22 @@ declare module "node:test" {
         notStrictEqual: typeof import("node:assert").notStrictEqual;
         /**
          * Identical to the `ok` function from the `node:assert` module, but bound to the test context.
+         *
+         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
+         * type annotation, otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.ok(condition);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.ok(condition)); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          */
         ok: typeof import("node:assert").ok;
         /**
@@ -726,6 +774,22 @@ declare module "node:test" {
         rejects: typeof import("node:assert").rejects;
         /**
          * Identical to the `strictEqual` function from the `node:assert` module, but bound to the test context.
+         *
+         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
+         * type annotation, otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.strictEqual(actual, expected);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.strictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          */
         strictEqual: typeof import("node:assert").strictEqual;
         /**
