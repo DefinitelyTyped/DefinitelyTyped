@@ -104,12 +104,6 @@ export interface GrpcError {
     message: string;
 }
 
-export interface GrpcError {
-    code: number;
-    details: string[] | object[];
-    message: string;
-}
-
 /**
  * gRPC client to interact with a gRPC server.
  * https://grafana.com/docs/k6/latest/javascript-api/k6-net-grpc/client/
