@@ -101,13 +101,13 @@ interface WebApp {
      */
     BackButton: BackButton;
     /**
-     * An object for controlling the secondary button,
-     * which is displayed at the bottom of the Mini App in the Telegram interface.
+     * An object for controlling the main button, which is displayed at the
+     * bottom of the Web App in the Telegram interface.
      */
     MainButton: BottomButton;
     /**
-     * An object for controlling the main button, which is displayed at the
-     * bottom of the Web App in the Telegram interface.
+     * An object for controlling the secondary button,
+     * which is displayed at the bottom of the Mini App in the Telegram interface.
      */
     SecondaryButton: BottomButton;
     /**
@@ -139,13 +139,13 @@ interface WebApp {
     // string & {} prevents this from eagerly collapsing into just string
     setHeaderColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
     /**
-     * A method that sets the app's bottom bar color in the #RRGGBB format.
-     * You can also use the keywords bg_color, secondary_bg_color and bottom_bar_bg_color.
+     * A method that sets the app background color in the `#RRGGBB` format or
+     * you can use keywords bg_color, secondary_bg_color instead.
      */
     setBackgroundColor(color: "bg_color" | "secondary_bg_color" | "bottom_bar_bg_color" | (string & {})): void;
     /**
-     * A method that sets the app background color in the `#RRGGBB` format or
-     * you can use keywords bg_color, secondary_bg_color instead.
+     * A method that sets the app's bottom bar color in the #RRGGBB format.
+     * You can also use the keywords bg_color, secondary_bg_color and bottom_bar_bg_color.
      */
     setBottomBarColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
     /**
