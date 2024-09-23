@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "knex": "2.1.0"
+        "knex": "2.4.0"
     },
     "devDependencies": {
         "@types/knex-db-manager": "workspace:."
