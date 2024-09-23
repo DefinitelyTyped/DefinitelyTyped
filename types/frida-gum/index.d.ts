@@ -925,6 +925,7 @@ type ThreadState =
     | "uninterruptible"
     | "halted";
 
+type HardwareBreakpointId = number;
 type HardwareWatchpointId = number;
 
 type HardwareWatchpointConditions = "r" | "w" | "rw";
@@ -951,6 +952,21 @@ interface ThreadDetails {
     context: CpuContext;
 
     /**
+     * Set a hardware breakpoint.
+     * 
+     * @param id ID of the breakpoint.
+     * @param address The address of the breakpoint.
+     */
+    setHardwareBreakpoint(id: HardwareBreakpointId, address: NativePointerValue): void;
+
+    /**
+     * Unset a hardware breakpoint.
+     * 
+     * @param id ID of the breakpoint.
+     */
+    unsetHardwareBreakpoint(id: HardwareBreakpointId): void;
+
+    /**
      * Set a harware watchpoint.
      *
      * @param id ID of the watchpoint.
@@ -961,7 +977,7 @@ interface ThreadDetails {
     setHardwareWatchpoint(id: HardwareWatchpointId, address: NativePointerValue, size: number | UInt64, conditions: HardwareWatchpointConditions): void;
 
     /**
-     * Unset a hardware watchpoint
+     * Unset a hardware watchpoint.
      *
      * @param id ID of the watchpoint.
      */
