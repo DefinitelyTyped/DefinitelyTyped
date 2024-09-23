@@ -277,7 +277,7 @@ declare namespace OracleDB {
         oraTypeNum: 127;
     };
 
-    class JsonId {
+    class JsonId extends Uint8Array {
         /**
          * It returns a SODA document key '_id' in hex string.
          * @since 6.5.0
