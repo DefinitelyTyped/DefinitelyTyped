@@ -1705,6 +1705,10 @@ declare module 'inspector' {
     }
     namespace Network {
         /**
+         * Resource type as it was perceived by the rendering engine.
+         */
+        type ResourceType = string;
+        /**
          * Unique request identifier.
          */
         type RequestId = string;
@@ -1722,6 +1726,21 @@ declare module 'inspector' {
         interface Request {
             url: string;
             method: string;
+            headers: Headers;
+        }
+        /**
+         * HTTP response data.
+         */
+        interface Response {
+            url: string;
+            status: number;
+            statusText: string;
+            headers: Headers;
+        }
+        /**
+         * Request / response headers as keys / values of JSON object.
+         */
+        interface Headers {
         }
         interface RequestWillBeSentEventDataType {
             /**
@@ -1750,6 +1769,32 @@ declare module 'inspector' {
              * Timestamp.
              */
             timestamp: MonotonicTime;
+            /**
+             * Resource type.
+             */
+            type: ResourceType;
+            /**
+             * Response data.
+             */
+            response: Response;
+        }
+        interface LoadingFailedEventDataType {
+            /**
+             * Request identifier.
+             */
+            requestId: RequestId;
+            /**
+             * Timestamp.
+             */
+            timestamp: MonotonicTime;
+            /**
+             * Resource type.
+             */
+            type: ResourceType;
+            /**
+             * Error message.
+             */
+            errorText: string;
         }
         interface LoadingFinishedEventDataType {
             /**
@@ -2260,6 +2305,7 @@ declare module 'inspector' {
          * Fired when HTTP response is available.
          */
         addListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        addListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         addListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -2302,6 +2348,7 @@ declare module 'inspector' {
         emit(event: 'NodeWorker.receivedMessageFromWorker', message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: 'Network.requestWillBeSent', message: InspectorNotification<Network.RequestWillBeSentEventDataType>): boolean;
         emit(event: 'Network.responseReceived', message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
+        emit(event: 'Network.loadingFailed', message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
         emit(event: 'Network.loadingFinished', message: InspectorNotification<Network.LoadingFinishedEventDataType>): boolean;
         emit(event: 'NodeRuntime.waitingForDisconnect'): boolean;
         emit(event: 'NodeRuntime.waitingForDebugger'): boolean;
@@ -2408,6 +2455,7 @@ declare module 'inspector' {
          * Fired when HTTP response is available.
          */
         on(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        on(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         on(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -2524,6 +2572,7 @@ declare module 'inspector' {
          * Fired when HTTP response is available.
          */
         once(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        once(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         once(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -2640,6 +2689,7 @@ declare module 'inspector' {
          * Fired when HTTP response is available.
          */
         prependListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        prependListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         prependListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -2756,6 +2806,7 @@ declare module 'inspector' {
          * Fired when HTTP response is available.
          */
         prependOnceListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        prependOnceListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         prependOnceListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -2853,6 +2904,7 @@ declare module 'inspector' {
      */
     const console: InspectorConsole;
 
+    // DevTools protocol event broadcast methods
     namespace Network {
         /**
          * This feature is only available with the `--experimental-network-inspection` flag enabled.
@@ -2881,6 +2933,15 @@ declare module 'inspector' {
          * @experimental
          */
         function loadingFinished(params: LoadingFinishedEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
+         * Broadcasts the `Network.loadingFailed` event to connected frontends. This event indicates that
+         * HTTP request has failed to load.
+         * @since v22.7.0
+         * @experimental
+         */
+        function loadingFailed(params: LoadingFailedEventDataType): void;
     }
 }
 
@@ -3357,6 +3418,7 @@ declare module 'inspector/promises' {
          * Fired when HTTP response is available.
          */
         addListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        addListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         addListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -3399,6 +3461,7 @@ declare module 'inspector/promises' {
         emit(event: 'NodeWorker.receivedMessageFromWorker', message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: 'Network.requestWillBeSent', message: InspectorNotification<Network.RequestWillBeSentEventDataType>): boolean;
         emit(event: 'Network.responseReceived', message: InspectorNotification<Network.ResponseReceivedEventDataType>): boolean;
+        emit(event: 'Network.loadingFailed', message: InspectorNotification<Network.LoadingFailedEventDataType>): boolean;
         emit(event: 'Network.loadingFinished', message: InspectorNotification<Network.LoadingFinishedEventDataType>): boolean;
         emit(event: 'NodeRuntime.waitingForDisconnect'): boolean;
         emit(event: 'NodeRuntime.waitingForDebugger'): boolean;
@@ -3505,6 +3568,7 @@ declare module 'inspector/promises' {
          * Fired when HTTP response is available.
          */
         on(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        on(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         on(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -3621,6 +3685,7 @@ declare module 'inspector/promises' {
          * Fired when HTTP response is available.
          */
         once(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        once(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         once(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -3737,6 +3802,7 @@ declare module 'inspector/promises' {
          * Fired when HTTP response is available.
          */
         prependListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        prependListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         prependListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when
@@ -3853,6 +3919,7 @@ declare module 'inspector/promises' {
          * Fired when HTTP response is available.
          */
         prependOnceListener(event: 'Network.responseReceived', listener: (message: InspectorNotification<Network.ResponseReceivedEventDataType>) => void): this;
+        prependOnceListener(event: 'Network.loadingFailed', listener: (message: InspectorNotification<Network.LoadingFailedEventDataType>) => void): this;
         prependOnceListener(event: 'Network.loadingFinished', listener: (message: InspectorNotification<Network.LoadingFinishedEventDataType>) => void): this;
         /**
          * This event is fired instead of `Runtime.executionContextDestroyed` when

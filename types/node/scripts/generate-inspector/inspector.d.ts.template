@@ -156,6 +156,7 @@ declare module 'inspector' {
      */
     const console: InspectorConsole;
 
+    // DevTools protocol event broadcast methods
     namespace Network {
         /**
          * This feature is only available with the `--experimental-network-inspection` flag enabled.
@@ -184,6 +185,15 @@ declare module 'inspector' {
          * @experimental
          */
         function loadingFinished(params: LoadingFinishedEventDataType): void;
+        /**
+         * This feature is only available with the `--experimental-network-inspection` flag enabled.
+         *
+         * Broadcasts the `Network.loadingFailed` event to connected frontends. This event indicates that
+         * HTTP request has failed to load.
+         * @since v22.7.0
+         * @experimental
+         */
+        function loadingFailed(params: LoadingFailedEventDataType): void;
     }
 }
 
