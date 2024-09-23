@@ -28,6 +28,7 @@ run();
 // $ExpectType TestsStream
 run({
     concurrency: false,
+    globPatterns: ["*.spec.js"],
 });
 
 // run with all options and number concurrency
@@ -139,6 +140,8 @@ test(undefined, undefined, t => {
 
     // $ExpectType string
     t.name;
+    // $ExpectType string | undefined
+    t.filePath;
     // $ExpectType string
     t.fullName;
     // $ExpectType AbortSignal
@@ -340,6 +343,8 @@ describe(s => {
     s;
     // $ExpectType string
     s.name;
+    // $ExpectType string | undefined
+    s.filePath;
 });
 
 // Test callback mode

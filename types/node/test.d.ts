@@ -332,6 +332,13 @@ declare module "node:test" {
          */
         forceExit?: boolean | undefined;
         /**
+         * An array containing the list of glob patterns to match test files.
+         * This option cannot be used together with `files`. If omitted, files are run according to the
+         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+         * @since v22.6.0
+         */
+        globPatterns?: readonly string[] | undefined;
+        /**
          * Sets inspector port of test child process.
          * If a nullish value is provided, each process gets its own port,
          * incremented from the primary's `process.debugPort`.
@@ -528,6 +535,12 @@ declare module "node:test" {
          * @param message Message to be reported.
          */
         diagnostic(message: string): void;
+        /**
+         * The absolute path of the test file that created the current test. If a test file imports
+         * additional modules that generate tests, the imported tests will return the path of the root test file.
+         * @since v22.6.0
+         */
+        readonly filePath: string | undefined;
         /**
          * The name of the test and each of its ancestors, separated by `>`.
          * @since v22.3.0
@@ -758,6 +771,12 @@ declare module "node:test" {
      * @since v18.7.0, v16.17.0
      */
     class SuiteContext {
+        /**
+         * The absolute path of the test file that created the current suite. If a test file imports
+         * additional modules that generate suites, the imported suites will return the path of the root test file.
+         * @since v22.6.0
+         */
+        readonly filePath: string | undefined;
         /**
          * The name of the suite.
          * @since v18.8.0, v16.18.0
