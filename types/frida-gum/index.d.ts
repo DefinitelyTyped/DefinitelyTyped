@@ -953,7 +953,7 @@ interface ThreadDetails {
 
     /**
      * Set a hardware breakpoint.
-     * 
+     *
      * @param id ID of the breakpoint.
      * @param address The address of the breakpoint.
      */
@@ -961,7 +961,7 @@ interface ThreadDetails {
 
     /**
      * Unset a hardware breakpoint.
-     * 
+     *
      * @param id ID of the breakpoint.
      */
     unsetHardwareBreakpoint(id: HardwareBreakpointId): void;
@@ -974,7 +974,12 @@ interface ThreadDetails {
      * @param size The size of the region to be watched.
      * @param conditions The conditions to be watched for.
      */
-    setHardwareWatchpoint(id: HardwareWatchpointId, address: NativePointerValue, size: number | UInt64, conditions: HardwareWatchpointConditions): void;
+    setHardwareWatchpoint(
+        id: HardwareWatchpointId,
+        address: NativePointerValue,
+        size: number | UInt64,
+        conditions: HardwareWatchpointConditions,
+    ): void;
 
     /**
      * Unset a hardware watchpoint.

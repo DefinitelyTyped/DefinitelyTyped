@@ -414,7 +414,7 @@ Process.enumerateThreads().forEach(t => {
 });
 
 Process.enumerateThreads().forEach(t => {
-    t.setHardwareWatchpoint(0, puts, 4, 'rw');
+    t.setHardwareWatchpoint(0, puts, 4, "rw");
 });
 
 Process.enumerateThreads().forEach(t => {
