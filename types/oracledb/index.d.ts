@@ -269,6 +269,13 @@ declare namespace OracleDB {
         bufferSizeFactor: 2147483647;
         csfrm: CSFRM_IMPLICIT;
     };
+    /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_VECTOR: DbType & {
+        num: 2033;
+        name: "DB_TYPE_VECTOR";
+        columnTypeName: "VECTOR";
+        oraTypeNum: 127;
+    };
 
     /** Constant for the dir property of execute() bindParams, queryStream() and executeMany() bindDefs. */
     const BIND_IN: number;
