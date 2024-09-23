@@ -47,6 +47,10 @@ stream.on("data", data => {
     data; // $ExpectType object | GrpcError | undefined
 });
 
+stream.on("data", (_, metadata) => {
+    metadata; // $ExpectType object
+});
+
 stream.write({ latitude: 410248224, longitude: -747127767 });
 stream.end();
 
