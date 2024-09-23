@@ -6,7 +6,7 @@
         "https://github.com/manufont/react-swipeable-bottom-sheet"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^16",
         "@types/react-swipeable-views": "*"
     },
     "devDependencies": {

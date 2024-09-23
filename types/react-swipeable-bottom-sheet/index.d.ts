@@ -1,7 +1,7 @@
 import React = require("react");
 import { SwipeableViewsProps } from "react-swipeable-views";
 
-interface SwipeableBottomSheetProps extends React.PropsWithChildren {
+interface SwipeableBottomSheetProps {
     /**
      * The height (in px) of the sheet when closed.
      *
@@ -109,6 +109,8 @@ interface SwipeableBottomSheetProps extends React.PropsWithChildren {
  *
  * This can be used to reproduce Material Design's Bottom Sheet guidelines
  */
-declare class SwipeableBottomSheet extends React.Component<SwipeableBottomSheetProps> {}
+declare class SwipeableBottomSheet extends React.Component<React.PropsWithChildren<SwipeableBottomSheetProps>> {
+    render(): React.JSX.Element;
+}
 
 export = SwipeableBottomSheet;
