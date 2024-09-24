@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/sinon-chai",
-    "version": "3.2.9999",
+    "version": "4.0.9999",
+    "type": "module",
     "projects": [
         "https://github.com/domenic/sinon-chai"
     ],

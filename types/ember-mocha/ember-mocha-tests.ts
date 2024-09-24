@@ -1,3 +1,5 @@
+/// <reference types="chai" />
+import Ember from "ember";
 import {
     describeComponent,
     describeModel,
@@ -10,10 +12,10 @@ import {
     setupRenderingTest,
     setupTest,
 } from "ember-mocha";
-import { after, afterEach, before, beforeEach, describe, it } from "mocha";
-import chai = require("chai");
-import Ember from "ember";
 import hbs from "htmlbars-inline-precompile";
+import { after, afterEach, before, beforeEach, describe, it } from "mocha";
+
+const chai: Chai.ChaiStatic = {} as any;
 
 describeModule("name", function() {
     beforeEach(function() {

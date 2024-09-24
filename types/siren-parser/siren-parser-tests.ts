@@ -1,8 +1,10 @@
-import * as chai from "chai";
+/// <reference types="chai" />
 import parseSiren from "siren-parser";
 import * as sirenSuperagent from "siren-parser/superagent";
 import * as superagent from "superagent";
 import "siren-parser/chai";
+
+const chai: Chai.ChaiStatic = {} as any;
 
 parseSiren("{\"class\":[\"foo\",\"bar\"]}");
 

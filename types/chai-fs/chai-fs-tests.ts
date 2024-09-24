@@ -1,8 +1,9 @@
-import { assert, expect, should, use } from "chai";
 import Chaifs = require("chai-fs");
 
-use(Chaifs);
-should();
+const assert: Chai.AssertStatic = {} as any;
+const expect: Chai.ExpectStatic = {} as any;
+
+import("chai").then(({ use }) => use(Chaifs));
 
 const name = "name";
 const path = "tmp/";

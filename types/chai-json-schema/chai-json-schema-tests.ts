@@ -1,8 +1,13 @@
-import { assert, expect, should, tv4, use } from "chai";
 import ChaiJsonSchema = require("chai-json-schema");
+import { TV4 } from "tv4";
 
-use(ChaiJsonSchema);
-should();
+const assert: Chai.AssertStatic = {} as any;
+const expect: Chai.ExpectStatic = {} as any;
+let tv4: TV4 = {} as any;
+
+import("chai").then(({ use }) => {
+    ({ tv4 } = use(ChaiJsonSchema));
+});
 
 const goodApple = {
     skin: "thin",
