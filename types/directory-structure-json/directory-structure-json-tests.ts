@@ -1,4 +1,3 @@
-/// <reference types='node' />
 import DirectoryStructureJSON, { type File, type Folder, type Total } from "directory-structure-json";
 import fs from "fs";
 
