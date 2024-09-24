@@ -8357,6 +8357,11 @@ declare namespace chrome.sessions {
  * @since Chrome 20
  */
 declare namespace chrome.storage {
+    /** NoInfer for old TypeScript versions */
+    type NoInferX<T> = T[][T extends any ? 0 : never];
+    // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
+    export {};
+
     export interface StorageArea {
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
@@ -8370,14 +8375,17 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with a number
          * @since MV3
          */
-        getBytesInUse(keys?: string | string[] | null): Promise<number>;
+        getBytesInUse<T = { [key: string]: any }>(keys?: keyof T | Array<keyof T> | null): Promise<number>;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param keys Optional. A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
          * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
          * Parameter bytesInUse: Amount of space being used in storage, in bytes.
          */
-        getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
+        getBytesInUse<T = { [key: string]: any }>(
+            keys: keyof T | Array<keyof T> | null,
+            callback: (bytesInUse: number) => void,
+        ): void;
         /**
          * Removes all items from storage.
          * @return A void Promise
@@ -8397,7 +8405,7 @@ declare namespace chrome.storage {
          * @return A void Promise
          * @since MV3
          */
-        set(items: { [key: string]: any }): Promise<void>;
+        set<T = { [key: string]: any }>(items: Partial<T>): Promise<void>;
         /**
          * Sets multiple items.
          * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
@@ -8405,7 +8413,7 @@ declare namespace chrome.storage {
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        set(items: { [key: string]: any }, callback: () => void): void;
+        set<T = { [key: string]: any }>(items: Partial<T>, callback: () => void): void;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
@@ -8413,20 +8421,20 @@ declare namespace chrome.storage {
          * @return A void Promise
          * @since MV3
          */
-        remove(keys: string | string[]): Promise<void>;
+        remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>): Promise<void>;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        remove(keys: string | string[], callback: () => void): void;
+        remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>, callback: () => void): void;
         /**
          * Gets the entire contents of storage.
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
          * Parameter items: Object with items in their key-value mappings.
          */
-        get(callback: (items: { [key: string]: any }) => void): void;
+        get<T = { [key: string]: any }>(callback: (items: T) => void): void;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8434,7 +8442,9 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with an object containing items
          * @since MV3
          */
-        get(keys?: string | string[] | { [key: string]: any } | null): Promise<{ [key: string]: any }>;
+        get<T = { [key: string]: any }>(
+            keys?: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+        ): Promise<T>;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8442,9 +8452,9 @@ declare namespace chrome.storage {
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
          * Parameter items: Object with items in their key-value mappings.
          */
-        get(
-            keys: string | string[] | { [key: string]: any } | null,
-            callback: (items: { [key: string]: any }) => void,
+        get<T = { [key: string]: any }>(
+            keys: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+            callback: (items: T) => void,
         ): void;
         /**
          * Sets the desired access level for the storage area. The default will be only trusted contexts.
@@ -8513,12 +8523,12 @@ declare namespace chrome.storage {
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void>
     {}
 
-    type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
+    export type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void>
     {}
 
-    type AccessLevel = keyof typeof AccessLevel;
+    export type AccessLevel = keyof typeof AccessLevel;
 
     /** The storage area's access level. */
     export var AccessLevel: {
