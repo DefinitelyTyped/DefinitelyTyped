@@ -165,6 +165,11 @@ export interface Recovery {
     immediateNack?: boolean | undefined;
 }
 
+export interface ConnectionInfo {
+    vhost: string;
+    connectionUrl: string;
+}
+
 export interface SubscriptionConfig {
     vhost?: string | undefined;
     queue?: string | undefined;
@@ -538,6 +543,7 @@ export class Vhost extends EventEmitter {
     returnConfirmChannel(channel: Channel): void;
     destroyConfirmChannel(channel: Channel): void;
     isPaused(): boolean;
+    getConnectionDetails(): ConnectionInfo;
 }
 
 declare function createBroker(config: BrokerConfig, next: CreateCb): void;
