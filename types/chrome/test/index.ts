@@ -772,7 +772,7 @@ function testStorage() {
     }
 
     // @ts-expect-error
-    const testNoInferX: chrome.storage.NoInferX<string> = 'This test checks if NoInferX is accidentally exported';
+    const testNoInferX: chrome.storage.NoInferX<string> = "This test checks if NoInferX is accidentally exported";
 
     chrome.storage.sync.get("myKey", getCallback);
     chrome.storage.sync.get("badKey", getCallback);
