@@ -2,9 +2,6 @@
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />
 
-// NoInfer for old TypeScript versions
-type NoInferX<T> = T[][T extends any ? 0 : never];
-
 ////////////////////
 // Global object
 ////////////////////
@@ -8360,6 +8357,14 @@ declare namespace chrome.sessions {
  * @since Chrome 20
  */
 declare namespace chrome.storage {
+    /**
+     * NoInfer for old TypeScript versions
+     * @internal
+     */
+    type NoInferX<T> = T[][T extends any ? 0 : never];
+    // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
+    export {}
+
     export interface StorageArea {
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
@@ -8521,12 +8526,12 @@ declare namespace chrome.storage {
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void>
     {}
 
-    type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
+    export type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void>
     {}
 
-    type AccessLevel = keyof typeof AccessLevel;
+    export type AccessLevel = keyof typeof AccessLevel;
 
     /** The storage area's access level. */
     export var AccessLevel: {
