@@ -12,15 +12,15 @@ csv.parse();
 // @ts-expect-error
 fs.parse("/paths/are/not/supported");
 // @ts-expect-error
-fs.parse(testFile, 123); 
+fs.parse(testFile, 123);
 // @ts-expect-error
-fs.parse(testFile, { delimiter: 123 }); 
+fs.parse(testFile, { delimiter: 123 });
 // @ts-expect-error
-fs.parse(testFile, { skipFirstLine: "should be a boolean" }); 
+fs.parse(testFile, { skipFirstLine: "should be a boolean" });
 // @ts-expect-error
-fs.parse(testFile, { fromLine: "should be a number" }); 
+fs.parse(testFile, { fromLine: "should be a number" });
 // @ts-expect-error
-fs.parse(testFile, { toLine: "should be a number" }); 
+fs.parse(testFile, { toLine: "should be a number" });
 
 //
 // Parser constructor
@@ -33,10 +33,10 @@ new csv.Parser("/paths/are/not/supported");
 // @ts-expect-error
 new csv.Parser(testFile, 123);
 // @ts-expect-error
-new csv.Parser(testFile, { delimiter: 123 }); 
+new csv.Parser(testFile, { delimiter: 123 });
 // @ts-expect-error
-new csv.Parser(testFile, { skipFirstLine: "should be a boolean" }); 
+new csv.Parser(testFile, { skipFirstLine: "should be a boolean" });
 // @ts-expect-error
-new csv.Parser(testFile, { fromLine: "should be a number" }); 
+new csv.Parser(testFile, { fromLine: "should be a number" });
 // @ts-expect-error
-new csv.Parse(testFile, { toLine: "should be a number" }); 
+new csv.Parse(testFile, { toLine: "should be a number" });
