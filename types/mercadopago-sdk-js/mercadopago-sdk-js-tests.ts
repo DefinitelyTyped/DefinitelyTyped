@@ -144,7 +144,7 @@ brickBuilder.create("statusScreen", "containerStatusScreen", {
     customization: {
         visual: {
             hidePixQrCode: true,
-        }
+        },
     },
     callbacks: {},
 });
