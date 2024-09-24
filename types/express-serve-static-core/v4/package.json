@@ -3,6 +3,7 @@
     "name": "@types/express-serve-static-core",
     "version": "4.19.9999",
     "nonNpm": "conflict",
+    "nonNpmDescription": "express-serve-static-core",
     "projects": [
         "http://expressjs.com"
     ],
