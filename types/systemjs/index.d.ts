@@ -109,5 +109,6 @@ declare namespace System {
     interface ImportMap {
         imports?: Record<string, string>;
         scopes?: Record<string, Record<string, string>>;
+        integrity?: Record<string, string>;
     }
 }

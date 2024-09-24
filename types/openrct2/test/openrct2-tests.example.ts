@@ -3,7 +3,7 @@ const TOOL_ID = "devtools.tool.entityviewer";
 
 let entityId: number;
 
-function register() {
+export function register() {
     ui.registerMenuItem("Entity Viewer", () => {
         ui.activateTool({
             id: TOOL_ID,
@@ -69,7 +69,7 @@ function open() {
     });
 
     function set(items: ListViewItem[]) {
-        const list = window.findWidget<ListView>("rve-debug-list");
+        const list = window.findWidget<ListViewWidget>("rve-debug-list");
         list.width = window.width - 10;
         list.height = window.height - 36;
         list.items = items;
@@ -88,7 +88,7 @@ function open() {
 
         let data: ListViewItem[] = [
             sep("Entity"),
-            ["Id:", entity.id.toString()],
+            ["Id:", entity.id?.toString() ?? ""],
             ["Type:", entity.type.toString()],
             ["Position:", `${entity.x}, ${entity.y}, ${entity.z}`],
         ];
@@ -105,8 +105,8 @@ function open() {
                     ["Sprite type", car.spriteType.toString()],
                     ["Num. of seats", car.numSeats.toString()],
                     ["Next car on train", car.nextCarOnTrain == null ? "null" : car.nextCarOnTrain.toString()],
-                    ["Next car on ride", car.nextCarOnRide.toString()],
-                    ["Previous car on ride", car.previousCarOnRide.toString()],
+                    ["Next car on ride", car.nextCarOnRide?.toString() ?? ""],
+                    ["Previous car on ride", car.previousCarOnRide?.toString() ?? ""],
                     ["Current station", car.currentStation.toString()],
                     ["", ""],
                     ["Mass:", car.mass.toString()],
@@ -114,7 +114,7 @@ function open() {
                     ["Banking rotation:", car.bankRotation.toString()],
                     [
                         "Colours",
-                        `body: ${car.colours.body}, trim: ${car.colours.trim}, ternary: ${car.colours.ternary}`,
+                        `body: ${car.colours.body}, trim: ${car.colours.trim}, ternary: ${car.colours.tertiary}`,
                     ],
                     ["Powered acceleration:", car.poweredAcceleration.toString()],
                     ["Powered max. speed:", car.poweredMaxSpeed.toString()],
@@ -136,8 +136,8 @@ function open() {
                     ["", ""],
                     sep("VehicleObject"),
                     ["Rotation frame mask:", vehicleObject.rotationFrameMask.toString()],
-                    ["Num. of vertical frames:", vehicleObject.numVerticalFrames.toString()],
-                    ["Num. of horizontal frames:", vehicleObject.numHorizontalFrames.toString()],
+                    ["Num. of vertical frames:", vehicleObject.numVerticalFramesOverride.toString()],
+                    ["Num. of horizontal (base) frames:", vehicleObject.baseNumFrames.toString()],
                     ["Spacing:", vehicleObject.spacing.toString()],
                     ["Car mass:", vehicleObject.carMass.toString()],
                     ["Tab height:", vehicleObject.tabHeight.toString()],

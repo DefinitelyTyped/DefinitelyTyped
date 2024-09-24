@@ -9013,14 +9013,28 @@ declare namespace chrome.system.display {
         singleUnified?: boolean | undefined;
     }
 
+    /**
+     * An enum to tell if the display is detected and used by the system.
+     * The display is considered 'inactive', if it is not detected by the system (maybe disconnected, or considered disconnected due to sleep mode, etc).
+     * This state is used to keep existing display when the all displays are disconnected, for example.
+     * @since Chrome 117
+     */
+    export type ActiveStateEnum = "active" | "inactive";
+
     /** Information about display properties. */
     export interface DisplayInfo {
+        /**
+         * Active if the display is detected and used by the system.
+         * @since Chrome 117
+         */
+        activeState: ActiveStateEnum;
         /** The unique identifier of the display. */
         id: string;
         /** The user-friendly name (e.g. 'HP LCD monitor'). */
         name: string;
         /**
          * requires(CrOS Kiosk app) Only available in Chrome OS Kiosk apps
+         * @since Chrome 67
          */
         edid?: {
             /**
@@ -9050,6 +9064,7 @@ declare namespace chrome.system.display {
          * Empty if no displays are being mirrored. This will be set to the same value
          * for all displays.
          * ❗ This must not include *mirroringSourceId*. ❗
+         * @since Chrome 64
          */
         mirroringDestinationIds: string[];
         /** True if this is the primary display. */
@@ -9058,6 +9073,11 @@ declare namespace chrome.system.display {
         isInternal: boolean;
         /** True if this display is enabled. */
         isEnabled: boolean;
+        /**
+         * True for all displays when in unified desktop mode
+         * @since Chrome 59
+         */
+        isUnified: boolean;
         /** The number of pixels per inch along the x-axis. */
         dpiX: number;
         /** The number of pixels per inch along the y-axis. */
@@ -9076,15 +9096,20 @@ declare namespace chrome.system.display {
          * The current mode will have isSelected=true.
          * Only available on Chrome OS.
          * Will be set to an empty array on other platforms.
+         * @since Chrome 52
          */
         modes: DisplayMode[];
         /** True if this display has a touch input device associated with it. */
         hasTouchSupport: boolean;
-        /** A list of zoom factor values that can be set for the display. */
+        /**
+         * A list of zoom factor values that can be set for the display.
+         * @since Chrome 67
+         */
         availableDisplayZoomFactors: number[];
         /**
          * The ratio between the display's current and default zoom.
          * For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
+         * @since Chrome 65
          */
         displayZoomFactor: number;
     }

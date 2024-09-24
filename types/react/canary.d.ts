@@ -136,6 +136,15 @@ declare module "." {
         newState: "closed" | "open";
     }
 
+    interface LinkHTMLAttributes<T> {
+        precedence?: string | undefined;
+    }
+
+    interface StyleHTMLAttributes<T> {
+        href?: string | undefined;
+        precedence?: string | undefined;
+    }
+
     /**
      * @internal Use `Awaited<ReactNode>` instead
      */

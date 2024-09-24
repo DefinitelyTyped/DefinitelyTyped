@@ -239,6 +239,9 @@ const pool = new Pool({
     "Client": MyClient,
 });
 console.log(pool.totalCount);
+console.log(pool.idleCount);
+console.log(pool.waitingCount);
+console.log(pool.expiredCount);
 pool.connect((err, client, done) => {
     if (err) {
         console.error("error fetching client from pool", err);
@@ -247,6 +250,12 @@ pool.connect((err, client, done) => {
 
     // $ExpectType PoolOptions
     pool.options;
+
+    // $ExpectType boolean
+    pool.ending;
+
+    // $ExpectType boolean
+    pool.ended;
 
     // @ts-expect-error
     client.query("SELECT");

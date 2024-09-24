@@ -89,6 +89,9 @@ System.addImportMap({
             c: "https://example.com/c.js",
         },
     },
+    integrity: {
+        "https://example.com/a.js": "sha256-5e3e",
+    },
 });
 
 System.getImportMap();

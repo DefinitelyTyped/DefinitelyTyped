@@ -441,3 +441,7 @@ function PopoverAPI() {
         </>
     );
 }
+
+// New <link> and <style> props
+<link href="https://foo.bar" precedence="medium" rel="canonical" />;
+<style href="unique-style-hash" precedence="anything">{` p { color: red; } `}</style>;

@@ -381,6 +381,16 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 });
 
 (() => {
+    var singleValueArray = qs.stringify({ foo: [null], bar: "baz" }, {
+        arrayFormat: "comma",
+        commaRoundTrip: true,
+        encode: false,
+        strictNullHandling: true,
+    });
+    assert.deepEqual(singleValueArray, "foo[]&bar=baz");
+});
+
+(() => {
     assert.deepEqual(qs.parse("foo=bar&foo=baz"), { foo: ["bar", "baz"] });
     assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "combine" }), { foo: ["bar", "baz"] });
     assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "first" }), { foo: "bar" });

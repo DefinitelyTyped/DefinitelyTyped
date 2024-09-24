@@ -266,7 +266,10 @@ cal.setOption("buttonText", () => {
         return result;
     })
     .setOption("titleFormat", (_s: Date, _e: Date) => "content")
-    .setOption("views", { resourceTimeGrid: { selectMinDistance: 300 } });
+    .setOption("views", { resourceTimeGrid: { selectMinDistance: 300 } })
+    .setOption("buttonText", (text) => {
+        return { ...text, foo: "bar" };
+    });
 
 // check some invalid combinations for FooInput and Foo types
 // @ts-expect-error

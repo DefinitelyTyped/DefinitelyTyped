@@ -11,6 +11,7 @@ interface SensorErrorEventInit extends EventInit {
 
 declare class Sensor extends EventTarget {
     readonly activated: boolean;
+    readonly hasReading: boolean;
     readonly timestamp?: number | undefined; // Should be DOMHighResTimeStamp.
     start(): void;
     stop(): void;

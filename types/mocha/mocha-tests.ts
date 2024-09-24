@@ -1129,6 +1129,9 @@ function test_base_reporter_properties(reporter: LocalMocha.reporters.Base) {
 
     // $ExpectType number | undefined
     reporter.stats.duration;
+
+    // $ExpectType (...data: any[]) => void
+    LocalMocha.reporters.Base.consoleLog;
 }
 
 function test_runner_events(runner: LocalMocha.Runner) {
