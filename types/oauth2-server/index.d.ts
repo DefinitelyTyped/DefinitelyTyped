@@ -98,7 +98,7 @@ declare namespace OAuth2Server {
     }
 
     interface AbstractGrantOptions extends TokenOptions {
-        model: BaseModel
+        model: BaseModel;
     }
 
     abstract class AbstractGrantType {
@@ -106,7 +106,7 @@ declare namespace OAuth2Server {
         accessTokenLifetime?: number | undefined;
         refreshTokenLifetime?: number | undefined;
         alwaysIssueNewRefreshToken?: boolean | undefined;
-        
+
         /**
          * Instantiates AbstractGrantType using the supplied options.
          */

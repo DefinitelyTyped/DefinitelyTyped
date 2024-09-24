@@ -137,8 +137,8 @@ class CustomGrantType extends OAuth2Server.AbstractGrantType {
     }
 
     async handle(request: OAuth2Server.Request, client: OAuth2Server.Client) {
-        if (!request) throw new OAuth2Server.InvalidArgumentError('Missing `request`');
-        if (!client) throw new OAuth2Server.InvalidArgumentError('Missing `client`');
+        if (!request) throw new OAuth2Server.InvalidArgumentError("Missing `request`");
+        if (!client) throw new OAuth2Server.InvalidArgumentError("Missing `client`");
 
         const scope = this.getScope(request);
         const user = {};
@@ -146,7 +146,11 @@ class CustomGrantType extends OAuth2Server.AbstractGrantType {
         return this.saveToken(user, client, scope);
     }
 
-    async saveToken(user: OAuth2Server.User, client: OAuth2Server.Client, scope: string): Promise<OAuth2Server.Token | OAuth2Server.Falsey> {
+    async saveToken(
+        user: OAuth2Server.User,
+        client: OAuth2Server.Client,
+        scope: string,
+    ): Promise<OAuth2Server.Token | OAuth2Server.Falsey> {
         this.validateScope(user, client, scope);
 
         let token: OAuth2Server.PartialToken = {
@@ -159,6 +163,4 @@ class CustomGrantType extends OAuth2Server.AbstractGrantType {
 
         return this.model.saveToken(token, client, user);
     }
-
 }
-
