@@ -8363,7 +8363,7 @@ declare namespace chrome.storage {
      */
     type NoInferX<T> = T[][T extends any ? 0 : never];
     // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
-    export {}
+    export {};
 
     export interface StorageArea {
         /**
