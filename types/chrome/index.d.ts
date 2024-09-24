@@ -8357,10 +8357,7 @@ declare namespace chrome.sessions {
  * @since Chrome 20
  */
 declare namespace chrome.storage {
-    /**
-     * NoInfer for old TypeScript versions
-     * @internal
-     */
+    /** NoInfer for old TypeScript versions */
     type NoInferX<T> = T[][T extends any ? 0 : never];
     // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
     export {};
