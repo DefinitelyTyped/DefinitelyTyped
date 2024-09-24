@@ -1,31 +1,31 @@
 /// <reference types='node' />
-import fs from 'fs';
-import DirectoryStructureJSON, { type Folder, type File, type Total } from 'directory-structure-json';
+import DirectoryStructureJSON, { type File, type Folder, type Total } from "directory-structure-json";
+import fs from "fs";
 
-const structure: Array<File | Folder> =  [
+const structure: Array<File | Folder> = [
     {
-        type: 'file',
-        name: 'index.js'
+        type: "file",
+        name: "index.js",
     },
     {
-        name: 'node_modules',
-        type: 'folder',
+        name: "node_modules",
+        type: "folder",
         children: [
             {
-                name: 'path',
-                type: 'folder',
+                name: "path",
+                type: "folder",
                 children: [
                     {
-                        type: 'file',
-                        name: 'path.js',
+                        type: "file",
+                        name: "path.js",
                     },
                     {
-                        type: 'file',
-                        name: 'package.json',
+                        type: "file",
+                        name: "package.json",
                     },
                     {
-                        type: 'file',
-                        name: 'README.md',
+                        type: "file",
+                        name: "README.md",
                     },
                 ],
             },
@@ -33,7 +33,12 @@ const structure: Array<File | Folder> =  [
     },
 ];
 
-DirectoryStructureJSON.getStructure(fs, '', (err: Error | null) => {})
-DirectoryStructureJSON.getStructure(fs, '', (err: Error | null, result?: Folder) => {})
-DirectoryStructureJSON.getStructure(fs, '', (err: Error | null, result?: Folder, total?: Total) => {})
-DirectoryStructureJSON.traverseStructure(structure, '', (folder: Folder, basepath: string) => {}, (file: File, basepath: string) => {})
+DirectoryStructureJSON.getStructure(fs, "", (err: Error | null) => {});
+DirectoryStructureJSON.getStructure(fs, "", (err: Error | null, result?: Folder) => {});
+DirectoryStructureJSON.getStructure(fs, "", (err: Error | null, result?: Folder, total?: Total) => {});
+DirectoryStructureJSON.traverseStructure(
+    structure,
+    "",
+    (folder: Folder, basepath: string) => {},
+    (file: File, basepath: string) => {},
+);

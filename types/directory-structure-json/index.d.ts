@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import fs from 'fs';
+import fs from "fs";
 
 export interface FileSystem {
     readdir: typeof fs.readdir;
@@ -8,12 +8,12 @@ export interface FileSystem {
 
 export interface File {
     name: string;
-    type: 'file';
+    type: "file";
 }
 
 export interface Folder {
     name: string;
-    type: 'folder';
+    type: "folder";
     children: Array<File | Folder>;
 }
 
