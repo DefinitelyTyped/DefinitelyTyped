@@ -337,16 +337,71 @@ declare namespace naver.maps {
      * MarkerOptions
      */
     interface MarkerOptions {
+        /**
+         * The animation to start when the marker is added to the map.
+         *
+         * 마커가 지도에 추가될 때 시작할 애니메이션입니다.
+         */
         animation?: Animation;
+        /**
+         * The Map object to display the marker on.
+         *
+         * 마커를 표시할 Map 객체입니다.
+         */
         map?: Map;
+        /**
+         * The map coordinates representing the marker's position.
+         *
+         * 마커의 위치를 나타내는 지도 좌표입니다.
+         */
         position: Coord | CoordLiteral;
+        /**
+         * The shape of the marker.
+         *
+         * 마커의 모양입니다.
+         */
         icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
+        /**
+         * The interaction area of the marker.
+         *
+         * 마커의 인터랙션 영역입니다.
+         */
         shape?: MarkerShape;
+        /**
+         * The tooltip string that appears when the mouse hovers over the marker.
+         *
+         * 마커에 마우스 오버 시 나타나는 툴팁 문자열입니다.
+         */
         title?: string;
+        /**
+         * The shape of the pointer that appears when the mouse hovers over the marker.
+         *
+         * 마커에 마우스 오버 시 나타나는 포인터 모양입니다.
+         */
         cursor?: string;
+        /**
+         * Whether the marker is clickable.
+         *
+         * 마커의 클릭 허용 여부입니다.
+         */
         clickable?: boolean;
+        /**
+         * Whether the marker is draggable.
+         *
+         * 마커의 드래그 허용 여부입니다.
+         */
         draggable?: boolean;
+        /**
+         * Whether the marker is visible.
+         *
+         * 마커의 노출 허용 여부입니다.
+         */
         visible?: boolean;
+        /**
+         * The stacking order of the marker.
+         *
+         * 마커의 쌓임 순서입니다.
+         */
         zIndex?: number;
     }
 
@@ -363,18 +418,83 @@ declare namespace naver.maps {
      * InfoWindowOptions
      */
     interface InfoWindowOptions {
+        /**
+         * The position of the info window.
+         *
+         * 정보 창의 위치입니다.
+         */
         position?: Coord | CoordLiteral;
+        /**
+         * The content of the info window.
+         *
+         * 정보 창의 콘텐츠입니다.
+         */
         content: string | HTMLElement;
+        /**
+         * The stacking order of the info window.
+         *
+         * 정보 창의 쌓임 순서입니다.
+         */
         zIndex?: number;
+        /**
+         * The maximum width of the info window.
+         *
+         * 정보 창의 최대 너비입니다.
+         */
         maxWidth?: number;
+        /**
+         * The offset from the tail of the info window to the point where the info window is positioned.
+         *
+         * 정보 창의 꼬리에서 정보 창이 위치한 지점까지의 오프셋입니다.
+         */
         pixelOffset?: Point | PointLiteral;
+        /**
+         * The background color of the info window. Set using CSS color notation.
+         *
+         * 정보 창의 배경색입니다. CSS 색상 표현법으로 설정합니다.
+         */
         backgroundColor?: string;
+        /**
+         * The border color of the info window. Set using CSS color notation.
+         *
+         * 정보 창의 테두리 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         borderColor?: string;
+        /**
+         * The border thickness of the info window.
+         *
+         * 정보 창의 테두리 두께입니다.
+         */
         borderWidth?: number;
+        /**
+         * Whether to use automatic movement (panning) to show the entire info window when opening it.
+         *
+         * 정보 창을 열 때 정보 창 전체를 보여줄 수 있는 자동 이동(패닝) 사용 여부입니다.
+         */
         disableAutoPan?: boolean;
+        /**
+         * Whether to use the default speech bubble tail.
+         *
+         * 기본 말풍선 꼬리의 사용 여부입니다.
+         */
         disableAnchor?: boolean;
+        /**
+         * Whether to use the skew effect for the default speech bubble tail.
+         *
+         * 기본 말풍선 꼬리의 기울임(skew) 효과 사용 여부입니다.
+         */
         anchorSkew?: boolean;
+        /**
+         * The size of the default speech bubble tail.
+         *
+         * 기본 말풍선 꼬리의 크기입니다.
+         */
         anchorSize?: Size | SizeLiteral;
+        /**
+         * The color of the default speech bubble tail. Set using CSS color notation.
+         *
+         * 기본 말풍선 꼬리의 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         anchorColor?: string;
     }
 
@@ -660,18 +780,83 @@ declare namespace naver.maps {
      * PolygonOptions
      */
     interface PolygonOptions {
+        /**
+         * The Map object to display the polygon on.
+         *
+         * 도형이 그려질 지도 객체입니다.
+         */
         map?: Map;
+        /**
+         * The paths of the polygon.
+         *
+         * 도형의 좌표 목록입니다.
+         */
         paths: ArrayOfCoords[] | KVOArray<KVOArrayOfCoords> | ArrayOfCoordsLiteral[];
+        /**
+         * The weight of the polygon's stroke.
+         *
+         * 도형의 선 두께입니다.
+         */
         strokeWeight?: number;
+        /**
+         * The opacity of the polygon's stroke.
+         *
+         * 도형의 선 불투명도입니다.
+         */
         strokeOpacity?: number;
+        /**
+         * The color of the polygon's stroke. Set using CSS color notation.
+         *
+         * 도형의 선 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         strokeColor?: string;
+        /**
+         * The style of the polygon's stroke.
+         *
+         * 도형의 선 스타일입니다.
+         */
         strokeStyle?: StrokeStyleType;
+        /**
+         * The line cap of the polygon's stroke.
+         *
+         * 도형에 사용되는 선의 마감 스타일입니다.
+         */
         strokeLineCap?: StrokeLineCapType;
+        /**
+         * The line join of the polygon's stroke.
+         *
+         * 도형에 사용되는 선들이 맞닿는 부분의 마감 스타일입니다.
+         */
         strokeLineJoin?: StrokeLineJoinType;
+        /**
+         * The color of the polygon's fill. Set using CSS color notation.
+         *
+         * 도형 영역을 채울 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         fillColor?: string;
+        /**
+         * The opacity of the polygon's fill.
+         *
+         * 도형 영역을 채울 색상의 불투명도입니다.
+         */
         fillOpacity?: number;
+        /**
+         * Whether the polygon is clickable.
+         *
+         * 도형의 클릭 허용 여부입니다.
+         */
         clickable?: boolean;
+        /**
+         * Whether the polygon is visible.
+         *
+         * 도형의 노출 허용 여부입니다.
+         */
         visible?: boolean;
+        /**
+         * The stacking order of the polygon.
+         *
+         * 도형의 쌓임 순서입니다.
+         */
         zIndex?: number;
     }
 
@@ -679,20 +864,95 @@ declare namespace naver.maps {
      * PolylineOptions
      */
     interface PolylineOptions {
+        /**
+         * The Map object to display the polyline on.
+         *
+         * 도형이 그려질 지도 객체입니다.
+         */
         map?: Map;
+        /**
+         * The path of the polyline.
+         *
+         * 도형의 좌표 목록입니다.
+         */
         path: ArrayOfCoords | KVOArrayOfCoords | ArrayOfCoordsLiteral;
+        /**
+         * The weight of the polyline's stroke.
+         *
+         * 도형의 선 두께입니다.
+         */
         strokeWeight?: number;
+        /**
+         * The opacity of the polyline's stroke.
+         *
+         * 도형의 선 불투명도입니다.
+         */
         strokeOpacity?: number;
+        /**
+         * The color of the polyline's stroke. Set using CSS color notation.
+         *
+         * 도형의 선 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         strokeColor?: string;
+        /**
+         * The style of the polyline's stroke.
+         *
+         * 도형의 선 스타일입니다.
+         */
         strokeStyle?: StrokeStyleType;
+        /**
+         * The line cap of the polyline's stroke.
+         *
+         * 도형에 사용되는 선의 마감 스타일입니다.
+         */
         strokeLineCap?: StrokeLineCapType;
+        /**
+         * The line join of the polyline's stroke.
+         *
+         * 도형에 사용되는 선들이 맞닿는 부분의 마감 스타일입니다.
+         */
         strokeLineJoin?: StrokeLineJoinType;
+        /**
+         * Whether the polyline is clickable.
+         *
+         * 도형의 클릭 허용 여부입니다.
+         */
         clickable?: boolean;
+        /**
+         * Whether the polyline is visible.
+         *
+         * 도형의 노출 허용 여부입니다.
+         */
         visible?: boolean;
+        /**
+         * The stacking order of the polyline.
+         *
+         * 도형의 쌓임 순서입니다.
+         */
         zIndex?: number;
+        /**
+         * The pointing icon at the start of the polyline.
+         *
+         * 도형의 시작점에 표시할 아이콘입니다.
+         */
         startIcon?: PointingIcon;
+        /**
+         * The size of the pointing icon at the start of the polyline.
+         *
+         * 도형의 시작점에 표시할 아이콘의 크기(픽셀)입니다.
+         */
         startIconSize?: number;
+        /**
+         * The pointing icon at the end of the polyline.
+         *
+         * 도형의 끝점에 표시할 아이콘입니다.
+         */
         endIcon?: PointingIcon;
+        /**
+         * The size of the pointing icon at the end of the polyline.
+         *
+         * 도형의 끝점에 표시할 아이콘의 크기(픽셀)입니다.
+         */
         endIconSize?: number;
     }
 
