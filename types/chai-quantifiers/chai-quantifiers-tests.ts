@@ -2,7 +2,7 @@ import chaiQuantifiers = require("chai-quantifiers");
 
 import("chai").then(({ use }) => use(chaiQuantifiers));
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 const assertion = expect([0, 1, 2, 3]);
 

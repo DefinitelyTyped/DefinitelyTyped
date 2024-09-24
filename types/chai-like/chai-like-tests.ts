@@ -1,6 +1,6 @@
 import chaiLike = require("chai-like");
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 import("chai").then(({ use }) => use(chaiLike));
 

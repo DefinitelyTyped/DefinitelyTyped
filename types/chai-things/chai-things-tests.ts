@@ -1,7 +1,7 @@
 import * as chaiThings from "chai-things";
 import("chai").then(({ use }) => use(chaiThings));
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 function test_somethingSyntax() {
     [].should.not.include.something();

@@ -3,8 +3,8 @@
 import chaiFuzzy = require("chai-fuzzy");
 
 import("chai").then(chai => chai.use(chaiFuzzy));
-var expect: Chai.ExpectStatic = {} as any;
-var assert: Chai.AssertStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
+declare const assert: Chai.AssertStatic;
 
 /**
  * compare object attributes and values rather than checking to see if they're the same reference

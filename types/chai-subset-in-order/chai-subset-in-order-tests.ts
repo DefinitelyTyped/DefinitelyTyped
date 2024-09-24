@@ -1,7 +1,7 @@
 import chaiSubsetInOrder = require("chai-subset-in-order");
 
-const assert: Chai.AssertStatic = {} as any;
-const expect: Chai.ExpectStatic = {} as any;
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
 
 import("chai").then(({ use }) => use(chaiSubsetInOrder));
 

@@ -17,7 +17,7 @@ import {
     wordWrap,
 } from "hexo-util";
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 import { createHash } from "crypto";
 import { join } from "path";

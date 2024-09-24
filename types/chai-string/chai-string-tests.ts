@@ -1,5 +1,5 @@
-var assert: Chai.AssertStatic;
-var expect: Chai.ExpectStatic;
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
 
 import chai_string = require("chai-string");
 import("chai").then(({ use }) => use(chai_string));

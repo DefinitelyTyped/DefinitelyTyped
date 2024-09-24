@@ -1,7 +1,7 @@
 import chaiMatchPattern = require("chai-match-pattern");
 
 import("chai").then(chai => chai.use(chaiMatchPattern));
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 const _ = chaiMatchPattern.getLodashModule();
 

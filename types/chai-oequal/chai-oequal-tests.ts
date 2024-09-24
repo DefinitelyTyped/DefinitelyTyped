@@ -2,8 +2,8 @@ import ChaiOequal = require("chai-oequal");
 
 import("chai").then(({ use }) => use(ChaiOequal));
 
-const assert: Chai.AssertStatic = {} as any;
-const expect: Chai.ExpectStatic = {} as any;
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
 
 expect({
     equals: () => true,

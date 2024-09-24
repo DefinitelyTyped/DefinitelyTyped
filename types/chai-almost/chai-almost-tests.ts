@@ -7,7 +7,7 @@ async function testPlugin() {
     use(chaiAlmost()); // default tolerance 1e-6 (= 0.000001)
 }
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 expect(1.0000001).to.almost.equal(1);
 expect(1.0000001).to.be.almost(1);

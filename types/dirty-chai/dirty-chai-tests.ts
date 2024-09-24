@@ -4,7 +4,7 @@ import("chai").then(chai => chai.use(chaiAsPromised));
 import dirtyChai = require("dirty-chai");
 import("chai").then(chai => chai.use(dirtyChai));
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 // mocha-like stubs so we don't need to use mocha typings
 

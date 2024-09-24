@@ -1,8 +1,8 @@
 import ChaiJsonSchema = require("chai-json-schema");
 import { TV4 } from "tv4";
 
-const assert: Chai.AssertStatic = {} as any;
-const expect: Chai.ExpectStatic = {} as any;
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
 let tv4: TV4 = {} as any;
 
 import("chai").then(({ use }) => {

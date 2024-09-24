@@ -1,6 +1,6 @@
 import chaiJestSnapshot = require("chai-jest-snapshot");
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 import("chai").then(chai => chai.use(chaiJestSnapshot));
 

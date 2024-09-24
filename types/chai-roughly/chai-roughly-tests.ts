@@ -2,7 +2,7 @@ import chaiRougly = require("chai-roughly");
 
 import("chai").then(({ use }) => use(chaiRougly));
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 expect(1.2).to.be.roughly().equal(1.1999999999);
 expect(1.2).to.roughly().equal(1.1999999999);

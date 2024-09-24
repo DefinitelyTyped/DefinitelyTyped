@@ -1,6 +1,6 @@
 import deepEqualInAnyOrder = require("deep-equal-in-any-order");
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 import("chai").then(({ use }) => use(deepEqualInAnyOrder));
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import chaiEnzyme = require("chai-enzyme");
 import { shallow } from "enzyme";
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 const Test = () => <div />;
 

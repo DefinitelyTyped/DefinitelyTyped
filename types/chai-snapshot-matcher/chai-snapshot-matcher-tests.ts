@@ -1,4 +1,4 @@
-const expect: Chai.ExpectStatic = <any> {};
+declare const expect: Chai.ExpectStatic;
 const context: Mocha.Context = <any> {};
 
 expect("foo").to.matchSnapshot(context);

@@ -1,6 +1,6 @@
 import chaiJsonPattern = require("chai-json-pattern");
 
-const expect: Chai.ExpectStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
 
 import("chai").then(({ use }) => use(chaiJsonPattern));
 

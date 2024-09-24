@@ -1,7 +1,7 @@
 /// <reference types="chai" />
 
-const expect: Chai.ExpectStatic = {} as any;
-const assert: Chai.AssertStatic = {} as any;
+declare const expect: Chai.ExpectStatic;
+declare const assert: Chai.AssertStatic;
 
 true.should.be.ok;
 expect(true).to.be.ok;
