@@ -918,7 +918,7 @@ declare module "buffer" {
              * @param [start=0] Where the new `Buffer` will start.
              * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
-            slice(start?: number, end?: number): Buffer & WithArrayBufferLike<ArrayBuffer>;
+            slice(start?: number, end?: number): Buffer & WithArrayBufferLike<this["buffer"]>;
             /**
              * Returns a new `Buffer` that references the same memory as the original, but
              * offset and cropped by the `start` and `end` indices.
