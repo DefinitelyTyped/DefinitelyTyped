@@ -649,7 +649,7 @@ braintree.client.create(
                                     amount: "10.00",
                                     currency: "USD",
                                     paymentId: data.paymentId,
-                                });
+                                }).then(res => res);
                             },
                         });
                     });
