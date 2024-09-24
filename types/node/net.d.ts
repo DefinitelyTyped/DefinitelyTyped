@@ -43,6 +43,9 @@ declare module "net" {
          */
         callback(bytesWritten: number, buffer: Uint8Array): boolean;
     }
+    // TODO: remove empty ConnectOpts placeholder at next major @types/node version.
+    /** @deprecated */
+    interface ConnectOpts {}
     interface TcpSocketConnectOpts {
         port: number;
         host?: string | undefined;
