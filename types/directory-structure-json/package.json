@@ -9,7 +9,6 @@
         "@types/node": "*"
     },
     "devDependencies": {
-        "directory-structure-json": "^1.0.0",
         "@types/directory-structure-json": "workspace:."
     },
     "owners": [
