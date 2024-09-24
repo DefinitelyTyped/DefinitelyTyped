@@ -1,10 +1,10 @@
 import Sinon = require("sinon");
 
-import chai = require("chai");
-import sinonChai = require("sinon-chai");
+import * as chai from "chai";
+import { expect } from "chai";
+import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
-var expect = chai.expect;
 declare var spy: Sinon.SinonSpy;
 declare var anotherSpy: Sinon.SinonSpy;
 declare var anotherStub: Sinon.SinonStub;
