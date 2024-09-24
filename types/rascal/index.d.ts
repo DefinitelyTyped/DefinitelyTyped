@@ -464,6 +464,7 @@ declare class BrokerAsPromised extends EventEmitter {
     unsubscribeAll(): Promise<void>;
     subscribe(name: string, overrides?: SubscriptionConfig): Promise<SubscriberSessionAsPromised>;
     subscribeAll(filter?: (config: SubscriptionConfig) => boolean): Promise<SubscriberSessionAsPromised[]>;
+    getConnections(): ConnectionInfo[];
 }
 
 export class SubscriptionSession extends EventEmitter {
@@ -512,6 +513,7 @@ declare class Broker extends EventEmitter {
     subscribeAll(next: Cb<Error, SubscriptionSession[]>): void;
     subscribeAll(filter: (config: SubscriptionConfig) => boolean, next: Cb<Error, SubscriptionSession[]>): void;
     unsubscribeAll(next: ErrorCb): void;
+    getConnections(): ConnectionInfo[];
 }
 
 export class PublicationSession extends EventEmitter {
