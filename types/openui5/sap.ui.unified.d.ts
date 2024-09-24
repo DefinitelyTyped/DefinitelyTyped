@@ -1,4 +1,4 @@
-// For Library Version: 1.127.0
+// For Library Version: 1.128.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -318,6 +318,15 @@ declare module "sap/ui/unified/library" {
     ): Promise<Blob[]>;
   }
 
+  /**
+   * Interval types in a `RecurrenceType`.
+   *
+   * This enum is part of the 'sap/ui/unified/library' module export and must be accessed by the property
+   * 'RecurrenceType'.
+   *
+   * @since 1.127.0
+   */
+  export enum RecurrenceType {}
   /**
    * Standard day types visualized in a {@link sap.m.PlanningCalendarLegend}, which correspond to days in
    * a {@link sap.ui.unified.Calendar}.
@@ -9770,6 +9779,8 @@ declare module "sap/ui/unified/CalendarRow" {
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
+  import NonWorkingPeriod from "sap/ui/unified/NonWorkingPeriod";
+
   import Event from "sap/ui/base/Event";
 
   import UI5Date from "sap/ui/core/date/UI5Date";
@@ -9894,6 +9905,19 @@ declare module "sap/ui/unified/CalendarRow" {
        * The intervalHeader to add; if empty, nothing is inserted
        */
       oIntervalHeader: CalendarAppointment
+    ): this;
+    /**
+     * Adds some nonWorkingPeriod to the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addNonWorkingPeriod(
+      /**
+       * The nonWorkingPeriod to add; if empty, nothing is inserted
+       */
+      oNonWorkingPeriod: NonWorkingPeriod
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:intervalSelect intervalSelect} event of this
@@ -10105,6 +10129,14 @@ declare module "sap/ui/unified/CalendarRow" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyIntervalHeaders(): this;
+    /**
+     * Destroys all the nonWorkingPeriods in the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyNonWorkingPeriods(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:intervalSelect intervalSelect} event of this
      * `sap.ui.unified.CalendarRow`.
@@ -10476,6 +10508,14 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     getNonWorkingHours(): int[];
     /**
+     * Gets content of aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * Sets the provided period to be displayed as a non-working.
+     *
+     * @since 1.128
+     */
+    getNonWorkingPeriods(): NonWorkingPeriod[];
+    /**
      * Gets current value of property {@link #getShowEmptyIntervalHeaders showEmptyIntervalHeaders}.
      *
      * If set, interval headers are shown even if no `intervalHeaders` are assigned to the visible time frame.
@@ -10597,6 +10637,20 @@ declare module "sap/ui/unified/CalendarRow" {
       oIntervalHeader: CalendarAppointment
     ): int;
     /**
+     * Checks for the provided `sap.ui.unified.NonWorkingPeriod` in the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @since 1.128
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfNonWorkingPeriod(
+      /**
+       * The nonWorkingPeriod whose index is looked for
+       */
+      oNonWorkingPeriod: NonWorkingPeriod
+    ): int;
+    /**
      * Inserts a appointment into the aggregation {@link #getAppointments appointments}.
      *
      *
@@ -10633,6 +10687,25 @@ declare module "sap/ui/unified/CalendarRow" {
       iIndex: int
     ): this;
     /**
+     * Inserts a nonWorkingPeriod into the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertNonWorkingPeriod(
+      /**
+       * The nonWorkingPeriod to insert; if empty, nothing is inserted
+       */
+      oNonWorkingPeriod: NonWorkingPeriod,
+      /**
+       * The `0`-based index the nonWorkingPeriod should be inserted at; for a negative value of `iIndex`, the
+       * nonWorkingPeriod is inserted at position 0; for a value greater than the current size of the aggregation,
+       * the nonWorkingPeriod is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
      * Removes all the controls from the aggregation {@link #getAppointments appointments}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -10657,6 +10730,16 @@ declare module "sap/ui/unified/CalendarRow" {
      * @returns An array of the removed elements (might be empty)
      */
     removeAllIntervalHeaders(): CalendarAppointment[];
+    /**
+     * Removes all the controls from the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.128
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllNonWorkingPeriods(): NonWorkingPeriod[];
     /**
      * Removes a appointment from the aggregation {@link #getAppointments appointments}.
      *
@@ -10693,6 +10776,19 @@ declare module "sap/ui/unified/CalendarRow" {
        */
       vIntervalHeader: int | string | CalendarAppointment
     ): CalendarAppointment | null;
+    /**
+     * Removes a nonWorkingPeriod from the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * @since 1.128
+     *
+     * @returns The removed nonWorkingPeriod or `null`
+     */
+    removeNonWorkingPeriod(
+      /**
+       * The nonWorkingPeriod to remove or its index or id
+       */
+      vNonWorkingPeriod: int | string | NonWorkingPeriod
+    ): NonWorkingPeriod | null;
     /**
      * Sets a new value for property {@link #getAppointmentHeight appointmentHeight}.
      *
@@ -11286,6 +11382,17 @@ declare module "sap/ui/unified/CalendarRow" {
     appointments?:
       | CalendarAppointment[]
       | CalendarAppointment
+      | AggregationBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Sets the provided period to be displayed as a non-working.
+     *
+     * @since 1.128
+     */
+    nonWorkingPeriods?:
+      | NonWorkingPeriod[]
+      | NonWorkingPeriod
       | AggregationBindingInfo
       | `{${string}}`;
 
@@ -19578,6 +19685,315 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
   }
 }
 
+declare module "sap/ui/unified/NonWorkingPeriod" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import TimeRange from "sap/ui/unified/TimeRange";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * NonWorkingPeriod
+   *
+   * @since 1.27.0
+   * @experimental (since 1.127.0)
+   */
+  export default class NonWorkingPeriod extends UI5Element {
+    /**
+     * Constructor for a new NonWorkingPeriod.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $NonWorkingPeriodSettings
+    );
+    /**
+     * Constructor for a new NonWorkingPeriod.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $NonWorkingPeriodSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.NonWorkingPeriod with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NonWorkingPeriod>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.NonWorkingPeriod.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the timeRange in the aggregation {@link #getTimeRange timeRange}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyTimeRange(): this;
+    /**
+     * Gets current value of property {@link #getDate date}.
+     *
+     * Determines the day to which the timeRange refers. This object must be a UI5Date or JavaScript Date object.
+     *
+     *
+     * @returns Value of property `date`
+     */
+    getDate(): object;
+    /**
+     * Returns the duration of the non-working period.
+     *
+     *
+     * @returns returns a number that represents the duration of a calendar item in minutes
+     */
+    getDurationInMinutes(): int;
+    /**
+     * Gets content of aggregation {@link #getTimeRange timeRange}.
+     *
+     * Defines the hours range for the non-working period.
+     */
+    getTimeRange(): TimeRange;
+    /**
+     * Sets a new value for property {@link #getDate date}.
+     *
+     * Determines the day to which the timeRange refers. This object must be a UI5Date or JavaScript Date object.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDate(
+      /**
+       * New value for property `date`
+       */
+      oDate: object
+    ): this;
+    /**
+     * Sets the aggregated {@link #getTimeRange timeRange}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTimeRange(
+      /**
+       * The timeRange to set
+       */
+      oTimeRange: TimeRange
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the NonWorkingPeriod constructor.
+   *
+   * @experimental (since 1.127.0)
+   */
+  export interface $NonWorkingPeriodSettings extends $ElementSettings {
+    /**
+     * Determines the day to which the timeRange refers. This object must be a UI5Date or JavaScript Date object.
+     */
+    date?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the hours range for the non-working period.
+     */
+    timeRange?: TimeRange;
+  }
+}
+
+declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
+  import Metadata from "sap/ui/base/Metadata";
+
+  import { RecurrenceType } from "sap/ui/unified/library";
+
+  /**
+   * A `RecurringNonWorkingPeriod` for use in a `PlanningCalendar` and `SinglePlanningCalendar`.
+   *
+   * Applications can inherit from this element to add own fields.
+   *
+   * @since 1.127.0
+   * @experimental (since 1.127.0)
+   */
+  export default class RecurringNonWorkingPeriod
+    extends /* was: sap.ui.unified. */ Object
+  {
+    /**
+     * Constructor for a new `RecurringNonWorkingPeriod`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: object
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.RecurringNonWorkingPeriod with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified..extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RecurringNonWorkingPeriod>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.RecurringNonWorkingPeriod.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): Metadata;
+    /**
+     * Gets current value of property {@link #getRecurrenceEndDate recurrenceEndDate}.
+     *
+     * Determines the end date of the calendar item, as a UI5Date or JavaScript Date object. It is considered
+     * as a local date.
+     *
+     *
+     * @returns Value of property `recurrenceEndDate`
+     */
+    getRecurrenceEndDate(): object;
+    /**
+     * Gets current value of property {@link #getRecurrencePattern recurrencePattern}.
+     *
+     * The recurrencePattern is an integer value which, in combination with the recurrenceType, sets the recurrence
+     * frequency for a calendar item. For example, if the recurrenceType is set to "Daily" and the recurrencePattern
+     * is set to 1, it signifies that repetition is set for every day. If the recurrencePattern is set to 3,
+     * this would imply the calendar item is recurring once for every three days.
+     *
+     * Default value is `1`.
+     *
+     *
+     * @returns Value of property `recurrencePattern`
+     */
+    getRecurrencePattern(): int;
+    /**
+     * Gets current value of property {@link #getRecurrenceType recurrenceType}.
+     *
+     * The recurrenceType determines the pattern of recurrence for a given calendar item.
+     *
+     *
+     * @returns Value of property `recurrenceType`
+     */
+    getRecurrenceType(): RecurrenceType | keyof typeof RecurrenceType;
+    /**
+     * Sets a new value for property {@link #getRecurrenceEndDate recurrenceEndDate}.
+     *
+     * Determines the end date of the calendar item, as a UI5Date or JavaScript Date object. It is considered
+     * as a local date.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceEndDate(
+      /**
+       * New value for property `recurrenceEndDate`
+       */
+      oRecurrenceEndDate: object
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRecurrencePattern recurrencePattern}.
+     *
+     * The recurrencePattern is an integer value which, in combination with the recurrenceType, sets the recurrence
+     * frequency for a calendar item. For example, if the recurrenceType is set to "Daily" and the recurrencePattern
+     * is set to 1, it signifies that repetition is set for every day. If the recurrencePattern is set to 3,
+     * this would imply the calendar item is recurring once for every three days.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrencePattern(
+      /**
+       * New value for property `recurrencePattern`
+       */
+      iRecurrencePattern?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRecurrenceType recurrenceType}.
+     *
+     * The recurrenceType determines the pattern of recurrence for a given calendar item.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceType(
+      /**
+       * New value for property `recurrenceType`
+       */
+      sRecurrenceType: RecurrenceType | keyof typeof RecurrenceType
+    ): this;
+  }
+}
+
 declare module "sap/ui/unified/Shell" {
   import {
     default as ShellLayout,
@@ -22243,6 +22659,207 @@ declare module "sap/ui/unified/SplitContainer" {
   }
 }
 
+declare module "sap/ui/unified/TimeRange" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Time range for use in `NonWorkingPeriod`
+   *
+   * @since 1.127.0
+   * @experimental (since 1.127.0)
+   */
+  export default class TimeRange extends UI5Element {
+    /**
+     * Constructor for a new TimeRange.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $TimeRangeSettings
+    );
+    /**
+     * Constructor for a new TimeRange.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $TimeRangeSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.TimeRange with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TimeRange>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.TimeRange.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getEnd end}.
+     *
+     * End time for a time range. This must be a String.
+     *
+     *
+     * @returns Value of property `end`
+     */
+    getEnd(): string;
+    /**
+     * Get end date for a time range. From this date, only hours, minutes, seconds, and milliseconds are used.
+     *
+     *
+     * @returns [oDate] A date instance
+     */
+    getEndDate(): Date | UI5Date;
+    /**
+     * Gets current value of property {@link #getStart start}.
+     *
+     * Start time for a time range. This must be a String.
+     *
+     *
+     * @returns Value of property `start`
+     */
+    getStart(): string;
+    /**
+     * Get start date for a time range. From this date, only hours, minutes, seconds, and milliseconds are used.
+     *
+     *
+     * @returns [oDate] A date instance
+     */
+    getStartDate(): Date | UI5Date;
+    /**
+     * Gets current value of property {@link #getValueFormat valueFormat}.
+     *
+     * Determines the format of the startTime and endTime
+     *
+     * **Note:** a time pattern in LDML format. It is not verified whether the pattern only represents a time.
+     *
+     * Default value is `"hh:mm"`.
+     *
+     *
+     * @returns Value of property `valueFormat`
+     */
+    getValueFormat(): string;
+    /**
+     * Sets a new value for property {@link #getEnd end}.
+     *
+     * End time for a time range. This must be a String.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnd(
+      /**
+       * New value for property `end`
+       */
+      sEnd?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getStart start}.
+     *
+     * Start time for a time range. This must be a String.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setStart(
+      /**
+       * New value for property `start`
+       */
+      sStart?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValueFormat valueFormat}.
+     *
+     * Determines the format of the startTime and endTime
+     *
+     * **Note:** a time pattern in LDML format. It is not verified whether the pattern only represents a time.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"hh:mm"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValueFormat(
+      /**
+       * New value for property `valueFormat`
+       */
+      sValueFormat?: string
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the TimeRange constructor.
+   *
+   * @experimental (since 1.127.0)
+   */
+  export interface $TimeRangeSettings extends $ElementSettings {
+    /**
+     * Start time for a time range. This must be a String.
+     */
+    start?: string | PropertyBindingInfo;
+
+    /**
+     * End time for a time range. This must be a String.
+     */
+    end?: string | PropertyBindingInfo;
+
+    /**
+     * Determines the format of the startTime and endTime
+     *
+     * **Note:** a time pattern in LDML format. It is not verified whether the pattern only represents a time.
+     */
+    valueFormat?: string | PropertyBindingInfo;
+  }
+}
+
 declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/unified/Calendar": undefined;
@@ -22309,6 +22926,10 @@ declare namespace sap {
 
     "sap/ui/unified/MenuTextFieldItem": undefined;
 
+    "sap/ui/unified/NonWorkingPeriod": undefined;
+
+    "sap/ui/unified/RecurringNonWorkingPeriod": undefined;
+
     "sap/ui/unified/Shell": undefined;
 
     "sap/ui/unified/ShellHeadItem": undefined;
@@ -22320,5 +22941,7 @@ declare namespace sap {
     "sap/ui/unified/ShellOverlay": undefined;
 
     "sap/ui/unified/SplitContainer": undefined;
+
+    "sap/ui/unified/TimeRange": undefined;
   }
 }

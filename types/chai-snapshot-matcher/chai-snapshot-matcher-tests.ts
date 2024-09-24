@@ -1,6 +1,4 @@
-import chai = require("chai");
-
-const { expect } = chai;
+declare const expect: Chai.ExpectStatic;
 const context: Mocha.Context = <any> {};
 
 expect("foo").to.matchSnapshot(context);

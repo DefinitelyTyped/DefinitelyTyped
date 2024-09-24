@@ -1,45 +1,58 @@
 import trie from "trie-prefix-tree";
 
 // Instantiate the Trie
-const test = trie(["cat", "cats", "dogs", "elephant", "tiger"]);
+let test = trie(["cat", "cats", "dogs", "elephant", "tiger"]);
 
 // retrieve a stringified dump of the Trie object
+// $ExpectType string
 test.dump();
 
 // optionally pass in spacer parameter to format the output string
+// $ExpectType string
 test.dump(2);
 
 // retrieve the Trie object instance
-test.tree();
+const rawTree = test.tree();
+// $ExpectType RawTree | undefined
+rawTree.c;
+// $ExpectType 1 | undefined
+rawTree.$;
 
 // add a new word to the Trie
-test.addWord("lion");
+test = test.addWord("lion");
 
 // remove an existing word from the Trie
-test.removeWord("dogs");
+test = test.removeWord("dogs");
 
 // Adding and removing words can be chained:
-test.addWord("hello").removeWord("hello");
-test.removeWord("hello").addWord("hello");
+test = test.addWord("hello").removeWord("hello");
+test = test.removeWord("hello").addWord("hello");
 
 // check if a prefix exists:
+// $ExpectType boolean
 test.isPrefix("do");
+// $ExpectType boolean
 test.isPrefix("z");
 
 // count prefixes
+// $ExpectType number
 test.countPrefix("c");
 
 // get an array of words with the passed in prefix
+// $ExpectType string[]
 test.getPrefix("c");
 
 // Pass false as the second parameter to disable
 // output being sorted alphabetically
 // this is useful when your dictionary is already sorted
 // and will therefore save performance
+// $ExpectType string[]
 test.getPrefix("c", false);
 
 // get a random word at a prefix
+// $ExpectType string
 test.getRandomWordWithPrefix("c");
+// $ExpectType string
 test.getRandomWordWithPrefix("c");
 
 // retrieve a full list of words in the Trie

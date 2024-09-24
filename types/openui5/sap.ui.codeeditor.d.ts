@@ -1,4 +1,4 @@
-// For Library Version: 1.127.0
+// For Library Version: 1.128.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -352,7 +352,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Gets current value of property {@link #getSyntaxHints syntaxHints}.
      *
-     * Sets whether to show syntax hints in the editor. This flag is only available if line numbers are shown.
+     * Sets whether to show syntax hints in the editor. Those hints are visualized as value state icons in the
+     * line numbers area. The hint text is shown in tooltip of those icons. **Note:** This flag is only available
+     * if line numbers are shown.
      *
      * Default value is `true`.
      *
@@ -518,7 +520,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets a new value for property {@link #getSyntaxHints syntaxHints}.
      *
-     * Sets whether to show syntax hints in the editor. This flag is only available if line numbers are shown.
+     * Sets whether to show syntax hints in the editor. Those hints are visualized as value state icons in the
+     * line numbers area. The hint text is shown in tooltip of those icons. **Note:** This flag is only available
+     * if line numbers are shown.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -694,7 +698,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     colorTheme?: string | PropertyBindingInfo;
 
     /**
-     * Sets whether to show syntax hints in the editor. This flag is only available if line numbers are shown.
+     * Sets whether to show syntax hints in the editor. Those hints are visualized as value state icons in the
+     * line numbers area. The hint text is shown in tooltip of those icons. **Note:** This flag is only available
+     * if line numbers are shown.
      */
     syntaxHints?: boolean | PropertyBindingInfo | `{${string}}`;
 

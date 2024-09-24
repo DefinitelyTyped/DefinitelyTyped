@@ -1102,6 +1102,8 @@ declare namespace googletag {
          * function when a specific GPT event happens on the page. The following
          * events are supported:
          *
+         * - {@link events.GameManualInterstitialSlotClosedEvent}
+         * - {@link events.GameManualInterstitialSlotReadyEvent}
          * - {@link events.ImpressionViewableEvent}
          * - {@link events.RewardedSlotClosedEvent}
          * - {@link events.RewardedSlotGrantedEvent}
@@ -2126,6 +2128,12 @@ declare namespace googletag {
             LEFT_SIDE_RAIL,
             /** Right side rail format. */
             RIGHT_SIDE_RAIL,
+            /**
+             * Game manual interstitial format.
+             *
+             * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+             */
+            GAME_MANUAL_INTERSTITIAL,
         }
 
         /**
@@ -2634,6 +2642,73 @@ declare namespace googletag {
         }
 
         /**
+         * This event is fired when a game manual interstitial slot is ready to be
+         * shown to the user.
+         *
+         * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+         *
+         * @example
+         *   // This listener is called when a game manual interstitial slot is ready to
+         *   // be displayed.
+         *   const targetSlot = googletag.defineOutOfPageSlot(
+         *       '/1234567/example',
+         *       googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL);
+         *   googletag.pubads().addEventListener('gameManualInterstitialSlotReady',
+         *       (event) => {
+         *         const slot = event.slot;
+         *         console.log('Game manual interstital slot',
+         *                     slot.getSlotElementId(), 'is ready to be displayed.')
+         *
+         *         //Replace with custom logic.
+         *         const displayGmiAd = true;
+         *         if (displayGmiAd) {
+         *           event.makeGameManualInterstitialVisible();
+         *         }
+         *
+         *         if (slot === targetSlot) {
+         *           // Slot specific logic.
+         *         }
+         *       }
+         *   );
+         *
+         * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
+         * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
+         */
+        interface GameManualInterstitialSlotReadyEvent extends Event {
+            /** Displays the game manual interstitial ad to the user. */
+            makeGameManualInterstitialVisible(): void;
+        }
+
+        /**
+         * This event is fired when a game manual interstitial slot has been closed by
+         * the user.
+         *
+         * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+         *
+         * @example
+         *   // This listener is called when a game manual interstial slot is closed.
+         *   const targetSlot = googletag.defineOutOfPageSlot(
+         *       '/1234567/example',
+         *       googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL);
+         *   googletag.pubads().addEventListener('gameManualInterstitialSlotClosed',
+         *       (event) => {
+         *         const slot = event.slot;
+         *         console.log('Game manual interstital slot',
+         *                     slot.getSlotElementId(), 'is closed.')
+         *
+         *         if (slot === targetSlot) {
+         *           // Slot specific logic.
+         *         }
+         *       }
+         *   );
+         *
+         * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
+         * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
+         */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface GameManualInterstitialSlotClosedEvent extends Event {}
+
+        /**
          * This is a pseudo-type that maps an event name to its corresponding event
          * object type for {@link Service.addEventListener} and
          * {@link Service.removeEventListener}. It is documented for reference and
@@ -2684,6 +2759,16 @@ declare namespace googletag {
              * Alias for {@link events.RewardedSlotReadyEvent}.
              */
             rewardedSlotReady: RewardedSlotReadyEvent;
+
+            /**
+             * Alias for {@link events.GameManualInterstitialSlotReadyEvent}.
+             */
+            gameManualInterstitialSlotReady: GameManualInterstitialSlotReadyEvent;
+
+            /**
+             * Alias for {@link events.GameManualInterstitialSlotClosedEvent}.
+             */
+            gameManualInterstitialSlotClosed: GameManualInterstitialSlotClosedEvent;
         }
     }
 }

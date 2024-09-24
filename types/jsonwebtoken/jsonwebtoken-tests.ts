@@ -6,7 +6,7 @@
 
 import jwt = require("jsonwebtoken");
 import fs = require("fs");
-import { createSecretKey, KeyObject } from "crypto";
+import { createPrivateKey, createPublicKey, createSecretKey, KeyObject } from "crypto";
 
 let token: string;
 let cert: Buffer;
@@ -298,3 +298,18 @@ jwt.decode(token, { complete: true });
 
 // $ExpectType Jwt | null
 jwt.decode(token, { complete: true, json: true });
+
+/**
+ * crypto.createPrivateKey and crypto.createPublicKey inputs
+ */
+
+{
+    let privateKey!: Parameters<typeof createPrivateKey>[0];
+    let publicKey!: Parameters<typeof createPublicKey>[0];
+
+    jwt.sign("", privateKey);
+    jwt.sign("", privateKey, () => {});
+    jwt.verify("", publicKey);
+    jwt.verify("", publicKey, () => {});
+    jwt.verify("", (header, done) => done(null, publicKey), () => {});
+}

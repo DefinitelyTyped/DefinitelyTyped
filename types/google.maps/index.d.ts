@@ -1,7 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.57
+// Google Maps JS API Version: 3.58
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -97,6 +97,16 @@ declare namespace google.maps {
      * <code>null</code>, the layer will be removed.
      */
     setMap(map: google.maps.Map | null): void;
+  }
+  /**
+   * The display options for the Camera control.
+   */
+  export interface CameraControlOptions {
+    /**
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_START_BLOCK_END}
+     */
+    position?: google.maps.ControlPosition | null;
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -312,8 +322,6 @@ declare namespace google.maps {
     REQUIRED_AND_HIDES_OPTIONAL = 'REQUIRED_AND_HIDES_OPTIONAL',
   }
   /**
-   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
-   *
    * Identifiers for map color schemes. Specify these by value, or by using the
    * constant&#39;s name. For example, <code>'FOLLOW_SYSTEM'</code> or
    * <code>google.maps.ColorScheme.FOLLOW_SYSTEM</code>.
@@ -4083,6 +4091,14 @@ declare namespace google.maps {
      */
     backgroundColor?: string | null;
     /**
+     * The enabled/disabled state of the Camera control.
+     */
+    cameraControl?: boolean | null;
+    /**
+     * The display options for the Camera control.
+     */
+    cameraControlOptions?: google.maps.CameraControlOptions | null;
+    /**
      * The initial Map center.
      */
     center?: google.maps.LatLng | null | google.maps.LatLngLiteral;
@@ -4093,7 +4109,6 @@ declare namespace google.maps {
      */
     clickableIcons?: boolean | null;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * The initial Map color scheme. This option can only be set when the map is
      * initialized.
      * @defaultValue {@link google.maps.ColorScheme.LIGHT}
@@ -4550,7 +4565,7 @@ declare namespace google.maps {
      * @param id Identifier of the MapType to add to the registry.
      * @param mapType MapType object to add to the registry.
      */
-    set(id: string, mapType: unknown): void;
+    set(id: string, mapType: any): void;
   }
   /**
    * The <code>MapTypeStyle</code> is a collection of selectors and stylers that
@@ -4595,8 +4610,8 @@ declare namespace google.maps {
   export interface Maps3DLibrary {
     AltitudeMode: typeof google.maps.maps3d.AltitudeMode;
     CenterChangeEvent: typeof google.maps.maps3d.CenterChangeEvent;
-    ClickEvent: typeof google.maps.maps3d.ClickEvent;
     HeadingChangeEvent: typeof google.maps.maps3d.HeadingChangeEvent;
+    LocationClickEvent: typeof google.maps.maps3d.LocationClickEvent;
     Map3DElement: typeof google.maps.maps3d.Map3DElement;
     Polygon3DElement: typeof google.maps.maps3d.Polygon3DElement;
     Polyline3DElement: typeof google.maps.maps3d.Polyline3DElement;
@@ -8595,7 +8610,6 @@ declare namespace google.maps.drawing {
      */
     overlay:
       | google.maps.Marker
-      | null
       | google.maps.Polygon
       | google.maps.Polyline
       | google.maps.Rectangle
@@ -12367,35 +12381,6 @@ declare namespace google.maps.maps3d {
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
-   * This event is created from clicking a Map3DElement.
-   *
-   * Access by calling `const {ClickEvent} = await
-   * google.maps.importLibrary("maps3d")`. See
-   * https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export class ClickEvent extends Event {
-    /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
-     *
-     * This event is created from clicking a Map3DElement.
-     *
-     * Access by calling `const {ClickEvent} = await
-     * google.maps.importLibrary("maps3d")`. See
-     * https://developers.google.com/maps/documentation/javascript/libraries.
-     */
-    constructor();
-    /**
-     * The latitude/longitude/altitude that was below the cursor when the event
-     * occurred. Please note, that at coarser levels, less accurate data will be
-     * returned. Also, sea floor elevation may be returned for the altitude
-     * value when clicking at the water surface from higher camera positions.
-     * This event bubbles up through the DOM tree.
-     */
-    position: google.maps.LatLngAltitude | null;
-  }
-  /**
-   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
-   *
    * This event is created from monitoring heading change on
    * <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    *
@@ -12415,6 +12400,35 @@ declare namespace google.maps.maps3d {
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from clicking a Map3DElement.
+   *
+   * Access by calling `const {LocationClickEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class LocationClickEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from clicking a Map3DElement.
+     *
+     * Access by calling `const {LocationClickEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+    /**
+     * The latitude/longitude/altitude that was below the cursor when the event
+     * occurred. Please note, that at coarser levels, less accurate data will be
+     * returned. Also, sea floor elevation may be returned for the altitude
+     * value when clicking at the water surface from higher camera positions.
+     * This event bubbles up through the DOM tree.
+     */
+    position: google.maps.LatLngAltitude | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
