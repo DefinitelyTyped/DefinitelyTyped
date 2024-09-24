@@ -146,7 +146,7 @@ brickBuilder.create("statusScreen", "containerStatusScreen", {
             hidePixQrCode: true,
         },
     },
-    callbacks: {},
+git    callbacks: {},
 });
 
 brickBuilder.create("wallet", "containerWallet", {
