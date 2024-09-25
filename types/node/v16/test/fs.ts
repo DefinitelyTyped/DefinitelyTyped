@@ -498,7 +498,7 @@ async function testPromisify() {
         offset: 1,
         position: 2,
         length: 3,
-    })).buffer; // $ExpectType Uint32Array
+    })).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
 
     await handle.write("hurr", 0, "utf-8");
     await handle.write(Buffer.from("hurr"), 0, 42, 10);

@@ -9,6 +9,7 @@ const testCases = [
     <span contextMenu="menuId" />,
     <span dir="rtl" />,
     <span draggable />,
+    <span enterKeyHint="done" />,
     <span hidden />,
     <span id="s" />,
     <span lang="art-x-tokipona" />,

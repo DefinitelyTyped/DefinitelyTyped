@@ -8,7 +8,7 @@ const secureRandomArray = secureRandom(byteCount, { type: "Array" });
 // $ExpectType Buffer
 const secureRandomBuffer = secureRandom(byteCount, { type: "Buffer" });
 
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 const secureRandomUint8Array = secureRandom(byteCount, { type: "Uint8Array" });
 
 // @ts-expect-error
@@ -20,5 +20,5 @@ const randomArray = secureRandom.randomArray(byteCount);
 // $ExpectType Buffer
 const randomBuffer = secureRandom.randomBuffer(byteCount);
 
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 const randomUint8Array = secureRandom.randomUint8Array(byteCount);

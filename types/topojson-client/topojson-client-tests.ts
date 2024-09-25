@@ -98,6 +98,10 @@ size = propCollection.size;
 const prop3: GeoJSON.GeoJsonProperties = topojson.feature(topoWithProp, topoWithProp.objects.more).properties;
 
 geoMP = topojson.merge(us, selectedGeometries);
+geoMP = topojson.merge(us, {
+    type: "GeometryCollection",
+    geometries: selectedGeometries,
+});
 
 topoMP = topojson.mergeArcs(us, selectedGeometries);
 

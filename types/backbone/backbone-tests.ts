@@ -257,6 +257,8 @@ function test_collection() {
     // This gives better type checking than declaring an `any` overload.
     books.add({ title: "Title 2", author: "Mikey" });
 
+    const booksArray: Book[] = books.add([{ title: "Title 3", author: "Mickey" }]);
+
     const model: Book = book1.collection.first();
     if (model !== book1) {
         throw new Error("Error");

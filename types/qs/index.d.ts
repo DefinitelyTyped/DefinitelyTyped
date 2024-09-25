@@ -26,6 +26,7 @@ declare namespace QueryString {
         charset?: "utf-8" | "iso-8859-1" | undefined;
         charsetSentinel?: boolean | undefined;
         allowEmptyArrays?: boolean | undefined;
+        commaRoundTrip?: boolean | undefined;
     }
 
     type IStringifyDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true

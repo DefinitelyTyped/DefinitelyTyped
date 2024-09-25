@@ -168,10 +168,26 @@ declare global {
     // Same as module.exports
     var exports: any;
 
+    interface GCFunction {
+        (options: {
+            execution?: "sync";
+            flavor?: "regular" | "last-resort";
+            type?: "major-snapshot" | "major" | "minor";
+            filename?: string;
+        }): void;
+        (options: {
+            execution: "async";
+            flavor?: "regular" | "last-resort";
+            type?: "major-snapshot" | "major" | "minor";
+            filename?: string;
+        }): Promise<void>;
+        (options?: boolean): void;
+    }
+
     /**
      * Only available if `--expose-gc` is passed to the process.
      */
-    var gc: undefined | (() => void);
+    var gc: undefined | GCFunction;
 
     // #region borrowed
     // from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib

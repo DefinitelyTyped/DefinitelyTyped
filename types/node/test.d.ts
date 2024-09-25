@@ -332,6 +332,13 @@ declare module "node:test" {
          */
         forceExit?: boolean | undefined;
         /**
+         * An array containing the list of glob patterns to match test files.
+         * This option cannot be used together with `files`. If omitted, files are run according to the
+         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+         * @since v22.6.0
+         */
+        globPatterns?: readonly string[] | undefined;
+        /**
          * Sets inspector port of test child process.
          * If a nullish value is provided, each process gets its own port,
          * incremented from the primary's `process.debugPort`.
@@ -479,7 +486,7 @@ declare module "node:test" {
         /**
          * An object containing assertion methods bound to the test context.
          * The top-level functions from the `node:assert` module are exposed here for the purpose of creating test plans.
-         * @since v22.2.0
+         * @since v22.2.0, v20.15.0
          */
         readonly assert: TestContextAssert;
         /**
@@ -528,6 +535,12 @@ declare module "node:test" {
          * @param message Message to be reported.
          */
         diagnostic(message: string): void;
+        /**
+         * The absolute path of the test file that created the current test. If a test file imports
+         * additional modules that generate tests, the imported tests will return the path of the root test file.
+         * @since v22.6.0
+         */
+        readonly filePath: string | undefined;
         /**
          * The name of the test and each of its ancestors, separated by `>`.
          * @since v22.3.0
@@ -657,6 +670,22 @@ declare module "node:test" {
         deepEqual: typeof import("node:assert").deepEqual;
         /**
          * Identical to the `deepStrictEqual` function from the `node:assert` module, but bound to the test context.
+         *
+         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
+         * type annotation, otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.deepStrictEqual(actual, expected);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.deepStrictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          */
         deepStrictEqual: typeof import("node:assert").deepStrictEqual;
         /**
@@ -681,6 +710,22 @@ declare module "node:test" {
         fail: typeof import("node:assert").fail;
         /**
          * Identical to the `ifError` function from the `node:assert` module, but bound to the test context.
+         *
+         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
+         * type annotation, otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.ifError(err);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.ifError(err); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          */
         ifError: typeof import("node:assert").ifError;
         /**
@@ -705,6 +750,22 @@ declare module "node:test" {
         notStrictEqual: typeof import("node:assert").notStrictEqual;
         /**
          * Identical to the `ok` function from the `node:assert` module, but bound to the test context.
+         *
+         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
+         * type annotation, otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.ok(condition);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.ok(condition)); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          */
         ok: typeof import("node:assert").ok;
         /**
@@ -713,6 +774,22 @@ declare module "node:test" {
         rejects: typeof import("node:assert").rejects;
         /**
          * Identical to the `strictEqual` function from the `node:assert` module, but bound to the test context.
+         *
+         * **Note:** as this method returns a type assertion, the context parameter in the callback signature must have a
+         * type annotation, otherwise an error will be raised by the TypeScript compiler:
+         * ```ts
+         * import { test, type TestContext } from 'node:test';
+         *
+         * // The test function's context parameter must have a type annotation.
+         * test('example', (t: TestContext) => {
+         *   t.assert.strictEqual(actual, expected);
+         * });
+         *
+         * // Omitting the type annotation will result in a compilation error.
+         * test('example', t => {
+         *   t.assert.strictEqual(actual, expected); // Error: 't' needs an explicit type annotation.
+         * });
+         * ```
          */
         strictEqual: typeof import("node:assert").strictEqual;
         /**
@@ -758,6 +835,12 @@ declare module "node:test" {
      * @since v18.7.0, v16.17.0
      */
     class SuiteContext {
+        /**
+         * The absolute path of the test file that created the current suite. If a test file imports
+         * additional modules that generate suites, the imported suites will return the path of the root test file.
+         * @since v22.6.0
+         */
+        readonly filePath: string | undefined;
         /**
          * The name of the suite.
          * @since v18.8.0, v16.18.0

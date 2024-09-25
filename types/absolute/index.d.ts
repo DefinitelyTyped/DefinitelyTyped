@@ -3,4 +3,4 @@
  */
 declare function absolute(path: string): boolean;
 
-export default absolute;
+export = absolute;

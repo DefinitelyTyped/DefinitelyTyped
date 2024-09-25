@@ -640,6 +640,18 @@ braintree.client.create(
                     })
                     .then(paypalCheckout => {
                         // window.paypal.Buttons is now available to use
+                        window.paypal.Buttons({
+                            onApprove(data) {
+                                return paypalCheckout.tokenizePayment(data);
+                            },
+                            onInit(data) {
+                                paypalCheckout.updatePayment({
+                                    amount: "10.00",
+                                    currency: "USD",
+                                    paymentId: data.paymentId,
+                                }).then(res => res);
+                            },
+                        });
                     });
 
                 button.addEventListener("click", () => {

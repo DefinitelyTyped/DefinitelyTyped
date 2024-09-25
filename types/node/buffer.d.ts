@@ -261,6 +261,13 @@ declare module "buffer" {
             | {
                 valueOf(): T;
             };
+        // `WithArrayBufferLike` is a backwards-compatible workaround for the addition of a `TArrayBuffer` type parameter to
+        // `Uint8Array` to ensure that `Buffer` remains assignment-compatible with `Uint8Array`, but without the added
+        // complexity involved with making `Buffer` itself generic as that would require re-introducing `"typesVersions"` to
+        // the NodeJS types. It is likely this interface will become deprecated in the future once `Buffer` does become generic.
+        interface WithArrayBufferLike<TArrayBuffer extends ArrayBufferLike> {
+            readonly buffer: TArrayBuffer;
+        }
         /**
          * Raw data is stored in instances of the Buffer class.
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
@@ -912,7 +919,7 @@ declare module "buffer" {
              * @param [start=0] Where the new `Buffer` will start.
              * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
-            slice(start?: number, end?: number): Buffer;
+            slice(start?: number, end?: number): Buffer & WithArrayBufferLike<ArrayBuffer>;
             /**
              * Returns a new `Buffer` that references the same memory as the original, but
              * offset and cropped by the `start` and `end` indices.
@@ -972,7 +979,7 @@ declare module "buffer" {
              * @param [start=0] Where the new `Buffer` will start.
              * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
-            subarray(start?: number, end?: number): Buffer;
+            subarray(start?: number, end?: number): Buffer & WithArrayBufferLike<this["buffer"]>;
             /**
              * Writes `value` to `buf` at the specified `offset` as big-endian.
              *
@@ -1630,7 +1637,7 @@ declare module "buffer" {
              * @since v5.10.0
              * @return A reference to `buf`.
              */
-            swap16(): Buffer;
+            swap16(): this;
             /**
              * Interprets `buf` as an array of unsigned 32-bit integers and swaps the
              * byte order _in-place_. Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 4.
@@ -1656,7 +1663,7 @@ declare module "buffer" {
              * @since v5.10.0
              * @return A reference to `buf`.
              */
-            swap32(): Buffer;
+            swap32(): this;
             /**
              * Interprets `buf` as an array of 64-bit numbers and swaps byte order _in-place_.
              * Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 8.
@@ -1682,7 +1689,7 @@ declare module "buffer" {
              * @since v6.3.0
              * @return A reference to `buf`.
              */
-            swap64(): Buffer;
+            swap64(): this;
             /**
              * Writes `value` to `buf` at the specified `offset`. `value` must be a
              * valid unsigned 8-bit integer. Behavior is undefined when `value` is anything

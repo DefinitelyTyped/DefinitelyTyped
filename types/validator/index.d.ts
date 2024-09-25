@@ -41,6 +41,11 @@ declare namespace validator {
     export function equals(str: string, comparison: string): boolean;
 
     /**
+     * Check if the string is an ABA routing number for US bank account / cheque.
+     */
+    export function isAbaRouting(str: string): boolean;
+
+    /**
      * Check if the string is a date that's after the specified date.
      *
      * @param [date] - Date string (defaults to now)
@@ -808,29 +813,25 @@ declare namespace validator {
      */
     export function isLength(str: string, options?: IsLengthOptions): boolean;
 
-    /**
-     * Check  if the string matches the format of a country's license plate.
-     */
-    export function isLicensePlate(
-        str: string,
-        locale:
-            | "cs-CZ"
-            | "de-DE"
-            | "de-LI"
-            | "en-IN"
-            | "es-AR"
-            | "hu-HU"
-            | "pt-BR"
-            | "pt-PT"
-            | "sq-AL"
-            | "sv-SE"
-            | "any",
-    ): boolean;
+    export type LicensePlateLocale =
+        | "cs-CZ"
+        | "de-DE"
+        | "de-LI"
+        | "en-IN"
+        | "es-AR"
+        | "hu-HU"
+        | "pt-BR"
+        | "pt-PT"
+        | "sq-AL"
+        | "sv-SE"
+        | "en-PK"
+        | "any";
 
     /**
-     * Check if the string passes the [Luhn algorithm check](https://en.m.wikipedia.org/wiki/Luhn_algorithm).
+     * Check if the string matches the format of a country's license plate.
      */
-    export function isLuhnNumber(str: string): boolean;
+    export function isLicensePlate(str: string, locale: LicensePlateLocale): boolean;
+    export function isLicensePlate(str: string, locale: string): unknown;
 
     /**
      * Check if the string is a locale.
@@ -867,6 +868,11 @@ declare namespace validator {
          */
         eui?: "48" | "64" | undefined;
     }
+
+    /**
+     * Check if the string passes the [Luhn algorithm check](https://en.m.wikipedia.org/wiki/Luhn_algorithm).
+     */
+    export function isLuhnNumber(str: string): boolean;
 
     /**
      * Check if the string is a MAC address.

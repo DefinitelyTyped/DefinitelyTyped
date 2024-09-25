@@ -4,30 +4,16 @@ import { Client, SimpleClient } from "./index.js";
 import StreamQuery from "./StreamQuery.js";
 import StreamStore from "./StreamStore.js";
 
-interface BaseOptions<Q extends BaseQuad> {
+export interface Options<Q extends BaseQuad = BaseQuad> {
     factory?: Environment<DataFactory<Q> | DatasetCoreFactory>;
     fetch?: typeof fetch;
     headers?: HeadersInit;
     password?: string;
     user?: string;
+    endpointUrl?: string;
+    storeUrl?: string;
+    updateUrl?: string;
 }
-
-interface OptionWithQueryEndpoint<Q extends BaseQuad> extends BaseOptions<Q> {
-    endpointUrl: string;
-}
-
-interface OptionWithStoreEndpoint<Q extends BaseQuad> extends BaseOptions<Q> {
-    storeUrl: string;
-}
-
-interface OptionWithUpdateEndpoint<Q extends BaseQuad> extends BaseOptions<Q> {
-    updateUrl: string;
-}
-
-export type Options<Q extends BaseQuad = Quad> =
-    | OptionWithQueryEndpoint<Q>
-    | OptionWithStoreEndpoint<Q>
-    | OptionWithUpdateEndpoint<Q>;
 
 export type StreamClient<Q extends BaseQuad = Quad> = Client<StreamQuery<Q>, StreamStore<Q>>;
 

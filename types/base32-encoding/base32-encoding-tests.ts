@@ -6,18 +6,18 @@ encodingLength(toEncode); // $ExpectType number
 
 encode(toEncode); // $ExpectType Buffer
 encode(toEncode, Buffer.alloc(encodingLength(toEncode))); // $ExpectType Buffer
-encode(toEncode, new Uint8Array(encodingLength(toEncode))); // $ExpectType Uint8Array
+encode(toEncode, new Uint8Array(encodingLength(toEncode))); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 encode(toEncode, Buffer.alloc(encodingLength(toEncode)), 0); // $ExpectType Buffer
-encode(toEncode, new Uint8Array(encodingLength(toEncode)), 0); // $ExpectType Uint8Array
+encode(toEncode, new Uint8Array(encodingLength(toEncode)), 0); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 encode.bytes; // $ExpectType number | undefined
 
 const toDecode = new Uint8Array(Buffer.from("3iejg7iy"));
 decode(toEncode); // $ExpectType Buffer
 decode(toEncode, Buffer.alloc(encodingLength(toEncode))); // $ExpectType Buffer
-decode(toEncode, new Uint8Array(encodingLength(toEncode))); // $ExpectType Uint8Array
+decode(toEncode, new Uint8Array(encodingLength(toEncode))); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 decode(toEncode, Buffer.alloc(encodingLength(toEncode)), 0); // $ExpectType Buffer
-decode(toEncode, new Uint8Array(encodingLength(toEncode)), 0); // $ExpectType Uint8Array
+decode(toEncode, new Uint8Array(encodingLength(toEncode)), 0); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 decode.bytes; // $ExpectType number | undefined
 
