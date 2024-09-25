@@ -3,9 +3,22 @@ import MongooseDelete = require("mongoose-delete");
 
 interface PetDocument extends MongooseDelete.SoftDeleteDocument {
     name: string;
+    age: number;
 }
+
+// Custom methods
+interface PetMethods {
+    checkName(name: string): boolean;
+}
+
+// Custom Static methods
+interface PetModel extends MongooseDelete.SoftDeleteModel<PetDocument, {}, PetMethods> {
+    getNames(): string[];
+}
+
 const PetSchema = new mongoose.Schema<PetDocument>({
     name: String,
+    age: Number,
 });
 // Override all methods
 PetSchema.plugin(MongooseDelete, { overrideMethods: "all" });
@@ -14,14 +27,14 @@ PetSchema.plugin(MongooseDelete, { overrideMethods: true });
 
 // Overide only specific methods
 PetSchema.plugin(MongooseDelete, {
-    overrideMethods: ["count", "find", "findOne", "findOneAndUpdate", "update"],
+    overrideMethods: ["find", "findOne", "findOneAndUpdate", "update"],
 });
 // or
 PetSchema.plugin(MongooseDelete, {
-    overrideMethods: ["count", "countDocuments", "find"],
+    overrideMethods: ["countDocuments", "find"],
 });
 // @ts-expect-error (unrecognized method names are disallowed)
-PetSchema.plugin(MongooseDelete, { overrideMethods: ["count", "find", "errorXyz"] });
+PetSchema.plugin(MongooseDelete, { overrideMethods: ["find", "errorXyz"] });
 
 PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedAt: true });
 PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedBy: true });
@@ -41,6 +54,8 @@ const idUser = new mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 const Pet = mongoose.model<PetDocument, MongooseDelete.SoftDeleteModel<PetDocument>>("Pet", PetSchema);
 
 const Pet2 = mongoose.model("Pet", PetSchema) as MongooseDelete.SoftDeleteModel<PetDocument>;
+
+const Pet3 = mongoose.model<PetDocument, PetModel>("Pet", PetSchema);
 
 const fluffy = new Pet({ name: "Fluffy" });
 
@@ -86,8 +101,6 @@ type deletedType = PetDocument["deleted"];
 type deletedAtType = PetDocument["deletedAt"];
 
 // Additional Methods for overrides
-Pet.countDeleted({ age: 10 });
-Pet.countWithDeleted({ age: 10 });
 Pet.countDocumentsDeleted({ age: 10 });
 Pet.countDocumentsWithDeleted({ age: 10 });
 Pet.findDeleted({ age: 10 });
@@ -104,3 +117,6 @@ Pet.updateManyDeleted({ age: 10 }, { name: "Fluffy" });
 Pet.updateManyWithDeleted({ age: 10 }, { name: "Fluffy" });
 Pet.aggregateDeleted([{ $match: { age: 10 } }]);
 Pet.aggregateWithDeleted([{ $match: { age: 10 } }]);
+
+// $ExpectType string[]
+Pet3.getNames();

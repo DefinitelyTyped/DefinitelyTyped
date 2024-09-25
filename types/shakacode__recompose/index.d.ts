@@ -3,8 +3,9 @@
 /// <reference types="react" />
 
 declare module "@shakacode/recompose" {
+    import type * as PropTypes from "prop-types";
     import * as React from "react";
-    import { ComponentClass, ComponentType as Component, FunctionComponent, ValidationMap } from "react";
+    import { ComponentClass, ComponentType as Component, FunctionComponent } from "react";
 
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
@@ -211,13 +212,13 @@ declare module "@shakacode/recompose" {
 
     // withContext: https://github.com/shakacode/recompose/blob/master/docs/API.md#withContext
     export function withContext<TContext, TProps>(
-        childContextTypes: ValidationMap<TContext>,
+        childContextTypes: PropTypes.ValidationMap<TContext>,
         getChildContext: mapper<TProps, any>,
     ): InferableComponentEnhancer<{}>;
 
     // getContext: https://github.com/shakacode/recompose/blob/master/docs/API.md#getContext
     export function getContext<TContext>(
-        contextTypes: ValidationMap<TContext>,
+        contextTypes: PropTypes.ValidationMap<TContext>,
     ): InferableComponentEnhancer<TContext>;
 
     interface _ReactLifeCycleFunctionsThisArguments<TProps, TState> {
@@ -322,7 +323,7 @@ declare module "@shakacode/recompose" {
 
     // setPropTypes: https://github.com/shakacode/recompose/blob/master/docs/API.md#setPropTypes
     export function setPropTypes<P>(
-        propTypes: ValidationMap<P>,
+        propTypes: PropTypes.ValidationMap<P>,
     ): <T extends Component<P>>(component: T) => T;
 
     // setDisplayName: https://github.com/shakacode/recompose/blob/master/docs/API.md#setDisplayName

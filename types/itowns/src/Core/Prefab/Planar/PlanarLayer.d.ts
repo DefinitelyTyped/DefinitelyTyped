@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import Layer from "../../../Layer/Layer";
 
 export type PlanarLayerOptions = any;

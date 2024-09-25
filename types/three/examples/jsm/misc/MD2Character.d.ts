@@ -1,4 +1,4 @@
-import { AnimationMixer, Mesh, Object3D, Texture } from "../../../src/Three.js";
+import { AnimationMixer, Mesh, Object3D, Texture } from "three";
 
 export interface MD2PartsConfig {
     baseUrl: string;

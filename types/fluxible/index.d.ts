@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Dispatcher, DispatcherInterface, StoreClass } from "dispatchr";
 import BaseStore = require("./addons/BaseStore");
 

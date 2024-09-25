@@ -21,18 +21,18 @@ function ModuleTest(): void {
     Module.logReadFiles = false;
     Module.filePackagePrefixURL = "http://www.example.org/";
     Module.preinitializedWebGLContext = new WebGLRenderingContext();
-    Module.onAbort = what => console.log("abort");
+    Module.onAbort = (what) => console.log("abort");
     Module.onRuntimeInitialized = () => console.log("init");
 
     const package: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);
-    const exports: Emscripten.WebAssemblyExports = Module.instantiateWasm(
-        [{ name: "func-name", kind: "function" }],
-        (module: WebAssembly.Module) => {},
+    const exports: WebAssembly.Exports | undefined = Module.instantiateWasm(
+        { a: { n: function __syscall_chmod() {} } },
+        (module: WebAssembly.Instance) => {},
     );
     const memFile: string = Module.locateFile("file.mem", "http://www.example.org/");
     Module.onCustomMessage(new MessageEvent("TestType"));
 
-    Module.print = text => alert("stdout: " + text);
+    Module.print = (text) => alert("stdout: " + text);
 
     const int_sqrt_number = Module.cwrap("int_sqrt", "number", ["number"]);
     const int_sqrt_null = Module.cwrap("int_sqrt", null, ["number"]);
@@ -58,8 +58,8 @@ function ModuleTest(): void {
 function FSTest(): void {
     FS.init(
         () => null,
-        _ => null,
-        _ => null,
+        (_) => null,
+        (_) => null,
     );
     FS.init(null, null, null);
 
@@ -70,13 +70,13 @@ function FSTest(): void {
         FS.mkdir("/data");
         FS.mount(IDBFS, {}, "/data");
 
-        FS.syncfs(true, err => {
+        FS.syncfs(true, (err) => {
             // handle callback
         });
     }
 
     function myAppShutdown() {
-        FS.syncfs(err => {
+        FS.syncfs((err) => {
             // handle callback
         });
     }
@@ -116,7 +116,13 @@ function FSTest(): void {
 
     FS.createDataFile("/", "dummy2", data, true, true, true);
 
-    const lookup = FS.lookupPath("path", { parent: true });
+    const lookup = FS.lookupPath("path", { parent: true, follow: false });
+    // $ExpectType number
+    lookup.node.mode;
+
+    const analyze = FS.analyzePath("path");
+    // $ExpectType boolean
+    analyze.exists;
 }
 
 /// String conversions

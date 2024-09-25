@@ -1,6 +1,8 @@
 {
     "files": [
         "index.d.ts",
+        "jsx-dev-runtime.d.ts",
+        "jsx-runtime.d.ts",
         "test/index.ts",
         "test/tsx.tsx",
         "test/cssProperties.tsx"

@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as React from "react";
 
 export interface ThemeProps<T> {

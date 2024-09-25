@@ -101,7 +101,9 @@ class Example1 extends React.Component<{}, State> {
                     onChangeValue={(value: Value) => this.setState({ value })}
                     width={500}
                     height={500}
-                    ref={Viewer => this.Viewer = Viewer}
+                    ref={Viewer => {
+                        this.Viewer = Viewer;
+                    }}
                     onClick={(event: ViewerMouseEvent<any>) =>
                         console.log("click", event.x, event.y, event.originalEvent)}
                     onMouseUp={(event: ViewerMouseEvent<any>) => console.log("up", event.x, event.y)}

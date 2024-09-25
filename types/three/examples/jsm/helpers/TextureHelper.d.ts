@@ -1,4 +1,4 @@
-import { Mesh, Texture } from "../../../src/Three.js";
+import { Mesh, Texture } from "three";
 
 export class TextureHelper extends Mesh {
     texture: Texture;

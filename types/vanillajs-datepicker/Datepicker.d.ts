@@ -1,7 +1,7 @@
 import DateRangePicker from "./DateRangePicker";
 
 export interface DatepickerOptionsFormat {
-    toValue: (date: Date, format: object, locale: object) => Date | number;
+    toValue: (date: string, format: object, locale: object) => number | undefined;
     toDisplay: (date: Date, format: object, locale: object) => string;
 }
 

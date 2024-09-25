@@ -192,6 +192,9 @@ function test_validate() {
         onkeyup: () => {},
         onclick: elt => 2,
     });
+    $(".selector").validate({
+        customElements: ["my-custom-element"],
+    });
 }
 
 function test_methods() {

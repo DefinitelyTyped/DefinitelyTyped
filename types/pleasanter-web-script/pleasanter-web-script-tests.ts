@@ -65,6 +65,14 @@
         done: (data: GetResponseData) => {
             // レスポンスデータの処理
             console.log(data.Response.Data); // 取得したレコードデータをコンソールに出力
+
+            const attachmentsHash = data.Response.Data[0].AttachmentsHash;
+            if (attachmentsHash) {
+                if (attachmentsHash?.AttachmentsA) {
+                    const a = attachmentsHash.AttachmentsA[0];
+                    console.log(a);
+                }
+            }
         },
         fail: (data: FailDataType) => {
             // エラー処理

@@ -1,4 +1,4 @@
-import { Camera, Scene } from "../../../src/Three.js";
+import { Camera, Scene } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 

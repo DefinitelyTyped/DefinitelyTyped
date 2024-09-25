@@ -6,10 +6,9 @@
         "https://github.com/Aweary/react-is-deprecated"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/prop-types": "*"
     },
     "devDependencies": {
-        "@types/prop-types": "*",
         "@types/react-is-deprecated": "workspace:."
     },
     "owners": [

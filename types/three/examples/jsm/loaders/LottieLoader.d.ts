@@ -1,4 +1,4 @@
-import { CanvasTexture, Loader, LoadingManager } from "../../../src/Three.js";
+import { CanvasTexture, Loader, LoadingManager } from "three";
 
 export class LottieLoader extends Loader<CanvasTexture> {
     constructor(manager?: LoadingManager);

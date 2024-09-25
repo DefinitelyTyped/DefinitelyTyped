@@ -1,5 +1,5 @@
-import Content from './content.js';
-import UserData from './user-data.js';
+import Content from "./content";
+import UserData from "./user-data";
 /**
  * CustomData represents the Custom Data Parameters of a Business Data Event Request.
  */
@@ -17,7 +17,7 @@ export default class CustomData {
     /**
      * @param {Number} value value of the order Eg: 123.45
      * @param {String} currency currency involved in the transaction Eg: usd
-     * @param {Content[]} contents Array of Content Objects. Use {Content} class to define a content.
+     * @param {Array<Content>} contents Array of Content Objects. Use {Content} class to define a content.
      * @param {String} order_id Unique id representing the order
      * @param {String} status Status of order
      * @param {String} shipping_contact Shipping contact information. User {UserData} class to define a contact.
@@ -77,7 +77,7 @@ export default class CustomData {
     set contents(contents: Content[]);
     /**
      * Sets the contents for the custom data.
-     * @param {Content[]} contents An array of Content objects that contain the product IDs associated with the event plus information about the products.
+     * @param { Array< Content >} contents An array of Content objects that contain the product IDs associated with the event plus information about the products.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
     setContents(contents: Content[]): CustomData;
@@ -192,5 +192,5 @@ export default class CustomData {
     /**
      * Convert to Json object for api call
      */
-    toJson(): Record<any, any>;
+    toJson(): Record<string, any>;
 }

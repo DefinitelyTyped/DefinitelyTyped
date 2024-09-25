@@ -8,13 +8,31 @@ createEncoderModule().then((encoderModule: EncoderModule) => {
     const encoder = new encoderModule.Encoder();
     const expertEncoder = new encoderModule.ExpertEncoder(mesh);
     const dracoBuffer = new encoderModule.DracoInt8Array();
+    const metadata = new encoderModule.Metadata();
+    const metaBuilder = new encoderModule.MetadataBuilder();
 
-    builder.AddUInt8Attribute(mesh, 5120, 100, 3, new Uint8Array(10));
+    const attributeId = builder.AddUInt8Attribute(mesh, 5120, 100, 3, new Uint8Array(10));
     builder.AddInt8Attribute(mesh, 5120, 100, 3, new Int8Array(10));
     builder.AddUInt16Attribute(mesh, 5120, 100, 3, new Uint16Array(10));
     builder.AddInt16Attribute(mesh, 5120, 100, 3, new Int16Array(10));
     builder.AddUInt32Attribute(mesh, 5120, 100, 3, new Uint32Array(10));
     builder.AddFloatAttribute(mesh, 5120, 100, 3, new Float32Array(10));
+
+    // $ExpectType boolean
+    metaBuilder.AddStringEntry(metadata, "stringEntryName", "value");
+    // $ExpectType boolean
+    metaBuilder.AddIntEntry(metadata, "intEntryName", 42);
+    // $ExpectType boolean
+    metaBuilder.AddDoubleEntry(metadata, "doubleEntryName", 3.14);
+    // $ExpectType boolean
+    metaBuilder.AddIntEntryArray(metadata, "intEntryArrayName", new Int32Array(10), 10);
+
+    // $ExpectType boolean
+    builder.SetMetadataForAttribute(mesh, attributeId, metadata);
+    // $ExpectType boolean
+    builder.AddMetadata(mesh, metadata);
+    // $ExpectType boolean
+    builder.SetNormalizedFlagForAttribute(mesh, attributeId, true);
 
     encoder.SetAttributeQuantization(encoderModule.POSITION, 12);
     encoder.SetAttributeExplicitQuantization(encoderModule.POSITION, 14, 2, [0, 0, 0], 10);
@@ -42,6 +60,8 @@ createEncoderModule().then((encoderModule: EncoderModule) => {
     encoderModule.destroy(builder);
     encoderModule.destroy(encoder);
     encoderModule.destroy(expertEncoder);
+    encoderModule.destroy(metadata);
+    encoderModule.destroy(metaBuilder);
 });
 
 /* Encode (Expert) */
@@ -83,8 +103,10 @@ createEncoderModule().then((encoderModule: EncoderModule) => {
 createDecoderModule().then((decoderModule: DecoderModule) => {
     const decoder = new decoderModule.Decoder();
     const buffer = new decoderModule.DecoderBuffer();
+    const querier = new decoderModule.MetadataQuerier();
     buffer.Init(new Int8Array(100), 100);
     const pointCloud = new decoderModule.PointCloud();
+    const int32Array = new decoderModule.DracoInt32Array();
 
     try {
         const geometryType = decoder.GetEncodedGeometryType(buffer);
@@ -114,8 +136,27 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
 
         const attributeId = decoder.GetAttributeId(mesh, decoderModule.POSITION);
         const attribute2 = decoder.GetAttribute(mesh, attributeId);
+        // $ExpectType number
+        const attributeId2 = decoder.GetAttributeIdByName(mesh, "entry_name");
 
         const pointCloudStatus = decoder.DecodeBufferToPointCloud(buffer, pointCloud);
+
+        const metadata = decoder.GetMetadata(mesh);
+        const attrMetadata = decoder.GetAttributeMetadata(mesh, attributeId);
+
+        // $ExpectType number
+        querier.NumEntries(metadata);
+        // $ExpectType boolean
+        querier.HasEntry(metadata, "entry_name");
+        // $ExpectType string
+        querier.GetEntryName(metadata, 0);
+        // $ExpectType number
+        querier.GetIntEntry(metadata, "entry_name");
+        // $ExpectType number
+        querier.GetDoubleEntry(metadata, "entry_name");
+        // $ExpectType string
+        querier.GetStringEntry(metadata, "entry_name");
+        querier.GetIntEntryArray(metadata, "entry_name", int32Array);
 
         if (!pointCloudStatus.ok()) {
             throw new Error("Decoding failure." + pointCloudStatus.error_msg());
@@ -126,6 +167,10 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
 
         decoderModule._free(ptr);
     } finally {
+        decoderModule.destroy(decoder);
         decoderModule.destroy(buffer);
+        decoderModule.destroy(pointCloud);
+        decoderModule.destroy(querier);
+        decoderModule.destroy(int32Array);
     }
 });

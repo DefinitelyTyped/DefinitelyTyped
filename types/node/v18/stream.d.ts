@@ -1340,7 +1340,7 @@ declare module "stream" {
          * ```
          *
          * Especially useful in error handling scenarios where a stream is destroyed
-         * prematurely (like an aborted HTTP request), and will not emit `'end'`or `'finish'`.
+         * prematurely (like an aborted HTTP request), and will not emit `'end'` or `'finish'`.
          *
          * The `finished` API provides promise version:
          *

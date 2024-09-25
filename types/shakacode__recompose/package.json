@@ -6,10 +6,10 @@
         "https://github.com/shakacode/recompose"
     ],
     "dependencies": {
+        "@types/prop-types": "*",
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/prop-types": "*",
         "@types/shakacode__recompose": "workspace:."
     },
     "owners": [

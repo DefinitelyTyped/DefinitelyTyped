@@ -1,4 +1,4 @@
-import { Loader, Object3D } from "../../../src/Three.js";
+import { Loader, Object3D } from "three";
 import { GLTF } from "../loaders/GLTFLoader.js";
 
 export class XRHandMeshModel {

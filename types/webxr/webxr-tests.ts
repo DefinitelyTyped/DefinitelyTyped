@@ -35,6 +35,10 @@ function assertNever(value: never) {
         throw new Error("Can't test instance of XRSession");
     }
 
+    if (session.inputSources[0].gamepad?.hapticActuators) {
+        session.inputSources[0].gamepad.hapticActuators[0].pulse(0.5, 100);
+    }
+
     const button = root?.querySelector("button");
     button?.addEventListener("beforexrselect", (evt: XRSessionEvent) => {
         console.assert(evt.session === session);
@@ -128,6 +132,7 @@ function assertNever(value: never) {
             console.log(plane.lastChangedTime);
             console.log(plane.orientation);
             console.log(plane.polygon);
+            console.log(plane.semanticLabel);
         });
     };
 
@@ -207,5 +212,79 @@ function assertNever(value: never) {
         }
 
         layer.destroy();
+    }
+
+    const depthSensingSession = await navigator.xr!.requestSession("immersive-ar", {
+        requiredFeatures: ["depth-sensing"],
+        depthSensing: {
+            usagePreference: ["cpu-optimized", "gpu-optimized"],
+            dataFormatPreference: ["luminance-alpha", "float32"],
+        },
+    });
+
+    function requestAnimationFrameCallback(t: number, frame: XRFrame) {
+        session.requestAnimationFrame(requestAnimationFrameCallback);
+
+        const pose = frame.getViewerPose(space);
+        if (pose) {
+            for (const view of pose.views) {
+                const depthInformation = frame.getDepthInformation(view);
+                if (depthInformation) {
+                    useCpuDepthInformation(view, depthInformation);
+                }
+            }
+        }
+    }
+
+    function useCpuDepthInformation(view: XRView, depthInformation: XRCPUDepthInformation) {
+        const depthInMeters = depthInformation.getDepthInMeters(0.25, 0.75);
+        console.log("Depth at normalized view coordinates (0.25, 0.75) is:", depthInMeters);
+    }
+
+    const glBinding = new XRWebGLBinding(session, ctx);
+
+    function requestAnimationFrameCallback2(t: number, frame: XRFrame) {
+        session.requestAnimationFrame(requestAnimationFrameCallback);
+
+        const pose = frame.getViewerPose(space);
+        if (pose) {
+            for (const view of pose.views) {
+                const depthInformation = glBinding.getDepthInformation(view);
+                if (depthInformation) {
+                    useGpuDepthInformation(view, depthInformation);
+                }
+            }
+        }
+    }
+
+    const shaderProgram = ""; // Linked WebGLProgram.
+
+    const programInfo = {
+        uniformLocations: {
+            depthTexture: ctx.getUniformLocation(shaderProgram, "uDepthTexture"),
+            uvTransform: ctx.getUniformLocation(shaderProgram, "uUvTransform"),
+            rawValueToMeters: ctx.getUniformLocation(shaderProgram, "uRawValueToMeters"),
+        },
+    };
+
+    function useGpuDepthInformation(view: XRView, depthInformation: XRWebGLDepthInformation) {
+        // ...
+
+        ctx!.bindTexture(ctx!.TEXTURE_2D, depthInformation.texture);
+        ctx!.activeTexture(ctx!.TEXTURE0);
+        ctx!.uniform1i(programInfo.uniformLocations.depthTexture, 0);
+
+        ctx!.uniformMatrix4fv(
+            programInfo.uniformLocations.uvTransform,
+            false,
+            depthInformation.normDepthBufferFromNormView.matrix,
+        );
+
+        ctx!.uniform1f(
+            programInfo.uniformLocations.rawValueToMeters,
+            depthInformation.rawValueToMeters,
+        );
+
+        // ...
     }
 })();

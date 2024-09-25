@@ -13,6 +13,16 @@ export type TypedArray =
     | Float32Array
     | Float64Array;
 
+export interface BufferAttributeJSON {
+    itemSize: number;
+    type: string;
+    array: number[];
+    normalized: boolean;
+
+    name?: string;
+    usage?: Usage;
+}
+
 /**
  * This class stores data for an attribute (such as vertex positions, face indices, normals, colors, UVs, and any custom attributes )
  * associated with a {@link THREE.BufferGeometry | BufferGeometry}, which allows for more efficient passing of data to the GPU
@@ -336,12 +346,7 @@ export class BufferAttribute {
     /**
      * Convert this object to three.js to the `data.attributes` part of {@link https://github.com/mrdoob/three.js/wiki/JSON-Geometry-format-4 | JSON Geometry format v4},
      */
-    toJSON(): {
-        itemSize: number;
-        type: string;
-        array: number[];
-        normalized: boolean;
-    };
+    toJSON(): BufferAttributeJSON;
 }
 
 /**
@@ -610,38 +615,6 @@ export class Float32BufferAttribute extends BufferAttribute {
     /**
      * This creates a new {@link THREE.Float32BufferAttribute | Float32BufferAttribute} object.
      * @param array This can be a typed or untyped (normal) array or an integer length. An array value will be converted to `Float32Array`.
-     * If a length is given a new `TypedArray` will created, initialized with all elements set to zero.
-     * @param itemSize the number of values of the {@link array} that should be associated with a particular vertex.
-     * For instance, if this attribute is storing a 3-component vector (such as a _position_, _normal_, or _color_),
-     * then itemSize should be `3`.
-     * @param normalized Applies to integer data only.
-     * Indicates how the underlying data in the buffer maps to the values in the GLSL code.
-     * For instance, if {@link array} is an instance of `UInt16Array`, and  {@link normalized} is true,
-     * the values `0` - `+65535` in the array data will be mapped to `0.0f` - `+1.0f` in the GLSL attribute.
-     * An `Int16Array` (signed) would map from `-32768` - `+32767` to `-1.0f` - `+1.0f`.
-     * If normalized is false, the values will be converted to floats unmodified,
-     * i.e. `32767` becomes `32767.0f`.
-     * Default `false`.
-     * @see {@link THREE.BufferAttribute | BufferAttribute}
-     */
-    constructor(
-        array: Iterable<number> | ArrayLike<number> | ArrayBuffer | number,
-        itemSize: number,
-        normalized?: boolean,
-    );
-}
-
-/**
- * A {@link THREE.BufferAttribute | BufferAttribute} for {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array: Float64Array}
- * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray#typedarray_objects | TypedArray}
- * @see {@link THREE.BufferAttribute | BufferAttribute} for details and for inherited methods and properties.
- * @see {@link https://threejs.org/docs/index.html#api/en/core/bufferAttributeTypes/BufferAttributeTypes | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js | Source}
- */
-export class Float64BufferAttribute extends BufferAttribute {
-    /**
-     * This creates a new {@link THREE.Float64BufferAttribute | Float64BufferAttribute} object.
-     * @param array This can be a typed or untyped (normal) array or an integer length. An array value will be converted to `Float64Array`.
      * If a length is given a new `TypedArray` will created, initialized with all elements set to zero.
      * @param itemSize the number of values of the {@link array} that should be associated with a particular vertex.
      * For instance, if this attribute is storing a 3-component vector (such as a _position_, _normal_, or _color_),

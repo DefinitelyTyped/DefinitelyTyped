@@ -29,7 +29,7 @@
  * wasi.start(instance);
  * ```
  *
- * To run the above example, create a new WebAssembly text format file named`demo.wat`:
+ * To run the above example, create a new WebAssembly text format file named `demo.wat`:
  *
  * ```text
  * (module
@@ -67,7 +67,7 @@
  * wat2wasm demo.wat
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/wasi.js)
  */
 declare module "wasi" {
     interface WASIOptions {
@@ -75,11 +75,13 @@ declare module "wasi" {
          * An array of strings that the WebAssembly application will
          * see as command line arguments. The first argument is the virtual path to the
          * WASI command itself.
+         * @default []
          */
         args?: string[] | undefined;
         /**
          * An object similar to `process.env` that the WebAssembly
          * application will see as its environment.
+         * @default {}
          */
         env?: object | undefined;
         /**
@@ -91,7 +93,7 @@ declare module "wasi" {
         preopens?: NodeJS.Dict<string> | undefined;
         /**
          * By default, when WASI applications call `__wasi_proc_exit()`
-         *  `wasi.start()` will return with the exit code specified rather than terminatng the process.
+         * `wasi.start()` will return with the exit code specified rather than terminatng the process.
          * Setting this option to `false` will cause the Node.js process to exit with
          * the specified exit code instead.
          * @default true
@@ -114,10 +116,10 @@ declare module "wasi" {
         stderr?: number | undefined;
         /**
          * The version of WASI requested.
-         * Currently the only supported versions are `'unstable'` and `'preview1'`.
-         * @since v20.0.0
+         * Currently the only supported versions are `'unstable'` and `'preview1'`. This option is mandatory.
+         * @since v19.8.0
          */
-        version: string;
+        version: "unstable" | "preview1";
     }
     /**
      * The `WASI` class provides the WASI system call API and additional convenience
@@ -145,10 +147,10 @@ declare module "wasi" {
          */
         getImportObject(): object;
         /**
-         * Attempt to begin execution of `instance` as a WASI command by invoking its`_start()` export. If `instance` does not contain a `_start()` export, or if`instance` contains an `_initialize()`
+         * Attempt to begin execution of `instance` as a WASI command by invoking its `_start()` export. If `instance` does not contain a `_start()` export, or if `instance` contains an `_initialize()`
          * export, then an exception is thrown.
          *
-         * `start()` requires that `instance` exports a [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory) named`memory`. If
+         * `start()` requires that `instance` exports a [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory) named `memory`. If
          * `instance` does not have a `memory` export an exception is thrown.
          *
          * If `start()` is called more than once, an exception is thrown.
@@ -156,9 +158,9 @@ declare module "wasi" {
          */
         start(instance: object): number; // TODO: avoid DOM dependency until WASM moved to own lib.
         /**
-         * Attempt to initialize `instance` as a WASI reactor by invoking its`_initialize()` export, if it is present. If `instance` contains a `_start()`export, then an exception is thrown.
+         * Attempt to initialize `instance` as a WASI reactor by invoking its `_initialize()` export, if it is present. If `instance` contains a `_start()` export, then an exception is thrown.
          *
-         * `initialize()` requires that `instance` exports a [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory) named`memory`.
+         * `initialize()` requires that `instance` exports a [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory) named `memory`.
          * If `instance` does not have a `memory` export an exception is thrown.
          *
          * If `initialize()` is called more than once, an exception is thrown.

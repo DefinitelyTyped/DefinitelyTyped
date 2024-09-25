@@ -5,7 +5,7 @@
  * ```js
  * import url from 'node:url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.11.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/url.js)
  */
 declare module "url" {
     import { Blob as NodeBlob } from "node:buffer";
@@ -45,6 +45,22 @@ declare module "url" {
     }
     interface UrlWithStringQuery extends Url {
         query: string | null;
+    }
+    interface FileUrlToPathOptions {
+        /**
+         * `true` if the `path` should be return as a windows filepath, `false` for posix, and `undefined` for the system default.
+         * @default undefined
+         * @since v22.1.0
+         */
+        windows?: boolean | undefined;
+    }
+    interface PathToFileUrlOptions {
+        /**
+         * `true` if the `path` should be return as a windows filepath, `false` for posix, and `undefined` for the system default.
+         * @default undefined
+         * @since v22.1.0
+         */
+        windows?: boolean | undefined;
     }
     /**
      * The `url.parse()` method takes a URL string, parses it, and returns a URL
@@ -298,7 +314,7 @@ declare module "url" {
      * @param url The file URL string or URL object to convert to a path.
      * @return The fully-resolved platform-specific Node.js file path.
      */
-    function fileURLToPath(url: string | URL): string;
+    function fileURLToPath(url: string | URL, options?: FileUrlToPathOptions): string;
     /**
      * This function ensures that `path` is resolved absolutely, and that the URL
      * control characters are correctly encoded when converting into a File URL.
@@ -316,7 +332,7 @@ declare module "url" {
      * @param path The path to convert to a File URL.
      * @return The file URL object.
      */
-    function pathToFileURL(path: string): URL;
+    function pathToFileURL(path: string, options?: PathToFileUrlOptions): URL;
     /**
      * This utility function converts a URL object into an ordinary options object as
      * expected by the `http.request()` and `https.request()` APIs.
@@ -429,6 +445,15 @@ declare module "url" {
          * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
          */
         static canParse(input: string, base?: string): boolean;
+        /**
+         * Parses a string as a URL. If `base` is provided, it will be used as the base URL for the purpose of resolving non-absolute `input` URLs.
+         * Returns `null` if `input` is not a valid.
+         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
+         * `converted to a string` first.
+         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         * @since v22.1.0
+         */
+        static parse(input: string, base?: string): URL | null;
         constructor(input: string | { toString: () => string }, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
@@ -503,9 +528,9 @@ declare module "url" {
          * Getting the value of the `href` property is equivalent to calling {@link toString}.
          *
          * Setting the value of this property to a new value is equivalent to creating a
-         * new `URL` object using `new URL(value)`. Each of the `URL`object's properties will be modified.
+         * new `URL` object using `new URL(value)`. Each of the `URL` object's properties will be modified.
          *
-         * If the value assigned to the `href` property is not a valid URL, a `TypeError`will be thrown.
+         * If the value assigned to the `href` property is not a valid URL, a `TypeError` will be thrown.
          */
         href: string;
         /**
@@ -664,7 +689,7 @@ declare module "url" {
          * // Prints https://example.org/abc?abc=xyz
          * ```
          *
-         * Any invalid URL characters appearing in the value assigned the `search`property will be `percent-encoded`. The selection of which
+         * Any invalid URL characters appearing in the value assigned the `search` property will be `percent-encoded`. The selection of which
          * characters to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.
          */
         search: string;
@@ -858,7 +883,7 @@ declare module "url" {
          */
         keys(): IterableIterator<string>;
         /**
-         * Sets the value in the `URLSearchParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
+         * Sets the value in the `URLSearchParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value` and remove all others. If not,
          * append the name-value pair to the query string.
          *

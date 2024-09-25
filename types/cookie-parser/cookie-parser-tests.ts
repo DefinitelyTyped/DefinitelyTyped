@@ -6,6 +6,8 @@ app.use(cookieParser("optional secret string"));
 
 const req = null as any as express.Request;
 req.secret; // $ExpectType string | undefined
+req.cookies; // $ExpectType Record<string, any>
+req.signedCookies; // $ExpectType Record<string, any>
 
 let obj: object;
 let str: string;

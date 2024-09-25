@@ -1,4 +1,4 @@
-import { Line } from "../../../src/Three.js";
+import { Line } from "three";
 
 import { LineSegmentsGeometry } from "./LineSegmentsGeometry.js";
 

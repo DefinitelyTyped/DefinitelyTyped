@@ -10,7 +10,7 @@ import {
     SphereGeometry,
     Texture,
     Vector3,
-} from "../../../src/Three.js";
+} from "three";
 
 import { XRHandMeshModel } from "./XRHandMeshModel.js";
 

@@ -111,6 +111,7 @@ export interface RangeOptions extends Options {
     includePrerelease?: boolean | undefined;
 }
 export interface CoerceOptions extends Options {
+    includePrerelease?: boolean | undefined;
     /**
      * Used by `coerce()` to coerce from right to left.
      *

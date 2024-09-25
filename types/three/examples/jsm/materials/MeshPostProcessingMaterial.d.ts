@@ -1,4 +1,4 @@
-import { MeshPhysicalMaterial, MeshPhysicalMaterialParameters, Texture } from "../../../src/Three.js";
+import { MeshPhysicalMaterial, MeshPhysicalMaterialParameters, Texture } from "three";
 
 export interface MeshPostProcessingMaterialParameters extends MeshPhysicalMaterialParameters {
     aoPassMap?: Texture | null | undefined;

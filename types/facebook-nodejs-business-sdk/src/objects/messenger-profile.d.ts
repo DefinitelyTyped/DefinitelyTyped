@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * MessengerProfile
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -6,6 +6,7 @@ import { AbstractCrudObject } from './../abstract-crud-object';
 export default class MessengerProfile extends AbstractCrudObject {
     static get Fields(): Readonly<{
         account_linking_url: "account_linking_url";
+        commands: "commands";
         get_started: "get_started";
         greeting: "greeting";
         ice_breakers: "ice_breakers";

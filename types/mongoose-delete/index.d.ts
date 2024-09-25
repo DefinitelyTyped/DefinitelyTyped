@@ -8,7 +8,6 @@ declare namespace MongooseDelete {
         (this: THIS, err: any, doc: T): void;
     }
     type overridableMethods =
-        | "count"
         | "countDocuments"
         | "find"
         | "findOne"
@@ -17,13 +16,23 @@ declare namespace MongooseDelete {
         | "updateOne"
         | "updateMany"
         | "aggregate";
-    interface SoftDeleteModel<T extends Omit<mongoose.Document, "delete">, QueryHelpers = {}>
-        extends mongoose.Model<T, QueryHelpers>
+    interface SoftDeleteModel<
+        T extends Omit<mongoose.Document, "delete">,
+        QueryHelpers = {},
+        TInstanceMethods = {},
+        TVirtuals = {},
+        THydratedDocumentType = mongoose.HydratedDocument<T, TVirtuals & TInstanceMethods, QueryHelpers>,
+        TSchema = any,
+    > extends
+        mongoose.Model<
+            T,
+            QueryHelpers,
+            TInstanceMethods,
+            TVirtuals,
+            THydratedDocumentType,
+            TSchema
+        >
     {
-        /** Count only deleted documents */
-        countDeleted: this["count"];
-        /** Count all documents including deleted */
-        countWithDeleted: this["count"];
         /** Count only deleted documents */
         countDocumentsDeleted: this["countDocuments"];
         /** Count all documents including deleted */

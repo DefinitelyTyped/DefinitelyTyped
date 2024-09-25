@@ -6,11 +6,10 @@
         "https://github.com/styled-components/styled-components"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "devDependencies": {
-        "@types/react-dom": "*",
+        "@types/react-dom": "^16",
         "@types/styled-components": "workspace:."
     },
     "owners": [

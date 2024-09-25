@@ -3,6 +3,7 @@
  */
 import Dms from "geodesy/dms";
 import LatLonEllipsoidalDatum from "geodesy/latlon-ellipsoidal-datum";
+import LatLonEllipsoidalReferenceFrame from "geodesy/latlon-ellipsoidal-referenceframe";
 import LatLonNvectorSpherical from "geodesy/latlon-nvector-spherical";
 import LatLonSpherical from "geodesy/latlon-spherical";
 import Mgrs, { LatLon as Latlon_Utm_Mgrs } from "geodesy/mgrs";
@@ -200,3 +201,13 @@ point3.toString("dms", 2); // 49°47′18.456″N, 097°26′35.016″W
 LatLonNvectorSpherical.intersection(point4, point5, point3, 1); // LatLon { lat: 49.7981787830497, lon: -97.44279718554108 }
 LatLonNvectorSpherical.areaOf(boundary, 6371e3); // 10768180.94129682 m^2
 LatLonNvectorSpherical.meanOf(boundary); // LatLon { lat: 49.783392242641824, lon: -97.43653998581752 }
+
+/**
+ * LatLonEllipsoidalReferenceFrame
+ */
+
+LatLonEllipsoidalReferenceFrame.transformParameters["SOMETHING→OTHER"] = {
+    epoch: "2010.0",
+    params: [1.6, 1.9, 2.4, -0.02, 0.0, 0.0, 0.0],
+    rates: [0.0, 0.0, -0.1, 0.03, 0.0, 0.0, 0.0],
+};

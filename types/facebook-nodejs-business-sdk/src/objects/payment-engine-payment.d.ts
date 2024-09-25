@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PaymentEnginePayment
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -31,7 +31,7 @@ export default class PaymentEnginePayment extends AbstractCrudObject {
         denied_refund: "DENIED_REFUND";
         granted_replacement_item: "GRANTED_REPLACEMENT_ITEM";
     }>;
-    createDispute(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
-    createRefund(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
-    get(fields: string[], params?: Record<any, any>): Promise<PaymentEnginePayment>;
+    createDispute(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
+    createRefund(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
+    get(fields: string[], params?: Record<string, any>): Promise<PaymentEnginePayment>;
 }

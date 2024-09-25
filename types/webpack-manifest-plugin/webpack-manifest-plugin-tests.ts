@@ -15,7 +15,7 @@ const options: Options = {
         return file;
     },
     publicPath: "prod",
-    removeKeyHash: /[a-Z0-9]/g,
+    removeKeyHash: /[a-z0-9]/gi,
     seed: {
         name: "Hello world",
     },

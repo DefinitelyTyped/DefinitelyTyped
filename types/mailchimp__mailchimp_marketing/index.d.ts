@@ -1194,6 +1194,27 @@ export namespace ping {
 }
 
 /**
+ * SearchMembersApi
+ */
+export namespace searchMembers {
+    interface SearchMembersSuccessResponse {
+        exact_matches: {
+            members: lists.MembersSuccessResponse[];
+            total_items: number;
+        };
+        full_search: {
+            members: lists.MembersSuccessResponse[];
+            total_items: number;
+        };
+        _links: Link[];
+    }
+
+    function search(
+        query: string,
+    ): Promise<SearchMembersSuccessResponse | ErrorResponse>;
+}
+
+/**
  * ListsApi
  */
 export namespace lists {
@@ -1352,6 +1373,13 @@ export namespace lists {
             max_instances: number;
             current_total_instances: number;
         };
+        _links: Link[];
+    }
+
+    interface ListMembersInfoSuccessResponse {
+        list_id: string;
+        members: MembersSuccessResponse[];
+        total_items: number;
         _links: Link[];
     }
 
@@ -1621,6 +1649,19 @@ export namespace lists {
         body: SetListMemberBody,
         opts?: ListOptions,
     ): Promise<MembersSuccessResponse | ErrorResponse>;
+
+    /**
+     * Get information about members in a specific Mailchimp list.
+     * @param listId The unique ID for the list.
+     * @param opts Optional parameters
+     * @param opts.fields A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+     * @param opts.excludeFields A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+     * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMembers2}
+     */
+    function getListMembersInfo(
+        listId: string,
+        opts?: ListOptions,
+    ): Promise<ListMembersInfoSuccessResponse | ErrorResponse>;
 
     /**
      * Get information about a specific list member, including a currently subscribed, unsubscribed, or bounced member.

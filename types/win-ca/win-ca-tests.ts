@@ -39,7 +39,7 @@ ca.inject("+", ["foo"]); // $ExpectType void
 ca.exe(); // $ExpectType string
 ca.exe("foo"); // $ExpectType string
 
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ format: ca.der2.asn1 });
 ca({ format: ca.der2.der });
 ca({ format: ca.der2.pem });
@@ -49,7 +49,7 @@ ca({ format: 1 });
 // @ts-expect-error
 ca({ format: 6 });
 
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ store: ["ca"] });
 ca({ store: ["root"] });
 ca({ store: ["my"] });
@@ -58,10 +58,10 @@ ca({ store: ["ca", "root", "my", "trustedpublisher"] });
 // @ts-expect-error
 ca({ store: ["foo"] });
 
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ unique: true });
 
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ ondata: [] });
 ca({
     ondata: certificate => {
@@ -69,27 +69,27 @@ ca({
     },
 });
 
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ onend: () => {} });
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ fallback: true });
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ async: true });
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ inject: true });
 ca({ inject: "+" });
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({ save: [] });
 ca({ save: ["foo"] });
 ca({ save: true });
-// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown>
+// $ExpectType void | AsyncGenerator<Certificate, any, unknown> | Generator<Certificate, any, unknown> || void | AsyncGenerator<Certificate, any, any> | Generator<Certificate, any, any>
 ca({
     onsave: path => {
         path; // $ExpectType string | undefined
     },
 });
 
-// $ExpectType Generator<Certificate, any, unknown>
+// $ExpectType Generator<Certificate, any, unknown> || Generator<Certificate, any, any>
 ca({ generator: true });
-// $ExpectType AsyncGenerator<Certificate, any, unknown>
+// $ExpectType AsyncGenerator<Certificate, any, unknown> || AsyncGenerator<Certificate, any, any>
 ca({ generator: true, async: true });

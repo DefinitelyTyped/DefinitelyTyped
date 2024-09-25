@@ -6,6 +6,7 @@ function tests_simple() {
     $("#datepicker").datepicker("setStartDate");
     $("#datepicker").datepicker("setStartDate", null);
     $("#datepicker").datepicker("setEndDate", "2012-12-31");
+    $("#datepicker").datepicker("update", "2011-03-05", "2011-03-07");
     $("#date-end")
         .datepicker()
         .on("changeDate", function(ev) {

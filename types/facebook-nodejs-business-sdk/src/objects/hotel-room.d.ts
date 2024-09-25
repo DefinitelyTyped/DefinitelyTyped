@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * HotelRoom
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -18,8 +18,6 @@ export default class HotelRoom extends AbstractCrudObject {
         sale_price: "sale_price";
         url: "url";
     }>;
-    getPricingVariables(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPricingVariables(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPricingVariables(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<HotelRoom>;
+    getPricingVariables(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<HotelRoom>;
 }

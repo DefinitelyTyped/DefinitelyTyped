@@ -1,4 +1,4 @@
-import { ColorRepresentation } from "../../../src/Three.js";
+import { ColorRepresentation } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 

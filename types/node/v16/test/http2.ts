@@ -404,7 +404,9 @@ import { URL } from "node:url";
         foo: number;
     }
 
-    class MyHttp2ServerResponse extends Http2ServerResponse {
+    class MyHttp2ServerResponse<Request extends Http2ServerRequest = Http2ServerRequest>
+        extends Http2ServerResponse<Request>
+    {
         bar: string;
     }
 
@@ -560,7 +562,13 @@ import { URL } from "node:url";
     str = consts.HTTP2_HEADER_ACCEPT_LANGUAGE;
     str = consts.HTTP2_HEADER_ACCEPT_RANGES;
     str = consts.HTTP2_HEADER_ACCEPT;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_CREDENTIALS;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_HEADERS;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_METHODS;
     str = consts.HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_EXPOSE_HEADERS;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_REQUEST_HEADERS;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_REQUEST_METHOD;
     str = consts.HTTP2_HEADER_AGE;
     str = consts.HTTP2_HEADER_ALLOW;
     str = consts.HTTP2_HEADER_AUTHORIZATION;

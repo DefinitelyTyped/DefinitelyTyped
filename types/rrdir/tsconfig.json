@@ -16,7 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "rrdir-tests.ts",
-        "test/rrdir-tests.cjs.ts"
+        "rrdir-tests.ts"
     ]
 }

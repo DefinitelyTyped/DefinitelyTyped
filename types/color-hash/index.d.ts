@@ -1,25 +1,27 @@
-type ColorValueArray = [number, number, number];
+declare namespace ColorHash {
+    type ColorValueArray = [number, number, number];
 
-interface HueObject {
-    min: number;
-    max: number;
-}
+    interface HueObject {
+        min: number;
+        max: number;
+    }
 
-type Hue = number | HueObject | readonly HueObject[];
-type Lightness = number | number[];
-type Saturation = number | number[];
+    type Hue = number | HueObject | readonly HueObject[];
+    type Lightness = number | number[];
+    type Saturation = number | number[];
 
-type HashFunction = (input: string) => number;
+    type HashFunction = (input: string) => number;
 
-interface ColorHashOptions {
-    lightness?: Lightness | undefined;
-    saturation?: Saturation | undefined;
-    hue?: Hue | undefined;
-    hash?: HashFunction | undefined;
+    interface ColorHashOptions {
+        lightness?: Lightness;
+        saturation?: Saturation;
+        hue?: Hue;
+        hash?: HashFunction | "bkdr";
+    }
 }
 
 declare class ColorHash {
-    constructor(options?: ColorHashOptions);
+    constructor(options?: ColorHash.ColorHashOptions);
 
     /**
      * Returns the hash in [h, s, l].
@@ -28,7 +30,7 @@ declare class ColorHash {
      * @param input string to hash
      * @returns [h, s, l]
      */
-    hsl(input: string): ColorValueArray;
+    hsl(input: string): ColorHash.ColorValueArray;
 
     /**
      * Returns the hash in [r, g, b].
@@ -37,7 +39,7 @@ declare class ColorHash {
      * @param input string to hash
      * @returns [r, g, b]
      */
-    rgb(input: string): ColorValueArray;
+    rgb(input: string): ColorHash.ColorValueArray;
 
     /**
      * Returns the hash in hex.
@@ -48,5 +50,4 @@ declare class ColorHash {
     hex(input: string): string;
 }
 
-export as namespace ColorHash;
 export = ColorHash;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/open-location-code",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/google/open-location-code/tree/main/js"
+    ],
+    "devDependencies": {
+        "@types/open-location-code": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Taisuke Fujita",
+            "githubUsername": "glassonion1"
+        }
+    ]
+}

@@ -58,17 +58,15 @@ export interface CommonFlexProps {
     display?: string | undefined;
 }
 
-export interface FlexProps extends CommonFlexProps {
+export interface FlexProps extends CommonFlexProps, React.RefAttributes<Flex> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<Flex> | undefined;
 }
 
 export class Flex extends React.Component<FlexProps> {
 }
 
-export interface ItemProps extends CommonFlexProps {
+export interface ItemProps extends CommonFlexProps, React.RefAttributes<Item> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<Flex> | undefined;
     /**
      * A number/string from 0 to 24 for `flex-grow`. Most of the times, using `flex` is just enough.
      */

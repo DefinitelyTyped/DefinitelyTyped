@@ -1,4 +1,4 @@
-import { Camera } from "../../../src/Three.js";
+import { Camera } from "three";
 import { OrbitControls } from "./OrbitControls.js";
 
 /**

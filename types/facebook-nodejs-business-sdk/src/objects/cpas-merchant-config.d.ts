@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CPASMerchantConfig
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -13,5 +13,5 @@ export default class CPASMerchantConfig extends AbstractCrudObject {
         outcomes_compliance_status: "outcomes_compliance_status";
         qualified_to_onboard: "qualified_to_onboard";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<CPASMerchantConfig>;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASMerchantConfig>;
 }

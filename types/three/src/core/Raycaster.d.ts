@@ -2,6 +2,7 @@ import { Camera } from "../cameras/Camera.js";
 import { Ray } from "../math/Ray.js";
 import { Vector2 } from "../math/Vector2.js";
 import { Vector3 } from "../math/Vector3.js";
+import { XRTargetRaySpace } from "../renderers/webxr/WebXRController.js";
 import { Layers } from "./Layers.js";
 import { Object3D } from "./Object3D.js";
 
@@ -154,6 +155,12 @@ export class Raycaster {
      * @param camera camera from which the ray should originate
      */
     setFromCamera(coords: Vector2, camera: Camera): void;
+
+    /**
+     * Updates the ray with a new origin and direction.
+     * @param controller The controller to copy the position and direction from.
+     */
+    setFromXRController(controller: XRTargetRaySpace): this;
 
     /**
      * Checks all intersection between the ray and the object with or without the descendants

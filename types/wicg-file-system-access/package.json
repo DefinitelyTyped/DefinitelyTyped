@@ -8,7 +8,6 @@
         "https://github.com/WICG/file-system-access"
     ],
     "types": "index",
-    "minimumTypeScriptVersion": "4.6",
     "typesVersions": {
         "<=5.0": {
             "*": [

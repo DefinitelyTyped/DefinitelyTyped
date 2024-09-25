@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/cloudflare": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Samuel Corsi-House",
-            "githubUsername": "Xenfo"
-        }
-    ]
+    "owners": []
 }

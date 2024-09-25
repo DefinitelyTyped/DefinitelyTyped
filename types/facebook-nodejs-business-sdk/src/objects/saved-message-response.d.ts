@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * SavedMessageResponse
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -12,5 +12,5 @@ export default class SavedMessageResponse extends AbstractCrudObject {
         message: "message";
         title: "title";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<SavedMessageResponse>;
+    get(fields: string[], params?: Record<string, any>): Promise<SavedMessageResponse>;
 }

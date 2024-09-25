@@ -146,7 +146,7 @@ Seu pacote deve possuir a seguinte estrutura:
 | [`tsconfig.json`](#tsconfigjson)               | Permite que você execute `tsc` dentro do pacote.                                                         |
 
 Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do npm ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
-Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
+Veja todas as opções em [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes.
 
@@ -315,7 +315,7 @@ Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em u
 O DT tem o coneito de "Donos de definição", que são pessoas que querem manter a qualidade dos tipos de um módulo específico
 
 - Adicionar você mesmo à lista, vai garantir que você seja notificado (pelo seu usuário do GitHub) sempre que qualquer um fizer uma pull request ou um issue sobre o pacote.
-- Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantém este repositório.
+- Suas revisões da PR terão uma precedência de importância maior para [o bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) que mantém este repositório.
 - Os mantenedores do DT estão confiando nos donos da definição para garantir um ecossistema estável, por favor não se adicione apenas por adicionar.
 
 Para se adicionar como um Dono de definição:

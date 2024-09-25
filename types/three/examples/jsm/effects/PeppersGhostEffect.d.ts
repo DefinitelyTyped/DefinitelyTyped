@@ -1,4 +1,4 @@
-import { Camera, Scene, WebGLRenderer } from "../../../src/Three.js";
+import { Camera, Scene, WebGLRenderer } from "three";
 
 export class PeppersGhostEffect {
     constructor(renderer: WebGLRenderer);

@@ -1,5 +1,5 @@
 // New Programmatic APi
-import Nightwatch, { NightwatchAPI, NightwatchClient } from "nightwatch";
+import * as Nightwatch from "nightwatch";
 import { isType } from "./utils";
 
 const client = Nightwatch.createClient({
@@ -12,8 +12,8 @@ Nightwatch.createClient({});
 // test methods/properties exported on Nightwatch
 new Nightwatch.by("css selector", "hello");
 new Nightwatch.Capabilities();
-isType<NightwatchAPI>(Nightwatch.browser);
-isType<NightwatchAPI>(Nightwatch.app);
+isType<Nightwatch.NightwatchAPI>(Nightwatch.browser);
+isType<Nightwatch.NightwatchAPI>(Nightwatch.app);
 Nightwatch.Key.NULL;
 // @ts-expect-error
 Nightwatch.launchBrowser();
@@ -33,7 +33,7 @@ client.updateCapabilities(function() {
 
 (async () => {
     const browser = await client.launchBrowser();
-    isType<NightwatchAPI>(browser);
+    isType<Nightwatch.NightwatchAPI>(browser);
 
-    isType<NightwatchClient>(client.nightwatch_client);
+    isType<Nightwatch.NightwatchClient>(client.nightwatch_client);
 });

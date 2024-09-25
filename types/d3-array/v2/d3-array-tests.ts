@@ -974,7 +974,7 @@ const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject,
     "when" as "when",
     "more" as "more",
 ]);
-// $ExpectType: Array<Date | number[]>
+// $ExpectType (Date | number[])[]
 const p2 = d3Array.permute(testObject, ["when" as "when", "more" as "more"]);
 // @ts-expect-error
 const p3 = d3Array.permute(testObject, ["when" as "when", "unknown" as "unknown"]);

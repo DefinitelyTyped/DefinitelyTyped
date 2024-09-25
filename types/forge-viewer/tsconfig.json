@@ -3,7 +3,8 @@
         "module": "node16",
         "lib": [
             "es6",
-            "dom"
+            "dom",
+            "ES2020.String"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

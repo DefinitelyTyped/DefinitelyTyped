@@ -1,5 +1,5 @@
-import { WebGLRenderer } from "../../../src/Three.js";
+import { WebGLRenderer } from "three";
 
-export namespace VRButton {
-    function createButton(renderer: WebGLRenderer): HTMLElement;
+export class VRButton {
+    static createButton(renderer: WebGLRenderer, sessionInit?: XRSessionInit): HTMLElement;
 }

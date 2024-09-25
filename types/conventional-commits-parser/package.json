@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/conventional-commits-parser",
-    "version": "3.0.9999",
+    "version": "5.0.9999",
     "projects": [
         "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#readme"
     ],

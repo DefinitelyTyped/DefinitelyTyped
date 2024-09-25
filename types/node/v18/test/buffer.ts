@@ -223,7 +223,7 @@ b.fill("a").fill("b");
     for (let entry of buffer.entries()) {
         val = entry;
     }
-        */
+    */
 }
 
 {
@@ -248,7 +248,7 @@ b.fill("a").fill("b");
     for (let key of buffer.keys()) {
         val = key;
     }
-        */
+    */
 }
 
 {
@@ -259,7 +259,7 @@ b.fill("a").fill("b");
     for (let value of buffer.values()) {
         val = value;
     }
-        */
+    */
 }
 
 // Imported Buffer from buffer module works properly
@@ -313,7 +313,7 @@ b.fill("a").fill("b");
 (async () => {
     const blob = new NodeBlob(["asd", Buffer.from("test"), new NodeBlob(["dummy"])], {
         type: "application/javascript",
-        encoding: "base64",
+        endings: "native",
     });
 
     blob.size; // $ExpectType number

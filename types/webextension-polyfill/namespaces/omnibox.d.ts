@@ -2,19 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.omnibox
- *
- * The omnibox API allows you to register a keyword with Firefox's address bar.
- * Permissions: "manifest:omnibox"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.omnibox
+ */
 export namespace Omnibox {
     /**
      * The style type.
@@ -80,16 +72,12 @@ export namespace Omnibox {
         /**
          * User has changed what is typed into the omnibox.
          *
-         * @param text
          * @param suggest A callback passed to the onInputChanged event used for sending suggestions back to the browser.
          */
         onInputChanged: Events.Event<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void>;
 
         /**
          * User has accepted what is typed into the omnibox.
-         *
-         * @param text
-         * @param disposition
          */
         onInputEntered: Events.Event<(text: string, disposition: OnInputEnteredDisposition) => void>;
 
@@ -100,8 +88,6 @@ export namespace Omnibox {
 
         /**
          * User has deleted a suggested result.
-         *
-         * @param text
          */
         onDeleteSuggestion: Events.Event<(text: string) => void>;
     }

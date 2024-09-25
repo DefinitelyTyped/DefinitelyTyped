@@ -1,4 +1,4 @@
-import { Camera, ColorRepresentation, Scene } from "../../../src/Three.js";
+import { Camera, ColorRepresentation, Scene } from "three";
 
 import { SSAARenderPass } from "./SSAARenderPass.js";
 

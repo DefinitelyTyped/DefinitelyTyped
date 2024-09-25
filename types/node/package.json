@@ -1,22 +1,15 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "20.11.9999",
+    "version": "22.7.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
         "https://nodejs.org/"
     ],
-    "types": "index",
-    "typesVersions": {
-        "<=4.8": {
-            "*": [
-                "ts4.8/*"
-            ]
-        }
-    },
+    "tsconfigs": ["tsconfig.dom.json", "tsconfig.non-dom.json", "tsconfig.webworker.json"],
     "dependencies": {
-        "undici-types": "~5.26.4"
+        "undici-types": "~6.19.2"
     },
     "devDependencies": {
         "@types/node": "workspace:."
@@ -85,10 +78,6 @@
         {
             "name": "Mohsen Azimi",
             "githubUsername": "mohsen1"
-        },
-        {
-            "name": "Nicolas Even",
-            "githubUsername": "n-e"
         },
         {
             "name": "Nikita Galkin",

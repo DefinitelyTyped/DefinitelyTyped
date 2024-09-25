@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * MailingAddress
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -14,5 +14,5 @@ export default class MailingAddress extends AbstractCrudObject {
         street1: "street1";
         street2: "street2";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<MailingAddress>;
+    get(fields: string[], params?: Record<string, any>): Promise<MailingAddress>;
 }

@@ -9,7 +9,6 @@ import {
     SystemDefinition,
     THREE,
 } from "aframe";
-import * as threeDeprecated from "three/examples/jsm/deprecated/Geometry";
 
 // Global
 const threeCamera = new AFRAME.THREE.OrthographicCamera();
@@ -122,7 +121,7 @@ AFRAME.registerGeometry("a-test-geometry", {
         groupIndex: { default: 0 },
     },
     init(data) {
-        this.geometry = new threeDeprecated.Geometry();
+        this.geometry = new THREE.BufferGeometry();
         const temp = data.groupIndex;
         temp;
     },

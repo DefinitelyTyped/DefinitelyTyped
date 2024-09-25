@@ -7,7 +7,7 @@ import {
     Mesh,
     MeshBasicMaterial,
     PlaneGeometry,
-} from "../../../src/Three.js";
+} from "three";
 
 import { CSM } from "./CSM.js";
 

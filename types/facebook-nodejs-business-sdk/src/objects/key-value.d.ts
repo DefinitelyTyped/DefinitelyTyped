@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * KeyValue
  * @see {@link https://developers.facebook.com/docs/marketing-api/}

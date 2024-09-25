@@ -309,7 +309,7 @@ export type RootContent = RootContentMap[keyof RootContentMap];
 /**
  * Registry of all mdast nodes that can occur as children of {@link Root}.
  *
- * > 👉 **Note**: {@link Root} does not need to be an entire document.
+ * > **Note**: {@link Root} does not need to be an entire document.
  * > it can also be a fragment.
  *
  * This interface can be augmented to register custom node types:

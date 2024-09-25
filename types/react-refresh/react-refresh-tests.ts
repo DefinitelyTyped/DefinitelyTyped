@@ -1,13 +1,17 @@
+import * as babel from "@babel/core";
 import * as ReactRefreshRuntime from "react-refresh/runtime";
 import ReactRefreshBabelPlugin = require("react-refresh/babel");
-import * as babel from "@babel/core";
 
 const STRING = "example string";
 const noop = () => {};
 
 ReactRefreshRuntime.collectCustomHooksForSignature(STRING);
 ReactRefreshRuntime.collectCustomHooksForSignature(noop);
-ReactRefreshRuntime.createSignatureFunctionForTransform();
+const _s = ReactRefreshRuntime.createSignatureFunctionForTransform();
+_s();
+_s(noop, STRING, true, () => [noop]);
+_s(noop, STRING, false);
+_s(noop, STRING);
 ReactRefreshRuntime.findAffectedHostInstances([]);
 ReactRefreshRuntime.findAffectedHostInstances([{ current: noop }]);
 // @ts-expect-error
@@ -24,7 +28,7 @@ ReactRefreshRuntime.performReactRefresh();
 ReactRefreshRuntime.register("unknown type", STRING);
 ReactRefreshRuntime.register(noop, STRING);
 ReactRefreshRuntime.register({}, STRING);
-ReactRefreshRuntime.setSignature(noop, STRING, true, () => noop);
+ReactRefreshRuntime.setSignature(noop, STRING, true, () => [noop]);
 ReactRefreshRuntime.setSignature(noop, STRING, false);
 ReactRefreshRuntime.setSignature(noop, STRING);
 

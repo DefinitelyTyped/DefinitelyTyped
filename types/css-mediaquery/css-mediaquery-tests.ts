@@ -2,7 +2,7 @@ import { Expression, match, parse } from "css-mediaquery";
 
 // @ts-expect-error
 match("(min-width: 800)");
-// $ExpectType
+// $ExpectType boolean
 match("(min-width: 800)", {});
 match("(min-width: 800)", { width: 300 });
 match("(min-width: 800)", { width: "300px" });

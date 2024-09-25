@@ -1,12 +1,24 @@
+import { BufferAttributeJSON } from "./../core/BufferAttribute.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { InstancedBufferAttribute } from "../core/InstancedBufferAttribute.js";
-import { Object3DEventMap } from "../core/Object3D.js";
+import { JSONMeta, Object3DEventMap } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Box3 } from "../math/Box3.js";
 import { Color } from "../math/Color.js";
 import { Matrix4 } from "../math/Matrix4.js";
 import { Sphere } from "../math/Sphere.js";
-import { Mesh } from "./Mesh.js";
+import { DataTexture } from "../textures/DataTexture.js";
+import { Mesh, MeshJSONObject } from "./Mesh.js";
+
+export interface InstancedMeshJSONObject extends MeshJSONObject {
+    count: number;
+    instanceMatrix: BufferAttributeJSON;
+    instanceColor?: BufferAttributeJSON;
+}
+
+export interface InstancedMeshJSON extends MeshJSONObject {
+    object: InstancedMeshJSONObject;
+}
 
 export interface InstancedMeshEventMap extends Object3DEventMap {
     dispose: {};
@@ -15,7 +27,7 @@ export interface InstancedMeshEventMap extends Object3DEventMap {
 /**
  * A special version of {@link THREE.Mesh | Mesh} with instanced rendering support
  * @remarks
- * Use {@link InstancedMesh} if you have to render a large number of objects with the same geometry and material but with different world transformations
+ * Use {@link InstancedMesh} if you have to render a large number of objects with the same geometry and material(s) but with different world transformations
  * @remarks
  * The usage of {@link InstancedMesh} will help you to reduce the number of draw calls and thus improve the overall rendering performance in your application.
  * @see Example: {@link https://threejs.org/examples/#webgl_instancing_dynamic | WebGL / instancing / dynamic}
@@ -32,8 +44,8 @@ export class InstancedMesh<
 > extends Mesh<TGeometry, TMaterial, TEventMap> {
     /**
      * Create a new instance of {@link InstancedMesh}
-     * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}.
-     * @param material A single or an array of {@link THREE.Material | Material}. Default {@link THREE.MeshBasicMaterial | `new THREE.MeshBasicMaterial()`}.
+     * @param geometry An instance of {@link BufferGeometry}.
+     * @param material A single or an array of {@link Material}. Default is a new {@link MeshBasicMaterial}.
      * @param count The **maximum** number of instances of this Mesh. Expects a `Integer`
      */
     constructor(geometry: TGeometry | undefined, material: TMaterial | undefined, count: number);
@@ -83,14 +95,22 @@ export class InstancedMesh<
     instanceMatrix: InstancedBufferAttribute;
 
     /**
-     * Computes bounding box of the all instances, updating {@link boundingBox | .boundingBox} attribute.
-     * @remarks Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Represents the morph target weights of all instances. You have to set its {@link .needsUpdate} flag to true if
+     * you modify instanced data via {@link .setMorphAt}.
+     */
+    morphTexture: DataTexture | null;
+
+    /**
+     * Computes the bounding box of the instanced mesh, and updates the {@link .boundingBox} attribute. The bounding box
+     * is not computed by the engine; it must be computed by your app. You may need to recompute the bounding box if an
+     * instance is transformed via {@link .setMatrixAt()}.
      */
     computeBoundingBox(): void;
 
     /**
-     * Computes bounding sphere of the all instances, updating {@link boundingSphere | .boundingSphere} attribute.
-     * @remarks bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Computes the bounding sphere of the instanced mesh, and updates the {@link .boundingSphere} attribute. The engine
+     * automatically computes the bounding sphere when it is needed, e.g., for ray casting or view frustum culling. You
+     * may need to recompute the bounding sphere if an instance is transformed via [page:.setMatrixAt]().
      */
     computeBoundingSphere(): void;
 
@@ -118,6 +138,13 @@ export class InstancedMesh<
     getMatrixAt(index: number, matrix: Matrix4): void;
 
     /**
+     * Get the morph target weights of the defined instance.
+     * @param index The index of an instance. Values have to be in the range [0, count].
+     * @param mesh The {@link .morphTargetInfluences} property of this mesh will be filled with the morph target weights of the defined instance.
+     */
+    getMorphAt(index: number, mesh: Mesh): void;
+
+    /**
      * Sets the given local transformation matrix to the defined instance.
      * @remarks
      * Make sure you set {@link InstancedBufferAttribute.needsUpdate | .instanceMatrix.needsUpdate()} flag to `true` after updating all the matrices.
@@ -125,6 +152,14 @@ export class InstancedMesh<
      * @param matrix A 4x4 matrix representing the local transformation of a single instance.
      */
     setMatrixAt(index: number, matrix: Matrix4): void;
+
+    /**
+     * Sets the morph target weights to the defined instance. Make sure you set {@link .morphTexture}{@link .needsUpdate}
+     * to true after updating all the influences.
+     * @param index The index of an instance. Values have to be in the range [0, count].
+     * @param mesh A mesh with {@link .morphTargetInfluences} property containing the morph target weights of a single instance.
+     */
+    setMorphAt(index: number, mesh: Mesh): void;
 
     /**
      * No effect in {@link InstancedMesh}.
@@ -138,5 +173,7 @@ export class InstancedMesh<
      * @remarks
      * Call this method whenever this instance is no longer used in your app.
      */
-    dispose(): void;
+    dispose(): this;
+
+    toJSON(meta?: JSONMeta): InstancedMeshJSON;
 }

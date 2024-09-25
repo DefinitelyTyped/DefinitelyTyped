@@ -3787,6 +3787,59 @@ declare namespace ymaps {
         toArray(): IGeoObject[];
     }
 
+    class IPromiseProvider {
+        constructor();
+        then(onResolve: () => void, onReject: () => void): IPromiseProvider;
+    }
+
+    class GeoQueryResult implements IPromiseProvider {
+        constructor(source: object);
+
+        add(source: object): GeoQueryResult;
+        addEvents(events: string | string[], callback: () => void, context: object): GeoQueryResult;
+        addTo(collection: ICollection): GeoQueryResult;
+        addToMap(map: Map): GeoQueryResult;
+        applyBoundsToMap(map: Map, options?: IMapBoundsOptions): GeoQueryResult;
+        clusterize(options?: object): Clusterer;
+        each(callback: () => void, context: object): GeoQueryResult;
+        get(index: number): IGeoObject;
+        getBounds(): number[][] | null;
+        getCenter(map: Map): number[];
+        getCentralObject(map: Map): IGeoObject | null;
+        getClosestTo(object: IGeoObject | IGeometry | Map | number[] | object): IGeoObject | null;
+        getExtreme(key: string): number;
+        getExtremeObject(key: string): IGeoObject;
+        getGlobalPixelBounds(map: Map): number[][] | null;
+        getGlobalPixelCenter(map: Map): number[];
+        getIterator(): IIterator;
+        getLength(): number;
+        getMaxZoom(map: Map, options?: IMapMarginOptions): number;
+        getParent(): GeoQueryResult | null;
+        indexOf(item: IGeoObject): number;
+        intersect(result: IGeocodeResult): GeoQueryResult;
+        isReady(): boolean;
+        map(callback: () => void, context?: object): GeoQueryResult;
+        remove(
+            objects: IGeoObject | IGeoObject[] | ICollection | ICollection[] | GeoQueryResult | vow.Promise,
+        ): GeoQueryResult;
+        removeEvents(events: string | string[], callback: () => void, context: object): GeoQueryResult;
+        removeFrom(collection: ICollection): GeoQueryResult;
+        removeFromMap(map: Map): GeoQueryResult;
+        reverse(): GeoQueryResult;
+        search(condition: ICollection): GeoQueryResult;
+        searchContaining(object: IGeoObject | IGeometry | Map | number[] | number[][] | object): GeoQueryResult;
+        searchInside(object: IGeoObject | IGeometry | Map): GeoQueryResult;
+        searchIntersect(object: IGeoObject | IGeometry | Map, options?: { considerOccurance: boolean }): GeoQueryResult;
+        setOptions(key: string, value?: object): GeoQueryResult;
+        setProperties(path: string, value: object): GeoQueryResult;
+        slice(begin: number, end?: number): GeoQueryResult;
+        sort(comparator: string | ((a: object, b: object) => number)): GeoQueryResult;
+        sortByDistance(object: IGeoObject | IGeometry | Map | number[] | number[][] | object): GeoQueryResult;
+        then(onFulfill?: () => void, onReject?: () => void, context?: object): GeoQueryResult;
+        unsetOptions(keys: string | string[]): GeoQueryResult;
+        unsetProperties(path: string): GeoQueryResult;
+    }
+
     class Layer implements ILayer, IParentOnMap, IPositioningContext {
         constructor(tileUrlTemplate: string | ((tileNumber: number[], tileZoom: number) => string));
 
@@ -4249,6 +4302,8 @@ declare namespace ymaps {
          */
         results?: number;
     }
+
+    function geoQuery(object: IGeoObject | IGeoObject[] | IGeoObject[] | ICollection[]): GeoQueryResult;
 
     interface IReadyObject {
         require?: string[] | undefined;
@@ -5258,6 +5313,10 @@ declare namespace ymaps {
         setFilter(filer: (object: object | string) => boolean): void;
 
         setParent(parent: IParentOnMap | null): this;
+    }
+
+    namespace coordSystem {
+        const geo: ICoordSystem;
     }
 
     namespace objectManager {

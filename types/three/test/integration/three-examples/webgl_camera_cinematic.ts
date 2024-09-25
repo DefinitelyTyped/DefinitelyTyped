@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
-import { CinematicCamera } from "three/examples/jsm/cameras/CinematicCamera";
-import { BokehShaderUniforms } from "three/examples/jsm/shaders/BokehShader2";
+import { CinematicCamera } from "three/addons/cameras/CinematicCamera.js";
+import { BokehShaderUniforms } from "three/addons/shaders/BokehShader2.js";
 
 const camera = new CinematicCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
 const scene = new THREE.Scene();

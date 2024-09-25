@@ -6,7 +6,6 @@
         "https://github.com/jkuri/rollup-plugin-progress#readme"
     ],
     "dependencies": {
-        "@types/node": "*",
         "rollup": "^0.63.4"
     },
     "devDependencies": {

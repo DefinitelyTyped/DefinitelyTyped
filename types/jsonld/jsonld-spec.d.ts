@@ -6,7 +6,7 @@ import { ContextDefinition, JsonLdDocument, NodeObject } from "./jsonld";
 
 // Some aliases and placeholders for better readability
 export type JsonLdObj = NodeObject;
-export type JsonLdArray = [JsonLdObj];
+export type JsonLdArray = JsonLdObj[];
 export type JsonLd = JsonLdObj | JsonLdArray;
 
 type DOMString = string;

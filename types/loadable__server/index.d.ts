@@ -1,4 +1,4 @@
-import { Component, ComponentType, JSX, ReactElement } from "react";
+import { Component, ComponentType, JSX, PropsWithChildren, ReactElement } from "react";
 
 export type ChunkExtractorOptions =
     & {
@@ -134,4 +134,4 @@ export interface ChunkExtractorManagerProps {
     extractor: ChunkExtractor;
 }
 
-export class ChunkExtractorManager extends Component<ChunkExtractorManagerProps> {}
+export class ChunkExtractorManager extends Component<PropsWithChildren<ChunkExtractorManagerProps>> {}

@@ -511,7 +511,7 @@ declare namespace CANNON {
         deltaRotation?: number | undefined;
         rollInfluence?: number | undefined;
         maxSuspensionForce?: number | undefined;
-        isFronmtWheel?: boolean | undefined;
+        isFrontWheel?: boolean | undefined;
         clippedInvContactDotSuspension?: number | undefined;
         suspensionRelativeVelocity?: number | undefined;
         suspensionForce?: number | undefined;

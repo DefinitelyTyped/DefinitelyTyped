@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/slackapi/hubot-slack"
     ],
+    "type": "module",
     "dependencies": {
         "@slack/rtm-api": "*",
         "@slack/web-api": "*",
@@ -14,5 +15,6 @@
     "devDependencies": {
         "@types/hubot-slack": "workspace:."
     },
+    "type": "module",
     "owners": []
 }

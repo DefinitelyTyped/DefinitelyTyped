@@ -82,7 +82,7 @@ export interface Rgb {
     blue: number;
 }
 
-export type ColorizeFunction = (char: string, colors: Rgb) => string;
+export type ColorizeFunction = (char: string, colors: Rgb) => void;
 
 /*~ You can declare properties of the module using const, let, or var */
 export const sleep: number | null;

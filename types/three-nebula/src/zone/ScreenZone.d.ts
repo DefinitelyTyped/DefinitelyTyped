@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import type Particle from "../core/Particle";
 import type Zone from "./Zone";
 

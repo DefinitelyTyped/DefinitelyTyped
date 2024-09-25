@@ -7,7 +7,6 @@
     ],
     "dependencies": {
         "@types/fluxible": "*",
-        "@types/node": "*",
         "@types/react": "*"
     },
     "devDependencies": {

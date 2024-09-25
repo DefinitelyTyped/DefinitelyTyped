@@ -2,6 +2,7 @@ import { createReadStream, createWriteStream } from "node:fs";
 import {
     addAbortSignal,
     Duplex,
+    duplexPair,
     finished,
     isErrored,
     isReadable,
@@ -20,7 +21,7 @@ import { stdout } from "node:process";
 import { arrayBuffer, blob, buffer, json, text } from "node:stream/consumers";
 import { pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
-import { setInterval as every } from "node:timers/promises";
+import { setInterval as every, setTimeout as wait } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
 
 // Simplified constructors
@@ -315,7 +316,11 @@ function streamPipelineAsyncTransform() {
     );
 
     // Accepts buffer as source
-    pipeline(Buffer.from("test"), stdout);
+    pipeline(
+        Buffer.from("test"),
+        stdout,
+        err => console.error(err),
+    );
 }
 
 async function streamPipelineAsyncPromiseTransform() {
@@ -614,6 +619,14 @@ addAbortSignal(new AbortSignal(), new Readable());
 }
 
 {
+    const [duplexLeft, duplexRight] = duplexPair();
+    // $ExpectType Duplex
+    duplexLeft;
+    // $ExpectType Duplex
+    duplexRight;
+}
+
+{
     const readable = new ReadableStream();
     const writable = new WritableStream();
 
@@ -665,6 +678,25 @@ async function testReadableStream() {
     });
 
     for await (const value of stream.values()) {
+        // $ExpectType number
+        value;
+    }
+
+    const streamFromIterable = ReadableStream.from([1, 2, 3, 4]);
+    for await (const value of streamFromIterable) {
+        // $ExpectType number
+        value;
+    }
+
+    const streamFromAsyncIterable = ReadableStream.from({
+        async *[Symbol.asyncIterator]() {
+            for (let i = 0; i < 10; i++) {
+                await wait(100);
+                yield i;
+            }
+        },
+    });
+    for await (const value of streamFromAsyncIterable) {
         // $ExpectType number
         value;
     }

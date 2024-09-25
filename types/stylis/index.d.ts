@@ -38,6 +38,7 @@ export const FONT_FACE = "@font-face";
 export const COUNTER_STYLE = "@counter-style";
 export const FONT_FEATURE_VALUES = "@font-feature-values";
 export const LAYER = "@layer";
+export const SCOPE = "@scope";
 
 // Utility.js
 

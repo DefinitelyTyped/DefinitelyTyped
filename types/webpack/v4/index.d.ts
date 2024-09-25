@@ -1450,6 +1450,7 @@ declare namespace webpack {
             afterPlugins: SyncHook<Compiler>;
             afterResolvers: SyncHook<Compiler>;
             entryOption: SyncBailHook;
+            assetEmitted: AsyncSeriesHook<string, string>;
         }
 
         interface MultiStats {

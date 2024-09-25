@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.geckoProfiler
- *
- * Exposes the browser's profiler.
- * Permissions: "geckoProfiler"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.geckoProfiler
+ */
 export namespace GeckoProfiler {
     type ProfilerFeature =
         | "java"
@@ -34,7 +31,10 @@ export namespace GeckoProfiler {
         | "unregisteredthreads"
         | "processcpu"
         | "power"
-        | "responsiveness";
+        | "responsiveness"
+        | "cpufreq"
+        | "bandwidth"
+        | "memory";
 
     type supports = "windowLength";
 
@@ -73,8 +73,6 @@ export namespace GeckoProfiler {
     interface Static {
         /**
          * Starts the profiler with the specified settings.
-         *
-         * @param settings
          */
         start(settings: StartSettingsType): void;
 

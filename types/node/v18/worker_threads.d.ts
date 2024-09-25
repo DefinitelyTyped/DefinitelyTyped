@@ -237,6 +237,9 @@ declare module "worker_threads" {
         off(event: "message", listener: (value: any) => void): this;
         off(event: "messageerror", listener: (error: Error) => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
+        addEventListener: EventTarget["addEventListener"];
+        dispatchEvent: EventTarget["dispatchEvent"];
+        removeEventListener: EventTarget["removeEventListener"];
     }
     interface WorkerOptions {
         /**

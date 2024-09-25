@@ -11,6 +11,7 @@ t.subtract(100);
 // https://github.com/CrystalComputerCorp/smpte-timecode#creating-timecode-objects
 t = new Timecode("00:01:00:00");
 t = new Timecode(800, 29.97, true);
+t = new Timecode(900, [60000, 1001], true);
 t = new Timecode(new Date());
 
 // https://github.com/CrystalComputerCorp/smpte-timecode/blob/master/test/smpte-timecode-test.js
@@ -107,3 +108,7 @@ d.getHours();
 d.getMinutes();
 d.getSeconds();
 d.getMilliseconds();
+
+// https://github.com/CrystalComputerCorp/smpte-timecode/blob/617c92e8f8de813e8fec0209725c12e562b83dfc/test/smpte-timecode-test.js#L81
+Timecode("00:02:10;34", [60000, 1001]);
+Timecode("00:02:10;14", [25000, 1001]);

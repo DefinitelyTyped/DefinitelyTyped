@@ -352,8 +352,9 @@ declare namespace Shippo {
     }
 
     interface Message {
+        source?: string;
         code?: string;
-        message: string;
+        text?: string;
     }
 
     interface Location {
@@ -471,9 +472,13 @@ declare namespace Shippo {
         address_from: Address | string;
         address_to: Address | string;
         address_return?: Address | string | undefined;
-        shipment_date?: string | undefined;
         parcels: Parcel[];
+        shipment_date?: string | undefined;
+        extra?: ShipmentExtras | undefined;
+        customs_declaration?: string | undefined;
         rates: Rate[];
+        carrier_accounts: string[];
+        messages: Message[];
         test?: boolean | undefined;
     }
 
@@ -653,7 +658,7 @@ declare namespace Shippo {
     interface Transaction extends Metadata {
         object_state: ObjectState;
         status: Transaction.Status;
-        rate: Rate;
+        rate: string;
         metadata: string;
         label_file_type: LabelFileType;
         test: boolean;

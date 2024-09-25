@@ -1,4 +1,4 @@
-import { Matrix3, Mesh } from "../../../src/Three.js";
+import { Matrix3, Mesh } from "three";
 
 import { Volume } from "./Volume.js";
 

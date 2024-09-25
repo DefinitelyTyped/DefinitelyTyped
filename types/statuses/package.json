@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/jshttp/statuses"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "devDependencies": {
         "@types/statuses": "workspace:."
     },

@@ -10,7 +10,7 @@ import {
     ShaderMaterial,
     WebGLRenderer,
     WebGLRenderTarget,
-} from "../../../src/Three.js";
+} from "three";
 import { ReflectorForSSRPass } from "../objects/ReflectorForSSRPass.js";
 import { FullScreenQuad, Pass } from "../postprocessing/Pass.js";
 

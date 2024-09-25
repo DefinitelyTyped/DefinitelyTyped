@@ -42,6 +42,9 @@ map.panToBounds(new woosmap.map.LatLngBounds({ lat: 43.3, lng: 3.3 }, { lat: 48.
 // $ExpectType void
 map.setZoom(12);
 
+// $ExpectType MVCArray<MapType>
+map.overlayMapTypes;
+
 /**
  * Marker
  */
@@ -302,6 +305,13 @@ const directionsRequest = expectType({
             location: new woosmap.map.LatLng(52.37342, 4.84631),
         },
     ],
+    optimizeWaypoints: true,
+    method: "distance",
+    language: "de",
+    avoidHighways: false,
+    avoidTolls: false,
+    avoidFerries: false,
+    avoidZones: [[{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }, { lat: 52.52457, lng: 13.42347 }]],
 }) as woosmap.map.DirectionRequest;
 
 let directionsService;
@@ -476,6 +486,27 @@ promiseLocalitiesAutocomplete.then((result) => {
     result;
 });
 
+const localitiesDetailsRequest = expectType({
+    public_id: "MkvnYy6K6oVGqeqfWJGO/6eCgqo=",
+    fields: "geometry",
+    cc_format: "alpha2",
+    language: "EN",
+}) as woosmap.map.localities.LocalitiesDetailsRequest;
+const promiseLocalitiesDetails = localitiesService.getDetails(localitiesDetailsRequest);
+promiseLocalitiesDetails.then((result) => {
+    // $ExpectType LocalitiesDetailsResponse
+    result;
+});
+const localitiesGeocodeRequest = expectType({
+    latLng: { lat: 51.5007, lng: -0.1246 },
+    components: { country: ["GB"] },
+}) as woosmap.map.localities.LocalitiesGeocodeRequest;
+const promiseLocalitiesGeocode = localitiesService.geocode(localitiesGeocodeRequest);
+promiseLocalitiesGeocode.then((result) => {
+    // $ExpectType LocalitiesGeocodeResponse
+    result;
+});
+
 /**
  * Stores Service
  */
@@ -496,6 +527,63 @@ promiseStoresSearch.then((result) => {
     // $ExpectType StoresSearchResponse
     result;
 });
+
+const transitRequest = expectType({
+    origin: { lat: 43.6, lng: 3.883 },
+    destination: { lat: 43.6, lng: 3.883 },
+} as woosmap.map.transit.TransitRouteRequest);
+
+const _ = ({ origin: { lat: 43.6, lng: 3.883 } }) as woosmap.map.transit.TransitRouteRequest;
+const transitService = new woosmap.map.TransitService();
+const promiseTransitRoute = transitService.route(transitRequest);
+promiseTransitRoute.then((result) => {
+    // $ExpectType TransitRouteResponse
+    result;
+});
+
+/**
+ * Query
+ */
+const query1 = new woosmap.map.query.Query(
+    [new woosmap.map.query.Field("type", "myType")],
+    woosmap.map.query.BoolOperators.AND,
+    false,
+);
+// $ExpectType Query
+query1;
+const field1 = new woosmap.map.query.Field("type", "myType");
+// $ExpectType Field
+field1;
+const query2 = woosmap.map.query.and(
+    new woosmap.map.query.Field("type", "myType"),
+    new woosmap.map.query.Field("type", "myOtherType"),
+);
+// $ExpectType Query
+query2;
+const query3 = woosmap.map.query.or(
+    new woosmap.map.query.Field("type", "myType"),
+    new woosmap.map.query.Field("type", "myOtherType"),
+);
+// $ExpectType Query
+query3;
+const query4 = woosmap.map.query.not(new woosmap.map.query.Field("type", "myType"));
+// $ExpectType Query
+query4;
+const field2 = woosmap.map.query.F("type", "myType");
+// $ExpectType Field | Field[]
+field2;
+
+const imageMapTypeOptions = expectType({
+    url: "http://tile-server/{z}/{x}/{y}.png",
+    opacity: 0.5,
+    tileSize: new woosmap.map.Size(256, 256),
+}) as woosmap.map.ImageMapTypeOptions;
+
+const imageMapType = new woosmap.map.ImageMapType(imageMapTypeOptions);
+// $ExpectType ImageMapType
+imageMapType;
+
+map.overlayMapTypes.insertAt(0, imageMapType);
 
 /**
  * helper functions for testing purpose

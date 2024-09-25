@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * BusinessImage
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -41,5 +41,5 @@ export default class BusinessImage extends AbstractCrudObject {
         right_column_standard: "RIGHT_COLUMN_STANDARD";
         suggested_video_mobile: "SUGGESTED_VIDEO_MOBILE";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<BusinessImage>;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessImage>;
 }

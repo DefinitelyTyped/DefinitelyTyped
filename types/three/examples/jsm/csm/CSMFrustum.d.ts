@@ -1,4 +1,4 @@
-import { Matrix4, Vector3 } from "../../../src/Three.js";
+import { Matrix4, Vector3 } from "three";
 
 export interface CSMFrustumVerticies {
     near: Vector3[];
@@ -10,7 +10,7 @@ export interface CSMFrustumParameters {
     maxFar?: number;
 }
 
-export default class CSMFrustum {
+export class CSMFrustum {
     constructor(data?: CSMFrustumParameters);
     vertices: CSMFrustumVerticies;
     setFromProjectionMatrix(projectionMatrix: Matrix4, maxFar: number): CSMFrustumVerticies;

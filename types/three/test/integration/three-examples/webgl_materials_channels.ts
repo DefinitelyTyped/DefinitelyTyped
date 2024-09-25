@@ -1,8 +1,8 @@
 import * as THREE from "three";
 
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import { VelocityShader } from "three/examples/jsm/shaders/VelocityShader";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { VelocityShader } from "three/addons/shaders/VelocityShader.js";
 
 let camera: THREE.PerspectiveCamera | THREE.OrthographicCamera;
 let scene: THREE.Scene;
@@ -166,7 +166,6 @@ function init() {
     materialVelocity.uniforms.displacementMap.value = displacementMap;
     materialVelocity.uniforms.displacementScale.value = SCALE;
     materialVelocity.uniforms.displacementBias.value = BIAS;
-    materialVelocity.extensions.derivatives = true;
 
     //
 

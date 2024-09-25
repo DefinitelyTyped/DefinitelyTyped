@@ -35,6 +35,7 @@ amqp.connect("amqp://localhost")
             .then(channel => {
                 return channel.consume("myQueue", newMsg => {
                     if (newMsg != null) {
+                        newMsg.properties.headers; // $ExpectType MessagePropertyHeaders | undefined
                         // test promise api properties
                         if (newMsg.properties.contentType === "application/json") {
                             console.log("New Message: " + newMsg.content.toString());

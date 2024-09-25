@@ -27,7 +27,10 @@ export interface MockFunctions {
     reject: (request: ConcreteRequest | OperationDescriptor, error: Error | string) => void;
     nextValue: (request: ConcreteRequest | OperationDescriptor, payload: GraphQLSingularResponse) => void;
     complete: (request: ConcreteRequest | OperationDescriptor) => void;
-    resolve: (request: ConcreteRequest | OperationDescriptor, payload: GraphQLSingularResponse) => void;
+    resolve: (
+        request: ConcreteRequest | OperationDescriptor,
+        payload: GraphQLSingularResponse | readonly GraphQLSingularResponse[],
+    ) => void;
     getAllOperations: () => readonly OperationDescriptor[];
     findOperation: (findFn: (operation: OperationDescriptor) => boolean) => OperationDescriptor;
     queuePendingOperation: (query: GraphQLTaggedNode, variables: Variables) => void;

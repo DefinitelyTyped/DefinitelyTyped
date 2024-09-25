@@ -6,7 +6,6 @@
         "https://github.com/hapijs/boom"
     ],
     "dependencies": {
-        "@types/node": "*"
     },
     "devDependencies": {
         "@types/boom": "workspace:."

@@ -23,6 +23,7 @@ export const UniformsLib: {
     };
     envmap: {
         envMap: IUniform<unknown>;
+        envMapRotation: IUniform<Matrix3>;
         flipEnvMap: IUniform<number>;
         reflectivity: IUniform<number>;
         ior: IUniform<number>;
@@ -88,6 +89,7 @@ export const UniformsLib: {
         directionalLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
@@ -111,6 +113,7 @@ export const UniformsLib: {
         spotLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
@@ -132,6 +135,7 @@ export const UniformsLib: {
         pointLightShadows: {
             value: unknown[];
             properties: {
+                shadowIntensity: number;
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};

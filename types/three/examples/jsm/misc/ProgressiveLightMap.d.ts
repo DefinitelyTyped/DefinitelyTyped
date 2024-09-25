@@ -11,7 +11,7 @@ import {
     Vector3,
     WebGLRenderer,
     WebGLRenderTarget,
-} from "../../../src/Three.js";
+} from "three";
 
 export interface UVBoxes {
     w: number;

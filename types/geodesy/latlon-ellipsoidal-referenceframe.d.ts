@@ -8,8 +8,8 @@ import LatLonEllipsoidal, { Cartesian, Dms } from "./latlon-ellipsoidal";
 
 interface TxParam {
     epoch: string;
-    params: [number, number, number, number, number, number];
-    rates: [number, number, number, number, number, number];
+    params: [number, number, number, number, number, number, number];
+    rates: [number, number, number, number, number, number, number];
 }
 
 type TxParams = Plural<TxParam>;

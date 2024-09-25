@@ -8,7 +8,7 @@ exec("echo test with options", {
 exec("echo test without options");
 
 const results = exec("echo test with return");
-results.code; // $ExpectType<number>
-results.stdout; // $ExpectType<string>
+results.code; // $ExpectType number
+results.stdout; // $ExpectType string
 // @ts-expect-error
 results.silent;

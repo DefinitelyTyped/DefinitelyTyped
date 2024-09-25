@@ -222,7 +222,8 @@ boolean = unaryExpression.prefix;
 
 // BinaryExpression
 var binaryExpression: ESTree.BinaryExpression;
-expression = binaryExpression.left;
+var expressionOrPrivateIdentifier: ESTree.Expression | ESTree.PrivateIdentifier;
+expressionOrPrivateIdentifier = binaryExpression.left;
 expression = binaryExpression.right;
 
 // ConditionalExpression
@@ -282,6 +283,13 @@ var classDeclaration: ESTree.ClassDeclaration;
 identifierOrNull = classDeclaration.id;
 // @ts-expect-error Use MaybeNamedClassDeclaration for default exports
 classDeclaration.id = null;
+
+var identifierOrLiteral: ESTree.Identifier | ESTree.Literal;
+identifierOrLiteral = importSpecifier.imported;
+identifierOrLiteral = exportSpecifier.local;
+identifierOrLiteral = exportSpecifier.exported;
+var identifierOrLiteralOrNull: ESTree.Identifier | ESTree.Literal | null;
+identifierOrLiteralOrNull = exportAllDeclaration.exported;
 
 // Clauses
 // SwitchCase

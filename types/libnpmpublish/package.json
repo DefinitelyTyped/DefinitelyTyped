@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/libnpmpublish",
-    "version": "4.0.9999",
+    "version": "9.0.9999",
     "projects": [
         "https://npmjs.com/package/libnpmpublish"
     ],
     "dependencies": {
-        "@npm/types": "*",
+        "@npm/types": "^1",
         "@types/node-fetch": "*",
         "@types/npm-registry-fetch": "*"
     },

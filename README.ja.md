@@ -122,7 +122,7 @@ declare module "libname" {
 
 DefinitelyTyped への大量の PR を全てセルフサービス方式で処理するために bot を導入しています。詳しい方法と理由については[こちら](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/)<small>（英語）</small>で確認できます。下図は DefinitelyTyped への PR のライフサイクルを簡単に示したものです。
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+<img src="https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
 
 #### 部分的なクローン
 
@@ -170,7 +170,7 @@ npm 上にないパッケージの型定義を追加したい場合は、その�
 | [`tsconfig.json`](#tsconfigjson)                   | パッケージ内で `tsc` を実行するのに必要。                                                              |
 
 これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template module` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template module` を実行してください。
-dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen)で確認できます。
+dts-gen の全オプションは[こちら](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen)で確認できます。
 
 `index.d.ts` の他にも `.d.ts` ファイルがある場合は、それらが `index.d.ts` かテストコードのいずれかにおいて参照されているかどうか確認してください。
 
@@ -378,7 +378,7 @@ DefinitelyTypedのパッケージパブリッシャーは、Definitely Typedの�
 DT には「定義オーナー」というコンセプトがあり、特定のモジュールの型の品質を維持したいと考える人々がいます。
 
 - 自分自身をリストに追加すると、誰かがそのパッケージに関するプルリクエストまたは問題を作成したときに通知を受けることができます（GitHub ユーザー名を介して）。
-- あなたのプルリクエストのレビューは、[このリポジトリを管理するボット](https://github.com/DefinitelyTyped/dt-mergebot)にとって重要度が高くなります。
+- あなたのプルリクエストのレビューは、[このリポジトリを管理するボット](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot)にとって重要度が高くなります。
 - DT メンテナーは、安定したエコシステムを確保するために、定義オーナーに信頼を置いていますので、軽率に自分を追加しないでください。
 
 自分自身を定義オーナーとして追加するには：

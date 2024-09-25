@@ -273,6 +273,14 @@ declare namespace conventionalCommitsParser {
         commentChar?: string | null | undefined;
 
         /**
+         * Breaking changes header pattern.
+         *
+         * @default
+         * undefined
+         */
+        breakingHeaderPattern?: RegExp | undefined;
+
+        /**
          * What warn function to use. For example, `console.warn.bind(console)` or
          * `grunt.log.writeln`. By default, it's a noop. If it is `true`, it will error
          * if commit cannot be parsed (strict).

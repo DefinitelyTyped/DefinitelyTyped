@@ -38,13 +38,13 @@
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
         "danger": "^11.2.3",
-        "dprint": "^0.45.0",
+        "dprint": "^0.47.2",
         "eslint-plugin-jsdoc": "^44.2.7",
         "husky": "^8.0.3",
         "lint-staged": "^15.2.0",
-        "remark-cli": "^11.0.0",
-        "remark-gfm": "^3.0.0",
-        "remark-validate-links": "^12.0.0",
+        "remark-cli": "^12.0.0",
+        "remark-gfm": "^4.0.0",
+        "remark-validate-links": "^13.0.0",
         "typescript": "next"
     },
     "type": "module"

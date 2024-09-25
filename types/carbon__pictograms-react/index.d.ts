@@ -1,4 +1,4 @@
-/** 1173 pictograms in total */
+/** 1183 pictograms in total */
 
 export interface CarbonPictogramProps extends
     Omit<
@@ -122,6 +122,8 @@ export const Bluepages: CarbonPictogramType;
 export const BostonZakimBridge: CarbonPictogramType;
 export const BoxPlot: CarbonPictogramType;
 export const Broom: CarbonPictogramType;
+export const BucharestNationalTheatre: CarbonPictogramType;
+export const BucharestRomanianAthenaeum: CarbonPictogramType;
 export const Budapest: CarbonPictogramType;
 export const BudapestCitadella: CarbonPictogramType;
 export const BudapestLabSkyline: CarbonPictogramType;
@@ -205,6 +207,7 @@ export const ClientFinancing_01: CarbonPictogramType;
 export const ClientFinancing_02: CarbonPictogramType;
 export const ClothesRack_01: CarbonPictogramType;
 export const ClothesRack_02: CarbonPictogramType;
+export const Cloud: CarbonPictogramType;
 export const CloudAnalytics: CarbonPictogramType;
 export const CloudAssets: CarbonPictogramType;
 export const CloudBuilderProfessionalServices: CarbonPictogramType;
@@ -588,6 +591,7 @@ export const IbmAutomationPlatform: CarbonPictogramType;
 export const IbmCloud: CarbonPictogramType;
 export const IbmIx: CarbonPictogramType;
 export const IbmRpa: CarbonPictogramType;
+export const IbmUkLabsHursley: CarbonPictogramType;
 /**
  * @deprecated
  * This icon should no longer be used
@@ -646,6 +650,7 @@ export const KeepYourOwnKey: CarbonPictogramType;
 export const KeyUsers: CarbonPictogramType;
 export const Keyboard: CarbonPictogramType;
 export const KnowsDarkData: CarbonPictogramType;
+export const KochiHouseboat: CarbonPictogramType;
 export const KualaLumpur: CarbonPictogramType;
 export const Kubernetes: CarbonPictogramType;
 export const KubernetesPod: CarbonPictogramType;
@@ -794,6 +799,7 @@ export const OptimizeCashFlow_01: CarbonPictogramType;
 export const OptimizeCashFlow_02: CarbonPictogramType;
 export const Organization: CarbonPictogramType;
 export const Ornament: CarbonPictogramType;
+export const OsakaTsutenkakuTower: CarbonPictogramType;
 export const Overcast: CarbonPictogramType;
 export const Overview: CarbonPictogramType;
 export const PaperClip: CarbonPictogramType;
@@ -910,6 +916,7 @@ export const Robot: CarbonPictogramType;
 export const Robotics: CarbonPictogramType;
 export const RockOn: CarbonPictogramType;
 export const Rocket: CarbonPictogramType;
+export const RomaniaTheGateOfTheKiss: CarbonPictogramType;
 export const Rome: CarbonPictogramType;
 export const RotateDevice: CarbonPictogramType;
 export const SaasEnablement: CarbonPictogramType;
@@ -959,6 +966,7 @@ export const Serverless_02: CarbonPictogramType;
 export const Servers: CarbonPictogramType;
 export const ShanghaiCityscape: CarbonPictogramType;
 export const ShanghaiOrientalPearlTower: CarbonPictogramType;
+export const ShanghaiSkyline: CarbonPictogramType;
 export const SharingData: CarbonPictogramType;
 export const Shirt: CarbonPictogramType;
 export const Shop: CarbonPictogramType;
@@ -1168,6 +1176,7 @@ export const VisualData: CarbonPictogramType;
 export const VisualDesign: CarbonPictogramType;
 export const VisualInsights: CarbonPictogramType;
 export const VisualRecognition: CarbonPictogramType;
+export const WalldorfIbmInnovationStudios: CarbonPictogramType;
 export const Warning_01: CarbonPictogramType;
 export const Warning_02: CarbonPictogramType;
 export const Washer: CarbonPictogramType;
@@ -1215,3 +1224,4 @@ export const Yoga_02: CarbonPictogramType;
 export const Yoga_03: CarbonPictogramType;
 export const Yoga_04: CarbonPictogramType;
 export const ZeroTrust: CarbonPictogramType;
+export const Zurich: CarbonPictogramType;

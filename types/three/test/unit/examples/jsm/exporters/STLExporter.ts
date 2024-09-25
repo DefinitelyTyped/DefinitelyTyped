@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { STLExporter } from "three/examples/jsm/exporters/STLExporter";
+import { STLExporter } from "three/addons/exporters/STLExporter.js";
 
 const exporter = new STLExporter();
 declare const mesh: THREE.Mesh;

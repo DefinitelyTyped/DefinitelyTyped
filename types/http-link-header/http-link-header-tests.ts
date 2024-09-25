@@ -36,6 +36,7 @@ rel[0]["title"] !== "bar";
 isReferenceArray(rel);
 
 isLinkHeader(link.set({ rel: "next", uri: "http://example.com/next" }));
+isLinkHeader(link.setUnique({ rel: "next", uri: "http://example.com/next" }));
 
 const str = link.toString();
 isString(str);

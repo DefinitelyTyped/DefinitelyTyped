@@ -1,7 +1,7 @@
-import { Object3D, SkinnedMesh, Vector3 } from "../../../src/Three.js";
+import { LineBasicMaterial, MeshBasicMaterial, Object3D, SkinnedMesh, SphereGeometry, Vector3 } from "three";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export interface IKS {
+export interface IK {
     effector: number;
     iteration?: number | undefined;
     links: Array<{
@@ -17,14 +17,27 @@ export interface IKS {
 }
 
 export class CCDIKSolver {
-    constructor(mesh: SkinnedMesh, iks: IKS[]);
+    mesh: SkinnedMesh;
+    iks: IK[];
+
+    constructor(mesh: SkinnedMesh, iks?: IK[]);
 
     update(): this;
-    updateOne(iks: IKS): this;
-    createHelper(): CCDIKHelper;
+    updateOne(ik: IK): this;
+    createHelper(sphereSize?: number): CCDIKHelper;
 }
 
 export class CCDIKHelper extends Object3D {
-    constructor(mesh: SkinnedMesh, iks?: IKS[], sphereSize?: number);
+    root: SkinnedMesh;
+    iks: IK[];
+
+    sphereGeometry: SphereGeometry;
+    targetSphereMaterial: MeshBasicMaterial;
+    effectorSphereMaterial: MeshBasicMaterial;
+    linkSphereMaterial: MeshBasicMaterial;
+    lineMaterial: LineBasicMaterial;
+
+    constructor(mesh: SkinnedMesh, iks?: IK[], sphereSize?: number);
+
     dispose(): void;
 }

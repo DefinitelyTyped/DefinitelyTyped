@@ -14,11 +14,13 @@ declare namespace slug {
             rfc3986: Mode;
         };
         multicharmap: CharMap;
+        fallback: boolean;
     };
     const multicharmap: CharMap;
 
     function extend(entry: CharMap): void;
     function reset(): void;
+    function setLocale(locale: string): void;
 
     interface Mode {
         charmap?: CharMap | null | undefined;
@@ -28,6 +30,7 @@ declare namespace slug {
         replacement?: string | null | undefined;
         symbols?: boolean | null | undefined;
         trim?: boolean | null | undefined;
+        fallback?: boolean | null | undefined;
     }
 
     type Options = {

@@ -1,5 +1,11 @@
 import factory from "@rdfjs/data-model";
 import Factory from "@rdfjs/data-model/Factory.js";
+import BlankNode from "@rdfjs/data-model/lib/BlankNode.js";
+import DefaultGraph from "@rdfjs/data-model/lib/DefaultGraph.js";
+import Literal from "@rdfjs/data-model/lib/Literal.js";
+import NamedNode from "@rdfjs/data-model/lib/NamedNode.js";
+import Quad from "@rdfjs/data-model/lib/Quad.js";
+import Variable from "@rdfjs/data-model/lib/Variable.js";
 import Environment from "@rdfjs/environment/Environment.js";
 import * as RDF from "@rdfjs/types";
 
@@ -13,6 +19,20 @@ const exports: [
     "quad",
     "variable",
 ] = Factory.exports;
+
+const blankNodeConstructed: RDF.BlankNode = new BlankNode("34");
+const defaultGraphConstructed: RDF.DefaultGraph = new DefaultGraph();
+let literalConstructed: RDF.Literal = new Literal("Apple");
+literalConstructed = new Literal("Apfel", "de");
+literalConstructed = new Literal("Apfel", undefined, factory.namedNode("http://example.org/fruit"));
+const namedNodeConstructed: RDF.NamedNode = new NamedNode("http://example.org/subject");
+const quadConstructed: RDF.BaseQuad = new Quad(
+    blankNodeConstructed,
+    namedNodeConstructed,
+    literalConstructed,
+    defaultGraphConstructed,
+);
+const variableConstructed: RDF.Variable = new Variable("?o");
 
 const fromCtor = new Factory(); // $ExpectType DataFactory
 const asFactory: RDF.DataFactory = fromCtor;

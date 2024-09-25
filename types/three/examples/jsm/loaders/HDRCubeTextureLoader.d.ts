@@ -1,4 +1,4 @@
-import { CubeTexture, Loader, LoadingManager, TextureDataType } from "../../../src/Three.js";
+import { CubeTexture, Loader, LoadingManager, TextureDataType } from "three";
 
 import { RGBELoader } from "./RGBELoader.js";
 

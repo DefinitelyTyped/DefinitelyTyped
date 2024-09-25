@@ -1,4 +1,4 @@
-import { Clock, WebGLRenderer, WebGLRenderTarget } from "../../../src/Three.js";
+import { Clock, WebGLRenderer, WebGLRenderTarget } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 import { ShaderPass } from "./ShaderPass.js";

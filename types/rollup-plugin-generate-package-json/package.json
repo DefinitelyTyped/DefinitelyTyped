@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/vladshcherbin/rollup-plugin-generate-package-json"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "dependencies": {
         "rollup": ">=1.0.0"
     },

@@ -30,7 +30,7 @@ export interface EscapeFunctions {
      * @param stringifyObjects If true, don't convert objects into SQL lists
      * @param timeZone Convert dates from UTC to the given timezone.
      */
-    format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
+    format(sql: string, values?: any[], stringifyObjects?: boolean, timeZone?: string): string;
 }
 
 /**
@@ -58,7 +58,7 @@ export function escapeId(value: string, forbidQualified?: boolean): string;
  * @param stringifyObjects If true, don't convert objects into SQL lists
  * @param timeZone Convert dates from UTC to the given timezone.
  */
-export function format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
+export function format(sql: string, values?: any[], stringifyObjects?: boolean, timeZone?: string): string;
 
 export function createConnection(connectionUri: string | ConnectionConfig): Connection;
 

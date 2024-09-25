@@ -26,6 +26,6 @@ declare module "ember-data/types/registries/model" {
 }
 
 // -- actual tests
-Store; // $ExpectType<DS.Store>
-normalizeModelName("post"); // $ExpectType<string>
-normalizeModelName("post-comment"); // $ExpectType<string>
+Store; // $ExpectType typeof Store
+normalizeModelName("post"); // $ExpectType string
+normalizeModelName("post-comment"); // $ExpectType string

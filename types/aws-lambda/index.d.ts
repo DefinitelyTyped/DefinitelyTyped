@@ -12,6 +12,7 @@ export * from "./trigger/cdk-custom-resource";
 export * from "./trigger/cloudformation-custom-resource";
 export * from "./trigger/cloudfront-request";
 export * from "./trigger/cloudfront-response";
+export * from "./trigger/cloudwatch-alarm";
 export * from "./trigger/cloudwatch-events";
 export * from "./trigger/cloudwatch-logs";
 export * from "./trigger/codebuild-cloudwatch-state";
@@ -47,5 +48,6 @@ export * from "./trigger/self-managed-kafka";
 export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
+export * from "./trigger/transfer-family-authorizer";
 
 export as namespace AWSLambda;

@@ -1,4 +1,4 @@
-import { Matrix3, TypedArray } from "../../../src/Three.js";
+import { Matrix3, TypedArray } from "three";
 
 import { VolumeSlice } from "./VolumeSlice.js";
 

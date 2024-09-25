@@ -1,8 +1,8 @@
 /**
  * Clusters of Node.js processes can be used to run multiple instances of Node.js
- * that can distribute workloads among their application threads. When process
- * isolation is not needed, use the `worker_threads` module instead, which
- * allows running multiple application threads within a single Node.js instance.
+ * that can distribute workloads among their application threads. When process isolation
+ * is not needed, use the [`worker_threads`](https://nodejs.org/docs/latest-v22.x/api/worker_threads.html)
+ * module instead, which allows running multiple application threads within a single Node.js instance.
  *
  * The cluster module allows easy creation of child processes that all share
  * server ports.
@@ -50,7 +50,7 @@
  * ```
  *
  * On Windows, it is not yet possible to set up a named pipe server in a worker.
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/cluster.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/cluster.js)
  */
 declare module "cluster" {
     import * as child from "node:child_process";
@@ -58,22 +58,74 @@ declare module "cluster" {
     import * as net from "node:net";
     type SerializationType = "json" | "advanced";
     export interface ClusterSettings {
-        execArgv?: string[] | undefined; // default: process.execArgv
+        /**
+         * List of string arguments passed to the Node.js executable.
+         * @default process.execArgv
+         */
+        execArgv?: string[] | undefined;
+        /**
+         * File path to worker file.
+         * @default process.argv[1]
+         */
         exec?: string | undefined;
+        /**
+         * String arguments passed to worker.
+         * @default process.argv.slice(2)
+         */
         args?: string[] | undefined;
+        /**
+         * Whether or not to send output to parent's stdio.
+         * @default false
+         */
         silent?: boolean | undefined;
+        /**
+         * Configures the stdio of forked processes. Because the cluster module relies on IPC to function, this configuration must
+         * contain an `'ipc'` entry. When this option is provided, it overrides `silent`. See [`child_prcess.spawn()`](https://nodejs.org/docs/latest-v22.x/api/child_process.html#child_processspawncommand-args-options)'s
+         * [`stdio`](https://nodejs.org/docs/latest-v22.x/api/child_process.html#optionsstdio).
+         */
         stdio?: any[] | undefined;
+        /**
+         * Sets the user identity of the process. (See [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html).)
+         */
         uid?: number | undefined;
+        /**
+         * Sets the group identity of the process. (See [`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html).)
+         */
         gid?: number | undefined;
+        /**
+         * Sets inspector port of worker. This can be a number, or a function that takes no arguments and returns a number.
+         * By default each worker gets its own port, incremented from the primary's `process.debugPort`.
+         */
         inspectPort?: number | (() => number) | undefined;
+        /**
+         * Specify the kind of serialization used for sending messages between processes. Possible values are `'json'` and `'advanced'`.
+         * See [Advanced serialization for `child_process`](https://nodejs.org/docs/latest-v22.x/api/child_process.html#advanced-serialization) for more details.
+         * @default false
+         */
         serialization?: SerializationType | undefined;
+        /**
+         * Current working directory of the worker process.
+         * @default undefined (inherits from parent process)
+         */
         cwd?: string | undefined;
+        /**
+         * Hide the forked processes console window that would normally be created on Windows systems.
+         * @default false
+         */
         windowsHide?: boolean | undefined;
     }
     export interface Address {
         address: string;
         port: number;
-        addressType: number | "udp4" | "udp6"; // 4, 6, -1, "udp4", "udp6"
+        /**
+         * The `addressType` is one of:
+         *
+         * * `4` (TCPv4)
+         * * `6` (TCPv6)
+         * * `-1` (Unix domain socket)
+         * * `'udp4'` or `'udp6'` (UDPv4 or UDPv6)
+         */
+        addressType: 4 | 6 | -1 | "udp4" | "udp6";
     }
     /**
      * A `Worker` object contains all public information and method about a worker.
@@ -83,17 +135,17 @@ declare module "cluster" {
      */
     export class Worker extends EventEmitter {
         /**
-         * Each new worker is given its own unique id, this id is stored in the`id`.
+         * Each new worker is given its own unique id, this id is stored in the `id`.
          *
-         * While a worker is alive, this is the key that indexes it in`cluster.workers`.
+         * While a worker is alive, this is the key that indexes it in `cluster.workers`.
          * @since v0.8.0
          */
         id: number;
         /**
-         * All workers are created using `child_process.fork()`, the returned object
-         * from this function is stored as `.process`. In a worker, the global `process`is stored.
+         * All workers are created using [`child_process.fork()`](https://nodejs.org/docs/latest-v22.x/api/child_process.html#child_processforkmodulepath-args-options), the returned object
+         * from this function is stored as `.process`. In a worker, the global `process` is stored.
          *
-         * See: `Child Process module`.
+         * See: [Child Process module](https://nodejs.org/docs/latest-v22.x/api/child_process.html#child_processforkmodulepath-args-options).
          *
          * Workers will call `process.exit(0)` if the `'disconnect'` event occurs
          * on `process` and `.exitedAfterDisconnect` is not `true`. This protects against
@@ -104,9 +156,9 @@ declare module "cluster" {
         /**
          * Send a message to a worker or primary, optionally with a handle.
          *
-         * In the primary, this sends a message to a specific worker. It is identical to `ChildProcess.send()`.
+         * In the primary, this sends a message to a specific worker. It is identical to [`ChildProcess.send()`](https://nodejs.org/docs/latest-v22.x/api/child_process.html#subprocesssendmessage-sendhandle-options-callback).
          *
-         * In a worker, this sends a message to the primary. It is identical to`process.send()`.
+         * In a worker, this sends a message to the primary. It is identical to `process.send()`.
          *
          * This example will echo back all messages from the primary:
          *
@@ -122,7 +174,7 @@ declare module "cluster" {
          * }
          * ```
          * @since v0.7.0
-         * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles. `options` supports the following properties:
+         * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles.
          */
         send(message: child.Serializable, callback?: (error: Error | null) => void): boolean;
         send(
@@ -138,7 +190,7 @@ declare module "cluster" {
         ): boolean;
         /**
          * This function will kill the worker. In the primary worker, it does this by
-         * disconnecting the `worker.process`, and once disconnected, killing with`signal`. In the worker, it does it by killing the process with `signal`.
+         * disconnecting the `worker.process`, and once disconnected, killing with `signal`. In the worker, it does it by killing the process with `signal`.
          *
          * The `kill()` function kills the worker process without waiting for a graceful
          * disconnect, it has the same behavior as `worker.process.kill()`.
@@ -146,7 +198,7 @@ declare module "cluster" {
          * This method is aliased as `worker.destroy()` for backwards compatibility.
          *
          * In a worker, `process.kill()` exists, but it is not this function;
-         * it is `kill()`.
+         * it is [`kill()`](https://nodejs.org/docs/latest-v22.x/api/process.html#processkillpid-signal).
          * @since v0.9.12
          * @param [signal='SIGTERM'] Name of the kill signal to send to the worker process.
          */
@@ -156,7 +208,7 @@ declare module "cluster" {
          * In a worker, this function will close all servers, wait for the `'close'` event
          * on those servers, and then disconnect the IPC channel.
          *
-         * In the primary, an internal message is sent to the worker causing it to call`.disconnect()` on itself.
+         * In the primary, an internal message is sent to the worker causing it to call `.disconnect()` on itself.
          *
          * Causes `.exitedAfterDisconnect` to be set.
          *
@@ -336,20 +388,114 @@ declare module "cluster" {
     }
     export interface Cluster extends EventEmitter {
         disconnect(callback?: () => void): void;
+        /**
+         * Spawn a new worker process.
+         *
+         * This can only be called from the primary process.
+         * @param env Key/value pairs to add to worker process environment.
+         * @since v0.6.0
+         */
         fork(env?: any): Worker;
         /** @deprecated since v16.0.0 - use isPrimary. */
         readonly isMaster: boolean;
+        /**
+         * True if the process is a primary. This is determined by the `process.env.NODE_UNIQUE_ID`. If `process.env.NODE_UNIQUE_ID`
+         * is undefined, then `isPrimary` is `true`.
+         * @since v16.0.0
+         */
         readonly isPrimary: boolean;
+        /**
+         * True if the process is not a primary (it is the negation of `cluster.isPrimary`).
+         * @since v0.6.0
+         */
         readonly isWorker: boolean;
+        /**
+         * The scheduling policy, either `cluster.SCHED_RR` for round-robin or `cluster.SCHED_NONE` to leave it to the operating system. This is a
+         * global setting and effectively frozen once either the first worker is spawned, or [`.setupPrimary()`](https://nodejs.org/docs/latest-v22.x/api/cluster.html#clustersetupprimarysettings)
+         * is called, whichever comes first.
+         *
+         * `SCHED_RR` is the default on all operating systems except Windows. Windows will change to `SCHED_RR` once libuv is able to effectively distribute
+         * IOCP handles without incurring a large performance hit.
+         *
+         * `cluster.schedulingPolicy` can also be set through the `NODE_CLUSTER_SCHED_POLICY` environment variable. Valid values are `'rr'` and `'none'`.
+         * @since v0.11.2
+         */
         schedulingPolicy: number;
+        /**
+         * After calling [`.setupPrimary()`](https://nodejs.org/docs/latest-v22.x/api/cluster.html#clustersetupprimarysettings)
+         * (or [`.fork()`](https://nodejs.org/docs/latest-v22.x/api/cluster.html#clusterforkenv)) this settings object will contain
+         * the settings, including the default values.
+         *
+         * This object is not intended to be changed or set manually.
+         * @since v0.7.1
+         */
         readonly settings: ClusterSettings;
-        /** @deprecated since v16.0.0 - use setupPrimary. */
+        /** @deprecated since v16.0.0 - use [`.setupPrimary()`](https://nodejs.org/docs/latest-v22.x/api/cluster.html#clustersetupprimarysettings) instead. */
         setupMaster(settings?: ClusterSettings): void;
         /**
-         * `setupPrimary` is used to change the default 'fork' behavior. Once called, the settings will be present in cluster.settings.
+         * `setupPrimary` is used to change the default 'fork' behavior. Once called, the settings will be present in `cluster.settings`.
+         *
+         * Any settings changes only affect future calls to [`.fork()`](https://nodejs.org/docs/latest-v22.x/api/cluster.html#clusterforkenv)
+         * and have no effect on workers that are already running.
+         *
+         * The only attribute of a worker that cannot be set via `.setupPrimary()` is the `env` passed to
+         * [`.fork()`](https://nodejs.org/docs/latest-v22.x/api/cluster.html#clusterforkenv).
+         *
+         * The defaults above apply to the first call only; the defaults for later calls are the current values at the time of
+         * `cluster.setupPrimary()` is called.
+         *
+         * ```js
+         * import cluster from 'node:cluster';
+         *
+         * cluster.setupPrimary({
+         *   exec: 'worker.js',
+         *   args: ['--use', 'https'],
+         *   silent: true,
+         * });
+         * cluster.fork(); // https worker
+         * cluster.setupPrimary({
+         *   exec: 'worker.js',
+         *   args: ['--use', 'http'],
+         * });
+         * cluster.fork(); // http worker
+         * ```
+         *
+         * This can only be called from the primary process.
+         * @since v16.0.0
          */
         setupPrimary(settings?: ClusterSettings): void;
+        /**
+         * A reference to the current worker object. Not available in the primary process.
+         *
+         * ```js
+         * import cluster from 'node:cluster';
+         *
+         * if (cluster.isPrimary) {
+         *   console.log('I am primary');
+         *   cluster.fork();
+         *   cluster.fork();
+         * } else if (cluster.isWorker) {
+         *   console.log(`I am worker #${cluster.worker.id}`);
+         * }
+         * ```
+         * @since v0.7.0
+         */
         readonly worker?: Worker | undefined;
+        /**
+         * A hash that stores the active worker objects, keyed by `id` field. This makes it easy to loop through all the workers. It is only available in the primary process.
+         *
+         * A worker is removed from `cluster.workers` after the worker has disconnected _and_ exited. The order between these two events cannot be determined in advance. However, it
+         * is guaranteed that the removal from the `cluster.workers` list happens before the last `'disconnect'` or `'exit'` event is emitted.
+         *
+         * ```js
+         * import cluster from 'node:cluster';
+         *
+         * for (const worker of Object.values(cluster.workers)) {
+         *   worker.send('big announcement to all workers');
+         * }
+         * ```
+         * @since v0.7.0
+         */
         readonly workers?: NodeJS.Dict<Worker> | undefined;
         readonly SCHED_NONE: number;
         readonly SCHED_RR: number;

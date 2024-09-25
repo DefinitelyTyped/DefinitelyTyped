@@ -97,6 +97,7 @@ declare namespace mapboxgl {
         | "index-of"
         | "length"
         | "slice"
+        | "config"
         // Decision
         | "!"
         | "!="
@@ -126,6 +127,8 @@ declare namespace mapboxgl {
         | "resolved-locale"
         | "upcase"
         // Color
+        | "hsl"
+        | "hsla"
         | "rgb"
         | "rgba"
         | "to-rgba"
@@ -142,6 +145,7 @@ declare namespace mapboxgl {
         | "atan"
         | "ceil"
         | "cos"
+        | "distance"
         | "e"
         | "floor"
         | "ln"
@@ -151,12 +155,19 @@ declare namespace mapboxgl {
         | "max"
         | "min"
         | "pi"
+        | "random"
         | "round"
         | "sin"
         | "sqrt"
         | "tan"
-        // Zoom, Heatmap
+        // Camera
+        | "distance-from-center"
+        | "pitch"
         | "zoom"
+        | "raster-value"
+        // Lights
+        | "measure-light"
+        // Heatmap
         | "heatmap-density";
 
     type Expression = [ExpressionName, ...any[]];
@@ -361,6 +372,29 @@ declare namespace mapboxgl {
         setLayoutProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getLayoutProperty(layer: string, name: string): any;
+
+        /**
+         * Returns the value of a configuration property in the imported style.
+         *
+         * @param {string} importId The name of the imported style to set the config for (e.g. `basemap`).
+         * @param {string} configName The name of the configuration property from the style.
+         * @returns {*} Returns the value of the configuration property.
+         * @example
+         * map.getConfigProperty('basemap', 'showLabels');
+         */
+        getConfigProperty(importId: string, configName: string): any;
+
+        /**
+         * Sets the value of a configuration property in the currently set style.
+         *
+         * @param {string} importId The name of the imported style to set the config for (e.g. `basemap`).
+         * @param {string} configName The name of the configuration property from the style.
+         * @param {*} value The value of the configuration property. Must be of a type appropriate for the property, as defined by the style configuration schema.
+         * @returns {Map} Returns itself to allow for method chaining.
+         * @example
+         * map.setConfigProperty('basemap', 'showLabels', false);
+         */
+        setConfigProperty(importId: string, configName: string, value: any): this;
 
         setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
@@ -600,6 +634,13 @@ declare namespace mapboxgl {
 
     export interface MapboxOptions {
         /**
+         * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
+         *
+         * @default null
+         */
+        accessToken?: string | undefined;
+
+        /**
          * If true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers.
          * This is false by default as a performance optimization.
          */
@@ -639,6 +680,14 @@ declare namespace mapboxgl {
          * @default false
          */
         collectResourceTiming?: boolean | undefined;
+
+        /**
+         * The initial configuration options for the style fragments. Each key in the object is a
+         * fragment ID (e.g., `basemap`) and each value is a configuration object.
+         *
+         * @default null
+         */
+        config?: Record<string, unknown>;
 
         /**
          * If `true`, symbols from multiple sources can collide with each other during collision
@@ -703,6 +752,14 @@ declare namespace mapboxgl {
         /** If true, enable keyboard shortcuts (see KeyboardHandler). */
         keyboard?: boolean | undefined;
 
+        /**
+         * A string with a BCP 47 language tag, or an array of such strings representing the desired
+         * languages used for the map's labels and UI components.
+         *
+         * @default null
+         */
+        language?: "auto" | string | string[];
+
         /** A patch to apply to the default localization table for UI strings, e.g. control tooltips.
          * The `locale` object maps namespaced UI string IDs to translated strings in the target language;
          * see `src/ui/default_locale.js` for an example with all supported string IDs.
@@ -741,22 +798,37 @@ declare namespace mapboxgl {
         /** Maximum pitch of the map. */
         maxPitch?: number | undefined;
 
+        /**
+         * The maximum number of tiles stored in the tile cache for a given source. If omitted, the
+         * cache will be dynamically sized based on the current viewport.
+         *
+         * @default null
+         */
+        maxTileCacheSize?: number | undefined;
+
         /** Maximum zoom of the map. */
         maxZoom?: number | undefined;
 
         /** Minimum pitch of the map. */
         minPitch?: number | undefined;
 
+        /**
+         * The minimum number of tiles stored in the tile cache for a given source. If omitted, the
+         * cache will be dynamically sized based on the current viewport.
+         *
+         * @default null
+         */
+        minTileCacheSize?: number | undefined;
+
         /** Minimum zoom of the map. */
         minZoom?: number | undefined;
 
         /**
-         * If true, map will prioritize rendering for performance by reordering layers
-         * If false, layers will always be drawn in the specified order
+         * If `true`, mapbox-gl will collect and send performance metrics.
          *
          * @default true
          */
-        optimizeForTerrain?: boolean | undefined;
+        performanceMetricsCollection?: boolean;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
         preserveDrawingBuffer?: boolean | undefined;
@@ -774,7 +846,7 @@ declare namespace mapboxgl {
          *
          * @default 'mercator'
          */
-        projection?: Projection;
+        projection?: Projection | Projection["name"];
 
         /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
@@ -799,6 +871,16 @@ declare namespace mapboxgl {
         renderWorldCopies?: boolean | undefined;
 
         /**
+         * If set to `true`, the map will respect the user's `prefers-reduced-motion` browser
+         * setting and apply a reduced motion mode, minimizing animations and transitions. When set
+         * to `false` , the map will always ignore the `prefers-reduced-motion` settings, regardless
+         * of the user's preference, making all animations essential.
+         *
+         * @default true
+         */
+        respectPrefersReducedMotion?: boolean;
+
+        /**
          * If `true`, the "scroll to zoom" interaction is enabled.
          * An `Object` value is passed as options to {@link ScrollZoomHandler#enable}.
          */
@@ -806,6 +888,13 @@ declare namespace mapboxgl {
 
         /** stylesheet location */
         style?: mapboxgl.Style | string | undefined;
+
+        /**
+         * Allows for the usage of the map in automated tests without an accessToken with custom self-hosted test fixtures.
+         *
+         * @default null
+         */
+        testMode?: boolean | undefined;
 
         /** If  true, the map will automatically resize when the browser window resizes */
         trackResize?: boolean | undefined;
@@ -830,30 +919,6 @@ declare namespace mapboxgl {
          */
         touchPitch?: boolean | InteractiveOptions | undefined;
 
-        /** Initial zoom level */
-        zoom?: number | undefined;
-
-        /**
-         * The maximum number of tiles stored in the tile cache for a given source. If omitted, the
-         * cache will be dynamically sized based on the current viewport.
-         *
-         * @default null
-         */
-        maxTileCacheSize?: number | undefined;
-
-        /**
-         * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
-         *
-         * @default null
-         */
-        accessToken?: string | undefined;
-
-        /**
-         * Allows for the usage of the map in automated tests without an accessToken with custom self-hosted test fixtures.
-         *
-         * @default null
-         */
-        testMode?: boolean | undefined;
         /**
          * Sets the map's worldview. A worldview determines the way that certain disputed boundaries are rendered.
          * By default, GL JS will not set a worldview so that the worldview of Mapbox tiles will be determined by
@@ -862,6 +927,9 @@ declare namespace mapboxgl {
          * @default null
          */
         worldview?: string | undefined;
+
+        /** Initial zoom level */
+        zoom?: number | undefined;
     }
 
     type quat = number[];
@@ -2185,6 +2253,8 @@ declare namespace mapboxgl {
         styledataloading: MapStyleDataEvent;
         sourcedata: MapSourceDataEvent;
         styledata: MapStyleDataEvent;
+        "style.load": MapboxEvent;
+        "style.import.load": MapboxEvent;
 
         boxzoomcancel: MapBoxZoomEvent;
         boxzoomstart: MapBoxZoomEvent;
@@ -2457,6 +2527,7 @@ declare namespace mapboxgl {
         "background-pattern-transition"?: Transition | undefined;
         "background-opacity"?: number | Expression | undefined;
         "background-opacity-transition"?: Transition | undefined;
+        "background-emissive-strength"?: number | Expression | undefined;
     }
 
     export interface FillLayout extends Layout {
@@ -2476,6 +2547,16 @@ declare namespace mapboxgl {
         "fill-translate-anchor"?: "map" | "viewport" | undefined;
         "fill-pattern"?: string | Expression | undefined;
         "fill-pattern-transition"?: Transition | undefined;
+        "fill-emissive-strength"?: number | Expression | undefined;
+        "fill-extrusion-ambient-occlusion-ground-attenuation"?: number | Expression | undefined;
+        "fill-extrusion-ambient-occlusion-ground-radius"?: number | Expression | undefined;
+        "fill-extrusion-ambient-occlusion-wall-radius"?: number | Expression | undefined;
+        "fill-extrusion-flood-light-color"?: string | StyleFunction | Expression | undefined;
+        "fill-extrusion-flood-light-ground-attenuation"?: number | Expression | undefined;
+        "fill-extrusion-flood-light-ground-radius"?: number | Expression | undefined;
+        "fill-extrusion-flood-light-intensity"?: number | Expression | undefined;
+        "fill-extrusion-flood-light-wall-radius"?: number | Expression | undefined;
+        "fill-extrusion-vertical-scale"?: number | Expression | undefined;
     }
 
     export interface FillExtrusionLayout extends Layout {}
@@ -2526,6 +2607,7 @@ declare namespace mapboxgl {
         "line-pattern"?: string | Expression | undefined;
         "line-pattern-transition"?: Transition | undefined;
         "line-gradient"?: Expression | undefined;
+        "line-emissive-strength"?: number | Expression | undefined;
     }
 
     export interface SymbolLayout extends Layout {
@@ -2586,6 +2668,8 @@ declare namespace mapboxgl {
         "icon-translate"?: number[] | Expression | undefined;
         "icon-translate-transition"?: Transition | undefined;
         "icon-translate-anchor"?: "map" | "viewport" | undefined;
+        "icon-emissive-strength"?: number | StyleFunction | Expression | undefined;
+        "icon-image-cross-fade"?: number | StyleFunction | Expression | undefined;
         "text-opacity"?: number | StyleFunction | Expression | undefined;
         "text-opacity-transition"?: Transition | undefined;
         "text-color"?: string | StyleFunction | Expression | undefined;
@@ -2599,6 +2683,7 @@ declare namespace mapboxgl {
         "text-translate"?: number[] | Expression | undefined;
         "text-translate-transition"?: Transition | undefined;
         "text-translate-anchor"?: "map" | "viewport" | undefined;
+        "text-emissive-strength"?: number | StyleFunction | Expression | undefined;
     }
 
     export interface RasterLayout extends Layout {}
@@ -2618,6 +2703,9 @@ declare namespace mapboxgl {
         "raster-contrast-transition"?: Transition | undefined;
         "raster-fade-duration"?: number | Expression | undefined;
         "raster-resampling"?: "linear" | "nearest" | undefined;
+        "raster-color"?: string | Expression | undefined;
+        "raster-color-mix"?: [number, number, number, number] | Expression | undefined;
+        "raster-color-range"?: [number, number] | Expression | undefined;
     }
 
     export interface CircleLayout extends Layout {
@@ -2644,6 +2732,7 @@ declare namespace mapboxgl {
         "circle-stroke-color-transition"?: Transition | undefined;
         "circle-stroke-opacity"?: number | StyleFunction | Expression | undefined;
         "circle-stroke-opacity-transition"?: Transition | undefined;
+        "circle-emissive-strength"?: number | StyleFunction | Expression | undefined;
     }
 
     export interface HeatmapLayout extends Layout {}

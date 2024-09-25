@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdAccountTargetingUnified
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -408,6 +408,7 @@ export default class AdAccountTargetingUnified extends AbstractCrudObject {
         location_categories: "location_categories";
         location_cluster_ids: "location_cluster_ids";
         location_expansion: "location_expansion";
+        marketing_message_channels: "marketing_message_channels";
         marketing_message_targeting: "marketing_message_targeting";
         marketplace_product_categories: "marketplace_product_categories";
         messenger_positions: "messenger_positions";

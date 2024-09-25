@@ -1,4 +1,4 @@
-import { Camera, Color, Material, Scene } from "../../../src/Three.js";
+import { Camera, Color, Material, Scene } from "three";
 
 import { Pass } from "./Pass.js";
 

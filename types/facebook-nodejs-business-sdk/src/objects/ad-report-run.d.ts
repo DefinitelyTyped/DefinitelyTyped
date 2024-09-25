@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
-import FacebookAdsApi from './../api';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
+import FacebookAdsApi from "./../api";
 /**
  * AdReportRun
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -21,9 +21,7 @@ export default class AdReportRun extends AbstractCrudObject {
         time_completed: "time_completed";
         time_ref: "time_ref";
     }>;
-    getInsights(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getInsights(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<AdReportRun>;
-    constructor(id?: number | string | null, data?: Record<any, any>, parentId?: string | null, api?: FacebookAdsApi | null);
+    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdReportRun>;
+    constructor(id: number | (string | null | undefined), data: Record<string, any>, parentId: string | null | undefined, api: FacebookAdsApi | null | undefined);
 }

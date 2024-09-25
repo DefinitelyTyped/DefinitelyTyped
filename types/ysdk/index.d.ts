@@ -21,6 +21,10 @@ export interface SDK {
         LoadingAPI: {
             ready(): void;
         };
+        GameplayAPI: {
+            start(): void;
+            stop(): void;
+        };
     }>;
 
     clipboard: {
@@ -68,7 +72,7 @@ export interface SDK {
         showRewardedVideo(opts?: {
             callbacks?: {
                 onOpen?: () => void;
-                onClose?: (wasShown: boolean) => void;
+                onClose?: () => void;
                 onError?: (error: string) => void;
                 onRewarded?: () => void;
             };
@@ -105,6 +109,8 @@ export interface SDK {
     getFlags(params?: GetFlagsParams): Promise<Record<string, string>>;
 
     isAvailableMethod(methodName: string): Promise<boolean>;
+
+    serverTime(): number;
 }
 
 interface ClientFeature {
@@ -147,11 +153,12 @@ export interface Player {
     getUniqueID(): string;
     getName(): string;
     getPhoto(size: "small" | "medium" | "large"): string;
+    getPayingStatus(): "paying" | "partially_paying" | "not_paying" | "unknown";
     getIDsPerGame(): Promise<Array<{ appID: number; userID: string }>>;
     getMode(): "lite" | "";
-    getData<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, Serializable>>>;
+    getData<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, Serializable>>>;
     setData(data: any, flush?: boolean): Promise<void>;
-    getStats<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, number>>>;
+    getStats<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, number>>>;
     setStats(stats: Record<string | number, number>): Promise<void>;
     incrementStats<T extends Record<string | number, number>>(
         stats: T,

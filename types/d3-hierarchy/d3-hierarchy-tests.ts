@@ -105,6 +105,11 @@ parentNode = hierarchyNodeArray[0].parent;
 
 idString = hierarchyRootNode.id;
 
+// x, y ------------------------------------------------------------------
+
+numOrUndefined = hierarchyRootNode.x;
+numOrUndefined = hierarchyRootNode.y;
+
 // ancestors(), descendants() --------------------------------------------
 
 const ancestors: Array<d3Hierarchy.HierarchyNode<HierarchyDatum>> = hierarchyRootNode.ancestors();

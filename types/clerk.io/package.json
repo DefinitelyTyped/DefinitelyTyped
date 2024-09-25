@@ -1,0 +1,23 @@
+{
+    "devDependencies": {
+        "@types/clerk.io": "workspace:."
+    },
+    "name": "@types/clerk.io",
+    "nonNpm": true,
+    "nonNpmDescription": "Clerk.io API",
+    "owners": [
+        {
+            "githubUsername": "madsenmm",
+            "name": "Tobias Mønster Madsen"
+        },
+        {
+            "githubUsername": "andershagbard",
+            "name": "Anders Hagbard Søgaard"
+        }
+    ],
+    "private": true,
+    "projects": [
+        "https://docs.clerk.io/docs"
+    ],
+    "version": "1.0.9999"
+}

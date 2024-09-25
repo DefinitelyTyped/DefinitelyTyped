@@ -1,7 +1,7 @@
 /**
  * The `node:assert` module provides a set of assertion functions for verifying
  * invariants.
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/assert.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/assert.js)
  */
 declare module "assert" {
     /**
@@ -12,7 +12,7 @@ declare module "assert" {
     function assert(value: unknown, message?: string | Error): asserts value;
     namespace assert {
         /**
-         * Indicates the failure of an assertion. All errors thrown by the `node:assert`module will be instances of the `AssertionError` class.
+         * Indicates the failure of an assertion. All errors thrown by the `node:assert` module will be instances of the `AssertionError` class.
          */
         class AssertionError extends Error {
             /**
@@ -76,7 +76,7 @@ declare module "assert" {
              * @since v14.2.0, v12.19.0
              * @param [fn='A no-op function']
              * @param [exact=1]
-             * @return that wraps `fn`.
+             * @return A function that wraps `fn`.
              */
             calls(exact?: number): () => void;
             calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func;
@@ -96,8 +96,7 @@ declare module "assert" {
              *                        [{ thisArg: undefined, arguments: [1, 2, 3] }]);
              * ```
              * @since v18.8.0, v16.18.0
-             * @param fn
-             * @return An Array with all the calls to a tracked function.
+             * @return An array with all the calls to a tracked function.
              */
             getCalls(fn: Function): CallTrackerCall[];
             /**
@@ -130,12 +129,11 @@ declare module "assert" {
              * // ]
              * ```
              * @since v14.2.0, v12.19.0
-             * @return An Array of objects containing information about the wrapper functions returned by `calls`.
+             * @return An array of objects containing information about the wrapper functions returned by {@link tracker.calls()}.
              */
             report(): CallTrackerReportInformation[];
             /**
-             * Reset calls of the call tracker.
-             * If a tracked function is passed as an argument, the calls will be reset for it.
+             * Reset calls of the call tracker. If a tracked function is passed as an argument, the calls will be reset for it.
              * If no arguments are passed, all tracked functions will be reset.
              *
              * ```js
@@ -158,7 +156,7 @@ declare module "assert" {
              */
             reset(fn?: Function): void;
             /**
-             * Iterates through the list of functions passed to `tracker.calls()` and will throw an error for functions that
+             * Iterates through the list of functions passed to {@link tracker.calls()} and will throw an error for functions that
              * have not been called the expected number of times.
              *
              * ```js
@@ -232,10 +230,10 @@ declare module "assert" {
             stackStartFn?: Function,
         ): never;
         /**
-         * Tests if `value` is truthy. It is equivalent to`assert.equal(!!value, true, message)`.
+         * Tests if `value` is truthy. It is equivalent to `assert.equal(!!value, true, message)`.
          *
-         * If `value` is not truthy, an `AssertionError` is thrown with a `message`property set equal to the value of the `message` parameter. If the `message`parameter is `undefined`, a default
-         * error message is assigned. If the `message`parameter is an instance of an `Error` then it will be thrown instead of the`AssertionError`.
+         * If `value` is not truthy, an `AssertionError` is thrown with a `message` property set equal to the value of the `message` parameter. If the `message` parameter is `undefined`, a default
+         * error message is assigned. If the `message` parameter is an instance of an `Error` then it will be thrown instead of the `AssertionError`.
          * If no arguments are passed in at all `message` will be set to the string:`` 'No value argument passed to `assert.ok()`' ``.
          *
          * Be aware that in the `repl` the error message will be different to the one
@@ -317,8 +315,8 @@ declare module "assert" {
          * // AssertionError: { a: { b: 1 } } == { a: { b: 1 } }
          * ```
          *
-         * If the values are not equal, an `AssertionError` is thrown with a `message`property set equal to the value of the `message` parameter. If the `message`parameter is undefined, a default
-         * error message is assigned. If the `message`parameter is an instance of an `Error` then it will be thrown instead of the`AssertionError`.
+         * If the values are not equal, an `AssertionError` is thrown with a `message` property set equal to the value of the `message` parameter. If the `message` parameter is undefined, a default
+         * error message is assigned. If the `message` parameter is an instance of an `Error` then it will be thrown instead of the `AssertionError`.
          * @since v0.1.21
          */
         function equal(actual: unknown, expected: unknown, message?: string | Error): void;
@@ -347,8 +345,8 @@ declare module "assert" {
          * // AssertionError: 1 != '1'
          * ```
          *
-         * If the values are equal, an `AssertionError` is thrown with a `message`property set equal to the value of the `message` parameter. If the `message`parameter is undefined, a default error
-         * message is assigned. If the `message`parameter is an instance of an `Error` then it will be thrown instead of the`AssertionError`.
+         * If the values are equal, an `AssertionError` is thrown with a `message` property set equal to the value of the `message` parameter. If the `message` parameter is undefined, a default error
+         * message is assigned. If the `message` parameter is an instance of an `Error` then it will be thrown instead of the `AssertionError`.
          * @since v0.1.21
          */
         function notEqual(actual: unknown, expected: unknown, message?: string | Error): void;
@@ -414,8 +412,8 @@ declare module "assert" {
          * // OK
          * ```
          *
-         * If the values are deeply equal, an `AssertionError` is thrown with a`message` property set equal to the value of the `message` parameter. If the`message` parameter is undefined, a default
-         * error message is assigned. If the`message` parameter is an instance of an `Error` then it will be thrown
+         * If the values are deeply equal, an `AssertionError` is thrown with a `message` property set equal to the value of the `message` parameter. If the `message` parameter is undefined, a default
+         * error message is assigned. If the `message` parameter is an instance of an `Error` then it will be thrown
          * instead of the `AssertionError`.
          * @since v0.1.21
          */
@@ -452,8 +450,8 @@ declare module "assert" {
          * // TypeError: Inputs are not identical
          * ```
          *
-         * If the values are not strictly equal, an `AssertionError` is thrown with a`message` property set equal to the value of the `message` parameter. If the`message` parameter is undefined, a
-         * default error message is assigned. If the`message` parameter is an instance of an `Error` then it will be thrown
+         * If the values are not strictly equal, an `AssertionError` is thrown with a `message` property set equal to the value of the `message` parameter. If the `message` parameter is undefined, a
+         * default error message is assigned. If the `message` parameter is an instance of an `Error` then it will be thrown
          * instead of the `AssertionError`.
          * @since v0.1.21
          */
@@ -477,8 +475,8 @@ declare module "assert" {
          * // OK
          * ```
          *
-         * If the values are strictly equal, an `AssertionError` is thrown with a`message` property set equal to the value of the `message` parameter. If the`message` parameter is undefined, a
-         * default error message is assigned. If the`message` parameter is an instance of an `Error` then it will be thrown
+         * If the values are strictly equal, an `AssertionError` is thrown with a `message` property set equal to the value of the `message` parameter. If the `message` parameter is undefined, a
+         * default error message is assigned. If the `message` parameter is an instance of an `Error` then it will be thrown
          * instead of the `AssertionError`.
          * @since v0.1.21
          */
@@ -519,7 +517,7 @@ declare module "assert" {
          * using an object, it is also possible to use a regular expression, when
          * validating against a string property. See below for examples.
          *
-         * If specified, `message` will be appended to the message provided by the`AssertionError` if the `fn` call fails to throw or in case the error validation
+         * If specified, `message` will be appended to the message provided by the `AssertionError` if the `fn` call fails to throw or in case the error validation
          * fails.
          *
          * Custom validation object/error instance:
@@ -649,8 +647,8 @@ declare module "assert" {
          * ```
          *
          * `error` cannot be a string. If a string is provided as the second
-         * argument, then `error` is assumed to be omitted and the string will be used for`message` instead. This can lead to easy-to-miss mistakes. Using the same
-         * message as the thrown error message is going to result in an`ERR_AMBIGUOUS_ARGUMENT` error. Please read the example below carefully if using
+         * argument, then `error` is assumed to be omitted and the string will be used for `message` instead. This can lead to easy-to-miss mistakes. Using the same
+         * message as the thrown error message is going to result in an `ERR_AMBIGUOUS_ARGUMENT` error. Please read the example below carefully if using
          * a string as the second argument gets considered:
          *
          * ```js
@@ -703,9 +701,9 @@ declare module "assert" {
          * adding a comment next to the specific code path that should not throw and keep
          * error messages as expressive as possible.
          *
-         * When `assert.doesNotThrow()` is called, it will immediately call the `fn`function.
+         * When `assert.doesNotThrow()` is called, it will immediately call the `fn` function.
          *
-         * If an error is thrown and it is the same type as that specified by the `error`parameter, then an `AssertionError` is thrown. If the error is of a
+         * If an error is thrown and it is the same type as that specified by the `error` parameter, then an `AssertionError` is thrown. If the error is of a
          * different type, or if the `error` parameter is undefined, the error is
          * propagated back to the caller.
          *
@@ -741,7 +739,7 @@ declare module "assert" {
          * );
          * ```
          *
-         * If an `AssertionError` is thrown and a value is provided for the `message`parameter, the value of `message` will be appended to the `AssertionError` message:
+         * If an `AssertionError` is thrown and a value is provided for the `message` parameter, the value of `message` will be appended to the `AssertionError` message:
          *
          * ```js
          * import assert from 'node:assert/strict';
@@ -762,7 +760,7 @@ declare module "assert" {
         /**
          * Throws `value` if `value` is not `undefined` or `null`. This is useful when
          * testing the `error` argument in callbacks. The stack trace contains all frames
-         * from the error passed to `ifError()` including the potential new frames for`ifError()` itself.
+         * from the error passed to `ifError()` including the potential new frames for `ifError()` itself.
          *
          * ```js
          * import assert from 'node:assert/strict';
@@ -797,18 +795,18 @@ declare module "assert" {
          * calls the function and awaits the returned promise to complete. It will then
          * check that the promise is rejected.
          *
-         * If `asyncFn` is a function and it throws an error synchronously,`assert.rejects()` will return a rejected `Promise` with that error. If the
-         * function does not return a promise, `assert.rejects()` will return a rejected`Promise` with an `ERR_INVALID_RETURN_VALUE` error. In both cases the error
-         * handler is skipped.
+         * If `asyncFn` is a function and it throws an error synchronously, `assert.rejects()` will return a rejected `Promise` with that error. If the
+         * function does not return a promise, `assert.rejects()` will return a rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v22.x/api/errors.html#err_invalid_return_value)
+         * error. In both cases the error handler is skipped.
          *
          * Besides the async nature to await the completion behaves identically to {@link throws}.
          *
          * If specified, `error` can be a [`Class`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes),
          * [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions), a validation function,
          * an object where each property will be tested for, or an instance of error where
-         * each property will be tested for including the non-enumerable `message` and`name` properties.
+         * each property will be tested for including the non-enumerable `message` and `name` properties.
          *
-         * If specified, `message` will be the message provided by the `AssertionError` if the `asyncFn` fails to reject.
+         * If specified, `message` will be the message provided by the `{@link AssertionError}` if the `asyncFn` fails to reject.
          *
          * ```js
          * import assert from 'node:assert/strict';
@@ -850,10 +848,9 @@ declare module "assert" {
          * });
          * ```
          *
-         * `error` cannot be a string. If a string is provided as the second
-         * argument, then `error` is assumed to be omitted and the string will be used for`message` instead. This can lead to easy-to-miss mistakes. Please read the
-         * example in {@link throws} carefully if using a string as the second
-         * argument gets considered.
+         * `error` cannot be a string. If a string is provided as the second argument, then `error` is assumed to
+         * be omitted and the string will be used for `message` instead. This can lead to easy-to-miss mistakes. Please read the
+         * example in {@link throws} carefully if using a string as the second argument gets considered.
          * @since v10.0.0
          */
         function rejects(block: (() => Promise<unknown>) | Promise<unknown>, message?: string | Error): Promise<void>;
@@ -867,9 +864,9 @@ declare module "assert" {
          * calls the function and awaits the returned promise to complete. It will then
          * check that the promise is not rejected.
          *
-         * If `asyncFn` is a function and it throws an error synchronously,`assert.doesNotReject()` will return a rejected `Promise` with that error. If
+         * If `asyncFn` is a function and it throws an error synchronously, `assert.doesNotReject()` will return a rejected `Promise` with that error. If
          * the function does not return a promise, `assert.doesNotReject()` will return a
-         * rejected `Promise` with an `ERR_INVALID_RETURN_VALUE` error. In both cases
+         * rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v22.x/api/errors.html#err_invalid_return_value) error. In both cases
          * the error handler is skipped.
          *
          * Using `assert.doesNotReject()` is actually not useful because there is little
@@ -929,10 +926,10 @@ declare module "assert" {
          * // OK
          * ```
          *
-         * If the values do not match, or if the `string` argument is of another type than`string`, an `AssertionError` is thrown with a `message` property set equal
+         * If the values do not match, or if the `string` argument is of another type than `string`, an `{@link AssertionError}` is thrown with a `message` property set equal
          * to the value of the `message` parameter. If the `message` parameter is
          * undefined, a default error message is assigned. If the `message` parameter is an
-         * instance of an `Error` then it will be thrown instead of the `AssertionError`.
+         * instance of an [Error](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
          * @since v13.6.0, v12.16.0
          */
         function match(value: string, regExp: RegExp, message?: string | Error): void;
@@ -952,13 +949,60 @@ declare module "assert" {
          * // OK
          * ```
          *
-         * If the values do match, or if the `string` argument is of another type than`string`, an `AssertionError` is thrown with a `message` property set equal
+         * If the values do match, or if the `string` argument is of another type than `string`, an `{@link AssertionError}` is thrown with a `message` property set equal
          * to the value of the `message` parameter. If the `message` parameter is
          * undefined, a default error message is assigned. If the `message` parameter is an
-         * instance of an `Error` then it will be thrown instead of the `AssertionError`.
+         * instance of an [Error](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
          * @since v13.6.0, v12.16.0
          */
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
+        /**
+         * In strict assertion mode, non-strict methods behave like their corresponding strict methods. For example,
+         * {@link deepEqual} will behave like {@link deepStrictEqual}.
+         *
+         * In strict assertion mode, error messages for objects display a diff. In legacy assertion mode, error
+         * messages for objects display the objects, often truncated.
+         *
+         * To use strict assertion mode:
+         *
+         * ```js
+         * import { strict as assert } from 'node:assert';COPY
+         * import assert from 'node:assert/strict';
+         * ```
+         *
+         * Example error diff:
+         *
+         * ```js
+         * import { strict as assert } from 'node:assert';
+         *
+         * assert.deepEqual([[[1, 2, 3]], 4, 5], [[[1, 2, '3']], 4, 5]);
+         * // AssertionError: Expected inputs to be strictly deep-equal:
+         * // + actual - expected ... Lines skipped
+         * //
+         * //   [
+         * //     [
+         * // ...
+         * //       2,
+         * // +     3
+         * // -     '3'
+         * //     ],
+         * // ...
+         * //     5
+         * //   ]
+         * ```
+         *
+         * To deactivate the colors, use the `NO_COLOR` or `NODE_DISABLE_COLORS` environment variables. This will also
+         * deactivate the colors in the REPL. For more on color support in terminal environments, read the tty
+         * `getColorDepth()` documentation.
+         *
+         * @since v15.0.0, v13.9.0, v12.16.2, v9.9.0
+         */
+        namespace strict {
+            type AssertionError = assert.AssertionError;
+            type AssertPredicate = assert.AssertPredicate;
+            type CallTrackerCall = assert.CallTrackerCall;
+            type CallTrackerReportInformation = assert.CallTrackerReportInformation;
+        }
         const strict:
             & Omit<
                 typeof assert,

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-highlight-words",
-    "version": "0.16.9999",
+    "version": "0.20.9999",
     "projects": [
         "https://github.com/bvaughn/react-highlight-words#readme"
     ],

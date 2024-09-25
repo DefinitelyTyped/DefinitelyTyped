@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
+import Cursor from "./../cursor";
 /**
  * Comment
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -31,6 +31,10 @@ export default class Comment extends AbstractCrudObject {
         private_reply_conversation: "private_reply_conversation";
         user_likes: "user_likes";
     }>;
+    static get Order(): Readonly<{
+        chronological: "chronological";
+        reverse_chronological: "reverse_chronological";
+    }>;
     static get CommentPrivacyValue(): Readonly<{
         declined_by_admin_assistant: "DECLINED_BY_ADMIN_ASSISTANT";
         default_privacy: "DEFAULT_PRIVACY";
@@ -52,23 +56,13 @@ export default class Comment extends AbstractCrudObject {
         filter_low_quality: "filter_low_quality";
         no_filter: "no_filter";
     }>;
-    static get Order(): Readonly<{
-        chronological: "chronological";
-        reverse_chronological: "reverse_chronological";
-    }>;
-    getComments(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getComments(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createComment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
-    deleteLikes(params?: Record<any, any>): Promise<any>;
-    getLikes(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getLikes(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createLike(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
-    getReactions(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getReactions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getReactions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<Comment>;
-    update(fields: string[], params?: Record<any, any>): Promise<Comment>;
+    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
+    deleteLikes(params?: Record<string, any>): Promise<any>;
+    getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
+    getReactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<Comment>;
+    update(fields: string[], params?: Record<string, any>): Promise<Comment>;
 }

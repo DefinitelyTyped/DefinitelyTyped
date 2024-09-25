@@ -1,4 +1,4 @@
-import { ShaderMaterial } from "../../../src/Three.js";
+import { ShaderMaterial } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 

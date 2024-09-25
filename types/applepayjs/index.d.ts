@@ -365,11 +365,11 @@ declare namespace ApplePayJS {
          */
         | "immediate"
         /**
-         * A value that specifies that the payment occurs on a regular basis.
+         * A value that specifies that the payment occurs in the future.
          */
         | "deferred"
         /**
-         * A value that specifies that the payment occurs in the future.
+         * A value that specifies that the payment occurs on a regular basis.
          */
         | "recurring"
         /**
@@ -843,6 +843,11 @@ declare namespace ApplePayJS {
          * A property that requests a deferred payment, such as a hotel booking or a pre-order.
          */
         deferredPaymentRequest?: ApplePayDeferredPaymentRequest;
+
+        /**
+         * A value that indicates whether Apple Pay Later is available for a transaction.
+         */
+        applePayLaterAvailability?: ApplePayLaterAvailability;
     }
 
     /**
@@ -959,6 +964,24 @@ declare namespace ApplePayJS {
          */
         tokenNotificationURL?: string | undefined;
     }
+
+    /**
+     * Values you use to enable or disable Apple Pay Later for a specific transaction.
+     */
+    type ApplePayLaterAvailability =
+        /**
+         * Apple Pay Later is available.
+         * This is the default.
+         */
+        | "available"
+        /**
+         * Apple Pay Later is unavailable because one or more ineligible or prohibited items are in the shopping cart, such as gift cards
+         */
+        | "unavailableItemIneligible"
+        /**
+         * Apple Pay Later is unavailable because there’s a recurring payment or subscription in the shopping cart.
+         */
+        | "unavailableRecurringTransaction";
 
     /**
      * A value that indicates whether the shipping mode prevents the user from editing the shipping address.

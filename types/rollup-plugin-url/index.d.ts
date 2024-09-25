@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Plugin } from "rollup";
 
 interface PluginURLOptions {

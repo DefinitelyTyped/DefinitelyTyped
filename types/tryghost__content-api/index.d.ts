@@ -222,10 +222,11 @@ export interface GhostContentAPIOptions {
     url: string;
     /**
      * Version of GhostContentAPI
+     * Should be in 'v{major}.{minor}' format.
      *
-     * Supported Versions: 'v2', 'v3', 'v4', 'v5.0', 'canary'
+     * Deprecated options: 'v2', 'v3', 'v4', 'v5', 'canary'
      */
-    version: "v2" | "v3" | "v4" | "v5.0" | "canary";
+    version: string;
     key: string;
     /** @deprecated since version v2 */
     host?: string | undefined;

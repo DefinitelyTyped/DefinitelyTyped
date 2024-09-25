@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * OfflineConversionDataSetUpload
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -34,11 +34,7 @@ export default class OfflineConversionDataSetUpload extends AbstractCrudObject {
         is_excluded_for_lift: "IS_EXCLUDED_FOR_LIFT";
         last_upload_time: "LAST_UPLOAD_TIME";
     }>;
-    getProgress(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getProgress(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getProgress(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPullSessions(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPullSessions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPullSessions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<OfflineConversionDataSetUpload>;
+    getProgress(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPullSessions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<OfflineConversionDataSetUpload>;
 }

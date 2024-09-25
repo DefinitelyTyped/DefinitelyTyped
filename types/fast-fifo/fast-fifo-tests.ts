@@ -5,6 +5,7 @@ stringQueue.push("hello");
 stringQueue.shift(); // $ExpectType string | undefined
 stringQueue.isEmpty(); // $ExpectType boolean
 stringQueue.hwm; // $ExpectType number
+stringQueue.length; // $ExpectType number
 stringQueue.head; // $ExpectType FixedFIFO<string>
 stringQueue.tail; // $ExpectType FixedFIFO<string>
 stringQueue.head.buffer; // $ExpectType string[]

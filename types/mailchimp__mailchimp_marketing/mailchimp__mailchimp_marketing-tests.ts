@@ -146,11 +146,17 @@ const triggerCustomerJourneyBody: mailchimp.customerJourneys.TriggerCustomerJour
     email_address: "test@email.com",
 };
 
+// $ExpectType Promise<SearchMembersSuccessResponse | ErrorResponse>
+mailchimp.searchMembers.search("test");
+
 // $ExpectType Promise<BatchListMembersResponse | ErrorResponse>
 mailchimp.lists.batchListMembers("test", batchListMembersBody, batchListMembersOpts);
 
 // $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.setListMember("test", "test", setListMemberBody);
+
+// $ExpectType Promise<ListMembersInfoSuccessResponse | ErrorResponse>
+mailchimp.lists.getListMembersInfo("test");
 
 // $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.getListMember("test", "test");

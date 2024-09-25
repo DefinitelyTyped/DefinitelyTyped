@@ -1,4 +1,5 @@
 import * as React from "./";
+export { Fragment } from "./";
 
 export namespace JSX {
     type ElementType = React.JSX.ElementType;
@@ -11,3 +12,25 @@ export namespace JSX {
     interface IntrinsicClassAttributes<T> extends React.JSX.IntrinsicClassAttributes<T> {}
     interface IntrinsicElements extends React.JSX.IntrinsicElements {}
 }
+
+/**
+ * Create a React element.
+ *
+ * You should not use this function directly. Use JSX and a transpiler instead.
+ */
+export function jsx(
+    type: React.ElementType,
+    props: unknown,
+    key?: React.Key,
+): React.ReactElement;
+
+/**
+ * Create a React element.
+ *
+ * You should not use this function directly. Use JSX and a transpiler instead.
+ */
+export function jsxs(
+    type: React.ElementType,
+    props: unknown,
+    key?: React.Key,
+): React.ReactElement;

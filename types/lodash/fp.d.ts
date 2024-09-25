@@ -2066,7 +2066,7 @@ declare namespace _ {
     type LodashLastIndexOfFrom1x5 = (fromIndex: true|number) => number;
     type LodashLastIndexOfFrom1x6<T> = (value: T) => number;
     type LodashLowerCase = (string: string) => string;
-    type LodashLowerFirst = (string: string) => string;
+    type LodashLowerFirst = <T extends string = string>(string: T) => Uncapitalize<T>;
     interface LodashLt {
         (value: any): LodashLt1x1;
         (value: lodash.__, other: any): LodashLt1x2;
@@ -4173,10 +4173,10 @@ declare namespace _ {
     interface LodashThrottle {
         (wait: number): LodashThrottle1x1;
         <T extends (...args: any) => any>(wait: lodash.__, func: T): LodashThrottle1x2<T>;
-        <T extends (...args: any) => any>(wait: number, func: T): lodash.DebouncedFunc<T>;
+        <T extends (...args: any) => any>(wait: number, func: T): lodash.DebouncedFuncLeading<T>;
     }
-    type LodashThrottle1x1 = <T extends (...args: any) => any>(func: T) => lodash.DebouncedFunc<T>;
-    type LodashThrottle1x2<T extends (...args: any) => any> = (wait: number) => lodash.DebouncedFunc<T>;
+    type LodashThrottle1x1 = <T extends (...args: any) => any>(func: T) => lodash.DebouncedFuncLeading<T>;
+    type LodashThrottle1x2<T extends (...args: any) => any> = (wait: number) => lodash.DebouncedFuncLeading<T>;
     interface LodashThru {
         <T, TResult>(interceptor: (value: T) => TResult): LodashThru1x1<T, TResult>;
         <T>(interceptor: lodash.__, value: T): LodashThru1x2<T>;
@@ -4199,13 +4199,13 @@ declare namespace _ {
     type LodashToFinite = (value: any) => number;
     type LodashToInteger = (value: any) => number;
     type LodashToLength = (value: any) => number;
-    type LodashToLower = (string: string) => string;
+    type LodashToLower = <T extends string = string>(string: T) => Lowercase<T>;
     type LodashToNumber = (value: any) => number;
     type LodashToPath = (value: any) => string[];
     type LodashToPlainObject = (value: any) => any;
     type LodashToSafeInteger = (value: any) => number;
     type LodashToString = (value: any) => string;
-    type LodashToUpper = (string: string) => string;
+    type LodashToUpper = <T extends string = string>(string: T) => Uppercase<T>;
     interface LodashTransform {
         <T, TResult>(iteratee: lodash.MemoVoidIteratorCapped<T, TResult>): LodashTransform1x1<T, TResult>;
         <TResult>(iteratee: lodash.__, accumulator: TResult): LodashTransform1x2<TResult>;
@@ -4479,7 +4479,7 @@ declare namespace _ {
     type LodashUpdateWith1x13<T> = (path: lodash.PropertyPath) => T;
     type LodashUpdateWith1x14<T> = (customizer: lodash.SetWithCustomizer<T>) => T;
     type LodashUpperCase = (string: string) => string;
-    type LodashUpperFirst = (string: string) => string;
+    type LodashUpperFirst = <T extends string = string>(string: T) => Capitalize<T>;
     interface LodashValues {
         <T>(object: lodash.Dictionary<T> | lodash.NumericDictionary<T> | lodash.List<T> | null | undefined): T[];
         <T extends object>(object: T | null | undefined): Array<T[keyof T]>;

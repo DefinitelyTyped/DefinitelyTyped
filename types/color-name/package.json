@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/color-name": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Junyoung Clare Jang",
-            "githubUsername": "Ailrun"
-        }
-    ]
+    "owners": []
 }

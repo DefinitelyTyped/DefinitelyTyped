@@ -1,4 +1,4 @@
-import { IUniform, ShaderMaterial, Texture } from "../../../src/Three.js";
+import { IUniform, ShaderMaterial, Texture } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 

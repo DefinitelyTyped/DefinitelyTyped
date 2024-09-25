@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PlaceTopic
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -14,5 +14,5 @@ export default class PlaceTopic extends AbstractCrudObject {
         plural_name: "plural_name";
         top_subtopic_names: "top_subtopic_names";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<PlaceTopic>;
+    get(fields: string[], params?: Record<string, any>): Promise<PlaceTopic>;
 }

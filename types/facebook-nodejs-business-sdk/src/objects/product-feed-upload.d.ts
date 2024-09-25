@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * ProductFeedUpload
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -27,9 +27,7 @@ export default class ProductFeedUpload extends AbstractCrudObject {
         server_fetch: "Server Fetch";
         user_initiated_server_fetch: "User initiated server fetch";
     }>;
-    createErrorReport(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ProductFeedUpload>;
-    getErrors(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getErrors(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getErrors(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<ProductFeedUpload>;
+    createErrorReport(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductFeedUpload>;
+    getErrors(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductFeedUpload>;
 }

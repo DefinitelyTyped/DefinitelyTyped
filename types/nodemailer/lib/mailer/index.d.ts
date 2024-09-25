@@ -33,7 +33,7 @@ declare namespace Mail {
     }
 
     interface AttachmentLike {
-        /** String, Buffer or a Stream contents for the attachmentent */
+        /** String, Buffer or a Stream contents for the attachment */
         content?: string | Buffer | Readable | undefined;
         /** path to a file or an URL (data uris are allowed as well) if you want to stream the file instead of including it (better for larger attachments) */
         path?: string | Url | undefined;
@@ -161,7 +161,7 @@ declare namespace Mail {
 }
 
 /** Creates an object for exposing the Mail API */
-declare class Mail<T = any> extends EventEmitter {
+declare class Mail<T = any, DefaultTransportOptions = TransportOptions> extends EventEmitter {
     options: Mail.Options;
     meta: Map<string, any>;
     dkim: DKIM;
@@ -171,7 +171,9 @@ declare class Mail<T = any> extends EventEmitter {
     /** Usage: typeof transporter.MailMessage */
     MailMessage: MailMessage<T>;
 
-    constructor(transporter: Transport<T>, options?: TransportOptions, defaults?: TransportOptions);
+    _defaults: DefaultTransportOptions;
+
+    constructor(transporter: Transport<T>, options?: TransportOptions, defaults?: DefaultTransportOptions);
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;

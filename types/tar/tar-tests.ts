@@ -136,6 +136,42 @@ tar.t({
     onentry: (entry) => console.log(entry.path, "was", entry.size),
 });
 
+tar.c(
+    {
+        gzip: true,
+        preservePaths: true,
+    },
+    ["some", "files", "and", "folders"],
+).pipe(fs.createWriteStream("my-tarball.tgz"));
+
+tar.x(
+    {
+        file: "my-tarball.tgz",
+        preservePaths: true,
+    },
+).then(() => undefined);
+
+tar.c(
+    {
+        brotli: true,
+        file: "my-tarball.tbr",
+    },
+    ["some", "files", "and", "folders"],
+).then(() => undefined);
+
+tar.c(
+    {
+        brotli: {
+            flush: 1,
+            finishFlush: 2,
+            chunkSize: 32 * 1024,
+            maxOutputLength: 1073741823,
+        },
+        file: "my-tarball.tbr",
+    },
+    ["some", "files", "and", "folders"],
+).then(() => undefined);
+
 fs.createReadStream("my-tarball.tgz")
     .pipe(tar.t())
     .on("entry", entry => console.log(entry.size));

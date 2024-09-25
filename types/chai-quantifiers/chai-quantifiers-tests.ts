@@ -1,9 +1,8 @@
-import chai = require("chai");
 import chaiQuantifiers = require("chai-quantifiers");
 
-chai.use(chaiQuantifiers);
+import("chai").then(({ use }) => use(chaiQuantifiers));
 
-const { expect } = chai;
+declare const expect: Chai.ExpectStatic;
 
 const assertion = expect([0, 1, 2, 3]);
 

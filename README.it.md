@@ -129,7 +129,7 @@ Facciamo uso di un bot per far sì che un gran numero di pull request su Definit
 
 Ecco qui un'immagine che mostra il ciclo vitale di una pull request su Definitely Typed.
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+<img src="https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
 
 #### Clone parziale
 
@@ -171,7 +171,7 @@ Il tuo package dovrebbe avere questa struttura:
 | [`tsconfig.json`](#tsconfigjson)                  | Ti permette di eseguire `tsc` all'interno del package.                                                                                       |
 
 Generali eseguento `npx dts-gen --dt --name <mio-package> --template module` se hai npm ≥ 5.2.0, altrimenti `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module`.
-Leggi tutte le opzioni su [dts-gen](https://github.com/Microsoft/dts-gen).
+Leggi tutte le opzioni su [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Se hai file `.d.ts` oltre all'`index.d.ts`, assicurati che siano referenziati o nell'`index.d.ts` o nei test.
 
@@ -362,7 +362,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 DT ha il concetto di "Proprietari delle definizioni", che sono coloro i quali vogliono mantenere la qualità delle definizioni dei tipi di un certo modulo.
 
 - Aggiungerti da solo farà sì che tu venga notificato (tramite il tuo nome utente GitHub) ogni volta che qualcuno fa una pull request o un issue su quel package.
-- Le tue PR review avranno precedenza maggiore di quelle [dei bot](https://github.com/DefinitelyTyped/dt-mergebot) che mantengono questa repo.
+- Le tue PR review avranno precedenza maggiore di quelle [dei bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) che mantengono questa repo.
 - I mantenitori di DT stanno ponendo la loro fiducia sui proprietari delle definizioni per mantenere un ecosistema stabile, quindi non aggiungerti senza sapere quello che fai.
 
 Per aggiungerti come pprietario delle definizioni:

@@ -925,6 +925,11 @@ type ThreadState =
     | "uninterruptible"
     | "halted";
 
+type HardwareBreakpointId = number;
+type HardwareWatchpointId = number;
+
+type HardwareWatchpointConditions = "r" | "w" | "rw";
+
 interface ThreadDetails {
     /**
      * OS-specific ID.
@@ -945,6 +950,43 @@ interface ThreadDetails {
      * Snapshot of CPU registers.
      */
     context: CpuContext;
+
+    /**
+     * Set a hardware breakpoint.
+     *
+     * @param id ID of the breakpoint.
+     * @param address The address of the breakpoint.
+     */
+    setHardwareBreakpoint(id: HardwareBreakpointId, address: NativePointerValue): void;
+
+    /**
+     * Unset a hardware breakpoint.
+     *
+     * @param id ID of the breakpoint.
+     */
+    unsetHardwareBreakpoint(id: HardwareBreakpointId): void;
+
+    /**
+     * Set a harware watchpoint.
+     *
+     * @param id ID of the watchpoint.
+     * @param address The address of the region to be watched.
+     * @param size The size of the region to be watched.
+     * @param conditions The conditions to be watched for.
+     */
+    setHardwareWatchpoint(
+        id: HardwareWatchpointId,
+        address: NativePointerValue,
+        size: number | UInt64,
+        conditions: HardwareWatchpointConditions,
+    ): void;
+
+    /**
+     * Unset a hardware watchpoint.
+     *
+     * @param id ID of the watchpoint.
+     */
+    unsetHardwareWatchpoint(id: HardwareWatchpointId): void;
 }
 
 interface KernelModuleDetails {
@@ -3519,6 +3561,7 @@ interface StalkerX86Iterator extends X86Writer {
     next(): X86Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+    putChainingReturn(): void;
 }
 
 interface StalkerArmIterator extends ArmWriter {
@@ -3526,6 +3569,7 @@ interface StalkerArmIterator extends ArmWriter {
     next(): ArmInstruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+    putChainingReturn(): void;
 }
 
 interface StalkerThumbIterator extends ThumbWriter {
@@ -3533,6 +3577,7 @@ interface StalkerThumbIterator extends ThumbWriter {
     next(): ArmInstruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+    putChainingReturn(): void;
 }
 
 interface StalkerArm64Iterator extends Arm64Writer {
@@ -3540,6 +3585,7 @@ interface StalkerArm64Iterator extends Arm64Writer {
     next(): Arm64Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+    putChainingReturn(): void;
 }
 
 type StalkerCallout = StalkerScriptCallout | StalkerNativeCallout;

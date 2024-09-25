@@ -9,8 +9,6 @@ import {
 import { Material } from "../../materials/Material.js";
 import { Vector4 } from "../../math/Vector4.js";
 import { WebGLRenderTarget } from "../WebGLRenderTarget.js";
-import { WebGLCapabilities } from "./WebGLCapabilities.js";
-import { WebGLExtensions } from "./WebGLExtensions.js";
 
 export class WebGLColorBuffer {
     constructor();
@@ -45,7 +43,7 @@ export class WebGLStencilBuffer {
 }
 
 export class WebGLState {
-    constructor(gl: WebGLRenderingContext, extensions: WebGLExtensions, capabilities: WebGLCapabilities);
+    constructor(gl: WebGLRenderingContext);
 
     buffers: {
         color: WebGLColorBuffer;

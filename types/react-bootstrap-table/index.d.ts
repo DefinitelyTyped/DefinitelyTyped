@@ -1,6 +1,6 @@
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
-import { Component, CSSProperties, LegacyRef, ReactElement, ReactNode, SyntheticEvent } from "react";
+import { Component, CSSProperties, ReactElement, ReactNode, Ref, RefAttributes, SyntheticEvent } from "react";
 
 /**
  * Table scroll position.
@@ -145,9 +145,8 @@ export interface RemoteObjSpec {
     pagination?: boolean | undefined;
 }
 
-export interface BootstrapTableProps {
+export interface BootstrapTableProps extends RefAttributes<BootstrapTable> {
     children?: ReactNode;
-    ref?: LegacyRef<BootstrapTable> | undefined;
     /**
      * Bootstrap version to use, values include '3' or '4'. Defaults to '3'.
      */
@@ -1176,9 +1175,8 @@ export class BootstrapTable extends Component<BootstrapTableProps> {
     reset(): void;
 }
 
-export interface TableHeaderColumnProps {
+export interface TableHeaderColumnProps extends RefAttributes<TableHeaderColumn> {
     children?: ReactNode;
-    ref?: LegacyRef<TableHeaderColumn> | undefined;
     /**
      * The field of data you want to show on column. This is used throughout react-bootstrap-table as the column field
      * name.

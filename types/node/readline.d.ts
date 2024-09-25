@@ -1,5 +1,6 @@
 /**
- * The `node:readline` module provides an interface for reading data from a `Readable` stream (such as `process.stdin`) one line at a time.
+ * The `node:readline` module provides an interface for reading data from a [Readable](https://nodejs.org/docs/latest-v22.x/api/stream.html#readable-streams) stream
+ * (such as [`process.stdin`](https://nodejs.org/docs/latest-v22.x/api/process.html#processstdin)) one line at a time.
  *
  * To use the promise-based APIs:
  *
@@ -13,7 +14,7 @@
  * import * as readline from 'node:readline';
  * ```
  *
- * The following simple example illustrates the basic use of the `node:readline`module.
+ * The following simple example illustrates the basic use of the `node:readline` module.
  *
  * ```js
  * import * as readline from 'node:readline/promises';
@@ -28,9 +29,9 @@
  * rl.close();
  * ```
  *
- * Once this code is invoked, the Node.js application will not terminate until the`readline.Interface` is closed because the interface waits for data to be
+ * Once this code is invoked, the Node.js application will not terminate until the `readline.Interface` is closed because the interface waits for data to be
  * received on the `input` stream.
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/readline.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/readline.js)
  */
 declare module "readline" {
     import { Abortable, EventEmitter } from "node:events";
@@ -44,8 +45,8 @@ declare module "readline" {
         shift?: boolean | undefined;
     }
     /**
-     * Instances of the `readline.Interface` class are constructed using the`readline.createInterface()` method. Every instance is associated with a
-     * single `input` `Readable` stream and a single `output` `Writable` stream.
+     * Instances of the `readline.Interface` class are constructed using the `readline.createInterface()` method. Every instance is associated with a
+     * single `input` [Readable](https://nodejs.org/docs/latest-v22.x/api/stream.html#readable-streams) stream and a single `output` [Writable](https://nodejs.org/docs/latest-v22.x/api/stream.html#writable-streams) stream.
      * The `output` stream is used to print prompts for user input that arrives on,
      * and is read from, the `input` stream.
      * @since v0.1.104
@@ -99,7 +100,7 @@ declare module "readline" {
          * > Instances of the `readline.Interface` class are constructed using the
          * > `readline.createInterface()` method.
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/readline.html#class-interfaceconstructor
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/readline.html#class-interfaceconstructor
          */
         protected constructor(
             input: NodeJS.ReadableStream,
@@ -113,7 +114,7 @@ declare module "readline" {
          * > Instances of the `readline.Interface` class are constructed using the
          * > `readline.createInterface()` method.
          *
-         * @see https://nodejs.org/dist/latest-v20.x/docs/api/readline.html#class-interfaceconstructor
+         * @see https://nodejs.org/dist/latest-v22.x/docs/api/readline.html#class-interfaceconstructor
          */
         protected constructor(options: ReadLineOptions);
         /**
@@ -123,7 +124,7 @@ declare module "readline" {
          */
         getPrompt(): string;
         /**
-         * The `rl.setPrompt()` method sets the prompt that will be written to `output`whenever `rl.prompt()` is called.
+         * The `rl.setPrompt()` method sets the prompt that will be written to `output` whenever `rl.prompt()` is called.
          * @since v0.1.98
          */
         setPrompt(prompt: string): void;
@@ -134,19 +135,19 @@ declare module "readline" {
          * When called, `rl.prompt()` will resume the `input` stream if it has been
          * paused.
          *
-         * If the `Interface` was created with `output` set to `null` or`undefined` the prompt is not written.
+         * If the `Interface` was created with `output` set to `null` or `undefined` the prompt is not written.
          * @since v0.1.98
          * @param preserveCursor If `true`, prevents the cursor placement from being reset to `0`.
          */
         prompt(preserveCursor?: boolean): void;
         /**
          * The `rl.question()` method displays the `query` by writing it to the `output`,
-         * waits for user input to be provided on `input`, then invokes the `callback`function passing the provided input as the first argument.
+         * waits for user input to be provided on `input`, then invokes the `callback` function passing the provided input as the first argument.
          *
          * When called, `rl.question()` will resume the `input` stream if it has been
          * paused.
          *
-         * If the `Interface` was created with `output` set to `null` or`undefined` the `query` is not written.
+         * If the `Interface` was created with `output` set to `null` or `undefined` the `query` is not written.
          *
          * The `callback` function passed to `rl.question()` does not follow the typical
          * pattern of accepting an `Error` object or `null` as the first argument.
@@ -188,7 +189,7 @@ declare module "readline" {
          * The `rl.pause()` method pauses the `input` stream, allowing it to be resumed
          * later if necessary.
          *
-         * Calling `rl.pause()` does not immediately pause other events (including`'line'`) from being emitted by the `Interface` instance.
+         * Calling `rl.pause()` does not immediately pause other events (including `'line'`) from being emitted by the `Interface` instance.
          * @since v0.3.4
          */
         pause(): this;
@@ -218,7 +219,7 @@ declare module "readline" {
          * When called, `rl.write()` will resume the `input` stream if it has been
          * paused.
          *
-         * If the `Interface` was created with `output` set to `null` or`undefined` the `data` and `key` are not written.
+         * If the `Interface` was created with `output` set to `null` or `undefined` the `data` and `key` are not written.
          *
          * ```js
          * rl.write('Delete this!');
@@ -226,7 +227,7 @@ declare module "readline" {
          * rl.write(null, { ctrl: true, name: 'u' });
          * ```
          *
-         * The `rl.write()` method will write the data to the `readline` `Interface`'s`input`_as if it were provided by the user_.
+         * The `rl.write()` method will write the data to the `readline` `Interface`'s `input` _as if it were provided by the user_.
          * @since v0.1.98
          */
         write(data: string | Buffer, key?: Key): void;
@@ -338,7 +339,7 @@ declare module "readline" {
         tabSize?: number | undefined;
     }
     /**
-     * The `readline.createInterface()` method creates a new `readline.Interface`instance.
+     * The `readline.createInterface()` method creates a new `readline.Interface` instance.
      *
      * ```js
      * const readline = require('node:readline');
@@ -382,7 +383,7 @@ declare module "readline" {
      *
      * If the `stream` is a `TTY`, then it must be in raw mode.
      *
-     * This is automatically called by any readline instance on its `input` if the`input` is a terminal. Closing the `readline` instance does not stop
+     * This is automatically called by any readline instance on its `input` if the `input` is a terminal. Closing the `readline` instance does not stop
      * the `input` from emitting `'keypress'` events.
      *
      * ```js
@@ -467,7 +468,7 @@ declare module "readline" {
      * });
      * ```
      *
-     * Currently, `for await...of` loop can be a bit slower. If `async` / `await`flow and speed are both essential, a mixed approach can be applied:
+     * Currently, `for await...of` loop can be a bit slower. If `async` / `await` flow and speed are both essential, a mixed approach can be applied:
      *
      * ```js
      * const { once } = require('node:events');
@@ -502,7 +503,7 @@ declare module "readline" {
         cols: number;
     }
     /**
-     * The `readline.clearLine()` method clears current line of given `TTY` stream
+     * The `readline.clearLine()` method clears current line of given [TTY](https://nodejs.org/docs/latest-v22.x/api/tty.html) stream
      * in a specified direction identified by `dir`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
@@ -510,7 +511,7 @@ declare module "readline" {
      */
     export function clearLine(stream: NodeJS.WritableStream, dir: Direction, callback?: () => void): boolean;
     /**
-     * The `readline.clearScreenDown()` method clears the given `TTY` stream from
+     * The `readline.clearScreenDown()` method clears the given [TTY](https://nodejs.org/docs/latest-v22.x/api/tty.html) stream from
      * the current position of the cursor down.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
@@ -519,7 +520,7 @@ declare module "readline" {
     export function clearScreenDown(stream: NodeJS.WritableStream, callback?: () => void): boolean;
     /**
      * The `readline.cursorTo()` method moves cursor to the specified position in a
-     * given `TTY` `stream`.
+     * given [TTY](https://nodejs.org/docs/latest-v22.x/api/tty.html) `stream`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
@@ -527,7 +528,7 @@ declare module "readline" {
     export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
     /**
      * The `readline.moveCursor()` method moves the cursor _relative_ to its current
-     * position in a given `TTY` `stream`.
+     * position in a given [TTY](https://nodejs.org/docs/latest-v22.x/api/tty.html) `stream`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.

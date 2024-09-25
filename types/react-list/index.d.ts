@@ -6,9 +6,8 @@ type ItemSizeEstimator = (index: number, cache: {}) => number;
 type ItemSizeGetter = (index: number) => number;
 type ScrollParentGetter = () => JSX.Element;
 
-interface ReactListProps {
+interface ReactListProps extends React.RefAttributes<ReactList> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<ReactList> | undefined;
     axis?: "x" | "y" | undefined;
     initialIndex?: number | undefined;
     itemRenderer?: ItemRenderer | undefined;

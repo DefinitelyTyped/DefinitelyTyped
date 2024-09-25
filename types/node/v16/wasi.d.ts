@@ -3,9 +3,9 @@
  * underlying operating system via a collection of POSIX-like functions.
  *
  * ```js
- * import { readFile } from 'fs/promises';
+ * import { readFile } from 'node:fs/promises';
  * import { WASI } from 'wasi';
- * import { argv, env } from 'process';
+ * import { argv, env } from 'node:process';
  *
  * const wasi = new WASI({
  *   args: argv,
@@ -27,7 +27,7 @@
  * wasi.start(instance);
  * ```
  *
- * To run the above example, create a new WebAssembly text format file named`demo.wat`:
+ * To run the above example, create a new WebAssembly text format file named `demo.wat`:
  *
  * ```text
  * (module
@@ -68,7 +68,7 @@
  * The `--experimental-wasi-unstable-preview1` CLI argument is needed for this
  * example to run.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.20.2/lib/wasi.js)
  */
 declare module "wasi" {
     interface WASIOptions {
@@ -76,11 +76,13 @@ declare module "wasi" {
          * An array of strings that the WebAssembly application will
          * see as command line arguments. The first argument is the virtual path to the
          * WASI command itself.
+         * @default []
          */
         args?: string[] | undefined;
         /**
          * An object similar to `process.env` that the WebAssembly
          * application will see as its environment.
+         * @default {}
          */
         env?: object | undefined;
         /**
@@ -117,17 +119,17 @@ declare module "wasi" {
     /**
      * The `WASI` class provides the WASI system call API and additional convenience
      * methods for working with WASI-based applications. Each `WASI` instance
-     * represents a distinct sandbox environment. For security purposes, each `WASI`instance must have its command-line arguments, environment variables, and
+     * represents a distinct sandbox environment. For security purposes, each `WASI` instance must have its command-line arguments, environment variables, and
      * sandbox directory structure configured explicitly.
      * @since v13.3.0, v12.16.0
      */
     class WASI {
         constructor(options?: WASIOptions);
         /**
-         * Attempt to begin execution of `instance` as a WASI command by invoking its`_start()` export. If `instance` does not contain a `_start()` export, or if`instance` contains an `_initialize()`
+         * Attempt to begin execution of `instance` as a WASI command by invoking its `_start()` export. If `instance` does not contain a `_start()` export, or if `instance` contains an `_initialize()`
          * export, then an exception is thrown.
          *
-         * `start()` requires that `instance` exports a [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory) named`memory`. If
+         * `start()` requires that `instance` exports a [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory) named `memory`. If
          * `instance` does not have a `memory` export an exception is thrown.
          *
          * If `start()` is called more than once, an exception is thrown.
@@ -135,9 +137,9 @@ declare module "wasi" {
          */
         start(instance: object): number; // TODO: avoid DOM dependency until WASM moved to own lib.
         /**
-         * Attempt to initialize `instance` as a WASI reactor by invoking its`_initialize()` export, if it is present. If `instance` contains a `_start()`export, then an exception is thrown.
+         * Attempt to initialize `instance` as a WASI reactor by invoking its `_initialize()` export, if it is present. If `instance` contains a `_start()` export, then an exception is thrown.
          *
-         * `initialize()` requires that `instance` exports a [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory) named`memory`.
+         * `initialize()` requires that `instance` exports a [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory) named `memory`.
          * If `instance` does not have a `memory` export an exception is thrown.
          *
          * If `initialize()` is called more than once, an exception is thrown.

@@ -316,6 +316,7 @@ declare namespace GoogleAppsScript {
              */
             newImageCropStyle(): ImageCropStyle;
             newKeyValue(): KeyValue;
+            newLinkPreview(): LinkPreview;
             newNavigation(): Navigation;
             newNotification(): Notification;
             newOpenLink(): OpenLink;
@@ -499,6 +500,32 @@ declare namespace GoogleAppsScript {
             setOpenLink(openLink: OpenLink): KeyValue;
             setSwitch(switchToSet: Switch): KeyValue;
             setTopLabel(text: string): KeyValue;
+        }
+
+        /**
+         * Card action that displays a link preview card and smart chip in the host app.
+         *
+         * const decoratedText = CardService.newDecoratedText()
+         *       .setTopLabel('Hello')
+         *       .setText('Hi!');
+         *
+         * const cardSection = CardService.newCardSection()
+         *       .addWidget(decoratedText);
+         *
+         * const card = CardService.newCardBuilder()
+         *       .addSection(cardSection)
+         *       .build();
+         *
+         * const linkPreview = CardService.newLinkPreview()
+         *       .setPreviewCard(card)
+         *       .setTitle('Smart chip title');
+         */
+
+        interface LinkPreview {
+            printJson(): string;
+            setLinkPreviewTitle(title: string): LinkPreview;
+            setPreviewCard(previewCard: Card): LinkPreview;
+            setTitle(title: string): LinkPreview;
         }
         /**
          * An enum type that specifies the type of loading or progress indicator to display while an Action is being processed.

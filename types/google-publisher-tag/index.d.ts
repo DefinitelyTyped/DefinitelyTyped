@@ -362,9 +362,31 @@ declare namespace googletag {
         /**
          * Enables serving to run in
          * [limited ads](https://support.google.com/admanager/answer/9882911) mode to
-         * aid in publisher regulatory compliance needs. When enabled, the GPT library
-         * itself may optionally be requested from a cookie-less, [limited ads
+         * aid in publisher regulatory compliance needs.
+         *
+         * You can instruct GPT to request limited ads in two ways:
+         *
+         * - Automatically, by using a signal from an
+         *   [IAB TCF v2.0](https://iabeurope.eu/tcf-2-0/) consent management
+         *   platform.
+         * - Manually, by setting the value of this field to `true`.
+         *
+         * Manually configuring limited ads is only possible when GPT is loaded from
+         * the [limited ads
          * URL](https://developers.google.com/publisher-tag/guides/general-best-practices#load_from_an_official_source).
+         * Attempting to modify this setting when GPT has been loaded from the
+         * standard URL will generate a [Publisher Console
+         * warning](http://developers.google.com/publisher-tag/guides/publisher-console-messages#147).
+         *
+         * Note that it is not necessary to manually enable limited ads when a CMP is
+         * in use.
+         *
+         * @example
+         *   // Manually enable limited ads serving.
+         *   // GPT must be loaded from the limited ads URL to configure this setting.
+         *   googletag.pubads().setPrivacySettings({
+         *     limitedAds: true,
+         *   });
          *
          * @see [Display a limited ad](https://developers.google.com/publisher-tag/samples/display-limited-ad)
          */
@@ -1080,6 +1102,8 @@ declare namespace googletag {
          * function when a specific GPT event happens on the page. The following
          * events are supported:
          *
+         * - {@link events.GameManualInterstitialSlotClosedEvent}
+         * - {@link events.GameManualInterstitialSlotReadyEvent}
          * - {@link events.ImpressionViewableEvent}
          * - {@link events.RewardedSlotClosedEvent}
          * - {@link events.RewardedSlotGrantedEvent}
@@ -1524,7 +1548,7 @@ declare namespace googletag {
          *                         .addService(googletag.pubads());
          *
          *   slot.getSlotElementId();
-         *   // Returns 'div-1'.
+         *   // Returns 'div'.
          *
          * @return Slot `div` ID.
          */
@@ -1780,6 +1804,41 @@ declare namespace googletag {
              * Settings to control publisher provided signals (PPS).
              */
             pps?: PublisherProvidedSignalsConfig | null;
+
+            /**
+             * Setting to control whether GPT should yield the JS thread when
+             * rendering creatives.
+             *
+             * GPT will yield only for browsers that support the Scheduler.postTask
+             * API.
+             *
+             * Supported values:
+             *  - `null` (default): GPT will yield the JS thread for slots outside of
+             *    the viewport.
+             *  - `ENABLED_ALL_SLOTS`: GPT will yield the JS thread for all slots
+             *    regardless of whether the slot is within the viewport.
+             *  - `DISABLED`: GPT will not yield the JS thread.
+             *
+             * @example
+             *   // Disable yielding.
+             *   googletag.setConfig({threadYield: 'DISABLED'});
+             *
+             *   // Enable yielding for all slots.
+             *   googletag.setConfig({threadYield: 'ENABLED_ALL_SLOTS'});
+             *
+             *   // Enable yielding only for slots outside of the viewport (default).
+             *   googletag.setConfig({threadYield: null});
+             *
+             * @see [Scheduler: postTask() method](https://developer.mozilla.org/docs/Web/API/Scheduler/postTask)
+             */
+            threadYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
+
+            /**
+             * @deprecated Use
+             * {@link googletag.config.PageSettingsConfig.threadYield | threadYield}
+             * instead. This will be removed in the near future.
+             */
+            adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
         }
 
         /**
@@ -2030,6 +2089,7 @@ declare namespace googletag {
              *  interstitialSlot.setConfig({
              *    interstitial: {
              *      triggers: {
+             *        navBar: enableTriggers,
              *        unhideWindow: enableTriggers
              *      }
              *    }
@@ -2043,7 +2103,7 @@ declare namespace googletag {
         /**
          * Supported interstitial ad triggers.
          */
-        type InterstitialTrigger = "unhideWindow";
+        type InterstitialTrigger = "unhideWindow" | "navBar";
     }
 
     /**
@@ -2068,6 +2128,12 @@ declare namespace googletag {
             LEFT_SIDE_RAIL,
             /** Right side rail format. */
             RIGHT_SIDE_RAIL,
+            /**
+             * Game manual interstitial format.
+             *
+             * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+             */
+            GAME_MANUAL_INTERSTITIAL,
         }
 
         /**
@@ -2188,7 +2254,12 @@ declare namespace googletag {
             push(provider: SecureSignalProvider): void;
 
             /**
-             * Clears all cached signals from local storage.
+             * Clears all signals for all collectors from cache.
+             *
+             * Calling this method may reduce the likelihood of signals being included
+             * in ad requests for the current and potentially later page views. Due to
+             * this, it should only be called when meaningful state changes occur,
+             * such as events that indicate a new user (log in, log out, sign up, etc.).
              */
             clearAllCache(): void;
         }
@@ -2571,6 +2642,73 @@ declare namespace googletag {
         }
 
         /**
+         * This event is fired when a game manual interstitial slot is ready to be
+         * shown to the user.
+         *
+         * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+         *
+         * @example
+         *   // This listener is called when a game manual interstitial slot is ready to
+         *   // be displayed.
+         *   const targetSlot = googletag.defineOutOfPageSlot(
+         *       '/1234567/example',
+         *       googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL);
+         *   googletag.pubads().addEventListener('gameManualInterstitialSlotReady',
+         *       (event) => {
+         *         const slot = event.slot;
+         *         console.log('Game manual interstital slot',
+         *                     slot.getSlotElementId(), 'is ready to be displayed.')
+         *
+         *         //Replace with custom logic.
+         *         const displayGmiAd = true;
+         *         if (displayGmiAd) {
+         *           event.makeGameManualInterstitialVisible();
+         *         }
+         *
+         *         if (slot === targetSlot) {
+         *           // Slot specific logic.
+         *         }
+         *       }
+         *   );
+         *
+         * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
+         * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
+         */
+        interface GameManualInterstitialSlotReadyEvent extends Event {
+            /** Displays the game manual interstitial ad to the user. */
+            makeGameManualInterstitialVisible(): void;
+        }
+
+        /**
+         * This event is fired when a game manual interstitial slot has been closed by
+         * the user.
+         *
+         * **Note:** Game manual interstitial is a [limited-access](https://support.google.com/admanager/answer/14640119) format.
+         *
+         * @example
+         *   // This listener is called when a game manual interstial slot is closed.
+         *   const targetSlot = googletag.defineOutOfPageSlot(
+         *       '/1234567/example',
+         *       googletag.enums.OutOfPageFormat.GAME_MANUAL_INTERSTITIAL);
+         *   googletag.pubads().addEventListener('gameManualInterstitialSlotClosed',
+         *       (event) => {
+         *         const slot = event.slot;
+         *         console.log('Game manual interstital slot',
+         *                     slot.getSlotElementId(), 'is closed.')
+         *
+         *         if (slot === targetSlot) {
+         *           // Slot specific logic.
+         *         }
+         *       }
+         *   );
+         *
+         * @see [Ad event listeners](https://developers.google.com/publisher-tag/samples/ad-event-listeners)
+         * @see [Display a game manual interstitial ad](https://support.google.com/admanager/answer/14640119)
+         */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface GameManualInterstitialSlotClosedEvent extends Event {}
+
+        /**
          * This is a pseudo-type that maps an event name to its corresponding event
          * object type for {@link Service.addEventListener} and
          * {@link Service.removeEventListener}. It is documented for reference and
@@ -2621,6 +2759,16 @@ declare namespace googletag {
              * Alias for {@link events.RewardedSlotReadyEvent}.
              */
             rewardedSlotReady: RewardedSlotReadyEvent;
+
+            /**
+             * Alias for {@link events.GameManualInterstitialSlotReadyEvent}.
+             */
+            gameManualInterstitialSlotReady: GameManualInterstitialSlotReadyEvent;
+
+            /**
+             * Alias for {@link events.GameManualInterstitialSlotClosedEvent}.
+             */
+            gameManualInterstitialSlotClosed: GameManualInterstitialSlotClosedEvent;
         }
     }
 }

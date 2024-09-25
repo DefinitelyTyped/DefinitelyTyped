@@ -21,7 +21,7 @@ class Test extends React.Component<AutosizeInputProps> {
                 defaultValue="hello"
                 value="goodbye"
                 minWidth="400"
-                ref="auto"
+                ref={React.createRef<AutosizeInput & HTMLInputElement>()}
                 inputRef={this.inputRef}
                 id="testInput"
                 placeholder="Testing 1, 2, 3"

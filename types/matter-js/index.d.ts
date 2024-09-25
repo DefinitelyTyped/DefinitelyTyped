@@ -462,7 +462,7 @@ declare namespace Matter {
 
     export interface IBodyRenderOptionsSprite {
         /**
-         * An `String` that defines the path to the image to use as the sprite texture, if any.
+         * A `String` that defines the path to the image to use as the sprite texture, if any.
          */
         texture: string;
 

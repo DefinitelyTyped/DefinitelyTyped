@@ -10,6 +10,8 @@ import { InterleavedBufferAttribute } from "./InterleavedBufferAttribute.js";
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBuffer.js | Source}
  */
 export class InterleavedBuffer {
+    readonly isInterleavedBuffer: true;
+
     /**
      * Create a new instance of {@link InterleavedBuffer}
      * @param array A {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} with a shared buffer. Stores the geometry data.

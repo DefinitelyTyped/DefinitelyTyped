@@ -37,53 +37,56 @@ class ReactGeosuggest extends React.Component {
 
     render() {
         return (
-            <div>
-                <Geosuggest
-                    autoActivateFirstSuggest={true}
-                    autoComplete="off"
-                    bounds={new google.maps.LatLngBounds()}
-                    className="className"
-                    country={["US"]}
-                    disabled={false}
-                    fixtures={fixtures}
-                    getSuggestLabel={getSuggestLabel}
-                    highlightMatch={true}
-                    ignoreEnter={true}
-                    ignoreTab={true}
-                    initialValue="Hamburg"
-                    inputClassName="inputClassName"
-                    label="label"
-                    location={new google.maps.LatLng(53.558572, 9.9278215)}
-                    maxFixtures={10}
-                    placeDetailFields={["ALL"]}
-                    onActivateSuggest={onActivateSuggest}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    onFocus={onFocus}
-                    onKeyDown={onKeyDown}
-                    onKeyPress={onKeyPress}
-                    onSuggestNoResults={onSuggestNoResults}
-                    onSuggestSelect={onSuggestSelect}
-                    onUpdateSuggests={onUpdateSuggests}
-                    placeholder="Start typing!"
-                    queryDelay={250}
-                    minLength={2}
-                    radius={20}
-                    ref={el => this.geosuggest = el}
-                    renderSuggestItem={renderSuggestItem}
-                    skipSuggest={skipSuggest}
-                    style={styles}
-                    suggestsClassName="suggestsClassName"
-                    suggestsHiddenClassName="suggestsHiddenClassName"
-                    suggestItemActiveClassName="suggestItemActiveClassName"
-                    suggestItemClassName="suggestItemClassName"
-                    types={["geocode", "(regions)"]}
-                />
-
-                <button onClick={this.geosuggest.focus}>Focus</button>
-                <button onClick={this.geosuggest.update("New Zealand")}>Update</button>
-                <button onClick={this.geosuggest.clear}>Clear</button>
-            </div>
+            (
+                <div>
+                    <Geosuggest
+                        autoActivateFirstSuggest={true}
+                        autoComplete="off"
+                        bounds={new google.maps.LatLngBounds()}
+                        className="className"
+                        country={["US"]}
+                        disabled={false}
+                        fixtures={fixtures}
+                        getSuggestLabel={getSuggestLabel}
+                        highlightMatch={true}
+                        ignoreEnter={true}
+                        ignoreTab={true}
+                        initialValue="Hamburg"
+                        inputClassName="inputClassName"
+                        label="label"
+                        location={new google.maps.LatLng(53.558572, 9.9278215)}
+                        maxFixtures={10}
+                        placeDetailFields={["ALL"]}
+                        onActivateSuggest={onActivateSuggest}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        onFocus={onFocus}
+                        onKeyDown={onKeyDown}
+                        onKeyPress={onKeyPress}
+                        onSuggestNoResults={onSuggestNoResults}
+                        onSuggestSelect={onSuggestSelect}
+                        onUpdateSuggests={onUpdateSuggests}
+                        placeholder="Start typing!"
+                        queryDelay={250}
+                        minLength={2}
+                        radius={20}
+                        ref={el => {
+                            this.geosuggest = el;
+                        }}
+                        renderSuggestItem={renderSuggestItem}
+                        skipSuggest={skipSuggest}
+                        style={styles}
+                        suggestsClassName="suggestsClassName"
+                        suggestsHiddenClassName="suggestsHiddenClassName"
+                        suggestItemActiveClassName="suggestItemActiveClassName"
+                        suggestItemClassName="suggestItemClassName"
+                        types={["geocode", "(regions)"]}
+                    />
+                    <button onClick={this.geosuggest.focus}>Focus</button>
+                    <button onClick={this.geosuggest.update("New Zealand")}>Update</button>
+                    <button onClick={this.geosuggest.clear}>Clear</button>
+                </div>
+            )
         );
     }
 }

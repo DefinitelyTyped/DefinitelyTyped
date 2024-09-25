@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
+import Cursor from "./../cursor";
 /**
  * Hotel
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -27,6 +27,7 @@ export default class Hotel extends AbstractCrudObject {
         sale_price: "sale_price";
         sanitized_images: "sanitized_images";
         star_rating: "star_rating";
+        tags: "tags";
         unit_price: "unit_price";
         url: "url";
         visibility: "visibility";
@@ -43,19 +44,11 @@ export default class Hotel extends AbstractCrudObject {
         published: "PUBLISHED";
         staging: "STAGING";
     }>;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getAugmentedRealitiesMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getChannelsToIntegrityStatus(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getHotelRooms(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getHotelRooms(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getHotelRooms(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getVideosMetadata(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getVideosMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<Hotel>;
-    update(fields: string[], params?: Record<any, any>): Promise<Hotel>;
+    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getHotelRooms(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<Hotel>;
+    update(fields: string[], params?: Record<string, any>): Promise<Hotel>;
 }

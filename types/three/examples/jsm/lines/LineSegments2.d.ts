@@ -1,4 +1,4 @@
-import { Mesh } from "../../../src/Three.js";
+import { Mesh } from "three";
 
 import { LineMaterial } from "./LineMaterial.js";
 import { LineSegmentsGeometry } from "./LineSegmentsGeometry.js";

@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 300);
 const scene = new THREE.Scene();
@@ -38,7 +38,6 @@ function init() {
     const texture = textureLoader.load("textures/disturb.jpg");
     texture.repeat.set(20, 10);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.encoding = THREE.sRGBEncoding;
 
     // MATERIALS
 
@@ -121,7 +120,6 @@ function init() {
     if (container) {
         container.appendChild(renderer.domElement);
     }
-    renderer.outputEncoding = THREE.sRGBEncoding;
 
     // CONTROLS
 

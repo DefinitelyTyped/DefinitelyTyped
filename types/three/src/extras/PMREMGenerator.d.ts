@@ -47,14 +47,15 @@ export class PMREMGenerator {
     fromScene(scene: Scene, sigma?: number, near?: number, far?: number): WebGLRenderTarget;
 
     /**
-     * Generates a PMREM from an equirectangular texture.
-     * @param equirectangular The equirectangular texture.
+     * Generates a PMREM from an equirectangular texture, which can be either LDR or HDR. The ideal input image size is
+     * 1k (1024 x 512), as this matches best with the 256 x 256 cubemap output. The smallest supported equirectangular
+     * image size is 64 x 32.
      */
     fromEquirectangular(equirectangular: Texture, renderTarget?: WebGLRenderTarget | null): WebGLRenderTarget;
 
     /**
-     * Generates a PMREM from an cubemap texture.
-     * @param cubemap The cubemap texture.
+     * Generates a PMREM from an cubemap texture, which can be either LDR or HDR. The ideal input cube size is
+     * 256 x 256, as this matches best with the 256 x 256 cubemap output. The smallest supported cube size is 16 x 16.
      */
     fromCubemap(cubemap: CubeTexture, renderTarget?: WebGLRenderTarget | null): WebGLRenderTarget;
 

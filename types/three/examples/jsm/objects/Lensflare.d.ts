@@ -1,4 +1,4 @@
-import { Color, Mesh, Texture } from "../../../src/Three.js";
+import { Color, Mesh, Texture } from "three";
 
 export class LensflareElement {
     constructor(texture: Texture, size?: number, distance?: number, color?: Color);

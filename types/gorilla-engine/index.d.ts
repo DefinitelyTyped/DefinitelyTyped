@@ -16,6 +16,7 @@
 /// <reference path = "components/AmpEnv.d.ts" />
 /// <reference path = "components/BarStepEditor.d.ts" />
 /// <reference path = "components/ComboBox.d.ts" />
+/// <reference path = "components/Curve.d.ts" />
 /// <reference path = "components/DragContainer.d.ts" />
 /// <reference path = "components/DragTarget.d.ts" />
 /// <reference path = "components/DropZone.d.ts" />
@@ -94,6 +95,29 @@ declare namespace GorillaEngine {
          * Its steps if it's a stepped paramter
          */
         readonly steps: string[];
+        /**
+         * Hint for the best type of UI control for this parameter:
+         * "default": usually a knob, could also be a slider or drag/spin control
+         * "volume": audio volume control down to silence, often a vertical slider but could be horizontal or a knob
+         * "drag": more suited to a drag/spin control because usually only a small part of the range is used
+         * "keySelect": select a MIDI note
+         * "outSelect": select an audio output (zero for default, negative values for internal busses)
+         * "modSource": select from a list of mod sources (where mod source names should be inserted instead of numbers)
+         * "voiceGroup": select from a list of voice groups (where voice group names should be inserted instead of numbers)
+         * (the above types can fall back to e.g. ControlTypeDrag if no special behaviour is implemented for them in the UI)
+         * "onOffSwitch": toggle between Off/On (could be a power switch or \"Bypass\" or \"Solo\" etc. - see parameter name)
+         * "switch": toggle between two values that are not Off/On, could also be displayed as a menu
+         * "menu": dropdown menu, could also be a multi-way switch or a stepped knob if there are not many steps
+         * "levelMeter": audio level meter: display should apply log scaling (may have multiple channels)
+         * "meter": meter that may be showing something other than audio level (may have multiple channels)
+         * "display": numeric or text display: value is not user editable
+         * "text": editable text
+         * "textBox": multi-line text with at least copy/paste of the whole text, if not full editing
+         * "array": edit multiple values e.g. as a bargraph
+         * "waveform": display a waveform overview
+         * "notVisible": not intended for display to the user
+         */
+        readonly controlType: string[];
         readonly persistence: InstrumentPropertyPersistence;
     }
 
@@ -566,5 +590,11 @@ declare namespace GorillaEngine {
          * @param window the window to show
          */
         function createWindow(window: Window): void;
+        /**
+         * Sets the postion where the settings button is located
+         * @param x  the x position to place the settings button
+         * @param y  the y position to place the settings button
+         */
+        function setSettingsButtonPosition(x: number, y: number): void;  
     }
 }

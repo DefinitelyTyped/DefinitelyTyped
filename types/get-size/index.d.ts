@@ -21,6 +21,8 @@ interface Size {
     borderRightWidth: number;
     borderTopWidth: number;
     borderBottomWidth: number;
+
+    isBorderBox: boolean;
 }
 
 declare function getSize(element: string | Element): Size;

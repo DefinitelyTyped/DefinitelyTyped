@@ -2,8 +2,8 @@
  * We strongly discourage the use of the `async_hooks` API.
  * Other APIs that can cover most of its use cases include:
  *
- * * `AsyncLocalStorage` tracks async context
- * * `process.getActiveResourcesInfo()` tracks active resources
+ * * [`AsyncLocalStorage`](https://nodejs.org/docs/latest-v22.x/api/async_context.html#class-asynclocalstorage) tracks async context
+ * * [`process.getActiveResourcesInfo()`](https://nodejs.org/docs/latest-v22.x/api/process.html#processgetactiveresourcesinfo) tracks active resources
  *
  * The `node:async_hooks` module provides an API to track asynchronous resources.
  * It can be accessed using:
@@ -12,7 +12,7 @@
  * import async_hooks from 'node:async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/async_hooks.js)
  */
 declare module "async_hooks" {
     /**
@@ -44,7 +44,7 @@ declare module "async_hooks" {
      * ```
      *
      * Promise contexts may not get precise `executionAsyncIds` by default.
-     * See the section on `promise execution tracking`.
+     * See the section on [promise execution tracking](https://nodejs.org/docs/latest-v22.x/api/async_hooks.html#promise-execution-tracking).
      * @since v8.1.0
      * @return The `asyncId` of the current execution context. Useful to track when something calls.
      */
@@ -117,17 +117,17 @@ declare module "async_hooks" {
      * ```
      *
      * Promise contexts may not get valid `triggerAsyncId`s by default. See
-     * the section on `promise execution tracking`.
+     * the section on [promise execution tracking](https://nodejs.org/docs/latest-v22.x/api/async_hooks.html#promise-execution-tracking).
      * @return The ID of the resource responsible for calling the callback that is currently being executed.
      */
     function triggerAsyncId(): number;
     interface HookCallbacks {
         /**
          * Called when a class is constructed that has the possibility to emit an asynchronous event.
-         * @param asyncId a unique ID for the async resource
-         * @param type the type of the async resource
-         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
-         * @param resource reference to the resource representing the async operation, needs to be released during destroy
+         * @param asyncId A unique ID for the async resource
+         * @param type The type of the async resource
+         * @param triggerAsyncId The unique ID of the async resource in whose execution context this async resource was created
+         * @param resource Reference to the resource representing the async operation, needs to be released during destroy
          */
         init?(asyncId: number, type: string, triggerAsyncId: number, resource: object): void;
         /**
@@ -137,7 +137,9 @@ declare module "async_hooks" {
          */
         before?(asyncId: number): void;
         /**
-         * Called immediately after the callback specified in before is completed.
+         * Called immediately after the callback specified in `before` is completed.
+         *
+         * If an uncaught exception occurs during execution of the callback, then `after` will run after the `'uncaughtException'` event is emitted or a `domain`'s handler runs.
          * @param asyncId the unique identifier assigned to the resource which has executed the callback.
          */
         after?(asyncId: number): void;
@@ -321,7 +323,7 @@ declare module "async_hooks" {
     /**
      * This class creates stores that stay coherent through asynchronous operations.
      *
-     * While you can create your own implementation on top of the `node:async_hooks`module, `AsyncLocalStorage` should be preferred as it is a performant and memory
+     * While you can create your own implementation on top of the `node:async_hooks` module, `AsyncLocalStorage` should be preferred as it is a performant and memory
      * safe implementation that involves significant optimizations that are non-obvious
      * to implement.
      *
@@ -407,12 +409,12 @@ declare module "async_hooks" {
         static snapshot(): <R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R;
         /**
          * Disables the instance of `AsyncLocalStorage`. All subsequent calls
-         * to `asyncLocalStorage.getStore()` will return `undefined` until`asyncLocalStorage.run()` or `asyncLocalStorage.enterWith()` is called again.
+         * to `asyncLocalStorage.getStore()` will return `undefined` until `asyncLocalStorage.run()` or `asyncLocalStorage.enterWith()` is called again.
          *
          * When calling `asyncLocalStorage.disable()`, all current contexts linked to the
          * instance will be exited.
          *
-         * Calling `asyncLocalStorage.disable()` is required before the`asyncLocalStorage` can be garbage collected. This does not apply to stores
+         * Calling `asyncLocalStorage.disable()` is required before the `asyncLocalStorage` can be garbage collected. This does not apply to stores
          * provided by the `asyncLocalStorage`, as those objects are garbage collected
          * along with the corresponding async resources.
          *
@@ -465,7 +467,7 @@ declare module "async_hooks" {
         /**
          * Runs a function synchronously outside of a context and returns its
          * return value. The store is not accessible within the callback function or
-         * the asynchronous operations created within the callback. Any `getStore()`call done within the callback function will always return `undefined`.
+         * the asynchronous operations created within the callback. Any `getStore()` call done within the callback function will always return `undefined`.
          *
          * The optional `args` are passed to the callback function.
          *
@@ -511,7 +513,7 @@ declare module "async_hooks" {
          * This transition will continue for the _entire_ synchronous execution.
          * This means that if, for example, the context is entered within an event
          * handler subsequent event handlers will also run within that context unless
-         * specifically bound to another context with an `AsyncResource`. That is why`run()` should be preferred over `enterWith()` unless there are strong reasons
+         * specifically bound to another context with an `AsyncResource`. That is why `run()` should be preferred over `enterWith()` unless there are strong reasons
          * to use the latter method.
          *
          * ```js

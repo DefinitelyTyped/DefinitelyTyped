@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 
 import styled, {
@@ -546,10 +545,10 @@ const element = (
 
 const css2 = sheet2.getStyleElement();
 
-// Wrapping a node stream returned from renderToNodeStream with interleaveWithNodeStream
+// Wrapping a node stream returned from renderToPipeableStream with interleaveWithNodeStream
 
 const sheet3 = new ServerStyleSheet();
-const appStream = ReactDOMServer.renderToNodeStream(<Title>Hello world</Title>);
+const appStream = ReactDOMServer.renderToPipeableStream(<Title>Hello world</Title>);
 const wrappedCssStream: NodeJS.ReadableStream = sheet3.interleaveWithNodeStream(appStream);
 
 /**

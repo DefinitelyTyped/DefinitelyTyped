@@ -6,7 +6,7 @@ export interface ShaderLibShader {
     fragmentShader: string;
 }
 
-export let ShaderLib: {
+declare const ShaderLib: {
     [name: string]: ShaderLibShader;
     basic: ShaderLibShader;
     lambert: ShaderLibShader;
@@ -25,3 +25,5 @@ export let ShaderLib: {
     shadow: ShaderLibShader;
     physical: ShaderLibShader;
 };
+
+export { ShaderLib };

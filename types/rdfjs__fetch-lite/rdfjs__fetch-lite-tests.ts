@@ -27,6 +27,33 @@ async function fetchQuadStream(): Promise<Stream> {
     return response.quadStream();
 }
 
+async function sendQuadArray(): Promise<void> {
+    const quads: Quad[] = <any> {};
+
+    const response: Response = await fetch("http://example.com", {
+        method: "POST",
+        body: quads,
+    });
+}
+
+async function sendDataset(): Promise<void> {
+    const dataset: DatasetCore = <any> {};
+
+    const response: Response = await fetch("http://example.com", {
+        method: "POST",
+        body: dataset,
+    });
+}
+
+async function sendQuadStream(): Promise<void> {
+    const stream: Stream = <any> {};
+
+    const response: Response = await fetch("http://example.com", {
+        method: "POST",
+        body: stream,
+    });
+}
+
 interface QuadExt extends Quad {
     toCanonical(): string;
 }
@@ -63,7 +90,7 @@ async function environmentRawFetch(): Promise<Stream> {
 interface TestDataset extends DatasetCore {
     foo: "bar";
 }
-async function environmentDatasetFetch(): Promise<DatasetCore> {
+async function environmentDatasetFetch(): Promise<TestDataset> {
     class DatasetFactory {
         dataset(): TestDataset {
             return <any> {};

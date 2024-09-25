@@ -8,7 +8,7 @@
         "https://github.com/joostn/OpenJsCad"
     ],
     "dependencies": {
-        "@types/three": "*"
+        "@types/three": "^0.81.1"
     },
     "devDependencies": {
         "@types/openjscad": "workspace:."

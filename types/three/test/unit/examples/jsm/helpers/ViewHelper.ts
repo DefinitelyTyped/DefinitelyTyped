@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { ViewHelper } from "three/examples/jsm/helpers/ViewHelper";
+import { ViewHelper } from "three/addons/helpers/ViewHelper.js";
 
 const camera = new THREE.PerspectiveCamera();
 const viewHelper = new ViewHelper(camera, document.body); // $ExpectType ViewHelper

@@ -1,4 +1,4 @@
-import { AnimationClip, Loader, LoadingManager, Skeleton } from "../../../src/Three.js";
+import { AnimationClip, Loader, LoadingManager, Skeleton } from "three";
 
 export interface BVH {
     clip: AnimationClip;
