@@ -29,8 +29,8 @@ export interface TextInputMaskProps
      * Can tell TextInput to automatically capitalize certain characters.
      *      characters: all characters,
      *      words: first letter of each word
-     *      sentences : first letter of each sentence
-     *      none : don't auto capitalize anything
+     *      sentences: first letter of each sentence (default)
+     *      none: don't auto capitalize anything
      *
      * https://facebook.github.io/react-native/docs/textinput.html#autocapitalize
      */
