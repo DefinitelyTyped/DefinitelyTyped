@@ -590,5 +590,11 @@ declare namespace GorillaEngine {
          * @param window the window to show
          */
         function createWindow(window: Window): void;
+        /**
+         * Sets the postion where the settings button is located
+         * @param x  the x position to place the settings button
+         * @param y  the y position to place the settings button
+         */
+        function setSettingsButtonPosition(x: number, y: number): void;  
     }
 }
