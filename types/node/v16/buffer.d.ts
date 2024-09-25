@@ -102,7 +102,7 @@ declare module "buffer" {
     export interface BlobOptions {
         /**
          * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts
-         * will be converted to the platform native line-ending as specified by `require('node:os').EOL`.
+         * will be converted to the platform native line-ending as specified by `import { EOL } from 'node:os'`.
          */
         endings?: "transparent" | "native";
         /**

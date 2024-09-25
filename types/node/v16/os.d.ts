@@ -3,7 +3,7 @@
  * properties. It can be accessed using:
  *
  * ```js
- * const os = require('os');
+ * import os from 'node:os';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/os.js)
  */
