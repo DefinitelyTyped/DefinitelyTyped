@@ -1562,8 +1562,8 @@ declare namespace CodeMirror {
         /** Specifies whether or not autocorrect will be enabled on the input. */
         autocorrect?: boolean | undefined;
 
-        /** Controls automatic text capitalization. */
-        autocapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
+        /** Specifies whether or not autocapitalization will be enabled on the input. */
+        autocapitalize?: boolean | undefined;
     }
 
     interface TextMarkerOptions {

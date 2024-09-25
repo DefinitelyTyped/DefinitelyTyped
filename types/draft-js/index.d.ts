@@ -143,7 +143,7 @@ declare namespace Draft {
                 tabIndex?: number | undefined;
 
                 // exposed especially to help improve mobile web behaviors
-                autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
+                autoCapitalize?: string | undefined;
                 autoComplete?: string | undefined;
                 autoCorrect?: string | undefined;
 

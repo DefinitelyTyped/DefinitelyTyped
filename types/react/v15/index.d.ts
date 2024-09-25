@@ -2670,7 +2670,6 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
-        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: boolean | undefined;
@@ -2706,6 +2705,7 @@ declare namespace React {
         vocab?: string | undefined;
 
         // Non-standard Attributes
+        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;

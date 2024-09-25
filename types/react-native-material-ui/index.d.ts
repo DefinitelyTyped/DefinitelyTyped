@@ -427,7 +427,7 @@ export interface ToolbarStyle {
 export interface Searchable {
     placeholder?: string | undefined;
     autoFocus?: boolean | undefined;
-    autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
+    autoCapitalize?: "none" | "sentences" | "words" | "characters" | undefined;
     autoCorrect?: boolean | undefined;
     onChangeText?(text: string): void;
     onSearchClosed?(): void;
