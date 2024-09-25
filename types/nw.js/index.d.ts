@@ -1025,7 +1025,7 @@ declare global {
 
             /**
              * Query the status of devtools window.
-             * 
+             *
              * @since v0.92.0
              */
             isDevToolsOpen(callback: (status: boolean) => void): void;
