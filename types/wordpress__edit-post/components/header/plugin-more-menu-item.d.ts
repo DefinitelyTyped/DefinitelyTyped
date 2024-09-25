@@ -1,45 +1,9 @@
-import { Dashicon, MenuItem } from "@wordpress/components";
-import { ComponentProps, ComponentType, JSX, ReactNode } from "react";
-
-declare namespace PluginMoreMenuItem {
-    interface Props extends Omit<ComponentProps<typeof MenuItem>, "href" | "icon"> {
-        children: ReactNode;
-        /**
-         * When `href` is provided then the menu item is represented as an anchor rather than
-         * button. It corresponds to the `href` attribute of the anchor.
-         */
-        href?: string | undefined;
-        /**
-         * A Dashicon slug or a custom JSX element to be rendered to the left of the menu item
-         * label.
-         */
-        icon?: ComponentProps<typeof Dashicon>["icon"] | JSX.Element | undefined;
-        /**
-         * The callback function to be executed when the user clicks the menu item.
-         */
-        onClick?(): void;
-    }
-}
+import { PluginMoreMenuItem as EditorPluginMoreMenuItem } from "@wordpress/editor";
 
 /**
- * Renders a menu item in `Plugins` group in `More Menu` drop down, and can be used to as a button
- * or link depending on the props provided.  The text within the component appears as the menu item
- * label.
- *
- * @example
- * ```jsx
- * const { PluginMoreMenuItem } = wp.editPost;
- *
- * const MyButtonMoreMenuItem = () => (
- *     <PluginMoreMenuItem
- *         icon="smiley"
- *         onClick={() => console.log('clicked!')}
- *     >
- *         My button title
- *     </PluginMoreMenuItem>
- * );
- * ```
+ * @deprecated Import PluginMoreMenuItem from '@wordpress/editor' instead.
+ * @see https://make.wordpress.org/core/2024/06/18/editor-unified-extensibility-apis-in-6-6/
  */
-declare const PluginMoreMenuItem: ComponentType<PluginMoreMenuItem.Props>;
+declare const PluginMoreMenuItem: typeof EditorPluginMoreMenuItem;
 
 export default PluginMoreMenuItem;

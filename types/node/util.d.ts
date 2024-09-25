@@ -1520,11 +1520,14 @@ declare module "util" {
     type ParsedValues<T extends ParseArgsConfig> =
         & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
         & (T["options"] extends ParseArgsOptionsConfig ? {
-                -readonly [LongOption in keyof T["options"]]: IfDefaultsFalse<
-                    T["options"][LongOption]["multiple"],
-                    undefined | Array<ExtractOptionValue<T, T["options"][LongOption]>>,
-                    undefined | ExtractOptionValue<T, T["options"][LongOption]>
-                >;
+                -readonly [LongOption in keyof T["options"]]:
+                    // when "default" is not undefined, the value will be present
+                    | (T["options"][LongOption]["default"] extends {} ? never : undefined)
+                    | IfDefaultsFalse<
+                        T["options"][LongOption]["multiple"],
+                        Array<ExtractOptionValue<T, T["options"][LongOption]>>,
+                        ExtractOptionValue<T, T["options"][LongOption]>
+                    >;
             }
             : {});
 

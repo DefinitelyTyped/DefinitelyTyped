@@ -1,6 +1,6 @@
 import Node from "../../core/Node.js";
 import OperatorNode from "../../math/OperatorNode.js";
-import { ShaderNodeObject } from "../../shadernode/ShaderNode.js";
+import { ShaderNodeObject } from "../../tsl/TSLCore.js";
 
 // Analytical approximation of the DFG LUT, one half of the
 // split-sum approximation used in indirect specular lighting.

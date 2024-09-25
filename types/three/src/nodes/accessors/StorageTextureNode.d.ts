@@ -2,7 +2,7 @@ import { GPUStorageTextureAccess } from "../../renderers/webgpu/utils/WebGPUCons
 import { Texture } from "../../textures/Texture.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import TextureNode from "./TextureNode.js";
 
 export default class StorageTextureNode extends TextureNode {

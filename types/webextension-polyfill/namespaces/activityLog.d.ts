@@ -2,15 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.activityLog
- *
- * Monitor extension activity
- * Permissions: "activityLog"
- */
 import { Events } from "./events";
 import { ExtensionTypes } from "./extensionTypes";
 
+/**
+ * Namespace: browser.activityLog
+ */
 export namespace ActivityLog {
     interface OnExtensionActivityDetailsType {
         /**

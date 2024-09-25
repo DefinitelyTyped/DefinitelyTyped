@@ -38,8 +38,9 @@ let $grid = $(".grid").isotope({
     },
     masonry: {
         columnWidth: ".grid-sizer",
-        fitWidth: true,
         gutter: 50,
+        horizontalOrder: true,
+        fitWidth: true,
     },
     masontryHorizontal: {
         gutter: ".gutter",

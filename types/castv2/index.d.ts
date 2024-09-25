@@ -83,6 +83,7 @@ export interface ReceiverStatusMessage extends ReceiverMessage {
 export interface ReceiverLaunchErrorMessage extends ReceiverMessage {
     type: "LAUNCH_ERROR";
     reason: string;
+    extendedError: string;
 }
 
 export interface ReceiverLaunchStatusMessage extends ReceiverMessage {

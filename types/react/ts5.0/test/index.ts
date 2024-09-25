@@ -428,6 +428,41 @@ const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React
 };
 React.forwardRef(ForwardRefRenderFunction);
 
+const ForwardRefRenderFunctionWithInferrence: React.ForwardRefExoticComponent<
+    ForwardingRefComponentProps & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef(
+    (
+        // $ExpectType Omit<ForwardingRefComponentProps & RefAttributes<HTMLDivElement>, "ref">
+        props,
+        // $ExpectType ForwardedRef<HTMLDivElement>
+        ref,
+    ) => null,
+);
+
+const ForwardRefRenderFunctionWithInferrence2: React.ComponentType<
+    ForwardingRefComponentProps & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef(
+    (
+        // $ExpectType Omit<ForwardingRefComponentProps & RefAttributes<HTMLDivElement>, "ref">
+        props,
+        // $ExpectType ForwardedRef<HTMLDivElement>
+        ref,
+    ) => null,
+);
+
+const ForwardRefRenderFunctionWithInferrence3: React.ComponentType<
+    ForwardingRefComponentProps & { ref: React.Ref<HTMLDivElement> }
+> = React.memo(
+    React.forwardRef(
+        (
+            // $ExpectType Omit<ForwardingRefComponentProps & { ref: Ref<HTMLDivElement>; }, "ref">
+            props,
+            // $ExpectType ForwardedRef<HTMLDivElement>
+            ref,
+        ) => null,
+    ),
+);
+
 const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 

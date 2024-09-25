@@ -9,7 +9,7 @@
         "@types/chai": "*",
         "@types/karma": "*",
         "@types/sinon": "*",
-        "@types/sinon-chai": "*"
+        "@types/sinon-chai": "^2"
     },
     "devDependencies": {
         "@types/karma-sinon-chai": "workspace:."

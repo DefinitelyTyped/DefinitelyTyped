@@ -8357,6 +8357,11 @@ declare namespace chrome.sessions {
  * @since Chrome 20
  */
 declare namespace chrome.storage {
+    /** NoInfer for old TypeScript versions */
+    type NoInferX<T> = T[][T extends any ? 0 : never];
+    // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
+    export {};
+
     export interface StorageArea {
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
@@ -8370,14 +8375,17 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with a number
          * @since MV3
          */
-        getBytesInUse(keys?: string | string[] | null): Promise<number>;
+        getBytesInUse<T = { [key: string]: any }>(keys?: keyof T | Array<keyof T> | null): Promise<number>;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param keys Optional. A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
          * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
          * Parameter bytesInUse: Amount of space being used in storage, in bytes.
          */
-        getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
+        getBytesInUse<T = { [key: string]: any }>(
+            keys: keyof T | Array<keyof T> | null,
+            callback: (bytesInUse: number) => void,
+        ): void;
         /**
          * Removes all items from storage.
          * @return A void Promise
@@ -8397,7 +8405,7 @@ declare namespace chrome.storage {
          * @return A void Promise
          * @since MV3
          */
-        set(items: { [key: string]: any }): Promise<void>;
+        set<T = { [key: string]: any }>(items: Partial<T>): Promise<void>;
         /**
          * Sets multiple items.
          * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
@@ -8405,7 +8413,7 @@ declare namespace chrome.storage {
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        set(items: { [key: string]: any }, callback: () => void): void;
+        set<T = { [key: string]: any }>(items: Partial<T>, callback: () => void): void;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
@@ -8413,20 +8421,20 @@ declare namespace chrome.storage {
          * @return A void Promise
          * @since MV3
          */
-        remove(keys: string | string[]): Promise<void>;
+        remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>): Promise<void>;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        remove(keys: string | string[], callback: () => void): void;
+        remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>, callback: () => void): void;
         /**
          * Gets the entire contents of storage.
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
          * Parameter items: Object with items in their key-value mappings.
          */
-        get(callback: (items: { [key: string]: any }) => void): void;
+        get<T = { [key: string]: any }>(callback: (items: T) => void): void;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8434,7 +8442,9 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with an object containing items
          * @since MV3
          */
-        get(keys?: string | string[] | { [key: string]: any } | null): Promise<{ [key: string]: any }>;
+        get<T = { [key: string]: any }>(
+            keys?: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+        ): Promise<T>;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8442,9 +8452,9 @@ declare namespace chrome.storage {
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
          * Parameter items: Object with items in their key-value mappings.
          */
-        get(
-            keys: string | string[] | { [key: string]: any } | null,
-            callback: (items: { [key: string]: any }) => void,
+        get<T = { [key: string]: any }>(
+            keys: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+            callback: (items: T) => void,
         ): void;
         /**
          * Sets the desired access level for the storage area. The default will be only trusted contexts.
@@ -8513,12 +8523,12 @@ declare namespace chrome.storage {
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void>
     {}
 
-    type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
+    export type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void>
     {}
 
-    type AccessLevel = keyof typeof AccessLevel;
+    export type AccessLevel = keyof typeof AccessLevel;
 
     /** The storage area's access level. */
     export var AccessLevel: {
@@ -9013,14 +9023,28 @@ declare namespace chrome.system.display {
         singleUnified?: boolean | undefined;
     }
 
+    /**
+     * An enum to tell if the display is detected and used by the system.
+     * The display is considered 'inactive', if it is not detected by the system (maybe disconnected, or considered disconnected due to sleep mode, etc).
+     * This state is used to keep existing display when the all displays are disconnected, for example.
+     * @since Chrome 117
+     */
+    export type ActiveStateEnum = "active" | "inactive";
+
     /** Information about display properties. */
     export interface DisplayInfo {
+        /**
+         * Active if the display is detected and used by the system.
+         * @since Chrome 117
+         */
+        activeState: ActiveStateEnum;
         /** The unique identifier of the display. */
         id: string;
         /** The user-friendly name (e.g. 'HP LCD monitor'). */
         name: string;
         /**
          * requires(CrOS Kiosk app) Only available in Chrome OS Kiosk apps
+         * @since Chrome 67
          */
         edid?: {
             /**
@@ -9050,6 +9074,7 @@ declare namespace chrome.system.display {
          * Empty if no displays are being mirrored. This will be set to the same value
          * for all displays.
          * ❗ This must not include *mirroringSourceId*. ❗
+         * @since Chrome 64
          */
         mirroringDestinationIds: string[];
         /** True if this is the primary display. */
@@ -9058,6 +9083,11 @@ declare namespace chrome.system.display {
         isInternal: boolean;
         /** True if this display is enabled. */
         isEnabled: boolean;
+        /**
+         * True for all displays when in unified desktop mode
+         * @since Chrome 59
+         */
+        isUnified: boolean;
         /** The number of pixels per inch along the x-axis. */
         dpiX: number;
         /** The number of pixels per inch along the y-axis. */
@@ -9076,15 +9106,20 @@ declare namespace chrome.system.display {
          * The current mode will have isSelected=true.
          * Only available on Chrome OS.
          * Will be set to an empty array on other platforms.
+         * @since Chrome 52
          */
         modes: DisplayMode[];
         /** True if this display has a touch input device associated with it. */
         hasTouchSupport: boolean;
-        /** A list of zoom factor values that can be set for the display. */
+        /**
+         * A list of zoom factor values that can be set for the display.
+         * @since Chrome 67
+         */
         availableDisplayZoomFactors: number[];
         /**
          * The ratio between the display's current and default zoom.
          * For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
+         * @since Chrome 65
          */
         displayZoomFactor: number;
     }

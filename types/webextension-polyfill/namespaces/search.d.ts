@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.search
- *
- * Use browser.search to interact with search engines.
- * Permissions: "search"
  */
 export namespace Search {
     /**

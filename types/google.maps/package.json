@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/google.maps",
-    "version": "3.55.9999",
+    "version": "3.58.9999",
     "nonNpm": true,
     "nonNpmDescription": "Google Maps JavaScript API",
     "projects": [

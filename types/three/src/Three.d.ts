@@ -40,6 +40,7 @@ export * from "./core/Raycaster.js";
 export * from "./core/RenderTarget.js";
 export * from "./core/Uniform.js";
 export * from "./core/UniformsGroup.js";
+export * from "./extras/Controls.js";
 export * from "./extras/core/Curve.js";
 export * from "./extras/core/CurvePath.js";
 export * from "./extras/core/Path.js";

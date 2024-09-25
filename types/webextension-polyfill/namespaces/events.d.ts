@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.events
- *
- * The <code>chrome.events</code> namespace contains common types used by APIs dispatching events to notify you when
- * something interesting happens.
  */
 export namespace Events {
     /**

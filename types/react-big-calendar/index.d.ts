@@ -242,7 +242,7 @@ export interface ToolbarProps<TEvent extends object = Event, TResource extends o
     view: View;
     views: ViewsProps<TEvent, TResource>;
     label: string;
-    localizer: { messages: Messages };
+    localizer: { messages: Messages<TEvent> };
     onNavigate: (navigate: NavigateAction, date?: Date) => void;
     onView: (view: View) => void;
     children?: React.ReactNode | undefined;
@@ -284,7 +284,7 @@ export interface EventWrapperProps<TEvent extends object = Event> {
     continuesLater: boolean;
 }
 
-export interface Messages {
+export interface Messages<TEvent extends object = Event> {
     date?: string | undefined;
     time?: string | undefined;
     event?: string | undefined;
@@ -299,7 +299,7 @@ export interface Messages {
     tomorrow?: string | undefined;
     today?: string | undefined;
     agenda?: string | undefined;
-    showMore?: ((count: number) => string) | undefined;
+    showMore?: ((count: number, remainingEvents: TEvent[], events: TEvent[]) => string) | undefined;
     noEventsInRange?: string | undefined;
 }
 
@@ -333,47 +333,46 @@ export interface SlotInfo {
 }
 
 export type Culture = string;
-export type FormatInput = number | string | Date;
+export type FormatInput = number | string | Date | DateRange;
 
 export interface DateLocalizerSpec {
     firstOfWeek: (culture: Culture) => number;
     format: (value: FormatInput, format: string, culture?: Culture) => string;
     formats: Formats;
     propType?: Validator<any> | undefined;
-    startOfWeek: StartOfWeek;
-    merge: (date: Date, time: Date) => Date | null;
-    inRange: typeof inRange;
-    lt: typeof lt;
-    lte: typeof lte;
-    gt: typeof gt;
-    gte: typeof gte;
-    eq: typeof eq;
-    neq: typeof neq;
-    startOf: typeof startOf;
-    endOf: typeof endOf;
-    add: typeof add;
-    range: (start: Date, end: Date, unit?: Unit) => Date[];
-    diff: (dateA: Date, dateB: Date, unit?: Unit) => number;
-    ceil: (date: Date, unit: Unit) => Date;
-    min: typeof min;
-    max: typeof max;
-    minutes: typeof minutes;
-    firstVisibleDay: (date: Date, localizer: any) => Date;
-    lastVisibleDay: (date: Date, localizer: any) => Date;
-    visibleDays: (date: Date, localizer: any) => Date[];
+    merge?: (date: Date, time: Date) => Date | null;
+    inRange?: typeof inRange;
+    lt?: typeof lt;
+    lte?: typeof lte;
+    gt?: typeof gt;
+    gte?: typeof gte;
+    eq?: typeof eq;
+    neq?: typeof neq;
+    startOf?: typeof startOf;
+    endOf?: typeof endOf;
+    add?: typeof add;
+    range?: (start: Date, end: Date, unit?: Unit) => Date[];
+    diff?: (dateA: Date, dateB: Date, unit?: Unit) => number;
+    ceil?: (date: Date, unit: Unit) => Date;
+    min?: typeof min;
+    max?: typeof max;
+    minutes?: typeof minutes;
+    firstVisibleDay?: (date: Date, localizer: any) => Date;
+    lastVisibleDay?: (date: Date, localizer: any) => Date;
+    visibleDays?: (date: Date, localizer: any) => Date[];
 
-    getSlotDate: (date: Date, minutesFromMidnight: number, offset: number) => Date;
-    getTimezoneOffset: (date: Date) => number;
-    getDstOffset: (date: Date, dateB: Date) => number;
-    getTotalMin: (dateA: Date, dateB: Date) => number;
-    getMinutesFromMidnight: (date: Date) => number;
-    continuesPrior: (dateA: Date, dateB: Date) => boolean;
-    continuesAfter: (dateA: Date, dateB: Date, dateC: Date) => boolean;
-    sortEvents: (eventA: Event, eventB: Event) => boolean;
-    inEventRange: (event: Event, range: DateRange) => boolean;
-    isSameDate: (dateA: Date, dateB: Date) => boolean;
-    startAndEndAreDateOnly: (dateA: Date, dateB: Date) => boolean;
-    segmentOffset: number;
+    getSlotDate?: (date: Date, minutesFromMidnight: number, offset: number) => Date;
+    getTimezoneOffset?: (date: Date) => number;
+    getDstOffset?: (date: Date, dateB: Date) => number;
+    getTotalMin?: (dateA: Date, dateB: Date) => number;
+    getMinutesFromMidnight?: (date: Date) => number;
+    continuesPrior?: (dateA: Date, dateB: Date) => boolean;
+    continuesAfter?: (dateA: Date, dateB: Date, dateC: Date) => boolean;
+    sortEvents?: (eventA: Event, eventB: Event) => boolean;
+    inEventRange?: (event: Event, range: DateRange) => boolean;
+    isSameDate?: (dateA: Date, dateB: Date) => boolean;
+    startAndEndAreDateOnly?: (dateA: Date, dateB: Date) => boolean;
+    segmentOffset?: number;
 }
 
 // As documented in https://jquense.github.io/react-big-calendar/examples/?path=/docs/guides-localizers--page
@@ -385,7 +384,7 @@ export class DateLocalizer {
     constructor(spec: DateLocalizerSpec);
 
     format(value: FormatInput, format: string, culture?: Culture): string;
-    messages: Messages;
+    messages: Messages<Event>;
 
     merge: (date: Date, time: Date) => Date | null;
     inRange: typeof inRange;
@@ -475,7 +474,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     culture?: Culture | undefined;
     formats?: Formats | undefined;
     components?: Components<TEvent, TResource> | undefined;
-    messages?: Messages | undefined;
+    messages?: Messages<TEvent> | undefined;
     dayLayoutAlgorithm?: DayLayoutAlgorithm | DayLayoutFunction<TEvent> | undefined;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string) | undefined;
     tooltipAccessor?: keyof TEvent | ((event: TEvent) => string) | null | undefined;

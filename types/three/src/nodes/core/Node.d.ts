@@ -87,6 +87,7 @@ declare class Node extends EventDispatcher<{
     dispose(): void;
     traverse(callback: (node: Node) => void): void;
     getCacheKey(force?: boolean): string;
+    getScope(): this;
     getHash(builder: NodeBuilder): string;
     getUpdateType(): NodeUpdateType;
     getUpdateBeforeType(): NodeUpdateType;
@@ -95,7 +96,6 @@ declare class Node extends EventDispatcher<{
     getNodeType(builder: NodeBuilder): string | null;
     getShared(builder: NodeBuilder): Node;
     setup(builder: NodeBuilder): unknown;
-    increaseUsage(builder: NodeBuilder): number;
     analyze(builder: NodeBuilder): void;
     generate(builder: NodeBuilder, output?: string | null): string | null | undefined;
     updateBefore(frame: NodeFrame): void;
@@ -108,7 +108,13 @@ declare class Node extends EventDispatcher<{
     toJSON(meta?: NodeJSONMeta | string): NodeJSONOutputData;
 }
 export default Node;
+export declare function registerNode(type: string, nodeClass: {
+    new(...args: any[]): Node;
+}): string | undefined;
+export declare function createNodeFromType(type: string): Node | undefined;
+/**
+ * @deprecated Function addNodeClass() is deprecated. Use registerNodeClass() instead.
+ */
 export declare function addNodeClass(type: string, nodeClass: {
     new(...args: any[]): Node;
 }): void;
-export declare function createNodeFromType(type: string): Node | undefined;

@@ -24,6 +24,10 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 {
     if (gc) {
         gc();
+        gc(true);
+        gc({ execution: "sync" }); // $ExpectType void
+        gc({ execution: "async" }); // $ExpectType Promise<void>
+        gc({ execution: "async", flavor: "regular", type: "major" }); // $ExpectType Promise<void>
     }
 }
 
@@ -60,4 +64,10 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     s["foo"]; // $ExpectType any
     delete s["foo"];
     s.clear();
+}
+
+{
+    const e = new DOMException(); // $ExpectType DOMException
+    e.message; // $ExpectType string
+    e.name; // $ExpectType string
 }

@@ -112,6 +112,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "text-rotation": "autorotate",
             "target-arrow-shape": "triangle",
             "curve-style": "taxi",
+            "line-outline-width": "1px",
+            "line-outline-color": "black",
             "source-endpoint": "outside-to-node",
             "target-endpoint": "outside-to-node",
             "line-opacity": 0.5,
@@ -186,6 +188,20 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "pie-15-background-size": 5,
             "pie-16-background-color": "001100",
             "pie-16-background-size": 5,
+        },
+    },
+    {
+        selector: "node.border",
+        style: {
+            "border-width": 5,
+            "border-style": "dashed",
+            "border-color": "red",
+            "border-opacity": 0.85,
+            "border-position": "inside",
+            "border-cap": "round",
+            "border-join": "bevel",
+            "border-dash-pattern": [6, 3],
+            "border-dash-offset": 5,
         },
     },
 ];
@@ -713,6 +729,9 @@ eles.classes(oneOf("test", undefined));
 eles.classes();
 eles.flashClass("test flash", oneOf(1000, undefined));
 assert(ele.hasClass("test"));
+
+nodes.addClass("border");
+nodes.removeClass("border");
 
 eles.style("background-color", "green");
 Object.keys(eles.style()).map(key => eles.style(key));

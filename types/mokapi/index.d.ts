@@ -6,8 +6,6 @@
 import "./faker";
 import "./global";
 import "./http";
-import { KafkaEventHandler } from "./kafka";
-import { LdapEventHandler } from "./ldap";
 import "./mustache";
 import "./yaml";
 
@@ -105,6 +103,7 @@ export interface EventHandler {
     http: HttpEventHandler;
     kafka: KafkaEventHandler;
     ldap: LdapEventHandler;
+    smtp: SmtpEventHandler;
 }
 
 /**
@@ -136,19 +135,19 @@ export interface HttpRequest {
     readonly url: Url;
 
     /** Body contains request body specified by OpenAPI request body. */
-    readonly body: JSONValue;
+    readonly body: any;
 
     /** Object contains path parameters specified by OpenAPI path parameters. */
-    readonly path: { [key: string]: JSONValue };
+    readonly path: { [key: string]: any };
 
     /** Object contains query parameters specified by OpenAPI query parameters. */
-    readonly query: { [key: string]: JSONValue };
+    readonly query: { [key: string]: any };
 
     /** Object contains header parameters specified by OpenAPI header parameters. */
-    readonly header: { [key: string]: JSONValue };
+    readonly header: { [key: string]: any };
 
     /** Object contains cookie parameters specified by OpenAPI cookie parameters. */
-    readonly cookie: { [key: string]: JSONValue };
+    readonly cookie: { [key: string]: any };
 
     /** Path value specified by the OpenAPI path */
     readonly key: string;
@@ -172,7 +171,7 @@ export interface HttpResponse {
     body: string;
 
     /** Data will be encoded with the OpenAPI response definition. */
-    data: JSONValue;
+    data: any;
 }
 
 /**
@@ -190,6 +189,187 @@ export interface Url {
 
     /** URL query string. */
     readonly query: string;
+}
+
+/**
+ * KafkaEventHandler is a function that is executed when a Kafka message is received.
+ * https://mokapi.io/docs/javascript-api/mokapi/eventhandler/KafkaEventHandler
+ * @example
+ * export default function() {
+ *   on('kafka', function(msg) {
+ *     // add header 'foo' to every Kafka message
+ *     msg.headers = { foo: 'bar' }
+ *   })
+ * }
+ */
+export type KafkaEventHandler = (message: KafkaEventMessage) => boolean;
+
+/**
+ * KafkaEventMessage is an object used by KafkaEventHandler that contains Kafka-specific message data.
+ * https://mokapi.io/docs/javascript-api/mokapi/eventhandler/KafkaEventMessage
+ */
+export interface KafkaEventMessage {
+    /** Kafka partition where the message was written to (read-only). */
+    readonly offset: number;
+
+    /** Kafka message key  */
+    key: string;
+
+    /** Kafka message value */
+    value: string;
+
+    /** Kafka message headers */
+    headers: { [name: string]: string } | null;
+}
+
+/**
+ * LdapEventHandler is a function that is executed when a LDAP search query is triggered.
+ * @example
+ * export default function() {
+ *   on('ldap', function(request, response) {
+ *     if (request.filter === '(objectClass=foo)') {
+ *       response.results = [
+ *         {
+ *           dn: 'CN=bob,CN=users,DC=mokapi,DC=io',
+ *           attributes: {
+ *             mail: ['bob@mokapi.io'],
+ *             objectClass: ['foo']
+ *           }
+ *         }
+ *       ]
+ *     }
+ *   })
+ * }
+ */
+export type LdapEventHandler = (request: LdapSearchRequest, response: LdapSearchResponse) => boolean;
+
+/**
+ * LdapSearchRequest is an object used by LdapEventHandler that contains request-specific data.
+ */
+export interface LdapSearchRequest {
+    /** Search base DN. */
+    baseDN: string;
+
+    /** Search scope. */
+    scope: LdapSearchScope;
+
+    /** Alias dereference policy. */
+    dereferencePolicy: number;
+
+    /** Maximum number of entries to return from the search. */
+    sizeLimit: number;
+
+    /** Maximum length of time in seconds to allow for the search. */
+    timeLimit: number;
+
+    /** Only retrieve attribute names but not their values. */
+    typesOnly: number;
+
+    /** String representation of an LDAP search filter. */
+    filter: string;
+
+    /** Attribute list specifies the attributes to return in the entries found by the search. */
+    attributes: string[];
+}
+
+/**
+ * LdapSearchResponse is an object used by LdapEventHandler that contains response-specific data.
+ */
+export interface LdapSearchResponse {
+    /** List of search result */
+    results: LdapSearchResult[];
+
+    /** Status of search operation */
+    status: LdapResultStatus;
+
+    /** Search response message */
+    message: string;
+}
+
+/**
+ * LdapSearchResult is an object used by LdapSearchResponse that contains one result of a search request.
+ */
+export interface LdapSearchResult {
+    /** LDAP distinguished name of this result. */
+    dn: string;
+
+    /** Attribute list of this result */
+    attributes: { [name: string]: string[] };
+}
+
+/**
+ * Specifies the portion of the target subtree that should be considered.
+ */
+export enum LdapSearchScope {
+    /**
+     * Indicates that only the entry specified as sthe search base should be considered.
+     * None of its subordinates will be considered.
+     */
+    BaseObject,
+
+    /**
+     * Indicates that only the immediate children of the entry specified should be considered.
+     */
+    SingleLevel,
+
+    /**
+     * Indicates that the entry specified as the search base, and all of its subordinates to any depth.
+     */
+    WholeSubtree,
+}
+
+/**
+ * Defines a number of result codes that are intended to be used in LdapSearchResponse.
+ */
+export enum LdapResultStatus {
+    /** The success result code is used to indicate that the associated operation completed successfully. */
+    Success = 0,
+
+    /** Indicates that the operation could not be processed because it wasn’t in the expected
+     * order relative to other operations on the same connection.
+     */
+    OperationsError = 1,
+
+    /** Indicates that there was a problem with the client’s use of the LDAP protocol. */
+    ProtocolError = 2,
+
+    /**
+     *  indicates that the associated search operation failed because the server has determined
+     *  that the number of entries that would be returned in response to the search would exceed
+     *  the upper bound for that operation.
+     */
+    SizeLimitExceeded = 4,
+}
+
+export type SmtpEventHandler = (record: SmtpEventMessage) => boolean;
+
+export interface SmtpEventMessage {
+    server: string;
+    sender?: Address;
+    from: Address[];
+    to: Address[];
+    replyTo?: Address[];
+    cc?: Address[];
+    bcc?: Address[];
+    messageId: string;
+    inReplyTo?: string;
+    time?: Date;
+    subject: string;
+    contentType: string;
+    encoding: string;
+    body: string;
+    attachments: Attachment[];
+}
+
+export interface Address {
+    name?: string;
+    address: string;
+}
+
+export interface Attachment {
+    name: string;
+    contentType: string;
+    data: Uint8Array;
 }
 
 /**
@@ -265,7 +445,7 @@ export interface ScheduledEventArgs {
 /**
  * JavaScript value representable with JSON.
  */
-export type JSONValue = null | boolean | number | string | JSONValue[] | JSONObject;
+export type JSONValue = null | undefined | boolean | number | string | JSONValue[] | JSONObject;
 
 /**
  * Object representable with JSON.
@@ -273,3 +453,5 @@ export type JSONValue = null | boolean | number | string | JSONValue[] | JSONObj
 export interface JSONObject {
     [key: string]: JSONValue;
 }
+
+export const RFC3339 = "RFC3339";

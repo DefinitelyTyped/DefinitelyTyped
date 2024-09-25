@@ -98,6 +98,15 @@ export interface Config {
     batch_size: number;
     batch_flush_interval_ms: number;
     batch_request_timeout_ms: number;
+    record_block_class: string;
+    record_block_selector: string;
+    record_collect_fonts: boolean;
+    record_idle_timeout_ms: number;
+    record_inline_images: boolean;
+    record_mask_text_class: string;
+    record_mask_text_selector: string;
+    record_max_ms: number;
+    record_sessions_percent: number;
 }
 
 export type VerboseResponse =
@@ -186,6 +195,8 @@ export interface Mixpanel {
     track_with_groups(event_name: string, properties: Dict, groups: Dict, callback?: Callback): void;
     unregister(property: string, options?: Partial<RegisterOptions>): void;
     people: People;
+    start_session_recording(): void;
+    stop_session_recording(): void;
 }
 
 export interface OverridedMixpanel extends Mixpanel {

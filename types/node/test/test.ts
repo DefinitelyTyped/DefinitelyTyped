@@ -28,6 +28,7 @@ run();
 // $ExpectType TestsStream
 run({
     concurrency: false,
+    globPatterns: ["*.spec.js"],
 });
 
 // run with all options and number concurrency
@@ -117,16 +118,30 @@ test(undefined, undefined, t => {
     // $ExpectType void
     t.todo();
     // $ExpectType void
-    t.after(() => {});
+    t.after(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.afterEach(() => {});
+    t.afterEach(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.beforeEach(() => {});
+    t.beforeEach(t => {
+        // $ExpectType TestContext
+        t;
+    });
     // $ExpectType void
-    t.before(() => {});
+    t.before(t => {
+        // $ExpectType TestContext
+        t;
+    });
 
     // $ExpectType string
     t.name;
+    // $ExpectType string | undefined
+    t.filePath;
     // $ExpectType string
     t.fullName;
     // $ExpectType AbortSignal
@@ -328,6 +343,8 @@ describe(s => {
     s;
     // $ExpectType string
     s.name;
+    // $ExpectType string | undefined
+    s.filePath;
 });
 
 // Test callback mode
@@ -456,33 +473,33 @@ beforeEach(() => {});
 after(() => {});
 beforeEach(() => {});
 // - with callback
-before((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+before((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-beforeEach((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+beforeEach((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-after((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+after((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
     cb({ x: "anything" });
 });
-afterEach((s, cb) => {
-    // $ExpectType SuiteContext
-    s;
+afterEach((c, cb) => {
+    // $ExpectType TestContext | SuiteContext
+    c;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
@@ -974,7 +991,10 @@ test("planning with streams", (t: TestContext, done) => {
 
     const stream = Readable.from(generate());
     stream.on("data", (chunk) => {
-        t.assert.strictEqual(chunk, expected.shift());
+        t.assert.strictEqual(chunk, expected.shift()!);
+
+        // $ExpectType string
+        chunk;
     });
 
     stream.on("end", () => {

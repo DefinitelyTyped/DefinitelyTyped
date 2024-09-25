@@ -257,6 +257,8 @@ function test_collection() {
     // This gives better type checking than declaring an `any` overload.
     books.add({ title: "Title 2", author: "Mikey" });
 
+    const booksArray: Book[] = books.add([{ title: "Title 3", author: "Mickey" }]);
+
     const model: Book = book1.collection.first();
     if (model !== book1) {
         throw new Error("Error");
@@ -561,6 +563,50 @@ class ModellessView extends Backbone.View {
     constructor(options: ModellessViewOptions) {
         super(options);
         this.color = options.color;
+    }
+}
+
+class EventsViewObject extends Backbone.View {
+    events: Backbone.EventsHash;
+
+    constructor(options: Backbone.ViewOptions) {
+        super(options);
+
+        this.events = {
+            "click": "onClick",
+        };
+
+        if (typeof options.events === "object") {
+            this.events = options.events;
+        }
+    }
+}
+
+function eventsFn(this: EventsViewMethod) {
+    const eventsHash: Backbone.EventsHash = {
+        click: "onClick",
+    };
+
+    if (this.model) eventsHash.reset = "onReset";
+
+    return eventsHash;
+}
+
+class EventsViewMethod extends Backbone.View {
+    events: () => Backbone.EventsHash;
+
+    constructor(options: Backbone.ViewOptions) {
+        super(options);
+
+        this.events = () => ({
+            "click": "onClick",
+        });
+
+        if (typeof options.events === "function") {
+            this.events = options.events;
+        }
+
+        this.events = eventsFn;
     }
 }
 

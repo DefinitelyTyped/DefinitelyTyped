@@ -6,12 +6,20 @@ if (!app.isExpanded) {
     app.expand(); // $ExpectType void
 }
 
-const btn = app.MainButton; // $ExpectType MainButton
+const mainButton = app.MainButton; // $ExpectType BottomButton
 
-btn.text = (app.initDataUnsafe.user?.first_name ?? "you") + " r 2 close";
+mainButton.text = (app.initDataUnsafe.user?.first_name ?? "you") + " r 2 close";
 
-btn.onClick(() => {
+mainButton.onClick(() => {
     app.close();
+});
+
+const secondaryButton = app.SecondaryButton; // $ExpectType BottomButton
+
+secondaryButton.text = (app.initDataUnsafe.user?.last_name ?? "you") + " r 2 expand";
+
+secondaryButton.onClick(() => {
+    app.expand();
 });
 
 app.onEvent("viewportChanged", (e) => {
@@ -103,4 +111,8 @@ app.disableVerticalSwipes();
 app.shareToStory("url", {
     text: "txt",
     widget_link: { name: "name", url: "url" },
+});
+
+app.openInvoice("url", (status: "paid" | "cancelled" | "failed" | "pending") => {
+    const test = status; // $ExpectType "paid" | "cancelled" | "failed" | "pending"
 });

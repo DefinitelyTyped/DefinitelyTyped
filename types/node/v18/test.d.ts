@@ -315,39 +315,39 @@ declare module "node:test" {
     export interface TestContext {
         /**
          * This function is used to create a hook running before subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         * @param fn The hook function. The first argument to this function is a `TestContext` object.
+         *    If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.17.0
          */
-        before: typeof before;
+        before(fn?: TestContextHookFn, options?: HookOptions): void;
 
         /**
          * This function is used to create a hook running before each subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         * @param fn The hook function. The first argument to this function is a `TestContext` object.
+         *    If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
-        beforeEach: typeof beforeEach;
+        beforeEach(fn?: TestContextHookFn, options?: HookOptions): void;
 
         /**
          * This function is used to create a hook that runs after the current test finishes.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         * @param fn The hook function. The first argument to this function is a `TestContext` object.
+         *    If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.13.0
          */
-        after: typeof after;
+        after(fn?: TestContextHookFn, options?: HookOptions): void;
 
         /**
          * This function is used to create a hook running after each subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         * @param fn The hook function. The first argument to this function is a `TestContext` object.
+         *    If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
-        afterEach: typeof afterEach;
+        afterEach(fn?: TestContextHookFn, options?: HookOptions): void;
 
         /**
          * This function is used to write diagnostics to the output. Any diagnostic information is
@@ -517,10 +517,16 @@ declare module "node:test" {
     function afterEach(fn?: HookFn, options?: HookOptions): void;
 
     /**
-     * The hook function. If the hook uses callbacks, the callback function is passed as the
-     * second argument.
+     * The hook function. The first argument is the context in which the hook is called.
+     * If the hook uses callbacks, the callback function is passed as the second argument.
      */
-    type HookFn = (s: SuiteContext, done: (result?: any) => void) => any;
+    type HookFn = (c: TestContext | SuiteContext, done: (result?: any) => void) => any;
+
+    /**
+     * The hook function. The first argument is a `TestContext` object.
+     * If the hook uses callbacks, the callback function is passed as the second argument.
+     */
+    type TestContextHookFn = (t: TestContext, done: (result?: any) => void) => any;
 
     /**
      * Configuration options for hooks.

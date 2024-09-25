@@ -7,6 +7,7 @@ import {
     TextInputProps,
     TextProps,
     TextStyle,
+    UIManager,
     ViewProps,
     ViewStyle,
 } from "react-native";
@@ -380,3 +381,17 @@ const yellowBox = <YellowBox />;
 const colorScheme = useColorScheme();
 const localeContext = useLocaleContext();
 const windowDimensions = useWindowDimensions();
+
+const node = 0;
+UIManager.blur(node);
+UIManager.focus(node);
+UIManager.measure(node, () => {});
+UIManager.measureInWindow(node, () => {});
+UIManager.measureLayout(
+    node,
+    node,
+    () => {},
+    () => {},
+);
+UIManager.updateView(node, {});
+UIManager.configureNextLayoutAnimation(null, () => {});
