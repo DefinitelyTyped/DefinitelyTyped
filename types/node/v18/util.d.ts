@@ -4,7 +4,7 @@
  * it:
  *
  * ```js
- * const util = require('util');
+ * import util from 'node:util';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/util.js)
  */
@@ -200,7 +200,7 @@ declare module "util" {
      * timestamp.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.log('Timestamped message.');
      * ```
@@ -268,7 +268,7 @@ declare module "util" {
      * Circular references point to their anchor by using a reference index:
      *
      * ```js
-     * const { inspect } = require('util');
+     * import { inspect } from 'node:util';
      *
      * const obj = {};
      * obj.a = [obj];
@@ -286,7 +286,7 @@ declare module "util" {
      * The following example inspects all properties of the `util` object:
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * console.log(util.inspect(util, { showHidden: true, depth: null }));
      * ```
@@ -294,7 +294,7 @@ declare module "util" {
      * The following example highlights the effect of the `compact` option:
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * const o = {
      *   a: [1, 2, [[
@@ -351,7 +351,7 @@ declare module "util" {
      * with no remaining strong references may be garbage collected at any time.
      *
      * ```js
-     * const { inspect } = require('util');
+     * import { inspect } from 'node:util';
      *
      * const obj = { a: 1 };
      * const obj2 = { b: 2 };
@@ -365,8 +365,8 @@ declare module "util" {
      * impact the result of `util.inspect()`.
      *
      * ```js
-     * const { inspect } = require('util');
-     * const assert = require('assert');
+     * import { inspect } from 'node:util';
+     * import assert from 'node:assert';
      *
      * const o1 = {
      *   b: [2, 3, 1],
@@ -393,7 +393,7 @@ declare module "util" {
      * numbers.
      *
      * ```js
-     * const { inspect } = require('util');
+     * import { inspect } from 'node:util';
      *
      * const thousand = 1_000;
      * const million = 1_000_000;
@@ -434,7 +434,7 @@ declare module "util" {
      * Returns `true` if the given `object` is an `Array`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isArray([]);
      * // Returns: true
@@ -451,7 +451,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `RegExp`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isRegExp(/some regexp/);
      * // Returns: true
@@ -468,7 +468,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Date`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isDate(new Date());
      * // Returns: true
@@ -485,7 +485,7 @@ declare module "util" {
      * Returns `true` if the given `object` is an `Error`. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isError(new Error());
      * // Returns: true
@@ -499,7 +499,7 @@ declare module "util" {
      * possible to obtain an incorrect result when the `object` argument manipulates`@@toStringTag`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      * const obj = { name: 'Error', message: 'an error occurred' };
      *
      * util.isError(obj);
@@ -524,8 +524,8 @@ declare module "util" {
      * through the `constructor.super_` property.
      *
      * ```js
-     * const util = require('util');
-     * const EventEmitter = require('events');
+     * import util from 'node:util';
+     * import EventEmitter from 'node:events';
      *
      * function MyStream() {
      *   EventEmitter.call(this);
@@ -551,7 +551,7 @@ declare module "util" {
      * ES6 example using `class` and `extends`:
      *
      * ```js
-     * const EventEmitter = require('events');
+     * import EventEmitter from 'node:events';
      *
      * class MyStream extends EventEmitter {
      *   write(data) {
@@ -580,7 +580,7 @@ declare module "util" {
      * environment variable, then the returned function operates similar to `console.error()`. If not, then the returned function is a no-op.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      * const debuglog = util.debuglog('foo');
      *
      * debuglog('hello from foo [%d]', 123);
@@ -599,7 +599,7 @@ declare module "util" {
      * The `section` supports wildcard also:
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      * const debuglog = util.debuglog('foo-bar');
      *
      * debuglog('hi there, it\'s foo-bar [%d]', 2333);
@@ -619,7 +619,7 @@ declare module "util" {
      * unnecessary wrapping.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      * let debuglog = util.debuglog('internals', (debug) => {
      *   // Replace with a logging function that optimizes out
      *   // testing if the section is enabled
@@ -637,7 +637,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isBoolean(1);
      * // Returns: false
@@ -654,7 +654,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Buffer`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isBuffer({ length: 0 });
      * // Returns: false
@@ -671,7 +671,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Function`. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * function Foo() {}
      * const Bar = () => {};
@@ -691,7 +691,7 @@ declare module "util" {
      * Returns `true` if the given `object` is strictly `null`. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isNull(0);
      * // Returns: false
@@ -709,7 +709,7 @@ declare module "util" {
      * returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isNullOrUndefined(0);
      * // Returns: false
@@ -726,7 +726,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Number`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isNumber(false);
      * // Returns: false
@@ -746,7 +746,7 @@ declare module "util" {
      * Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isObject(5);
      * // Returns: false
@@ -765,7 +765,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a primitive type. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isPrimitive(5);
      * // Returns: true
@@ -794,7 +794,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `string`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isString('');
      * // Returns: true
@@ -813,7 +813,7 @@ declare module "util" {
      * Returns `true` if the given `object` is a `Symbol`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isSymbol(5);
      * // Returns: false
@@ -830,7 +830,7 @@ declare module "util" {
      * Returns `true` if the given `object` is `undefined`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * const foo = undefined;
      * util.isUndefined(5);
@@ -849,7 +849,7 @@ declare module "util" {
      * such a way that it is marked as deprecated.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * exports.obsoleteFunction = util.deprecate(() => {
      *   // Do something here.
@@ -865,7 +865,7 @@ declare module "util" {
      * the warning will be emitted only once for that `code`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * const fn1 = util.deprecate(someFunction, someMessage, 'DEP0001');
      * const fn2 = util.deprecate(someOtherFunction, someOtherMessage, 'DEP0001');
@@ -919,7 +919,7 @@ declare module "util" {
      * first argument will be the rejection reason (or `null` if the `Promise`resolved), and the second argument will be the resolved value.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * async function fn() {
      *   return 'hello world';
@@ -1045,8 +1045,8 @@ declare module "util" {
      * that returns promises.
      *
      * ```js
-     * const util = require('util');
-     * const fs = require('fs');
+     * import util from 'node:util';
+     * import fs from 'node:fs';
      *
      * const stat = util.promisify(fs.stat);
      * stat('.').then((stats) => {
@@ -1059,8 +1059,8 @@ declare module "util" {
      * Or, equivalently using `async function`s:
      *
      * ```js
-     * const util = require('util');
-     * const fs = require('fs');
+     * import util from 'node:util';
+     * import fs from 'node:fs';
      *
      * const stat = util.promisify(fs.stat);
      *
@@ -1081,7 +1081,7 @@ declare module "util" {
      * work as expected unless handled specially:
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * class Foo {
      *   constructor() {
@@ -1248,7 +1248,7 @@ declare module "util" {
     import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from "util";
     global {
         /**
-         * `TextDecoder` class is a global reference for `require('util').TextDecoder`
+         * `TextDecoder` class is a global reference for `import { TextDecoder } from 'node:util'`
          * https://nodejs.org/api/globals.html#textdecoder
          * @since v11.0.0
          */
@@ -1259,7 +1259,7 @@ declare module "util" {
             : typeof _TextDecoder;
 
         /**
-         * `TextEncoder` class is a global reference for `require('util').TextEncoder`
+         * `TextEncoder` class is a global reference for `import { TextEncoder } from 'node:util'`
          * https://nodejs.org/api/globals.html#textencoder
          * @since v11.0.0
          */

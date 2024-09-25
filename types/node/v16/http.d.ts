@@ -1312,7 +1312,7 @@ declare module "http" {
      * upload a file with a POST request, then write to the `ClientRequest` object.
      *
      * ```js
-     * const http = require('http');
+     * import http from 'node:http';
      *
      * const postData = JSON.stringify({
      *   'msg': 'Hello World!'

@@ -17,7 +17,7 @@
  * code are reflected in the context object.
  *
  * ```js
- * const vm = require('vm');
+ * import vm from 'node:vm';
  *
  * const x = 1;
  *
@@ -201,7 +201,7 @@ declare module "vm" {
          * The globals are contained in the `context` object.
          *
          * ```js
-         * const vm = require('vm');
+         * import vm from 'node:vm';
          *
          * const context = {
          *   animal: 'cat',
@@ -237,7 +237,7 @@ declare module "vm" {
          * contained within each individual `context`.
          *
          * ```js
-         * const vm = require('vm');
+         * import vm from 'node:vm';
          *
          * const script = new vm.Script('globalVar = "set"');
          *
@@ -262,7 +262,7 @@ declare module "vm" {
          * executes that code multiple times:
          *
          * ```js
-         * const vm = require('vm');
+         * import vm from 'node:vm';
          *
          * global.globalVar = 0;
          *
@@ -319,7 +319,7 @@ declare module "vm" {
      * will remain unchanged.
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      *
      * global.globalVar = 3;
      *
@@ -366,7 +366,7 @@ declare module "vm" {
      * The following example compiles and executes different scripts using a single `contextified` object:
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      *
      * const contextObject = { globalVar: 1 };
      * vm.createContext(contextObject);
@@ -395,7 +395,7 @@ declare module "vm" {
      * variable and sets a new one. These globals are contained in the `contextObject`.
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      *
      * const contextObject = {
      *   animal: 'cat',
@@ -427,7 +427,7 @@ declare module "vm" {
      * the JavaScript [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) function to run the same code:
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      * let localVar = 'initial value';
      *
      * const vmResult = vm.runInThisContext('localVar = "vm";');
@@ -454,12 +454,11 @@ declare module "vm" {
      *
      * ```js
      * 'use strict';
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      *
      * const code = `
      * ((require) => {
-     *   const http = require('http');
-     *
+     *   const http = require('node:http');
      *   http.createServer((request, response) => {
      *     response.writeHead(200, { 'Content-Type': 'text/plain' });
      *     response.end('Hello World\\n');
@@ -509,7 +508,7 @@ declare module "vm" {
      * the memory occupied by each heap space in the current V8 instance.
      *
      * ```js
-     * const vm = require('vm');
+     * import vm from 'node:vm';
      * // Measure the memory used by the main context.
      * vm.measureMemory({ mode: 'summary' })
      *   // This is the same as vm.measureMemory()

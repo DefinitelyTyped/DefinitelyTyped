@@ -2287,7 +2287,7 @@ declare module "buffer" {
             : typeof import("buffer").Blob;
         interface File extends _File {}
         /**
-         * `File` class is a global reference for `require('node:buffer').File`
+         * `File` class is a global reference for `import { File } from 'node:buffer'`
          * https://nodejs.org/api/buffer.html#class-file
          * @since v20.0.0
          */

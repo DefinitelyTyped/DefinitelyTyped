@@ -496,7 +496,7 @@ declare module "vm" {
      *
      * const code = `
      * ((require) => {
-     *   import http from 'node:http';
+     * const http = require('node:http');
      *
      *   http.createServer((request, response) => {
      *     response.writeHead(200, { 'Content-Type': 'text/plain' });

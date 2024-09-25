@@ -1447,7 +1447,7 @@ declare module "http" {
      * To configure any of them, a custom {@link Agent} instance must be created.
      *
      * ```js
-     * const http = require('node:http');
+     * import http from 'node:http';
      * const keepAliveAgent = new http.Agent({ keepAlive: true });
      * options.agent = keepAliveAgent;
      * http.request(options, onResponseCallback)

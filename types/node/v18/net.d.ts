@@ -8,7 +8,7 @@
  * It can be accessed using:
  *
  * ```js
- * const net = require('net');
+ * import net from 'node:net';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/net.js)
  */
@@ -757,7 +757,7 @@ declare module "net" {
      * on port 8124:
      *
      * ```js
-     * const net = require('net');
+     * import net from 'node:net';
      * const server = net.createServer((c) => {
      *   // 'connection' listener.
      *   console.log('client connected');
