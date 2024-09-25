@@ -1,5 +1,5 @@
 /**
- * To use the HTTP server and client one must `require('http')`.
+ * To use the HTTP server and client one must import the `node:http` module.
  *
  * The HTTP interfaces in Node.js are designed to support many features
  * of the protocol which have been traditionally difficult to use.

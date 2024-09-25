@@ -212,7 +212,7 @@ declare module "events" {
          * An `AbortSignal` can be used to cancel waiting on events:
          *
          * ```js
-         *import { on, EventEmitter } from 'node:events';
+         * import { on, EventEmitter } from 'node:events';
          * const ac = new AbortController();
          *
          * (async () => {
@@ -248,7 +248,7 @@ declare module "events" {
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
          *
          * ```js
-         *import { EventEmitter, listenerCount } from 'node:events';
+         * import { EventEmitter, listenerCount } from 'node:events';
          * const myEmitter = new EventEmitter();
          * myEmitter.on('event', () => {});
          * myEmitter.on('event', () => {});
@@ -271,7 +271,7 @@ declare module "events" {
          * event target. This is useful for debugging and diagnostic purposes.
          *
          * ```js
-         *import { getEventListeners, EventEmitter } from 'node:events';
+         * import { getEventListeners, EventEmitter } from 'node:events';
          *
          * {
          *   const ee = new EventEmitter();

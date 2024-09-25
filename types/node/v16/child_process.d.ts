@@ -953,7 +953,8 @@ declare module "child_process" {
      *
      * ```js
      * import util from 'node:util';
-     * const exec = util.promisify(require('child_process').exec);
+     * import child_process from 'node:child_process';
+     * const exec = util.promisify(child_process.exec);
      *
      * async function lsExample() {
      *   const { stdout, stderr } = await exec('ls');
@@ -1115,7 +1116,8 @@ declare module "child_process" {
      *
      * ```js
      * import util from 'node:util';
-     * const execFile = util.promisify(require('child_process').execFile);
+     * import child_process from 'node:child_process';
+     * const execFile = util.promisify(child_process.execFile);
      * async function getVersion() {
      *   const { stdout } = await execFile('node', ['--version']);
      *   console.log(stdout);

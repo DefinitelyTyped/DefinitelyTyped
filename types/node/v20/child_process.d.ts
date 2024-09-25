@@ -961,7 +961,8 @@ declare module "child_process" {
      *
      * ```js
      * import util from 'node:util';
-     * const exec = util.promisify(require('node:child_process').exec);
+     * import child_process from 'node:child_process';
+     * const exec = util.promisify(child_process.exec);
      *
      * async function lsExample() {
      *   const { stdout, stderr } = await exec('ls');

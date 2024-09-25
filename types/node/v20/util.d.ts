@@ -1934,7 +1934,7 @@ declare module "util/types" {
      * ```
      *
      * ```js
-     * const native = require('napi_addon.node');
+     * const native =require('napi_addon.node');
      * const data = native.myNapi();
      * util.types.isExternal(data); // returns true
      * util.types.isExternal(0); // returns false
