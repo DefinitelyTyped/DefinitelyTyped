@@ -329,7 +329,6 @@
         "dom-trust-token",
         "dom-view-transitions",
         "dom-webcodecs",
-        "domurl",
         "dotenv-flow",
         "double-ended-queue",
         "doubleclick-gpt",
