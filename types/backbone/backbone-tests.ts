@@ -232,6 +232,12 @@ class Library extends Backbone.Collection<Book> {
     }
 }
 
+class AnotherLibrary extends Backbone.Collection<Book> {
+    model = (...args: any[]): Book => {
+        return new Book();
+    };
+}
+
 class Books extends Backbone.Collection<Book> {}
 
 class ArbitraryCollection extends Backbone.Collection {}
