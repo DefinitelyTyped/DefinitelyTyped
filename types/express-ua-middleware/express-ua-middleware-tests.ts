@@ -3,7 +3,7 @@ import express = require("express");
 
 const server = express();
 
-server.use(userAgent);
+server.use(userAgent());
 server.get("/", (req, res) => {
     req.userAgent; // $ExpectType UserAgent & UserAgentRaw
 });
