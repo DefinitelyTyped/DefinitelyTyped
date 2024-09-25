@@ -169,6 +169,7 @@ setVapidDetails("subject", "publicKey", buffer);
 
 const pushSubscription: PushSubscription = {
     endpoint: "endpointString",
+    expirationTime: null,
     keys: {
         p256dh: "p256dhString",
         auth: "authString",
@@ -282,7 +283,7 @@ generateRequestDetails({ endpoint: null, keys: { p256dh: "p256dh", auth: "auth" 
 // @ts-expect-error
 generateRequestDetails({ endpoint: "endpoint", keys: null });
 
-generateRequestDetails({ endpoint: "endpoint", keys: { p256dh: "p256dh", auth: "auth" } });
+generateRequestDetails({ endpoint: "endpoint", expirationTime: null, keys: { p256dh: "p256dh", auth: "auth" } });
 
 // RequestOptions is optional
 generateRequestDetails(pushSubscription, "payload");
