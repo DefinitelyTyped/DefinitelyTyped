@@ -426,6 +426,7 @@
         "express-async-wrap",
         "express-brute-memcached",
         "express-serve-static-core",
+        "express-serve-static-core/v4",
         "express-socket.io-session",
         "express-status-monitor",
         "express-wechat-access",
