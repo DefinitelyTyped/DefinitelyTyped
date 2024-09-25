@@ -47,7 +47,9 @@ const providerInfo: BuyProviderInfo = {
 const infoResponse: InfoResponse = {
     platforms: {
         ethereum: {
+            id: "ethereum",
             name: "Ethereum",
+            nativeCoinSymbol: "eth",
         },
     },
     coins: {

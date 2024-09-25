@@ -355,11 +355,17 @@ access("file/that/does/not/exist", (err) => {
         args: ["--no-alpha"],
         options: {
             alpha: { type: "boolean", default: true },
+            beta: { type: "boolean", default: undefined },
+            gamma: { type: "boolean" },
         },
         allowNegative: true,
     });
-    // $ExpectType boolean | undefined
+    // $ExpectType boolean
     result.values.alpha; // false
+    // $ExpectType boolean | undefined
+    result.values.beta; // undefined
+    // $ExpectType boolean | undefined
+    result.values.gamma; // undefined
 }
 
 {

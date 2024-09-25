@@ -2,7 +2,7 @@ import wav = require("node-wav");
 
 declare const buffer: Buffer;
 
-// $ExpectType { readonly sampleRate: number; readonly channelData: readonly Float32Array[]; }
+// $ExpectType { readonly sampleRate: number; readonly channelData: readonly Float32Array[]; } || { readonly sampleRate: number; readonly channelData: readonly Float32Array<ArrayBufferLike>[]; }
 const wavFileInfo = wav.decode(buffer);
 // $ExpectType Buffer
 wav.encode(wavFileInfo.channelData, {

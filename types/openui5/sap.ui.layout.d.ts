@@ -1,4 +1,4 @@
-// For Library Version: 1.127.0
+// For Library Version: 1.128.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -8387,13 +8387,13 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
    * and the labels are rendered in the same row as the fields or above the fields. This behavior can be influenced
    * by the properties of this layout control.
    *
-   * On the {@link sap.ui.layout.form.FormContainer FormContainers}, labels and content fields, {@link sap.ui.layout.GridGata GridData }
-   * can be used to change the default rendering. {@link sap.ui.layout.GridGata GridData} is not supported
+   * On the {@link sap.ui.layout.form.FormContainer FormContainers}, labels and content fields, {@link sap.ui.layout.GridData GridData }
+   * can be used to change the default rendering. {@link sap.ui.layout.GridData GridData} is not supported
    * for {@link sap.ui.layout.form.FormElement FormElements}.
    *
-   * **Note:** If {@link sap.ui.layout.GridGata GridData} is used, this may result in a much more complex
+   * **Note:** If {@link sap.ui.layout.GridData GridData} is used, this may result in a much more complex
    * layout than the default one. This means that in some cases, the calculation for the other content may
-   * not bring the expected result. In such cases, {@link sap.ui.layout.GridGata GridData} should be used
+   * not bring the expected result. In such cases, {@link sap.ui.layout.GridData GridData} should be used
    * for all content controls to disable the default behavior.
    *
    * This control cannot be used stand-alone, it just renders a {@link sap.ui.layout.form.Form Form}, so it

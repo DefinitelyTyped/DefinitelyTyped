@@ -1,10 +1,9 @@
 import Sinon = require("sinon");
 
-import chai = require("chai");
 import sinonChai = require("sinon-chai");
 
-chai.use(sinonChai);
-var expect = chai.expect;
+import("chai").then(chai => chai.use(sinonChai));
+declare const expect: Chai.ExpectStatic;
 declare var spy: Sinon.SinonSpy;
 declare var anotherSpy: Sinon.SinonSpy;
 declare var context: {};

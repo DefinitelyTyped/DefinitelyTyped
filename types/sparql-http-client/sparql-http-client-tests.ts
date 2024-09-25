@@ -241,3 +241,12 @@ async function simpleClient() {
         operation: "get",
     });
 }
+
+function initFromInstance() {
+    const client = new StreamClient({
+        endpointUrl,
+    });
+    const cloneClient = new StreamClient(client);
+    const parsingClient = new ParsingClient(client);
+    const simpleClient = new SimpleClient(client);
+}

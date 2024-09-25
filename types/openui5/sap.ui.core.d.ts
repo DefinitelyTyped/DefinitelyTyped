@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.127.0
+// For Library Version: 1.128.0
 
 declare module "sap/base/assert" {
   /**
@@ -14142,7 +14142,7 @@ declare module "sap/ui/core/library" {
    *
    * This enum is part of the 'sap/ui/core/library' module export and must be accessed by the property 'MessageType'.
    *
-   * @deprecated (since 1.120) - Please use {@link sap.ui.core.message.MessageType} instead.
+   * @deprecated (since 1.120) - Please use {@link module:sap/ui/core/message/MessageType} instead.
    */
   export enum MessageType {
     /**
@@ -20312,7 +20312,7 @@ declare module "sap/ui/core/Core" {
     /**
      * Returns the Configuration of the Core.
      *
-     * @deprecated (since 1.120) - Please see {@link sap.ui.core.Configuration Configuration} for the corrsponding
+     * @deprecated (since 1.120) - Please see {@link sap.ui.core.Configuration Configuration} for the corresponding
      * replacements.
      *
      * @returns the Configuration of the current Core.
@@ -20508,7 +20508,7 @@ declare module "sap/ui/core/Core" {
      *
      * @deprecated (since 0.15.0) - Replaced by `createRenderManager()`
      *
-     * @returns A newly createdRenderManeger
+     * @returns A newly created RenderManager
      */
     getRenderManager(): RenderManager;
     /**
@@ -20827,7 +20827,7 @@ declare module "sap/ui/core/Core" {
      * example at the `<body>` tag. Controls can listen to the themeChanged event to realign their appearance
      * after changing the theme. Changing the cozy/compact CSS class should then also be handled as a theme
      * change. In more simple scenarios where the cozy/compact CSS class is added to a DOM element which contains
-     * only a few controls it might not be necessary to trigger the realigment of all controls placed in the
+     * only a few controls it might not be necessary to trigger the realignment of all controls placed in the
      * DOM, for example changing the cozy/compact CSS class at a single control
      *
      * @deprecated (since 1.119) - Please use {@link module:sap/ui/core/Theming.notifyContentDensityChanged Theming.notifyContentDensityChanged }
@@ -20860,7 +20860,7 @@ declare module "sap/ui/core/Core" {
      * internal usage only. They unfortunately allow access to all internals of the Core and therefore break
      * encapsulation and hinder evolution of the Core. The most common use case of accessing the set of all
      * controls/elements or all components can now be addressed by using the APIs {@link sap.ui.core.Element.registry }
-     * or {@link sap.ui.core.Component.registry}, respectively. Future refactorings of the Core will only take
+     * or {@link sap.ui.core.Component.registry}, respectively. Future refactoring of the Core will only take
      * existing plugins in the OpenUI5 repository into account.
      */
     registerPlugin(
@@ -20963,7 +20963,7 @@ declare module "sap/ui/core/Core" {
      *
      * @since 1.10
      * @deprecated (since 1.119) - without replacement. The need to define the location for a theme should be
-     * fully covered with the capabiltites of the {@link sap/base/config base configuration}.
+     * fully covered with the capabilities of the {@link sap/base/config base configuration}.
      *
      * @returns the Core, to allow method chaining
      */
@@ -21034,7 +21034,7 @@ declare module "sap/ui/core/Core" {
      *
      * @since 1.10
      * @deprecated (since 1.119) - without replacement. The need to define the location for a theme should be
-     * fully covered with the capabiltites of the {@link sap/base/config base configuration}.
+     * fully covered with the capabilities of the {@link sap/base/config base configuration}.
      *
      * @returns the Core, to allow method chaining
      */
@@ -21068,7 +21068,7 @@ declare module "sap/ui/core/Core" {
      * internal usage only. They unfortunately allow access to all internals of the Core and therefore break
      * encapsulation and hinder evolution of the Core. The most common use case of accessing the set of all
      * controls/elements or all components can now be addressed by using the APIs {@link sap.ui.core.Element.registry }
-     * or {@link sap.ui.core.Component.registry}, respectively. Future refactorings of the Core will only take
+     * or {@link sap.ui.core.Component.registry}, respectively. Future refactoring of the Core will only take
      * existing plugins in the OpenUI5 repository into account.
      */
     unregisterPlugin(
@@ -21846,6 +21846,11 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
          * Native scrolling does not need content wrapper. In this case, ID of the container element should be provided.
          */
         scrollContainerId?: string;
+        /**
+         * if true, the delegate event listeners are called before the event listeners of the element; default is
+         * "false".
+         */
+        callBefore?: boolean;
       }
     );
 
@@ -67482,7 +67487,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         refreshAfterChange?: boolean;
         /**
-         * Whether to sequentialize all requests, needed in case the service cannot handle parallel requests
+         * Whether to sequentialize all requests, needed in case the service cannot handle parallel requests. **Deprecated**
+         * as of version 1.128.0, the concept has been discarded.
          */
         sequentializeRequests?: boolean;
         /**
@@ -71175,7 +71181,12 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * @since 1.83.0
      */
-    collapse(): void;
+    collapse(
+      /**
+       * Whether to collapse the node and all its descendants (@experimental as of version 1.128.0)
+       */
+      bAll?: boolean
+    ): void;
     /**
      * Returns a promise that is resolved without data when the entity represented by this context has been
      * created in the back end and all selected properties of this entity are available. Expanded navigation
@@ -71539,12 +71550,12 @@ declare module "sap/ui/model/odata/v4/Context" {
      * will be the new parent itself). Any descendants of that node are then themselves in the "created" state
      * and also become "persisted"; otherwise, their states remain unaffected by the move.
      *
-     * Note that a node in the "created" state is not shown in its usual position as defined by the service
-     * and the current sort order, but out of place as the first child of its parent. It is even shown if it
-     * doesn't match current search or filter criteria! Once it becomes simply "persisted" due to the move (as
-     * described above), this special handling ends. The node is then shown in place again, or it might even
-     * not be shown anymore due to the search or filter criteria. If the latter happens to this context, its
-     * {@link #getIndex index} becomes `undefined`.
+     * Note that nodes in the "created" state are not shown in their usual position as defined by the service
+     * and the current sort order, but out of place as the first children of their parent or as the first roots.
+     * They are even shown if they don't match current search or filter criteria! Once they become simply "persisted"
+     * due to the move (as described above), this special handling ends. These nodes are then shown in place
+     * again, or they might even not be shown anymore due to the search or filter criteria. If the latter happens
+     * to this context, its {@link #getIndex index} becomes `undefined`.
      *
      * @since 1.125.0
      *
@@ -73521,7 +73532,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
         /**
          * Whether created nodes are shown in place at the position specified by the service (@experimental as of
          * version 1.125.0); only the value `true` is allowed. Otherwise, created nodes are displayed out of place
-         * as the first child of their parent.
+         * as the first children of their parent or as the first roots, but not in their usual position as defined
+         * by the service and the current sort order.
          */
         createInPlace?: boolean;
         /**
@@ -83146,7 +83158,13 @@ declare module "sap/ui/test/Opa5" {
      * See:
      * 	{@link https://ui5.sap.com/#/topic/2696ab50faad458f9b4027ec2f9b884d Opa5}
      */
-    constructor();
+    constructor(
+      /**
+       * An object containing properties and functions. The newly created Opa will be extended by these properties
+       * and functions using jQuery.extend.
+       */
+      extensionObject?: object
+    );
     /**
      * "and" property for chaining
      */
@@ -84983,7 +85001,7 @@ declare namespace sap {
      *   // module 'Something' wants to use third party library 'URI.js'
      *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
      *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
-     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
+     *   // Apps don't have to define that shim, it is already applied by ui5loader-autoconfig.js
      *   sap.ui.loader.config({
      *     shim: {
      *       'sap/ui/thirdparty/URI': {
@@ -85232,7 +85250,7 @@ declare namespace sap {
      *   // module 'Something' wants to use third party library 'URI.js'
      *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
      *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
-     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
+     *   // Apps don't have to define that shim, it is already applied by ui5loader-autoconfig.js
      *   sap.ui.loader.config({
      *     shim: {
      *       'sap/ui/thirdparty/URI': {
@@ -85475,7 +85493,7 @@ declare namespace sap {
      *   // module 'Something' wants to use third party library 'URI.js'
      *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
      *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
-     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
+     *   // Apps don't have to define that shim, it is already applied by ui5loader-autoconfig.js
      *   sap.ui.loader.config({
      *     shim: {
      *       'sap/ui/thirdparty/URI': {
@@ -85719,7 +85737,7 @@ declare namespace sap {
      *   // module 'Something' wants to use third party library 'URI.js'
      *   // It is packaged by UI5 as non-UI5-module 'sap/ui/thirdparty/URI'
      *   // the following shim helps UI5 to correctly load URI.js and to retrieve the module's export value
-     *   // Apps don't have to define that shim, it is already applied by ui5loader-autconfig.js
+     *   // Apps don't have to define that shim, it is already applied by ui5loader-autoconfig.js
      *   sap.ui.loader.config({
      *     shim: {
      *       'sap/ui/thirdparty/URI': {
@@ -85893,7 +85911,7 @@ declare namespace sap {
      * Retrieve the {@link sap.ui.core.Core SAPUI5 Core} instance for the current window.
      *
      * @deprecated (since 1.118) - Please require 'sap/ui/core/Core' instead and use the module export directly
-     * without using 'new'."
+     * without using 'new'.
      *
      * @returns the API of the current SAPUI5 Core instance.
      */
@@ -86336,8 +86354,9 @@ declare namespace sap {
      *
      * **Note:** Any other call signature will lead to a runtime error.
      *
-     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.View.extend View.extend} to define the view class
-     * and {@link sap.ui.core.mvc.View.create View.create} to create view instances
+     * @deprecated (since 1.56) - Instead use {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed Views} by
+     * defining the view class with {@link sap.ui.core.mvc.View.extend View.extend} and creating the view instances
+     * with {@link sap.ui.core.mvc.View.create View.create}.
      *
      * @returns the created JSView instance in the creation case, otherwise undefined
      */
@@ -86388,8 +86407,9 @@ declare namespace sap {
      *
      * **Note:** Any other call signature will lead to a runtime error.
      *
-     * @deprecated (since 1.56) - Use {@link sap.ui.core.mvc.View.extend View.extend} to define the view class
-     * and {@link sap.ui.core.mvc.View.create View.create} to create view instances
+     * @deprecated (since 1.56) - Instead use {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed Views} by
+     * defining the view class with {@link sap.ui.core.mvc.View.extend View.extend} and creating the view instances
+     * with {@link sap.ui.core.mvc.View.create View.create}.
      *
      * @returns the created JSView instance in the creation case, otherwise undefined
      */

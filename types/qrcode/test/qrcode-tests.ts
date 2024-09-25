@@ -106,8 +106,8 @@ const maskP2: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined = qrcode.maskPattern;
 const maskP3: 1 | 2 | 3 | 4 | 5 | 6 | 7 | undefined = qrcode.maskPattern;
 qrcode.modules; // $ExpectType BitMatrix
 qrcode.modules.size; // $ExpectType number
-qrcode.modules.data; // $ExpectType Uint8Array
-qrcode.modules.reservedBit; // $ExpectType Uint8Array
+qrcode.modules.data; // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
+qrcode.modules.reservedBit; // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 qrcode.modules.get(1, 1); // $ExpectType number
 qrcode.modules.set(1, 1, 1, false); // $ExpectType void
 qrcode.modules.xor(1, 1, 1); // $ExpectType void
@@ -118,7 +118,7 @@ const dataSegment = qrcode.segments[0];
 dataSegment.mode.bit; // $ExpectType number
 dataSegment.mode.ccBits; // $ExpectType readonly number[]
 dataSegment.mode.id; // $ExpectType "Numeric" | "Alphanumeric" | "Byte" | "Kanji"
-dataSegment.data; // $ExpectType string | Uint8Array
+dataSegment.data; // $ExpectType string | Uint8Array || string | Uint8Array<ArrayBufferLike>
 dataSegment.getLength(); // $ExpectType number
 dataSegment.getBitsLength(); // $ExpectType number
 

@@ -9,39 +9,6 @@ export interface DialogOptions {
 
 export interface DialogAPI {
     /**
-     * @deprecated
-     * This method has been deprecated and should no longer be used. The core of what it does is simply to wrap
-     * a call to Dialog.open() within a call to jQuery.ariaClick(), which can be done directly and with
-     * greater flexibility.
-     *
-     * Adds WAI-ARIA-compatible mouse/keyboard event handlers to the target element(s) which open the dialog when
-     * activated.
-     * @param targets The DOM element(s) to attach the handler to—may be either an HTMLElement object, a jQuery object,
-     * or a jQuery-style selector set.
-     * @param options he options object; the currently understood properties are:
-     *    top: Top y-coordinate of the dialog (default: 50; in pixels, but without the unit).
-     *    opacity: Opacity of the overlay (default: 0.8).
-     * @param tartFn The function to execute at the start of Dialog.addClickHandler(). This is commonly used to setup
-     * the dialog.
-     * @param doneFn The function to execute at the end of Dialog.addClickHandler().
-     * @param closeFn The function to execute whenever the associated dialog is closed.
-     * @since 2.0.0
-     * @example
-     * // Commonly used something like the following.
-     * Dialog.addClickHandler("#some-element", undefined, function () {
-     *     Dialog.setup("My Dialog Title", "my-dialog-class");
-     *     Dialog.wiki(Story.get("MyDialogContents").processText());
-     * });
-     */
-    addClickHandler(
-        targets: HTMLElement | string,
-        options?: DialogOptions,
-        tartFn?: () => void,
-        doneFn?: () => void,
-        closeFn?: () => void,
-    ): void;
-
-    /**
      * Appends the given content to the dialog's content area. Returns a reference to the Dialog object for chaining.
      *
      * NOTE: If your content contains any SugarCube markup, you'll need to use the Dialog.wiki() method instead.
@@ -64,11 +31,34 @@ export interface DialogAPI {
     body(): HTMLElement;
 
     /**
-     * Closes the dialog. Returns a reference to the Dialog object for chaining.
+     * Closes the dialog.
      * @since 2.0.0
      */
     close(): this;
 
+    /**
+     * Prepares the dialog for use.
+     * @param title The title of the dialog.
+     * @param classNames The space-separated-list of classes to add to the dialog.
+     * @since 2.37.0
+     * @example
+     * Dialog
+     * 	.create("Character Sheet", "charsheet")
+     * 	.wikiPassage("Player Character")
+     * 	.open();
+     */
+    create(title?: string, classNames?: string): this;
+
+    /**
+     * Empties the dialog's content area.
+     * @since 2.37.0
+     * @example
+     * // Replacing the open dialog's content
+     * Dialog
+     * 	.empty()
+     * 	.wikiPassage("Quests");
+     */
+    empty(): this;
     /**
      * Returns whether the dialog is currently open.
      * @param classNames the space-separated-list of classes to check for when determining the state of the dialog.
@@ -87,7 +77,7 @@ export interface DialogAPI {
     isOpen(classNames?: string): boolean;
 
     /**
-     * Opens the dialog. Returns a reference to the Dialog object for chaining.
+     * Opens the dialog.
      *
      * NOTE: Call this only after populating the dialog with content.
      * @param options The options to be used when opening the dialog.
@@ -101,6 +91,7 @@ export interface DialogAPI {
      * @param title The title of the dialog.
      * @param classNames The space-separated-list of classes to add to the dialog.
      * @since 2.0.0
+     * @deprecated in 2.37.0 in favor of Dialog.create()
      * @example
      * // Basic example.
      * Dialog.setup();
@@ -122,8 +113,7 @@ export interface DialogAPI {
     setup(title?: string, classNames?: string): HTMLElement;
 
     /**
-     * Renders the given markup and appends it to the dialog's content area. Returns a reference to the Dialog object
-     * for chaining.
+     * Renders the given markup and appends it to the dialog's content area.
      *
      * NOTE: If your content consists of DOM nodes, you'll need to use the @see Dialog.append() method instead.
      * @param wikiMarkup The markup to render.
@@ -257,6 +247,7 @@ export interface UIAPI {
      * @param options The options object. @see Dialog.addClickHandler() for more information.
      * @param closeFn The function to execute whenever the dialog is closed.
      * @since 2.0.0
+     * @deprecated 2.37.0
      */
     jumpto(options?: DialogOptions, closeFn?: () => void): void;
 
@@ -288,8 +279,22 @@ export interface UIAPI {
      * @param options The options object. See Dialog.addClickHandler() for more information.
      * @param closeFn The function to execute whenever the dialog is closed.
      * @since 2.0.0
+     * @deprecated 2.37.0
      */
     share(options?: DialogOptions, closeFn?: () => void): void;
+
+    /**
+     * Triggers a :uiupdate event that causes the update of the dynamically updated sections built-in
+     * user interface—e.g., those populated by code passages, like StoryCaption and StoryMenu.
+     * Automatically invoked during passage navigation.
+     *
+     * WARNING: As all dynamically updated sections of the built-in UI are updated, save for the main
+     * passage display, it is recommended that this method be used sparingly.
+     * Ideally, if you need to update these sections of the built-in UI outside of the normal passage
+     * navigation update, then you should update only the specific areas you need to rather than the entire UI.
+     * @since 2.37.0
+     */
+    update(): void;
 }
 
 export interface UIBarAPI {
@@ -352,6 +357,7 @@ export interface UIBarAPI {
      * need to rather than the entire UI bar.
      *
      * @since 2.29.0 Introduced
+     * @deprecated 2.37.0 in favor of UI.update()
      */
     update(): void;
 }

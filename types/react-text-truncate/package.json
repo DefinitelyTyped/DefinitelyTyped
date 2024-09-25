@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-text-truncate",
-    "version": "0.14.9999",
+    "version": "0.19.9999",
     "projects": [
         "https://github.com/ShinyChang/react-text-truncate"
     ],

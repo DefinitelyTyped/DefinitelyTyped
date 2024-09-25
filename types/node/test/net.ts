@@ -47,6 +47,13 @@ import * as net from "node:net";
     let _socket: net.Socket = new net.Socket({
         fd: 1,
         allowHalfOpen: false,
+        onread: {
+            buffer: Buffer.alloc(4 * 1024),
+            callback: (bytesWritten, buffer) => {
+                console.log(Buffer.from(buffer).toString("utf-8", 0, bytesWritten));
+                return true;
+            },
+        },
         readable: false,
         writable: false,
     });

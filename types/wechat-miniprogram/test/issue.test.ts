@@ -83,7 +83,7 @@ wx.canvasGetImageData({
         res.width;
         // $ExpectType number
         res.height;
-        // $ExpectType Uint8ClampedArray
+        // $ExpectType Uint8ClampedArray || Uint8ClampedArray<ArrayBuffer>
         res.data;
         // $ExpectType number
         res.data.length;

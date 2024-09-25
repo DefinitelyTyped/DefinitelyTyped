@@ -426,6 +426,22 @@ declare namespace GorillaEngine {
          * List all instrument names contained in this blob
          */
         getInstrumentNames(): string[];
+        /**
+         * Read an item from the blob table of contents
+         */
+        getValueFromTOC(key: string): string;
+        /**
+         * Get the unique ID of the blob
+         */
+        readonly uuid: string;
+        /**
+         * Get the version/timestamp string of the first blob part, if any
+         */
+        readonly part1version: string;
+        /**
+         * Get the version/timestamp string of the second blob part, if any
+         */
+        readonly part2version: string;
     }
 
     interface PreviewPlayer {
@@ -574,5 +590,11 @@ declare namespace GorillaEngine {
          * @param window the window to show
          */
         function createWindow(window: Window): void;
+        /**
+         * Sets the postion where the settings button is located
+         * @param x  the x position to place the settings button
+         * @param y  the y position to place the settings button
+         */
+        function setSettingsButtonPosition(x: number, y: number): void;
     }
 }

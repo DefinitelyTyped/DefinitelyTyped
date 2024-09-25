@@ -14,22 +14,6 @@ import {
 export = MapboxDraw;
 export as namespace MapboxDraw;
 
-type EventOf<T extends MapboxDraw.DrawEventType, Target = unknown> = keyof MapboxDraw.DrawEvents[T] extends never ? {
-        type: T;
-        target: Target;
-    }
-    : {
-        type: T;
-        target: Target;
-    } & MapboxDraw.DrawEvents[T];
-
-declare module "mapbox-gl" {
-    interface Map {
-        on<T extends MapboxDraw.DrawEventType>(type: T, listener: (event: EventOf<T>) => void): this;
-        off<T extends MapboxDraw.DrawEventType>(type: T, listener: (event: EventOf<T>) => void): this;
-    }
-}
-
 declare namespace MapboxDraw {
     type DrawMode = DrawModes[keyof DrawModes];
 

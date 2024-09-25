@@ -429,7 +429,7 @@ declare namespace jest {
     function useRealTimers(): typeof jest;
 
     interface MockOptions {
-        virtual?: boolean | undefined;
+        virtual?: boolean; // Intentionally omitted "| undefined" to maintain compatibility with @jest/globals
     }
 
     type MockableFunction = (...args: any[]) => any;

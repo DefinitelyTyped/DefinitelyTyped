@@ -9,7 +9,7 @@ declare module "../index" {
     type ImpChain<T> =
         T extends { __trapAny: any } ? Collection<any> & Function<any> & Object<any> & Primitive<any> & String :
         T extends null | undefined ? never :
-        T extends string | null | undefined ? String :
+        T extends string ? String<T> :
         T extends (...args: any) => any ? Function<T> :
         T extends List<infer U> | null | undefined ? Collection<U> :
         T extends object | null | undefined ? Object<T> :
@@ -17,8 +17,7 @@ declare module "../index" {
     type ExpChain<T> =
         T extends { __trapAny: any } ? CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain :
         T extends null | undefined ? never :
-        T extends string ? StringChain :
-        T extends string | null | undefined ? StringNullableChain :
+        T extends string ? StringChain<T> :
         T extends (...args: any) => any ? FunctionChain<T> :
         T extends List<infer U> | null | undefined ? CollectionChain<U> :
         T extends object | null | undefined ? ObjectChain<T> :
@@ -93,6 +92,7 @@ declare module "../index" {
         * upperFirst, value, and words.
         **/
         <TrapAny extends { __trapAny: any }>(value: TrapAny): Collection<any> & Function<any> & Object<any> & Primitive<any> & String;
+        <T extends string>(value: T): String<T>;
         <T extends null | undefined>(value: T): Primitive<T>;
         (value: string | null | undefined): String;
         <T extends (...args: any) => any>(value: T): Function<T>;
@@ -190,7 +190,7 @@ declare module "../index" {
     }
     interface Function<T extends (...args: any) => any> extends LoDashImplicitWrapper<T> {
     }
-    interface String extends LoDashImplicitWrapper<string> {
+    interface String<T extends string = string> extends LoDashImplicitWrapper<T> {
     }
     interface Object<T> extends LoDashImplicitWrapper<T> {
     }
@@ -200,7 +200,7 @@ declare module "../index" {
     }
     interface FunctionChain<T extends (...args: any) => any> extends LoDashExplicitWrapper<T> {
     }
-    interface StringChain extends LoDashExplicitWrapper<string> {
+    interface StringChain<T extends string = string> extends LoDashExplicitWrapper<T> {
     }
     interface StringNullableChain extends LoDashExplicitWrapper<string | undefined> {
     }

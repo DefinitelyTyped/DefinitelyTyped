@@ -349,7 +349,8 @@ declare namespace Stylus {
         /**
          * Set a variable `name` on current scope.
          */
-        define(name: Nodes.String, expr: Nodes.Expression): Nodes.Node;
+        define(name: Nodes.String, expr: Nodes.Expression): Nodes.Null;
+        define(name: Nodes.String, expr: Nodes.Expression, global: Nodes.Boolean): Nodes.Null;
 
         /**
          * Perform `op` on the `left` and `right` operands.

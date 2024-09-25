@@ -13,7 +13,8 @@ declare namespace ChaiJsonPattern {
         [key: string]: (target: any) => void;
     }
 }
-declare const chaiJsonPattern: Chai.ChaiPlugin;
+declare const chaiJsonPattern: Chai.ChaiPlugin & {
+    extend(plugin: ChaiJsonPattern.Plugin): void;
+};
 
-export default chaiJsonPattern;
-export function extend(plugin: ChaiJsonPattern.Plugin): void;
+export = chaiJsonPattern;

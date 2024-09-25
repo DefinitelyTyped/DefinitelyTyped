@@ -336,8 +336,8 @@ declare namespace Backbone {
             | { bivarianceHack(element: TModel): number | string }["bivarianceHack"]
             | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
 
-        add(model: {} | TModel, options?: AddOptions): TModel;
         add(models: Array<{} | TModel>, options?: AddOptions): TModel[];
+        add(model: {} | TModel, options?: AddOptions): TModel;
         at(index: number): TModel;
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.

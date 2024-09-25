@@ -5,6 +5,8 @@
     "projects": [
         "https://github.com/sindresorhus/is-gif#readme"
     ],
+    "type": "module",
+    "exports": "./index.d.ts",
     "devDependencies": {
         "@types/is-gif": "workspace:."
     },

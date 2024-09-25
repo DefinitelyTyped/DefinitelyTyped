@@ -688,6 +688,7 @@ declare namespace PDFKit {
         lang?: string;
         displayTitle?: boolean;
         subset?: Mixins.PDFSubsets;
+        fontLayoutCache?: boolean;
     }
 
     interface PDFDocument
