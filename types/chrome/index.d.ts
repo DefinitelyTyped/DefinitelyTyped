@@ -7448,7 +7448,8 @@ declare namespace chrome.runtime {
         | "wallpaper"
         | "webNavigation"
         | "webRequest"
-        | "webRequestBlocking";
+        | "webRequestBlocking"
+        | "webRequestAuthProvider";
 
     export interface SearchProvider {
         name?: string | undefined;
