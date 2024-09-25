@@ -3364,7 +3364,7 @@ _.has({ a: 1, b: 2, c: 3 }, "b"); // $ExpectType boolean
 
 // isDataView
 {
-    _.isDataView(anyValue) ? anyValue : neverValue; // $ExpectType DataView
+    _.isDataView(anyValue) ? anyValue : neverValue; // $ExpectType DataView || DataView<ArrayBuffer>
     _(anyValue).isDataView(); // $ExpectType boolean
     extractChainTypes(_.chain(anyValue).isDataView()); // $ExpectType ChainType<boolean, never>
 }

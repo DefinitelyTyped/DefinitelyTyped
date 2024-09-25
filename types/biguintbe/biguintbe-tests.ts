@@ -5,9 +5,9 @@ const bigUint = BigInt(1);
 bigUintBE.encodingLength(bigUint); // $ExpectType number
 bigUintBE.encode(bigUint); // $ExpectType Buffer
 bigUintBE.encode(bigUint, Buffer.alloc(10)); // $ExpectType Buffer
-bigUintBE.encode(bigUint, new Uint8Array(10)); // $ExpectType Uint8Array
+bigUintBE.encode(bigUint, new Uint8Array(10)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 bigUintBE.encode(bigUint, Buffer.alloc(10), 1); // $ExpectType Buffer
-bigUintBE.encode(bigUint, new Uint8Array(10), 1); // $ExpectType Uint8Array
+bigUintBE.encode(bigUint, new Uint8Array(10), 1); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 bigUintBE.encode.bytes; // $ExpectType number
 

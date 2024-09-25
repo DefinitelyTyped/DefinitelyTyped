@@ -5,17 +5,17 @@ import codecs = require("codecs");
     codecs().name; // $ExpectType "binary"
     codecs(undefined).name; // $ExpectType "binary"
     const set: [Codec<undefined>, InType<undefined>, OutType<undefined>, CodecName<undefined>] = [] as any;
-    set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"]
+    set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"] || [BinaryCodec, string | Uint8Array<ArrayBufferLike>, Buffer, "binary"]
 }
 {
     codecs(null).name; // $ExpectType "binary"
     const set: [Codec<null>, InType<null>, OutType<null>, CodecName<null>] = [] as any;
-    set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"]
+    set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"] || [BinaryCodec, string | Uint8Array<ArrayBufferLike>, Buffer, "binary"]
 }
 {
     codecs("any").name; // $ExpectType "binary"
     const set: [Codec<"any">, InType<"any">, OutType<"any">, CodecName<"any">] = [] as any;
-    set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"]
+    set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"] || [BinaryCodec, string | Uint8Array<ArrayBufferLike>, Buffer, "binary"]
 }
 {
     codecs("any", codecs.json).name; // $ExpectType "json"
@@ -65,7 +65,7 @@ import codecs = require("codecs");
     codecs[codec].encode("hello"); // $ExpectType Buffer
     codecs[codec].decode(new Uint8Array()); // $ExpectType Buffer
     const set: [Codec<"binary">, InType<"binary">, OutType<"binary">, CodecName<"binary">] = [] as any;
-    set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"]
+    set; // $ExpectType [BinaryCodec, string | Uint8Array, Buffer, "binary"] || [BinaryCodec, string | Uint8Array<ArrayBufferLike>, Buffer, "binary"]
 }
 {
     const codec = "hex";

@@ -40,7 +40,7 @@ declare const ITERABLE_UNION: number[] | Set<Date>;
 getIterator(ITERABLE_UNION);
 
 declare const ITERABLE_OR_OTHERS_UNION: Map<Error, DataView> | ArrayBuffer;
-// $ExpectType Iterator<[Error, DataView], any, undefined> | undefined || Iterator<[Error, DataView], any, unknown> | undefined
+// $ExpectType Iterator<[Error, DataView], any, undefined> | undefined || Iterator<[Error, DataView], any, unknown> | undefined || Iterator<[Error, DataView<ArrayBuffer>], any, unknown> | undefined
 getIterator(ITERABLE_OR_OTHERS_UNION);
 
 declare const UNKNOWN: unknown;
