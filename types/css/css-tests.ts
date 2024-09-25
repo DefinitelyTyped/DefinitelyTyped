@@ -50,6 +50,18 @@ var bodyRule: css.Rule = {
     declarations: [ruleComment, bgDeclaration, colorDeclaration],
 };
 
+var importNode = {
+    type: "import",
+    import: "Imported",
+} as css.Import as css.Node;
+
+// @ts-expect-error
+importNode.import = "Imported 2";
+
+if (importNode.type === "import") {
+    importNode.import = "Imported 3";
+}
+
 var newStylesheet: css.Stylesheet = {
     type: "stylesheet",
     stylesheet: {
