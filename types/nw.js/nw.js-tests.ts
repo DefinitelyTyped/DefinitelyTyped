@@ -281,6 +281,10 @@ Object.assign(tray, null);
 // Get the current window
 var win = nw.Window.get();
 
+win.isDevToolsOpen((status: boolean) => {
+  console.log(status);
+});
+
 // Listen to the minimize event
 win.on("minimize", function() {
     console.log("Window is minimized");
