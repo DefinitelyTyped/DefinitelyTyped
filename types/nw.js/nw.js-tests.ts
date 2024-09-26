@@ -282,7 +282,7 @@ Object.assign(tray, null);
 var win = nw.Window.get();
 
 win.isDevToolsOpen((status: boolean) => {
-  console.log(status);
+    console.log(status);
 });
 
 // Listen to the minimize event
