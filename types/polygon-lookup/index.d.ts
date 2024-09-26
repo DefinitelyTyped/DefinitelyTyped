@@ -14,7 +14,7 @@ declare class PolygonLookup {
     constructor(featureCollection?: FeatureCollection);
 
     /** A spatial index for `this.polygons`. */
-    rtree: typeof RBush<PolygonLookup.BBox[]>;
+    rtree: RBush<PolygonLookup.BBox[]>;
     polygons: FeatureCollection;
 
     /**

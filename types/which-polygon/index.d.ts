@@ -13,7 +13,7 @@ declare namespace whichPolygon {
         bbox(bbox: BBox): Properties[];
 
         /** @internal */
-        tree: typeof RBush<unknown>;
+        tree: RBush<unknown>;
     }
 
     type GeoJson<Properties> = FeatureCollection<Geometry, Properties>;
