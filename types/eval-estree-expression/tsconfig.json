@@ -1,9 +1,12 @@
 {
-	"compilerOptions": {
+    "compilerOptions": {
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "noEmit": true,
-	}
+        "strictNullChecks": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts"
+    ]
 }
