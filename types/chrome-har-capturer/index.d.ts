@@ -104,29 +104,29 @@ export interface LoaderEventCallback<U> {
 
 export interface RunOptions<T> {
     /** Chrome Debugging Protocol host. Defaults to localhost */
-    host?: string;
+    host?: string | undefined;
     /** Chrome Debugging Protocol port. Defaults to 9222 */
-    port?: number | string;
+    port?: number | string | undefined;;
     /** frame width in DIP. Defaults to a Chrome-defined value */
-    width?: number;
+    width?: number | undefined;;
     /** frame height in DIP. Defaults to a Chrome-defined value */
-    height?: number;
+    height?: number | undefined;;
     /** if true also capture the requests body. Defaults to false */
-    content?: boolean;
+    content?: boolean | undefined;;
     /** if true allow caching. Defaults to false */
-    cache?: boolean;
+    cache?: boolean | undefined;;
     /** milliseconds to wait before giving up with a URL */
-    timeout?: number;
+    timeout?: number | undefined;;
     /** number of retries on page load failure. Defaults to 0 */
-    retry?: number;
+    retry?: number | undefined;;
     /** time to wait before starting a new attempt. Defaults to 0 */
-    retryDelay?: number;
+    retryDelay?: number | undefined;;
     /** stop after the first failure (incompatible with parallel mode) */
-    abortOnFailure?: boolean;
+    abortOnFailure?: boolean | undefined;;
     /** maximum POST data size (in bytes) to be returned. Defaults to unlimited */
-    postData?: number;
+    postData?: number | undefined;;
     /** if true load the URLs in parallel (warning: this may spoil time-based metrics). Defaults to false */
-    parallel?: boolean;
+    parallel?: boolean | undefined;;
     /**
      * function returning a Promise executed before each page load
      *
@@ -136,7 +136,7 @@ export interface RunOptions<T> {
      * @param urls input URL array
      * @returns Promise executed before each page load
      */
-    preHook?: (url: string, client: any, index: number, urls: readonly string[]) => Promise<void>;
+    preHook?: (url: string, client: any, index: number, urls: readonly string[]) => Promise<void> | undefined;;
     /**
      * function returning a Promise executed after each page load event
      *
@@ -147,7 +147,7 @@ export interface RunOptions<T> {
      * @param urls input URL array
      * @returns Promise executed after each page load event
      */
-    postHook?: (url: string, client: any, index: number, urls: readonly string[]) => Promise<T>;
+    postHook?: (url: string, client: any, index: number, urls: readonly string[]) => Promise<T> | undefined;;
 }
 
 export class Loader<U> extends EventEmitter {
