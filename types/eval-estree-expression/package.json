@@ -17,9 +17,5 @@
         "type": "git",
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
         "directory": "types/eval-estree-expression"
-    },
-    "scripts": {},
-    "dependencies": {},
-    "typesPublisherContentHash": "9b0eab3a1f9ac955b7afe3cfcb60deedcde672b7fd7b5e5ea99f6abd5d6f51b1",
-    "typeScriptVersion": "4.5"
+    }
 }
