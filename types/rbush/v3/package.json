@@ -1,12 +1,10 @@
 {
     "private": true,
     "name": "@types/rbush",
-    "version": "4.0.9999",
-    "type": "module",
+    "version": "3.0.9999",
     "projects": [
         "https://github.com/mourner/rbush"
     ],
-    "exports": "./index.d.ts",
     "devDependencies": {
         "@types/rbush": "workspace:."
     },
