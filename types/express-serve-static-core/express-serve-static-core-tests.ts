@@ -326,3 +326,7 @@ app.get("/:readonly", req => {
 
 // Starting with Express 5 RequestHandler can be async
 app.get("/async", Promise.resolve);
+
+// RequestHandler can return a value
+app.get("/test", (_, res) => res.json("ok"));
+app.get("/test", async (_, res) => res.json(await "ok"));
