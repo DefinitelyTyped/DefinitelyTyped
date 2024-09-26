@@ -1,5 +1,5 @@
 import { Feature, FeatureCollection, Polygon } from "geojson";
-import RBush from "rbush";
+import RBush = require("rbush");
 
 declare namespace PolygonLookup {
     interface BBox {
@@ -14,7 +14,7 @@ declare class PolygonLookup {
     constructor(featureCollection?: FeatureCollection);
 
     /** A spatial index for `this.polygons`. */
-    rtree: RBush<PolygonLookup.BBox[]>;
+    rtree: typeof RBush<PolygonLookup.BBox[]>;
     polygons: FeatureCollection;
 
     /**
