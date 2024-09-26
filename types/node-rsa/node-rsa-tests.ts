@@ -59,7 +59,7 @@ key.importKey(
 );
 const publicComponents = key.exportKey("components-public");
 let b = publicComponents.n; // $ExpectType Buffer || Buffer<ArrayBufferLike>
-let bn = publicComponents.e; // $ExpectType number | Buffer<ArrayBufferLike>
+let bn = publicComponents.e; // $ExpectType number | Buffer || number | Buffer<ArrayBufferLike>
 const privateComponents = key.exportKey("components-private");
 b = privateComponents.n;
 bn = privateComponents.e;

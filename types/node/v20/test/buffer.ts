@@ -486,8 +486,8 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     const u16 = new Uint16Array([0xffff]);
-    Buffer.copyBytesFrom(u16); // $ExpectType Buffer || Buffer<ArrayBufferLike>
-    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    Buffer.copyBytesFrom(u16); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer || Buffer<ArrayBuffer>
 }
 
 declare class NodeFile implements File {

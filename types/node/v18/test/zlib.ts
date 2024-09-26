@@ -149,23 +149,23 @@ brotliDecompress(
 );
 
 {
-    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pBrotliCompress = promisify(brotliCompress);
-    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: BrotliOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pBrotliDecompress = promisify(brotliDecompress);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pDeflate = promisify(deflate);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pDeflateRaw = promisify(deflateRaw);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pGzip = promisify(gzip);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pGunzip = promisify(gunzip);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pInflate = promisify(inflate);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pInflateRaw = promisify(inflateRaw);
-    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer>
+    // $ExpectType (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer> || (buffer: InputType, options?: ZlibOptions | undefined) => Promise<Buffer<ArrayBufferLike>>
     const pUnzip = promisify(unzip);
 
     (async () => {

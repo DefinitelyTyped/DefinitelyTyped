@@ -1509,7 +1509,7 @@ import { promisify } from "node:util";
 }
 
 {
-    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
     crypto.getRandomValues(new Uint8Array(8)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     crypto.getRandomValues(new Int16Array(8)); // $ExpectType Int16Array || Int16Array<ArrayBuffer>
     crypto.getRandomValues(new Float32Array(8)); // $ExpectType Float32Array || Float32Array<ArrayBuffer>
@@ -1531,7 +1531,7 @@ import { promisify } from "node:util";
     b = crypto.subtle;
 
     crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
-    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
     // @ts-expect-error
     crypto.webcrypto.getRandomValues(new Float64Array(4));

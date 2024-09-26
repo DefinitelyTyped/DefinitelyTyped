@@ -1493,7 +1493,7 @@ import { promisify } from "node:util";
     const b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
 
     crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
-    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
     // @ts-expect-error
     crypto.webcrypto.getRandomValues(new Float64Array(4));

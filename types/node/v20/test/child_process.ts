@@ -25,15 +25,15 @@ import { promisify } from "node:util";
     childProcess.spawnSync("echo test", { encoding: "buffer" });
     childProcess.spawnSync("echo test", { cwd: new URL("file://aaaaaaaa") });
 
-    childProcess.spawnSync("echo test").output; // $ExpectType (Buffer | null)[]
-    childProcess.spawnSync("echo test", {}).output; // $ExpectType (Buffer | null)[]
-    childProcess.spawnSync("echo test", { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo test").output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test", {}).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test", { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
     childProcess.spawnSync("echo test", { encoding: "utf-8" }).output; // $ExpectType (string | null)[]
-    childProcess.spawnSync("echo", ["test"]).output; // $ExpectType (Buffer | null)[]
-    childProcess.spawnSync("echo test", ["test"], {}).output; // $ExpectType (Buffer | null)[]
-    childProcess.spawnSync("echo test", ["test"], { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo", ["test"]).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test", ["test"], {}).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test", ["test"], { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
     childProcess.spawnSync("echo test", ["test"], { encoding: "utf-8" }).output; // $ExpectType (string | null)[]
-    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | Buffer | null)[]
+    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | Buffer | null)[] || (string | Buffer<ArrayBufferLike> | null)[]
 }
 
 {
