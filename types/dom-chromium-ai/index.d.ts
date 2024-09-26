@@ -131,7 +131,7 @@ interface AIAssistant extends EventTarget {
         options?: boolean | EventListenerOptions,
     ): void;
 
-    clone(): Promise<AIAssistant>;
+    clone(options?: AIAssistantCloneOptions): Promise<AIAssistant>;
     destroy(): void;
 }
 
@@ -140,6 +140,10 @@ interface AIAssistantEventMap {
 }
 
 interface AIAssistantPromptOptions {
+    signal?: AbortSignal;
+}
+
+interface AIAssistantCloneOptions {
     signal?: AbortSignal;
 }
 
