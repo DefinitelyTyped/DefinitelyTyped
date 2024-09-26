@@ -20,8 +20,8 @@ fs.realpath.native(path); // $ExpectType Promise<string>
 fs.realpath.native(path, stringEncoding); // $ExpectType Promise<string>
 fs.realpath.native(path, { encoding: stringEncoding }); // $ExpectType Promise<string>
 
-fs.realpath.native(path, anyEncoding); // $ExpectType Promise<string | Buffer>
-fs.realpath.native(path, { encoding: anyEncoding }); // $ExpectType Promise<string | Buffer>
+fs.realpath.native(path, anyEncoding); // $ExpectType Promise<string | Buffer> || Promise<string | Buffer<ArrayBufferLike>>
+fs.realpath.native(path, { encoding: anyEncoding }); // $ExpectType Promise<string | Buffer> || Promise<string | Buffer<ArrayBufferLike>>
 
-fs.realpath.native(path, "buffer"); // $ExpectType Promise<Buffer>
-fs.realpath.native(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer>
+fs.realpath.native(path, "buffer"); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+fs.realpath.native(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>

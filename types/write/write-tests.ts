@@ -12,7 +12,7 @@ write("1.txt", text).then(({ path, data }) => {
 });
 
 write("1.txt", buf, { mode: 0o777 }).then(({ data }) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBuffer>
     data;
 });
 

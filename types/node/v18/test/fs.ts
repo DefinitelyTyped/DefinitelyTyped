@@ -512,7 +512,7 @@ async function testPromisify() {
     });
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
-    (await handle.read()).buffer; // $ExpectType Buffer
+    (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     (await handle.read({
         buffer: new Uint32Array(),
         offset: 1,

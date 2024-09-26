@@ -71,7 +71,7 @@ new MyConn({ service: "foo", domain: "bar.baz", lang: "en" });
 conn.jid; // $ExpectType JID | null
 conn.timeout; // $ExpectType number
 conn.options; // $ExpectType Partial<Options>
-conn.socketListeners.data; // $ExpectType ((data: Buffer) => void) | undefined
+conn.socketListeners.data; // $ExpectType ((data: Buffer) => void) | undefined || ((data: Buffer<ArrayBufferLike>) => void) | undefined
 conn.socketListeners.close; // $ExpectType ((hadError: boolean, event?: string | undefined) => void) | undefined
 conn.socketListeners.connect; // $ExpectType (() => void) | undefined
 conn.socketListeners.error; // $ExpectType ((error: Error) => void) | undefined

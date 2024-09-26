@@ -25,8 +25,8 @@ asBlob(html, { orientation: "invalid" });
 asBlob(html, { foo: ["bar"] });
 
 // Valid ways to call
-asBlob(html); // $ExpectType Blob | Buffer
-asBlob(html, {}); // $ExpectType Blob | Buffer
+asBlob(html); // $ExpectType Blob | Buffer || Blob | Buffer<ArrayBufferLike>
+asBlob(html, {}); // $ExpectType Blob | Buffer || Blob | Buffer<ArrayBufferLike>
 
 const result1 = asBlob(html, {
     orientation: "landscape",
@@ -40,7 +40,7 @@ const result1 = asBlob(html, {
         gutter: 100,
     },
 });
-result1; // $ExpectType Blob | Buffer
+result1; // $ExpectType Blob | Buffer || Blob | Buffer<ArrayBufferLike>
 
 const result2 = asBlob(html, {
     margins: {
@@ -50,4 +50,4 @@ const result2 = asBlob(html, {
         left: 75,
     },
 });
-result2; // $ExpectType Blob | Buffer
+result2; // $ExpectType Blob | Buffer || Blob | Buffer<ArrayBufferLike>

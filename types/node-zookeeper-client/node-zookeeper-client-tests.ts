@@ -96,13 +96,13 @@ const client = zookeeper.createClient(
 
         if (stat) {
             console.log("Node exists.");
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             stat.czxid;
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             stat.mzxid;
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             stat.ctime;
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             stat.mtime;
             // $ExpectType number
             stat.version;
@@ -110,13 +110,13 @@ const client = zookeeper.createClient(
             stat.cversion;
             // $ExpectType number
             stat.aversion;
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             stat.ephemeralOwner;
             // $ExpectType number
             stat.dataLength;
             // $ExpectType number
             stat.numChildren;
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             stat.pzxid;
         } else {
             console.log("Node does not exist.");

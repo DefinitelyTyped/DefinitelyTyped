@@ -262,13 +262,6 @@ declare module "buffer" {
             | {
                 valueOf(): T;
             };
-        // `WithArrayBufferLike` is a backwards-compatible workaround for the addition of a `TArrayBuffer` type parameter to
-        // `Uint8Array` to ensure that `Buffer` remains assignment-compatible with `Uint8Array`, but without the added
-        // complexity involved with making `Buffer` itself generic as that would require re-introducing `"typesVersions"` to
-        // the NodeJS types. It is likely this interface will become deprecated in the future once `Buffer` does become generic.
-        interface WithArrayBufferLike<TArrayBuffer extends ArrayBufferLike> {
-            readonly buffer: TArrayBuffer;
-        }
         /**
          * Raw data is stored in instances of the Buffer class.
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
@@ -282,21 +275,21 @@ declare module "buffer" {
              * @param encoding encoding to use, optional.  Default is 'utf8'
              * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
              */
-            new(str: string, encoding?: BufferEncoding): Buffer;
+            new(str: string, encoding?: BufferEncoding): Buffer<ArrayBuffer>;
             /**
              * Allocates a new buffer of {size} octets.
              *
              * @param size count of octets to allocate.
              * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
              */
-            new(size: number): Buffer;
+            new(size: number): Buffer<ArrayBuffer>;
             /**
              * Allocates a new buffer containing the given {array} of octets.
              *
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            new(array: Uint8Array): Buffer;
+            new(array: Uint8Array): Buffer<ArrayBuffer>;
             /**
              * Produces a Buffer backed by the same allocated memory as
              * the given {ArrayBuffer}/{SharedArrayBuffer}.
@@ -304,21 +297,21 @@ declare module "buffer" {
              * @param arrayBuffer The ArrayBuffer with which to share memory.
              * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
              */
-            new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
+            new<TArrayBuffer extends ArrayBufferLike = ArrayBuffer>(arrayBuffer: TArrayBuffer): Buffer<TArrayBuffer>;
             /**
              * Allocates a new buffer containing the given {array} of octets.
              *
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            new(array: readonly any[]): Buffer;
+            new(array: readonly any[]): Buffer<ArrayBuffer>;
             /**
              * Copies the passed {buffer} data onto a new {Buffer} instance.
              *
              * @param buffer The buffer to copy.
              * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
              */
-            new(buffer: Buffer): Buffer;
+            new(buffer: Buffer): Buffer<ArrayBuffer>;
             /**
              * Allocates a new `Buffer` using an `array` of bytes in the range `0` – `255`.
              * Array entries outside that range will be truncated to fit into it.
@@ -340,17 +333,17 @@ declare module "buffer" {
              * `Buffer.from(array)` and `Buffer.from(string)` may also use the internal `Buffer` pool like `Buffer.allocUnsafe()` does.
              * @since v5.10.0
              */
-            from(
-                arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>,
+            from<TArrayBuffer extends ArrayBufferLike>(
+                arrayBuffer: WithImplicitCoercion<TArrayBuffer>,
                 byteOffset?: number,
                 length?: number,
-            ): Buffer;
+            ): Buffer<TArrayBuffer>;
             /**
              * Creates a new Buffer using the passed {data}
              * @param data data to create a new Buffer
              */
-            from(data: Uint8Array | readonly number[]): Buffer;
-            from(data: WithImplicitCoercion<Uint8Array | readonly number[] | string>): Buffer;
+            from(data: Uint8Array | readonly number[]): Buffer<ArrayBuffer>;
+            from(data: WithImplicitCoercion<Uint8Array | readonly number[] | string>): Buffer<ArrayBuffer>;
             /**
              * Creates a new Buffer containing the given JavaScript string {str}.
              * If provided, the {encoding} parameter identifies the character encoding.
@@ -363,12 +356,12 @@ declare module "buffer" {
                         [Symbol.toPrimitive](hint: "string"): string;
                     },
                 encoding?: BufferEncoding,
-            ): Buffer;
+            ): Buffer<ArrayBuffer>;
             /**
              * Creates a new Buffer using the passed {data}
              * @param values to create a new Buffer
              */
-            of(...items: number[]): Buffer;
+            of(...items: number[]): Buffer<ArrayBuffer>;
             /**
              * Returns `true` if `obj` is a `Buffer`, `false` otherwise.
              *
@@ -478,7 +471,7 @@ declare module "buffer" {
              * @param list List of `Buffer` or {@link Uint8Array} instances to concatenate.
              * @param totalLength Total length of the `Buffer` instances in `list` when concatenated.
              */
-            concat(list: readonly Uint8Array[], totalLength?: number): Buffer;
+            concat(list: readonly Uint8Array[], totalLength?: number): Buffer<ArrayBuffer>;
             /**
              * Copies the underlying memory of `view` into a new `Buffer`.
              *
@@ -495,7 +488,7 @@ declare module "buffer" {
              * @param [offset=0] The starting offset within `view`.
              * @param [length=view.length - offset] The number of elements from `view` to copy.
              */
-            copyBytesFrom(view: NodeJS.TypedArray, offset?: number, length?: number): Buffer;
+            copyBytesFrom(view: NodeJS.TypedArray, offset?: number, length?: number): Buffer<ArrayBuffer>;
             /**
              * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of `Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
              *
@@ -561,7 +554,7 @@ declare module "buffer" {
              * @param [fill=0] A value to pre-fill the new `Buffer` with.
              * @param [encoding='utf8'] If `fill` is a string, this is its encoding.
              */
-            alloc(size: number, fill?: string | Uint8Array | number, encoding?: BufferEncoding): Buffer;
+            alloc(size: number, fill?: string | Uint8Array | number, encoding?: BufferEncoding): Buffer<ArrayBuffer>;
             /**
              * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_OUT_OF_RANGE` is thrown.
              *
@@ -597,7 +590,7 @@ declare module "buffer" {
              * @since v5.10.0
              * @param size The desired length of the new `Buffer`.
              */
-            allocUnsafe(size: number): Buffer;
+            allocUnsafe(size: number): Buffer<ArrayBuffer>;
             /**
              * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_OUT_OF_RANGE` is thrown. A zero-length `Buffer` is created if
              * `size` is 0.
@@ -642,7 +635,7 @@ declare module "buffer" {
              * @since v5.12.0
              * @param size The desired length of the new `Buffer`.
              */
-            allocUnsafeSlow(size: number): Buffer;
+            allocUnsafeSlow(size: number): Buffer<ArrayBuffer>;
             /**
              * This is the size (in bytes) of pre-allocated internal `Buffer` instances used
              * for pooling. This value may be modified.
@@ -650,7 +643,7 @@ declare module "buffer" {
              */
             poolSize: number;
         }
-        interface Buffer extends Uint8Array {
+        interface Buffer<TArrayBuffer extends ArrayBufferLike = ArrayBufferLike> extends Uint8Array<TArrayBuffer> {
             /**
              * Writes `string` to `buf` at `offset` according to the character encoding in`encoding`. The `length` parameter is the number of bytes to write. If `buf` did
              * not contain enough space to fit the entire string, only part of `string` will be
@@ -920,7 +913,7 @@ declare module "buffer" {
              * @param [start=0] Where the new `Buffer` will start.
              * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
-            slice(start?: number, end?: number): Buffer & WithArrayBufferLike<this["buffer"]>;
+            slice(start?: number, end?: number): Buffer<ArrayBuffer>;
             /**
              * Returns a new `Buffer` that references the same memory as the original, but
              * offset and cropped by the `start` and `end` indices.
@@ -980,7 +973,7 @@ declare module "buffer" {
              * @param [start=0] Where the new `Buffer` will start.
              * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
-            subarray(start?: number, end?: number): Buffer & WithArrayBufferLike<this["buffer"]>;
+            subarray(start?: number, end?: number): Buffer<TArrayBuffer>;
             /**
              * Writes `value` to `buf` at the specified `offset` as big-endian.
              *

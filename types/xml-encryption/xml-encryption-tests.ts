@@ -14,7 +14,7 @@ decrypt(
         const result = res;
     },
 );
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 const decrypted = decryptKeyInfo("enc", { key: "mykey" });
 
 // @ts-expect-error

@@ -169,23 +169,23 @@ brotliDecompress(
     const pUnzip = promisify(unzip);
 
     (async () => {
-        await pBrotliCompress(Buffer.from("buf")); // $ExpectType Buffer
-        await pBrotliCompress(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
-        await pBrotliDecompress(Buffer.from("buf")); // $ExpectType Buffer
-        await pBrotliDecompress(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
-        await pDeflate(Buffer.from("buf")); // $ExpectType Buffer
-        await pDeflate(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
-        await pDeflateRaw(Buffer.from("buf")); // $ExpectType Buffer
-        await pDeflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
-        await pGzip(Buffer.from("buf")); // $ExpectType Buffer
-        await pGzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
-        await pGunzip(Buffer.from("buf")); // $ExpectType Buffer
-        await pGunzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
-        await pInflate(Buffer.from("buf")); // $ExpectType Buffer
-        await pInflate(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
-        await pInflateRaw(Buffer.from("buf")); // $ExpectType Buffer
-        await pInflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
-        await pUnzip(Buffer.from("buf")); // $ExpectType Buffer
-        await pUnzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
+        await pBrotliCompress(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pBrotliCompress(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pBrotliDecompress(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pBrotliDecompress(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pDeflate(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pDeflate(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pDeflateRaw(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pDeflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pGzip(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pGzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pGunzip(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pGunzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pInflate(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pInflate(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pInflateRaw(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pInflateRaw(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pUnzip(Buffer.from("buf")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+        await pUnzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     })();
 }

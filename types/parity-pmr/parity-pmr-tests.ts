@@ -5,7 +5,7 @@ const message: PMRMessage = {
     messageType: "E",
 };
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 format(message);
 
 // Invalid type

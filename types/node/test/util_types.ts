@@ -13,7 +13,7 @@ if (types.isArgumentsObject(object)) {
     object; // $ExpectType IArguments
 }
 if (types.isArrayBufferView(object)) {
-    object; // $ExpectType ArrayBufferView
+    object; // $ExpectType ArrayBufferView || ArrayBufferView<ArrayBufferLike>
 }
 if (types.isBigInt64Array(object)) {
     object; // $ExpectType BigInt64Array || BigInt64Array<ArrayBufferLike>

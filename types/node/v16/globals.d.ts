@@ -224,19 +224,19 @@ declare namespace NodeJS {
         unref(): this;
     }
 
-    type TypedArray =
-        | Uint8Array
-        | Uint8ClampedArray
-        | Uint16Array
-        | Uint32Array
-        | Int8Array
-        | Int16Array
-        | Int32Array
-        | BigUint64Array
-        | BigInt64Array
-        | Float32Array
-        | Float64Array;
-    type ArrayBufferView = TypedArray | DataView;
+    type TypedArray<TArrayBuffer extends ArrayBufferLike = ArrayBufferLike> =
+        | Uint8Array<TArrayBuffer>
+        | Uint8ClampedArray<TArrayBuffer>
+        | Uint16Array<TArrayBuffer>
+        | Uint32Array<TArrayBuffer>
+        | Int8Array<TArrayBuffer>
+        | Int16Array<TArrayBuffer>
+        | Int32Array<TArrayBuffer>
+        | BigUint64Array<TArrayBuffer>
+        | BigInt64Array<TArrayBuffer>
+        | Float32Array<TArrayBuffer>
+        | Float64Array<TArrayBuffer>;
+    type ArrayBufferView<TArrayBuffer extends ArrayBufferLike = ArrayBufferLike> = TypedArray<TArrayBuffer> | DataView<TArrayBuffer>;
 
     interface Require {
         (id: string): any;
