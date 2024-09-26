@@ -4,13 +4,13 @@
         "lib": [
             "es6"
         ],
-		"noImplicitAny": true,
+        "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "noEmit": true,
-		"forceConsistentCasingInFileNames": true,
-		"types": []
+        "forceConsistentCasingInFileNames": true,
+        "types": []
     },
     "files": [
         "index.d.ts"

@@ -7,11 +7,11 @@
             "url": "https://github.com/NITFALL"
         }
     ],
-	"private": true,
+    "private": true,
     "devDependencies": {
-		"@types/eval-estree-expression": "workspace:."
-	},
-	"projects": [
-		"https://github.com/jonschlinkert/eval-estree-expression"
-	]
+        "@types/eval-estree-expression": "workspace:."
+    },
+    "projects": [
+        "https://github.com/jonschlinkert/eval-estree-expression"
+    ]
 }
