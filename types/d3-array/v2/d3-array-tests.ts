@@ -1040,6 +1040,9 @@ testArrays = d3Array.transpose([readonlyTestArray1, readonlyTestArray2] as Reado
 testArrays = d3Array.zip(testArray1, testArray2);
 testArrays = d3Array.zip(readonlyTestArray1, readonlyTestArray2);
 
+// $ExpectType [string, number][]
+d3Array.zip(["Alice", "Bob", "Carol"], [32, 13, 14]);
+
 // -----------------------------------------------------------------------------
 // Test Iterables
 // -----------------------------------------------------------------------------
