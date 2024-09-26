@@ -32,12 +32,13 @@
 
 // Definitions specific to TypeScript 4.9 through 5.7+
 /// <reference path="globals.typedarray.d.ts" />
-/// <reference path="buffer.d.ts" />
+/// <reference path="buffer.buffer.d.ts" />
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="assert.d.ts" />
 /// <reference path="assert/strict.d.ts" />
 /// <reference path="globals.d.ts" />
+/// <reference path="buffer.d.ts" />
 /// <reference path="async_hooks.d.ts" />
 /// <reference path="child_process.d.ts" />
 /// <reference path="cluster.d.ts" />
