@@ -17,7 +17,7 @@ export {
     LightingModelReflectedLight,
 } from "./core/LightingModel.js";
 export { default as MRTNode } from "./core/MRTNode.js";
-export { default as Node, NodeJSONInputData, NodeJSONIntermediateOutputData, registerNode } from "./core/Node.js";
+export { default as Node, NodeJSONInputData, NodeJSONIntermediateOutputData } from "./core/Node.js";
 export { default as NodeAttribute } from "./core/NodeAttribute.js";
 export {
     BuildStageOption,
@@ -116,6 +116,7 @@ export { default as PixelationPassNode } from "./display/PixelationPassNode.js";
 export { default as PosterizeNode } from "./display/PosterizeNode.js";
 export { default as RenderOutputNode } from "./display/RenderOutputNode.js";
 export { default as RGBShiftNode } from "./display/RGBShiftNode.js";
+export { default as ScreenNode, ScreenNodeScope } from "./display/ScreenNode.js";
 export { default as SobelOperatorNode } from "./display/SobelOperatorNode.js";
 export { default as SSAAPassNode } from "./display/SSAAPassNode.js";
 export { default as StereoPassNode } from "./display/StereoPassNode.js";
@@ -123,7 +124,6 @@ export { default as ToneMappingNode } from "./display/ToneMappingNode.js";
 export { default as TransitionNode } from "./display/TransitionNode.js";
 export { default as ViewportDepthNode, ViewportDepthNodeScope } from "./display/ViewportDepthNode.js";
 export { default as ViewportDepthTextureNode } from "./display/ViewportDepthTextureNode.js";
-export { default as ViewportNode, ViewportNodeScope } from "./display/ViewportNode.js";
 export { default as ViewportSharedTextureNode } from "./display/ViewportSharedTextureNode.js";
 export { default as ViewportTextureNode } from "./display/ViewportTextureNode.js";
 
