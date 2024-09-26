@@ -1,5 +1,5 @@
 /**
- * To use the HTTP server and client one must `require('http')`.
+ * To use the HTTP server and client one must import the `node:http` module.
  *
  * The HTTP interfaces in Node.js are designed to support many features
  * of the protocol which have been traditionally difficult to use.
@@ -910,7 +910,7 @@ declare module "http" {
          * may run into a 'ECONNRESET' error.
          *
          * ```js
-         * const http = require('http');
+         * import http from 'node:http';
          *
          * // Server has a 5 seconds keep-alive timeout by default
          * http
@@ -934,7 +934,7 @@ declare module "http" {
          * automatic error retry base on it.
          *
          * ```js
-         * const http = require('http');
+         * import http from 'node:http';
          * const agent = new http.Agent({ keepAlive: true });
          *
          * function retriableRequest() {
@@ -1529,7 +1529,7 @@ declare module "http" {
      * upload a file with a POST request, then write to the `ClientRequest` object.
      *
      * ```js
-     * const http = require('http');
+     * import http from 'node:http';
      *
      * const postData = JSON.stringify({
      *   'msg': 'Hello World!'

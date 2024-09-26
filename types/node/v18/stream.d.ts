@@ -9,7 +9,7 @@
  * To access the `stream` module:
  *
  * ```js
- * const stream = require('stream');
+ * import stream from 'node:stream';
  * ```
  *
  * The `stream` module is useful for creating new types of stream instances. It is
@@ -326,7 +326,7 @@ declare module "stream" {
              * the method does nothing.
              *
              * ```js
-             * const fs = require('fs');
+             * import fs from 'node:fs';
              * const readable = getReadableStreamSomehow();
              * const writable = fs.createWriteStream('file.txt');
              * // All the data from readable goes into 'file.txt',
@@ -364,7 +364,7 @@ declare module "stream" {
              * // Pull off a header delimited by \n\n.
              * // Use unshift() if we get too much.
              * // Call the callback with (error, header, stream).
-             * const { StringDecoder } = require('string_decoder');
+             * import { StringDecoder } from 'node:string_decoder';
              * function parseHeader(stream, callback) {
              *   stream.on('error', callback);
              *   stream.on('readable', onReadable);
@@ -422,8 +422,8 @@ declare module "stream" {
              * libraries.
              *
              * ```js
-             * const { OldReader } = require('./old-api-module.js');
-             * const { Readable } = require('stream');
+             * import { OldReader } from './old-api-module.js';
+             * import { Readable } from 'node:stream';
              * const oreader = new OldReader();
              * const myReader = new Readable().wrap(oreader);
              *
@@ -865,7 +865,7 @@ declare module "stream" {
              *
              * ```js
              * // Write 'hello, ' and then end with 'world!'.
-             * const fs = require('fs');
+             * import fs from 'node:fs';
              * const file = fs.createWriteStream('example.txt');
              * file.write('hello, ');
              * file.end('world!');
@@ -1261,7 +1261,7 @@ declare module "stream" {
          * Calling `abort` on the `AbortController` corresponding to the passed`AbortSignal` will behave the same way as calling `.destroy(new AbortError())`on the stream.
          *
          * ```js
-         * const fs = require('fs');
+         * import fs from 'node:fs';
          *
          * const controller = new AbortController();
          * const read = addAbortSignal(
@@ -1324,7 +1324,7 @@ declare module "stream" {
          * or has experienced an error or a premature close event.
          *
          * ```js
-         * const { finished } = require('stream');
+         * import { finished } from 'node:stream';
          *
          * const rs = fs.createReadStream('archive.tar');
          *
@@ -1345,7 +1345,7 @@ declare module "stream" {
          * The `finished` API provides promise version:
          *
          * ```js
-         * const { finished } = require('stream/promises');
+         * import { finished } from 'node:stream/promises';
          *
          * const rs = fs.createReadStream('archive.tar');
          *
@@ -1421,9 +1421,9 @@ declare module "stream" {
          * properly cleaning up and provide a callback when the pipeline is complete.
          *
          * ```js
-         * const { pipeline } = require('stream');
-         * const fs = require('fs');
-         * const zlib = require('zlib');
+         * import { pipeline } from 'node:stream';
+         * import fs from 'node:fs';
+         * import zlib from 'node:zlib';
          *
          * // Use the pipeline API to easily pipe a series of streams
          * // together and get notified when the pipeline is fully done.
@@ -1449,7 +1449,7 @@ declare module "stream" {
          * an`AbortError`.
          *
          * ```js
-         * const { pipeline } = require('stream/promises');
+         * import { pipeline } from 'node:stream/promises';
          *
          * async function run() {
          *   await pipeline(
@@ -1467,7 +1467,7 @@ declare module "stream" {
          * as the last argument:
          *
          * ```js
-         * const { pipeline } = require('stream/promises');
+         * import { pipeline } from 'node:stream/promises';
          *
          * async function run() {
          *   const ac = new AbortController();
@@ -1488,8 +1488,8 @@ declare module "stream" {
          * The `pipeline` API also supports async generators:
          *
          * ```js
-         * const { pipeline } = require('stream/promises');
-         * const fs = require('fs');
+         * import { pipeline } from 'node:stream/promises';
+         * import fs from 'node:fs';
          *
          * async function run() {
          *   await pipeline(
@@ -1513,8 +1513,8 @@ declare module "stream" {
          * pipeline (i.e. first argument) or the pipeline will never complete.
          *
          * ```js
-         * const { pipeline } = require('stream/promises');
-         * const fs = require('fs');
+         * import { pipeline } from 'node:stream/promises';
+         * import fs from 'node:fs';
          *
          * async function run() {
          *   await pipeline(
@@ -1547,9 +1547,9 @@ declare module "stream" {
          * See the example below:
          *
          * ```js
-         * const fs = require('fs');
-         * const http = require('http');
-         * const { pipeline } = require('stream');
+         * import fs from 'node:fs';
+         * import http from 'node:http';
+         * import { pipeline } from 'node:stream';
          *
          * const server = http.createServer((req, res) => {
          *   const fileStream = fs.createReadStream('./fileNotExist.txt');

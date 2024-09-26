@@ -4049,7 +4049,7 @@ declare module "crypto" {
             saltLength: number;
         }
         /**
-         * Calling `require('node:crypto').webcrypto` returns an instance of the `Crypto` class.
+         * Importing the `webcrypto` object (`import { webcrypto } from 'node:crypto'`) gives an instance of the `Crypto` class.
          * `Crypto` is a singleton that provides access to the remainder of the crypto API.
          * @since v15.0.0
          */

@@ -342,7 +342,7 @@ declare module "readline" {
      * The `readline.createInterface()` method creates a new `readline.Interface` instance.
      *
      * ```js
-     * const readline = require('node:readline');
+     * import readline from 'node:readline';
      * const rl = readline.createInterface({
      *   input: process.stdin,
      *   output: process.stdout,
@@ -398,7 +398,7 @@ declare module "readline" {
      * implement a small command-line interface:
      *
      * ```js
-     * const readline = require('node:readline');
+     * import readline from 'node:readline';
      * const rl = readline.createInterface({
      *   input: process.stdin,
      *   output: process.stdout,
@@ -430,8 +430,8 @@ declare module "readline" {
      * well as a `for await...of` loop:
      *
      * ```js
-     * const fs = require('node:fs');
-     * const readline = require('node:readline');
+     * import fs from 'node:fs';
+     * import readline from 'node:readline';
      *
      * async function processLineByLine() {
      *   const fileStream = fs.createReadStream('input.txt');
@@ -455,8 +455,8 @@ declare module "readline" {
      * Alternatively, one could use the `'line'` event:
      *
      * ```js
-     * const fs = require('node:fs');
-     * const readline = require('node:readline');
+     * import fs from 'node:fs';
+     * import readline from 'node:readline';
      *
      * const rl = readline.createInterface({
      *   input: fs.createReadStream('sample.txt'),
@@ -471,9 +471,9 @@ declare module "readline" {
      * Currently, `for await...of` loop can be a bit slower. If `async` / `await` flow and speed are both essential, a mixed approach can be applied:
      *
      * ```js
-     * const { once } = require('node:events');
-     * const { createReadStream } = require('node:fs');
-     * const { createInterface } = require('node:readline');
+     * import { once } from 'node:events';
+     * import { createReadStream } from 'node:fs';
+     * import { createInterface } from 'node:readline';
      *
      * (async function processLineByLine() {
      *   try {

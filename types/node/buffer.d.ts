@@ -134,7 +134,7 @@ declare module "buffer" {
     export interface BlobOptions {
         /**
          * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts
-         * will be converted to the platform native line-ending as specified by `require('node:os').EOL`.
+         * will be converted to the platform native line-ending as specified by `import { EOL } from 'node:os'`.
          */
         endings?: "transparent" | "native";
         /**
@@ -210,7 +210,7 @@ declare module "buffer" {
     export interface FileOptions {
         /**
          * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts will be
-         * converted to the platform native line-ending as specified by `require('node:os').EOL`.
+         * converted to the platform native line-ending as specified by `import { EOL } from 'node:os'`.
          */
         endings?: "native" | "transparent";
         /** The File content-type. */
@@ -2286,7 +2286,7 @@ declare module "buffer" {
         function btoa(data: string): string;
         interface Blob extends _Blob {}
         /**
-         * `Blob` class is a global reference for `require('node:buffer').Blob`
+         * `Blob` class is a global reference for `import { Blob } from 'node:buffer'`
          * https://nodejs.org/api/buffer.html#class-blob
          * @since v18.0.0
          */
@@ -2294,7 +2294,7 @@ declare module "buffer" {
             : typeof import("buffer").Blob;
         interface File extends _File {}
         /**
-         * `File` class is a global reference for `require('node:buffer').File`
+         * `File` class is a global reference for `import { File } from 'node:buffer'`
          * https://nodejs.org/api/buffer.html#class-file
          * @since v20.0.0
          */

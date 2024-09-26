@@ -96,21 +96,6 @@ export class BufferAttribute {
     gpuType: AttributeGPUType;
 
     /**
-     * This can be used to only update some components of stored vectors (for example, just the component related to color).
-     * @defaultValue `{ offset: number = 0; count: number = -1 }`
-     * @deprecated Will be removed in r169. Use "addUpdateRange()" instead.
-     */
-    updateRange: {
-        /**
-         * Position at which to start update.
-         * @defaultValue `0`
-         */
-        offset: number;
-        /** @defaultValue `-1`, which means don't use update ranges. */
-        count: number;
-    };
-
-    /**
      * This can be used to only update some components of stored vectors (for example, just the component related to
      * color). Use the {@link .addUpdateRange} function to add ranges to this array.
      */
