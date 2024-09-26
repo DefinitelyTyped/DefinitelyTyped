@@ -1,4 +1,4 @@
-export default eval_estree_expression;
+export = eval_estree_expression;
 
 declare namespace eval_estree_expression {
     namespace evaluate {
