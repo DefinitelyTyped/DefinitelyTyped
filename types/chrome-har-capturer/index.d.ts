@@ -147,7 +147,7 @@ export interface RunOptions<T> {
      * @param urls input URL array
      * @returns Promise executed after each page load event
      */
-    postHook?: (url: string, client: any, index: number, urls: readonly string[]) => Promise<T> | undefined;
+    postHook?: ((url: string, client: any, index: number, urls: readonly string[]) => Promise<T>) | undefined;
 }
 
 export class Loader<U> extends EventEmitter {
