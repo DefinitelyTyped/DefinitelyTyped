@@ -1,11 +1,11 @@
 import { Camera } from "../../cameras/Camera.js";
-import { Object3D } from "../../core/Object3D.js";
+import BundleGroup from "./BundleGroup.js";
 import ChainMap from "./ChainMap.js";
 import RenderBundle from "./RenderBundle.js";
 declare class RenderBundles {
-    lists: ChainMap<readonly [Object3D, Camera], RenderBundle>;
+    lists: ChainMap<readonly [BundleGroup, Camera], RenderBundle>;
     constructor();
-    get(scene: Object3D, camera: Camera): RenderBundle;
+    get(scene: BundleGroup, camera: Camera): RenderBundle;
     dispose(): void;
 }
 export default RenderBundles;

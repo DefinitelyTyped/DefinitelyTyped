@@ -155,6 +155,7 @@ export interface WebGLProgramParameters {
 
     sizeAttenuation: boolean;
     logarithmicDepthBuffer: boolean;
+    reverseDepthBuffer: boolean;
 
     skinning: boolean;
 
