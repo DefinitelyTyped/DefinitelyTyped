@@ -281,7 +281,7 @@ Object.assign(tray, null);
 // Get the current window
 var win = nw.Window.get();
 
-win.isDevtoolsOpen((status: boolean) => {
+win.isDevToolsOpen((status: boolean) => {
   console.log(status);
 });
 
