@@ -136,7 +136,7 @@ export interface RunOptions<T> {
      * @param urls input URL array
      * @returns Promise executed before each page load
      */
-    preHook?: (url: string, client: any, index: number, urls: readonly string[]) => Promise<void> | undefined;
+    preHook?: ((url: string, client: any, index: number, urls: readonly string[]) => Promise<void>) | undefined;
     /**
      * function returning a Promise executed after each page load event
      *
