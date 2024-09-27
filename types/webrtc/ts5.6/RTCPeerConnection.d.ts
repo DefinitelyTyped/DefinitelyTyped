@@ -127,7 +127,7 @@ interface RTCIceTransport extends EventTarget {
 }
 
 interface RTCDtlsTransportEventMap {
-    "error": RTCErrorEvent;
+    "error": Event;
     "statechange": Event;
 }
 
@@ -137,7 +137,7 @@ interface RTCDtlsTransport extends EventTarget {
     readonly iceTransport: RTCIceTransport;
     readonly state: RTCDtlsTransportState;
     getRemoteCertificates(): ArrayBuffer[];
-    onerror: DtlsTransportEventHandler<RTCErrorEvent>;
+    onerror: DtlsTransportEventHandler<Event>;
     onstatechange: DtlsTransportEventHandler<Event>;
     addEventListener<K extends keyof RTCDtlsTransportEventMap>(
         type: K,
