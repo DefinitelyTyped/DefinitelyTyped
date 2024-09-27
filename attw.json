@@ -164,7 +164,6 @@
         "breeze",
         "browserify",
         "bundle-id",
-        "bundle-name",
         "bunyan-blackhole",
         "bwip-js",
         "byte-size",
