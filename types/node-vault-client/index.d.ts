@@ -1,4 +1,3 @@
-
 declare class VaultClient {
     /**
      * Boot an instance of Vault
@@ -54,8 +53,7 @@ declare class VaultClient {
     });
     __log: any;
     __api: VaultApiClient;
-    /**
-     */
+    /** */
     private __auth;
     __namespace: any;
     /**
@@ -72,11 +70,11 @@ declare class VaultClient {
      */
     fillNodeConfig(): any;
     getHeaders(token: any): {
-        'X-Vault-Token': any;
-        'X-Vault-Namespace': any;
+        "X-Vault-Token": any;
+        "X-Vault-Namespace": any;
     } | {
-        'X-Vault-Token': any;
-        'X-Vault-Namespace'?: undefined;
+        "X-Vault-Token": any;
+        "X-Vault-Namespace"?: undefined;
     };
     /**
      * Read secret from Vault
@@ -149,8 +147,7 @@ declare class VaultNodeConfig {
      * Populates Vault's values to "node-config"
      */
     populate(): any;
-    /**
-     */
+    /** */
     private __getSubstitutionMap;
     __traverse(o: any, func: any): void;
 }
@@ -170,7 +167,6 @@ declare class AuthTokenExpiredError extends VaultError {
 declare class AuthToken {
     static fromResponse(response: any): AuthToken;
     /**
-     *
      * @param {string} id
      * @param {string} accessor
      * @param {number} createdAt - UNIX timestamp
@@ -179,7 +175,15 @@ declare class AuthToken {
      * @param {number} numUses
      * @param {boolean} isRenewable
      */
-    constructor(id: string, accessor: string, createdAt: number, expiresAt: number | null, explicitMaxTtl: number, numUses: number, isRenewable: boolean);
+    constructor(
+        id: string,
+        accessor: string,
+        createdAt: number,
+        expiresAt: number | null,
+        explicitMaxTtl: number,
+        numUses: number,
+        isRenewable: boolean,
+    );
     __id: string;
     __accessor: string;
     __createdAt: number;
@@ -352,21 +356,20 @@ declare class VaultTokenAuth extends VaultBaseAuth {
     __token: string;
 }
 
-
 declare namespace VaultClient {
     export {
-        VaultApiClient,
-        Lease,
-        VaultNodeConfig,
-        VaultError,
+        AuthToken,
+        AuthTokenExpiredError,
         InvalidArgumentsError,
         InvalidAWSCredentialsError,
-        AuthTokenExpiredError,
-        AuthToken,
+        Lease,
+        VaultApiClient,
         VaultAppRoleAuth,
         VaultBaseAuth,
+        VaultError,
         VaultIAMAuth,
         VaultKubernetesAuth,
+        VaultNodeConfig,
         VaultTokenAuth,
     };
 }
