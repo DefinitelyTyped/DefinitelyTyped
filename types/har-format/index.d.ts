@@ -305,7 +305,7 @@ export interface Chunk {
 export interface Initiator {
     /**
      * presumably equivalent to _initiator_type
-     * 
+     *
      * values "parser" and "other" have been observed in Chrome's HARs
      */
     "type": string;
@@ -317,7 +317,7 @@ export interface Initiator {
     "url"?: string | null | undefined;
     /**
      * The line number of the code that issued the request represented
-     * by the Entry to which this Initiator object has been attached. 
+     * by the Entry to which this Initiator object has been attached.
      */
     "lineNumber"?: number | null | undefined;
     /**
