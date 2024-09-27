@@ -530,7 +530,7 @@ expectType<naver.maps.Point>(new naver.maps.Point(1, 1));
 new naver.maps.LatLngBounds([-100, -90, 100, 90]);
 new naver.maps.LatLngBounds(new naver.maps.LatLng(37.5, 126.9), new naver.maps.LatLng(37.5, 126.9));
 expectType<naver.maps.LatLngBounds>(
-    naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(-180, -90), new naver.maps.LatLng(0, 0))
+    naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(-180, -90), new naver.maps.LatLng(0, 0)),
 );
 
 let latLngBounds = map.getBounds();
@@ -546,7 +546,7 @@ latLngBounds.getNE();
 new naver.maps.PointBounds([0, 0, 10, 10]);
 new naver.maps.PointBounds(new naver.maps.Point(-10, -10), new naver.maps.Point(10, 10));
 expectType<naver.maps.PointBounds>(
-    naver.maps.PointBounds.bounds(new naver.maps.Point(-1, -1), new naver.maps.Point(0, 0))
+    naver.maps.PointBounds.bounds(new naver.maps.Point(-1, -1), new naver.maps.Point(0, 0)),
 );
 
 let pointBounds = map.getBounds();
@@ -556,7 +556,6 @@ hasTypes(pointBounds, "west");
 pointBounds.west();
 
 /**
- *
  * @param object 확인하려는 객체
  * @param property 확인하려는 속성 이름
  * @returns property 존재 여부
