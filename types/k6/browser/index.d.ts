@@ -393,7 +393,7 @@ export interface ScreenshotOptions {
  * - `mutation` - use a mutation observer
  * - `interval` - use a polling interval
  */
-export type PollingMethod = "raf" | "mutation" | "interval";
+export type PollingMethod = number | "raf" | "mutation";
 
 export interface PollingOptions {
     /**
