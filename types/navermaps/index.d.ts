@@ -22,11 +22,11 @@ declare namespace naver.maps {
     type BoundsLiteral = PointBoundsLiteral | LatLngBoundsLiteral;
     type CoordLiteral = PointLiteral | LatLngLiteral;
     type Coord = Point | LatLng;
-    type Bounds = PointBounds | LatLngBounds;
+    type Bounds = PointBounds & LatLngBounds;
     type DOMEvent = Event;
     type StylingFunction = (feature: Feature) => StyleOptions;
     type ArrayOfCoords = Point[] | LatLng[];
-    type ArrayOfBounds = PointBounds[] | LatLngBounds[];
+    type ArrayOfBounds = PointBounds[] & LatLngBounds[];
     type ArrayOfBoundsLiteral = PointBoundsLiteral[] | LatLngBoundsLiteral[];
     type forEachOverlayCallback = (overlay: Marker | Polyline | Polygon, index: number) => void;
     type GeoJSON = GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry>;
