@@ -367,4 +367,4 @@ export type TopLevelDomain =
 type Serializable = string | number | boolean | null | Serializable[] | { [key: string]: Serializable };
 
 // Disabled automatic exporting
-export { };
+export {};
