@@ -22,8 +22,8 @@ hash.update("0ff", "hex"); // $ExpectType Sha512
 hash.digest(); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 hash.digest(new Uint8Array(0)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 hash.digest(new Uint8Array(0), 1); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
-hash.digest(Buffer.alloc(0)); // $ExpectType Buffer
-hash.digest(Buffer.alloc(0), 1); // $ExpectType Buffer
+hash.digest(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+hash.digest(Buffer.alloc(0), 1); // $ExpectType Buffer || Buffer<ArrayBuffer>
 hash.digest("utf8"); // $ExpectType string
 
 if (Sha512.HMAC) {
@@ -37,7 +37,7 @@ if (Sha512.HMAC) {
     hmac.digest(); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     hmac.digest(new Uint8Array(0)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
     hmac.digest(new Uint8Array(0), 1); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
-    hmac.digest(Buffer.alloc(0)); // $ExpectType Buffer
-    hmac.digest(Buffer.alloc(0), 1); // $ExpectType Buffer
+    hmac.digest(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    hmac.digest(Buffer.alloc(0), 1); // $ExpectType Buffer || Buffer<ArrayBuffer>
     hmac.digest("utf8"); // $ExpectType string
 }

@@ -35,15 +35,15 @@ pacote.extract("pacote", "./", opts); // $ExpectType Promise<void>
 extract("pacote", "./"); // $ExpectType Promise<void>
 extract("pacote", "./", opts); // $ExpectType Promise<void>
 
-pacote.tarball("pacote"); // $ExpectType Promise<Buffer>
-pacote.tarball("pacote", opts); // $ExpectType Promise<Buffer>
+pacote.tarball("pacote"); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+pacote.tarball("pacote", opts); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 pacote.tarball.stream("pacote"); // $ExpectType PassThrough
 pacote.tarball.stream("pacote", opts); // $ExpectType PassThrough
 pacote.tarball.toFile("pacote", "./pacote.tgz"); // $ExpectType Promise<void>
 pacote.tarball.toFile("pacote", "./pacote.tgz", opts); // $ExpectType Promise<void>
 
-tarball("pacote"); // $ExpectType Promise<Buffer>
-tarball("pacote", opts); // $ExpectType Promise<Buffer>
+tarball("pacote"); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+tarball("pacote", opts); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 tarball.stream("pacote"); // $ExpectType PassThrough
 tarball.stream("pacote", opts); // $ExpectType PassThrough
 tarball.toFile("pacote", "./pacote.tgz"); // $ExpectType Promise<void>

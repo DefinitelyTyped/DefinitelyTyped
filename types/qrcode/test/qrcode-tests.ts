@@ -495,15 +495,15 @@ QC.toFileStream(fileStream, "sample text", { rendererOpts: { deflateStrategy: 1 
 
 QC.toBuffer("http://www.google.com", (error, buffer) => {
     error; // $ExpectType Error | null | undefined
-    buffer; // $ExpectType Buffer
+    buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 QC.toBuffer([{ data: Buffer.from([253, 254, 255]) }], (error, buffer) => {
     error; // $ExpectType Error | null | undefined
-    buffer; // $ExpectType Buffer
+    buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 QC.toBuffer("some text", { errorCorrectionLevel: "H", maskPattern: 3 }, (error, buffer) => {
     error; // $ExpectType Error | null | undefined
-    buffer; // $ExpectType Buffer
+    buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 QC.toBuffer(
     [{ data: Buffer.from([253, 254, 255]) }],
@@ -515,22 +515,22 @@ QC.toBuffer(
     },
     (error, buffer) => {
         error; // $ExpectType Error | null | undefined
-        buffer; // $ExpectType Buffer
+        buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     },
 );
 
-QC.toBuffer("some text"); // $ExpectType Promise<Buffer>
-QC.toBuffer([{ data: Buffer.from([253, 254, 255]), mode: "byte" }]); // $ExpectType Promise<Buffer>
-QC.toBuffer("some text", { version: 2 }); // $ExpectType Promise<Buffer>
-QC.toBuffer([{ data: new Uint8ClampedArray([253, 254, 255]), mode: "byte" }], { version: 2 }); // $ExpectType Promise<Buffer>
+QC.toBuffer("some text"); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer([{ data: Buffer.from([253, 254, 255]), mode: "byte" }]); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer("some text", { version: 2 }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer([{ data: new Uint8ClampedArray([253, 254, 255]), mode: "byte" }], { version: 2 }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 
-QC.toBuffer("sample text", { margin: 0 }); // $ExpectType Promise<Buffer>
-QC.toBuffer("sample text", { scale: 0 }); // $ExpectType Promise<Buffer>
-QC.toBuffer("sample text", { width: 0 }); // $ExpectType Promise<Buffer>
-QC.toBuffer("sample text", { color: { dark: "#000000ff" } }); // $ExpectType Promise<Buffer>
-QC.toBuffer("sample text", { color: { light: "#000000ff" } }); // $ExpectType Promise<Buffer>
-QC.toBuffer("sample text", { type: "png" }); // $ExpectType Promise<Buffer>
+QC.toBuffer("sample text", { margin: 0 }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer("sample text", { scale: 0 }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer("sample text", { width: 0 }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer("sample text", { color: { dark: "#000000ff" } }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer("sample text", { color: { light: "#000000ff" } }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer("sample text", { type: "png" }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 // @ts-expect-error
 QC.toBuffer("sample text", { type: "foo" });
-QC.toBuffer("sample text", { rendererOpts: { deflateLevel: 1 } }); // $ExpectType Promise<Buffer>
-QC.toBuffer("sample text", { rendererOpts: { deflateStrategy: 1 } }); // $ExpectType Promise<Buffer>
+QC.toBuffer("sample text", { rendererOpts: { deflateLevel: 1 } }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+QC.toBuffer("sample text", { rendererOpts: { deflateStrategy: 1 } }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>

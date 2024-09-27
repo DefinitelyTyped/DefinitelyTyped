@@ -53,11 +53,11 @@ function utilTests(someNode: Node) {
     // $ExpectType string
     util.ensureString("abc");
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     util.ensureBuffer(123);
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     util.ensureBuffer({});
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     util.ensureBuffer("abc");
 
     interface SomeNodeMsg extends NodeMessage {

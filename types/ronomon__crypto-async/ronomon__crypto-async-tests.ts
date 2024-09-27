@@ -53,12 +53,12 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
     const plaintext = Buffer.alloc(128);
     cryptoAsync.cipher(algorithm, encrypt, key, iv, plaintext, (error, ciphertext) => {
         error; // $ExpectType Error | undefined
-        ciphertext; // $ExpectType Buffer
+        ciphertext; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 
     cryptoAsync.cipher(algorithm, decrypt, key, iv, plaintext, (error, plaintext) => {
         error; // $ExpectType Error | undefined
-        plaintext; // $ExpectType Buffer
+        plaintext; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 }
 
@@ -73,12 +73,12 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
     const tag = Buffer.alloc(16);
     cryptoAsync.cipher(algorithm, encrypt, key, iv, plaintext, aad, tag, (error, ciphertext) => {
         error; // $ExpectType Error | undefined
-        ciphertext; // $ExpectType Buffer
+        ciphertext; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 
     cryptoAsync.cipher(algorithm, decrypt, key, iv, plaintext, aad, tag, (error, plaintext) => {
         error; // $ExpectType Error | undefined
-        plaintext; // $ExpectType Buffer
+        plaintext; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 }
 
@@ -169,7 +169,7 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
     const source = Buffer.alloc(1024 * 1024);
     cryptoAsync.hash(algorithm, source, (error, hash) => {
         error; // $ExpectType Error | undefined
-        hash; // $ExpectType Buffer
+        hash; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 }
 
@@ -192,7 +192,7 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
     const source = Buffer.alloc(1024 * 1024);
     cryptoAsync.hmac(algorithm, key, source, (error, hmac) => {
         error; // $ExpectType Error | undefined
-        hmac; // $ExpectType Buffer
+        hmac; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 }
 

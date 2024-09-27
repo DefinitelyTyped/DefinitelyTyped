@@ -54,5 +54,5 @@ b2b.update(Buffer.alloc(0)); // $ExpectType Blake2b
 b2b.digest(); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 b2b.digest("binary"); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 b2b.digest(new Uint8Array()); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
-b2b.digest(Buffer.alloc(0)); // $ExpectType Buffer
+b2b.digest(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBuffer>
 b2b.digest("hex"); // $ExpectType string

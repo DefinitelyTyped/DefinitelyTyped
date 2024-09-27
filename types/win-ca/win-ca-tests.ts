@@ -9,7 +9,7 @@ ca.disabled; // $ExpectType boolean
 ca.nApi; // $ExpectType boolean
 ca.electron; // $ExpectType boolean | undefined
 
-ca.der2(ca.der2.asn1); // $ExpectType (certificate: string | Buffer) => Certificate
+ca.der2(ca.der2.asn1); // $ExpectType (certificate: string | Buffer) => Certificate || (certificate: string | Buffer<ArrayBufferLike>) => Certificate
 ca.der2(ca.der2.asn1)("foo"); // $ExpectType Certificate
 ca.der2(ca.der2.asn1)(Buffer.from("foo")); // $ExpectType Certificate
 ca.der2(ca.der2.asn1, "foo"); // $ExpectType Certificate
@@ -21,9 +21,9 @@ ca.der2.txt; // $ExpectType 2
 ca.der2.asn1; // $ExpectType 3
 ca.der2.x509; // $ExpectType 4
 
-ca.hash(0); // $ExpectType (certificate: string | Buffer) => string
-ca.hash(1); // $ExpectType (certificate: string | Buffer) => string
-ca.hash(); // $ExpectType (certificate: string | Buffer) => string
+ca.hash(0); // $ExpectType (certificate: string | Buffer) => string || (certificate: string | Buffer<ArrayBufferLike>) => string
+ca.hash(1); // $ExpectType (certificate: string | Buffer) => string || (certificate: string | Buffer<ArrayBufferLike>) => string
+ca.hash(); // $ExpectType (certificate: string | Buffer) => string || (certificate: string | Buffer<ArrayBufferLike>) => string
 ca.hash(0)("foo"); // $ExpectType string
 ca.hash(0)(Buffer.from("foo")); // $ExpectType string
 ca.hash(0, "foo"); // $ExpectType string
