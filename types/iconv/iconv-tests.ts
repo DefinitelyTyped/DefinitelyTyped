@@ -11,11 +11,11 @@ declare const iconv: Iconv;
 // $ExpectType true
 iconv.writable;
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 iconv.convert("hoge");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 iconv.convert("hoge", "utf-8");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 iconv.convert(Buffer.from("hoge"));
 // @ts-expect-error
 iconv.convert(Buffer.from("hoge"), "utf-8");
