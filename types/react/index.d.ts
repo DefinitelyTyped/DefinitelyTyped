@@ -2899,7 +2899,7 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
-        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: Booleanish | "inherit" | "plaintext-only" | undefined;
