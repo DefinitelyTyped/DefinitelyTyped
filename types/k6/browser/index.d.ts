@@ -397,15 +397,12 @@ export type PollingMethod = number | "raf" | "mutation";
 
 export interface PollingOptions {
     /**
-     * Polling method to use.
-     * @default 'raf'
+     * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
+     * `requestAnimationFrame` callback. If `polling` is a number, then it is
+     * treated as an interval in milliseconds at which the function would be
+     * executed. Defaults to `raf`.
      */
-    polling?: "raf" | "mutation" | "interval";
-
-    /**
-     * Polling interval in milliseconds if `polling` is set to `interval`.
-     */
-    interval?: number;
+    polling?: PollingMethod;
 }
 
 export interface ElementStateFilter {
