@@ -3553,7 +3553,7 @@ export interface Page {
              * treated as an interval in milliseconds at which the function would be
              * executed. Defaults to `raf`.
              */
-            polling?: number | "raf";
+            polling?: PollingMethod;
 
             /**
              * Maximum time in milliseconds. Defaults to `30` seconds. Default is
