@@ -1,12 +1,10 @@
-/**
- * Tuple of Red, Green, and Blue
- * @example
- * // Red = 55, Green = 70, Blue = 0
- * const rgb: RGB = [55, 70, 0];
- */
-export type RGB = ColorName.RGB;
-
 declare namespace ColorName {
+    /**
+     * Tuple of Red, Green, and Blue
+     * @example
+     * // Red = 55, Green = 70, Blue = 0
+     * const ColorName.RGB: ColorName.RGB = [55, 70, 0];
+     */
     type RGB = [number, number, number];
 }
 
@@ -161,4 +159,4 @@ declare const ColorName: {
     yellowgreen: ColorName.RGB;
 };
 
-export default ColorName;
+export = ColorName;
