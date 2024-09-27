@@ -983,7 +983,6 @@
         "gulp-coffeeify",
         "gulp-dtsm",
         "gulp-espower",
-        "gulp-help-doc",
         "gulp-imagemin",
         "gulp-load-plugins",
         "gulp-mocha",
