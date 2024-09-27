@@ -266,3 +266,16 @@ export type FragmentRefs<Refs extends string> = {
 
 // This is a utility type for converting from a data type to a fragment reference that will resolve to that data type.
 export type FragmentRef<Fragment> = Fragment extends _RefType<infer U> ? _FragmentRefs<U> : never;
+
+type ErrorResult<Error> = {
+    ok: false,
+    errors: ReadOnlyArray<Error>,
+};
+  
+type OkayResult<T> = {
+    ok: true,
+    value: T,
+};
+
+// The type returned by fields annotated with `@catch`
+export type Result<T, Error> = OkayResult<T> | ErrorResult<Error>;
