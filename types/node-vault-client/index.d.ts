@@ -51,20 +51,6 @@ declare class VaultClient {
         };
         logger: any;
     });
-    __log: any;
-    __api: VaultApiClient;
-    /** */
-    private __auth;
-    __namespace: any;
-    /**
-     * @param {Object} authConfig
-     * @param {string} authConfig.type
-     * @param {string} authConfig.mount
-     * @param {Object} authConfig.config
-     * @param {VaultApiClient} api
-     * @return {VaultBaseAuth}
-     */
-    private __getAuthProvider;
     /**
      * Populates Vault's values to NPM "config" module
      */
@@ -111,7 +97,6 @@ declare class VaultApiClient {
         url: string;
         apiVersion?: string;
     }, logger: any);
-    __config: any;
     _logger: any;
     makeRequest(method: any, path: any, data: any, headers: any): any;
 }
@@ -119,11 +104,6 @@ declare class VaultApiClient {
 declare class Lease {
     static fromResponse(response: any): Lease;
     constructor(requestId: any, leaseId: any, leaseDuration: any, renewable: any, data: any);
-    __requestId: any;
-    __leaseId: any;
-    __leaseDuration: any;
-    __renewable: any;
-    __data: any;
     /**
      * @param {String} key
      * @returns {Object}
@@ -141,15 +121,10 @@ declare class Lease {
 
 declare class VaultNodeConfig {
     constructor(vault: any);
-    __vault: any;
-    __nodeConfig: any;
     /**
      * Populates Vault's values to "node-config"
      */
     populate(): any;
-    /** */
-    private __getSubstitutionMap;
-    __traverse(o: any, func: any): void;
 }
 
 declare class VaultError extends Error {
@@ -184,13 +159,6 @@ declare class AuthToken {
         numUses: number,
         isRenewable: boolean,
     );
-    __id: string;
-    __accessor: string;
-    __createdAt: number;
-    __expiresAt: any;
-    __explicitMaxTtl: number;
-    __numUses: number;
-    __isRenewable: boolean;
     /**
      * @returns {string}
      */
@@ -222,8 +190,6 @@ declare class VaultAppRoleAuth extends VaultBaseAuth {
         role_id: string;
         secret_id?: string;
     }, mount: string);
-    __roleId: string;
-    __secretId: string;
     _authenticate(): any;
 }
 
@@ -234,11 +200,8 @@ declare class VaultBaseAuth {
      * @param {String} mount - Vault's mount point
      */
     constructor(apiClient: VaultApiClient, logger: any, mount: string);
-    __apiClient: VaultApiClient;
     protected _log: any;
     _mount: string;
-    __authToken: AuthToken;
-    __refreshTimeout: any;
     /**
      * @returns {Promise<AuthToken>}
      */
@@ -252,15 +215,6 @@ declare class VaultBaseAuth {
      * @returns {boolean}
      */
     protected _reauthenticationAllowed(): boolean;
-    /**
-     * @param {AuthToken} authToken
-     */
-    private __setupTokenRefreshTimer;
-    /**
-     * @param {AuthToken} authToken
-     * @returns {Promise.<AuthToken>}
-     */
-    private __renewToken;
 }
 
 declare class VaultIAMAuth extends VaultBaseAuth {
@@ -284,45 +238,10 @@ declare class VaultIAMAuth extends VaultBaseAuth {
          */
         iam_server_id_header_value?: string;
     }, mount: string);
-    __role: string;
-    __iam_server_id_header_value: string;
-    __namespace: any;
-    __credentialChain: any;
     /**
      * @inheritDoc
      */
     _authenticate(): any;
-    /**
-     * Credentials resolved by {@see @aws-sdk/credential-providers}
-     *
-     * @returns {Promise<AwsCredentialIdentity>}
-     */
-    private __getCredentials;
-    /**
-     * Prepare vault auth request body
-     *
-     * @param stsRequest
-     * @returns {Object} {@link https://www.vaultproject.io/docs/auth/aws.html#via-the-api}
-     */
-    private __getVaultAuthRequestBody;
-    /**
-     * Prepare signed request to AWS STS :: GetCallerIdentity
-     *
-     * @param credentials
-     */
-    private __getStsRequest;
-    /**
-     * @param string
-     */
-    private __base64encode;
-    /**
-     * @link https://github.com/hashicorp/vault/issues/2810
-     * @link https://golang.org/pkg/net/http/#Header
-     *
-     * @param {Object} headers
-     * @returns {Object}
-     */
-    private __headersLikeGolangStyle;
     _validateCredentialsConfig(credentials: any): void;
 }
 
@@ -338,8 +257,6 @@ declare class VaultKubernetesAuth extends VaultBaseAuth {
         role: string;
         tokenPath?: string;
     }, mount: string);
-    __role: string;
-    __tokenPath: string;
     _authenticate(): any;
 }
 
@@ -353,7 +270,6 @@ declare class VaultTokenAuth extends VaultBaseAuth {
     constructor(connConfig: any, logger: any, config: {
         token: string;
     }, mount: string);
-    __token: string;
 }
 
 declare namespace VaultClient {
