@@ -45,3 +45,17 @@ transformImports(`
 import { add } from 'lodash-es'
 console.log(add(1, 2))
 `)
+
+packages.generator.default
+packages.parser.parse('code()', {
+    sourceType: 'module',
+    plugins: ['typescript'],
+    sourceFilename: 'example.ts',
+})
+packages.template.expression('add(1, 2)')
+packages.traverse.default
+const t = packages.types;
+t.isImportDeclaration(t.importDeclaration([
+    t.importSpecifier(t.identifier('add'), t.identifier('add')),
+    t.importSpecifier(t.identifier('sum'), t.identifier('sum'))
+], t.stringLiteral('lodash-es')))
