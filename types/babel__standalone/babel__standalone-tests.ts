@@ -20,43 +20,43 @@ babel.registerPlugin("lolizer", lolizer);
 babel.registerPreset("lulz", { plugins: [lolizer] });
 
 // using packages
-import { packages } from '@babel/standalone'
+import { packages } from "@babel/standalone";
 import { ImportDeclaration } from "@babel/types";
 
 function transformImports(code: string) {
-    const { parser, types, generator } = packages
+    const { parser, types, generator } = packages;
     const ast = parser.parse(code, {
-        sourceType: 'module',
-        plugins: ['typescript'],
-        sourceFilename: 'example.ts',
-    })
+        sourceType: "module",
+        plugins: ["typescript"],
+        sourceFilename: "example.ts",
+    });
 
-    const imports = ast.program.body.filter((it) => types.isImportDeclaration(it)) as ImportDeclaration[]
+    const imports = ast.program.body.filter((it) => types.isImportDeclaration(it)) as ImportDeclaration[];
     if (imports.length === 0) {
-        return code
+        return code;
     }
     imports.forEach((it) => {
-        it.source.value = `https://esm.sh/${it.source.value}`
-    })
-    const newCode = generator.default(ast).code
-    return newCode
+        it.source.value = `https://esm.sh/${it.source.value}`;
+    });
+    const newCode = generator.default(ast).code;
+    return newCode;
 }
 
 transformImports(`
 import { add } from 'lodash-es'
 console.log(add(1, 2))
-`)
+`);
 
-packages.generator.default
-packages.parser.parse('code()', {
-    sourceType: 'module',
-    plugins: ['typescript'],
-    sourceFilename: 'example.ts',
-})
-packages.template.expression('add(1, 2)')
-packages.traverse.default
+packages.generator.default;
+packages.parser.parse("code()", {
+    sourceType: "module",
+    plugins: ["typescript"],
+    sourceFilename: "example.ts",
+});
+packages.template.expression("add(1, 2)");
+packages.traverse.default;
 const t = packages.types;
 t.isImportDeclaration(t.importDeclaration([
-    t.importSpecifier(t.identifier('add'), t.identifier('add')),
-    t.importSpecifier(t.identifier('sum'), t.identifier('sum'))
-], t.stringLiteral('lodash-es')))
+    t.importSpecifier(t.identifier("add"), t.identifier("add")),
+    t.importSpecifier(t.identifier("sum"), t.identifier("sum")),
+], t.stringLiteral("lodash-es")));
