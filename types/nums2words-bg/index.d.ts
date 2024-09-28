@@ -1,59 +1,59 @@
-declare function nums2wordsBG(number: string, options?: { gender: "" | string }): string;
+declare function nums2wordsBG(number: string, options?: { gender: "" | string | undefined }): string;
 
 declare namespace nums2wordsBG {
     function currency(
         amount: string,
         options?: {
-            separator?: string;
+            separator?: string | undefined;
             /**
              * Label for the whole currency unit (before the decimal)
              */
-            labelBig?: string;
+            labelBig?: string | undefined;
             /**
              * Label for the currency decimal unit
              */
-            labelSmall?: string;
+            labelSmall?: string | undefined;
             /**
              * Should the whole currency unit (before the decimal) be displayed?
              */
-            displayBig?: boolean;
+            displayBig?: boolean | undefined;
             /**
              * Should the decimal currency unit be displayed?
              */
-            displaySmall?: boolean;
+            displaySmall?: boolean | undefined;
             /**
              * Supported currencies by default are "btc", "cny", "rub", "usd".
              */
-            currency?: "btc" | "cny" | "rub" | "usd" | string;
+            currency?: "btc" | "cny" | "rub" | "usd" | string | undefined;
         },
         customCurrencyFunction?: () => {
             [key: string]: {
                 /**
                  * Label for the whole currency unit (before the decimal)
                  */
-                labelBig: string;
+                labelBig: string | undefined;
                 /**
                  * Label for the currency decimal unit
                  */
-                labelSmall: string;
+                labelSmall: string | undefined;
                 /**
                  * ```
                  * lv: Singular version of whole currency unit (before the decimal)
                  * st: Singular version of currency decimal unit
                  * ```
                  */
-                singular: { lv: string; st: string };
+                singular: { lv: string; st: string } | undefined;
                 /**
                  * Number of units currency is subdivided into (example: 100)
                  */
-                decimals: number;
+                decimals: number | undefined;
                 /**
                  * ```
                  * lv: Gender of whole currency unit (before the decimal)
                  * st: Gender of currency decimal unit
                  * ```
                  */
-                def: { lv: "m" | "f" | string; st: "m" | "f" | string };
+                def: { lv: "m" | "f" | string; st: "m" | "f" | string } | undefined;
                 /**
                  * ```
                  * 1: Male and female gender versions of the singular of the currency unit (example: { m: "един", f: "една" })
@@ -63,21 +63,21 @@ declare namespace nums2wordsBG {
                 gender: {
                     1: { m: string; f: string };
                     2: { m: string; f: string };
-                };
+                } | undefined;
             };
-        },
+        } | undefined,
     ): string;
 
     function time(
         time: string,
         options?: {
-            labelHour?: string;
-            labelMinute?: string;
-            labelSecond?: string;
-            separator?: string;
-            displayHour?: boolean;
-            displayMinute?: boolean;
-            displaySecond?: boolean;
+            labelHour?: string | undefined;
+            labelMinute?: string | undefined;
+            labelSecond?: string | undefined;
+            separator?: string | undefined;
+            displayHour?: boolean | undefined;
+            displayMinute?: boolean | undefined;
+            displaySecond?: boolean | undefined;
         },
     ): string;
 
@@ -94,8 +94,8 @@ declare namespace nums2wordsBG {
              * a: age
              * ```
              */
-            format?: string;
-            separator?: string;
+            format?: string | undefined;
+            separator?: string | undefined;
             /**
              * Replaces the labels used by format, as follows:
              * ```
@@ -112,7 +112,7 @@ declare namespace nums2wordsBG {
                 m: string;
                 y: string;
                 a: string;
-            };
+            } | undefined;
         },
     ): string;
 
