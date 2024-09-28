@@ -28,3 +28,14 @@ export function transformScriptTags(scriptTags?: HTMLCollection): void;
 export function disableScriptTags(): void;
 
 export as namespace babel;
+
+import parser from '@babel/parser'
+import type * as t from '@babel/types'
+import generator from '@babel/generator'
+export const packages : {
+  parser: typeof parser,
+  types: typeof t,
+  generator: {
+    default: typeof generator,
+  },
+}

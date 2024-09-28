@@ -18,3 +18,30 @@ const lolizer = () => ({
 babel.registerPlugin("lolizer", lolizer);
 
 babel.registerPreset("lulz", { plugins: [lolizer] });
+
+// using packages
+import { packages } from '@babel/standalone'
+
+function transformImports(code: string) {
+  const { parser, types, generator } = packages
+  const ast = parser.parse(code, {
+    sourceType: 'module',
+    plugins: ['typescript'],
+    sourceFilename: 'example.ts',
+  })
+
+  const imports = ast.program.body.filter((it) => types.isImportDeclaration(it))
+  if (imports.length === 0) {
+    return code
+  }
+  imports.forEach((it) => {
+    it.source.value = `https://esm.sh/${it.source.value}`
+  })
+  const newCode = generator.default(ast).code
+  return newCode
+}
+
+transformImports(`
+import { add } from 'lodash-es'
+console.log(add(1, 2))
+`)
