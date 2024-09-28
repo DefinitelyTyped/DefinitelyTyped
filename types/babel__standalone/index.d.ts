@@ -34,7 +34,7 @@ import type t from '@babel/types'
 import * as generator from '@babel/generator'
 import * as template from '@babel/template'
 import * as traverse from '@babel/traverse'
-export const packages : {
+export const packages: {
     generator: typeof generator,
     parser: typeof parser,
     template: typeof template,
