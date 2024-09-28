@@ -111,6 +111,10 @@ export interface SDK {
     isAvailableMethod(methodName: string): Promise<boolean>;
 
     serverTime(): number;
+
+    on(event: "game_api_pause" | "game_api_resume", observer: (...args: any) => any): () => void;
+
+    off(event: "game_api_pause" | "game_api_resume", observer: (...args: any) => any): void;
 }
 
 interface ClientFeature {
