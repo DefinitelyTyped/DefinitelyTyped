@@ -1852,8 +1852,6 @@ declare namespace chrome.cookies {
 
     /** Represents a partitioned cookie's partition key. */
     export interface CookiePartitionKey {
-        /** Indicates if the cookie was set in a cross-cross site context. This prevents a top-level site embedded in a cross-site context from accessing cookies set by the top-level site in a same-site context. */
-        hasCrossSiteAncestor?: boolean;
         /** The top-level site the partitioned cookie is available in. */
         topLevelSite?: string;
     }
