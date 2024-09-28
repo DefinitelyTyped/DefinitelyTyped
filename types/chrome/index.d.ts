@@ -1917,15 +1917,19 @@ declare namespace chrome.cookies {
         sameSite?: SameSiteStatus | undefined;
     }
 
+    /** Details to identify the cookie. */
     export interface Details {
+        /** The name of the cookie to access. */
         name: string;
         /**
          * The partition key for reading or modifying cookies with the Partitioned attribute.
          * @since Chrome 119
          */
         partitionKey?: CookiePartitionKey | undefined;
-        url: string;
+        /** The ID of the cookie store in which to look for the cookie. By default, the current execution context's cookie store will be used. */
         storeId?: string | undefined;
+        /** The URL with which the cookie to access is associated. This argument may be a full URL, in which case any data following the URL path (e.g. the query string) is simply ignored. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
+        url: string;
     }
 
     export interface CookieChangeInfo {
