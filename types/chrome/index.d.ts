@@ -1853,7 +1853,7 @@ declare namespace chrome.cookies {
     /** Represents a partitioned cookie's partition key. */
     export interface CookiePartitionKey {
         /** The top-level site the partitioned cookie is available in. */
-        topLevelSite?: string;
+        topLevelSite?: string | undefined;
     }
 
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
