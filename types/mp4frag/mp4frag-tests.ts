@@ -24,10 +24,10 @@ m4f.videoCodec;
 // $ExpectType string | null
 m4f.mime;
 
-// $ExpectType Buffer | null
+// $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
 m4f.initialization;
 
-// $ExpectType Buffer | null
+// $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
 m4f.segment;
 
 // $ExpectType SegmentObject

@@ -1683,6 +1683,7 @@ export interface ScatterLine {
 }
 
 export interface Font {
+    color: Color;
     /**
      * HTML font family - the typeface that will be applied by the web browser.
      * The web browser will only be able to apply a font if it is available on the system
@@ -1697,11 +1698,21 @@ export interface Font {
      */
     family: string;
     /**
+     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color. See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
+     * @default "none"
+     */
+    shadow: string;
+    /**
      * number greater than or equal to 1
      * @default 13
      */
     size: number;
-    color: Color;
+    /**
+     * Sets the weight (or boldness) of the font.
+     * number between or equal to 1 and 1000
+     * @default normal
+     */
+    weight: number;
 }
 
 export interface Edits {

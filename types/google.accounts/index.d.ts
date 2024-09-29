@@ -791,6 +791,14 @@ declare namespace google.accounts {
              * Sign in with Google button is clicked.
              */
             click_listener?: () => void;
+
+            /**
+             * Optional, as multiple Sign in with Google buttons can be
+             * rendered on the same page, you can assign each button with a
+             * unique string. The same string would return along with the ID
+             * token, so you can identify which button user clicked to sign in.
+             */
+            state?: string;
         }
     }
 }

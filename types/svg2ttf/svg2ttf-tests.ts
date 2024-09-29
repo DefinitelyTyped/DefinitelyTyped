@@ -6,7 +6,7 @@ import { FontOptions, MicroBuffer } from "svg2ttf";
 const ttf = svg2ttf(fs.readFileSync("myfont.svg", "utf8"), {});
 
 ttf; // $ExpectType MicroBuffer
-ttf.buffer; // $ExpectType Uint8Array
+ttf.buffer; // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 
 const ttfWithOptions = svg2ttf(fs.readFileSync("myfont.svg", "utf8"), {
     version: "1.2",
@@ -16,6 +16,6 @@ const ttfWithOptions = svg2ttf(fs.readFileSync("myfont.svg", "utf8"), {
 });
 
 ttfWithOptions; // $ExpectType MicroBuffer
-ttfWithOptions.buffer; // $ExpectType Uint8Array
+ttfWithOptions.buffer; // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 
 fs.writeFileSync("myfont.ttf", new Buffer(ttf.buffer));

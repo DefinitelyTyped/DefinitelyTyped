@@ -3365,7 +3365,7 @@ declare namespace chrome.enterprise.platformKeys {
     export interface Token {
         /**
          * Uniquely identifies this Token.
-         * Static IDs are "user" and "system", referring to the platform's user-specific and the system-wide hardware token, respectively. Any other tokens (with other identifiers) might be returned by enterprise.platformKeys.getTokens.
+         * Static IDs are `user` and `system`, referring to the platform's user-specific and the system-wide hardware token, respectively. Any other tokens (with other identifiers) might be returned by enterprise.platformKeys.getTokens.
          */
         id: string;
         /**
@@ -3394,7 +3394,7 @@ declare namespace chrome.enterprise.platformKeys {
          * Which Enterprise Key to challenge.
          * @since Chrome 110
          */
-        scope: Scope;
+        scope: `${Scope}`;
         /**
          * If present, registers the challenged key with the specified scope's token.
          * The key can then be associated with a certificate and used like any other signing key.
@@ -3408,20 +3408,26 @@ declare namespace chrome.enterprise.platformKeys {
         /**
          * Which algorithm the registered key should use.
          */
-        algorithm: Algorithm;
+        algorithm: `${Algorithm}`;
     }
 
     /**
-     * @since Chrome 110
      * Type of key to generate.
+     * @since Chrome 110
      */
-    type Algorithm = "RSA" | "ECDSA";
+    export enum Algorithm {
+        ECDSA = "ECDSA",
+        RSA = "RSA",
+    }
 
     /**
-     * @since Chrome 110
      * Whether to use the Enterprise User Key or the Enterprise Machine Key.
+     * @since Chrome 110
      */
-    type Scope = "USER" | "MACHINE";
+    export enum Scope {
+        USER = "USER",
+        MACHINE = "MACHINE",
+    }
 
     /**
      * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
@@ -3429,6 +3435,7 @@ declare namespace chrome.enterprise.platformKeys {
      * Parameter tokens: The list of available tokens.
      */
     export function getTokens(callback: (tokens: Token[]) => void): void;
+
     /**
      * Returns the list of all client certificates available from the given token. Can be used to check for the existence and expiration of client certificates that are usable for a certain authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3436,6 +3443,7 @@ declare namespace chrome.enterprise.platformKeys {
      * Parameter certificates: The list of certificates, each in DER encoding of a X.509 certificate.
      */
     export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
+
     /**
      * Imports certificate to the given token if the certified key is already stored in this token. After a successful certification request, this function should be used to store the obtained certificate and to make it available to the operating system and browser for authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3443,6 +3451,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back when this operation is finished.
      */
     export function importCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+
     /**
      * Removes certificate from the given token if present. Should be used to remove obsolete certificates so that they are not considered during authentication and do not clutter the certificate choice. Should be used to free storage in the certificate store.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3450,6 +3459,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back when this operation is finished.
      */
     export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+
     /**
      * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
      *
@@ -3465,6 +3475,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @since Chrome 110
      */
     export function challengeKey(options: ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
+
     /**
      * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
      *
@@ -3482,11 +3493,13 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back with the challenge response.
      * @since Chrome 50
      */
+
     export function challengeMachineKey(
         challenge: ArrayBuffer,
         registerKey: boolean,
         callback: (response: ArrayBuffer) => void,
     ): void;
+
     export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
     /**
      * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
@@ -3505,6 +3518,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back with the challenge response.
      * @since Chrome 50
      */
+
     export function challengeUserKey(
         challenge: ArrayBuffer,
         registerKey: boolean,
@@ -3563,6 +3577,32 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the hostname of the device.
      */
     export function getDeviceHostname(callback: (hostname: string) => void): void;
+}
+
+////////////////////
+// Enterprise Hardware Platform
+////////////////////
+/**
+ * Use the chrome.enterprise.hardwarePlatform API to get the manufacturer and model of the hardware platform where the browser runs.
+ *
+ * Permissions: "enterprise.hardwarePlatform"
+ *
+ * Note: This API is only for extensions pre-installed by policy.
+ * @platform ChromeOS only
+ * @since Chrome 71
+ */
+declare namespace chrome.enterprise.hardwarePlatform {
+    export interface HardwarePlatformInfo {
+        manufacturer: string;
+        model: string;
+    }
+
+    /**
+     * Obtains the manufacturer and model for the hardware platform and, if the extension is authorized, returns it via callback.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+     */
+    export function getHardwarePlatformInfo(): Promise<HardwarePlatformInfo>;
+    export function getHardwarePlatformInfo(callback: (info: HardwarePlatformInfo) => void): void;
 }
 
 ////////////////////
@@ -6761,14 +6801,31 @@ declare namespace chrome.platformKeys {
 ////////////////////
 /**
  * Use the chrome.power API to override the system's power management features.
- * Permissions:  "power"
+ * Permissions: "power"
  * @since Chrome 27
  */
 declare namespace chrome.power {
-    /** Requests that power management be temporarily disabled. |level| describes the degree to which power management should be disabled. If a request previously made by the same app is still active, it will be replaced by the new request. */
-    export function requestKeepAwake(level: string): void;
+    export enum Level {
+        /** Prevents the display from being turned off or dimmed, or the system from sleeping in response to user inactivity */
+        DISPLAY = "display",
+        /** Prevents the system from sleeping in response to user inactivity. */
+        SYSTEM = "system",
+    }
+
+    /** Requests that power management be temporarily disabled. `level` describes the degree to which power management should be disabled. If a request previously made by the same app is still active, it will be replaced by the new request. */
+    export function requestKeepAwake(level: `${Level}`): void;
+
     /** Releases a request previously made via requestKeepAwake(). */
     export function releaseKeepAwake(): void;
+
+    /**
+     * Reports a user activity in order to awake the screen from a dimmed or turned off state or from a screensaver. Exits the screensaver if it is currently active.
+     * Can return its result via Promise in Manifest V3 or later.
+     * @platform ChromeOS only
+     * @since Chrome 113
+     */
+    export function reportActivity(): Promise<void>;
+    export function reportActivity(callback: () => void): void;
 }
 
 ////////////////////
@@ -8512,6 +8569,11 @@ declare namespace chrome.sessions {
  * @since Chrome 20
  */
 declare namespace chrome.storage {
+    /** NoInfer for old TypeScript versions */
+    type NoInferX<T> = T[][T extends any ? 0 : never];
+    // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
+    export {};
+
     export interface StorageArea {
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
@@ -8525,14 +8587,17 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with a number
          * @since MV3
          */
-        getBytesInUse(keys?: string | string[] | null): Promise<number>;
+        getBytesInUse<T = { [key: string]: any }>(keys?: keyof T | Array<keyof T> | null): Promise<number>;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param keys Optional. A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
          * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
          * Parameter bytesInUse: Amount of space being used in storage, in bytes.
          */
-        getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
+        getBytesInUse<T = { [key: string]: any }>(
+            keys: keyof T | Array<keyof T> | null,
+            callback: (bytesInUse: number) => void,
+        ): void;
         /**
          * Removes all items from storage.
          * @return A void Promise
@@ -8552,7 +8617,7 @@ declare namespace chrome.storage {
          * @return A void Promise
          * @since MV3
          */
-        set(items: { [key: string]: any }): Promise<void>;
+        set<T = { [key: string]: any }>(items: Partial<T>): Promise<void>;
         /**
          * Sets multiple items.
          * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
@@ -8560,7 +8625,7 @@ declare namespace chrome.storage {
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        set(items: { [key: string]: any }, callback: () => void): void;
+        set<T = { [key: string]: any }>(items: Partial<T>, callback: () => void): void;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
@@ -8568,20 +8633,20 @@ declare namespace chrome.storage {
          * @return A void Promise
          * @since MV3
          */
-        remove(keys: string | string[]): Promise<void>;
+        remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>): Promise<void>;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        remove(keys: string | string[], callback: () => void): void;
+        remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>, callback: () => void): void;
         /**
          * Gets the entire contents of storage.
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
          * Parameter items: Object with items in their key-value mappings.
          */
-        get(callback: (items: { [key: string]: any }) => void): void;
+        get<T = { [key: string]: any }>(callback: (items: T) => void): void;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8589,7 +8654,9 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with an object containing items
          * @since MV3
          */
-        get(keys?: string | string[] | { [key: string]: any } | null): Promise<{ [key: string]: any }>;
+        get<T = { [key: string]: any }>(
+            keys?: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+        ): Promise<T>;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8597,9 +8664,9 @@ declare namespace chrome.storage {
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
          * Parameter items: Object with items in their key-value mappings.
          */
-        get(
-            keys: string | string[] | { [key: string]: any } | null,
-            callback: (items: { [key: string]: any }) => void,
+        get<T = { [key: string]: any }>(
+            keys: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+            callback: (items: T) => void,
         ): void;
         /**
          * Sets the desired access level for the storage area. The default will be only trusted contexts.
@@ -8668,12 +8735,12 @@ declare namespace chrome.storage {
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void>
     {}
 
-    type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
+    export type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void>
     {}
 
-    type AccessLevel = keyof typeof AccessLevel;
+    export type AccessLevel = keyof typeof AccessLevel;
 
     /** The storage area's access level. */
     export var AccessLevel: {

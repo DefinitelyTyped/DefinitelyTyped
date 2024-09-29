@@ -232,6 +232,12 @@ class Library extends Backbone.Collection<Book> {
     }
 }
 
+class AnotherLibrary extends Backbone.Collection<Book> {
+    model = (...args: any[]): Book => {
+        return new Book();
+    };
+}
+
 class Books extends Backbone.Collection<Book> {}
 
 class ArbitraryCollection extends Backbone.Collection {}
@@ -256,6 +262,8 @@ function test_collection() {
     // Compiler will check if object properties are valid for the cast.
     // This gives better type checking than declaring an `any` overload.
     books.add({ title: "Title 2", author: "Mikey" });
+
+    const booksArray: Book[] = books.add([{ title: "Title 3", author: "Mickey" }]);
 
     const model: Book = book1.collection.first();
     if (model !== book1) {

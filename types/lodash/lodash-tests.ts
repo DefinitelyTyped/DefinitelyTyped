@@ -807,10 +807,10 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _(list).join(); // $ExpectType string
     _(list).join("_"); // $ExpectType string
 
-    _.chain("abc").join(); // $ExpectType StringChain
-    _.chain("abc").join("_"); // $ExpectType StringChain
-    _.chain(list).join(); // $ExpectType StringChain
-    _.chain(list).join("_"); // $ExpectType StringChain
+    _.chain("abc").join(); // $ExpectType StringChain<string>
+    _.chain("abc").join("_"); // $ExpectType StringChain<string>
+    _.chain(list).join(); // $ExpectType StringChain<string>
+    _.chain(list).join("_"); // $ExpectType StringChain<string>
 
     fp.join("_", "abc"); // $ExpectType string
     fp.join("_")(list); // $ExpectType string
@@ -2253,14 +2253,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         collection; // $ExpectType AbcObject
     });
 
-    // $ExpectType String
+    // $ExpectType String<string>
     _(str).forEach((value, index, collection) => {
         value; // $ExpectType string
         index; // $ExpectType number
         collection; // $ExpectType string
     });
 
-    // $ExpectType String
+    // $ExpectType String<string>
     _(nilStr).forEach((value, index, collection) => {
         value; // $ExpectType string
         index; // $ExpectType number
@@ -2323,7 +2323,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         collection; // $ExpectType NumericDictionary<AbcObject>
     });
 
-    // $ExpectType StringChain
+    // $ExpectType StringChain<string>
     _.chain(str).forEach((value, index, collection) => {
         value; // $ExpectType string
         index; // $ExpectType number
@@ -3023,10 +3023,10 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _({ a: "foo" }).sample(); // $ExpectType string | undefined
 
     _.chain("abc").sample(); // $ExpectType StringNullableChain
-    _.chain(list).sample(); // $ExpectType StringChain
-    _.chain(dictionary).sample(); // $ExpectType StringChain
-    _.chain(numericDictionary).sample(); // $ExpectType StringChain
-    _.chain({ a: "foo" }).sample(); // $ExpectType StringChain
+    _.chain(list).sample(); // $ExpectType StringChain<string>
+    _.chain(dictionary).sample(); // $ExpectType StringChain<string>
+    _.chain(numericDictionary).sample(); // $ExpectType StringChain<string>
+    _.chain({ a: "foo" }).sample(); // $ExpectType StringChain<string>
 
     fp.sample("abc"); // $ExpectType string | undefined
     fp.sample(list); // $ExpectType string | undefined
@@ -3806,7 +3806,7 @@ fp.now(); // $ExpectType number
 
         _.cloneWith(42, customizer); // $ExpectType string
         _(42).cloneWith(customizer); // $ExpectType string
-        _.chain(42).cloneWith<string>(customizer); // $ExpectType StringChain
+        _.chain(42).cloneWith<string>(customizer); // $ExpectType StringChain<string>
 
         fp.cloneWith(customizer, 42); // $ExpectType string
         fp.cloneWith(customizer)(42); // $ExpectType string
@@ -4861,12 +4861,12 @@ fp.now(); // $ExpectType number
 
     _.max(list); // $ExpectType string | undefined
      _(list).max(); // $ExpectType string | undefined
-    _.chain(list).max(); // $ExpectType StringChain
+    _.chain(list).max(); // $ExpectType StringChain<string>
     fp.max(list); // $ExpectType string | undefined
 
     _.min(list); // $ExpectType string | undefined
      _(list).min(); // $ExpectType string | undefined
-    _.chain(list).min(); // $ExpectType StringChain
+    _.chain(list).min(); // $ExpectType StringChain<string>
     fp.min(list); // $ExpectType string | undefined
 }
 
@@ -5487,7 +5487,7 @@ fp.now(); // $ExpectType number
     _({}).get("a" as string, defaultValue); // $ExpectType boolean
     _(objectWithOptionalField).get("a", undefined); // $ExpectType boolean | undefined
 
-    _.chain("abc").get(1); // $ExpectType StringChain
+    _.chain("abc").get(1); // $ExpectType StringChain<string>
     _.chain({ a: false }).get("a"); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain(objectWithOptionalField).get("a" as string); // $ExpectType LoDashExplicitWrapper<any>
     _.chain({ a: arrayOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<number>
@@ -5497,7 +5497,7 @@ fp.now(); // $ExpectType number
     _.chain({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType never
     _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType PrimitiveChain<1>
-    _.chain({ a: dictionary }).get('a.b'); // $ExpectType StringChain
+    _.chain({ a: dictionary }).get('a.b'); // $ExpectType StringChain<string>
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType ObjectChain<{ b: boolean; }>
@@ -5507,7 +5507,7 @@ fp.now(); // $ExpectType number
     _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d"]); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d2"]); // $ExpectType LoDashExplicitWrapper<any>
     _.chain({ a: undefined }).get("a"); // $ExpectType never
-    _.chain({ a: value }).get("a", defaultValue); // $ExpectType StringChain | PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({ a: value }).get("a", defaultValue); // $ExpectType StringChain<string> | PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
     _.chain({ a: [{ b: { c: [3] } }] }).get("a[0].b.c").map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
@@ -5882,7 +5882,7 @@ fp.now(); // $ExpectType number
         return true;
     });
 
-    
+
 
     // $ExpectType ObjectChain<{ [x: number]: string; }>
     _.chain(numericDictionary).mapValues((value, key, collection) => {
@@ -6087,11 +6087,11 @@ fp.now(); // $ExpectType number
     _("abc").result<string>(["0"]); // $ExpectType string
     _("abc").result<string>([0], () => "_"); // $ExpectType string
     _({ a: () => true }).result<boolean>("a"); // $ExpectType boolean
-    _.chain("abc").result<string>("0"); // $ExpectType StringChain
-    _.chain("abc").result<string>(0, "_"); // $ExpectType StringChain
-    _.chain("abc").result<string>("0", () => "_"); // $ExpectType StringChain
-    _.chain("abc").result<string>(["0"]); // $ExpectType StringChain
-    _.chain("abc").result<string>([0], () => "_"); // $ExpectType StringChain
+    _.chain("abc").result<string>("0"); // $ExpectType StringChain<string>
+    _.chain("abc").result<string>(0, "_"); // $ExpectType StringChain<string>
+    _.chain("abc").result<string>("0", () => "_"); // $ExpectType StringChain<string>
+    _.chain("abc").result<string>(["0"]); // $ExpectType StringChain<string>
+    _.chain("abc").result<string>([0], () => "_"); // $ExpectType StringChain<string>
     _.chain({ a: () => true }).result<boolean>("a"); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
 
     fp.result<string>("0", "abc"); // $ExpectType string
@@ -6368,7 +6368,7 @@ fp.now(); // $ExpectType number
 
 // _
 {
-    _(""); // $ExpectType String
+    _(""); // $ExpectType String<"">
     _(42); // $ExpectType Primitive<number>
     _(true); // $ExpectType Primitive<boolean>
     _([""]); // $ExpectType Collection<string>
@@ -6378,9 +6378,9 @@ fp.now(); // $ExpectType number
 
 // _.chain
 {
-    _.chain(""); // $ExpectType StringChain
-    _("").chain(); // $ExpectType StringChain
-    _.chain("").chain(); // $ExpectType StringChain
+    _.chain(""); // $ExpectType StringChain<"">
+    _("").chain(); // $ExpectType StringChain<string>
+    _.chain("").chain(); // $ExpectType StringChain<"">
     _.chain(42); // $ExpectType PrimitiveChain<number>
     _.chain([""]); // $ExpectType CollectionChain<string>
     _.chain({ a: 42 }); // $ExpectType ObjectChain<{ a: number; }>
@@ -6401,9 +6401,9 @@ fp.now(); // $ExpectType number
         value; // $ExpectType { a: number; }
     });
 
-    // $ExpectType String
+    // $ExpectType String<"a">
     _("a").tap((value) => {
-        value; // $ExpectType string
+        value; // $ExpectType "a"
     });
     // $ExpectType Collection<boolean>
     _([true]).tap((value) => {
@@ -6414,9 +6414,9 @@ fp.now(); // $ExpectType number
         value; // $ExpectType { a: number; }
     });
 
-    // $ExpectType StringChain
+    // $ExpectType StringChain<"a">
     _.chain("a").tap((value) => {
-        value; // $ExpectType string
+        value; // $ExpectType "a"
     });
     // $ExpectType CollectionChain<boolean>
     _.chain([true]).tap((value) => {
@@ -6452,7 +6452,7 @@ fp.now(); // $ExpectType number
 
     // $ExpectType Primitive<number>
     _("a").thru((value) => {
-        value; // $ExpectType string
+        value; // $ExpectType "a"
         return 1;
     });
     // $ExpectType Primitive<number>
@@ -6468,7 +6468,7 @@ fp.now(); // $ExpectType number
 
     // $ExpectType PrimitiveChain<number>
     _.chain("a").thru((value) => {
-        value; // $ExpectType string
+        value; // $ExpectType "a"
         return 1;
     });
     // $ExpectType PrimitiveChain<number>
@@ -6536,15 +6536,15 @@ fp.now(); // $ExpectType number
 
 // _.prototype.plant
 {
-    _(anything).plant(""); // $ExpectType Collection<any> & Function<any> & Object<any> & Primitive<any> & String
-    _(anything).plant(42); // $ExpectType Collection<any> & Function<any> & Object<any> & Primitive<any> & String
-    _(anything).plant([""]); // $ExpectType Collection<any> & Function<any> & Object<any> & Primitive<any> & String
-    _(anything).plant({ a: 42 }); // $ExpectType Collection<any> & Function<any> & Object<any> & Primitive<any> & String
+    _(anything).plant(""); // $ExpectType Collection<any> & Function<any> & Object<any> & Primitive<any> & String<string>
+    _(anything).plant(42); // $ExpectType Collection<any> & Function<any> & Object<any> & Primitive<any> & String<string>
+    _(anything).plant([""]); // $ExpectType Collection<any> & Function<any> & Object<any> & Primitive<any> & String<string>
+    _(anything).plant({ a: 42 }); // $ExpectType Collection<any> & Function<any> & Object<any> & Primitive<any> & String<string>
 
-    _.chain(anything).plant(""); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain
-    _.chain(anything).plant(42); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain
-    _.chain(anything).plant([""]); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain
-    _.chain(anything).plant({ a: 42 }); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain
+    _.chain(anything).plant(""); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain<string>
+    _.chain(anything).plant(42); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain<string>
+    _.chain(anything).plant([""]); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain<string>
+    _.chain(anything).plant({ a: 42 }); // $ExpectType CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain<string>
 }
 
 // _.prototype.reverse
@@ -6570,13 +6570,13 @@ fp.now(); // $ExpectType number
 // _.prototype.valueOf
 // _.prototype.toJSON
 {
-    _("").value(); // $ExpectType string
+    _("").value(); // $ExpectType ""
     _([true]).value(); // $ExpectType boolean[]
     _({ a: 42 }).value(); // $ExpectType { a: number; }
     _({ a: 42 }).valueOf(); // $ExpectType { a: number; }
     _({ a: 42 }).toJSON(); // $ExpectType { a: number; }
 
-    _.chain("").value(); // $ExpectType string
+    _.chain("").value(); // $ExpectType ""
     _.chain([true]).value(); // $ExpectType boolean[]
     _.chain({ a: 42 }).value(); // $ExpectType { a: number; }
     _.chain({ a: 42 }).valueOf(); // $ExpectType { a: number; }
@@ -6591,7 +6591,7 @@ fp.now(); // $ExpectType number
 {
     _.camelCase("Foo Bar"); // $ExpectType string
     _("Foo Bar").camelCase(); // $ExpectType string
-    _.chain("Foo Bar").camelCase(); // $ExpectType StringChain
+    _.chain("Foo Bar").camelCase(); // $ExpectType StringChain<string>
     fp.camelCase("Foo Bar"); // $ExpectType string
 }
 
@@ -6599,7 +6599,7 @@ fp.now(); // $ExpectType number
 {
     _.capitalize("fred"); // $ExpectType string
     _("fred").capitalize(); // $ExpectType string
-    _.chain("fred").capitalize(); // $ExpectType StringChain
+    _.chain("fred").capitalize(); // $ExpectType StringChain<string>
     fp.capitalize("fred"); // $ExpectType string
 }
 
@@ -6607,7 +6607,7 @@ fp.now(); // $ExpectType number
 {
     _.deburr("déjà vu"); // $ExpectType string
     _("déjà vu").deburr(); // $ExpectType string
-    _.chain("déjà vu").deburr(); // $ExpectType StringChain
+    _.chain("déjà vu").deburr(); // $ExpectType StringChain<string>
     fp.deburr("déjà vu"); // $ExpectType string
 }
 
@@ -6627,7 +6627,7 @@ fp.now(); // $ExpectType number
 {
     _.escape("fred, barney, & pebbles"); // $ExpectType string
     _("fred, barney, & pebbles").escape(); // $ExpectType string
-    _.chain("fred, barney, & pebbles").escape(); // $ExpectType StringChain
+    _.chain("fred, barney, & pebbles").escape(); // $ExpectType StringChain<string>
     fp.escape("fred, barney, & pebbles"); // $ExpectType string
 }
 
@@ -6635,7 +6635,7 @@ fp.now(); // $ExpectType number
 {
     _.escapeRegExp("[lodash](https://lodash.com/)"); // $ExpectType string
     _("[lodash](https://lodash.com/)").escapeRegExp(); // $ExpectType string
-    _.chain("[lodash](https://lodash.com/)").escapeRegExp(); // $ExpectType StringChain
+    _.chain("[lodash](https://lodash.com/)").escapeRegExp(); // $ExpectType StringChain<string>
     fp.escapeRegExp("[lodash](https://lodash.com/)"); // $ExpectType string
 }
 
@@ -6643,7 +6643,7 @@ fp.now(); // $ExpectType number
 {
     _.kebabCase("Foo Bar"); // $ExpectType string
     _("Foo Bar").kebabCase(); // $ExpectType string
-    _.chain("Foo Bar").kebabCase(); // $ExpectType StringChain
+    _.chain("Foo Bar").kebabCase(); // $ExpectType StringChain<string>
     fp.kebabCase("Foo Bar"); // $ExpectType string
 }
 
@@ -6651,16 +6651,16 @@ fp.now(); // $ExpectType number
 {
     _.lowerCase("Foo Bar"); // $ExpectType string
     _("Foo Bar").lowerCase(); // $ExpectType string
-    _.chain("Foo Bar").lowerCase(); // $ExpectType StringChain
+    _.chain("Foo Bar").lowerCase(); // $ExpectType StringChain<string>
     fp.lowerCase("Foo Bar"); // $ExpectType string
 }
 
 // _.lowerFirst
 {
-    _.lowerFirst("Foo Bar"); // $ExpectType string
-    _("Foo Bar").lowerFirst(); // $ExpectType string
-    _.chain("Foo Bar").lowerFirst(); // $ExpectType StringChain
-    fp.lowerFirst("Foo Bar"); // $ExpectType string
+    _.lowerFirst("Foo Bar"); // $ExpectType "foo Bar"
+    _("Foo Bar").lowerFirst(); // $ExpectType "foo Bar"
+    _.chain("Foo Bar").lowerFirst(); // $ExpectType StringChain<"foo Bar">
+    fp.lowerFirst("Foo Bar"); // $ExpectType "foo Bar"
 }
 
 // _.pad
@@ -6671,9 +6671,9 @@ fp.now(); // $ExpectType number
     _("abc").pad(); // $ExpectType string
     _("abc").pad(8); // $ExpectType string
     _("abc").pad(8, "_-"); // $ExpectType string
-    _.chain("abc").pad(); // $ExpectType StringChain
-    _.chain("abc").pad(8); // $ExpectType StringChain
-    _.chain("abc").pad(8, "_-"); // $ExpectType StringChain
+    _.chain("abc").pad(); // $ExpectType StringChain<string>
+    _.chain("abc").pad(8); // $ExpectType StringChain<string>
+    _.chain("abc").pad(8, "_-"); // $ExpectType StringChain<string>
     fp.pad(8, "abc"); // $ExpectType string
     fp.pad(8)("abc"); // $ExpectType string
     fp.padChars("_", 8, "abc"); // $ExpectType string
@@ -6688,9 +6688,9 @@ fp.now(); // $ExpectType number
     _("abc").padEnd(); // $ExpectType string
     _("abc").padEnd(6); // $ExpectType string
     _("abc").padEnd(6, "_-"); // $ExpectType string
-    _.chain("abc").padEnd(); // $ExpectType StringChain
-    _.chain("abc").padEnd(6); // $ExpectType StringChain
-    _.chain("abc").padEnd(6, "_-"); // $ExpectType StringChain
+    _.chain("abc").padEnd(); // $ExpectType StringChain<string>
+    _.chain("abc").padEnd(6); // $ExpectType StringChain<string>
+    _.chain("abc").padEnd(6, "_-"); // $ExpectType StringChain<string>
     fp.padEnd(8, "abc"); // $ExpectType string
     fp.padEnd(8)("abc"); // $ExpectType string
     fp.padCharsEnd("_", 8, "abc"); // $ExpectType string
@@ -6705,9 +6705,9 @@ fp.now(); // $ExpectType number
     _("abc").padStart(); // $ExpectType string
     _("abc").padStart(6); // $ExpectType string
     _("abc").padStart(6, "_-"); // $ExpectType string
-    _.chain("abc").padStart(); // $ExpectType StringChain
-    _.chain("abc").padStart(6); // $ExpectType StringChain
-    _.chain("abc").padStart(6, "_-"); // $ExpectType StringChain
+    _.chain("abc").padStart(); // $ExpectType StringChain<string>
+    _.chain("abc").padStart(6); // $ExpectType StringChain<string>
+    _.chain("abc").padStart(6, "_-"); // $ExpectType StringChain<string>
     fp.padStart(8, "abc"); // $ExpectType string
     fp.padStart(8)("abc"); // $ExpectType string
     fp.padCharsStart("_", 8, "abc"); // $ExpectType string
@@ -6732,8 +6732,8 @@ fp.now(); // $ExpectType number
     _.repeat("*", 3); // $ExpectType string
     _("*").repeat(); // $ExpectType string
     _("*").repeat(3); // $ExpectType string
-    _.chain("*").repeat(); // $ExpectType StringChain
-    _.chain("*").repeat(3); // $ExpectType StringChain
+    _.chain("*").repeat(); // $ExpectType StringChain<string>
+    _.chain("*").repeat(3); // $ExpectType StringChain<string>
     fp.repeat(3, "*"); // $ExpectType string
 }
 
@@ -6751,10 +6751,10 @@ fp.now(); // $ExpectType number
     _("Hi Fred").replace(/fred/i, "Barney"); // $ExpectType string
     _("Hi Fred").replace(/fred/i, replacer); // $ExpectType string
 
-    _.chain("Hi Fred").replace("Fred", "Barney"); // $ExpectType StringChain
-    _.chain("Hi Fred").replace("Fred", replacer); // $ExpectType StringChain
-    _.chain("Hi Fred").replace(/fred/i, "Barney"); // $ExpectType StringChain
-    _.chain("Hi Fred").replace(/fred/i, replacer); // $ExpectType StringChain
+    _.chain("Hi Fred").replace("Fred", "Barney"); // $ExpectType StringChain<string>
+    _.chain("Hi Fred").replace("Fred", replacer); // $ExpectType StringChain<string>
+    _.chain("Hi Fred").replace(/fred/i, "Barney"); // $ExpectType StringChain<string>
+    _.chain("Hi Fred").replace(/fred/i, replacer); // $ExpectType StringChain<string>
 
     fp.replace("Fred", "Barney", "Hi Fred"); // $ExpectType string
     fp.replace("Fred")("Barney")("Hi Fred"); // $ExpectType string
@@ -6767,7 +6767,7 @@ fp.now(); // $ExpectType number
 {
     _.snakeCase("Foo Bar"); // $ExpectType string
     _("Foo Bar").snakeCase(); // $ExpectType string
-    _.chain("Foo Bar").snakeCase(); // $ExpectType StringChain
+    _.chain("Foo Bar").snakeCase(); // $ExpectType StringChain<string>
     fp.snakeCase("Foo Bar"); // $ExpectType string
 }
 
@@ -6805,7 +6805,7 @@ fp.now(); // $ExpectType number
 {
     _.startCase("--foo-bar"); // $ExpectType string
     _("--foo-bar").startCase(); // $ExpectType string
-    _.chain("--foo-bar").startCase(); // $ExpectType StringChain
+    _.chain("--foo-bar").startCase(); // $ExpectType StringChain<string>
     fp.startCase("--foo-bar"); // $ExpectType string
 }
 
@@ -6850,18 +6850,18 @@ fp.now(); // $ExpectType number
 
 // _.toLower
 {
-    _.toLower("fred, barney, &amp; pebbles"); // $ExpectType string
-    _("fred, barney, &amp; pebbles").toLower(); // $ExpectType string
-    _.chain("fred, barney, &amp; pebbles").toLower(); // $ExpectType StringChain
-    fp.toLower("fred, barney, &amp; pebbles"); // $ExpectType string
+    _.toLower("FRED, BARNEY, &AMP; PEBBLES"); // $ExpectType "fred, barney, &amp; pebbles"
+    _("FRED, BARNEY, &AMP; PEBBLES").toLower(); // $ExpectType "fred, barney, &amp; pebbles"
+    _.chain("FRED, BARNEY, &AMP; PEBBLES").toLower(); // $ExpectType StringChain<"fred, barney, &amp; pebbles">
+    fp.toLower("FRED, BARNEY, &AMP; PEBBLES"); // $ExpectType "fred, barney, &amp; pebbles"
 }
 
 // _.toUpper
 {
-    _.toUpper("fred, barney, &amp; pebbles"); // $ExpectType string
-    _("fred, barney, &amp; pebbles").toUpper(); // $ExpectType string
-    _.chain("fred, barney, &amp; pebbles").toUpper(); // $ExpectType StringChain
-    fp.toUpper("fred, barney, &amp; pebbles"); // $ExpectType string
+    _.toUpper("fred, barney, &amp; pebbles"); // $ExpectType "FRED, BARNEY, &AMP; PEBBLES"
+    _("fred, barney, &amp; pebbles").toUpper(); // $ExpectType "FRED, BARNEY, &AMP; PEBBLES"
+    _.chain("fred, barney, &amp; pebbles").toUpper(); // $ExpectType StringChain<"FRED, BARNEY, &AMP; PEBBLES">
+    fp.toUpper("fred, barney, &amp; pebbles"); // $ExpectType "FRED, BARNEY, &AMP; PEBBLES"
 }
 
 // _.trim
@@ -6871,8 +6871,8 @@ fp.now(); // $ExpectType number
     _.trim("-_-abc-_-", "_-"); // $ExpectType string
     _("-_-abc-_-").trim(); // $ExpectType string
     _("-_-abc-_-").trim("_-"); // $ExpectType string
-    _.chain("-_-abc-_-").trim(); // $ExpectType StringChain
-    _.chain("-_-abc-_-").trim("_-"); // $ExpectType StringChain
+    _.chain("-_-abc-_-").trim(); // $ExpectType StringChain<string>
+    _.chain("-_-abc-_-").trim("_-"); // $ExpectType StringChain<string>
     fp.trim("  abc  "); // $ExpectType string
     fp.trimChars(" ", "  abc  "); // $ExpectType string
     fp.trimChars(" ")("  abc  "); // $ExpectType string
@@ -6887,8 +6887,8 @@ fp.now(); // $ExpectType number
     _.trimEnd("-_-abc-_-", "_-"); // $ExpectType string
     _("-_-abc-_-").trimEnd(); // $ExpectType string
     _("-_-abc-_-").trimEnd("_-"); // $ExpectType string
-    _.chain("-_-abc-_-").trimEnd(); // $ExpectType StringChain
-    _.chain("-_-abc-_-").trimEnd("_-"); // $ExpectType StringChain
+    _.chain("-_-abc-_-").trimEnd(); // $ExpectType StringChain<string>
+    _.chain("-_-abc-_-").trimEnd("_-"); // $ExpectType StringChain<string>
     fp.trimEnd("  abc  "); // $ExpectType string
     fp.trimCharsEnd(" ", "  abc  "); // $ExpectType string
     fp.trimCharsEnd(" ")("  abc  "); // $ExpectType string
@@ -6901,8 +6901,8 @@ fp.now(); // $ExpectType number
     _.trimStart("-_-abc-_-", "_-"); // $ExpectType string
     _("-_-abc-_-").trimStart(); // $ExpectType string
     _("-_-abc-_-").trimStart("_-"); // $ExpectType string
-    _.chain("-_-abc-_-").trimStart(); // $ExpectType StringChain
-    _.chain("-_-abc-_-").trimStart("_-"); // $ExpectType StringChain
+    _.chain("-_-abc-_-").trimStart(); // $ExpectType StringChain<string>
+    _.chain("-_-abc-_-").trimStart("_-"); // $ExpectType StringChain<string>
     fp.trimStart("  abc  "); // $ExpectType string
     fp.trimCharsStart(" ", "  abc  "); // $ExpectType string
     fp.trimCharsStart(" ")("  abc  "); // $ExpectType string
@@ -6920,10 +6920,10 @@ fp.now(); // $ExpectType number
     _("hi-diddly-ho there, neighborino").truncate({ length: 24, separator: /,? +/ }); // $ExpectType string
     _("hi-diddly-ho there, neighborino").truncate({ omission: " […]" }); // $ExpectType string
 
-    _.chain("hi-diddly-ho there, neighborino").truncate(); // $ExpectType StringChain
-    _.chain("hi-diddly-ho there, neighborino").truncate({ length: 24, separator: " " }); // $ExpectType StringChain
-    _.chain("hi-diddly-ho there, neighborino").truncate({ length: 24, separator: /,? +/ }); // $ExpectType StringChain
-    _.chain("hi-diddly-ho there, neighborino").truncate({ omission: " […]" }); // $ExpectType StringChain
+    _.chain("hi-diddly-ho there, neighborino").truncate(); // $ExpectType StringChain<string>
+    _.chain("hi-diddly-ho there, neighborino").truncate({ length: 24, separator: " " }); // $ExpectType StringChain<string>
+    _.chain("hi-diddly-ho there, neighborino").truncate({ length: 24, separator: /,? +/ }); // $ExpectType StringChain<string>
+    _.chain("hi-diddly-ho there, neighborino").truncate({ omission: " […]" }); // $ExpectType StringChain<string>
 
     fp.truncate({ length: 24, separator: " " }, "hi-diddly-ho there, neighborino"); // $ExpectType string
     fp.truncate({ length: 24, separator: " " })("hi-diddly-ho there, neighborino"); // $ExpectType string
@@ -6935,7 +6935,7 @@ fp.now(); // $ExpectType number
 {
     _.unescape("fred, barney, &amp; pebbles"); // $ExpectType string
     _("fred, barney, &amp; pebbles").unescape(); // $ExpectType string
-    _.chain("fred, barney, &amp; pebbles").unescape(); // $ExpectType StringChain
+    _.chain("fred, barney, &amp; pebbles").unescape(); // $ExpectType StringChain<string>
     fp.unescape("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
@@ -6943,16 +6943,16 @@ fp.now(); // $ExpectType number
 {
     _.upperCase("fred, barney, &amp; pebbles"); // $ExpectType string
     _("fred, barney, &amp; pebbles").upperCase(); // $ExpectType string
-    _.chain("fred, barney, &amp; pebbles").upperCase(); // $ExpectType StringChain
+    _.chain("fred, barney, &amp; pebbles").upperCase(); // $ExpectType StringChain<string>
     fp.upperCase("fred, barney, &amp; pebbles"); // $ExpectType string
 }
 
 // _.upperFirst
 {
-    _.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType string
-    _("fred, barney, &amp; pebbles").upperFirst(); // $ExpectType string
-    _.chain("fred, barney, &amp; pebbles").upperFirst(); // $ExpectType StringChain
-    fp.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType string
+    _.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType "Fred, barney, &amp; pebbles"
+    _("fred, barney, &amp; pebbles").upperFirst(); // $ExpectType "Fred, barney, &amp; pebbles"
+    _.chain("fred, barney, &amp; pebbles").upperFirst(); // $ExpectType StringChain<"Fred, barney, &amp; pebbles">
+    fp.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType "Fred, barney, &amp; pebbles"
 }
 
 // _.words
@@ -7017,12 +7017,12 @@ fp.now(); // $ExpectType number
     _.constant({ a: "" }); // $ExpectType () => { a: string; }
 
     _(42).constant(); // $ExpectType Function<() => number>
-    _("a").constant(); // $ExpectType Function<() => string>
+    _("a").constant(); // $ExpectType Function<() => "a">
     _([true]).constant(); // $ExpectType Function<() => boolean[]>
     _({ a: "" }).constant(); // $ExpectType Function<() => { a: string; }>
 
     _.chain(42).constant(); // $ExpectType FunctionChain<() => number>
-    _.chain("a").constant(); // $ExpectType FunctionChain<() => string>
+    _.chain("a").constant(); // $ExpectType FunctionChain<() => "a">
     _.chain([true]).constant(); // $ExpectType FunctionChain<() => boolean[]>
     _.chain({ a: "" }).constant(); // $ExpectType FunctionChain<() => { a: string; }>
 
@@ -7363,7 +7363,7 @@ fp.now(); // $ExpectType number
 {
     _.stubString(); // $ExpectType string
     _(anything).stubString(); // $ExpectType string
-    _.chain(anything).stubString(); // $ExpectType StringChain
+    _.chain(anything).stubString(); // $ExpectType StringChain<string>
     fp.stubString(); // $ExpectType string
 }
 
@@ -7404,7 +7404,7 @@ fp.now(); // $ExpectType number
     _.uniqueId(); // $ExpectType string
     _.uniqueId(""); // $ExpectType string
     _("").uniqueId(); // $ExpectType string
-    _.chain("").uniqueId(); // $ExpectType StringChain
+    _.chain("").uniqueId(); // $ExpectType StringChain<string>
     fp.uniqueId(""); // $ExpectType string
 }
 
@@ -7590,7 +7590,7 @@ _.templateSettings; // $ExpectType TemplateSettings
 {
     interface ObjA { some: { test: { path: 'OK' } } };
 
-    type A = GetFieldTypeOfNarrowedByLKR<ObjA, 'some.test', 'path', ''>; // $ExpectType 'OK' 
+    type A = GetFieldTypeOfNarrowedByLKR<ObjA, 'some.test', 'path', ''>; // $ExpectType 'OK'
     type B = GetFieldTypeOfNarrowedByLKR<ObjA, 'some', 'test', 'path'>; // $ExpectType 'OK'
     type C = GetFieldTypeOfNarrowedByLKR<ObjA, '', 'some', 'test.path'>; // $ExpectType 'OK'
 

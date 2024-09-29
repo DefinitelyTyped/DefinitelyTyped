@@ -1,9 +1,13 @@
-import { expect, use } from "chai";
 import chaiAlmost = require("chai-almost");
 
-// Normally, call use(chaiAlmost(...)) only once, this is just to check that TypeScript correctly handles both.
-use(chaiAlmost(0.01)); // custom tolerance 0.01
-use(chaiAlmost()); // default tolerance 1e-6 (= 0.000001)
+async function testPlugin() {
+    const { use } = await import("chai");
+    // Normally, call use(chaiAlmost(...)) only once, this is just to check that TypeScript correctly handles both.
+    use(chaiAlmost(0.01)); // custom tolerance 0.01
+    use(chaiAlmost()); // default tolerance 1e-6 (= 0.000001)
+}
+
+declare const expect: Chai.ExpectStatic;
 
 expect(1.0000001).to.almost.equal(1);
 expect(1.0000001).to.be.almost(1);

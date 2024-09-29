@@ -12,13 +12,15 @@ export interface Position {
     set: (x: number, y: number) => void;
 }
 
-export class ShadowMapViewer {
-    constructor(light: Light);
-
+declare class ShadowMapViewer {
     enabled: boolean;
     size: Size;
     position: Position;
-    render(renderer: Renderer): void;
-    updateForWindowResize(): void;
-    update(): void;
+    render: (renderer: Renderer) => void;
+    updateForWindowResize: () => void;
+    update: () => void;
+
+    constructor(light: Light);
 }
+
+export { ShadowMapViewer };

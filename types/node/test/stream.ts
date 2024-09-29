@@ -2,6 +2,7 @@ import { createReadStream, createWriteStream } from "node:fs";
 import {
     addAbortSignal,
     Duplex,
+    duplexPair,
     finished,
     isErrored,
     isReadable,
@@ -494,7 +495,7 @@ async function testConsumers() {
     await text(r);
     // $ExpectType unknown
     await json(r);
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     await buffer(r);
     // $ExpectType ArrayBuffer
     await arrayBuffer(r);
@@ -615,6 +616,14 @@ addAbortSignal(new AbortSignal(), new Readable());
     const duplex = new Duplex();
     // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
     Duplex.toWeb(duplex);
+}
+
+{
+    const [duplexLeft, duplexRight] = duplexPair();
+    // $ExpectType Duplex
+    duplexLeft;
+    // $ExpectType Duplex
+    duplexRight;
 }
 
 {

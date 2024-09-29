@@ -287,11 +287,11 @@ b.fill("a").fill("b");
 
 // Buffer module, transcode function
 {
-    transcode(Buffer.from("€"), "utf8", "ascii"); // $ExpectType Buffer
+    transcode(Buffer.from("€"), "utf8", "ascii"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
     const source: TranscodeEncoding = "utf8";
     const target: TranscodeEncoding = "ascii";
-    transcode(Buffer.from("€"), source, target); // $ExpectType Buffer
+    transcode(Buffer.from("€"), source, target); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 }
 
 {
@@ -478,8 +478,8 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     const u16 = new Uint16Array([0xffff]);
-    Buffer.copyBytesFrom(u16); // $ExpectType Buffer
-    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
+    Buffer.copyBytesFrom(u16); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer || Buffer<ArrayBuffer>
 }
 
 {

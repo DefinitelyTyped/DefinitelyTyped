@@ -32,23 +32,23 @@ scrypt.params(0.1, 5, 4); // $ExpectType Promise<Params>
 /***** kdf *****/
 const params = scrypt.paramsSync(0.1);
 try {
-    scrypt.kdfSync("some string", params); // $ExpectType Buffer
-    scrypt.kdfSync(new Buffer("some string"), params); // $ExpectType Buffer
+    scrypt.kdfSync("some string", params); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    scrypt.kdfSync(new Buffer("some string"), params); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 } catch (err) {
     // handle error
 }
 
 scrypt.kdf("some string", params, (err, buff) => {
     err; // $ExpectType Error | null
-    buff; // $ExpectType Buffer
+    buff; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 scrypt.kdf(new Buffer("some string"), params, (err, buff) => {
     err; // $ExpectType Error | null
-    buff; // $ExpectType Buffer
+    buff; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 
-scrypt.kdf("some string", params); // $ExpectType Promise<Buffer>
-scrypt.kdf(new Buffer("some string"), params); // $ExpectType Promise<Buffer>
+scrypt.kdf("some string", params); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+scrypt.kdf(new Buffer("some string"), params); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 
 /***** verifyKdf *****/
 const kdf = scrypt.kdfSync("some string", params);
@@ -73,32 +73,32 @@ scrypt.verifyKdf(kdf, new Buffer("some string")); // $ExpectType Promise<boolean
 
 /***** hash *****/
 try {
-    scrypt.hashSync("some string", params, 255, "some salt"); // $ExpectType Buffer
-    scrypt.hashSync("some string", params, 255, new Buffer("some salt")); // $ExpectType Buffer
-    scrypt.hashSync(new Buffer("some string"), params, 255, "some salt"); // $ExpectType Buffer
-    scrypt.hashSync(new Buffer("some string"), params, 255, new Buffer("some salt")); // $ExpectType Buffer
+    scrypt.hashSync("some string", params, 255, "some salt"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    scrypt.hashSync("some string", params, 255, new Buffer("some salt")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    scrypt.hashSync(new Buffer("some string"), params, 255, "some salt"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    scrypt.hashSync(new Buffer("some string"), params, 255, new Buffer("some salt")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 } catch (err) {
     // handle error
 }
 
 scrypt.hash("some string", params, 255, "some salt", (err, buff) => {
     err; // $ExpectType Error | null
-    buff; // $ExpectType Buffer
+    buff; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 scrypt.hash("some string", params, 255, new Buffer("some salt"), (err, buff) => {
     err; // $ExpectType Error | null
-    buff; // $ExpectType Buffer
+    buff; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 scrypt.hash(new Buffer("some string"), params, 255, "some salt", (err, buff) => {
     err; // $ExpectType Error | null
-    buff; // $ExpectType Buffer
+    buff; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 scrypt.hash(new Buffer("some string"), params, 255, new Buffer("some salt"), (err, buff) => {
     err; // $ExpectType Error | null
-    buff; // $ExpectType Buffer
+    buff; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 
-scrypt.hash("some string", params, 255, "some salt"); // $ExpectType Promise<Buffer>
-scrypt.hash("some string", params, 255, new Buffer("some salt")); // $ExpectType Promise<Buffer>
-scrypt.hash(new Buffer("some string"), params, 255, "some salt"); // $ExpectType Promise<Buffer>
-scrypt.hash(new Buffer("some string"), params, 255, new Buffer("some salt")); // $ExpectType Promise<Buffer>
+scrypt.hash("some string", params, 255, "some salt"); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+scrypt.hash("some string", params, 255, new Buffer("some salt")); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+scrypt.hash(new Buffer("some string"), params, 255, "some salt"); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+scrypt.hash(new Buffer("some string"), params, 255, new Buffer("some salt")); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>

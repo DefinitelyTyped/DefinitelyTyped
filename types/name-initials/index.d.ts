@@ -1,1 +1,3 @@
-export default function nameInitials(name: string): string;
+declare function nameInitials(name: string): string;
+
+export = nameInitials;

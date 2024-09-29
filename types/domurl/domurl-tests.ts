@@ -13,11 +13,11 @@ interface U3Model {
     foo: string;
 }
 
-var u = new Url<UModel>(); // current document URL will be used
+let u = new Url<UModel>(); // current document URL will be used
 // or we can instantiate as
-var u2 = new Url<U2Model>("http://example.com/some/path?a=b&c=d#someAnchor");
+let u2 = new Url<U2Model>("http://example.com/some/path?a=b&c=d#someAnchor");
 // it should support relative URLs also
-var u3 = new Url<U3Model>("/my/site/doc/path?foo=bar#baz");
+let u3 = new Url<U3Model>("/my/site/doc/path?foo=bar#baz");
 
 // get the value of some query string parameter
 console.log(u2.query.a);
@@ -60,17 +60,34 @@ u.path = "/some/new/path"; // the way to change URL path
 u.protocol = "https"; // the way to force https protocol on the source URL
 
 // inject into string
-var str = "<a href=\"" + u + "\">My Cool Link</a>";
+let str = "<a href=\"" + u + "\">My Cool Link</a>";
 
 // or use in DOM context
-var a = document.createElement("a");
+let a = document.createElement("a");
 a.href = u.toString();
 a.innerHTML = "test";
 document.body.appendChild(a);
 
 // Stringify
-var su1 = u + "";
-var su2 = String(u);
-var su3 = u.toString();
+let su1 = u + "";
+let su2 = String(u);
+let su3 = u.toString();
 // NOTE, that usually it will be done automatically, so only in special
 //       cases direct stringify is required
+
+let u4 = new Url<U3Model>("/my/site/doc/path?foo=bar#baz", true);
+
+// $ExpectType string
+u4.encode("");
+
+// $ExpectType string
+u4.decode("");
+
+// $ExpectType boolean
+u4.isAbsolute();
+
+// $ExpectType string[]
+u4.paths(["a", "b", "c"]);
+
+// @ts-expect-error
+u4.href;

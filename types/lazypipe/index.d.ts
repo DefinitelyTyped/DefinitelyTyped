@@ -12,7 +12,7 @@ interface IPipelineBuilder {
      * @param fn A stream creation function to call when the pipeline is created later.
      * @param args Any remaining arguments are saved and passed into fn when the pipeline is created.
      */
-    pipe(fn: Function, ...args: any[]): IPipelineBuilder;
+    pipe<T extends (...args: any[]) => any>(fn: T, ...args: Parameters<T>): IPipelineBuilder;
 }
 
 /**

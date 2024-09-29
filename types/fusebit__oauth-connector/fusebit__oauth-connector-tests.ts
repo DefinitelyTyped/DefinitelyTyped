@@ -42,7 +42,7 @@ class MyConnector extends conn.OAuthConnector {
     }
 
     authorize(params: conn.AuthorizeParams): express.RequestHandler {
-        return (req: express.Request, res: express.Response, next: express.NextFunction) => next;
+        return (req: express.Request, res: express.Response, next: express.NextFunction) => next();
     }
 
     onNewUser(

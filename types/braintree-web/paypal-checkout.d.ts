@@ -149,6 +149,74 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
     "merchant-id"?: string;
 }
 
+export interface PayPalCheckoutUpdatePaymentOptions {
+    /**
+     * This should be PayPal paymentId.
+     */
+    paymentId: string;
+    /**
+     * The amount of the transaction, including the amount of the selected shipping option, and all line_items.
+     * Supports up to 2 decimal digits.
+     */
+    amount: string | number;
+    /**
+     * The currency code of the amount, such as 'USD'. Required when using the Checkout flow.
+     */
+    currency: string;
+    /**
+     * List of {@link paypal.ShippingOption|shipping options} offered by the payee or merchant to the payer to ship or pick up their items.
+     * @see {@link https://braintree.github.io/braintree-web/current/PayPalCheckout.html#~shippingOption}
+     */
+    shippingOptions?: paypal.ShippingOption[];
+    /**
+     * The {@link paypal.LineItem|line items} for this transaction. It can include up to 249 line items.
+     * @see {@link https://braintree.github.io/braintree-web/current/PayPalCheckout.html#~lineItem}
+     */
+    lineItems?: paypal.LineItem[];
+    /**
+     * Optional collection of amounts that break down the total into individual pieces.
+     */
+    amountBreakdown?: {
+        /**
+         * Item amount
+         */
+        itemTotal?: string;
+        /**
+         * Shipping amount
+         */
+        shipping?: string;
+        /**
+         * Handling amount
+         */
+        handling?: string;
+        /**
+         * Tax amount
+         */
+        taxTotal?: string;
+        /**
+         * Insurance amount
+         */
+        insurance?: string;
+        /**
+         * Shipping discount amount
+         */
+        shippingDiscount?: string;
+        /**
+         * Discount amount
+         */
+        discount?: string;
+    };
+}
+
+export interface PayPalCheckoutUpdatePaymentServerDataReturn {
+    authorization: {
+        error: string | null;
+        errorDescription: string | null;
+        processorResponseCode: string | null;
+    };
+    _httpStatus: number;
+}
+
 export interface PayPalCheckout {
     /**
      * Resolves when the PayPal SDK has been succesfully loaded onto the page.
@@ -351,6 +419,58 @@ export interface PayPalCheckout {
      */
     teardown(callback: () => void): void;
     teardown(): Promise<void>;
+
+    /**
+     * Use this function to update {@link paypal.LineItem|line items} and/or {@link paypal.ShippingOption|shipping options} associated with a
+     * PayPalCheckout flow (paymentId). When a {@link callback} is defined, this function returns undefined and invokes the callback.
+     * The second callback argument, `data`, is the returned server data. If no callback is provided, `updatePayment` returns a
+     * promise that resolves with the server data.
+     * @example
+     * // this paypal object is created by the PayPal JS SDK
+     * // see https://github.com/paypal/paypal-checkout-components
+     * paypal.Buttons({
+     *   createOrder: function () {
+     *     // when createPayment resolves, it is automatically passed to the PayPal JS SDK
+     *     return paypalCheckoutInstance.createPayment({
+     *       //
+     *     });
+     *   },
+     *   onShippingChange: function (data) {
+     *     // Examine data and determine if the payment needs to be updated.
+     *     // when updatePayment resolves, it is automatically passed to the PayPal JS SDK
+     *     return paypalCheckoutInstance.updatePayment({
+     *         paymentId: data.paymentId,
+     *         amount: '15.00',
+     *         currency: 'USD',
+     *         shippingOptions: [
+     *           {
+     *             id: 'shipping-speed-fast',
+     *             type: 'SHIPPING',
+     *             label: 'Fast Shipping',
+     *             selected: true,
+     *             amount: {
+     *               value: '5.00',
+     *               currency: 'USD'
+     *             }
+     *           },
+     *           {
+     *             id: 'shipping-speed-slow',
+     *             type: 'SHIPPING',
+     *             label: 'Slow Shipping',
+     *             selected: false,
+     *             amount: {
+     *               value: '1.00',
+     *               currency: 'USD'
+     *             }
+     *           }
+     *         ]
+     *     });
+     *   }
+     *   // Add other options, e.g. onApproved, onCancel, onError
+     * }).render('#paypal-button');
+     */
+    updatePayment(options: PayPalCheckoutUpdatePaymentOptions): Promise<PayPalCheckoutUpdatePaymentServerDataReturn>;
+    updatePayment(options: PayPalCheckoutUpdatePaymentOptions, callback?: callback): void;
 }
 
 /**

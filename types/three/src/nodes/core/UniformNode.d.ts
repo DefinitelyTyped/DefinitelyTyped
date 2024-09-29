@@ -5,6 +5,7 @@ import NodeBuilder from "./NodeBuilder.js";
 import NodeFrame from "./NodeFrame.js";
 import UniformGroupNode from "./UniformGroupNode.js";
 declare class UniformNode<TValue> extends InputNode<TValue> {
+    static get type(): string;
     readonly isUniformNode: true;
     name: string;
     groupNode: UniformGroupNode;
