@@ -2369,3 +2369,19 @@ function testEnterPrisePlatformKeys() {
 
     chrome.enterprise.platformKeys.removeCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
 }
+
+// https://developer.chrome.com/docs/extensions/reference/api/power
+function testPower() {
+    chrome.power.Level.DISPLAY === "display";
+    chrome.power.Level.SYSTEM === "system";
+
+    chrome.power.releaseKeepAwake(); // $ExpectType void
+    chrome.power.requestKeepAwake(chrome.power.Level.SYSTEM); // $ExpectType void
+    chrome.power.requestKeepAwake("system"); // $ExpectType void
+    // @ts-expect-error
+    chrome.power.requestKeepAwake("other"); // $ExpectType void
+    chrome.power.reportActivity(() => {}); // $ExpectType void
+    chrome.power.reportActivity(); // $ExpectType Promise<void>
+    // @ts-expect-error
+    chrome.power.reportActivity(() => {}).then(() => {});
+}
