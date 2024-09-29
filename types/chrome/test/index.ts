@@ -2292,8 +2292,11 @@ function testUserScripts() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
 function testEnterPrisePlatformKeys() {
-    chrome.enterprise.platformKeys.Scope;
-    chrome.enterprise.platformKeys.Algorithm;
+    chrome.enterprise.platformKeys.Scope.MACHINE === "MACHINE";
+    chrome.enterprise.platformKeys.Scope.USER === "USER";
+
+    chrome.enterprise.platformKeys.Algorithm.ECDSA === "ECDSA";
+    chrome.enterprise.platformKeys.Algorithm.RSA === "RSA";
 
     chrome.enterprise.platformKeys.challengeKey({ // $ExpectType void
         scope: "MACHINE",
