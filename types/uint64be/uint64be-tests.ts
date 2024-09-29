@@ -1,8 +1,8 @@
 import * as uint64be from "uint64be";
 
-uint64be.encode(42); // $ExpectType Buffer
-uint64be.encode(42, Buffer.alloc(10)); // $ExpectType Buffer
-uint64be.encode(42, Buffer.alloc(10), 1); // $ExpectType Buffer
+uint64be.encode(42); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+uint64be.encode(42, Buffer.alloc(10)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+uint64be.encode(42, Buffer.alloc(10), 1); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 uint64be.encode.bytes; // $ExpectType 8
 

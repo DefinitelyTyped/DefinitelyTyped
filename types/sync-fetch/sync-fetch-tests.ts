@@ -50,7 +50,7 @@ const request = new Request("");
 request.agent;
 request.arrayBuffer(); // $ExpectType ArrayBuffer
 request.blob(); // $ExpectType Promise<Blob>
-request.buffer(); // $ExpectType Buffer
+request.buffer(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 request.clone(); // $ExpectType SyncRequest
 request.json(); // $ExpectType any
 request.text(); // $ExpectType string
@@ -77,7 +77,7 @@ Response.redirect;
 const response = new Response();
 response.arrayBuffer(); // $ExpectType ArrayBuffer
 response.blob(); // $ExpectType Promise<Blob>
-response.buffer(); // $ExpectType Buffer
+response.buffer(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 response.clone(); // $ExpectType SyncResponse
 response.json(); // $ExpectType any
 response.text(); // $ExpectType string

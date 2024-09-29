@@ -47,6 +47,8 @@ export interface MacroContextObject {
 }
 
 type ShadowWrapperCallback<T extends any[]> = (this: MacroContext, ...args: T) => void;
+type ContextPredicate = (context: MacroContextObject) => boolean;
+
 export interface MacroContext {
     /**
      * The argument string parsed into an array of discrete arguments.
@@ -91,13 +93,34 @@ export interface MacroContext {
     self: object;
 
     /**
+     * Returns a new array containing all of the macro's ancestors that passed the test implemented by the
+     * given predicate function or an empty array, if no members pass.
+     * @param predicate The function used to test each ancestor execution context object, which is passed in as its sole parameter.
+     * @since 2.37.0
+     * @example
+     * var isInclude = function (ctx) { return ctx.name === "include"; };
+     * this.contextFilter(isInclude); // Returns an array of all <<include>> macro ancestors
+     */
+    contextFilter(predicate: ContextPredicate): object[];
+
+    /**
+     * Returns the first of the macro's ancestors that passed the test implemented by the given predicate function or undefined, if no members pass.
+     * @param predicate The function used to test each ancestor execution context object, which is passed in as its sole parameter.
+     * @since 2.37.0
+     * @example
+     * var isInclude = function (ctx) { return ctx.name === "include"; };
+     * this.contextFind(isInclude); // Returns the first <<include>> macro ancestor
+     */
+    contextFind(predicate: ContextPredicate): object | undefined;
+    /**
      * Returns whether any of the macro's ancestors passed the test implemented by the given
      * filter function.
      * @param filter he function used to test each ancestor execution context object, which
      * is passed in as its sole parameter.
      * @since 2.0.0
+     * @deprecated in 2.37.0 in favor of contextSome()
      */
-    contextHas(filter: (context: MacroContextObject) => boolean): boolean;
+    contextHas(filter: ContextPredicate): boolean;
 
     /**
      * Returns the first of the macro's ancestors which passed the test implemented by the given
@@ -105,16 +128,28 @@ export interface MacroContext {
      * @param filter The function used to test each ancestor execution context object, which is
      * passed in as its sole parameter.
      * @since 2.0.0
+     * @deprecated in 2.37.0 in favor of contextFind()
      */
-    contextSelect(filter: (context: MacroContextObject) => boolean): object;
+    contextSelect(filter: ContextPredicate): object;
 
     /**
      * Returns a new array containing all of the macro's ancestors which passed the test implemented
      * by the given filter function or an empty array, if no members pass.
      * @since 2.0.0
      * @param filter
+     * @deprecated in 2.37.0 in favor of contextFilter()
      */
-    contextSelectAll(filter: (context: MacroContextObject) => boolean): object[];
+    contextSelectAll(filter: ContextPredicate): object[];
+
+    /**
+     * Returns whether any of the macro's ancestors passed the test implemented by the given predicate function.
+     * @param predicate The function used to test each ancestor execution context object, which is passed in as its sole parameter.
+     * @since 2.37.0
+     * @example
+     * var isInclude = function (ctx) { return ctx.name === "include"; };
+     * this.contextSome(isInclude);  // Returns true if any ancestor was an <<include>> macro
+     */
+    contextSome(predicate: ContextPredicate): boolean;
 
     /**
      * Returns a callback function that wraps the given callbacks to provide access to the variable
@@ -125,6 +160,7 @@ export interface MacroContext {
      * @param doneCallback Executed after the main callback returns. Does not have access.
      * @param startCallback Executed before the main callback is invoked. Does not have access.
      * @since 2.14.0
+     * @deprecated in favor of shadowHandler()
      */
     createShadowWrapper<T extends any[]>(
         callback: ShadowWrapperCallback<T>,
@@ -138,6 +174,20 @@ export interface MacroContext {
      * @since 2.0.0
      */
     error(message: string): false;
+
+    /**
+     * Returns a callback function that wraps the specified callback functions to provide access to the variable shadowing system used by the <<capture>> macro.
+     * NOTE: All of the specified callbacks are invoked as the wrapper is invoked—meaning, with their this set to the this of the wrapper and with whatever parameters were passed to the wrapper.
+     * WARNING: Only useful when you have an asynchronous callback that invokes code/content that needs to access story and/or temporary variables shadowed by <<capture>>. If you don't know what that means, then this API is likely not for you.
+     * @param callback
+     * @param doneCallback
+     * @param startCallback
+     */
+    shadowHandler<TEvent extends Event>(
+        callback: (ev: TEvent) => void,
+        doneCallback?: (ev: TEvent) => void,
+        startCallback?: (ev: TEvent) => void,
+    ): (event: TEvent) => void;
 }
 
 export interface MacroDefinition {

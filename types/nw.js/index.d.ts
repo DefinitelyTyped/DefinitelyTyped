@@ -1025,8 +1025,10 @@ declare global {
 
             /**
              * Query the status of devtools window.
+             *
+             * @since v0.92.0
              */
-            isDevToolsOpen(): boolean;
+            isDevToolsOpen(callback: (status: boolean) => void): void;
 
             /**
              * Print the web contents in the window without the need for user’s interaction.

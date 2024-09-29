@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/geojson": "*",
-        "@types/rbush": "*"
+        "@types/rbush": "^3"
     },
     "devDependencies": {
         "@types/polygon-lookup": "workspace:."

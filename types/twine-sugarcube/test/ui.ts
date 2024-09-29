@@ -5,11 +5,6 @@ const dialogOptions: TwineSugarCube.DialogOptions = {
     opacity: 30,
 };
 
-Dialog.addClickHandler("#some-element", dialogOptions, () => {
-    Dialog.setup("My Dialog Title", "my-dialog-class");
-    Dialog.wiki(Story.get("MyDialogContents").processText());
-});
-
 let b = false;
 const e: HTMLElement = document.getElementById("") as HTMLElement;
 let n = 123;
@@ -77,6 +72,8 @@ UI.settings(dialogOptions, () => {}); // $ExpectType void
 
 UI.share(); // $ExpectType void
 UI.share(dialogOptions, () => {}); // $ExpectType void
+
+UI.update();
 // #endregion
 
 // #region  UIBar

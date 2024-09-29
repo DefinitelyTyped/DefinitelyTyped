@@ -47,8 +47,11 @@ async function topLevel() {
         console.log(chunk);
     }
 
-    const assistantClone: AIAssistant = await assistant.clone();
-    console.log(assistantClone);
+    const assistantClone1: AIAssistant = await assistant.clone();
+    console.log(assistantClone1);
+
+    const assistantClone2: AIAssistant = await assistant.clone({ signal: (new AbortController()).signal });
+    console.log(assistantClone2);
 
     assistant.destroy();
 

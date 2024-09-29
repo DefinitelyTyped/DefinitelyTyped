@@ -106,6 +106,7 @@ const ComponentWithChildren3: React.FunctionComponent<React.PropsWithChildren<Co
     defaultChecked
     defaultValue="some value"
     contentEditable
+    enterKeyHint="done"
     suppressContentEditableWarning
     suppressHydrationWarning
 >
@@ -419,6 +420,13 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 // unstable API should not be part of the typings
 // @ts-expect-error
 <React.Suspense fallback={null} unstable_avoidThisFallback />;
+
+<React.Suspense
+    fallback={null}
+    // @ts-expect-error -- Should use `name`
+    id="test"
+/>;
+<React.Suspense fallback={null} name="test" />;
 
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };

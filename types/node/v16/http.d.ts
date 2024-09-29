@@ -1,5 +1,5 @@
 /**
- * To use the HTTP server and client one must `require('http')`.
+ * To use the HTTP server and client one must import the `node:http` module.
  *
  * The HTTP interfaces in Node.js are designed to support many features
  * of the protocol which have been traditionally difficult to use.
@@ -225,7 +225,7 @@ declare module "http" {
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > {
         IncomingMessage?: Request | undefined;
         ServerResponse?: Response | undefined;
@@ -265,14 +265,14 @@ declare module "http" {
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
     /**
      * @since v0.1.17
      */
     class Server<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > extends NetServer {
         constructor(requestListener?: RequestListener<Request, Response>);
         constructor(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>);
@@ -1287,12 +1287,15 @@ declare module "http" {
      */
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
-    >(options: ServerOptions, requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
+    >(
+        options: ServerOptions<Request, Response>,
+        requestListener?: RequestListener<Request, Response>,
+    ): Server<Request, Response>;
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
     interface RequestOptions extends ClientRequestArgs {}
@@ -1312,7 +1315,7 @@ declare module "http" {
      * upload a file with a POST request, then write to the `ClientRequest` object.
      *
      * ```js
-     * const http = require('http');
+     * import http from 'node:http';
      *
      * const postData = JSON.stringify({
      *   'msg': 'Hello World!'

@@ -1,3 +1,4 @@
+import NodeMaterialObserver from "../../../materials/nodes/manager/NodeMaterialObserver.js";
 import Node from "../../../nodes/core/Node.js";
 import NodeAttribute from "../../../nodes/core/NodeAttribute.js";
 import BindGroup from "../BindGroup.js";
@@ -11,7 +12,7 @@ declare class NodeBuilderState {
     updateNodes: Node[];
     updateBeforeNodes: Node[];
     updateAfterNodes: Node[];
-    instanceBindGroups: boolean;
+    monitor: NodeMaterialObserver;
     usedTimes: number;
     constructor(
         vertexShader: string | null,
@@ -22,7 +23,7 @@ declare class NodeBuilderState {
         updateNodes: Node[],
         updateBeforeNodes: Node[],
         updateAfterNodes: Node[],
-        instanceBindGroups?: boolean,
+        monitor: NodeMaterialObserver,
         transforms?: never[],
     );
     createBindings(): BindGroup[];

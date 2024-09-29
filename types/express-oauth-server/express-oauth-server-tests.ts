@@ -56,12 +56,12 @@ let resultingTokenMiddleware: (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction,
-) => Promise<OAuth2Server.Token>;
+) => Promise<void>;
 let resultingAuthorizationCodeMiddleware: (
     request: express.Request,
     response: express.Response,
     next: express.NextFunction,
-) => Promise<OAuth2Server.AuthorizationCode>;
+) => Promise<void>;
 
 oAuthServer = expressOAuthServer.server;
 resultingTokenMiddleware = expressOAuthServer.authenticate();

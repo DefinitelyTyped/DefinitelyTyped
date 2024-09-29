@@ -9,7 +9,7 @@
  * * [User Timing](https://www.w3.org/TR/user-timing/)
  *
  * ```js
- * const { PerformanceObserver, performance } = require('perf_hooks');
+ * import { PerformanceObserver, performance } from 'node:perf_hooks';
  *
  * const obs = new PerformanceObserver((items) => {
  *   console.log(items.getEntries()[0].duration);
@@ -317,10 +317,10 @@ declare module "perf_hooks" {
          * with respect to `performanceEntry.startTime`.
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver
-         * } = require('perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntries());
@@ -358,10 +358,10 @@ declare module "perf_hooks" {
          * equal to `name`, and optionally, whose `performanceEntry.entryType` is equal to`type`.
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver
-         * } = require('perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntriesByName('meow'));
@@ -407,10 +407,10 @@ declare module "perf_hooks" {
          * with respect to `performanceEntry.startTime` whose `performanceEntry.entryType`is equal to `type`.
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver
-         * } = require('perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntriesByType('mark'));
@@ -455,10 +455,10 @@ declare module "perf_hooks" {
          * Subscribes the `PerformanceObserver` instance to notifications of new `PerformanceEntry` instances identified either by `options.entryTypes` or `options.type`:
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver
-         * } = require('perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * const obs = new PerformanceObserver((list, observer) => {
          *   // Called once asynchronously. `list` contains three items.
@@ -695,7 +695,7 @@ declare module "perf_hooks" {
      * detect.
      *
      * ```js
-     * const { monitorEventLoopDelay } = require('perf_hooks');
+     * import { monitorEventLoopDelay } from 'node:perf_hooks';
      * const h = monitorEventLoopDelay({ resolution: 20 });
      * h.enable();
      * // Do something.
@@ -737,7 +737,7 @@ declare module "perf_hooks" {
     import { performance as _performance } from "perf_hooks";
     global {
         /**
-         * `performance` is a global reference for `require('perf_hooks').performance`
+         * `performance` is a global reference for `import { performance } from 'node:perf_hooks'`
          * https://nodejs.org/api/globals.html#performance
          * @since v16.0.0
          */

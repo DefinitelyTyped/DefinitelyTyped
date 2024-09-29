@@ -123,10 +123,22 @@ declare global {
     // Same as module.exports
     var exports: any;
 
+    interface GCFunction {
+        (options: {
+            execution?: "sync";
+            type?: "major" | "minor";
+        }): void;
+        (options: {
+            execution: "async";
+            type?: "major" | "minor";
+        }): Promise<void>;
+        (options?: boolean): void;
+    }
+
     /**
      * Only available if `--expose-gc` is passed to the process.
      */
-    var gc: undefined | (() => void);
+    var gc: undefined | GCFunction;
 
     // #region borrowed
     // from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
@@ -361,20 +373,6 @@ declare global {
             ref(): this;
             unref(): this;
         }
-
-        type TypedArray =
-            | Uint8Array
-            | Uint8ClampedArray
-            | Uint16Array
-            | Uint32Array
-            | Int8Array
-            | Int16Array
-            | Int32Array
-            | BigUint64Array
-            | BigInt64Array
-            | Float32Array
-            | Float64Array;
-        type ArrayBufferView = TypedArray | DataView;
 
         interface Require {
             (id: string): any;

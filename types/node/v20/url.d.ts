@@ -85,7 +85,7 @@ declare module "url" {
      * The `url.format()` method returns a formatted URL string derived from `urlObject`.
      *
      * ```js
-     * const url = require('node:url');
+     * import url from 'node:url';
      * url.format({
      *   protocol: 'https',
      *   hostname: 'example.com',
@@ -149,7 +149,7 @@ declare module "url" {
      * The `url.format()` method returns a formatted URL string derived from `urlObject`.
      *
      * ```js
-     * const url = require('node:url');
+     * import url from 'node:url';
      * url.format({
      *   protocol: 'https',
      *   hostname: 'example.com',
@@ -214,7 +214,7 @@ declare module "url" {
      * manner similar to that of a web browser resolving an anchor tag.
      *
      * ```js
-     * const url = require('node:url');
+     * import url from 'node:url';
      * url.resolve('/one/two/three', 'four');         // '/one/two/four'
      * url.resolve('http://example.com/', '/one');    // 'http://example.com/one'
      * url.resolve('http://example.com/one', '/two'); // 'http://example.com/two'
@@ -392,10 +392,10 @@ declare module "url" {
          * Creates a `'blob:nodedata:...'` URL string that represents the given `Blob` object and can be used to retrieve the `Blob` later.
          *
          * ```js
-         * const {
+         * import {
          *   Blob,
          *   resolveObjectURL,
-         * } = require('node:buffer');
+         * } from 'node:buffer';
          *
          * const blob = new Blob(['hello']);
          * const id = URL.createObjectURL(blob);
@@ -926,7 +926,7 @@ declare module "url" {
             URLSearchParams: typeof _URLSearchParams;
         }
         /**
-         * `URL` class is a global reference for `require('url').URL`
+         * `URL` class is a global reference for `import { URL } from 'node:url'`
          * https://nodejs.org/api/url.html#the-whatwg-url-api
          * @since v10.0.0
          */
@@ -936,7 +936,7 @@ declare module "url" {
         } ? T
             : typeof _URL;
         /**
-         * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
+         * `URLSearchParams` class is a global reference for `import { URLSearchParams } from 'node:url'`
          * https://nodejs.org/api/url.html#class-urlsearchparams
          * @since v10.0.0
          */

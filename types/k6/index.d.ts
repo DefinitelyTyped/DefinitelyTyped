@@ -17,28 +17,7 @@
  * @packageDocumentation
  */
 
-import "./global"; // Type global environment
-
-// Expose everything to autoimport
-import "./browser";
-import "./crypto";
-import "./data";
-import "./encoding";
-import "./execution";
-import "./html";
-import "./http";
-import "./metrics";
-import "./options";
-import "./experimental/browser";
-import "./experimental/fs";
-import "./experimental/redis";
-import "./experimental/timers";
-import "./experimental/tracing";
-import "./experimental/webcrypto";
-import "./experimental/websockets";
-import "./timers";
-import "./ws";
-import "./net/grpc";
+import "./global.js"; // Type global environment
 
 // === Main ===
 // ------------
@@ -143,3 +122,5 @@ export interface JSONArray extends Array<JSONValue> {}
 export interface JSONObject {
     [key: string]: JSONValue;
 }
+
+export * as default from "k6";

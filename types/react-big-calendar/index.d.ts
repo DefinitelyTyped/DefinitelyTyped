@@ -340,7 +340,6 @@ export interface DateLocalizerSpec {
     format: (value: FormatInput, format: string, culture?: Culture) => string;
     formats: Formats;
     propType?: Validator<any> | undefined;
-    startOfWeek: StartOfWeek;
     merge?: (date: Date, time: Date) => Date | null;
     inRange?: typeof inRange;
     lt?: typeof lt;

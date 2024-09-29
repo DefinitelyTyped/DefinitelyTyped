@@ -12,13 +12,13 @@ b64.encode(buffer, { chunkSize: 10 }).then(b64String => {
 });
 
 b64.decode(b64String).then(buffer => {
-    buffer; // $ExpectType Buffer
+    buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 b64.decode(b64String, { chunkSize: 10 }).then(buffer => {
-    buffer; // $ExpectType Buffer
+    buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 });
 
 b64(buffer); // $ExpectType Promise<string>
 b64(buffer, { chunkSize: 10 }); // $ExpectType Promise<string>
-b64(b64String); // $ExpectType Promise<Buffer>
-b64(b64String, { chunkSize: 10 }); // $ExpectType Promise<Buffer>
+b64(b64String); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
+b64(b64String, { chunkSize: 10 }); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>

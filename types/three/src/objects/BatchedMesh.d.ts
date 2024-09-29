@@ -142,6 +142,25 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     getVisibleAt(instanceId: number): boolean;
 
     /**
+     * Get the range representing the subset of triangles related to the attached geometry, indicating the starting
+     * offset and count, or `null` if invalid.
+     *
+     * Return an object of the form: { start: Integer, count: Integer }
+     * @param geometryId The id of the geometry to get the range of.
+     * @param target Optional target object to copy the range in to.
+     */
+    getGeometryRangeAt(
+        geometryId: number,
+        target?: { start: number; count: number },
+    ): { start: number; count: number } | null;
+
+    /**
+     * Get the geometryIndex of the defined instance.
+     * @param instanceId The id of an instance to get the geometryIndex of.
+     */
+    getGeometryIdAt(instanceId: number): number;
+
+    /**
      * Sets the given color to the defined geometry instance.
      * @param instanceId The id of the instance to set the color of.
      * @param color The color to set the instance to.
@@ -163,6 +182,13 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     setVisibleAt(instanceId: number, visible: boolean): this;
 
     /**
+     * Sets the geometryIndex of the instance at the given index.
+     * @param instanceId The id of the instance to set the geometryIndex of.
+     * @param geometryId The geometryIndex to be use by the instance.
+     */
+    setGeometryIdAt(instanceId: number, geometryId: number): this;
+
+    /**
      * Adds the given geometry to the {@link BatchedMesh} and returns the associated index referring to it.
      * @param geometry The geometry to add into the {@link BatchedMesh}.
      * @param reservedVertexRange Optional parameter specifying the amount of vertex buffer space to reserve for the
@@ -181,6 +207,13 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
      * render.
      */
     addInstance(geometryId: number): number;
+
+    /**
+     * Removes an existing instance from the BatchedMesh using the given instanceId.
+     * @param instanceId The id of an instance to remove from the BatchedMesh that was previously added via
+     * "addInstance".
+     */
+    deleteInstance(instanceId: number): this;
 
     /**
      * Replaces the geometry at `geometryId` with the provided geometry. Throws an error if there is not enough space

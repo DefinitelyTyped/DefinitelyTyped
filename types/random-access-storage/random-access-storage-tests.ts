@@ -57,7 +57,7 @@ new RandomAccessStorage({
     write(req) {
         // $ExpectType number
         req.offset;
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         req.data;
         req.callback(null);
         req.callback(new Error("test error"));

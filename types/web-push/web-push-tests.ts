@@ -71,7 +71,7 @@ encrypt("publicKey", "userAuth", "myPayload", "unknownEncoding");
 encryptionResult.localPublicKey;
 // $ExpectType string
 encryptionResult.salt;
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 encryptionResult.cipherText;
 
 // ===================
@@ -249,15 +249,15 @@ requestOptions = {
 //  generateRequestDetails()
 // ==========================
 
-// $ExpectType RequestDetails & { body: Buffer; }
+// $ExpectType RequestDetails & { body: Buffer; } || RequestDetails & { body: Buffer<ArrayBufferLike>; }
 generateRequestDetails(pushSubscription, "payload", requestOptions);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 generateRequestDetails(pushSubscription, "payload", requestOptions).body;
 
 // Payload can be a Buffer
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 generateRequestDetails(pushSubscription, buffer).body;
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 generateRequestDetails(pushSubscription, buffer, requestOptions).body;
 
 // Payload is optional, then body will be null
@@ -296,7 +296,7 @@ const requestDetails = generateRequestDetails(pushSubscription, "payload");
 requestDetails.method;
 // $ExpectType Headers
 requestDetails.headers;
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 requestDetails.body;
 // $ExpectType string
 requestDetails.endpoint;

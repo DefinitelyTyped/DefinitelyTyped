@@ -15,7 +15,7 @@ const test = TransportWebUSB.open("test").then(transport => {
     // $ExpectType void
     transport.setScrambleKey("BTC");
 
-    // $ExpectType Promise<Buffer>
+    // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
     transport.exchange(Buffer.from("test", "hex"));
 
     // $ExpectType Promise<void>

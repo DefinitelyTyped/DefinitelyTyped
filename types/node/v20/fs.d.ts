@@ -1898,7 +1898,7 @@ declare module "fs" {
      * The `fs.mkdtemp()` method will append the six randomly selected characters
      * directly to the `prefix` string. For instance, given a directory `/tmp`, if the
      * intention is to create a temporary directory _within_`/tmp`, the `prefix`must end with a trailing platform-specific path separator
-     * (`require('node:path').sep`).
+     * (`import { sep } from 'node:node:path'`).
      *
      * ```js
      * import { tmpdir } from 'node:os';

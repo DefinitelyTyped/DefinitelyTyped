@@ -4,8 +4,9 @@ import { Object3D } from "../../core/Object3D.js";
 import { Light } from "../../lights/Light.js";
 import { Material } from "../../materials/Material.js";
 import { LightsNode } from "../../nodes/Nodes.js";
+import BundleGroup from "./BundleGroup.js";
 export interface Bundle {
-    object: Object3D;
+    bundleGroup: BundleGroup;
     camera: Camera;
     renderList: RenderList;
 }
