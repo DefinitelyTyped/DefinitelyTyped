@@ -1643,7 +1643,7 @@
         },
         "eslint": {
             "libraryName": "eslint",
-            "asOfVersion": "9.11.1"
+            "asOfVersion": "9.10.0"
         },
         "eslint-visitor-keys": {
             "libraryName": "eslint-visitor-keys",
