@@ -3426,6 +3426,32 @@ declare namespace chrome.enterprise.deviceAttributes {
 }
 
 ////////////////////
+// Enterprise Hardware Platform
+////////////////////
+/**
+ * Use the chrome.enterprise.hardwarePlatform API to get the manufacturer and model of the hardware platform where the browser runs.
+ *
+ * Permissions: "enterprise.hardwarePlatform"
+ *
+ * Note: This API is only for extensions pre-installed by policy.
+ * @platform ChromeOS only
+ * @since Chrome 71
+ */
+declare namespace chrome.enterprise.hardwarePlatform {
+    export interface HardwarePlatformInfo {
+        manufacturer: string;
+        model: string;
+    }
+
+    /**
+     * Obtains the manufacturer and model for the hardware platform and, if the extension is authorized, returns it via callback.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+     */
+    export function getHardwarePlatformInfo(): Promise<HardwarePlatformInfo>;
+    export function getHardwarePlatformInfo(callback: (info: HardwarePlatformInfo) => void): void;
+}
+
+////////////////////
 // Enterprise Networking Attributes
 ////////////////////
 /**

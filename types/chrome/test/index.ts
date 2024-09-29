@@ -1855,6 +1855,14 @@ function testEnterpriseDeviceAttributes() {
     chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/hardwarePlatform
+function testEnterpriseHardwarePlatform() {
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}); // $ExpectType void
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo(); // $ExpectType Promise<HardwarePlatformInfo>
+    // @ts-expect-error
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
+}
+
 // https://developer.chrome.com/docs/extensions/reference/browsingData
 function testBrowsingData() {
     // @ts-expect-error
