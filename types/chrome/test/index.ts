@@ -754,15 +754,48 @@ function testWindows() {
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
-    function getCallback(loadedData: { [key: string]: any }) {
-        var myValue: { x: number } = loadedData["myKey"];
+    interface StorageData {
+        myKey: {
+            x: number;
+            y: number;
+            z?: number;
+        };
+        myKey2: string;
     }
 
-    chrome.storage.sync.get(getCallback);
+    function getCallback(loadedData: { [key: string]: any }) {
+        console.log(loadedData.myKey.x + loadedData.myKey.y);
+    }
+
+    function getCallbackTyped(loadedData: StorageData) {
+        console.log(loadedData.myKey.x + loadedData.myKey.y);
+    }
+
+    // @ts-expect-error
+    const testNoInferX: chrome.storage.NoInferX<string> = "This test checks if NoInferX is accidentally exported";
+
     chrome.storage.sync.get("myKey", getCallback);
-    chrome.storage.sync.get(["myKey", "myKey2"], getCallback);
-    chrome.storage.sync.get({ foo: 1, bar: 2 }, getCallback);
-    chrome.storage.sync.get(null, getCallback);
+    chrome.storage.sync.get("badKey", getCallback);
+    // @ts-expect-error
+    chrome.storage.sync.get("badKey", getCallbackTyped);
+    // @ts-expect-error
+    chrome.storage.sync.get({ myKey: { badKey: true } }, getCallbackTyped);
+    chrome.storage.sync.get(null, (data) => {
+        console.log(data.myKey);
+    });
+    chrome.storage.sync.get((data) => {
+        console.log(data.badKey);
+    });
+
+    chrome.storage.sync.get<StorageData>(getCallbackTyped);
+    chrome.storage.sync.get<StorageData>("myKey", getCallbackTyped);
+    chrome.storage.sync.get<StorageData>(["myKey", "myKey2"], getCallbackTyped);
+    chrome.storage.sync.get<StorageData>({ myKey: { x: 1, y: 2 } }, getCallbackTyped);
+    // @ts-expect-error
+    chrome.storage.sync.get<StorageData>({ myKey: { badKey: true } }, getCallback);
+    // @ts-expect-error
+    chrome.storage.sync.get<StorageData>({ myKey: { badKey: true } }, getCallbackTyped);
+    chrome.storage.sync.get<StorageData>(null, getCallbackTyped);
 
     function getBytesInUseCallback(bytesInUse: number) {
         console.log(bytesInUse);
@@ -770,20 +803,31 @@ function testStorage() {
 
     chrome.storage.sync.getBytesInUse(getBytesInUseCallback);
     chrome.storage.sync.getBytesInUse("myKey", getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse(["myKey", "myKey2"], getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse(null, getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse("badKey", getBytesInUseCallback);
+
+    chrome.storage.sync.getBytesInUse<StorageData>("myKey", getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse<StorageData>(["myKey", "myKey2"], getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse<StorageData>(null, getBytesInUseCallback);
+    // @ts-expect-error
+    chrome.storage.sync.getBytesInUse<StorageData>(["badKey", "myKey2"], getBytesInUseCallback);
 
     function doneCallback() {
         console.log("done");
     }
 
-    chrome.storage.sync.set({ foo: 1, bar: 2 });
-    chrome.storage.sync.set({ foo: 1, bar: 2 }, doneCallback);
+    chrome.storage.sync.set({ badKey: true });
+    chrome.storage.sync.set<StorageData>({ myKey: { x: 1, y: 2 } });
+    chrome.storage.sync.set<StorageData>({ myKey2: "hello world" }, doneCallback);
+    // @ts-expect-error
+    chrome.storage.sync.set<StorageData>({ badKey: "hello world" }, doneCallback);
 
-    chrome.storage.sync.remove("myKey");
-    chrome.storage.sync.remove("myKey", doneCallback);
-    chrome.storage.sync.remove(["myKey", "myKey2"]);
-    chrome.storage.sync.remove(["myKey", "myKey2"], doneCallback);
+    chrome.storage.sync.remove("badKey");
+    chrome.storage.sync.remove<StorageData>("myKey");
+    chrome.storage.sync.remove<StorageData>("myKey", doneCallback);
+    chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"]);
+    chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"], doneCallback);
+    // @ts-expect-error
+    chrome.storage.sync.remove<StorageData>(["badKey", "myKey2"], doneCallback);
 
     chrome.storage.sync.clear();
     chrome.storage.sync.clear(doneCallback);
@@ -1811,6 +1855,14 @@ function testEnterpriseDeviceAttributes() {
     chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/hardwarePlatform
+function testEnterpriseHardwarePlatform() {
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}); // $ExpectType void
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo(); // $ExpectType Promise<HardwarePlatformInfo>
+    // @ts-expect-error
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
+}
+
 // https://developer.chrome.com/docs/extensions/reference/browsingData
 function testBrowsingData() {
     // @ts-expect-error
@@ -2290,17 +2342,48 @@ function testUserScripts() {
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
 }
 
-function testPlatformKeys() {
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
+function testEnterPrisePlatformKeys() {
+    chrome.enterprise.platformKeys.Scope.MACHINE === "MACHINE";
+    chrome.enterprise.platformKeys.Scope.USER === "USER";
+
+    chrome.enterprise.platformKeys.Algorithm.ECDSA === "ECDSA";
+    chrome.enterprise.platformKeys.Algorithm.RSA === "RSA";
+
     chrome.enterprise.platformKeys.challengeKey({ // $ExpectType void
         scope: "MACHINE",
         challenge: new ArrayBuffer(0),
         registerKey: { algorithm: "ECDSA" },
     }, () => {});
 
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), response => {}); // $ExpectType void
 
-    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.getCertificates("tokenId", certificates => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.getTokens(tokens => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.importCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.removeCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/power
+function testPower() {
+    chrome.power.Level.DISPLAY === "display";
+    chrome.power.Level.SYSTEM === "system";
+
+    chrome.power.releaseKeepAwake(); // $ExpectType void
+    chrome.power.requestKeepAwake(chrome.power.Level.SYSTEM); // $ExpectType void
+    chrome.power.requestKeepAwake("system"); // $ExpectType void
+    // @ts-expect-error
+    chrome.power.requestKeepAwake("other"); // $ExpectType void
+    chrome.power.reportActivity(() => {}); // $ExpectType void
+    chrome.power.reportActivity(); // $ExpectType Promise<void>
+    // @ts-expect-error
+    chrome.power.reportActivity(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/printing

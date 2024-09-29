@@ -68,9 +68,9 @@ new evmasm();
     babyJub.order;
     // $ExpectType bigint
     babyJub.subOrder;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     babyJub.A;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     babyJub.D;
     // $ExpectType Point
     babyJub.addPoint(point, point);
@@ -80,7 +80,7 @@ new evmasm();
     babyJub.inCurve(point);
     // $ExpectType boolean
     babyJub.inSubgroup(point);
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     babyJub.packPoint(point);
     // $ExpectType Point
     babyJub.unpackPoint(bigNumber);
@@ -100,7 +100,7 @@ new evmasm();
     eddsa.poseidon;
     // $ExpectType MimcSponge
     eddsa.mimcSponge;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     eddsa.pruneBuffer(new Uint8Array([0]));
     // $ExpectType Point
     eddsa.prv2pub("sk");
@@ -120,7 +120,7 @@ new evmasm();
     eddsa.verifyMiMC(bigNumber, signature, point);
     // $ExpectType boolean
     eddsa.verifyMiMCSponge(bigNumber, signature, point);
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     const buff2 = eddsa.packSignature(signature);
     // $ExpectType Signature
     eddsa.unpackSignature(buff2);
@@ -130,18 +130,18 @@ new evmasm();
 
     // $ExpectType any
     mimc7.F;
-    // $ExpectType Uint8Array[]
+    // $ExpectType Uint8Array[] || Uint8Array<ArrayBufferLike>[]
     mimc7.cts;
     // $ExpectType bigint
     mimc7.getIV("mimc");
     mimc7.getIV();
-    // $ExpectType Uint8Array[]
+    // $ExpectType Uint8Array[] || Uint8Array<ArrayBufferLike>[]
     mimc7.getConstants("mimc", 3);
     mimc7.getConstants("mimc");
     mimc7.getConstants();
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     mimc7.hash(3, 2);
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     mimc7.multiHash([1, 3], 3);
     mimc7.multiHash([1, 3]);
 
@@ -150,18 +150,18 @@ new evmasm();
 
     // $ExpectType any
     mimcSponge.F;
-    // $ExpectType Uint8Array[]
+    // $ExpectType Uint8Array[] || Uint8Array<ArrayBufferLike>[]
     mimcSponge.cts;
     // $ExpectType bigint
     mimcSponge.getIV("mimcsponge");
     mimcSponge.getIV();
-    // $ExpectType Uint8Array[]
+    // $ExpectType Uint8Array[] || Uint8Array<ArrayBufferLike>[]
     mimcSponge.getConstants("mimcsponge", 3);
     mimcSponge.getConstants("mimcsponge");
     mimcSponge.getConstants();
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     mimcSponge.hash(3, 3, 2);
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     mimcSponge.multiHash([1, 3], 3, 3);
     mimcSponge.multiHash([1, 3], 3);
     mimcSponge.multiHash([1, 3]);
@@ -171,7 +171,7 @@ new evmasm();
 
     // $ExpectType any
     poseidon.F;
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     poseidon([1, 3], 3, 4);
     poseidon([1, 3], 3);
     poseidon([1, 3]);
@@ -188,7 +188,7 @@ new evmasm();
     pederson.baseHash("blake2b", 4);
     // $ExpectType boolean[]
     pederson.buffer2bits(new Uint8Array([1]));
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     pederson.hash(new Uint8Array([2]), {});
     pederson.hash(new Uint8Array([2]));
     // $ExpectType Point

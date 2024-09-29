@@ -15,9 +15,9 @@ let decodeOptions: slip.DecodeOptions = {
 
 // @ts-expect-error
 slip.encode();
-slip.encode([1, 2]); // $ExpectType Uint8Array
-slip.encode(new ArrayBuffer(4)); // $ExpectType Uint8Array
-slip.encode(new Uint8Array([1, 2]), encodeOptions); // $ExpectType Uint8Array
+slip.encode([1, 2]); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+slip.encode(new ArrayBuffer(4)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+slip.encode(new Uint8Array([1, 2]), encodeOptions); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 new slip.Decoder(); // $ExpectType Decoder
 new slip.Decoder(decodeOptions); // $ExpectType Decoder

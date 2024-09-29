@@ -5,7 +5,7 @@ import redis, { Client } from "k6/experimental/redis";
 //
 
 // @ts-expect-error
-const redisClient = new redis.Client();
+const redisClient: Client = new redis.Client();
 
 // Missing required 'socket' property
 // @ts-expect-error

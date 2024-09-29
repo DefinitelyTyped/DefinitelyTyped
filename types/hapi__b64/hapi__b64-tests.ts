@@ -8,10 +8,10 @@ const decoder = new B64.Decoder();
 stream.pipe(encoder).pipe(process.stdout);
 stream.pipe(decoder).pipe(process.stdout);
 
-B64.decode(Buffer.from("aHR0cHM6Ly9naXRodWIuY29t")); // $ExpectType Buffer
-B64.encode(Buffer.from("https://github.com")); // $ExpectType Buffer
+B64.decode(Buffer.from("aHR0cHM6Ly9naXRodWIuY29t")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+B64.encode(Buffer.from("https://github.com")); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 B64.base64urlDecode("aHR0cHM6Ly9naXRodWIuY29t"); // $ExpectType string
 B64.base64urlDecode("aHR0cHM6Ly9naXRodWIuY29t", "ascii"); // $ExpectType string
-B64.base64urlDecode("aHR0cHM6Ly9naXRodWIuY29t", "buffer"); // $ExpectType Buffer
+B64.base64urlDecode("aHR0cHM6Ly9naXRodWIuY29t", "buffer"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 B64.base64urlEncode("https://github.com"); // $ExpectType string

@@ -190,6 +190,20 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "pie-16-background-size": 5,
         },
     },
+    {
+        selector: "node.border",
+        style: {
+            "border-width": 5,
+            "border-style": "dashed",
+            "border-color": "red",
+            "border-opacity": 0.85,
+            "border-position": "inside",
+            "border-cap": "round",
+            "border-join": "bevel",
+            "border-dash-pattern": [6, 3],
+            "border-dash-offset": 5,
+        },
+    },
 ];
 
 const cy = cytoscape({
@@ -715,6 +729,9 @@ eles.classes(oneOf("test", undefined));
 eles.classes();
 eles.flashClass("test flash", oneOf(1000, undefined));
 assert(ele.hasClass("test"));
+
+nodes.addClass("border");
+nodes.removeClass("border");
 
 eles.style("background-color", "green");
 Object.keys(eles.style()).map(key => eles.style(key));

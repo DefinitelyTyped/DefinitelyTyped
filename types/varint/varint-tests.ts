@@ -4,11 +4,11 @@ encode(0); // $ExpectType number[]
 encode(0, [] as number[]); // $ExpectType number[]
 encode(0, [] as number[], 0); // $ExpectType number[]
 
-encode(0, Buffer.alloc(1)); // $ExpectType Buffer
-encode(0, Buffer.alloc(1), 0); // $ExpectType Buffer
+encode(0, Buffer.alloc(1)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+encode(0, Buffer.alloc(1), 0); // $ExpectType Buffer || Buffer<ArrayBuffer>
 
-encode(0, new Uint8Array(1)); // $ExpectType Uint8Array
-encode(0, new Uint8Array(1), 0); // $ExpectType Uint8Array
+encode(0, new Uint8Array(1)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+encode(0, new Uint8Array(1), 0); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 encode.bytes; // $ExpectType number | undefined
 

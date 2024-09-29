@@ -130,3 +130,37 @@ app.get(
 );
 
 app.listen(3000);
+
+class CustomGrantType extends OAuth2Server.AbstractGrantType {
+    constructor(opts: OAuth2Server.AbstractGrantOptions) {
+        super(opts);
+    }
+
+    async handle(request: OAuth2Server.Request, client: OAuth2Server.Client) {
+        if (!request) throw new OAuth2Server.InvalidArgumentError("Missing `request`");
+        if (!client) throw new OAuth2Server.InvalidArgumentError("Missing `client`");
+
+        const scope = this.getScope(request);
+        const user = {};
+
+        return this.saveToken(user, client, scope);
+    }
+
+    async saveToken(
+        user: OAuth2Server.User,
+        client: OAuth2Server.Client,
+        scope: string,
+    ): Promise<OAuth2Server.Token | OAuth2Server.Falsey> {
+        this.validateScope(user, client, scope);
+
+        let token: OAuth2Server.PartialToken = {
+            accessToken: await this.generateAccessToken(client, user, scope),
+            accessTokenExpiresAt: this.getAccessTokenExpiresAt(),
+            refreshToken: await this.generateRefreshToken(client, user, scope),
+            refreshTokenExpiresAt: this.getRefreshTokenExpiresAt(),
+            scope,
+        };
+
+        return this.model.saveToken(token, client, user);
+    }
+}

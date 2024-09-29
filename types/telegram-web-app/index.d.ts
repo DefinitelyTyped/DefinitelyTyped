@@ -37,14 +37,14 @@ interface WebApp {
      */
     themeParams: ThemeParams;
     /**
-     *  True if the Web App is expanded to the maximum available height. False,
-     *  if the Web App occupies part of the screen and can be expanded to the
+     *  True if the Web App is expanded to the maximum available height.
+     *  False, if the Web App occupies part of the screen and can be expanded to the
      *  full height using the expand() method.
      */
     isExpanded: boolean;
     /**
-     * The current height of the visible area of the Web App. Also available in
-     * CSS as the variable var(--tg-viewport-height).
+     * The current height of the visible area of the Web App.
+     * Also available in CSS as the variable var(--tg-viewport-height).
      *
      * The application can display just the top part of the Web App, with its
      * lower part remaining outside the screen area. From this position, the
@@ -87,6 +87,10 @@ interface WebApp {
      */
     backgroundColor: string;
     /**
+     * Current bottom bar color in the #RRGGBB format.
+     */
+    bottomBarColor: string;
+    /**
      * True, if the confirmation dialog is enabled while the user is trying to
      * close the Web App. False, if the confirmation dialog is disabled.
      */
@@ -100,7 +104,12 @@ interface WebApp {
      * An object for controlling the main button, which is displayed at the
      * bottom of the Web App in the Telegram interface.
      */
-    MainButton: MainButton;
+    MainButton: BottomButton;
+    /**
+     * An object for controlling the secondary button,
+     * which is displayed at the bottom of the Mini App in the Telegram interface.
+     */
+    SecondaryButton: BottomButton;
     /**
      * An object for controlling the Settings item in the context menu of the
      * Mini App in the Telegram interface.
@@ -133,7 +142,12 @@ interface WebApp {
      * A method that sets the app background color in the `#RRGGBB` format or
      * you can use keywords bg_color, secondary_bg_color instead.
      */
-    setBackgroundColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
+    setBackgroundColor(color: "bg_color" | "secondary_bg_color" | "bottom_bar_bg_color" | (string & {})): void;
+    /**
+     * A method that sets the app's bottom bar color in the #RRGGBB format.
+     * You can also use the keywords bg_color, secondary_bg_color and bottom_bar_bg_color.
+     */
+    setBottomBarColor(color: "bg_color" | "secondary_bg_color" | (string & {})): void;
     /**
      * A method that enables a confirmation dialog while the user is trying to
      * close the Web App.
@@ -150,6 +164,7 @@ interface WebApp {
      */
     onEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
     onEvent(eventType: "mainButtonClicked", eventHandler: MainButtonClickedCallback): void;
+    onEvent(eventType: "secondaryButtonClicked", eventHandler: SecondaryButtonClickedCallback): void;
     onEvent(eventType: "backButtonClicked", eventHandler: BackButtonClickedCallback): void;
     onEvent(eventType: "settingsButtonClicked", eventHandler: SettingsButtonClickedCallback): void;
     onEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
@@ -348,6 +363,7 @@ interface WebApp {
 type ThemeChangedCallback = () => void;
 type ViewportChangedCallback = (eventData: { isStateStable: boolean }) => void;
 type MainButtonClickedCallback = () => void;
+type SecondaryButtonClickedCallback = () => void;
 type BackButtonClickedCallback = () => void;
 type SettingsButtonClickedCallback = () => void;
 type InvoiceClosedCallback = (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void;
@@ -368,77 +384,79 @@ type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void
  */
 interface ThemeParams {
     /**
-     * Background color in the `#RRGGBB` format. Also available as the CSS
-     * variable `var(--tg-theme-bg-color)`.
+     * Background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-bg-color)`.
      */
     bg_color?: string;
     /**
-     * Main text color in the `#RRGGBB` format. Also available as the CSS
-     * variable `var(--tg-theme-text-color)`.
+     * Main text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-text-color)`.
      */
     text_color?: string;
     /**
-     * Hint text color in the `#RRGGBB` format. Also available as the CSS
-     * variable `var(--tg-theme-hint-color)`.
+     * Hint text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-hint-color)`.
      */
     hint_color?: string;
     /**
-     * Link color in the `#RRGGBB` format. Also available as the CSS variable
-     * `var(--tg-theme-link-color)`.
+     * Link color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-link-color)`.
      */
     link_color?: string;
     /**
-     * Button color in the `#RRGGBB` format. Also available as the CSS variable
-     * `var(--tg-theme-button-color)`.
+     * Button color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-button-color)`.
      */
     button_color?: string;
     /**
-     * Button text color in the `#RRGGBB` format. Also available as the CSS
-     * variable `var(--tg-theme-button-text-color)`.
+     * Button text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-button-text-color)`.
      */
     button_text_color?: string;
     /**
-     * **Bot API 6.1+** Secondary background color in the `#RRGGBB` format. Also
-     * available as the CSS variable `var(--tg-theme-secondary-bg-color)`.
+     * **Bot API 6.1+** Secondary background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-secondary-bg-color)`.
      */
     secondary_bg_color?: string;
     /**
-     * **Bot API 7.0+** Header background color in the `#RRGGBB` format. Also
-     * available as the CSS variable `var(--tg-theme-header-bg-color)`.
+     * **Bot API 7.0+** Header background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-header-bg-color)`.
      */
     header_bg_color?: string;
     /**
-     * **Bot API 7.0+** Accent text color in the `#RRGGBB` format. Also
-     * available as the CSS variable `var(--tg-theme-accent-text-color)`.
+     * **Bot API 7.10+** Bottom background color in the #RRGGBB format.
+     * Also available as the CSS variable var(--tg-theme-bottom-bar-bg-color).
+     */
+    bottom_bar_bg_color?: string;
+    /**
+     * **Bot API 7.0+** Accent text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-accent-text-color)`.
      */
     accent_text_color?: string;
     /**
-     * **Bot API 7.0+** Background color for the section in the `#RRGGBB`
-     * format. It is recommended to use this in conjunction with
-     * *secondary_bg_color*. Also available as the CSS variable
-     * `var(--tg-theme-section-bg-color)`.
+     * **Bot API 7.0+** Background color for the section in the `#RRGGBB` format.
+     * It is recommended to use this in conjunction with *secondary_bg_color*.
+     * Also available as the CSS variable `var(--tg-theme-section-bg-color)`.
      */
     section_bg_color?: string;
     /**
-     * **Bot API 7.0+** Header text color for the section in the `#RRGGBB`
-     * format. Also available as the CSS variable
-     * `var(--tg-theme-section-header-text-color)`.
+     * **Bot API 7.0+** Header text color for the section in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-section-header-text-color)`.
      */
     section_header_text_color?: `#${string}`;
     /**
-     * **Bot API 7.6+** Section separator color in the `#RRGGBB` format. Also
-     * available as the CSS variable `var(--tg-theme-section-separator-color)`.
+     * **Bot API 7.6+** Section separator color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-section-separator-color)`.
      */
     section_separator_color?: string;
     /**
-     * **Bot API 7.0+** Subtitle text color in the `#RRGGBB` format. Also
-     * available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
+     * **Bot API 7.0+** Subtitle text color in the `#RRGGBB` format.
+     *  Also available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
      */
     subtitle_text_color?: string;
     /**
-     * **Bot API 7.0+** Text color for destructive actions in the `#RRGGBB`
-     * format. Also available as the CSS variable
-     * `var(--tg-theme-destructive-text-color)`.
+     * **Bot API 7.0+** Text color for destructive actions in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-destructive-text-color)`.
      */
     destructive_text_color?: string;
 }
@@ -534,7 +552,7 @@ interface BackButton {
  * This object controls the main button, which is displayed at the bottom of the
  * Web App in the Telegram interface.
  */
-interface MainButton {
+interface BottomButton {
     /** Current button text. Set to CONTINUE by default. */
     text: string;
     /** Current button color. Set to themeParams.button_color by default. */
@@ -551,35 +569,35 @@ interface MainButton {
     /** Readonly. Shows whether the button is displaying a loading indicator. */
     isProgressVisible: boolean;
     /** A method to set the button text. */
-    setText(text: string): MainButton;
+    setText(text: string): BottomButton;
     /**
      * A method that sets the button press event handler. An alias for
      * Telegram.WebApp.onEvent('mainButtonClicked', callback)
      */
-    onClick(callback: () => void): MainButton;
+    onClick(callback: () => void): BottomButton;
     /** A method that deletes a previously set handler */
-    offClick(callback: () => void): MainButton;
+    offClick(callback: () => void): BottomButton;
     /**
      * A method to make the button visible. Note that opening the Web App from
      * the attachment menu hides the main button until the user interacts with
      * the Web App interface.
      */
-    show(): MainButton;
+    show(): BottomButton;
     /** A method to hide the button. */
-    hide(): MainButton;
+    hide(): BottomButton;
     /** A method to enable the button. */
-    enable(): MainButton;
+    enable(): BottomButton;
     /** A method to disable the button. */
-    disable(): MainButton;
+    disable(): BottomButton;
     /**
      * A method to show a loading indicator on the button. It is recommended to
      * display loading progress if the action tied to the button may take a long
      * time. By default, the button is disabled while the action is in progress.
      * If the parameter leaveActive=true is passed, the button remains enabled.
      */
-    showProgress(leaveActive?: boolean): MainButton;
+    showProgress(leaveActive?: boolean): BottomButton;
     /** A method to hide the loading indicator. */
-    hideProgress(): MainButton;
+    hideProgress(): BottomButton;
     /**
      * A method to set the button parameters. The params parameter is an object
      * containing one or several fields that need to be changed:
@@ -589,7 +607,7 @@ interface MainButton {
      * - is_active - enable the button;
      * - is_visible - show the button.
      */
-    setParams(params: MainButtonParams): MainButton;
+    setParams(params: MainButtonParams): BottomButton;
 }
 
 interface MainButtonParams {
@@ -998,7 +1016,6 @@ interface WebAppChat {
      */
     photo_url?: string;
 }
-
 /**
  * This object describes the native popup for scanning QR codes.
  */

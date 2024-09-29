@@ -15,7 +15,7 @@ TYfc6x7g8HiQf9HMkPwXC33UKwESCiBHrnVbb6AjDTaRR5oDxt3bK8kyiEyyc8HDqfnukQlMHT
 */
 
 try {
-    const payload = branca.decode(token); // $ExpectType Buffer
+    const payload = branca.decode(token); // $ExpectType Buffer || Buffer<ArrayBufferLike>>
     console.log(payload.toString());
     /* tuupola@appelsiini.net */
 } catch (error) {
@@ -37,7 +37,7 @@ console.log(token);
 */
 
 try {
-    const decoded = branca.decode(token); // $ExpectType Buffer
+    const decoded = branca.decode(token); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     console.log(JSON.parse(decoded.toString()));
 } catch (error) {
     console.log(error);

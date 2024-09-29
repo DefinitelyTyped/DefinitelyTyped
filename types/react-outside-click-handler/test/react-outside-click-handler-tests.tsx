@@ -2,20 +2,50 @@ import * as React from "react";
 
 import OutsideClickHandler from "react-outside-click-handler";
 
-const onClickOutside: (event: MouseEvent) => void = () => {};
-
-<OutsideClickHandler onOutsideClick={onClickOutside}>
+<OutsideClickHandler
+    onOutsideClick={(event) => {
+        // $ExpectType MouseEvent
+        event;
+    }}
+>
     <span>Child</span>
 </OutsideClickHandler>;
 
-<OutsideClickHandler onOutsideClick={onClickOutside} disabled={true}>
+<OutsideClickHandler
+    onOutsideClick={(event) => {
+        // $ExpectType MouseEvent
+        event;
+    }}
+>
     <span>Child</span>
 </OutsideClickHandler>;
 
-<OutsideClickHandler onOutsideClick={onClickOutside} display="block">
+<OutsideClickHandler
+    onOutsideClick={(event) => {
+        // $ExpectType MouseEvent
+        event;
+    }}
+    disabled={true}
+>
     <span>Child</span>
 </OutsideClickHandler>;
 
-<OutsideClickHandler onOutsideClick={onClickOutside} useCapture={true}>
+<OutsideClickHandler
+    onOutsideClick={(event) => {
+        // $ExpectType MouseEvent
+        event;
+    }}
+    display="block"
+>
+    <span>Child</span>
+</OutsideClickHandler>;
+
+<OutsideClickHandler
+    onOutsideClick={(event) => {
+        // $ExpectType MouseEvent
+        event;
+    }}
+    useCapture={true}
+>
     <span>Child</span>
 </OutsideClickHandler>;

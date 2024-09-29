@@ -3,30 +3,30 @@ import * as dh from "diffie-hellman";
 const dh1 = dh.getDiffieHellman("modp1");
 // $ExpectType DiffieHellmanGroup || Pick<DiffieHellman, "generateKeys" | "computeSecret" | "getPrime" | "getGenerator" | "getPublicKey" | "getPrivateKey" | "verifyError">
 dh1;
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 dh1.generateKeys();
 // $ExpectType string
 dh1.generateKeys("hex");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 dh1.getPrime();
 // $ExpectType string
 dh1.getPrime("hex");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 dh1.getGenerator();
 // $ExpectType string
 dh1.getGenerator("hex");
 const pk = dh1.getPublicKey();
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 pk;
 // $ExpectType string
 dh1.getPublicKey("hex");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 dh1.getPrivateKey();
 // $ExpectType string
 dh1.getPrivateKey("hex");
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 dh1.computeSecret(pk);
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 dh1.computeSecret(pk.toString("hex"), "hex");
 // $ExpectType string
 dh1.computeSecret(pk.toString("hex"), "hex", "hex");

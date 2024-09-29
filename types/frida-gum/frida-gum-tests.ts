@@ -404,3 +404,19 @@ Java.perform(() => {
     // $ExpectType Backtrace
     Java.backtrace({ limit: 42 });
 });
+
+Process.enumerateThreads().forEach(t => {
+    t.setHardwareBreakpoint(0, puts);
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.unsetHardwareBreakpoint(0);
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.setHardwareWatchpoint(0, puts, 4, "rw");
+});
+
+Process.enumerateThreads().forEach(t => {
+    t.unsetHardwareWatchpoint(0);
+});

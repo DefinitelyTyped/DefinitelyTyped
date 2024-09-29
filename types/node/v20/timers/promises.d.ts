@@ -1,6 +1,6 @@
 /**
  * The `timers/promises` API provides an alternative set of timer functions
- * that return `Promise` objects. The API is accessible via `require('node:timers/promises')`.
+ * that return `Promise` objects. The API is accessible via `import timersPromises from 'node:timers/promises'`.
  *
  * ```js
  * import {

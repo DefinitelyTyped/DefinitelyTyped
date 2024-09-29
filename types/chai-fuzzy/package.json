@@ -3,7 +3,7 @@
     "name": "@types/chai-fuzzy",
     "version": "1.3.9999",
     "projects": [
-        "http://chaijs.com/plugins/chai-fuzzy"
+        "https://github.com/elliotf/chai-fuzzy"
     ],
     "dependencies": {
         "@types/chai": "*"

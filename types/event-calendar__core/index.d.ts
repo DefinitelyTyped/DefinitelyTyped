@@ -274,7 +274,7 @@ declare namespace Calendar {
     interface Options {
         allDayContent?: Content;
         allDaySlot?: boolean;
-        buttonText?: ButtonTextMapping | (() => ButtonTextMapping);
+        buttonText?: ButtonTextMapping | ((text: ButtonTextMapping) => ButtonTextMapping);
         customButtons?: Record<string, CustomButton>;
         date?: Date | string | undefined;
         dateClick?: (info: DateClickInfo) => void;

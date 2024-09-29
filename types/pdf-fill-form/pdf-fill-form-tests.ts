@@ -27,16 +27,16 @@ async function main() {
     // $ExpectType ReadableFields || { name: string; page: number; value: string; id: number; type: string; }[]
     readBufferSync(buffer);
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     await write("test.pdf", { field: "test" }, { save: "pdf" });
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     writeSync("test.pdf", { field: "test" }, { save: "pdf" });
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     await writeBuffer(buffer, { otherField: "123" }, { save: "imgpdf", antialias: true });
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     await writeBuffer(buffer, { field: 123, otherField: true });
 
     // @ts-expect-error
