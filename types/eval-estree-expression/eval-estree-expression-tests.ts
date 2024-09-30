@@ -5,13 +5,13 @@ const tree = {
     operator: "==",
     left: {
         type: "Identifier",
-        name: "a"
+        name: "a",
     },
     right: {
         type: "Literal",
         value: 3,
-        raw: "3"
-    }
+        raw: "3",
+    },
 };
 
 const context = { a: 3 };
