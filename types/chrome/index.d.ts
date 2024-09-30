@@ -1918,7 +1918,7 @@ declare namespace chrome.cookies {
     }
 
     /** Details to identify the cookie. */
-    export interface Details {
+    export interface CookieDetails {
         /** The name of the cookie to access. */
         name: string;
         /**
@@ -1985,24 +1985,24 @@ declare namespace chrome.cookies {
      * @param details Information to identify the cookie to remove.
      * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function remove(details: Details): Promise<Details>;
+    export function remove(details: CookieDetails): Promise<CookieDetails>;
     /**
      * Deletes a cookie by name.
      * @param details Information to identify the cookie to remove.
      */
-    export function remove(details: Details, callback?: (details: Details) => void): void;
+    export function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
      */
-    export function get(details: Details, callback: (cookie: Cookie | null) => void): void;
+    export function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function get(details: Details): Promise<Cookie | null>;
+    export function get(details: CookieDetails): Promise<Cookie | null>;
 
     /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
     export var onChanged: CookieChangedEvent;
