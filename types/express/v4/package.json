@@ -7,9 +7,11 @@
     ],
     "dependencies": {
         "@types/body-parser": "*",
-        "@types/express-serve-static-core": "^4.17.33",
         "@types/qs": "*",
         "@types/serve-static": "*"
+    },
+    "peerDependencies": {
+        "@types/express-serve-static-core": "^4.17.33"
     },
     "devDependencies": {
         "@types/express": "workspace:.",
