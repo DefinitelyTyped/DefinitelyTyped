@@ -39,9 +39,9 @@ declare namespace PostcssPxToRem {
         propWhiteList?: string[];
     }
 
-    interface PostcssPxToRemOptions extends BaseOptions, LegacyOptions {}
+    interface Options extends BaseOptions, LegacyOptions {}
 }
 
-declare var pxtorem: PluginCreator<PostcssPxToRem.PostcssPxToRemOptions>;
+declare var pxtorem: PluginCreator<PostcssPxToRem.Options>;
 
 export = pxtorem;
