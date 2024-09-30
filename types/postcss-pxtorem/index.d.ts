@@ -10,6 +10,7 @@ declare namespace PostcssPxToRem {
         mediaQuery?: boolean;
         minPixelValue?: number;
         exclude?: string | RegExp | ((file: string) => boolean);
+        unit?: string;
 
         /**
          * @deprecated use `rootValue` instead
