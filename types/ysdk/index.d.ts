@@ -17,7 +17,7 @@ export interface SDK {
 
     deviceInfo: DeviceInfo;
 
-    features: Partial<{
+    features: {
         LoadingAPI: {
             ready(): void;
         };
@@ -25,7 +25,11 @@ export interface SDK {
             start(): void;
             stop(): void;
         };
-    }>;
+        GamesAPI: {
+            getAllGames(): Promise<{ games: Game[], developerURL: string }>;
+            getGameByID(id: number): Promise<{ game?: Game, isAvailable: boolean }>;
+        }
+    };
 
     clipboard: {
         writeText(text: string): void;
@@ -111,10 +115,14 @@ export interface SDK {
     isAvailableMethod(methodName: string): Promise<boolean>;
 
     serverTime(): number;
+}
 
-    on(event: "game_api_pause" | "game_api_resume", observer: (...args: any) => any): () => void;
-
-    off(event: "game_api_pause" | "game_api_resume", observer: (...args: any) => any): void;
+interface Game {
+    appID: string;
+    title: string;
+    url: string;
+    coverURL: string;
+    iconURL: string;
 }
 
 interface ClientFeature {
