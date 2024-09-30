@@ -29,9 +29,9 @@ const reverseIdentifiersTransform: Transform = (file, api) => {
 
 const asyncTransform: Transform = async (file, api) => {
     return api
-    .jscodeshift(file.source)
-    .map(p => p)
-    .toSource();
+        .jscodeshift(file.source)
+        .map(p => p)
+        .toSource();
 };
 
 // Can define a custom parser.
