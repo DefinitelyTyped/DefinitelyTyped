@@ -560,15 +560,15 @@ export interface TraceMetadata {
 
 export function withLlmCustomAttributes<T>(
     attrs: Record<string, number | string | boolean>,
-    cb: (...args: any[]) => T
-  ): T ;
+    cb: (...args: any[]) => T,
+): T;
 
 /**
  * Registers a callback which will be used for calculating token counts on Llm events when they are not available.
- * 
+ *
  * See documentation for `setLlmTokenCountCallback` for more information on setting custom attributes.
  */
 
 export function setLlmTokenCountCallback<T>(
-    cb: (...args: any[]) => T
-  ): T ;
+    cb: (...args: any[]) => T,
+): T;
