@@ -1,19 +1,14 @@
 {
     "compilerOptions": {
         "module": "Node16",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "types": ["node"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "req-real-ip-tests.ts",
-    ]
+    "files": ["index.d.ts", "req-real-ip-tests.ts"]
 }
