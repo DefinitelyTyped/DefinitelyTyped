@@ -26,9 +26,9 @@ export interface SDK {
             stop(): void;
         };
         GamesAPI: {
-            getAllGames(): Promise<{ games: Game[], developerURL: string }>;
-            getGameByID(id: number): Promise<{ game?: Game, isAvailable: boolean }>;
-        }
+            getAllGames(): Promise<{ games: Game[]; developerURL: string }>;
+            getGameByID(id: number): Promise<{ game?: Game; isAvailable: boolean }>;
+        };
     };
 
     clipboard: {
