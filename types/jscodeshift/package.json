@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/jscodeshift",
-    "version": "0.11.9999",
+    "version": "0.12.9999",
     "projects": [
         "https://github.com/facebook/jscodeshift#readme"
     ],

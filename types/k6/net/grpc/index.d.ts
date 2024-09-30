@@ -78,15 +78,24 @@ export interface TLSParams {
 
 export interface Params {
     /**
-     * @deprecated Use metadata instead.
+     * Object with key-value pairs representing custom metadata the user would like to add to the request.
      */
-    headers?: object;
-
     metadata?: object;
 
+    /**
+     * Key-value pairs where the keys are names of tags and the values are tag values
+     */
     tags?: object;
 
+    /**
+     * Request timeout to use.
+     */
     timeout?: string | number;
+
+    /**
+     * Specify if response messages should be discarded.
+     */
+    discardResponseMessage?: boolean;
 }
 
 export interface GrpcError {
@@ -142,6 +151,16 @@ export type StreamEvent =
     | "end";
 
 /**
+ * StreamMessageMetadata handles gRPC stream messages's metadata
+ */
+export interface StreamMessageMetadata {
+    /**
+     * Contains the timestamp of the original event (for example, when a message has been received).
+     */
+    ts: number;
+}
+
+/**
  * Stream allows you to use streaming RPCs.
  */
 export class Stream {
@@ -160,7 +179,10 @@ export class Stream {
      * @param event - the event to listen for
      * @param listener - the callback to invoke when the event is emitted
      */
-    on(event: StreamEvent, listener: (data: object | GrpcError | undefined) => void): void;
+    on(
+        event: StreamEvent,
+        listener: (data: object | GrpcError | undefined, metadata: StreamMessageMetadata) => void,
+    ): void;
 
     /**
      * Writes a request to the stream.

@@ -4192,7 +4192,7 @@ export interface Page {
      * **Usage**
      *
      * ```js
-     * import { browser, networkProfiles } from 'k6/experimental/browser';
+     * import { browser, networkProfiles } from 'k6/browser';
      * ... // redacted
      *   const context = browser.newContext();
      *   const page = context.newPage();

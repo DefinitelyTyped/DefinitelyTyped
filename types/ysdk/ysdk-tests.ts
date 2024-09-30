@@ -285,6 +285,18 @@ async function Misc() {
     // $ExpectType () => void
     ysdk.onEvent("EXIT", () => {});
 
+    // $ExpectType () => void
+    ysdk.on("game_api_pause", () => {});
+
+    // $ExpectType void
+    ysdk.off("game_api_pause", () => {});
+
+    // $ExpectType () => void
+    ysdk.on("game_api_resume", () => {});
+
+    // $ExpectType void
+    ysdk.off("game_api_resume", () => {});
+
     // $ExpectType string
     ysdk.deviceInfo.type;
 

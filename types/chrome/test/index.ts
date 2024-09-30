@@ -1855,6 +1855,14 @@ function testEnterpriseDeviceAttributes() {
     chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/hardwarePlatform
+function testEnterpriseHardwarePlatform() {
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}); // $ExpectType void
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo(); // $ExpectType Promise<HardwarePlatformInfo>
+    // @ts-expect-error
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
+}
+
 // https://developer.chrome.com/docs/extensions/reference/browsingData
 function testBrowsingData() {
     // @ts-expect-error
@@ -2334,15 +2342,46 @@ function testUserScripts() {
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
 }
 
-function testPlatformKeys() {
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
+function testEnterPrisePlatformKeys() {
+    chrome.enterprise.platformKeys.Scope.MACHINE === "MACHINE";
+    chrome.enterprise.platformKeys.Scope.USER === "USER";
+
+    chrome.enterprise.platformKeys.Algorithm.ECDSA === "ECDSA";
+    chrome.enterprise.platformKeys.Algorithm.RSA === "RSA";
+
     chrome.enterprise.platformKeys.challengeKey({ // $ExpectType void
         scope: "MACHINE",
         challenge: new ArrayBuffer(0),
         registerKey: { algorithm: "ECDSA" },
     }, () => {});
 
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), response => {}); // $ExpectType void
 
-    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.getCertificates("tokenId", certificates => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.getTokens(tokens => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.importCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.removeCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/power
+function testPower() {
+    chrome.power.Level.DISPLAY === "display";
+    chrome.power.Level.SYSTEM === "system";
+
+    chrome.power.releaseKeepAwake(); // $ExpectType void
+    chrome.power.requestKeepAwake(chrome.power.Level.SYSTEM); // $ExpectType void
+    chrome.power.requestKeepAwake("system"); // $ExpectType void
+    // @ts-expect-error
+    chrome.power.requestKeepAwake("other"); // $ExpectType void
+    chrome.power.reportActivity(() => {}); // $ExpectType void
+    chrome.power.reportActivity(); // $ExpectType Promise<void>
+    // @ts-expect-error
+    chrome.power.reportActivity(() => {}).then(() => {});
 }
