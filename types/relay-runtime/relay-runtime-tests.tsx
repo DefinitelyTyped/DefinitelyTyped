@@ -848,10 +848,11 @@ export function myLiveState(): LiveState<string> {
 // ~~~~~~~~~~~~~~~~~~
 // @catch directive's Result
 // ~~~~~~~~~~~~~~~~~~
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function handleResult<T, E>(result: Result<T, E>) {
     if (result.ok) {
         const value: T = result.value;
     } else {
-        const errors: ReadonlyArray<E> = result.error;
+        const errors: readonly E[] = result.errors;
     }
 }
