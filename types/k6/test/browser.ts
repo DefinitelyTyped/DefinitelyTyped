@@ -626,6 +626,27 @@ async function test() {
     page.selectOption(selector, "option", { timeout: 10000 });
 
     // @ts-expect-error
+    page.setChecked();
+    // @ts-expect-error
+    page.setChecked(selector);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, false);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { force: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { trial: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { strict: true });
+
+    // @ts-expect-error
     page.setContent();
     // $ExpectType Promise<void>
     page.setContent("<html></html>", { timeout: 10000 });
@@ -1085,6 +1106,23 @@ async function test() {
     locator.selectOption("value", { timeout: 10000 });
 
     // @ts-expect-error
+    locator.setChecked();
+    // $ExpectType Promise<void>
+    locator.setChecked(true);
+    // $ExpectType Promise<void>
+    locator.setChecked(false);
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { force: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { trial: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { position: { x: 0, y: 0 } });
+
+    // @ts-expect-error
     locator.type();
     // @ts-expect-error
     locator.type({ timeout: 10000 });
@@ -1525,6 +1563,25 @@ async function test() {
     elementHandle.selectText({ noWaitAfter: true });
 
     // @ts-expect-error
+    elementHandle.setChecked();
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true);
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(false);
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { force: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { trial: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { strict: true });
+
+    // @ts-expect-error
     elementHandle.setInputFiles();
     // @ts-expect-error
     elementHandle.setInputFiles({});
@@ -1887,6 +1944,27 @@ async function test() {
     }
     // $ExpectType Promise<Response | null>
     frame.goto("https://example.com", { referer: "https://example.com" });
+
+    // @ts-expect-error
+    frame.setChecked();
+    // @ts-expect-error
+    frame.setChecked(selector);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, false);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { force: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { trial: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { strict: true });
 
     // @ts-expect-error
     frame.setContent();
