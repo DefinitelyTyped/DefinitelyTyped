@@ -68,3 +68,7 @@ pxtorem({ media_query: "true" });
 pxtorem({ propWhiteList: ["*"] });
 // @ts-expect-error
 pxtorem({ propWhiteList: [false] });
+
+pxtorem({ unit: "px" });
+// @ts-expect-error
+pxtorem({ unit: 0 });
