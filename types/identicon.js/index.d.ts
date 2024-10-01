@@ -6,6 +6,8 @@ export interface IdenticonOptions {
     margin?: number | undefined;
     size?: number | undefined;
     format?: "svg" | "png" | undefined;
+    saturation?: number | undefined;
+    brightness?: number | undefined;
 }
 
 export interface PNGlib {
