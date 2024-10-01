@@ -459,3 +459,5 @@ export interface OvenPlayerTrack {
 }
 
 export {};
+
+export as namespace OvenPlayer;
