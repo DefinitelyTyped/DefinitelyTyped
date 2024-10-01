@@ -80,6 +80,11 @@ export interface PatchOptions extends LinesOptions {
 
 export interface ApplyPatchOptions {
     /**
+     * If `true`, and if the file to be patched consistently uses different line endings to the patch (i.e. either the file always uses Unix line endings while the patch uses Windows ones, or vice versa), then `applyPatch` will behave as if the line endings in the patch were the same as those in the source file. (If `false`, the patch will usually fail to apply in such circumstances since lines deleted in the patch won't be considered to match those in the source file.) Defaults to `true`.
+     */
+    autoConvertLineEndings?: boolean | undefined;
+
+    /**
      * Number of lines that are allowed to differ before rejecting a patch.
      * @default 0
      */
@@ -145,8 +150,6 @@ export interface Hunk {
     newStart: number;
     newLines: number;
     lines: string[];
-    // Line Delimiters is only returned by parsePatch()
-    linedelimiters?: string[];
 }
 
 export interface BestPath {
