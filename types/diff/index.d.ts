@@ -1,12 +1,12 @@
 export as namespace Diff;
 
-export type Callback = (value: Change[]) => void;
+export type Callback<T> = (value: T) => void;
 
-export interface CallbackOptions {
+export interface CallbackOptions<T> {
     /**
-     * Callback to call with the result instead of returning the result directly.
+     * if provided, the diff will be computed in async mode to avoid blocking the event loop while the diff is calculated. The value of the `callback` option should be a function and will be passed the computed diff or patch as its first argument.
      */
-    callback: Callback;
+    callback: Callback<T>;
 }
 
 export interface BaseOptions {
@@ -161,7 +161,7 @@ export class Diff {
     diff(
         oldString: string,
         newString: string,
-        options?: Callback | (ArrayOptions<any, any> & Partial<CallbackOptions>),
+        options?: Callback<Change[]> | (ArrayOptions<any, any> & Partial<CallbackOptions<Change[]>>),
     ): Change[];
 
     pushComponent(components: Change[], added: boolean, removed: boolean): void;
@@ -195,7 +195,7 @@ export function diffChars(oldStr: string, newStr: string, options?: BaseOptions)
 export function diffChars(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions),
+    options: Callback<Change[]> | (BaseOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -207,7 +207,7 @@ export function diffWords(oldStr: string, newStr: string, options?: WordsOptions
 export function diffWords(
     oldStr: string,
     newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions),
+    options: Callback<Change[]> | (WordsOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -223,7 +223,7 @@ export function diffWordsWithSpace(
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions),
+    options: Callback<Change[]> | (WordsOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -235,7 +235,7 @@ export function diffLines(oldStr: string, newStr: string, options?: LinesOptions
 export function diffLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions),
+    options: Callback<Change[]> | (LinesOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -247,7 +247,7 @@ export function diffTrimmedLines(oldStr: string, newStr: string, options?: Lines
 export function diffTrimmedLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions),
+    options: Callback<Change[]> | (LinesOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -259,7 +259,7 @@ export function diffSentences(oldStr: string, newStr: string, options?: BaseOpti
 export function diffSentences(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions),
+    options: Callback<Change[]> | (BaseOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -271,7 +271,7 @@ export function diffCss(oldStr: string, newStr: string, options?: BaseOptions): 
 export function diffCss(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions),
+    options: Callback<Change[]> | (BaseOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -288,7 +288,7 @@ export function diffJson(
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,
-    options: Callback | (JsonOptions & CallbackOptions),
+    options: Callback<Change[]> | (JsonOptions & CallbackOptions<Change[]>),
 ): void;
 
 /**
@@ -321,6 +321,15 @@ export function createTwoFilesPatch(
     newHeader?: string,
     options?: PatchOptions,
 ): string;
+export function createTwoFilesPatch(
+    oldFileName: string,
+    newFileName: string,
+    oldStr: string,
+    newStr: string,
+    oldHeader?: string,
+    newHeader?: string,
+    options?: PatchOptions & CallbackOptions<string>,
+): void;
 
 /**
  * Creates a unified diff patch.
@@ -340,6 +349,14 @@ export function createPatch(
     newHeader?: string,
     options?: PatchOptions,
 ): string;
+export function createPatch(
+    fileName: string,
+    oldStr: string,
+    newStr: string,
+    oldHeader?: string,
+    newHeader?: string,
+    options?: PatchOptions & CallbackOptions<string>,
+): void;
 
 /**
  * This method is similar to `createTwoFilesPatch()`, but returns a data structure suitable for further processing.
@@ -362,6 +379,15 @@ export function structuredPatch(
     newHeader?: string,
     options?: PatchOptions,
 ): ParsedDiff;
+export function structuredPatch(
+    oldFileName: string,
+    newFileName: string,
+    oldStr: string,
+    newStr: string,
+    oldHeader?: string,
+    newHeader?: string,
+    options?: PatchOptions & CallbackOptions<ParsedDiff>,
+): void;
 
 /**
  * Applies a unified diff patch.

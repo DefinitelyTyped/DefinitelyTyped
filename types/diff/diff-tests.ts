@@ -25,6 +25,12 @@ Diff.diffLines(
         oneChangePerToken: true,
     },
 );
+// $ExpectType void
+Diff.createPatch("filename", "A", "a", undefined, undefined, {
+    callback: (value) => {
+        value; // $ExpectType string
+    },
+});
 
 const diffArraysResult = Diff.diffArrays(["a", "b", "c"], ["a", "c", "d"]);
 diffArraysResult.forEach(result => {
