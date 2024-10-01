@@ -1,6 +1,6 @@
 import { Input, PluginCreator } from "postcss";
 declare namespace PostcssPxToRem {
-    interface BaseOptions {
+    interface Options {
         rootValue?: number | ((input: Input) => number);
         unitPrecision?: number;
         propList?: string[];
@@ -11,35 +11,6 @@ declare namespace PostcssPxToRem {
         exclude?: string | RegExp | ((file: string) => boolean);
         unit?: string;
     }
-
-    interface LegacyOptions {
-        /**
-         * @deprecated use `rootValue` instead
-         */
-        root_value?: number | ((input: Input) => number);
-        /**
-         * @deprecated use `unitPrecision` instead
-         */
-        unit_precision?: number;
-        /**
-         * @deprecated use `selectorBlackList` instead
-         */
-        selector_black_list?: Array<string | RegExp>;
-        /**
-         * @deprecated use `propList` instead
-         */
-        prop_white_list?: string[];
-        /**
-         * @deprecated use `mediaQuery` instead
-         */
-        media_query?: boolean;
-        /**
-         * @deprecated use `propList` instead
-         */
-        propWhiteList?: string[];
-    }
-
-    interface Options extends BaseOptions, LegacyOptions {}
 }
 
 declare var pxtorem: PluginCreator<PostcssPxToRem.Options>;

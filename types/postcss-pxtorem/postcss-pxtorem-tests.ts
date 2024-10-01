@@ -41,34 +41,6 @@ pxtorem({ rootValue: () => 16 });
 // @ts-expect-error
 pxtorem({ rootValue: () => "16px" });
 
-pxtorem({ root_value: 16 });
-// @ts-expect-error
-pxtorem({ root_value: "16px" });
-
-pxtorem({ root_value: () => 16 });
-// @ts-expect-error
-pxtorem({ root_value: () => "16px" });
-
-pxtorem({ unit_precision: 5 });
-// @ts-expect-error
-pxtorem({ unit_precision: "5" });
-
-pxtorem({ selector_black_list: ["body"] });
-// @ts-expect-error
-pxtorem({ selector_black_list: [false] });
-
-pxtorem({ prop_white_list: ["*"] });
-// @ts-expect-error
-pxtorem({ prop_white_list: [false] });
-
-pxtorem({ media_query: true });
-// @ts-expect-error
-pxtorem({ media_query: "true" });
-
-pxtorem({ propWhiteList: ["*"] });
-// @ts-expect-error
-pxtorem({ propWhiteList: [false] });
-
 pxtorem({ unit: "px" });
 // @ts-expect-error
 pxtorem({ unit: 0 });
