@@ -398,9 +398,10 @@ export type PollingMethod = number | "raf" | "mutation";
 export interface PollingOptions {
     /**
      * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
-     * `requestAnimationFrame` callback. If `polling` is a number, then it is
-     * treated as an interval in milliseconds at which the function would be
-     * executed. Defaults to `raf`.
+     * `requestAnimationFrame` callback. If the `polling` is `'mutation'` it
+     * will be called when a change is made to the DOM tree. If `polling` is
+     * a number, then it is treated as an interval in milliseconds at which
+     * the function would be executed. Defaults to `raf`.
      */
     polling?: PollingMethod;
 }
@@ -3549,9 +3550,10 @@ export interface Page {
         options?: {
             /**
              * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
-             * `requestAnimationFrame` callback. If `polling` is a number, then it is
-             * treated as an interval in milliseconds at which the function would be
-             * executed. Defaults to `raf`.
+             * `requestAnimationFrame` callback. If the `polling` is `'mutation'` it
+             * will be called when a change is made to the DOM tree. If `polling` is
+             * a number, then it is treated as an interval in milliseconds at which
+             * the function would be executed. Defaults to `raf`.
              */
             polling?: PollingMethod;
 
