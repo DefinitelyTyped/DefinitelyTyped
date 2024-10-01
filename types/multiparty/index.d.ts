@@ -17,7 +17,7 @@ export declare class Form extends events.EventEmitter {
         callback?: (
             error: Error | null,
             fields: Record<string, string[] | undefined>,
-            files: Record<string, string[] | undefined>,
+            files: Record<string, File[] | undefined>,
         ) => void,
     ): void;
 
@@ -26,6 +26,7 @@ export declare class Form extends events.EventEmitter {
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "progress", listener: (bytesReceived: number, bytesExpected: number) => void): this;
     on(event: "field", listener: (name: string, value: string) => void): this;
+    on(event: "file", listener: (name: string, value: File) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
