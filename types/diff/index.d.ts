@@ -1,6 +1,6 @@
 export as namespace Diff;
 
-export type Callback = (err: undefined, value?: Change[]) => void;
+export type Callback = (value: Change[]) => void;
 
 export interface CallbackOptions {
     /**

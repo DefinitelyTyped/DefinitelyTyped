@@ -8,15 +8,13 @@ examineChanges(changes);
 
 // $ExpectType void
 Diff.diffChars(one, other, {
-    callback: (err, value) => {
-        err; // $ExpectType undefined
-        value; // $ExpectType Change[] | undefined
+    callback: (value) => {
+        value; // $ExpectType Change[]
     },
 });
 // $ExpectType void
-Diff.diffChars(one, other, (err, value) => {
-    err; // $ExpectType undefined
-    value; // $ExpectType Change[] | undefined
+Diff.diffChars(one, other, (value) => {
+    value; // $ExpectType Change[]
 });
 // $ExpectType Change[]
 Diff.diffLines(
