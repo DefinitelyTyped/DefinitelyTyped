@@ -83,7 +83,6 @@ declare class VaultClient {
      * @returns {Promise<T | never>}
      */
     write(path: any, data: object): Promise<any>;
-    private __setupLogger;
 }
 
 declare class VaultApiClient {
@@ -97,7 +96,6 @@ declare class VaultApiClient {
         url: string;
         apiVersion?: string;
     }, logger: any);
-    _logger: any;
     makeRequest(method: any, path: any, data: any, headers: any): any;
 }
 
@@ -132,10 +130,13 @@ declare class VaultError extends Error {
     name: any;
     message: any;
 }
+
 declare class InvalidArgumentsError extends VaultError {
 }
+
 declare class InvalidAWSCredentialsError extends InvalidArgumentsError {
 }
+
 declare class AuthTokenExpiredError extends VaultError {
 }
 
@@ -190,7 +191,6 @@ declare class VaultAppRoleAuth extends VaultBaseAuth {
         role_id: string;
         secret_id?: string;
     }, mount: string);
-    _authenticate(): any;
 }
 
 declare class VaultBaseAuth {
@@ -200,21 +200,7 @@ declare class VaultBaseAuth {
      * @param {String} mount - Vault's mount point
      */
     constructor(apiClient: VaultApiClient, logger: any, mount: string);
-    protected _log: any;
-    _mount: string;
-    /**
-     * @returns {Promise<AuthToken>}
-     */
-    protected _authenticate(): Promise<AuthToken>;
     getAuthToken(): any;
-    /**
-     * @returns {Promise<AuthToken>}
-     */
-    protected _getTokenEntity(tokenId: any): Promise<AuthToken>;
-    /**
-     * @returns {boolean}
-     */
-    protected _reauthenticationAllowed(): boolean;
 }
 
 declare class VaultIAMAuth extends VaultBaseAuth {
@@ -238,11 +224,6 @@ declare class VaultIAMAuth extends VaultBaseAuth {
          */
         iam_server_id_header_value?: string;
     }, mount: string);
-    /**
-     * @inheritDoc
-     */
-    _authenticate(): any;
-    _validateCredentialsConfig(credentials: any): void;
 }
 
 declare class VaultKubernetesAuth extends VaultBaseAuth {
@@ -257,7 +238,6 @@ declare class VaultKubernetesAuth extends VaultBaseAuth {
         role: string;
         tokenPath?: string;
     }, mount: string);
-    _authenticate(): any;
 }
 
 declare class VaultTokenAuth extends VaultBaseAuth {
