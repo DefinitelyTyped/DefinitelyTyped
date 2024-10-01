@@ -24,6 +24,7 @@ Diff.diffLines(
     "line\nnew value\nline",
     {
         maxEditLength: 1,
+        oneChangePerToken: true,
     },
 );
 
