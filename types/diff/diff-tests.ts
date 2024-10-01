@@ -16,6 +16,9 @@ Diff.diffChars(one, other, {
 Diff.diffChars(one, other, (value) => {
     value; // $ExpectType Change[]
 });
+Diff.diffWords("吾輩は猫である。名前はまだ無い。", "吾輩は猫である。名前はたぬき。", {
+    intlSegmenter: new Intl.Segmenter("ja-JP", { granularity: "word" }),
+});
 // $ExpectType Change[]
 Diff.diffLines(
     "line\nold value\nline",
