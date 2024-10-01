@@ -174,6 +174,8 @@ export class Diff {
     join(chars: string[]): string;
 
     tokenize(value: string): any; // return types are string or string[]
+
+    postProcess(changes: Change[], options: any): Change[];
 }
 
 /**
