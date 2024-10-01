@@ -387,7 +387,7 @@ export function applyPatches(patch: string | ParsedDiff[], options: ApplyPatches
  *
  * @returns A JSON object representation of the a patch, suitable for use with the `applyPatch()` method.
  */
-export function parsePatch(diffStr: string, options?: { strict?: boolean | undefined }): ParsedDiff[];
+export function parsePatch(uniDiff: string): ParsedDiff[];
 
 /**
  * Converts a list of changes to a serialized XML format.
