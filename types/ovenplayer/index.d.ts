@@ -8,7 +8,7 @@ export function create(
 ): OvenPlayerInstance;
 export function getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
 export function getPlayerByIndex(index: number): OvenPlayerInstance | null;
-export function  getPlayerList(): OvenPlayerInstance[];
+export function getPlayerList(): OvenPlayerInstance[];
 export function removePlayer(player: OvenPlayerInstance): void;
 
 interface OvenPlayerPlayListItem {

@@ -1,4 +1,13 @@
-import OvenPlayer, { OvenPlayerQuality, debug, generateWebrtcUrls, create, getPlayerByContainerId, getPlayerByIndex, getPlayerList, removePlayer  } from "ovenplayer";
+import OvenPlayer, {
+    create,
+    debug,
+    generateWebrtcUrls,
+    getPlayerByContainerId,
+    getPlayerByIndex,
+    getPlayerList,
+    OvenPlayerQuality,
+    removePlayer,
+} from "ovenplayer";
 
 const playerContainer1 = document.createElement("div");
 playerContainer1.id = "player1";
