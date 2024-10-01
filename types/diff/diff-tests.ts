@@ -73,8 +73,8 @@ examineChanges(changes);
 
 function examineChanges(diff: Diff.Change[]) {
     diff.forEach(part => {
-        part.added; // $ExpectType boolean | undefined
-        part.removed; // $ExpectType boolean | undefined
+        part.added; // $ExpectType boolean
+        part.removed; // $ExpectType boolean
         part.value; // $ExpectType string
         part.count; // $ExpectType number | undefined
     });

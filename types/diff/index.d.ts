@@ -109,13 +109,13 @@ export interface Change {
      */
     value: string;
     /**
-     * `true` if the value was inserted into the new string.
+     * true if the value was inserted into the new string, otherwise false
      */
-    added?: boolean | undefined;
+    added: boolean;
     /**
-     * `true` if the value was removed from the old string.
+     * true if the value was removed from the old string, otherwise false
      */
-    removed?: boolean | undefined;
+    removed: boolean;
 }
 
 export interface ArrayChange<T> {
