@@ -36,6 +36,11 @@ export interface WordsOptions extends BaseOptions {
 
 export interface LinesOptions extends BaseOptions {
     /**
+     * `true` to ignore a missing newline character at the end of the last line when comparing it to other lines. (By default, the line `'b\n'` in text `'a\nb\nc'` is not considered equal to the line `'b'` in text `'a\nb'`; this option makes them be considered equal.) Ignored if `ignoreWhitespace` or `newlineIsToken` are also true.
+     */
+    ignoreNewlineAtEof?: boolean | undefined;
+
+    /**
      * `true` to ignore leading and trailing whitespace. This is the same as `diffTrimmedLines()`.
      */
     ignoreWhitespace?: boolean | undefined;

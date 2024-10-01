@@ -21,6 +21,7 @@ Diff.diffLines(
     "line\nold value\nline",
     "line\nnew value\nline",
     {
+        ignoreNewlineAtEof: true,
         maxEditLength: 1,
         oneChangePerToken: true,
     },
