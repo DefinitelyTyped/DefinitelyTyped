@@ -149,3 +149,16 @@ const verifyPatch = Diff.parsePatch(
         context: 1,
     }),
 );
+
+const wordDiff = new Diff.Diff();
+wordDiff.equals = function(left, right, options) {
+    if (options.ignoreWhitespace) {
+        if (!options.newlineIsToken || !left.includes("\n")) {
+            left = left.trim();
+        }
+        if (!options.newlineIsToken || !right.includes("\n")) {
+            right = right.trim();
+        }
+    }
+    return Diff.Diff.prototype.equals.call(this, left, right, options);
+};

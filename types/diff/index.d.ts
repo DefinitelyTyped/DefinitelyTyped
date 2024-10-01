@@ -170,15 +170,15 @@ export class Diff {
         diagonalPath: number,
     ): number;
 
-    equals(left: any, right: any): boolean;
+    equals(left: any, right: any, options: any): boolean;
 
     removeEmpty(array: any[]): any[];
 
-    castInput(value: any): any;
+    castInput(value: any, options: any): any;
 
-    join(chars: string[]): string;
+    join(tokens: string[]): string;
 
-    tokenize(value: string): any; // return types are string or string[]
+    tokenize(value: string, options: any): any; // return types are string or string[]
 
     postProcess(changes: Change[], options: any): Change[];
 }
