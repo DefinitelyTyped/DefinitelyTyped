@@ -7,6 +7,8 @@ interface AI {
     readonly summarizer: AISummarizerFactory;
     readonly writer: AIWriterFactory;
     readonly rewriter: AIRewriterFactory;
+    readonly translator: AITranslatorFactory;
+    readonly languageDetector: AILanguageDetectorFactory;
 }
 
 interface AICreateMonitor extends EventTarget {
@@ -302,4 +304,75 @@ interface AIRewriterCapabilities {
     supportsLength(length: AIRewriterLength): AICapabilityAvailability;
 
     supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+}
+
+// Translator
+// https://github.com/WICG/translation-api?tab=readme-ov-file#full-api-surface-in-web-idl
+
+interface AITranslatorFactory {
+    create(options: AITranslatorCreateOptions): Promise<AITranslator>;
+    capabilities(): Promise<AITranslatorCapabilities>;
+}
+
+interface AITranslator {
+    translate(input: string, options?: AITranslatorTranslateOptions): Promise<string>;
+    translateStreaming(input: string, options?: AITranslatorTranslateOptions): ReadableStream;
+
+    readonly sourceLanguage: string;
+    readonly targetLanguage: string;
+
+    destroy(): void;
+}
+
+interface AITranslatorCapabilities {
+    readonly available: AICapabilityAvailability;
+
+    canTranslate(sourceLanguage: string, targetLanguage: string): AICapabilityAvailability;
+}
+
+interface AITranslatorCreateOptions {
+    signal?: AbortSignal;
+    monitor?: AICreateMonitorCallback;
+
+    sourceLanguage: string;
+    targetLanguage: string;
+}
+
+interface AITranslatorTranslateOptions {
+    signal?: AbortSignal;
+}
+
+// Language detector
+// https://github.com/WICG/translation-api?tab=readme-ov-file#full-api-surface-in-web-idl
+
+interface AILanguageDetectorFactory {
+    create(options?: AILanguageDetectorCreateOptions): Promise<AILanguageDetector>;
+    capabilities(): Promise<AILanguageDetectorCapabilities>;
+}
+
+interface AILanguageDetector {
+    detect(input: string, options?: AILanguageDetectorDetectOptions): Promise<LanguageDetectionResult[]>;
+
+    destroy(): void;
+}
+
+interface AILanguageDetectorCapabilities {
+    readonly available: AICapabilityAvailability;
+
+    canDetect(languageTag: string): AICapabilityAvailability;
+}
+
+interface AILanguageDetectorCreateOptions {
+    signal?: AbortSignal;
+    monitor?: AICreateMonitorCallback;
+}
+
+interface AILanguageDetectorDetectOptions {
+    signal?: AbortSignal;
+}
+
+interface LanguageDetectionResult {
+    /** null represents unknown language */
+    detectedLanguage: string | null;
+    confidence: number;
 }
