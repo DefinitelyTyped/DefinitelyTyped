@@ -1822,6 +1822,11 @@ declare namespace chrome.cookies {
         domain: string;
         /** The name of the cookie. */
         name: string;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey;
         /** The ID of the cookie store containing this cookie, as provided in getAllCookieStores(). */
         storeId: string;
         /** The value of the cookie. */
@@ -1845,6 +1850,12 @@ declare namespace chrome.cookies {
         sameSite: SameSiteStatus;
     }
 
+    /** Represents a partitioned cookie's partition key. */
+    export interface CookiePartitionKey {
+        /** The top-level site the partitioned cookie is available in. */
+        topLevelSite?: string | undefined;
+    }
+
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
     export interface CookieStore {
         /** The unique identifier for the cookie store. */
@@ -1858,6 +1869,11 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. Filters the cookies by name.  */
         name?: string | undefined;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
         /** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
         url?: string | undefined;
         /** Optional. The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.  */
@@ -1875,6 +1891,11 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. The name of the cookie. Empty by default if omitted.  */
         name?: string | undefined;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
         /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
         /** Optional. The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.  */
@@ -1896,10 +1917,19 @@ declare namespace chrome.cookies {
         sameSite?: SameSiteStatus | undefined;
     }
 
-    export interface Details {
+    /** Details to identify the cookie. */
+    export interface CookieDetails {
+        /** The name of the cookie to access. */
         name: string;
-        url: string;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
+        /** The ID of the cookie store in which to look for the cookie. By default, the current execution context's cookie store will be used. */
         storeId?: string | undefined;
+        /** The URL with which the cookie to access is associated. This argument may be a full URL, in which case any data following the URL path (e.g. the query string) is simply ignored. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
+        url: string;
     }
 
     export interface CookieChangeInfo {
@@ -1955,24 +1985,24 @@ declare namespace chrome.cookies {
      * @param details Information to identify the cookie to remove.
      * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function remove(details: Details): Promise<Details>;
+    export function remove(details: CookieDetails): Promise<CookieDetails>;
     /**
      * Deletes a cookie by name.
      * @param details Information to identify the cookie to remove.
      */
-    export function remove(details: Details, callback?: (details: Details) => void): void;
+    export function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
      */
-    export function get(details: Details, callback: (cookie: Cookie | null) => void): void;
+    export function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function get(details: Details): Promise<Cookie | null>;
+    export function get(details: CookieDetails): Promise<Cookie | null>;
 
     /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
     export var onChanged: CookieChangedEvent;
