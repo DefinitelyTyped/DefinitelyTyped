@@ -127,6 +127,32 @@ liveApiInstance.call("reset_meter", []);
 liveApiInstance.property = "mute";
 liveApiInstance.mode = 0;
 
+// Create a new LiveAPI object without providing a callback function or a name
+const liveApiInstance_empty = new LiveAPI();
+
+// Accessing properties
+post(liveApiInstance_empty.id);
+post(liveApiInstance_empty.path);
+post(liveApiInstance_empty.unquotedpath);
+post(liveApiInstance_empty.children);
+post(liveApiInstance_empty.mode);
+post(liveApiInstance_empty.type);
+post(liveApiInstance_empty.info);
+post(liveApiInstance_empty.property);
+post(liveApiInstance_empty.proptype);
+
+// Using methods
+post(liveApiInstance_empty.getcount("callable_children"));
+liveApiInstance_empty.goto("live_set tracks 0 devices 1");
+post(liveApiInstance_empty.get("name"));
+post(liveApiInstance_empty.getstring("name"));
+liveApiInstance_empty.set("name", "New Device Name");
+liveApiInstance_empty.call("reset_meter", []);
+
+// Observing property changes
+liveApiInstance_empty.property = "mute";
+liveApiInstance_empty.mode = 0;
+
 // Get the max object from this
 const testmax = this.max;
 
