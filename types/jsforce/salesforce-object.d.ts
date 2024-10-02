@@ -26,7 +26,7 @@ export class SObject<T> {
         callback?: Callback<RecordResult[]>,
     ): Promise<RecordResult[]>;
     // should input really be optional? the documentation says so, but how can you actually update without it?
-    updateBulk(input?: Record[] | stream.Stream | string, callback?: Callback<RecordResult[]>): Batch;
+    updateBulk(input?: Record[] | stream.Stream | string, extIdField?: string): Batch;
     updated(
         start: string | Date,
         end: string | Date,
