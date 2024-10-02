@@ -1,13 +1,43 @@
+// eslint-disable-next-line @typescript-eslint/naming-convention
+interface IAMAuthConfig {
+    role: string;
+    credentials?: {
+        accessKeyId: string;
+        secretAccessKey: string;
+        sessionToken?: string;
+    };
+    iam_server_id_header_value?: string;
+}
+
+interface AppRoleAuthConfig {
+    role_id: string;
+    secret_id?: string;
+}
+
+interface TokenAuthConfig {
+    token: string;
+}
+
+interface KubernetesAuthConfig {
+    role: string;
+    tokenPath?: string;
+}
+
+type AuthConfig =
+    | { type: 'iam'; config: IAMAuthConfig; mount?: string }
+    | { type: 'appRole'; config: AppRoleAuthConfig; mount?: string }
+    | { type: 'token'; config: TokenAuthConfig; mount?: string }
+    | { type: 'kubernetes'; config: KubernetesAuthConfig; mount?: string };
+
+interface ApiConfig {
+    url: string;
+    apiVersion?: string;
+}
+
 interface VaultOptions {
-    api: {
-        url: string;
-        apiVersion?: string;
-    };
-    auth: {
-        type: string;
-        config: any;
-    };
-    logger: any;
+    api: ApiConfig;
+    auth: AuthConfig;
+    logger?: any;
 }
 
 declare class VaultClient {
@@ -25,7 +55,7 @@ declare class VaultClient {
 }
 
 declare class VaultApiClient {
-    constructor(config: { url: string; apiVersion?: string }, logger: any);
+    constructor(config: ApiConfig, logger: any);
     makeRequest(method: any, path: any, data: any, headers: any): any;
 }
 
@@ -74,7 +104,7 @@ declare class VaultAppRoleAuth extends VaultBaseAuth {
     constructor(
         apiClient: VaultApiClient,
         logger: any,
-        config: { role_id: string; secret_id?: string },
+        config: AppRoleAuthConfig,
         mount: string
     );
 }
@@ -88,7 +118,7 @@ declare class VaultIAMAuth extends VaultBaseAuth {
     constructor(
         api: VaultApiClient,
         logger: any,
-        config: { role: string; AWSCredentials?: any; iam_server_id_header_value?: string },
+        config: IAMAuthConfig,
         mount: string
     );
 }
@@ -97,7 +127,7 @@ declare class VaultKubernetesAuth extends VaultBaseAuth {
     constructor(
         apiClient: VaultApiClient,
         logger: any,
-        config: { role: string; tokenPath?: string },
+        config: KubernetesAuthConfig,
         mount: string
     );
 }
@@ -106,7 +136,7 @@ declare class VaultTokenAuth extends VaultBaseAuth {
     constructor(
         connConfig: any,
         logger: any,
-        config: { token: string },
+        config: TokenAuthConfig,
         mount: string
     );
 }
