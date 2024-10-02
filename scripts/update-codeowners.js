@@ -9,7 +9,7 @@ async function main() {
   try {
     const { owners, maxPathLen } = await getAllOwners();
     const codeOwnersPath = new URL("../.github/CODEOWNERS", import.meta.url);
-    const entries = mapDefined(owners, ([p, users]) => getEntry(p, users, maxPathLen));
+    const entries = mapDefined(owners, ([p, users]) => getEntry (p, users, maxPathLen));
     await writeFile(codeOwnersPath, `${header}\n\n${entries.join("\n")}\n`, { encoding: "utf-8" });
   } catch (e) {
     console.error(e);
