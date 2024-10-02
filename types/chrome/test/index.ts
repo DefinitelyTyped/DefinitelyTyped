@@ -1466,6 +1466,14 @@ async function testSystemDisplayForPromise() {
     await chrome.system.display.setMirrorMode({});
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/systemLog
+function testSystemLog() {
+    chrome.systemLog.add({ message: "" }); // $ExpectType Promise<void>
+    chrome.systemLog.add({ message: "" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.systemLog.add({ message: "" }, () => {}).then(() => {});
+}
+
 // https://developer.chrome.com/docs/extensions/reference/tabs
 async function testTabsForPromise() {
     await chrome.tabs.executeScript({});
