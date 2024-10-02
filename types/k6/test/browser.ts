@@ -788,6 +788,8 @@ async function test() {
     // $ExpectType Promise<JSHandle<boolean>>
     page.waitForFunction(() => true, { polling: "raf" });
     // $ExpectType Promise<JSHandle<boolean>>
+    page.waitForFunction(() => true, { polling: "mutation" });
+    // $ExpectType Promise<JSHandle<boolean>>
     page.waitForFunction(() => true, { polling: 100 });
     // $ExpectType Promise<JSHandle<boolean>>
     page.waitForFunction(() => true, { timeout: 10000 });
@@ -2125,7 +2127,9 @@ async function test() {
     // $ExpectType Promise<JSHandle<boolean>>
     frame.waitForFunction(() => true, { polling: "raf" });
     // $ExpectType Promise<JSHandle<boolean>>
-    frame.waitForFunction(() => true, { polling: "interval", interval: 10000 });
+    frame.waitForFunction(() => true, { polling: "mutation" });
+    // $ExpectType Promise<JSHandle<boolean>>
+    frame.waitForFunction(() => true, { polling: 10000 });
     // $ExpectType Promise<JSHandle<boolean>>
     frame.waitForFunction(() => true, { timeout: 10000 });
     // $ExpectType Promise<JSHandle<boolean>>
