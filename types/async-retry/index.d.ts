@@ -26,22 +26,30 @@ import { WrapOptions } from "retry";
  *   }
  * );
  */
-declare function AsyncRetry<TRet>(fn: AsyncRetry.RetryFunction<TRet>, opts?: AsyncRetry.Options): Promise<TRet>;
+declare function AsyncRetry<TRet, TErr = unknown>(
+    fn: AsyncRetry.RetryFunction<TRet, TErr>,
+    opts?: AsyncRetry.Options<TErr> | number[],
+): Promise<TRet>;
 
 declare namespace AsyncRetry {
-    interface Options extends WrapOptions {
+    interface Options<TErr = unknown> extends Omit<WrapOptions, "randomize"> {
         /**
          * An optional function that is invoked after a new retry is performed. It's passed the
          * `Error` that triggered it as a parameter.
          */
-        onRetry?: ((e: Error, attempt: number) => any) | undefined;
+        onRetry?: ((e: TErr, attempt: number) => any) | undefined;
+        /**
+         * Randomizes the timeouts by multiplying a factor between 1-2.
+         * @default true
+         */
+        randomize?: boolean | undefined;
     }
 
     /**
      * @param bail A function you can invoke to abort the retrying (bail).
      * @param attempt The attempt number. The absolute first attempt (before any retries) is `1`.
      */
-    type RetryFunction<TRet> = (bail: (e: Error) => void, attempt: number) => TRet | Promise<TRet>;
+    type RetryFunction<TRet, TErr = unknown> = (bail: (e: TErr) => void, attempt: number) => TRet | Promise<TRet>;
 }
 
 export = AsyncRetry;
