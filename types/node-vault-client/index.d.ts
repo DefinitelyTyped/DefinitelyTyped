@@ -24,10 +24,10 @@ interface KubernetesAuthConfig {
 }
 
 type AuthConfig =
-    | { type: 'iam'; config: IAMAuthConfig; mount?: string }
-    | { type: 'appRole'; config: AppRoleAuthConfig; mount?: string }
-    | { type: 'token'; config: TokenAuthConfig; mount?: string }
-    | { type: 'kubernetes'; config: KubernetesAuthConfig; mount?: string };
+    | { type: "iam"; config: IAMAuthConfig; mount?: string }
+    | { type: "appRole"; config: AppRoleAuthConfig; mount?: string }
+    | { type: "token"; config: TokenAuthConfig; mount?: string }
+    | { type: "kubernetes"; config: KubernetesAuthConfig; mount?: string };
 
 interface ApiConfig {
     url: string;
@@ -78,9 +78,9 @@ declare class VaultError extends Error {
     message: any;
 }
 
-declare class InvalidArgumentsError extends VaultError { }
-declare class InvalidAWSCredentialsError extends InvalidArgumentsError { }
-declare class AuthTokenExpiredError extends VaultError { }
+declare class InvalidArgumentsError extends VaultError {}
+declare class InvalidAWSCredentialsError extends InvalidArgumentsError {}
+declare class AuthTokenExpiredError extends VaultError {}
 
 declare class AuthToken {
     static fromResponse(response: any): AuthToken;
@@ -91,7 +91,7 @@ declare class AuthToken {
         expiresAt: number | null,
         explicitMaxTtl: number,
         numUses: number,
-        isRenewable: boolean
+        isRenewable: boolean,
     );
     getId(): string;
     getAccessor(): string;
@@ -105,7 +105,7 @@ declare class VaultAppRoleAuth extends VaultBaseAuth {
         apiClient: VaultApiClient,
         logger: any,
         config: AppRoleAuthConfig,
-        mount: string
+        mount: string,
     );
 }
 
@@ -119,7 +119,7 @@ declare class VaultIAMAuth extends VaultBaseAuth {
         api: VaultApiClient,
         logger: any,
         config: IAMAuthConfig,
-        mount: string
+        mount: string,
     );
 }
 
@@ -128,7 +128,7 @@ declare class VaultKubernetesAuth extends VaultBaseAuth {
         apiClient: VaultApiClient,
         logger: any,
         config: KubernetesAuthConfig,
-        mount: string
+        mount: string,
     );
 }
 
@@ -137,7 +137,7 @@ declare class VaultTokenAuth extends VaultBaseAuth {
         connConfig: any,
         logger: any,
         config: TokenAuthConfig,
-        mount: string
+        mount: string,
     );
 }
 
