@@ -85,7 +85,7 @@ export interface AutoValueContext {
 type Validator = (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
 
 export interface SchemaDefinition {
-    type: any;
+    type: SchemaDefinitionType;
     label?: string | (() => string) | undefined;
     optional?: boolean | (() => boolean) | undefined;
     required?: boolean | (() => boolean) | undefined;
@@ -138,24 +138,26 @@ interface SimpleSchemaValidationError {
     [key: string]: number | string;
 }
 
-type IntegerSchema = "SimpleSchema.Integer";
+interface Class { new(...args: any[]): any; }
+
+type IntegerSchemaType = "SimpleSchema.Integer";
+type AnySchemaType = "___Any___";
+
+export type SchemaDefinitionType = SchemaDefinition
+    | ObjectConstructor
+    | BooleanConstructor
+    | StringConstructor
+    | NumberConstructor
+    | DateConstructor
+    | ArrayConstructor
+    | IntegerSchemaType
+    | FunctionConstructor
+    | RegExp
+    | SimpleSchema
+    | Class;
 
 export type SimpleSchemaDefinition = {
-    [key: string]:
-        | SchemaDefinition
-        | BooleanConstructor
-        | StringConstructor
-        | NumberConstructor
-        | DateConstructor
-        | ArrayConstructor
-        | IntegerSchema
-        | [StringConstructor]
-        | [NumberConstructor]
-        | [IntegerSchema]
-        | [SimpleSchema]
-        | string
-        | RegExp
-        | SimpleSchema;
+    [key: string]: SchemaDefinitionType | SchemaDefinitionType[];
 } | any[];
 
 type SimpleSchemaCreateFunc = (options: { label: string; regExp: string }) => string;
@@ -174,20 +176,7 @@ export class SimpleSchema {
     addValidator(validator: Validator): void;
     pick(...fields: string[]): SimpleSchema;
     omit(...fields: string[]): SimpleSchema;
-    static oneOf(
-        ...types: Array<
-            (
-                | RegExp
-                | SchemaDefinition
-                | BooleanConstructor
-                | StringConstructor
-                | NumberConstructor
-                | DateConstructor
-                | ArrayConstructor
-                | IntegerSchema
-            )
-        >
-    ): SimpleSchema;
+    static oneOf(...types: SchemaDefinitionType[]): SimpleSchema;
     clean(doc: any, options?: CleanOption): any;
     schema(key?: string): SchemaDefinition;
     getDefinition(key: string, propList?: any, functionContext?: any): any;
@@ -195,7 +184,6 @@ export class SimpleSchema {
     keyIsInBlackBox(key: string): boolean;
     labels(labels: { [key: string]: string }): void;
     label(key: any): any;
-    static Integer: IntegerSchema;
     messages(messages: any): any;
     messageForError(type: any, key: any, def: any, value: any): string;
     allowsKey(key: any): string;
@@ -206,6 +194,8 @@ export class SimpleSchema {
     validator(options?: ValidatorOption): (obj: any) => boolean;
     extend(otherSchema: SimpleSchema | SimpleSchemaDefinition): SimpleSchema;
     static extendOptions(options: readonly string[]): void;
+    static Integer: IntegerSchemaType;
+    static Any: AnySchemaType;
     static RegEx: {
         Email: RegExp;
         EmailWithTLD: RegExp;
