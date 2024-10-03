@@ -6755,7 +6755,7 @@ declare namespace chrome.printerProvider {
 declare namespace chrome.printing {
     export interface GetPrinterInfoResponse {
         /** Printer capabilities in [CDD format](https://developers.google.com/cloud-print/docs/cdd#cdd-example). The property may be missing. */
-        capabilities?: object;
+        capabilities?: { [key: string]: unknown };
         /** The status of the printer. */
         status: PrinterStatus;
     }
@@ -6842,7 +6842,7 @@ declare namespace chrome.printing {
 
     export interface SubmitJobResponse {
         /** The id of created print job. This is a unique identifier among all print jobs on the device. If status is not OK, jobId will be null. */
-        jobId?: string;
+        jobId: string | null;
         /** The status of the request. */
         status: SubmitJobStatus;
     }
