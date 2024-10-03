@@ -4,14 +4,14 @@ interface IAMAuthConfig {
     credentials?: {
         accessKeyId: string;
         secretAccessKey: string;
-        sessionToken?: string;
-    };
-    iam_server_id_header_value?: string;
+        sessionToken?: string | undefined;
+    } | undefined;
+    iam_server_id_header_value?: string | undefined;
 }
 
 interface AppRoleAuthConfig {
     role_id: string;
-    secret_id?: string;
+    secret_id?: string | undefined;
 }
 
 interface TokenAuthConfig {
@@ -20,24 +20,24 @@ interface TokenAuthConfig {
 
 interface KubernetesAuthConfig {
     role: string;
-    tokenPath?: string;
+    tokenPath?: string | undefined;
 }
 
 type AuthConfig =
-    | { type: "iam"; config: IAMAuthConfig; mount?: string }
-    | { type: "appRole"; config: AppRoleAuthConfig; mount?: string }
-    | { type: "token"; config: TokenAuthConfig; mount?: string }
-    | { type: "kubernetes"; config: KubernetesAuthConfig; mount?: string };
+    | { type: "iam"; config: IAMAuthConfig; mount?: string | undefined }
+    | { type: "appRole"; config: AppRoleAuthConfig; mount?: string | undefined }
+    | { type: "token"; config: TokenAuthConfig; mount?: string | undefined }
+    | { type: "kubernetes"; config: KubernetesAuthConfig; mount?: string | undefined };
 
 interface ApiConfig {
     url: string;
-    apiVersion?: string;
+    apiVersion?: string | undefined;
 }
 
 interface VaultOptions {
     api: ApiConfig;
     auth: AuthConfig;
-    logger?: any;
+    logger?: unknown | undefined;
 }
 
 declare class VaultClient {
@@ -47,35 +47,35 @@ declare class VaultClient {
 
     constructor(options: VaultOptions);
 
-    fillNodeConfig(): any;
-    getHeaders(token: any): { "X-Vault-Token": any; "X-Vault-Namespace"?: any };
+    fillNodeConfig(): unknown;
+    getHeaders(token: unknown): { "X-Vault-Token": unknown; "X-Vault-Namespace"?: unknown | undefined };
     read(path: string): Promise<Lease>;
     list(path: string): Promise<Lease>;
-    write(path: any, data: object): Promise<any>;
+    write(path: string, data: Record<string, unknown>): Promise<unknown>;
 }
 
 declare class VaultApiClient {
-    constructor(config: ApiConfig, logger: any);
-    makeRequest(method: any, path: any, data: any, headers: any): any;
+    constructor(config: ApiConfig, logger: unknown | undefined);
+    makeRequest(method: string, path: string, data: unknown, headers: Record<string, unknown>): unknown; // Replaced `any` with specific types
 }
 
 declare class Lease {
-    static fromResponse(response: any): Lease;
-    constructor(requestId: any, leaseId: any, leaseDuration: any, renewable: any, data: any);
-    getValue(key: string): any;
-    getData(): any;
+    static fromResponse(response: unknown): Lease;
+    constructor(requestId: string, leaseId: string, leaseDuration: number, renewable: boolean, data: Record<string, unknown>);
+    getValue(key: string): unknown;
+    getData(): Record<string, unknown>;
     isRenewable(): boolean;
 }
 
 declare class VaultNodeConfig {
-    constructor(vault: any);
-    populate(): any;
+    constructor(vault: VaultClient);
+    populate(): unknown;
 }
 
 declare class VaultError extends Error {
-    constructor(message: any, error: any);
-    name: any;
-    message: any;
+    constructor(message: string, error: unknown);
+    name: string;
+    message: string;
 }
 
 declare class InvalidArgumentsError extends VaultError {}
@@ -83,7 +83,7 @@ declare class InvalidAWSCredentialsError extends InvalidArgumentsError {}
 declare class AuthTokenExpiredError extends VaultError {}
 
 declare class AuthToken {
-    static fromResponse(response: any): AuthToken;
+    static fromResponse(response: unknown): AuthToken;
     constructor(
         id: string,
         accessor: string,
@@ -103,21 +103,21 @@ declare class AuthToken {
 declare class VaultAppRoleAuth extends VaultBaseAuth {
     constructor(
         apiClient: VaultApiClient,
-        logger: any,
+        logger: unknown | undefined,
         config: AppRoleAuthConfig,
         mount: string,
     );
 }
 
 declare class VaultBaseAuth {
-    constructor(apiClient: VaultApiClient, logger: any, mount: string);
-    getAuthToken(): any;
+    constructor(apiClient: VaultApiClient, logger: unknown | undefined, mount: string);
+    getAuthToken(): unknown;
 }
 
 declare class VaultIAMAuth extends VaultBaseAuth {
     constructor(
         api: VaultApiClient,
-        logger: any,
+        logger: unknown | undefined,
         config: IAMAuthConfig,
         mount: string,
     );
@@ -126,7 +126,7 @@ declare class VaultIAMAuth extends VaultBaseAuth {
 declare class VaultKubernetesAuth extends VaultBaseAuth {
     constructor(
         apiClient: VaultApiClient,
-        logger: any,
+        logger: unknown | undefined,
         config: KubernetesAuthConfig,
         mount: string,
     );
@@ -134,8 +134,8 @@ declare class VaultKubernetesAuth extends VaultBaseAuth {
 
 declare class VaultTokenAuth extends VaultBaseAuth {
     constructor(
-        connConfig: any,
-        logger: any,
+        connConfig: unknown,
+        logger: unknown | undefined,
         config: TokenAuthConfig,
         mount: string,
     );
