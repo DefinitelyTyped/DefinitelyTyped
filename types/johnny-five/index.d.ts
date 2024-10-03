@@ -334,6 +334,12 @@ export class Board {
     samplingInterval(ms: number): void;
 }
 
+export namespace Board {
+    class Virtual extends Board {
+        constructor(option: Expander);
+    }
+}
+
 export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends BoardConfigListType> {
     /**
      * This class allows managing multiple boards at the same time.
@@ -505,6 +511,27 @@ export class ESCs extends Collection<ESC> {
     throttle(value: number): this;
     brake(): this;
 }
+
+export interface ExpanderOption {
+    board?: Board;
+    controller: string;
+    address: number;
+}
+
+export class Expander {
+    constructor(option: string | ExpanderOption);
+
+    analogRead(pin: number | string, cb: (item: number) => void): void;
+    analogWrite(pin: number | string, value: number): void;
+    digitalRead(pin: number | string, cb: (item: number) => void): void;
+    digitalWrite(pin: number | string, value: number): void;
+    normalize(pin: number | string): number | string;
+    pinMode(pin: number | string, mode: PinMode): void;
+    pullUp(pin: number | string, mode: PinMode): void;
+    pwmWrite(pin: number | string, value: number): void;
+    servoWrite(pin: number | string, value: number): void;
+}
+
 export namespace Fn {
     function constrain(value: number, lower: number, upper: number): number;
     function inRange(value: number, lower: number, upper: number): boolean;
