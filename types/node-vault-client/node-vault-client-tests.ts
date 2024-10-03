@@ -18,12 +18,18 @@ const vaultClient = VaultClient.boot("main", {
     },
 });
 
-vaultClient.read("secret/data/test").then((lease: Lease) => { // kv2 secret engine (without data for kv1)
+vaultClient.read("secret/data/test").then((lease: Lease | null) => {
     if (lease) {
-        const data = lease.getData().data;
-        const token = data["some-key"];
-        return token;
+        const data = lease.getData().data as Record<string, unknown>;
+        const token = data["some-key"] as string | undefined;
+        if (token) {
+            return token;
+        } else {
+            throw new Error("Token not found in the Vault data.");
+        }
+    } else {
+        throw new Error("Lease is null.");
     }
-}).catch((err: any) => {
+}).catch((err: unknown) => {
     // handle error
 });
