@@ -333,6 +333,18 @@ declare namespace MusicKit {
     }
 
     /**
+     * The response to a library playlists request 
+     * https://developer.apple.com/documentation/applemusicapi/libraryplaylistsresponse 
+     */
+    interface LibraryPlaylistsResponse {
+        next: string | null;
+        data: LibraryPlaylists[];
+        meta: {
+          total: number;
+        };
+      }
+
+    /**
      * A resource object that represents an artist of an album where an artist can be one or more persons.
      * https://developer.apple.com/documentation/applemusicapi/artists-uip
      */
@@ -654,6 +666,18 @@ declare namespace MusicKit {
             next?: string;
             data: Resource[];
         }>;
+        /**
+         * Make a pass-through request to the Apple Music API.
+         *
+         * @param path A string representing the path of the Apple Music API endpoint 
+         * @param parameters An optional query parameters object that is serialized and passed
+         * directly to the Apple Music API.
+         * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-api--page
+         * @returns {Promise<object>} A Promise that resolves to the response object from the Apple Music API.
+         * The structure of the response will vary depending on the endpoint used.
+
+         */
+        music: {(path: string, parameters?:QueryParameters): Promise<object>};
         /**
          * Fetch a music video using its identifier.
          *
