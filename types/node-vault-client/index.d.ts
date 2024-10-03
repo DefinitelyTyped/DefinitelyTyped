@@ -61,7 +61,13 @@ declare class VaultApiClient {
 
 declare class Lease {
     static fromResponse(response: unknown): Lease;
-    constructor(requestId: string, leaseId: string, leaseDuration: number, renewable: boolean, data: Record<string, unknown>);
+    constructor(
+        requestId: string,
+        leaseId: string,
+        leaseDuration: number,
+        renewable: boolean,
+        data: Record<string, unknown>,
+    );
     getValue(key: string): unknown;
     getData(): Record<string, unknown>;
     isRenewable(): boolean;
