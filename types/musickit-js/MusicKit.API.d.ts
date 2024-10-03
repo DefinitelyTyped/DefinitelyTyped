@@ -324,6 +324,7 @@ declare namespace MusicKit {
             hasCatalog: boolean;
             name: string;
             playParams?: PlayParameters;
+            isPublic: boolean;
         };
         relationships: {
             catalog: Relationship<Playlists>;
