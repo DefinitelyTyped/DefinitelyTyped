@@ -679,7 +679,7 @@ declare namespace MusicKit {
          * The structure of the response will vary depending on the endpoint used.
 
          */
-        music: {(path: string, parameters?:QueryParameters): Promise<object>};
+        music(path: string, parameters?:QueryParameters): Promise<object>;
         /**
          * Fetch a music video using its identifier.
          *
