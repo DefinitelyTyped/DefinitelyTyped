@@ -1298,6 +1298,88 @@ async function testAlarmsForPromise() {
     await chrome.alarms.get("name1");
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/audio
+function testAudio() {
+    chrome.audio.DeviceType.ALSA_LOOPBACK === "ALSA_LOOPBACK";
+    chrome.audio.DeviceType.BLUETOOTH === "BLUETOOTH";
+    chrome.audio.DeviceType.FRONT_MIC === "FRONT_MIC";
+    chrome.audio.DeviceType.HDMI === "HDMI";
+    chrome.audio.DeviceType.HEADPHONE === "HEADPHONE";
+    chrome.audio.DeviceType.HOTWORD === "HOTWORD";
+    chrome.audio.DeviceType.INTERNAL_MIC === "INTERNAL_MIC";
+    chrome.audio.DeviceType.INTERNAL_SPEAKER === "INTERNAL_SPEAKER";
+    chrome.audio.DeviceType.KEYBOARD_MIC === "KEYBOARD_MIC";
+    chrome.audio.DeviceType.LINEOUT === "LINEOUT";
+    chrome.audio.DeviceType.MIC === "MIC";
+    chrome.audio.DeviceType.OTHER === "OTHER";
+    chrome.audio.DeviceType.POST_DSP_LOOPBACK === "POST_DSP_LOOPBACK";
+    chrome.audio.DeviceType.POST_MIX_LOOPBACK === "POST_MIX_LOOPBACK";
+    chrome.audio.DeviceType.REAR_MIC === "REAR_MIC";
+    chrome.audio.DeviceType.USB === "USB";
+
+    chrome.audio.StreamType.INPUT === "INPUT";
+    chrome.audio.StreamType.OUTPUT === "OUTPUT";
+
+    chrome.audio.getDevices(); // $ExpectType Promise<AudioDeviceInfo[]>
+    chrome.audio.getDevices({}); // $ExpectType Promise<AudioDeviceInfo[]>
+    chrome.audio.getDevices(devices => {}); // $ExpectType void
+    chrome.audio.getDevices({}, devices => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.getDevices(() => {}).then(devices => {});
+
+    chrome.audio.getMute("INPUT"); // $ExpectType Promise<boolean>
+    chrome.audio.getMute("INPUT", value => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.getMute("INPUT", value => {}).then(value => {});
+
+    chrome.audio.setActiveDevices({}); // $ExpectType Promise<void>
+    chrome.audio.setActiveDevices({}, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.setActiveDevices(() => {}).then(() => {});
+
+    chrome.audio.setMute("INPUT", true); // $ExpectType Promise<void>
+    chrome.audio.setMute("INPUT", true, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.setMute("INPUT", true, () => {}).then(() => {});
+
+    chrome.audio.setProperties("INPUT", {}); // $ExpectType Promise<void>
+    chrome.audio.setProperties("INPUT", {}, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.setProperties("INPUT", {}, () => {}).then(() => {});
+
+    chrome.audio.onDeviceListChanged.addListener(devices => {
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.onDeviceListChanged.removeListener(devices => {
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.onDeviceListChanged.hasListener(devices => {
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.onDeviceListChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.audio.onLevelChanged.addListener(event => {
+        event; // $ExpectType LevelChangedEvent
+    });
+    chrome.audio.onLevelChanged.removeListener(event => {
+        event; // $ExpectType LevelChangedEvent
+    });
+    chrome.audio.onLevelChanged.hasListener(event => {
+        event; // $ExpectType LevelChangedEvent
+    });
+    chrome.audio.onLevelChanged.hasListeners(); // $ExpectType boolean
+    chrome.audio.onMuteChanged.addListener(event => {
+        event; // $ExpectType MuteChangedEvent
+    });
+    chrome.audio.onMuteChanged.removeListener(event => {
+        event; // $ExpectType MuteChangedEvent
+    });
+    chrome.audio.onMuteChanged.hasListener(event => {
+        event; // $ExpectType MuteChangedEvent
+    });
+    chrome.audio.onMuteChanged.hasListeners(); // $ExpectType boolean
+}
+
 // https://developer.chrome.com/docs/extensions/reference/bookmarks
 async function testBookmarksForPromise() {
     await chrome.bookmarks.search("query1");
