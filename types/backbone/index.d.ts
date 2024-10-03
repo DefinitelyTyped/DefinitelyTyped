@@ -311,7 +311,7 @@ declare namespace Backbone {
          */
         static extend(properties: any, classProperties?: any): any;
 
-        model: new(...args: any[]) => TModel;
+        model: (new(...args: any[]) => TModel) | ((...args: any[]) => TModel);
         models: TModel[];
         length: number;
 

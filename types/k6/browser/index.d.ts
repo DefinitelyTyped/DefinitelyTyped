@@ -163,6 +163,8 @@ export type ElementClickOptions = ElementHandlePointerOptions & {
     position?: { x: number; y: number };
 };
 
+export type FrameCheckOptions = ElementClickOptions;
+
 export interface KeyboardModifierOptions {
     /**
      * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the action.
@@ -391,19 +393,17 @@ export interface ScreenshotOptions {
  * - `mutation` - use a mutation observer
  * - `interval` - use a polling interval
  */
-export type PollingMethod = "raf" | "mutation" | "interval";
+export type PollingMethod = number | "raf" | "mutation";
 
 export interface PollingOptions {
     /**
-     * Polling method to use.
-     * @default 'raf'
+     * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
+     * `requestAnimationFrame` callback. If the `polling` is `'mutation'` it
+     * will be called when a change is made to the DOM tree. If `polling` is
+     * a number, then it is treated as an interval in milliseconds at which
+     * the function would be executed. Defaults to `raf`.
      */
-    polling?: "raf" | "mutation" | "interval";
-
-    /**
-     * Polling interval in milliseconds if `polling` is set to `interval`.
-     */
-    interval?: number;
+    polling?: PollingMethod;
 }
 
 export interface ElementStateFilter {
@@ -1334,6 +1334,14 @@ export interface ElementHandle extends JSHandle {
     selectText(options?: ElementHandleOptions): Promise<void>;
 
     /**
+     * Checks or unchecks the input checkbox element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(checked: boolean, options?: ElementClickOptions & StrictnessOptions): Promise<void>;
+
+    /**
      * Sets the file input element's value to the specified files.
      *
      * To work with local files on the file system, use the experimental
@@ -1577,6 +1585,15 @@ export interface Frame {
      * @returns A promise that resolves to the HTTP response object.
      */
     goto(url: string, options?: NavigationOptions): Promise<Response | null>;
+
+    /**
+     * Checks or unchecks the input checkbox element.
+     * @param selector A selector to search for an element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(selector: string, checked: boolean, options?: FrameCheckOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Replace the entire HTML document content.
@@ -2028,6 +2045,14 @@ export interface Locator {
         values: string | string[] | { value?: string; label?: string; index?: number },
         options?: ElementHandleOptions,
     ): Promise<string[]>;
+
+    /**
+     * Checks or unchecks the input checkbox element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(checked: boolean, options?: FrameCheckOptions): Promise<void>;
 
     /**
      * Press a single key on the keyboard or a combination of keys.
@@ -3067,6 +3092,15 @@ export interface Page {
     ): Promise<ArrayBuffer>;
 
     /**
+     * Checks or unchecks the input checkbox element.
+     * @param selector A selector to search for an element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(selector: string, checked: boolean, options?: FrameCheckOptions & StrictnessOptions): Promise<void>;
+
+    /**
      * **NOTE** Use locator-based locator.selectOption(values[, options]) instead.
      *
      * This select one or more options which match the values from a <select>
@@ -3359,7 +3393,7 @@ export interface Page {
      * **Usage**
      *
      * ```js
-     * import { browser, networkProfiles } from 'k6/experimental/browser';
+     * import { browser, networkProfiles } from 'k6/browser';
      * ... // redacted
      *   const context = browser.newContext();
      *   const page = context.newPage();
@@ -3516,11 +3550,12 @@ export interface Page {
         options?: {
             /**
              * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
-             * `requestAnimationFrame` callback. If `polling` is a number, then it is
-             * treated as an interval in milliseconds at which the function would be
-             * executed. Defaults to `raf`.
+             * `requestAnimationFrame` callback. If the `polling` is `'mutation'` it
+             * will be called when a change is made to the DOM tree. If `polling` is
+             * a number, then it is treated as an interval in milliseconds at which
+             * the function would be executed. Defaults to `raf`.
              */
-            polling?: number | "raf";
+            polling?: PollingMethod;
 
             /**
              * Maximum time in milliseconds. Defaults to `30` seconds. Default is
