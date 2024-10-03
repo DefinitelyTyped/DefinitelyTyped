@@ -58,14 +58,6 @@ declare namespace MusicKit {
          */
         musicVideos(ids: string[] | null, parameters?: QueryParameters): Promise<MusicVideos[]>;
         /**
-         * Fetch all library playlists.
-         *
-         * @param parameters A query parameters object that is serialized and passed
-         * directly to the Cloud Library API.
-         * https://developer.apple.com/documentation/applemusicapi/get_all_library_playlists
-         */
-        allPlaylists(parameters?: QueryParameters): Promise<Playlists[]>;
-        /**
          * Fetch a library playlist using its identifier.
          *
          * @param id A library playlist identifier.
