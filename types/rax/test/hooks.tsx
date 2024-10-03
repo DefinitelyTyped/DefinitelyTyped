@@ -1,3 +1,4 @@
+/** @jsxFrag RaxFragment */
 import {
     ComponentRef,
     createContext,
@@ -5,6 +6,7 @@ import {
     forwardRef,
     MutableRefObject,
     RaxNode,
+    RaxFragment,
     Ref,
     RefObject,
     useCallback,
