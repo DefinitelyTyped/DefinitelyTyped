@@ -1,3 +1,4 @@
+// eslint-disable-next-line jsdoc/check-tag-names
 /** @jsxFrag RaxFragment */
 import {
     ComponentRef,
