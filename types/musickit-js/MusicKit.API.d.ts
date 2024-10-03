@@ -315,6 +315,8 @@ declare namespace MusicKit {
      * https://developer.apple.com/documentation/applemusicapi/libraryplaylists/
      */
     interface LibraryPlaylists extends Resource {
+        id: string;
+        href: string;
         type: "library-playlists";
         attributes?: {
             artwork?: Artwork;
