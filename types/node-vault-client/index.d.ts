@@ -56,7 +56,7 @@ declare class VaultClient {
 
 declare class VaultApiClient {
     constructor(config: ApiConfig, logger: unknown | undefined);
-    makeRequest(method: string, path: string, data: unknown, headers: Record<string, unknown>): unknown; // Replaced `any` with specific types
+    makeRequest(method: string, path: string, data: unknown, headers: Record<string, unknown>): unknown;
 }
 
 declare class Lease {
