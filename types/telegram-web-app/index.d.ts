@@ -566,6 +566,18 @@ interface BottomButton {
     isVisible: boolean;
     /** Shows whether the button is active. Set to true by default. */
     isActive: boolean;
+    /** Shows whether the button has a shine effect. Set to false by default. */
+    hasShineEffect: boolean;
+    /** 
+     * Position of the secondary button. Not defined for the main button. 
+     * It applies only if both the main and secondary buttons are visible. Set to left by default.
+     * Supported values:
+     *  - left, displayed to the left of the main button,
+     *  - right, displayed to the right of the main button,
+     *  - top, displayed above the main button,
+     *  - bottom, displayed below the main button.
+     */
+    position?: "left" | "right" | "top" | "bottom";
     /** Readonly. Shows whether the button is displaying a loading indicator. */
     isProgressVisible: boolean;
     /** A method to set the button text. */
@@ -617,6 +629,10 @@ interface MainButtonParams {
     color?: Color;
     /** button text color */
     text_color?: Color;
+    /** enable shine effect */
+    has_shine_effect?: boolean;
+    /** position of the secondary button */
+    position?: "left" | "right" | "top" | "bottom";
     /** enable the button */
     is_active?: boolean;
     /** show the button */
