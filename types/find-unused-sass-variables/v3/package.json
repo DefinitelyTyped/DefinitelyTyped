@@ -1,8 +1,7 @@
 {
     "private": true,
     "name": "@types/find-unused-sass-variables",
-    "version": "6.0.9999",
-    "type": "module",
+    "version": "3.1.9999",
     "projects": [
         "https://github.com/XhmikosR/find-unused-sass-variables#readme"
     ],
