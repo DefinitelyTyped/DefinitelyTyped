@@ -568,8 +568,8 @@ interface BottomButton {
     isActive: boolean;
     /** Shows whether the button has a shine effect. Set to false by default. */
     hasShineEffect: boolean;
-    /** 
-     * Position of the secondary button. Not defined for the main button. 
+    /**
+     * Position of the secondary button. Not defined for the main button.
      * It applies only if both the main and secondary buttons are visible. Set to left by default.
      * Supported values:
      *  - left, displayed to the left of the main button,
