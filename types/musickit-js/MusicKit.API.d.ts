@@ -669,17 +669,16 @@ declare namespace MusicKit {
             data: Resource[];
         }>;
         /**
-         * Make a pass-through request to the Apple Music API.
-         *
-         * @param path A string representing the path of the Apple Music API endpoint 
-         * @param parameters An optional query parameters object that is serialized and passed
-         * directly to the Apple Music API.
-         * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-api--page
-         * @returns {Promise<object>} A Promise that resolves to the response object from the Apple Music API.
-         * The structure of the response will vary depending on the endpoint used.
-
-         */
-        music(path: string, parameters?:QueryParameters): Promise<object>;
+        * Sends a pass-through request to the Apple Music API.
+        *
+        * @param path - The endpoint path of the Apple Music API.
+        * @param parameters - (Optional) An object containing query parameters to be serialized and passed to the API.
+        * @returns {Promise<unknown>} A promise that resolves with the response from the Apple Music API.
+        * The structure of the response depends on the endpoint used.
+        *
+        * @see https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-api--page
+        */
+        music(path: string, parameters?:QueryParameters): Promise<unknown>;
         /**
          * Fetch a music video using its identifier.
          *
