@@ -181,6 +181,7 @@ cal = new Calendar({
             eventStartEditable: true,
             eventTimeFormat: dateFormat,
             eventTextColor: "yellow",
+            filterEventsWithResources: true,
             filterResourcesWithEvents: false,
             firstDay: 0,
             flexibleSlotTimeLimits: true,
@@ -203,7 +204,7 @@ cal = new Calendar({
             noEventsContent: "content",
             nowIndicator: true,
             pointer: true,
-            resources: [{ id: "foo" }, { id: "bar" }],
+            resources: [{ id: "foo" }, { id: "bar", extendedProps: { fred: "barney" } }],
             resourceLabelContent: "content",
             resourceLabelDidMount: (_info: Calendar.ResourceDidMountInfo) => {},
             select: (_info: Calendar.SelectInfo) => {},
@@ -267,7 +268,7 @@ cal.setOption("buttonText", () => {
     })
     .setOption("titleFormat", (_s: Date, _e: Date) => "content")
     .setOption("views", { resourceTimeGrid: { selectMinDistance: 300 } })
-    .setOption("buttonText", (text) => {
+    .setOption("buttonText", (text: Calendar.ButtonTextMapping) => {
         return { ...text, foo: "bar" };
     });
 
@@ -281,6 +282,7 @@ let validResource: Calendar.Resource = {
     title: "content",
     eventBackgroundColor: undefined,
     eventTextColor: undefined,
+    extendedProps: { a: 1, b: "two", c: [] },
 };
 const { title, ...rest } = validResource;
 // @ts-expect-error
