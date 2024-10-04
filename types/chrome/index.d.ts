@@ -7691,7 +7691,8 @@ declare namespace chrome.runtime {
         | "wallpaper"
         | "webNavigation"
         | "webRequest"
-        | "webRequestBlocking";
+        | "webRequestBlocking"
+        | "webRequestAuthProvider";
 
     export interface SearchProvider {
         name?: string | undefined;
@@ -11995,7 +11996,14 @@ declare namespace chrome.webRequest {
     export var onSendHeaders: WebRequestHeadersEvent;
     /** Fired when HTTP response headers of a request have been received. */
     export var onHeadersReceived: WebResponseHeadersEvent;
-    /** Fired when an authentication failure is received. The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge. If bad user credentials are provided, this may be called multiple times for the same request. */
+    /**
+     * Fired when an authentication failure is received.
+     * The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge.
+     * If bad user credentials are provided, this may be called multiple times for the same request.
+     * Note, only one of `blocking` or `asyncBlocking` modes must be specified in the extraInfoSpec parameter.
+     *
+     * Requires the `webRequestAuthProvider` permission.
+     */
     export var onAuthRequired: WebAuthenticationChallengeEvent;
     /** Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available. */
     export var onResponseStarted: WebResponseCacheEvent;
