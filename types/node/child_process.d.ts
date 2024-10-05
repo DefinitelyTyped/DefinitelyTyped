@@ -1346,6 +1346,7 @@ declare module "child_process" {
         stdio?: StdioOptions | undefined;
         detached?: boolean | undefined;
         windowsVerbatimArguments?: boolean | undefined;
+        timeout?: number | undefined;
     }
     /**
      * The `child_process.fork()` method is a special case of {@link spawn} used specifically to spawn new Node.js processes.
