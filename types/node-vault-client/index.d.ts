@@ -48,7 +48,7 @@ declare class VaultClient {
     constructor(options: VaultOptions);
 
     fillNodeConfig(): Promise<void>;
-    getHeaders(token: AuthToken): { 'X-Vault-Token': string; 'X-Vault-Namespace'?: string };
+    getHeaders(token: AuthToken): { "X-Vault-Token": string; "X-Vault-Namespace"?: string };
     read(path: string): Promise<Lease>;
     list(path: string): Promise<Lease>;
     write(path: string, data: Record<string, unknown>): Promise<void>;
@@ -60,8 +60,8 @@ declare class VaultApiClient {
         method: string,
         path: string,
         data: Record<string, unknown> | null,
-        headers: Record<string, string>
-      ): Promise<unknown>;
+        headers: Record<string, string>,
+    ): Promise<unknown>;
 }
 
 declare class Lease {
