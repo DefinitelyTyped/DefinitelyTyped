@@ -414,8 +414,8 @@ declare namespace chrome.alarms {
      */
     export function getAll(): Promise<Alarm[]>;
     /**
-    * Gets an array of all the alarms.
-    */
+     * Gets an array of all the alarms.
+     */
     export function getAll(callback: (alarms: Alarm[]) => void): void;
 
     /**
@@ -857,7 +857,11 @@ declare namespace chrome.bookmarks {
     /**
      * Moves the specified BookmarkTreeNode to the provided location.
      */
-    export function move(id: string, destination: BookmarkDestinationArg, callback: (result: BookmarkTreeNode) => void): void;
+    export function move(
+        id: string,
+        destination: BookmarkDestinationArg,
+        callback: (result: BookmarkTreeNode) => void,
+    ): void;
 
     /**
      * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. Note: Currently, only 'title' and 'url' are supported.
@@ -878,7 +882,7 @@ declare namespace chrome.bookmarks {
      * Removes a bookmark or an empty bookmark folder.
      */
     export function remove(id: string, callback: Function): void;
-    
+
     /**
      * Retrieves the children of the specified BookmarkTreeNode id.
      * @return The `getChildren` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -2288,7 +2292,12 @@ declare namespace chrome {
          * JSON object with request parameters. This object must conform to the remote debugging params scheme for given method.
          * @param callback Response body. If an error occurs while posting the message, the callback will be called with no arguments and runtime.lastError will be set to the error message.
          */
-        export function sendCommand(target: Debuggee, method: string, commandParams?: Object, callback?: (result?: Object) => void): void;
+        export function sendCommand(
+            target: Debuggee,
+            method: string,
+            commandParams?: Object,
+            callback?: (result?: Object) => void,
+        ): void;
 
         /**
          * @since Chrome 28
@@ -3280,7 +3289,11 @@ declare namespace chrome.downloads {
      * @param downloadId The identifier for the download.
      * @param callback A URL to an image that represents the download.
      */
-    export function getFileIcon(downloadId: number, options: GetFileIconOptions, callback: (iconURL: string) => void): void;
+    export function getFileIcon(
+        downloadId: number,
+        options: GetFileIconOptions,
+        callback: (iconURL: string) => void,
+    ): void;
 
     /**
      * Resume a paused download. If the request was successful the download is in progress and unpaused. Otherwise runtime.lastError contains an error message. The request will fail if the download is not active.
@@ -3921,7 +3934,11 @@ declare namespace chrome.extension {
      * function(any response) {...};
      * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendRequest<Request = any, Response = any>(extensionId: string, request: Request, responseCallback?: (response: Response) => void): void;
+    export function sendRequest<Request = any, Response = any>(
+        extensionId: string,
+        request: Request,
+        responseCallback?: (response: Response) => void,
+    ): void;
     /**
      * Sends a single request to other listeners within the extension. Similar to runtime.connect, but only sends a single request with an optional response. The extension.onRequest event is fired in each page of the extension.
      * @deprecated Deprecated since Chrome 33. Please use runtime.sendMessage.
@@ -3929,7 +3946,10 @@ declare namespace chrome.extension {
      * function(any response) {...};
      * Parameter response: The JSON response object sent by the handler of the request. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendRequest<Request = any, Response = any>(request: Request, responseCallback?: (response: Response) => void): void;
+    export function sendRequest<Request = any, Response = any>(
+        request: Request,
+        responseCallback?: (response: Response) => void,
+    ): void;
 
     /**
      * Returns an array of the JavaScript 'window' objects for each of the tabs running inside the current extension. If windowId is specified, returns only the 'window' objects of tabs attached to the specified window.
@@ -6050,7 +6070,10 @@ declare namespace chrome.management {
      * @since Chrome 15
      * @param manifestStr Extension manifest JSON string.
      */
-    export function getPermissionWarningsByManifest(manifestStr: string, callback: (permissionwarnings: string[]) => void): void;
+    export function getPermissionWarningsByManifest(
+        manifestStr: string,
+        callback: (permissionwarnings: string[]) => void,
+    ): void;
 
     /**
      * Launches an application.
@@ -8090,7 +8113,9 @@ declare namespace chrome.runtime {
      * Parameter status: Result of the update check. One of: "throttled", "no_update", or "update_available"
      * Optional parameter details: If an update is available, this contains more information about the available update.
      */
-    export function requestUpdateCheck(callback: (status: RequestUpdateCheckStatus, details?: UpdateCheckDetails) => void): void;
+    export function requestUpdateCheck(
+        callback: (status: RequestUpdateCheckStatus, details?: UpdateCheckDetails) => void,
+    ): void;
 
     /**
      * Restart the ChromeOS device when the app runs in kiosk mode. Otherwise, it's no-op.
@@ -10516,7 +10541,11 @@ declare namespace chrome.tabs {
      * @param callback
      * Parameter dataUrl: A data URL which encodes an image of the visible area of the captured tab. May be assigned to the 'src' property of an HTML Image element for display.
      */
-    export function captureVisibleTab(windowId: number, options: CaptureVisibleTabOptions, callback: (dataUrl: string) => void): void;
+    export function captureVisibleTab(
+        windowId: number,
+        options: CaptureVisibleTabOptions,
+        callback: (dataUrl: string) => void,
+    ): void;
 
     /**
      * Reload a tab.
