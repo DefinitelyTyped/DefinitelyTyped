@@ -2552,3 +2552,40 @@ function testPrinting() {
     });
     chrome.printing.onJobStatusChanged.hasListeners();
 }
+
+function testPrintingMetrics() {
+    chrome.printingMetrics.ColorMode.BLACK_AND_WHITE === "BLACK_AND_WHITE";
+    chrome.printingMetrics.ColorMode.COLOR === "COLOR";
+
+    chrome.printingMetrics.DuplexMode.ONE_SIDED === "ONE_SIDED";
+    chrome.printingMetrics.DuplexMode.TWO_SIDED_LONG_EDGE === "TWO_SIDED_LONG_EDGE";
+    chrome.printingMetrics.DuplexMode.TWO_SIDED_SHORT_EDGE === "TWO_SIDED_SHORT_EDGE";
+
+    chrome.printingMetrics.PrintJobSource.ANDROID_APP === "ANDROID_APP";
+    chrome.printingMetrics.PrintJobSource.EXTENSION === "EXTENSION";
+    chrome.printingMetrics.PrintJobSource.ISOLATED_WEB_APP === "ISOLATED_WEB_APP";
+    chrome.printingMetrics.PrintJobSource.PRINT_PREVIEW === "PRINT_PREVIEW";
+
+    chrome.printingMetrics.PrintJobStatus.CANCELED === "CANCELED";
+    chrome.printingMetrics.PrintJobStatus.FAILED === "FAILED";
+    chrome.printingMetrics.PrintJobStatus.PRINTED === "PRINTED";
+
+    chrome.printingMetrics.PrinterSource.POLICY === "POLICY";
+    chrome.printingMetrics.PrinterSource.USER === "USER";
+
+    chrome.printingMetrics.getPrintJobs(); // $ExpectType Promise<PrintJobInfo[]>
+    chrome.printingMetrics.getPrintJobs(jobs => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printingMetrics.getPrintJobs(jobs => {}).then(jobs => {});
+
+    chrome.printingMetrics.onPrintJobFinished.addListener((jobInfo) => {
+        jobInfo; // $ExpectType PrintJobInfo
+    });
+    chrome.printingMetrics.onPrintJobFinished.removeListener((jobInfo) => {
+        jobInfo; // $ExpectType PrintJobInfo
+    });
+    chrome.printingMetrics.onPrintJobFinished.hasListener((jobInfo) => {
+        jobInfo; // $ExpectType PrintJobInfo
+    });
+    chrome.printingMetrics.onPrintJobFinished.hasListeners();
+}
