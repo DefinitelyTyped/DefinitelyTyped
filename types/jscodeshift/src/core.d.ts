@@ -99,8 +99,12 @@ declare namespace core {
          * If a string is returned but it's the same as the source, the transform is considered to be unsuccessful.
          * If nothing is returned, the file is not supposed to be transformed (which is ok).
          */
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        (file: FileInfo, api: API, options: Options): string | null | undefined | void;
+        (
+            file: FileInfo,
+            api: API,
+            options: Options,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ): Promise<string | null | undefined | void> | string | null | undefined | void;
     }
 
     type ASTNode = astTypes.namedTypes.ASTNode;

@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import React, { FC, useRef } from "react";
 import { Button } from "react-native";
 import Confetti from "react-native-confetti";
 
