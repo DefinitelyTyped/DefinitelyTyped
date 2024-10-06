@@ -1599,7 +1599,6 @@
         "rocksdb",
         "roll-a-die",
         "rollup-plugin-node-globals",
-        "rollup-plugin-progress",
         "rollup-plugin-svelte-svg",
         "rollup-plugin-url",
         "rosie",
