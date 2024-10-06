@@ -1142,6 +1142,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 // _.tail
 {
     _.tail(list); // $ExpectType AbcObject[]
+    _.tail([1, 2, 3] as const); // $ExpectType [2, 3]
+    _.tail([1, 2, 3] as [1, 2, 3]); // $ExpectType [2, 3]
+
     _(list).tail(); // $ExpectType Collection<AbcObject>
     _.chain(list).tail(); // $ExpectType CollectionChain<AbcObject>
     fp.tail(list); // $ExpectType AbcObject[]
