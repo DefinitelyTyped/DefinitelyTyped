@@ -1593,7 +1593,6 @@
         "rn-fetch-blob",
         "rocksdb",
         "rollup-plugin-node-globals",
-        "rollup-plugin-progress",
         "rollup-plugin-svelte-svg",
         "rollup-plugin-url",
         "rosie",
