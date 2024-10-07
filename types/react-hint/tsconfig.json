@@ -8,12 +8,13 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "jsx": "preserve",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-hint-tests.ts"
+        "react-hint-tests.tsx"
     ]
 }

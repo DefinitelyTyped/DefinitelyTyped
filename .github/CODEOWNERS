@@ -656,7 +656,7 @@
 /types/braces/                                            @vemoo @mrmlnc @rejunp
 /types/brainhubeu__react-carousel/                        @jackall3n @sinchang @roberthebel
 /types/braintree/                                         @smrubin @acdr @sedenardi @sebacampos
-/types/braintree-web/                                     @jbuckner @daelmaak
+/types/braintree-web/                                     @daelmaak
 /types/braintree-web-drop-in/                             @saoudrizwan @elmikosch
 /types/bramus__pagination-sequence/                       @kristjanjokull
 /types/branca/                                            @BrettIRL
@@ -2187,6 +2187,7 @@
 /types/find-root/                                         @Alorel
 /types/find-test-names/                                   @peterblazejewicz
 /types/find-unused-sass-variables/                        @peterblazejewicz
+/types/find-unused-sass-variables/v3/                     @peterblazejewicz
 /types/findandreplacedomtext/                             @bartholomej
 /types/findup-sync/                                       @Bartvds @ngbrown @BendingBender @kotarella1110
 /types/fined/                                             @BendingBender
@@ -4859,6 +4860,7 @@
 /types/marker-animate-unobtrusive/                        @viskin
 /types/markitup/                                          @drillbits
 /types/marko/                                             @darkwebdev
+/types/markup-js/                                         @zimeg
 /types/marshal/                                           @JamieMagee
 /types/marv/                                              @rjoonas
 /types/marv-pg-driver/                                    @rjoonas
@@ -5419,6 +5421,7 @@
 /types/node-uuid/                                         @jeffmay
 /types/node-vagrant/                                      @MasterOdin
 /types/node-validator/                                    @kengorab
+/types/node-vault-client/                                 @emmett08
 /types/node-wav/                                          @jameswilddev
 /types/node-webcam/                                       @lordazzi
 /types/node-wget-promise/                                 @sandersn
@@ -5508,6 +5511,7 @@
 /types/number-to-words/                                   @frederickfogerty
 /types/numeral/                                           @vbortone @klujanrosas @KarlosQ @peterblazejewicz
 /types/numjs/                                             @taoqf @mattmm3d
+/types/nums2words-bg/                                     @radostin04
 /types/nunjucks/                                          @MatthewBurstein
 /types/nunjucks-date/                                     @kruncher
 /types/nut-pipe/                                          @kenanhancer
@@ -6314,7 +6318,7 @@
 /types/re-carousel/                                       @jkjustjoshing
 /types/re-template-tag/                                   @bendingbender
 /types/reach__router/                                     @xMokAx @awwit @wroughtec @chilledoj @Eyas
-/types/react/                                             @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @hellatan @priyanshurav @Semigradsky @mattpocock
+/types/react/                                             @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @priyanshurav @Semigradsky @mattpocock
 /types/react/v15/                                         @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @onigoetz @zieka
 /types/react/v16/                                         @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @hellatan @priyanshurav
 /types/react/v17/                                         @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @hellatan @priyanshurav @konsalex
@@ -8239,6 +8243,7 @@
 /types/twit/                                              @Volox @sapphiredev @abraham @siwalikm @plhery @justgoscha @darkade @brianjychan
 /types/twitch-browser/                                    @idegre
 /types/twitch-ext/                                        @beheh @FedeDR @demensky
+/types/twitchat/                                          @Durss @Drilmo
 /types/twitter/                                           @BendingBender
 /types/twitter-autohook/                                  @dubisdev
 /types/twitter-for-web/                                   @chitoku-k @Lucretiel
