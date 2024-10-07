@@ -12,7 +12,9 @@
         "@types/directory-structure-json": "workspace:."
     },
     "owners": [
-        "name": "Valentin Zolotov",
-        "githubUsername": "vdistortion"
+        {
+            "name": "Valentin Zolotov",
+            "githubUsername": "vdistortion"
+        }
     ]
 }
