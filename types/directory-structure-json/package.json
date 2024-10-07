@@ -11,5 +11,8 @@
     "devDependencies": {
         "@types/directory-structure-json": "workspace:."
     },
-    "owners": []
+    "owners": [
+        "name": "Valentin Zolotov",
+        "githubUsername": "vdistortion"
+    ]
 }
