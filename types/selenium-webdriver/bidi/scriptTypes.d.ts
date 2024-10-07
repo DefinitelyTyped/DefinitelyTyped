@@ -1,7 +1,4 @@
-
-
-
-import { RemoteValue } from './remoteValue';
+import { RemoteValue } from "./remoteValue";
 
 interface Source {
     realm: string;
@@ -14,28 +11,27 @@ declare class Message {
     private _source: Source;
 
     constructor(
-        channel:string,
+        channel: string,
         data: RemoteValue,
-        source: Source
-        );
+        source: Source,
+    );
 
     get channel(): string;
 
     get data(): RemoteValue;
 
-    get source(): Source
+    get source(): Source;
 }
 
 declare class source {
-
     private _browsingContextId: string | null;
     private _realmId: string;
 
     constructor(
-        source: Source
+        source: Source,
     );
 
     get browsingContextId(): string | null;
 
-    get realmId(): string
+    get realmId(): string;
 }
