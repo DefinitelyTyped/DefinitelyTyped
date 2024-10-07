@@ -393,19 +393,17 @@ export interface ScreenshotOptions {
  * - `mutation` - use a mutation observer
  * - `interval` - use a polling interval
  */
-export type PollingMethod = "raf" | "mutation" | "interval";
+export type PollingMethod = number | "raf" | "mutation";
 
 export interface PollingOptions {
     /**
-     * Polling method to use.
-     * @default 'raf'
+     * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
+     * `requestAnimationFrame` callback. If the `polling` is `'mutation'` it
+     * will be called when a change is made to the DOM tree. If `polling` is
+     * a number, then it is treated as an interval in milliseconds at which
+     * the function would be executed. Defaults to `raf`.
      */
-    polling?: "raf" | "mutation" | "interval";
-
-    /**
-     * Polling interval in milliseconds if `polling` is set to `interval`.
-     */
-    interval?: number;
+    polling?: PollingMethod;
 }
 
 export interface ElementStateFilter {
@@ -3552,11 +3550,12 @@ export interface Page {
         options?: {
             /**
              * If `polling` is `'raf'`, then `pageFunction` is constantly executed in
-             * `requestAnimationFrame` callback. If `polling` is a number, then it is
-             * treated as an interval in milliseconds at which the function would be
-             * executed. Defaults to `raf`.
+             * `requestAnimationFrame` callback. If the `polling` is `'mutation'` it
+             * will be called when a change is made to the DOM tree. If `polling` is
+             * a number, then it is treated as an interval in milliseconds at which
+             * the function would be executed. Defaults to `raf`.
              */
-            polling?: number | "raf";
+            polling?: PollingMethod;
 
             /**
              * Maximum time in milliseconds. Defaults to `30` seconds. Default is

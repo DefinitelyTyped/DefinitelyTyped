@@ -73,9 +73,9 @@ AudioDecoder.isConfigSupported({
 });
 
 AudioDecoder.isConfigSupported(audioDecoderConfig).then((result: AudioDecoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType AudioDecoderConfig
+    // $ExpectType AudioDecoderConfig | undefined
     result.config;
 });
 
@@ -169,9 +169,9 @@ AudioEncoder.isConfigSupported({
 });
 
 AudioEncoder.isConfigSupported(audioEncoderConfig).then((result: AudioEncoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType AudioEncoderConfig
+    // $ExpectType AudioEncoderConfig | undefined
     result.config;
 });
 

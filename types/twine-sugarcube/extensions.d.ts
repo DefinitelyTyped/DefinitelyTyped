@@ -441,6 +441,17 @@ declare global {
     interface Math {
         /**
          * Returns the given number clamped to the specified bounds. Does not modify the original.
+         * @param num The number to clamp.
+         * @param min The lower bound of the number.
+         * @param max The upper bound of the number.
+         * @since 2.0.0
+         * @example
+         * Math.clamp($stat, 0, 200) // Clamps $stat to the bounds 0–200 and returns the new value
+         * Math.clamp($stat, 1, 6.6) // Clamps $stat to the bounds 1–6.6 and returns the new value
+         */
+        clamp(num: number, min: number, max: number): number;
+        /**
+         * Returns the given number clamped to the specified bounds. Does not modify the original.
          * @param num The number to clamp. May be an actual number or a numerical string.
          * @param min The lower bound of the number.
          * @param max The upper bound of the number.
