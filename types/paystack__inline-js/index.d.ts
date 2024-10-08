@@ -1,4 +1,3 @@
-
 interface PopupTransactionData {
     /**
      * Transaction id, if loaded
@@ -7,7 +6,7 @@ interface PopupTransactionData {
     /**
      * Status of the transaction
      */
-    status: null | 'error' | 'abandoned' | 'auth' | 'failed' | 'success' | 'pending';
+    status: null | "error" | "abandoned" | "auth" | "failed" | "success" | "pending";
     /**
      * List of transaction errors, if any
      */
@@ -29,7 +28,7 @@ interface PopupTransaction {
      *
      * @returns
      */
-    getStatus: () => PopupTransactionData
+    getStatus: () => PopupTransactionData;
 }
 
 interface NewTransactionOptions {
@@ -82,9 +81,9 @@ interface NewTransactionOptions {
      */
     metadata?: {
         custom_fields?: Array<{
-            display_name: string,
-            variable_name: string,
-            value?: string | number,
+            display_name: string;
+            variable_name: string;
+            value?: string | number;
         }>;
     };
     /**
@@ -96,7 +95,6 @@ interface NewTransactionOptions {
      */
     split_code?: string;
     /**
-     *
      * A valid Paystack subaccount code e.g. ACCT_8f4s1eq7ml6rlzj
      */
     subaccountCode?: string;
@@ -155,7 +153,7 @@ interface NewTransactionOptions {
         /**
          * The status of the transaction
          */
-        status: 'success';
+        status: "success";
         /**
          * The transaction ID
          */
@@ -201,23 +199,23 @@ interface NewTransactionOptions {
          * error response from API
          */
         error: {
-            type: 'setup';
+            type: "setup";
             message: string;
-        }
+        },
     ) => void;
 }
 
 declare class PaystackInline {
-    constructor()
+    constructor();
     /**
      * This method starts a new transaction on the checkout form.
      * @param options
      */
-    newTransaction (options: NewTransactionOptions): PopupTransaction;
+    newTransaction(options: NewTransactionOptions): PopupTransaction;
 
-    isLoaded (): boolean;
+    isLoaded(): boolean;
 
-    resumeTransaction (options: {
+    resumeTransaction(options: {
         /**
          * Access code created on the API via the https://paystack.com/docs/#initialize-a-transaction endpoint
          */
@@ -227,11 +225,11 @@ declare class PaystackInline {
     /**
      * Use this to cancel a transaction and hide the checkout iFrame.
      */
-    cancelTransaction (
+    cancelTransaction(
         /**
          * ID or transaction to cancel
          */
-        transaction: string | PopupTransaction
+        transaction: string | PopupTransaction,
     ): void;
 
     /**
@@ -240,19 +238,19 @@ declare class PaystackInline {
      *
      * @param options
      */
-    preloadTransaction (options: NewTransactionOptions): () => void;
+    preloadTransaction(options: NewTransactionOptions): () => void;
 
     /**
      * This method loads a transaction on the checkout form but shows a pre
      * checkout modal before loading the form if a wallet payment e.g Apple Pay is supported.
      */
-    checkout (options: NewTransactionOptions): Promise<PopupTransaction>;
+    checkout(options: NewTransactionOptions): Promise<PopupTransaction>;
 
     /**
      * This method mounts a wallet payment button e.g Apple pay on a provided div
      * and also provides the option to allow a provided button open the checkout form.
      */
-    paymentRequest (
+    paymentRequest(
         options: NewTransactionOptions & {
             /**
              * ID of div to mount the payment request button
@@ -263,8 +261,8 @@ declare class PaystackInline {
              */
             loadPaystackCheckoutButton?: string;
             styles?: {
-                theme: { [key: string]: string },
-                applePay: { [key: string]: string }
+                theme: { [key: string]: string };
+                applePay: { [key: string]: string };
             };
             /**
              * Called when the payment request button has been mounted
@@ -272,7 +270,7 @@ declare class PaystackInline {
              * @returns
              */
             onElementsMount?: (options?: { applePay: boolean } | null) => void;
-        }
+        },
     ): Promise<PopupTransaction>;
 
     /**
@@ -291,7 +289,7 @@ declare class PaystackInline {
         email: string;
         amount: number;
         metadata: string;
-        mode: 'popup';
+        mode: "popup";
     };
 
     status: string | null;
@@ -299,7 +297,7 @@ declare class PaystackInline {
     authorizationUrl: string;
 
     errors: Array<{
-        type: 'setup';
+        type: "setup";
         message: string;
     }>;
 
