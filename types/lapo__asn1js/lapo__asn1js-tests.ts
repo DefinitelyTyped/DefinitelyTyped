@@ -25,17 +25,17 @@ new ASN1(stream, 0, 0, tag, 0, null);
 new ASN1(stream, 0, 0, tag, 0, []);
 
 // Base64
-Base64.decode("abc"); // $ExpectType Uint8Array
-Base64.decode([1, 2, 3]); // $ExpectType Uint8Array
-Base64.decode(new Uint8Array([1, 2, 3])); // $ExpectType Uint8Array
+Base64.decode("abc"); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+Base64.decode([1, 2, 3]); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+Base64.decode(new Uint8Array([1, 2, 3])); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 Base64.pretty("abc"); // $ExpectType string
 Base64.re; // $ExpectType RegExp
-Base64.unarmor("abc"); // $ExpectType Uint8Array
+Base64.unarmor("abc"); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 // Hex
-Hex.decode("abc"); // $ExpectType Uint8Array
-Hex.decode([1, 2, 3]); // $ExpectType Uint8Array
-Hex.decode(new Uint8Array([1, 2, 3])); // $ExpectType Uint8Array
+Hex.decode("abc"); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+Hex.decode([1, 2, 3]); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+Hex.decode(new Uint8Array([1, 2, 3])); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 
 // Int10
 new Int10();

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/twine-sugarcube",
-    "version": "2.36.9999",
+    "version": "2.37.9999",
     "nonNpm": true,
     "nonNpmDescription": "sugarcube",
     "projects": [

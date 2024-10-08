@@ -126,5 +126,4 @@ export const materialPointWidth: ShaderNodeObject<MaterialNode>;
 export const materialDispersion: ShaderNodeObject<MaterialNode>;
 export const materialLightMap: ShaderNodeObject<MaterialNode>;
 export const materialAOMap: ShaderNodeObject<MaterialNode>;
-export const materialRefractionRatio: ShaderNodeObject<MaterialNode>;
 export const materialAnisotropyVector: ShaderNodeObject<UniformNode<Vector2>>;

@@ -2899,12 +2899,14 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: Booleanish | "inherit" | "plaintext-only" | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: Booleanish | undefined;
+        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
@@ -2936,7 +2938,6 @@ declare namespace React {
         vocab?: string | undefined;
 
         // Non-standard Attributes
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;
@@ -3360,7 +3361,6 @@ declare namespace React {
         capture?: boolean | "user" | "environment" | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         disabled?: boolean | undefined;
-        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         form?: string | undefined;
         formAction?:
             | string

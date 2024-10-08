@@ -966,7 +966,7 @@ declare module "assert" {
          * To use strict assertion mode:
          *
          * ```js
-         * import { strict as assert } from 'node:assert';COPY
+         * import { strict as assert } from 'node:assert';
          * import assert from 'node:assert/strict';
          * ```
          *

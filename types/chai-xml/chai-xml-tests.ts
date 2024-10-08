@@ -1,8 +1,7 @@
-import * as chai from "chai";
 import chaiXml = require("chai-xml");
 
-chai.use(chaiXml);
-const expect = chai.expect;
+import("chai").then(({ use }) => use(chaiXml));
+declare const expect: Chai.ExpectStatic;
 
 function test_chaiXml() {
     const testXml = "<a:test attribute1=\"1\" xmlns:a=\"test\"><a:h1><a:h2>test</a:h2></a:h1></a:test>";

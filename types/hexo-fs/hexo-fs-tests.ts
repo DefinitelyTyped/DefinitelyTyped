@@ -1,10 +1,10 @@
+/// <reference types="chai" />
 import "mocha";
 import fs = require("hexo-fs");
-import chai = require("chai");
 import Promise = require("bluebird");
 import { FSWatcher } from "chokidar";
 
-const should = chai.should();
+const should: Chai.Should = {} as any;
 
 let string = "";
 let strings = [string];

@@ -31,8 +31,8 @@ interface AudioDecoderInit {
 }
 
 interface AudioDecoderSupport {
-    config: AudioDecoderConfig;
-    supported: boolean;
+    config?: AudioDecoderConfig;
+    supported?: boolean;
 }
 
 interface AudioEncoderConfig {
@@ -48,8 +48,8 @@ interface AudioEncoderInit {
 }
 
 interface AudioEncoderSupport {
-    config: AudioEncoderConfig;
-    supported: boolean;
+    config?: AudioEncoderConfig;
+    supported?: boolean;
 }
 
 interface AvcEncoderConfig {
@@ -192,7 +192,7 @@ interface VideoFrameInit {
 
 interface AudioData {
     readonly duration: number;
-    readonly format: AudioSampleFormat;
+    readonly format: AudioSampleFormat | null;
     readonly numberOfChannels: number;
     readonly numberOfFrames: number;
     readonly sampleRate: number;
@@ -404,10 +404,10 @@ interface WebCodecsErrorCallback {
 // type BitrateMode = "constant" | "variable";
 type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
 // type AlphaOption = "discard" | "keep";
-type AudioSampleFormat = "f32" | "f32-planar" | "s16" | "s16-planar" | "s32" | "s32-planar" | "u8" | "u8-planar";
+// type AudioSampleFormat = "f32" | "f32-planar" | "s16" | "s16-planar" | "s32" | "s32-planar" | "u8" | "u8-planar";
 // type AvcBitstreamFormat = "annexb" | "avc";
 // type CodecState = "closed" | "configured" | "unconfigured";
-type EncodedAudioChunkType = "delta" | "key";
+// type EncodedAudioChunkType = "delta" | "key";
 // type EncodedVideoChunkType = "delta" | "key";
 type HardwarePreference = "no-preference" | "prefer-hardware" | "prefer-software";
 // type LatencyMode = "quality" | "realtime";

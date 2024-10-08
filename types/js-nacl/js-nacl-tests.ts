@@ -30,15 +30,15 @@ function demo_hex(inst: nacl.Nacl): void {
 
 function demo_hash(inst: nacl.Nacl): void {
     const msg: nacl.Message = inst.encode_utf8("some text to hash");
-    inst.crypto_hash(msg); // $ExpectType Uint8Array
-    inst.crypto_hash_sha256(msg); // $ExpectType Uint8Array
+    inst.crypto_hash(msg); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    inst.crypto_hash_sha256(msg); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 }
 
 function demo_sign(inst: nacl.Nacl): void {
     const keypair = inst.crypto_sign_keypair();
     const msg: nacl.Message = inst.encode_utf8("very important message");
     const packet = inst.crypto_sign(msg, keypair.signSk);
-    inst.crypto_sign_open(packet, keypair.signPk); // $ExpectType Uint8Array | null
+    inst.crypto_sign_open(packet, keypair.signPk); // $ExpectType Uint8Array | null || Uint8Array<ArrayBuffer> | null || Message | null
 
     const sig = inst.crypto_sign_detached(msg, keypair.signSk);
     inst.crypto_sign_verify_detached(sig, msg, keypair.signPk); // $ExpectType boolean
@@ -51,12 +51,12 @@ function demo_box(inst: nacl.Nacl): void {
     const nonce = inst.crypto_box_random_nonce();
 
     const cipher = inst.crypto_box(msg, nonce, rcpt.boxPk, sender.boxSk);
-    inst.crypto_box_open(cipher, nonce, sender.boxPk, rcpt.boxSk); // $ExpectType Uint8Array
+    inst.crypto_box_open(cipher, nonce, sender.boxPk, rcpt.boxSk); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike> || Message
 
     const senderPrecompute = inst.crypto_box_precompute(rcpt.boxPk, sender.boxSk);
     const rcptPrecompute = inst.crypto_box_precompute(sender.boxPk, rcpt.boxSk);
     const cipher2 = inst.crypto_box_precomputed(msg, nonce, senderPrecompute);
-    inst.crypto_box_open_precomputed(cipher2, nonce, rcptPrecompute); // $ExpectType Uint8Array
+    inst.crypto_box_open_precomputed(cipher2, nonce, rcptPrecompute); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike> || Message
 }
 
 function demo_secret_box(inst: nacl.Nacl): void {
@@ -65,7 +65,7 @@ function demo_secret_box(inst: nacl.Nacl): void {
     const nonce = inst.crypto_secretbox_random_nonce();
 
     const cipher = inst.crypto_secretbox(msg, nonce, keypair.boxSk);
-    inst.crypto_secretbox(cipher, nonce, keypair.boxSk); // $ExpectType Uint8Array
+    inst.crypto_secretbox(cipher, nonce, keypair.boxSk); // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike> || CipherText
 }
 
 function demo_derived(inst: nacl.Nacl): void {
@@ -76,7 +76,7 @@ function demo_derived(inst: nacl.Nacl): void {
 }
 
 function demo_random(inst: nacl.Nacl): void {
-    inst.random_bytes(32); // $ExpectType Uint8Array
+    inst.random_bytes(32); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 }
 
 async function demo_async_instantiate() {

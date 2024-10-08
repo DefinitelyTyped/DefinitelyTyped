@@ -15,6 +15,11 @@ export interface BaseOptions {
      * @default false
      */
     ignoreCase?: boolean | undefined;
+
+    /**
+     * a number specifying the maximum edit distance to consider between the old and new texts. If the edit distance is higher than this, jsdiff will return `undefined` instead of a diff. You can use this to limit the computational cost of diffing large, very different texts by giving up early if the cost will be huge. Works for functions that return change objects and also for `structuredPatch`, but not other patch-generation functions.
+     */
+    maxEditLength?: number | undefined;
 }
 
 export interface WordsOptions extends BaseOptions {

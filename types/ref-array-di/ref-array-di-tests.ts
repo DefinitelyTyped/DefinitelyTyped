@@ -107,10 +107,10 @@ ar.toJSON();
 // $ExpectType string
 ar.inspect();
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ar.buffer;
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 ar.ref();
 
 declare const ar1: ref_array.TypedArray<number, 1>;

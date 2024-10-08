@@ -5,8 +5,10 @@
     "projects": [
         "https://github.com/azuqua/react-dnd-scrollzone#readme"
     ],
+    "dependencies": {
+        "@types/react": "*"
+    },
     "devDependencies": {
-        "@types/react": "*",
         "@types/react-dnd-scrollzone": "workspace:."
     },
     "owners": [

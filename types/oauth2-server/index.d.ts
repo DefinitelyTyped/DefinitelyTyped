@@ -97,21 +97,30 @@ declare namespace OAuth2Server {
         redirect(url: string): void;
     }
 
+    interface AbstractGrantOptions extends TokenOptions {
+        model: BaseModel;
+    }
+
     abstract class AbstractGrantType {
+        model: BaseModel;
+        accessTokenLifetime?: number | undefined;
+        refreshTokenLifetime?: number | undefined;
+        alwaysIssueNewRefreshToken?: boolean | undefined;
+
         /**
          * Instantiates AbstractGrantType using the supplied options.
          */
-        constructor(options: TokenOptions);
+        constructor(options: AbstractGrantOptions);
 
         /**
          * Generate access token. Calls Model#generateAccessToken() if implemented.
          */
-        generateAccessToken(client: Client, user: User, scope: string | string[]): Promise<string>;
+        generateAccessToken(client: Client, user: User, scope: Scope): Promise<string>;
 
         /**
          * Generate refresh token. Calls Model#generateRefreshToken() if implemented.
          */
-        generateRefreshToken(client: Client, user: User, scope: string | string[]): Promise<string>;
+        generateRefreshToken(client: Client, user: User, scope: Scope): Promise<string>;
 
         /**
          * Get access token expiration date.
@@ -131,7 +140,7 @@ declare namespace OAuth2Server {
         /**
          * Validate requested scope. Calls Model#validateScope() if implemented.
          */
-        validateScope(user: User, client: Client, scope: string | string[]): Promise<string | string[] | Falsey>;
+        validateScope(user: User, client: Client, scope: Scope): Promise<Scope | Falsey>;
 
         /**
          * Retrieve info from the request and client and return token
@@ -150,7 +159,7 @@ declare namespace OAuth2Server {
         /**
          * The scope(s) to authenticate.
          */
-        scope?: string | string[] | undefined;
+        scope?: Scope | undefined;
 
         /**
          * Set the X-Accepted-OAuth-Scopes HTTP header on response objects.
@@ -227,6 +236,8 @@ declare namespace OAuth2Server {
      */
     type Falsey = "" | 0 | false | null | undefined;
 
+    type Scope = string | string[];
+
     interface BaseModel {
         /**
          * Invoked to generate a new access token.
@@ -234,7 +245,7 @@ declare namespace OAuth2Server {
         generateAccessToken?(
             client: Client,
             user: User,
-            scope: string | string[],
+            scope: Scope,
             callback?: Callback<string>,
         ): Promise<string>;
 
@@ -250,7 +261,7 @@ declare namespace OAuth2Server {
         /**
          * Invoked to save an access token and optionally a refresh token, depending on the grant type.
          */
-        saveToken(token: Token, client: Client, user: User, callback?: Callback<Token>): Promise<Token | Falsey>;
+        saveToken(token: PartialToken, client: Client, user: User, callback?: Callback<Token>): Promise<Token | Falsey>;
     }
 
     interface RequestAuthenticationModel {
@@ -262,7 +273,7 @@ declare namespace OAuth2Server {
         /**
          * Invoked during request authentication to check if the provided access token was authorized the requested scopes.
          */
-        verifyScope(token: Token, scope: string | string[], callback?: Callback<boolean>): Promise<boolean>;
+        verifyScope(token: Token, scope: Scope, callback?: Callback<boolean>): Promise<boolean>;
     }
 
     interface AuthorizationCodeModel extends BaseModel, RequestAuthenticationModel {
@@ -272,7 +283,7 @@ declare namespace OAuth2Server {
         generateRefreshToken?(
             client: Client,
             user: User,
-            scope: string | string[],
+            scope: Scope,
             callback?: Callback<string>,
         ): Promise<string>;
 
@@ -282,7 +293,7 @@ declare namespace OAuth2Server {
         generateAuthorizationCode?(
             client: Client,
             user: User,
-            scope: string | string[],
+            scope: Scope,
             callback?: Callback<string>,
         ): Promise<string>;
 
@@ -315,9 +326,9 @@ declare namespace OAuth2Server {
         validateScope?(
             user: User,
             client: Client,
-            scope: string | string[],
+            scope: Scope,
             callback?: Callback<string | Falsey>,
-        ): Promise<string | string[] | Falsey>;
+        ): Promise<Scope | Falsey>;
     }
 
     interface PasswordModel extends BaseModel, RequestAuthenticationModel {
@@ -327,7 +338,7 @@ declare namespace OAuth2Server {
         generateRefreshToken?(
             client: Client,
             user: User,
-            scope: string | string[],
+            scope: Scope,
             callback?: Callback<string>,
         ): Promise<string>;
 
@@ -342,9 +353,9 @@ declare namespace OAuth2Server {
         validateScope?(
             user: User,
             client: Client,
-            scope: string | string[],
+            scope: Scope,
             callback?: Callback<string | Falsey>,
-        ): Promise<string | string[] | Falsey>;
+        ): Promise<Scope | Falsey>;
     }
 
     interface RefreshTokenModel extends BaseModel, RequestAuthenticationModel {
@@ -354,7 +365,7 @@ declare namespace OAuth2Server {
         generateRefreshToken?(
             client: Client,
             user: User,
-            scope: string | string[],
+            scope: Scope,
             callback?: Callback<string>,
         ): Promise<string>;
 
@@ -381,9 +392,9 @@ declare namespace OAuth2Server {
         validateScope?(
             user: User,
             client: Client,
-            scope: string | string[],
+            scope: Scope,
             callback?: Callback<string | Falsey>,
-        ): Promise<string | string[] | Falsey>;
+        ): Promise<Scope | Falsey>;
     }
 
     interface ExtensionModel extends BaseModel, RequestAuthenticationModel {}
@@ -415,7 +426,7 @@ declare namespace OAuth2Server {
         authorizationCode: string;
         expiresAt: Date;
         redirectUri: string;
-        scope?: string | string[] | undefined;
+        scope?: Scope | undefined;
         client: Client;
         user: User;
         [key: string]: any;
@@ -429,9 +440,18 @@ declare namespace OAuth2Server {
         accessTokenExpiresAt?: Date | undefined;
         refreshToken?: string | undefined;
         refreshTokenExpiresAt?: Date | undefined;
-        scope?: string | string[] | undefined;
+        scope?: Scope | undefined;
         client: Client;
         user: User;
+        [key: string]: any;
+    }
+
+    interface PartialToken {
+        scope?: Scope;
+        accessToken: string;
+        accessTokenExpiresAt?: Date | undefined;
+        refreshToken?: string | undefined;
+        refreshTokenExpiresAt?: Date | undefined;
         [key: string]: any;
     }
 
@@ -441,7 +461,7 @@ declare namespace OAuth2Server {
     interface RefreshToken {
         refreshToken: string;
         refreshTokenExpiresAt?: Date | undefined;
-        scope?: string | string[] | undefined;
+        scope?: Scope | undefined;
         client: Client;
         user: User;
         [key: string]: any;

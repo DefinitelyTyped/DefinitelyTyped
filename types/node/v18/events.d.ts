@@ -22,7 +22,7 @@
  * the `eventEmitter.emit()` method is used to trigger the event.
  *
  * ```js
- * const EventEmitter = require('events');
+ * import EventEmitter from 'node:events';
  *
  * class MyEmitter extends EventEmitter {}
  *
@@ -116,7 +116,7 @@ declare module "events" {
      * The `EventEmitter` class is defined and exposed by the `events` module:
      *
      * ```js
-     * const EventEmitter = require('events');
+     * import EventEmitter from 'node:events';
      * ```
      *
      * All `EventEmitter`s emit the event `'newListener'` when new listeners are
@@ -140,7 +140,7 @@ declare module "events" {
          * semantics and does not listen to the `'error'` event.
          *
          * ```js
-         * const { once, EventEmitter } = require('events');
+         * import { once, EventEmitter } from 'node:events';
          *
          * async function run() {
          *   const ee = new EventEmitter();
@@ -172,7 +172,7 @@ declare module "events" {
          * special handling:
          *
          * ```js
-         * const { EventEmitter, once } = require('events');
+         * import { EventEmitter, once } from 'node:events';
          *
          * const ee = new EventEmitter();
          *
@@ -188,7 +188,7 @@ declare module "events" {
          * An `AbortSignal` can be used to cancel waiting for the event:
          *
          * ```js
-         * const { EventEmitter, once } = require('events');
+         * import { EventEmitter, once } from 'node:events';
          *
          * const ee = new EventEmitter();
          * const ac = new AbortController();
@@ -220,7 +220,7 @@ declare module "events" {
         static once(emitter: _DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
-         * const { on, EventEmitter } = require('events');
+         * import { on, EventEmitter } from 'node:events';
          *
          * (async () => {
          *   const ee = new EventEmitter();
@@ -249,7 +249,7 @@ declare module "events" {
          * An `AbortSignal` can be used to cancel waiting on events:
          *
          * ```js
-         * const { on, EventEmitter } = require('events');
+         * import { on, EventEmitter } from 'node:events';
          * const ac = new AbortController();
          *
          * (async () => {
@@ -285,7 +285,7 @@ declare module "events" {
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
          *
          * ```js
-         * const { EventEmitter, listenerCount } = require('events');
+         * import { EventEmitter, listenerCount } from 'node:events';
          * const myEmitter = new EventEmitter();
          * myEmitter.on('event', () => {});
          * myEmitter.on('event', () => {});
@@ -308,7 +308,7 @@ declare module "events" {
          * event target. This is useful for debugging and diagnostic purposes.
          *
          * ```js
-         * const { getEventListeners, EventEmitter } = require('events');
+         * import { getEventListeners, EventEmitter } from 'node:events';
          *
          * {
          *   const ee = new EventEmitter();
@@ -357,10 +357,10 @@ declare module "events" {
         static getMaxListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter): number;
         /**
          * ```js
-         * const {
+         * import {
          *   setMaxListeners,
          *   EventEmitter
-         * } = require('events');
+         * } from 'node:events';
          *
          * const target = new EventTarget();
          * const emitter = new EventEmitter();
@@ -369,7 +369,7 @@ declare module "events" {
          * ```
          * @since v15.4.0
          * @param n A non-negative number. The maximum number of listeners per `EventTarget` event.
-         * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
+         * @param eventTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
          * objects.
          */
         static setMaxListeners(n?: number, ...eventTargets: Array<_DOMEventTarget | NodeJS.EventEmitter>): void;
@@ -711,7 +711,7 @@ declare module "events" {
                  * Returns `true` if the event had listeners, `false` otherwise.
                  *
                  * ```js
-                 * const EventEmitter = require('events');
+                 * import EventEmitter from 'node:events';
                  * const myEmitter = new EventEmitter();
                  *
                  * // First listener
@@ -794,7 +794,7 @@ declare module "events" {
                  * listeners. The values in the array are strings or `Symbol`s.
                  *
                  * ```js
-                 * const EventEmitter = require('events');
+                 * import EventEmitter from 'node:events';
                  * const myEE = new EventEmitter();
                  * myEE.on('foo', () => {});
                  * myEE.on('bar', () => {});

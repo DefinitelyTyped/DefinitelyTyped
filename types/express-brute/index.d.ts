@@ -23,9 +23,9 @@ declare class ExpressBrute {
      * @param {Request}     request     The HTTP request.
      * @param {Response}    response    The HTTP response.
      * @param {Function}    next        The next middleware.
-     * @return {RequestHandler} The Request handler.
+     * @return {void}
      */
-    prevent(request: express.Request, response: express.Response, next: express.NextFunction): express.RequestHandler;
+    prevent: express.RequestHandler;
 
     /**
      * @summary Resets the wait time between requests back to its initial value.

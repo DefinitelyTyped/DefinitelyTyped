@@ -104,6 +104,10 @@
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
         },
+        "allure-js-commons": {
+            "libraryName": "allure-js-commons",
+            "asOfVersion": "2.0.0"
+        },
         "amazon-connect-streams": {
             "libraryName": "amazon-connect-streams",
             "asOfVersion": "1.4.8"
@@ -6406,6 +6410,10 @@
         "victory": {
             "libraryName": "victory",
             "asOfVersion": "35.0.0"
+        },
+        "videojs-hotkeys": {
+            "libraryName": "videojs-hotkeys",
+            "asOfVersion": "0.2.29"
         },
         "viewerjs": {
             "libraryName": "viewerjs",
