@@ -39,10 +39,12 @@ const tx = paystackPop.newTransaction({
         ],
     },
     onSuccess (response) {
+        console.log(response)
     },
     onCancel () {
     },
     onError: (error) => {
+        console.log(error)
     },
 });
 

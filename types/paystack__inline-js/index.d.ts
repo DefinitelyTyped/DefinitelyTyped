@@ -80,13 +80,13 @@ interface NewTransactionOptions {
     /**
      * A valid object of extra information that you want to be saved to the transaction. To show this on the dashboard, see https://www.npmjs.com/package/@paystack/inline-js#tip-seeing-your-metadata-on-the-dashboard
      */
-    metadata?: Array<{
-        custom_fields?: {
+    metadata?: {
+        custom_fields?: Array<{
             display_name: string,
             variable_name: string,
             value?: string | number,
-        };
-    }>;
+        }>;
+    };
     /**
      * Unique case sensitive transaction reference. Only -,., = and alphanumeric characters allowed.
      */
