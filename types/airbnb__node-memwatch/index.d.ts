@@ -1,4 +1,5 @@
 export interface GcStats {
+    gc_ts: number; // timestamp
     gcScavengeCount: number;
     gcScavengeTime: number; // nanoseconds
     gcMarkSweepCompactCount: number;
