@@ -2349,6 +2349,10 @@ declare namespace mapboxgl {
         paint?: SkyPaint | undefined;
     }
 
+    interface SlotLayer extends Layer {
+        type: "slot";
+    }
+
     export type AnyLayer =
         | BackgroundLayer
         | CircleLayer
@@ -2360,7 +2364,8 @@ declare namespace mapboxgl {
         | RasterLayer
         | SymbolLayer
         | CustomLayerInterface
-        | SkyLayer;
+        | SkyLayer
+        | SlotLayer;
 
     // See https://docs.mapbox.com/mapbox-gl-js/api/#customlayerinterface
     export interface CustomLayerInterface {
