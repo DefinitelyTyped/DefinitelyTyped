@@ -32,7 +32,7 @@ async function topLevel() {
         assistantCapabilities.defaultTopK,
         assistantCapabilities.maxTopK,
         assistantCapabilities.defaultTemperature,
-        assistantCapabilities.supportsLanguage("de"),
+        assistantCapabilities.languageAvailable("de"),
     );
 
     assistant.addEventListener("contextoverflow", () => {});
@@ -73,10 +73,12 @@ async function topLevel() {
     const summarizerCapabilities = await window.ai.summarizer.capabilities();
     console.log(
         summarizerCapabilities.available,
-        summarizerCapabilities.supportsType("teaser"),
-        summarizerCapabilities.supportsFormat("plain-text"),
-        summarizerCapabilities.supportsLength("long"),
-        summarizerCapabilities.supportsInputLanguage("de"),
+        summarizerCapabilities.createOptionsAvailable({
+            type: "teaser",
+            format: "plain-text",
+            length: "long",
+        }),
+        summarizerCapabilities.languageAvailable("de"),
     );
 
     const summarizerResult: string = await summarizer.summarize("foo", {
@@ -111,10 +113,12 @@ async function topLevel() {
     const writerCapabilities = await window.ai.writer.capabilities();
     console.log(
         writerCapabilities.available,
-        writerCapabilities.supportsTone("casual"),
-        writerCapabilities.supportsFormat("plain-text"),
-        writerCapabilities.supportsLength("long"),
-        writerCapabilities.supportsInputLanguage("de"),
+        writerCapabilities.createOptionsAvailable({
+            tone: "casual",
+            format: "plain-text",
+            length: "long",
+        }),
+        writerCapabilities.languageAvailable("de"),
     );
 
     const writerResult: string = await writer.write("foo", { signal: (new AbortController()).signal, context: "foo" });
@@ -146,10 +150,12 @@ async function topLevel() {
     const rewriterCapabilities = await window.ai.rewriter.capabilities();
     console.log(
         rewriterCapabilities.available,
-        rewriterCapabilities.supportsTone("more-casual"),
-        rewriterCapabilities.supportsFormat("plain-text"),
-        rewriterCapabilities.supportsLength("as-is"),
-        rewriterCapabilities.supportsInputLanguage("de"),
+        rewriterCapabilities.createOptionsAvailable({
+            tone: "more-casual",
+            format: "plain-text",
+            length: "as-is",
+        }),
+        rewriterCapabilities.languageAvailable("de"),
     );
 
     const rewriterResult: string = await rewriter.rewrite("foo", {
