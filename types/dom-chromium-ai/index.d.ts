@@ -166,14 +166,17 @@ interface AISummarizerFactory {
     capabilities(): Promise<AISummarizerCapabilities>;
 }
 
-interface AISummarizerCreateOptions {
+interface AISummarizerCreateCoreOptions {
+    type?: AISummarizerType;
+    format?: AISummarizerFormat;
+    length?: AISummarizerLength;
+}
+
+interface AISummarizerCreateOptions extends AISummarizerCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    type?: AISummarizerType;
-    format?: AISummarizerFormat;
-    length?: AISummarizerLength;
 }
 
 type AISummarizerType = "tl;dr" | "key-points" | "teaser" | "headline";
@@ -200,10 +203,7 @@ interface AISummarizerSummarizeOptions {
 interface AISummarizerCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsType(type: AISummarizerType): AICapabilityAvailability;
-    supportsFormat(format: AISummarizerFormat): AICapabilityAvailability;
-    supportsLength(length: AISummarizerLength): AICapabilityAvailability;
-
+    createOptionsAvailable(options: AISummarizerCreateCoreOptions): AICapabilityAvailability;
     languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
@@ -215,14 +215,17 @@ interface AIWriterFactory {
     capabilities(): Promise<AIWriterCapabilities>;
 }
 
-interface AIWriterCreateOptions {
+interface AIWriterCreateCoreOptions {
+    tone?: AIWriterTone;
+    format?: AIWriterFormat;
+    length?: AIWriterLength;
+}
+
+interface AIWriterCreateOptions extends AIWriterCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    tone?: AIWriterTone;
-    format?: AIWriterFormat;
-    length?: AIWriterLength;
 }
 
 type AIWriterTone = "formal" | "neutral" | "casual";
@@ -249,10 +252,7 @@ interface AIWriterWriteOptions {
 interface AIWriterCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsTone(tone: AIWriterTone): AICapabilityAvailability;
-    supportsFormat(format: AIWriterFormat): AICapabilityAvailability;
-    supportsLength(length: AIWriterLength): AICapabilityAvailability;
-
+    createOptionsAvailable(options: AIWriterCreateCoreOptions): AICapabilityAvailability;
     languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
@@ -264,14 +264,17 @@ interface AIRewriterFactory {
     capabilities(): Promise<AIRewriterCapabilities>;
 }
 
-interface AIRewriterCreateOptions {
+interface AIRewriterCreateCoreOptions {
+    tone?: AIRewriterTone;
+    format?: AIRewriterFormat;
+    length?: AIRewriterLength;
+}
+
+interface AIRewriterCreateOptions extends AIRewriterCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    tone?: AIRewriterTone;
-    format?: AIRewriterFormat;
-    length?: AIRewriterLength;
 }
 
 type AIRewriterTone = "as-is" | "more-formal" | "more-casual";
@@ -298,10 +301,7 @@ interface AIRewriterRewriteOptions {
 interface AIRewriterCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsTone(tone: AIRewriterTone): AICapabilityAvailability;
-    supportsFormat(format: AIRewriterFormat): AICapabilityAvailability;
-    supportsLength(length: AIRewriterLength): AICapabilityAvailability;
-
+    createOptionsAvailable(options: AIRewriterCreateCoreOptions): AICapabilityAvailability;
     languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
