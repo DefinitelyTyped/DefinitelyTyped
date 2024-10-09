@@ -461,6 +461,21 @@ If the implementation package uses ESM and specifies `"type": "module"`, then yo
 
 This also applies if the implementation package has `exports` in its package.json.
 
+##### Peer dependencies
+
+Definitely Typed allows `peerDependencies` in `package.json`.
+Peer dependencies can help prevent situations where a package manager unexpectedly installs too-new versions or more than one version of the same package.
+However, peer dependencies have downsides; package managers differ in their handling of peer dependencies (e.g., `yarn` does not auto-install them, `npm` requires `--legacy-peer-deps` for mismatches).
+As such, PRs introducing new peer dependencies require maintainer approval and should be limited to specific circumstances.
+
+Peer dependencies can be used in cases where the peer dependency is _already_ going to be installed by the downstream consumer.
+For example, a DT package for a React component can specify a peer dependency on `@types/react@*`, as the consumer will have needed to install `@types/react` to use JSX in the first place.
+If the consumer installs `@types/react@16` in their project, but a newer version of `@types/react` is available on npm, the peer dependency may help the package manager choose `@types/react@16` instead of that newer version.
+
+If a package simply exposes types from another package as a part of its API due to a regular dependency in the upstream package, it should not use a peer dependency.
+For example, `express` depends on `qs`, and `@types/express` references `@types/qs` in its types, but installing `express` does not require a consumer to manually install `qs` to be usable.
+Using a peer dependency in this case may cause downstream consumers to need to manually install `@types/qs` even though `qs` it's a transitive dependency.
+
 #### `.npmignore`
 
 This file defines which files are to be included in each `@types` package. It must take a specific form. For packages with only one version in the repo:
