@@ -1,26 +1,32 @@
 import * as L from "leaflet";
 
 declare module "leaflet" {
-    interface GPXMarkerOptions {
-        startIconUrl?: string;
-        endIconUrl?: string;
-        shadowUrl?: string | undefined;
-        wptIconUrls?: {
-            [key: string]: string;
-        };
-        startIcon?: Icon | undefined;
-        endIcon?: Icon | undefined;
+    interface GPXMarkerOptions extends BaseIconOptions {
+        clickable?: boolean;
+    }
+
+    interface GPXMarker {
+        startIcon?: Icon | string | undefined;
+        endIcon?: Icon | string | undefined;
         wptIcons?: {
-            [key: string]: Icon;
+            [key: string]: Icon | string;
         };
+        wptTypeIcons?: {
+            [key: string]: Icon | string;
+        };
+        pointMatchers?: { regex: RegExp; icon: Icon | string}[];
     }
 
     interface GPXOptions {
         async?: boolean | undefined;
         max_point_interval?: number | undefined;
+        markers?: GPXMarker | undefined;
         marker_options?: GPXMarkerOptions | undefined;
         polyline_options?: PolylineOptions | undefined;
-        gpx_options?: { parseElements: ["track", "route", "waypoint"] } | undefined;
+        gpx_options?: { 
+            parseElements: ["track", "route", "waypoint"];
+            joinTrackSegments?: boolean | undefined
+        } | undefined;
     }
 
     class GPX extends FeatureGroup {
