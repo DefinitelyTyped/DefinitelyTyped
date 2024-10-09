@@ -14,7 +14,7 @@ declare module "leaflet" {
         wptTypeIcons?: {
             [key: string]: Icon | string;
         };
-        pointMatchers?: { regex: RegExp; icon: Icon | string}[];
+        pointMatchers?: Array<{ regex: RegExp; icon: Icon | string}>;
     }
 
     interface GPXOptions {
