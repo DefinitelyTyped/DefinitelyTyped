@@ -1,5 +1,9 @@
 import commandExists from "command-exists-promise";
 
 (async (): Promise<void> => {
-    await commandExists("ls"); //$ExpectType boolean
+    // $ExpectType boolean
+    await commandExists("ls");
+
+    // @ts-expect-error
+    await commandExists()
 })();
