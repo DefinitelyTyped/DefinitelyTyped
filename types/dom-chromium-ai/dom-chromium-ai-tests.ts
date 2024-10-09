@@ -2,18 +2,18 @@ async function topLevel() {
     // Assistant
 
     // Negative tests
-    await window.ai.assistant.create({
+    await window.ai.languageModel.create({
         systemPrompt: "foo",
         // @ts-expect-error - System prompt cannot be part of the array if systemPrompt is specified.
         initialPrompts: [{ role: "system" }],
     });
-    await window.ai.assistant.create({
+    await window.ai.languageModel.create({
         // @ts-expect-error - System prompt must be first element of the initialPrompt array.
         initialPrompts: [{ role: "user" }, { role: "system" }],
     });
 
     // Positive tests
-    const assistant = await window.ai.assistant.create({
+    const assistant = await window.ai.languageModel.create({
         topK: 1,
         temperature: 0,
         signal: (new AbortController()).signal,
@@ -26,7 +26,7 @@ async function topLevel() {
         },
     });
 
-    const assistantCapabilities = await window.ai.assistant.capabilities();
+    const assistantCapabilities = await window.ai.languageModel.capabilities();
     console.log(
         assistantCapabilities.available,
         assistantCapabilities.defaultTopK,
@@ -47,10 +47,10 @@ async function topLevel() {
         console.log(chunk);
     }
 
-    const assistantClone1: AIAssistant = await assistant.clone();
+    const assistantClone1: AILanguageModel = await assistant.clone();
     console.log(assistantClone1);
 
-    const assistantClone2: AIAssistant = await assistant.clone({ signal: (new AbortController()).signal });
+    const assistantClone2: AILanguageModel = await assistant.clone({ signal: (new AbortController()).signal });
     console.log(assistantClone2);
 
     assistant.destroy();
