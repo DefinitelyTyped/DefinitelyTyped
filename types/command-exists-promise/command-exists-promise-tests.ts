@@ -5,5 +5,5 @@ import commandExists from "command-exists-promise";
     await commandExists("ls");
 
     // @ts-expect-error
-    await commandExists()
+    await commandExists();
 })();
