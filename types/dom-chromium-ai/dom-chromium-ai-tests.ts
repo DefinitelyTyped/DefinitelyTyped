@@ -13,6 +13,7 @@ async function topLevel() {
     });
 
     // Positive tests
+    // System prompt in create options
     const assistant = await window.ai.languageModel.create({
         topK: 1,
         temperature: 0,
@@ -26,6 +27,16 @@ async function topLevel() {
         },
     });
 
+    // System prompt in initial prompts
+    const assistant2 = await window.ai.languageModel.create({
+        initialPrompts: [
+            { role: "system", content: "foo" },
+            { role: "assistant", content: "foo" },
+            { role: "user", content: "foo" },
+        ],
+    });
+    console.log(assistant2);
+
     const assistantCapabilities = await window.ai.languageModel.capabilities();
     console.log(
         assistantCapabilities.available,
@@ -37,13 +48,50 @@ async function topLevel() {
 
     assistant.addEventListener("contextoverflow", () => {});
 
-    const promptTokens: number = await assistant.countPromptTokens("foo", { signal: (new AbortController()).signal });
-    console.log(promptTokens);
+    const promptTokens1: number = await assistant.countPromptTokens("foo", { signal: (new AbortController()).signal });
+    console.log(promptTokens1);
 
-    const assistantResult: string = await assistant.prompt("foo", { signal: (new AbortController()).signal });
-    console.log(assistantResult);
+    const promptTokens2: number = await assistant.countPromptTokens({ role: "assistant", content: "foo" }, {
+        signal: (new AbortController()).signal,
+    });
+    console.log(promptTokens2);
+
+    const promptTokens3: number = await assistant.countPromptTokens([
+        { role: "assistant", content: "foo" },
+        { role: "user", content: "bar" },
+    ], { signal: (new AbortController()).signal });
+    console.log(promptTokens3);
+
+    const assistantResult1: string = await assistant.prompt("foo", { signal: (new AbortController()).signal });
+    console.log(assistantResult1);
+
+    const assistantResult2: string = await assistant.prompt({ role: "assistant", content: "foo" });
+    console.log(assistantResult2);
+
+    const assistantResult3: string = await assistant.prompt([
+        { role: "assistant", content: "foo" },
+        { role: "user", content: "bar" },
+    ]);
+    console.log(assistantResult3);
 
     for await (const chunk of assistant.promptStreaming("foo", { signal: (new AbortController()).signal })) {
+        console.log(chunk);
+    }
+
+    for await (
+        const chunk of assistant.promptStreaming({ role: "assistant", content: "foo" }, {
+            signal: (new AbortController()).signal,
+        })
+    ) {
+        console.log(chunk);
+    }
+
+    for await (
+        const chunk of assistant.promptStreaming([
+            { role: "assistant", content: "foo" },
+            { role: "user", content: "bar" },
+        ], { signal: (new AbortController()).signal })
+    ) {
         console.log(chunk);
     }
 

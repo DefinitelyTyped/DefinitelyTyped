@@ -67,40 +67,40 @@ interface AILanguageModelCreateOptions {
 
 interface AILanguageModelCreateOptionsWithSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: string;
-    initialPrompts?: Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>;
+    initialPrompts?: AILanguageModelPrompt[];
 }
 
 interface AILanguageModelCreateOptionsWithoutSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: never;
     initialPrompts?:
-        | [AILanguageModelSystemPrompt, ...Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>]
-        | Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>;
+        | [AILanguageModelSystemPrompt, ...AILanguageModelPrompt[]]
+        | AILanguageModelPrompt[];
 }
 
-type AILanguageModelPromptRole = "system" | "user" | "assistant";
+type AILanguageModelPromptRole = "user" | "assistant";
+type AILanguageModelInitialPromptRole = "system" | AILanguageModelPromptRole;
 
 interface AILanguageModelPrompt {
-    role?: AILanguageModelPromptRole;
-    content?: string;
+    role: AILanguageModelPromptRole;
+    content: string;
 }
 
-interface AILanguageModelSystemPrompt extends AILanguageModelPrompt {
+interface AILanguageModelInitialPrompt {
+    role: AILanguageModelInitialPromptRole;
+    content: string;
+}
+
+interface AILanguageModelSystemPrompt extends AILanguageModelInitialPrompt {
     role: "system";
 }
 
-interface AILanguageModelUserPrompt extends AILanguageModelPrompt {
-    role: "user";
-}
-
-interface AILanguageModelAssistantPrompt extends AILanguageModelPrompt {
-    role: "assistant";
-}
+type AILanguageModelPromptInput = string | AILanguageModelPrompt | AILanguageModelPrompt[];
 
 interface AILanguageModel extends EventTarget {
-    prompt(input: string, options?: AILanguageModelPromptOptions): Promise<string>;
-    promptStreaming(input: string, options?: AILanguageModelPromptOptions): ReadableStream<string>;
+    prompt(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<string>;
+    promptStreaming(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): ReadableStream<string>;
 
-    countPromptTokens(input: string, options?: AILanguageModelPromptOptions): Promise<number>;
+    countPromptTokens(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<number>;
     readonly maxTokens: number;
     readonly tokensSoFar: number;
     readonly tokensLeft: number;
