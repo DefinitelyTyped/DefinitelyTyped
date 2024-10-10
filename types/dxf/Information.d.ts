@@ -13,6 +13,7 @@ export interface FileInfo {
 }
 
 export type SVG = string;
+
 export interface Polyline {
     rgb: Common.ColorNumber;
     vertices: Utils.UtilVertex[];
@@ -20,4 +21,4 @@ export interface Polyline {
 
 export type Property = [number, number];
 export type SectionType = string;
-export type Section = [Property, SectionType];
+export type Section = [Property[], SectionType];
