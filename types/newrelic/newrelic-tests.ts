@@ -144,3 +144,6 @@ newrelic.setLambdaHandler((event: unknown, context: unknown) => ({ statusCode: 2
 newrelic.setLambdaHandler({ some: "object" });
 
 newrelic.obfuscateSql("SELECT * FROM USERS", "postgres"); // $ExpectType string
+newrelic.withLlmCustomAttributes({ task: "question" }, () => void 0);
+
+newrelic.setLlmTokenCountCallback(() => void 0);

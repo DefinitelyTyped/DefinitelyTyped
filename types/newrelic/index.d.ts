@@ -552,3 +552,23 @@ export interface TraceMetadata {
      */
     spanId?: string | undefined;
 }
+/**
+ * Run a function with the passed in LLM context as the active context and return its return value.
+ *
+ * See documentation for `withLlmCustomAttributes` for more information on setting custom attributes.
+ */
+
+export function withLlmCustomAttributes<T>(
+    attrs: Record<string, number | string | boolean>,
+    cb: (...args: any[]) => T,
+): T;
+
+/**
+ * Registers a callback which will be used for calculating token counts on Llm events when they are not available.
+ *
+ * See documentation for `setLlmTokenCountCallback` for more information on setting custom attributes.
+ */
+
+export function setLlmTokenCountCallback<T>(
+    cb: (...args: any[]) => T,
+): T;
