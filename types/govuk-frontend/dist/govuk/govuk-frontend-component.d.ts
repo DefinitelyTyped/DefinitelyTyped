@@ -3,7 +3,7 @@
  *
  * Centralises the behaviours shared by our components
  */
-export class GOVUKFrontendComponent<RootElementType extends Element = HTMLElement> {
+export abstract class GOVUKFrontendComponent<RootElementType extends Element = HTMLElement> {
     static elementType: typeof Element;
 
     /**
