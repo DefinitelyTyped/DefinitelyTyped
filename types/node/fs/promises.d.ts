@@ -238,6 +238,10 @@ declare module "fs/promises" {
             length?: number | null,
             position?: number | null,
         ): Promise<FileReadResult<T>>;
+        read<T extends NodeJS.ArrayBufferView = Buffer>(
+            buffer: T,
+            options?: FileReadOptions<T>,
+        ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
          * Returns a `ReadableStream` that may be used to read the files data.
@@ -425,6 +429,13 @@ declare module "fs/promises" {
             offset?: number | null,
             length?: number | null,
             position?: number | null,
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        write<TBuffer extends Uint8Array>(
+            buffer: TBuffer,
+            options?: { offset?: number; length?: number; position?: number },
         ): Promise<{
             bytesWritten: number;
             buffer: TBuffer;
