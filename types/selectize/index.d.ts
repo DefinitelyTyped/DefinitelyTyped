@@ -439,7 +439,7 @@ declare namespace Selectize {
         /**
          * Removes all options from the control.
          */
-        clearOptions(): void;
+        clearOptions(silent?: boolean): void;
 
         /**
          * Retrieves the jQuery element for the option identified by the given value.
@@ -489,7 +489,7 @@ declare namespace Selectize {
         /**
          * Re-renders the selected item lists.
          */
-        refreshItems(): void;
+        refreshItems(silent?: boolean): void;
 
         // Optgroups
         // ------------------------------------------------------------------------------------------------------------
