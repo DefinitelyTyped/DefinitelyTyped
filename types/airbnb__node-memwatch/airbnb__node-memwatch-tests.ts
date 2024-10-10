@@ -8,7 +8,7 @@ memwatch.on("stats", "baz");
 memwatch.on("stats", (
     result, // $ExpectType GcStats
 ) => {
-    result.gc_ts // $ExpectType number
+    result.gc_ts; // $ExpectType number
 });
 
 new memwatch.HeapDiff(); // $ExpectType HeapDiff
