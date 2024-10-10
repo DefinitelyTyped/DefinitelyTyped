@@ -4,10 +4,12 @@ import * as memwatch from "@airbnb/node-memwatch";
 memwatch.on("foobar");
 // @ts-expect-error
 memwatch.on("stats", "baz");
-// $ExpectType void
+// $ExpectType EventEmitter<DefaultEventMap>
 memwatch.on("stats", (
     result, // $ExpectType GcStats
-) => {});
+) => {
+    result.gc_ts; // $ExpectType number
+});
 
 new memwatch.HeapDiff(); // $ExpectType HeapDiff
 (new memwatch.HeapDiff()).end(); // $ExpectType HeapDiffResult
