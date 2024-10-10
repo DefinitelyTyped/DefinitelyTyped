@@ -21,6 +21,7 @@ export interface Snapshot<T = any> {
     data?: T;
     m: SnapshotMeta | null;
 }
+export type IngestibleSnapshot<T = any> = Pick<Snapshot<T>, "v" | "type" | "data">;
 
 export interface SnapshotMeta {
     ctime: number;
@@ -174,7 +175,8 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     subscribe: (callback?: (err: Error) => void) => void;
     unsubscribe: (callback?: (err: Error) => void) => void;
 
-    ingestSnapshot(snapshot: Pick<Snapshot<T>, "v" | "type" | "data">, callback?: Callback): void;
+    toSnapshot(): IngestibleSnapshot<T>;
+    ingestSnapshot(snapshot: IngestibleSnapshot<T>, callback?: Callback): void;
     destroy(callback?: Callback): void;
     create(data: T, callback?: Callback): void;
     create(data: T, type?: string, callback?: Callback): void;
