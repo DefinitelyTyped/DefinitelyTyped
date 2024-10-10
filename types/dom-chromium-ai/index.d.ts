@@ -3,7 +3,7 @@ interface WindowOrWorkerGlobalScope {
 }
 
 interface AI {
-    readonly assistant: AIAssistantFactory;
+    readonly languageModel: AILanguageModelFactory;
     readonly summarizer: AISummarizerFactory;
     readonly writer: AIWriterFactory;
     readonly rewriter: AIRewriterFactory;
@@ -50,14 +50,14 @@ type AICapabilityAvailability = "readily" | "after-download" | "no";
 // Assistant
 // https://github.com/explainers-by-googlers/prompt-api/#full-api-surface-in-web-idl
 
-interface AIAssistantFactory {
+interface AILanguageModelFactory {
     create(
-        options?: AIAssistantCreateOptionsWithSystemPrompt | AIAssistantCreateOptionsWithoutSystemPrompt,
-    ): Promise<AIAssistant>;
-    capabilities(): Promise<AIAssistantCapabilities>;
+        options?: AILanguageModelCreateOptionsWithSystemPrompt | AILanguageModelCreateOptionsWithoutSystemPrompt,
+    ): Promise<AILanguageModel>;
+    capabilities(): Promise<AILanguageModelCapabilities>;
 }
 
-interface AIAssistantCreateOptions {
+interface AILanguageModelCreateOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
@@ -65,42 +65,42 @@ interface AIAssistantCreateOptions {
     temperature?: number;
 }
 
-interface AIAssistantCreateOptionsWithSystemPrompt extends AIAssistantCreateOptions {
+interface AILanguageModelCreateOptionsWithSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: string;
-    initialPrompts?: Array<AIAssistantAssistantPrompt | AIAssistantUserPrompt>;
+    initialPrompts?: AILanguageModelPrompt[];
 }
 
-interface AIAssistantCreateOptionsWithoutSystemPrompt extends AIAssistantCreateOptions {
+interface AILanguageModelCreateOptionsWithoutSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: never;
     initialPrompts?:
-        | [AIAssistantSystemPrompt, ...Array<AIAssistantAssistantPrompt | AIAssistantUserPrompt>]
-        | Array<AIAssistantAssistantPrompt | AIAssistantUserPrompt>;
+        | [AILanguageModelSystemPrompt, ...AILanguageModelPrompt[]]
+        | AILanguageModelPrompt[];
 }
 
-type AIAssistantPromptRole = "system" | "user" | "assistant";
+type AILanguageModelPromptRole = "user" | "assistant";
+type AILanguageModelInitialPromptRole = "system" | AILanguageModelPromptRole;
 
-interface AIAssistantPrompt {
-    role?: AIAssistantPromptRole;
-    content?: string;
+interface AILanguageModelPrompt {
+    role: AILanguageModelPromptRole;
+    content: string;
 }
 
-interface AIAssistantSystemPrompt extends AIAssistantPrompt {
+interface AILanguageModelInitialPrompt {
+    role: AILanguageModelInitialPromptRole;
+    content: string;
+}
+
+interface AILanguageModelSystemPrompt extends AILanguageModelInitialPrompt {
     role: "system";
 }
 
-interface AIAssistantUserPrompt extends AIAssistantPrompt {
-    role: "user";
-}
+type AILanguageModelPromptInput = string | AILanguageModelPrompt | AILanguageModelPrompt[];
 
-interface AIAssistantAssistantPrompt extends AIAssistantPrompt {
-    role: "assistant";
-}
+interface AILanguageModel extends EventTarget {
+    prompt(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<string>;
+    promptStreaming(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): ReadableStream<string>;
 
-interface AIAssistant extends EventTarget {
-    prompt(input: string, options?: AIAssistantPromptOptions): Promise<string>;
-    promptStreaming(input: string, options?: AIAssistantPromptOptions): ReadableStream<string>;
-
-    countPromptTokens(input: string, options?: AIAssistantPromptOptions): Promise<number>;
+    countPromptTokens(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<number>;
     readonly maxTokens: number;
     readonly tokensSoFar: number;
     readonly tokensLeft: number;
@@ -108,11 +108,11 @@ interface AIAssistant extends EventTarget {
     readonly topK: number;
     readonly temperature: number;
 
-    oncontextoverflow: ((this: AIAssistant, ev: Event) => any) | null;
+    oncontextoverflow: ((this: AILanguageModel, ev: Event) => any) | null;
 
-    addEventListener<K extends keyof AIAssistantEventMap>(
+    addEventListener<K extends keyof AILanguageModelEventMap>(
         type: K,
-        listener: (this: AIAssistant, ev: AIAssistantEventMap[K]) => any,
+        listener: (this: AILanguageModel, ev: AILanguageModelEventMap[K]) => any,
         options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
@@ -120,9 +120,9 @@ interface AIAssistant extends EventTarget {
         listener: EventListenerOrEventListenerObject,
         options?: boolean | AddEventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof AIAssistantEventMap>(
+    removeEventListener<K extends keyof AILanguageModelEventMap>(
         type: K,
-        listener: (this: AIAssistant, ev: AIAssistantEventMap[K]) => any,
+        listener: (this: AILanguageModel, ev: AILanguageModelEventMap[K]) => any,
         options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(
@@ -131,30 +131,29 @@ interface AIAssistant extends EventTarget {
         options?: boolean | EventListenerOptions,
     ): void;
 
-    clone(options?: AIAssistantCloneOptions): Promise<AIAssistant>;
+    clone(options?: AILanguageModelCloneOptions): Promise<AILanguageModel>;
     destroy(): void;
 }
 
-interface AIAssistantEventMap {
+interface AILanguageModelEventMap {
     contextoverflow: Event;
 }
 
-interface AIAssistantPromptOptions {
+interface AILanguageModelPromptOptions {
     signal?: AbortSignal;
 }
 
-interface AIAssistantCloneOptions {
+interface AILanguageModelCloneOptions {
     signal?: AbortSignal;
 }
 
-interface AIAssistantCapabilities {
+interface AILanguageModelCapabilities {
     readonly available: AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 
     readonly defaultTopK: number | null;
     readonly maxTopK: number | null;
     readonly defaultTemperature: number | null;
-
-    supportsLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Summarizer
@@ -165,14 +164,17 @@ interface AISummarizerFactory {
     capabilities(): Promise<AISummarizerCapabilities>;
 }
 
-interface AISummarizerCreateOptions {
+interface AISummarizerCreateCoreOptions {
+    type?: AISummarizerType;
+    format?: AISummarizerFormat;
+    length?: AISummarizerLength;
+}
+
+interface AISummarizerCreateOptions extends AISummarizerCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    type?: AISummarizerType;
-    format?: AISummarizerFormat;
-    length?: AISummarizerLength;
 }
 
 type AISummarizerType = "tl;dr" | "key-points" | "teaser" | "headline";
@@ -199,11 +201,8 @@ interface AISummarizerSummarizeOptions {
 interface AISummarizerCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsType(type: AISummarizerType): AICapabilityAvailability;
-    supportsFormat(format: AISummarizerFormat): AICapabilityAvailability;
-    supportsLength(length: AISummarizerLength): AICapabilityAvailability;
-
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    createOptionsAvailable(options: AISummarizerCreateCoreOptions): AICapabilityAvailability;
+    languageAvailable(languageTag: string): AICapabilityAvailability;
 }
 
 // Writer
@@ -214,14 +213,17 @@ interface AIWriterFactory {
     capabilities(): Promise<AIWriterCapabilities>;
 }
 
-interface AIWriterCreateOptions {
+interface AIWriterCreateCoreOptions {
+    tone?: AIWriterTone;
+    format?: AIWriterFormat;
+    length?: AIWriterLength;
+}
+
+interface AIWriterCreateOptions extends AIWriterCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    tone?: AIWriterTone;
-    format?: AIWriterFormat;
-    length?: AIWriterLength;
 }
 
 type AIWriterTone = "formal" | "neutral" | "casual";
@@ -248,11 +250,8 @@ interface AIWriterWriteOptions {
 interface AIWriterCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsTone(tone: AIWriterTone): AICapabilityAvailability;
-    supportsFormat(format: AIWriterFormat): AICapabilityAvailability;
-    supportsLength(length: AIWriterLength): AICapabilityAvailability;
-
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    createOptionsAvailable(options: AIWriterCreateCoreOptions): AICapabilityAvailability;
+    languageAvailable(languageTag: string): AICapabilityAvailability;
 }
 
 // Rewriter
@@ -263,14 +262,17 @@ interface AIRewriterFactory {
     capabilities(): Promise<AIRewriterCapabilities>;
 }
 
-interface AIRewriterCreateOptions {
+interface AIRewriterCreateCoreOptions {
+    tone?: AIRewriterTone;
+    format?: AIRewriterFormat;
+    length?: AIRewriterLength;
+}
+
+interface AIRewriterCreateOptions extends AIRewriterCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    tone?: AIRewriterTone;
-    format?: AIRewriterFormat;
-    length?: AIRewriterLength;
 }
 
 type AIRewriterTone = "as-is" | "more-formal" | "more-casual";
@@ -297,9 +299,6 @@ interface AIRewriterRewriteOptions {
 interface AIRewriterCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsTone(tone: AIRewriterTone): AICapabilityAvailability;
-    supportsFormat(format: AIRewriterFormat): AICapabilityAvailability;
-    supportsLength(length: AIRewriterLength): AICapabilityAvailability;
-
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    createOptionsAvailable(options: AIRewriterCreateCoreOptions): AICapabilityAvailability;
+    languageAvailable(languageTag: string): AICapabilityAvailability;
 }

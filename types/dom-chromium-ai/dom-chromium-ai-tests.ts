@@ -2,18 +2,19 @@ async function topLevel() {
     // Assistant
 
     // Negative tests
-    await window.ai.assistant.create({
+    await window.ai.languageModel.create({
         systemPrompt: "foo",
         // @ts-expect-error - System prompt cannot be part of the array if systemPrompt is specified.
         initialPrompts: [{ role: "system" }],
     });
-    await window.ai.assistant.create({
+    await window.ai.languageModel.create({
         // @ts-expect-error - System prompt must be first element of the initialPrompt array.
         initialPrompts: [{ role: "user" }, { role: "system" }],
     });
 
     // Positive tests
-    const assistant = await window.ai.assistant.create({
+    // System prompt in create options
+    const assistant = await window.ai.languageModel.create({
         topK: 1,
         temperature: 0,
         signal: (new AbortController()).signal,
@@ -26,31 +27,78 @@ async function topLevel() {
         },
     });
 
-    const assistantCapabilities = await window.ai.assistant.capabilities();
+    // System prompt in initial prompts
+    const assistant2 = await window.ai.languageModel.create({
+        initialPrompts: [
+            { role: "system", content: "foo" },
+            { role: "assistant", content: "foo" },
+            { role: "user", content: "foo" },
+        ],
+    });
+    console.log(assistant2);
+
+    const assistantCapabilities = await window.ai.languageModel.capabilities();
     console.log(
         assistantCapabilities.available,
         assistantCapabilities.defaultTopK,
         assistantCapabilities.maxTopK,
         assistantCapabilities.defaultTemperature,
-        assistantCapabilities.supportsLanguage("de"),
+        assistantCapabilities.languageAvailable("de"),
     );
 
     assistant.addEventListener("contextoverflow", () => {});
 
-    const promptTokens: number = await assistant.countPromptTokens("foo", { signal: (new AbortController()).signal });
-    console.log(promptTokens);
+    const promptTokens1: number = await assistant.countPromptTokens("foo", { signal: (new AbortController()).signal });
+    console.log(promptTokens1);
 
-    const assistantResult: string = await assistant.prompt("foo", { signal: (new AbortController()).signal });
-    console.log(assistantResult);
+    const promptTokens2: number = await assistant.countPromptTokens({ role: "assistant", content: "foo" }, {
+        signal: (new AbortController()).signal,
+    });
+    console.log(promptTokens2);
+
+    const promptTokens3: number = await assistant.countPromptTokens([
+        { role: "assistant", content: "foo" },
+        { role: "user", content: "bar" },
+    ], { signal: (new AbortController()).signal });
+    console.log(promptTokens3);
+
+    const assistantResult1: string = await assistant.prompt("foo", { signal: (new AbortController()).signal });
+    console.log(assistantResult1);
+
+    const assistantResult2: string = await assistant.prompt({ role: "assistant", content: "foo" });
+    console.log(assistantResult2);
+
+    const assistantResult3: string = await assistant.prompt([
+        { role: "assistant", content: "foo" },
+        { role: "user", content: "bar" },
+    ]);
+    console.log(assistantResult3);
 
     for await (const chunk of assistant.promptStreaming("foo", { signal: (new AbortController()).signal })) {
         console.log(chunk);
     }
 
-    const assistantClone1: AIAssistant = await assistant.clone();
+    for await (
+        const chunk of assistant.promptStreaming({ role: "assistant", content: "foo" }, {
+            signal: (new AbortController()).signal,
+        })
+    ) {
+        console.log(chunk);
+    }
+
+    for await (
+        const chunk of assistant.promptStreaming([
+            { role: "assistant", content: "foo" },
+            { role: "user", content: "bar" },
+        ], { signal: (new AbortController()).signal })
+    ) {
+        console.log(chunk);
+    }
+
+    const assistantClone1: AILanguageModel = await assistant.clone();
     console.log(assistantClone1);
 
-    const assistantClone2: AIAssistant = await assistant.clone({ signal: (new AbortController()).signal });
+    const assistantClone2: AILanguageModel = await assistant.clone({ signal: (new AbortController()).signal });
     console.log(assistantClone2);
 
     assistant.destroy();
@@ -73,10 +121,12 @@ async function topLevel() {
     const summarizerCapabilities = await window.ai.summarizer.capabilities();
     console.log(
         summarizerCapabilities.available,
-        summarizerCapabilities.supportsType("teaser"),
-        summarizerCapabilities.supportsFormat("plain-text"),
-        summarizerCapabilities.supportsLength("long"),
-        summarizerCapabilities.supportsInputLanguage("de"),
+        summarizerCapabilities.createOptionsAvailable({
+            type: "teaser",
+            format: "plain-text",
+            length: "long",
+        }),
+        summarizerCapabilities.languageAvailable("de"),
     );
 
     const summarizerResult: string = await summarizer.summarize("foo", {
@@ -111,10 +161,12 @@ async function topLevel() {
     const writerCapabilities = await window.ai.writer.capabilities();
     console.log(
         writerCapabilities.available,
-        writerCapabilities.supportsTone("casual"),
-        writerCapabilities.supportsFormat("plain-text"),
-        writerCapabilities.supportsLength("long"),
-        writerCapabilities.supportsInputLanguage("de"),
+        writerCapabilities.createOptionsAvailable({
+            tone: "casual",
+            format: "plain-text",
+            length: "long",
+        }),
+        writerCapabilities.languageAvailable("de"),
     );
 
     const writerResult: string = await writer.write("foo", { signal: (new AbortController()).signal, context: "foo" });
@@ -146,10 +198,12 @@ async function topLevel() {
     const rewriterCapabilities = await window.ai.rewriter.capabilities();
     console.log(
         rewriterCapabilities.available,
-        rewriterCapabilities.supportsTone("more-casual"),
-        rewriterCapabilities.supportsFormat("plain-text"),
-        rewriterCapabilities.supportsLength("as-is"),
-        rewriterCapabilities.supportsInputLanguage("de"),
+        rewriterCapabilities.createOptionsAvailable({
+            tone: "more-casual",
+            format: "plain-text",
+            length: "as-is",
+        }),
+        rewriterCapabilities.languageAvailable("de"),
     );
 
     const rewriterResult: string = await rewriter.rewrite("foo", {
