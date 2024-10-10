@@ -25,7 +25,13 @@ export interface Total {
 export function getStructure(
     fs: FileSystem,
     dir: string,
-    callback: (err: Error | null, result?: Folder, total?: Total) => void,
+    callback: (error: NodeJS.ErrnoException) => void,
+): void;
+
+export function getStructure(
+    fs: FileSystem,
+    dir: string,
+    callback: (error: null, results: Folder | Array<File | Folder>, total: Total) => void,
 ): void;
 
 export function traverseStructure(
