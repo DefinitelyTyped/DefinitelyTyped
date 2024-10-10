@@ -84,13 +84,22 @@ export function setFocus<FocusElement extends HTMLElement>(
 ): void;
 
 /**
+ * Checks if component is already initialised
+ *
+ * @internal
+ * @param {Element} $root - HTML element to be checked
+ * @param {string} moduleName - name of component module
+ * @returns {boolean} Whether component is already initialised
+ */
+export function isInitialised($root: Element, moduleName: string): boolean;
+
+/**
  * Checks if GOV.UK Frontend is supported on this page
  *
  * Some browsers will load and run our JavaScript but GOV.UK Frontend
  * won't be supported.
  *
- * @internal
- * @param {HTMLElement | null} [$scope] - HTML element `<body>` checked for browser support
+ * @param {HTMLElement | null} [$scope] - (internal) `<body>` HTML element checked for browser support
  * @returns {boolean} Whether GOV.UK Frontend is supported on this page
  */
 export function isSupported($scope?: HTMLElement | null): boolean;
@@ -111,6 +120,16 @@ export function isSupported($scope?: HTMLElement | null): boolean;
 export function validateConfig(schema: Schema, config: {
     [key: string]: unknown;
 }): string[];
+
+/**
+ * Format error message
+ *
+ * @internal
+ * @param {ComponentWithModuleName} Component - Component that threw the error
+ * @param {string} message - Error message
+ * @returns {string} - Formatted error message
+ */
+export function formatErrorMessage(Component: ComponentWithModuleName, message: string): string;
 
 /**
  * Schema for component config
@@ -153,7 +172,16 @@ export interface SchemaCondition {
      */
     errorMessage: string;
 }
+
 export type NestedKey = keyof ObjectNested;
+
 export interface ObjectNested {
     [key: string]: string | boolean | number | ObjectNested | undefined;
+}
+
+export interface ComponentWithModuleName {
+    /**
+     * - Name of the component
+     */
+    moduleName: string;
 }

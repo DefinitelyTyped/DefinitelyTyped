@@ -3,7 +3,7 @@ import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
 /**
  * Notification Banner component
  */
-export class NotificationBanner extends GOVUKFrontendComponent {
+export class NotificationBanner extends GOVUKFrontendComponent<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -30,10 +30,10 @@ export class NotificationBanner extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for notification banner
+     * @param {Element | null} $root - HTML element to use for notification banner
      * @param {NotificationBannerConfig} [config] - Notification banner config
      */
-    constructor($module: Element | null, config?: NotificationBannerConfig);
+    constructor($root: Element | null, config?: NotificationBannerConfig);
 }
 
 /**

@@ -1,4 +1,5 @@
 export { version } from "./common/govuk-frontend-version.mjs";
+export { isSupported } from "./common/index.mjs";
 export { Accordion } from "./components/accordion/accordion.mjs";
 export { Button } from "./components/button/button.mjs";
 export { CharacterCount } from "./components/character-count/character-count.mjs";
@@ -12,4 +13,5 @@ export { Radios } from "./components/radios/radios.mjs";
 export { ServiceNavigation } from "./components/service-navigation/service-navigation.mjs";
 export { SkipLink } from "./components/skip-link/skip-link.mjs";
 export { Tabs } from "./components/tabs/tabs.mjs";
+export { GOVUKFrontendComponent as Component } from "./govuk-frontend-component.mjs";
 export { type Config, type ConfigKey, createAll, initAll } from "./init.mjs";

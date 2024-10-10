@@ -11,7 +11,7 @@ import { type TranslationPluralForms } from "../../i18n.js";
  * You can configure the message to only appear after a certain percentage
  * of the available characters/words has been entered.
  */
-export class CharacterCount extends GOVUKFrontendComponent {
+export class CharacterCount extends GOVUKFrontendComponent<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -51,10 +51,10 @@ export class CharacterCount extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for character count
+     * @param {Element | null} $root - HTML element to use for character count
      * @param {CharacterCountConfig} [config] - Character count config
      */
-    constructor($module: Element | null, config?: CharacterCountConfig);
+    constructor($root: Element | null, config?: CharacterCountConfig);
 }
 
 /**
