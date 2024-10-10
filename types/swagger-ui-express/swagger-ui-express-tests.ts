@@ -66,6 +66,16 @@ const swaggerUiOpts2 = {
 app.use("/api-docs-from-url-using-object", swaggerUi.serve);
 app.get("/api-docs-from-url-using-object", swaggerUi.setup(undefined, swaggerUiOpts2));
 
+const swaggerUiOpts3 = {
+    explorer: false,
+    swaggerOptions: options,
+    customJs: ["/my-custom.js"],
+    operationsSorter: "alpha",
+};
+
+app.use("/api-docs-from-url-using-object", swaggerUi.serve);
+app.get("/api-docs-from-url-using-object", swaggerUi.setup(undefined, swaggerUiOpts3));
+
 app.use("/api-docs-with-null", swaggerUi.serve);
 app.get(
     "/api-docs-with-null",
