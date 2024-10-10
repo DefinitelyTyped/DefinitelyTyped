@@ -112,6 +112,7 @@ mixpanel.init("token", {
 });
 mixpanel.start_session_recording();
 mixpanel.stop_session_recording();
+mixpanel.get_session_recording_properties();
 mixpanel.opt_in_tracking();
 mixpanel.opt_in_tracking({
     track_event_name: "User opted in",
