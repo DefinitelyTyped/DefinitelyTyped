@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "name": "opus-recorder",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/chris-rudmin/opus-recorder"
+    ],
+    "owners": [
+        {
+            "name": "KenjiGinjo",
+            "githubUsername": "KenjiGinjo"
+        }
+    ]
+}
