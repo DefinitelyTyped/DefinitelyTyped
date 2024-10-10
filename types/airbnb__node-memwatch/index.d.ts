@@ -1,3 +1,7 @@
+/// <reference types="node" />
+
+import { EventEmitter } from "events";
+
 export interface GcStats {
     gc_ts: number; // timestamp
     gcScavengeCount: number;
@@ -47,7 +51,7 @@ export interface HeapDiffResult {
     change: HeapChange;
 }
 
-export function on(event: "stats", callback: (stats: GcStats) => void): void;
+export function on(event: "stats", callback: (stats: GcStats) => void): EventEmitter;
 
 export class HeapDiff {
     end(): HeapDiffResult;
