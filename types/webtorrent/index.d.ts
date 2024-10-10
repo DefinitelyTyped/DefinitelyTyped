@@ -13,14 +13,19 @@ declare namespace WebTorrent {
         (config?: Options): Instance;
         WEBRTC_SUPPORT: boolean;
     }
+
     interface Options {
         maxConns?: number | undefined;
         nodeId?: string | Buffer | undefined;
         peerId?: string | Buffer | undefined;
         tracker?: boolean | {} | undefined;
         dht?: boolean | {} | undefined;
+        lsd?: boolean | undefined;
         webSeeds?: boolean | undefined;
         utp?: boolean | undefined;
+        blocklist?: (string | Array<string | { start: string; end: string }>) | undefined;
+        downloadLimit?: number | undefined;
+        uploadLimit?: number | undefined;
     }
 
     interface ServerAddress {
