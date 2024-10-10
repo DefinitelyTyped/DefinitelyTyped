@@ -19,7 +19,7 @@ import { type ComponentWithModuleName } from "../common/index.js";
  * }
  * ```
  */
-export class GOVUKFrontendError extends Error {
+export abstract class GOVUKFrontendError extends Error {
 }
 
 /**
