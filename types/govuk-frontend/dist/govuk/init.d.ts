@@ -57,17 +57,49 @@ export interface Config {
  */
 export type ConfigKey = keyof Config;
 
+export interface ErrorContext<T extends CompatibleClass> {
+    /**
+     * - Element used for component module initialisation
+     */
+    element?: Element | undefined;
+
+    /**
+     * - Class of component
+     */
+    component?: T | undefined;
+
+    /**
+     * - Config supplied to component
+     */
+    config: T["defaults"];
+}
+
+export type OnErrorCallback<T extends CompatibleClass> = (error: unknown, context: ErrorContext<T>) => any;
+
+export interface CreateAllOptions<T extends CompatibleClass> {
+    /**
+     * - scope of the document to search within
+     */
+    scope?: Document | Element | undefined;
+
+    /**
+     * - callback function if error throw by component on init
+     */
+    onError?: OnErrorCallback<T> | undefined;
+}
+
 /**
  * Initialise all components
  *
  * Use the `data-module` attributes to find, instantiate and init all of the
  * components provided as part of GOV.UK Frontend.
  *
- * @param {Config & { scope?: Element }} [config] - Config for all components (with optional scope)
+ * @param {Config & { scope?: Element, onError?: OnErrorCallback<CompatibleClass> }} [config] - Config for all components (with optional scope)
  */
 export function initAll(
     config?: Config & {
         scope?: Element;
+        onError?: OnErrorCallback<CompatibleClass>;
     },
 ): void;
 
@@ -82,12 +114,12 @@ export function initAll(
  *
  * @template {CompatibleClass} T
  * @param {T} Component - class of the component to create
- * @param {T["defaults"]} [config] - config for the component
- * @param {Element|Document} [$scope] - scope of the document to search within
+ * @param {T["defaults"]} [config] - Config supplied to component
+ * @param {OnErrorCallback<T> | Element | Document | CreateAllOptions<T> } [createAllOptions] - options for createAll including scope of the document to search within and callback function if error throw by component on init
  * @returns {Array<InstanceType<T>>} - array of instantiated components
  */
 export function createAll<T extends CompatibleClass>(
     Component: T,
     config?: T["defaults"],
-    $scope?: Document | Element,
+    createAllOptions?: Document | Element | OnErrorCallback<T> | CreateAllOptions<T>,
 ): Array<InstanceType<T>>;

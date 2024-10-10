@@ -3,7 +3,7 @@ import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
 /**
  * JavaScript enhancements for the Button component
  */
-export class Button extends GOVUKFrontendComponent {
+export class Button extends GOVUKFrontendComponent<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -30,10 +30,10 @@ export class Button extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for button
+     * @param {Element | null} $root - HTML element to use for button
      * @param {ButtonConfig} [config] - Button config
      */
-    constructor($module: Element | null, config?: ButtonConfig);
+    constructor($root: Element | null, config?: ButtonConfig);
 }
 
 /**
