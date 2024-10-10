@@ -1,11 +1,10 @@
 /// <reference types="google.maps" />
+
 import { Component, ReactNode } from "react";
 
-export default ReactGoogleMapsLoader;
+export = ReactGoogleMapsLoader;
 
-declare class ReactGoogleMapsLoader extends Component<
-    ReactGoogleMapsLoader.Props
-> {}
+declare class ReactGoogleMapsLoader extends Component<ReactGoogleMapsLoader.Props> {}
 
 declare namespace ReactGoogleMapsLoader {
     type GoogleMaps = typeof google.maps;
@@ -17,6 +16,6 @@ declare namespace ReactGoogleMapsLoader {
 
     interface Props {
         params: Params;
-        render: (googleMaps: GoogleMaps, error?: string | null) => ReactNode;
+        render: (googleMaps: GoogleMaps, error?: string | null | undefined) => ReactNode;
     }
 }
