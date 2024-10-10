@@ -347,14 +347,20 @@ declare namespace figlet {
         fontPath: string;
     }
 
-    function text(txt: string, cb: (error: Error | null, result?: string) => void): void;
-    function text(txt: string, font: Fonts, cb: (error: Error | null, result?: string) => void): void;
-    /**
-     * @description
-     * This `unified-signatures` is disabled because `Fonts` type is too long
-     */
-    // tslint:disable-next-line: unified-signatures
-    function text(txt: string, options: Options | undefined, cb: (error: Error | null, result?: string) => void): void;
+    function text(
+        txt: string,
+        font: Fonts,
+        cb?: (error: Error | null, result?: string) => void,
+    ): void;
+    function text(
+        txt: string,
+        options: Options | undefined,
+        cb?: (error: Error | null, result?: string) => void,
+    ): void;
+    function text(
+        txt: string,
+        cb?: (error: Error | null, result?: string) => void,
+    ): void;
 
     function textSync(txt: string, font?: Fonts): string;
     /**
@@ -404,17 +410,32 @@ declare namespace figlet {
      * The data from the font file.
      */
     function parseFont(fontName: string, fontFile: string): void;
-}
 
-declare function figlet(txt: string, cb: (error: Error | null, result?: string) => void): void;
-declare function figlet(txt: string, font: figlet.Fonts, cb: (error: Error | null, result?: string) => void): void;
+    /**
+     * @description
+     * Preloads a list of fonts prior to using textSync
+     *
+     * @param fonts
+     * an array of font names (i.e. ["Standard","Soft"])
+     * @param cb
+     * callback function
+     */
+    function preloadFonts(fonts: Fonts[], cb?: () => void): Promise<void>;
+}
 
 declare function figlet(
     txt: string,
-    // This `unified-signatures` is disabled because `Fonts` type is too long
-    // tslint:disable-next-line: unified-signatures
+    font: figlet.Fonts,
+    cb?: (error: Error | null, result?: string) => void,
+): void;
+declare function figlet(
+    txt: string,
     options: figlet.Options | undefined,
-    cb: (error: Error | null, result?: string) => void,
+    cb?: (error: Error | null, result?: string) => void,
+): void;
+declare function figlet(
+    txt: string,
+    cb?: (error: Error | null, result?: string) => void,
 ): void;
 
 export as namespace figlet;

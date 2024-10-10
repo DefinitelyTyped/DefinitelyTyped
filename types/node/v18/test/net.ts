@@ -21,6 +21,7 @@ import * as net from "node:net";
     let server = net.createServer({
         keepAlive: true,
         keepAliveInitialDelay: 1000,
+        highWaterMark: 16384,
     });
     // Check methods which return server instances by chaining calls
     server = server.listen(0)

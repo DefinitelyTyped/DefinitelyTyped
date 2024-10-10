@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Compiler } from "webpack";
 
 declare namespace AssetsWebpackPlugin {

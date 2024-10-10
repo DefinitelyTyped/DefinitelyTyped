@@ -79,7 +79,41 @@ braintree.client.create(
             .create({
                 client: clientInstance,
             })
-            .then((googlePayInstance: braintree.GooglePayment) => {
+            .then((googlePayInstance) => {
+                const button = new HTMLButtonElement();
+
+                button.addEventListener("click", event => {
+                    event.preventDefault();
+
+                    const paymentDataRequest = googlePayInstance
+                        .createPaymentDataRequest({
+                            transactionInfo: {
+                                currencyCode: "USD",
+                                totalPriceStatus: "FINAL",
+                                totalPrice: "100.00",
+                            },
+                        });
+
+                    googlePaymentsClient
+                        .loadPaymentData(paymentDataRequest)
+                        .then(paymentData => {
+                            return googlePayInstance.parseResponse(paymentData);
+                        })
+                        .then((result: braintree.GooglePaymentTokenizePayload) => {
+                            console.log("nonce", result.nonce);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
+                });
+            });
+
+        braintree.googlePayment
+            .create({
+                client: clientInstance,
+                useDeferredClient: true,
+            })
+            .then((googlePayInstance) => {
                 const button = new HTMLButtonElement();
 
                 button.addEventListener("click", event => {
@@ -93,7 +127,7 @@ braintree.client.create(
                                 totalPrice: "100.00",
                             },
                         })
-                        .then((paymentDataRequest: google.payments.api.PaymentDataRequest) => {
+                        .then((paymentDataRequest) => {
                             googlePaymentsClient
                                 .loadPaymentData(paymentDataRequest)
                                 .then(paymentData => {

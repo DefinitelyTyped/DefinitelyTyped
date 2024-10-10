@@ -6,13 +6,16 @@
         "https://www.npmjs.com/package/react-native-razorpay"
     ],
     "devDependencies": {
-        "react-native": "*",
-        "@types/react-native-razorpay": "workspace:."
+        "@types/react-native-razorpay": "workspace:.",
+        "react-native": "*"
     },
     "owners": [
         {
             "name": "Ankan Bhattacharya",
             "githubUsername": "Ankan002"
         }
-    ]
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    }
 }

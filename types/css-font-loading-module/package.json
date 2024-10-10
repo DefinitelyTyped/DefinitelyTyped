@@ -7,7 +7,7 @@
     "projects": [
         "https://drafts.csswg.org/css-font-loading/"
     ],
-    "minimumTypeScriptVersion": "5.0",
+    "minimumTypeScriptVersion": "5.7",
     "devDependencies": {
         "@types/css-font-loading-module": "workspace:."
     },

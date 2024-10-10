@@ -55,7 +55,7 @@ $routeProvider
         resolveAs: "baz",
         resolveRedirectTo: [
             "$http",
-            ($http: ng.IHttpService) => $http.get("/is-admin").then(() => "/admin/lounge", () => undefined),
+            ($http: ng.IHttpService) => $http.get("/is-admin").then(() => "/admin/lounge", (): undefined => undefined),
         ],
     })
     .when("/projects/:projectId/dashboard7", {

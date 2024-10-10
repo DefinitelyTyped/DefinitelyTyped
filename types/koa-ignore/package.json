@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/koa-ignore": "workspace:."
     },
-    "owners": [
-        {
-            "name": "fer22f",
-            "githubUsername": "fer22f"
-        }
-    ]
+    "owners": []
 }

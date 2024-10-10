@@ -1,11 +1,13 @@
-export type StyleValueConditionFunction = () => boolean | null | undefined;
+declare namespace styleNames {
+    type StyleValueConditionFunction = () => boolean | null | undefined;
 
-export type StyleValueObject = Record<string | number, boolean | StyleValueConditionFunction>;
+    type StyleValueObject = Record<string | number, boolean | StyleValueConditionFunction>;
 
-export type StyleValue = null | undefined | string | StyleValueObject;
+    type StyleValue = null | undefined | string | StyleValueObject;
 
-export type StyleObject = Partial<Record<keyof CSSStyleDeclaration, StyleValue>>;
+    type StyleObject = Partial<Record<keyof CSSStyleDeclaration, StyleValue>>;
+}
 
-declare function styleNames(styles: StyleObject): string;
+declare function styleNames(styles: styleNames.StyleObject): string;
 
-export default styleNames;
+export = styleNames;

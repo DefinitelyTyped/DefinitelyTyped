@@ -103,6 +103,6 @@ $(s).wiki(s);
 $.wiki(s);
 $.wikiPassage(s);
 
-Serial;
+Serial.createReviver("new Character($ReviveData$)", {});
 
 export {};

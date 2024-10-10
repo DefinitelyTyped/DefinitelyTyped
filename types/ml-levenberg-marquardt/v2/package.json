@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/ml-levenberg-marquardt": "workspace:."
     },
-    "owners": [
-        {
-            "name": "m93a",
-            "githubUsername": "m93a"
-        }
-    ]
+    "owners": []
 }

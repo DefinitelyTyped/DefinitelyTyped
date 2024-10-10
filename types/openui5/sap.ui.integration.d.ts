@@ -1,4 +1,4 @@
-// For Library Version: 1.128.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -2600,8 +2600,20 @@ declare module "sap/ui/integration/widgets/Card" {
 
     /**
      * The parameters related to the triggered action.
+     *
+     * **Disclaimer:** Since 1.129 the special parameter `data` for action `Submit` is deprecated and must not
+     * be used. Use event parameter `formData` instead.
      */
     parameters?: object;
+
+    /**
+     * All form data that is filled inside the card. This parameter is available only with action types `Submit`
+     * and `Custom`.
+     *
+     * The format will be the same as in the `form` model available in the card manifest. For more information
+     * look at the documentation for each individual form type.
+     */
+    formData?: object;
 
     /**
      * The type of the action.
@@ -3557,8 +3569,20 @@ declare module "sap/ui/integration/Extension" {
 
     /**
      * The parameters related to the triggered action.
+     *
+     * **Disclaimer:** Since 1.129 the special parameter `data` for action `Submit` is deprecated and must not
+     * be used. Use event parameter `formData` instead.
      */
     parameters?: object;
+
+    /**
+     * All form data that is filled inside the card. This parameter is available only with action types `Submit`
+     * and `Custom`.
+     *
+     * The format will be the same as in the `form` model available in the card manifest. For more information
+     * look at the documentation for each individual form type.
+     */
+    formData?: object;
 
     /**
      * The type of the action.
@@ -4383,8 +4407,20 @@ declare module "sap/ui/integration/Host" {
 
     /**
      * The parameters related to the triggered action.
+     *
+     * **Disclaimer:** Since 1.129 the special parameter `data` for action `Submit` is deprecated and must not
+     * be used. Use event parameter `formData` instead.
      */
     parameters?: object;
+
+    /**
+     * All form data that is filled inside the card. This parameter is available only with action types `Submit`
+     * and `Custom`.
+     *
+     * The format will be the same as in the `form` model available in the card manifest. For more information
+     * look at the documentation for each individual form type.
+     */
+    formData?: object;
 
     /**
      * The type of the action.

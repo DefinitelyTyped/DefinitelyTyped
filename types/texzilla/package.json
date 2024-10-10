@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/texzilla": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Michal Grňo",
-            "githubUsername": "m93a"
-        }
-    ]
+    "owners": []
 }

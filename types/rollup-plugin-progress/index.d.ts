@@ -1,9 +1,12 @@
 import { Plugin } from "rollup";
 
-export interface PluginProgressOptions {
-    clearLine?: boolean | undefined;
+declare namespace PluginProgress {
+    interface PluginProgressOptions {
+        /** @default true */
+        clearLine?: boolean | undefined;
+    }
 }
 
-declare function progress(options?: PluginProgressOptions): Plugin;
+declare function PluginProgress(options?: PluginProgress.PluginProgressOptions): Plugin;
 
-export default progress;
+export = PluginProgress;

@@ -26,6 +26,7 @@ import {
     RecordSource,
     RecordSourceSelectorProxy,
     requestSubscription,
+    Result,
     ROOT_ID,
     ROOT_TYPE,
     Store,
@@ -842,4 +843,16 @@ export function myLiveState(): LiveState<string> {
             return unsubscribe;
         },
     };
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// @catch directive's Result
+// ~~~~~~~~~~~~~~~~~~
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function handleResult<T, E>(result: Result<T, E>) {
+    if (result.ok) {
+        const value: T = result.value;
+    } else {
+        const errors: readonly E[] = result.errors;
+    }
 }

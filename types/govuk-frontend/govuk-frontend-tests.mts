@@ -13,6 +13,7 @@ import {
     NotificationBanner,
     PasswordInput,
     Radios,
+    ServiceNavigation,
     SkipLink,
     Tabs,
 } from "govuk-frontend";
@@ -41,6 +42,7 @@ new NotificationBanner($module);
 new NotificationBanner($module, NotificationBanner.defaults);
 
 new Radios($module);
+new ServiceNavigation($module);
 new SkipLink($module);
 new Tabs($module);
 
@@ -83,6 +85,10 @@ createAll(PasswordInput, PasswordInput.defaults, document.body);
 createAll(Radios);
 createAll(Radios, undefined);
 createAll(Radios, undefined, document.body);
+
+createAll(ServiceNavigation);
+createAll(ServiceNavigation, undefined);
+createAll(ServiceNavigation, undefined, document.body);
 
 createAll(SkipLink);
 createAll(SkipLink, undefined);

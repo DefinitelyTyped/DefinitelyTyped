@@ -5,14 +5,14 @@ import { Agent, ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOpti
 import { UrlWithStringQuery } from "url";
 
 export type oauth1tokenCallback = (
-    err: { statusCode: number; data?: any },
+    err: Error | { statusCode: number; data?: any },
     token: string,
     token_secret: string,
     parsedQueryString: any,
 ) => any;
 
 export type oauth2tokenCallback = (
-    err: unknown,
+    err: Error | { statusCode: number; data?: any },
     access_token?: string,
     refresh_token?: string,
     result?: any,

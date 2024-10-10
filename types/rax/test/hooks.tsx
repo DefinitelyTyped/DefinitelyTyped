@@ -1,9 +1,12 @@
+// eslint-disable-next-line jsdoc/check-tag-names
+/** @jsxFrag RaxFragment */
 import {
     ComponentRef,
     createContext,
     createRef,
     forwardRef,
     MutableRefObject,
+    RaxFragment,
     RaxNode,
     Ref,
     RefObject,

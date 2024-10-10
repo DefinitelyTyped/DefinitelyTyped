@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/extenso": "workspace:."
     },
-    "owners": [
-        {
-            "name": "fer22f",
-            "githubUsername": "fer22f"
-        }
-    ]
+    "owners": []
 }

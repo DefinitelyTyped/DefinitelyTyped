@@ -1,5 +1,5 @@
+import AssetsPlugin, { Assets, Options, ProcessOutputFn } from "assets-webpack-plugin";
 import { Configuration } from "webpack";
-import AssetsPlugin = require("assets-webpack-plugin");
 
 const config: Configuration = {
     plugins: [

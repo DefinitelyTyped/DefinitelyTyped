@@ -1,10 +1,13 @@
 declare namespace Geohash {
-    enum Direction {
-        North = "N",
-        South = "S",
-        East = "E",
-        West = "W",
-    }
+    type Direction =
+        | "n"
+        | "N"
+        | "s"
+        | "S"
+        | "e"
+        | "E"
+        | "w"
+        | "W";
 
     interface Neighbours {
         n: string;
@@ -76,7 +79,7 @@ declare namespace Geohash {
      * @returns Geocode of adjacent cell.
      * @throws  Invalid geohash.
      */
-    function adjacent(geohash: string, direction: Direction | string): string;
+    function adjacent(geohash: string, direction: Direction): string;
 
     /**
      * Returns all 8 adjacent cells to specified geohash.

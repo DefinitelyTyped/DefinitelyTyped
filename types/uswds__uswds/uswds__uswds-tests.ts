@@ -61,6 +61,9 @@ button.off(element); // $ExpectType void
 
 // Character Count
 characterCount.DEFAULT_STATUS_LABEL; // $ExpectType string
+characterCount.FORM_GROUP_ERROR_CLASS; // $ExpectType string
+characterCount.LABEL_ERROR_CLASS; // $ExpectType string
+characterCount.INPUT_ERROR_CLASS; // $ExpectType string
 characterCount.MESSAGE_INVALID_CLASS; // $ExpectType string
 characterCount.STATUS_MESSAGE_CLASS; // $ExpectType string
 characterCount.STATUS_MESSAGE_SR_ONLY_CLASS; // $ExpectType string

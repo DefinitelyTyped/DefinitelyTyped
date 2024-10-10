@@ -131,7 +131,30 @@ declare module "rx" {
 
         // Web Workers
         function fromWebWorker(url: string): Rx.Subject<string>;
-
+        /** @deprecated
+         * Moved from DOM pre-TS5.7 to here
+         * [MDN Reference](https://developer.mozilla.org/docs/Web/API/MutationEvent)
+         */
+        interface MutationEvent extends Event {
+            readonly attrChange: number;
+            readonly attrName: string;
+            readonly newValue: string;
+            readonly prevValue: string;
+            readonly relatedNode: Node | null;
+            initMutationEvent(
+                typeArg: string,
+                bubblesArg?: boolean,
+                cancelableArg?: boolean,
+                relatedNodeArg?: Node | null,
+                prevValueArg?: string,
+                newValueArg?: string,
+                attrNameArg?: string,
+                attrChangeArg?: number,
+            ): void;
+            readonly MODIFICATION: 1;
+            readonly ADDITION: 2;
+            readonly REMOVAL: 3;
+        }
         // Mutation Observers
         function fromMutationObserver(target: Node, options: MutationObserverInit): Rx.Observable<MutationEvent>;
 

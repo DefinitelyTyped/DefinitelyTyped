@@ -1,4 +1,4 @@
-// For Library Version: 1.128.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -17958,6 +17958,8 @@ declare module "sap/ui/unified/Menu" {
 
   import { IMenuItem } from "sap/ui/unified/library";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import UI5Element from "sap/ui/core/Element";
@@ -17968,8 +17970,6 @@ declare module "sap/ui/unified/Menu" {
   } from "sap/ui/base/ManagedObject";
 
   import MenuItemBase from "sap/ui/unified/MenuItemBase";
-
-  import Event from "sap/ui/base/Event";
 
   /**
    * A menu is an interactive element which provides a choice of different actions to the user. These actions
@@ -18068,6 +18068,55 @@ declare module "sap/ui/unified/Menu" {
       oItem: IMenuItem
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
+     *
+     * Fired when the menu is closed.
+     *
+     * @since 1.129
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachClosed(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
+     *
+     * Fired when the menu is closed.
+     *
+     * @since 1.129
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -18130,6 +18179,25 @@ declare module "sap/ui/unified/Menu" {
      */
     destroyItems(): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:closed closed} event of this `sap.ui.unified.Menu`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.129
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachClosed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -18146,6 +18214,20 @@ declare module "sap/ui/unified/Menu" {
        * Context object on which the given function had to be called
        */
       oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:closed closed} to attached listeners.
+     *
+     * @since 1.129
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireClosed(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
     ): this;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
@@ -18507,7 +18589,24 @@ declare module "sap/ui/unified/Menu" {
      * menu item. This event and the event of the menu items are redundant.
      */
     itemSelect?: (oEvent: Menu$ItemSelectEvent) => void;
+
+    /**
+     * Fired when the menu is closed.
+     *
+     * @since 1.129
+     */
+    closed?: (oEvent: Event) => void;
   }
+
+  /**
+   * Parameters of the Menu#closed event.
+   */
+  export interface Menu$ClosedEventParameters {}
+
+  /**
+   * Event object of the Menu#closed event.
+   */
+  export type Menu$ClosedEvent = Event<Menu$ClosedEventParameters, Menu>;
 
   /**
    * Parameters of the Menu#itemSelect event.

@@ -1,4 +1,4 @@
-// For Library Version: 1.128.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1504,7 +1504,11 @@ declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddAnnotationsToOData": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewDataSource": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewInbound": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewOutbound": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddTechnicalAttributes": undefined;
 
@@ -1608,6 +1612,8 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
 
+    "sap/ui/fl/apply/api/AnnotationChangeHandlerAPI": undefined;
+
     "sap/ui/fl/apply/api/ControlVariantApplyAPI": undefined;
 
     "sap/ui/fl/apply/api/DelegateMediatorAPI": undefined;
@@ -1664,7 +1670,11 @@ declare namespace sap {
 
     "sap/ui/fl/registry/Settings": undefined;
 
+    "sap/ui/fl/support/_internal/getAllUIChanges": undefined;
+
     "sap/ui/fl/support/_internal/getChangeDependencies": undefined;
+
+    "sap/ui/fl/support/_internal/getFlexObjectInfos": undefined;
 
     "sap/ui/fl/support/_internal/getFlexSettings": undefined;
 
@@ -1717,6 +1727,8 @@ declare namespace sap {
     "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExtensibilityVariant": undefined;
 
     "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExtensibilityVariant": undefined;
+
+    "sap/ui/fl/write/_internal/flexState/changes/UIChangeManager": undefined;
 
     "sap/ui/fl/write/_internal/flexState/compVariants/CompVariantState": undefined;
 

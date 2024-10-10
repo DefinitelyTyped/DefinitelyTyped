@@ -516,11 +516,11 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
 
     /**
      * Invoke the specified function for each selected element, passing the current datum (d),
-     * the current index (i), and the current group (nodes), with this of the current DOM element (nodes[i]).
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
      * This method can be used to invoke arbitrary code for each selected element, and is useful for creating a context to access parent and child data simultaneously.
      *
      * @param func A function which is invoked for each selected element,
-     *             being passed the current datum (d), the current index (i), and the current group (nodes), with this of the current DOM element (nodes[i]).
+     *             being passed the current datum (d), the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]).
      */
     each(func: ValueFn<GElement, Datum, void>): this;
 
@@ -575,7 +575,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * value function.
      *
      * @param milliseconds A value function which is evaluated for each selected element, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this of the current DOM element (nodes[i]). The return value is a number
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The return value is a number
      * specifying the delay in milliseconds.
      */
     delay(milliseconds: ValueFn<GElement, Datum, number>): this;
@@ -597,7 +597,7 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * value function.
      *
      * @param milliseconds A value function which is evaluated for each selected element, being passed the current datum (d),
-     * the current index (i), and the current group (nodes), with this of the current DOM element (nodes[i]). The return value is a number
+     * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The return value is a number
      * specifying the duration in milliseconds.
      */
     duration(milliseconds: ValueFn<GElement, Datum, number>): this;

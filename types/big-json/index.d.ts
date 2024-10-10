@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import type { Stream } from "node:stream";
+import type { Stream, Transform } from "node:stream";
 
-export function createParseStream(): Stream;
+export function createParseStream(): Transform;
 export function createStringifyStream(opts: { body: object }): Stream;
 
 export function parse(opts: { body: string | Buffer }): Promise<object | readonly object[]>;

@@ -18,6 +18,14 @@ Diff.diffChars(one, other, (err, value) => {
     err; // $ExpectType undefined
     value; // $ExpectType Change[] | undefined
 });
+// $ExpectType Change[]
+Diff.diffLines(
+    "line\nold value\nline",
+    "line\nnew value\nline",
+    {
+        maxEditLength: 1,
+    },
+);
 
 const diffArraysResult = Diff.diffArrays(["a", "b", "c"], ["a", "c", "d"]);
 diffArraysResult.forEach(result => {
