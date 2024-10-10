@@ -227,6 +227,12 @@ declare namespace EW {
          * The cpcode used for reporting.
          */
         readonly cpCode: number;
+
+        /**
+         * This is the original client IP address which can be either IPv4 or IPv6 address.
+         * The True-Client-IP of the request.
+         */
+        readonly clientIp: string;
     }
 
     interface HasBody {
