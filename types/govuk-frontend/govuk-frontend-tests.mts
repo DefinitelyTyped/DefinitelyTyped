@@ -20,33 +20,33 @@ import {
     Tabs,
 } from "govuk-frontend";
 
-const $module = document.createElement("div");
+const $root = document.createElement("div");
 
-new Accordion($module);
-new Accordion($module, Accordion.defaults);
+new Accordion($root);
+new Accordion($root, Accordion.defaults);
 
-new Button($module);
-new Button($module, Button.defaults);
+new Button($root);
+new Button($root, Button.defaults);
 
-new CharacterCount($module);
-new CharacterCount($module, CharacterCount.defaults);
+new CharacterCount($root);
+new CharacterCount($root, CharacterCount.defaults);
 
-new Checkboxes($module);
-new Header($module);
+new Checkboxes($root);
+new Header($root);
 
-new ErrorSummary($module);
-new ErrorSummary($module, ErrorSummary.defaults);
+new ErrorSummary($root);
+new ErrorSummary($root, ErrorSummary.defaults);
 
-new ExitThisPage($module);
-new ExitThisPage($module, ExitThisPage.defaults);
+new ExitThisPage($root);
+new ExitThisPage($root, ExitThisPage.defaults);
 
-new NotificationBanner($module);
-new NotificationBanner($module, NotificationBanner.defaults);
+new NotificationBanner($root);
+new NotificationBanner($root, NotificationBanner.defaults);
 
-new Radios($module);
-new ServiceNavigation($module);
-new SkipLink($module);
-new Tabs($module);
+new Radios($root);
+new ServiceNavigation($root);
+new SkipLink($root);
+new Tabs($root);
 
 class MyComponent1 extends Component {
     static moduleName = "MyComponent1";
@@ -74,9 +74,9 @@ interface MyComponentConfig {
     hasConfig: boolean;
 }
 
-new MyComponent1($module);
-new MyComponent2($module);
-new MyComponent2($module, MyComponent2.defaults);
+new MyComponent1($root);
+new MyComponent2($root);
+new MyComponent2($root, MyComponent2.defaults);
 
 MyComponent1.checkSupport();
 MyComponent2.checkSupport();
