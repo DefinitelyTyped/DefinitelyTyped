@@ -187,3 +187,18 @@ let pointListList = [pointList, pointList];
         rectangle.points = [pointList, pointList];
     }
 }
+
+const tabPointToMarker = (
+    event: mapkit.MapInteractionEvents<mapkit.Map>["single-tap" | "double-tap" | "long-press"],
+) => {
+    const point = event.pointOnPage;
+    const coordinate = map.convertPointOnPageToCoordinate(point);
+    const newAnnotation = new mapkit.MarkerAnnotation(coordinate, {
+        title: point.x + ", " + point.y + ", " + point.w + ", " + point.z,
+    });
+    map.addAnnotation(newAnnotation);
+};
+
+map.addEventListener("single-tap", tabPointToMarker);
+map.addEventListener("double-tap", tabPointToMarker); // isScrollEnabled = false
+map.addEventListener("long-press", tabPointToMarker);
