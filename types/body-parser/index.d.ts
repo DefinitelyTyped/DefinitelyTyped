@@ -87,6 +87,12 @@ declare namespace bodyParser {
          * a 413 will be returned to the client. Defaults to 1000.
          */
         parameterLimit?: number | undefined;
+        /**
+         * The `depth` option is used to configure the maximum depth of the `qs` library when `extended` is `true`.
+         * This allows you to limit the amount of keys that are parsed and can be useful to prevent certain types of abuse.
+         * Defaults to `32`. It is recommended to keep this value as low as possible.
+         */
+        depth?: number | undefined;
     }
 }
 
