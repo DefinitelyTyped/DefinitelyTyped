@@ -1245,19 +1245,19 @@ declare module "fs/promises" {
     /**
      * Retrieves the files matching the specified pattern.
      */
-    function glob(pattern: string | string[]): AsyncIterableIterator<string>;
+    function glob(pattern: string | string[]): NodeJS.AsyncIterator<string>;
     function glob(
         pattern: string | string[],
         opt: GlobOptionsWithFileTypes,
-    ): AsyncIterableIterator<Dirent>;
+    ): NodeJS.AsyncIterator<Dirent>;
     function glob(
         pattern: string | string[],
         opt: GlobOptionsWithoutFileTypes,
-    ): AsyncIterableIterator<string>;
+    ): NodeJS.AsyncIterator<string>;
     function glob(
         pattern: string | string[],
         opt: GlobOptions,
-    ): AsyncIterableIterator<Dirent> | AsyncIterableIterator<string>;
+    ): NodeJS.AsyncIterator<Dirent | string>;
 }
 declare module "node:fs/promises" {
     export * from "fs/promises";

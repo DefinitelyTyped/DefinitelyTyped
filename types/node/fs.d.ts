@@ -284,7 +284,7 @@ declare module "fs" {
         /**
          * Asynchronously iterates over the directory via `readdir(3)` until all entries have been read.
          */
-        [Symbol.asyncIterator](): AsyncIterableIterator<Dirent>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<Dirent>;
         /**
          * Asynchronously close the directory's underlying resource handle.
          * Subsequent reads will result in errors.
