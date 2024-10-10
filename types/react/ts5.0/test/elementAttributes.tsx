@@ -18,6 +18,10 @@ const testCases = [
     <span enterKeyHint="done" />,
     <span hidden />,
     <span id="s" />,
+    <span inert />,
+    <span inert={true} />,
+    // @ts-expect-error
+    <span inert="true" />,
     <span lang="art-x-tokipona" />,
     <input placeholder="placeholder" />,
     <span slot="my-text" />,

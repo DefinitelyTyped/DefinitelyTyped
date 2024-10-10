@@ -2909,6 +2909,7 @@ declare namespace React {
         enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         hidden?: boolean | undefined;
         id?: string | undefined;
+        inert?: "true" | "false" | undefined;
         lang?: string | undefined;
         nonce?: string | undefined;
         slot?: string | undefined;

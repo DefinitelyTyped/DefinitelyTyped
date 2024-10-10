@@ -101,17 +101,6 @@ const RippleTest: React.FC = () => {
             renderToHardwareTextureAndroid
             shouldRasterizeIOS
             tvParallaxMagnification={aNumber}
-            // @ts-expect-error -- No longer part of props with latest `react-native` types
-            tvParallaxProperties={{
-                enabled: true,
-                shiftDistanceX: aNumber,
-                shiftDistanceY: aNumber,
-                tiltAngle: aNumber,
-                magnification: aNumber,
-                pressMagnification: aNumber,
-                pressDuration: aNumber,
-                pressDelay: aNumber,
-            }}
             tvParallaxShiftDistanceX={aNumber}
             tvParallaxShiftDistanceY={aNumber}
             tvParallaxTiltAngle={aNumber}
