@@ -24,15 +24,7 @@ const gpx = new L.GPX(
    </trkpt></trkseg></trk></gpx>",
     {
         async: true,
-        marker_options: {
-            startIconUrl: "images/pin-icon-start.png",
-            endIconUrl: "images/pin-icon-end.png",
-            shadowUrl: "images/pin-shadow.png",
-            wptIconUrls: {
-                "": "img/gpx/default-waypoint.png",
-                "Geocache Found": "img/gpx/geocache.png",
-                Park: "img/gpx/tree.png",
-            },
+        markers: {
             startIcon: L.icon({
                 iconUrl: "images/pin-icon-start.png",
                 iconSize: [32, 32],
