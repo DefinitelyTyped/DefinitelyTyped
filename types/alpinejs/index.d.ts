@@ -119,7 +119,9 @@ declare namespace Alpine {
          * Registers a callback to pre-process elements being cloned
          * @param callback
          */
-        interceptClone(callback: (from: Alpine.ElementWithXAttributes, to: Alpine.ElementWithXAttributes) => void): void;
+        interceptClone(
+            callback: (from: Alpine.ElementWithXAttributes, to: Alpine.ElementWithXAttributes) => void,
+        ): void;
         /**
          * Adds an Record to the Element's data stack
          * It does not make the object reactive if it isn't already
@@ -234,7 +236,10 @@ declare namespace Alpine {
          * @param includeInitSelectors
          * @returns {HTMLElement | undefined} the root if found
          */
-        closestRoot: (el: Alpine.ElementWithXAttributes, includeInitSelectors?: boolean) => Alpine.ElementWithXAttributes | undefined;
+        closestRoot: (
+            el: Alpine.ElementWithXAttributes,
+            includeInitSelectors?: boolean,
+        ) => Alpine.ElementWithXAttributes | undefined;
         /**
          * Recursively destroys all bindings on a tree of elements
          * Used to cleanup removed elements or disable Alpine
@@ -385,7 +390,10 @@ declare namespace Alpine {
          * @param name name of Magic
          * @param callback Method that builds the magic's value
          */
-        magic(name: string, callback: (el: Alpine.ElementWithXAttributes, options: Alpine.MagicUtilities) => unknown): void;
+        magic(
+            name: string,
+            callback: (el: Alpine.ElementWithXAttributes, options: Alpine.MagicUtilities) => unknown,
+        ): void;
         /**
          * Registers a global reactive store to a name
          * Store is made Reactive if not already
