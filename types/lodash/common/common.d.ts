@@ -213,7 +213,7 @@ declare module "../index" {
     type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialShallow<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
-    type TupleIterator<T extends readonly unknown[], TResult> = (value: T[number], index: { [K in keyof T]: StringToNumber<K> }[never], collection: T) => TResult;
+    type TupleIterator<T extends readonly unknown[], TResult> = (value: T[number], index: StringToNumber<keyof T>, collection: T) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | IterateeShorthand<T>;
     type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | IterateeShorthand<T>;
