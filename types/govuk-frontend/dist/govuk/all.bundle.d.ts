@@ -1,4 +1,5 @@
 import { version } from "./common/govuk-frontend-version.js";
+import { isSupported } from "./common/index.js";
 import { Accordion } from "./components/accordion/accordion.js";
 import { Button } from "./components/button/button.js";
 import { CharacterCount } from "./components/character-count/character-count.js";
@@ -12,6 +13,7 @@ import { Radios } from "./components/radios/radios.js";
 import { ServiceNavigation } from "./components/service-navigation/service-navigation.js";
 import { SkipLink } from "./components/skip-link/skip-link.js";
 import { Tabs } from "./components/tabs/tabs.js";
+import { GOVUKFrontendComponent as Component } from "./govuk-frontend-component.js";
 import { type Config as ConfigImport, type ConfigKey as ConfigKeyImport, createAll, initAll } from "./init.js";
 
 declare namespace GOVUKFrontend {
@@ -21,6 +23,7 @@ declare namespace GOVUKFrontend {
 
 declare const GOVUKFrontend: {
     version: typeof version;
+    isSupported: typeof isSupported;
     Accordion: typeof Accordion;
     Button: typeof Button;
     CharacterCount: typeof CharacterCount;
@@ -34,6 +37,7 @@ declare const GOVUKFrontend: {
     ServiceNavigation: typeof ServiceNavigation;
     SkipLink: typeof SkipLink;
     Tabs: typeof Tabs;
+    Component: typeof Component;
     createAll: typeof createAll;
     initAll: typeof initAll;
 };
