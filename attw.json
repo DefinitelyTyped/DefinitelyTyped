@@ -412,7 +412,6 @@
         "error-cause",
         "es-get-iterator",
         "es6-weak-map",
-        "esbuild-copy-static-files",
         "esbuild-plugin-import-map",
         "eslint__eslintrc",
         "eslint-utils",
