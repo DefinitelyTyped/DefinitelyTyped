@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import * as http from "http";
+
 export interface RequestHeaders extends http.IncomingHttpHeaders {
     "x-client-ip"?: string | undefined;
     "x-forwarded-for"?: string | undefined;
@@ -9,6 +10,7 @@ export interface RequestHeaders extends http.IncomingHttpHeaders {
     "forwarded-for"?: string | undefined;
     "forwarded"?: string | undefined;
 }
+
 export interface Request {
     headers?: RequestHeaders;
     connection?: {
