@@ -1641,10 +1641,6 @@
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
         },
-        "eslint": {
-            "libraryName": "eslint",
-            "asOfVersion": "9.10.0"
-        },
         "eslint-visitor-keys": {
             "libraryName": "eslint-visitor-keys",
             "asOfVersion": "3.3.0"
