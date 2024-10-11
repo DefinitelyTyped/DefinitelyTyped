@@ -1,36 +1,88 @@
 import * as React from "react";
 
-export interface CanvasDrawProps {
-    onChange?: ((canvas: CanvasDraw) => void) | null | undefined;
-    loadTimeOffset?: number | undefined;
-    lazyRadius?: number | undefined;
-    brushRadius?: number | undefined;
-    brushColor?: string | undefined;
-    catenaryColor?: string | undefined;
-    gridColor?: string | undefined;
-    backgroundColor?: string | undefined;
-    hideGrid?: boolean | undefined;
-    canvasWidth?: number | string | undefined;
-    canvasHeight?: number | string | undefined;
-    disabled?: boolean | undefined;
-    imgSrc?: string | undefined;
-    saveData?: string | undefined;
-    immediateLoading?: boolean | undefined;
-    hideInterface?: boolean | undefined;
-    gridSizeX?: number | undefined;
-    gridSizeY?: number | undefined;
-    gridLineWidth?: number | undefined;
-    hideGridX?: boolean | undefined;
-    hideGridY?: boolean | undefined;
-    enablePanAndZoom?: boolean | undefined;
-    mouseZoomFactor?: number | undefined;
-    zoomExtents?: { min: number; max: number } | undefined;
-    clampLinesToDocument?: boolean | undefined;
-    className?: string | undefined;
-    style?: React.CSSProperties | undefined;
+declare namespace CanvasDraw {
+    interface CanvasDrawProps {
+        onChange?: ((canvas: CanvasDraw) => void) | null | undefined;
+
+        /** @default 5 */
+        loadTimeOffset?: number | undefined;
+
+        /** @default 12 */
+        lazyRadius?: number | undefined;
+
+        /** @default 10 */
+        brushRadius?: number | undefined;
+
+        /** @default "#444" */
+        brushColor?: string | undefined;
+
+        /** @default "#0a0302" */
+        catenaryColor?: string | undefined;
+
+        /** @default "rgba(150,150,150,0.17)" */
+        gridColor?: string | undefined;
+
+        /** @default "#FFF" */
+        backgroundColor?: string | undefined;
+
+        /** @default false */
+        hideGrid?: boolean | undefined;
+
+        /** @default 400 */
+        canvasWidth?: number | string | undefined;
+
+        /** @default 400 */
+        canvasHeight?: number | string | undefined;
+
+        /** @default false */
+        disabled?: boolean | undefined;
+
+        /** @default "" */
+        imgSrc?: string | undefined;
+
+        /** @default "" */
+        saveData?: string | undefined;
+
+        /** @default false */
+        immediateLoading?: boolean | undefined;
+
+        /** @default false */
+        hideInterface?: boolean | undefined;
+
+        /** @default 25 */
+        gridSizeX?: number | undefined;
+
+        /** @default 25 */
+        gridSizeY?: number | undefined;
+
+        /** @default 0.5 */
+        gridLineWidth?: number | undefined;
+
+        /** @default false */
+        hideGridX?: boolean | undefined;
+
+        /** @default false */
+        hideGridY?: boolean | undefined;
+
+        /** @default false */
+        enablePanAndZoom?: boolean | undefined;
+
+        /** @default 0.01 */
+        mouseZoomFactor?: number | undefined;
+
+        /** @default { min: 0.33, max: 3 } */
+        zoomExtents?: { min: number; max: number } | undefined;
+
+        /** @default false */
+        clampLinesToDocument?: boolean | undefined;
+
+        className?: string | undefined;
+
+        style?: React.CSSProperties | undefined;
+    }
 }
 
-export default class CanvasDraw extends React.Component<CanvasDrawProps> {
+declare class CanvasDraw extends React.Component<CanvasDraw.CanvasDrawProps> {
     /**
      * Returns the drawing's save-data as a stringified object.
      */
@@ -52,3 +104,5 @@ export default class CanvasDraw extends React.Component<CanvasDrawProps> {
      */
     undo(): void;
 }
+
+export = CanvasDraw;
