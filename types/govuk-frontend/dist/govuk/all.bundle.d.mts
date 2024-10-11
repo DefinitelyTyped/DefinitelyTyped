@@ -9,6 +9,7 @@ export { Header } from "./components/header/header.mjs";
 export { NotificationBanner } from "./components/notification-banner/notification-banner.mjs";
 export { PasswordInput } from "./components/password-input/password-input.mjs";
 export { Radios } from "./components/radios/radios.mjs";
+export { ServiceNavigation } from "./components/service-navigation/service-navigation.mjs";
 export { SkipLink } from "./components/skip-link/skip-link.mjs";
 export { Tabs } from "./components/tabs/tabs.mjs";
 export { type Config, type ConfigKey, createAll, initAll } from "./init.mjs";

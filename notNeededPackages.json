@@ -6411,6 +6411,10 @@
             "libraryName": "victory",
             "asOfVersion": "35.0.0"
         },
+        "videojs-hotkeys": {
+            "libraryName": "videojs-hotkeys",
+            "asOfVersion": "0.2.29"
+        },
         "viewerjs": {
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"

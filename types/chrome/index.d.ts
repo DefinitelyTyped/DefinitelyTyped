@@ -487,6 +487,160 @@ declare namespace chrome.alarms {
 }
 
 ////////////////////
+// Audio
+////////////////////
+/**
+ * The chrome.audio API is provided to allow users to get information about and control the audio devices attached to the system.
+ * This API is currently only available in kiosk mode for ChromeOS.
+ *
+ * Permissions: "audio"
+ *
+ * @platform ChromeOS only
+ * @since Chrome 59
+ */
+declare namespace chrome.audio {
+    export interface AudioDeviceInfo {
+        /** Device name */
+        deviceName: string;
+        /** Type of the device */
+        deviceType: DeviceType;
+        /** The user-friendly name (e.g. "USB Microphone"). */
+        displayName: string;
+        /** The unique identifier of the audio device. */
+        id: string;
+        /** True if this is the current active device. */
+        isActive: boolean;
+        /** The sound level of the device, volume for output, gain for input. */
+        level: number;
+        /** The stable/persisted device id string when available. */
+        stableDeviceId?: string;
+        /** Stream type associated with this device. */
+        streamType: StreamType;
+    }
+
+    export interface DeviceFilter {
+        /** If set, only audio devices whose active state matches this value will satisfy the filter. */
+        isActive?: boolean;
+        /** If set, only audio devices whose stream type is included in this list will satisfy the filter. */
+        streamTypes?: StreamType[];
+    }
+
+    export interface DeviceIdLists {
+        /**
+         * List of input devices specified by their ID.
+         * To indicate input devices should be unaffected, leave this property unset.
+         */
+        input?: string[];
+        /**
+         * List of output devices specified by their ID.
+         * To indicate output devices should be unaffected, leave this property unset.
+         */
+        output?: string[];
+    }
+
+    export interface DeviceProperties {
+        /**
+         * The audio device's desired sound level. Defaults to the device's current sound level.
+         * If used with audio input device, represents audio device gain.
+         * If used with audio output device, represents audio device volume.
+         */
+        level?: number;
+    }
+
+    /** Available audio device types. */
+    export enum DeviceType {
+        ALSA_LOOPBACK = "ALSA_LOOPBACK",
+        BLUETOOTH = "BLUETOOTH",
+        FRONT_MIC = "FRONT_MIC",
+        HDMI = "HDMI",
+        HEADPHONE = "HEADPHONE",
+        HOTWORD = "HOTWORD",
+        INTERNAL_MIC = "INTERNAL_MIC",
+        INTERNAL_SPEAKER = "INTERNAL_SPEAKER",
+        KEYBOARD_MIC = "KEYBOARD_MIC",
+        LINEOUT = "LINEOUT",
+        MIC = "MIC",
+        OTHER = "OTHER",
+        POST_DSP_LOOPBACK = "POST_DSP_LOOPBACK",
+        POST_MIX_LOOPBACK = "POST_MIX_LOOPBACK",
+        REAR_MIC = "REAR_MIC",
+        USB = "USB",
+    }
+
+    export interface LevelChangedEvent {
+        /** ID of device whose sound level has changed. */
+        deviceId: string;
+        /** The device's new sound level. */
+        level: number;
+    }
+
+    export interface MuteChangedEvent {
+        /** Whether or not the stream is now muted. */
+        isMuted: boolean;
+        /** The type of the stream for which the mute value changed. The updated mute value applies to all devices with this stream type. */
+        streamType: StreamType;
+    }
+
+    /** Type of stream an audio device provides. */
+    export enum StreamType {
+        INPUT = "INPUT",
+        OUTPUT = "OUTPUT",
+    }
+
+    /**
+     * Gets a list of audio devices filtered based on filter.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function getDevices(filter?: DeviceFilter): Promise<AudioDeviceInfo[]>;
+    export function getDevices(filter: DeviceFilter, callback: (devices: AudioDeviceInfo[]) => void): void;
+    export function getDevices(callback: (devices: AudioDeviceInfo[]) => void): void;
+
+    /**
+     * Gets the system-wide mute state for the specified stream type.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function getMute(streamType: `${StreamType}`): Promise<boolean>;
+    export function getMute(streamType: `${StreamType}`, callback: (value: boolean) => void): void;
+
+    /**
+     * Sets lists of active input and/or output devices.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function setActiveDevices(ids: DeviceIdLists): Promise<void>;
+    export function setActiveDevices(ids: DeviceIdLists, callback: () => void): void;
+
+    /**
+     * Sets mute state for a stream type. The mute state will apply to all audio devices with the specified audio stream type.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function setMute(streamType: `${StreamType}`, isMuted: boolean): Promise<void>;
+    export function setMute(streamType: `${StreamType}`, isMuted: boolean, callback: () => void): void;
+
+    /**
+     * Sets the properties for the input or output device.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function setProperties(id: string, properties: DeviceProperties): Promise<void>;
+    export function setProperties(id: string, properties: DeviceProperties, callback: () => void): void;
+
+    /**
+     * Fired when audio devices change, either new devices being added, or existing devices being removed.
+     */
+    export const onDeviceListChanged: chrome.events.Event<(devices: AudioDeviceInfo[]) => void>;
+
+    /**
+     * Fired when sound level changes for an active audio device.
+     */
+    export const onLevelChanged: chrome.events.Event<(event: LevelChangedEvent) => void>;
+
+    /**
+     * Fired when the mute state of the audio input or output changes.
+     * Note that mute state is system-wide and the new value applies to every audio device with specified stream type.
+     */
+    export const onMuteChanged: chrome.events.Event<(event: MuteChangedEvent) => void>;
+}
+
+////////////////////
 // Browser
 ////////////////////
 /**
@@ -1822,6 +1976,11 @@ declare namespace chrome.cookies {
         domain: string;
         /** The name of the cookie. */
         name: string;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey;
         /** The ID of the cookie store containing this cookie, as provided in getAllCookieStores(). */
         storeId: string;
         /** The value of the cookie. */
@@ -1845,6 +2004,12 @@ declare namespace chrome.cookies {
         sameSite: SameSiteStatus;
     }
 
+    /** Represents a partitioned cookie's partition key. */
+    export interface CookiePartitionKey {
+        /** The top-level site the partitioned cookie is available in. */
+        topLevelSite?: string | undefined;
+    }
+
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
     export interface CookieStore {
         /** The unique identifier for the cookie store. */
@@ -1858,6 +2023,11 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. Filters the cookies by name.  */
         name?: string | undefined;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
         /** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
         url?: string | undefined;
         /** Optional. The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.  */
@@ -1875,6 +2045,11 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. The name of the cookie. Empty by default if omitted.  */
         name?: string | undefined;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
         /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
         /** Optional. The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.  */
@@ -1896,10 +2071,19 @@ declare namespace chrome.cookies {
         sameSite?: SameSiteStatus | undefined;
     }
 
-    export interface Details {
+    /** Details to identify the cookie. */
+    export interface CookieDetails {
+        /** The name of the cookie to access. */
         name: string;
-        url: string;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
+        /** The ID of the cookie store in which to look for the cookie. By default, the current execution context's cookie store will be used. */
         storeId?: string | undefined;
+        /** The URL with which the cookie to access is associated. This argument may be a full URL, in which case any data following the URL path (e.g. the query string) is simply ignored. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
+        url: string;
     }
 
     export interface CookieChangeInfo {
@@ -1955,24 +2139,24 @@ declare namespace chrome.cookies {
      * @param details Information to identify the cookie to remove.
      * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function remove(details: Details): Promise<Details>;
+    export function remove(details: CookieDetails): Promise<CookieDetails>;
     /**
      * Deletes a cookie by name.
      * @param details Information to identify the cookie to remove.
      */
-    export function remove(details: Details, callback?: (details: Details) => void): void;
+    export function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
      */
-    export function get(details: Details, callback: (cookie: Cookie | null) => void): void;
+    export function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function get(details: Details): Promise<Cookie | null>;
+    export function get(details: CookieDetails): Promise<Cookie | null>;
 
     /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
     export var onChanged: CookieChangedEvent;
@@ -7434,6 +7618,7 @@ declare namespace chrome.runtime {
     export type ManifestPermissions =
         | "activeTab"
         | "alarms"
+        | "audio"
         | "background"
         | "bookmarks"
         | "browsingData"
@@ -7493,6 +7678,7 @@ declare namespace chrome.runtime {
         | "system.display"
         | "system.memory"
         | "system.storage"
+        | "systemLog"
         | "tabCapture"
         | "tabGroups"
         | "tabs"
@@ -7505,7 +7691,8 @@ declare namespace chrome.runtime {
         | "wallpaper"
         | "webNavigation"
         | "webRequest"
-        | "webRequestBlocking";
+        | "webRequestBlocking"
+        | "webRequestAuthProvider";
 
     export interface SearchProvider {
         name?: string | undefined;
@@ -9411,6 +9598,31 @@ declare namespace chrome.system.display {
      * Fired when anything changes to the display configuration.
      */
     export const onDisplayChanged: chrome.events.Event<() => void>;
+}
+
+////////////////////
+// SystemLog
+////////////////////
+/**
+ * Use the chrome.systemLog API to record Chrome system logs from extensions.
+ *
+ * Permissions: "systemLog"
+ *
+ * Note: This API is only for extensions pre-installed by policy.
+ * @platform ChromeOS only
+ * @since Chrome 125
+ */
+declare namespace chrome.systemLog {
+    export interface MessageOptions {
+        message: string;
+    }
+
+    /**
+     * Adds a new log record.
+     * Can return its result via Promise in Manifest V3 or later.
+     */
+    export function add(options: MessageOptions): Promise<void>;
+    export function add(options: MessageOptions, callback: () => void): void;
 }
 
 ////////////////////
@@ -11784,7 +11996,14 @@ declare namespace chrome.webRequest {
     export var onSendHeaders: WebRequestHeadersEvent;
     /** Fired when HTTP response headers of a request have been received. */
     export var onHeadersReceived: WebResponseHeadersEvent;
-    /** Fired when an authentication failure is received. The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge. If bad user credentials are provided, this may be called multiple times for the same request. */
+    /**
+     * Fired when an authentication failure is received.
+     * The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge.
+     * If bad user credentials are provided, this may be called multiple times for the same request.
+     * Note, only one of `blocking` or `asyncBlocking` modes must be specified in the extraInfoSpec parameter.
+     *
+     * Requires the `webRequestAuthProvider` permission.
+     */
     export var onAuthRequired: WebAuthenticationChallengeEvent;
     /** Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available. */
     export var onResponseStarted: WebResponseCacheEvent;

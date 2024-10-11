@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.128.0
+// For Library Version: 1.129.0
 
 declare module "sap/base/assert" {
   /**
@@ -55127,10 +55127,10 @@ declare module "sap/ui/model/CompositeDataState" {
     getModelMessages(): Message[];
     /**
      * Returns whether the data state is dirty in the UI control. A data state is dirty in the UI control if
-     * the entered value did not yet pass the type validation.
+     * an entered value did not pass the type validation.
      *
      *
-     * @returns Whether the control data state is dirty
+     * @returns Whether this data state or at least one of the aggregated data states is dirty in the UI control
      */
     isControlDirty(): boolean;
     /**
@@ -55685,10 +55685,11 @@ declare module "sap/ui/model/DataState" {
     getValue(): any;
     /**
      * Returns whether the data state is dirty in the UI control. A data state is dirty in the UI control if
-     * the entered value did not yet pass the type validation.
+     * an entered value did not pass the type validation. If the data state is used by a composite data state,
+     * it is also checked whether the composite data state is dirty in the UI control.
      *
      *
-     * @returns Whether the data state is dirty
+     * @returns Whether the data state is dirty in the UI control
      */
     isControlDirty(): boolean;
     /**
@@ -59957,6 +59958,26 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
      */
     static getMetadata(): Metadata;
     /**
+     * Gets the metadata context for the given function import and parameter name. The result can be used with
+     * {@link sap.ui.model.ODataMetaModel#getODataValueLists} to request the metadata for the value lists for
+     * that function import parameter.
+     *
+     * @since 1.129.0
+     *
+     * @returns The metadata context referencing the given function import parameter
+     */
+    getFunctionImportParameterContext(
+      /**
+       * The function import name, either unqualified or qualified, e.g. "Save" or "MyService.Entities/Save";
+       * if an unqualified name is used, the function import is searched for in the default entity container
+       */
+      sFunctionName: string,
+      /**
+       * The name of the function import parameter
+       */
+      sParameter: string
+    ): Context;
+    /**
      * Returns the OData meta model context corresponding to the given OData model path.
      *
      *
@@ -60154,11 +60175,11 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
       bAsPath?: boolean
     ): Property | string | undefined | null;
     /**
-     * Returns a `Promise` which is resolved with a map representing the `com.sap.vocabularies.Common.v1.ValueList`
-     * annotations of the given property or rejected with an error. The key in the map provided on successful
-     * resolution is the qualifier of the annotation or the empty string if no qualifier is defined. The value
-     * in the map is the JSON object for the annotation. The map is empty if the property has no `com.sap.vocabularies.Common.v1.ValueList`
-     * annotations.
+     * Returns a `Promise` which either resolves with a map representing the `com.sap.vocabularies.Common.v1.ValueList`
+     * annotations of the property or function import parameter referenced by the given metamodel context or
+     * rejects with an error. The key in the map provided on successful resolution is the qualifier of the annotation
+     * or the empty string if no qualifier is defined. The value in the map is the JSON object for the annotation.
+     * The map is empty if the property has no `com.sap.vocabularies.Common.v1.ValueList` annotations.
      *
      * @since 1.29.1
      *
@@ -60167,9 +60188,10 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
      */
     getODataValueLists(
       /**
-       * A model context for a structural property of an entity type or a complex type, as returned by {@link #getMetaContext getMetaContext}
+       * A model context for a structural property of an entity type or a complex type, as returned by {@link #getMetaContext getMetaContext},
+       * or (since 1.129.0) a model context for a parameter of a function import, as returned by {@link #getFunctionImportParameterContext}
        */
-      oPropertyContext: Context
+      oPropertyOrParameterContext: Context
     ): Promise<Record<string, ValueListType>>;
     /**
      * Returns a promise which is fulfilled once the meta model data is loaded and can be used.
@@ -67573,50 +67595,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Adds (a) new URL(s) whose content should be parsed as OData annotations, which are then merged into the
-     * annotations object which can be retrieved by calling the {@link #getServiceAnnotations}-method. If a
-     * `$metadata` URL is passed, the data will also be merged into the metadata object, which can be reached
-     * by calling the {@link #getServiceMetadata} method.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns The Promise to load the given URL(s), resolved if all URLs have been loaded, rejected if at
-     * least one fails to load. If this promise resolves it returns an object with the following properties:
-     * `annotations`: The annotation object `entitySets`: An array of EntitySet objects containing the newly
-     * merged EntitySets from a `$metadata` requests. The structure is the same as in the metadata object reached
-     * by the `getServiceMetadata()` method. For non-`$metadata` requests the array will be empty.
-     */
-    addAnnotationUrl(
-      /**
-       * Either one URL as string or an array of URL strings
-       */
-      vUrl: string | string[]
-    ): Promise<any>;
-    /**
-     * Adds new XML content to be parsed for OData annotations, which are then merged into the annotations object
-     * which can be retrieved by calling the {@link #getServiceAnnotations}-method.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns The Promise to parse the given XML-String, resolved if parsed without errors, rejected if errors
-     * occur
-     */
-    addAnnotationXML(
-      /**
-       * The string that should be parsed as annotation XML
-       */
-      sXMLContent: string,
-      /**
-       * Whether not to fire annotationsLoaded event on the annotationParser
-       */
-      bSuppressEvents?: boolean
-    ): Promise<any>;
-    /**
      * Returns a promise that resolves with an array containing information about the initially loaded annotations.
      *
      * **Important**: This covers the annotations that were given to the model constructor, not the ones that
-     * might have been added later on using the protected API method {@link #addAnnotationUrl}. In order to
-     * get information about those, the event `annotationsLoaded` can be used.
+     * might have been added later on using the API method {@link sap.ui.model.odata.ODataMetaModel#getODataValueLists}.
+     * In order to get information about those, the event `annotationsLoaded` can be used.
      *
      * @since 1.42
      *
@@ -73506,7 +73489,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        *  Since 1.89.0, the **deprecated** property `"grandTotal like 1.84" : true` can be used to turn on the
        * handling of grand totals like in 1.84.0, using aggregates of aggregates and thus allowing to filter by
        * aggregated properties while grand totals are needed. Beware that methods like "average" or "countdistinct"
-       * are not compatible with this approach, and it cannot be combined with group levels.
+       * are not compatible with this approach, and it cannot be combined with group levels. Since 1.129.0, this
+       * property is not needed anymore and filtering by aggregated properties is supported even while grand totals
+       * or subtotals are needed.
        *  Since 1.117.0, either a read-only recursive hierarchy or pure data aggregation is supported, but no
        * mix; `hierarchyQualifier` is the leading property that decides between those two use cases. Since 1.125.0,
        * maintenance of a recursive hierarchy is supported.
@@ -73516,17 +73501,17 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * A map from aggregatable property names or aliases to objects containing the following details:
          * 	 `grandTotal`: An optional boolean that tells whether a grand total for this aggregatable property is
          * needed (since 1.59.0); not supported in this case are:
-         * 	 filtering by any aggregatable property (since 1.89.0),  "$search" (since 1.93.0),  the `vGroup`
-         * parameter of {@link sap.ui.model.Sorter} (since 1.107.0),  shared requests (since 1.108.0).
-         *  `subtotals`: An optional boolean that tells whether subtotals for this aggregatable property are
-         * needed  `with`: An optional string that provides the name of the method (for example "sum") used
-         * for aggregation of this aggregatable property; see "3.1.2 Keyword with".  `name`: An optional string
-         * that provides the original aggregatable property name in case a different alias is chosen as the name
-         * of the dynamic property used for aggregation of this aggregatable property; see "3.1.1 Keyword as"
-         * `unit`: An optional string that provides the name of the custom aggregate for a currency or unit of measure
-         * corresponding to this aggregatable property (since 1.86.0). The custom aggregate must return the single
-         * value of that unit in case there is only one, or `null` otherwise ("multi-unit situation"). (SQL suggestion:
-         * `CASE WHEN MIN(Unit) = MAX(Unit) THEN MIN(Unit) END`)
+         * 	 "$search" (since 1.93.0),  the `vGroup` parameter of {@link sap.ui.model.Sorter} (since 1.107.0),
+         *  shared requests (since 1.108.0).   `subtotals`: An optional boolean that tells whether
+         * subtotals for this aggregatable property are needed  `with`: An optional string that provides the
+         * name of the method (for example "sum") used for aggregation of this aggregatable property; see "3.1.2
+         * Keyword with".  `name`: An optional string that provides the original aggregatable property name
+         * in case a different alias is chosen as the name of the dynamic property used for aggregation of this
+         * aggregatable property; see "3.1.1 Keyword as"  `unit`: An optional string that provides the name
+         * of the custom aggregate for a currency or unit of measure corresponding to this aggregatable property
+         * (since 1.86.0). The custom aggregate must return the single value of that unit in case there is only
+         * one, or `null` otherwise ("multi-unit situation"). (SQL suggestion: `CASE WHEN MIN(Unit) = MAX(Unit)
+         * THEN MIN(Unit) END`)
          */
         aggregate?: object;
         /**
@@ -75181,6 +75166,15 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * Whether the binding always uses an own service request to read its data; only the value `true` is allowed.
          */
         $$ownRequest?: boolean;
+        /**
+         * An array of navigation property names which are omitted from the main list request and loaded in a separate
+         * request instead (@experimental as of version 1.129.0). This results in the main list becoming available
+         * faster, while the separate properties are merged as soon as the data is received. Note that the separate
+         * properties must be part of the '$expand' system query option, either automatically via the "autoExpandSelect"
+         * model parameter (see {@link sap.ui.model.odata.v4.ODataModel#constructor}) or manually. The `$$separate`
+         * parameter must not be combined with `$$aggregation`.
+         */
+        $$separate?: string[];
         /**
          * Whether multiple bindings for the same resource path share the data, so that it is requested only once.
          * This parameter can be inherited from the model's parameter "sharedRequests", see {@link sap.ui.model.odata.v4.ODataModel#constructor}.

@@ -1,38 +1,52 @@
 let b = false;
 let s: string;
 
-function testPassage(p: TwineSugarCube.Passage): boolean {
-    p.description(); // $ExpectType string
-    p.domId; // $ExpectType string
-    p.processText(); // $ExpectType string
+function testPassageBase(p: TwineSugarCube.PassageBase): boolean {
     p.tags; // $ExpectType string[]
     p.text; // $ExpectType string
-    p.title; // $ExpectType string
+    p.name; // $ExpectType string
 
-    return p.tags.indexOf(p.processText()) > 0;
+    return p.tags.indexOf("") > 0;
 }
 
-s = Story.domId;
+function testPassage(p: TwineSugarCube.Passage): boolean {
+    p.id; // $ExpectType string
+    p.processText(); // $ExpectType string
+
+    return testPassageBase(p);
+}
+
+function testPassageWithThis(this: DocumentFragment, p: TwineSugarCube.Passage): boolean {
+    p.id; // $ExpectType string
+    p.processText(); // $ExpectType string
+
+    return testPassageBase(p);
+}
+
+s = Story.id;
 // @ts-expect-error
-Story.domId = s;
+Story.id = s;
+
+s = Story.ifId;
+// @ts-expect-error
+Story.ifId = s;
 
 testPassage(Story.get("passageName"));
 b = Story.has("passage");
 
-Story.lookup("tags", "forest").forEach(p => {
+Story.filter(testPassage).forEach(p => {
     testPassage(p);
 });
-Story.lookup("tags", 123).forEach(p => {
-    testPassage(p);
-});
-Story.lookup("tags", "forest", "string").forEach(p => {
+Story.filter(testPassageWithThis, new DocumentFragment()).forEach(p => {
     testPassage(p);
 });
 
-Story.lookupWith(testPassage);
+let p: TwineSugarCube.Passage | undefined = Story.find(testPassage);
 
-s = Story.title;
+p = Story.find(testPassageWithThis, new DocumentFragment());
+
+s = Story.name;
 // @ts-expect-error
-Story.title = s;
+Story.name = s;
 
 export {};

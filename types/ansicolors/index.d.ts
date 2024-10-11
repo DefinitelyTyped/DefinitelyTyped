@@ -35,7 +35,6 @@ interface Colors {
     bgBrightWhite: this;
     open: this;
     close: this;
-    colors: this;
 }
 declare const colors: Colors;
 export = colors;
