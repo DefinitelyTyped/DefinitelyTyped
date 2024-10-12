@@ -36,7 +36,7 @@ function transformImports(code: string) {
         return code;
     }
     imports.forEach((it) => {
-        it.source.value = `https://esm.sh/${it.source.value}`;
+        (it as ImportDeclaration).source.value = `https://esm.sh/${(it as ImportDeclaration).source.value}`;
     });
     const newCode = generator.default(ast).code;
     return newCode;
