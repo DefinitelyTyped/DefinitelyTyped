@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/amazon-product-api",
-    "version": "0.4.4",
+    "version": "0.0.9999",
     "projects": [
         "https://github.com/t3chnoboy/amazon-product-api"
     ],
