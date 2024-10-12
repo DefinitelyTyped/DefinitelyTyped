@@ -14,5 +14,8 @@
             "name": "Michael Driscoll",
             "githubUsername": "syncsynchalt"
         }
-    ]
+    ],
+    "dependencies": {
+        "svelte": "^4"
+    }
 }
