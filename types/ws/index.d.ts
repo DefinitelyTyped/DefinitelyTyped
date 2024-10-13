@@ -316,6 +316,7 @@ declare namespace WebSocket {
             | undefined;
         handleProtocols?: (protocols: Set<string>, request: InstanceType<V>) => string | false;
         path?: string | undefined;
+        autoPong?: boolean | undefined;
         noServer?: boolean | undefined;
         clientTracking?: boolean | undefined;
         perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
