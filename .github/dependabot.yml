@@ -8,7 +8,7 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: '15 minutes'
     groups:
       github-actions:
         patterns:
