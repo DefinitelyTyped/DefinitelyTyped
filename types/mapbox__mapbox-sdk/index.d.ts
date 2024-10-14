@@ -1856,7 +1856,11 @@ declare module "@mapbox/mapbox-sdk/services/static" {
                 bearing?: number | undefined;
                 pitch?: number | undefined;
             }
-            | { bbox: [number, number, number, number]; bearing?: number | undefined; pitch?: number | undefined }
+            | {
+                bbox: [number, number, number, number];
+                bearing?: number | undefined;
+                pitch?: number | undefined;
+            }
             | "auto";
         padding?: string | undefined;
         overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay> | undefined;
