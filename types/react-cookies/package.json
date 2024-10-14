@@ -6,7 +6,6 @@
         "https://github.com/bukinoshita/react-cookies/"
     ],
     "dependencies": {
-        "@types/cookie": "*",
         "@types/express": "*"
     },
     "devDependencies": {
