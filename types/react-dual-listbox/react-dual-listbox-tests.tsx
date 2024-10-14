@@ -132,14 +132,17 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
 <DualListBox options={flatOptions} preserveSelectOrder />;
 
 /** `moveKeys` example. */
-<DualListBox options={flatOptions} moveKeys={[' ', 'Enter']} />;
+<DualListBox options={flatOptions} moveKeys={[" ", "Enter"]} />;
 
 /** `icons` example. */
 <DualListBox
     options={flatOptions}
     icons={{
         moveToAvailable: <span className="fa fa-chevron-left" />,
-        moveAllToAvailable: [<span key={0} className="fa fa-chevron-left" />, <span key={1} className="fa fa-chevron-left" />],
+        moveAllToAvailable: [
+            <span key={0} className="fa fa-chevron-left" />,
+            <span key={1} className="fa fa-chevron-left" />,
+        ],
         moveToSelected: <span className="fa fa-chevron-right" />,
         moveAllToSelected: [
             <span key={0} className="fa fa-chevron-right" />,
@@ -164,7 +167,10 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
     available={flatOptions.map(o => o.value)}
     icons={{
         moveToAvailable: <span className="fa fa-chevron-left" />,
-        moveAllToAvailable: [<span key={0} className="fa fa-chevron-left" />, <span key={1} className="fa fa-chevron-left" />],
+        moveAllToAvailable: [
+            <span key={0} className="fa fa-chevron-left" />,
+            <span key={1} className="fa fa-chevron-left" />,
+        ],
         moveToSelected: <span className="fa fa-chevron-right" />,
         moveAllToSelected: [
             <span key={0} className="fa fa-chevron-right" />,
@@ -176,7 +182,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         moveBottom: <span className="fa fa-double-angle-down" />,
     }}
     lang={{ availableHeader: "Available", selectedHeader: "Selected" }}
-    moveKeys={[' ', 'Enter']}
+    moveKeys={[" ", "Enter"]}
     simpleValue={false}
     onChange={optionsChange}
     canFilter
