@@ -479,7 +479,7 @@ For example, `chai-match-pattern` extends `chai`, but does not declare a peer de
 
 If a package simply exposes types from another package as a part of its API due to a regular dependency in the upstream package, it should not use a peer dependency.
 For example, `express` depends on `qs`, and `@types/express` references `@types/qs` in its types, but installing `express` does not require a consumer to manually install `qs` to be usable.
-Using a peer dependency in this case may cause downstream consumers to need to manually install `@types/qs` even though `qs` it's a transitive dependency.
+Using a peer dependency in this case may cause downstream consumers to need to manually install `@types/qs` even though `qs` is a transitive dependency.
 
 #### `.npmignore`
 
