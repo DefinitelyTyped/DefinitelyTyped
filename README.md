@@ -468,9 +468,14 @@ Peer dependencies can help prevent situations where a package manager unexpected
 However, peer dependencies have downsides; package managers differ in their handling of peer dependencies (e.g., `yarn` does not auto-install them, `npm` requires `--legacy-peer-deps` for mismatches).
 As such, PRs introducing new peer dependencies require maintainer approval and should be limited to specific circumstances.
 
-Peer dependencies can be used in cases where the peer dependency is _already_ going to be installed by the downstream consumer.
+In general, types packages should only have a peer dependency if the upstream package has a peer dependency on the same package (or its types).
 For example, a DT package for a React component can specify a peer dependency on `@types/react@*`, as the consumer will have needed to install `@types/react` to use JSX in the first place.
 If the consumer installs `@types/react@16` in their project, but a newer version of `@types/react` is available on npm, the peer dependency may help the package manager choose `@types/react@16` instead of that newer version.
+Similarly, `chai-as-promised` has a peer dependency on `chai`, so `@types/chai-as-promised` should have a peer dependency on `@types/chai`.
+
+There are some cases where the upstream package does not have a peer dependency on the types package, but a peer dependency is still appropriate.
+These are typically cases where the upstream package extends another package and assumes it exists, so _should_ have declared a peer dependency as it extends another package, but did not.
+For example, `chai-match-pattern` extends `chai`, but does not declare a peer dependency on `chai`, but needs it to function. `@types/chai-match-pattern` should have a peer dependency on `@types/chai`.
 
 If a package simply exposes types from another package as a part of its API due to a regular dependency in the upstream package, it should not use a peer dependency.
 For example, `express` depends on `qs`, and `@types/express` references `@types/qs` in its types, but installing `express` does not require a consumer to manually install `qs` to be usable.
