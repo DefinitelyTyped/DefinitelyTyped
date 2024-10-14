@@ -1,4 +1,6 @@
-import type { UploadMediaOptions } from "@wordpress/media-utils";
+import { uploadMedia } from "@wordpress/media-utils";
+
+type UploadMediaOptions = Parameters<typeof uploadMedia>[0];
 
 export type MediaUploadOptions =
     & Omit<UploadMediaOptions, "maxUploadFileSize" | "onError" | "wpAllowedMimeTypes">
