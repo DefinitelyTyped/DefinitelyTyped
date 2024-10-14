@@ -2479,3 +2479,76 @@ function testPower() {
     // @ts-expect-error
     chrome.power.reportActivity(() => {}).then(() => {});
 }
+
+// https://developer.chrome.com/docs/extensions/reference/api/printing
+function testPrinting() {
+    chrome.printing.MAX_GET_PRINTER_INFO_CALLS_PER_MINUTE === 20;
+    chrome.printing.MAX_SUBMIT_JOB_CALLS_PER_MINUTE === 40;
+
+    chrome.printing.JobStatus.CANCELED === "CANCELED";
+    chrome.printing.JobStatus.FAILED === "FAILED";
+    chrome.printing.JobStatus.IN_PROGRESS === "IN_PROGRESS";
+    chrome.printing.JobStatus.PENDING === "PENDING";
+    chrome.printing.JobStatus.PRINTED === "PRINTED";
+
+    chrome.printing.PrinterSource.POLICY === "POLICY";
+    chrome.printing.PrinterSource.USER === "USER";
+
+    chrome.printing.PrinterStatus.AVAILABLE === "AVAILABLE";
+    chrome.printing.PrinterStatus.DOOR_OPEN === "DOOR_OPEN";
+    chrome.printing.PrinterStatus.EXPIRED_CERTIFICATE === "EXPIRED_CERTIFICATE";
+    chrome.printing.PrinterStatus.GENERIC_ISSUE === "GENERIC_ISSUE";
+    chrome.printing.PrinterStatus.OUTPUT_FULL === "OUTPUT_FULL";
+    chrome.printing.PrinterStatus.OUT_OF_INK === "OUT_OF_INK";
+    chrome.printing.PrinterStatus.OUT_OF_PAPER === "OUT_OF_PAPER";
+    chrome.printing.PrinterStatus.PAPER_JAM === "PAPER_JAM";
+    chrome.printing.PrinterStatus.STOPPED === "STOPPED";
+    chrome.printing.PrinterStatus.TRAY_MISSING === "TRAY_MISSING";
+    chrome.printing.PrinterStatus.UNREACHABLE === "UNREACHABLE";
+
+    chrome.printing.SubmitJobStatus.OK === "OK";
+    chrome.printing.SubmitJobStatus.USER_REJECTED === "USER_REJECTED";
+
+    chrome.printing.cancelJob(""); // $ExpectType Promise<void>
+    chrome.printing.cancelJob("", () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printing.cancelJob("", () => {}).then(() => {});
+
+    chrome.printing.getPrinterInfo(""); // $ExpectType Promise<GetPrinterInfoResponse>
+    chrome.printing.getPrinterInfo("", response => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printing.getPrinterInfo("", response => {}).then(response => {});
+
+    chrome.printing.getPrinters(); // $ExpectType Promise<Printer[]>
+    chrome.printing.getPrinters(printers => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printing.getPrinters(printers => {}).then(printers => {});
+
+    const submitJobRequest = {
+        job: {
+            printerId: "",
+            title: "",
+            ticket: {},
+            contentType: "",
+            document: new Blob(),
+        },
+    };
+    chrome.printing.submitJob(submitJobRequest); // $ExpectType Promise<SubmitJobResponse>
+    chrome.printing.submitJob(submitJobRequest, response => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printing.submitJob(submitJobRequest, response => {}).then(response => {});
+
+    chrome.printing.onJobStatusChanged.addListener((jobId, status) => {
+        jobId; // $ExpectType string
+        status; // $ExpectType JobStatus
+    });
+    chrome.printing.onJobStatusChanged.removeListener((jobId, status) => {
+        jobId; // $ExpectType string
+        status; // $ExpectType JobStatus
+    });
+    chrome.printing.onJobStatusChanged.hasListener((jobId, status) => {
+        jobId; // $ExpectType string
+        status; // $ExpectType JobStatus
+    });
+    chrome.printing.onJobStatusChanged.hasListeners();
+}
