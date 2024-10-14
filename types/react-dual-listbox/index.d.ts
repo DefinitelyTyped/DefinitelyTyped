@@ -119,21 +119,45 @@ export interface CommonProperties<T> {
      */
     disabled?: boolean;
     /**
+     * Resolve the label from an option
+     * 
+     * @default option => option.label
+     */
+    getOptionLabel?: (option: ValueOption<T>) => string;
+    /**
+     * Resolve the value from an option
+     * 
+     * @default option => option.value
+     */
+    getOptionValue?: (option: ValueOption<T>) => string;
+    /**
+     * The {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir | directionality}
+     * of the component's elements. Set to 'rtl' if using a right-to-left language.
+     */
+    htmlDir?: string;
+    /**
      * A key-value pairing of action icons and their React nodes.
      */
     icons?: {
         [
             k in
-                | "moveLeft"
-                | "moveAllLeft"
-                | "moveRight"
-                | "moveAllRight"
+                | "moveToAvailable"
+                | "moveAllToAvailable"
+                | "moveToSelected"
+                | "moveAllToSelected"
                 | "moveDown"
                 | "moveUp"
                 | "moveTop"
                 | "moveBottom"
         ]?: React.ReactNode;
     };
+    /**
+     * A value specifying which overarching icon class to use.
+     * Built-in support for fa5, fa6, and native icons.
+     * 
+     * @default "fa6"
+     */
+    iconsClass?: string;
     /**
      * An HTML ID prefix for the various sub elements.
      *
@@ -147,27 +171,31 @@ export interface CommonProperties<T> {
         [
             k in
                 | "availableFilterHeader"
+                | "availableFilterPlaceholer"
                 | "availableHeader"
-                | "moveAllLeft"
-                | "moveAllRight"
-                | "moveLeft"
-                | "moveRight"
+                | "hiddenInputLabel"
+                | "moveAllToAvailable"
+                | "moveAllToSelected"
+                | "moveToAvailable"
+                | "moveToSelected"
                 | "moveBottom"
                 | "moveDown"
                 | "moveUp"
                 | "moveTop"
                 | "noAvailableOptions"
                 | "noSelectedOptions"
+                | "requiredError"
                 | "selectedFilterHeader"
+                | "selectedFilterPlaceholder"
                 | "selectedHeader"
         ]?: string;
     };
     /**
      * A list of key codes that will trigger a toggle of the selected options.
      *
-     * @default [13, 32]
+     * @default [' ', 'Enter']
      */
-    moveKeyCodes?: number[];
+    moveKeys?: string[];
     /**
      * A value for the `name` attribute on the hidden `<input />` element. This is potentially
      * useful for form submissions.
@@ -182,6 +210,12 @@ export interface CommonProperties<T> {
      * @default false
      */
     preserveSelectOrder?: boolean;
+    /**
+     * f true, this component will require selected to be non-empty to pass a form validation
+     * 
+     * @default false
+     */
+    required?: boolean;
     /**
      * If true, labels above both the available and selected list boxes will appear. These labels
      * derive from `lang`.
@@ -208,7 +242,7 @@ export interface CommonProperties<T> {
 /**
  * Additional `DualListBox` properties with filter.
  */
-export interface FilterProperties<T, F extends boolean> {
+export interface FilterProperties<T, F extends boolean, V extends boolean> {
     /**
      * Flag that determines whether filtering is enabled.
      *
@@ -218,11 +252,7 @@ export interface FilterProperties<T, F extends boolean> {
     /**
      * Override the default filtering function.
      */
-    filterCallback?: F extends true ? (option: Option<T>, filterInput: string) => boolean : undefined;
-    /**
-     * Override the default filter placeholder.
-     */
-    filterPlaceholder?: F extends true ? string : undefined;
+    filterCallback?: F extends true ? (option: Option<T>, filterInput: string, props: DualListBoxProperties<T, true, V>) => boolean : undefined;
     /**
      * Control the filter search text.
      */
@@ -256,7 +286,7 @@ export interface ValueProperties<T, V extends boolean> {
  */
 // export type DualListBoxProperties<P> = CommonProperties<P> & FilterProperties<P> & ValueProperties<P>;
 export interface DualListBoxProperties<P, F extends boolean, V extends boolean>
-    extends CommonProperties<P>, FilterProperties<P, F>, ValueProperties<P, V>
+    extends CommonProperties<P>, FilterProperties<P, F, V>, ValueProperties<P, V>
 {}
 
 /**
