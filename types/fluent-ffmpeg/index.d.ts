@@ -433,6 +433,7 @@ declare namespace Ffmpeg {
          * @param {Array} [codecData.audio_details] input audio codec parameters
          * @param {String} codecData.video input video codec name
          * @param {Array} [codecData.video_details] input video codec parameters
+         * @param {String} codecData.duration input video duration
          */
         on(
             event: "codecData",
@@ -442,6 +443,7 @@ declare namespace Ffmpeg {
                 audio_details: string[];
                 video: string;
                 video_details: string[];
+                duration: string;
             }) => void,
         ): this;
 
