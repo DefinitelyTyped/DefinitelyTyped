@@ -430,18 +430,18 @@ declare namespace Ffmpeg {
          * @param {Object} codecData codec data object
          * @param {String} codecData.format input format name
          * @param {String} codecData.audio input audio codec name
-         * @param {String} codecData.audio_details input audio codec parameters
+         * @param {Array} [codecData.audio_details] input audio codec parameters
          * @param {String} codecData.video input video codec name
-         * @param {String} codecData.video_details input video codec parameters
+         * @param {Array} [codecData.video_details] input video codec parameters
          */
         on(
             event: "codecData",
             listener: (codecData: {
                 format: string;
                 audio: string;
-                audio_details: string;
+                audio_details: string[];
                 video: string;
-                video_details: string;
+                video_details: string[];
             }) => void,
         ): this;
 
