@@ -28,7 +28,6 @@ declare namespace assert {
      */
     type AssertFail = (status?: number, msg?: string, opts?: Record<string, any>) => void;
 
-
     /**
      * @param status the status code
      * @param msg the message of the error, defaulting to node's text for that status code
