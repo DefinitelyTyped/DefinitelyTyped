@@ -31,3 +31,5 @@ pool.query(sql).on("data", (row: Object[]): void => {
 
 pool.close((error: Error): void => {
 });
+
+anyDB.createPool("mysql://user:password@localhost/testdb");

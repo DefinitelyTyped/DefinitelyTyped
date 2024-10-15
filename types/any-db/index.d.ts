@@ -296,5 +296,5 @@ export declare function createConnection(
     callback?: (error: Error, connection: Connection) => void,
 ): Connection;
 
-export declare function createPool(url: string, config: PoolConfig): ConnectionPool;
-export declare function createPool(opts: ConnectOpts, config: PoolConfig): ConnectionPool;
+export declare function createPool(url: string, config?: PoolConfig): ConnectionPool;
+export declare function createPool(opts: ConnectOpts, config?: PoolConfig): ConnectionPool;
