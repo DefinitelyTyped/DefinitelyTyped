@@ -37,7 +37,9 @@ async function topLevel() {
 
     languageModel.addEventListener("contextoverflow", () => {});
 
-    const promptTokens: number = await languageModel.countPromptTokens("foo", { signal: (new AbortController()).signal });
+    const promptTokens: number = await languageModel.countPromptTokens("foo", {
+        signal: (new AbortController()).signal,
+    });
     console.log(promptTokens);
 
     const languageModelResult: string = await languageModel.prompt("foo", { signal: (new AbortController()).signal });
