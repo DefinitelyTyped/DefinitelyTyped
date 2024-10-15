@@ -5,7 +5,8 @@
         "strict": true,
         "allowJs": true,
         "checkJs": true,
-        "noEmit": true
+        "noEmit": true,
+        "resolveJsonModule": true
     },
     "include": ["**/*.js"]
 }
