@@ -468,7 +468,7 @@ Peer dependencies can help prevent situations where a package manager unexpected
 However, peer dependencies have downsides; package managers differ in their handling of peer dependencies (e.g., `yarn` does not auto-install them, `npm` requires `--legacy-peer-deps` for mismatches).
 As such, PRs introducing new peer dependencies require maintainer approval and should be limited to specific circumstances.
 
-In general, types packages should only have a peer dependency if the upstream package has a peer dependency on the same package (or its types).
+**In general, types packages should only have a peer dependency if the upstream package has a peer dependency on the same package (or its types).**
 For example, a DT package for a React component can specify a peer dependency on `@types/react@*`, as the consumer will have needed to install `@types/react` to use JSX in the first place.
 If the consumer installs `@types/react@16` in their project, but a newer version of `@types/react` is available on npm, the peer dependency may help the package manager choose `@types/react@16` instead of that newer version.
 Similarly, `chai-as-promised` has a peer dependency on `chai`, so `@types/chai-as-promised` should have a peer dependency on `@types/chai`.
@@ -477,8 +477,8 @@ There are some cases where the upstream package does not have a peer dependency 
 These are typically cases where the upstream package extends another package and assumes it exists, so _should_ have declared a peer dependency as it extends another package, but did not.
 For example, `chai-match-pattern` extends `chai`, but does not declare a peer dependency on `chai`, but needs it to function. `@types/chai-match-pattern` should have a peer dependency on `@types/chai`.
 
-If a package simply exposes types from another package as a part of its API due to a regular dependency in the upstream package, it should not use a peer dependency.
-For example, `express` has `qs` in its `"dependencies"`, so when users install `express`, they don't need to manually install `qs` as well. Likewise, `@types/express` has `@types/qs` in its `"dependencies"`.
+If a package simply exposes types from another package as a part of its API due to a regular dependency in the upstream package, it _should not_ use a peer dependency.
+For example, `express` has `qs` in its `"dependencies"`. When users install `express`, they don't need to manually install `qs`. Likewise, `@types/express` has `@types/qs` in its `"dependencies"`.
 It would be incorrect to declare `@types/qs` as a peer dependency of `@types/express`, since that would require some downstream consumers to manually install `@types/qs`.
 
 #### `.npmignore`
