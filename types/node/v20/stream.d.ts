@@ -1392,14 +1392,12 @@ declare module "stream" {
             writable?: boolean | undefined;
         }
         /**
-         * A readable and/or writable stream/webstream.
-         *
          * A function to get notified when a stream is no longer readable, writable
          * or has experienced an error or a premature close event.
          *
          * ```js
-         * import { finished } from 'node:stream';
-         * import fs from 'node:fs';
+         * const { finished } = require('node:stream');
+         * const fs = require('node:fs');
          *
          * const rs = fs.createReadStream('archive.tar');
          *
@@ -1433,6 +1431,7 @@ declare module "stream" {
          * ```
          * @since v10.0.0
          * @param stream A readable and/or writable stream.
+         * @param options (Optional)
          * @param callback A callback function that takes an optional error argument.
          * @returns A cleanup function which removes all registered listeners.
          */
