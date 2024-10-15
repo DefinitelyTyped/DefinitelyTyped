@@ -14,7 +14,9 @@ import {
     getDefaultMissingFieldHandlers,
     getRequest,
     graphql,
+    isErrorResult,
     isPromise,
+    isValueResult,
     Network,
     PreloadableConcreteRequest,
     QueryResponseCache,
@@ -25,6 +27,7 @@ import {
     RecordSource,
     RecordSourceSelectorProxy,
     requestSubscription,
+    Result,
     ROOT_ID,
     ROOT_TYPE,
     Store,
@@ -813,3 +816,29 @@ __internal.withProvidedVariables({
 });
 
 __internal.withProvidedVariables.tests_only_resetDebugCache?.();
+
+// ~~~~~~~~~~~~~~~~~~
+// @catch Result
+// ~~~~~~~~~~~~~~~~~~
+
+interface MyError {
+    someErrorField: string;
+}
+
+interface MyData {
+    someDataField: string;
+}
+
+interface someFragment$data {
+    readonly field: Result<MyData, readonly MyError[]>;
+    readonly " $fragmentType": "someFragment";
+}
+
+const data: someFragment$data = null!;
+
+if (isErrorResult(data.field)) {
+    data.field.errors[0].someErrorField;
+}
+if (isValueResult(data.field)) {
+    data.field.value.someDataField;
+}

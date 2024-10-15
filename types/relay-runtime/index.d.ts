@@ -140,6 +140,9 @@ export {
 export { RelayReplaySubject as ReplaySubject } from "./lib/util/RelayReplaySubject";
 export * from "./lib/util/RelayRuntimeTypes";
 
+// Experimental
+export { isErrorResult, isValueResult, Result } from "./lib/experimental";
+
 // Core API
 export { RelayNetwork as Network } from "./lib/network/RelayNetwork";
 export { RelayObservable as Observable } from "./lib/network/RelayObservable";
