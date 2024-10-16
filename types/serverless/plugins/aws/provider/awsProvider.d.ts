@@ -1,4 +1,5 @@
 import Serverless = require("../../../index");
+import EsBuild = require("../../esbuild");
 
 declare namespace Aws {
     /*
@@ -24,6 +25,9 @@ declare namespace Aws {
         app?: string | undefined;
         tenant?: string | undefined;
         custom?: Custom | undefined;
+        build?: {
+            esbuild?: boolean | EsBuild.EsBuildConfigFileOption | EsBuild.EsBuildOptions;
+        };
     }
 
     interface Service {

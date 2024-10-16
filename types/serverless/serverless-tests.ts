@@ -936,6 +936,24 @@ const awsServerless: Aws.Serverless = {
             },
         },
     },
+    build: {
+        esbuild: {
+            bundle: true,
+            minify: false,
+            external: [
+                "@aws-sdk/client-s3",
+            ],
+            exclude: [
+                "@aws-sdk/*",
+            ],
+            packages: "external",
+            buildConcurrency: 3,
+            sourcemap: {
+                type: "linked",
+                setNodeOptions: true,
+            },
+        },
+    },
 };
 
 // vpc can be set as a reference to some section of the config file
@@ -1054,6 +1072,37 @@ const bunchOfConfigs: Aws.Serverless[] = [
             basicLambdaFnUrl: {
                 handler: "main.js",
                 url: true,
+            },
+        },
+    },
+    {
+        service: "users",
+        provider: {
+            name: "aws",
+        },
+        build: {
+            esbuild: true,
+        },
+    },
+    {
+        service: "users",
+        provider: {
+            name: "aws",
+        },
+        build: {
+            esbuild: {
+                configFile: "path/to/esbuild.config.js",
+            },
+        },
+    },
+    {
+        service: "users",
+        provider: {
+            name: "aws",
+        },
+        build: {
+            esbuild: {
+                sourcemap: true,
             },
         },
     },
