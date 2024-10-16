@@ -1539,3 +1539,11 @@ import { promisify } from "node:util";
     subtle.verify({ name: "RSASSA-PKCS1-v1_5" }, key, buf, buf); // $ExpectType Promise<boolean>
     subtle.wrapKey("spki", key, key, { name: "AES-GCM", tagLength: 104, iv: buf }); // $ExpectType Promise<ArrayBuffer>
 }
+
+{
+    let keyObject!: crypto.KeyObject;
+    keyObject.toCryptoKey("EdDSA", true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "EdDSA" }, true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "RSA-OAEP", hash: "SHA-256" }, true, ["sign"]); // $ExpectType CryptoKey
+    keyObject.toCryptoKey({ name: "RSA-OAEP", hash: { name: "SHA-256" } }, true, ["sign"]); // $ExpectType CryptoKey
+}
