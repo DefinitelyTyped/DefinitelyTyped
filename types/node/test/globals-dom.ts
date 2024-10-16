@@ -37,8 +37,8 @@
 
 {
     crypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}` || string
-    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
-    crypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
+    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    crypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
 
     crypto.subtle.generateKey({ name: "HMAC", hash: "SHA-1" }, true, ["sign", "decrypt", "deriveBits"]).then(
         (out) => {
@@ -47,4 +47,33 @@
             out.usages; // $ExpectType KeyUsage[]
         },
     );
+}
+
+{
+    const server = new WebSocket("htps://example.com");
+    server.addEventListener("message", (event) => {
+        console.log(event.data);
+    });
+    server.send("some data");
+}
+
+{
+    const stream = new ReadableStream<string>({ start: (controller) => controller.enqueue("hello") }); // $ExpectType ReadableStream<string>
+    const compressionStream = new CompressionStream("gzip");
+    const encodedStream = stream.pipeThrough(new TextEncoderStream()); // $ExpectType ReadableStream<Uint8Array> || ReadableStream<Uint8Array<ArrayBufferLike>>
+    const compressedStream = encodedStream.pipeThrough(compressionStream); // $ExpectType ReadableStream<any> || ReadableStream<Uint8Array<ArrayBufferLike>>
+    compressedStream.pipeThrough(new DecompressionStream("gzip")); // $ExpectType ReadableStream<any> || ReadableStream<Uint8Array<ArrayBufferLike>>
+    void (async () => {
+        const reader = compressedStream.getReader();
+        const readNext = async () => {
+            const result = await reader.read();
+            if (result.done) {
+                reader.releaseLock();
+                return;
+            }
+            console.log(result.value);
+            await readNext();
+        };
+        await readNext();
+    })();
 }

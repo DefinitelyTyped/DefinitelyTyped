@@ -146,6 +146,7 @@ const options = new cast.framework.CastReceiverOptions();
 options.versionCode = 0;
 options.useShakaForHls = true;
 options.shakaVersion = "4.3.5";
+options.shakaVariant = cast.framework.ShakaVariant.DEBUG;
 
 cast.framework.CastReceiverContext.getInstance().addEventListener(
     [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
@@ -283,3 +284,47 @@ tracksInfo.activeTrackIds = [1, 2];
 tracksInfo.language = "en";
 tracksInfo.textTrackStyle = new cast.framework.messages.TextTrackStyle();
 tracksInfo.tracks = [new cast.framework.messages.Track(1, cast.framework.messages.TrackType.AUDIO)];
+
+// You can extend the types of some customData fields via declaration merging, so that
+// custom data passed between your custom receiver and CAF remains statically typed.
+
+declare module "./cast.framework.messages" {
+    interface TrackCustomData {
+        dialect?: string;
+    }
+
+    interface TextTrackStyleCustomData {
+        lineHeight?: number;
+    }
+
+    interface SessionStateCustomData {
+        userId?: string;
+    }
+
+    interface QueueItemCustomData {
+        priority?: number;
+    }
+
+    interface MediaStatusCustomData {
+        description?: string;
+    }
+
+    interface MediaInformationCustomData {
+        environment: "production" | "staging";
+    }
+
+    interface BreakClipCustomData {
+        advertiser?: string;
+    }
+}
+
+const sessionState = new cast.framework.messages.SessionState();
+const mediaStatus = new cast.framework.messages.MediaStatus();
+
+track.customData = { dialect: "关中话" };
+tracksInfo.textTrackStyle!.customData = { lineHeight: 1.5 };
+sessionState.customData = { userId: "1234" };
+mediaStatus.customData = { description: "Lorem ipsum" };
+queueItem.customData = { priority: 1 };
+queueItem.media.customData = { environment: "production" };
+breakClip.customData = { advertiser: "Umbrella Corporation" };

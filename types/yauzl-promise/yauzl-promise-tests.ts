@@ -1,6 +1,6 @@
 import * as yauzl from "yauzl-promise";
 
-class FakeRaR extends yauzl.RandomAccessReader {}
+class FakeReader extends yauzl.Reader {}
 
 const options: yauzl.Options = {
     decodeStrings: true,
@@ -19,7 +19,7 @@ const zipOptions: yauzl.ZipFileOptions = {
 };
 
 const date = yauzl.dosDateTimeToDate(1, 1);
-const fn = yauzl.validateFilename("fake");
+yauzl.validateFilename("fake");
 
 async function test() {
     const zip = await yauzl.open("");
@@ -31,10 +31,20 @@ async function test() {
     const buffer1 = await yauzl.fromBuffer(Buffer.from("test", "utf-8"));
     const buffer2 = await yauzl.fromBuffer(Buffer.from("test", "utf-8"), options);
 
-    const rar1 = await yauzl.fromRandomAccessReader(new FakeRaR(), 1);
-    const rar2 = await yauzl.fromRandomAccessReader(new FakeRaR(), 1, options);
+    const reader1 = await yauzl.fromReader(new FakeReader(), 1);
+    const reader2 = await yauzl.fromReader(new FakeReader(), 1, options);
 
-    const entry = await zip.readEntry();
+    zip.comment; // $ExpectType string
+    zip.entryCount; // $ExpectType number
+    zip.entryCountIsCertain; // $ExpectType boolean
+    zip.isOpen; // $ExpectType boolean
+    zip.isZip64; // $ExpectType boolean
+    zip.decodeStrings; // $ExpectType boolean
+    zip.validateEntrySizes; // $ExpectType boolean
+
+    // $ExpectType Entry | null
+    const entryOrNull = await zip.readEntry();
+    const entry = entryOrNull!;
     await zip.readEntries();
     await zip.readEntries(1);
 
@@ -44,19 +54,33 @@ async function test() {
     await entry.openReadStream();
     await entry.openReadStream(zipOptions);
 
-    const filename = entry.filename;
-    const filenameLength = entry.filenameLength;
+    entry.comment; // $ExpectType string;
+    entry.compressedSize; // $ExpectType number;
+    entry.compressionMethod; // $ExpectType number;
+    entry.crc32; // $ExpectType number;
+    entry.externalFileAttributes; // $ExpectType number;
+    entry.extraFields; // $ExpectType { id: number; data: Buffer }[] || { id: number; data: Buffer<ArrayBufferLike> }[];
+    entry.fileDataOffset; // $ExpectType null | number;
+    entry.fileHeaderOffset; // $ExpectType number;
+    entry.filename; // $ExpectType string;
+    entry.filenameLength; // $ExpectType number;
+    entry.generalPurposeBitFlag; // $ExpectType number;
+    entry.internalFileAttributes; // $ExpectType number;
+    entry.lastModDate; // $ExpectType number;
+    entry.lastModTime; // $ExpectType number;
+    entry.uncompressedSize; // $ExpectType number;
+    entry.uncompressedSizeIsCertain; // $ExpectType boolean;
+    entry.versionMadeBy; // $ExpectType number;
+    entry.versionNeededToExtract; // $ExpectType number;
 
-    await zip.walkEntries(async (entry: yauzl.Entry) => {
-        console.log("foo");
-    });
-
-    await zip.walkEntries(async (entry: yauzl.Entry) => {
-        console.log("foo");
-    }, 1);
+    entry.getLastMod(); // $ExpectType Date
+    entry.isEncrypted(); // $ExpectType boolean
+    entry.isCompressed(); // $ExpectType boolean
 
     {
         let entry: yauzl.Entry;
         for await (entry of zip) {}
     }
+
+    await zip.close();
 }

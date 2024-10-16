@@ -1,7 +1,7 @@
 /**
  * The `dns.promises` API provides an alternative set of asynchronous DNS methods
  * that return `Promise` objects rather than using callbacks. The API is accessible
- * via `require('node:dns').promises` or `require('node:dns/promises')`.
+ * via `import { promises } from 'node:dns'` or `import dnsPromises from 'node:dns/promises'`.
  * @since v10.6.0
  */
 declare module "dns/promises" {
@@ -60,7 +60,7 @@ declare module "dns/promises" {
      * Example usage:
      *
      * ```js
-     * const dns = require('node:dns');
+     * import dns from 'node:dns';
      * const dnsPromises = dns.promises;
      * const options = {
      *   family: 6,
@@ -96,8 +96,8 @@ declare module "dns/promises" {
      * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v18.x/api/errors.html#class-error) object, where `err.code` is the error code.
      *
      * ```js
-     * const dnsPromises = require('node:dns').promises;
-     * dnsPromises.lookupService('127.0.0.1', 22).then((result) => {
+     * import dns from 'node:dns';
+     * dns.promises.lookupService('127.0.0.1', 22).then((result) => {
      *   console.log(result.hostname, result.service);
      *   // Prints: localhost ssh
      * });
@@ -359,30 +359,31 @@ declare module "dns/promises" {
      * @param order must be `'ipv4first'` or `'verbatim'`.
      */
     function setDefaultResultOrder(order: "ipv4first" | "verbatim"): void;
-    const NODATA: "NODATA";
-    const FORMERR: "FORMERR";
-    const SERVFAIL: "SERVFAIL";
-    const NOTFOUND: "NOTFOUND";
-    const NOTIMP: "NOTIMP";
-    const REFUSED: "REFUSED";
-    const BADQUERY: "BADQUERY";
-    const BADNAME: "BADNAME";
-    const BADFAMILY: "BADFAMILY";
-    const BADRESP: "BADRESP";
-    const CONNREFUSED: "TIMEOUT";
-    const TIMEOUT: "TIMEOUT";
+    // Error codes
+    const NODATA: "ENODATA";
+    const FORMERR: "EFORMERR";
+    const SERVFAIL: "ESERVFAIL";
+    const NOTFOUND: "ENOTFOUND";
+    const NOTIMP: "ENOTIMP";
+    const REFUSED: "EREFUSED";
+    const BADQUERY: "EBADQUERY";
+    const BADNAME: "EBADNAME";
+    const BADFAMILY: "EBADFAMILY";
+    const BADRESP: "EBADRESP";
+    const CONNREFUSED: "ECONNREFUSED";
+    const TIMEOUT: "ETIMEOUT";
     const EOF: "EOF";
-    const FILE: "FILE";
-    const NOMEM: "NOMEM";
-    const DESTRUCTION: "DESTRUCTION";
-    const BADSTR: "BADSTR";
-    const BADFLAGS: "BADFLAGS";
-    const NONAME: "NONAME";
-    const BADHINTS: "BADHINTS";
-    const NOTINITIALIZED: "NOTINITIALIZED";
-    const LOADIPHLPAPI: "LOADIPHLPAPI";
-    const ADDRGETNETWORKPARAMS: "ADDRGETNETWORKPARAMS";
-    const CANCELLED: "CANCELLED";
+    const FILE: "EFILE";
+    const NOMEM: "ENOMEM";
+    const DESTRUCTION: "EDESTRUCTION";
+    const BADSTR: "EBADSTR";
+    const BADFLAGS: "EBADFLAGS";
+    const NONAME: "ENONAME";
+    const BADHINTS: "EBADHINTS";
+    const NOTINITIALIZED: "ENOTINITIALIZED";
+    const LOADIPHLPAPI: "ELOADIPHLPAPI";
+    const ADDRGETNETWORKPARAMS: "EADDRGETNETWORKPARAMS";
+    const CANCELLED: "ECANCELLED";
     /**
      * An independent resolver for DNS requests.
      *
@@ -391,7 +392,8 @@ declare module "dns/promises" {
      * other resolvers:
      *
      * ```js
-     * const { Resolver } = require('node:dns').promises;
+     * import dns from 'node:dns';
+     * const { Resolver } = dns.promises;
      * const resolver = new Resolver();
      * resolver.setServers(['4.4.4.4']);
      *

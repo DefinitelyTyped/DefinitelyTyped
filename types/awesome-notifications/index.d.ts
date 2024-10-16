@@ -4,7 +4,7 @@
 
 declare namespace AWN {
     type AwnPosition = "bottom-right" | "bottom-left" | "top-left" | "top-right";
-
+    type AwnPopupType = "modal" | "confirm";
     type AwnToastType = "global" | "tip" | "info" | "success" | "warning" | "alert";
     type AwnAsyncType = "async" | "async-block";
     type AwnConfirmType = "confirm" | "confirmOk" | "confirmCancel";
@@ -85,11 +85,26 @@ declare namespace AWN {
     }
 
     class Elem {
+        beforeInsert(): void;
+        afterInsert(): void;
         insert(): Elem;
+        replace(el: Elem): Elem;
+        beforeDelete(el?: Elem): Promise<number>;
+        delete(el?: Elem): Promise<void> | null;
+        afterDelete(): void;
+        getElement<T extends HTMLDivElement>(el?: Elem): T;
+        addEvent<K extends keyof HTMLElementEventMap>(
+            name: K,
+            func: (this: HTMLDivElement, ev: HTMLElementEventMap[K]) => any,
+        ): void;
+        toggleClass(classname: string): void;
+        updateType(type: AwnToastType | AwnPopupType): void;
     }
 
     class Toast extends Elem {
         el: HTMLDivElement;
+
+        parent: HTMLDivElement;
 
         setInnerHtml(html: string): void;
 
@@ -100,6 +115,17 @@ declare namespace AWN {
          * @default this.el
          */
         isDeleted(el?: Elem): boolean;
+
+        get progressBar(): string;
+        get label(): string;
+    }
+
+    class Popup extends Elem {
+        setInnerHtml(html: string): void;
+        keyupListener(e: KeyboardEvent): void;
+
+        get okBtn(): HTMLButtonElement;
+        get cancelBtn(): HTMLButtonElement;
     }
 }
 
@@ -115,41 +141,41 @@ declare class AWN<E = Error> {
      * Shows new tip toast
      * @param  message Defines message of the toast. Can be any valid HTML or text string. Will be set from defaults if omitted.
      * @param  options Instance of `AwnOptions`, which will override globals for this call
-     * @return         A new HTMLDivElement instance
+     * @return         A new Toast instance
      */
-    tip(message: string, options?: AWN.AwnOptions): HTMLDivElement;
+    tip(message: string, options?: AWN.AwnOptions): AWN.Toast;
 
     /**
      * Shows new info toast
      * @param  message Defines message of the toast. Can be any valid HTML or text string. Will be set from defaults if omitted.
      * @param  options Instance of `AwnOptions`, which will override globals for this call
-     * @return         A new HTMLDivElement instance
+     * @return         A new Toast instance
      */
-    info(message: string, options?: AWN.AwnOptions): HTMLDivElement;
+    info(message: string, options?: AWN.AwnOptions): AWN.Toast;
 
     /**
      * Shows new success toast
      * @param  message Defines message of the toast. Can be any valid HTML or text string. Will be set from defaults if omitted.
      * @param  options Instance of `AwnOptions`, which will override globals for this call
-     * @return         A new HTMLDivElement instance
+     * @return         A new Toast instance
      */
-    success(message: string, options?: AWN.AwnOptions): HTMLDivElement;
+    success(message: string, options?: AWN.AwnOptions): AWN.Toast;
 
     /**
      * Shows new warning toast
      * @param  message Defines message of the toast. Can be any valid HTML or text string. Will be set from defaults if omitted.
      * @param  options Instance of `AwnOptions`, which will override globals for this call
-     * @return         A new HTMLDivElement instance
+     * @return         A new Toast instance
      */
-    warning(message: string, options?: AWN.AwnOptions): HTMLDivElement;
+    warning(message: string, options?: AWN.AwnOptions): AWN.Toast;
 
     /**
      * Shows new alert toast
      * @param  message Defines message of the toast. Can be any valid HTML or text string. Will be set from defaults if omitted.
      * @param  options Instance of `AwnOptions`, which will override globals for this call
-     * @return         A new HTMLDivElement instance
+     * @return         A new Toast instance
      */
-    alert(message: string, options?: AWN.AwnOptions): HTMLDivElement;
+    alert(message: string, options?: AWN.AwnOptions): AWN.Toast;
 
     /**
      * Closes all visible toasts. Do nothing if there’re no visible toasts.
@@ -224,8 +250,9 @@ declare class AWN<E = Error> {
      * @param  message   Defines message of the modal window. Can be any valid HTML or text string.
      * @param  className Defines modal window DOM element class name, it will be concatenated with default prefix ‘awn-popup-‘
      * @param  options   Instance of `AwnOptions`, which will override globals for this call
+     * @return           A new Popup instance
      */
-    modal(message: string, className?: string, options?: AWN.AwnOptions): void;
+    modal(message: string, className?: string, options?: AWN.AwnOptions): AWN.Popup;
 
     /**
      * Shows new confirmation window.
@@ -241,14 +268,14 @@ declare class AWN<E = Error> {
      * @param  onCancel Defines Function, which will be executed on click to ‘Cancel’ button.
      *                  If false was passed, ‘Cancel’ button will be hidden.
      * @param  options  Instance of `AwnOptions`, which will override globals for this call
-     * @return          A new HTMLDivElement instance
+     * @return          A new Popup instance
      */
     confirm(
         message: string,
         onOk?: () => void,
         onCancel?: (() => void) | false,
         options?: AWN.AwnOptions,
-    ): HTMLDivElement;
+    ): AWN.Popup;
 }
 
 export = AWN;

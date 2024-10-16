@@ -151,8 +151,10 @@ function sendExplicitLaunchRequestWithParameters(channel: Channel) {
 function handleLaunchErrorMessages(channel: Channel) {
     channel.on("message", (message: ReceiverMessage, broadcast: boolean) => {
         if (message.type == "LAUNCH_ERROR") {
-            const reason = (message as ReceiverLaunchErrorMessage).reason;
-            console.log(`Launch failed, reason "${reason}"`);
+            const launchError = message as ReceiverLaunchErrorMessage;
+            const reason = launchError.reason;
+            const extendedError = launchError.extendedError;
+            console.log(`Launch failed, reason "${reason}" (${extendedError})`);
         }
     });
 }

@@ -324,6 +324,12 @@ export interface ConnectionOptions {
      * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
      */
     proxyPassword?: string;
+
+    /**
+     * Specifies the lists of hosts that the driver should connect to directly, bypassing the proxy server.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#additional-connection-options Additional connection options}.
+     */
+    noProxy?: string;
 }
 
 export interface Column {

@@ -53,11 +53,11 @@ function utilTests(someNode: Node) {
     // $ExpectType string
     util.ensureString("abc");
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     util.ensureBuffer(123);
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     util.ensureBuffer({});
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     util.ensureBuffer("abc");
 
     interface SomeNodeMsg extends NodeMessage {
@@ -123,7 +123,7 @@ function utilTests(someNode: Node) {
     // $ExpectType Expression
     const jsonataExpr = util.prepareJSONataExpression("expr", someNode);
 
-    // $ExpectType any
+    // @ts-expect-error
     util.evaluateJSONataExpression(jsonataExpr, {});
     // $ExpectType void
     util.evaluateJSONataExpression(jsonataExpr, {}, (err: Error | null, res: any): void => {});

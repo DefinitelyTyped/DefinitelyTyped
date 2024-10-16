@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -220,7 +220,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     implements
       IShrinkable,
       IOverflowToolbarContent,
-      /* was: sap.m.IToolbarInteractiveControl */ Object {
+      /* was: sap.m.IToolbarInteractiveControl */ Object
+  {
     __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
     __implements__sap_m_IToolbarInteractiveControl: boolean;
@@ -1468,49 +1469,12 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExte
 }
 
 declare module "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExtensibilityVariant" {
-  import ABAPExtensibilityVariant from "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVariant";
-
-  import Metadata from "sap/ui/base/Metadata";
-
   /**
    * Extension variant for ABAP single tenant environnments (via so called Custom Fields)
    *
    * @since 1.87
    */
-  interface SingleTenantABAPExtensibilityVariant
-    extends ABAPExtensibilityVariant {
-    /**
-     * Creates a new subclass of class sap.ui.fl.write._internal.fieldExtensibility.SingleTenantABAPExtensibilityVariant
-     * with name `sClassName` and enriches it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.fl.write._internal.fieldExtensibility.ABAPExtensibilityVariant.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    extend(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: object,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.fl.write._internal.fieldExtensibility.SingleTenantABAPExtensibilityVariant.
-     *
-     *
-     * @returns Metadata object describing this class
-     */
-    getMetadata(): Metadata;
-  }
+  interface SingleTenantABAPExtensibilityVariant {}
   const SingleTenantABAPExtensibilityVariant: SingleTenantABAPExtensibilityVariant;
   export default SingleTenantABAPExtensibilityVariant;
 }
@@ -1540,17 +1504,31 @@ declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddAnnotationsToOData": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewDataSource": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewInbound": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddNewOutbound": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/AddTechnicalAttributes": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeDataSource": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeOutbound": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/app/RemoveAllInboundsExceptOne": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/SetAch": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/SetDescription": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetAbstract": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetCloudDevAdaptationStatus": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetRegistrationIds": undefined;
 
@@ -1586,6 +1564,8 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/extensionPoint/Registry": undefined;
 
+    "sap/ui/fl/apply/_internal/flexObjects/AnnotationChange": undefined;
+
     "sap/ui/fl/apply/_internal/flexObjects/AppDescriptorChange": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/CompVariant": undefined;
@@ -1618,6 +1598,8 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexState/DataSelector": undefined;
 
+    "sap/ui/fl/apply/_internal/flexState/FlexObjectState": undefined;
+
     "sap/ui/fl/apply/_internal/flexState/FlexState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/InitialPrepareFunctions": undefined;
@@ -1629,6 +1611,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/preprocessors/ComponentLifecycleHooks": undefined;
 
     "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
+
+    "sap/ui/fl/apply/api/AnnotationChangeHandlerAPI": undefined;
 
     "sap/ui/fl/apply/api/ControlVariantApplyAPI": undefined;
 
@@ -1643,6 +1627,10 @@ declare namespace sap {
     "sap/ui/fl/apply/api/UI2PersonalizationApplyAPI": undefined;
 
     "sap/ui/fl/changeHandler/Base": undefined;
+
+    "sap/ui/fl/changeHandler/BaseAddViaDelegate": undefined;
+
+    "sap/ui/fl/changeHandler/BaseRename": undefined;
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
 
@@ -1685,6 +1673,8 @@ declare namespace sap {
     "sap/ui/fl/support/_internal/getAllUIChanges": undefined;
 
     "sap/ui/fl/support/_internal/getChangeDependencies": undefined;
+
+    "sap/ui/fl/support/_internal/getFlexObjectInfos": undefined;
 
     "sap/ui/fl/support/_internal/getFlexSettings": undefined;
 
@@ -1738,9 +1728,11 @@ declare namespace sap {
 
     "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExtensibilityVariant": undefined;
 
+    "sap/ui/fl/write/_internal/flexState/changes/UIChangeManager": undefined;
+
     "sap/ui/fl/write/_internal/flexState/compVariants/CompVariantState": undefined;
 
-    "sap/ui/fl/write/_internal/flexState/FlexObjectState": undefined;
+    "sap/ui/fl/write/_internal/flexState/FlexObjectManager": undefined;
 
     "sap/ui/fl/write/_internal/flexState/UI2Personalization/UI2PersonalizationState": undefined;
 

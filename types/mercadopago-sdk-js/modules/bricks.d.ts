@@ -116,6 +116,7 @@ declare namespace bricks {
         verticalPadding?: string;
         horizontalPadding?: string;
         hideValueProp?: boolean;
+        hidePixQrCode?: boolean;
     }
 
     type GenericPaymentMethod = string | string[];

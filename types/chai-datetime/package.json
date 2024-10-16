@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/chai-datetime",
-    "version": "0.0.9999",
+    "version": "1.0.9999",
     "projects": [
         "https://github.com/gaslight/chai-datetime.git"
     ],

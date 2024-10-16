@@ -5,18 +5,27 @@
 var argv = nw.App.argv;
 var fullArgv = nw.App.fullArgv;
 var filteredArgv = nw.App.filteredArgv;
+var startPath = nw.App.startPath;
 var dataPath = nw.App.dataPath;
 var manifest = nw.App.manifest;
 
 nw.App.clearCache();
+nw.App.clearAppCache("/path/to/manifest_url");
 nw.App.closeAllWindows();
 nw.App.crashBrowser();
 nw.App.crashRenderer();
+nw.App.enableComponent("WIDEVINE", (version) => {
+    console.log(version);
+});
 nw.App.getProxyForURL("https://github.com/alirdn");
-nw.App.setProxyConfig("http=foopy:80;ftp=foopy2");
+nw.App.setProxyConfig("http=foopy:80;ftp=foopy2", "http://127.0.0.1:80");
 nw.App.quit();
+nw.App.setCrashDumpDir("/path/to/crash_dump_dir");
 nw.App.addOriginAccessWhitelistEntry("https://github.com/", "chrome-extension", location.host, true);
 nw.App.removeOriginAccessWhitelistEntry("https://github.com/", "chrome-extension", location.host, true);
+nw.App.updateComponent("WIDEVINE", (success) => {
+    console.log(success);
+});
 
 /*
  * Note:
@@ -176,7 +185,7 @@ nw.Screen.chooseDesktopMedia(["window", "screen"], function(streamId) {
  */
 var dcm = nw.Screen.DesktopCaptureMonitor;
 nw.Screen.Init();
-dcm.on("added", function(id, name, order, type) {
+dcm.on("added", function(id, name, order, type, primary) {
     // select first stream and shutdown
     var constraints = {
         audio: {
@@ -241,7 +250,7 @@ nw.App.registerGlobalHotKey(shortcut);
 
 // You can also add listener to shortcut's active and failed event.
 shortcut.on("active", function() {
-    console.log("Global desktop keyboard shortcut: " + this.key + " active.");
+    console.log("Global desktop keyboard shortcut: " + shortcut.key + " active.");
 });
 
 shortcut.on("failed", function(msg: any) {
@@ -264,13 +273,17 @@ tray.menu = menu;
 
 // Remove the tray
 tray.remove();
-tray = null;
+Object.assign(tray, null);
 
 /**
  * nw.Window Tests
  */
 // Get the current window
 var win = nw.Window.get();
+
+win.isDevToolsOpen((status: boolean) => {
+    console.log(status);
+});
 
 // Listen to the minimize event
 win.on("minimize", function() {
@@ -304,9 +317,9 @@ nw.Window.getAll(function(windows: NWJS_Helpers.win[]) {
 });
 
 win.on("close", function() {
-    this.hide(); // Pretend to be closed already
+    win.hide(); // Pretend to be closed already
     console.log("We're closing...");
-    this.close(true); // then close it forcely
+    win.close(true); // then close it forcely
 });
 
 win.close();
@@ -331,7 +344,7 @@ win.capturePage(
 nw.Window.open("popup.html", {}, function(win) {
     // Release the 'win' object here after the new window is closed.
     win.on("closed", function() {
-        win = null;
+        Object.assign(win, null);
     });
 
     // Listen for window click event
@@ -347,13 +360,13 @@ nw.Window.open("popup.html", {}, function(win) {
     // Listen to main window's close event
     nw.Window.get().on("close", function() {
         // Hide the window to give user the feeling of closing immediately
-        this.hide();
+        win.hide();
 
         // If the new window is still open then close it.
         if (win != null) win.close(true);
 
         // After closing the new window, close the main window.
-        this.close(true);
+        win.close(true);
     });
 });
 

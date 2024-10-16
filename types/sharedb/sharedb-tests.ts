@@ -80,6 +80,11 @@ backend.on("someCustomEvent", (arg0: string, arg1: number) => {});
 backend.db.getOps("someCollection", "someId", null, null, {}, () => {});
 backend.db.getSnapshotBulk("someCollection", ["id1", "id2"], null, null, () => {});
 
+backend.milestoneDb.once("save", (collection, snapshot) => {
+    console.log(collection, snapshot.data);
+});
+backend.milestoneDb.on("error", (error) => console.error(error.message));
+
 console.log(backend.pubsub);
 console.log(backend.extraDbs);
 
@@ -285,6 +290,8 @@ doc.fetch((err) => {
 
 doc.create({ foo: true }, "http://sharejs.org/types/JSONv0");
 
+doc.ingestSnapshot(doc.toSnapshot());
+
 function startServer() {
     const server = http.createServer();
 
@@ -488,6 +495,9 @@ backend.getOpsBulk(
         ops.forEach(console.log);
     },
 );
+
+const defaultType = ShareDB.types.defaultType;
+defaultType.transformPresence({ foo: true }, [], true).foo;
 
 class SocketLike {
     readyState = 1;

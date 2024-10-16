@@ -14,6 +14,12 @@ export class DRACOLoader extends Loader<BufferGeometry> {
         onError?: (err: unknown) => void,
     ): void;
 
+    parse(
+        buffer: ArrayBuffer,
+        onLoad?: (geometry: BufferGeometry) => void,
+        onError?: (err: unknown) => void,
+    ): void;
+
     preload(): DRACOLoader;
     dispose(): DRACOLoader;
 }

@@ -9,7 +9,7 @@
  *
  * ```js
  * import { readFile } from 'node:fs/promises';
- * import { WASI } from 'wasi';
+ * import { WASI } from 'node:wasi';
  * import { argv, env } from 'node:process';
  *
  * const wasi = new WASI({
@@ -67,7 +67,7 @@
  * wat2wasm demo.wat
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/wasi.js)
  */
 declare module "wasi" {
     interface WASIOptions {

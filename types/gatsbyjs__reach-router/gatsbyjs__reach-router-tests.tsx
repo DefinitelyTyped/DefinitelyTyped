@@ -1,4 +1,6 @@
 import {
+    createHistory,
+    createMemorySource,
     Link,
     Location,
     LocationProvider,
@@ -93,3 +95,7 @@ const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
 <Link ref={refObject} to="./foo"></Link>;
 
 const elem: React.JSX.Element = <Link<number> state={5} to="./foo">Click me!</Link>;
+
+<LocationProvider history={createHistory(createMemorySource("/"))}>
+    This text has history
+</LocationProvider>;

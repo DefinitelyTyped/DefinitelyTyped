@@ -5,6 +5,7 @@ import {
     copyFile,
     cp as cpAsync,
     FileHandle,
+    glob as globAsync,
     open as openAsync,
     watch as watchAsync,
     writeFile as writeFileAsync,
@@ -12,7 +13,7 @@ import {
 import { URL } from "node:url";
 import * as util from "node:util";
 import assert = require("node:assert");
-import { CopyOptions, CopySyncOptions, cp, cpSync } from "fs";
+import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
 
 {
     fs.writeFile("thebible.txt", "Do unto others as you would have them do unto you.", assert.ifError);
@@ -534,13 +535,13 @@ async function testPromisify() {
     });
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 
-    (await handle.read()).buffer; // $ExpectType Buffer
+    (await handle.read()).buffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     (await handle.read({
         buffer: new Uint32Array(),
         offset: 1,
         position: 2,
         length: 3,
-    })).buffer; // $ExpectType Uint32Array
+    })).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
 
     await handle.read(new Uint32Array(), 1, 2, 3);
     await handle.read(Buffer.from("hurr"));
@@ -834,8 +835,8 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 
 {
     watchAsync("y33t"); // $ExpectType AsyncIterable<FileChangeInfo<string>>
-    watchAsync("y33t", "buffer"); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
-    watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>>
+    watchAsync("y33t", "buffer"); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>> || AsyncIterable<FileChangeInfo<Buffer<ArrayBufferLike>>>
+    watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() }); // $ExpectType AsyncIterable<FileChangeInfo<Buffer>> || AsyncIterable<FileChangeInfo<Buffer<ArrayBufferLike>>>
 
     watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8" }); // $ExpectType AsyncIterable<FileChangeInfo<string>>
 }
@@ -895,4 +896,52 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 (async () => {
     await copyFile("source.txt", "destination.txt", constants.COPYFILE_EXCL);
     await access("/etc/passwd", constants.R_OK | constants.W_OK);
+});
+
+// glob
+(async () => {
+    for await (const entry of globAsync("**/*.js")) {
+        entry; // $ExpectType string
+    }
+    for await (const entry of globAsync("**/*.js", { withFileTypes: true })) {
+        entry; // $ExpectType Dirent
+    }
+    for await (const entry of globAsync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
+        entry; // $ExpectType Dirent | string
+    }
+
+    glob("**/*.js", (err, matches) => {
+        matches; // $ExpectType string[]
+    });
+    glob(
+        "**/*.js",
+        {
+            exclude: (fileName) => {
+                fileName; // $ExpectType string
+                return false;
+            },
+        },
+        (err, matches) => {
+            matches; // $ExpectType string[]
+        },
+    );
+    glob("**/*.js", { withFileTypes: true }, (err, matches) => {
+        matches; // $ExpectType Dirent[]
+    });
+    glob("**/*.js", { withFileTypes: Math.random() > 0.5 }, (err, matches) => {
+        matches; // $ExpectType Dirent[] | string[]
+    });
+
+    for (const entry of globSync("**/*.js")) {
+        entry; // $ExpectType string
+    }
+    for (const entry of globSync("**/*.js", { cwd: "/" })) {
+        entry; // $ExpectType string
+    }
+    for (const entry of globSync("**/*.js", { withFileTypes: true })) {
+        entry; // $ExpectType Dirent
+    }
+    for (const entry of globSync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
+        entry; // $ExpectType Dirent | string
+    }
 });

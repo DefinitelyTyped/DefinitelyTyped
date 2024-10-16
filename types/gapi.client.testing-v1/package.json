@@ -5,7 +5,7 @@
     "nonNpm": true,
     "nonNpmDescription": "Cloud Testing API v1",
     "projects": [
-        "https://developers.google.com/cloud-test-lab/"
+        "https://firebase.google.com/docs/test-lab/"
     ],
     "dependencies": {
         "@maxim_mazurok/gapi.client.testing-v1": "latest"

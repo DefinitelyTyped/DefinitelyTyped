@@ -1,39 +1,69 @@
 import * as inspector from "node:inspector";
+import { Session as promiseSession } from "node:inspector/promises";
 
 const b: inspector.Console.ConsoleMessage = { source: "test", text: "test", level: "error" };
+// $ExpectType Disposable
 inspector.open();
 inspector.open(0);
 inspector.open(0, "localhost");
-const disposable = inspector.open(0, "localhost", true);
-disposable[Symbol.dispose]();
+inspector.open(0, "localhost", true);
+// $ExpectType void
 inspector.close();
-const inspectorUrl: string | undefined = inspector.url();
+// $ExpectType string | undefined
+inspector.url();
 
 const session = new inspector.Session();
 session.connect();
 session.disconnect();
 
 // Unknown post method
-session.post("A.b", { key: "value" }, (err, params) => {});
-// TODO: parameters are implicitly 'any' and need type annotation
-session.post("A.b", (err: Error | null, params?: {}) => {});
+session.post("A.b", { key: "value" }, (err, params) => {
+    // $ExpectType Error | null
+    err;
+    // $ExpectType object | undefined
+    params;
+});
+session.post("A.b", (err, params) => {
+    // $ExpectType Error | null
+    err;
+    // $ExpectType object | undefined
+    params;
+});
 session.post("A.b");
 // Known post method
-const parameter: inspector.Runtime.EvaluateParameterType = { expression: "2 + 2" };
-session.post("Runtime.evaluate", parameter, (err: Error | null, params: inspector.Runtime.EvaluateReturnType) => {});
-session.post("Runtime.evaluate", (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
-    const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails!;
-    const resultClassName: string = params.result.className!;
+session.post("Runtime.evaluate", { expression: "2 + 2" }, (err, params) => {
+    // $ExpectType Error | null
+    err;
+    // $ExpectType EvaluateReturnType
+    params;
+});
+session.post("Runtime.evaluate", (err, params) => {
+    // $ExpectType Error | null
+    err;
+    // $ExpectType EvaluateReturnType
+    params;
 });
 session.post("Runtime.evaluate");
 
 // General event
 session.on("inspectorNotification", message => {
-    message; // $ExpectType InspectorNotification<{}>
+    // $ExpectType InspectorNotification<object>
+    message;
 });
 // Known events
-session.on("Debugger.paused", (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
-    const method: string = message.method;
-    const pauseReason: string = message.params.reason;
+session.on("Debugger.paused", (message) => {
+    // $ExpectType string
+    message.method;
+    // $ExpectType PausedEventDataType
+    message.params;
 });
 session.on("Debugger.resumed", () => {});
+
+// $ExpectType InspectorConsole
+inspector.console;
+
+// $ExpectType void
+inspector.Network.loadingFinished({ requestId: "12345", timestamp: 1234567890000 });
+
+// $ExpectType Promise<EvaluateReturnType>
+new promiseSession().post("Runtime.evaluate", { expression: "2 + 2" });

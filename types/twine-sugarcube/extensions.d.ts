@@ -110,6 +110,24 @@ declare global {
          * $pies.randomMany(3) // Returns a new array containing three unique random pies from the array
          */
         randomMany(want?: number): T[];
+
+        /**
+         * Returns a new copy of the base array created by shuffling the array. Does not modify the original.
+         * @since SugarCube 2.37.0
+         * @example
+         * // Given: $pies = ["Blueberry", "Cherry", "Cream", "Pecan", "Pumpkin"]
+         * $pies.toShuffled()  → Randomizes the order of the pies in the array w/o modifying the original
+         */
+        toShuffled(): T[];
+
+        /**
+         * Returns a new copy of the base array created by removing all duplicate members. Does not modify the original.
+         * @since SugarCube 2.37.0
+         * @example
+         * // Given: $fruits = ["Apples", "Oranges", "Plums", "Plums", "Apples"]
+         * $fruits.toUnique()  → Returns ["Apples", "Oranges", "Plums"]
+         */
+        toUnique(): T[];
     }
 
     interface Array<T> {
@@ -158,13 +176,44 @@ declare global {
          * Removes all instances of the given members from the array and returns a new array containing the removed members.
          * @param needles The members to remove. May be a list of members or an array.
          * @returns new array
-         * @since SugarCube 2.5.0
+         * @since SugarCube 2.37.0
          * @example
          * // Given: $fruits = ["Apples", "Oranges", "Plums", "Oranges"]
          * $fruits.delete("Oranges")          → Returns ["Oranges", "Oranges"]; $fruits ["Apples", "Plums"]
          * $fruits.delete("Apples", "Plums")  → Returns ["Apples", "Plums"]; $fruits ["Oranges", "Oranges"]
          */
+        deleteAll(...needles: T[]): T[];
+
+        /**
+         * Alias to deleteAll
+         * @deprecated since 2.37.0
+         * @since SugarCube 2.5.0
+         */
         delete(...needles: T[]): T[];
+
+        /**
+         * Removes the first instance of the given members from the array and returns a new array containing the removed members.
+         * @param needles The members to remove. May be a list of members or an array.
+         * @returns new array
+         * @since SugarCube 2.37.0
+         * @example
+         * /// Given: $fruits = ["Apples", "Oranges", "Plums", "Oranges"]
+         * $fruits.deleteFirst("Oranges")          → Returns ["Oranges"]; $fruits ["Apples", "Plums", "Oranges"]
+         * $fruits.deleteFirst("Apples", "Plums")  → Returns ["Apples", "Plums"]; $fruits ["Oranges", "Oranges"]
+         */
+        deleteFirst(...needles: T[]): T[];
+
+        /**
+         * Removes the last instance of the given members from the array and returns a new array containing the removed members.
+         * @param needles The members to remove. May be a list of members or an array.
+         * @returns new array
+         * @since SugarCube 2.37.0
+         * @example
+         * // Given: $fruits = ["Apples", "Oranges", "Plums", "Oranges"]
+         * $fruits.deleteLast("Oranges")          → Returns ["Oranges"]; $fruits ["Apples", "Oranges", "Plums"]
+         * $fruits.deleteLast("Apples", "Plums")  → Returns ["Apples", "Plums"]; $fruits ["Oranges", "Oranges"]
+         */
+        deleteLast(...needles: T[]): T[];
 
         /**
          * Removes all of the members at the given indices from the array and returns a new array containing the removed
@@ -220,17 +269,6 @@ declare global {
          * $pies.first() // Returns "Blueberry"
          */
         first(): T | undefined;
-
-        /**
-         * Returns a new array consisting of the flattened source array (i.e. flat map reduce). Does not modify the original.
-         * Equivalent to ES2019 Array.prototype.flat(Infinity).
-         * @since SugarCube 2.0.0
-         * @deprecated in favour of native Array.flat()
-         * @example
-         * // Given: $npa = [["Alfa", "Bravo"], [["Charlie", "Delta"], ["Echo"]], "Foxtrot"]
-         * $npa.flatten() //  Returns ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot"]
-         */
-        flatten(): T[];
 
         /**
          * Returns whether all of the given members were found within the array.
@@ -329,6 +367,24 @@ declare global {
         shuffle(): T[];
 
         /**
+         * Returns a new copy of the base array created by shuffling the array. Does not modify the original.
+         * @since SugarCube 2.37.0
+         * @example
+         * // Given: $pies = ["Blueberry", "Cherry", "Cream", "Pecan", "Pumpkin"]
+         * $pies.toShuffled()  → Randomizes the order of the pies in the array w/o modifying the original
+         */
+        toShuffled(): T[];
+
+        /**
+         * Returns a new copy of the base array created by removing all duplicate members. Does not modify the original.
+         * @since SugarCube 2.37.0
+         * @example
+         * // Given: $fruits = ["Apples", "Oranges", "Plums", "Plums", "Apples"]
+         * $fruits.toUnique()  → Returns ["Apples", "Oranges", "Plums"]
+         */
+        toUnique(): T[];
+
+        /**
          * Prepends one or more unique members to the beginning of the base array and returns its new length.
          * @param members The members to append.
          * @since SugarCube 2.21.0
@@ -368,6 +424,7 @@ declare global {
          * reviveData parameter will trigger out of control recursion in the serializer, so a clone of the instance's own data
          * must be passed instead.
          * @since SugarCube 2.9.0
+         * @deprecated in SugarCube 2.37.0 in favor of Serial.createReviver()
          * @example
          * JSON.reviveWrapper( <valid JavaScript code string> ); // -> Without data chunk
          * JSON.reviveWrapper( <valid JavaScript code string> , myOwnData); // -> With data chunk
@@ -384,10 +441,22 @@ declare global {
     interface Math {
         /**
          * Returns the given number clamped to the specified bounds. Does not modify the original.
+         * @param num The number to clamp.
+         * @param min The lower bound of the number.
+         * @param max The upper bound of the number.
+         * @since 2.0.0
+         * @example
+         * Math.clamp($stat, 0, 200) // Clamps $stat to the bounds 0–200 and returns the new value
+         * Math.clamp($stat, 1, 6.6) // Clamps $stat to the bounds 1–6.6 and returns the new value
+         */
+        clamp(num: number, min: number, max: number): number;
+        /**
+         * Returns the given number clamped to the specified bounds. Does not modify the original.
          * @param num The number to clamp. May be an actual number or a numerical string.
          * @param min The lower bound of the number.
          * @param max The upper bound of the number.
          * @since 2.0.0
+         * @deprecated in SugarCube 2.37.0.  See the Math.clamp() static method.
          * @example
          * Math.clamp($stat, 0, 200) // Clamps $stat to the bounds 0–200 and returns the new value
          * Math.clamp($stat, 1, 6.6) // Clamps $stat to the bounds 1–6.6 and returns the new value
@@ -438,6 +507,12 @@ declare global {
          * Data to be passed to the handler in event.data when an event is triggered.
          */
         data?: any;
+        /**
+         * (integer) Value for the tabindex attribute
+         * @since SugarCube 2.37.0
+         * @default 0
+         */
+        tabIndex?: number | undefined;
         /**
          * Value for the aria-controls attribute.
          */
@@ -620,6 +695,14 @@ declare global {
          * $.wiki('<<somemacro>>'); // Invokes the <<somemacro>> macro, discarding any output
          */
         wiki(...sources: string[]): void;
+
+        /**
+         * Wikifies the passage by the given name and discards the result. If there were errors, an exception is thrown.
+         * This is only really useful when you want to invoke a macro for its side-effects and aren't interested in its output.
+         * @param name The name of the passage.
+         * @since SugarCube 2.37.0
+         */
+        wikiPassage(name: string): void;
     }
 }
 

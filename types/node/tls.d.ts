@@ -4,9 +4,9 @@
  * The module can be accessed using:
  *
  * ```js
- * const tls = require('node:tls');
+ * import tls from 'node:tls';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/tls.js)
  */
 declare module "tls" {
     import { X509Certificate } from "node:crypto";
@@ -843,6 +843,7 @@ declare module "tls" {
         ciphers?: string | undefined;
         /**
          * Name of an OpenSSL engine which can provide the client certificate.
+         * @deprecated
          */
         clientCertEngine?: string | undefined;
         /**
@@ -885,12 +886,14 @@ declare module "tls" {
         /**
          * Name of an OpenSSL engine to get private key from. Should be used
          * together with privateKeyIdentifier.
+         * @deprecated
          */
         privateKeyEngine?: string | undefined;
         /**
          * Identifier of a private key managed by an OpenSSL engine. Should be
          * used together with privateKeyEngine. Should not be set together with
          * key, because both options define a private key in different ways.
+         * @deprecated
          */
         privateKeyIdentifier?: string | undefined;
         /**
@@ -1000,8 +1003,8 @@ declare module "tls" {
      * The following illustrates a simple echo server:
      *
      * ```js
-     * const tls = require('node:tls');
-     * const fs = require('node:fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   key: fs.readFileSync('server-key.pem'),
@@ -1046,8 +1049,8 @@ declare module "tls" {
      *
      * ```js
      * // Assumes an echo server that is listening on port 8000.
-     * const tls = require('node:tls');
-     * const fs = require('node:fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   // Necessary only if the server requires client certificate authentication.
@@ -1155,7 +1158,7 @@ declare module "tls" {
      * the `ciphers` option of `{@link createSecureContext}`.
      *
      * Not all supported ciphers are enabled by default. See
-     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v20.x/api/tls.html#modifying-the-default-tls-cipher-suite).
+     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v22.x/api/tls.html#modifying-the-default-tls-cipher-suite).
      *
      * Cipher names that start with `'tls_'` are for TLSv1.3, all the others are for
      * TLSv1.2 and below.

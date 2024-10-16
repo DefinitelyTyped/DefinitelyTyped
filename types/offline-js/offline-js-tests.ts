@@ -4,7 +4,7 @@ Offline.options = {
     checkOnLoad: false,
     interceptRequests: true,
     checks: {
-        xhr: { url: "/connection-test" },
+        xhr: { url: () => "/connection-test", type: "HEAD", timeout: 5000 },
         image: { url: "my-image.gif" },
         active: "image",
     },

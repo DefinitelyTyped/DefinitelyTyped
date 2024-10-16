@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * Flight
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -22,6 +22,7 @@ export default class Flight extends AbstractCrudObject {
         origin_city: "origin_city";
         price: "price";
         sanitized_images: "sanitized_images";
+        tags: "tags";
         unit_price: "unit_price";
         url: "url";
         visibility: "visibility";
@@ -38,15 +39,9 @@ export default class Flight extends AbstractCrudObject {
         published: "PUBLISHED";
         staging: "STAGING";
     }>;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getAugmentedRealitiesMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getChannelsToIntegrityStatus(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getVideosMetadata(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getVideosMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<Flight>;
-    update(fields: string[], params?: Record<any, any>): Promise<Flight>;
+    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<Flight>;
+    update(fields: string[], params?: Record<string, any>): Promise<Flight>;
 }

@@ -1,4 +1,4 @@
-declare function traverse<T>(obj: T): traverse.Traverse<T>;
+declare function traverse<T>(obj: T, options?: traverse.TraverseOptions): traverse.Traverse<T>;
 
 declare namespace traverse {
     /**
@@ -97,6 +97,20 @@ declare namespace traverse {
          * Create a deep clone of the object.
          */
         clone(): T;
+    }
+
+    interface TraverseOptions {
+        /**
+         * If true, does not alter the original object
+         */
+        immutable?: boolean;
+
+        /**
+         * If false, removes all symbols from traversed objects
+         *
+         * @default false
+         */
+        includeSymbols?: boolean;
     }
 
     interface TraverseContext {

@@ -241,7 +241,7 @@ import { promisify } from "node:util";
 
     const cipher = crypto.createCipheriv("aes-192-cbc", key, nonce);
     const plaintext = "Hello world";
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const cipherBuf = cipher.update(plaintext, "utf8");
     cipher.final();
 
@@ -258,12 +258,12 @@ import { promisify } from "node:util";
 
     const cipher = crypto.createCipheriv("aes-192-cbc", key, nonce);
     const plaintext = "Hello world";
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const cipherBuf = cipher.update(plaintext, "utf8");
     cipher.final();
 
     const decipher = crypto.createDecipheriv("aes-192-cbc", key, nonce);
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     const receivedPlaintext = decipher.update(cipherBuf);
     decipher.final();
 }
@@ -1117,6 +1117,28 @@ import { promisify } from "node:util";
         key,
         dsaEncoding: "der",
     });
+
+    const jwk = key.export({ format: "jwk" });
+    crypto.sign("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    });
+    crypto.sign("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    }, callback);
+    promisify(crypto.sign)("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    }).then((signature: Buffer) => {});
+    crypto.createSign("sha256").update(Buffer.from("asd")).sign({
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    });
 }
 
 {
@@ -1172,6 +1194,47 @@ import { promisify } from "node:util";
     crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
         {
             key,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+
+    const jwk = key.export({ format: "jwk" });
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+        callback,
+    );
+    promisify(crypto.verify)(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    ).then((result: boolean) => {});
+    crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
+        {
+            format: "jwk",
+            key: jwk,
             dsaEncoding: "der",
         },
         Buffer.from("sig"),
@@ -1252,7 +1315,7 @@ import { promisify } from "node:util";
     cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
     cert.publicKey; // $ExpectType KeyObject
-    cert.raw; // $ExpectType Buffer
+    cert.raw; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     cert.serialNumber; // $ExpectType string
     cert.subject; // $ExpectType string
     cert.subjectAltName; // $ExpectType string | undefined
@@ -1429,7 +1492,7 @@ import { promisify } from "node:util";
 
     alice.generateKeys();
 
-    let alicePublicKey = alice.getPublicKey(); // $ExpectType Buffer
+    let alicePublicKey = alice.getPublicKey(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     alicePublicKey = alice.getPublicKey(null);
     alicePublicKey = alice.getPublicKey(null, "compressed");
     alicePublicKey = alice.getPublicKey(undefined, "hybrid");
@@ -1437,7 +1500,7 @@ import { promisify } from "node:util";
     let bobPublicKey = bob.getPublicKey("hex"); // $ExpectType string
     bobPublicKey = bob.getPublicKey("hex", "compressed");
 
-    let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType Buffer
+    let aliceSecret = alice.computeSecret(bobPublicKey, "hex"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     aliceSecret = alice.computeSecret(Buffer.from(bobPublicKey, "hex"));
 
     let bobSecret = bob.computeSecret(alicePublicKey, "hex"); // $ExpectType string
@@ -1453,12 +1516,12 @@ import { promisify } from "node:util";
 }
 
 {
-    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
-    crypto.getRandomValues(new Uint8Array(8)); // $ExpectType Uint8Array
-    crypto.getRandomValues(new Int16Array(8)); // $ExpectType Int16Array
-    crypto.getRandomValues(new Float32Array(8)); // $ExpectType Float32Array
-    crypto.getRandomValues(new BigUint64Array(8)); // $ExpectType BigUint64Array
-    crypto.getRandomValues(new DataView(new ArrayBuffer(8))); // $ExpectType DataView
+    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    crypto.getRandomValues(new Uint8Array(8)); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
+    crypto.getRandomValues(new Int16Array(8)); // $ExpectType Int16Array || Int16Array<ArrayBuffer>
+    crypto.getRandomValues(new Float32Array(8)); // $ExpectType Float32Array || Float32Array<ArrayBuffer>
+    crypto.getRandomValues(new BigUint64Array(8)); // $ExpectType BigUint64Array || BigUint64Array<ArrayBuffer>
+    crypto.getRandomValues(new DataView(new ArrayBuffer(8))); // $ExpectType DataView || DataView<ArrayBuffer>
     crypto.getRandomValues(new ArrayBuffer(8)); // $ExpectType ArrayBuffer
 }
 
@@ -1475,8 +1538,8 @@ import { promisify } from "node:util";
     b = crypto.subtle;
 
     crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
-    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
-    crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
+    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
     // @ts-expect-error
     crypto.webcrypto.getRandomValues(new Float64Array(4));
     crypto.webcrypto.CryptoKey.name;

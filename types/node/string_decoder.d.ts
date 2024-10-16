@@ -4,13 +4,13 @@
  * characters. It can be accessed using:
  *
  * ```js
- * const { StringDecoder } = require('node:string_decoder');
+ * import { StringDecoder } from 'node:string_decoder';
  * ```
  *
  * The following example shows the basic use of the `StringDecoder` class.
  *
  * ```js
- * const { StringDecoder } = require('node:string_decoder');
+ * import { StringDecoder } from 'node:string_decoder';
  * const decoder = new StringDecoder('utf8');
  *
  * const cent = Buffer.from([0xC2, 0xA2]);
@@ -29,14 +29,14 @@
  * symbol (`€`) are written over three separate operations:
  *
  * ```js
- * const { StringDecoder } = require('node:string_decoder');
+ * import { StringDecoder } from 'node:string_decoder';
  * const decoder = new StringDecoder('utf8');
  *
  * decoder.write(Buffer.from([0xE2]));
  * decoder.write(Buffer.from([0x82]));
  * console.log(decoder.end(Buffer.from([0xAC]))); // Prints: €
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/string_decoder.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/string_decoder.js)
  */
 declare module "string_decoder" {
     class StringDecoder {

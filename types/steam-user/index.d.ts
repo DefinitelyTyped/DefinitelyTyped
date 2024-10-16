@@ -182,6 +182,7 @@ declare class SteamUser extends EventEmitter {
 
     logOn(
         details?:
+            | true
             | LogOnDetailsAnon
             | LogOnDetailsNamePass
             | LogOnDetailsNameKey
@@ -321,8 +322,8 @@ declare class SteamUser extends EventEmitter {
         callback?: (
             err: Error | null,
             currentChangeNumber: number,
-            appChanges: AppChanges,
-            packageChanges: PackageChanges,
+            appChanges: AppChanges[],
+            packageChanges: PackageChanges[],
         ) => void,
     ): Promise<ProductChanges>;
 
@@ -345,6 +346,7 @@ declare class SteamUser extends EventEmitter {
             unknownApps: number[],
             unknownPackages: number[],
         ) => void,
+        requestType?: number,
     ): Promise<ProductInfo>;
 
     /**
@@ -1006,8 +1008,8 @@ interface Events {
     gifts: [gifts: Gift[]];
     ownershipCached: [];
     changelist: [changenumber: number, apps: number[], packages: number[]];
-    appUpdate: [appid: number, data: ProductInfo];
-    packageUpdate: [appid: number, data: ProductInfo];
+    appUpdate: [appid: number, data: AppInfo];
+    packageUpdate: [packageid: number, data: PackageInfo];
     marketingMessages: [timestamp: Date, messages: Array<{ id: string; url: string; flags: number }>];
     tradeRequest: [steamID: SteamID, respond: (accept: boolean) => void];
     tradeResponse: [steamID: SteamID, response: SteamUser.EEconTradeResponse, restrictions: TradeRestrictions];
@@ -1404,8 +1406,8 @@ interface Server {
 
 interface ProductChanges {
     currentChangeNumber: number;
-    appChanges: AppChanges;
-    packageChanges: PackageChanges;
+    appChanges: AppChanges[];
+    packageChanges: PackageChanges[];
 }
 
 interface ProductInfo {
@@ -1423,8 +1425,8 @@ interface ProductAccessTokens {
 }
 
 interface UserOwnedApps {
-    game_count: number;
-    games: OwnedApp[];
+    app_count: number;
+    apps: OwnedApp[];
 }
 
 interface ProfileItems {
@@ -5041,6 +5043,14 @@ declare namespace SteamUser {
         MustAgreeToSSA = 118,
         ClientNoLongerSupported = 119,
         LauncherMigrated = 119,
+        SteamRealmMismatch = 120,
+        InvalidSignature = 121,
+        ParseFailure = 122,
+        NoVerifiedPhone = 123,
+        InsufficientBattery = 124,
+        ChargerRequired = 125,
+        CachedCredentialInvalid = 126,
+        PhoneNumberIsVOIP = 127,
     }
 
     enum EServerFlags {

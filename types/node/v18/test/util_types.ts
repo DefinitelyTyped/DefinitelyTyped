@@ -13,13 +13,13 @@ if (types.isArgumentsObject(object)) {
     object; // $ExpectType IArguments
 }
 if (types.isArrayBufferView(object)) {
-    object; // $ExpectType ArrayBufferView
+    object; // $ExpectType ArrayBufferView || ArrayBufferView<ArrayBufferLike>
 }
 if (types.isBigInt64Array(object)) {
-    object; // $ExpectType BigInt64Array
+    object; // $ExpectType BigInt64Array || BigInt64Array<ArrayBufferLike>
 }
 if (types.isBigUint64Array(object)) {
-    object; // $ExpectType BigUint64Array
+    object; // $ExpectType BigUint64Array || BigUint64Array<ArrayBufferLike>
 }
 if (types.isBooleanObject(object)) {
     object; // $ExpectType Boolean
@@ -30,31 +30,31 @@ if (types.isBoxedPrimitive(object)) {
     // object; // $ExpectType String | Number | Boolean | Symbol | BigInt
 }
 if (types.isDataView(object)) {
-    object; // $ExpectType DataView
+    object; // $ExpectType DataView || DataView<ArrayBufferLike>
 }
 if (types.isDate(object)) {
     object; // $ExpectType Date
 }
 if (types.isFloat32Array(object)) {
-    object; // $ExpectType Float32Array
+    object; // $ExpectType Float32Array || Float32Array<ArrayBufferLike>
 }
 if (types.isFloat64Array(object)) {
-    object; // $ExpectType Float64Array
+    object; // $ExpectType Float64Array || Float64Array<ArrayBufferLike>
 }
 if (types.isGeneratorFunction(object)) {
     object; // $ExpectType GeneratorFunction
 }
 if (types.isGeneratorObject(object)) {
-    object; // $ExpectType Generator<unknown, any, unknown>
+    object; // $ExpectType Generator<unknown, any, unknown> || Generator<unknown, any, any>
 }
 if (types.isInt8Array(object)) {
-    object; // $ExpectType Int8Array
+    object; // $ExpectType Int8Array || Int8Array<ArrayBufferLike>
 }
 if (types.isInt16Array(object)) {
-    object; // $ExpectType Int16Array
+    object; // $ExpectType Int16Array || Int16Array<ArrayBufferLike>
 }
 if (types.isInt32Array(object)) {
-    object; // $ExpectType Int32Array
+    object; // $ExpectType Int32Array || Int32Array<ArrayBufferLike>
 }
 if (types.isMap(object)) {
     object; // $ExpectType Map<unknown, unknown>
@@ -105,19 +105,19 @@ if (types.isSymbolObject(object)) {
     object; // $ExpectType Symbol
 }
 if (types.isTypedArray(object)) {
-    object; // $ExpectType TypedArray
+    object; // $ExpectType TypedArray || TypedArray<ArrayBufferLike>
 }
 if (types.isUint8Array(object)) {
-    object; // $ExpectType Uint8Array
+    object; // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 }
 if (types.isUint8ClampedArray(object)) {
-    object; // $ExpectType Uint8ClampedArray
+    object; // $ExpectType Uint8ClampedArray || Uint8ClampedArray<ArrayBufferLike>
 }
 if (types.isUint16Array(object)) {
-    object; // $ExpectType Uint16Array
+    object; // $ExpectType Uint16Array || Uint16Array<ArrayBufferLike>
 }
 if (types.isUint32Array(object)) {
-    object; // $ExpectType Uint32Array
+    object; // $ExpectType Uint32Array || Uint32Array<ArrayBufferLike>
 }
 if (types.isWeakMap(object)) {
     object; // $ExpectType WeakMap<object, unknown>
@@ -149,10 +149,10 @@ if (!types.isBoxedPrimitive(maybeBoxed2)) {
 
 const value: BigInt64Array | BigUint64Array | number = 1 as any;
 if (types.isBigInt64Array(value)) {
-    // $ExpectType BigInt64Array
+    // $ExpectType BigInt64Array || BigInt64Array<ArrayBufferLike>
     const b = value;
 } else if (types.isBigUint64Array(value)) {
-    // $ExpectType BigUint64Array
+    // $ExpectType BigUint64Array || BigUint64Array<ArrayBufferLike>
     const b = value;
 } else {
     // $ExpectType number

@@ -15,9 +15,9 @@ const list = [
     },
 ];
 
-peers.encode(list); // $ExpectType Buffer
-peers.encode(list, Buffer.alloc(10)); // $ExpectType Buffer
-peers.encode(list, Buffer.alloc(10), 1); // $ExpectType Buffer
+peers.encode(list); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+peers.encode(list, Buffer.alloc(10)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+peers.encode(list, Buffer.alloc(10), 1); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 peers.encode.bytes; // $ExpectType number
 
@@ -31,9 +31,9 @@ peers.encodingLength(list); // $ExpectType number
 
 const withIdCodec = peers.idLength(10);
 
-withIdCodec.encode(list); // $ExpectType Buffer
-withIdCodec.encode(list, Buffer.alloc(10)); // $ExpectType Buffer
-withIdCodec.encode(list, Buffer.alloc(10), 1); // $ExpectType Buffer
+withIdCodec.encode(list); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+withIdCodec.encode(list, Buffer.alloc(10)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+withIdCodec.encode(list, Buffer.alloc(10), 1); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 withIdCodec.encode.bytes; // $ExpectType number
 

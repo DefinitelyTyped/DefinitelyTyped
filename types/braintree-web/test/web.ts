@@ -79,7 +79,41 @@ braintree.client.create(
             .create({
                 client: clientInstance,
             })
-            .then((googlePayInstance: braintree.GooglePayment) => {
+            .then((googlePayInstance) => {
+                const button = new HTMLButtonElement();
+
+                button.addEventListener("click", event => {
+                    event.preventDefault();
+
+                    const paymentDataRequest = googlePayInstance
+                        .createPaymentDataRequest({
+                            transactionInfo: {
+                                currencyCode: "USD",
+                                totalPriceStatus: "FINAL",
+                                totalPrice: "100.00",
+                            },
+                        });
+
+                    googlePaymentsClient
+                        .loadPaymentData(paymentDataRequest)
+                        .then(paymentData => {
+                            return googlePayInstance.parseResponse(paymentData);
+                        })
+                        .then((result: braintree.GooglePaymentTokenizePayload) => {
+                            console.log("nonce", result.nonce);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        });
+                });
+            });
+
+        braintree.googlePayment
+            .create({
+                client: clientInstance,
+                useDeferredClient: true,
+            })
+            .then((googlePayInstance) => {
                 const button = new HTMLButtonElement();
 
                 button.addEventListener("click", event => {
@@ -93,7 +127,7 @@ braintree.client.create(
                                 totalPrice: "100.00",
                             },
                         })
-                        .then((paymentDataRequest: google.payments.api.PaymentDataRequest) => {
+                        .then((paymentDataRequest) => {
                             googlePaymentsClient
                                 .loadPaymentData(paymentDataRequest)
                                 .then(paymentData => {
@@ -640,6 +674,18 @@ braintree.client.create(
                     })
                     .then(paypalCheckout => {
                         // window.paypal.Buttons is now available to use
+                        window.paypal.Buttons({
+                            onApprove(data) {
+                                return paypalCheckout.tokenizePayment(data);
+                            },
+                            onInit(data) {
+                                paypalCheckout.updatePayment({
+                                    amount: "10.00",
+                                    currency: "USD",
+                                    paymentId: data.paymentId,
+                                }).then(res => res);
+                            },
+                        });
                     });
 
                 button.addEventListener("click", () => {
@@ -1036,6 +1082,7 @@ braintree.client.create(
                         verifyPayload.liabilityShifted || verifyPayload.threeDSecureInfo.liabilityShifted; // boolean
                         verifyPayload.liabilityShiftPossible || verifyPayload.threeDSecureInfo.liabilityShiftPossible; // boolean
                         verifyPayload.binData.issuingBank; // The issuing bank.
+                        verifyPayload.threeDSecureInfo.status; // The 3D Secure status.
                     },
                 );
 

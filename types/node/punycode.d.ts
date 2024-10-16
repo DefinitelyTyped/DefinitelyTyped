@@ -8,7 +8,7 @@
  * can be accessed using:
  *
  * ```js
- * const punycode = require('punycode');
+ * import punycode from 'node:punycode';
  * ```
  *
  * [Punycode](https://tools.ietf.org/html/rfc3492) is a character encoding scheme defined by RFC 3492 that is
@@ -24,7 +24,7 @@
  * made available to developers as a convenience. Fixes or other modifications to
  * the module must be directed to the [Punycode.js](https://github.com/bestiejs/punycode.js) project.
  * @deprecated Since v7.0.0 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/punycode.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/punycode.js)
  */
 declare module "punycode" {
     /**

@@ -1,5 +1,5 @@
-import BusinessDataContent from '../businessdataapi/content';
-import ServerContent from '../serverside/content';
+import BusinessDataContent from "../businessdataapi/content";
+import ServerContent from "../serverside/content";
 /**
  * UserData represents the User Data Parameters(user_data) of Business Data API and Conversion API Request.
  */

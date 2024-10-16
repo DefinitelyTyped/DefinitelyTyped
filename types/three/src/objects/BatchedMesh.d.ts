@@ -2,32 +2,43 @@ import { Camera } from "../cameras/Camera.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { Material } from "../materials/Material.js";
 import { Box3 } from "../math/Box3.js";
+import { Color } from "../math/Color.js";
 import { Matrix4 } from "../math/Matrix4.js";
 import { Sphere } from "../math/Sphere.js";
 import { Mesh } from "./Mesh.js";
 
 /**
  * A special version of {@link Mesh} with multi draw batch rendering support. Use {@link BatchedMesh} if you have to
- * render a large number of objects with the same material but with different world transformations and geometry. The
- * usage of {@link BatchedMesh} will help you to reduce the number of draw calls and thus improve the overall rendering
+ * render a large number of objects with the same material but with different world transformations. The  usage of
+ * {@link BatchedMesh} will help you to reduce the number of draw calls and thus improve the overall rendering
  * performance in your application.
  *
  * If the {@link https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_multi_draw WEBGL_multi_draw extension} is not
- * supported then a less performant callback is used.
+ * supported then a less performant fallback is used.
  *
  * @example
  * const box = new THREE.BoxGeometry( 1, 1, 1 );
- * const sphere = new THREE.BoxGeometry( 1, 1, 1 );
+ * const sphere = new THREE.SphereGeometry( 1, 12, 12 );
  * const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
  *
  * // initialize and add geometries into the batched mesh
  * const batchedMesh = new BatchedMesh( 10, 5000, 10000, material );
- * const boxId = batchedMesh.addGeometry( box );
- * const sphereId = batchedMesh.addGeometry( sphere );
+ * const boxGeometryId = batchedMesh.addGeometry( box );
+ * const sphereGeometryId = batchedMesh.addGeometry( sphere );
+ *
+ * // create instances of those geometries
+ * const boxInstancedId1 = batchedMesh.addInstance( boxGeometryId );
+ * const boxInstancedId2 = batchedMesh.addInstance( boxGeometryId );
+ *
+ * const sphereInstancedId1 = batchedMesh.addInstance( sphereGeometryId );
+ * const sphereInstancedId2 = batchedMesh.addInstance( sphereGeometryId );
  *
  * // position the geometries
- * batchedMesh.setMatrixAt( boxId, boxMatrix );
- * batchedMesh.setMatrixAt( sphereId, sphereMatrix );
+ * batchedMesh.setMatrixAt( boxInstancedId1, boxMatrix1 );
+ * batchedMesh.setMatrixAt( boxInstancedId2, boxMatrix2 );
+ *
+ * batchedMesh.setMatrixAt( sphereInstancedId1, sphereMatrix1 );
+ * batchedMesh.setMatrixAt( sphereInstancedId2, sphereMatrix2 );
  *
  * scene.add( batchedMesh );
  *
@@ -67,20 +78,20 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     /**
      * The maximum number of individual geometries that can be stored in the {@link BatchedMesh}. Read only.
      */
-    get maxGeometryCount(): number;
+    get maxInstanceCount(): number;
 
     /**
      * Read-only flag to check if a given object is of type {@link BatchedMesh}.
      */
-    isBatchedMesh: true;
+    readonly isBatchedMesh: true;
 
     /**
-     * @param maxGeometryCount the max number of individual geometries planned to be added.
+     * @param maxInstanceCount the max number of individual geometries planned to be added.
      * @param maxVertexCount the max number of vertices to be used by all geometries.
      * @param maxIndexCount the max number of indices to be used by all geometries.
-     * @param material an instance of [page:Material]. Default is a new {@link MeshBasicMaterial}.
+     * @param material an instance of {@link Material}. Default is a new {@link MeshBasicMaterial}.
      */
-    constructor(maxGeometryCount: number, maxVertexCount: number, maxIndexCount?: number, material?: Material);
+    constructor(maxInstanceCount: number, maxVertexCount: number, maxIndexCount?: number, material?: Material);
 
     /**
      * Computes the bounding box, updating {@link .boundingBox} attribute.
@@ -101,40 +112,81 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     dispose(): this;
 
     /**
-     * Takes a sort a function that is run before render. The function takes a list of items to sort and a camera. The
-     * objects in the list include a "z" field to perform a depth-ordered sort with.
+     * Takes a sort a function that is run before render. The function takes a list of instances to sort and a camera.
+     * The objects in the list include a "z" field to perform a depth-ordered sort with.
      */
     setCustomSort(
-        func: ((this: this, list: Array<{ start: number; count: number; z: number }>, camera: Camera) => void) | null,
+        sortFunction:
+            | ((this: this, list: Array<{ start: number; count: number; z: number }>, camera: Camera) => void)
+            | null,
     ): this;
 
     /**
-     * Get the local transformation matrix of the defined instance.
-     * @param index The index of an instance. Values have to be in the range [0, count].
-     * @param matrix This 4x4 matrix will be set to the local transformation matrix of the defined instance.
+     * Get the color of the defined geometry.
+     * @param instanceId The id of an instance to get the color of.
+     * @param target The target object to copy the color in to.
      */
-    getMatrixAt(index: number, matrix: Matrix4): Matrix4;
+    getColorAt(instanceId: number, target: Color): void;
+
+    /**
+     * Get the local transformation matrix of the defined instance.
+     * @param instanceId The id of an instance to get the matrix of.
+     * @param target This 4x4 matrix will be set to the local transformation matrix of the defined instance.
+     */
+    getMatrixAt(instanceId: number, target: Matrix4): Matrix4;
 
     /**
      * Get whether the given instance is marked as "visible" or not.
-     * @param index The index of an instance. Values have to be in the range [0, count].
+     * @param instanceId The id of an instance to get the visibility state of.
      */
-    getVisibleAt(index: number): boolean;
+    getVisibleAt(instanceId: number): boolean;
 
     /**
-     * Sets the given local transformation matrix to the defined instance. Make sure you set {@link .instanceMatrix}
-     * {@link BufferAttribute.needsUpdate} to true after updating all the matrices.
-     * @param index The index of an instance. Values have to be in the range [0, count].
+     * Get the range representing the subset of triangles related to the attached geometry, indicating the starting
+     * offset and count, or `null` if invalid.
+     *
+     * Return an object of the form: { start: Integer, count: Integer }
+     * @param geometryId The id of the geometry to get the range of.
+     * @param target Optional target object to copy the range in to.
+     */
+    getGeometryRangeAt(
+        geometryId: number,
+        target?: { start: number; count: number },
+    ): { start: number; count: number } | null;
+
+    /**
+     * Get the geometryIndex of the defined instance.
+     * @param instanceId The id of an instance to get the geometryIndex of.
+     */
+    getGeometryIdAt(instanceId: number): number;
+
+    /**
+     * Sets the given color to the defined geometry instance.
+     * @param instanceId The id of the instance to set the color of.
+     * @param color The color to set the instance to.
+     */
+    setColorAt(instanceId: number, color: Color): void;
+
+    /**
+     * Sets the given local transformation matrix to the defined instance.
+     * @param instanceId The id of an instance to set the matrix of.
      * @param matrix A 4x4 matrix representing the local transformation of a single instance.
      */
-    setMatrixAt(index: number, matrix: Matrix4): this;
+    setMatrixAt(instanceId: number, matrix: Matrix4): this;
 
     /**
-     * Sets the visibility of the object at the given index.
-     * @param index The index of an instance. Values have to be in the range [0, count].
+     * Sets the visibility of the instance at the given index.
+     * @param instanceId The id of the instance to set the visibility of.
      * @param visible A boolean value indicating the visibility state.
      */
-    setVisibleAt(index: number, visible: boolean): this;
+    setVisibleAt(instanceId: number, visible: boolean): this;
+
+    /**
+     * Sets the geometryIndex of the instance at the given index.
+     * @param instanceId The id of the instance to set the geometryIndex of.
+     * @param geometryId The geometryIndex to be use by the instance.
+     */
+    setGeometryIdAt(instanceId: number, geometryId: number): this;
 
     /**
      * Adds the given geometry to the {@link BatchedMesh} and returns the associated index referring to it.
@@ -149,30 +201,30 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     addGeometry(geometry: BufferGeometry, reservedVertexRange?: number, reservedIndexRange?: number): number;
 
     /**
-     * Replaces the geometry at `index` with the provided geometry. Throws an error if there is not enough space
-     * reserved for geometry at the index.
-     * @param index Which geometry index to replace with this geometry.
-     * @param geometry The geometry to substitute at the given geometry index.
+     * Adds a new instance to the {@link BatchedMesh} using the geometry of the given geometryId and returns a new id
+     * referring to the new instance to be used by other functions.
+     * @param geometryId The id of a previously added geometry via "addGeometry" to add into the {@link BatchedMesh} to
+     * render.
      */
-    setGeometryAt(index: number, geometry: BufferGeometry): number;
+    addInstance(geometryId: number): number;
 
     /**
-     * Gets the instance count of the geometry at `index`. Returns `null` if instance counts are not configured.
-     * @param index The index of an instance. Values have to be in the range [0, count].
+     * Removes an existing instance from the BatchedMesh using the given instanceId.
+     * @param instanceId The id of an instance to remove from the BatchedMesh that was previously added via
+     * "addInstance".
      */
-    getInstanceCountAt(index: number): number | null;
+    deleteInstance(instanceId: number): this;
 
     /**
-     * Sets an instance count of the geometry at `index`.
-     * @param index Which geometry index to configure an instance count for.
-     * @param instanceCount The number of instances to render of the given geometry index.
+     * Replaces the geometry at `geometryId` with the provided geometry. Throws an error if there is not enough space
+     * reserved for geometry. Calling this will change all instances that are rendering that geometry.
+     * @param geometryId Which geometry id to replace with this geometry.
+     * @param geometry The geometry to substitute at the given geometry id.
      */
-    setInstanceCountAt(index: number, instanceCount: number): number;
+    setGeometryAt(geometryId: number, geometry: BufferGeometry): number;
 
-    deleteGeometry(index: number): this;
-
-    getBoundingBoxAt(index: number, target: Box3): Box3 | null;
-    getBoundingSphereAt(index: number, target: Sphere): Sphere | null;
+    getBoundingBoxAt(geometryId: number, target: Box3): Box3 | null;
+    getBoundingSphereAt(geometryId: number, target: Sphere): Sphere | null;
 }
 
 export { BatchedMesh };

@@ -1,4 +1,7 @@
 // common types
+export const __brand: unique symbol;
+export type Brand<T, B> = T & { [__brand]: B };
+
 export interface StringMap {
     [key: string]: string;
 }
@@ -22,223 +25,49 @@ export interface FormResponse {
     error?: string | undefined;
 }
 
-export const cryptoSymbols: readonly [
-    "TEST",
-    "BTC",
-    "ETH",
-    "LTC",
-    "SOL",
-    "ADA",
-    "BCH",
-    "DASH",
-    "DGB",
-    "DOGE",
-    "XLM",
-    "XMR",
-    "XRP",
-    "TXRP",
-    "XTZ",
-    "AE",
-    "ALGO",
-    "AMB",
-    "ARDR",
-    "ARN",
-    "BCD",
-    "BKX",
-    "BNB",
-    "BSV",
-    "BTG",
-    "CHX",
-    "CHZ",
-    "DCR",
-    "EDO",
-    "EOS",
-    "ERD",
-    "ETC",
-    "GAS",
-    "GRS",
-    "ICX",
-    "INS",
-    "IOST",
-    "IOTX",
-    "KMD",
-    "LBC",
-    "LSK",
-    "MATIC",
-    "NANO",
-    "NEO",
-    "NXT",
-    "ONG",
-    "ONT",
-    "PIVX",
-    "QTUM",
-    "R",
-    "RVN",
-    "SC",
-    "SKY",
-    "STEEM",
-    "STORM",
-    "STRAT",
-    "SYS",
-    "TRX",
-    "VEN",
-    "VET",
-    "WAVES",
-    "XEM",
-    "XVG",
-    "ZCL",
-    "ZEC",
-    "ZEN",
-    "ZIL",
-    "USDC@ETH",
-    "USDT@ETH",
-    "TUSD@ETH",
-    "PAX@ETH",
-    "BUSD@ETH",
-    "GUSD@ETH",
-    "ABT@ETH",
-    "ABYSS@ETH",
-    "ADT@ETH",
-    "ADX@ETH",
-    "AGI@ETH",
-    "ANKR@ETH",
-    "ANT@ETH",
-    "APPC@ETH",
-    "ATL@ETH",
-    "ATOM@ETH",
-    "AXPR@ETH",
-    "BAND@ETH",
-    "BCPT@ETH",
-    "BDG@ETH",
-    "BETR@ETH",
-    "BKX@ETH",
-    "BLZ@ETH",
-    "BNT@ETH",
-    "BRD@ETH",
-    "BTT@ETH",
-    "CBC@ETH",
-    "CDT@ETH",
-    "CELR@ETH",
-    "CND@ETH",
-    "CRO@ETH",
-    "CRPT@ETH",
-    "CVC@ETH",
-    "DAI@ETH",
-    "DAN@ETH",
-    "DATA@ETH",
-    "DCN@ETH",
-    "DENT@ETH",
-    "DGD@ETH",
-    "DGTX@ETH",
-    "DLT@ETH",
-    "DNT@ETH",
-    "DOCK@ETH",
-    "DUSK@ETH",
-    "EDG@ETH",
-    "ELEC@ETH",
-    "ELF@ETH",
-    "ENG@ETH",
-    "ENJ@ETH",
-    "EURS@ETH",
-    "EVX@ETH",
-    "EXP@ETH",
-    "FCT@ETH",
-    "FOTA@ETH",
-    "FTM@ETH",
-    "FUEL@ETH",
-    "GAME@ETH",
-    "GNO@ETH",
-    "GNT@ETH",
-    "GTO@ETH",
-    "GUP@ETH",
-    "GVT@ETH",
-    "HMQ@ETH",
-    "HOT@ETH",
-    "HT@ETH",
-    "KCASH@ETH",
-    "KNC@ETH",
-    "LEND@ETH",
-    "LET@ETH",
-    "LIFE@ETH",
-    "LINK@ETH",
-    "LOOM@ETH",
-    "LRC@ETH",
-    "LUN@ETH",
-    "MANA@ETH",
-    "MATIC@ETH",
-    "MCO@ETH",
-    "MDA@ETH",
-    "MDT@ETH",
-    "MFT@ETH",
-    "MITH@ETH",
-    "MKR@ETH",
-    "MLN@ETH",
-    "MOF@ETH",
-    "MTH@ETH",
-    "MTL@ETH",
-    "MYST@ETH",
-    "NCASH@ETH",
-    "NEXO@ETH",
-    "NGC@ETH",
-    "NMR@ETH",
-    "NPXS@ETH",
-    "OAX@ETH",
-    "OMG@ETH",
-    "OST@ETH",
-    "PAY@ETH",
-    "PLR@ETH",
-    "PMA@ETH",
-    "POE@ETH",
-    "POLY@ETH",
-    "POWR@ETH",
-    "PPC@ETH",
-    "PPT@ETH",
-    "PRE@ETH",
-    "PTOY@ETH",
-    "QSP@ETH",
-    "RCN@ETH",
-    "RDN@ETH",
-    "REN@ETH",
-    "REP@ETH",
-    "REQ@ETH",
-    "RFR@ETH",
-    "RLC@ETH",
-    "SALT@ETH",
-    "SNC@ETH",
-    "SNGLS@ETH",
-    "SNM@ETH",
-    "SNT@ETH",
-    "SOC@ETH",
-    "SRN@ETH",
-    "STORJ@ETH",
-    "STX@ETH",
-    "SUB@ETH",
-    "SWT@ETH",
-    "TAU@ETH",
-    "TEL@ETH",
-    "TIME@ETH",
-    "TKN@ETH",
-    "TNB@ETH",
-    "TNT@ETH",
-    "TRST@ETH",
-    "UNI@ETH",
-    "UTK@ETH",
-    "VEE@ETH",
-    "VIB@ETH",
-    "VIBE@ETH",
-    "WABI@ETH",
-    "WINGS@ETH",
-    "WPR@ETH",
-    "WTC@ETH",
-    "XBP@ETH",
-    "XUC@ETH",
-    "ZAP@ETH",
-    "ZRX@ETH",
-    "USDT@MATIC",
-    "USDC@MATIC",
-];
+export type CryptoId = Brand<string, "CryptoId">;
 
-export type CryptoSymbol = typeof cryptoSymbols[number];
+export type FiatCurrencyCode =
+    | "usd"
+    | "eur"
+    | "gbp"
+    | "aed"
+    | "ars"
+    | "aud"
+    | "bdt"
+    | "brl"
+    | "cad"
+    | "chf"
+    | "clp"
+    | "cny"
+    | "czk"
+    | "dkk"
+    | "hkd"
+    | "huf"
+    | "idr"
+    | "ils"
+    | "inr"
+    | "jpy"
+    | "krw"
+    | "kwd"
+    | "lkr"
+    | "mxn"
+    | "myr"
+    | "nok"
+    | "nzd"
+    | "php"
+    | "pln"
+    | "rub"
+    | "sar"
+    | "sek"
+    | "sgd"
+    | "thb"
+    | "try"
+    | "twd"
+    | "vnd"
+    | "zar";
+
+export type FiatCurrenciesProps = Record<FiatCurrencyCode, number>;
 
 // buy types
 
@@ -290,10 +119,10 @@ export interface BuyProviderInfo {
     logo: string; // simplex-icon.jpg
     isActive: boolean;
     isDisabled?: boolean;
-    tradedCoins: CryptoSymbol[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH']
+    tradedCoins: CryptoId[]; // ['bitcoin', 'ethereum', 'litecoin', 'ethereum--0xdac17f958d2ee523a2206206994597c13d831ec7']
     tradedFiatCurrencies: string[]; // ['EUR', 'USD']
     disabledCurrencies?: string[];
-    supportedCountries: string[]; // ['BTC', 'USD']
+    supportedCountries: string[]; // ['CZ', 'NL']
     disabledCountries?: string[];
     paymentMethods: BuyCryptoPaymentMethod[];
     statusUrl?: string; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
@@ -305,6 +134,7 @@ export interface BuyListResponse {
     country: string;
     suggestedFiatCurrency?: string | undefined; // optional field, fiat currency based on user's IP
     providers: BuyProviderInfo[];
+    defaultAmountsOfFiatCurrencies: FiatCurrenciesProps;
 }
 
 export interface BuyTradeQuoteRequest {
@@ -314,7 +144,7 @@ export interface BuyTradeQuoteRequest {
     cryptoAmount?: number | undefined; // 0.3 - requested amount in crypto currency - DEPRECATED, used only for TREZOR
     cryptoStringAmount?: string | undefined; // 0.3 - requested amount in crypto currency
     fiatCurrency: string; // USD
-    receiveCurrency: CryptoSymbol; // BTC
+    receiveCurrency: CryptoId; // bitcoin
     country?: string | undefined;
     paymentMethod?: BuyCryptoPaymentMethod | undefined;
 }
@@ -325,7 +155,7 @@ export interface BuyTrade {
     fiatAmount?: number | undefined; // 1000 - DEPRECATED, used only for TREZOR
     fiatStringAmount?: string | undefined; // 1000 - will pay fiat amount
     fiatCurrency?: string | undefined; // EUR
-    receiveCurrency?: CryptoSymbol | undefined; // BTC
+    receiveCurrency?: CryptoId | undefined; // bitcoin
     receiveAmount?: number | undefined; // 0.12345 - DEPRECATED, used only for TREZOR
     receiveStringAmount?: string | undefined; // 0.12345
     receiveAddress?: string | undefined; // users address for receive tx
@@ -410,6 +240,7 @@ export type ExchangeMaximum =
     | "NONE"; // exchange does not have a maximum trade size
 
 export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget";
+export type ExchangeKYCType = "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
 
 export interface ExchangeProviderInfo {
     name: string; // changenow
@@ -418,14 +249,15 @@ export interface ExchangeProviderInfo {
     isActive: boolean;
     isFixedRate: boolean;
     isDex: boolean;
-    buyTickers: CryptoSymbol[];
-    sellTickers: CryptoSymbol[];
+    buyTickers: CryptoId[];
+    sellTickers: CryptoId[];
     addressFormats: StringMap; // specification of formats required by selected exchange
     statusUrl: string; // https://changenow.io/exchange/txs/{{orderId}}
     kycUrl?: string; // https://changenow.io/faq#kyc
     supportUrl: string; // https://support.changenow.io
     // TODO region of operation
     kycPolicy?: string | undefined;
+    kycPolicyType: ExchangeKYCType;
     isRefundRequired?: boolean | undefined;
 }
 
@@ -438,11 +270,11 @@ export type DexApprovalType =
     | "PRESET"; // PRESET takes value from approvalStringAmount
 
 export interface ExchangeTrade {
-    send?: CryptoSymbol | undefined; // BTC
+    send?: CryptoId | undefined; // bitcoin
 
     sendStringAmount?: string | undefined; // "0.01"
     sendAddress?: string | undefined; // exchange address for send tx
-    receive?: CryptoSymbol | undefined; // LTC
+    receive?: CryptoId | undefined; // litecoin
 
     receiveStringAmount?: string | undefined; // "0.01"
     fromAddress?: string | undefined; // user's address from which the tx is sent - used in DEX
@@ -504,8 +336,8 @@ export interface CoinExtraField {
 }
 
 export interface ExchangeTradeQuoteRequest {
-    send: CryptoSymbol; // BTC
-    receive: CryptoSymbol; // LTC
+    send: CryptoId; // bitcoin
+    receive: CryptoId; // litecoin
     sendStringAmount?: string | undefined; // "0.01"
     dex?: "enable" | "exclusively" | undefined; // 'enable' means add dex offers, 'exclusively' means only dex offers
 }
@@ -550,12 +382,36 @@ export interface SupportTicketResponse {
     statusCode: number;
 }
 
-export type CryptoSymbolsResponse = CryptoSymbolInfo[];
+export interface CoinInfoServices {
+    buy: boolean;
+    sell: boolean;
+    exchange: boolean;
+}
 
-export interface CryptoSymbolInfo {
-    symbol: CryptoSymbol;
+export interface CoinInfo {
+    symbol: string;
     name: string;
-    category: string;
+    coingeckoId: string;
+    services: CoinInfoServices;
+}
+
+export interface Coins {
+    [key: string]: CoinInfo;
+}
+
+export interface PlatformsInfo {
+    id: string;
+    name: string;
+    nativeCoinSymbol: string;
+}
+
+export interface Platforms {
+    [key: string]: PlatformsInfo;
+}
+
+export interface InfoResponse {
+    platforms: Platforms;
+    coins: Coins;
 }
 
 // sell/voucher types
@@ -586,7 +442,7 @@ export interface SellProviderInfo {
     logo: string; // simplex-icon.jpg
     type: SellProviderType;
     isActive: boolean;
-    tradedCoins: CryptoSymbol[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH']
+    tradedCoins: CryptoId[]; // ['bitcoin', 'bitcoin-cash', 'litecoin']
     tradedFiatCurrencies?: string[] | undefined; // ['EUR', 'USD']
     supportedCountries: string[]; // ['AT', 'BE']
     statusUrl?: string | undefined; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
@@ -613,7 +469,7 @@ export interface SellFiatTradeQuoteRequest {
     fiatStringAmount?: string | undefined; // 1000 - will pay fiat amount
     fiatCurrency: string; // USD
     cryptoStringAmount?: string | undefined; // 0.3 - requested amount in crypto currency
-    cryptoCurrency: CryptoSymbol; // BTC
+    cryptoCurrency: CryptoId; // bitcoin
     country?: string | undefined;
     paymentMethod?: SellCryptoPaymentMethod | undefined;
     flows?: SellFiatFlowType[] | undefined;
@@ -625,7 +481,7 @@ export interface SellFiatTrade {
     amountInCrypto?: boolean | undefined; // true for cryptoAmount, false for fiatAmount
     fiatStringAmount?: string | undefined; // 1000
     fiatCurrency?: string | undefined; // EUR
-    cryptoCurrency?: CryptoSymbol | undefined; // BTC
+    cryptoCurrency?: CryptoId | undefined; // bitcoin
     cryptoStringAmount?: string | undefined; // 0.12345
     rate?: number | undefined; // 100
     quoteId?: string | undefined; // ID of the quote assigned by exchange
@@ -662,7 +518,7 @@ export interface SellFiatTrade {
 }
 
 export interface SellVoucherTradeQuoteRequest {
-    cryptoCurrency?: CryptoSymbol | undefined; // BTC
+    cryptoCurrency?: CryptoId | undefined; // bitcoin
     language?: string | undefined; // en
     country?: string | undefined; // cz
     refundAddress?: string | undefined; // crypto address to which sent crypto currency to sell
@@ -673,7 +529,7 @@ export interface SellVoucherTrade {
     error?: string | undefined; // something went wrong
     exchange?: string | undefined; // which exchange this trade belongs to, used for discrimination in ExchangeService
     status?: SellTradeStatus | undefined; // state of trade after request trade
-    cryptoCurrency?: CryptoSymbol | undefined; // BTC
+    cryptoCurrency?: CryptoId | undefined; // bitcoin
     cryptoAmount?: number | undefined; // 0.12345
     destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
     paymentId?: string | undefined; // ID of the order assigned by us
@@ -681,7 +537,7 @@ export interface SellVoucherTrade {
 
 export interface SellVoucherTradeRequest {
     exchange: string; // which exchange this trade belongs to, used for discrimination in ExchangeService
-    cryptoCurrency: CryptoSymbol;
+    cryptoCurrency: CryptoId;
     data: any; // data returned by post message
 }
 
@@ -712,546 +568,5 @@ export interface WatchSellTradeResponse {
     error?: string | undefined; // something went wrong
     destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
     destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
-}
-
-export type SpendTrade = SellVoucherTrade;
-
-// savings types
-
-export type SavingsPaymentMethod = "bankTransfer" | "ach";
-
-export interface InitSavingsTradeRequest {
-    returnUrl: string;
-    paymentFrequency: PaymentFrequency;
-    amount: string;
-    fiatCurrency: string;
-    cryptoCurrency: string;
-    exchange: string;
-    country: string;
-}
-
-export interface SavingsTradeInitParameters {
-    savingsTradeId: string;
-    appType: string;
-    returnUrl: string;
-    paymentFrequency: PaymentFrequency;
-    amount: string;
-    fiatCurrency: string;
-    cryptoCurrency: string;
-    exchange: string;
-    country: string;
-    clientAppId: string;
-}
-
-export interface SavingsErrorResponse {
-    code?: string | undefined;
-    error?: string | undefined;
-}
-
-// starts after login to invity account
-// 0 - external site
-//      BTCD: nothing
-//      Swan: redirect to OIDC
-// 1 - your credentials
-//      BTCD: personal info (name+surname+phone+DOB?)
-//      Swan: personal info (phone)
-// 2 - your phone number
-//      BTCD: sms verification
-//      Swan: nothing
-// 3 - KYC verification
-//      BTCD: internal KYC, document type, KYC upload (we can move forward)
-//      Swan: KYC status page (is it blocking until done?)
-// 4 - AML
-//      BTCD: AML
-//      Swan: nothing
-// 5 - Bank account
-//      BTCD: nothing
-//      Swan: enter bank account + server side validation on change
-// 6 - Upload wallet screenshot for non-Trezor ClientApp?
-//      BTCD: upload wallet screenshot only for non-Trezor ClientApp
-//      Swan: ???
-// 7 - DCA setup
-//      BTCD: savings parameters, choose crypto address
-//      Swan: savings parameters, choose crypto address(es)
-// 8 - DCA setup
-//      BTCD: confirmation
-//      Swan: confirmation
-
-export interface SavingsStepEnabled {
-    /** Indicates whether the step is enabled (meaning the flow process has to go through this step) or this step will be skipped. */
-    isEnabled: boolean;
-}
-
-export type SavingsStepAfterLogin = SavingsStepEnabled;
-
-export type SavingsStepCredentials = SavingsStepEnabled & {
-    isFamilyNameEnabled: boolean;
-    isGivenNameEnabled: boolean;
-    isPhoneEnabled: boolean;
-};
-
-export type SavingsStepPhoneVerification = SavingsStepEnabled & {
-    /**
-     * Determines way of phone number verification.
-     * - ClientApp - we are verify the user's phone number
-     * - External - we provide the phone number to partner to be verified by the partner or externally
-     */
-    phoneVerificationType: "ClientApp" | "External";
-};
-
-export type SavingsStepAfterSuccessfulPhoneVerification = SavingsStepEnabled;
-
-export type SavingsStepKYC = SavingsStepEnabled & {
-    /**
-     * Determines way KYC document upload.
-     * - ClientApp - we are handover the KYC documents to partner right from the user
-     * - External - upload is managed fully by our partner
-     */
-    documentUploadType: "ClientApp" | "External";
-    isWaitingForKYCResult: boolean;
-};
-
-export type SavingsStepAML = SavingsStepEnabled;
-
-export type SavingsStepBankAccount = SavingsStepEnabled;
-export type SavingsStepCryptoWalletVerification = SavingsStepEnabled;
-
-export type SavingsStepParameters = SavingsStepEnabled & {
-    receivingAddressCount: number;
-};
-
-export type SavingsStepPaymentInfo = SavingsStepEnabled & {
-    isAutomaticPaymentPlanningEnabled: boolean;
-    showReceivingAddressChangePaymentInfo: boolean;
-    coinTransferDelayed: boolean;
-};
-
-export interface SavingsProviderFlow {
-    /** Defines what should happen after login. */
-    afterLogin: SavingsStepAfterLogin;
-    credentials: SavingsStepCredentials;
-    phoneVerification: SavingsStepPhoneVerification;
-    afterSuccessfulPhoneVerification: SavingsStepAfterSuccessfulPhoneVerification;
-    kyc: SavingsStepKYC;
-    aml: SavingsStepAML;
-    bankAccount: SavingsStepBankAccount;
-    cryptoWalletVerification: SavingsStepCryptoWalletVerification;
-    parameters: SavingsStepParameters;
-    paymentInfo: SavingsStepPaymentInfo;
-}
-
-export interface SavingsProviderInfo {
-    /** Name of provider as our identifier e.g.: btcdirect. */
-    name: string;
-
-    /** Official name of provider e.g.: BTC Direct. */
-    companyName: string;
-
-    /** Name of logo file. */
-    logo: string;
-
-    /** Indicates whether the provider is marked as active or not. The setting comes from configuration. */
-    isActive: boolean;
-
-    /** Coins which user can save into. */
-    tradedCoins: string[];
-
-    /** Fiat currencies (3-letter ISO codes) with which can the savings be set up. */
-    tradedFiatCurrencies: string[];
-
-    /** Supported countries (2-letter ISO codes) of where provider offers the savings. */
-    supportedCountries: string[];
-
-    /** Provider's support URL. */
-    supportUrl?: string | undefined;
-
-    /** Defines methods of how a user can pay to save crypto. */
-    paymentMethods?: SavingsPaymentMethod[] | undefined;
-
-    /** List of document types required by provider's KYC process. User has to choose one. */
-    identityDocuments: SavingsProviderInfoIdentityDocument[];
-
-    /** URL where a privacy policy of the provider is located. */
-    privacyPolicyUrl: string;
-
-    /** Defines a savings flow. Different providers might have different steps in the savings flow. */
-    flow: SavingsProviderFlow;
-
-    /** List of payment frequencies selectable by user during savings setup. */
-    setupPaymentFrequencies: PaymentFrequency[];
-
-    /** List of payment amounts selectable by user during savings setup. */
-    setupPaymentAmounts: string[];
-
-    minimumPaymentAmountLimit: number;
-
-    maximumPaymentAmountLimit: number;
-
-    defaultPaymentFrequency: PaymentFrequency;
-
-    defaultPaymentAmount: number;
-}
-
-export interface SavingsProviderInfoIdentityDocument {
-    documentType: SavingsTradeUserKYCStartDocumentType;
-    documentImageSides: SavingsTradeUserKYCStartDocumentImageSide[];
-    isRequired?: boolean | undefined;
-}
-
-export interface SavingsListResponse {
-    country: string;
-    providers: SavingsProviderInfo[];
-}
-
-export type SavingsSetupStatus =
-    /** Show select options what kind of documents the will be KYC'ed. */
-    | "KYC"
-    /** More like questionnaire - can't fail. */
-    | "AML"
-    /** User needs to verify crypto wallet. */
-    | "WalletVerification"
-    /** User needs to submit bank account. */
-    | "SubmitBankAccount"
-    /** User setups savings plan parameters (frequency, amount, etc.). */
-    | "SetSavingsParameters"
-    /** Partner has generated payment info parameters. */
-    | "ConfirmPaymentInfo";
-
-export type SavingsStatus = SavingsSetupStatus | "Cancelled" | "Active";
-export type SavingsKYCStatus =
-    /** KYC process didn't start yet. */
-    | "Open"
-    /** KYC process is in progress. Might take some time to resolve. */
-    | "InProgress"
-    /** KYC process is completed. User may continue (some providers allow to continue). */
-    | "Completed"
-    /** KYC process passed successfully. */
-    | "Verified"
-    /** KYC docs are invalid or anything could be wrong. Expecting reason from our partner to handover to the user. */
-    | "Failed"
-    /** KYC status check ended up in error state. */
-    | "Error";
-
-export type SavingsAMLStatus =
-    /** AML process didn't start yet. */
-    | "Open"
-    /** AML process passed successfully. */
-    | "Verified";
-
-export type PaymentFrequency = "Daily" | "Weekly" | "Biweekly" | "Monthly" | "Quarterly";
-
-export interface SavingsTradePlannedPayment {
-    /** Our id. */
-    paymentId: string;
-
-    /** Partner's id. */
-    partnerPaymentId?: string | undefined;
-
-    fiatAmount?: string | undefined;
-    cryptoAmount?: string | undefined;
-    plannedPaymentAt: string;
-    paymentInfo: SavingsPaymentInfo;
-}
-
-export interface SavingsTradeUserRegistration {
-    /** Or first name as we are used to in most of the European countries. */
-    givenName: string;
-
-    /** Or last name as we are used to in most of the European countries. */
-    familyName: string;
-
-    /** Birth day in ISO format. For example: 2021-07-14T14:00:00.000Z - using date.toISOString() on client. */
-    dateOfBirth: string;
-
-    phoneNumber: string;
-}
-
-export type SavingsTradeUserKYCStartDocumentType =
-    | "Passport"
-    | "IdentityCard"
-    | "DrivingLicence"
-    | "Selfie"
-    | "ResidencePermit"
-    | "WalletVerification";
-
-export type SavingsTradeUserKYCStartDocumentImageSide =
-    | "Front"
-    | "Back"
-    | "Selfie"
-    | "SecondSelfie"
-    | "ProofOfResidency"
-    | "WalletVerification";
-
-export interface SavingsTradeUserKYCStartDocumentImage {
-    documentSide: SavingsTradeUserKYCStartDocumentImageSide;
-    data: string;
-}
-
-export interface SavingsTradeUserKYCStart {
-    documentType: SavingsTradeUserKYCStartDocumentType;
-    documentImages: SavingsTradeUserKYCStartDocumentImage[];
-}
-
-export interface SavingsTradeAMLQuestion {
-    key: string;
-    label: string;
-    answerOptions: string[];
-}
-
-export interface SavingsTrade {
-    id?: string | undefined;
-    externalId?: string | undefined;
-    externals?: Record<string, string> | undefined;
-    country?: string | undefined;
-    status?: SavingsStatus | undefined;
-    kycStatus?: SavingsKYCStatus | undefined;
-    amlStatus?: SavingsAMLStatus | undefined;
-
-    /** Customer's bank account from which payments should be paid to receive crypto. */
-    bankAccount?: BankAccount | undefined;
-
-    /** Amount of money to be paid recurrently. */
-    fiatStringAmount?: string | undefined;
-
-    /** Fiat currency of recurrent payment. */
-    fiatCurrency?: string | undefined;
-
-    /** Crypto currency of recurrent payment. */
-    cryptoCurrency?: string | undefined;
-
-    /** How often payment should be paid by customer. */
-    paymentFrequency?: PaymentFrequency | undefined;
-
-    paymentMethod?: SavingsPaymentMethod | undefined;
-
-    /** Name of savings provider. */
-    exchange: string;
-
-    /** Crypto address where provider sends crypto. */
-    receivingCryptoAddresses?: string[] | undefined;
-
-    /** Indicates whether the user is registered in partner's system. */
-    isUserRegisteredInPartnerSystem?: boolean | undefined;
-
-    userRegistration?: SavingsTradeUserRegistration | undefined;
-
-    userKYCStart?: SavingsTradeUserKYCStart[] | undefined;
-
-    amlQuestions?: SavingsTradeAMLQuestion[] | undefined;
-
-    amlAnswers?: SavingsTradeAMLAnswer[] | undefined;
-
-    paymentInfo?: SavingsPaymentInfo | undefined;
-
-    tradeItems?: SavingsTradeItem[] | undefined;
-
-    /** Indicates whether the user needs to be reauthorized in partner's system. Non-persistent value. */
-    reauthorizationUrl?: string;
-}
-
-export interface SavingsPaymentInfo {
-    name?: string | undefined;
-    iban?: string | undefined;
-    description?: string | undefined;
-    bic?: string | undefined;
-}
-
-export interface SavingsTradeRequest {
-    trade: SavingsTrade;
-}
-
-export interface SavingsTradeErrorResponse extends SavingsErrorResponse {
-    code?:
-        | "AppIDRequired"
-        | "ExchangeNotFound"
-        | "SavingsTradeCountryRequired"
-        | "SavingsTransactionNotFound"
-        | "SavingsTransactionExists"
-        | "GetUserInfoFailed"
-        | "FlowStepDisabled"
-        | "UnknownStatus";
-}
-
-export interface SavingsTradeResponse extends SavingsTradeErrorResponse {
-    trade?: SavingsTrade | undefined;
-
-    /** Payments in savings plan. */
-    payments?: SavingsTradePlannedPayment[] | undefined;
-}
-
-export interface SavingsTradesResponse extends SavingsTradeErrorResponse {
-    trades: SavingsTrade[];
-}
-
-export interface SavingsKYCInfoSuccessResponse {
-    status: "Success";
-    documentTypes: SavingsTradeUserKYCStartDocumentType[];
-}
-
-export type SavingsKYCInfoResponse = SavingsKYCInfoSuccessResponse | SavingsErrorResponse;
-
-export interface SavingsTradeAMLAnswer {
-    key: string;
-    answer: string;
-}
-export interface SavingsTradeAMLAnswersRequest {
-    answers: SavingsTradeAMLAnswer[];
-}
-
-export interface SavingsAMLAnswersSuccessResponse {
-    status: "Success";
-}
-
-export type SavingsAMLAnswersResponse = SavingsAMLAnswersSuccessResponse | SavingsErrorResponse;
-
-export interface SavingsTradeKYCStatusSuccessfulResponse {
-    kycStatus?: SavingsKYCStatus | undefined;
-}
-
-export interface SavingsTradeKYCStatusErrorResponse extends SavingsErrorResponse {
-    code?:
-        | "GetIdentityInfoFailed"
-        | "SavingsTransactionNotFound"
-        | "ExchangeNotFound"
-        | "GetUserInfoFailed"
-        | "UserNotFoundInPartnerSystem";
-}
-
-export type SavingsTradeKYCStatusResponse =
-    & SavingsTradeKYCStatusSuccessfulResponse
-    & SavingsTradeKYCStatusErrorResponse;
-
-export type SavingsTradeItemStatus =
-    | "Cancelled"
-    | "Pending"
-    | "InProgress"
-    | "Blocked"
-    | "Completed"
-    | "Refunded"
-    | "Error";
-
-export interface SavingsTradeItem {
-    id: string;
-    savingsTradeId: string;
-    exchange: string;
-    status: SavingsTradeItemStatus;
-    receiveAddress: string;
-    fiatStringAmount: string;
-    fiatCurrency: string;
-    receiveStringAmount: string;
-    receiveCurrency: string;
-    paymentMethod: SavingsPaymentMethod;
-    paymentMethodName?: string | undefined;
-    created: string;
-}
-
-export interface WatchSavingTradeItemErrorResponse extends SavingsErrorResponse {
-    code?:
-        | "SavingsTradeIdRequired"
-        | "SavingsTradeItemIdRequired"
-        | "SavingsTradeItemNotFound"
-        | "SavingsTransactionNotFound";
-}
-
-export interface WatchSavingTradeItemResponse extends WatchSavingTradeItemErrorResponse {
-    savingsTradeItem?: SavingsTradeItem | undefined;
-}
-
-export interface PartnerInitErrorResponse extends SavingsErrorResponse {
-    code?: "ReturnUrlRequired" | "ExchangeNotFound" | "PartnerInitFailed" | "MissingRequestBody" | undefined;
-}
-export interface PartnerInitSuccessResponse {
-    form?: {
-        formMethod: "GET";
-        formAction: string;
-        fields: Record<string, string>;
-    };
-    savingsTrade?: SavingsTrade | undefined;
-}
-
-export type PartnerInitResponse = PartnerInitSuccessResponse & PartnerInitErrorResponse;
-
-export interface SubmitPhoneNumberResponse extends SavingsErrorResponse {
-    code?: "ExchangeNotFound" | "InternalError" | "SavingsTransactionNotFound" | undefined;
-    form?: {
-        formMethod: "GET";
-        formAction: string;
-        fields: Record<string, string>;
-    };
-}
-
-// p2p types
-
-export type Id = string; // L3kP36m33Ep9Xq4L or 3513
-export type Coin = string; // BTC
-export type Currency = string; // CZK, USD, etc.
-export type CountryCode = string; // CZ, US, etc.
-export type OnlineStatus = "ONLINE" | "RECENTLY_ONLINE" | "OFFLINE";
-
-export interface P2pListResponse {
-    country: string;
-    suggestedFiatCurrency?: string | undefined; // optional field, fiat currency based on user's IP
-    providers: P2pProviderInfo[];
-}
-
-export interface P2pProviderInfo {
-    name: string; // hodlhodl
-    companyName: string; // HodlHodl
-    logo: string; // hodlhodl-icon.svg
-    isActive: boolean;
-    tradedCoins: Coin[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH']
-    tradedCurrencies: Currency[]; // ['EUR', 'USD']
-    supportedCountries: CountryCode[]; // ['CZ', 'SK']
-}
-
-export interface P2pQuotesRequest {
-    assetCode: Coin;
-    amount: string;
-    currency: Currency;
-    country?: CountryCode | undefined;
-}
-
-export interface P2pQuote {
-    provider: string;
-    id: Id;
-    assetCode: Coin;
-    countryCode?: CountryCode | undefined;
-    title: string;
-    currency: Currency;
-    price: string;
-    amountRange: P2pAmountRange;
-    paymentWindowMinutes: number;
-    paymentMethods: P2pPaymentMethod[];
-    confirmations: number;
-    trader: P2pTrader;
-}
-
-export interface P2pQuotesResponse {
-    quotes: P2pQuote[];
-}
-
-export interface P2pAmountRange {
-    minimum: string;
-    maximum: string;
-}
-
-export interface P2pPaymentMethod {
-    id: Id;
-    description: string; // In person
-}
-
-export interface P2pTrader {
-    name: string;
-    onlineStatus: OnlineStatus;
-    rating: string;
-    numberOfTrades: number;
-}
-
-export interface P2pTradeRequest {
-    quotesRequest: P2pQuotesRequest;
-    selectedQuote: P2pQuote;
-}
-
-export interface P2pTradeResponse {
-    tradeForm: FormResponse;
+    cryptoStringAmount?: string; // Crypto amount to send in case of change on provider's side (Banxa)
 }

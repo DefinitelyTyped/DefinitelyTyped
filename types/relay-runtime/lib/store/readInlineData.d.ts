@@ -15,5 +15,5 @@ export function readInlineData<TKey extends KeyType>(
 
 export function readInlineData<TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null,
-): KeyTypeData<TKey> | null;
+    fragmentRef: TKey | null | undefined,
+): KeyTypeData<TKey> | null | undefined;

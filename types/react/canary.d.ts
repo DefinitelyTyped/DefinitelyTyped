@@ -30,6 +30,8 @@ export {};
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
+type NativeToggleEvent = ToggleEvent;
+
 declare module "." {
     export type Usable<T> = PromiseLike<T> | Context<T>;
 
@@ -65,7 +67,7 @@ declare module "." {
     export function unstable_useCacheRefresh(): () => void;
 
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
-        functions: (formData: FormData) => void;
+        functions: (formData: FormData) => void | Promise<void>;
     }
 
     export interface TransitionStartFunction {
@@ -117,6 +119,30 @@ declare module "." {
         onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
         onTransitionStart?: TransitionEventHandler<T> | undefined;
         onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
+    }
+
+    type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
+
+    interface HTMLAttributes<T> {
+        popover?: "" | "auto" | "manual" | undefined;
+        popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
+        popoverTarget?: string | undefined;
+        onToggle?: ToggleEventHandler<T> | undefined;
+        onBeforeToggle?: ToggleEventHandler<T> | undefined;
+    }
+
+    interface ToggleEvent<T = Element> extends SyntheticEvent<T, NativeToggleEvent> {
+        oldState: "closed" | "open";
+        newState: "closed" | "open";
+    }
+
+    interface LinkHTMLAttributes<T> {
+        precedence?: string | undefined;
+    }
+
+    interface StyleHTMLAttributes<T> {
+        href?: string | undefined;
+        precedence?: string | undefined;
     }
 
     /**

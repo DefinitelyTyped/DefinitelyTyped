@@ -1,5 +1,4 @@
 import { ComponentClass, ComponentType } from "react";
-import { InjectedFormProps } from "../index";
 
 export function formValues<
     Values,

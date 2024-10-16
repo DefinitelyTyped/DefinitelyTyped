@@ -17,11 +17,19 @@ export interface SDK {
 
     deviceInfo: DeviceInfo;
 
-    features: Partial<{
+    features: {
         LoadingAPI: {
             ready(): void;
         };
-    }>;
+        GameplayAPI: {
+            start(): void;
+            stop(): void;
+        };
+        GamesAPI: {
+            getAllGames(): Promise<{ games: Game[]; developerURL: string }>;
+            getGameByID(id: number): Promise<{ game?: Game; isAvailable: boolean }>;
+        };
+    };
 
     clipboard: {
         writeText(text: string): void;
@@ -105,6 +113,16 @@ export interface SDK {
     getFlags(params?: GetFlagsParams): Promise<Record<string, string>>;
 
     isAvailableMethod(methodName: string): Promise<boolean>;
+
+    serverTime(): number;
+}
+
+interface Game {
+    appID: string;
+    title: string;
+    url: string;
+    coverURL: string;
+    iconURL: string;
 }
 
 interface ClientFeature {
@@ -150,9 +168,9 @@ export interface Player {
     getPayingStatus(): "paying" | "partially_paying" | "not_paying" | "unknown";
     getIDsPerGame(): Promise<Array<{ appID: number; userID: string }>>;
     getMode(): "lite" | "";
-    getData<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, Serializable>>>;
+    getData<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, Serializable>>>;
     setData(data: any, flush?: boolean): Promise<void>;
-    getStats<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, number>>>;
+    getStats<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, number>>>;
     setStats(stats: Record<string | number, number>): Promise<void>;
     incrementStats<T extends Record<string | number, number>>(
         stats: T,

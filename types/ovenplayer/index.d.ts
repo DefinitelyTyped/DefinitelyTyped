@@ -1,12 +1,15 @@
-interface OvenPlayer {
-    debug(debug: boolean): boolean;
-    generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
-    create(container: string, config: OvenPlayerConfig): OvenPlayerInstance;
-    getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
-    getPlayerByIndex(index: number): OvenPlayerInstance | null;
-    getPlayerList(): OvenPlayerInstance[];
-    removePlayer(player: OvenPlayerInstance): void;
-}
+export function debug(debug: boolean): boolean;
+export function generateWebrtcUrls(
+    sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[],
+): OvenPlayerSource[];
+export function create(
+    container: string,
+    config: OvenPlayerConfig,
+): OvenPlayerInstance;
+export function getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
+export function getPlayerByIndex(index: number): OvenPlayerInstance | null;
+export function getPlayerList(): OvenPlayerInstance[];
+export function removePlayer(player: OvenPlayerInstance): void;
 
 interface OvenPlayerPlayListItem {
     title?: string;
@@ -17,15 +20,15 @@ interface OvenPlayerPlayListItem {
     tracks?: Array<Pick<OvenPlayerTrack, "file" | "kind" | "label">>;
 }
 
-type OvenPlayerPlayList = OvenPlayerPlayListItem[];
+export type OvenPlayerPlayList = OvenPlayerPlayListItem[];
 
-interface OvenPlayerIceServer {
+export interface OvenPlayerIceServer {
     urls: string[];
     username?: string;
     credential?: string;
 }
 
-interface OvenPlayerConfig {
+export interface OvenPlayerConfig {
     aspectRatio?: string;
     title?: string;
     waterMark?: {
@@ -116,14 +119,14 @@ interface OvenPlayerConfig {
     image?: string;
 }
 
-interface OvenPlayerWebRTCStream {
+export interface OvenPlayerWebRTCStream {
     host: string;
     application: string;
     stream: string;
     label?: string;
 }
 
-interface OvenPlayerSource {
+export interface OvenPlayerSource {
     type: "webrtc" | "llhls" | "hls" | "lldash" | "dash" | "mp4";
     file: string;
     label?: string;
@@ -132,7 +135,7 @@ interface OvenPlayerSource {
     sectionEnd?: number;
 }
 
-type OvenPlayerState =
+export type OvenPlayerState =
     | "idle"
     | "complete"
     | "paused"
@@ -145,123 +148,129 @@ type OvenPlayerState =
     | "adPaused"
     | "adComplete";
 
-interface OvenPlayerHandler {
+export interface OvenPlayerHandler {
     /**
      * Player initialization complete. And you can use API methods.
      */
-    (evnetName: "ready", callback: (eventData: OvenPlayerEvents["ready"]) => void): void;
+    (eventName: "ready", callback: (eventData: OvenPlayerEvents["ready"]) => void): void;
     /**
      * It occurs when new metadata is received.
      */
-    (evnetName: "metaChanged", callback: (eventData: OvenPlayerEvents["metaChanged"]) => void): void;
+    (eventName: "metaChanged", callback: (eventData: OvenPlayerEvents["metaChanged"]) => void): void;
     /**
      * It occurs when the state of a player changes.
      */
-    (evnetName: "stateChanged", callback: (eventData: OvenPlayerEvents["stateChanged"]) => void): void;
+    (eventName: "stateChanged", callback: (eventData: OvenPlayerEvents["stateChanged"]) => void): void;
     /**
      * Fired when the player's size has been changed.
      */
-    (evnetName: "resized", callback: (eventData: OvenPlayerEvents["resized"]) => void): void;
+    (eventName: "resized", callback: (eventData: OvenPlayerEvents["resized"]) => void): void;
     /**
      * Fired when the playback rate has been changed
      */
-    (evnetName: "playbackRateChanged", callback: (eventData: OvenPlayerEvents["playbackRateChanged"]) => void): void;
+    (
+        eventName: "playbackRateChanged",
+        callback: (eventData: OvenPlayerEvents["playbackRateChanged"]) => void,
+    ): void;
     /**
      * Fired after a seek has been requested either by scrubbing the control bar or through the API.
      */
-    (evnetName: "seek", callback: (eventData: OvenPlayerEvents["seek"]) => void): void;
+    (eventName: "seek", callback: (eventData: OvenPlayerEvents["seek"]) => void): void;
     /**
      * While the player is playing, this event is fired as the playback position gets updated. This may occur as frequently as 10 times per second.
      */
-    (evnetName: "time", callback: (eventData: OvenPlayerEvents["time"]) => void): void;
+    (eventName: "time", callback: (eventData: OvenPlayerEvents["time"]) => void): void;
     /**
      * Fired when the currently playing item loads additional data into its buffer.
      */
-    (evnetName: "bufferChanged", callback: (eventData: OvenPlayerEvents["bufferChanged"]) => void): void;
+    (eventName: "bufferChanged", callback: (eventData: OvenPlayerEvents["bufferChanged"]) => void): void;
     /**
      * Triggered when the player has gone in or out of a mute state.
      */
-    (evnetName: "mute", callback: (eventData: OvenPlayerEvents["mute"]) => void): void;
+    (eventName: "mute", callback: (eventData: OvenPlayerEvents["mute"]) => void): void;
     /**
      * Triggered when the player's volume is changed.
      */
-    (evnetName: "volumeChanged", callback: (eventData: OvenPlayerEvents["volumeChanged"]) => void): void;
+    (eventName: "volumeChanged", callback: (eventData: OvenPlayerEvents["volumeChanged"]) => void): void;
     /**
      * Fired when the active playlist is changed. It happens in response to, e.g., a user clicking an option in the playlist menu or a script calling `setCurrentPlaylist` or prev playlist has been completed.
      */
-    (evnetName: "playlistChanged", callback: (eventData: OvenPlayerEvents["playlistChanged"]) => void): void;
+    (eventName: "playlistChanged", callback: (eventData: OvenPlayerEvents["playlistChanged"]) => void): void;
     /**
      * Fired when the active source(protocol) is changed. It happens in response to, e.g., a user clicking an option in the source menu or a script calling `setCurrentSource`.
      */
-    (evnetName: "sourceChanged", callback: (eventData: OvenPlayerEvents["sourceChanged"]) => void): void;
+    (eventName: "sourceChanged", callback: (eventData: OvenPlayerEvents["sourceChanged"]) => void): void;
     /**
      * Fired when the active quality level is changed. It happens in response to, e.g., a user clicking an option in the quality menu or a script calling `setCurrentQuality`.
      */
-    (evnetName: "qualityLevelChanged", callback: (eventData: OvenPlayerEvents["qualityLevelChanged"]) => void): void;
+    (
+        eventName: "qualityLevelChanged",
+        callback: (eventData: OvenPlayerEvents["qualityLevelChanged"]) => void,
+    ): void;
     /**
      * Fired when VTTCue is changed.
      */
-    (evnetName: "cueChanged", callback: (eventData: OvenPlayerEvents["cueChanged"]) => void): void;
+    (eventName: "cueChanged", callback: (eventData: OvenPlayerEvents["cueChanged"]) => void): void;
     /**
      * Fired when timecode mode is changed.
      */
     (
-        evnetName: "timeDisplayModeChanged",
+        eventName: "timeDisplayModeChanged",
         callback: (eventData: OvenPlayerEvents["timeDisplayModeChanged"]) => void,
     ): void;
     /**
      * Fired when Ad is changed.
      */
-    (evnetName: "adChanged", callback: (eventData: OvenPlayerEvents["adChanged"]) => void): void;
+    (eventName: "adChanged", callback: (eventData: OvenPlayerEvents["adChanged"]) => void): void;
     /**
      * Fired when Ad is playing.
      */
-    (evnetName: "adTime", callback: (eventData: OvenPlayerEvents["adTime"]) => void): void;
+    (eventName: "adTime", callback: (eventData: OvenPlayerEvents["adTime"]) => void): void;
     /**
      * Fired when Ad is complete.
      */
-    (evnetName: "adComplete", callback: (eventData: OvenPlayerEvents["adComplete"]) => void): void;
+    (eventName: "adComplete", callback: (eventData: OvenPlayerEvents["adComplete"]) => void): void;
     /**
      * Fired when screen mode is changed.
      */
-    (evnetName: "fullscreenChanged", callback: (eventData: OvenPlayerEvents["fullscreenChanged"]) => void): void;
+    (eventName: "fullscreenChanged", callback: (eventData: OvenPlayerEvents["fullscreenChanged"]) => void): void;
     /**
      * Triggered when the player is clicked.
      * If ad clicked, this returns {type : "adclick"}.
      */
-    (evnetName: "clicked", callback: (eventData: OvenPlayerEvents["clicked"]) => void): void;
+    (eventName: "clicked", callback: (eventData: OvenPlayerEvents["clicked"]) => void): void;
     /**
      * Fired when the all playlist is complete.
      */
-    (evnetName: "allPlaylistEnded", callback: (eventData: OvenPlayerEvents["allPlaylistEnded"]) => void): void;
+    (eventName: "allPlaylistEnded", callback: (eventData: OvenPlayerEvents["allPlaylistEnded"]) => void): void;
     /**
      * Triggered when HLS object is initialized and ready to use.
      */
-    (evnetName: "hlsPrepared", callback: (eventData: OvenPlayerEvents["hlsPrepared"]) => void): void;
+    (eventName: "hlsPrepared", callback: (eventData: OvenPlayerEvents["hlsPrepared"]) => void): void;
     /**
      * Triggered after HLS object is destroyed.
      */
-    (evnetName: "hlsDestroyed", callback: (eventData: OvenPlayerEvents["hlsDestroyed"]) => void): void;
+    (eventName: "hlsDestroyed", callback: (eventData: OvenPlayerEvents["hlsDestroyed"]) => void): void;
     /**
      * Triggered when DASH object is initialized and ready to use.
      */
-    (evnetName: "dashPrepared", callback: (eventData: OvenPlayerEvents["dashPrepared"]) => void): void;
+    (eventName: "dashPrepared", callback: (eventData: OvenPlayerEvents["dashPrepared"]) => void): void;
     /**
      * Triggered after DASH object is destroyed.
      */
-    (evnetName: "dashDestroyed", callback: (eventData: OvenPlayerEvents["dashDestroyed"]) => void): void;
+    (eventName: "dashDestroyed", callback: (eventData: OvenPlayerEvents["dashDestroyed"]) => void): void;
     /**
      * Player is destroyed.
      */
-    (evnetName: "destroy", callback: (eventData: OvenPlayerEvents["destroy"]) => void): void;
+    (eventName: "destroy", callback: (eventData: OvenPlayerEvents["destroy"]) => void): void;
     /**
      * Error occurred.
      * @internal
      */
-    (evnetName: "error", callback: (eventData: OvenPlayerEvents["error"]) => void): void;
+    (eventName: "error", callback: (eventData: OvenPlayerEvents["error"]) => void): void;
 }
 
-interface OvenPlayerEvents {
+export interface OvenPlayerEvents {
     ready: undefined;
     metaChanged: {
         /** Current media's duration (In seconds) */
@@ -278,7 +287,9 @@ interface OvenPlayerEvents {
     /** large(>992), medium(<992), small(<768), xsmall(<576) */
     resized: "large" | "medium" | "small" | "xsmall";
     /** The new playback rate */
-    playbackRateChanged: number;
+    playbackRateChanged: {
+        playbackRate: number;
+    };
     seek: {
         /** The position of the player before the player seeks (in seconds). */
         position: string;
@@ -366,7 +377,7 @@ interface OvenPlayerEvents {
     };
 }
 
-interface OvenPlayerInstance {
+export interface OvenPlayerInstance {
     getVersion(): string;
     getConfig(): OvenPlayerConfig;
     getContainerElement(): HTMLDivElement;
@@ -418,7 +429,7 @@ interface OvenPlayerInstance {
     remove(): void;
 }
 
-interface OvenPlayerQuality {
+export interface OvenPlayerQuality {
     bitrate: string;
     height: number;
     index: number;
@@ -426,7 +437,7 @@ interface OvenPlayerQuality {
     width: number;
 }
 
-interface OvenPlayerBrowser {
+export interface OvenPlayerBrowser {
     browser: string;
     browserMajorVersion: number;
     browserVersion: string;
@@ -438,7 +449,7 @@ interface OvenPlayerBrowser {
     ua: string;
 }
 
-interface OvenPlayerTrack {
+export interface OvenPlayerTrack {
     file: string;
     kind: string;
     label: string;
@@ -447,22 +458,6 @@ interface OvenPlayerTrack {
     name: string;
 }
 
-export {
-    OvenPlayerBrowser,
-    OvenPlayerConfig,
-    OvenPlayerEvents,
-    OvenPlayerHandler,
-    OvenPlayerIceServer,
-    OvenPlayerInstance,
-    OvenPlayerPlayList,
-    OvenPlayerQuality,
-    OvenPlayerSource,
-    OvenPlayerState,
-    OvenPlayerTrack,
-    OvenPlayerWebRTCStream,
-};
-
-declare const OvenPlayer: OvenPlayer;
+export {};
 
 export as namespace OvenPlayer;
-export default OvenPlayer;

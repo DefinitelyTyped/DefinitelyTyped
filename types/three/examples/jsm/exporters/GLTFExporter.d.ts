@@ -82,6 +82,12 @@ export class GLTFExporter {
         options?: GLTFExporterOptions,
     ): void;
 
+    /**
+     * Generates a .gltf (JSON) or .glb (binary) output from the input (Scenes or Objects).
+     *
+     * This is just like the {@link parse}() method, but instead of accepting callbacks it returns a promise that
+     * resolves with the result, and otherwise accepts the same options.
+     */
     parseAsync(
         input: Object3D | Object3D[],
         options?: GLTFExporterOptions,

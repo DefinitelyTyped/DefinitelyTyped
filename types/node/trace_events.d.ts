@@ -9,8 +9,8 @@
  * The available categories are:
  *
  * * `node`: An empty placeholder.
- * * `node.async_hooks`: Enables capture of detailed [`async_hooks`](https://nodejs.org/docs/latest-v20.x/api/async_hooks.html) trace data.
- * The [`async_hooks`](https://nodejs.org/docs/latest-v20.x/api/async_hooks.html) events have a unique `asyncId` and a special `triggerId` `triggerAsyncId` property.
+ * * `node.async_hooks`: Enables capture of detailed [`async_hooks`](https://nodejs.org/docs/latest-v22.x/api/async_hooks.html) trace data.
+ * The [`async_hooks`](https://nodejs.org/docs/latest-v22.x/api/async_hooks.html) events have a unique `asyncId` and a special `triggerId` `triggerAsyncId` property.
  * * `node.bootstrap`: Enables capture of Node.js bootstrap milestones.
  * * `node.console`: Enables capture of `console.time()` and `console.count()` output.
  * * `node.threadpoolwork.sync`: Enables capture of trace data for threadpool synchronous operations, such as `blob`, `zlib`, `crypto` and `node_api`.
@@ -22,7 +22,7 @@
  * * `node.fs_dir.sync`: Enables capture of trace data for file system sync directory methods.
  * * `node.fs.async`: Enables capture of trace data for file system async methods.
  * * `node.fs_dir.async`: Enables capture of trace data for file system async directory methods.
- * * `node.perf`: Enables capture of [Performance API](https://nodejs.org/docs/latest-v20.x/api/perf_hooks.html) measurements.
+ * * `node.perf`: Enables capture of [Performance API](https://nodejs.org/docs/latest-v22.x/api/perf_hooks.html) measurements.
  *    * `node.perf.usertiming`: Enables capture of only Performance API User Timing
  *    measures and marks.
  *    * `node.perf.timerify`: Enables capture of only Performance API timerify
@@ -30,7 +30,7 @@
  * * `node.promises.rejections`: Enables capture of trace data tracking the number
  * of unhandled Promise rejections and handled-after-rejections.
  * * `node.vm.script`: Enables capture of trace data for the `node:vm` module's `runInNewContext()`, `runInContext()`, and `runInThisContext()` methods.
- * * `v8`: The [V8](https://nodejs.org/docs/latest-v20.x/api/v8.html) events are GC, compiling, and execution related.
+ * * `v8`: The [V8](https://nodejs.org/docs/latest-v22.x/api/v8.html) events are GC, compiling, and execution related.
  * * `node.http`: Enables capture of trace data for http request / response.
  *
  * By default the `node`, `node.async_hooks`, and `v8` categories are enabled.
@@ -53,7 +53,7 @@
  * Alternatively, trace events may be enabled using the `node:trace_events` module:
  *
  * ```js
- * const trace_events = require('node:trace_events');
+ * import trace_events from 'node:trace_events';
  * const tracing = trace_events.createTracing({ categories: ['node.perf'] });
  * tracing.enable();  // Enable trace event capture for the 'node.perf' category
  *
@@ -88,9 +88,9 @@
  * However the trace-event timestamps are expressed in microseconds,
  * unlike `process.hrtime()` which returns nanoseconds.
  *
- * The features from this module are not available in [`Worker`](https://nodejs.org/docs/latest-v20.x/api/worker_threads.html#class-worker) threads.
+ * The features from this module are not available in [`Worker`](https://nodejs.org/docs/latest-v22.x/api/worker_threads.html#class-worker) threads.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/trace_events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/trace_events.js)
  */
 declare module "trace_events" {
     /**
@@ -118,7 +118,7 @@ declare module "trace_events" {
          * will be disabled.
          *
          * ```js
-         * const trace_events = require('node:trace_events');
+         * import trace_events from 'node:trace_events';
          * const t1 = trace_events.createTracing({ categories: ['node', 'v8'] });
          * const t2 = trace_events.createTracing({ categories: ['node.perf', 'node'] });
          * t1.enable();
@@ -159,7 +159,7 @@ declare module "trace_events" {
      * Creates and returns a `Tracing` object for the given set of `categories`.
      *
      * ```js
-     * const trace_events = require('node:trace_events');
+     * import trace_events from 'node:trace_events';
      * const categories = ['node.perf', 'node.async_hooks'];
      * const tracing = trace_events.createTracing({ categories });
      * tracing.enable();
@@ -178,7 +178,7 @@ declare module "trace_events" {
      * Given the file `test.js` below, the command `node --trace-event-categories node.perf test.js` will print `'node.async_hooks,node.perf'` to the console.
      *
      * ```js
-     * const trace_events = require('node:trace_events');
+     * import trace_events from 'node:trace_events';
      * const t1 = trace_events.createTracing({ categories: ['node.async_hooks'] });
      * const t2 = trace_events.createTracing({ categories: ['node.perf'] });
      * const t3 = trace_events.createTracing({ categories: ['v8'] });

@@ -297,3 +297,32 @@ app.get("/file2.txt", (req, res) => {
 app.get("/:foo", req => {
     req.ip; // $ExpectType string | undefined
 });
+
+// Some fields are read-only
+app.get("/:readonly", req => {
+    // @ts-expect-error
+    req.protocol = "https";
+    // @ts-expect-error
+    req.secure = true;
+    // @ts-expect-error
+    req.ip = "127.0.0.1";
+    // @ts-expect-error
+    req.ips = [];
+    // @ts-expect-error
+    req.subdomains = [];
+    // @ts-expect-error
+    req.path = "/";
+    // @ts-expect-error
+    req.hostname = "example.com";
+    // @ts-expect-error
+    req.host = "example.com";
+    // @ts-expect-error
+    req.fresh = true;
+    // @ts-expect-error
+    req.stale = true;
+    // @ts-expect-error
+    req.xhr = true;
+});
+
+// Starting with Express 5 RequestHandler can be async
+app.get("/async", Promise.resolve);

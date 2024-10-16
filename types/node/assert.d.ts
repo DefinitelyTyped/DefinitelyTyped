@@ -1,7 +1,7 @@
 /**
  * The `node:assert` module provides a set of assertion functions for verifying
  * invariants.
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/assert.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/assert.js)
  */
 declare module "assert" {
     /**
@@ -796,7 +796,7 @@ declare module "assert" {
          * check that the promise is rejected.
          *
          * If `asyncFn` is a function and it throws an error synchronously, `assert.rejects()` will return a rejected `Promise` with that error. If the
-         * function does not return a promise, `assert.rejects()` will return a rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v20.x/api/errors.html#err_invalid_return_value)
+         * function does not return a promise, `assert.rejects()` will return a rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v22.x/api/errors.html#err_invalid_return_value)
          * error. In both cases the error handler is skipped.
          *
          * Besides the async nature to await the completion behaves identically to {@link throws}.
@@ -866,7 +866,7 @@ declare module "assert" {
          *
          * If `asyncFn` is a function and it throws an error synchronously, `assert.doesNotReject()` will return a rejected `Promise` with that error. If
          * the function does not return a promise, `assert.doesNotReject()` will return a
-         * rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v20.x/api/errors.html#err_invalid_return_value) error. In both cases
+         * rejected `Promise` with an [ERR_INVALID_RETURN_VALUE](https://nodejs.org/docs/latest-v22.x/api/errors.html#err_invalid_return_value) error. In both cases
          * the error handler is skipped.
          *
          * Using `assert.doesNotReject()` is actually not useful because there is little
@@ -929,7 +929,7 @@ declare module "assert" {
          * If the values do not match, or if the `string` argument is of another type than `string`, an `{@link AssertionError}` is thrown with a `message` property set equal
          * to the value of the `message` parameter. If the `message` parameter is
          * undefined, a default error message is assigned. If the `message` parameter is an
-         * instance of an [Error](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
+         * instance of an [Error](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
          * @since v13.6.0, v12.16.0
          */
         function match(value: string, regExp: RegExp, message?: string | Error): void;
@@ -952,7 +952,7 @@ declare module "assert" {
          * If the values do match, or if the `string` argument is of another type than `string`, an `{@link AssertionError}` is thrown with a `message` property set equal
          * to the value of the `message` parameter. If the `message` parameter is
          * undefined, a default error message is assigned. If the `message` parameter is an
-         * instance of an [Error](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
+         * instance of an [Error](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-error) then it will be thrown instead of the `{@link AssertionError}`.
          * @since v13.6.0, v12.16.0
          */
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
@@ -966,7 +966,7 @@ declare module "assert" {
          * To use strict assertion mode:
          *
          * ```js
-         * import { strict as assert } from 'node:assert';COPY
+         * import { strict as assert } from 'node:assert';
          * import assert from 'node:assert/strict';
          * ```
          *

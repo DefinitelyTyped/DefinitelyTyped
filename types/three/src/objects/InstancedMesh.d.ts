@@ -1,13 +1,24 @@
+import { BufferAttributeJSON } from "./../core/BufferAttribute.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { InstancedBufferAttribute } from "../core/InstancedBufferAttribute.js";
-import { Object3DEventMap } from "../core/Object3D.js";
+import { JSONMeta, Object3DEventMap } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Box3 } from "../math/Box3.js";
 import { Color } from "../math/Color.js";
 import { Matrix4 } from "../math/Matrix4.js";
 import { Sphere } from "../math/Sphere.js";
 import { DataTexture } from "../textures/DataTexture.js";
-import { Mesh } from "./Mesh.js";
+import { Mesh, MeshJSONObject } from "./Mesh.js";
+
+export interface InstancedMeshJSONObject extends MeshJSONObject {
+    count: number;
+    instanceMatrix: BufferAttributeJSON;
+    instanceColor?: BufferAttributeJSON;
+}
+
+export interface InstancedMeshJSON extends MeshJSONObject {
+    object: InstancedMeshJSONObject;
+}
 
 export interface InstancedMeshEventMap extends Object3DEventMap {
     dispose: {};
@@ -16,7 +27,7 @@ export interface InstancedMeshEventMap extends Object3DEventMap {
 /**
  * A special version of {@link THREE.Mesh | Mesh} with instanced rendering support
  * @remarks
- * Use {@link InstancedMesh} if you have to render a large number of objects with the same geometry and material but with different world transformations
+ * Use {@link InstancedMesh} if you have to render a large number of objects with the same geometry and material(s) but with different world transformations
  * @remarks
  * The usage of {@link InstancedMesh} will help you to reduce the number of draw calls and thus improve the overall rendering performance in your application.
  * @see Example: {@link https://threejs.org/examples/#webgl_instancing_dynamic | WebGL / instancing / dynamic}
@@ -33,8 +44,8 @@ export class InstancedMesh<
 > extends Mesh<TGeometry, TMaterial, TEventMap> {
     /**
      * Create a new instance of {@link InstancedMesh}
-     * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}.
-     * @param material A single or an array of {@link THREE.Material | Material}. Default {@link THREE.MeshBasicMaterial | `new THREE.MeshBasicMaterial()`}.
+     * @param geometry An instance of {@link BufferGeometry}.
+     * @param material A single or an array of {@link Material}. Default is a new {@link MeshBasicMaterial}.
      * @param count The **maximum** number of instances of this Mesh. Expects a `Integer`
      */
     constructor(geometry: TGeometry | undefined, material: TMaterial | undefined, count: number);
@@ -163,4 +174,6 @@ export class InstancedMesh<
      * Call this method whenever this instance is no longer used in your app.
      */
     dispose(): this;
+
+    toJSON(meta?: JSONMeta): InstancedMeshJSON;
 }

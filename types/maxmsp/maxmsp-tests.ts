@@ -103,6 +103,7 @@ const liveApiCallback = (args: any) => {
 };
 
 const liveApiInstance = new LiveAPI(liveApiCallback, "live_set tracks 0 devices 0");
+const liveApiInstance_empty = new LiveAPI();
 
 // Accessing properties
 post(liveApiInstance.id);
@@ -157,6 +158,7 @@ testmax.enablerefresh(1);
 testmax.externs();
 testmax.fileformat(".tx", "TEXT");
 testmax.fixwidthratio(1.1);
+testmax.getcolor("live_lcd_bg");
 testmax.getdefaultpatcherheight("my_receiver");
 testmax.getdefaultpatcherwidth("my_receiver");
 testmax.getenablepathcache("my_receiver");
@@ -571,6 +573,15 @@ sketchInstance.glbegin(["LINES"]);
 sketchInstance.glvertex(20, 20);
 sketchInstance.glvertex(100, 100);
 sketchInstance.glend();
+
+// Test gl color methods
+const COLOR_TEST: Color = [0, 0, 0, 1];
+sketchInstance.glclearcolor(0, 0, 0, 1);
+sketchInstance.glclearcolor(COLOR_TEST);
+sketchInstance.glcolor(0, 0, 0, 1);
+sketchInstance.glcolor(COLOR_TEST);
+sketchInstance.glcolormask(0, 0, 0, 1);
+sketchInstance.glcolormask(COLOR_TEST);
 
 // Create a dummy instance of Image
 const imageInstance = new Image();

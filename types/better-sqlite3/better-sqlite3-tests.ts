@@ -22,6 +22,13 @@ db.table("vtable", {
         yield { name: "testName" };
     },
 });
+db.table("vtable_parameters", {
+    parameters: ["name"],
+    columns: ["name"],
+    *rows(name) {
+        yield { name: name };
+    },
+});
 db.function("noop", () => {});
 db.function("noop", {
     deterministic: true,
@@ -53,6 +60,9 @@ db.defaultSafeIntegers(true);
 
 const vtable: Sqlite.Statement = db.prepare("SELECT * FROM vtable");
 vtable.all();
+
+const vtable_parameters: Sqlite.Statement = db.prepare("SELECT * FROM vtable_parameters('testName')");
+vtable_parameters.all();
 
 interface TypedParameter {
     search: string;

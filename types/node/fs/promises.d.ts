@@ -20,6 +20,9 @@ declare module "fs/promises" {
         CopyOptions,
         Dir,
         Dirent,
+        GlobOptions,
+        GlobOptionsWithFileTypes,
+        GlobOptionsWithoutFileTypes,
         MakeDirectoryOptions,
         Mode,
         ObjectEncodingOptions,
@@ -929,7 +932,7 @@ declare module "fs/promises" {
      * The `fsPromises.mkdtemp()` method will append the six randomly selected
      * characters directly to the `prefix` string. For instance, given a directory `/tmp`, if the intention is to create a temporary directory _within_ `/tmp`, the `prefix` must end with a trailing
      * platform-specific path separator
-     * (`require('node:path').sep`).
+     * (`import { sep } from 'node:path'`).
      * @since v10.0.0
      * @return Fulfills with a string containing the file system path of the newly created temporary directory.
      */
@@ -1171,7 +1174,7 @@ declare module "fs/promises" {
      * Returns an async iterator that watches for changes on `filename`, where `filename`is either a file or a directory.
      *
      * ```js
-     * const { watch } = require('node:fs/promises');
+     * import { watch } from 'node:fs/promises';
      *
      * const ac = new AbortController();
      * const { signal } = ac;
@@ -1239,6 +1242,22 @@ declare module "fs/promises" {
      * @return Fulfills with `undefined` upon success.
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    function glob(pattern: string | string[]): AsyncIterableIterator<string>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptionsWithFileTypes,
+    ): AsyncIterableIterator<Dirent>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptionsWithoutFileTypes,
+    ): AsyncIterableIterator<string>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptions,
+    ): AsyncIterableIterator<Dirent> | AsyncIterableIterator<string>;
 }
 declare module "node:fs/promises" {
     export * from "fs/promises";

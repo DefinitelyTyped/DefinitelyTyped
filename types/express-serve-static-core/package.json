@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/express-serve-static-core",
-    "version": "4.19.9999",
+    "version": "5.0.9999",
     "projects": [
         "http://expressjs.com"
     ],
@@ -22,10 +22,6 @@
         {
             "name": "Satana Charuwichitratana",
             "githubUsername": "micksatana"
-        },
-        {
-            "name": "Sami Jaber",
-            "githubUsername": "samijaber"
         },
         {
             "name": "Jose Luis Leon",

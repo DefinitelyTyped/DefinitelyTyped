@@ -50,6 +50,24 @@ const sjisArray4 = Encoding.convert("🐙", {
 sjisArray4; // $ExpectType string
 // fallback: '&#128025;'
 
+const sjisArray5 = Encoding.convert("🐙", {
+    to: "SJIS", // to_encoding
+    from: "UTF8", // from_encoding
+    type: "string",
+    fallback: "ignore",
+});
+sjisArray5; // $ExpectType string
+// fallback: ''
+
+const sjisArray6 = Encoding.convert("🐙", {
+    to: "SJIS", // to_encoding
+    from: "UTF8", // from_encoding
+    type: "string",
+    fallback: "error",
+});
+sjisArray6; // $ExpectType string
+// throws error: `Character cannot be represented`
+
 const utf8String = "ã\u0081\u0093ã\u0082\u0093ã\u0081«ã\u0081¡ã\u0081¯";
 const unicodeString = Encoding.convert(utf8String, {
     to: "UNICODE",
@@ -98,7 +116,7 @@ const utf16Array3 = Encoding.convert(utf8Array, {
     type: "arraybuffer",
     bom: true, // With BOM
 });
-utf16Array3; // $ExpectType ArrayBuffer
+utf16Array3; // $ExpectType Uint16Array || Uint16Array<ArrayBufferLike>
 
 const utf16Array4 = Encoding.convert(utf8Array, {
     to: "UTF16", // to_encoding
@@ -120,7 +138,7 @@ if (isSJIS) {
     // Encoding is SJIS'
 }
 
-const sjisArray5 = [
+const sjisArray7 = [
     130,
     177,
     130,
@@ -145,7 +163,7 @@ const sjisArray5 = [
     230,
 ];
 
-const encoded = Encoding.urlEncode(sjisArray5); // $ExpectType string
+const encoded = Encoding.urlEncode(sjisArray7); // $ExpectType string
 // encoded: '%82%B1%82%F1%82%C9%82%BF%82%CD%81A%82%D9%82%B0%81%99%82%D2%82%E6'
 
 const decoded = Encoding.urlDecode(encoded); // $ExpectType number[]
@@ -154,8 +172,8 @@ const decoded = Encoding.urlDecode(encoded); // $ExpectType number[]
 //    65, 130, 217, 130, 176, 129, 153, 130, 210, 130, 230
 // ]
 
-const sjisArray6 = [130, 177, 130, 241, 130, 201, 130, 191, 130, 205];
-const encoded2 = Encoding.base64Encode(sjisArray6); // $ExpectType string
+const sjisArray8 = [130, 177, 130, 241, 130, 201, 130, 191, 130, 205];
+const encoded2 = Encoding.base64Encode(sjisArray8); // $ExpectType string
 // encoded2: 'grGC8YLJgr+CzQ=='
 
 const decoded2 = Encoding.base64Decode(encoded2); // $ExpectType number[]

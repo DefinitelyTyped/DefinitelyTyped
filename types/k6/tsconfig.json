@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es2015"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,27 +14,51 @@
         "allowSyntheticDefaultImports": true
     },
     "files": [
-        "index.d.ts",
         "k6-tests.ts",
+
+        "index.d.ts",
+        "options/index.d.ts",
+        "global.d.ts",
+
+        "net/grpc/index.d.ts",
+        "http/index.d.ts",
+        "ws/index.d.ts",
+        "html/index.d.ts",
+        "metrics/index.d.ts",
+        "timers/index.d.ts",
+        "execution/index.d.ts",
+        "encoding/index.d.ts",
+        "data/index.d.ts",
+        "crypto/index.d.ts",
+        "browser/index.d.ts",
+
+        "experimental/csv/index.d.ts",
+        "experimental/fs/index.d.ts",
+        "experimental/redis/index.d.ts",
+        "experimental/tracing/index.d.ts",
+        "experimental/webcrypto/index.d.ts",
+        "experimental/websockets/index.d.ts",
+
         "test/browser.ts",
-        "test/crypto.ts",
         "test/data.ts",
         "test/encoding.ts",
         "test/execution.ts",
-        "test/global.ts",
+        "test/experimental/csv.ts",
+        "test/experimental/fs.ts",
+        "test/experimental/streams.ts",
         "test/grpc.ts",
         "test/html.ts",
-        "test/http.ts",
         "test/index.ts",
         "test/metrics.ts",
         "test/options.ts",
-        "test/redis.ts",
         "test/timers.ts",
         "test/tracing.ts",
         "test/webcrypto.ts",
+        "test/ws.ts",
+        "test/crypto.ts",
+        "test/http.ts",
         "test/websockets.ts",
-        "test/experimental/fs.ts",
-        "test/experimental/grpc.ts",
-        "test/ws.ts"
+        "test/redis.ts",
+        "test/global.ts"
     ]
 }

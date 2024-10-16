@@ -8,7 +8,7 @@
     ],
     "dependencies": {
         "@types/express": "*",
-        "@types/express-serve-static-core": "^4.17.33"
+        "@types/express-serve-static-core": "*"
     },
     "devDependencies": {
         "@types/absolute-url": "workspace:."

@@ -6,15 +6,23 @@ if (!app.isExpanded) {
     app.expand(); // $ExpectType void
 }
 
-const btn = app.MainButton; // $ExpectType MainButton
+const mainButton = app.MainButton; // $ExpectType BottomButton
 
-btn.text = (app.initDataUnsafe.user?.first_name ?? "you") + " r 2 close";
+mainButton.text = (app.initDataUnsafe.user?.first_name ?? "you") + " r 2 close";
 
-btn.onClick(() => {
+mainButton.onClick(() => {
     app.close();
 });
 
-app.onEvent("viewportChanged", e => {
+const secondaryButton = app.SecondaryButton; // $ExpectType BottomButton
+
+secondaryButton.text = (app.initDataUnsafe.user?.last_name ?? "you") + " r 2 expand";
+
+secondaryButton.onClick(() => {
+    app.expand();
+});
+
+app.onEvent("viewportChanged", (e) => {
     if (e.isStateStable) console.log("Done at", app.viewportHeight);
     else console.log("Changing, currently at ", app.viewportHeight);
 });
@@ -24,10 +32,10 @@ app.showPopup(
         message: "Hello",
         buttons: [{ type: "default", text: "Button text", id: "btn_id" }],
     },
-    btn_id => console.log(btn_id),
+    (btn_id) => console.log(btn_id),
 );
 
-app.onEvent("popupClosed", e => {
+app.onEvent("popupClosed", (e) => {
     console.log(e.button_id);
 });
 
@@ -64,7 +72,7 @@ app.CloudStorage.getKeys((err, keys) => {
     }
 });
 
-app.requestWriteAccess(success => {
+app.requestWriteAccess((success) => {
     const test = success; // $ExpectType boolean
 });
 
@@ -96,3 +104,15 @@ app.onEvent("contactRequested", (req) => {
 
 app.BiometricManager.init(() => console.log("init"));
 app.BiometricManager.openSettings();
+
+app.isVerticalSwipesEnabled; // $ExpectType boolean
+app.enableVerticalSwipes();
+app.disableVerticalSwipes();
+app.shareToStory("url", {
+    text: "txt",
+    widget_link: { name: "name", url: "url" },
+});
+
+app.openInvoice("url", (status: "paid" | "cancelled" | "failed" | "pending") => {
+    const test = status; // $ExpectType "paid" | "cancelled" | "failed" | "pending"
+});

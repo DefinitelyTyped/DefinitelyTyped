@@ -8,9 +8,9 @@
  * It can be accessed using:
  *
  * ```js
- * const net = require('node:net');
+ * import net from 'node:net';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/net.js)
  */
 declare module "net" {
     import * as stream from "node:stream";
@@ -29,6 +29,7 @@ declare module "net" {
     interface SocketConstructorOpts {
         fd?: number | undefined;
         allowHalfOpen?: boolean | undefined;
+        onread?: OnReadOpts | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
         signal?: AbortSignal;
@@ -37,20 +38,15 @@ declare module "net" {
         buffer: Uint8Array | (() => Uint8Array);
         /**
          * This function is called for every chunk of incoming data.
-         * Two arguments are passed to it: the number of bytes written to buffer and a reference to buffer.
-         * Return false from this function to implicitly pause() the socket.
+         * Two arguments are passed to it: the number of bytes written to `buffer` and a reference to `buffer`.
+         * Return `false` from this function to implicitly `pause()` the socket.
          */
-        callback(bytesWritten: number, buf: Uint8Array): boolean;
+        callback(bytesWritten: number, buffer: Uint8Array): boolean;
     }
-    interface ConnectOpts {
-        /**
-         * If specified, incoming data is stored in a single buffer and passed to the supplied callback when data arrives on the socket.
-         * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
-         * still be emitted as normal and methods like pause() and resume() will also behave as expected.
-         */
-        onread?: OnReadOpts | undefined;
-    }
-    interface TcpSocketConnectOpts extends ConnectOpts {
+    // TODO: remove empty ConnectOpts placeholder at next major @types/node version.
+    /** @deprecated */
+    interface ConnectOpts {}
+    interface TcpSocketConnectOpts {
         port: number;
         host?: string | undefined;
         localAddress?: string | undefined;
@@ -70,7 +66,7 @@ declare module "net" {
          */
         autoSelectFamilyAttemptTimeout?: number | undefined;
     }
-    interface IpcSocketConnectOpts extends ConnectOpts {
+    interface IpcSocketConnectOpts {
         path: string;
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
@@ -278,7 +274,7 @@ declare module "net" {
          */
         readonly bytesWritten: number;
         /**
-         * If `true`,`socket.connect(options[, connectListener])` was
+         * If `true`, `socket.connect(options[, connectListener])` was
          * called and has not yet finished. It will stay `true` until the socket becomes
          * connected, then it is set to `false` and the `'connect'` event is emitted. Note
          * that the `socket.connect(options[, connectListener])` callback is a listener for the `'connect'` event.
@@ -532,6 +528,12 @@ declare module "net" {
          * @since v16.5.0
          */
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * Optionally overrides all `net.Socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
+         * @default See [stream.getDefaultHighWaterMark()](https://nodejs.org/docs/latest-v22.x/api/stream.html#streamgetdefaulthighwatermarkobjectmode).
+         * @since v18.17.0, v20.1.0
+         */
+        highWaterMark?: number | undefined;
     }
     interface DropArgument {
         localAddress?: string;
@@ -564,7 +566,7 @@ declare module "net" {
          *
          * All `listen()` methods can take a `backlog` parameter to specify the maximum
          * length of the queue of pending connections. The actual length will be determined
-         * by the OS through sysctl settings such as `tcp_max_syn_backlog` and `somaxconn`on Linux. The default value of this parameter is 511 (not 512).
+         * by the OS through sysctl settings such as `tcp_max_syn_backlog` and `somaxconn` on Linux. The default value of this parameter is 511 (not 512).
          *
          * All {@link Socket} are set to `SO_REUSEADDR` (see [`socket(7)`](https://man7.org/linux/man-pages/man7/socket.7.html) for
          * details).
@@ -812,7 +814,7 @@ declare module "net" {
      * on port 8124:
      *
      * ```js
-     * const net = require('node:net');
+     * import net from 'node:net';
      * const server = net.createServer((c) => {
      *   // 'connection' listener.
      *   console.log('client connected');
@@ -899,13 +901,16 @@ declare module "net" {
     function setDefaultAutoSelectFamily(value: boolean): void;
     /**
      * Gets the current default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
-     * The initial default value is `250`.
-     * @since v19.8.0
+     * The initial default value is `250` or the value specified via the command line option `--network-family-autoselection-attempt-timeout`.
+     * @returns The current default value of the `autoSelectFamilyAttemptTimeout` option.
+     * @since v19.8.0, v18.8.0
      */
     function getDefaultAutoSelectFamilyAttemptTimeout(): number;
     /**
      * Sets the default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
-     * @since v19.8.0
+     * @param value The new default value, which must be a positive number. If the number is less than `10`, the value `10` is used instead. The initial default value is `250` or the value specified via the command line
+     * option `--network-family-autoselection-attempt-timeout`.
+     * @since v19.8.0, v18.8.0
      */
     function setDefaultAutoSelectFamilyAttemptTimeout(value: number): void;
     /**

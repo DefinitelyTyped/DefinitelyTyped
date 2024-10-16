@@ -17,7 +17,7 @@
  * code are reflected in the context object.
  *
  * ```js
- * const vm = require('node:vm');
+ * import vm from 'node:vm';
  *
  * const x = 1;
  *
@@ -34,7 +34,7 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/vm.js)
  */
 declare module "vm" {
     import { ImportAttributes } from "node:module";
@@ -66,7 +66,7 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
         importModuleDynamically?:
             | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
@@ -203,7 +203,7 @@ declare module "vm" {
          * The globals are contained in the `context` object.
          *
          * ```js
-         * const vm = require('node:vm');
+         * import vm from 'node:vm';
          *
          * const context = {
          *   animal: 'cat',
@@ -239,7 +239,7 @@ declare module "vm" {
          * contained within each individual `context`.
          *
          * ```js
-         * const vm = require('node:vm');
+         * import vm from 'node:vm';
          *
          * const script = new vm.Script('globalVar = "set"');
          *
@@ -264,7 +264,7 @@ declare module "vm" {
          * executes that code multiple times:
          *
          * ```js
-         * const vm = require('node:vm');
+         * import vm from 'node:vm';
          *
          * global.globalVar = 0;
          *
@@ -347,14 +347,17 @@ declare module "vm" {
         sourceMapURL?: string | undefined;
     }
     /**
-     * If given a `contextObject`, the `vm.createContext()` method will `prepare
-     * that object` so that it can be used in calls to {@link runInContext} or `script.runInContext()`. Inside such scripts,
-     * the `contextObject` will be the global object, retaining all of its existing
-     * properties but also having the built-in objects and functions any standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global variables
-     * will remain unchanged.
+     * If given a `contextObject`, the `vm.createContext()` method will
+     * [prepare that object](https://nodejs.org/docs/latest-v22.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
+     * and return a reference to it so that it can be used in `{@link runInContext}` or
+     * [`script.runInContext()`](https://nodejs.org/docs/latest-v22.x/api/vm.html#scriptrunincontextcontextifiedobject-options). Inside such
+     * scripts, the `contextObject` will be the global object, retaining all of its
+     * existing properties but also having the built-in objects and functions any
+     * standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global
+     * variables will remain unchanged.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import vm from 'node:vm';
      *
      * global.globalVar = 3;
      *
@@ -401,7 +404,7 @@ declare module "vm" {
      * The following example compiles and executes different scripts using a single `contextified` object:
      *
      * ```js
-     * const vm = require('node:vm');
+     * import vm from 'node:vm';
      *
      * const contextObject = { globalVar: 1 };
      * vm.createContext(contextObject);
@@ -430,7 +433,7 @@ declare module "vm" {
      * variable and sets a new one. These globals are contained in the `contextObject`.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import vm from 'node:vm';
      *
      * const contextObject = {
      *   animal: 'cat',
@@ -462,7 +465,7 @@ declare module "vm" {
      * the JavaScript [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) function to run the same code:
      *
      * ```js
-     * const vm = require('node:vm');
+     * import vm from 'node:vm';
      * let localVar = 'initial value';
      *
      * const vmResult = vm.runInThisContext('localVar = "vm";');
@@ -484,16 +487,16 @@ declare module "vm" {
      * context. The code passed to this VM context will have its own isolated scope.
      *
      * In order to run a simple web server using the `node:http` module the code passed
-     * to the context must either call `require('node:http')` on its own, or have a
+     * to the context must either import `node:http` on its own, or have a
      * reference to the `node:http` module passed to it. For instance:
      *
      * ```js
      * 'use strict';
-     * const vm = require('node:vm');
+     * import vm from 'node:vm';
      *
      * const code = `
      * ((require) => {
-     *   const http = require('node:http');
+     * const http = require('node:http');
      *
      *   http.createServer((request, response) => {
      *     response.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -544,7 +547,7 @@ declare module "vm" {
      * the memory occupied by each heap space in the current V8 instance.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import vm from 'node:vm';
      * // Measure the memory used by the main context.
      * vm.measureMemory({ mode: 'summary' })
      *   // This is the same as vm.measureMemory()
@@ -595,8 +598,6 @@ declare module "vm" {
         specifier: string,
         referencingModule: Module,
         extra: {
-            /** @deprecated Use `attributes` instead */
-            assert: ImportAttributes;
             attributes: ImportAttributes;
         },
     ) => Module | Promise<Module>;
@@ -852,7 +853,7 @@ declare module "vm" {
      * module graphs.
      *
      * ```js
-     * const vm = require('node:vm');
+     * import vm from 'node:vm';
      *
      * const source = '{ "a": 1 }';
      * const module = new vm.SyntheticModule(['default'], function() {
@@ -911,7 +912,7 @@ declare module "vm" {
          * and `vm.compileFunction()` so that Node.js uses the default ESM loader from the main
          * context to load the requested module.
          *
-         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
         const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;
     }

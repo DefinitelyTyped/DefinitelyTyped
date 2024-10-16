@@ -1,8 +1,10 @@
 import { Camera } from "../cameras/Camera.js";
 import { ColorSpace, CullFace, ShadowMapType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
+import { TypedArray } from "../core/BufferAttribute.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { Object3D } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
+import { Box2 } from "../math/Box2.js";
 import { Box3 } from "../math/Box3.js";
 import { Color, ColorRepresentation } from "../math/Color.js";
 import { Plane } from "../math/Plane.js";
@@ -13,7 +15,7 @@ import { Scene } from "../scenes/Scene.js";
 import { Data3DTexture } from "../textures/Data3DTexture.js";
 import { DataArrayTexture } from "../textures/DataArrayTexture.js";
 import { OffscreenCanvas, Texture } from "../textures/Texture.js";
-import { WebGLCapabilities } from "./webgl/WebGLCapabilities.js";
+import { WebGLCapabilities, WebGLCapabilitiesParameters } from "./webgl/WebGLCapabilities.js";
 import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
 import { WebGLInfo } from "./webgl/WebGLInfo.js";
 import { WebGLProgram } from "./webgl/WebGLProgram.js";
@@ -31,7 +33,7 @@ export interface Renderer {
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
 
-export interface WebGLRendererParameters {
+export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
     /**
      * A Canvas where the renderer draws its output.
      */
@@ -43,11 +45,6 @@ export interface WebGLRendererParameters {
      * Default is null
      */
     context?: WebGLRenderingContext | undefined;
-
-    /**
-     * shader precision. Can be "highp", "mediump" or "lowp".
-     */
-    precision?: string | undefined;
 
     /**
      * default is false.
@@ -87,11 +84,6 @@ export interface WebGLRendererParameters {
     /**
      * default is false.
      */
-    logarithmicDepthBuffer?: boolean | undefined;
-
-    /**
-     * default is false.
-     */
     failIfMajorPerformanceCaveat?: boolean | undefined;
 }
 
@@ -125,7 +117,7 @@ export interface WebGLDebug {
  */
 export class WebGLRenderer implements Renderer {
     /**
-     * parameters is an optional object with properties defining the renderer's behaviour.
+     * parameters is an optional object with properties defining the renderer's behavior.
      * The constructor also accepts no parameters at all.
      * In all cases, it will assume sane defaults when parameters are missing.
      */
@@ -195,13 +187,6 @@ export class WebGLRenderer implements Renderer {
     set outputColorSpace(colorSpace: ColorSpace);
 
     get coordinateSystem(): typeof WebGLCoordinateSystem;
-
-    /**
-     * @deprecated Migrate your lighting according to the following guide:
-     * https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733.
-     * @default true
-     */
-    useLegacyLights: boolean;
 
     /**
      * @default THREE.NoToneMapping
@@ -421,45 +406,72 @@ export class WebGLRenderer implements Renderer {
         y: number,
         width: number,
         height: number,
-        buffer: any,
+        buffer: TypedArray,
         activeCubeFaceIndex?: number,
     ): void;
+
+    readRenderTargetPixelsAsync(
+        renderTarget: WebGLRenderTarget | WebGLRenderTarget<Texture[]>,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        buffer: TypedArray,
+        activeCubeFaceIndex?: number,
+    ): Promise<TypedArray>;
 
     /**
      * Copies a region of the currently bound framebuffer into the selected mipmap level of the selected texture.
      * This region is defined by the size of the destination texture's mip level, offset by the input position.
      *
-     * @param position Specifies the pixel offset from which to copy out of the framebuffer.
      * @param texture Specifies the destination texture.
+     * @param position Specifies the pixel offset from which to copy out of the framebuffer.
      * @param level Specifies the destination mipmap level of the texture.
      */
-    copyFramebufferToTexture(position: Vector2, texture: Texture, level?: number): void;
+    copyFramebufferToTexture(texture: Texture, position?: Vector2 | null, level?: number): void;
 
     /**
-     * Copies srcTexture to the specified level of dstTexture, offset by the input position.
+     * Copies the pixels of a texture in the bounds `srcRegion` in the destination texture starting from the given
+     * position.
      *
-     * @param position Specifies the pixel offset into the dstTexture where the copy will occur.
      * @param srcTexture Specifies the source texture.
      * @param dstTexture Specifies the destination texture.
+     * @param srcRegion Specifies the bounds
+     * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
      * @param level Specifies the destination mipmap level of the texture.
      */
-    copyTextureToTexture(position: Vector2, srcTexture: Texture, dstTexture: Texture, level?: number): void;
+    copyTextureToTexture(
+        srcTexture: Texture,
+        dstTexture: Texture,
+        srcRegion?: Box2 | null,
+        dstPosition?: Vector2 | null,
+        level?: number,
+    ): void;
 
     /**
-     * Copies the pixels of a texture in the bounds sourceBox in the desination texture starting from the given position.
-     * @param sourceBox Specifies the bounds
-     * @param position Specifies the pixel offset into the dstTexture where the copy will occur.
+     * Copies the pixels of a texture in the bounds `srcRegion` in the destination texture starting from the given
+     * position.
+     *
      * @param srcTexture Specifies the source texture.
      * @param dstTexture Specifies the destination texture.
+     * @param srcRegion Specifies the bounds
+     * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
      * @param level Specifies the destination mipmap level of the texture.
      */
     copyTextureToTexture3D(
-        sourceBox: Box3,
-        position: Vector3,
         srcTexture: Texture,
         dstTexture: Data3DTexture | DataArrayTexture,
+        srcRegion?: Box3 | null,
+        dstPosition?: Vector3 | null,
         level?: number,
     ): void;
+
+    /**
+     * Initializes the given WebGLRenderTarget memory. Useful for initializing a render target so data can be copied
+     * into it using {@link WebGLRenderer.copyTextureToTexture} before it has been rendered to.
+     * @param target
+     */
+    initRenderTarget(target: WebGLRenderTarget): void;
 
     /**
      * Initializes the given texture. Can be used to preload a texture rather than waiting until first render (which can cause noticeable lags due to decode and GPU upload overhead).

@@ -849,6 +849,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback?: ReactNode;
+
+        /**
+         * A name for this Suspense boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
     }
 
     /**
@@ -1598,7 +1604,7 @@ declare namespace React {
      * ```
      */
     function forwardRef<T, P = {}>(
-        render: ForwardRefRenderFunction<T, P>,
+        render: ForwardRefRenderFunction<T, PropsWithoutRef<P>>,
     ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /**
@@ -2429,9 +2435,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
-        /** @deprecated */
+        /** @deprecated Use `onKeyUp` or `onKeyDown` instead */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
-        /** @deprecated */
+        /** @deprecated Use `onKeyUpCapture` or `onKeyDownCapture` instead */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;
@@ -2894,12 +2900,14 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: Booleanish | "inherit" | "plaintext-only" | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: Booleanish | undefined;
+        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
@@ -2931,7 +2939,6 @@ declare namespace React {
         vocab?: string | undefined;
 
         // Non-standard Attributes
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;
@@ -3355,7 +3362,6 @@ declare namespace React {
         capture?: boolean | "user" | "environment" | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         disabled?: boolean | undefined;
-        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         form?: string | undefined;
         formAction?:
             | string

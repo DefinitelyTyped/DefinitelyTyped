@@ -6,7 +6,6 @@
         "https://github.com/calvinmetcalf/rollup-plugin-node-globals#readme"
     ],
     "dependencies": {
-        "@types/node": "*",
         "rollup": "^0.63.4"
     },
     "devDependencies": {

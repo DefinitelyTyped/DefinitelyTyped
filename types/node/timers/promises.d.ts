@@ -1,13 +1,13 @@
 /**
  * The `timers/promises` API provides an alternative set of timer functions
- * that return `Promise` objects. The API is accessible via `require('node:timers/promises')`.
+ * that return `Promise` objects. The API is accessible via `import timersPromises from 'node:timers/promises'`.
  *
  * ```js
  * import {
  *   setTimeout,
  *   setImmediate,
  *   setInterval,
- * } from 'timers/promises';
+ * } from 'node:timers/promises';
  * ```
  * @since v15.0.0
  */
@@ -17,7 +17,7 @@ declare module "timers/promises" {
      * ```js
      * import {
      *   setTimeout,
-     * } from 'timers/promises';
+     * } from 'node:timers/promises';
      *
      * const res = await setTimeout(100, 'result');
      *
@@ -32,7 +32,7 @@ declare module "timers/promises" {
      * ```js
      * import {
      *   setImmediate,
-     * } from 'timers/promises';
+     * } from 'node:timers/promises';
      *
      * const res = await setImmediate('result');
      *
@@ -50,7 +50,7 @@ declare module "timers/promises" {
      * ```js
      * import {
      *   setInterval,
-     * } from 'timers/promises';
+     * } from 'node:timers/promises';
      *
      * const interval = 100;
      * for await (const startTime of setInterval(interval, Date.now())) {

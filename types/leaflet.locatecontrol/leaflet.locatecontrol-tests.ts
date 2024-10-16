@@ -26,3 +26,10 @@ map.addControl(L.control.locate({
         enableHighAccuracy: true,
     },
 }));
+
+let createButtonCallback:
+    | ((container: HTMLDivElement, options: L.Control.LocateOptions) => { link: HTMLAnchorElement; icon: HTMLElement })
+    | undefined = undefined;
+L.control.locate({
+    createButtonCallback,
+});

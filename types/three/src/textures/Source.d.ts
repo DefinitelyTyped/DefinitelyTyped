@@ -1,3 +1,17 @@
+export type SerializedImage =
+    | string
+    | {
+        data: number[];
+        width: number;
+        height: number;
+        type: string;
+    };
+
+export class SourceJSON {
+    uuid: string;
+    url: SerializedImage | SerializedImage[];
+}
+
 /**
  * Represents the data {@link Source} of a texture.
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/Source | Official Documentation}
@@ -57,5 +71,5 @@ export class Source {
      * Convert the data {@link Source} to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
      * @param meta Optional object containing metadata.
      */
-    toJSON(meta?: string | {}): {};
+    toJSON(meta?: string | {}): SourceJSON;
 }

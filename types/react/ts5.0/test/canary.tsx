@@ -127,6 +127,20 @@ function formActionsTest() {
             Delete
         </button>
     </form>;
+
+    <form
+        action={async (formData) => {
+            // $ExpectType FormData
+            formData;
+        }}
+    />;
+
+    <form
+        // @ts-expect-error -- Type 'Promise<number>' is not assignable to type 'Promise<void>'
+        action={async () => {
+            return 1;
+        }}
+    />;
 }
 
 const useOptimistic = React.useOptimistic;
@@ -400,3 +414,48 @@ function formTest() {
 
     node = BigInt(10);
 }
+
+function PopoverAPI() {
+    return (
+        <>
+            <div
+                id="popover-target"
+                popover=""
+                onBeforeToggle={event => {
+                    // $ExpectType 'open' | 'closed'
+                    event.newState;
+                    // $ExpectType 'open' | 'closed'
+                    event.oldState;
+                }}
+                onToggle={event => {
+                    // $ExpectType 'open' | 'closed'
+                    event.newState;
+                    // $ExpectType 'open' | 'closed'
+                    event.oldState;
+                }}
+            >
+            </div>
+            <div popover="auto" />
+            <div popover="manual" />
+            <div
+                // @ts-expect-error accidental boolean
+                popover
+            />
+            <button popoverTarget="popover-target">Toggle</button>
+            <button popoverTarget="popover-target" popoverTargetAction="toggle">Toggle</button>
+            <button popoverTarget="popover-target" popoverTargetAction="show">Show</button>
+            <button popoverTarget="popover-target" popoverTargetAction="hide">Hide</button>
+            <button
+                popoverTarget="popover-target"
+                // @ts-expect-error
+                popoverTargetAction="bad"
+            >
+                Hide
+            </button>
+        </>
+    );
+}
+
+// New <link> and <style> props
+<link href="https://foo.bar" precedence="medium" rel="canonical" />;
+<style href="unique-style-hash" precedence="anything">{` p { color: red; } `}</style>;

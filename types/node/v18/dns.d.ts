@@ -9,7 +9,7 @@
  * system do, use {@link lookup}.
  *
  * ```js
- * const dns = require('node:dns');
+ * import dns from 'node:dns';
  *
  * dns.lookup('example.org', (err, address, family) => {
  *   console.log('address: %j family: IPv%s', address, family);
@@ -23,7 +23,7 @@
  * DNS queries, bypassing other name-resolution facilities.
  *
  * ```js
- * const dns = require('node:dns');
+ * import dns from 'node:dns';
  *
  * dns.resolve4('archive.org', (err, addresses) => {
  *   if (err) throw err;
@@ -129,7 +129,7 @@ declare module "dns" {
      * Example usage:
      *
      * ```js
-     * const dns = require('node:dns');
+     * import dns from 'node:dns';
      * const options = {
      *   family: 6,
      *   hints: dns.ADDRCONFIG | dns.V4MAPPED,
@@ -189,7 +189,7 @@ declare module "dns" {
      * where `err.code` is the error code.
      *
      * ```js
-     * const dns = require('node:dns');
+     * import dns from 'node:dns';
      * dns.lookupService('127.0.0.1', 22, (err, hostname, service) => {
      *   console.log(hostname, service);
      *   // Prints: localhost ssh
@@ -732,30 +732,30 @@ declare module "dns" {
      */
     export function setDefaultResultOrder(order: "ipv4first" | "verbatim"): void;
     // Error codes
-    export const NODATA: "NODATA";
-    export const FORMERR: "FORMERR";
-    export const SERVFAIL: "SERVFAIL";
-    export const NOTFOUND: "NOTFOUND";
-    export const NOTIMP: "NOTIMP";
-    export const REFUSED: "REFUSED";
-    export const BADQUERY: "BADQUERY";
-    export const BADNAME: "BADNAME";
-    export const BADFAMILY: "BADFAMILY";
-    export const BADRESP: "BADRESP";
-    export const CONNREFUSED: "TIMEOUT";
-    export const TIMEOUT: "TIMEOUT";
+    export const NODATA: "ENODATA";
+    export const FORMERR: "EFORMERR";
+    export const SERVFAIL: "ESERVFAIL";
+    export const NOTFOUND: "ENOTFOUND";
+    export const NOTIMP: "ENOTIMP";
+    export const REFUSED: "EREFUSED";
+    export const BADQUERY: "EBADQUERY";
+    export const BADNAME: "EBADNAME";
+    export const BADFAMILY: "EBADFAMILY";
+    export const BADRESP: "EBADRESP";
+    export const CONNREFUSED: "ECONNREFUSED";
+    export const TIMEOUT: "ETIMEOUT";
     export const EOF: "EOF";
-    export const FILE: "FILE";
-    export const NOMEM: "NOMEM";
-    export const DESTRUCTION: "DESTRUCTION";
-    export const BADSTR: "BADSTR";
-    export const BADFLAGS: "BADFLAGS";
-    export const NONAME: "NONAME";
-    export const BADHINTS: "BADHINTS";
-    export const NOTINITIALIZED: "NOTINITIALIZED";
-    export const LOADIPHLPAPI: "LOADIPHLPAPI";
-    export const ADDRGETNETWORKPARAMS: "ADDRGETNETWORKPARAMS";
-    export const CANCELLED: "CANCELLED";
+    export const FILE: "EFILE";
+    export const NOMEM: "ENOMEM";
+    export const DESTRUCTION: "EDESTRUCTION";
+    export const BADSTR: "EBADSTR";
+    export const BADFLAGS: "EBADFLAGS";
+    export const NONAME: "ENONAME";
+    export const BADHINTS: "EBADHINTS";
+    export const NOTINITIALIZED: "ENOTINITIALIZED";
+    export const LOADIPHLPAPI: "ELOADIPHLPAPI";
+    export const ADDRGETNETWORKPARAMS: "EADDRGETNETWORKPARAMS";
+    export const CANCELLED: "ECANCELLED";
     export interface ResolverOptions {
         /**
          * Query timeout in milliseconds, or `-1` to use the default timeout.
@@ -775,7 +775,7 @@ declare module "dns" {
      * other resolvers:
      *
      * ```js
-     * const { Resolver } = require('node:dns');
+     * import { Resolver } from 'node:dns';
      * const resolver = new Resolver();
      * resolver.setServers(['4.4.4.4']);
      *

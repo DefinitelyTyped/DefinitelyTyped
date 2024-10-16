@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/critters-webpack-plugin",
-    "version": "2.5.9999",
+    "version": "3.0.9999",
     "projects": [
         "https://github.com/GoogleChromeLabs/critters"
     ],
     "dependencies": {
-        "@types/webpack": "^4"
+        "@types/webpack": "^5"
     },
     "devDependencies": {
         "@types/critters-webpack-plugin": "workspace:."

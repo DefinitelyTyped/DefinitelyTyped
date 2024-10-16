@@ -154,7 +154,7 @@ export function cannotHaveAUsernamePasswordPort(urlRecord: URLRecord): boolean;
 /** https://url.spec.whatwg.org/#percent-decode */
 export function percentDecodeBytes(buffer: TypedArray): Uint8Array;
 
-/** https://url.spec.whatwg.org/#percent-decode-string */
+/** https://url.spec.whatwg.org/#string-percent-decode */
 export function percentDecodeString(string: string): Uint8Array;
 
 export type TypedArray =

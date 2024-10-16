@@ -68,6 +68,9 @@ console.log(util.styleText("red", "Error! Error!"));
 console.log(
     util.styleText("underline", util.styleText("italic", "My italic underlined message")),
 );
+console.log(
+    util.styleText(["red", "green"], "text"),
+);
 
 // util.callbackify
 class callbackifyTest {
@@ -331,6 +334,64 @@ access("file/that/does/not/exist", (err) => {
 
     // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
     const result = util.parseArgs(config);
+}
+
+{
+    // args are passed `type: "boolean"` and allow negative options
+    const result = util.parseArgs({
+        args: ["--no-alpha"],
+        options: {
+            alpha: { type: "boolean" },
+        },
+        allowNegative: true,
+    });
+    // $ExpectType boolean | undefined
+    result.values.alpha; // false
+}
+
+{
+    // args are passed `default: "true"` and allow negative options
+    const result = util.parseArgs({
+        args: ["--no-alpha"],
+        options: {
+            alpha: { type: "boolean", default: true },
+            beta: { type: "boolean", default: undefined },
+            gamma: { type: "boolean" },
+        },
+        allowNegative: true,
+    });
+    // $ExpectType boolean
+    result.values.alpha; // false
+    // $ExpectType boolean | undefined
+    result.values.beta; // undefined
+    // $ExpectType boolean | undefined
+    result.values.gamma; // undefined
+}
+
+{
+    // allow negative options and multiple as true
+    const result = util.parseArgs({
+        args: ["--no-alpha", "--alpha", "--no-alpha"],
+        options: {
+            alpha: { type: "boolean", multiple: true },
+        },
+        allowNegative: true,
+    });
+    // $ExpectType boolean[] | undefined
+    result.values.alpha; // [false, true, false]
+}
+
+{
+    // allow negative options and passed multiple arguments
+    const result = util.parseArgs({
+        args: ["--no-alpha", "--alpha"],
+        options: {
+            alpha: { type: "boolean" },
+        },
+        allowNegative: true,
+    });
+    // $ExpectType boolean | undefined
+    result.values.alpha; // true
 }
 
 {

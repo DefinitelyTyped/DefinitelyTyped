@@ -3,13 +3,6 @@ import { Texture } from "../../textures/Texture.js";
 import { WebGLRenderer } from "../WebGLRenderer.js";
 import { WebXRArrayCamera } from "./WebXRManager.js";
 
-// FIXME Replace by XRWebGLDepthInformation when typed in @types/webxr
-interface XRWebGLDepthInformation {
-    readonly texture: WebGLTexture;
-    readonly depthNear: number;
-    readonly depthFar: number;
-}
-
 export class WebXRDepthSensing {
     texture: Texture | null;
     mesh: Mesh | null;
@@ -21,7 +14,9 @@ export class WebXRDepthSensing {
 
     init(renderer: WebGLRenderer, depthData: XRWebGLDepthInformation, renderState: XRRenderState): void;
 
-    render(renderer: WebGLRenderer, cameraXR: WebXRArrayCamera): void;
+    getMesh(cameraXR: WebXRArrayCamera): Mesh | null;
 
     reset(): void;
+
+    getDepthTexture(): Texture | null;
 }

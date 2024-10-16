@@ -77,7 +77,7 @@ declare namespace Vorpal {
         types(types: { string?: readonly string[] | undefined }): this;
         hidden(): this;
         remove(): this;
-        help(value: (args: Args) => void): this;
+        help(value: (args: Args, cb?: (helpText?: string) => void) => void): this;
         validate(value: (args: Args) => boolean | string): this;
         autocomplete(
             values: readonly string[] | { data: () => Promise<readonly string[]> },

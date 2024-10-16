@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/uswds__uswds",
-    "version": "3.8.9999",
+    "version": "3.9.9999",
     "projects": [
         "https://github.com/uswds/uswds"
     ],
@@ -11,7 +11,7 @@
     "owners": [
         {
             "name": "Morgan Spencer",
-            "githubUsername": "morganmspencer"
+            "githubUsername": "lunchbreakdev"
         },
         {
             "name": "Andrew Duthie",

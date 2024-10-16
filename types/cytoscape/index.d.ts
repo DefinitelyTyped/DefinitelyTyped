@@ -3414,8 +3414,11 @@ declare namespace cytoscape {
     }
     /**
      * http://js.cytoscape.org/#eles.closenessCentralityNormalized
-     * trivial
      */
+    interface SearchClosenessCentralityNormalizedResult {
+        /** the normalised closeness centrality of the specified node */
+        closeness(node: NodeSingular): any;
+    }
 
     /**
      * http://js.cytoscape.org/#eles.betweennessCentrality
@@ -3600,7 +3603,7 @@ declare namespace cytoscape {
          */
         closenessCentralityNormalized(
             options: SearchClosenessCentralityNormalizedOptions,
-        ): SearchDegreeCentralityNormalizedResultDirected | SearchDegreeCentralityNormalizedResultUndirected;
+        ): SearchClosenessCentralityNormalizedResult;
         /**
          * Considering only the elements in the calling collection,
          * calculate the betweenness centrality of the nodes.
@@ -3894,6 +3897,29 @@ declare namespace cytoscape {
              * A value between [0 1].
              */
             "border-opacity"?: PropertyValueNode<number> | undefined;
+            /**
+             * The position of the node’s border.
+             * One of: center, inside, outside.
+             */
+            "border-position"?: PropertyValueNode<"center" | "inside" | "outside"> | undefined;
+            /**
+             * The cap style of the node’s border.
+             * One of: butt, round, square.
+             */
+            "border-cap"?: PropertyValueNode<"butt" | "round" | "square"> | undefined;
+            /**
+             * The join style of the node’s border.
+             * One of: miter, bevel, round.
+             */
+            "border-join"?: PropertyValueNode<"miter" | "bevel" | "round"> | undefined;
+            /**
+             * The dashed line pattern which specifies alternating lengths of lines and gaps. (e.g. [6, 3]).
+             */
+            "border-dash-pattern"?: PropertyValueNode<number[]> | undefined;
+            /**
+             * The dashed line offset (e.g. 24). It is useful for creating edge animations.
+             */
+            "border-dash-offset"?: PropertyValueNode<number> | undefined;
         }
 
         /**
@@ -3926,31 +3952,35 @@ declare namespace cytoscape {
              * You may use a data URI to use embedded images,
              * thereby saving a HTTP request.
              */
-            "background-image"?: PropertyValueNode<string> | undefined;
+            "background-image"?: PropertyValueNode<string> | PropertyValueNode<string[]> | undefined;
             /**
              * All images are loaded with a crossorigin attribute which may be `anonymous` or
              * `use-credentials`.
              *
              * The default is set to `anonymous`.
              */
-            "background-image-crossorigin"?: PropertyValueNode<"anonymous" | "use-credentials">;
+            "background-image-crossorigin"?:
+                | PropertyValueNode<"anonymous" | "use-credentials">
+                | PropertyValueNode<Array<"anonymous" | "use-credentials">>;
             /**
              * The opacity of the background image. [0 1]
              */
-            "background-image-opacity"?: PropertyValueNode<number> | undefined;
+            "background-image-opacity"?: PropertyValueNode<number> | PropertyValueNode<number[]> | undefined;
             /**
              * Determines whether background image is smoothed (`yes`, default) or not (`no`).
              * This is only a hint, and the browser may or may not respect the
              * value set for this property.
              */
-            "background-image-smoothing"?: PropertyValueNode<"yes" | "no">;
+            "background-image-smoothing"?: PropertyValueNode<"yes" | "no"> | PropertyValueNode<Array<"yes" | "no">>;
             /**
              * Determines whether background image is within (`inside`)
              * or over top of the node (`over`).
              *
              * The default is set to `inside`.
              */
-            "background-image-containment"?: PropertyValueNode<"inside" | "over">;
+            "background-image-containment"?:
+                | PropertyValueNode<"inside" | "over">
+                | PropertyValueNode<Array<"inside" | "over">>;
             /**
              * Specifies the width of the image.
              * A percent value (e.g. 50%) may be used to set
@@ -3960,7 +3990,10 @@ declare namespace cytoscape {
              * in calculating the fitting — thereby overriding the aspect ratio.
              * The auto value is used by default, which uses the width of the image.
              */
-            "background-width"?: PropertyValueNode<number | string> | undefined;
+            "background-width"?:
+                | PropertyValueNode<number | string>
+                | PropertyValueNode<Array<number | string>>
+                | undefined;
             /**
              * Specifies the height of the image.
              * A percent value (e.g. 50%) may be used to set the image
@@ -3970,58 +4003,80 @@ declare namespace cytoscape {
              * the fitting — thereby overriding the aspect ratio.
              * The auto value is used by default, which uses the height of the image.
              */
-            "background-height"?: PropertyValueNode<number | string> | undefined;
+            "background-height"?:
+                | PropertyValueNode<number | string>
+                | PropertyValueNode<Array<number | string>>
+                | undefined;
             /**
              * How the background image is fit to the node;
              * may be none for original size,
              * contain to fit inside node,
              * or cover to cover the node.
              */
-            "background-fit"?: PropertyValueNode<"none" | "contain" | "cover"> | undefined;
+            "background-fit"?:
+                | PropertyValueNode<"none" | "contain" | "cover">
+                | PropertyValueNode<Array<"none" | "contain" | "cover">>
+                | undefined;
             /**
              * Whether to repeat the background image;
              * may be no-repeat, repeat-x, repeat-y, or repeat.
              */
-            "background-repeat"?: PropertyValueNode<"no-repeat" | "repeat-x" | "repeat-y" | "repeat"> | undefined;
+            "background-repeat"?:
+                | PropertyValueNode<"no-repeat" | "repeat-x" | "repeat-y" | "repeat">
+                | PropertyValueNode<Array<"no-repeat" | "repeat-x" | "repeat-y" | "repeat">>
+                | undefined;
             /**
              * The x position of the background image,
              * measured in percent(e.g. `'50%'`) or pixels (e.g. `'10px'`).
              */
-            "background-position-x"?: PropertyValueNode<number | string> | undefined;
+            "background-position-x"?:
+                | PropertyValueNode<number | string>
+                | PropertyValueNode<Array<number | string>>
+                | undefined;
             /**
              * The y position of the background image,
              * measured in percent(e.g. `'50%'`) or pixels (e.g. `'10px'`).
              */
-            "background-position-y"?: PropertyValueNode<number | string> | undefined;
+            "background-position-y"?:
+                | PropertyValueNode<number | string>
+                | PropertyValueNode<Array<number | string>>
+                | undefined;
             /**
              * The x offset of the background image,
              * measured in percent(e.g. `'50%'`) or pixels (e.g. `'10px'`).
              */
-            "background-offset-x"?: PropertyValueNode<number | string>;
+            "background-offset-x"?: PropertyValueNode<number | string> | PropertyValueNode<Array<number | string>>;
             /**
              * The y offset of the background image,
              * measured in percent(e.g. `'50%'`) or pixels (e.g. `'10px'`).
              */
-            "background-offset-y"?: PropertyValueNode<number | string>;
+            "background-offset-y"?: PropertyValueNode<number | string> | PropertyValueNode<Array<number | string>>;
             /**
              * Changes whether the width is calculated relative to the width of the node or
              * the width in addition to the padding; may be inner or include-padding.
              *
              * If not specified, include-padding is used by default.
              */
-            "background-width-relative-to"?: PropertyValueNode<"inner" | "include-padding">;
+            "background-width-relative-to"?:
+                | PropertyValueNode<"inner" | "include-padding">
+                | PropertyValueNode<Array<"inner" | "include-padding">>;
             /**
              * Changes whether the height is calculated relative to the height of the node or
              * the height in addition to the padding; may be `inner` or `include-padding`.
              *
              * If not specified, `include-padding` is used by default.
              */
-            "background-height-relative-to"?: PropertyValueNode<"inner" | "include-padding">;
+            "background-height-relative-to"?:
+                | PropertyValueNode<"inner" | "include-padding">
+                | PropertyValueNode<Array<"inner" | "include-padding">>;
             /**
              * How background image clipping is handled;
              * may be node for clipped to node shape or none for no clipping.
              */
-            "background-clip"?: PropertyValueNode<"clipped" | "none"> | undefined;
+            "background-clip"?:
+                | PropertyValueNode<"node" | "none">
+                | PropertyValueNode<Array<"node" | "none">>
+                | undefined;
             /**
              * Specifies a padding size (e.g. 20) that expands the bounding box of the node in
              * all directions. This allows for images to be drawn outside of the normal bounding
@@ -4104,6 +4159,199 @@ declare namespace cytoscape {
              * The opacity of the node’s ith pie chart slice.
              */
             "pie-i-background-opacity": PropertyValueNode<number>;
+
+            /**
+             * The colour of the node’s 1st pie chart slice.
+             */
+            "pie-1-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 1st pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-1-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 1st pie chart slice.
+             */
+            "pie-1-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 2nd pie chart slice.
+             */
+            "pie-2-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 2nd pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-2-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 2nd pie chart slice.
+             */
+            "pie-2-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 3rd pie chart slice.
+             */
+            "pie-3-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 3rd pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-3-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 3rd pie chart slice.
+             */
+            "pie-3-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 4th pie chart slice.
+             */
+            "pie-4-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 4th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-4-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 4th pie chart slice.
+             */
+            "pie-4-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 5th pie chart slice.
+             */
+            "pie-5-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 5th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-5-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 5th pie chart slice.
+             */
+            "pie-5-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 6th pie chart slice.
+             */
+            "pie-6-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 6th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-6-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 6th pie chart slice.
+             */
+            "pie-6-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 7th pie chart slice.
+             */
+            "pie-7-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 7th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-7-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 7th pie chart slice.
+             */
+            "pie-7-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 8th pie chart slice.
+             */
+            "pie-8-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 8th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-8-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 8th pie chart slice.
+             */
+            "pie-8-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 9th pie chart slice.
+             */
+            "pie-9-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 9th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-9-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 9th pie chart slice.
+             */
+            "pie-9-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 10th pie chart slice.
+             */
+            "pie-10-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 10th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-10-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 10th pie chart slice.
+             */
+            "pie-10-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 11th pie chart slice.
+             */
+            "pie-11-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 11th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-11-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 11th pie chart slice.
+             */
+            "pie-11-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 12th pie chart slice.
+             */
+            "pie-12-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 12th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-12-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 12th pie chart slice.
+             */
+            "pie-12-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 13th pie chart slice.
+             */
+            "pie-13-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 13th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-13-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 13th pie chart slice.
+             */
+            "pie-13-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 14th pie chart slice.
+             */
+            "pie-14-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 14th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-14-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 14th pie chart slice.
+             */
+            "pie-14-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 15th pie chart slice.
+             */
+            "pie-15-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 15th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-15-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 15th pie chart slice.
+             */
+            "pie-15-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 16th pie chart slice.
+             */
+            "pie-16-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 16th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-16-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 16th pie chart slice.
+             */
+            "pie-16-background-opacity": PropertyValueNode<number>;
         }
 
         interface Edge
@@ -4181,6 +4429,14 @@ declare namespace cytoscape {
              * The dashed line offset.
              */
             "line-dash-offset"?: PropertyValueEdge<number> | undefined;
+            /**
+             * The width of the edge’s outline.
+             */
+            "line-outline-width"?: PropertyValueEdge<number | string> | undefined;
+            /**
+             * The colour of the edge’s outline.
+             */
+            "line-outline-color"?: PropertyValueEdge<Colour> | undefined;
             /**
              * The distance the edge ends from its target.
              */
@@ -5259,12 +5515,9 @@ declare namespace cytoscape {
         padding?: number | undefined;
     }
 
-    interface SortableNode {
-        data: { weight: number };
-    }
-
-    // function(a, b){ return a.data('weight') - b.data('weight') }
-    type SortingFunction = (a: SortableNode, b: SortableNode) => number;
+    // A function that determines the order of the nodes. The return value has the same
+    // semantics as for compare function passed to Array.sort.
+    type SortingFunction = (a: NodeSingular, b: NodeSingular) => number;
 
     interface ShapedLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         // whether to fit to viewport
@@ -5343,9 +5596,9 @@ declare namespace cytoscape {
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
         spacingFactor?: number;
         // returns numeric value for each node, placing higher nodes in levels towards the centre
-        concentric?(node: { degree(): number }): number;
+        concentric?(node: NodeSingular): number;
         // the variation of concentric values in each level
-        levelWidth?(node: { maxDegree(): number }): number;
+        levelWidth?(node: NodeCollection): number;
     }
 
     /**

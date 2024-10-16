@@ -24,23 +24,23 @@ import { promisify } from "node:util";
     childProcess.spawnSync("echo test", { encoding: "buffer" });
     childProcess.spawnSync("echo test", { cwd: new URL("file://aaaaaaaa") });
 
-    childProcess.spawnSync("echo test").output; // $ExpectType (Buffer | null)[]
-    childProcess.spawnSync("echo test", {}).output; // $ExpectType (Buffer | null)[]
-    childProcess.spawnSync("echo test", { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo test").output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test", {}).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test", { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
     childProcess.spawnSync("echo test", { encoding: "utf-8" }).output; // $ExpectType (string | null)[]
-    childProcess.spawnSync("echo", ["test"]).output; // $ExpectType (Buffer | null)[]
-    childProcess.spawnSync("echo test", ["test"], {}).output; // $ExpectType (Buffer | null)[]
-    childProcess.spawnSync("echo test", ["test"], { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[]
+    childProcess.spawnSync("echo", ["test"]).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test", ["test"], {}).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
+    childProcess.spawnSync("echo test", ["test"], { encoding: "buffer" }).output; // $ExpectType (Buffer | null)[] || (Buffer<ArrayBufferLike> | null)[]
     childProcess.spawnSync("echo test", ["test"], { encoding: "utf-8" }).output; // $ExpectType (string | null)[]
-    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | Buffer | null)[]
+    ((opts?: childProcess.SpawnSyncOptions) => childProcess.spawnSync("echo test", opts))().output; // $ExpectType (string | Buffer | null)[] || (string | Buffer<ArrayBufferLike> | null)[]
 }
 
 {
-    childProcess.execSync("echo test"); // $ExpectType Buffer
-    childProcess.execSync("echo test", {}); // $ExpectType Buffer
-    childProcess.execSync("echo test", { encoding: "buffer" }); // $ExpectType Buffer
+    childProcess.execSync("echo test"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execSync("echo test", {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execSync("echo test", { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     childProcess.execSync("echo test", { encoding: "utf-8" }); // $ExpectType string
-    ((opts?: childProcess.ExecSyncOptions) => childProcess.execSync("echo test", opts))(); // $ExpectType string | Buffer
+    ((opts?: childProcess.ExecSyncOptions) => childProcess.execSync("echo test", opts))(); // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
     childProcess.execSync("git status", { // $ExpectType string
         cwd: "test",
         input: "test",
@@ -112,19 +112,37 @@ import { promisify } from "node:util";
     childProcess.execFileSync("echo test", { input: new Uint8Array([]) });
     childProcess.execFileSync("echo test", { input: new DataView(new ArrayBuffer(1)) });
 
-    childProcess.execFileSync("echo test"); // $ExpectType Buffer
-    childProcess.execFileSync("echo test", {}); // $ExpectType Buffer
-    childProcess.execFileSync("echo test", { encoding: "buffer" }); // $ExpectType Buffer
+    childProcess.execFileSync("echo test"); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execFileSync("echo test", {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execFileSync("echo test", { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     childProcess.execFileSync("echo test", { encoding: "utf8" }); // $ExpectType string
-    childProcess.execFileSync("echo test", ["test"]); // $ExpectType Buffer
-    childProcess.execFileSync("echo test", ["test"], {}); // $ExpectType Buffer
-    childProcess.execFileSync("echo test", ["test"], { encoding: "buffer" }); // $ExpectType Buffer
+    childProcess.execFileSync("echo test", ["test"]); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execFileSync("echo test", ["test"], {}); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    childProcess.execFileSync("echo test", ["test"], { encoding: "buffer" }); // $ExpectType Buffer || Buffer<ArrayBufferLike>
     childProcess.execFileSync("echo test", ["test"], { encoding: "utf8" }); // $ExpectType string
-    ((opts?: childProcess.ExecFileSyncOptions) => childProcess.execFileSync("echo test", ["args"], opts))(); // $ExpectType string | Buffer
+    ((opts?: childProcess.ExecFileSyncOptions) => childProcess.execFileSync("echo test", ["args"], opts))(); // $ExpectType string | Buffer || string | Buffer<ArrayBufferLike>
 }
 
 {
     const forked = childProcess.fork("./", ["asd"] as readonly string[], {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: "inherit",
+        execPath: "",
+        execArgv: ["asda"],
+        signal: new AbortSignal(),
+        killSignal: "SIGABRT",
+        timeout: 123,
+    });
+    const ipc: Pipe = forked.channel!;
+    const hasRef: boolean = ipc.hasRef();
+    ipc.close();
+    ipc.unref();
+    ipc.ref();
+}
+
+{
+    const forked = childProcess.fork(new URL("file://test"), ["asd"] as readonly string[], {
         windowsVerbatimArguments: true,
         silent: false,
         stdio: "inherit",
@@ -152,7 +170,21 @@ import { promisify } from "node:util";
 }
 
 {
+    const forked = childProcess.fork(new URL("file://test"), {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: ["inherit"],
+        execPath: "",
+        execArgv: ["asda"],
+    });
+}
+
+{
     const forked = childProcess.fork("./");
+}
+
+{
+    const forked = childProcess.fork(new URL("file://test"));
 }
 
 async function testPromisify() {

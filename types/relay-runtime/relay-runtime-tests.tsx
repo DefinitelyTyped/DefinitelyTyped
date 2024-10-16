@@ -15,6 +15,7 @@ import {
     getRequest,
     graphql,
     isPromise,
+    LiveState,
     Network,
     PreloadableConcreteRequest,
     QueryResponseCache,
@@ -25,9 +26,11 @@ import {
     RecordSource,
     RecordSourceSelectorProxy,
     requestSubscription,
+    Result,
     ROOT_ID,
     ROOT_TYPE,
     Store,
+    suspenseSentinel,
     Variables,
 } from "relay-runtime";
 
@@ -137,13 +140,15 @@ const environment = new Environment({
                 break;
         }
     },
-    requiredFieldLogger: arg => {
+    relayFieldLogger: arg => {
         if (arg.kind === "missing_field.log") {
             console.log(arg.fieldPath, arg.owner);
         } else if (arg.kind === "missing_field.throw") {
             console.log(arg.fieldPath, arg.owner);
+        } else if (arg.kind === "relay_resolver.error") {
+            console.log(arg.fieldPath, arg.owner);
         } else {
-            arg.kind; // $ExpectType "relay_resolver.error"
+            arg.kind; // $ExpectType "relay_field_payload.error"
             console.log(arg.fieldPath, arg.owner, arg.error);
         }
     },
@@ -200,6 +205,9 @@ commitMutation<{
     updater(store, data) {
         const newName = data?.setUsername?.name;
         newName && store.get("userid")?.setValue(newName, "name");
+    },
+    onCompleted(_, errors) {
+        errors?.[0].path?.[0];
     },
 });
 
@@ -813,3 +821,38 @@ __internal.withProvidedVariables({
 });
 
 __internal.withProvidedVariables.tests_only_resetDebugCache?.();
+
+// ~~~~~~~~~~~~~~~~~~
+// Live Resolvers
+// ~~~~~~~~~~~~~~~~~~
+
+export function myLiveState(): LiveState<string> {
+    return {
+        read: () => {
+            if (Math.random() > 0.5) {
+                return suspenseSentinel();
+            }
+
+            return "VALUE";
+        },
+        subscribe: (callback) => {
+            callback();
+
+            const unsubscribe = () => {};
+
+            return unsubscribe;
+        },
+    };
+}
+
+// ~~~~~~~~~~~~~~~~~~
+// @catch directive's Result
+// ~~~~~~~~~~~~~~~~~~
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function handleResult<T, E>(result: Result<T, E>) {
+    if (result.ok) {
+        const value: T = result.value;
+    } else {
+        const errors: readonly E[] = result.errors;
+    }
+}

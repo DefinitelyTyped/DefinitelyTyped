@@ -12,7 +12,7 @@ export interface DefineAuthChallengeTriggerEvent extends BaseTriggerEvent<"Defin
         clientMetadata?: StringMap | undefined;
     };
     response: {
-        challengeName: string;
+        challengeName?: string | undefined;
         failAuthentication: boolean;
         issueTokens: boolean;
     };

@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -190,8 +190,9 @@ declare module "sap/ui/layout/library" {
   /**
    * A string type that represents the indent values of the `Grid` for large, medium and small screens.
    *
-   * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 11 that
-   * the container has to take, for example: `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
+   * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+   * of columns from 1 to 11 that the container has to take, for example: `L2 M4 S6`, `M11`, `s10` or `l4
+   * m4`.
    *
    * **Note:** The parameters must be provided in the order .
    */
@@ -219,8 +220,9 @@ declare module "sap/ui/layout/library" {
   /**
    * A string type that represents the span values of the `Grid` for large, medium and small screens.
    *
-   * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-   * the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+   * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+   * of columns from 1 to 12 that the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4
+   * m4`.
    *
    * **Note:** The parameters must be provided in the order .
    */
@@ -1855,7 +1857,8 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
    */
   export default class CSSGrid
     extends Control
-    implements cssgrid.IGridConfigurable {
+    implements cssgrid.IGridConfigurable
+  {
     __implements__sap_ui_layout_cssgrid_IGridConfigurable: boolean;
     /**
      * Constructor for a new CSSGrid.
@@ -2994,7 +2997,8 @@ declare module "sap/ui/layout/cssgrid/GridItemLayoutData" {
    */
   export default class GridItemLayoutData
     extends LayoutData
-    implements cssgrid.IGridItemLayoutData {
+    implements cssgrid.IGridItemLayoutData
+  {
     __implements__sap_ui_layout_cssgrid_IGridItemLayoutData: boolean;
     /**
      * Constructor for a new `sap.ui.layout.cssgrid.GridItemLayoutData`.
@@ -4214,7 +4218,8 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnItemLayoutData" {
    */
   export default class ResponsiveColumnItemLayoutData
     extends LayoutData
-    implements cssgrid.IGridItemLayoutData {
+    implements cssgrid.IGridItemLayoutData
+  {
     __implements__sap_ui_layout_cssgrid_IGridItemLayoutData: boolean;
     /**
      * Constructor for a new `sap.ui.layout.cssgrid.ResponsiveColumnItemLayoutData`.
@@ -6713,7 +6718,7 @@ declare module "sap/ui/layout/form/Form" {
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
-     * In this case provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
      * to the needed value.
      */
     getTitle(): Title | string;
@@ -6723,7 +6728,7 @@ declare module "sap/ui/layout/form/Form" {
      * Toolbar of the `Form`.
      *
      * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
+     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
      * Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
@@ -6939,7 +6944,7 @@ declare module "sap/ui/layout/form/Form" {
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
-     * In this case provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
      * to the needed value.
      */
     title?: string | Title | PropertyBindingInfo;
@@ -6948,7 +6953,7 @@ declare module "sap/ui/layout/form/Form" {
      * Toolbar of the `Form`.
      *
      * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
+     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
      * Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
@@ -6963,6 +6968,10 @@ declare module "sap/ui/layout/form/Form" {
 
     /**
      * Association to controls / IDs that label this control (see WAI-ARIA attribute `aria-labelledby`).
+     *
+     * **Note:** Every `Form` needs to have some title or label (at least for screen reader support). If no
+     * `Title` is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
+     * or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using the `ariaLabelledBy` association.
      *
      * @since 1.28.0
      */
@@ -7423,6 +7432,10 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * **Note:** This attribute is only rendered if the `FormContainer` has it's own DOM representation in the
      * used `FormLayout`.
+     *
+     * **Note:** If there is more than one `FormContainers`, every `FormContainer` needs to have some title
+     * or label (at least for screen reader support). If no `Title` is set, a label or title needs to be assigned
+     * using the `ariaLabelledBy` association.
      *
      * @since 1.36.0
      */
@@ -8374,13 +8387,13 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
    * and the labels are rendered in the same row as the fields or above the fields. This behavior can be influenced
    * by the properties of this layout control.
    *
-   * On the {@link sap.ui.layout.form.FormContainer FormContainers}, labels and content fields, {@link sap.ui.layout.GridGata GridData }
-   * can be used to change the default rendering. {@link sap.ui.layout.GridGata GridData} is not supported
+   * On the {@link sap.ui.layout.form.FormContainer FormContainers}, labels and content fields, {@link sap.ui.layout.GridData GridData }
+   * can be used to change the default rendering. {@link sap.ui.layout.GridData GridData} is not supported
    * for {@link sap.ui.layout.form.FormElement FormElements}.
    *
-   * **Note:** If {@link sap.ui.layout.GridGata GridData} is used, this may result in a much more complex
+   * **Note:** If {@link sap.ui.layout.GridData GridData} is used, this may result in a much more complex
    * layout than the default one. This means that in some cases, the calculation for the other content may
-   * not bring the expected result. In such cases, {@link sap.ui.layout.GridGata GridData} should be used
+   * not bring the expected result. In such cases, {@link sap.ui.layout.GridData GridData} should be used
    * for all content controls to disable the default behavior.
    *
    * This control cannot be used stand-alone, it just renders a {@link sap.ui.layout.form.Form Form}, so it
@@ -10070,6 +10083,13 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Title element of the `SimpleForm`. Can either be a `Title` element, or a string.
      *
+     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     *
+     * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
+     * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
+     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * to the needed value.
+     *
      * @since 1.16.3
      */
     getTitle(): Title | string;
@@ -10079,7 +10099,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Toolbar of the `SimpleForm`.
      *
      * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
+     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
      *
      * @since 1.36.0
      */
@@ -11036,6 +11056,13 @@ declare module "sap/ui/layout/form/SimpleForm" {
     /**
      * Title element of the `SimpleForm`. Can either be a `Title` element, or a string.
      *
+     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     *
+     * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
+     * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
+     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * to the needed value.
+     *
      * @since 1.16.3
      */
     title?: string | Title | PropertyBindingInfo;
@@ -11044,7 +11071,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Toolbar of the `SimpleForm`.
      *
      * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
+     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
      *
      * @since 1.36.0
      */
@@ -11052,6 +11079,10 @@ declare module "sap/ui/layout/form/SimpleForm" {
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
+     *
+     * **Note:** Every `Form` needs to have some title or label (at least for screen reader support). If no
+     * `Title` is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
+     * or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using the `ariaLabelledBy` association.
      *
      * @since 1.32.0
      */
@@ -11233,9 +11264,9 @@ declare module "sap/ui/layout/Grid" {
      * Gets current value of property {@link #getDefaultIndent defaultIndent}.
      *
      * Optional. Defines default for the whole Grid numbers of empty columns before the current span begins.
-     * It can be defined for large, medium and small screens. Allowed values are separated by space Letters
-     * L, M or S followed by number of columns from 0 to 11 that the container has to take, for example, `L2
-     * M4 S6`, `M11`, `s10` or `l4 m4`.
+     * It can be defined for large, medium and small screens. Allowed values are separated by space with case
+     * insensitive Letters XL, L, M or S followed by number of columns from 0 to 11 that the container has to
+     * take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11249,8 +11280,9 @@ declare module "sap/ui/layout/Grid" {
      * Gets current value of property {@link #getDefaultSpan defaultSpan}.
      *
      * Optional. A string type that represents the span values of the `Grid` for large, medium and small screens.
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11402,9 +11434,9 @@ declare module "sap/ui/layout/Grid" {
      * Sets a new value for property {@link #getDefaultIndent defaultIndent}.
      *
      * Optional. Defines default for the whole Grid numbers of empty columns before the current span begins.
-     * It can be defined for large, medium and small screens. Allowed values are separated by space Letters
-     * L, M or S followed by number of columns from 0 to 11 that the container has to take, for example, `L2
-     * M4 S6`, `M11`, `s10` or `l4 m4`.
+     * It can be defined for large, medium and small screens. Allowed values are separated by space with case
+     * insensitive Letters XL, L, M or S followed by number of columns from 0 to 11 that the container has to
+     * take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11425,8 +11457,9 @@ declare module "sap/ui/layout/Grid" {
      * Sets a new value for property {@link #getDefaultSpan defaultSpan}.
      *
      * Optional. A string type that represents the span values of the `Grid` for large, medium and small screens.
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11549,8 +11582,9 @@ declare module "sap/ui/layout/Grid" {
 
     /**
      * Optional. A string type that represents the span values of the `Grid` for large, medium and small screens.
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      */
@@ -11558,9 +11592,9 @@ declare module "sap/ui/layout/Grid" {
 
     /**
      * Optional. Defines default for the whole Grid numbers of empty columns before the current span begins.
-     * It can be defined for large, medium and small screens. Allowed values are separated by space Letters
-     * L, M or S followed by number of columns from 0 to 11 that the container has to take, for example, `L2
-     * M4 S6`, `M11`, `s10` or `l4 m4`.
+     * It can be defined for large, medium and small screens. Allowed values are separated by space with case
+     * insensitive Letters XL, L, M or S followed by number of columns from 0 to 11 that the container has to
+     * take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
      *
      * **Note:** The parameters must be provided in the order .
      */
@@ -11681,8 +11715,9 @@ declare module "sap/ui/layout/GridData" {
      *
      * A string type that represents the indent values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 11 that
-     * the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 11 that the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11846,8 +11881,9 @@ declare module "sap/ui/layout/GridData" {
      *
      * A string type that represents the span values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -12013,8 +12049,9 @@ declare module "sap/ui/layout/GridData" {
      *
      * A string type that represents the indent values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 11 that
-     * the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 11 that the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -12283,8 +12320,9 @@ declare module "sap/ui/layout/GridData" {
      *
      * A string type that represents the span values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -12558,8 +12596,9 @@ declare module "sap/ui/layout/GridData" {
     /**
      * A string type that represents the span values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      */
@@ -12592,8 +12631,9 @@ declare module "sap/ui/layout/GridData" {
     /**
      * A string type that represents the indent values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 11 that
-     * the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 11 that the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      */
@@ -14962,6 +15002,9 @@ declare module "sap/ui/layout/VerticalLayout" {
 
   /**
    * In this layout the content controls are rendered one below the other.
+   *
+   * **Note:** `VerticalLayout` is not a focusable element and therefore the inheritance of the `tooltip`
+   * property isn't supported.
    *
    * @since 1.16.0
    */

@@ -43,10 +43,10 @@ export = httpHeaders;
  *   console.log(httpHeaders(res))
  * }).listen(8080)
  */
-declare function httpHeaders(
+declare function httpHeaders<T extends boolean>(
     data: string | Buffer | ServerResponse,
-    onlyHeaders?: boolean,
-): httpHeaders.RequestData | httpHeaders.ResponseData | httpHeaders.Headers;
+    onlyHeaders?: T,
+): T extends true ? httpHeaders.Headers : (httpHeaders.RequestData | httpHeaders.ResponseData | httpHeaders.Headers);
 
 declare namespace httpHeaders {
     interface RequestData {

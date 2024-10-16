@@ -21,6 +21,22 @@
         {
             "name": "Joshua Schmeder",
             "githubUsername": "MaximumWoahverdrive"
+        },
+        {
+            "name": "a-sync",
+            "githubUsername": "a-sync"
         }
-    ]
+    ],
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./index.d.ts",
+                "default": "./index.js"
+            },
+            "require": {
+                "types": "./index.d.cts",
+                "default": "./index.cjs"
+            }
+        }
+    }
 }

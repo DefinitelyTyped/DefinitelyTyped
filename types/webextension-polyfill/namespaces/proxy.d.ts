@@ -2,16 +2,13 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.proxy
- *
- * Provides access to global proxy settings for Firefox and proxy event listeners to handle dynamic proxy implementations.
- * Permissions: "proxy"
- */
 import { Events } from "./events";
 import { Types } from "./types";
 import { WebRequest } from "./webRequest";
 
+/**
+ * Namespace: browser.proxy
+ */
 export namespace Proxy {
     /**
      * An object which describes proxy settings.
@@ -72,7 +69,8 @@ export namespace Proxy {
         autoLogin?: boolean;
 
         /**
-         * Proxy DNS when using SOCKS v5.
+         * Proxy DNS when using SOCKS. DNS queries get leaked to the network when set to false. True by default for SOCKS v5.
+         * False by default for SOCKS v4.
          * Optional.
          */
         proxyDNS?: boolean;
@@ -209,8 +207,6 @@ export namespace Proxy {
 
         /**
          * Notifies about errors caused by the invalid use of the proxy API.
-         *
-         * @param error
          */
         onError: Events.Event<(error: OnErrorErrorType) => void>;
 

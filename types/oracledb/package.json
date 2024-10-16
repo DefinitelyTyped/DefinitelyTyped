@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/oracledb",
-    "version": "6.4.9999",
+    "version": "6.5.9999",
     "projects": [
         "https://github.com/oracle/node-oracledb"
     ],

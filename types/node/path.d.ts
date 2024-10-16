@@ -11,9 +11,9 @@ declare module "path/win32" {
  * paths. It can be accessed using:
  *
  * ```js
- * const path = require('node:path');
+ * import path from 'node:path';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/path.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/path.js)
  */
 declare module "path" {
     namespace path {
@@ -94,6 +94,15 @@ declare module "path" {
              * @throws {TypeError} if any of the arguments is not a string.
              */
             resolve(...paths: string[]): string;
+            /**
+             * The `path.matchesGlob()` method determines if `path` matches the `pattern`.
+             * @param path The path to glob-match against.
+             * @param pattern The glob to check the path against.
+             * @returns Whether or not the `path` matched the `pattern`.
+             * @throws {TypeError} if `path` or `pattern` are not strings.
+             * @since v22.5.0
+             */
+            matchesGlob(path: string, pattern: string): boolean;
             /**
              * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
              *

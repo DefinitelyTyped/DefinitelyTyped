@@ -353,7 +353,7 @@ export interface UnaryExpression extends BaseExpression {
 export interface BinaryExpression extends BaseExpression {
     type: "BinaryExpression";
     operator: BinaryOperator;
-    left: Expression;
+    left: Expression | PrivateIdentifier;
     right: Expression;
 }
 
@@ -638,7 +638,7 @@ export interface ImportDeclaration extends BaseModuleDeclaration {
 
 export interface ImportSpecifier extends BaseModuleSpecifier {
     type: "ImportSpecifier";
-    imported: Identifier;
+    imported: Identifier | Literal;
 }
 
 export interface ImportExpression extends BaseExpression {
@@ -661,9 +661,10 @@ export interface ExportNamedDeclaration extends BaseModuleDeclaration {
     source?: Literal | null | undefined;
 }
 
-export interface ExportSpecifier extends BaseModuleSpecifier {
+export interface ExportSpecifier extends Omit<BaseModuleSpecifier, "local"> {
     type: "ExportSpecifier";
-    exported: Identifier;
+    local: Identifier | Literal;
+    exported: Identifier | Literal;
 }
 
 export interface ExportDefaultDeclaration extends BaseModuleDeclaration {
@@ -673,7 +674,7 @@ export interface ExportDefaultDeclaration extends BaseModuleDeclaration {
 
 export interface ExportAllDeclaration extends BaseModuleDeclaration {
     type: "ExportAllDeclaration";
-    exported: Identifier | null;
+    exported: Identifier | Literal | null;
     source: Literal;
 }
 

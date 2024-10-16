@@ -1,4 +1,4 @@
-declare class Delaunator<P> {
+declare class Delaunator<A extends ArrayLike<number>> {
     /**
      * A Uint32Array array of triangle vertex indices (each group of three numbers forms a triangle).
      * All triangles are directed counterclockwise.
@@ -22,24 +22,28 @@ declare class Delaunator<P> {
     /**
      * An array of input coordinates in the form [x0, y0, x1, y1, ....], of the type provided in the constructor (or Float64Array if you used Delaunator.from).
      */
-    coords: ArrayLike<number> | Float64Array;
+    coords: A;
 
     /**
      * Constructs a delaunay triangulation object given a typed array of point coordinates of the form: [x0, y0, x1, y1, ...].
      * (use a typed array for best performance).
      */
-    constructor(points: ArrayLike<number>);
+    constructor(points: A);
 
     /**
      * Constructs a delaunay triangulation object given an array of points ([x, y] by default).
      */
-    static from(points: ArrayLike<ArrayLike<number>>): Delaunator<ArrayLike<number>>;
+    static from(points: ArrayLike<ArrayLike<number>>): Delaunator<Float64Array>;
 
     /**
      * Constructs a delaunay triangulation object given an array of custom points. Duplicate points are skipped.
      * getX and getY are optional functions for custom point formats. Duplicate points are skipped.
      */
-    static from<P>(points: ArrayLike<P>, getX: (point: P) => number, getY: (point: P) => number): Delaunator<P>;
+    static from<P>(
+        points: ArrayLike<P>,
+        getX: (point: P) => number,
+        getY: (point: P) => number,
+    ): Delaunator<Float64Array>;
 
     /**
      * Updates the triangulation if you modified delaunay.coords values in place, avoiding expensive memory

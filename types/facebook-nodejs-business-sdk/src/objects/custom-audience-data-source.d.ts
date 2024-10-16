@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CustomAudienceDataSource
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -10,6 +10,7 @@ export default class CustomAudienceDataSource extends AbstractCrudObject {
         type: "type";
     }>;
     static get SubType(): Readonly<{
+        ad_campaign: "AD_CAMPAIGN";
         anything: "ANYTHING";
         app_users: "APP_USERS";
         ar_effects_events: "AR_EFFECTS_EVENTS";
@@ -31,6 +32,7 @@ export default class CustomAudienceDataSource extends AbstractCrudObject {
         facebook_wifi_events: "FACEBOOK_WIFI_EVENTS";
         fb_event_signals: "FB_EVENT_SIGNALS";
         fb_pixel_hits: "FB_PIXEL_HITS";
+        group_events: "GROUP_EVENTS";
         hashes: "HASHES";
         hashes_or_user_ids: "HASHES_OR_USER_IDS";
         household_expansion: "HOUSEHOLD_EXPANSION";
@@ -39,6 +41,7 @@ export default class CustomAudienceDataSource extends AbstractCrudObject {
         instant_article_events: "INSTANT_ARTICLE_EVENTS";
         lookalike_platform: "LOOKALIKE_PLATFORM";
         mail_chimp_email_hashes: "MAIL_CHIMP_EMAIL_HASHES";
+        marketplace_listings: "MARKETPLACE_LISTINGS";
         messenger_onsite_subscription: "MESSENGER_ONSITE_SUBSCRIPTION";
         mobile_advertiser_ids: "MOBILE_ADVERTISER_IDS";
         mobile_app_combination_events: "MOBILE_APP_COMBINATION_EVENTS";
@@ -69,6 +72,7 @@ export default class CustomAudienceDataSource extends AbstractCrudObject {
         web_pixel_combination_events: "WEB_PIXEL_COMBINATION_EVENTS";
         web_pixel_hits: "WEB_PIXEL_HITS";
         web_pixel_hits_custom_audience_users: "WEB_PIXEL_HITS_CUSTOM_AUDIENCE_USERS";
+        whatsapp_subscriber_pool: "WHATSAPP_SUBSCRIBER_POOL";
     }>;
     static get Type(): Readonly<{
         contact_importer: "CONTACT_IMPORTER";

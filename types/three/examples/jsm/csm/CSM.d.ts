@@ -1,4 +1,5 @@
 import { Camera, DirectionalLight, Material, Object3D, Vector2, Vector3 } from "three";
+import { CSMFrustum } from "./CSMFrustum.js";
 
 export type CSMMode = "uniform" | "logarithmic" | "practical" | "custom";
 
@@ -34,8 +35,8 @@ export class CSM {
     lightMargin: number;
     customSplitsCallback: (cascades: number, cameraNear: number, cameraFar: number, breaks: number[]) => void;
     fade: boolean;
-    mainFrustum: CSMFrustrum;
-    frustums: CSMFrustrum[];
+    mainFrustum: CSMFrustum;
+    frustums: CSMFrustum[];
     breaks: number[];
     lights: DirectionalLight[];
     shaders: Map<unknown, string>;
@@ -52,5 +53,3 @@ export class CSM {
     remove(): void;
     dispose(): void;
 }
-
-import CSMFrustrum from "./CSMFrustum.js";

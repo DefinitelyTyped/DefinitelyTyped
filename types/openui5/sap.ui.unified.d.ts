@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -284,6 +284,15 @@ declare module "sap/ui/unified/library" {
     Expanded = "Expanded",
   }
   /**
+   * Interface for controls which are suitable to add as items of sap.m.Menu.
+   *
+   * @since 1.127.0
+   */
+  export interface IMenuItem {
+    __implements__sap_ui_unified_IMenuItem: boolean;
+  }
+
+  /**
    * Marker interface for controls that process instances of `window.Blob`, such as `window.File`. The implementation
    * of this Interface should implement the following Interface methods:
    * 	 - `getProcessedBlobsFromArray`
@@ -309,6 +318,15 @@ declare module "sap/ui/unified/library" {
     ): Promise<Blob[]>;
   }
 
+  /**
+   * Interval types in a `RecurrenceType`.
+   *
+   * This enum is part of the 'sap/ui/unified/library' module export and must be accessed by the property
+   * 'RecurrenceType'.
+   *
+   * @since 1.127.0
+   */
+  export enum RecurrenceType {}
   /**
    * Standard day types visualized in a {@link sap.m.PlanningCalendarLegend}, which correspond to days in
    * a {@link sap.ui.unified.Calendar}.
@@ -5323,8 +5341,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import CalendarType from "sap/ui/core/CalendarType";
-
   import CalendarLegend from "sap/ui/unified/CalendarLegend";
 
   import {
@@ -5687,28 +5703,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     getMonths(): int;
     /**
-     * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
-     *
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * @since 1.108.0
-     *
-     * @returns Value of property `primaryCalendarType`
-     */
-    getPrimaryCalendarType(): CalendarType;
-    /**
-     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
-     *
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * @since 1.109.0
-     *
-     * @returns Value of property `secondaryCalendarType`
-     */
-    getSecondaryCalendarType(): CalendarType;
-    /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -5946,42 +5940,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       iMonths?: int
     ): this;
     /**
-     * Sets a new value for property {@link #getPrimaryCalendarType primaryCalendarType}.
-     *
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @since 1.108.0
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setPrimaryCalendarType(
-      /**
-       * New value for property `primaryCalendarType`
-       */
-      sPrimaryCalendarType: CalendarType
-    ): this;
-    /**
-     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
-     *
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @since 1.109.0
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setSecondaryCalendarType(
-      /**
-       * New value for property `secondaryCalendarType`
-       */
-      sSecondaryCalendarType: CalendarType
-    ): this;
-    /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
      *
      * If set, a header with the years is shown to visualize what month belongs to what year.
@@ -6071,22 +6029,6 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * @since 1.108.0
-     */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * @since 1.109.0
-     */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -6188,8 +6130,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
   import UI5Date from "sap/ui/core/date/UI5Date";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import CalendarType from "sap/ui/core/CalendarType";
 
   import CalendarLegend from "sap/ui/unified/CalendarLegend";
 
@@ -6568,28 +6508,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      */
     getLegend(): ID | null;
     /**
-     * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
-     *
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * @since 1.108.0
-     *
-     * @returns Value of property `primaryCalendarType`
-     */
-    getPrimaryCalendarType(): CalendarType;
-    /**
-     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
-     *
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * @since 1.109.0
-     *
-     * @returns Value of property `secondaryCalendarType`
-     */
-    getSecondaryCalendarType(): CalendarType;
-    /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -6845,42 +6763,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       oLegend: ID | CalendarLegend
     ): this;
     /**
-     * Sets a new value for property {@link #getPrimaryCalendarType primaryCalendarType}.
-     *
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @since 1.108.0
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setPrimaryCalendarType(
-      /**
-       * New value for property `primaryCalendarType`
-       */
-      sPrimaryCalendarType: CalendarType
-    ): this;
-    /**
-     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
-     *
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * @since 1.109.0
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setSecondaryCalendarType(
-      /**
-       * New value for property `secondaryCalendarType`
-       */
-      sSecondaryCalendarType: CalendarType
-    ): this;
-    /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
      *
      * If set, a header with the years is shown to visualize what month belongs to what year.
@@ -6980,22 +6862,6 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
-     * is used.
-     *
-     * @since 1.108.0
-     */
-    primaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
-     * the primary calendar type
-     *
-     * @since 1.109.0
-     */
-    secondaryCalendarType?: CalendarType | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -9913,6 +9779,8 @@ declare module "sap/ui/unified/CalendarRow" {
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
+  import NonWorkingPeriod from "sap/ui/unified/NonWorkingPeriod";
+
   import Event from "sap/ui/base/Event";
 
   import UI5Date from "sap/ui/core/date/UI5Date";
@@ -10037,6 +9905,19 @@ declare module "sap/ui/unified/CalendarRow" {
        * The intervalHeader to add; if empty, nothing is inserted
        */
       oIntervalHeader: CalendarAppointment
+    ): this;
+    /**
+     * Adds some nonWorkingPeriod to the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addNonWorkingPeriod(
+      /**
+       * The nonWorkingPeriod to add; if empty, nothing is inserted
+       */
+      oNonWorkingPeriod: NonWorkingPeriod
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:intervalSelect intervalSelect} event of this
@@ -10248,6 +10129,14 @@ declare module "sap/ui/unified/CalendarRow" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyIntervalHeaders(): this;
+    /**
+     * Destroys all the nonWorkingPeriods in the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyNonWorkingPeriods(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:intervalSelect intervalSelect} event of this
      * `sap.ui.unified.CalendarRow`.
@@ -10619,6 +10508,14 @@ declare module "sap/ui/unified/CalendarRow" {
      */
     getNonWorkingHours(): int[];
     /**
+     * Gets content of aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * Sets the provided period to be displayed as a non-working.
+     *
+     * @since 1.128
+     */
+    getNonWorkingPeriods(): NonWorkingPeriod[];
+    /**
      * Gets current value of property {@link #getShowEmptyIntervalHeaders showEmptyIntervalHeaders}.
      *
      * If set, interval headers are shown even if no `intervalHeaders` are assigned to the visible time frame.
@@ -10740,6 +10637,20 @@ declare module "sap/ui/unified/CalendarRow" {
       oIntervalHeader: CalendarAppointment
     ): int;
     /**
+     * Checks for the provided `sap.ui.unified.NonWorkingPeriod` in the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @since 1.128
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfNonWorkingPeriod(
+      /**
+       * The nonWorkingPeriod whose index is looked for
+       */
+      oNonWorkingPeriod: NonWorkingPeriod
+    ): int;
+    /**
      * Inserts a appointment into the aggregation {@link #getAppointments appointments}.
      *
      *
@@ -10776,6 +10687,25 @@ declare module "sap/ui/unified/CalendarRow" {
       iIndex: int
     ): this;
     /**
+     * Inserts a nonWorkingPeriod into the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * @since 1.128
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertNonWorkingPeriod(
+      /**
+       * The nonWorkingPeriod to insert; if empty, nothing is inserted
+       */
+      oNonWorkingPeriod: NonWorkingPeriod,
+      /**
+       * The `0`-based index the nonWorkingPeriod should be inserted at; for a negative value of `iIndex`, the
+       * nonWorkingPeriod is inserted at position 0; for a value greater than the current size of the aggregation,
+       * the nonWorkingPeriod is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
      * Removes all the controls from the aggregation {@link #getAppointments appointments}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -10800,6 +10730,16 @@ declare module "sap/ui/unified/CalendarRow" {
      * @returns An array of the removed elements (might be empty)
      */
     removeAllIntervalHeaders(): CalendarAppointment[];
+    /**
+     * Removes all the controls from the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.128
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllNonWorkingPeriods(): NonWorkingPeriod[];
     /**
      * Removes a appointment from the aggregation {@link #getAppointments appointments}.
      *
@@ -10836,6 +10776,19 @@ declare module "sap/ui/unified/CalendarRow" {
        */
       vIntervalHeader: int | string | CalendarAppointment
     ): CalendarAppointment | null;
+    /**
+     * Removes a nonWorkingPeriod from the aggregation {@link #getNonWorkingPeriods nonWorkingPeriods}.
+     *
+     * @since 1.128
+     *
+     * @returns The removed nonWorkingPeriod or `null`
+     */
+    removeNonWorkingPeriod(
+      /**
+       * The nonWorkingPeriod to remove or its index or id
+       */
+      vNonWorkingPeriod: int | string | NonWorkingPeriod
+    ): NonWorkingPeriod | null;
     /**
      * Sets a new value for property {@link #getAppointmentHeight appointmentHeight}.
      *
@@ -11429,6 +11382,17 @@ declare module "sap/ui/unified/CalendarRow" {
     appointments?:
       | CalendarAppointment[]
       | CalendarAppointment
+      | AggregationBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Sets the provided period to be displayed as a non-working.
+     *
+     * @since 1.128
+     */
+    nonWorkingPeriods?:
+      | NonWorkingPeriod[]
+      | NonWorkingPeriod
       | AggregationBindingInfo
       | `{${string}}`;
 
@@ -14718,7 +14682,8 @@ declare module "sap/ui/unified/FileUploader" {
    */
   export default class FileUploader
     extends Control
-    implements IFormContent, IProcessableBlobs {
+    implements IFormContent, IProcessableBlobs
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_unified_IProcessableBlobs: boolean;
     /**
@@ -17592,7 +17557,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Required for receiving a `status` is to set the property `sendXHR` to true. This property is not supported
      * by Internet Explorer 9.
      */
-    status?: string;
+    status?: int;
 
     /**
      * Http-Response which comes from the server.
@@ -17991,7 +17956,9 @@ declare module "sap/ui/unified/Menu" {
 
   import { IContextMenu, ID, Dock, Collision } from "sap/ui/core/library";
 
-  import MenuItemBase from "sap/ui/unified/MenuItemBase";
+  import { IMenuItem } from "sap/ui/unified/library";
+
+  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -18002,7 +17969,7 @@ declare module "sap/ui/unified/Menu" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
-  import Event from "sap/ui/base/Event";
+  import MenuItemBase from "sap/ui/unified/MenuItemBase";
 
   /**
    * A menu is an interactive element which provides a choice of different actions to the user. These actions
@@ -18098,7 +18065,56 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The item to add; if empty, nothing is inserted
        */
-      oItem: MenuItemBase
+      oItem: IMenuItem
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
+     *
+     * Fired when the menu is closed.
+     *
+     * @since 1.129
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachClosed(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:closed closed} event of this `sap.ui.unified.Menu`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.unified.Menu` itself.
+     *
+     * Fired when the menu is closed.
+     *
+     * @since 1.129
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachClosed(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.unified.Menu` itself
+       */
+      oListener?: object
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
@@ -18163,6 +18179,25 @@ declare module "sap/ui/unified/Menu" {
      */
     destroyItems(): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:closed closed} event of this `sap.ui.unified.Menu`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.129
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachClosed(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:itemSelect itemSelect} event of this `sap.ui.unified.Menu`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -18179,6 +18214,20 @@ declare module "sap/ui/unified/Menu" {
        * Context object on which the given function had to be called
        */
       oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:closed closed} to attached listeners.
+     *
+     * @since 1.129
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireClosed(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
     ): this;
     /**
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
@@ -18226,7 +18275,7 @@ declare module "sap/ui/unified/Menu" {
      *
      * The available actions to be displayed as items of the menu.
      */
-    getItems(): MenuItemBase[];
+    getItems(): IMenuItem[];
     /**
      * Gets current value of property {@link #getMaxVisibleItems maxVisibleItems}.
      *
@@ -18259,8 +18308,18 @@ declare module "sap/ui/unified/Menu" {
      */
     getPageSize(): int;
     /**
-     * Checks for the provided `sap.ui.unified.MenuItemBase` in the aggregation {@link #getItems items}. and
-     * returns its index if found or -1 otherwise.
+     * Returns all items that have `selected` properties set to `true`. **Note:** Only items with `selected`
+     * property set that are members of `MenuItemGroup` with `ItemSelectionMode` property set to {@link sap.ui.core.ItemSelectionMode.SingleSelect }
+     * or {@link sap.ui.unified.ItemSelectionMode.MultiSelect}> are taken into account.
+     *
+     * @since 1.127.0
+     *
+     * @returns Array of all selected items
+     */
+    getSelectedItems(): any[];
+    /**
+     * Checks for the provided `sap.ui.unified.IMenuItem` in the aggregation {@link #getItems items}. and returns
+     * its index if found or -1 otherwise.
      *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
@@ -18269,7 +18328,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The item whose index is looked for
        */
-      oItem: MenuItemBase
+      oItem: IMenuItem
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
@@ -18281,7 +18340,7 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The item to insert; if empty, nothing is inserted
        */
-      oItem: MenuItemBase,
+      oItem: IMenuItem,
       /**
        * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
        * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
@@ -18366,7 +18425,7 @@ declare module "sap/ui/unified/Menu" {
      *
      * @returns An array of the removed elements (might be empty)
      */
-    removeAllItems(): MenuItemBase[];
+    removeAllItems(): IMenuItem[];
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -18390,8 +18449,8 @@ declare module "sap/ui/unified/Menu" {
       /**
        * The item to remove or its index or id
        */
-      vItem: int | string | MenuItemBase
-    ): MenuItemBase | null;
+      vItem: int | string | IMenuItem
+    ): IMenuItem | null;
     /**
      * Sets a new value for property {@link #getAriaDescription ariaDescription}.
      *
@@ -18514,11 +18573,7 @@ declare module "sap/ui/unified/Menu" {
     /**
      * The available actions to be displayed as items of the menu.
      */
-    items?:
-      | MenuItemBase[]
-      | MenuItemBase
-      | AggregationBindingInfo
-      | `{${string}}`;
+    items?: IMenuItem[] | IMenuItem | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Reference to accessible labels (ids of existing DOM elements or controls) for assistive technologies
@@ -18534,7 +18589,24 @@ declare module "sap/ui/unified/Menu" {
      * menu item. This event and the event of the menu items are redundant.
      */
     itemSelect?: (oEvent: Menu$ItemSelectEvent) => void;
+
+    /**
+     * Fired when the menu is closed.
+     *
+     * @since 1.129
+     */
+    closed?: (oEvent: Event) => void;
   }
+
+  /**
+   * Parameters of the Menu#closed event.
+   */
+  export interface Menu$ClosedEventParameters {}
+
+  /**
+   * Event object of the Menu#closed event.
+   */
+  export type Menu$ClosedEvent = Event<Menu$ClosedEventParameters, Menu>;
 
   /**
    * Parameters of the Menu#itemSelect event.
@@ -18561,6 +18633,8 @@ declare module "sap/ui/unified/MenuItem" {
     $MenuItemBaseSettings,
   } from "sap/ui/unified/MenuItemBase";
 
+  import { IMenuItem } from "sap/ui/unified/library";
+
   import { ID, URI } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
@@ -18575,7 +18649,8 @@ declare module "sap/ui/unified/MenuItem" {
    *
    * @since 1.21.0
    */
-  export default class MenuItem extends MenuItemBase {
+  export default class MenuItem extends MenuItemBase implements IMenuItem {
+    __implements__sap_ui_unified_IMenuItem: boolean;
     /**
      * Constructor for a new MenuItem element.
      *
@@ -18667,6 +18742,13 @@ declare module "sap/ui/unified/MenuItem" {
      */
     getIcon(): URI;
     /**
+     * @since 1.127.0
+     *
+     * @returns Returns `true` if the `MenuItem` is selected and is part of group with single or multi selection
+     * mode, `false` otherwise.
+     */
+    getSelected(): boolean;
+    /**
      * Gets current value of property {@link #getShortcutText shortcutText}.
      *
      * Defines the shortcut text that should be displayed on the menu item on non-mobile devices. **Note:**
@@ -18730,6 +18812,20 @@ declare module "sap/ui/unified/MenuItem" {
       sIcon?: URI
     ): this;
     /**
+     * Sets the `selected` state of the `MenuItem` and deselect other selected `MenuItem` controls if selection
+     * mode is `SingleSelect`.
+     *
+     * @since 1.127.0
+     *
+     * @returns Returns `this` to allow method chaining
+     */
+    setSelected(
+      /**
+       * Whether the state is selected or not
+       */
+      bState: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getShortcutText shortcutText}.
      *
      * Defines the shortcut text that should be displayed on the menu item on non-mobile devices. **Note:**
@@ -18783,6 +18879,16 @@ declare module "sap/ui/unified/MenuItem" {
      * displayed on the item.
      */
     icon?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the `MenuItem` is selected (default is set to `false`). A selected `MenuItem` has
+     * a check mark rendered at its end. **Note: ** selection functionality works only if the menu item is a
+     * member of `MenuItemGroup` with `itemSelectionMode` set to {@link sap.ui.core.ItemSelectionMode.SingleSelect }
+     * or {@link sap.ui.unified.ItemSelectionMode.MultiSelect}.
+     *
+     * @since 1.127.0
+     */
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the shortcut text that should be displayed on the menu item on non-mobile devices. **Note:**
@@ -19192,11 +19298,239 @@ declare module "sap/ui/unified/MenuItemBase" {
   >;
 }
 
+declare module "sap/ui/unified/MenuItemGroup" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import { IMenuItem } from "sap/ui/unified/library";
+
+  import { ItemSelectionMode } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Group item to be used inside a menu. A menu items group represents a collection of menu items that can
+   * have the same selection mode (e.g. {@link sap.ui.core.ItemSelectionMode.None}, {@link sap.ui.core.ItemSelectionMode.SingleSelect},
+   * or {@link sap.ui.unified.ItemSelectionMode.MultiSelect}).
+   *
+   * @since 1.127.0
+   */
+  export default class MenuItemGroup extends UI5Element implements IMenuItem {
+    __implements__sap_ui_unified_IMenuItem: boolean;
+    /**
+     * Constructor for a new MenuItemGroup element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MenuItemGroupSettings
+    );
+    /**
+     * Constructor for a new MenuItemGroup element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MenuItemGroupSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.MenuItemGroup with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MenuItemGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.MenuItemGroup.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Override of the default setter that adds a group reference to the item's `group` association.
+     *
+     *
+     * @returns `this` to allow method chaining
+     */
+    addItem(
+      /**
+       * Menu item to be added
+       */
+      oItem: IMenuItem,
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): this;
+    /**
+     * Destroys all items from `items` aggregation.
+     *
+     *
+     * @returns `this` to allow method chaining
+     */
+    destroyItems(
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): this;
+    /**
+     * Gets content of aggregation {@link #getItems items}.
+     *
+     * The available items of the menu. **Note:** Adding MenuItemGroup as an item to the MenuItemGroup is not
+     * supported.
+     */
+    getItems(): IMenuItem[];
+    /**
+     * Gets current value of property {@link #getItemSelectionMode itemSelectionMode}.
+     *
+     * Defines the selection mode of the child items (e.g. `None`, `SingleSelect`, `MultiSelect`)
+     *
+     * Default value is `None`.
+     *
+     *
+     * @returns Value of property `itemSelectionMode`
+     */
+    getItemSelectionMode(): ItemSelectionMode;
+    /**
+     * Checks for the provided `sap.ui.unified.IMenuItem` in the aggregation {@link #getItems items}. and returns
+     * its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfItem(
+      /**
+       * The item whose index is looked for
+       */
+      oItem: IMenuItem
+    ): int;
+    /**
+     * Override of the default setter that adds a group reference to the item's `group` association.
+     *
+     *
+     * @returns `this` to allow method chaining
+     */
+    insertItem(
+      /**
+       * Menu item to be added
+       */
+      oItem: IMenuItem,
+      /**
+       * Index at which the item should be inserted
+       */
+      iIndex: int,
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): this;
+    /**
+     * Removes all items from `items` aggregation.
+     *
+     *
+     * @returns array containing the removed items, or null if there are no items to remove
+     */
+    removeAllItems(
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): any[] | null;
+    /**
+     * Removes an item from `items` aggregation.
+     *
+     *
+     * @returns the removed object, or `null` if there are no items to remove
+     */
+    removeItem(
+      /**
+       * Menu item to be removed (as index, ID or object)
+       */
+      vItem: int | string | IMenuItem,
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): IMenuItem | null;
+    /**
+     * Override of the default setter that also ensures single selection if necessary.
+     *
+     *
+     * @returns `this` to allow method chaining
+     */
+    setItemSelectionMode(
+      /**
+       * item selection mode to be set
+       */
+      sSelectionMode: string,
+      /**
+       * Whether to suppress the invalidation of the control
+       */
+      bSuppressInvalidate: boolean
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the MenuItemGroup constructor.
+   */
+  export interface $MenuItemGroupSettings extends $ElementSettings {
+    /**
+     * Defines the selection mode of the child items (e.g. `None`, `SingleSelect`, `MultiSelect`)
+     */
+    itemSelectionMode?: ItemSelectionMode | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The available items of the menu. **Note:** Adding MenuItemGroup as an item to the MenuItemGroup is not
+     * supported.
+     */
+    items?: IMenuItem[] | IMenuItem | AggregationBindingInfo | `{${string}}`;
+  }
+}
+
 declare module "sap/ui/unified/MenuTextFieldItem" {
   import {
     default as MenuItemBase,
     $MenuItemBaseSettings,
   } from "sap/ui/unified/MenuItemBase";
+
+  import { IMenuItem } from "sap/ui/unified/library";
 
   import { URI, ValueState } from "sap/ui/core/library";
 
@@ -19213,7 +19547,11 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
    *
    * @since 1.21.0
    */
-  export default class MenuTextFieldItem extends MenuItemBase {
+  export default class MenuTextFieldItem
+    extends MenuItemBase
+    implements IMenuItem
+  {
+    __implements__sap_ui_unified_IMenuItem: boolean;
     /**
      * Constructor for a new MenuTextFieldItem element.
      *
@@ -19443,6 +19781,315 @@ declare module "sap/ui/unified/MenuTextFieldItem" {
       | (ValueState | keyof typeof ValueState)
       | PropertyBindingInfo
       | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/unified/NonWorkingPeriod" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import TimeRange from "sap/ui/unified/TimeRange";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * NonWorkingPeriod
+   *
+   * @since 1.27.0
+   * @experimental (since 1.127.0)
+   */
+  export default class NonWorkingPeriod extends UI5Element {
+    /**
+     * Constructor for a new NonWorkingPeriod.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $NonWorkingPeriodSettings
+    );
+    /**
+     * Constructor for a new NonWorkingPeriod.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $NonWorkingPeriodSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.NonWorkingPeriod with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NonWorkingPeriod>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.NonWorkingPeriod.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Destroys the timeRange in the aggregation {@link #getTimeRange timeRange}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyTimeRange(): this;
+    /**
+     * Gets current value of property {@link #getDate date}.
+     *
+     * Determines the day to which the timeRange refers. This object must be a UI5Date or JavaScript Date object.
+     *
+     *
+     * @returns Value of property `date`
+     */
+    getDate(): object;
+    /**
+     * Returns the duration of the non-working period.
+     *
+     *
+     * @returns returns a number that represents the duration of a calendar item in minutes
+     */
+    getDurationInMinutes(): int;
+    /**
+     * Gets content of aggregation {@link #getTimeRange timeRange}.
+     *
+     * Defines the hours range for the non-working period.
+     */
+    getTimeRange(): TimeRange;
+    /**
+     * Sets a new value for property {@link #getDate date}.
+     *
+     * Determines the day to which the timeRange refers. This object must be a UI5Date or JavaScript Date object.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDate(
+      /**
+       * New value for property `date`
+       */
+      oDate: object
+    ): this;
+    /**
+     * Sets the aggregated {@link #getTimeRange timeRange}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTimeRange(
+      /**
+       * The timeRange to set
+       */
+      oTimeRange: TimeRange
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the NonWorkingPeriod constructor.
+   *
+   * @experimental (since 1.127.0)
+   */
+  export interface $NonWorkingPeriodSettings extends $ElementSettings {
+    /**
+     * Determines the day to which the timeRange refers. This object must be a UI5Date or JavaScript Date object.
+     */
+    date?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the hours range for the non-working period.
+     */
+    timeRange?: TimeRange;
+  }
+}
+
+declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
+  import Metadata from "sap/ui/base/Metadata";
+
+  import { RecurrenceType } from "sap/ui/unified/library";
+
+  /**
+   * A `RecurringNonWorkingPeriod` for use in a `PlanningCalendar` and `SinglePlanningCalendar`.
+   *
+   * Applications can inherit from this element to add own fields.
+   *
+   * @since 1.127.0
+   * @experimental (since 1.127.0)
+   */
+  export default class RecurringNonWorkingPeriod
+    extends /* was: sap.ui.unified. */ Object
+  {
+    /**
+     * Constructor for a new `RecurringNonWorkingPeriod`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: object
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.RecurringNonWorkingPeriod with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified..extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RecurringNonWorkingPeriod>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.RecurringNonWorkingPeriod.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): Metadata;
+    /**
+     * Gets current value of property {@link #getRecurrenceEndDate recurrenceEndDate}.
+     *
+     * Determines the end date of the calendar item, as a UI5Date or JavaScript Date object. It is considered
+     * as a local date.
+     *
+     *
+     * @returns Value of property `recurrenceEndDate`
+     */
+    getRecurrenceEndDate(): object;
+    /**
+     * Gets current value of property {@link #getRecurrencePattern recurrencePattern}.
+     *
+     * The recurrencePattern is an integer value which, in combination with the recurrenceType, sets the recurrence
+     * frequency for a calendar item. For example, if the recurrenceType is set to "Daily" and the recurrencePattern
+     * is set to 1, it signifies that repetition is set for every day. If the recurrencePattern is set to 3,
+     * this would imply the calendar item is recurring once for every three days.
+     *
+     * Default value is `1`.
+     *
+     *
+     * @returns Value of property `recurrencePattern`
+     */
+    getRecurrencePattern(): int;
+    /**
+     * Gets current value of property {@link #getRecurrenceType recurrenceType}.
+     *
+     * The recurrenceType determines the pattern of recurrence for a given calendar item.
+     *
+     *
+     * @returns Value of property `recurrenceType`
+     */
+    getRecurrenceType(): RecurrenceType | keyof typeof RecurrenceType;
+    /**
+     * Sets a new value for property {@link #getRecurrenceEndDate recurrenceEndDate}.
+     *
+     * Determines the end date of the calendar item, as a UI5Date or JavaScript Date object. It is considered
+     * as a local date.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceEndDate(
+      /**
+       * New value for property `recurrenceEndDate`
+       */
+      oRecurrenceEndDate: object
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRecurrencePattern recurrencePattern}.
+     *
+     * The recurrencePattern is an integer value which, in combination with the recurrenceType, sets the recurrence
+     * frequency for a calendar item. For example, if the recurrenceType is set to "Daily" and the recurrencePattern
+     * is set to 1, it signifies that repetition is set for every day. If the recurrencePattern is set to 3,
+     * this would imply the calendar item is recurring once for every three days.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrencePattern(
+      /**
+       * New value for property `recurrencePattern`
+       */
+      iRecurrencePattern?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRecurrenceType recurrenceType}.
+     *
+     * The recurrenceType determines the pattern of recurrence for a given calendar item.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceType(
+      /**
+       * New value for property `recurrenceType`
+       */
+      sRecurrenceType: RecurrenceType | keyof typeof RecurrenceType
+    ): this;
   }
 }
 
@@ -22111,6 +22758,207 @@ declare module "sap/ui/unified/SplitContainer" {
   }
 }
 
+declare module "sap/ui/unified/TimeRange" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Time range for use in `NonWorkingPeriod`
+   *
+   * @since 1.127.0
+   * @experimental (since 1.127.0)
+   */
+  export default class TimeRange extends UI5Element {
+    /**
+     * Constructor for a new TimeRange.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $TimeRangeSettings
+    );
+    /**
+     * Constructor for a new TimeRange.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $TimeRangeSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.TimeRange with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TimeRange>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.TimeRange.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getEnd end}.
+     *
+     * End time for a time range. This must be a String.
+     *
+     *
+     * @returns Value of property `end`
+     */
+    getEnd(): string;
+    /**
+     * Get end date for a time range. From this date, only hours, minutes, seconds, and milliseconds are used.
+     *
+     *
+     * @returns [oDate] A date instance
+     */
+    getEndDate(): Date | UI5Date;
+    /**
+     * Gets current value of property {@link #getStart start}.
+     *
+     * Start time for a time range. This must be a String.
+     *
+     *
+     * @returns Value of property `start`
+     */
+    getStart(): string;
+    /**
+     * Get start date for a time range. From this date, only hours, minutes, seconds, and milliseconds are used.
+     *
+     *
+     * @returns [oDate] A date instance
+     */
+    getStartDate(): Date | UI5Date;
+    /**
+     * Gets current value of property {@link #getValueFormat valueFormat}.
+     *
+     * Determines the format of the startTime and endTime
+     *
+     * **Note:** a time pattern in LDML format. It is not verified whether the pattern only represents a time.
+     *
+     * Default value is `"hh:mm"`.
+     *
+     *
+     * @returns Value of property `valueFormat`
+     */
+    getValueFormat(): string;
+    /**
+     * Sets a new value for property {@link #getEnd end}.
+     *
+     * End time for a time range. This must be a String.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnd(
+      /**
+       * New value for property `end`
+       */
+      sEnd?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getStart start}.
+     *
+     * Start time for a time range. This must be a String.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setStart(
+      /**
+       * New value for property `start`
+       */
+      sStart?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValueFormat valueFormat}.
+     *
+     * Determines the format of the startTime and endTime
+     *
+     * **Note:** a time pattern in LDML format. It is not verified whether the pattern only represents a time.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"hh:mm"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValueFormat(
+      /**
+       * New value for property `valueFormat`
+       */
+      sValueFormat?: string
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the TimeRange constructor.
+   *
+   * @experimental (since 1.127.0)
+   */
+  export interface $TimeRangeSettings extends $ElementSettings {
+    /**
+     * Start time for a time range. This must be a String.
+     */
+    start?: string | PropertyBindingInfo;
+
+    /**
+     * End time for a time range. This must be a String.
+     */
+    end?: string | PropertyBindingInfo;
+
+    /**
+     * Determines the format of the startTime and endTime
+     *
+     * **Note:** a time pattern in LDML format. It is not verified whether the pattern only represents a time.
+     */
+    valueFormat?: string | PropertyBindingInfo;
+  }
+}
+
 declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/unified/Calendar": undefined;
@@ -22173,7 +23021,13 @@ declare namespace sap {
 
     "sap/ui/unified/MenuItemBase": undefined;
 
+    "sap/ui/unified/MenuItemGroup": undefined;
+
     "sap/ui/unified/MenuTextFieldItem": undefined;
+
+    "sap/ui/unified/NonWorkingPeriod": undefined;
+
+    "sap/ui/unified/RecurringNonWorkingPeriod": undefined;
 
     "sap/ui/unified/Shell": undefined;
 
@@ -22186,5 +23040,7 @@ declare namespace sap {
     "sap/ui/unified/ShellOverlay": undefined;
 
     "sap/ui/unified/SplitContainer": undefined;
+
+    "sap/ui/unified/TimeRange": undefined;
   }
 }

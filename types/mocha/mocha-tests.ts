@@ -921,6 +921,7 @@ function test_constructor_all_options() {
         delay: true,
         diff: true,
         dryRun: true,
+        failZero: true,
         fgrep: "test",
         forbidOnly: true,
         forbidPending: true,
@@ -948,6 +949,12 @@ function test_constructor_all_options() {
         require: ["./rootHooks.js"],
         isWorker: true,
     });
+}
+
+function test_instance_methods() {
+    let m: Mocha = new LocalMocha();
+
+    m = m.failZero(true);
 }
 
 function test_run(localMocha: LocalMocha) {
@@ -1122,6 +1129,9 @@ function test_base_reporter_properties(reporter: LocalMocha.reporters.Base) {
 
     // $ExpectType number | undefined
     reporter.stats.duration;
+
+    // $ExpectType (...data: any[]) => void
+    LocalMocha.reporters.Base.consoleLog;
 }
 
 function test_runner_events(runner: LocalMocha.Runner) {

@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/govuk-frontend",
+    "version": "5.7.9999",
+    "projects": [
+        "https://github.com/alphagov/govuk-frontend",
+        "https://frontend.design-system.service.gov.uk"
+    ],
+    "exports": {
+        ".": {
+            "import": "./dist/govuk/all.d.mts",
+            "require": "./dist/govuk/all.bundle.d.ts"
+        }
+    },
+    "devDependencies": {
+        "@types/govuk-frontend": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Colin Rotherham",
+            "githubUsername": "colinrotherham"
+        },
+        {
+            "name": "Romaric Pascal",
+            "githubUsername": "romaricpascal"
+        }
+    ]
+}

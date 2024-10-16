@@ -1,4 +1,13 @@
-import OvenPlayer, { OvenPlayerQuality } from "ovenplayer";
+import OvenPlayer, {
+    create,
+    debug,
+    generateWebrtcUrls,
+    getPlayerByContainerId,
+    getPlayerByIndex,
+    getPlayerList,
+    OvenPlayerQuality,
+    removePlayer,
+} from "ovenplayer";
 
 const playerContainer1 = document.createElement("div");
 playerContainer1.id = "player1";
@@ -8,17 +17,17 @@ document.body.appendChild(playerContainer1);
 // interface OvenPlayerWebRTCStream and interface OvenPlayerSource
 
 // debug(debug: boolean): boolean;
-const debug: boolean = OvenPlayer.debug(true);
+const debugEnabled: boolean = debug(true);
 
 // generateWebrtcUrls(sources: OvenPlayerWebRTCStream | OvenPlayerWebRTCStream[]): OvenPlayerSource[];
-const webrtcSources1 = OvenPlayer.generateWebrtcUrls({
+const webrtcSources1 = generateWebrtcUrls({
     host: "ws://host:port",
     application: "app",
     stream: "stream_1080",
     label: "WebRTC 1080P",
 });
 
-const webrtcSources2 = OvenPlayer.generateWebrtcUrls([
+const webrtcSources2 = generateWebrtcUrls([
     {
         host: "ws://host:port",
         application: "app",
@@ -28,7 +37,7 @@ const webrtcSources2 = OvenPlayer.generateWebrtcUrls([
 ]);
 
 // create(container: string, config: OvenPlayerConfig): OvenPlayerInstance;
-const player = OvenPlayer.create("player1", {
+const player = create("player1", {
     mute: true,
     playbackRates: [1, 2, 3, 3],
     waterMark: {
@@ -71,13 +80,13 @@ const player = OvenPlayer.create("player1", {
 });
 
 // getPlayerByContainerId(containerId: string): OvenPlayerInstance | null;
-const playerInstance1 = OvenPlayer.getPlayerByContainerId("player");
+const playerInstance1 = getPlayerByContainerId("player");
 
 // getPlayerByIndex(index: number): OvenPlayerInstance | null;
-const playerInstance2 = OvenPlayer.getPlayerByIndex(0);
+const playerInstance2 = getPlayerByIndex(0);
 
 // getPlayerList(): OvenPlayerInstance[];
-OvenPlayer.getPlayerList();
+getPlayerList();
 
 // test interface OvenPlayerInstance
 
@@ -165,10 +174,10 @@ const quality: OvenPlayerQuality = {
 // getMediaElement(): HTMLVideoElement;
 const videoElement: HTMLVideoElement = player.getMediaElement();
 
-// on(evnetName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
+// on(eventName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
 player.on("ready", () => {});
 
-// once (evnetName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
+// once (eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
 player.once("stateChanged", data => {});
 
 player.on("volumeChanged", data => {
@@ -176,6 +185,11 @@ player.on("volumeChanged", data => {
     data.volume;
     // $ExpectType boolean
     data.mute;
+});
+
+player.on("playbackRateChanged", data => {
+    // $ExpectType number
+    data.playbackRate;
 });
 
 // off(eventName: keyof OvenPlayerEvents): void;
@@ -199,4 +213,13 @@ player.addCaption({
 });
 
 // removePlayer(player: OvenPlayerInstance): void;
-OvenPlayer.removePlayer(player);
+removePlayer(player);
+
+// test named import type overlap
+OvenPlayer.create === create;
+OvenPlayer.debug === debug;
+OvenPlayer.generateWebrtcUrls === generateWebrtcUrls;
+OvenPlayer.getPlayerByContainerId === getPlayerByContainerId;
+OvenPlayer.getPlayerByIndex === getPlayerByIndex;
+OvenPlayer.getPlayerList === getPlayerList;
+OvenPlayer.removePlayer === removePlayer;

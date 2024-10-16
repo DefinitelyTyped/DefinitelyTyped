@@ -110,42 +110,226 @@ declare namespace naver.maps {
      */
     interface MapOptions {
         // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.html#.MapOptions
+        /**
+         * The image URL or CSS color value to be used as the background for the map element.
+         *
+         * 지도 요소의 배경으로 사용할 이미지 URL 또는 CSS 색상값입니다.
+         */
         background?: string;
+        /**
+         * Sets the opacity of the map's base tile. The value range is 0 to 1.
+         *
+         * 지도 기본 타일의 불투명도를 설정합니다. 값의 범위는 0~1입니다.
+         */
         baseTileOpacity?: number;
+        /**
+         * The initial coordinate bounds of the map.
+         *
+         * 지도의 초기 좌표 경계입니다.
+         */
         bounds?: Bounds | BoundsLiteral;
+        /**
+         * The initial center coordinates of the map.
+         *
+         * 지도의 초기 중심 좌표입니다.
+         */
         center?: Coord | CoordLiteral; // default naver.maps.LatLng(37.5666103, 126.9783882)
+        /**
+         * The initial zoom level of the map.
+         *
+         * 지도의 초기 줌 레벨입니다.
+         */
         zoom?: number; // default 16
+        /**
+         * Whether to allow users to zoom in by double-clicking on the map.
+         *
+         * 사용자가 지도 위에서 마우스 버튼을 더블 클릭해 지도를 확대하는 기능의 사용 여부입니다.
+         */
         disableDoubleClickZoom?: boolean;
+        /**
+         * Whether to allow users to zoom in by double-tapping with one finger on the map.
+         *
+         * 사용자가 지도 위에서 한 손가락으로 더블 탭해 지도를 확대하는 기능의 사용 여부입니다.
+         */
         disableDoubleTapZoom?: boolean;
+        /**
+         * Whether to use the inertia effect (continued map movement after the user ends the action) when the user drags the map.
+         *
+         * 사용자가 지도를 드래그했을 때 관성 효과(사용자가 동작을 끝낸 후에도 계속되는 지도의 움직임)의 사용 여부입니다.
+         */
         disableKineticPan?: boolean;
+        /**
+         * Whether to allow users to zoom out by double-tapping with two fingers on the map.
+         *
+         * 사용자가 지도 위에서 두 손가락으로 두 번 탭해 지도를 축소하는 기능의 사용 여부입니다.
+         */
         disableTwoFingerTapZoom?: boolean;
+        /**
+         * Whether to allow map panning using mouse or fingers.
+         *
+         * 마우스 또는 손가락을 이용한 지도 이동(패닝) 허용 여부입니다.
+         */
         draggable?: boolean;
+        /**
+         * Whether to allow map panning using keyboard arrow keys.
+         *
+         * 키보드 방향 키를 이용한 지도 이동(패닝) 허용 여부입니다.
+         */
         keyboardShortcuts?: boolean;
+        /**
+         * Whether to display the NAVER logo control.
+         *
+         * NAVER 로고 컨트롤의 표시 여부입니다.
+         */
         logoControl?: boolean;
+        /**
+         * Options for the NAVER logo control.
+         *
+         * NAVER 로고 컨트롤의 옵션입니다.
+         */
         logoControlOptions?: LogoControlOptions;
+        /**
+         * Whether to display the map data copyright control.
+         *
+         * 지도 데이터 저작권 컨트롤의 표시 여부입니다.
+         */
         mapDataControl?: boolean;
+        /**
+         * Options for the map data copyright control.
+         *
+         * 지도 데이터 저작권 컨트롤의 옵션입니다.
+         */
         mapDataControlOptions?: MapDataControlOptions;
+        /**
+         * Whether to display the map type control.
+         *
+         * 지도 유형 컨트롤의 표시 여부입니다.
+         */
         mapTypeControl?: boolean;
+        /**
+         * Options for the map type control.
+         *
+         * 지도 유형 컨트롤의 옵션입니다.
+         */
         mapTypeControlOptions?: MapTypeControlOptions;
-        mapTypeId?: string;
+        /**
+         * The initial map type id.
+         *
+         * 지도의 초기 지도 유형 id입니다.
+         */
+        mapTypeId?: MapTypeIdLiteral;
+        /**
+         * An object containing a collection of map types.
+         *
+         * 지도 유형의 컬렉션을 포함하는 객체입니다.
+         */
         mapTypes?: MapTypeRegistry;
+        /**
+         * The maximum coordinate bounds visible on the map.
+         *
+         * 지도에서 보이는 최대 좌표 경계입니다.
+         */
         maxBounds?: Bounds | BoundsLiteral;
+        /**
+         * The maximum zoom level of the map.
+         *
+         * 지도의 최대 줌 레벨입니다.
+         */
         maxZoom?: number;
+        /**
+         * The minimum zoom level of the map.
+         *
+         * 지도의 최소 줌 레벨입니다.
+         */
         minZoom?: number;
+        /**
+         * The inner padding of the map viewport.
+         *
+         * 지도 뷰포트의 안쪽 여백(패딩)입니다
+         */
         padding?: padding;
+        /**
+         * Whether to allow map zooming in/out using pinch gestures.
+         *
+         * 핀치 제스처를 이용한 지도 확대/축소 허용 여부입니다.
+         */
         pinchZoom?: boolean;
+        /**
+         * The origin point to fix when resizing the map.
+         *
+         * 지도 크기 조정 시 고정할 원점입니다.
+         */
         resizeOrigin?: Position;
+        /**
+         * Whether to display the map scale control.
+         *
+         * 지도 축척 컨트롤의 표시 여부입니다.
+         */
         scaleControl?: boolean;
+        /**
+         * Options for the map scale control.
+         *
+         * 지도 축척 컨트롤의 옵션입니다.
+         */
         scaleControlOptions?: ScaleControlOptions;
+        /**
+         * Whether to allow map zooming in/out using the mouse scroll wheel.
+         *
+         * 마우스 스크롤 휠을 이용한 지도 확대/축소 허용 여부입니다.
+         */
         scrollWheel?: boolean;
+        /**
+         * The initial size of the map.
+         *
+         * 지도의 초기 크기입니다.
+         */
         size?: Size | SizeLiteral;
+        /**
+         * The target for applying zoom effects to shapes, markers, and other overlays.
+         *
+         * 도형, 마커 등 오버레이의 줌 효과 적용 대상입니다.
+         */
         overlayZoomEffect?: null | string;
+        /**
+         * Specifies the number of extra tiles to load beyond the map's size.
+         *
+         * 지도의 크기보다 여유있게 로딩할 타일의 개수를 지정합니다.
+         */
         tileSpare?: number;
+        /**
+         * Whether to use a fade-in effect (tiles gradually appearing) when switching map tiles.
+         *
+         * 지도 타일을 전환할 때 페이드 인 효과(타일이 서서히 나타나는 것)의 사용 여부입니다.
+         */
         tileTransition?: boolean;
+        /**
+         * The duration of the fade-in effect (tiles gradually appearing) when switching map tiles.
+         *
+         * 지도 타일을 전환할 때 페이드 인 효과(타일이 서서히 나타나는 것)의 지속 시간 입니다.
+         */
         tileDuration?: number;
+        /**
+         * Whether to display the zoom control.
+         *
+         * 줌 컨트롤의 표시 여부입니다.
+         */
         zoomControl?: boolean;
+        /**
+         * Options for the zoom control.
+         * 줌 컨트롤의 옵션입니다.
+         */
         zoomControlOptions?: ZoomControlOptions;
+        /**
+         * The reference coordinate to fix when applying zoom effects.
+         *
+         * 줌 효과 시 고정하여 적용할 기준 좌표입니다
+         */
         zoomOrigin?: Coord | CoordLiteral;
+        /**
+         * An option to set the URL for blank tile images.
+         *
+         * 빈 타일 이미지 URL을 설정할 수 있는 옵션입니다.
+         */
         blankTileImage?: null | string;
     }
 
@@ -153,16 +337,71 @@ declare namespace naver.maps {
      * MarkerOptions
      */
     interface MarkerOptions {
+        /**
+         * The animation to start when the marker is added to the map.
+         *
+         * 마커가 지도에 추가될 때 시작할 애니메이션입니다.
+         */
         animation?: Animation;
+        /**
+         * The Map object to display the marker on.
+         *
+         * 마커를 표시할 Map 객체입니다.
+         */
         map?: Map;
+        /**
+         * The map coordinates representing the marker's position.
+         *
+         * 마커의 위치를 나타내는 지도 좌표입니다.
+         */
         position: Coord | CoordLiteral;
+        /**
+         * The shape of the marker.
+         *
+         * 마커의 모양입니다.
+         */
         icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
+        /**
+         * The interaction area of the marker.
+         *
+         * 마커의 인터랙션 영역입니다.
+         */
         shape?: MarkerShape;
+        /**
+         * The tooltip string that appears when the mouse hovers over the marker.
+         *
+         * 마커에 마우스 오버 시 나타나는 툴팁 문자열입니다.
+         */
         title?: string;
+        /**
+         * The shape of the pointer that appears when the mouse hovers over the marker.
+         *
+         * 마커에 마우스 오버 시 나타나는 포인터 모양입니다.
+         */
         cursor?: string;
+        /**
+         * Whether the marker is clickable.
+         *
+         * 마커의 클릭 허용 여부입니다.
+         */
         clickable?: boolean;
+        /**
+         * Whether the marker is draggable.
+         *
+         * 마커의 드래그 허용 여부입니다.
+         */
         draggable?: boolean;
+        /**
+         * Whether the marker is visible.
+         *
+         * 마커의 노출 허용 여부입니다.
+         */
         visible?: boolean;
+        /**
+         * The stacking order of the marker.
+         *
+         * 마커의 쌓임 순서입니다.
+         */
         zIndex?: number;
     }
 
@@ -179,18 +418,83 @@ declare namespace naver.maps {
      * InfoWindowOptions
      */
     interface InfoWindowOptions {
+        /**
+         * The position of the info window.
+         *
+         * 정보 창의 위치입니다.
+         */
         position?: Coord | CoordLiteral;
+        /**
+         * The content of the info window.
+         *
+         * 정보 창의 콘텐츠입니다.
+         */
         content: string | HTMLElement;
+        /**
+         * The stacking order of the info window.
+         *
+         * 정보 창의 쌓임 순서입니다.
+         */
         zIndex?: number;
+        /**
+         * The maximum width of the info window.
+         *
+         * 정보 창의 최대 너비입니다.
+         */
         maxWidth?: number;
+        /**
+         * The offset from the tail of the info window to the point where the info window is positioned.
+         *
+         * 정보 창의 꼬리에서 정보 창이 위치한 지점까지의 오프셋입니다.
+         */
         pixelOffset?: Point | PointLiteral;
+        /**
+         * The background color of the info window. Set using CSS color notation.
+         *
+         * 정보 창의 배경색입니다. CSS 색상 표현법으로 설정합니다.
+         */
         backgroundColor?: string;
+        /**
+         * The border color of the info window. Set using CSS color notation.
+         *
+         * 정보 창의 테두리 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         borderColor?: string;
+        /**
+         * The border thickness of the info window.
+         *
+         * 정보 창의 테두리 두께입니다.
+         */
         borderWidth?: number;
+        /**
+         * Whether to use automatic movement (panning) to show the entire info window when opening it.
+         *
+         * 정보 창을 열 때 정보 창 전체를 보여줄 수 있는 자동 이동(패닝) 사용 여부입니다.
+         */
         disableAutoPan?: boolean;
+        /**
+         * Whether to use the default speech bubble tail.
+         *
+         * 기본 말풍선 꼬리의 사용 여부입니다.
+         */
         disableAnchor?: boolean;
+        /**
+         * Whether to use the skew effect for the default speech bubble tail.
+         *
+         * 기본 말풍선 꼬리의 기울임(skew) 효과 사용 여부입니다.
+         */
         anchorSkew?: boolean;
+        /**
+         * The size of the default speech bubble tail.
+         *
+         * 기본 말풍선 꼬리의 크기입니다.
+         */
         anchorSize?: Size | SizeLiteral;
+        /**
+         * The color of the default speech bubble tail. Set using CSS color notation.
+         *
+         * 기본 말풍선 꼬리의 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         anchorColor?: string;
     }
 
@@ -476,18 +780,83 @@ declare namespace naver.maps {
      * PolygonOptions
      */
     interface PolygonOptions {
+        /**
+         * The Map object to display the polygon on.
+         *
+         * 도형이 그려질 지도 객체입니다.
+         */
         map?: Map;
+        /**
+         * The paths of the polygon.
+         *
+         * 도형의 좌표 목록입니다.
+         */
         paths: ArrayOfCoords[] | KVOArray<KVOArrayOfCoords> | ArrayOfCoordsLiteral[];
+        /**
+         * The weight of the polygon's stroke.
+         *
+         * 도형의 선 두께입니다.
+         */
         strokeWeight?: number;
+        /**
+         * The opacity of the polygon's stroke.
+         *
+         * 도형의 선 불투명도입니다.
+         */
         strokeOpacity?: number;
+        /**
+         * The color of the polygon's stroke. Set using CSS color notation.
+         *
+         * 도형의 선 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         strokeColor?: string;
+        /**
+         * The style of the polygon's stroke.
+         *
+         * 도형의 선 스타일입니다.
+         */
         strokeStyle?: StrokeStyleType;
+        /**
+         * The line cap of the polygon's stroke.
+         *
+         * 도형에 사용되는 선의 마감 스타일입니다.
+         */
         strokeLineCap?: StrokeLineCapType;
+        /**
+         * The line join of the polygon's stroke.
+         *
+         * 도형에 사용되는 선들이 맞닿는 부분의 마감 스타일입니다.
+         */
         strokeLineJoin?: StrokeLineJoinType;
+        /**
+         * The color of the polygon's fill. Set using CSS color notation.
+         *
+         * 도형 영역을 채울 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         fillColor?: string;
+        /**
+         * The opacity of the polygon's fill.
+         *
+         * 도형 영역을 채울 색상의 불투명도입니다.
+         */
         fillOpacity?: number;
+        /**
+         * Whether the polygon is clickable.
+         *
+         * 도형의 클릭 허용 여부입니다.
+         */
         clickable?: boolean;
+        /**
+         * Whether the polygon is visible.
+         *
+         * 도형의 노출 허용 여부입니다.
+         */
         visible?: boolean;
+        /**
+         * The stacking order of the polygon.
+         *
+         * 도형의 쌓임 순서입니다.
+         */
         zIndex?: number;
     }
 
@@ -495,20 +864,95 @@ declare namespace naver.maps {
      * PolylineOptions
      */
     interface PolylineOptions {
+        /**
+         * The Map object to display the polyline on.
+         *
+         * 도형이 그려질 지도 객체입니다.
+         */
         map?: Map;
+        /**
+         * The path of the polyline.
+         *
+         * 도형의 좌표 목록입니다.
+         */
         path: ArrayOfCoords | KVOArrayOfCoords | ArrayOfCoordsLiteral;
+        /**
+         * The weight of the polyline's stroke.
+         *
+         * 도형의 선 두께입니다.
+         */
         strokeWeight?: number;
+        /**
+         * The opacity of the polyline's stroke.
+         *
+         * 도형의 선 불투명도입니다.
+         */
         strokeOpacity?: number;
+        /**
+         * The color of the polyline's stroke. Set using CSS color notation.
+         *
+         * 도형의 선 색상입니다. CSS 색상 표현법으로 설정합니다.
+         */
         strokeColor?: string;
+        /**
+         * The style of the polyline's stroke.
+         *
+         * 도형의 선 스타일입니다.
+         */
         strokeStyle?: StrokeStyleType;
+        /**
+         * The line cap of the polyline's stroke.
+         *
+         * 도형에 사용되는 선의 마감 스타일입니다.
+         */
         strokeLineCap?: StrokeLineCapType;
+        /**
+         * The line join of the polyline's stroke.
+         *
+         * 도형에 사용되는 선들이 맞닿는 부분의 마감 스타일입니다.
+         */
         strokeLineJoin?: StrokeLineJoinType;
+        /**
+         * Whether the polyline is clickable.
+         *
+         * 도형의 클릭 허용 여부입니다.
+         */
         clickable?: boolean;
+        /**
+         * Whether the polyline is visible.
+         *
+         * 도형의 노출 허용 여부입니다.
+         */
         visible?: boolean;
+        /**
+         * The stacking order of the polyline.
+         *
+         * 도형의 쌓임 순서입니다.
+         */
         zIndex?: number;
+        /**
+         * The pointing icon at the start of the polyline.
+         *
+         * 도형의 시작점에 표시할 아이콘입니다.
+         */
         startIcon?: PointingIcon;
+        /**
+         * The size of the pointing icon at the start of the polyline.
+         *
+         * 도형의 시작점에 표시할 아이콘의 크기(픽셀)입니다.
+         */
         startIconSize?: number;
+        /**
+         * The pointing icon at the end of the polyline.
+         *
+         * 도형의 끝점에 표시할 아이콘입니다.
+         */
         endIcon?: PointingIcon;
+        /**
+         * The size of the pointing icon at the end of the polyline.
+         *
+         * 도형의 끝점에 표시할 아이콘의 크기(픽셀)입니다.
+         */
         endIconSize?: number;
     }
 
@@ -589,6 +1033,7 @@ declare namespace naver.maps {
         SATELLITE = "satellite",
         HYBRID = "hybrid",
     }
+    type MapTypeIdLiteral = `${MapTypeId}`;
 
     /**
      * PointingIcon

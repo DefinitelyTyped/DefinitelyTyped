@@ -1,5 +1,5 @@
 /**
- * To use the HTTP server and client one must `require('http')`.
+ * To use the HTTP server and client one must import the `node:http` module.
  *
  * The HTTP interfaces in Node.js are designed to support many features
  * of the protocol which have been traditionally difficult to use.
@@ -231,7 +231,7 @@ declare module "http" {
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > {
         /**
          * Specifies the `IncomingMessage` class to be used. Useful for extending the original `IncomingMessage`.
@@ -316,14 +316,14 @@ declare module "http" {
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
     /**
      * @since v0.1.17
      */
     class Server<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     > extends NetServer {
         constructor(requestListener?: RequestListener<Request, Response>);
         constructor(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>);
@@ -861,7 +861,7 @@ declare module "http" {
     /**
      * This object is created internally and returned from {@link request}. It
      * represents an _in-progress_ request whose header has already been queued. The
-     * header is still mutable using the `setHeader(name, value)`,`getHeader(name)`, `removeHeader(name)` API. The actual header will
+     * header is still mutable using the `setHeader(name, value)`, `getHeader(name)`, `removeHeader(name)` API. The actual header will
      * be sent along with the first data chunk or when calling `request.end()`.
      *
      * To get the response, add a listener for `'response'` to the request object.`'response'` will be emitted from the request object when the response
@@ -910,7 +910,7 @@ declare module "http" {
          * may run into a 'ECONNRESET' error.
          *
          * ```js
-         * const http = require('http');
+         * import http from 'node:http';
          *
          * // Server has a 5 seconds keep-alive timeout by default
          * http
@@ -934,7 +934,7 @@ declare module "http" {
          * automatic error retry base on it.
          *
          * ```js
-         * const http = require('http');
+         * import http from 'node:http';
          * const agent = new http.Agent({ keepAlive: true });
          *
          * function retriableRequest() {
@@ -1207,8 +1207,8 @@ declare module "http" {
          * Duplicates in raw headers are handled in the following ways, depending on the
          * header name:
          *
-         * * Duplicates of `age`, `authorization`, `content-length`, `content-type`,`etag`, `expires`, `from`, `host`, `if-modified-since`, `if-unmodified-since`,`last-modified`, `location`,
-         * `max-forwards`, `proxy-authorization`, `referer`,`retry-after`, `server`, or `user-agent` are discarded.
+         * * Duplicates of `age`, `authorization`, `content-length`, `content-type`, `etag`, `expires`, `from`, `host`, `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
+         * `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`, or `user-agent` are discarded.
          * * `set-cookie` is always an array. Duplicates are added to the array.
          * * For duplicate `cookie` headers, the values are joined together with '; '.
          * * For all other headers, the values are joined together with ', '.
@@ -1300,7 +1300,7 @@ declare module "http" {
          * new URL(request.url, `http://${request.getHeaders().host}`);
          * ```
          *
-         * When `request.url` is `'/status?name=ryan'` and`request.getHeaders().host` is `'localhost:3000'`:
+         * When `request.url` is `'/status?name=ryan'` and `request.getHeaders().host` is `'localhost:3000'`:
          *
          * ```console
          * $ node
@@ -1413,7 +1413,7 @@ declare module "http" {
      * });
      * ```
      *
-     * An agent may also be used for an individual request. By providing`{agent: false}` as an option to the `http.get()` or `http.request()`functions, a one-time use `Agent` with default options
+     * An agent may also be used for an individual request. By providing`{agent: false}` as an option to the `http.get()` or `http.request()` functions, a one-time use `Agent` with default options
      * will be used
      * for the client connection.
      *
@@ -1499,11 +1499,11 @@ declare module "http" {
      */
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse,
     >(
         options: ServerOptions<Request, Response>,
         requestListener?: RequestListener<Request, Response>,
@@ -1529,7 +1529,7 @@ declare module "http" {
      * upload a file with a POST request, then write to the `ClientRequest` object.
      *
      * ```js
-     * const http = require('http');
+     * import http from 'node:http';
      *
      * const postData = JSON.stringify({
      *   'msg': 'Hello World!'

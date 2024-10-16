@@ -1064,6 +1064,16 @@ declare namespace AP {
         ): void;
 
         /**
+         * Opens the issue dialog for an issue. A callback is invoked when the issue dialog is closed or an error occurs when opening the issue dialog.
+         * @param issueKey The key of the issue.
+         * @param callback Invoked when the dialog is closed. Takes a single parameter, either issueKey or, if the issue dialog isn't opened, an error key if it is impossible to open a issue dialog.
+         */
+        function openIssueDialog(
+            issueKey: string,
+            callback?: (issueKeyOrErr: string) => void,
+        ): void;
+
+        /**
          * Set the title of a dashboard item to the given text.
          * @param title the title of the dashboard item. Any HTML is escaped.
          */

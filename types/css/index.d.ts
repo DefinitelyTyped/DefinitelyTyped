@@ -66,9 +66,7 @@ export interface Position {
 /**
  * Base AST Tree Node.
  */
-export interface Node {
-    /** The possible values are the ones listed in the Types section on https://github.com/reworkcss/css page. */
-    type?: string | undefined;
+export interface BaseNode {
     /** A reference to the parent node, or null if the node has no parent. */
     parent?: Node | undefined;
     /** Information about the position in the source string that corresponds to the node. */
@@ -82,14 +80,16 @@ export interface Node {
     } | undefined;
 }
 
-export interface Rule extends Node {
+export interface Rule extends BaseNode {
+    type: "rule";
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
     selectors?: string[] | undefined;
     /** Array of nodes with the types declaration and comment. */
     declarations?: Array<Declaration | Comment> | undefined;
 }
 
-export interface Declaration extends Node {
+export interface Declaration extends BaseNode {
+    type: "declaration";
     /** The property name, trimmed from whitespace and comments. May not be empty. */
     property?: string | undefined;
     /** The value of the property, trimmed from whitespace and comments. Empty values are allowed. */
@@ -99,14 +99,16 @@ export interface Declaration extends Node {
 /**
  * A rule-level or declaration-level comment. Comments inside selectors, properties and values etc. are lost.
  */
-export interface Comment extends Node {
+export interface Comment extends BaseNode {
+    type: "comment";
     comment?: string | undefined;
 }
 
 /**
  * The @charset at-rule.
  */
-export interface Charset extends Node {
+export interface Charset extends BaseNode {
+    type: "charset";
     /** The part following @charset. */
     charset?: string | undefined;
 }
@@ -114,7 +116,8 @@ export interface Charset extends Node {
 /**
  * The @custom-media at-rule
  */
-export interface CustomMedia extends Node {
+export interface CustomMedia extends BaseNode {
+    type: "custom-media";
     /** The ---prefixed name. */
     name?: string | undefined;
     /** The part following the name. */
@@ -124,7 +127,8 @@ export interface CustomMedia extends Node {
 /**
  * The @document at-rule.
  */
-export interface Document extends Node {
+export interface Document extends BaseNode {
+    type: "document";
     /** The part following @document. */
     document?: string | undefined;
     /** The vendor prefix in @document, or undefined if there is none. */
@@ -136,7 +140,8 @@ export interface Document extends Node {
 /**
  * The @font-face at-rule.
  */
-export interface FontFace extends Node {
+export interface FontFace extends BaseNode {
+    type: "font-face";
     /** Array of nodes with the types declaration and comment. */
     declarations?: Array<Declaration | Comment> | undefined;
 }
@@ -144,7 +149,8 @@ export interface FontFace extends Node {
 /**
  * The @host at-rule.
  */
-export interface Host extends Node {
+export interface Host extends BaseNode {
+    type: "host";
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
     rules?: Array<Rule | Comment | AtRule> | undefined;
 }
@@ -152,7 +158,8 @@ export interface Host extends Node {
 /**
  * The @import at-rule.
  */
-export interface Import extends Node {
+export interface Import extends BaseNode {
+    type: "import";
     /** The part following @import. */
     import?: string | undefined;
 }
@@ -160,7 +167,8 @@ export interface Import extends Node {
 /**
  * The @keyframes at-rule.
  */
-export interface KeyFrames extends Node {
+export interface KeyFrames extends BaseNode {
+    type: "keyframes";
     /** The name of the keyframes rule. */
     name?: string | undefined;
     /** The vendor prefix in @keyframes, or undefined if there is none. */
@@ -169,7 +177,8 @@ export interface KeyFrames extends Node {
     keyframes?: Array<KeyFrame | Comment> | undefined;
 }
 
-export interface KeyFrame extends Node {
+export interface KeyFrame extends BaseNode {
+    type: "keyframe";
     /** The list of "selectors" of the keyframe rule, split on commas. Each “selector” is trimmed from whitespace. */
     values?: string[] | undefined;
     /** Array of nodes with the types declaration and comment. */
@@ -179,7 +188,8 @@ export interface KeyFrame extends Node {
 /**
  * The @media at-rule.
  */
-export interface Media extends Node {
+export interface Media extends BaseNode {
+    type: "media";
     /** The part following @media. */
     media?: string | undefined;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
@@ -189,7 +199,8 @@ export interface Media extends Node {
 /**
  * The @namespace at-rule.
  */
-export interface Namespace extends Node {
+export interface Namespace extends BaseNode {
+    type: "namespace";
     /** The part following @namespace. */
     namespace?: string | undefined;
 }
@@ -197,7 +208,8 @@ export interface Namespace extends Node {
 /**
  * The @page at-rule.
  */
-export interface Page extends Node {
+export interface Page extends BaseNode {
+    type: "page";
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
     selectors?: string[] | undefined;
     /** Array of nodes with the types declaration and comment. */
@@ -207,7 +219,8 @@ export interface Page extends Node {
 /**
  * The @supports at-rule.
  */
-export interface Supports extends Node {
+export interface Supports extends BaseNode {
+    type: "supports";
     /** The part following @supports. */
     supports?: string | undefined;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
@@ -241,9 +254,15 @@ export interface StyleRules {
 /**
  * The root node returned by css.parse.
  */
-export interface Stylesheet extends Node {
+export interface Stylesheet extends BaseNode {
+    type: "stylesheet";
     stylesheet?: StyleRules | undefined;
 }
+
+/**
+ * All possible AST nodes.
+ */
+export type Node = Rule | Declaration | Comment | AtRule | Stylesheet;
 
 // ---------------------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -981,6 +981,9 @@ declare module "sap/ui/webc/fiori/Bar" {
    * Keyboard Handling:
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class Bar extends WebComponent implements IBar {
@@ -1336,6 +1339,9 @@ declare module "sap/ui/webc/fiori/Bar" {
   /**
    * Describes the settings that can be provided to the Bar constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $BarSettings extends $WebComponentSettings {
@@ -1399,6 +1405,9 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
    * documentation.
    *
    * @since 1.95.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    */
   export default class BarcodeScannerDialog extends WebComponent {
@@ -1636,6 +1645,9 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
   /**
    * Describes the settings that can be provided to the BarcodeScannerDialog constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    */
   export interface $BarcodeScannerDialogSettings extends $WebComponentSettings {
@@ -1773,6 +1785,9 @@ declare module "sap/ui/webc/fiori/DynamicSideContent" {
    * 720 px and can only be viewed by triggering it.
    *
    * @since 1.99.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
    */
   export default class DynamicSideContent extends WebComponent {
@@ -2330,6 +2345,9 @@ declare module "sap/ui/webc/fiori/DynamicSideContent" {
   /**
    * Describes the settings that can be provided to the DynamicSideContent constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
    */
   export interface $DynamicSideContentSettings extends $WebComponentSettings {
@@ -2475,6 +2493,9 @@ declare module "sap/ui/webc/fiori/FilterItem" {
    * Usage:
    *
    * @since 1.97.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
    */
   export default class FilterItem extends WebComponent implements IFilterItem {
@@ -2680,6 +2701,9 @@ declare module "sap/ui/webc/fiori/FilterItem" {
   /**
    * Describes the settings that can be provided to the FilterItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
    */
   export interface $FilterItemSettings extends $WebComponentSettings {
@@ -2722,11 +2746,15 @@ declare module "sap/ui/webc/fiori/FilterItemOption" {
    * Usage:
    *
    * @since 1.97.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
    */
   export default class FilterItemOption
     extends WebComponent
-    implements IFilterItemOption {
+    implements IFilterItemOption
+  {
     __implements__sap_ui_webc_fiori_IFilterItemOption: boolean;
     /**
      * Constructor for a new `FilterItemOption`.
@@ -2852,6 +2880,9 @@ declare module "sap/ui/webc/fiori/FilterItemOption" {
   /**
    * Describes the settings that can be provided to the FilterItemOption constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
    */
   export interface $FilterItemOptionSettings extends $WebComponentSettings {
@@ -2909,6 +2940,9 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
    *  Keyboard Handling:
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class FlexibleColumnLayout extends WebComponent {
@@ -3392,6 +3426,9 @@ declare module "sap/ui/webc/fiori/FlexibleColumnLayout" {
   /**
    * Describes the settings that can be provided to the FlexibleColumnLayout constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $FlexibleColumnLayoutSettings extends $WebComponentSettings {
@@ -3579,6 +3616,9 @@ declare module "sap/ui/webc/fiori/IllustratedMessage" {
    * a `sap.ui.webc.main.Card`, a `sap.ui.webc.main.Dialog` or a `sap.ui.webc.fiori.Page`
    *
    * @since 1.95.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    */
   export default class IllustratedMessage extends WebComponent {
@@ -3960,6 +4000,9 @@ declare module "sap/ui/webc/fiori/IllustratedMessage" {
   /**
    * Describes the settings that can be provided to the IllustratedMessage constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    */
   export interface $IllustratedMessageSettings extends $WebComponentSettings {
@@ -4077,6 +4120,9 @@ declare module "sap/ui/webc/fiori/MediaGallery" {
    *
    *
    * @since 1.99.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
    */
   export default class MediaGallery extends WebComponent {
@@ -4657,6 +4703,9 @@ declare module "sap/ui/webc/fiori/MediaGallery" {
   /**
    * Describes the settings that can be provided to the MediaGallery constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
    */
   export interface $MediaGallerySettings extends $WebComponentSettings {
@@ -4828,11 +4877,15 @@ declare module "sap/ui/webc/fiori/MediaGalleryItem" {
    * 	 - [SPACE/ENTER/RETURN] - Trigger `ui5-click` event
    *
    * @since 1.99.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
    */
   export default class MediaGalleryItem
     extends WebComponent
-    implements IMediaGalleryItem {
+    implements IMediaGalleryItem
+  {
     __implements__sap_ui_webc_fiori_IMediaGalleryItem: boolean;
     /**
      * Constructor for a new `MediaGalleryItem`.
@@ -5047,6 +5100,9 @@ declare module "sap/ui/webc/fiori/MediaGalleryItem" {
   /**
    * Describes the settings that can be provided to the MediaGalleryItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.99.0) - This control is experimental and its API might change significantly.
    */
   export interface $MediaGalleryItemSettings extends $WebComponentSettings {
@@ -5106,11 +5162,15 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
    * and the `sap.ui.webc.fiori.NotificationListGroupItem` items.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class NotificationAction
     extends WebComponent
-    implements INotificationAction {
+    implements INotificationAction
+  {
     __implements__sap_ui_webc_fiori_INotificationAction: boolean;
     /**
      * Constructor for a new `NotificationAction`.
@@ -5382,6 +5442,9 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
   /**
    * Describes the settings that can be provided to the NotificationAction constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $NotificationActionSettings extends $WebComponentSettings {
@@ -5481,11 +5544,15 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
    * 	 - title-text - Used to style the titleText of the notification list group item
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class NotificationListGroupItem
     extends WebComponent
-    implements IListItem {
+    implements IListItem
+  {
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
      * Constructor for a new `NotificationListGroupItem`.
@@ -6135,6 +6202,9 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
   /**
    * Describes the settings that can be provided to the NotificationListGroupItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $NotificationListGroupItemSettings
@@ -6307,11 +6377,15 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
    * 	 - title-text - Used to style the titleText of the notification list item
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class NotificationListItem
     extends WebComponent
-    implements INotificationListItem, IListItem {
+    implements INotificationListItem, IListItem
+  {
     __implements__sap_ui_webc_fiori_INotificationListItem: boolean;
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
@@ -6921,6 +6995,9 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
   /**
    * Describes the settings that can be provided to the NotificationListItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $NotificationListItemSettings extends $WebComponentSettings {
@@ -7077,6 +7154,9 @@ declare module "sap/ui/webc/fiori/Page" {
    * 	 - content - Used to style the content section of the component
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class Page extends WebComponent {
@@ -7459,6 +7539,9 @@ declare module "sap/ui/webc/fiori/Page" {
   /**
    * Describes the settings that can be provided to the Page constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $PageSettings extends $WebComponentSettings {
@@ -7550,6 +7633,9 @@ declare module "sap/ui/webc/fiori/ProductSwitch" {
    *
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class ProductSwitch extends WebComponent {
@@ -7696,6 +7782,9 @@ declare module "sap/ui/webc/fiori/ProductSwitch" {
   /**
    * Describes the settings that can be provided to the ProductSwitch constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $ProductSwitchSettings extends $WebComponentSettings {
@@ -7741,11 +7830,15 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
    * 	 - [SPACE/ENTER/RETURN] - Trigger `ui5-click` event
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class ProductSwitchItem
     extends WebComponent
-    implements IProductSwitchItem {
+    implements IProductSwitchItem
+  {
     __implements__sap_ui_webc_fiori_IProductSwitchItem: boolean;
     /**
      * Constructor for a new `ProductSwitchItem`.
@@ -8066,6 +8159,9 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
   /**
    * Describes the settings that can be provided to the ProductSwitchItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $ProductSwitchItemSettings extends $WebComponentSettings {
@@ -8182,6 +8278,9 @@ declare module "sap/ui/webc/fiori/ShellBar" {
    * Keyboard Handling:
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class ShellBar extends WebComponent {
@@ -9375,6 +9474,9 @@ declare module "sap/ui/webc/fiori/ShellBar" {
   /**
    * Describes the settings that can be provided to the ShellBar constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $ShellBarSettings extends $WebComponentSettings {
@@ -9662,11 +9764,15 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
 
   /**
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class ShellBarItem
     extends WebComponent
-    implements IShellBarItem {
+    implements IShellBarItem
+  {
     __implements__sap_ui_webc_fiori_IShellBarItem: boolean;
     /**
      * Constructor for a new `ShellBarItem`.
@@ -9906,6 +10012,9 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
   /**
    * Describes the settings that can be provided to the ShellBarItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $ShellBarItemSettings extends $WebComponentSettings {
@@ -9994,6 +10103,9 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
    * Keyboard Handling:
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class SideNavigation extends WebComponent {
@@ -10418,6 +10530,9 @@ declare module "sap/ui/webc/fiori/SideNavigation" {
   /**
    * Describes the settings that can be provided to the SideNavigation constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $SideNavigationSettings extends $WebComponentSettings {
@@ -10512,11 +10627,15 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
    * the `sap.ui.webc.fiori.SideNavigationItem` you control the content of the `SideNavigation`.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class SideNavigationItem
     extends WebComponent
-    implements ISideNavigationItem {
+    implements ISideNavigationItem
+  {
     __implements__sap_ui_webc_fiori_ISideNavigationItem: boolean;
     /**
      * Constructor for a new `SideNavigationItem`.
@@ -10902,6 +11021,9 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
   /**
    * Describes the settings that can be provided to the SideNavigationItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $SideNavigationItemSettings extends $WebComponentSettings {
@@ -10988,11 +11110,15 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
    * only.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class SideNavigationSubItem
     extends WebComponent
-    implements ISideNavigationSubItem {
+    implements ISideNavigationSubItem
+  {
     __implements__sap_ui_webc_fiori_ISideNavigationSubItem: boolean;
     /**
      * Constructor for a new `SideNavigationSubItem`.
@@ -11237,6 +11363,9 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
   /**
    * Describes the settings that can be provided to the SideNavigationSubItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $SideNavigationSubItemSettings
@@ -11299,6 +11428,9 @@ declare module "sap/ui/webc/fiori/SortItem" {
    * Usage:
    *
    * @since 1.97.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
    */
   export default class SortItem extends WebComponent implements ISortItem {
@@ -11427,6 +11559,9 @@ declare module "sap/ui/webc/fiori/SortItem" {
   /**
    * Describes the settings that can be provided to the SortItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.97.0) - This control is experimental and its API might change significantly.
    */
   export interface $SortItemSettings extends $WebComponentSettings {
@@ -11470,6 +11605,9 @@ declare module "sap/ui/webc/fiori/Timeline" {
    * integrated within SAP Jam.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class Timeline extends WebComponent {
@@ -11732,6 +11870,9 @@ declare module "sap/ui/webc/fiori/Timeline" {
   /**
    * Describes the settings that can be provided to the Timeline constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $TimelineSettings extends $WebComponentSettings {
@@ -11800,11 +11941,15 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
    * An entry posted on the timeline.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class TimelineItem
     extends WebComponent
-    implements ITimelineItem {
+    implements ITimelineItem
+  {
     __implements__sap_ui_webc_fiori_ITimelineItem: boolean;
     /**
      * Constructor for a new `TimelineItem`.
@@ -12186,6 +12331,9 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
   /**
    * Describes the settings that can be provided to the TimelineItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $TimelineItemSettings extends $WebComponentSettings {
@@ -12274,6 +12422,9 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
    * of `sap.ui.webc.fiori.UploadCollectionItem`. It also allows you to show already uploaded files.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class UploadCollection extends WebComponent {
@@ -12961,6 +13112,9 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
   /**
    * Describes the settings that can be provided to the UploadCollection constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $UploadCollectionSettings extends $WebComponentSettings {
@@ -13130,11 +13284,15 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
    * Overview: A component to be used within the `sap.ui.webc.fiori.UploadCollection`.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class UploadCollectionItem
     extends WebComponent
-    implements IUploadCollectionItem {
+    implements IUploadCollectionItem
+  {
     __implements__sap_ui_webc_fiori_IUploadCollectionItem: boolean;
     /**
      * Constructor for a new `UploadCollectionItem`.
@@ -14165,6 +14323,9 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
   /**
    * Describes the settings that can be provided to the UploadCollectionItem constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $UploadCollectionItemSettings extends $WebComponentSettings {
@@ -14414,6 +14575,9 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
    * Responsive Behavior: `sap.ui.webc.fiori.ViewSettingsDialog` stretches on full screen on phones.
    *
    * @since 1.95.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    */
   export default class ViewSettingsDialog extends WebComponent {
@@ -14931,6 +15095,9 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
   /**
    * Describes the settings that can be provided to the ViewSettingsDialog constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.95.0) - This control is experimental and its API might change significantly.
    */
   export interface $ViewSettingsDialogSettings extends $WebComponentSettings {
@@ -15152,6 +15319,9 @@ declare module "sap/ui/webc/fiori/Wizard" {
    * a dialog.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class Wizard extends WebComponent {
@@ -15434,6 +15604,9 @@ declare module "sap/ui/webc/fiori/Wizard" {
   /**
    * Describes the settings that can be provided to the Wizard constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $WizardSettings extends $WebComponentSettings {
@@ -15530,6 +15703,9 @@ declare module "sap/ui/webc/fiori/WizardStep" {
    * component and should not be used standalone.
    *
    * @since 1.92.0
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export default class WizardStep extends WebComponent implements IWizardStep {
@@ -15907,6 +16083,9 @@ declare module "sap/ui/webc/fiori/WizardStep" {
   /**
    * Describes the settings that can be provided to the WizardStep constructor.
    *
+   * @deprecated (since 1.120) - this Web Components consumption model has been discarded. Until an alternative
+   * Web Components consumption model is available in the future, use sap.m and sap.f controls with similar
+   * functionality.
    * @experimental (since 1.92.0) - This control is experimental and its API might change significantly.
    */
   export interface $WizardStepSettings extends $WebComponentSettings {

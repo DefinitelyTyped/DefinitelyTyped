@@ -18,6 +18,14 @@ Diff.diffChars(one, other, (err, value) => {
     err; // $ExpectType undefined
     value; // $ExpectType Change[] | undefined
 });
+// $ExpectType Change[]
+Diff.diffLines(
+    "line\nold value\nline",
+    "line\nnew value\nline",
+    {
+        maxEditLength: 1,
+    },
+);
 
 const diffArraysResult = Diff.diffArrays(["a", "b", "c"], ["a", "c", "d"]);
 diffArraysResult.forEach(result => {
@@ -125,6 +133,8 @@ const uniDiffPatch = Diff.structuredPatch("oldFile.ts", "newFile.ts", one, other
     context: 1,
 });
 verifyPatchMethods(one, other, uniDiffPatch);
+
+const formatted: string = Diff.formatPatch(uniDiffPatch);
 
 const uniDiffStr = Diff.createPatch("file.ts", one, other, "old", "new", { context: 1 });
 verifyApplyMethods(one, other, uniDiffStr);

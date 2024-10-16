@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/vscode",
-    "version": "1.89.9999",
+    "version": "1.94.9999",
     "projects": [
         "https://github.com/microsoft/vscode"
     ],

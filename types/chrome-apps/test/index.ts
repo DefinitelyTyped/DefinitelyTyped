@@ -2178,6 +2178,13 @@ appview.connect("id of app");
 document.appendChild(appview);
 // #endregion
 
-// #region HTMLElement correctly subtypes Element in TS3.1.
-const htmlElement = document.querySelector("zzzzzz") as HTMLElement;
+// #region HTMLElement.
+function testHTMLElementCorrectlySubtypesElement() {
+    const htmlElement = document.querySelector("zzzzzz") as HTMLElement | null;
+}
+
+function testHTMLElementRequestPointerLockReturnsPromise() {
+    const htmlElement = document.querySelector("x")! as HTMLElement;
+    htmlElement.requestPointerLock().then(() => {});
+}
 // #endregion

@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -104,7 +104,7 @@ declare module "sap/ui/integration/library" {
    */
   export enum CardBlockingMessageType {
     /**
-     * An error ocurred in the card.
+     * An error occurred in the card.
      */
     Error = "Error",
     /**
@@ -169,9 +169,29 @@ declare module "sap/ui/integration/library" {
    */
   export enum CardDisplayVariant {
     /**
+     * The CompactHeader card variant.
+     */
+    CompactHeader = "CompactHeader",
+    /**
+     * The large card variant.
+     */
+    Large = "Large",
+    /**
+     * The small card variant.
+     */
+    Small = "Small",
+    /**
+     * The SmallHeader card variant.
+     */
+    SmallHeader = "SmallHeader",
+    /**
      * The standard card variant.
      */
     Standard = "Standard",
+    /**
+     * The SmallHeader card variant.
+     */
+    StandardHeader = "StandardHeader",
     /**
      * Card renders and behaves like a tile of size 2x1.
      */
@@ -233,6 +253,45 @@ declare module "sap/ui/integration/library" {
     parameters: object;
   };
 
+  /**
+   * Card message strip types.
+   *
+   * This enum is part of the 'sap/ui/integration/library' module export and must be accessed by the property
+   * 'CardMessageType'.
+   *
+   * @experimental (since 1.128)
+   */
+  export enum CardMessageType {
+    /**
+     * Message is an error
+     */
+    Error = "Error",
+    /**
+     * Message should be just an information
+     */
+    Information = "Information",
+    /**
+     * Informs the user that the content is busy at that moment with a loading operation. Blocks the content
+     * from interaction.
+     */
+    Loading = "Loading",
+    /**
+     * Message has no specific level
+     */
+    None = "None",
+    /**
+     * Message is a success message
+     */
+    Success = "Success",
+    /**
+     * Message is an informative brief toast message. For this type the default behavior is to auto close.
+     */
+    Toast = "Toast",
+    /**
+     * Message is a warning
+     */
+    Warning = "Warning",
+  }
   /**
    * Preview modes for `{@link sap.ui.integration.widgets.Card}`. Helpful in scenarios when the end user is
    * choosing or configuring a card.
@@ -696,6 +755,7 @@ declare module "sap/ui/integration/widgets/Card" {
     CardDisplayVariant,
     CardPreviewMode,
     CardArea,
+    CardMessageType,
     CardActionType,
   } from "sap/ui/integration/library";
 
@@ -709,7 +769,7 @@ declare module "sap/ui/integration/widgets/Card" {
 
   import Event from "sap/ui/base/Event";
 
-  import { URI, ID, MessageType } from "sap/ui/core/library";
+  import { URI, ID } from "sap/ui/core/library";
 
   import Host from "sap/ui/integration/Host";
 
@@ -750,6 +810,11 @@ declare module "sap/ui/integration/widgets/Card" {
      * Description
      */
     description?: string;
+    /**
+     * Path to a custom image to be shown on the place of the regular illustration. Relative to the card base
+     * URL.
+     */
+    imageSrc?: string;
     /**
      * Response object in case of a network error
      */
@@ -996,61 +1061,6 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * Attaches event handler `fnFunction` to the {@link #event:manifestApplied manifestApplied} event of this
-     * `sap.ui.integration.widgets.Card`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
-     *
-     * Fired when card utilities (like `DataProviderFactory`) and the card elements (like header) are created
-     * and initialized.
-     *
-     * Note: The card's content may not be available yet because it may depend on other resources to load.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachManifestApplied(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:manifestApplied manifestApplied} event of this
-     * `sap.ui.integration.widgets.Card`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.integration.widgets.Card` itself.
-     *
-     * Fired when card utilities (like `DataProviderFactory`) and the card elements (like header) are created
-     * and initialized.
-     *
-     * Note: The card's content may not be available yet because it may depend on other resources to load.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachManifestApplied(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.integration.widgets.Card` itself
-       */
-      oListener?: object
-    ): this;
-    /**
      * Attaches event handler `fnFunction` to the {@link #event:manifestReady manifestReady} event of this `sap.ui.integration.widgets.Card`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -1201,25 +1211,6 @@ declare module "sap/ui/integration/widgets/Card" {
       oListener?: object
     ): this;
     /**
-     * Detaches event handler `fnFunction` from the {@link #event:manifestApplied manifestApplied} event of
-     * this `sap.ui.integration.widgets.Card`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachManifestApplied(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
      * Detaches event handler `fnFunction` from the {@link #event:manifestReady manifestReady} event of this
      * `sap.ui.integration.widgets.Card`.
      *
@@ -1289,19 +1280,6 @@ declare module "sap/ui/integration/widgets/Card" {
        * Parameters to pass along with the event
        */
       mParameters?: Card$ConfigurationChangeEventParameters
-    ): this;
-    /**
-     * Fires event {@link #event:manifestApplied manifestApplied} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    fireManifestApplied(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: object
     ): this;
     /**
      * Fires event {@link #event:manifestReady manifestReady} to attached listeners.
@@ -1483,6 +1461,8 @@ declare module "sap/ui/integration/widgets/Card" {
      * ```
      *
      *
+     * Default value is `[]`.
+     *
      * @since 1.76
      * @experimental (since 1.76) - This API might be removed when a permanent solution for flexibility changes
      * is implemented.
@@ -1563,6 +1543,20 @@ declare module "sap/ui/integration/widgets/Card" {
        */
       bIgnoreKeyFallback?: boolean
     ): string;
+    /**
+     * Gets current value of property {@link #getUseProgressiveDisclosure useProgressiveDisclosure}.
+     *
+     * If the card should change depending on its size. This property is temporary. Should be used to enable
+     * the feature for cards where it is needed.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.127
+     * @experimental (since 1.127)
+     *
+     * @returns Value of property `useProgressiveDisclosure`
+     */
+    getUseProgressiveDisclosure(): boolean;
     /**
      * Hide the blocking message that is shown in the card by `showBlockingMessage` call.
      *
@@ -1790,26 +1784,6 @@ declare module "sap/ui/integration/widgets/Card" {
       sDesign?: CardDesign | keyof typeof CardDesign
     ): this;
     /**
-     * Sets a new value for property {@link #getDisplayVariant displayVariant}.
-     *
-     * Defines the display variant for card rendering and behavior.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Standard`.
-     *
-     * @since 1.118
-     * @experimental (since 1.118) - For usage only by Work Zone.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setDisplayVariant(
-      /**
-       * New value for property `displayVariant`
-       */
-      sDisplayVariant?: CardDisplayVariant | keyof typeof CardDisplayVariant
-    ): this;
-    /**
      * Sets the associated {@link #getHost host}.
      *
      *
@@ -1882,6 +1856,8 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     * Default value is `[]`.
+     *
      * @since 1.76
      * @experimental (since 1.76) - This API might be removed when a permanent solution for flexibility changes
      * is implemented.
@@ -1892,7 +1868,7 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * New value for property `manifestChanges`
        */
-      sManifestChanges: object[]
+      sManifestChanges?: object[]
     ): this;
     /**
      * Sets a new value for property {@link #getParameters parameters}.
@@ -1957,6 +1933,27 @@ declare module "sap/ui/integration/widgets/Card" {
       sReferenceId?: string
     ): this;
     /**
+     * Sets a new value for property {@link #getUseProgressiveDisclosure useProgressiveDisclosure}.
+     *
+     * If the card should change depending on its size. This property is temporary. Should be used to enable
+     * the feature for cards where it is needed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.127
+     * @experimental (since 1.127)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setUseProgressiveDisclosure(
+      /**
+       * New value for property `useProgressiveDisclosure`
+       */
+      bUseProgressiveDisclosure?: boolean
+    ): this;
+    /**
      * Show blocking message in the card's content area. Should be used after the `manifestApplied` event or
      * after the `cardReady` lifecycle hook in Component cards and Extensions.
      *
@@ -1994,7 +1991,12 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * Type of the message.
        */
-      sType: MessageType
+      sType: CardMessageType | keyof typeof CardMessageType,
+      /**
+       * Close the message automatically. Default is `false` for most message types. It is `true` for message
+       * type `Toast`. **Note** This property has no effect for message type `Loading`.
+       */
+      bAutoClose: boolean
     ): void;
     /**
      * Triggers an action inside the card.
@@ -2334,7 +2336,12 @@ declare module "sap/ui/integration/widgets/Card" {
       /**
        * Type of the message.
        */
-      sType: MessageType
+      sType: CardMessageType | keyof typeof CardMessageType,
+      /**
+       * Close the message automatically. Default is `false` for most message types. It is `true` for message
+       * type `Toast`. **Note** This property has no effect for message type `Loading`.
+       */
+      bAutoClose: boolean
     ): void;
     /**
      * Triggers an action inside the card.
@@ -2511,6 +2518,15 @@ declare module "sap/ui/integration/widgets/Card" {
       | `{${string}}`;
 
     /**
+     * If the card should change depending on its size. This property is temporary. Should be used to enable
+     * the feature for cards where it is needed.
+     *
+     * @since 1.127
+     * @experimental (since 1.127)
+     */
+    useProgressiveDisclosure?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Actions definitions from which actions in the header menu of the card are created. **Note**: This aggregation
      * is destroyed when the property `manifest` changes.
      *
@@ -2557,14 +2573,6 @@ declare module "sap/ui/integration/widgets/Card" {
     manifestReady?: (oEvent: Event) => void;
 
     /**
-     * Fired when card utilities (like `DataProviderFactory`) and the card elements (like header) are created
-     * and initialized.
-     *
-     * Note: The card's content may not be available yet because it may depend on other resources to load.
-     */
-    manifestApplied?: (oEvent: Event) => void;
-
-    /**
      * Fired when the state of the card is changed. For example - the card is ready, new page is selected, a
      * filter is changed or data is refreshed.
      *
@@ -2592,8 +2600,20 @@ declare module "sap/ui/integration/widgets/Card" {
 
     /**
      * The parameters related to the triggered action.
+     *
+     * **Disclaimer:** Since 1.129 the special parameter `data` for action `Submit` is deprecated and must not
+     * be used. Use event parameter `formData` instead.
      */
     parameters?: object;
+
+    /**
+     * All form data that is filled inside the card. This parameter is available only with action types `Submit`
+     * and `Custom`.
+     *
+     * The format will be the same as in the `form` model available in the card manifest. For more information
+     * look at the documentation for each individual form type.
+     */
+    formData?: object;
 
     /**
      * The type of the action.
@@ -3549,8 +3569,20 @@ declare module "sap/ui/integration/Extension" {
 
     /**
      * The parameters related to the triggered action.
+     *
+     * **Disclaimer:** Since 1.129 the special parameter `data` for action `Submit` is deprecated and must not
+     * be used. Use event parameter `formData` instead.
      */
     parameters?: object;
+
+    /**
+     * All form data that is filled inside the card. This parameter is available only with action types `Submit`
+     * and `Custom`.
+     *
+     * The format will be the same as in the `form` model available in the card manifest. For more information
+     * look at the documentation for each individual form type.
+     */
+    formData?: object;
 
     /**
      * The type of the action.
@@ -4375,8 +4407,20 @@ declare module "sap/ui/integration/Host" {
 
     /**
      * The parameters related to the triggered action.
+     *
+     * **Disclaimer:** Since 1.129 the special parameter `data` for action `Submit` is deprecated and must not
+     * be used. Use event parameter `formData` instead.
      */
     parameters?: object;
+
+    /**
+     * All form data that is filled inside the card. This parameter is available only with action types `Submit`
+     * and `Custom`.
+     *
+     * The format will be the same as in the `form` model available in the card manifest. For more information
+     * look at the documentation for each individual form type.
+     */
+    formData?: object;
 
     /**
      * The type of the action.

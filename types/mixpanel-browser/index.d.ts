@@ -1,5 +1,7 @@
 export type Persistence = "cookie" | "localStorage";
 
+export type ApiPayloadFormat = "base64" | "json";
+
 export type PushItem = Array<string | Dict>;
 
 export type Query = string | Element | Element[];
@@ -52,6 +54,7 @@ export interface Config {
     api_method: string;
     api_transport: string;
     app_host: string;
+    api_payload_format: ApiPayloadFormat;
     autotrack: boolean;
     cdn: string;
     cookie_domain: string;
@@ -95,6 +98,15 @@ export interface Config {
     batch_size: number;
     batch_flush_interval_ms: number;
     batch_request_timeout_ms: number;
+    record_block_class: string;
+    record_block_selector: string;
+    record_collect_fonts: boolean;
+    record_idle_timeout_ms: number;
+    record_inline_images: boolean;
+    record_mask_text_class: string;
+    record_mask_text_selector: string;
+    record_max_ms: number;
+    record_sessions_percent: number;
 }
 
 export type VerboseResponse =
@@ -183,6 +195,9 @@ export interface Mixpanel {
     track_with_groups(event_name: string, properties: Dict, groups: Dict, callback?: Callback): void;
     unregister(property: string, options?: Partial<RegisterOptions>): void;
     people: People;
+    start_session_recording(): void;
+    stop_session_recording(): void;
+    get_session_recording_properties(): { $mp_replay_id?: string } | {};
 }
 
 export interface OverridedMixpanel extends Mixpanel {
@@ -236,6 +251,7 @@ export function track_links(query: Query, event_name: string, properties?: Dict 
 export function track_with_groups(event_name: string, properties: Dict, groups: Dict, callback?: Callback): void;
 export function unregister(property: string, options?: Partial<RegisterOptions>): void;
 export const people: People;
+export function get_session_recording_properties(): { $mp_replay_id?: string } | {};
 
 declare const mixpanel: OverridedMixpanel;
 export default mixpanel;

@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/fs.js)
  */
 declare module "fs" {
     import * as stream from "node:stream";
@@ -77,7 +77,7 @@ declare module "fs" {
      * their synchronous counterparts are of this type.
      * If `bigint` in the `options` passed to those methods is true, the numeric values
      * will be `bigint` instead of `number`, and the object will contain additional
-     * nanosecond-precision properties suffixed with `Ns`.
+     * nanosecond-precision properties suffixed with `Ns`. `Stat` objects are not to be created directly using the `new` keyword.
      *
      * ```console
      * Stats {
@@ -130,7 +130,9 @@ declare module "fs" {
      * ```
      * @since v0.1.21
      */
-    export class Stats {}
+    export class Stats {
+        private constructor();
+    }
     export interface StatsFsBase<T> {
         /** Type of file system. */
         type: T;
@@ -302,7 +304,7 @@ declare module "fs" {
         /**
          * Asynchronously read the next directory entry via [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) as an `fs.Dirent`.
          *
-         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null`if there are no more directory entries to read.
+         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null` if there are no more directory entries to read.
          *
          * Directory entries returned by this function are in no particular order as
          * provided by the operating system's underlying directory mechanisms.
@@ -1898,7 +1900,7 @@ declare module "fs" {
      * The `fs.mkdtemp()` method will append the six randomly selected characters
      * directly to the `prefix` string. For instance, given a directory `/tmp`, if the
      * intention is to create a temporary directory _within_`/tmp`, the `prefix`must end with a trailing platform-specific path separator
-     * (`require('node:path').sep`).
+     * (`import { sep } from 'node:path'`).
      *
      * ```js
      * import { tmpdir } from 'node:os';
@@ -3154,7 +3156,7 @@ declare module "fs" {
      * stat object:
      *
      * ```js
-     * import { watchFile } from 'fs';
+     * import { watchFile } from 'node:fs';
      *
      * watchFile('message.text', (curr, prev) => {
      *   console.log(`the current mtime is: ${curr.mtime}`);
@@ -3617,7 +3619,7 @@ declare module "fs" {
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
-     * checks to be performed. `mode` should be either the value `fs.constants.F_OK`or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and `fs.constants.X_OK`
+     * checks to be performed. `mode` should be either the value `fs.constants.F_OK` or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and `fs.constants.X_OK`
      * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
      * possible values of `mode`.
      *
@@ -4311,6 +4313,77 @@ declare module "fs" {
      * @param dest destination path to copy to.
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
+
+    export interface GlobOptions {
+        /**
+         * Current working directory.
+         * @default process.cwd()
+         */
+        cwd?: string | undefined;
+        /**
+         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         */
+        exclude?: ((fileName: string) => boolean) | undefined;
+        /**
+         * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
+         * @default false
+         * @since v22.2.0
+         */
+        withFileTypes?: boolean | undefined;
+    }
+    export interface GlobOptionsWithFileTypes extends GlobOptions {
+        withFileTypes: true;
+    }
+    export interface GlobOptionsWithoutFileTypes extends GlobOptions {
+        withFileTypes?: false | undefined;
+    }
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    export function glob(
+        pattern: string | string[],
+        callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
+        options: GlobOptionsWithFileTypes,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: Dirent[],
+        ) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
+        options: GlobOptionsWithoutFileTypes,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: string[],
+        ) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
+        options: GlobOptions,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: Dirent[] | string[],
+        ) => void,
+    ): void;
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    export function globSync(pattern: string | string[]): string[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptionsWithFileTypes,
+    ): Dirent[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptionsWithoutFileTypes,
+    ): string[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptions,
+    ): Dirent[] | string[];
 }
 declare module "node:fs" {
     export * from "fs";
