@@ -44,11 +44,11 @@ registerComponent(NewBodyComponent);
 const skeleton: MJMLJsonObject = {
     tagName: "mjml",
     attributes: {
-        "lang": "en"
-    }
-}
+        "lang": "en",
+    },
+};
 
-skeleton.attributes.foo = "bar"
+skeleton.attributes.foo = "bar";
 
 // $ExpectType Record<string,unknown>
-const attrs = skeleton.attributes
+const attrs = skeleton.attributes;
