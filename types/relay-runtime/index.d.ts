@@ -187,7 +187,8 @@ export {
 } from "./lib/store/RelayStoreUtils";
 
 // Extensions
-export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from "./lib/handlers/RelayDefaultHandlerProvider";
+import RelayDefaultHandlerProvider from "./lib/handlers/RelayDefaultHandlerProvider";
+export { RelayDefaultHandlerProvider as DefaultHandlerProvider };
 
 import getDefaultMissingFieldHandlers from "./lib/handlers/getRelayDefaultMissingFieldHandlers";
 export { getDefaultMissingFieldHandlers };
