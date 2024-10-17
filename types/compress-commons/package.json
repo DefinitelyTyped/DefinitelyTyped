@@ -8,6 +8,7 @@
     ],
     "dependencies": {
         "@types/crc32-stream": "*",
+        "@types/node": "*",
         "@types/readable-stream": "*"
     },
     "devDependencies": {
