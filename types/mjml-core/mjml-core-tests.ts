@@ -1,4 +1,4 @@
-import mjml2html, { BodyComponent, Component, HeadComponent, registerComponent } from "mjml-core";
+import mjml2html, { BodyComponent, Component, HeadComponent, MJMLJsonObject, registerComponent } from "mjml-core";
 
 const simple_test = mjml2html("<mjml>");
 const html = simple_test.html;
@@ -40,3 +40,15 @@ class MjBreakpoint extends HeadComponent {
 
 registerComponent(MjBreakpoint);
 registerComponent(NewBodyComponent);
+
+const skeleton: MJMLJsonObject = {
+    tagName: "mjml",
+    attributes: {
+        "lang": "en",
+    },
+};
+
+skeleton.attributes.foo = "bar";
+
+// $ExpectType Record<string,unknown>
+const attrs = skeleton.attributes;
