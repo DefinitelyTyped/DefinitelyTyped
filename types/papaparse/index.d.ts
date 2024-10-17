@@ -384,7 +384,7 @@ export interface UnparseConfig {
      * If `false`, will omit the header row.
      * If `data` is an array of arrays this option is ignored.
      * If `data` is an array of objects the keys of the first object are the header row.
-     * If `data` is an object with the `keys` fields and `data` the `fields` are the header row.
+     * If `data` is an object with the keys `fields` and `data` the `fields` are the header row.
      * @default true
      */
     header?: boolean | undefined;
