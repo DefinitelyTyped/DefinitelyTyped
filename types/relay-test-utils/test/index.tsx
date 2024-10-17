@@ -149,27 +149,27 @@ function environmentTests() {
 
     environment.mock.resolve(
         operation,
-        mockDataWithoutDeferredPayload1
+        mockDataWithoutDeferredPayload1,
     );
 
     environment.mock.resolve(
         operation,
-        mockDataWithoutDeferredPayload2
+        mockDataWithoutDeferredPayload2,
     );
 
     environment.mock.resolve(
         operation,
-        mockDataWithoutDeferredPayload3
+        mockDataWithoutDeferredPayload3,
     );
 
     environment.mock.resolve(
         operation,
-        mockDataWithDeferredPayload1
+        mockDataWithDeferredPayload1,
     );
 
     environment.mock.resolve(
         operation,
-        mockDataWithDeferredPayload2
+        mockDataWithDeferredPayload2,
     );
 }
 
