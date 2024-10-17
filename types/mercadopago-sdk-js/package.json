@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/mercadopago-sdk-js": "workspace:."
     },
-    "owners": [
-        {
-            "name": "mercadopago",
-            "githubUsername": "mercadopago"
-        }
-    ]
+    "owners": []
 }
