@@ -255,6 +255,9 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useState()[0];
     // $ExpectType number | undefined
     React.useState<number>()[0];
+    // allow void calls to update the state with this overload
+    React.useState()[1]();
+
     // default overload
     // $ExpectType number
     React.useState(0)[0];
@@ -263,12 +266,27 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // make sure the generic argument does reject actual potentially undefined inputs
     // @ts-expect-error
     React.useState<number>(undefined)[0];
+    // don't allow void calls to update when the generic doesn't include undefined, e.g. when an initial value is set.
+    // @ts-expect-error
+    React.useState('initialValue')[1]();
+
     // make sure useState does not widen
-    const [toggle, setToggle] = React.useState(false);
-    // $ExpectType boolean
-    toggle;
-    // make sure setState accepts a function
-    setToggle(r => !r);
+    {
+        // default overload
+        const [toggle, setToggle] = React.useState(false);
+        // $ExpectType boolean
+        toggle;
+        // make sure setState accepts a function
+        setToggle(r => !r);
+    }
+    {
+        // undefined overload
+        const [toggle, setToggle] = React.useState<boolean>();
+        // $ExpectType boolean | undefined
+        toggle;
+        // make sure setState accepts a function
+        setToggle(r => !r);
+    }
 
     // Undesired
     // Should not type-check since `number` will be `number` at runtime but `() => number` in the type-checker

@@ -1826,7 +1826,7 @@ declare namespace React {
      * }
      * ```
      */
-    type SetStateAction<S> = S | ((prevState: S) => S);
+    type SetStateAction<S> = undefined extends S ? void | S | ((prevState: S) => S) : S | ((prevState: S) => S);
 
     /**
      * A function that can be used to update the state of a {@link useState}
