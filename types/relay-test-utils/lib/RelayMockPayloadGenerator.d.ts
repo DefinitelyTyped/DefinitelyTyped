@@ -9,8 +9,8 @@ export interface MockResolverContext {
 }
 
 export type DeepPartial<T> = T extends object ? {
-    [P in keyof T]?: DeepPartial<T[P]>;
-}
+        [P in keyof T]?: DeepPartial<T[P]>;
+    }
     : T;
 
 export type MockResolver<T = unknown> = (
@@ -29,8 +29,8 @@ export type DefaultMockResolvers = Partial<{
 export type MockResolvers<
     TypeMap extends DefaultMockResolvers = DefaultMockResolvers,
 > = {
-        [K in keyof TypeMap]?: MockResolver<TypeMap[K]>;
-    };
+    [K in keyof TypeMap]?: MockResolver<TypeMap[K]>;
+};
 
 export function generate(
     operation: OperationDescriptor,
@@ -42,10 +42,10 @@ export function generateWithDefer(
     operation: OperationDescriptor,
     mockResolvers: MockResolvers | null,
     options: { mockClientData?: boolean; generateDeferredPayload: true } | null,
-): readonly GraphQLSingularResponse[]
+): readonly GraphQLSingularResponse[];
 
 export function generateWithDefer(
     operation: OperationDescriptor,
     mockResolvers?: MockResolvers | null,
     options?: { mockClientData?: boolean; generateDeferredPayload?: false } | null,
-): GraphQLSingularResponse
+): GraphQLSingularResponse;
