@@ -40,6 +40,8 @@ export {
     WindowLocation,
 } from "@reach/router";
 
+import { History } from "@reach/router"; // eslint-disable-line no-duplicate-imports
+
 // Override location to remove navigate function for React 18 server components compatibility
 // https://github.com/gatsbyjs/reach-router/pull/4
 

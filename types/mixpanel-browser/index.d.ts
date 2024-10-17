@@ -197,6 +197,7 @@ export interface Mixpanel {
     people: People;
     start_session_recording(): void;
     stop_session_recording(): void;
+    get_session_recording_properties(): { $mp_replay_id?: string } | {};
 }
 
 export interface OverridedMixpanel extends Mixpanel {
@@ -250,6 +251,7 @@ export function track_links(query: Query, event_name: string, properties?: Dict 
 export function track_with_groups(event_name: string, properties: Dict, groups: Dict, callback?: Callback): void;
 export function unregister(property: string, options?: Partial<RegisterOptions>): void;
 export const people: People;
+export function get_session_recording_properties(): { $mp_replay_id?: string } | {};
 
 declare const mixpanel: OverridedMixpanel;
 export default mixpanel;

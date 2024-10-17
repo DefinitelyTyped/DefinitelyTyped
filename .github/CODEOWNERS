@@ -1541,7 +1541,7 @@
 /types/dir-glob/                                          @BendingBender
 /types/dir-walker-gen/                                    @aynurin
 /types/director/                                          @pastelmind
-/types/directory-structure-json/                          @astrotrain55
+/types/directory-structure-json/                          @vdistortion
 /types/dirname-regex/                                     @BendingBender
 /types/dirty-chai/                                        @dex4er
 /types/discontinuous-range/                               @OiCMudkips
@@ -2048,7 +2048,6 @@
 /types/express-xml-bodyparser/                            @noticeMaker @macedigital
 /types/extend/                                            @reppners
 /types/extensible-duck/                                   @nossbigg
-/types/extenso/                                           @fer22f
 /types/extjs/                                             @brian428
 /types/extra-watch-webpack-plugin/                        @davecardwell
 /types/extract-colors/                                    @punctuations
@@ -2998,7 +2997,7 @@
 /types/gopd/                                              @ljharb
 /types/gorilla-engine/                                    @jhwoodward @UJAM-JH @rip-off-hb @pkellett @vpietropaolo-ujam @agachuma
 /types/got-resume/                                        @inglec-arista @BendingBender
-/types/govuk-frontend/                                    @colinrotherham
+/types/govuk-frontend/                                    @colinrotherham @romaricpascal
 /types/graceful-fs/                                       @Bartvds @BendingBender
 /types/gradient-parser/                                   @AviVahl
 /types/graham_scan/                                       @hberntsen
@@ -4167,7 +4166,6 @@
 /types/koa-helmet/                                        @nsimmons @dolezel @johnnyreilly
 /types/koa-helmet/v5/                                     @me
 /types/koa-html-minifier/                                 @romain-faust
-/types/koa-ignore/                                        @fer22f
 /types/koa-is-json/                                       @HakurouKen
 /types/koa-joi-router/                                    @wingsbob @move-zig @hirochachacha @NotWoods @sourrust
 /types/koa-joi-router-docs/                               @4doge
@@ -5047,9 +5045,6 @@
 /types/mkcert/                                            @asachin96
 /types/mkpath/                                            @optical
 /types/ml-classify-text/                                  @promise
-/types/ml-levenberg-marquardt/                            @m93a
-/types/ml-levenberg-marquardt/v1/                         @m93a
-/types/ml-levenberg-marquardt/v2/                         @m93a
 /types/mobile-messaging-cordova/                          @kostap13 @tjuric
 /types/moc-better-sqlite3/                                @Morfent @matrumz @sant123 @loghorn @andykais @mrkstwrt
 /types/mocha/                                             @kazimanzurrashid @otiai10 @enlight @cspotcode @1999 @strangedev @nicojs
@@ -7068,6 +7063,7 @@
 /types/repeating/                                         @claasahl
 /types/replace-ext/                                       @DeividasBakanas @peterblazejewicz
 /types/replacestream/                                     @dex4er
+/types/req-real-ip/                                       @lacherogwu
 /types/request/                                           @soywiz @bonnici @Bartvds @joeskeen @ccurrens @lookfirst @mastermatt @josecolella @murbanowicz
 /types/request-as-curl/                                   @atd-schubert
 /types/request-debug/                                     @marcellourbani
@@ -7098,7 +7094,6 @@
 /types/resolve-dir/                                       @mrozio13pl
 /types/resolve-id-refs/                                   @lunchbreakdev
 /types/resolve-options/                                   @delprzemo
-/types/resolve-path/                                      @fer22f
 /types/resolve-protobuf-schema/                           @claasahl
 /types/resolve-value/                                     @ChocolateLoverRaj
 /types/response-time/                                     @urossmolnik @TonyPythoneer @danmana
@@ -8062,7 +8057,6 @@
 /types/textextensions/                                    @BendingBender
 /types/textract/                                          @lal12
 /types/textversionjs/                                     @aaronosher
-/types/texzilla/                                          @m93a
 /types/tg-ads-mediation__ads-cdn/                         @barinbritva
 /types/tgfancy/                                           @Dabolus
 /types/tgwf__co2/                                         @fershad @mrchrisadams
@@ -8470,7 +8464,6 @@
 /types/videojs-contrib-quality-levels/                    @nhardy
 /types/videojs-errors/                                    @peterblazejewicz
 /types/videojs-hls-quality-selector/                      @peterblazejewicz
-/types/videojs-hotkeys/                                   @Coteh
 /types/videojs-mobile-ui/                                 @peterblazejewicz
 /types/videojs-playlist-ui/                               @peterblazejewicz
 /types/videojs-seek-buttons/                              @peterblazejewicz
