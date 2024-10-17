@@ -64,7 +64,7 @@ declare namespace convert {
     type Speed = "m/s" | "km/h" | "m/h" | "knot" | "ft/s"; // Speed
     type Pace = "s/m" | "min/km" | "s/ft" | "min/mi"; // Pace
     type Pressure = "Pa" | "hPa" | "kPa" | "MPa" | "bar" | "torr" | "psi" | "ksi"; // Pressure
-    type Ditgital = "b" | "Kb" | "Mb" | "Gb" | "Tb" | "B" | "KB" | "MB" | "GB" | "TB"; // Digital
+    type Digital = "b" | "Kb" | "Mb" | "Gb" | "Tb" | "B" | "KB" | "MB" | "GB" | "TB"; // Digital
     type Illuminance = "lx" | "ft-cd"; // Illumunance
     type PartsPer = "ppm" | "ppb" | "ppt" | "ppq"; // Parts-Per
     type Voltage = "V" | "mV" | "kV"; // Voltage
@@ -88,7 +88,7 @@ declare namespace convert {
         | Speed
         | Pace
         | Pressure
-        | Ditgital
+        | Digital
         | Illuminance
         | PartsPer
         | Voltage
@@ -112,7 +112,7 @@ declare namespace convert {
         | "speed"
         | "pace"
         | "pressure"
-        | "ditgital"
+        | "digital"
         | "illuminance"
         | "partsPer"
         | "voltage"
