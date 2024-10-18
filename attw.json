@@ -1363,6 +1363,7 @@
         "office-runtime",
         "offscreencanvas",
         "oidc-token-manager",
+        "onfleet__node-onfleet",
         "onflow__flow-js-testing",
         "onscan.js",
         "opencc-js",
