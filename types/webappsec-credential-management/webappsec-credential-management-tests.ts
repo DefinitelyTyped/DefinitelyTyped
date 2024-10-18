@@ -365,7 +365,7 @@ function webauthnAuthenticate() {
         }
 
         const pubKeyCred = cred as PublicKeyCredential;
-        const response = <AuthenticatorAssertionResponse> pubKeyCred.response;
+        const response = <AuthenticatorAssertionResponse>pubKeyCred.response;
         const authData = new Uint8Array(response.authenticatorData);
     }, (e) => {
         console.log(e.message);
