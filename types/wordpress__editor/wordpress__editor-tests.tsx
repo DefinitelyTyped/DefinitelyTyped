@@ -2,7 +2,6 @@ import { dispatch, select } from "@wordpress/data";
 import * as e from "@wordpress/editor";
 
 declare const BLOCK_INSTANCE: import("@wordpress/blocks").BlockInstance;
-declare const FILELIST: FileList;
 declare const FILE_ARRAY: File[];
 
 // $ExpectType EditorStoreDescriptor
@@ -458,7 +457,7 @@ select("core/editor").inSomeHistory(state => state.foo === true);
 
 // $ExpectType void
 e.mediaUpload({
-    filesList: FILELIST,
+    filesList: FILE_ARRAY,
     onFileChange(files) {
         console.log(files[0].alt, files[0].media_type);
     },
