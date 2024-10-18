@@ -1,8 +1,14 @@
 import ignore from 'esbuild-plugin-ignore';
 
 // ✅ Correct usage — should pass without errors
+
+// $ExpectType IgnorePluginInstance
 ignore([{ resourceRegExp: /pg-native$/, contextRegExp: /node_modules/ }]);
+
+// $ExpectType IgnorePluginInstance
 ignore([{ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }]);
+
+// $ExpectType IgnorePluginInstance
 ignore([{resourceRegExp: /prisma/, contextRegExp: /.*/}])
 
 // ❌ Errors that TypeScript should catch:

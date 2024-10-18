@@ -1,0 +1,8 @@
+{
+	"type": "commonjs",
+    "exports": {
+        ".": {
+            "require": "./index.d.ts"
+        }
+    }
+}

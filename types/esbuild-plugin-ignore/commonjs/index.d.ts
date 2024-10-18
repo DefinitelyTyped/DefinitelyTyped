@@ -19,6 +19,6 @@ interface IgnorePluginInstance {
     setup: Plugin['setup'];
 }
 
-export default function ignore(options: IgnoreOption[]): IgnorePluginInstance;
+declare function ignore(options: IgnoreOption[]): IgnorePluginInstance;
 
-export {}
+export = ignore;
