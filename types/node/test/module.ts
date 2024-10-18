@@ -144,3 +144,20 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
         number; // $ExpectType number
     };
 }
+
+{
+    // $ExpectType EnableCompileCacheResult
+    Module.enableCompileCache();
+    // $ExpectType EnableCompileCacheResult
+    Module.enableCompileCache(`/var/run/nodejs/${process.pid}`);
+
+    const result = Module.enableCompileCache();
+    result.status; // $ExpectType number
+    result.message; // $ExpectType string | undefined
+    result.directory; // $ExpectType string | undefined
+
+    // $ExpectType string | undefined
+    Module.getCompileCacheDir();
+
+    const { ENABLED, ALREADY_ENABLED, FAILED, DISABLED } = Module.constants.compileCacheStatus;
+}
