@@ -234,6 +234,11 @@ export interface ParseConfig<T = any, TInput = undefined> {
      */
     delimitersToGuess?: string[] | undefined;
     /**
+     * To skip first N number of lines when converting a CSV file to JSON
+     * @default 0
+     */
+    skipFirstNLines?: number;
+    /**
      * To stream the input, define a callback function.
      * Streaming is necessary for large files which would otherwise crash the browser.
      * You can call parser.abort() to abort parsing.
