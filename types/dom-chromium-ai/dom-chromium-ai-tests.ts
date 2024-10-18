@@ -167,4 +167,66 @@ async function topLevel() {
     }
 
     rewriter.destroy();
+
+    // Translator
+
+    const translator = await window.ai.translator.create({
+        sourceLanguage: "de",
+        targetLanguage: "en",
+        signal: (new AbortController()).signal,
+        monitor(m: AICreateMonitor) {
+            m.addEventListener("downloadprogress", (e) => {
+                console.log(e.loaded, e.total);
+            });
+        },
+    });
+
+    console.log(
+        translator.sourceLanguage,
+        translator.targetLanguage,
+    );
+
+    const translatorCapabilities = await window.ai.translator.capabilities();
+    console.log(
+        translatorCapabilities.available,
+        translatorCapabilities.canTranslate("de", "en"),
+    );
+
+    const translatorResult: string = await translator.translate("foo", {
+        signal: (new AbortController()).signal,
+    });
+    console.log(translatorResult);
+
+    for await (
+        const chunk of translator.translateStreaming("foo", { signal: (new AbortController()).signal })
+    ) {
+        console.log(chunk);
+    }
+
+    translator.destroy();
+
+    // Language detector
+
+    const languageDetector = await window.ai.languageDetector.create({
+        signal: (new AbortController()).signal,
+        monitor(m: AICreateMonitor) {
+            m.addEventListener("downloadprogress", (e) => {
+                console.log(e.loaded, e.total);
+            });
+        },
+    });
+
+    const languageDetectorCapabilities = await window.ai.languageDetector.capabilities();
+    console.log(
+        languageDetectorCapabilities.available,
+        languageDetectorCapabilities.canDetect("de"),
+    );
+
+    const [languageDetectorResult]: LanguageDetectionResult[] = await languageDetector.detect("foo", {
+        signal: (new AbortController()).signal,
+    });
+    console.log(languageDetectorResult.detectedLanguage);
+    console.log(languageDetectorResult.confidence);
+
+    languageDetector.destroy();
 }
