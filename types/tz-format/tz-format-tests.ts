@@ -1,4 +1,4 @@
-import format = require('tz-format');
+import format = require("tz-format");
 
 format();
 format(1);

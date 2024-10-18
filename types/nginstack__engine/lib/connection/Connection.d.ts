@@ -149,7 +149,7 @@ declare namespace Connection {
 type Database = import('../database/Database');
 import DataSet = require('../dataset/DataSet.js');
 import DBKey = require('../dbkey/DBKey.js');
+declare function fromConfig(key: DBKey | number): Connection;
 type ModelDef = import('../classdef/ModelDef');
 type Email = import('../email/Email');
 type Task = import('../scheduler/Task');
-declare function fromConfig(key: DBKey | number): Connection;

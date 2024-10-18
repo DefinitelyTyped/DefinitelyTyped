@@ -1,4 +1,4 @@
-import { VariadicFunction } from '../internal/types';
+import { VariadicFunction } from "../internal/types";
 
 /**
  * liftN :: Applicative m => Number -> ((*) -> a) -> (*m) -> m a

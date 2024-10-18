@@ -27,7 +27,6 @@ declare namespace jsrsasign.KJUR.asn1.csr {
      *   attributes    [0] Attributes{{ CRIAttributes }} }
      * </pre>
      *
-     *
      * Argument "params" JSON object can have following keys:
      *
      * - {Array}subject - parameter to be passed to {@link KJUR.asn1.x509.X500Name}
@@ -39,7 +38,6 @@ declare namespace jsrsasign.KJUR.asn1.csr {
      * - {String}sighex - hexadecimal string of signature value. When this is not defined and
      * sbjprvkey is specified, sighex will be set automatically
      * during getEncodedHex() is called. (OPTION)
-     *
      *
      * CAUTION:
      * Argument "params" JSON value format have been changed without

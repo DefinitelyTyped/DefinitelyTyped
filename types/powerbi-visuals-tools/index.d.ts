@@ -1,9 +1,3 @@
-// Type definitions for Powerbi-visuals-tools 1.11
-// Project: https://github.com/Microsoft/PowerBI-visuals-tools
-// Definitions by:  Ilfat Galiev <https://github.com/zBritva>
-//                  Microsoft <https://github.com/Microsoft>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace powerbi {
     enum VisualDataRoleKind {
         /** Indicates that the role should be bound to something that evaluates to a grouping of values. */
@@ -135,13 +129,13 @@ declare namespace powerbi {
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         defer<T>(): IDeferred<T>;
 
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         defer<TSuccess, TError>(): IDeferred2<TSuccess, TError>;
 
         /**
@@ -177,7 +171,7 @@ declare namespace powerbi {
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          * Does not resolve until all promises finish (success or failure).
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         allSettled<T>(promises: Array<IPromise2<any, any>>): IPromise<Array<IPromiseResult<T>>>;
 
         /**
@@ -209,13 +203,15 @@ declare namespace powerbi {
          */
         then<TSuccessResult, TErrorResult>(
             successCallback: (promiseValue: TSuccess) => TSuccessResult | IPromise2<TSuccessResult, TErrorResult>,
-            errorCallback?: (reason: TError) => TErrorResult):
-        IPromise2<TSuccessResult, TErrorResult>;
+            errorCallback?: (reason: TError) => TErrorResult,
+        ): IPromise2<TSuccessResult, TErrorResult>;
 
         /**
          * Shorthand for promise.then(null, errorCallback).
          */
-        catch<TErrorResult>(onRejected: (reason: any) => IPromise2<TSuccess, TErrorResult>): IPromise2<TSuccess, TErrorResult>;
+        catch<TErrorResult>(
+            onRejected: (reason: any) => IPromise2<TSuccess, TErrorResult>,
+        ): IPromise2<TSuccess, TErrorResult>;
 
         /**
          * Shorthand for promise.then(null, errorCallback).
@@ -232,7 +228,7 @@ declare namespace powerbi {
          * are not supported as property names by ES3, you'll need to invoke
          * the method like promise['finally'](callback) to make your code IE8 and Android 2.x compatible.
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         finally<T, U>(finallyCallback: () => any): IPromise2<T, U>;
     }
 
@@ -271,7 +267,10 @@ declare namespace powerbi.visuals {
 
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
-        withSeries(seriesColumn: DataViewValueColumns, valueColumn: DataViewValueColumn | DataViewValueColumnGroup): this;
+        withSeries(
+            seriesColumn: DataViewValueColumns,
+            valueColumn: DataViewValueColumn | DataViewValueColumnGroup,
+        ): this;
         withMeasure(measureId: string): this;
         createSelectionId(): ISelectionId;
     }
@@ -730,10 +729,10 @@ declare namespace powerbi.data {
     }
 
     type DataRepetitionSelector =
-        DataViewScopeIdentity |
-        DataViewScopeWildcard |
-        DataViewRoleWildcard |
-        DataViewScopeTotal;
+        | DataViewScopeIdentity
+        | DataViewScopeWildcard
+        | DataViewRoleWildcard
+        | DataViewScopeTotal;
 
     interface SelectorsByColumn {
         key?: string | undefined;
@@ -944,14 +943,14 @@ declare namespace powerbi {
 
     /** Defines instances of structural types. */
     type StructuralObjectValue =
-        Fill |
-        FillRule |
-        SemanticFilter |
-        DefaultValueDefinition |
-        ImageValue |
-        Paragraphs |
-        GeoJson |
-        DataBars;
+        | Fill
+        | FillRule
+        | SemanticFilter
+        | DefaultValueDefinition
+        | ImageValue
+        | Paragraphs
+        | GeoJson
+        | DataBars;
 
     /** Describes a structural type in the client type system. Leaf properties should use ValueType. */
     interface StructuralTypeDescriptor {
@@ -1170,7 +1169,7 @@ declare namespace powerbi.extensibility {
     }
 
     interface IVisualDataViewTransform {
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T>(dataview: DataView[]): T;
     }
 
@@ -1208,7 +1207,10 @@ declare namespace powerbi {
 
 declare namespace powerbi.extensibility {
     interface ISelectionManager {
-        select(selectionId: visuals.ISelectionId | visuals.ISelectionId[], multiSelect?: boolean): IPromise<visuals.ISelectionId[]>;
+        select(
+            selectionId: visuals.ISelectionId | visuals.ISelectionId[],
+            multiSelect?: boolean,
+        ): IPromise<visuals.ISelectionId[]>;
         hasSelection(): boolean;
         clear(): IPromise<{}>;
         getSelectionIds(): visuals.ISelectionId[];
@@ -1220,7 +1222,10 @@ declare namespace powerbi.extensibility {
 declare namespace powerbi.extensibility {
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
-        withSeries(seriesColumn: DataViewValueColumns, valueColumn: DataViewValueColumn | DataViewValueColumnGroup): this;
+        withSeries(
+            seriesColumn: DataViewValueColumns,
+            valueColumn: DataViewValueColumn | DataViewValueColumnGroup,
+        ): this;
         withMeasure(measureId: string): this;
         createSelectionId(): visuals.ISelectionId;
     }
@@ -1306,7 +1311,7 @@ declare namespace powerbi.extensibility.visual {
      */
     interface IVisual extends extensibility.IVisual {
         /** Notifies the IVisual of an update (data, viewmode, size change). */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         update<T>(options: VisualUpdateOptions, viewModel?: T): void;
 
         /** Gets the set of objects that the visual is currently displaying. */
@@ -1341,5 +1346,5 @@ declare namespace powerbi.extensibility.visual {
         host: IVisualHost;
     }
 }
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = powerbi;

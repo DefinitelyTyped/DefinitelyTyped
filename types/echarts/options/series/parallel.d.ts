@@ -110,7 +110,6 @@ declare namespace echarts {
          *
          * [see doc](https://echarts.apache.org/en/option.html#series-parallel)
          *
-         *
          * @see https://echarts.apache.org/en/option.html#series-parallel
          */
         interface SeriesParallel {
@@ -126,7 +125,6 @@ declare namespace echarts {
              * If specified, it can be used to refer the component in option
              * or API.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-parallel.id
              */
             id?: string | undefined;
@@ -140,7 +138,6 @@ declare namespace echarts {
              * [parallelIndex](https://echarts.apache.org/en/option.html#series-parallel.parallelIndex)
              * to assign the corresponding parallel coordinate components.
              *
-             *
              * @default
              * "parallel"
              * @see https://echarts.apache.org/en/option.html#series-parallel.coordinateSystem
@@ -153,7 +150,6 @@ declare namespace echarts {
              * to combine with, which is useful for multiple parallel axes in
              * one chart.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-parallel.parallelIndex
              */
             parallelIndex?: number | undefined;
@@ -165,14 +161,12 @@ declare namespace echarts {
              * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-parallel.name
              */
             name?: string | undefined;
 
             /**
              * Line style.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle
              */
@@ -190,7 +184,6 @@ declare namespace echarts {
                  * >
                  * > [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.lineStyle)
                  *
-                 *
                  * @default
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.color
@@ -199,7 +192,6 @@ declare namespace echarts {
 
                 /**
                  * line width.
-                 *
                  *
                  * @default
                  * 2
@@ -216,7 +208,6 @@ declare namespace echarts {
                  * + `'dashed'`
                  * + `'dotted'`
                  *
-                 *
                  * @default
                  * "solid"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.type
@@ -232,14 +223,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.lineStyle)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowBlur
                  */
                 shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowColor
                  */
@@ -248,14 +237,12 @@ declare namespace echarts {
                 /**
                  * Offset distance on the horizontal direction of shadow.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowOffsetY
                  */
@@ -265,7 +252,6 @@ declare namespace echarts {
                  * Opacity of the component.
                  * Supports value from 0 to 1, and the component will not be
                  * drawn when set to 0.
-                 *
                  *
                  * @default
                  * 0.45
@@ -295,7 +281,6 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.emphasis.lineStyle)
                      *
-                     *
                      * @default
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.color
@@ -304,7 +289,6 @@ declare namespace echarts {
 
                     /**
                      * line width.
-                     *
                      *
                      * @default
                      * 2
@@ -321,7 +305,6 @@ declare namespace echarts {
                      * + `'dashed'`
                      * + `'dotted'`
                      *
-                     *
                      * @default
                      * "solid"
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.type
@@ -337,14 +320,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.emphasis.lineStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowColor
                      */
@@ -353,14 +334,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowOffsetY
                      */
@@ -370,7 +349,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @default
                      * 0.45
@@ -384,7 +362,6 @@ declare namespace echarts {
              * When perform brush selection, the unselected lines will be set
              * as this transparency rate (which could darken those lines).
              *
-             *
              * @default
              * 0.05
              * @see https://echarts.apache.org/en/option.html#series-parallel.inactiveOpacity
@@ -395,7 +372,6 @@ declare namespace echarts {
              * When perform brush selection, the selected lines will be set
              * as this transparency rate (which could highlight those lines).
              *
-             *
              * @default
              * 1
              * @see https://echarts.apache.org/en/option.html#series-parallel.activeOpacity
@@ -404,7 +380,6 @@ declare namespace echarts {
 
             /**
              * Whether to update view in realtime.
-             *
              *
              * @default
              * "true"
@@ -416,7 +391,6 @@ declare namespace echarts {
              * Whether to smooth the line.
              * It defaults to be `false` and can be set as `true` or the values
              * from 0 to 1 which indicating the smoothness.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.smooth
              */
@@ -433,7 +407,6 @@ declare namespace echarts {
              * workflow, which processes and renders data chunk by chunk alone
              * with each frame, avoiding to block the UI thread of the browser.
              *
-             *
              * @default
              * 500
              * @see https://echarts.apache.org/en/option.html#series-parallel.progressive
@@ -443,7 +416,6 @@ declare namespace echarts {
             /**
              * If current data amount is over the threshold, "progressive rendering"
              * is enabled.
-             *
              *
              * @default
              * 3000
@@ -458,7 +430,6 @@ declare namespace echarts {
              * + `'mod'`: slice data by mod, which make the data items of each
              * chunk coming from all over the data, bringing better visual effect
              * while progressive rendering.
-             *
              *
              * @default
              * "sequential"
@@ -480,10 +451,12 @@ declare namespace echarts {
              * "PM10", "carbon monoxide level", "nitrogen dioxide level", and
              * "sulfur dioxide level".
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-parallel.data
              */
-            data?: (number | string | SeriesParallel.DataObject)[] | (number | string | SeriesParallel.DataObject)[][] | undefined;
+            data?:
+                | Array<number | string | SeriesParallel.DataObject>
+                | Array<Array<number | string | SeriesParallel.DataObject>>
+                | undefined;
 
             /**
              * `zlevel` value of all graghical elements in parallel.
@@ -499,7 +472,6 @@ declare namespace echarts {
              * Canvases with bigger `zlevel` will be placed on Canvases with
              * smaller `zlevel`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-parallel.zlevel
              */
             zlevel?: number | undefined;
@@ -513,7 +485,6 @@ declare namespace echarts {
              * `z` has a lower priority to `zlevel`, and will not create new
              * Canvas.
              *
-             *
              * @default
              * 2
              * @see https://echarts.apache.org/en/option.html#series-parallel.z
@@ -525,14 +496,12 @@ declare namespace echarts {
              * Default value is false, for triggering and responding to mouse
              * events.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-parallel.silent
              */
             silent?: boolean | undefined;
 
             /**
              * Whether to enable animation.
-             *
              *
              * @default
              * "true"
@@ -544,7 +513,6 @@ declare namespace echarts {
              * Whether to set graphic number threshold to animation.
              * Animation will be disabled when graphic number is larger than
              * threshold.
-             *
              *
              * @default
              * 2000
@@ -558,7 +526,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel)
              *
-             *
              * @default
              * 1000
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationDuration
@@ -570,7 +537,6 @@ declare namespace echarts {
              * Varied easing effects can be found at
              * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
-             *
              *
              * @default
              * "linear"
@@ -590,7 +556,6 @@ declare namespace echarts {
              * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationDelay
              */
             animationDelay?: Function | number | undefined;
@@ -601,7 +566,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel)
              *
-             *
              * @default
              * 300
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationDurationUpdate
@@ -610,7 +574,6 @@ declare namespace echarts {
 
             /**
              * Easing method used for animation.
-             *
              *
              * @default
              * "cubicOut"
@@ -630,14 +593,12 @@ declare namespace echarts {
              * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-parallel.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number | undefined;
 
             /**
              * tooltip settings in this series.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip
              */
@@ -649,7 +610,6 @@ declare namespace echarts {
                 /**
                  * The name of a data item.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.name
                  */
                 name?: string | undefined;
@@ -657,14 +617,12 @@ declare namespace echarts {
                 /**
                  * The value of a data item.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.value
                  */
                 value?: any[] | undefined;
 
                 /**
                  * Line style.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.lineStyle
                  */
@@ -683,7 +641,6 @@ declare namespace echarts {
                  * >
                  * > [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.data)
                  *
-                 *
                  * @default
                  * "#000"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.color
@@ -692,7 +649,6 @@ declare namespace echarts {
 
                 /**
                  * line width.
-                 *
                  *
                  * @default
                  * 2
@@ -709,7 +665,6 @@ declare namespace echarts {
                  * + `'dashed'`
                  * + `'dotted'`
                  *
-                 *
                  * @default
                  * "solid"
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.type
@@ -725,14 +680,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.data)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowBlur
                  */
                 shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowColor
                  */
@@ -741,14 +694,12 @@ declare namespace echarts {
                 /**
                  * Offset distance on the horizontal direction of shadow.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowOffsetX
                  */
                 shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowOffsetY
                  */
@@ -758,7 +709,6 @@ declare namespace echarts {
                  * Opacity of the component.
                  * Supports value from 0 to 1, and the component will not be
                  * drawn when set to 0.
-                 *
                  *
                  * @default
                  * 0.45
@@ -788,7 +738,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
                          *
-                         *
                          * @default
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.color
@@ -797,7 +746,6 @@ declare namespace echarts {
 
                         /**
                          * line width.
-                         *
                          *
                          * @default
                          * 2
@@ -814,7 +762,6 @@ declare namespace echarts {
                          * + `'dashed'`
                          * + `'dotted'`
                          *
-                         *
                          * @default
                          * "solid"
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.type
@@ -830,14 +777,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowColor
                          */
@@ -846,14 +791,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetY
                          */
@@ -863,7 +806,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @default
                          * 0.45

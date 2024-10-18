@@ -129,8 +129,8 @@ declare class SimpleLayout {
         opt_showLineBottom?: boolean,
         opt_treeNodeId?: number,
         opt_parentTreeNodeId?: number,
-        opt_patterns?: string[]
-    ): boolean | void;
+        opt_patterns?: string[],
+    ): boolean;
     private start;
     private mailMessage_;
     private _layoutId;
@@ -184,7 +184,7 @@ declare class SimpleLayout {
         opt_css?: string,
         opt_showLineTop?: boolean,
         opt_showLineBottom?: boolean,
-        opt_convertToHtmlString?: boolean
+        opt_convertToHtmlString?: boolean,
     ): void;
     writeImage(uri: number | string, opt_options?: number | Record<any, any>): void;
     formatImageTag(
@@ -193,7 +193,7 @@ declare class SimpleLayout {
             style?: string;
             id?: string;
             cssClass?: string;
-        }
+        },
     ): string;
     breakPage(): void;
     private treeWriteRow;
@@ -206,19 +206,19 @@ declare class SimpleLayout {
     stats(): SimpleLayoutStats;
 }
 declare namespace SimpleLayout {
-    export { LAYOUT_COUNT, columnsTotalByGroupId, defaults, Event, Grid, SimpleLayoutStats };
+    export { columnsTotalByGroupId, defaults, Event, Grid, LAYOUT_COUNT, SimpleLayoutStats };
 }
-import StringList = require('@nginstack/engine/lib/string/StringList.js');
-type Event = import('@nginstack/engine/lib/event/Event');
-import Header = require('./Header.js');
-import Footer = require('./Footer.js');
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-type Grid = import('../grid/Grid');
-import Link = require('../anchor/Link.js');
-import Column = require('./Column.js');
+import StringList = require("@nginstack/engine/lib/string/StringList.js");
+type Event = import("@nginstack/engine/lib/event/Event");
+import Header = require("./Header.js");
+import Footer = require("./Footer.js");
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+type Grid = import("../grid/Grid");
+import Link = require("../anchor/Link.js");
+import Column = require("./Column.js");
+declare let LAYOUT_COUNT: number;
+declare let columnsTotalByGroupId: any;
+declare let defaults: {};
 interface SimpleLayoutStats {
     bufferLength: any;
 }
-declare var LAYOUT_COUNT: number;
-declare var columnsTotalByGroupId: any;
-declare var defaults: {};

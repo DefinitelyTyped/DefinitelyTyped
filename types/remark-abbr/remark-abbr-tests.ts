@@ -1,5 +1,5 @@
-import remark = require('remark');
-import remarkAbbr = require('remark-abbr');
+import remark = require("remark");
+import remarkAbbr = require("remark-abbr");
 
 remark().use(remarkAbbr);
 

@@ -1,8 +1,3 @@
-// Type definitions for gulp-minify 3.1
-// Project: https://github.com/hustxiaoc/gulp-minify
-// Definitions by: Elias Skogevall <https://github.com/tscpp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 interface minify {
@@ -124,103 +119,104 @@ interface Options {
      * Pass an object to specify custom compressor options. Pass false to skip compression completely.
      */
     compress?:
-    | {
-        /**
-         * join consecutive statemets with the “comma operator”
-         */
-        sequences?: boolean | undefined;
+        | {
+            /**
+             * join consecutive statemets with the “comma operator”
+             */
+            sequences?: boolean | undefined;
 
-        /**
-         * optimize property access?: a["foo"] → a.foo
-         */
-        properties?: boolean | undefined;
+            /**
+             * optimize property access?: a["foo"] → a.foo
+             */
+            properties?: boolean | undefined;
 
-        /**
-         * discard unreachable code
-         */
-        dead_code?: boolean | undefined;
+            /**
+             * discard unreachable code
+             */
+            dead_code?: boolean | undefined;
 
-        /**
-         * discard “debugger” statements
-         */
-        drop_debugger?: boolean | undefined;
+            /**
+             * discard “debugger” statements
+             */
+            drop_debugger?: boolean | undefined;
 
-        /**
-         * some unsafe optimizations (see below)
-         */
-        unsafe?: boolean | undefined; //
+            /**
+             * some unsafe optimizations (see below)
+             */
+            unsafe?: boolean | undefined; //
 
-        /**
-         * optimize if-s and conditional expressions
-         */
-        conditionals?: boolean | undefined;
+            /**
+             * optimize if-s and conditional expressions
+             */
+            conditionals?: boolean | undefined;
 
-        /**
-         * optimize comparisons
-         */
-        comparisons?: boolean | undefined;
+            /**
+             * optimize comparisons
+             */
+            comparisons?: boolean | undefined;
 
-        /**
-         * optimize boolean expressions
-         */
-        evaluate?: boolean | undefined;
+            /**
+             * optimize boolean expressions
+             */
+            evaluate?: boolean | undefined;
 
-        /**
-         * optimize boolean expressions
-         */
-        booleans?: boolean | undefined;
+            /**
+             * optimize boolean expressions
+             */
+            booleans?: boolean | undefined;
 
-        /**
-         * optimize loops
-         */
-        loops?: boolean | undefined;
+            /**
+             * optimize loops
+             */
+            loops?: boolean | undefined;
 
-        /**
-         * drop unused variables/functions
-         */
-        unused?: boolean | undefined;
+            /**
+             * drop unused variables/functions
+             */
+            unused?: boolean | undefined;
 
-        /**
-         * hoist function declarations
-         */
-        hoist_funs?: boolean | undefined;
+            /**
+             * hoist function declarations
+             */
+            hoist_funs?: boolean | undefined;
 
-        /**
-         * hoist variable declarations
-         */
-        hoist_vars?: boolean | undefined; // hoist variable declarations
+            /**
+             * hoist variable declarations
+             */
+            hoist_vars?: boolean | undefined; // hoist variable declarations
 
-        /**
-         * optimize if-s followed by return/continue
-         */
-        if_return?: boolean | undefined;
+            /**
+             * optimize if-s followed by return/continue
+             */
+            if_return?: boolean | undefined;
 
-        /**
-         * join var declarations
-         */
-        join_vars?: boolean | undefined;
+            /**
+             * join var declarations
+             */
+            join_vars?: boolean | undefined;
 
-        /**
-         * try to cascade `right` into `left` in sequences
-         */
-        cascade?: boolean | undefined;
+            /**
+             * try to cascade `right` into `left` in sequences
+             */
+            cascade?: boolean | undefined;
 
-        /**
-         * drop side-effect-free statements
-         */
-        side_effects?: boolean | undefined;
+            /**
+             * drop side-effect-free statements
+             */
+            side_effects?: boolean | undefined;
 
-        /**
-         * warn about potentially dangerous optimizations/code
-         */
-        warnings?: boolean | undefined;
+            /**
+             * warn about potentially dangerous optimizations/code
+             */
+            warnings?: boolean | undefined;
 
-        /**
-         * global definitions
-         */
-        global_defs?: {} | undefined;
-    }
-    | boolean | undefined;
+            /**
+             * global definitions
+             */
+            global_defs?: {} | undefined;
+        }
+        | boolean
+        | undefined;
 
     /**
      * A convenience option for options.output.comments. Defaults to preserving no comments.
@@ -231,7 +227,7 @@ interface Options {
      *
      * * **function**: specify your own comment preservation function. You will be passed the current node and the current comment and are expected to return a boolean.
      */
-    preserveComments?: 'all' | 'some' | ((node?: any, comment?: any) => boolean) | undefined;
+    preserveComments?: "all" | "some" | ((node?: any, comment?: any) => boolean) | undefined;
 }
 
 declare var minify: minify;

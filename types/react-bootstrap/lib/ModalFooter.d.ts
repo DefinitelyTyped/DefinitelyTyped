@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace ModalFooter {
     export interface ModalFooterProps extends React.HTMLProps<ModalFooter> {
@@ -6,5 +6,5 @@ declare namespace ModalFooter {
         bsClass?: string | undefined;
     }
 }
-declare class ModalFooter extends React.Component<ModalFooter.ModalFooterProps> { }
+declare class ModalFooter extends React.Component<ModalFooter.ModalFooterProps> {}
 export = ModalFooter;

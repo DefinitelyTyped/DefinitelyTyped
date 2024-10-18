@@ -1,24 +1,24 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { OAuth2, Streaming } from ".";
+import { Analytics } from "./api/analytics";
+import { Apex } from "./api/apex";
+import { Chatter } from "./api/chatter";
+import { Metadata } from "./api/metadata";
+import { SoapApi } from "./api/soap";
+import { Bulk } from "./bulk";
+import { Cache } from "./cache";
 import {
     BatchDescribeSObjectOptions,
+    DescribeGlobalResult,
     DescribeSObjectOptions,
     DescribeSObjectResult,
-    DescribeGlobalResult,
-} from './describe-result';
-import { Query, QueryResult, ExecuteOptions } from './query';
-import { Record } from './record';
-import { RecordResult } from './record-result';
-import { SObject } from './salesforce-object';
-import { Analytics } from './api/analytics';
-import { Chatter } from './api/chatter';
-import { Metadata } from './api/metadata';
-import { SoapApi } from './api/soap';
-import { Apex } from './api/apex';
-import { Bulk } from './bulk';
-import { Cache } from './cache';
-import { OAuth2, Streaming } from '.';
-import { HttpApiOptions } from './http-api';
-import { LimitInfo, LimitsInfo } from './limits-info';
+} from "./describe-result";
+import { HttpApiOptions } from "./http-api";
+import { LimitInfo, LimitsInfo } from "./limits-info";
+import { ExecuteOptions, Query, QueryResult } from "./query";
+import { Record } from "./record";
+import { RecordResult } from "./record-result";
+import { SObject } from "./salesforce-object";
 
 export type Callback<T> = (err: Error | null, result: T) => void;
 // The type for these options was determined by looking at the usage
@@ -159,10 +159,10 @@ export interface ExecuteAnonymousResult {
     exceptionStackTrace: string;
 }
 
-export type ConnectionEvent = 'refresh';
+export type ConnectionEvent = "refresh";
 
 export interface SearchResult<T> {
-    searchRecords: Record<T>[];
+    searchRecords: Array<Record<T>>;
 }
 
 /**

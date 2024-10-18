@@ -13,7 +13,10 @@ export class Tests {
         this.gridOptionsAlarms = this.createDefaultGridOptions(this.items, this.selectedItems);
     }
 
-    public createDefaultGridOptions<Type>(dataArray: KnockoutObservableArray<Type>, selectedItems: KnockoutObservableArray<Type>): kg.GridOptions<Type> {
+    public createDefaultGridOptions<Type>(
+        dataArray: KnockoutObservableArray<Type>,
+        selectedItems: KnockoutObservableArray<Type>,
+    ): kg.GridOptions<Type> {
         return {
             data: dataArray,
             displaySelectionCheckbox: false,
@@ -21,7 +24,7 @@ export class Tests {
             multiSelect: false,
             showColumnMenu: false,
             plugins: null,
-            selectedItems: selectedItems
+            selectedItems: selectedItems,
         };
     }
 }

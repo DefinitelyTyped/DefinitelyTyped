@@ -1,9 +1,3 @@
-// Type definitions for gifencoder 2.0
-// Project: https://github.com/eugeneware/gifencoder#readme
-// Definitions by: Carlos Precioso <https://github.com/cprecioso>
-//                 Almeida <https://github.com/almeidx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Readable, Transform } from "stream";
 

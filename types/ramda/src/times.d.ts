@@ -1,2 +1,2 @@
-import { times } from '../index';
+import { times } from "../index";
 export default times;

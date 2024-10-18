@@ -1,8 +1,3 @@
-// Type definitions for kd-tree-javascript 1.0
-// Project: https://github.com/ubilabs/kd-tree-javascript#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class kdTree<T> {
     // Create a new tree from a list of points, a distance function, and a
     // list of dimensions.

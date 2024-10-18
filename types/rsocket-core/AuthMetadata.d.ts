@@ -1,4 +1,4 @@
-import WellKnownAuthType from './WellKnownAuthType';
+import WellKnownAuthType from "./WellKnownAuthType";
 
 export interface Type {
     identifier: number;

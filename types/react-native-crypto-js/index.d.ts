@@ -1,12 +1,3 @@
-// Type definitions for react-native-crypto-js 1.0
-// Project: https://github.com/imchintan/react-native-crypto-js
-// Definitions by: Mufaddal Hamid <https://github.com/mufaddalhamidofficial>
-//                 Michael Zabka <https://github.com/misak113>
-//                 Max Lysenko <https://github.com/maximlysenko>
-//                 Brendan Early <https://github.com/mymindstorm>
-//                 Doma <https://github.com/SevenOutman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = RNCryptoJS;
 
 type WordArray = RNCryptoJS.lib.WordArray;

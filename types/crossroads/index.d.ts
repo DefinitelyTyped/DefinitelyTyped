@@ -1,15 +1,8 @@
-// Type definitions for Crossroads.js
-// Project: http://millermedeiros.github.io/crossroads.js/
-// Definitions by: Diullei Gomes <https://github.com/diullei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="signals" />
 
-import * as signal from 'signals';
+import * as signal from "signals";
 
 declare namespace CrossroadsJs {
-
     export interface Route {
         matched: signal.Signal;
 
@@ -54,7 +47,6 @@ declare namespace CrossroadsJs {
     }
 
     export interface CrossRoadsStatic {
-
         NORM_AS_ARRAY: Function;
 
         NORM_AS_OBJECT: Function;

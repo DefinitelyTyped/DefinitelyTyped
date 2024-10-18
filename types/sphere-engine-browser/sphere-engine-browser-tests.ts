@@ -1,7 +1,7 @@
-import { Music, Prim, Thread, Random } from 'sphere-runtime';
+import { Music, Prim, Random, Thread } from "sphere-runtime";
 
 export default class MyGame extends Thread {
-    image = new Texture('@/images/justSaiyan.png');
+    image = new Texture("@/images/justSaiyan.png");
     x = 0;
     y = 0;
     xVel = 1;
@@ -9,7 +9,7 @@ export default class MyGame extends Thread {
 
     constructor() {
         super();
-        Music.play('@/music/vegetaSSj.ogg');
+        Music.play("@/music/vegetaSSj.ogg");
     }
 
     on_update() {

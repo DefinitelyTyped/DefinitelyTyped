@@ -1,4 +1,4 @@
-import connect = require('gulp-connect-php');
+import connect = require("gulp-connect-php");
 
 // No arguments passsed
 connect.server();
@@ -12,25 +12,25 @@ connect.server({}, err => {
 // All options and no callback
 connect.server({
     port: 8080,
-    hostname: 'localhost',
-    base: '../',
+    hostname: "localhost",
+    base: "../",
     open: true,
-    bin: '../php',
-    root: '/php',
-    stdio: 'inherit',
+    bin: "../php",
+    root: "/php",
+    stdio: "inherit",
     configCallback: (_type, collection) => collection,
     debug: true,
-    ini: 'foo',
-    router: 'foo',
+    ini: "foo",
+    router: "foo",
 });
 
 // Mutating config options with configCallback
 connect.server({
     configCallback(type, collection) {
         if (type === connect.OPTIONS_PHP_CLI_ARR) {
-            collection.push('--abc');
+            collection.push("--abc");
         } else if (type === connect.OPTIONS_SPAWN_OBJ) {
-            collection.env = { CUSTOM_ENV_VAR: 'abc' };
+            collection.env = { CUSTOM_ENV_VAR: "abc" };
         }
         return collection;
     },
@@ -39,9 +39,9 @@ connect.server({
 connect.server({
     configCallback(type) {
         if (type === connect.OPTIONS_PHP_CLI_ARR) {
-            return ['--abc'];
+            return ["--abc"];
         } else {
-            return { foo: 'abc' };
+            return { foo: "abc" };
         }
     },
 });
@@ -67,8 +67,8 @@ connectInstance.server({}, err => {
 connect.compat.server(
     {
         configCallback(type, collection) {
-            if (type === connect.compat.OPTIONS_SPAWN_OBJ) collection.foo = 'bar';
-            else if (type === connect.compat.OPTIONS_PHP_CLI_ARR) collection.push('--foo');
+            if (type === connect.compat.OPTIONS_SPAWN_OBJ) collection.foo = "bar";
+            else if (type === connect.compat.OPTIONS_PHP_CLI_ARR) collection.push("--foo");
 
             return collection;
         },

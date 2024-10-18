@@ -1,9 +1,3 @@
-// Type definitions for bootstrap4-toggle 3.6
-// Project: https://github.com/gitbrent/bootstrap4-toggle, https://gitbrent.github.io/bootstrap4-toggle/
-// Definitions by: Mitchell Grice <https://github.com/gricey432>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="jquery"/>
 
 interface BootstrapToggleOptions {

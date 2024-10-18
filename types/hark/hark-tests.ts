@@ -1,4 +1,4 @@
-import hark = require('hark');
+import hark = require("hark");
 
 navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(
     (stream) => {
@@ -7,17 +7,17 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(
             interval: 50,
             history: 10,
             threshold: -50,
-            audioContext: new AudioContext()
+            audioContext: new AudioContext(),
         };
         const h: hark.Harker = hark(stream, option);
         h.stop();
         h.resume();
-        h.on('speaking', () => {
-            console.log('speaking');
+        h.on("speaking", () => {
+            console.log("speaking");
         });
 
-        h.on('stopped_speaking', () => {
-            console.log('stop speaking');
+        h.on("stopped_speaking", () => {
+            console.log("stop speaking");
         });
-    }
+    },
 );

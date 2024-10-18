@@ -1,24 +1,20 @@
-// Type definitions for graylog2 0.2
-// Project: https://github.com/Wizcorp/node-graylog2
-// Definitions by: Andrey Kun <https://github.com/scalder27>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+/// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-export type GraylogDeflate = 'optimal' | 'always' | 'never';
+export type GraylogDeflate = "optimal" | "always" | "never";
 
 export type GraylogLogMethod =
-    | 'log'
-    | 'emergency'
-    | 'alert'
-    | 'critical'
-    | 'error'
-    | 'warning'
-    | 'warn'
-    | 'notice'
-    | 'info'
-    | 'debug';
+    | "log"
+    | "emergency"
+    | "alert"
+    | "critical"
+    | "error"
+    | "warning"
+    | "warn"
+    | "notice"
+    | "info"
+    | "debug";
 
 export interface GraylogConfig {
     /**
@@ -68,15 +64,15 @@ export class graylog extends EventEmitter {
         timestamp?: number,
     ): void;
 
-    emergency: graylog['log'];
-    alert: graylog['log'];
-    critical: graylog['log'];
-    error: graylog['log'];
-    warning: graylog['log'];
-    warn: graylog['log'];
-    notice: graylog['log'];
-    info: graylog['log'];
-    debug: graylog['log'];
+    emergency: graylog["log"];
+    alert: graylog["log"];
+    critical: graylog["log"];
+    error: graylog["log"];
+    warning: graylog["log"];
+    warn: graylog["log"];
+    notice: graylog["log"];
+    info: graylog["log"];
+    debug: graylog["log"];
 
     close(callback?: (err: Error | undefined) => void): void;
 }

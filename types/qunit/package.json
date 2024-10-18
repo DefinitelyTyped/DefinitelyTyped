@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/qunit",
+    "version": "2.19.9999",
+    "projects": [
+        "https://qunitjs.com/"
+    ],
+    "devDependencies": {
+        "@types/qunit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Bracy",
+            "githubUsername": "waratuman"
+        },
+        {
+            "name": "Stefan Sechelmann",
+            "githubUsername": "sechel"
+        },
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        },
+        {
+            "name": "Timo Tijhof",
+            "githubUsername": "Krinkle"
+        }
+    ]
+}

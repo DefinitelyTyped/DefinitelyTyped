@@ -33,11 +33,13 @@ const failOpenClient = new DynamoDBLockClient.FailOpen({
     dynamodb,
     lockTable: "my-lock-table-name",
     partitionKey: "mylocks",
+    sortKey: "mysortkey",
     heartbeatPeriodMs: 3e3,
     leaseDurationMs: 1e4,
+    retryCount: 0,
 });
 
-failOpenClient.acquireLock("my-fail-open-lock", (error, lock) => {
+failOpenClient.acquireLock({ mylocks: "my-fail-open-lock", mysortkey: "my-sort-key" }, (error, lock) => {
     if (error) {
         console.error(error);
         return;

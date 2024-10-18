@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.cloudresourcemanager-v3": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.cloudresourcemanager-v3",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Cloud Resource Manager API v3",
+    "projects": [
+        "https://cloud.google.com/resource-manager"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.cloudresourcemanager-v3": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.cloudresourcemanager-v3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

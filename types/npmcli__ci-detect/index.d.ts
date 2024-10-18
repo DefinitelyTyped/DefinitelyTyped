@@ -1,8 +1,3 @@
-// Type definitions for @npmcli/ci-detect 2.0
-// Project: https://github.com/npm/ci-detect
-// Definitions by: Amin Yahyaabadi <https://github.com/aminya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns one of the following strings, or `false` if none match, by looking at the appropriate environment variables.
  *
@@ -57,47 +52,47 @@
  */
 declare function ciDetect():
     | false
-    | 'gerrit'
-    | 'azure-pipelines'
-    | 'bitrise'
-    | 'buddy'
-    | 'buildkite'
-    | 'cirrus'
-    | 'gitlab'
-    | 'appveyor'
-    | 'circle-ci'
-    | 'semaphore'
-    | 'drone'
-    | 'dsari'
-    | 'github-actions'
-    | 'tddium'
-    | 'screwdriver'
-    | 'strider'
-    | 'taskcluster'
-    | 'jenkins'
-    | 'bamboo'
-    | 'gocd'
-    | 'hudson'
-    | 'wercker'
-    | 'netlify'
-    | 'now-github'
-    | 'now-gitlab'
-    | 'now-bitbucket'
-    | 'bitbucket-pipelines'
-    | 'now'
-    | 'vercel-github'
-    | 'vercel-gitlab'
-    | 'vercel-bitbucket'
-    | 'vercel'
-    | 'magnum'
-    | 'nevercode'
-    | 'render'
-    | 'sail'
-    | 'shippable'
-    | 'teamcity'
-    | 'heroku'
-    | 'travis-ci'
-    | 'aws-codebuild'
-    | 'custom'
-    | 'builder';
+    | "gerrit"
+    | "azure-pipelines"
+    | "bitrise"
+    | "buddy"
+    | "buildkite"
+    | "cirrus"
+    | "gitlab"
+    | "appveyor"
+    | "circle-ci"
+    | "semaphore"
+    | "drone"
+    | "dsari"
+    | "github-actions"
+    | "tddium"
+    | "screwdriver"
+    | "strider"
+    | "taskcluster"
+    | "jenkins"
+    | "bamboo"
+    | "gocd"
+    | "hudson"
+    | "wercker"
+    | "netlify"
+    | "now-github"
+    | "now-gitlab"
+    | "now-bitbucket"
+    | "bitbucket-pipelines"
+    | "now"
+    | "vercel-github"
+    | "vercel-gitlab"
+    | "vercel-bitbucket"
+    | "vercel"
+    | "magnum"
+    | "nevercode"
+    | "render"
+    | "sail"
+    | "shippable"
+    | "teamcity"
+    | "heroku"
+    | "travis-ci"
+    | "aws-codebuild"
+    | "custom"
+    | "builder";
 export = ciDetect;

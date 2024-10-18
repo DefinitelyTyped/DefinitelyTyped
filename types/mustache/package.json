@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/mustache",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/janl/mustache.js"
+    ],
     "exports": {
         "./package.json": "./package.json",
         ".": {
@@ -8,5 +13,26 @@
                 "default": "./index.d.ts"
             }
         }
-    }
+    },
+    "devDependencies": {
+        "@types/mustache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mark Ashley Bell",
+            "githubUsername": "markashleybell"
+        },
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        },
+        {
+            "name": "Phillip Johnsen",
+            "githubUsername": "phillipj"
+        },
+        {
+            "name": "Steve Dignam",
+            "githubUsername": "sbdchd"
+        }
+    ]
 }

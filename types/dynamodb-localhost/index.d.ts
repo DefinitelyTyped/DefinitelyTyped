@@ -1,9 +1,3 @@
-// Type definitions for dynamodb-localhost 0.0
-// Project: https://github.com/99xt/dynamodb-localhost
-// Definitions by: Adam Jones <https://github.com/domdomegg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 export function install(callback?: () => unknown, path?: string): void;
 export function start(options: Options): void;
 export function stop(port: number): void;

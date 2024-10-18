@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/array.prototype.find",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/paulmillr/Array.prototype.find#readme"
+    ],
+    "devDependencies": {
+        "@types/array.prototype.find": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

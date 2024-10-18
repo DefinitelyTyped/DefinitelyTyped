@@ -1,6 +1,34 @@
 {
     "private": true,
+    "name": "@types/jest-image-snapshot",
+    "version": "6.4.9999",
+    "projects": [
+        "https://github.com/americanexpress/jest-image-snapshot#readme"
+    ],
     "dependencies": {
+        "@types/jest": "*",
+        "@types/pixelmatch": "*",
         "ssim.js": "^3.1.1"
-    }
+    },
+    "devDependencies": {
+        "@types/jest-image-snapshot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Janeene Beeforth",
+            "githubUsername": "dawnmist"
+        },
+        {
+            "name": "erbridge",
+            "githubUsername": "erbridge"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Ayc0",
+            "githubUsername": "Ayc0"
+        }
+    ]
 }

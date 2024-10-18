@@ -1,6 +1,28 @@
 {
     "private": true,
+    "name": "@types/hydra-box",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/zazuko/hydra-box"
+    ],
     "dependencies": {
-      "@rdfjs/types": "*"
-    }
-  }
+        "@rdfjs/types": "*",
+        "@types/absolute-url": "*",
+        "@types/clownface": "*",
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*",
+        "@types/rdf-ext": "*",
+        "@types/rdf-loaders-registry": "^0.3.0",
+        "@types/rdfjs__express-handler": "*",
+        "@types/set-link": "*"
+    },
+    "devDependencies": {
+        "@types/hydra-box": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

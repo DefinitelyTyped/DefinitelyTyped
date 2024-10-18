@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/electron-devtools-installer",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/MarshallOfSound/electron-devtools-installer"
+    ],
+    "devDependencies": {
+        "@types/electron-devtools-installer": "workspace:."
+    },
+    "owners": []
+}

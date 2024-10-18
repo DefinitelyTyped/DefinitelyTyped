@@ -120,5 +120,5 @@ declare const CanvasView: {
     /**
      * 画布组件，可用于绘制一些自定义图形，如：线段、矩形、圆形、椭圆、图片、文本等，从而实现复杂图形的展示。
      */
-    new (id?: string): CanvasView;
+    new(id?: string): CanvasView;
 };

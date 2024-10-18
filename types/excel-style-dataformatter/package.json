@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/excel-style-dataformatter",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/fakundo/Excel-Style-Javascript-DataFormatter"
+    ],
+    "devDependencies": {
+        "@types/excel-style-dataformatter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "SanderDeWaal1992",
+            "githubUsername": "SanderDeWaal1992"
+        }
+    ]
+}

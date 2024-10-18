@@ -1,4 +1,4 @@
-import { Client, Server } from 'styletron-engine-monolithic';
+import { Client, Server } from "styletron-engine-monolithic";
 
 new Client();
 new Server();

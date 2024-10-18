@@ -6,14 +6,14 @@ function test_encoder() {
 
     // constructor
     uint8array = new TextEncoder().encode(text);
-    uint8array = new TextEncoder('utf-8').encode(text);
+    uint8array = new TextEncoder("utf-8").encode(text);
 
     uint8array = TextEncoder().encode(text);
-    uint8array = TextEncoder('utf-8').encode(text);
+    uint8array = TextEncoder("utf-8").encode(text);
 
     // attributes
     const encoder = new TextEncoder();
-    encoder.encoding = 'utf-8';
+    encoder.encoding = "utf-8";
     const encoding: string = encoder.encoding;
 
     // methods
@@ -28,15 +28,15 @@ function test_decoder() {
 
     // constructor
     text = new TextDecoder().decode(uint8array);
-    text = new TextDecoder('utf-8').decode(uint8array);
+    text = new TextDecoder("utf-8").decode(uint8array);
 
     text = TextDecoder().decode(uint8array);
-    text = TextDecoder('utf-8').decode(uint8array);
+    text = TextDecoder("utf-8").decode(uint8array);
 
     // attributes
     const decoder = new TextDecoder();
 
-    decoder.encoding = 'utf-8';
+    decoder.encoding = "utf-8";
     const encoding: string = decoder.encoding;
 
     decoder.fatal = true;

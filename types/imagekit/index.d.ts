@@ -1,16 +1,10 @@
-// Type definitions for imagekit 3.1
-// Project: https://github.com/imagekit-developer/imagekit-nodejs
-// Definitions by: Kevin Faulhaber <https://github.com/kemicofa>
-//                 Romanos Tsouroplis <https://github.com/romdim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = ImageKit;
 
 declare global {
     namespace ImageKit {
-        type TransformationPosition = 'path' | 'query';
+        type TransformationPosition = "path" | "query";
         /**
          * Type of files to include in result set. Accepts three values:
          * all - include all types of files in result set
@@ -19,31 +13,31 @@ declare global {
          *
          * @see {@link https://docs.imagekit.io/api-reference/media-api/list-and-search-files}
          */
-        type FileType = 'all' | 'image' | 'non-image';
+        type FileType = "all" | "image" | "non-image";
         /**
          * Type of returned item. It can be either file or folder.
          */
-        type Item = 'file' | 'folder';
+        type Item = "file" | "folder";
 
         /**
          * @see {@link https://help.imagekit.io/en/articles/2434102-image-format-support-in-imagekit-for-resizing-compression-and-static-file-delivery}
          */
         type FileFormat =
-            | 'jpg'
-            | 'png'
-            | 'gif'
-            | 'svg'
-            | 'webp'
-            | 'pdf'
-            | 'js'
-            | 'css'
-            | 'txt'
-            | 'mp4'
-            | 'webm'
-            | 'mov'
-            | 'swf'
-            | 'ts'
-            | 'm3u8'
+            | "jpg"
+            | "png"
+            | "gif"
+            | "svg"
+            | "webp"
+            | "pdf"
+            | "js"
+            | "css"
+            | "txt"
+            | "mp4"
+            | "webm"
+            | "mov"
+            | "swf"
+            | "ts"
+            | "m3u8"
             | string;
 
         /**
@@ -456,7 +450,6 @@ declare global {
         }
 
         /**
-         *
          * List and search response
          *
          * @see {@link https://docs.imagekit.io/api-reference/media-api/list-and-search-files#response-structure-and-status-code-application-json}
@@ -510,7 +503,6 @@ declare global {
         }
 
         /**
-         *
          * File details such as tags, customCoordinates, and isPrivate properties using get file detail API.
          *
          * @see {@link https://docs.imagekit.io/api-reference/media-api/get-file-details}
@@ -702,7 +694,7 @@ declare global {
              * Complete - The purge request has been successfully completed. And now you should get a fresh object.
              * Check the Age header in response to confirm this.
              */
-            status: 'Pending' | 'Completed';
+            status: "Pending" | "Completed";
         }
 
         interface Callback<T, E extends Error = Error> {

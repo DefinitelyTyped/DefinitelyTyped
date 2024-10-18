@@ -8,7 +8,7 @@ declare namespace ReactFreshBabelPlugin {
 }
 
 declare function ReactFreshBabelPlugin(
-    babel: typeof import('@babel/core'),
+    babel: typeof import("@babel/core"),
     opts?: ReactFreshBabelPlugin.Options,
 ): babel.PluginObj;
 

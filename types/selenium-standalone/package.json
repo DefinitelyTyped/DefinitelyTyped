@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/selenium-standalone",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/vvo/selenium-standalone"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/selenium-standalone": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sander de Waal",
+            "githubUsername": "SanderDeWaal1992"
+        },
+        {
+            "name": "Mykola Grybyk",
+            "githubUsername": "mgrybyk"
+        }
+    ]
+}

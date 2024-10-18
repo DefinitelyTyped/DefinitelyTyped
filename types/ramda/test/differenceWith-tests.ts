@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function cmp1(x: any, y: any) {
         return x.a === y.a;
     }
@@ -18,4 +18,4 @@ import * as R from 'ramda';
     differenceWithCurried1(l1, l2); // =>[{a: 1}, {a: 2}]
 
     R.differenceWith(cmp2, l1, l3); // => [{a: 1}, {a: 2}]
-};
+});

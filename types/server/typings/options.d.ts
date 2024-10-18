@@ -29,8 +29,8 @@ export interface DataParserOptions {
         callback?: (
             err: any,
             fields: formidable.Fields,
-            files: formidable.Files
-        ) => any
+            files: formidable.Files,
+        ) => any,
     ): void;
 }
 
@@ -42,12 +42,15 @@ export interface CsurfOptions {
     sessionKey?: string | undefined;
 }
 
+export {}; // This prevents EngineArgs being automatically exported
+type EngineArgs = Parameters<express.Application["engine"]>;
+
 export interface Options {
     port?: number | undefined;
     secret?: string | undefined;
     public?: string | undefined;
     views?: string | undefined;
-    engine?: string | undefined;
+    engine?: string | undefined | Record<EngineArgs[0], EngineArgs[1]>;
     env?: string | undefined;
     favicon?: string | undefined;
     parser?: {
@@ -61,12 +64,14 @@ export interface Options {
     security?:
         | false
         | helmet.IHelmetConfiguration & {
-              csrf?: false | CsurfOptions | undefined;
-          } | undefined;
+            csrf?: false | CsurfOptions | undefined;
+        }
+        | undefined;
     log?:
         | LogLevel
         | {
-              level: LogLevel;
-              report: (content: string, type: LogLevel) => void;
-          } | undefined;
+            level: LogLevel;
+            report: (content: string, type: LogLevel) => void;
+        }
+        | undefined;
 }

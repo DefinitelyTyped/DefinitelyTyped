@@ -1,15 +1,10 @@
-// Type definitions for hapi 12.0.1
-// Project: https://github.com/spumko/hapi
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Note/Disclaimer:
 // Copied directly from 918608a5e007d925f4f60a275881057f07c12619 which seems to
 // be the last author to work on v12.0
 
-
 /// <reference types="node" />
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "hapi" {
     import http = require("http");
     import stream = require("stream");
@@ -20,18 +15,24 @@ declare module "hapi" {
     }
 
     interface IThenable<R> {
-        then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IThenable<U>;
+        then<U>(
+            onFulfilled?: (value: R) => U | IThenable<U>,
+            onRejected?: (error: any) => U | IThenable<U>,
+        ): IThenable<U>;
         then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => void): IThenable<U>;
     }
 
     interface IPromise<R> extends IThenable<R> {
-        then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
+        then<U>(
+            onFulfilled?: (value: R) => U | IThenable<U>,
+            onRejected?: (error: any) => U | IThenable<U>,
+        ): IPromise<U>;
         then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => void): IPromise<U>;
         catch<U>(onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
     }
 
     /** Boom Module for errors. https://github.com/hapijs/boom
-    *  boom provides a set of utilities for returning HTTP errors. Each utility returns a Boom error response object (instance of Error) which includes the following properties:  */
+     *  boom provides a set of utilities for returning HTTP errors. Each utility returns a Boom error response object (instance of Error) which includes the following properties:  */
     export interface IBoom extends Error {
         /**  if true, indicates this is a Boom object instance.  */
         isBoom: boolean;
@@ -57,7 +58,6 @@ declare module "hapi" {
         };
         /**  reformat()rebuilds error.output using the other object properties.  */
         reformat(): void;
-
     }
 
     /** cache functionality via the "CatBox" module. */
@@ -92,8 +92,11 @@ declare module "hapi" {
         /** - a string or string array of labels used to server.select() specific connections matching the specified labels.Defaults to an empty array [](no labels).*/
         labels?: string | string[] | undefined;
         /**  - used to create an HTTPS connection.The tls object is passed unchanged as options to the node.js HTTPS server as described in the node.js HTTPS documentation.Set to true when passing a listener object that has been configured to use TLS directly. */
-        tls?: boolean | { key?: string | undefined; cert?: string | undefined; pfx?: string | undefined; } | Object | undefined;
-
+        tls?:
+            | boolean
+            | { key?: string | undefined; cert?: string | undefined; pfx?: string | undefined }
+            | Object
+            | undefined;
     }
 
     export interface IConnectionConfigurationServerDefaults {
@@ -134,7 +137,7 @@ declare module "hapi" {
         sharedif true, allows multiple cache users to share the same segment (e.g. multiple methods using the same cache storage container). Default to false.
         other options passed to the catbox strategy used.
         an array of the above object for configuring multiple cache instances, each with a unique name. When an array of objects is provided, multiple cache connections are established and each array item (except one) must include a name.  */
-        cache?: string | ICatBoxCacheOptions | Array<ICatBoxCacheOptions> | any | undefined;
+        cache?: string | ICatBoxCacheOptions | ICatBoxCacheOptions[] | any | undefined;
         /**  sets the default connections configuration which can be overridden by each connection where:  */
         connections?: IConnectionConfigurationServerDefaults | undefined;
         /** determines which logged events are sent to the console (this should only be used for development and does not affect which events are actually logged internally and recorded). Set to false to disable all console logging, or to an object*/
@@ -161,19 +164,25 @@ declare module "hapi" {
         minimal?: boolean | undefined;
         /** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}.*/
         plugins?: IDictionary<any> | undefined;
-
     }
 
     export interface IServerViewCompile {
         (template: string, options: any): void;
-        (template: string, options: any, callback: (err: any, compiled: (context: any, options: any, callback: (err: any, rendered: boolean) => void) => void) => void): void;
+        (
+            template: string,
+            options: any,
+            callback: (
+                err: any,
+                compiled: (context: any, options: any, callback: (err: any, rendered: boolean) => void) => void,
+            ) => void,
+        ): void;
     }
 
     export interface IServerViewsAdditionalOptions {
         /**    path - the root file path used to resolve and load the templates identified when calling reply.view().Defaults to current working directory.*/
         path?: string | undefined;
-        /**partialsPath - the root file path where partials are located.Partials are small segments of template code that can be nested and reused throughout other templates.Defaults to no partials support (empty path).
-        */
+        /** partialsPath - the root file path where partials are located.Partials are small segments of template code that can be nested and reused throughout other templates.Defaults to no partials support (empty path).
+         */
         partialsPath?: string | undefined;
         /**helpersPath - the directory path where helpers are located.Helpers are functions used within templates to perform transformations and other data manipulations using the template context or other inputs.Each '.js' file in the helpers directory is loaded and the file name is used as the helper name.The files must export a single method with the signature function(context) and return a string.Sub - folders are not supported and are ignored.Defaults to no helpers support (empty path).Note that jade does not support loading helpers this way.*/
         helpersPath?: string | undefined;
@@ -207,11 +216,18 @@ declare module "hapi" {
     }
 
     export interface IServerViewsEnginesOptions extends IServerViewsAdditionalOptions {
-        /**- the npm module used for rendering the templates.The module object must contain: "module", the rendering function. The required function signature depends on the compileMode settings.
-        * If the compileMode is 'sync', the signature is compile(template, options), the return value is a function with signature function(context, options), and the method is allowed to throw errors.If the compileMode is 'async', the signature is compile(template, options, callback) where callback has the signature function(err, compiled) where compiled is a function with signature function(context, options, callback) and callback has the signature function(err, rendered).*/
+        /** - the npm module used for rendering the templates.The module object must contain: "module", the rendering function. The required function signature depends on the compileMode settings.
+         * If the compileMode is 'sync', the signature is compile(template, options), the return value is a function with signature function(context, options), and the method is allowed to throw errors.If the compileMode is 'async', the signature is compile(template, options, callback) where callback has the signature function(err, compiled) where compiled is a function with signature function(context, options, callback) and callback has the signature function(err, rendered). */
         module: {
             compile?(template: any, options: any): (context: any, options: any) => void;
-            compile?(template: any, options: any, callback: (err: any, compiled: (context: any, options: any, callback: (err: any, rendered: any) => void) => void) => void): void;
+            compile?(
+                template: any,
+                options: any,
+                callback: (
+                    err: any,
+                    compiled: (context: any, options: any, callback: (err: any, rendered: any) => void) => void,
+                ) => void,
+            ): void;
         };
     }
 
@@ -242,16 +258,17 @@ declare module "hapi" {
     FLOW CONTROL:
     When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
     export interface IReply {
-        <T>(err: Error,
+        <T>(
+            err: Error,
             result?: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T,
             /**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
-            credentialData?: any
+            credentialData?: any,
         ): IBoom;
         /**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
         <T>(result: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T): Response;
 
         /** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
-          * The data argument is only used for passing back authentication data and is ignored elsewhere. */
+         * The data argument is only used for passing back authentication data and is ignored elsewhere. */
         continue(credentialData?: any): void;
 
         /** Transmits a file from the file system. The 'Content-Type' header defaults to the matching mime type based on filename extension.  The response flow control rules do not apply. */
@@ -269,7 +286,8 @@ declare module "hapi" {
                 mode?: boolean | string | undefined;
                 /**   if true, looks for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.  */
                 lookupCompressed: boolean;
-            }): void;
+            },
+        ): void;
         /**  Concludes the handler activity by returning control over to the router with a templatized view response.
         the response flow control rules apply. */
 
@@ -279,7 +297,8 @@ declare module "hapi" {
             /**  optional object used by the template to render context-specific result. Defaults to no context {}. */
             context?: {},
             /**  optional object used to override the server's views manager configuration for this response. Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.  */
-            options?: any): Response;
+            options?: any,
+        ): Response;
         /** Concludes the handler activity by returning control over to the router and informing the router that a response has already been sent back directly via request.raw.res and that no further response action is needed
         The response flow control rules do not apply. */
         close(options?: {
@@ -289,8 +308,10 @@ declare module "hapi" {
         /** Proxies the request to an upstream endpoint.
         the response flow control rules do not apply. */
 
-        proxy(/**  an object including the same keys and restrictions defined by the route proxy handler options. */
-            options: IProxyHandlerConfig): void;
+        proxy(
+            /**  an object including the same keys and restrictions defined by the route proxy handler options. */
+            options: IProxyHandlerConfig,
+        ): void;
         /** Redirects the client to the specified uri. Same as calling reply().redirect(uri).
         The response flow control rules apply. */
         redirect(uri: string): ResponseRedirect;
@@ -303,9 +324,8 @@ declare module "hapi" {
         (request: Request): T;
     }
 
-
     export interface IFailAction {
-        (source: string, error: any, next: () => void): void
+        (source: string, error: any, next: () => void): void;
     }
     /**  generates a reverse proxy handler */
     export interface IProxyHandlerConfig {
@@ -339,16 +359,23 @@ declare module "hapi" {
         err - internal error condition.
         uri - the absolute proxy URI.
         headers - optional object where each key is an HTTP request header and the value is the header content.*/
-        mapUri?: ((request: Request, callback: (err: any, uri: string, headers?: { [key: string]: string }) => void) => void) | undefined;
+        mapUri?:
+            | ((
+                request: Request,
+                callback: (err: any, uri: string, headers?: { [key: string]: string }) => void,
+            ) => void)
+            | undefined;
         /**  a custom function for processing the response from the upstream service before sending to the client. Useful for custom error handling of responses from the proxied endpoint or other payload manipulation. Function signature is function(err, res, request, reply, settings, ttl) where: - err - internal or upstream error returned from attempting to contact the upstream proxy. - res - the node response object received from the upstream service. res is a readable stream (use the wreck module read method to easily convert it to a Buffer or string). - request - is the incoming request object. - reply - the reply interface function. - settings - the proxy handler configuration. - ttl - the upstream TTL in milliseconds if proxy.ttl it set to 'upstream' and the upstream response included a valid 'Cache-Control' header with 'max-age'.*/
-        onResponse?: ((
-            err: any,
-            res: http.ServerResponse,
-            req: Request,
-            reply: IReply,
-            settings: IProxyHandlerConfig,
-            ttl: number
-        ) => void) | undefined;
+        onResponse?:
+            | ((
+                err: any,
+                res: http.ServerResponse,
+                req: Request,
+                reply: IReply,
+                settings: IProxyHandlerConfig,
+                ttl: number,
+            ) => void)
+            | undefined;
         /** if set to 'upstream', applies the upstream response caching policy to the response using the response.ttl() method (or passed as an argument to the onResponse method if provided).*/
         ttl?: number | undefined;
         /** - a node http(s) agent to be used for connections to upstream server.  see https://nodejs.org/api/http.html#http_class_http_agent */
@@ -358,17 +385,17 @@ declare module "hapi" {
     }
     /**  TODO: fill in joi definition  */
     export interface IJoi {
-
     }
     /**  a validation function using the signature function(value, options, next) */
     export interface IValidationFunction {
-
-        (/**   the object containing the path parameters. */
+        (
+            /**   the object containing the path parameters. */
             value: any,
             /**  the server validation options. */
             options: any,
             /**   the callback function called when validation is completed.  */
-            next: (err: any, value: any) => void): void;
+            next: (err: any, value: any) => void,
+        ): void;
     }
     /**  a custom error handler function with the signature 'function(request, reply, source, error)` */
     export interface IRouteFailFunction {
@@ -381,7 +408,8 @@ declare module "hapi" {
             /**  the source of the invalid field (e.g. 'path', 'query', 'payload'). */
             source: string,
             /**  the error object prepared for the client response (including the validation function error under error.data). */
-            error: any): void;
+            error: any,
+        ): void;
     }
 
     /**  Each route can be customize to change the default behavior of the request lifecycle using the following options:  */
@@ -391,31 +419,30 @@ declare module "hapi" {
         /** authentication configuration.Value can be: false to disable authentication if a default strategy is set.
         a string with the name of an authentication strategy registered with server.auth.strategy().
         an object  */
-        auth?: boolean | string |
-        {
+        auth?: boolean | string | {
             /**  the authentication mode.Defaults to 'required' if a server authentication strategy is configured, otherwise defaults to no authentication.Available values:
             'required'authentication is required.
             'optional'authentication is optional (must be valid if present).
             'try'same as 'optional' but allows for invalid authentication. */
             mode?: string | undefined;
             /**  a string array of strategy names in order they should be attempted.If only one strategy is used, strategy can be used instead with the single string value.Defaults to the default authentication strategy which is available only when a single strategy is configured.  */
-            strategies?: string | Array<string> | undefined;
+            strategies?: string | string[] | undefined;
             /**  if set, the payload (in requests other than 'GET' and 'HEAD') is authenticated after it is processed.Requires a strategy with payload authentication support (e.g.Hawk).Cannot be set to a value other than 'required' when the scheme sets the options.payload to true.Available values:
             falseno payload authentication.This is the default value.
             'required'payload authentication required.This is the default value when the scheme sets options.payload to true.
             'optional'payload authentication performed only when the client includes payload authentication information (e.g.hash attribute in Hawk). */
             payload?: string | undefined;
             /**  the application scope required to access the route.Value can be a scope string or an array of scope strings.The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.Set to false to remove scope requirements.Defaults to no scope required.  */
-            scope?: string | Array<string> | boolean | undefined;
+            scope?: string | string[] | boolean | undefined;
             /** the required authenticated entity type.If set, must match the entity value of the authentication credentials.Available values:
             anythe authentication can be on behalf of a user or application.This is the default value.
             userthe authentication must be on behalf of a user.
             appthe authentication must be on behalf of an application. */
             entity?: string | undefined;
             /**
-            * an object or array of objects specifying the route access rules. Each rule is evaluated against an incoming
-            * request and access is granted if at least one rule matches. Each rule object must include at least one of:
-            */
+             * an object or array of objects specifying the route access rules. Each rule is evaluated against an incoming
+             * request and access is granted if at least one rule matches. Each rule object must include at least one of:
+             */
             access?: IRouteAdditionalConfigurationAuthAccess | IRouteAdditionalConfigurationAuthAccess[] | undefined;
         } | undefined;
         /** an object passed back to the provided handler (via this) when called. */
@@ -435,7 +462,7 @@ declare module "hapi" {
         /** the Cross- Origin Resource Sharing protocol allows browsers to make cross- origin API calls.CORS is required by web applications running inside a browser which are loaded from a different domain than the API server.CORS headers are disabled by default. To enable, set cors to true, or to an object with the following options: */
         cors?: {
             /** a strings array of allowed origin servers ('Access-Control-Allow-Origin').The array can contain any combination of fully qualified origins along with origin strings containing a wildcard '' character, or a single `''origin string. Defaults to any origin['*']`. */
-            origin?: Array<string> | undefined;
+            origin?: string[] | undefined;
             /** if true, matches the value of the incoming 'Origin' header to the list of origin values ('*' matches anything) and if a match is found, uses that as the value of the 'Access-Control-Allow-Origin' response header.When false, the origin config is returned as- is.Defaults to true.  */
             matchOrigin?: boolean | undefined;
             /** if false, prevents the connection from returning the full list of non- wildcard origin values if the incoming origin header does not match any of the values.Has no impact if matchOrigin is set to false.Defaults to true. */
@@ -460,7 +487,8 @@ declare module "hapi" {
             override?: boolean | undefined;
         } | undefined;
         /**   defines the behavior for serving static resources using the built-in route handlers for files and directories: */
-        files?: {/** determines the folder relative paths are resolved against when using the file and directory handlers. */
+        files?: {
+            /** determines the folder relative paths are resolved against when using the file and directory handlers. */
             relativeTo: string;
         } | undefined;
 
@@ -529,7 +557,7 @@ declare module "hapi" {
             next(err) - the callback function called when validation is completed.  */
             schema?: boolean | any | undefined;
             /** HTTP status- codespecific validation rules.The status key is set to an object where each key is a 3 digit HTTP status code and the value has the same definition as schema.If a response status code is not present in the status object, the schema definition is used, expect for errors which are not validated by default.  */
-            status?: { [statusCode: number] : boolean | any } | undefined;
+            status?: { [statusCode: number]: boolean | any } | undefined;
             /** the percent of responses validated (0100).Set to 0 to disable all validation.Defaults to 100 (all responses). */
             sample?: number | undefined;
             /**  defines what to do when a response fails validation.Options are:
@@ -589,7 +617,6 @@ declare module "hapi" {
             */
             headers?: boolean | IJoi | IValidationFunction | undefined;
 
-
             /** validation rules for incoming request path parameters, after matching the path against the route and extracting any parameters then stored in request.params.Values allowed:
             trueany path parameters allowed (no validation performed).This is the default.
             falseno path variables allowed.
@@ -641,38 +668,38 @@ declare module "hapi" {
         } | undefined;
 
         /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
-        *route description used for generating documentation (string).
-        */
+         * route description used for generating documentation (string).
+         */
         description?: string | undefined;
         /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
-        *route notes used for generating documentation (string or array of strings).
-        */
+         * route notes used for generating documentation (string or array of strings).
+         */
         notes?: string | string[] | undefined;
         /**  ONLY WHEN ADDING NEW ROUTES (not when setting defaults).
-        *route tags used for generating documentation (array of strings).
-        */
-        tags?: string[] | undefined
+         * route tags used for generating documentation (array of strings).
+         */
+        tags?: string[] | undefined;
     }
 
     /**
-    * specifying the route access rules. Each rule is evaluated against an incoming request and access is granted if at least one rule matches
-    */
+     * specifying the route access rules. Each rule is evaluated against an incoming request and access is granted if at least one rule matches
+     */
     export interface IRouteAdditionalConfigurationAuthAccess {
         /**
-        * the application scope required to access the route. Value can be a scope string or an array of scope strings.
-        * The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.
-        * If a scope string begins with a + character, that scope is required. If a scope string begins with a ! character,
-        * that scope is forbidden. For example, the scope ['!a', '+b', 'c', 'd'] means the incoming request credentials'
-        * scope must not include 'a', must include 'b', and must include on of 'c' or 'd'. You may also access properties
-        * on the request object (query and params} to populate a dynamic scope by using {} characters around the property name,
-        * such as 'user-{params.id}'. Defaults to false (no scope requirements).
-        */
-        scope?: string | Array<string> | boolean | undefined;
+         * the application scope required to access the route. Value can be a scope string or an array of scope strings.
+         * The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.
+         * If a scope string begins with a + character, that scope is required. If a scope string begins with a ! character,
+         * that scope is forbidden. For example, the scope ['!a', '+b', 'c', 'd'] means the incoming request credentials'
+         * scope must not include 'a', must include 'b', and must include on of 'c' or 'd'. You may also access properties
+         * on the request object (query and params} to populate a dynamic scope by using {} characters around the property name,
+         * such as 'user-{params.id}'. Defaults to false (no scope requirements).
+         */
+        scope?: string | string[] | boolean | undefined;
         /** the required authenticated entity type. If set, must match the entity value of the authentication credentials. Available values:
-        * any - the authentication can be on behalf of a user or application. This is the default value.
-        * user - the authentication must be on behalf of a user which is identified by the presence of a user attribute in the credentials object returned by the authentication strategy.
-        * app - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
-        */
+         * any - the authentication can be on behalf of a user or application. This is the default value.
+         * user - the authentication must be on behalf of a user which is identified by the presence of a user attribute in the credentials object returned by the authentication strategy.
+         * app - the authentication must be on behalf of an application which is identified by the lack of presence of a user attribute in the credentials object returned by the authentication strategy.
+         */
         entity?: string | undefined;
     }
 
@@ -696,7 +723,6 @@ declare module "hapi" {
                 /**  the route virtual host settings used by any calls to server.route() from the server. */
                 vhost: string;
             };
-
         };
         /** the active plugin name (empty string if at the server root). */
         plugin: string;
@@ -708,19 +734,20 @@ declare module "hapi" {
                 relativeTo: any;
             };
             bind: any;
-        }
+        };
     }
     /** server.state(name, [options]) http://hapijs.com/api#serverstatename-options
     HTTP state management uses client cookies to persist a state across multiple requests. Registers a cookie definitions where:*/
     export interface IServerState {
-/**  - the cookie name string. */name: string;
+        /**  - the cookie name string. */ name: string;
 
-/** - are the optional cookie settings: */options: {
-/**  - time - to - live in milliseconds.Defaults to null (session time- life - cookies are deleted when the browser is closed).*/ttl: number;
-/**  - sets the 'Secure' flag.Defaults to false.*/isSecure: boolean;
-/**  - sets the 'HttpOnly' flag.Defaults to false.*/isHttpOnly: boolean
-/**  - the path scope.Defaults to null (no path).*/path: any;
-/**  - the domain scope.Defaults to null (no domain). */domain: any;
+        /** - are the optional cookie settings: */ options: {
+            /**  - time - to - live in milliseconds.Defaults to null (session time- life - cookies are deleted when the browser is closed).*/ ttl:
+                number;
+            /**  - sets the 'Secure' flag.Defaults to false.*/ isSecure: boolean;
+            /**  - sets the 'HttpOnly' flag.Defaults to false.*/ isHttpOnly: boolean;
+            /**  - the path scope.Defaults to null (no path).*/ path: any;
+            /**  - the domain scope.Defaults to null (no domain). */ domain: any;
             /**  if present and the cookie was not received from the client or explicitly set by the route handler, the cookie is automatically added to the response with the provided value. The value can be a function with signature function(request, next) where:
             request - the request object.
             next - the continuation function using the function(err, value) signature.*/
@@ -732,16 +759,19 @@ declare module "hapi" {
             'form' - object value is encoded using the x-www-form-urlencoded method.
             'iron' - Encrypts and sign the value using iron.*/
             encoding: string;
-/**  - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:*/sign: {
-/** - algorithm options.Defaults to require('iron').defaults.integrity.*/integrity: any;
-/** - password used for HMAC key generation.*/password: string;
-            };
-/**  - password used for 'iron' encoding.*/password: string;
-/** - options for 'iron' encoding.Defaults to require('iron').defaults.*/iron: any;
-/** - if false, errors are ignored and treated as missing cookies.*/ignoreErrors: boolean;
-/**  - if true, automatically instruct the client to remove invalid cookies.Defaults to false.*/clearInvalid: boolean;
-/**  - if false, allows any cookie value including values in violation of RFC 6265. Defaults to true.*/strictHeader: boolean;
-/**  - overrides the default proxy localStatePassThrough setting.*/passThrough: any;
+            /**  - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:*/ sign:
+                {
+                    /** - algorithm options.Defaults to require('iron').defaults.integrity.*/ integrity: any;
+                    /** - password used for HMAC key generation.*/ password: string;
+                };
+            /**  - password used for 'iron' encoding.*/ password: string;
+            /** - options for 'iron' encoding.Defaults to require('iron').defaults.*/ iron: any;
+            /** - if false, errors are ignored and treated as missing cookies.*/ ignoreErrors: boolean;
+            /**  - if true, automatically instruct the client to remove invalid cookies.Defaults to false.*/ clearInvalid:
+                boolean;
+            /**  - if false, allows any cookie value including values in violation of RFC 6265. Defaults to true.*/ strictHeader:
+                boolean;
+            /**  - overrides the default proxy localStatePassThrough setting.*/ passThrough: any;
         };
     }
 
@@ -781,7 +811,7 @@ declare module "hapi" {
         lookupCompressed - optional boolean, instructs the file processor to look for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.
         defaultExtension - optional string, appended to file requests if the requested file is not found. Defaults to no extension.*/
         directory?: {
-            path: string | Array<string> | IRequestHandler<string> | IRequestHandler<Array<string>>;
+            path: string | string[] | IRequestHandler<string> | IRequestHandler<string[]>;
             index?: boolean | string | string[] | undefined;
             listing?: boolean | undefined;
             showHidden?: boolean | undefined;
@@ -797,7 +827,7 @@ declare module "hapi" {
                 params: any;
                 query: any;
                 pre: any;
-            }
+            };
         } | undefined;
         config?: {
             handler: any;
@@ -822,7 +852,7 @@ declare module "hapi" {
                     file: any;
                 };
                 parse?: any;
-                allow?: string | Array<string> | undefined;
+                allow?: string | string[] | undefined;
                 override?: string | undefined;
                 maxBytes?: number | undefined;
                 uploads?: number | undefined;
@@ -840,17 +870,17 @@ declare module "hapi" {
             };
             auth: string | boolean | {
                 mode: string;
-                strategies: Array<string>;
+                strategies: string[];
                 payload?: boolean | string | undefined;
                 tos?: boolean | string | undefined;
-                scope?: string | Array<string> | undefined;
+                scope?: string | string[] | undefined;
                 entity: string;
             };
             cors?: boolean | undefined;
             jsonp?: string | undefined;
             description?: string | undefined;
-            notes?: string | Array<string> | undefined;
-            tags?: Array<string> | undefined;
+            notes?: string | string[] | undefined;
+            tags?: string[] | undefined;
         } | undefined;
     }
     /** Route configuration
@@ -859,7 +889,7 @@ declare module "hapi" {
         /**  - (required) the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the connection router configuration option.The path can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters.*/
         path: string;
         /** - (required) the HTTP method.Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'.Any HTTP method is allowed, except for 'HEAD'.Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match).
-        * Can be assigned an array of methods which has the same result as adding the same route with different methods manually.*/
+         * Can be assigned an array of methods which has the same result as adding the same route with different methods manually. */
         method: string | string[];
         /**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
         vhost?: string | undefined;
@@ -870,14 +900,12 @@ declare module "hapi" {
     }
     /** Route public interface When route information is returned or made available as a property.  http://hapijs.com/api#route-public-interface */
     export interface IRoute {
-
-
         /** the route HTTP method. */
         method: string;
         /** the route path. */
         path: string;
         /** the route vhost option if configured. */
-        vhost?: string | Array<string> | undefined;
+        vhost?: string | string[] | undefined;
         /** the [active realm] associated with the route.*/
         realm: IServerRealm;
         /** the [route options]  object with all defaults applied. */
@@ -934,43 +962,42 @@ declare module "hapi" {
         options?: {
             /**  if true, requires payload validation as part of the scheme and forbids routes from disabling payload auth validation. Defaults to false.*/
             payload: boolean;
-        } | undefined
+        } | undefined;
     }
 
-
-
     export interface IServerInject {
-        (options: string | {
-            /**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
-            method: string;
-            /** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
-            url: string;
-            /** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
-            headers?: IDictionary<string> | undefined;
-            /** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
-            payload?: string | {} | Buffer | undefined;
-            /** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
-            credentials?: any;
-            /** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
-            artifacts?: any;
-            /** sets the initial value of request.app*/
-            app?: any;
-            /** sets the initial value of request.plugins*/
-            plugins?: any;
-            /** allows access to routes with config.isInternal set to true. Defaults to false.*/
-            allowInternals?: boolean | undefined;
-            /** sets the remote address for the incoming connection.*/
-            remoteAddress?: boolean | undefined;
-            /**object with options used to simulate client request stream conditions for testing:
+        (
+            options: string | {
+                /**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
+                method: string;
+                /** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
+                url: string;
+                /** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
+                headers?: IDictionary<string> | undefined;
+                /** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
+                payload?: string | {} | Buffer | undefined;
+                /** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
+                credentials?: any;
+                /** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
+                artifacts?: any;
+                /** sets the initial value of request.app*/
+                app?: any;
+                /** sets the initial value of request.plugins*/
+                plugins?: any;
+                /** allows access to routes with config.isInternal set to true. Defaults to false.*/
+                allowInternals?: boolean | undefined;
+                /** sets the remote address for the incoming connection.*/
+                remoteAddress?: boolean | undefined;
+                /**object with options used to simulate client request stream conditions for testing:
             error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
             close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
             end - if false, does not end the stream. Defaults to true.*/
-            simulate?: {
-                error: boolean;
-                close: boolean;
-                end: boolean;
-            } | undefined;
-        },
+                simulate?: {
+                    error: boolean;
+                    close: boolean;
+                    end: boolean;
+                } | undefined;
+            },
             callback: (
                 /**the response object where:
                 statusCode - the HTTP status code.
@@ -982,11 +1009,18 @@ declare module "hapi" {
                 res - the simulated node response object.
                 result - the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the internal objects returned (instead of parsing the response string).
                 request - the request object.*/
-                res: { statusCode: number; headers: IDictionary<string>; payload: string; rawPayload: Buffer; raw: { req: http.ClientRequest; res: http.ServerResponse }; result: string; request: Request }) => void
+                res: {
+                    statusCode: number;
+                    headers: IDictionary<string>;
+                    payload: string;
+                    rawPayload: Buffer;
+                    raw: { req: http.ClientRequest; res: http.ServerResponse };
+                    result: string;
+                    request: Request;
+                },
+            ) => void,
         ): void;
-
     }
-
 
     /** host - optional host to filter routes matching a specific virtual host. Defaults to all virtual hosts.
     The return value is an array where each item is an object containing:
@@ -1026,7 +1060,7 @@ declare module "hapi" {
         /**  - an object used to calculate an HMAC for cookie integrity validation.This does not provide privacy, only a mean to verify that the cookie value was generated by the server.Redundant when 'iron' encoding is used.Options are:
         integrity - algorithm options.Defaults to require('iron').defaults.integrity.
         password - password used for HMAC key generation. */
-        sign?: { integrity: any; password: string; } | undefined
+        sign?: { integrity: any; password: string } | undefined;
         password?: string | undefined;
         iron?: any;
         ignoreErrors?: boolean | undefined;
@@ -1047,13 +1081,12 @@ declare module "hapi" {
     the callback option is set to false.
     the method must returns a value (result, Error, or a promise) or throw an Error.*/
     export interface IServerMethod {
-        //(): void;
-        //(next: (err: any, result: any, ttl: number) => void): void;
-        //(arg1: any): void;
-        //(arg1: any, arg2: any, next: (err: any, result: any, ttl: number) => void): void;
-        //(arg1: any, arg2: any): void;
+        // (): void;
+        // (next: (err: any, result: any, ttl: number) => void): void;
+        // (arg1: any): void;
+        // (arg1: any, arg2: any, next: (err: any, result: any, ttl: number) => void): void;
+        // (arg1: any, arg2: any): void;
         (...args: any[]): void;
-
     }
     /** options - optional configuration:
     bind - a context object passed back to the method function (via this) when called. Defaults to active context (set via server.bind() when the method is registered.
@@ -1117,7 +1150,7 @@ declare module "hapi" {
             /** the authentication error is failed and mode set to 'try'.*/
             error: any;
             /** an object used by the ['cookie' authentication scheme]  https://github.com/hapijs/hapi-auth-cookie */
-            session: any
+            session: any;
         };
         /** the connection used by this request*/
         connection: ServerConnection;
@@ -1280,7 +1313,8 @@ declare module "hapi" {
             /** an optional message string or object with the application data being logged.*/
             data?: string,
             /**  an optional timestamp expressed in milliseconds. Defaults to Date.now() (now).*/
-            timestamp?: number): void;
+            timestamp?: number,
+        ): void;
         /** request.getLog([tags], [internal])
 
         Always available.
@@ -1296,7 +1330,8 @@ declare module "hapi" {
             /** is a single tag string or array of tag strings. If no tags specified, returns all events.*/
             tags?: string,
             /**  filters the events to only those with a matching event.internal value. If true, only internal logs are included. If false, only user event are included. Defaults to all events (undefined).*/
-            internal?: boolean): string[];
+            internal?: boolean,
+        ): string[];
 
         /** request.tail([name])
 
@@ -1335,7 +1370,8 @@ declare module "hapi" {
         });*/
         tail(
             /** an optional tail name used for logging purposes.*/
-            name?: string): Function;
+            name?: string,
+        ): Function;
     }
     /** Response events
 
@@ -1402,7 +1438,7 @@ declare module "hapi" {
             stringify: any;
             ttl: number;
             varyEtag: boolean;
-        }
+        };
 
         /**  sets the HTTP 'Content-Length' header (to avoid chunked transfer encoding) where:
         length - the header value. Must match the actual payload size.*/
@@ -1416,7 +1452,6 @@ declare module "hapi" {
         /** sets the HTTP status code to Created (201) and the HTTP 'Location' header where: uri - an absolute or relative URI used as the 'Location' header value.*/
         created(uri: string): Response;
 
-
         /** encoding(encoding) - sets the string encoding scheme used to serial data into the HTTP payload where: encoding - the encoding property value (see node Buffer encoding).*/
         encoding(encoding: string): Response;
 
@@ -1426,7 +1461,8 @@ declare module "hapi" {
         weak - if true, the tag will be prefixed with the 'W/' weak signifier. Weak tags will fail to match identical tags for the purpose of determining 304 response status. Defaults to false.
         vary - if true and content encoding is set or applied to the response (e.g 'gzip' or 'deflate'), the encoding name will be automatically added to the tag at transmission time (separated by a '-' character). Ignored when weak is true. Defaults to true.*/
         etag(tag: string, options: {
-            weak: boolean; vary: boolean;
+            weak: boolean;
+            vary: boolean;
         }): Response;
 
         /**header(name, value, options) - sets an HTTP header where:
@@ -1452,7 +1488,7 @@ declare module "hapi" {
 
         /** replacer(method) - sets the JSON.stringify() replacer argument where:
         method - the replacer function or array. Defaults to none.*/
-        replacer(method: Function | Array<Function>): Response;
+        replacer(method: Function | Function[]): Response;
 
         /** spaces(count) - sets the JSON.stringify() space argument where:
         count - the number of spaces to indent nested object keys. Defaults to no indentation. */
@@ -1526,7 +1562,13 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
      */
     export class ServerConnection extends Events.EventEmitter {
         domain: any;
-        _events: { route: Function, domain: Function, _events: Function, _eventsCount: Function, _maxListeners: Function };
+        _events: {
+            route: Function;
+            domain: Function;
+            _events: Function;
+            _eventsCount: Function;
+            _maxListeners: Function;
+        };
         _eventsCount: number;
         settings: IServerConnectionOptions;
         server: Server;
@@ -1541,9 +1583,11 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         _requestCounter: { value: number; min: number; max: number };
         _load: any;
         states: {
-            settings: any; cookies: any; names: any[]
+            settings: any;
+            cookies: any;
+            names: any[];
         };
-        auth: { connection: ServerConnection; _schemes: any; _strategies: any; settings: any; };
+        auth: { connection: ServerConnection; _schemes: any; _strategies: any; settings: any };
         _router: any;
         MSPluginsCollection: any;
         applicationCache: any;
@@ -1566,7 +1610,6 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
     Note that the server object should not be used to emit application events as its internal implementation is designed to fan events out to the various plugin selections and not for application events.
     MORE EVENTS HERE: http://hapijs.com/api#server-events*/
     export class Server extends Events.EventEmitter {
-
         constructor(options?: IServerOptions);
         /** Provides a safe place to store server-specific run-time application data without potential conflicts with the framework internals. The data can be accessed whenever the server is accessible. Initialized with an empty object.
         var Hapi = require('hapi');
@@ -1583,7 +1626,7 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         // server.connections.length === 2
         var a = server.select('a');
         // a.connections.length === 1*/
-        connections: Array<ServerConnection>;
+        connections: ServerConnection[];
         /** When the server contains exactly one connection, info is an object containing information about the sole connection.
         * When the server contains more than one connection, each server.connections array member provides its own connection.info.
         var server = new Hapi.Server();
@@ -1742,7 +1785,8 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
             scheme - the method implementing the scheme with signature function(server, options) where:
             server - a reference to the server object the scheme is added to.
             options - optional scheme settings used to instantiate a strategy.*/
-            scheme(name: string,
+            scheme(
+                name: string,
                 /** When the scheme authenticate() method implementation calls reply() with an error condition, the specifics of the error affect whether additional authentication strategies will be attempted if configured for the route. If the err returned by the reply() method includes a message, no additional strategies will be attempted. If the err does not include a message but does include a scheme name (e.g. Boom.unauthorized(null, 'Custom')), additional strategies will be attempted in order of preference.
                 n the scheme payload() method returns an error with a message, it means payload validation failed due to bad payload. If the error has no message but includes a scheme name (e.g. Boom.unauthorized(null, 'Custom')), authentication may still be successful if the route auth.payload configuration is set to 'optional'.
                 server = new Hapi.Server();
@@ -1760,7 +1804,8 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
                 };
                 };
                 */
-                scheme: (server: Server, options: any) => IServerAuthScheme): void;
+                scheme: (server: Server, options: any) => IServerAuthScheme,
+            ): void;
 
             /** server.auth.strategy(name, scheme, [mode], [options])
             Registers an authentication strategy where:
@@ -1826,7 +1871,6 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         return next();
         };*/
         bind(context: any): void;
-
 
         /** server.cache(options)
         Provisions a cache segment within the server cache facility where:
@@ -1903,7 +1947,6 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         };*/
         dependency(dependencies: string | string[], after?: (server: Server, next: (err: any) => void) => void): void;
 
-
         /** server.expose(key, value)
         Used within a plugin to expose a property via server.plugins[name] where:
         key - the key assigned (server.plugins[name][key]).
@@ -1948,7 +1991,11 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         server.route({ method: 'GET', path: '/test', handler: handler });
         server.start();
         // All requests will get routed to '/test'*/
-        ext(event: string, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+        ext(
+            event: string,
+            method: (request: Request, reply: IReply, bind?: any) => void,
+            options?: { before: string | string[]; after: string | string[]; bind?: any },
+        ): void;
 
         /** server.handler(name, method)
         Registers a new handler type to be used in routes where:
@@ -1988,7 +2035,10 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         }
         };
         server.handler('test', handler);*/
-        handler<THandlerConfig>(name: string, method: (route: IRoute, options: THandlerConfig) => ISessionHandler): void;
+        handler<THandlerConfig>(
+            name: string,
+            method: (route: IRoute, options: THandlerConfig) => ISessionHandler,
+        ): void;
         /** When the server contains exactly one connection, injects a request into the sole connection simulating an incoming HTTP request without making an actual socket connection.
         Injection is useful for testing purposes as well as for invoking routing logic internally without the overhead or limitations of the network stack.
         Utilizes the [shot module | https://github.com/hapijs/shot ] for performing injections, with some additional options and response properties
@@ -2058,9 +2108,6 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         When the server contains more than one connection, each server.connections array member provides its own connection.match() method.*/
         match(method: string, path: string, host?: string): IRoute;
 
-
-
-
         /** server.method(name, method, [options])
         Registers a server method. Server methods are functions registered with the server and used throughout the application as a common utility. Their advantage is in the ability to configure them to use the built-in cache and share across multiple request handlers without having to create a common module.
         Methods are registered via server.method(name, method, [options])
@@ -2104,8 +2151,8 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
             /**  a unique method name used to invoke the method via server.methods[name]. When configured with caching enabled, server.methods[name].cache.drop(arg1, arg2, ..., argn, callback) can be used to clear the cache for a given key. Supports using nested names such as utils.users.get which will automatically create the missing path under server.methods and can be accessed for the previous example via server.methods.utils.users.get.*/
             name: string,
             method: IServerMethod,
-            options?: IServerMethodOptions): void;
-
+            options?: IServerMethodOptions,
+        ): void;
 
         /**server.method(methods)
         Registers a server method function as described in server.method() using a configuration object where:
@@ -2125,11 +2172,19 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         }
         }
         });*/
-        method(methods: {
-            name: string; method: IServerMethod; options?: IServerMethodOptions | undefined
-        } | Array<{
-            name: string; method: IServerMethod; options?: IServerMethodOptions | undefined
-        }>): void;
+        method(
+            methods:
+                | {
+                    name: string;
+                    method: IServerMethod;
+                    options?: IServerMethodOptions | undefined;
+                }
+                | Array<{
+                    name: string;
+                    method: IServerMethod;
+                    options?: IServerMethodOptions | undefined;
+                }>,
+        ): void;
         /**server.path(relativeTo)
         Sets the path prefix used to locate static resources (files and view templates) when relative paths are used where:
         relativeTo - the path prefix added to any relative file path starting with '.'.
@@ -2167,10 +2222,10 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         register(plugins: any | any[], options: {
             select: string | string[];
             routes: {
-                prefix: string; vhost?: string | string[] | undefined
+                prefix: string;
+                vhost?: string | string[] | undefined;
             };
-        }
-            , callback: (err: any) => void): void;
+        }, callback: (err: any) => void): void;
 
         register(plugins: any | any[], callback: (err: any) => void): void;
 
@@ -2197,7 +2252,12 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         server.render('hello', context, function (err, rendered, config) {
         console.log(rendered);
         });*/
-        render(template: string, context: any, options: any, callback: (err: any, rendered: any, config: any) => void): void;
+        render(
+            template: string,
+            context: any,
+            options: any,
+            callback: (err: any, rendered: any, config: any) => void,
+        ): void;
         /** server.route(options)
         Adds a connection route where:
         options - a route configuration object or an array of configuration objects.
@@ -2326,6 +2386,5 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         });
         When server.views() is called within a plugin, the views manager is only available to plugins methods.*/
         views(options: IServerViewsConfiguration): void;
-
     }
 }

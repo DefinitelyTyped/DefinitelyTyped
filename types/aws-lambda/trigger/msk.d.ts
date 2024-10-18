@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 export type MSKHandler = Handler<MSKEvent, void>;
 
@@ -11,7 +11,7 @@ export interface MSKRecord {
     partition: number;
     offset: number;
     timestamp: number;
-    timestampType: 'CREATE_TIME' | 'LOG_APPEND_TIME';
+    timestampType: "CREATE_TIME" | "LOG_APPEND_TIME";
     key: string;
     value: string;
     headers: MSKRecordHeader[];
@@ -19,7 +19,7 @@ export interface MSKRecord {
 
 // https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html
 export interface MSKEvent {
-    eventSource: 'aws:kafka';
+    eventSource: "aws:kafka";
     eventSourceArn: string;
     bootstrapServers: string;
     records: {

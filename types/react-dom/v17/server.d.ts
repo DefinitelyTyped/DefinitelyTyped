@@ -1,12 +1,12 @@
 // forward declarations
 declare global {
     namespace NodeJS {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ReadableStream {}
     }
 }
 
-import { ReactElement } from 'react';
+import { ReactElement } from "react";
 
 /**
  * Render a React element to its initial HTML. This should only be used on the server.

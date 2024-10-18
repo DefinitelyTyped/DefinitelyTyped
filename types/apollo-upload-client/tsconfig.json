@@ -10,10 +10,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -21,6 +17,9 @@
     },
     "files": [
         "index.d.ts",
-        "apollo-upload-client-tests.ts"
+        "apollo-upload-client-tests.ts",
+        "createUploadLink.d.mts",
+        "formDataAppendFile.d.mts",
+        "isExtractableFile.d.mts"
     ]
 }

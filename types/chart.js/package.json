@@ -1,6 +1,129 @@
 {
     "private": true,
+    "name": "@types/chart.js",
+    "version": "2.9.9999",
+    "projects": [
+        "https://github.com/nnnick/Chart.js",
+        "https://www.chartjs.org"
+    ],
     "dependencies": {
         "moment": "^2.10.2"
-    }
+    },
+    "devDependencies": {
+        "@types/chart.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alberto Nuti",
+            "githubUsername": "anuti"
+        },
+        {
+            "name": "Fabien Lavocat",
+            "githubUsername": "FabienLavocat"
+        },
+        {
+            "name": "KentarouTakeda",
+            "githubUsername": "KentarouTakeda"
+        },
+        {
+            "name": "Larry Bahr",
+            "githubUsername": "larrybahr"
+        },
+        {
+            "name": "Daniel Luz",
+            "githubUsername": "mernen"
+        },
+        {
+            "name": "Joseph Page",
+            "githubUsername": "josefpaij"
+        },
+        {
+            "name": "Dan Manastireanu",
+            "githubUsername": "danmana"
+        },
+        {
+            "name": "Guillaume Rodriguez",
+            "githubUsername": "guillaume-ro-fr"
+        },
+        {
+            "name": "Simon Archer",
+            "githubUsername": "archy-bold"
+        },
+        {
+            "name": "Ken Elkabany",
+            "githubUsername": "braincore"
+        },
+        {
+            "name": "Alexandros Dorodoulis",
+            "githubUsername": "alexdor"
+        },
+        {
+            "name": "Manuel Heidrich",
+            "githubUsername": "mahnuh"
+        },
+        {
+            "name": "Conrad Holtzhausen",
+            "githubUsername": "Conrad777"
+        },
+        {
+            "name": "Adrián Caballero",
+            "githubUsername": "adripanico"
+        },
+        {
+            "name": "wertzui",
+            "githubUsername": "wertzui"
+        },
+        {
+            "name": "Martin Trobäck",
+            "githubUsername": "lekoaf"
+        },
+        {
+            "name": "Elian Cordoba",
+            "githubUsername": "ElianCordoba"
+        },
+        {
+            "name": "Takuya Uehara",
+            "githubUsername": "indigolain"
+        },
+        {
+            "name": "Ricardo Mello",
+            "githubUsername": "ricmello"
+        },
+        {
+            "name": "Ray Nicholus",
+            "githubUsername": "rnicholus"
+        },
+        {
+            "name": "Oscar Cabrera",
+            "githubUsername": "mrjack88"
+        },
+        {
+            "name": "Carlos Anoceto",
+            "githubUsername": "canoceto"
+        },
+        {
+            "name": "Nobuhiko Futagami",
+            "githubUsername": "nobu222"
+        },
+        {
+            "name": "Marco Ru",
+            "githubUsername": "Marcoru97"
+        },
+        {
+            "name": "Tony Liu",
+            "githubUsername": "tonybadguy"
+        },
+        {
+            "name": "Mathias Helminger",
+            "githubUsername": "Ilmarinen100"
+        },
+        {
+            "name": "Mostafa Sameti",
+            "githubUsername": "IVIosi"
+        },
+        {
+            "name": "Samar Mohan",
+            "githubUsername": "samarmohan"
+        }
+    ]
 }

@@ -1,4 +1,4 @@
-import findCircuits = require('elementary-circuits-directed-graph');
+import findCircuits = require("elementary-circuits-directed-graph");
 
 const adjacencyList = [
     [1, 2],

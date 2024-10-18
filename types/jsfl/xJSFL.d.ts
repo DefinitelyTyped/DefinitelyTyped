@@ -1,4 +1,4 @@
-///<reference path="index.d.ts" />
+/// <reference path="index.d.ts" />
 
 interface _xjsfl {
     init(_this: any): void;
@@ -36,7 +36,7 @@ interface GenericCollection<T> {
     select(): GenericCollection<T>;
     toGrid(x: number, y: number): GenericCollection<T>;
     randomize(info: any): GenericCollection<T>;
-    each(callback: (element: T, index?: number, elements?: T[]) => void );
+    each(callback: (element: T, index?: number, elements?: T[]) => void);
 }
 
 interface ElementCollection extends GenericCollection<FlashElement> {

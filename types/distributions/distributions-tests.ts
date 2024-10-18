@@ -1,4 +1,4 @@
-import * as distributions from 'distributions';
+import * as distributions from "distributions";
 
 const normal = distributions.Normal();
 normal.cdf(0);

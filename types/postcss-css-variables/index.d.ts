@@ -1,9 +1,4 @@
-// Type definitions for postcss-css-variables 0.18
-// Project: https://github.com/MadLittleMods/postcss-css-variables
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Declaration, PluginCreator } from 'postcss';
+import { Declaration, PluginCreator } from "postcss";
 
 declare namespace cssvariables {
     type Variable = string | { value: string; isImportant?: boolean | undefined };
@@ -25,7 +20,7 @@ declare namespace cssvariables {
          *
          * @default false
          */
-        preserve?: boolean | 'computed' | ((declaration: Declaration) => boolean | 'computed') | undefined;
+        preserve?: boolean | "computed" | ((declaration: Declaration) => boolean | "computed") | undefined;
         /**
          * Define an object map of variables in JavaScript that will be declared at the `:root` scope.
          *

@@ -1,4 +1,4 @@
-import MultisigHMAC = require('multisig-hmac');
+import MultisigHMAC = require("multisig-hmac");
 
 // test type exports
 type Key = MultisigHMAC.Key;
@@ -25,44 +25,44 @@ MultisigHMAC.keysCount(1); // $ExpectType number
 MultisigHMAC.keyIndexes(1); // $ExpectType number[]
 
 const multisigHmac = new MultisigHMAC(); // $ExpectType MultisigHMAC
-new MultisigHMAC('sha256'); // $ExpectType MultisigHMAC
-new MultisigHMAC('sha384'); // $ExpectType MultisigHMAC
-new MultisigHMAC('sha512'); // $ExpectType MultisigHMAC
-new MultisigHMAC('sha512_256'); // $ExpectType MultisigHMAC
+new MultisigHMAC("sha256"); // $ExpectType MultisigHMAC
+new MultisigHMAC("sha384"); // $ExpectType MultisigHMAC
+new MultisigHMAC("sha512"); // $ExpectType MultisigHMAC
+new MultisigHMAC("sha512_256"); // $ExpectType MultisigHMAC
 // @ts-expect-error
-new MultisigHMAC('foo');
+new MultisigHMAC("foo");
 
 const key = multisigHmac.keygen(0); // $ExpectType Key
 multisigHmac.keygen(0, Buffer.alloc(0)); // $ExpectType Key
 
-multisigHmac.seedgen(); // $ExpectType Buffer
-multisigHmac.seedgen(Buffer.alloc(0)); // $ExpectType Buffer
+multisigHmac.seedgen(); // $ExpectType Buffer || Buffer<ArrayBufferLike>
+multisigHmac.seedgen(Buffer.alloc(0)); // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 multisigHmac.deriveKey(Buffer.alloc(0), 0); // $ExpectType Key
 multisigHmac.deriveKey(Buffer.alloc(0), 0, Buffer.alloc(0)); // $ExpectType Key
 
-const signature = multisigHmac.sign(key, 'foo'); // $ExpectType Signature
-multisigHmac.sign(key, 'foo', Buffer.alloc(0)); // $ExpectType Signature
-multisigHmac.sign(key, Buffer.from('foo')); // $ExpectType Signature
-multisigHmac.sign(key, Buffer.from('foo'), Buffer.alloc(0)); // $ExpectType Signature
+const signature = multisigHmac.sign(key, "foo"); // $ExpectType Signature
+multisigHmac.sign(key, "foo", Buffer.alloc(0)); // $ExpectType Signature
+multisigHmac.sign(key, Buffer.from("foo")); // $ExpectType Signature
+multisigHmac.sign(key, Buffer.from("foo"), Buffer.alloc(0)); // $ExpectType Signature
 
 multisigHmac.combine([signature, signature] as const); // $ExpectType Signature
 multisigHmac.combine([signature, signature] as const, Buffer.alloc(0)); // $ExpectType Signature
 
-multisigHmac.verify([key, key] as const, signature, 'foo', 1); // $ExpectType boolean
-multisigHmac.verify([key, key] as const, signature, 'foo', 1, Buffer.alloc(0)); // $ExpectType boolean
-multisigHmac.verify([key, key] as const, signature, Buffer.from('foo'), 1); // $ExpectType boolean
-multisigHmac.verify([key, key] as const, signature, Buffer.from('foo'), 1, Buffer.alloc(0)); // $ExpectType boolean
+multisigHmac.verify([key, key] as const, signature, "foo", 1); // $ExpectType boolean
+multisigHmac.verify([key, key] as const, signature, "foo", 1, Buffer.alloc(0)); // $ExpectType boolean
+multisigHmac.verify([key, key] as const, signature, Buffer.from("foo"), 1); // $ExpectType boolean
+multisigHmac.verify([key, key] as const, signature, Buffer.from("foo"), 1, Buffer.alloc(0)); // $ExpectType boolean
 
-multisigHmac.verifyDerived(Buffer.alloc(0), signature, 'foo', 1); // $ExpectType boolean
-multisigHmac.verifyDerived(Buffer.alloc(0), signature, 'foo', 1, Buffer.alloc(0)); // $ExpectType boolean
-multisigHmac.verifyDerived(Buffer.alloc(0), signature, 'foo', 1, Buffer.alloc(0), Buffer.alloc(0)); // $ExpectType boolean
-multisigHmac.verifyDerived(Buffer.alloc(0), signature, Buffer.from('foo'), 1); // $ExpectType boolean
-multisigHmac.verifyDerived(Buffer.alloc(0), signature, Buffer.from('foo'), 1, Buffer.alloc(0)); // $ExpectType boolean
-multisigHmac.verifyDerived(Buffer.alloc(0), signature, Buffer.from('foo'), 1, Buffer.alloc(0), Buffer.alloc(0)); // $ExpectType boolean
+multisigHmac.verifyDerived(Buffer.alloc(0), signature, "foo", 1); // $ExpectType boolean
+multisigHmac.verifyDerived(Buffer.alloc(0), signature, "foo", 1, Buffer.alloc(0)); // $ExpectType boolean
+multisigHmac.verifyDerived(Buffer.alloc(0), signature, "foo", 1, Buffer.alloc(0), Buffer.alloc(0)); // $ExpectType boolean
+multisigHmac.verifyDerived(Buffer.alloc(0), signature, Buffer.from("foo"), 1); // $ExpectType boolean
+multisigHmac.verifyDerived(Buffer.alloc(0), signature, Buffer.from("foo"), 1, Buffer.alloc(0)); // $ExpectType boolean
+multisigHmac.verifyDerived(Buffer.alloc(0), signature, Buffer.from("foo"), 1, Buffer.alloc(0), Buffer.alloc(0)); // $ExpectType boolean
 
 key.index; // $ExpectType number
-key.key; // $ExpectType Buffer
+key.key; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 signature.bitfield; // $ExpectType number
-signature.signature; // $ExpectType Buffer
+signature.signature; // $ExpectType Buffer || Buffer<ArrayBufferLike>

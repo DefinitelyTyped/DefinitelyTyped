@@ -89,7 +89,7 @@ export interface Card {
      * The account this card belongs to.
      * NOTE: This attribute will not be in the card object if the card belongs to a customer or recipient instead.
      */
-    object: 'card';
+    object: "card";
 
     account?: string | undefined;
 
@@ -137,12 +137,12 @@ export interface Card {
      * A set of available payout methods for this card
      * NOTE: Only values from this set should be passed as the method when creating a transfer
      */
-    available_payout_methods: ['standard'] | ['standard', 'instant'];
+    available_payout_methods: ["standard"] | ["standard", "instant"];
 
     /**
      * The brand of the card
      */
-    brand: 'American Express' | 'Diners Club' | 'Discover' | 'JCB' | 'MasterCard' | 'UnionPay' | 'Visa' | 'Unknown';
+    brand: "American Express" | "Diners Club" | "Discover" | "JCB" | "MasterCard" | "UnionPay" | "Visa" | "Unknown";
 
     /**
      * Two-letter ISO code representing the country of the card
@@ -198,7 +198,7 @@ export interface Card {
     /**
      * Card funding type
      */
-    funding: 'credit' | 'debit' | 'prepaid' | 'unknown';
+    funding: "credit" | "debit" | "prepaid" | "unknown";
 
     /**
      * The last four digits of the card
@@ -219,7 +219,7 @@ export interface Card {
     /**
      * If the card number is tokenized, this is the method that was used
      */
-    tokenization_method: 'apple_pay' | 'android_pay';
+    tokenization_method: "apple_pay" | "android_pay";
 
     /**
      * Your own saved information with this card
@@ -227,7 +227,7 @@ export interface Card {
     metadata: { [key: string]: string };
 }
 
-export type checkStatus = 'pass' | 'fail' | 'unavailable' | 'unchecked';
+export type checkStatus = "pass" | "fail" | "unavailable" | "unchecked";
 
 // --- BANK ACCOUNT PAYMENT OPTION --- //
 /**
@@ -239,7 +239,7 @@ export interface BankAccount {
      */
     id: string;
 
-    object: 'bank_account';
+    object: "bank_account";
 
     /**
      * The name of the person or business that owns the bank account.
@@ -249,7 +249,7 @@ export interface BankAccount {
     /**
      * The type of entity that holds the account.
      */
-    account_holder_type: 'individual' | 'company';
+    account_holder_type: "individual" | "company";
 
     /**
      * Name of the bank associated with the routing number
@@ -295,5 +295,5 @@ export interface BankAccount {
      * The status of the bank account
      * @see https://stripe.com/docs/api#customer_bank_account_object-status
      */
-    status: 'new' | 'validated' | 'verified' | 'verification_failed' | 'errored';
+    status: "new" | "validated" | "verified" | "verification_failed" | "errored";
 }

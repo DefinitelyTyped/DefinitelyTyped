@@ -1,10 +1,10 @@
-import { Modal } from 'bootstrap';
-import * as $ from 'jquery';
+import { Modal } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
 // $ExpectType Modal
-new Modal(element, { backdrop: 'static' });
+new Modal(element, { backdrop: "static" });
 
 // $ExpectType Modal | null
 Modal.getInstance(element);
@@ -24,7 +24,7 @@ element.addEventListener(Modal.Events.show, event => {
 
 // Ensure that using a string literal as the event type works the same as using
 // the `Modal.Events` enum.
-element.addEventListener('show.bs.modal', event => {
+element.addEventListener("show.bs.modal", event => {
     event.target; // $ExpectType HTMLElement
     event.relatedTarget; // $ExpectType HTMLElement | undefined
 });
@@ -50,12 +50,12 @@ element.addEventListener(Modal.Events.hidePrevented, event => {
 });
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').modal();
+$(".alert").modal();
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').modal({ backdrop: 'static' });
+$(".alert").modal({ backdrop: "static" });
 
-$('.alert').modal('show'); // $ExpectType JQuery<HTMLElement>
-$('.alert').modal('hide'); // $ExpectType JQuery<HTMLElement>
-$('.alert').modal('toggle'); // $ExpectType JQuery<HTMLElement>
-$('.alert').modal('handleUpdate'); // $ExpectType JQuery<HTMLElement>
+$(".alert").modal("show"); // $ExpectType JQuery<HTMLElement>
+$(".alert").modal("hide"); // $ExpectType JQuery<HTMLElement>
+$(".alert").modal("toggle"); // $ExpectType JQuery<HTMLElement>
+$(".alert").modal("handleUpdate"); // $ExpectType JQuery<HTMLElement>

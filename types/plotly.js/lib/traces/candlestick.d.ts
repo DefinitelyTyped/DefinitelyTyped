@@ -1,66 +1,66 @@
-import { OhlcData } from './ohlc';
+import { OhlcData } from "./ohlc";
 
 export interface CandlestickData {
-    type: 'candlestick';
-    name: OhlcData['name'];
+    type: "candlestick";
+    name: OhlcData["name"];
 
     /**
      * @default true
      */
-    visible: OhlcData['visible'];
+    visible: OhlcData["visible"];
 
     /**
      * @default true
      */
-    showlegend: OhlcData['showlegend'];
+    showlegend: OhlcData["showlegend"];
 
     /**
      * number between 0 and 1
      * @default 1
      */
-    opacity: OhlcData['opacity'];
+    opacity: OhlcData["opacity"];
 
-    ids: OhlcData['ids'];
+    ids: OhlcData["ids"];
 
     /**
      * @default 0
      */
-    xperiod: OhlcData['xperiod'];
+    xperiod: OhlcData["xperiod"];
 
-    xperiod0: OhlcData['xperiod0'];
+    xperiod0: OhlcData["xperiod0"];
 
     /**
      * @default "middle"
      */
-    xperiodalignment: OhlcData['xperiodalignment'];
+    xperiodalignment: OhlcData["xperiodalignment"];
 
-    x: OhlcData['x'];
-    open: OhlcData['open'];
-    high: OhlcData['high'];
-    close: OhlcData['close'];
-    low: OhlcData['low'];
-
-    /**
-     * @default ""
-     */
-    text: OhlcData['text'];
+    x: OhlcData["x"];
+    open: OhlcData["open"];
+    high: OhlcData["high"];
+    close: OhlcData["close"];
+    low: OhlcData["low"];
 
     /**
      * @default ""
      */
-    hovertext: OhlcData['hovertext'];
+    text: OhlcData["text"];
+
+    /**
+     * @default ""
+     */
+    hovertext: OhlcData["hovertext"];
 
     /**
      * @default "all"
      */
-    hoverinfo: OhlcData['hoverinfo'];
+    hoverinfo: OhlcData["hoverinfo"];
 
-    meta: OhlcData['meta'];
+    meta: OhlcData["meta"];
 
     /**
      * @default "x"
      */
-    xaxis: OhlcData['xaxis'];
+    xaxis: OhlcData["xaxis"];
 
     /**
      * @default width=2
@@ -70,22 +70,22 @@ export interface CandlestickData {
     increasing: {
         line?:
             | {
-                  color?: string | undefined;
-                  width?: number | undefined;
-              }
+                color?: string | undefined;
+                width?: number | undefined;
+            }
             | undefined;
     };
 
     decreasing: {
         line?:
             | {
-                  color?: string | undefined;
-                  width?: number | undefined;
-              }
+                color?: string | undefined;
+                width?: number | undefined;
+            }
             | undefined;
     };
 
-    hoverlabel: OhlcData['hoverlabel'];
+    hoverlabel: OhlcData["hoverlabel"];
 
     /**
      * Number between 0 and 1.

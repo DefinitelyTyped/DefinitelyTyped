@@ -1,14 +1,14 @@
 import {
-    File,
-    Permissions,
-    ParsingCallback,
-    nodeTypes,
-    permissions,
     access,
+    File,
+    nodeTypes,
     parseEntries,
-    parseFtpEntries,
     parseEntry,
-} from 'parse-listing';
+    parseFtpEntries,
+    ParsingCallback,
+    Permissions,
+    permissions,
+} from "parse-listing";
 
 // test type exports
 type Fil = File;
@@ -24,25 +24,25 @@ nodeTypes.SYMBOLIC_LINK_TYPE;
 nodeTypes.UNKNOWN_TYPE;
 
 // $ExpectType void
-parseEntries('some-listing', (err, result) => {
+parseEntries("some-listing", (err, result) => {
     err; // $ExpectType Error | null
     result; // $ExpectType File[]
 });
 // $ExpectType void
-parseEntries(['some-listing'] as const, (err, result) => {
+parseEntries(["some-listing"] as const, (err, result) => {
     err; // $ExpectType Error | null
     result; // $ExpectType File[]
 });
 
 // $ExpectType void
-parseFtpEntries('some-listing', (err, result) => {
+parseFtpEntries("some-listing", (err, result) => {
     err; // $ExpectType Error | null
     result; // $ExpectType File[]
 });
 // $ExpectType void
-parseFtpEntries(['some-listing'] as const, (err, result) => {
+parseFtpEntries(["some-listing"] as const, (err, result) => {
     err; // $ExpectType Error | null
     result; // $ExpectType File[]
 });
 
-parseEntry('some-line'); // $ExpectType File | null
+parseEntry("some-line"); // $ExpectType File | null

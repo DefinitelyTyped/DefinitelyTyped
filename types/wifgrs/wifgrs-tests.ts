@@ -1,6 +1,6 @@
-import wif = require('wifgrs');
+import wif = require("wifgrs");
 
-const testString = 'test';
+const testString = "test";
 const testBuffer = Buffer.from(testString);
 
 // $ExpectType WIFReturn
@@ -12,7 +12,7 @@ wif.decode(testString);
 // $ExpectType WIFReturn
 wif.decode(testString, 0);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 wif.encodeRaw(1, testBuffer, true);
 // $ExpectType string
 wif.encode(1, testBuffer, true);

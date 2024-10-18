@@ -1,38 +1,38 @@
-import * as React from 'react';
-import { Navigation, Link, Layout, Header, createApp } from 'react-app';
+import * as React from "react";
+import { createApp, Header, Layout, Link, Navigation } from "react-app";
 
 const store = {};
 const routes = {
-    path: '/',
+    path: "/",
     children: [
         {
-            path: '/',
+            path: "/",
             action() {
                 return {
-                    title: 'Foo Page',
-                    component: <h1>Foo!</h1>
+                    title: "Foo Page",
+                    component: <h1>Foo!</h1>,
                 };
-            }
+            },
         },
         {
-            path: '/bar',
+            path: "/bar",
             action() {
                 return {
-                    title: 'Bar Page',
-                    component: <h1>Bar!</h1>
+                    title: "Bar Page",
+                    component: <h1>Bar!</h1>,
                 };
-            }
-        }
-    ]
+            },
+        },
+    ],
 };
 
-<Link to="/bar" className="a-link"/>;
-<Layout className="my-layout"/>;
+<Link to="/bar" className="a-link" />;
+<Layout className="my-layout" />;
 <Header />;
 <Navigation />;
 
 createApp({
     routes,
     context: { store },
-    container: document.body
+    container: document.body,
 });

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-easy-cert",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/ottomao/node-easy-cert"
+    ],
+    "devDependencies": {
+        "@types/node-easy-cert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime LUCE",
+            "githubUsername": "SomaticIT"
+        }
+    ]
+}

@@ -1,15 +1,15 @@
-import * as Http from 'http';
-import * as Hawk from 'hawk';
-import * as Request from 'request';
+import * as Hawk from "hawk";
+import * as Http from "http";
+import * as Request from "request";
 
 {
     // Credentials lookup function
 
     const credentialsFunc: Hawk.server.CredentialsFunc = (id: string) => {
         const credentials: Hawk.server.Credentials = {
-            key: 'werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn',
-            algorithm: 'sha256',
-            user: 'Steve',
+            key: "werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn",
+            algorithm: "sha256",
+            user: "Steve",
         };
 
         return credentials;
@@ -20,7 +20,7 @@ import * as Request from 'request';
     const handler = async (req: Http.IncomingMessage, res: Http.ServerResponse) => {
         let payload;
         let status;
-        const headers: Http.IncomingHttpHeaders = { 'Content-Type': 'text/plain' };
+        const headers: Http.IncomingHttpHeaders = { "Content-Type": "text/plain" };
 
         // Authenticate incoming request
 
@@ -33,11 +33,11 @@ import * as Request from 'request';
 
             const header = Hawk.server.header(credentials, artifacts, {
                 payload,
-                contentType: headers['Content-Type'],
+                contentType: headers["Content-Type"],
             });
-            headers['Server-Authorization'] = header;
+            headers["Server-Authorization"] = header;
         } catch (error) {
-            payload = 'Shoosh!';
+            payload = "Shoosh!";
             status = 401;
         }
 
@@ -51,31 +51,31 @@ import * as Request from 'request';
 
     // Start server
 
-    Http.createServer(handler).listen(8000, 'example.com');
+    Http.createServer(handler).listen(8000, "example.com");
 }
 
 {
     // Client credentials
 
     const credentials: Hawk.client.Credentials = {
-        id: 'dh37fgj492je',
-        key: 'werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn',
-        algorithm: 'sha256',
+        id: "dh37fgj492je",
+        key: "werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn",
+        algorithm: "sha256",
     };
 
     // Request options
 
     const requestOptions: Request.RequiredUriUrl & Request.CoreOptions & { headers: Request.Headers } = {
-        uri: 'http://example.com:8000/resource/1?b=1&a=2',
-        method: 'GET',
+        uri: "http://example.com:8000/resource/1?b=1&a=2",
+        method: "GET",
         headers: {},
     };
 
     // Generate Authorization request header
 
-    const { header, artifacts } = Hawk.client.header('http://example.com:8000/resource/1?b=1&a=2', 'GET', {
+    const { header, artifacts } = Hawk.client.header("http://example.com:8000/resource/1?b=1&a=2", "GET", {
         credentials,
-        ext: 'some-app-data',
+        ext: "some-app-data",
     });
     requestOptions.headers.Authorization = header;
 
@@ -88,7 +88,7 @@ import * as Request from 'request';
 
         // Output results
 
-        console.log(`${response.statusCode}: ${body}` + (isValid ? ' (valid)' : ' (invalid)'));
+        console.log(`${response.statusCode}: ${body}` + (isValid ? " (valid)" : " (invalid)"));
     });
 }
 

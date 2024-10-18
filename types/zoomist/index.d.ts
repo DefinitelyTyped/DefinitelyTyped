@@ -1,9 +1,3 @@
-// Type definitions for zoomist 1.1
-// Project: https://github.com/cotton123236/zoomist
-// Definitions by: scriptSQD <https://github.com/scriptSQD>
-//                 Wilson Wu <https://github.com/cotton123236>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 4.1
 
 export as namespace Zoomist;
@@ -128,15 +122,15 @@ declare class Zoomist {
     move(x: number, y: number): void;
     moveTo(x: number, y: number): void;
     slideTo(value: number, isOnlySlide: boolean): void;
-    on(event: 'ready' | 'update' | 'destroy' | 'resize' | 'reset', handler: () => void): void;
-    on(event: 'zoom', handler: (ratio: number) => void): void;
-    on(event: 'wheel', handler: (event: WheelEvent) => void): void;
+    on(event: "ready" | "update" | "destroy" | "resize" | "reset", handler: () => void): void;
+    on(event: "zoom", handler: (ratio: number) => void): void;
+    on(event: "wheel", handler: (event: WheelEvent) => void): void;
     on(
-        event: 'drag' | 'dragStart' | 'dragEnd',
+        event: "drag" | "dragStart" | "dragEnd",
         handler: (transform: { x: number; y: number }, event: Event) => void,
     ): void;
-    on(event: 'slide' | 'slideStart' | 'slideEnd', handler: (value: number, event: Event) => void): void;
-    on(event: 'pinch' | 'pinchStart' | 'pinchEnd', handler: (event: Event) => void): void;
+    on(event: "slide" | "slideStart" | "slideEnd", handler: (value: number, event: Event) => void): void;
+    on(event: "pinch" | "pinchStart" | "pinchEnd", handler: (event: Event) => void): void;
 
     reset(): void;
     update(): void;
@@ -145,17 +139,17 @@ declare class Zoomist {
 
 interface ZoomistOptions {
     src?: string | HTMLImageElement;
-    fill?: 'cover' | 'contain' | 'none';
+    fill?: "cover" | "contain" | "none";
     draggable?: boolean;
     wheelable?: boolean;
     pinchable?: boolean;
     bounds?: boolean;
     zoomRatio?: number;
     maxRatio?: number | false;
-    height?: 'auto' | `${number}%` | number | false;
+    height?: "auto" | `${number}%` | number | false;
     slider?: {
         el?: string | HTMLElement | false;
-        direction?: 'horizontal' | 'vertical';
+        direction?: "horizontal" | "vertical";
         maxRatio?: number;
     };
     zoomer?: {

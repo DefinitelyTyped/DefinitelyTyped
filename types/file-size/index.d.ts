@@ -1,9 +1,3 @@
-// Type definitions for file-size 1.0
-// Project: https://github.com/Nijikokun/file-size
-// Definitions by: Richie Bendall <https://github.com/Richienb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 interface Options {
     fixed?: number | undefined;
     spacer?: string | undefined;

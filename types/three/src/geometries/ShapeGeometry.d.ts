@@ -1,5 +1,5 @@
-import { Shape } from './../extras/core/Shape.js';
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Shape } from "../extras/core/Shape.js";
 
 /**
  * Creates an one-sided polygonal geometry from one or more path shapes.
@@ -37,7 +37,7 @@ export class ShapeGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `ShapeGeometry`
      */
-    override readonly type: string | 'ShapeGeometry';
+    override readonly type: string | "ShapeGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

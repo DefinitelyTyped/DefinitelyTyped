@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cmd-shim",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/npm/cmd-shim"
+    ],
+    "devDependencies": {
+        "@types/cmd-shim": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Bradley",
+            "githubUsername": "cspotcode"
+        },
+        {
+            "name": "Hiroki Osame",
+            "githubUsername": "privatenumber"
+        }
+    ]
+}

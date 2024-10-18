@@ -12,6 +12,6 @@ export class System extends MessageDispatcher {
     protected onComponentRemoved(child: GameObject, component: Component): void;
     dispose(): void;
 }
-import { MessageDispatcher } from '../messages/MessageDispatcher';
-import { Component } from './Component';
-import { GameObject } from './GameObject';
+import { MessageDispatcher } from "../messages/MessageDispatcher";
+import { Component } from "./Component";
+import { GameObject } from "./GameObject";

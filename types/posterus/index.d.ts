@@ -1,9 +1,3 @@
-// Type definitions for posterus 0.4
-// Project: https://github.com/Mitranim/posterus#readme
-// Definitions by: David Govea <https://github.com/davidgovea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export class Future<T = any, E extends Error = Error> {
     static from: <T = any, E extends Error = Error>(result?: T, error?: E) => Future<T, E>;
     static fromResult: <T = any>(...args: T extends undefined ? [] | [undefined] : [T]) => Future<T>;
@@ -24,8 +18,8 @@ export class Future<T = any, E extends Error = Error> {
     weak: () => Future<T, E>;
     settle: (error?: E, result?: T) => void;
     toPromise: () => Promise<T>;
-    then: Promise<T>['then'];
-    catch: Promise<T>['catch'];
+    then: Promise<T>["then"];
+    catch: Promise<T>["catch"];
     finishPending: () => void;
     deref: () => T | undefined;
 }

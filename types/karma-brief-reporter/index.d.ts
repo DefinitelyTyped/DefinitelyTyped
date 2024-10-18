@@ -1,12 +1,6 @@
-// Type definitions for karma-brief-reporter 0.2
-// Project: https://github.com/prantlf/karma-brief-reporter
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * Reports test progress statistics and lists failures at the end of a Karma test run.

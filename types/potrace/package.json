@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/potrace",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/tooolbox/node-potrace"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "jimp": "0.16.1"
-    }
+    },
+    "devDependencies": {
+        "@types/potrace": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Direnc Timur",
+            "githubUsername": "proohit"
+        }
+    ]
 }

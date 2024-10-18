@@ -1,8 +1,6 @@
-
-
-import express = require('express');
-import mysql = require('mysql');
-import connection = require('express-myconnection');
+import express = require("express");
+import mysql = require("mysql");
+import connection = require("express-myconnection");
 
 var app = express();
 
@@ -10,23 +8,21 @@ app.use(
     connection(
         mysql,
         {
-            host: 'localhost',
-            user: 'dbuser',
-            password: 'password',
+            host: "localhost",
+            user: "dbuser",
+            password: "password",
             port: 3306,
-            database: 'mydb'
+            database: "mydb",
         },
-        'single'
-    )
+        "single",
+    ),
 );
 
-
-app.use(function list(req: express.Request, res: express.Response, next: Function){
-
+app.use(function list(req: express.Request, res: express.Response, next: Function) {
     req.getConnection(function(err: mysql.MysqlError, connection: mysql.Connection) {
         if (err) return next(err);
 
-        connection.query('SELECT 1 AS RESULT', [], function(err: mysql.MysqlError, results: any) {
+        connection.query("SELECT 1 AS RESULT", [], function(err: mysql.MysqlError, results: any) {
             if (err) return next(err);
 
             results[0].RESULT;

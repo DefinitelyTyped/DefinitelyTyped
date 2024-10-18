@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cytoscape-euler",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/cytoscape/cytoscape.js-euler"
+    ],
+    "dependencies": {
+        "@types/cytoscape": "*"
+    },
+    "devDependencies": {
+        "@types/cytoscape-euler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roger Dubbs",
+            "githubUsername": "RogerDubbs"
+        }
+    ]
+}

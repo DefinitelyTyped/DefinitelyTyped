@@ -1,5 +1,5 @@
-import { Disposable } from '../../../index';
-import { File } from './file';
+import { Disposable } from "../../../index";
+import { File } from "./file";
 
 /** Represents a directory on disk that can be watched for changes. */
 export class Directory {

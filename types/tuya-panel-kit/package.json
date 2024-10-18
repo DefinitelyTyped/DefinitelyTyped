@@ -1,8 +1,28 @@
 {
     "private": true,
+    "name": "@types/tuya-panel-kit",
+    "version": "4.7.9999",
+    "projects": [
+        "https://github.com/TuyaInc/tuya-panel-kit#readme"
+    ],
     "dependencies": {
+        "@types/react": "^17",
+        "@types/react-native": "^0.65",
         "react-native-gesture-handler": "1.8.0",
         "react-native-safe-area-context": "3.1.7",
         "react-native-svg": "5.5.1"
-    }
+    },
+    "devDependencies": {
+        "@types/tuya-panel-kit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "youngjuning",
+            "githubUsername": "youngjuning"
+        },
+        {
+            "name": "ShinyLeee",
+            "githubUsername": "ShinyLeee"
+        }
+    ]
 }

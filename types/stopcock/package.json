@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/stopcock",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/lpinca/stopcock"
+    ],
+    "devDependencies": {
+        "@types/stopcock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "bendingbender"
+        }
+    ]
+}

@@ -1,35 +1,35 @@
-import Ember from 'ember';
-import { assertType } from './lib/assert';
+import Ember from "ember";
+import { assertType } from "./lib/assert";
 
 const BaseEngine = Ember.Engine.extend({
-    modulePrefix: 'my-engine',
+    modulePrefix: "my-engine",
 });
 
-class Obj extends Ember.Object.extend({ foo: 'bar' }) {}
+class Obj extends Ember.Object.extend({ foo: "bar" }) {}
 
 BaseEngine.initializer({
-    name: 'my-initializer',
+    name: "my-initializer",
     initialize(engine) {
-        engine.register('foo:bar', Obj);
+        engine.register("foo:bar", Obj);
     },
 });
 
 BaseEngine.instanceInitializer({
-    name: 'my-instance-initializer',
+    name: "my-instance-initializer",
     initialize(engine) {
-        (engine.lookup('foo:bar') as Obj).get('foo');
+        (engine.lookup("foo:bar") as Obj).get("foo");
     },
 });
 
 const Engine1 = BaseEngine.create({
-    rootElement: '#engine-one',
+    rootElement: "#engine-one",
     customEvents: {
-        paste: 'paste',
+        paste: "paste",
     },
 });
 
 const Engine2 = BaseEngine.create({
-    rootElement: '#engine-two',
+    rootElement: "#engine-two",
     customEvents: {
         mouseenter: null,
         mouseleave: null,
@@ -40,4 +40,4 @@ const Engine3 = BaseEngine.create();
 
 const Engine3Instance1 = Engine3.buildInstance();
 
-const Engine3Instance2 = Engine3.buildInstance({ foo: 'bar' });
+const Engine3Instance2 = Engine3.buildInstance({ foo: "bar" });

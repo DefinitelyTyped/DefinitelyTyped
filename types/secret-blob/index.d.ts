@@ -1,10 +1,5 @@
-// Type definitions for secret-blob 1.1
-// Project: https://github.com/emilbayes/secret-blob
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import { SecureBuffer } from 'sodium-native';
+import { SecureBuffer } from "sodium-native";
 
 /**
  * Generate a new key.

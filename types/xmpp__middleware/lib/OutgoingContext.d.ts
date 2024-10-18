@@ -1,5 +1,5 @@
-import { Entity } from '../index';
-import Context = require('./Context');
+import { Entity } from "../index";
+import Context = require("./Context");
 
 export = OutgoingContext;
 

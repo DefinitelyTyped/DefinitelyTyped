@@ -43,11 +43,23 @@ export interface IsEmailOptions {
      */
     domain_specific_validation?: boolean | undefined;
     /**
+     * If `allow_underscores` is set to `true`, the validator will allow underscores in an email address.
+     *
+     * @default false
+     */
+    allow_underscores?: boolean | undefined;
+    /**
      *  If host_blacklist is set to an array of strings
      *  and the part of the email after the @ symbol matches one of the strings defined in it,
      *  the validation fails.
      */
     host_blacklist?: string[] | undefined;
+    /**
+     * If host_whitelist is set to an array of strings
+     * and the part of the email after the @ symbol matches none of the strings defined in it,
+     * the validation fails.
+     */
+    host_whitelist?: string[] | undefined;
     /**
      *  If blacklisted_chars receives a string, then the validator will reject emails that include
      *  any of the characters in the string, in the name part.

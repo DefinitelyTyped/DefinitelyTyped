@@ -1,8 +1,3 @@
-// Type definitions for yieldable-json 2.0
-// Project: https://github.com/ibmruntimes/yieldable-json
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Callback<T> = (err: Error, result: T) => void;
 
 export type Reviver = (key: number, value: any) => any;

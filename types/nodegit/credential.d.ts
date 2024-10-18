@@ -13,7 +13,12 @@ export namespace Credential {
 export class Credential {
     static defaultNew(): Credential;
     static sshKeyFromAgent(username: string): Credential;
-    static sshKeyMemoryNew(username: string, publicKey: string, privateKey: string, passphrase: string): Promise<Credential>;
+    static sshKeyMemoryNew(
+        username: string,
+        publicKey: string,
+        privateKey: string,
+        passphrase: string,
+    ): Promise<Credential>;
     static sshKeyNew(username: string, publicKey: string, privateKey: string, passphrase: string): Credential;
     static usernameNew(username: string): Promise<Credential>;
     static userpassPlaintextNew(username: string, password: string): Credential;

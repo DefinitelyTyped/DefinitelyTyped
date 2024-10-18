@@ -1,2 +1,2 @@
-import { aperture } from '../index';
+import { aperture } from "../index.js";
 export default aperture;

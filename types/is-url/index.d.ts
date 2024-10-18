@@ -1,9 +1,3 @@
-// Type definitions for is-url 1.2
-// Project: https://github.com/segmentio/is-url
-// Definitions by: Ryota Murohoshi <https://github.com/RyotaMurohoshi>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = isUrl;
 
 /**

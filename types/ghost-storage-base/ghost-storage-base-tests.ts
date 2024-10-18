@@ -1,5 +1,5 @@
-import StorageBase, { Image, ReadOptions } from 'ghost-storage-base';
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from "express";
+import StorageBase, { Image, ReadOptions } from "ghost-storage-base";
 
 class MyCustomAdapter extends StorageBase {
     constructor() {
@@ -11,7 +11,7 @@ class MyCustomAdapter extends StorageBase {
     }
 
     async save(image: Image, targetDir?: string) {
-        return 'string';
+        return "string";
     }
 
     serve() {
@@ -28,18 +28,18 @@ class MyCustomAdapter extends StorageBase {
 }
 
 const image: Image = {
-    path: 'tmp/123456.jpg',
-    name: 'IMAGE.jpg',
-    type: 'image/jpeg',
+    path: "tmp/123456.jpg",
+    name: "IMAGE.jpg",
+    type: "image/jpeg",
 };
 
 const storage = new MyCustomAdapter();
 
-storage.getTargetDir('/'); // $ExpectType string
-storage.getUniqueFileName(image, '/target'); // $ExpectType string
-storage.getSanitizedFileName('IMAGE.jpg'); // $ExpectType string
+storage.getTargetDir("/"); // $ExpectType string
+storage.getUniqueFileName(image, "/target"); // $ExpectType string
+storage.getSanitizedFileName("IMAGE.jpg"); // $ExpectType string
 
-storage.exists('tmp/123456.jpg', '/'); // $ExpectType Promise<boolean>
-storage.save(image, '/'); // $ExpectType Promise<string>
+storage.exists("tmp/123456.jpg", "/"); // $ExpectType Promise<boolean>
+storage.save(image, "/"); // $ExpectType Promise<string>
 storage.serve(); // $ExpectType (req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction) => void
-storage.delete('tmp/123456.jpg', '/'); // $ExpectType Promise<boolean>
+storage.delete("tmp/123456.jpg", "/"); // $ExpectType Promise<boolean>

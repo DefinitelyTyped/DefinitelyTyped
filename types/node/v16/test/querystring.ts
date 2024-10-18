@@ -1,11 +1,13 @@
-import * as querystring from 'node:querystring';
+import * as querystring from "node:querystring";
 
-interface SampleObject { [key: string]: string; }
+interface SampleObject {
+    [key: string]: string;
+}
 
 {
     const obj: SampleObject = { a: "" };
-    const sep = '';
-    const eq = '';
+    const sep = "";
+    const eq = "";
     const options: querystring.StringifyOptions = {
         encodeURIComponent: (d: string) => d,
     };
@@ -23,24 +25,24 @@ interface SampleObject { [key: string]: string; }
     querystring.stringify({ foo: { bar: 1 } });
 
     querystring.stringify({
-        foo: 'foo',
+        foo: "foo",
         bar: 1,
         baz: true,
-        foo2: ['a', 'b'],
+        foo2: ["a", "b"],
         bar2: [1, 2],
         baz2: [true, false],
-        rfoo2: ['a', 'b'] as ReadonlyArray<string>,
-        rbar2: [1, 2] as ReadonlyArray<number>,
-        rbaz2: [true, false] as ReadonlyArray<boolean>,
+        rfoo2: ["a", "b"] as readonly string[],
+        rbar2: [1, 2] as readonly number[],
+        rbaz2: [true, false] as readonly boolean[],
         a: undefined,
-        b: null
+        b: null,
     });
 }
 
 {
-    const str = '';
-    const sep = '';
-    const eq = '';
+    const str = "";
+    const sep = "";
+    const eq = "";
     const options: querystring.ParseOptions = {
         decodeURIComponent: (d: string) => d,
     };
@@ -53,7 +55,7 @@ interface SampleObject { [key: string]: string; }
 }
 
 {
-    const str = '';
+    const str = "";
     let result: string;
 
     result = querystring.escape(str);

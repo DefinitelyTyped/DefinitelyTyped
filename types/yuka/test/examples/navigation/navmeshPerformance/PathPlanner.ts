@@ -4,7 +4,7 @@
 
 import { NavMesh, TaskQueue, Vector3 } from "yuka";
 import { CustomVehicle } from "./CustomVehicle";
-import { PathPlannerTask, PathPlannerTaskCallback } from './PathPlannerTask.js';
+import { PathPlannerTask, PathPlannerTaskCallback } from "./PathPlannerTask.js";
 
 class PathPlanner {
     navMesh: NavMesh;

@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-aria-menubutton",
+    "version": "6.2.9999",
+    "projects": [
+        "https://github.com/davidtheclark/react-aria-menubutton"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-aria-menubutton": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Muhammad Fawwaz Orabi",
+            "githubUsername": "forabi"
+        },
+        {
+            "name": "Chris Rohlfs",
+            "githubUsername": "crohlfs"
+        },
+        {
+            "name": "Mats Roshauw",
+            "githubUsername": "karmats"
+        }
+    ]
+}

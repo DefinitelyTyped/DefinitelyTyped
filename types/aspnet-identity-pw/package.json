@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/aspnet-identity-pw",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Syncbak-Git/aspnet-identity-pw"
+    ],
+    "devDependencies": {
+        "@types/aspnet-identity-pw": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jt000",
+            "githubUsername": "jt000"
+        }
+    ]
+}

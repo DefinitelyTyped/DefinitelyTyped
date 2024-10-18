@@ -1,6 +1,8 @@
 {
     "rules": {
-        "export-just-namespace": "off",
-        "no-any-union": "off"
+        "@definitelytyped/export-just-namespace": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

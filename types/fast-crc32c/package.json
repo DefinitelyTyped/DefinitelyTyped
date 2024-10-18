@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/fast-crc32c",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/ashi009/node-fast-crc32c#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fast-crc32c": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "naeem",
+            "githubUsername": "naeemy"
+        }
+    ]
+}

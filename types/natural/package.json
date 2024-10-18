@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/natural",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/NaturalNode/natural"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/natural": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dylan R. E. Moonfire",
+            "githubUsername": "dmoonfire"
+        },
+        {
+            "name": "Emily Marigold Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

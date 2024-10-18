@@ -1,8 +1,3 @@
-// Type definitions for typo-js 1.2
-// Project: https://github.com/cfinke/Typo.js#readme
-// Definitions by: Will Hawker <https://github.com/whawker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface TypoSettings {
     dictionaryPath?: string;
     asyncLoad?: boolean;

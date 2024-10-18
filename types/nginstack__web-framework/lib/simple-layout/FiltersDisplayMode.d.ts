@@ -1,3 +1,3 @@
-export const FILLED: string;
-export const ALL: string;
-export const NONE: string;
+export let FILLED: string;
+export let ALL: string;
+export let NONE: string;

@@ -1,8 +1,3 @@
-// Type definitions for sourcemap-validator 2.1
-// Project: https://github.com/ben-ng/sourcemap-validator#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = validate;
 
 /**

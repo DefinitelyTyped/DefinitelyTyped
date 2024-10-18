@@ -1,12 +1,12 @@
-import convertOklabToLrgb from './convertOklabToLrgb';
-import convertLrgbToOklab from './convertLrgbToOklab';
-import convertRgbToOklab from './convertRgbToOklab';
-import convertOklabToRgb from './convertOklabToRgb';
+import convertLrgbToOklab from "./convertLrgbToOklab";
+import convertOklabToLrgb from "./convertOklabToLrgb";
+import convertOklabToRgb from "./convertOklabToRgb";
+import convertRgbToOklab from "./convertRgbToOklab";
 
-import lab from '../lab/definition';
+import lab from "../lab/definition";
 
 interface OklabDefinitionMixin {
-    mode: 'oklab';
+    mode: "oklab";
 
     toMode: {
         lrgb: typeof convertOklabToLrgb;
@@ -24,8 +24,8 @@ interface OklabDefinitionMixin {
         b: [-0.311, 0.198];
     };
 
-    parse: ['--oklab'];
-    serialize: '--oklab';
+    parse: ["--oklab"];
+    serialize: "--oklab";
 }
 
 declare const definition: Omit<typeof lab, keyof OklabDefinitionMixin> & OklabDefinitionMixin;

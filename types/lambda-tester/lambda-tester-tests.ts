@@ -1,21 +1,21 @@
 /* tslint:disable:no-object-literal-type-assertion */
 
-import * as lambdaTester from 'lambda-tester';
 import {
-    Handler,
-    Context,
-    ClientContext,
-    APIGatewayProxyHandler,
     APIGatewayProxyEvent,
+    APIGatewayProxyHandler,
     APIGatewayProxyResult,
-} from 'aws-lambda';
+    ClientContext,
+    Context,
+    Handler,
+} from "aws-lambda";
+import * as lambdaTester from "lambda-tester";
 
 interface TResult {
     data: string;
 }
 
-const handler: Handler<any, TResult> = () => Promise.resolve({ data: '123' });
-const handlerReject: Handler<any, TResult> = () => Promise.reject({ data: '123' });
+const handler: Handler<any, TResult> = () => Promise.resolve({ data: "123" });
+const handlerReject: Handler<any, TResult> = () => Promise.reject({ data: "123" });
 
 const context: Context = {} as any;
 const clientContext: ClientContext = {} as any;
@@ -25,18 +25,18 @@ interface TError {
 }
 
 function lambdaTesterInstance() {
-    return lambdaTester(handler).event({ test: '123' });
+    return lambdaTester(handler).event({ test: "123" });
 }
 
 function lambdaTesterInstanceReject() {
-    return lambdaTester(handlerReject).event({ test: '123' });
+    return lambdaTester(handlerReject).event({ test: "123" });
 }
 
 lambdaTesterInstance()
     .context(context)
     .clientContext(clientContext)
     .xray()
-    .identity('123', '123')
+    .identity("123", "123")
     .expectSucceed((result: TResult) => {
         const t: string = result.data;
     });
@@ -69,7 +69,7 @@ s3Lambda
     .context(context)
     .clientContext(clientContext)
     .xray()
-    .identity('123', '123')
+    .identity("123", "123")
     .expectSucceed((result: APIGatewayProxyResult) => {});
 
 s3Lambda.expectResolve((result: APIGatewayProxyResult) => {});

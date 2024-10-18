@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/git-revision-webpack-plugin",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/pirelenito/git-revision-webpack-plugin"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/git-revision-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anders Kaseorg",
+            "githubUsername": "andersk"
+        }
+    ]
+}

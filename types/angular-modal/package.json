@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/angular-modal",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/btford/angular-modal"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-modal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Lessing",
+            "githubUsername": "paullessing"
+        }
+    ]
+}

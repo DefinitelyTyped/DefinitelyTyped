@@ -1,8 +1,3 @@
-// Type definitions for parallax-js 3.1
-// Project: http://wagerfield.github.io/parallax/
-// Definitions by: Max Schweikart <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // type aliases that mention the range of allowed values
 type integer = number;
 type floatBetween0And1 = number;
@@ -334,7 +329,7 @@ declare class Parallax {
     /**
      * Returns the version number of the Parallax library.
      */
-    version(): '3.1.0';
+    version(): "3.1.0";
 
     /**
      * @see {@link ParallaxOptions.inputElement}

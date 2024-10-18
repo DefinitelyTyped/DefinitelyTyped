@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-percentage-circle",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/JackPu/react-native-percentage-circle"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-percentage-circle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Haseeb Majid",
+            "githubUsername": "hmajid2301"
+        }
+    ]
+}

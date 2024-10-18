@@ -1,11 +1,4 @@
-// Type definitions for non-npm package nlcst 2.0
-// Project: https://github.com/syntax-tree/nlcst
-// Definitions by: Titus Wormer <https://github.com/wooorm>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-//                 Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from 'unist';
+import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 // ## Interfaces
 
@@ -215,7 +208,7 @@ export interface Paragraph extends Parent {
     /**
      * Node type of nlcst paragraph.
      */
-    type: 'ParagraphNode';
+    type: "ParagraphNode";
     /**
      * Children of paragraph.
      */
@@ -241,7 +234,7 @@ export interface Punctuation extends Literal {
     /**
      * Node type of nlcst punctuations.
      */
-    type: 'PunctuationNode';
+    type: "PunctuationNode";
     /**
      * Data associated with the nlcst punctuation.
      */
@@ -264,7 +257,7 @@ export interface Root extends Parent {
     /**
      * Node type of nlcst root.
      */
-    type: 'RootNode';
+    type: "RootNode";
     /**
      * Data associated with the nlcst root.
      */
@@ -288,7 +281,7 @@ export interface Sentence extends Parent {
     /**
      * Node type of nlcst sentence.
      */
-    type: 'SentenceNode';
+    type: "SentenceNode";
     /**
      * Children of sentence.
      */
@@ -314,7 +307,7 @@ export interface Source extends Literal {
     /**
      * Node type of nlcst sources.
      */
-    type: 'SourceNode';
+    type: "SourceNode";
     /**
      * Data associated with the nlcst source.
      */
@@ -336,7 +329,7 @@ export interface Symbol extends Literal {
     /**
      * Node type of nlcst symbols.
      */
-    type: 'SymbolNode';
+    type: "SymbolNode";
     /**
      * Data associated with the nlcst symbol.
      */
@@ -357,7 +350,7 @@ export interface Text extends Literal {
     /**
      * Node type of nlcst texts.
      */
-    type: 'TextNode';
+    type: "TextNode";
     /**
      * Data associated with the nlcst text.
      */
@@ -378,7 +371,7 @@ export interface WhiteSpace extends Literal {
     /**
      * Node type of nlcst white space.
      */
-    type: 'WhiteSpaceNode';
+    type: "WhiteSpaceNode";
     /**
      * Data associated with the nlcst white space.
      */
@@ -401,7 +394,7 @@ export interface Word extends Parent {
     /**
      * Node type of nlcst word.
      */
-    type: 'WordNode';
+    type: "WordNode";
     /**
      * Children of word.
      */

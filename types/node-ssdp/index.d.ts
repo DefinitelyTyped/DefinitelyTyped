@@ -1,12 +1,7 @@
-// Type definitions for node-ssdp 4.0
-// Project: https://github.com/diversario/node-ssdp#readme
-// Definitions by: Olivia Trewin <https://github.com/OrionNebula>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as events from 'events';
-import * as dgram from 'dgram';
+import * as dgram from "dgram";
+import * as events from "events";
 
 export interface SsdpHeaders {
     /**
@@ -133,9 +128,12 @@ export class Client extends Base {
     stop(): void;
     search(serviceType: string): void | Promise<void>;
 
-    on(event: 'response', listener: (headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo) => void): this;
-    once(event: 'response', listener: (headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo) => void): this;
-    emit(event: 'response', headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo): boolean;
+    on(event: "response", listener: (headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo) => void): this;
+    once(
+        event: "response",
+        listener: (headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo) => void,
+    ): this;
+    emit(event: "response", headers: SsdpHeaders, statusCode: number, rinfo: dgram.RemoteInfo): boolean;
 }
 
 export class Server extends Base {
@@ -153,7 +151,7 @@ export class Server extends Base {
     stop(): void;
     advertise(alive?: boolean): void;
 
-    on(event: 'advertise-alive' | 'advertise-bye', listener: (headers: SsdpHeaders) => void): this;
-    once(event: 'advertise-alive' | 'advertise-bye', listener: (headers: SsdpHeaders) => void): this;
-    emit(event: 'advertise-alive' | 'advertise-bye', headers: SsdpHeaders): boolean;
+    on(event: "advertise-alive" | "advertise-bye", listener: (headers: SsdpHeaders) => void): this;
+    once(event: "advertise-alive" | "advertise-bye", listener: (headers: SsdpHeaders) => void): this;
+    emit(event: "advertise-alive" | "advertise-bye", headers: SsdpHeaders): boolean;
 }

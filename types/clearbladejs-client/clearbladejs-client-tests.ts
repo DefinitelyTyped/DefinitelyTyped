@@ -11,7 +11,7 @@ let genericCallback = (error: boolean, response: CbClient.Resp) => {};
 ClearBlade.init({
     systemKey: "abcdef",
     systemSecret: "abcdefg",
-    callback: genericCallback
+    callback: genericCallback,
 });
 
 ClearBlade.setUser("test@test.com", "password");
@@ -21,7 +21,7 @@ ClearBlade.logoutUser(genericCallback);
 ClearBlade.loginAnon(genericCallback);
 ClearBlade.loginUser("test@test.com", "password", genericCallback);
 ClearBlade.loginUserMqtt("test@test.com", "password", genericCallback);
-ClearBlade.sendPush(["user1", "user2"], {data: "Test"}, "appId: string", genericCallback);
+ClearBlade.sendPush(["user1", "user2"], { data: "Test" }, "appId: string", genericCallback);
 ClearBlade.getAllCollections(genericCallback);
 
 let coll1 = ClearBlade.Collection("collectionID");
@@ -66,13 +66,13 @@ coll1.count(query1.query, genericCallback);
 query1.addSortToQuery(
     query1,
     CbClient.QuerySortDirections.QUERY_SORT_ASCENDING,
-    "column1"
+    "column1",
 );
 query1.addFilterToQuery(
     query1,
     CbClient.QueryConditions.QUERY_GREATERTHAN,
     "key",
-    "value"
+    "value",
 );
 query1.ascending("string");
 query1.descending("string");
@@ -141,9 +141,9 @@ stats.getCurrentSubscribers("topic: string", genericCallback);
 ///////////////////////////////////////
 // Edge API invocations
 ///////////////////////////////////////
-edge.updateEdgeByName("edgename", {changedColumn: "New value"}, genericCallback);
+edge.updateEdgeByName("edgename", { changedColumn: "New value" }, genericCallback);
 edge.deleteEdgeByName("edgename", genericCallback);
-edge.create({newEdge: Object}, "edgename", genericCallback);
+edge.create({ newEdge: Object }, "edgename", genericCallback);
 edge.columns(genericCallback);
 edge.count(query1.query, genericCallback);
 
@@ -182,12 +182,12 @@ analytics.getUserEvents({}, genericCallback);
 // Portal API invocations
 ///////////////////////////////////////
 portal.fetch(genericCallback);
-portal.update({data: Object}, genericCallback);
+portal.update({ data: Object }, genericCallback);
 
 ///////////////////////////////////////
 // Triggers API invocations
 ///////////////////////////////////////
 triggers.fetchDefinitions(genericCallback);
-triggers.create("triggername", {data: Object}, genericCallback);
-triggers.update("triggername", {data: Object}, genericCallback);
+triggers.create("triggername", { data: Object }, genericCallback);
+triggers.update("triggername", { data: Object }, genericCallback);
 triggers.delete("triggername", genericCallback);

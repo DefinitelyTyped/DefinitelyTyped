@@ -1,8 +1,3 @@
-// Type definitions for cidr-matcher 2.1
-// Project: https://github.com/pracucci/node-cidr-matcher
-// Definitions by: Sam Murphy <https://github.com/SamMurphyDev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Matcher {
     /**
      * Constructs a matcher for a list of CIDR ranges

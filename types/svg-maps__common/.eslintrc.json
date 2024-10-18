@@ -1,5 +1,5 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@definitelytyped/no-type-only-packages": "off"
     }
 }

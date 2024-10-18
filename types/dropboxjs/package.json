@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/dropboxjs",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dropboxjs",
+    "projects": [
+        "https://github.com/dropbox/dropbox-js"
+    ],
+    "devDependencies": {
+        "@types/dropboxjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steve Fenton",
+            "githubUsername": "Steve-Fenton"
+        },
+        {
+            "name": "Pedro Casaubon",
+            "githubUsername": "xperiments"
+        }
+    ]
+}

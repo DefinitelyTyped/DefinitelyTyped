@@ -1,1 +1,1 @@
-import i = require('istanbul-middleware');
+import i = require("istanbul-middleware");

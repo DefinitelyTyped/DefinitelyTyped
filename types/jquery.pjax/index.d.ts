@@ -1,9 +1,3 @@
-// Type definitions for jquery-pjax
-// Project: https://github.com/defunkt/jquery-pjax
-// Definitions by: Junle Li <https://github.com/lijunle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 /**
@@ -13,7 +7,7 @@ interface PjaxPopStateEventObject extends JQuery.Event {
     /**
      * Navigation direction. Could be "back" or "forward".
      */
-    direction: string
+    direction: string;
 }
 
 interface PjaxSettings extends JQuery.AjaxSettings {
@@ -91,7 +85,7 @@ interface JQuery {
      */
     pjax(delegationSelector: string, containerSelector?: string, options?: PjaxSettings): JQuery;
 
-    on(event: 'pjax:popstate', handler: (e: PjaxPopStateEventObject) => void): this;
+    on(event: "pjax:popstate", handler: (e: PjaxPopStateEventObject) => void): this;
 }
 
 interface JQueryStatic {

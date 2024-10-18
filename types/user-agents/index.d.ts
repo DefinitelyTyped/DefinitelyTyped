@@ -1,8 +1,3 @@
-// Type definitions for user-agents 1.0
-// Project: https://github.com/intoli/user-agents#readme
-// Definitions by: Nick Chursin <https://github.com/unickq>, Jan Peer Stöcklmair <https://github.com/JPeer264>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class UserAgent {
     /**
      * The representation of a user-agents object.

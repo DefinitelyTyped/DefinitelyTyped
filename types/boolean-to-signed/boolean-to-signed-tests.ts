@@ -1,4 +1,4 @@
-import toSigned = require('boolean-to-signed');
+import toSigned = require("boolean-to-signed");
 
 // $ExpectType 1 | -1
 toSigned(true);

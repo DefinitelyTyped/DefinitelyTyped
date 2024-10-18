@@ -1,48 +1,3 @@
-// Type definitions for non-npm package Node.js 16.18
-// Project: https://nodejs.org/
-// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
-//                 Alberto Schiabel <https://github.com/jkomyno>
-//                 Alvis HT Tang <https://github.com/alvis>
-//                 Andrew Makarov <https://github.com/r3nya>
-//                 Benjamin Toueg <https://github.com/btoueg>
-//                 Chigozirim C. <https://github.com/smac89>
-//                 David Junger <https://github.com/touffy>
-//                 Deividas Bakanas <https://github.com/DeividasBakanas>
-//                 Eugene Y. Q. Shen <https://github.com/eyqs>
-//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
-//                 Huw <https://github.com/hoo29>
-//                 Kelvin Jin <https://github.com/kjin>
-//                 Klaus Meinhardt <https://github.com/ajafff>
-//                 Lishude <https://github.com/islishude>
-//                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
-//                 Mohsen Azimi <https://github.com/mohsen1>
-//                 Nicolas Even <https://github.com/n-e>
-//                 Nikita Galkin <https://github.com/galkin>
-//                 Parambir Singh <https://github.com/parambirs>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Seth Westphal <https://github.com/westy92>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Thomas den Hollander <https://github.com/ThomasdenH>
-//                 Wilco Bakker <https://github.com/WilcoBakker>
-//                 wwwy3y3 <https://github.com/wwwy3y3>
-//                 Samuel Ainsworth <https://github.com/samuela>
-//                 Kyle Uehlein <https://github.com/kuehlein>
-//                 Thanik Bhongbhibhat <https://github.com/bhongy>
-//                 Marcin Kopacz <https://github.com/chyzwar>
-//                 Trivikram Kamat <https://github.com/trivikr>
-//                 Junxiao Shi <https://github.com/yoursunny>
-//                 Ilia Baryshnikov <https://github.com/qwelias>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Anna Henningsen <https://github.com/addaleax>
-//                 Victor Perin <https://github.com/victorperin>
-//                 Yongsheng Zhang <https://github.com/ZYSzys>
-//                 NodeJS Contributors <https://github.com/NodeJS>
-//                 Linus Unnebäck <https://github.com/LinusU>
-//                 wafuwafu13 <https://github.com/wafuwafu13>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * License for programmatically and manually incorporated
  * documentation aka. `JSDoc` from https://github.com/nodejs/node/tree/master/doc
@@ -67,18 +22,22 @@
  * IN THE SOFTWARE.
  */
 
-// NOTE: These definitions support NodeJS and TypeScript 4.9+.
+// NOTE: These definitions support Node.js and TypeScript 5.7+.
 
-// Reference required types from the default lib:
+// Reference required TypeScript libs:
 /// <reference lib="es2020" />
-/// <reference lib="esnext.asynciterable" />
-/// <reference lib="esnext.intl" />
-/// <reference lib="esnext.bigint" />
 
-// Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
+// TypeScript backwards-compatibility definitions:
+/// <reference path="compatibility/index.d.ts" />
+
+// Definitions specific to TypeScript 5.7+:
+/// <reference path="globals.typedarray.d.ts" />
+/// <reference path="buffer.buffer.d.ts" />
+
+// Definitions for Node.js modules that are not specific to any version of TypeScript:
+/// <reference path="globals.d.ts" />
 /// <reference path="assert.d.ts" />
 /// <reference path="assert/strict.d.ts" />
-/// <reference path="globals.d.ts" />
 /// <reference path="async_hooks.d.ts" />
 /// <reference path="buffer.d.ts" />
 /// <reference path="child_process.d.ts" />
@@ -90,7 +49,7 @@
 /// <reference path="diagnostics_channel.d.ts" />
 /// <reference path="dns.d.ts" />
 /// <reference path="dns/promises.d.ts" />
-/// <reference path="dns/promises.d.ts" />
+/// <reference path="dom-events.d.ts" />
 /// <reference path="domain.d.ts" />
 /// <reference path="events.d.ts" />
 /// <reference path="fs.d.ts" />
@@ -127,5 +86,3 @@
 /// <reference path="wasi.d.ts" />
 /// <reference path="worker_threads.d.ts" />
 /// <reference path="zlib.d.ts" />
-
-/// <reference path="globals.global.d.ts" />

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package wx-js-sdk 1.6, this is the lts version for types/wx-js-sdk-dt, which is related to wx-js-sdk 1.2
-// Project: https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html
-// Definitions by: Xu Anhai <https://github.com/adndyxu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace wx {
     /**
      * 微信配置对象
@@ -110,7 +105,7 @@ declare namespace wx {
          * 以键值对的形式返回，可用的 api 值 true，不可用为 false
          * 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
          */
-        success(res: { checkResult: { [methodName: string]: boolean }, errMsg: { msg: string } }): void;
+        success(res: { checkResult: { [methodName: string]: boolean }; errMsg: { msg: string } }): void;
     }
 
     /**

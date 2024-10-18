@@ -1,63 +1,63 @@
-var selector = '#elementId';
+var selector = "#elementId";
 
-$(function () {
+$(function() {
     $(selector).pagination({
         items: 100,
         itemsOnPage: 10,
-        cssStyle: 'light-theme'
+        cssStyle: "light-theme",
     });
 });
 
-$(function () {
+$(function() {
     $(selector).pagination({
         onPageClick: (page) => {
-        }
+        },
     });
 });
 
-$(function () {
+$(function() {
     $(selector).pagination({
         onPageClick: (page, event) => {
-        }
+        },
     });
 });
 
-$(function () {
-    $(selector).pagination('selectPage', 1);
+$(function() {
+    $(selector).pagination("selectPage", 1);
 });
 
-$(function () {
-    $(selector).pagination('prevPage');
+$(function() {
+    $(selector).pagination("prevPage");
 });
 
-$(function () {
-    $(selector).pagination('nextPage');
+$(function() {
+    $(selector).pagination("nextPage");
 });
 
-$(function () {
-    $(selector).pagination('getPagesCount');
+$(function() {
+    $(selector).pagination("getPagesCount");
 });
 
-$(function () {
-    $(selector).pagination('getCurrentPage');
+$(function() {
+    $(selector).pagination("getCurrentPage");
 });
 
-$(function () {
-    $(selector).pagination('disable');
+$(function() {
+    $(selector).pagination("disable");
 });
 
-$(function () {
-    $(selector).pagination('enable');
+$(function() {
+    $(selector).pagination("enable");
 });
 
-$(function () {
-    $(selector).pagination('destroy');
+$(function() {
+    $(selector).pagination("destroy");
 });
 
-$(function () {
-    $(selector).pagination('redraw');
+$(function() {
+    $(selector).pagination("redraw");
 });
 
-$(function () {
-    $(selector).pagination('updateItems', 100);
+$(function() {
+    $(selector).pagination("updateItems", 100);
 });

@@ -1,11 +1,5 @@
-// Type definitions for RxJS-jQuery
-// Project: https://github.com/Reactive-Extensions/RxJS-jQuery/
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="jquery"/>
-///<reference types="rx"/>
+/// <reference types="jquery"/>
+/// <reference types="rx"/>
 
 interface RxJQueryAjaxResult<T> {
     data: T;
@@ -22,10 +16,18 @@ interface JQueryStatic {
 }
 
 interface JQuery {
-    onAsObservable<T extends BaseJQueryEventObject>(events: string, selector?: string, eventData?: any): Rx.Observable<T>;
+    onAsObservable<T extends BaseJQueryEventObject>(
+        events: string,
+        selector?: string,
+        eventData?: any,
+    ): Rx.Observable<T>;
     bindAsObservable<T extends BaseJQueryEventObject>(eventType: string, eventData?: any): Rx.Observable<T>;
-    delegateAsObservable<T extends BaseJQueryEventObject>(selector: string, eventType: string, eventData?: any): Rx.Observable<T>;
-    //liveAsObservable<T extends BaseJQueryEventObject>(eventType: string, eventData?: any): Rx.Observable<T>;    // removed in jquery 1.9
+    delegateAsObservable<T extends BaseJQueryEventObject>(
+        selector: string,
+        eventType: string,
+        eventData?: any,
+    ): Rx.Observable<T>;
+    // liveAsObservable<T extends BaseJQueryEventObject>(eventType: string, eventData?: any): Rx.Observable<T>;    // removed in jquery 1.9
 
     changeAsObservable(eventData?: any): Rx.Observable<JQueryInputEventObject>;
     clickAsObservable(eventData?: any): Rx.Observable<JQueryMouseEventObject>;

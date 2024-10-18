@@ -1,8 +1,3 @@
-// Type definitions for hh-mm-ss 1.2
-// Project: https://github.com/Goldob/hh-mm-ss#readme
-// Definitions by: Thomas Cazade <https://github.com/TotomInc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert given `hh:mm:ss` formatted string to miliseconds
  *

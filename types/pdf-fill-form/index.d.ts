@@ -1,7 +1,3 @@
-// Type definitions for pdf-fill-form 5.0
-// Project: https://github.com/tpisto/pdf-fill-form#readme
-// Definitions by: Grégoire Lodi <https://github.com/lodi-g>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 export interface WritableFields {

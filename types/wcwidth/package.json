@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wcwidth",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/timoxley/wcwidth"
+    ],
+    "devDependencies": {
+        "@types/wcwidth": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junyoung Choi",
+            "githubUsername": "rokt33r"
+        }
+    ]
+}

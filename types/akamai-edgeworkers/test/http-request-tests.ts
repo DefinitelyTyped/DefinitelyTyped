@@ -1,7 +1,7 @@
-import { httpRequest } from 'http-request';
-import { createResponse } from 'create-response';
-import { TextEncoderStream } from 'text-encode-transform';
-import { ReadableStream } from 'streams';
+import { createResponse } from "create-response";
+import { httpRequest } from "http-request";
+import { ReadableStream } from "streams";
+import { TextEncoderStream } from "text-encode-transform";
 
 // Check the arguments of httpRequest
 httpRequest("url");
@@ -11,10 +11,13 @@ httpRequest("url", { method: "POST", body: "post payload" });
 httpRequest("url", { timeout: 9 });
 httpRequest("url", {
     method: "POST",
-    body: new ReadableStream({start(controller) {
-        controller.enqueue("This is a ReadableStream test");
-        controller.close();
-    }}).pipeThrough(new TextEncoderStream())});
+    body: new ReadableStream({
+        start(controller) {
+            controller.enqueue("This is a ReadableStream test");
+            controller.close();
+        },
+    }).pipeThrough(new TextEncoderStream()),
+});
 
 httpRequest("url").then(response => {
     // Verify the non-body fields

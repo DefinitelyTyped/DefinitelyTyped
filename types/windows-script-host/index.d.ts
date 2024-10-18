@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Windows Script Host 5.8
-// Project: https://msdn.microsoft.com/en-us/library/9bbdkx3k.aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-iwshruntimelibrary" />
 
 /** Provides access to the entire collection of command-line parameters, in the order in which they were originally entered. */
@@ -139,7 +133,11 @@ declare var WScript: {
      * @param strProgID
      * @param strPrefix Function names in the form prefix_event will be bound to this object's COM events.
      */
-    GetObject<K extends keyof ActiveXObjectNameMap>(strPathname: string, strProgID: K, strPrefix?: string): ActiveXObjectNameMap[K];
+    GetObject<K extends keyof ActiveXObjectNameMap>(
+        strPathname: string,
+        strProgID: K,
+        strPrefix?: string,
+    ): ActiveXObjectNameMap[K];
     GetObject(strPathname: string, strProgID?: string, strPrefix?: string): any;
 
     /**

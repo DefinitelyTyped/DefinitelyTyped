@@ -2,52 +2,52 @@
  * A single character, 0 to 9, a to z.
  */
 export type Char =
-    | '0'
-    | '1'
-    | '2'
-    | '3'
-    | '4'
-    | '5'
-    | '6'
-    | '7'
-    | '8'
-    | '9'
-    | 'a'
-    | 'b'
-    | 'c'
-    | 'd'
-    | 'e'
-    | 'f'
-    | 'g'
-    | 'h'
-    | 'i'
-    | 'j'
-    | 'k'
-    | 'l'
-    | 'm'
-    | 'n'
-    | 'o'
-    | 'p'
-    | 'q'
-    | 'r'
-    | 's'
-    | 't'
-    | 'u'
-    | 'v'
-    | 'w'
-    | 'x'
-    | 'y'
-    | 'z';
+    | "0"
+    | "1"
+    | "2"
+    | "3"
+    | "4"
+    | "5"
+    | "6"
+    | "7"
+    | "8"
+    | "9"
+    | "a"
+    | "b"
+    | "c"
+    | "d"
+    | "e"
+    | "f"
+    | "g"
+    | "h"
+    | "i"
+    | "j"
+    | "k"
+    | "l"
+    | "m"
+    | "n"
+    | "o"
+    | "p"
+    | "q"
+    | "r"
+    | "s"
+    | "t"
+    | "u"
+    | "v"
+    | "w"
+    | "x"
+    | "y"
+    | "z";
 
 /**
  * An empty string ("").
  */
-export type CMIBlank = '';
+export type CMIBlank = "";
 
 /**
  * A vocabulary of two words ("true" or "false").
  */
-export type CMIBoolean = 'true' | 'false';
+export type CMIBoolean = "true" | "false";
 
 /**
  * A number that may have a decimal point. If not preceded by a minus sign, the number is presumed to be positive. Examples are "2", "2.2" and "-2.2".
@@ -57,7 +57,7 @@ export type CMIDecimal = `${string}`;
 /**
  * Feedback is one of the following single characters: "0", "1", "t" or "f".
  */
-export type CMIFeedbackTrueFalse = '0' | '1' | 't' | 'f';
+export type CMIFeedbackTrueFalse = "0" | "1" | "t" | "f";
 
 /**
  * Feedback is one or more single characters separated by a comma. Legal characters are "0" to "9" and "a" to "z". If all the characters must be chosen to assume the feedback is correct, then the

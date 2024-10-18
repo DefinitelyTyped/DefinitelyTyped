@@ -1,11 +1,11 @@
-import Int64 = require('node-int64');
+import Int64 = require("node-int64");
 
 export interface MetadataInterface {
     version: number;
     schema: MetadataSchemaInterface[];
     num_rows: Int64;
     row_groups: MetadataRowGroupsInterface[];
-    key_value_metadata: Array<{key: string, value: string}>;
+    key_value_metadata: Array<{ key: string; value: string }>;
     created_by: string;
 }
 
@@ -39,7 +39,7 @@ export interface MetadataRowGroupsColumnsInterface {
         num_values: Int64 | null;
         total_uncompressed_size: Int64 | null;
         total_compressed_size: Int64 | null;
-        key_value_metadata: Array<{key: string, value: string}> | null;
+        key_value_metadata: Array<{ key: string; value: string }> | null;
         data_page_offset: Int64 | null;
         index_page_offset: Int64 | null;
         dictionary_page_offset: Int64 | null;

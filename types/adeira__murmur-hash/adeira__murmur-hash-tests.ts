@@ -1,4 +1,4 @@
-import murmurHash from '@adeira/murmur-hash';
+import murmurHash from "@adeira/murmur-hash";
 
 murmurHash(
     JSON.stringify({

@@ -1,5 +1,5 @@
 import * as MongoNpmModule from 'mongodb';
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import { Collection as MongoCollection, CreateIndexesOptions, Db as MongoDb, Hint, IndexSpecification, MongoClient } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
@@ -75,9 +75,9 @@ declare module 'meteor/mongo' {
         type Flatten<T> = T extends any[] ? T[0] : T;
 
         type Query<T> = { [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>> } & {
-            $or?: Query<T>[] | undefined;
-            $and?: Query<T>[] | undefined;
-            $nor?: Query<T>[] | undefined;
+            $or?: Array<Query<T>> | undefined;
+            $and?: Array<Query<T>> | undefined;
+            $nor?: Array<Query<T>> | undefined;
         } & Dictionary<any>;
 
         type QueryWithModifiers<T> = {
@@ -327,7 +327,7 @@ declare module 'meteor/mongo' {
                      * Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to
                      * modify in an array field.
                      */
-                    arrayFilters?: { [identifier: string]: any }[] | undefined;
+                    arrayFilters?: Array<{ [identifier: string]: any }> | undefined;
                 },
                 callback?: Function,
             ): number;
@@ -349,7 +349,7 @@ declare module 'meteor/mongo' {
                      * Used in combination with MongoDB [filtered positional operator](https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/) to specify which elements to
                      * modify in an array field.
                      */
-                    arrayFilters?: { [identifier: string]: any }[] | undefined;
+                    arrayFilters?: Array<{ [identifier: string]: any }> | undefined;
                 },
                 callback?: Function,
             ): Promise<number>;
@@ -435,11 +435,11 @@ declare module 'meteor/mongo' {
             /**
              * Return all matching documents as an Array.
              */
-            fetch(): Array<U>;
+            fetch(): U[];
             /**
              * Return all matching documents as an Array.
              */
-            fetchAsync(): Promise<Array<U>>;
+            fetchAsync(): Promise<U[]>;
             /**
              * Call `callback` once for each matching document, sequentially and
              *          synchronously.
@@ -459,13 +459,13 @@ declare module 'meteor/mongo' {
              * @param callback Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.
              * @param thisArg An object which will be the value of `this` inside `callback`.
              */
-            map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Array<M>;
+            map<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): M[];
             /**
              * Map callback over all matching documents. Returns an Array.
              * @param callback Function to call. It will be called with three arguments: the document, a 0-based index, and <em>cursor</em> itself.
              * @param thisArg An object which will be the value of `this` inside `callback`.
              */
-            mapAsync<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Promise<Array<M>>;
+            mapAsync<M>(callback: (doc: U, index: number, cursor: Cursor<T, U>) => M, thisArg?: any): Promise<M[]>;
             /**
              * Watch a query. Receive callbacks as the result set changes.
              * @param callbacks Functions to call to deliver the result set as it changes
@@ -511,7 +511,7 @@ declare module 'meteor/mongo' {
     }
 }
 
-declare module MongoInternals {
+declare namespace MongoInternals {
     interface MongoConnection {
         db: MongoDb;
         client: MongoClient;

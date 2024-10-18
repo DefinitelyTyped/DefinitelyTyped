@@ -3,9 +3,9 @@ import * as Mailgen from "mailgen";
 const generator: Mailgen = new Mailgen({
     theme: "default",
     product: {
-                name: "test",
-                link: "http://localhost",
-            }
+        name: "test",
+        link: "http://localhost",
+    },
 });
 
 const content: Mailgen.Content = {

@@ -1,4 +1,4 @@
-import { BufferAttribute, TypedArray } from './BufferAttribute.js';
+import { BufferAttribute, TypedArray } from "./BufferAttribute.js";
 
 /**
  * An instanced version of {@link THREE.BufferAttribute | BufferAttribute}.
@@ -22,4 +22,11 @@ export class InstancedBufferAttribute extends BufferAttribute {
      * @defaultValue `1`
      */
     meshPerAttribute: number;
+
+    /**
+     * Read-only flag to check if a given object is of type {@link InstancedBufferAttribute}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isInstancedBufferAttribute: true;
 }

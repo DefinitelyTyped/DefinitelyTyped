@@ -15,11 +15,12 @@ export type APIGatewayEventDefaultAuthorizerContext =
     | undefined
     | null
     | {
-          [name: string]: any;
-      };
+        [name: string]: any;
+    };
 
-export type APIGatewayEventRequestContext =
-    APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext>;
+export type APIGatewayEventRequestContext = APIGatewayEventRequestContextWithAuthorizer<
+    APIGatewayEventDefaultAuthorizerContext
+>;
 
 // The requestContext property of both request authorizer and proxy integration events.
 export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext> {

@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
 declare class ScrollSpy extends BaseComponent {
     /**
@@ -37,7 +37,7 @@ declare namespace ScrollSpy {
          * This event fires on the scroll element whenever a new item becomes
          * activated by the scrollspy.
          */
-        activate = 'activate.bs.scrollspy',
+        activate = "activate.bs.scrollspy",
     }
 
     interface Options {
@@ -57,7 +57,7 @@ declare namespace ScrollSpy {
          *
          * @default 'auto'
          */
-        method: 'auto' | 'offset' | 'position';
+        method: "auto" | "offset" | "position";
 
         /**
          * Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin)
@@ -85,7 +85,7 @@ declare namespace ScrollSpy {
         threshold?: number[] | string;
     }
 
-    type jQueryInterface = (config?: Partial<Options> | 'refresh' | 'dispose') => JQuery;
+    type jQueryInterface = (config?: Partial<Options> | "refresh" | "dispose") => JQuery;
 }
 
 export default ScrollSpy;

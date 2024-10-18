@@ -20,7 +20,7 @@ declare namespace Route {
 }
 type RouteSet = import('./RouteSet');
 import RouteDef = require('./RouteDef.js');
-declare var resolveGlobalParameter: any;
+declare let resolveGlobalParameter: any;
 declare function parseAction(action: string): {
     action: string;
     method: string;

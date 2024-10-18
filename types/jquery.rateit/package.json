@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jquery.rateit",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/gjunge/rateit.js"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.rateit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gidon Junge",
+            "githubUsername": "gjunge"
+        }
+    ]
+}

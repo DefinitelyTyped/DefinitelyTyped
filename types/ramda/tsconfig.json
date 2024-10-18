@@ -6,10 +6,6 @@
             "dom"
         ],
         "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -95,6 +91,7 @@
         "test/identity-tests.ts",
         "test/ifElse-tests.ts",
         "test/includes-tests.ts",
+        "test/index-tests.ts",
         "test/indexBy-tests.ts",
         "test/indexOf-tests.ts",
         "test/init-tests.ts",

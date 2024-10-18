@@ -1,14 +1,14 @@
-import RangeError from 'error-cause/RangeError';
+import RangeError from "error-cause/RangeError";
 
 // $ExpectType RangeError
 new RangeError();
 // $ExpectType RangeError
-new RangeError('reason');
+new RangeError("reason");
 // $ExpectType RangeError
-new RangeError('reason', {});
+new RangeError("reason", {});
 // $ExpectType RangeError
-new RangeError('reason', { cause: null });
+new RangeError("reason", { cause: null });
 // $ExpectType RangeError
-new RangeError('reason', { cause: 'stupidity' });
+new RangeError("reason", { cause: "stupidity" });
 // $ExpectType RangeError
-new RangeError('reason', { cause: new RangeError() });
+new RangeError("reason", { cause: new RangeError() });

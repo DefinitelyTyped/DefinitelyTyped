@@ -1,34 +1,27 @@
-// Type definitions for async-redis 1.1
-// Project: https://github.com/moaxaca/async-redis
-// Definitions by: philipp-sapronov <https://github.com/philipp-sapronov>
-//                 Carson McManus <https://github.com/dyc3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
-import { RedisClient, ClientOpts, ServerInfo } from 'redis';
+import { ClientOpts, RedisClient, ServerInfo } from "redis";
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 type Omitted = Omit<RedisClient, keyof Commands>;
 
 interface OverloadedCommand<T, U> {
-	(...args: T[]): Promise<U>;
+    (...args: T[]): Promise<U>;
 }
 
 interface OverloadedKeyCommand<T, U> {
-	(...args: Array<string | T>): Promise<U>;
+    (...args: Array<string | T>): Promise<U>;
 }
 
 interface OverloadedListCommand<T, U> {
-	(...args: T[]): Promise<U>;
+    (...args: T[]): Promise<U>;
 }
 
 interface OverloadedSetCommand<T, U> {
-	(args: [string, ...T[]]): Promise<U>;
+    (args: [string, ...T[]]): Promise<U>;
 }
 
 interface OverloadedLastCommand<T1, T2, U> {
-	(...args: Array<T1 | T2>): Promise<U>;
+    (...args: Array<T1 | T2>): Promise<U>;
 }
 
 interface Commands {
@@ -73,8 +66,8 @@ interface Commands {
     /**
      * Set multiple hash fields to multiple values.
      */
-    hmset: OverloadedSetCommand<string | number, 'OK'>;
-    HMSET: OverloadedSetCommand<string | number, 'OK'>;
+    hmset: OverloadedSetCommand<string | number, "OK">;
+    HMSET: OverloadedSetCommand<string | number, "OK">;
 
     /**
      * Listen for messages published to the given channels.
@@ -109,8 +102,8 @@ interface Commands {
     /**
      * Asynchronously rewrite the append-only file.
      */
-    bgrewriteaof(): Promise<'OK'>;
-    BGREWRITEAOF(): Promise<'OK'>;
+    bgrewriteaof(): Promise<"OK">;
+    BGREWRITEAOF(): Promise<"OK">;
 
     /**
      * Asynchronously save the dataset to disk.
@@ -243,8 +236,8 @@ interface Commands {
     /**
      * Discard all commands issued after MULTI.
      */
-    discard(): Promise<'OK'>;
-    DISCARD(): Promise<'OK'>;
+    discard(): Promise<"OK">;
+    DISCARD(): Promise<"OK">;
 
     /**
      * Return a serialized version of the value stored at the specified key.
@@ -292,15 +285,15 @@ interface Commands {
      * Remove all keys from all databases.
      */
     flushall(async?: "ASYNC"): Promise<string>;
-    FLUSHALL(async?: 'ASYNC'): Promise<string>;
+    FLUSHALL(async?: "ASYNC"): Promise<string>;
 
     /**
      * Remove all keys from the current database.
      */
-    flushdb(): Promise<'OK'>;
+    flushdb(): Promise<"OK">;
     flushdb(async: "ASYNC"): Promise<string>;
-    FLUSHDB(): Promise<'OK'>;
-    FLUSHDB(async: 'ASYNC'): Promise<string>;
+    FLUSHDB(): Promise<"OK">;
+    FLUSHDB(async: "ASYNC"): Promise<string>;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.
@@ -479,8 +472,8 @@ interface Commands {
     /**
      * Insert an element before or after another element in a list.
      */
-    linsert(key: string, dir: 'BEFORE' | 'AFTER', pivot: string, value: string): Promise<string>;
-    LINSERT(key: string, dir: 'BEFORE' | 'AFTER', pivot: string, value: string): Promise<string>;
+    linsert(key: string, dir: "BEFORE" | "AFTER", pivot: string, value: string): Promise<string>;
+    LINSERT(key: string, dir: "BEFORE" | "AFTER", pivot: string, value: string): Promise<string>;
 
     /**
      * Get the length of a list.
@@ -521,14 +514,14 @@ interface Commands {
     /**
      * Set the value of an element in a list by its index.
      */
-    lset(key: string, index: number, value: string): Promise<'OK'>;
-    LSET(key: string, index: number, value: string): Promise<'OK'>;
+    lset(key: string, index: number, value: string): Promise<"OK">;
+    LSET(key: string, index: number, value: string): Promise<"OK">;
 
     /**
      * Trim a list to the specified range.
      */
-    ltrim(key: string, start: number, stop: number): Promise<'OK'>;
-    LTRIM(key: string, start: number, stop: number): Promise<'OK'>;
+    ltrim(key: string, start: number, stop: number): Promise<"OK">;
+    LTRIM(key: string, start: number, stop: number): Promise<"OK">;
 
     /**
      * Get the values of all given keys.
@@ -605,8 +598,8 @@ interface Commands {
     /**
      * Set the value and expiration in milliseconds of a key.
      */
-    psetex(key: string, milliseconds: number, value: string): Promise<'OK'>;
-    PSETEX(key: string, milliseconds: number, value: string): Promise<'OK'>;
+    psetex(key: string, milliseconds: number, value: string): Promise<"OK">;
+    PSETEX(key: string, milliseconds: number, value: string): Promise<"OK">;
 
     /**
      * Inspect the state of the Pub/Sub subsytem.
@@ -623,8 +616,8 @@ interface Commands {
     /**
      * Close the connection.
      */
-    quit(): Promise<'OK'>;
-    QUIT(): Promise<'OK'>;
+    quit(): Promise<"OK">;
+    QUIT(): Promise<"OK">;
 
     /**
      * Return a random key from the keyspace.
@@ -647,8 +640,8 @@ interface Commands {
     /**
      * Rename a key.
      */
-    rename(key: string, newkey: string): Promise<'OK'>;
-    RENAME(key: string, newkey: string): Promise<'OK'>;
+    rename(key: string, newkey: string): Promise<"OK">;
+    RENAME(key: string, newkey: string): Promise<"OK">;
 
     /**
      * Rename a key, only if the new key does not exist.
@@ -659,8 +652,8 @@ interface Commands {
     /**
      * Create a key using the provided serialized value, previously obtained using DUMP.
      */
-    restore(key: string, ttl: number, serializedValue: string): Promise<'OK'>;
-    RESTORE(key: string, ttl: number, serializedValue: string): Promise<'OK'>;
+    restore(key: string, ttl: number, serializedValue: string): Promise<"OK">;
+    RESTORE(key: string, ttl: number, serializedValue: string): Promise<"OK">;
 
     /**
      * Return the role of the instance in the context of replication.
@@ -741,12 +734,12 @@ interface Commands {
     /**
      * Set the string value of a key.
      */
-    set(key: string, value: string, flag?: string): Promise<'OK'>;
-    set(key: string, value: string, mode: string, duration: number, flag?: string): Promise<'OK' | undefined>;
-    set(key: string, value: string, flag: string, mode: string, duration: number): Promise<'OK' | undefined>;
-    SET(key: string, value: string, flag?: string): Promise<'OK'>;
-    SET(key: string, value: string, mode: string, duration: number, flag?: string): Promise<'OK' | undefined>;
-    SET(key: string, value: string, flag: string, mode: string, duration: number): Promise<'OK' | undefined>;
+    set(key: string, value: string, flag?: string): Promise<"OK">;
+    set(key: string, value: string, mode: string, duration: number, flag?: string): Promise<"OK" | undefined>;
+    set(key: string, value: string, flag: string, mode: string, duration: number): Promise<"OK" | undefined>;
+    SET(key: string, value: string, flag?: string): Promise<"OK">;
+    SET(key: string, value: string, mode: string, duration: number, flag?: string): Promise<"OK" | undefined>;
+    SET(key: string, value: string, flag: string, mode: string, duration: number): Promise<"OK" | undefined>;
 
     /**
      * Sets or clears the bit at offset in the string value stored at key.
@@ -901,8 +894,8 @@ interface Commands {
     /**
      * Forget about all watched keys.
      */
-    unwatch(): Promise<'OK'>;
-    UNWATCH(): Promise<'OK'>;
+    unwatch(): Promise<"OK">;
+    UNWATCH(): Promise<"OK">;
 
     /**
      * Wait for the synchronous replication of all the write commands sent in the context of the current connection.
@@ -913,8 +906,8 @@ interface Commands {
     /**
      * Watch the given keys to determine execution of the MULTI/EXEC block.
      */
-    watch: OverloadedCommand<string, 'OK'>;
-    WATCH: OverloadedCommand<string, 'OK'>;
+    watch: OverloadedCommand<string, "OK">;
+    WATCH: OverloadedCommand<string, "OK">;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists.
@@ -970,17 +963,47 @@ interface Commands {
      * Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.
      */
     zrevrangebylex(key: string, min: string, max: string): Promise<string[]>;
-    zrevrangebylex(key: string, min: string, max: string, limit: string, offset: number, count: number): Promise<string[]>;
+    zrevrangebylex(
+        key: string,
+        min: string,
+        max: string,
+        limit: string,
+        offset: number,
+        count: number,
+    ): Promise<string[]>;
     ZREVRANGEBYLEX(key: string, min: string, max: string): Promise<string[]>;
-    ZREVRANGEBYLEX(key: string, min: string, max: string, limit: string, offset: number, count: number): Promise<string[]>;
+    ZREVRANGEBYLEX(
+        key: string,
+        min: string,
+        max: string,
+        limit: string,
+        offset: number,
+        count: number,
+    ): Promise<string[]>;
 
     /**
      * Return a range of members in a sorted set, by score.
      */
     zrangebyscore(key: string, min: number | string, max: number | string, withscores?: string): Promise<string[]>;
-    zrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count?: number): Promise<string[]>;
+    zrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        limit: string,
+        offset: number,
+        count?: number,
+    ): Promise<string[]>;
     ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores?: string): Promise<string[]>;
-    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count?: number): Promise<string[]>;
+    ZRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        limit: string,
+        offset: number,
+        count?: number,
+    ): Promise<string[]>;
 
     /**
      * Determine the index of a member in a sorted set.
@@ -1022,11 +1045,41 @@ interface Commands {
      * Return a range of members in a sorted set, by score, with scores ordered from high to low.
      */
     zrevrangebyscore(key: string, min: number | string, max: number | string, withscores?: string): Promise<string[]>;
-    zrevrangebyscore(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number): Promise<string[]>;
-    zrevrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number): Promise<string[]>;
+    zrevrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        limit: string,
+        offset: number,
+        count: number,
+    ): Promise<string[]>;
+    zrevrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        limit: string,
+        offset: number,
+        count: number,
+    ): Promise<string[]>;
     ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores?: string): Promise<string[]>;
-    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number): Promise<string[]>;
-    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number): Promise<string[]>;
+    ZREVRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        limit: string,
+        offset: number,
+        count: number,
+    ): Promise<string[]>;
+    ZREVRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        limit: string,
+        offset: number,
+        count: number,
+    ): Promise<string[]>;
 
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low.
@@ -1074,17 +1127,17 @@ interface Commands {
 interface AsyncRedisClient extends Omitted, Commands {}
 
 interface AsyncRedisConstructor {
-  new (port: number, host?: string, options?: ClientOpts): AsyncRedisClient;
-  new (unix_socket: string, options?: ClientOpts): AsyncRedisClient;
-  new (redis_url: string, options?: ClientOpts): AsyncRedisClient;
-  new (options?: ClientOpts): AsyncRedisClient;
+    new(port: number, host?: string, options?: ClientOpts): AsyncRedisClient;
+    new(unix_socket: string, options?: ClientOpts): AsyncRedisClient;
+    new(redis_url: string, options?: ClientOpts): AsyncRedisClient;
+    new(options?: ClientOpts): AsyncRedisClient;
 
-  createClient(port: number, host?: string, options?: ClientOpts): AsyncRedisClient;
-  createClient(unix_socket: string, options?: ClientOpts): AsyncRedisClient;
-  createClient(redis_url: string, options?: ClientOpts): AsyncRedisClient;
-  createClient(options?: ClientOpts): AsyncRedisClient;
+    createClient(port: number, host?: string, options?: ClientOpts): AsyncRedisClient;
+    createClient(unix_socket: string, options?: ClientOpts): AsyncRedisClient;
+    createClient(redis_url: string, options?: ClientOpts): AsyncRedisClient;
+    createClient(options?: ClientOpts): AsyncRedisClient;
 
-  decorate: (client: RedisClient) => AsyncRedisClient;
+    decorate: (client: RedisClient) => AsyncRedisClient;
 }
 
 declare const AsyncRedis: AsyncRedisConstructor;

@@ -34,6 +34,17 @@ async function test() {
     await libnpmpublish.publish(manifest, tarballData); // $ExpectType Response
     await libnpmpublish.publish(manifest, tarballData, options); // $ExpectType Response
 
+    const publishOptions = {
+        ...options,
+        defaultTag: "latest",
+        access: "public",
+        provenance: true,
+        provenanceFile: "path/to/provenanceFile",
+        npmVersion: "1.0.0",
+        algorithms: ["sha512"],
+    };
+    await libnpmpublish.publish(manifest, tarballData, publishOptions); // $ExpectType Response
+
     // @ts-expect-error
     await libnpmpublish.unpublish();
     await libnpmpublish.unpublish("npmpackage"); // $ExpectType boolean

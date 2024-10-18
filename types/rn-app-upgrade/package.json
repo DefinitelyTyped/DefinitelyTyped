@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/rn-app-upgrade",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/songxiaoliang/react-native-app-upgrade#readme"
+    ],
+    "dependencies": {
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/rn-app-upgrade": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        }
+    ]
+}

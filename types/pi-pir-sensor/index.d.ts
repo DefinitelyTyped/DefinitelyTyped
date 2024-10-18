@@ -1,8 +1,3 @@
-// Type definitions for pi-pir-sensor 0.0
-// Project: https://github.com/opedromiranda/pi-pir-sensor
-// Definitions by: Mario Murrent <https://github.com/meecodebymariomurrent>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare class Sensor {

@@ -9,16 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "signalr": [
-                "signalr/v1"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

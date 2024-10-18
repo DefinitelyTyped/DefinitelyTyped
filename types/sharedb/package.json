@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/sharedb",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/share/sharedb"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/sharedb": "workspace:.",
+        "@types/ws": "*"
+    },
+    "owners": [
+        {
+            "name": "Steve Oney",
+            "githubUsername": "soney"
+        },
+        {
+            "name": "Eric Hwang",
+            "githubUsername": "ericyhwang"
+        },
+        {
+            "name": "Peter Xu",
+            "githubUsername": "pxpeterxu"
+        },
+        {
+            "name": "Alec Gibson",
+            "githubUsername": "alecgibson"
+        },
+        {
+            "name": "Christina Burger",
+            "githubUsername": "pypmannetjies"
+        },
+        {
+            "name": "Craig Beck",
+            "githubUsername": "craigbeck"
+        }
+    ]
+}

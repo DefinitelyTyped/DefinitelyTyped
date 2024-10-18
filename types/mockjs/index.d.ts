@@ -1,10 +1,3 @@
-// Type definitions for mockjs 1.0
-// Project: http://mockjs.com/
-// Definitions by: lavyun <httpS://github.com/lavyun>
-//                 ChenKS12138 <https://github.com/ChenKS12138>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace mockjs {
     type N = number;
     type S = string;
@@ -63,7 +56,7 @@ declare namespace mockjs {
         float(min?: N, max?: N, dmin?: N, dmax?: N): N;
 
         // Random.character
-        character(pool: 'lower' | 'upper' | 'number' | 'symbol'): S;
+        character(pool: "lower" | "upper" | "number" | "symbol"): S;
         character(pool?: S): S;
 
         // Random.string
@@ -75,7 +68,7 @@ declare namespace mockjs {
 
     // Mockjs.Random - Date
     // see https://github.com/nuysoft/Mock/wiki/Date
-    type RandomDateUtilString = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'week';
+    type RandomDateUtilString = "year" | "month" | "week" | "day" | "hour" | "minute" | "second" | "week";
     interface MockjsRandomDate {
         // Random.date
         date(format?: S): S;
@@ -93,7 +86,7 @@ declare namespace mockjs {
 
     // Mockjs.Random - Image
     // see https://github.com/nuysoft/Mock/wiki/Image
-    type RandomImageFormatString = 'png' | 'gif' | 'jpg';
+    type RandomImageFormatString = "png" | "gif" | "jpg";
     interface MockjsRandomImage {
         // Random.image
         image(size?: S, background?: S, foreground?: S, format?: RandomImageFormatString | S, text?: S): S;
@@ -174,19 +167,19 @@ declare namespace mockjs {
     // Mockjs.Random - Web
     // see https://github.com/nuysoft/Mock/wiki/Web
     type RandomWebProtocal =
-        | 'http'
-        | 'ftp'
-        | 'gopher'
-        | 'mailto'
-        | 'mid'
-        | 'cid'
-        | 'news'
-        | 'nntp'
-        | 'prospero'
-        | 'telnet'
-        | 'rlogin'
-        | 'tn3270'
-        | 'wais';
+        | "http"
+        | "ftp"
+        | "gopher"
+        | "mailto"
+        | "mid"
+        | "cid"
+        | "news"
+        | "nntp"
+        | "prospero"
+        | "telnet"
+        | "rlogin"
+        | "tn3270"
+        | "wais";
     interface MockjsRandomWeb {
         // Random.url
         url(protocol?: S, host?: S): S;
@@ -265,7 +258,8 @@ declare namespace mockjs {
     // Mockjs.Random
     // see https://github.com/nuysoft/Mock/wiki/Mock.Random
     interface MockjsRandom
-        extends MockjsRandomBasic,
+        extends
+            MockjsRandomBasic,
             MockjsRandomDate,
             MockjsRandomImage,
             MockjsRandomColor,
@@ -275,7 +269,8 @@ declare namespace mockjs {
             MockjsRandomName,
             MockjsRandomText,
             MockjsRandomWeb,
-            MockjsRandomExtendOption {
+            MockjsRandomExtendOption
+    {
         // Random.extend
         extend(extendOption: MockjsRandomExtendOption): MockjsRandom;
     }

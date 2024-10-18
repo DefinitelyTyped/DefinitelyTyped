@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/sparqljs",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/RubenVerborgh/SPARQL.js"
+    ],
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/sparqljs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexey Morozov",
+            "githubUsername": "AlexeyMz"
+        },
+        {
+            "name": "Ruben Taelman",
+            "githubUsername": "rubensworks"
+        }
+    ]
+}

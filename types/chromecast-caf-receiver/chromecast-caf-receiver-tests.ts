@@ -1,20 +1,20 @@
-import { ApplicationData, LaunchedFrom } from 'chromecast-caf-receiver/cast.framework.system';
+import { BreakManager } from "chromecast-caf-receiver/cast.framework.breaks";
+import { DetailedErrorCode, EventType, MediaFinishedEvent } from "chromecast-caf-receiver/cast.framework.events";
 import {
-    MediaMetadata,
-    LoadRequestData,
-    StreamType,
     HlsSegmentFormat,
-    TrackType,
+    LoadRequestData,
+    MediaMetadata,
     MessageType,
-} from 'chromecast-caf-receiver/cast.framework.messages';
-import { DetailedErrorCode, EventType, MediaFinishedEvent } from 'chromecast-caf-receiver/cast.framework.events';
-import { BreakManager } from 'chromecast-caf-receiver/cast.framework.breaks';
+    StreamType,
+    TrackType,
+} from "chromecast-caf-receiver/cast.framework.messages";
+import { ApplicationData, LaunchedFrom } from "chromecast-caf-receiver/cast.framework.system";
 
 // The following test showcases how you can import individual types directly from the namespace:
 
 const mediaMetadata = new MediaMetadata(cast.framework.messages.MetadataType.GENERIC);
 mediaMetadata.metadataType = cast.framework.messages.MetadataType.TV_SHOW;
-mediaMetadata.posterUrl = 'https://www.foo.bar';
+mediaMetadata.posterUrl = "https://www.foo.bar";
 mediaMetadata.queueItemId = 1;
 mediaMetadata.sectionDuration = 10;
 mediaMetadata.sectionStartAbsoluteTime = 0;
@@ -26,12 +26,12 @@ mediaMetadata.sectionStartTimeInMedia = 0;
 // conforms exactly to the CAF documentation.
 
 const breaksEvent = new cast.framework.events.BreaksEvent(EventType.BREAK_STARTED);
-breaksEvent.breakId = 'some-break-id';
-breaksEvent.breakClipId = 'some-break-clip-id';
+breaksEvent.breakId = "some-break-id";
+breaksEvent.breakClipId = "some-break-clip-id";
 
 const track = new cast.framework.messages.Track(1, TrackType.TEXT);
-const breakClip = new cast.framework.messages.BreakClip('id');
-const adBreak = new cast.framework.messages.Break('id', ['id'], 1);
+const breakClip = new cast.framework.messages.BreakClip("id");
+const adBreak = new cast.framework.messages.Break("id", ["id"], 1);
 const rEvent = new cast.framework.events.RequestEvent(EventType.LOAD_START, {
     requestId: 2,
     type: MessageType.LOAD,
@@ -81,20 +81,20 @@ lrd.media = {
         metadataType: cast.framework.messages.MetadataType.GENERIC,
     },
     hlsSegmentFormat: HlsSegmentFormat.AAC,
-    contentId: 'id',
-    contentType: 'type',
+    contentId: "id",
+    contentType: "type",
     breakClips: [breakClip],
     breaks: [adBreak],
 };
 lrd.queueData = {};
 
 const appData: ApplicationData = {
-    id: 'id',
-    launchingSenderId: 'launch-id',
-    name: 'name',
-    namespaces: ['namespace'],
+    id: "id",
+    launchingSenderId: "launch-id",
+    name: "name",
+    namespaces: ["namespace"],
     sessionId: 1,
-    iconUrl: 'iconUrl',
+    iconUrl: "iconUrl",
     launchedFrom: LaunchedFrom.CAST,
 };
 
@@ -115,27 +115,27 @@ pData.isLive = true;
 pData.isPlayingBreak = false;
 pData.isSeeking = true;
 pData.metadata = new cast.framework.messages.MediaMetadata(cast.framework.messages.MetadataType.GENERIC);
-pData.nextSubtitle = 'sub';
-pData.nextThumbnailUrl = 'url';
-pData.nextTitle = 'title';
+pData.nextSubtitle = "sub";
+pData.nextThumbnailUrl = "url";
+pData.nextTitle = "title";
 pData.numberBreakClips = 3;
 pData.preloadingNext = false;
 pData.state = cast.framework.ui.State.PAUSED;
-pData.thumbnailUrl = 'url';
-pData.title = 'title';
+pData.thumbnailUrl = "url";
+pData.title = "title";
 pData.whenSkippable = 321;
 
 const playerDataBinderWithPlayerData = new cast.framework.ui.PlayerDataBinder(pData);
 const binder = new cast.framework.ui.PlayerDataBinder({});
 binder.addEventListener(cast.framework.ui.PlayerDataEventType.ANY_CHANGE, e => {});
 
-const supportedCommands: number =
-    cast.framework.messages.Command.ALL_BASIC_MEDIA |
-    cast.framework.messages.Command.QUEUE_NEXT |
-    cast.framework.messages.Command.QUEUE_PREV;
+const supportedCommands: number = cast.framework.messages.Command.ALL_BASIC_MEDIA
+    | cast.framework.messages.Command.QUEUE_NEXT
+    | cast.framework.messages.Command.QUEUE_PREV;
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
+playbackConfig.enableUITextDisplayer = true;
 playbackConfig.shakaConfig = {
     manifest: {
         availabilityWindowOverride: 30,
@@ -145,20 +145,21 @@ playbackConfig.shakaConfig = {
 const options = new cast.framework.CastReceiverOptions();
 options.versionCode = 0;
 options.useShakaForHls = true;
-options.shakaVersion = '4.3.5';
+options.shakaVersion = "4.3.5";
+options.shakaVariant = cast.framework.ShakaVariant.DEBUG;
 
 cast.framework.CastReceiverContext.getInstance().addEventListener(
     [cast.framework.system.EventType.SENDER_CONNECTED, cast.framework.system.EventType.SENDER_DISCONNECTED],
-    () => '¡hola!',
+    () => "¡hola!",
 );
 
 // send custom message to specific sender
-cast.framework.CastReceiverContext.getInstance().sendCustomMessage('custom-namespace', 'sender-id', {});
+cast.framework.CastReceiverContext.getInstance().sendCustomMessage("custom-namespace", "sender-id", {});
 
 // broadcast custom message to all connected senders
-cast.framework.CastReceiverContext.getInstance().sendCustomMessage('custom-namespace', undefined, {});
+cast.framework.CastReceiverContext.getInstance().sendCustomMessage("custom-namespace", undefined, {});
 
-const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, 'Loading failed!');
+const loadingError = new cast.framework.events.ErrorEvent(DetailedErrorCode.LOAD_FAILED, "Loading failed!");
 
 // PlayerManager message interceptors
 cast.framework.CastReceiverContext.getInstance()
@@ -219,7 +220,7 @@ cast.framework.CastReceiverContext.getInstance()
 const debugLogger = cast.debug.CastDebugLogger.getInstance();
 
 debugLogger.loggerLevelByEvents = {
-    'cast.framework.events.category.CORE': cast.framework.LoggerLevel.WARNING,
+    "cast.framework.events.category.CORE": cast.framework.LoggerLevel.WARNING,
 };
 
 debugLogger.setEnabled(true);
@@ -227,8 +228,8 @@ debugLogger.setEnabled(true);
 debugLogger.showDebugLogs(true);
 
 debugLogger.error(
-    'REPORTING',
-    'Track could not be reported',
+    "REPORTING",
+    "Track could not be reported",
     cast.framework.CastReceiverContext.getInstance().getPlayerManager().getMediaInformation(),
 );
 
@@ -280,6 +281,50 @@ userActionState.customData = {};
 
 const tracksInfo = new cast.framework.messages.TracksInfo();
 tracksInfo.activeTrackIds = [1, 2];
-tracksInfo.language = 'en';
+tracksInfo.language = "en";
 tracksInfo.textTrackStyle = new cast.framework.messages.TextTrackStyle();
 tracksInfo.tracks = [new cast.framework.messages.Track(1, cast.framework.messages.TrackType.AUDIO)];
+
+// You can extend the types of some customData fields via declaration merging, so that
+// custom data passed between your custom receiver and CAF remains statically typed.
+
+declare module "./cast.framework.messages" {
+    interface TrackCustomData {
+        dialect?: string;
+    }
+
+    interface TextTrackStyleCustomData {
+        lineHeight?: number;
+    }
+
+    interface SessionStateCustomData {
+        userId?: string;
+    }
+
+    interface QueueItemCustomData {
+        priority?: number;
+    }
+
+    interface MediaStatusCustomData {
+        description?: string;
+    }
+
+    interface MediaInformationCustomData {
+        environment: "production" | "staging";
+    }
+
+    interface BreakClipCustomData {
+        advertiser?: string;
+    }
+}
+
+const sessionState = new cast.framework.messages.SessionState();
+const mediaStatus = new cast.framework.messages.MediaStatus();
+
+track.customData = { dialect: "关中话" };
+tracksInfo.textTrackStyle!.customData = { lineHeight: 1.5 };
+sessionState.customData = { userId: "1234" };
+mediaStatus.customData = { description: "Lorem ipsum" };
+queueItem.customData = { priority: 1 };
+queueItem.media.customData = { environment: "production" };
+breakClip.customData = { advertiser: "Umbrella Corporation" };

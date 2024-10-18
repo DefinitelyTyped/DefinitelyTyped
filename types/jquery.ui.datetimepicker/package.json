@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/jquery.ui.datetimepicker",
+    "version": "0.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.ui.datetimepicker",
+    "projects": [
+        "http://trentrichardson.com/examples/timepicker/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/jqueryui": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.ui.datetimepicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "dougajmcdonald",
+            "githubUsername": "dougajmcdonald"
+        }
+    ]
+}

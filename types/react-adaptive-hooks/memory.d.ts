@@ -10,5 +10,5 @@ export function useMemoryStatus<T = Partial<MemoryStatus>>(
 ):
     | ({ unsupported: true } & T)
     | ({
-          unsupported: false;
-      } & MemoryStatus);
+        unsupported: false;
+    } & MemoryStatus);

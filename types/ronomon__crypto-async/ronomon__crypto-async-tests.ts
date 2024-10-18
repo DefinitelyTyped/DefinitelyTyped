@@ -1,4 +1,4 @@
-import * as cryptoAsync from '@ronomon/crypto-async';
+import * as cryptoAsync from "@ronomon/crypto-async";
 
 // test type exports
 type CipherDir = cryptoAsync.CipherDirection;
@@ -45,7 +45,7 @@ cryptoAsync.E_TARGET_OFFSET; // $ExpectType string
 cryptoAsync.E_TARGET_RANGE; // $ExpectType string
 
 {
-    const algorithm = 'aes-256-ctr';
+    const algorithm = "aes-256-ctr";
     const encrypt = 1;
     const decrypt = 0;
     const key = Buffer.alloc(32);
@@ -53,17 +53,17 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
     const plaintext = Buffer.alloc(128);
     cryptoAsync.cipher(algorithm, encrypt, key, iv, plaintext, (error, ciphertext) => {
         error; // $ExpectType Error | undefined
-        ciphertext; // $ExpectType Buffer
+        ciphertext; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 
     cryptoAsync.cipher(algorithm, decrypt, key, iv, plaintext, (error, plaintext) => {
         error; // $ExpectType Error | undefined
-        plaintext; // $ExpectType Buffer
+        plaintext; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 }
 
 {
-    const algorithm = 'chacha20-poly1305';
+    const algorithm = "chacha20-poly1305";
     const encrypt = 1;
     const decrypt = 0;
     const key = Buffer.alloc(32);
@@ -73,17 +73,17 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
     const tag = Buffer.alloc(16);
     cryptoAsync.cipher(algorithm, encrypt, key, iv, plaintext, aad, tag, (error, ciphertext) => {
         error; // $ExpectType Error | undefined
-        ciphertext; // $ExpectType Buffer
+        ciphertext; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 
     cryptoAsync.cipher(algorithm, decrypt, key, iv, plaintext, aad, tag, (error, plaintext) => {
         error; // $ExpectType Error | undefined
-        plaintext; // $ExpectType Buffer
+        plaintext; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 }
 
 {
-    const algorithm = 'aes-256-ctr';
+    const algorithm = "aes-256-ctr";
     const encrypt = 1; // Encrypt
     const key = Buffer.alloc(1024);
     const keyOffset = 4;
@@ -118,7 +118,7 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
 }
 
 {
-    const algorithm = 'chacha20-poly1305';
+    const algorithm = "chacha20-poly1305";
     const encrypt = 1;
     const key = Buffer.alloc(1024);
     const keyOffset = 4;
@@ -165,16 +165,16 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
 }
 
 {
-    const algorithm = 'sha256';
+    const algorithm = "sha256";
     const source = Buffer.alloc(1024 * 1024);
     cryptoAsync.hash(algorithm, source, (error, hash) => {
         error; // $ExpectType Error | undefined
-        hash; // $ExpectType Buffer
+        hash; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 }
 
 {
-    const algorithm = 'sha256';
+    const algorithm = "sha256";
     const source = Buffer.alloc(1024 * 1024);
     const sourceOffset = 512;
     const sourceSize = 65536;
@@ -187,17 +187,17 @@ cryptoAsync.E_TARGET_RANGE; // $ExpectType string
 }
 
 {
-    const algorithm = 'sha256';
+    const algorithm = "sha256";
     const key = Buffer.alloc(1024);
     const source = Buffer.alloc(1024 * 1024);
     cryptoAsync.hmac(algorithm, key, source, (error, hmac) => {
         error; // $ExpectType Error | undefined
-        hmac; // $ExpectType Buffer
+        hmac; // $ExpectType Buffer || Buffer<ArrayBufferLike>
     });
 }
 
 {
-    const algorithm = 'sha256';
+    const algorithm = "sha256";
     const key = Buffer.alloc(1024);
     const keyOffset = 4;
     const keySize = 8;

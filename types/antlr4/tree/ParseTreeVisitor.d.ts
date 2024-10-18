@@ -1,7 +1,7 @@
-import ParseTree from './ParseTree';
-import RuleNode from './RuleNode';
-import TerminalNode from './TerminalNode';
-import ErrorNode from './ErrorNode';
+import ErrorNode from "./ErrorNode";
+import ParseTree from "./ParseTree";
+import RuleNode from "./RuleNode";
+import TerminalNode from "./TerminalNode";
 
 export default class ParseTreeVisitor {
     visit(tree: ParseTree): any;

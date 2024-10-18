@@ -1,16 +1,10 @@
-// Type definitions for reactour 1.18
-// Project: https://github.com/elrumordelaluz/reactour#readme
-// Definitions by: Paweł Dąbrowski <https://github.com/paolostyle>, jzsplk <https://github.com/jzsplk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 // ---------------------
 // Step interfaces
 // ---------------------
 
-export type ReactourStepPosition = 'top' | 'right' | 'bottom' | 'left' | 'center';
+export type ReactourStepPosition = "top" | "right" | "bottom" | "left" | "center";
 
 export interface ReactourStepContentArgs {
     close: () => void;
@@ -160,7 +154,7 @@ export interface ReactourProps {
     /**
      * Disable all keyboard navigation (next and prev step) when true, disable only selected keys when array
      */
-    disableKeyboardNavigation?: boolean | Array<'esc' | 'right' | 'left'> | undefined;
+    disableKeyboardNavigation?: boolean | Array<"esc" | "right" | "left"> | undefined;
 
     /**
      * Function triggered each time current step change
@@ -342,7 +336,7 @@ export interface ArrowProps {
 }
 export function Arrow(props: ArrowProps): React.ReactElement;
 
-export interface BadgeProps extends React.ComponentPropsWithRef<'span'> {
+export interface BadgeProps extends React.ComponentPropsWithRef<"span"> {
     accentColor?: string | undefined;
 }
 export const Badge: React.FC<BadgeProps>;
@@ -353,10 +347,10 @@ export interface CloseProps {
 }
 export function Close(props: CloseProps): React.ReactElement;
 
-export interface ControlsProps extends React.ComponentPropsWithRef<'div'> {}
+export interface ControlsProps extends React.ComponentPropsWithRef<"div"> {}
 export const Controls: React.FC<ControlsProps>;
 
-export interface DotProps extends React.ComponentPropsWithRef<'button'> {
+export interface DotProps extends React.ComponentPropsWithRef<"button"> {
     disabled?: boolean | undefined;
     current?: number | undefined;
     index?: number | undefined;
@@ -365,5 +359,5 @@ export interface DotProps extends React.ComponentPropsWithRef<'button'> {
 }
 export const Dot: React.FC<DotProps>;
 
-export type NavigationProps = React.ComponentPropsWithRef<'nav'>;
+export type NavigationProps = React.ComponentPropsWithRef<"nav">;
 export const Navigation: React.FC<NavigationProps>;

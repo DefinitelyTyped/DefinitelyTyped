@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/d3-force",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/d3/d3-force/",
+        "https://d3js.org/d3-force"
+    ],
+    "devDependencies": {
+        "@types/d3-force": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

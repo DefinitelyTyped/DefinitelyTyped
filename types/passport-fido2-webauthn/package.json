@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/passport-fido2-webauthn",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-webauthn#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport-strategy": "*"
+    },
+    "devDependencies": {
+        "@types/passport": "*",
+        "@types/passport-fido2-webauthn": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Benjamin Choi",
+            "githubUsername": "benhchoi"
+        }
+    ]
+}

@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/redis-rate-limiter",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/tabcorp/redis-rate-limiter"
+    ],
     "dependencies": {
+        "@types/express": "*",
         "@types/redis": "^2.8.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redis-rate-limiter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Seth Westphal",
+            "githubUsername": "westy92"
+        },
+        {
+            "name": "Hasan Oezdemir",
+            "githubUsername": "nodify-at"
+        }
+    ]
 }

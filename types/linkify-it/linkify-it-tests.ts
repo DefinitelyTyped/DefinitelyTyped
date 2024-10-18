@@ -6,30 +6,30 @@ const withOptions = new LinkifyIt({ fuzzyLink: false });
 const withSchema = new LinkifyIt(
     {
         "myCustom:": {
-            validate: /23/
+            validate: /23/,
         },
         "other:": {
-            validate: (text, pos, self) => 42
+            validate: (text, pos, self) => 42,
         },
-        "git:": "http:"
+        "git:": "http:",
     },
     {
         fuzzyIP: false,
-        fuzzyLink: false
-    }
+        fuzzyLink: false,
+    },
 );
 
 // fluent interface
 linkifier
     .add("git:", "http:")
-    .add('ftp:', null)
+    .add("ftp:", null)
     .set({ fuzzyIP: true })
     .tlds("onion", true)
     .test("https://github.com/DefinitelyTyped/DefinitelyTyped/");
 
 // match
 const matches = linkifier.match(
-    "https://github.com/DefinitelyTyped/DefinitelyTyped/"
+    "https://github.com/DefinitelyTyped/DefinitelyTyped/",
 );
 if (matches !== null) {
     matches.forEach(({ index, lastIndex, raw, schema, text, url }) => {});
@@ -42,7 +42,7 @@ linkifier.add("@", {
     },
     normalize: match => {
         match.url = "forty-two";
-    }
+    },
 });
 
 // complex rule
@@ -52,29 +52,29 @@ linkifier.add("skype:", {
     },
     normalize: match => {
         match.url = "forty-two";
-    }
+    },
 });
 
 // regexp rule
 linkifier.add("custom:", {
-    validate: /^\/\/\d+/
+    validate: /^\/\/\d+/,
 });
 
 // Use example from documentation
-linkifier.add('@', {
+linkifier.add("@", {
     validate: (text, pos, self) => {
         const tail = text.slice(pos);
 
         if (!self.re.twitter) {
-            self.re.twitter =  new RegExp(
-                `^([a-zA-Z0-9_]){1,15}(?!_)(?=$|${self.re.src_ZPCc})`
+            self.re.twitter = new RegExp(
+                `^([a-zA-Z0-9_]){1,15}(?!_)(?=$|${self.re.src_ZPCc})`,
             );
         }
 
         if (self.re.twitter.test(tail)) {
             // Linkifier allows punctuation chars before prefix,
             // but we additionally disable `@` ("@@mention" is invalid)
-            if (pos >= 2 && tail[pos - 2] === '@') {
+            if (pos >= 2 && tail[pos - 2] === "@") {
                 return false;
             }
 
@@ -89,6 +89,6 @@ linkifier.add('@', {
         return 0;
     },
     normalize: (match) => {
-      match.url = `https://twitter.com/${match.url.replace(/^@/, '')}`;
-    }
+        match.url = `https://twitter.com/${match.url.replace(/^@/, "")}`;
+    },
 });

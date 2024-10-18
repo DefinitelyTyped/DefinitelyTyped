@@ -1,5 +1,5 @@
-import { Component, ReactNode } from 'react';
-import { Animated, ViewProps } from 'react-native';
+import { Component, JSX, ReactNode } from "react";
+import { Animated, ViewProps } from "react-native";
 
 export interface SheetProps {
     visible: boolean;

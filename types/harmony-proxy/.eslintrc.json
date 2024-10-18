@@ -1,6 +1,6 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off"
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off"
     }
 }

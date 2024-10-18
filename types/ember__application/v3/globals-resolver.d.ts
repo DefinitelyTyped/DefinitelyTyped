@@ -1,1 +1,1 @@
-export { default } from '@ember/application/-private/default-resolver';
+export { default } from "@ember/application/-private/default-resolver";

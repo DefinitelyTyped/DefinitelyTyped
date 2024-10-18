@@ -1,15 +1,15 @@
-import { Disposable, Tooltip } from '../index';
+import { Disposable, Tooltip } from "../index";
 
 export type TooltipPlacement =
-    | 'top'
-    | 'bottom'
-    | 'left'
-    | 'right'
-    | 'auto'
-    | 'auto top'
-    | 'auto bottom'
-    | 'auto left'
-    | 'auto right';
+    | "top"
+    | "bottom"
+    | "left"
+    | "right"
+    | "auto"
+    | "auto top"
+    | "auto bottom"
+    | "auto left"
+    | "auto right";
 
 /** Associates tooltips with HTML elements or selectors. */
 export interface TooltipManager {
@@ -18,19 +18,19 @@ export interface TooltipManager {
         target: HTMLElement | JQueryCompatible,
         options:
             | {
-                  item?: object | undefined;
-              }
+                item?: object | undefined;
+            }
             | ({
-                  title?: string | (() => string) | undefined;
-                  html?: boolean | undefined;
-                  keyBindingCommand?: string | undefined;
-                  keyBindingTarget?: HTMLElement | undefined;
-              } & {
-                  class?: string | undefined;
-                  placement?: TooltipPlacement | (() => TooltipPlacement) | undefined;
-                  trigger?: 'click' | 'hover' | 'focus' | 'manual' | undefined;
-                  delay?: { show: number; hide: number } | undefined;
-              }),
+                title?: string | (() => string) | undefined;
+                html?: boolean | undefined;
+                keyBindingCommand?: string | undefined;
+                keyBindingTarget?: HTMLElement | undefined;
+            } & {
+                class?: string | undefined;
+                placement?: TooltipPlacement | (() => TooltipPlacement) | undefined;
+                trigger?: "click" | "hover" | "focus" | "manual" | undefined;
+                delay?: { show: number; hide: number } | undefined;
+            }),
     ): Disposable;
 
     /** Find the tooltips that have been applied to the given element. */

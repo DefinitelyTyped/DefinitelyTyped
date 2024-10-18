@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tldjs",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/oncletom/tld.js"
+    ],
+    "devDependencies": {
+        "@types/tldjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joshua DeVinney",
+            "githubUsername": "geoffreak"
+        }
+    ]
+}

@@ -202,7 +202,7 @@
 declare module "zmq" {
     
 
-    module zmq {
+    namespace zmq {
         
         /**
          * 

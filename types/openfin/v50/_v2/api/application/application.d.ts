@@ -1,14 +1,14 @@
-import { EmitterBase, Base, Reply } from '../base';
-import { Identity } from '../../identity';
-import { _Window } from '../window/window';
-import { Point } from '../system/point';
-import { MonitorInfo } from '../system/monitor';
-import Transport from '../../transport/transport';
-import { Bounds } from '../../shapes';
-import { ApplicationEvents } from '../events/application';
-import { ApplicationOption } from './applicationOption';
-import { View } from '../view/view';
-export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
+import { Identity } from "../../identity";
+import { Bounds } from "../../shapes";
+import Transport from "../../transport/transport";
+import { Base, EmitterBase, Reply } from "../base";
+import { ApplicationEvents } from "../events/application";
+import { MonitorInfo } from "../system/monitor";
+import { Point } from "../system/point";
+import { View } from "../view/view";
+import { _Window } from "../window/window";
+import { ApplicationOption } from "./applicationOption";
+export interface TrayIconClickReply extends Point, Reply<"application", "tray-icon-clicked"> {
     button: number;
     monitorInfo: MonitorInfo;
 }
@@ -25,7 +25,7 @@ export interface ApplicationInfo {
 export interface LogInfo {
     logId: string;
 }
-export declare class NavigationRejectedReply extends Reply<'window-navigation-rejected', void> {
+export declare class NavigationRejectedReply extends Reply<"window-navigation-rejected", void> {
     sourceName: string;
     url: string;
 }
@@ -130,20 +130,20 @@ export default class ApplicationModule extends Base {
     wrapSync(identity: Identity): Application;
     private _create;
     /**
-    * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.create
-    * @ignore
-    */
+     * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.create
+     * @ignore
+     */
     create(appOptions: ApplicationOption): Promise<Application>;
     /**
-    * Creates and starts a new Application.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.start
-    * @static
-    */
+     * Creates and starts a new Application.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.start
+     * @static
+     */
     start(appOptions: ApplicationOption): Promise<Application>;
     /**
      * Asynchronously starts a batch of applications given an array of application identifiers and manifestUrls.
@@ -154,7 +154,7 @@ export default class ApplicationModule extends Base {
      * @tutorial Application.startManyManifests
      * @experimental
      */
-    startManyManifests(applications: Array<ManifestInfo>): Promise<void>;
+    startManyManifests(applications: ManifestInfo[]): Promise<void>;
     /**
      * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}
@@ -291,14 +291,14 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      * @return {Promise.Array.<_Window>}
      * @tutorial Application.getChildWindows
      */
-    getChildWindows(): Promise<Array<_Window>>;
+    getChildWindows(): Promise<_Window[]>;
     /**
      * Retrieves an array of active window groups for all of the application's windows. Each group is
      * represented as an array of wrapped fin.Windows.
      * @return {Promise.Array.Array.<_Window>}
      * @tutorial Application.getGroups
      */
-    getGroups(): Promise<Array<Array<_Window>>>;
+    getGroups(): Promise<_Window[][]>;
     /**
      * Retrieves the JSON manifest that was used to create the application. Invokes the error callback
      * if the application was not created from a manifest.
@@ -320,12 +320,12 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getShortcuts(): Promise<ShortCutConfig>;
     /**
-    * Retrieves current application's views.
-    * @experimental
-    * @return {Promise.Array.<View>}
-    * @tutorial Application.getViews
-    */
-    getViews(): Promise<Array<View>>;
+     * Retrieves current application's views.
+     * @experimental
+     * @return {Promise.Array.<View>}
+     * @tutorial Application.getViews
+     */
+    getViews(): Promise<View[]>;
     /**
      * Returns the current zoom level of the application.
      * @return {Promise.<number>}
@@ -339,12 +339,12 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getWindow(): Promise<_Window>;
     /**
-    * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
-    * @param { string } userName - username to be passed to the RVM.
-    * @param { string } appName - app name to be passed to the RVM.
-    * @return {Promise.<void>}
-    * @tutorial Application.registerUser
-    */
+     * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
+     * @param { string } userName - username to be passed to the RVM.
+     * @param { string } appName - app name to be passed to the RVM.
+     * @return {Promise.<void>}
+     * @tutorial Application.registerUser
+     */
     registerUser(userName: string, appName: string): Promise<void>;
     /**
      * Removes the application’s icon from the tray.

@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/dom-speech-recognition",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-speech-recognition-browser",
+    "projects": [
+        "https://wicg.github.io/speech-api/"
+    ],
+    "devDependencies": {
+        "@types/dom-speech-recognition": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hana Joo",
+            "githubUsername": "h-joo"
+        },
+        {
+            "name": "Jan Kuehle",
+            "githubUsername": "frigus02"
+        },
+        {
+            "name": "Martin Probst",
+            "githubUsername": "mprobst"
+        }
+    ]
+}

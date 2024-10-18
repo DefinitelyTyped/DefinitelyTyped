@@ -1,18 +1,16 @@
-import Particle from '../core/Particle';
-import { Easing, EasingFunction } from '../ease';
-import { JSONObject } from '../initializer/Rate';
-import { Vector3D } from '../math';
-import Behaviour from './Behaviour';
-import { DEFAULT_BEHAVIOUR_EASING } from './constants';
+import Particle from "../core/Particle";
+import { Easing, EasingFunction } from "../ease";
+import { JSONObject } from "../initializer/Rate";
+import { Vector3D } from "../math";
+import Behaviour from "./Behaviour";
+import { DEFAULT_BEHAVIOUR_EASING } from "./constants";
 
 /**
  * Behaviour that causes particles to be attracted to a target position.
- *
  */
 export default class Attraction extends Behaviour {
     /**
      * Constructs an Attraction behaviour instance.
-     *
      */
     constructor(
         targetPosition: Vector3D,
@@ -55,19 +53,16 @@ export default class Attraction extends Behaviour {
 
     /**
      * Resets the behaviour properties.
-     *
      */
     reset(targetPosition: Vector3D, force?: number, radius?: number, life?: number, easing?: EasingFunction): void;
     reset(life?: number, easing?: EasingFunction): void;
     /**
      * Mutates particle acceleration.
-     *
      */
     mutate(particle: Particle, time: number, index: number): void;
 
     /**
      * Creates a Body initializer from JSON.
-     *
      */
     static fromJSON(json: JSONObject): Attraction;
 }

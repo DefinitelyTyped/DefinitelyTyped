@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-star-rating-component",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/voronianski/react-star-rating-component#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-star-rating-component": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cody Sand",
+            "githubUsername": "marpstar"
+        }
+    ]
+}

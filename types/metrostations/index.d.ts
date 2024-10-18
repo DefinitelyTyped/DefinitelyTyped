@@ -1,8 +1,3 @@
-// Type definitions for metrostations 6.0
-// Project: https://github.com/ungarson/MetroStations#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace stations {
     interface Line {
         id: number;

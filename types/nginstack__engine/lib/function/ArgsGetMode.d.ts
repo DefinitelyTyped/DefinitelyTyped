@@ -1,2 +1,2 @@
-export const DEFAULT: number;
-export const REFUSE_EMPTY: number;
+export let DEFAULT: number;
+export let REFUSE_EMPTY: number;

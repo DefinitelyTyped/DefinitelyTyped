@@ -1,4 +1,4 @@
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 import type { File, FileJSON } from "./index";
 
 declare class VolatileFile extends EventEmitter {

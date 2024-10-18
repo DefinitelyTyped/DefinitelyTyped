@@ -1,4 +1,4 @@
-import Ints = require('super-number');
+import Ints = require("super-number");
 
 Ints([-5, -2, 0, 1, 5]).findNearestInteger(0); // $ExpectType number
 Ints([-5, -2, 0, 1, 5]).findNearestInteger(1); // $ExpectType number

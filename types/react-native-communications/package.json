@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-communications",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/anarchicknight/react-native-communications"
+    ],
+    "devDependencies": {
+        "@types/react-native-communications": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "HuHuanming",
+            "githubUsername": "huhuanming"
+        },
+        {
+            "name": "Paito",
+            "githubUsername": "PaitoAnderson"
+        }
+    ]
+}

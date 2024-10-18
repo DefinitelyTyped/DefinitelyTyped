@@ -1,19 +1,19 @@
 import * as materialize from "materialize-css";
 
-const elem = document.querySelector('.whatever')!;
+const elem = document.querySelector(".whatever")!;
 
 // $ExpectType FloatingActionButton
 const _fab = new M.FloatingActionButton(elem);
 // $ExpectType FloatingActionButton
 const el = M.FloatingActionButton.init(elem);
 // $ExpectType FloatingActionButton[]
-const els = M.FloatingActionButton.init(document.querySelectorAll('.whatever'));
+const els = M.FloatingActionButton.init(document.querySelectorAll(".whatever"));
 
 // $ExpectType FloatingActionButton
 new materialize.FloatingActionButton(elem);
 // $ExpectType FloatingActionButton
 const fab = new materialize.FloatingActionButton(elem, {
-    direction: 'left'
+    direction: "left",
 });
 // $ExpectType void
 fab.open();

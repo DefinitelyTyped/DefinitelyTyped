@@ -1,2 +1,2 @@
-import Sum from './Sum';
+import Sum from "./Sum";
 export default Sum;

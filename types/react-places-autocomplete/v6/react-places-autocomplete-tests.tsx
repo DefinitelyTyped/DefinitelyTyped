@@ -1,10 +1,10 @@
-import * as React from 'react';
-import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete';
+import * as React from "react";
+import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from "react-places-autocomplete";
 
 class Test extends React.Component {
     state = {
-        address: 'San Francisco, CA',
-        placeId: '12345',
+        address: "San Francisco, CA",
+        placeId: "12345",
     };
 
     handleFormSubmit = (event: any) => {
@@ -23,7 +23,7 @@ class Test extends React.Component {
                 console.info(latLng, status);
             });
         });
-    }
+    };
 
     onChange = (address: string) => this.setState({ address });
 

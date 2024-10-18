@@ -1,11 +1,11 @@
-import saxStream = require('sax-stream');
+import saxStream = require("sax-stream");
 
 // $ExpectType Transform
-saxStream({ tag: '' });
+saxStream({ tag: "" });
 
 // $ExpectType Transform
 saxStream({
-    tag: '',
+    tag: "",
     highWaterMark: 1,
     strict: true,
     trim: true,
@@ -14,7 +14,7 @@ saxStream({
     xmlns: true,
     trackPosition: true,
     strictEntities: true,
-    noscript: true
+    noscript: true,
 });
 
 // @ts-expect-error

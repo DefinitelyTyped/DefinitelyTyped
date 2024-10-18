@@ -1,9 +1,3 @@
-// Type definitions for unzalgo 3.0
-// Project: https://github.com/kdex/unzalgo#readme
-// Definitions by: Dacri Burdan <https://github.com/dburdan>
-//                 Rodry <https://github.com/ImRodry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Computes a score ∈ [0, 1] for every word in the input string.
  * Each score represents the ratio of zalgo characters to total characters in a word.

@@ -1,4 +1,4 @@
-import solverjs = require('solverjs');
+import solverjs = require("solverjs");
 
 solverjs.bitToByte(1);
 solverjs.bitToKb(1);

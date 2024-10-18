@@ -1,11 +1,4 @@
-// Type definitions for react-lazyload ver 3.2
-// Project: https://github.com/jasonslyvia/react-lazyload
-// Definitions by: m0a <https://github.com/m0a>
-//                 svobik7 <https://github.com/svobik7>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component, ReactNode, CSSProperties } from 'react';
+import { Component, CSSProperties, ReactNode } from "react";
 
 export interface LazyLoadProps {
     once?: boolean | undefined;

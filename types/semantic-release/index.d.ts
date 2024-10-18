@@ -1,10 +1,3 @@
-// Type definitions for semantic-release 20.0
-// Project: https://github.com/semantic-release/semantic-release#readme
-// Definitions by: Leonardo Gatica <https://github.com/lgaticaq>
-//                 Daniel Cassidy <https://github.com/djcsdy>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // tslint:disable:no-redundant-jsdoc
@@ -13,7 +6,7 @@
  * A semver release type.
  * See https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-types.js
  */
-export type ReleaseType = 'prerelease' | 'prepatch' | 'patch' | 'preminor' | 'minor' | 'premajor' | 'major';
+export type ReleaseType = "prerelease" | "prepatch" | "patch" | "preminor" | "minor" | "premajor" | "major";
 
 export type LoggerFunction = (...message: any[]) => void;
 
@@ -37,7 +30,7 @@ export interface Options {
      * file will take precedence over the ones defined in any shareable
      * configuration.
      */
-    extends?: ReadonlyArray<string> | string | undefined;
+    extends?: readonly string[] | string | undefined;
 
     /**
      * The branches on which releases should happen. By default
@@ -71,7 +64,7 @@ export interface Options {
      * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
      * for more details.
      */
-    branches?: ReadonlyArray<BranchSpec> | BranchSpec | undefined;
+    branches?: readonly BranchSpec[] | BranchSpec | undefined;
 
     /**
      * The git repository URL.
@@ -112,7 +105,7 @@ export interface Options {
      *     "@semantic-release/github"
      * ]`
      */
-    plugins?: ReadonlyArray<PluginSpec> | undefined;
+    plugins?: readonly PluginSpec[] | undefined;
 
     /**
      * Dry-run mode, skip publishing, print next version and release notes.
@@ -168,7 +161,7 @@ export interface GlobalConfig extends Options {
      * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
      * for more details.
      */
-    branches: ReadonlyArray<BranchSpec> | BranchSpec;
+    branches: readonly BranchSpec[] | BranchSpec;
 
     /**
      * The git repository URL.
@@ -209,7 +202,7 @@ export interface GlobalConfig extends Options {
      *     "@semantic-release/github"
      * ]`
      */
-    plugins: ReadonlyArray<PluginSpec>;
+    plugins: readonly PluginSpec[];
 }
 
 export interface BranchObject {
@@ -612,26 +605,26 @@ export interface Release {
 export type Result =
     | false
     | {
-          /**
-           * Information related to the last release found.
-           */
-          lastRelease: LastRelease;
+        /**
+         * Information related to the last release found.
+         */
+        lastRelease: LastRelease;
 
-          /**
-           * The list of commits included in the new release.
-           */
-          commits: Commit[];
+        /**
+         * The list of commits included in the new release.
+         */
+        commits: Commit[];
 
-          /**
-           * Information related to the newly published release.
-           */
-          nextRelease: NextRelease;
+        /**
+         * Information related to the newly published release.
+         */
+        nextRelease: NextRelease;
 
-          /**
-           * The list of releases published, one release per publish plugin.
-           */
-          releases: Release[];
-      };
+        /**
+         * The list of releases published, one release per publish plugin.
+         */
+        releases: Release[];
+    };
 
 /**
  * Run semantic-release and returns a Promise that resolves to a Result

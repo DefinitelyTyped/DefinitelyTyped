@@ -1,9 +1,3 @@
-// Type definitions for libphonenumber v7.4.3
-// Project: https://github.com/googlei18n/libphonenumber, https://github.com/seegno/google-libphonenumber
-// Definitions by: Leon Yu <https://github.com/leonyu>
-//           Roman Jurkov <https://github.com/winfinit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace libphonenumber {
     export enum PhoneNumberFormat {
         E164,
@@ -27,7 +21,7 @@ declare namespace libphonenumber {
         UNKNOWN = -1,
     }
 
-    export module PhoneNumber {
+    export namespace PhoneNumber {
         export enum CountryCodeSource {
             FROM_NUMBER_WITH_PLUS_SIGN = 1,
             FROM_NUMBER_WITH_IDD = 5,
@@ -93,7 +87,7 @@ declare namespace libphonenumber {
         clearPreferredDomesticCarrierCode(): void;
     }
 
-    export module PhoneNumberUtil {
+    export namespace PhoneNumberUtil {
         export enum ValidationResult {
             /** The number length matches that of valid numbers for this region. =0 */
             IS_POSSIBLE,
@@ -148,7 +142,7 @@ declare namespace libphonenumber {
         getCountryCodeForRegion(supportedRegion: string): number;
         getExampleNumber(regionCode: string): PhoneNumber;
         getExampleNumberForType(regionCode: string, type: PhoneNumberType): PhoneNumber;
-        getRegionCodeForCountryCode(countryCallingCode: number): RegionCode;
+        getRegionCodeForCountryCode(countryCallingCode: number): RegionCode | RegionCodeUnknown;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): RegionCode | undefined;
         getSupportedRegions(): RegionCode[];
         isAlphaNumber(number: string): boolean;
@@ -169,6 +163,7 @@ declare namespace libphonenumber {
         isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
         getLengthOfGeographicalAreaCode(number: PhoneNumber): number;
         getNationalSignificantNumber(number: PhoneNumber): string;
+        getLengthOfNationalDestinationCode(number: PhoneNumber): number;
     }
 
     export class AsYouTypeFormatter {
@@ -177,7 +172,7 @@ declare namespace libphonenumber {
         clear(): void;
     }
 
-    export module ShortNumberInfo {
+    export namespace ShortNumberInfo {
         /** Cost categories of short numbers. */
         export enum ShortNumberCost {
             TOLL_FREE = 0,
@@ -359,254 +354,255 @@ declare namespace libphonenumber {
         isSmsServiceForRegion(number: PhoneNumber, regionDialingFrom: string): boolean;
     }
 
+    export type RegionCodeUnknown = "ZZ";
     export type RegionCode =
-        | 'AC'
-        | 'AD'
-        | 'AE'
-        | 'AF'
-        | 'AG'
-        | 'AI'
-        | 'AL'
-        | 'AM'
-        | 'AO'
-        | 'AR'
-        | 'AS'
-        | 'AT'
-        | 'AU'
-        | 'AW'
-        | 'AX'
-        | 'AZ'
-        | 'BA'
-        | 'BB'
-        | 'BD'
-        | 'BE'
-        | 'BF'
-        | 'BG'
-        | 'BH'
-        | 'BI'
-        | 'BJ'
-        | 'BL'
-        | 'BM'
-        | 'BN'
-        | 'BO'
-        | 'BQ'
-        | 'BR'
-        | 'BS'
-        | 'BT'
-        | 'BW'
-        | 'BY'
-        | 'BZ'
-        | 'CA'
-        | 'CC'
-        | 'CD'
-        | 'CF'
-        | 'CG'
-        | 'CH'
-        | 'CI'
-        | 'CK'
-        | 'CL'
-        | 'CM'
-        | 'CN'
-        | 'CO'
-        | 'CR'
-        | 'CU'
-        | 'CV'
-        | 'CW'
-        | 'CX'
-        | 'CY'
-        | 'CZ'
-        | 'DE'
-        | 'DJ'
-        | 'DK'
-        | 'DM'
-        | 'DO'
-        | 'DZ'
-        | 'EC'
-        | 'EE'
-        | 'EG'
-        | 'EH'
-        | 'ER'
-        | 'ES'
-        | 'ET'
-        | 'FI'
-        | 'FJ'
-        | 'FK'
-        | 'FM'
-        | 'FO'
-        | 'FR'
-        | 'GA'
-        | 'GB'
-        | 'GD'
-        | 'GE'
-        | 'GF'
-        | 'GG'
-        | 'GH'
-        | 'GI'
-        | 'GL'
-        | 'GM'
-        | 'GN'
-        | 'GP'
-        | 'GQ'
-        | 'GR'
-        | 'GT'
-        | 'GU'
-        | 'GW'
-        | 'GY'
-        | 'HK'
-        | 'HN'
-        | 'HR'
-        | 'HT'
-        | 'HU'
-        | 'ID'
-        | 'IE'
-        | 'IL'
-        | 'IM'
-        | 'IN'
-        | 'IO'
-        | 'IQ'
-        | 'IR'
-        | 'IS'
-        | 'IT'
-        | 'JE'
-        | 'JM'
-        | 'JO'
-        | 'JP'
-        | 'KE'
-        | 'KG'
-        | 'KH'
-        | 'KI'
-        | 'KM'
-        | 'KN'
-        | 'KP'
-        | 'KR'
-        | 'KW'
-        | 'KY'
-        | 'KZ'
-        | 'LA'
-        | 'LB'
-        | 'LC'
-        | 'LI'
-        | 'LK'
-        | 'LR'
-        | 'LS'
-        | 'LT'
-        | 'LU'
-        | 'LV'
-        | 'LY'
-        | 'MA'
-        | 'MC'
-        | 'MD'
-        | 'ME'
-        | 'MF'
-        | 'MG'
-        | 'MH'
-        | 'MK'
-        | 'ML'
-        | 'MM'
-        | 'MN'
-        | 'MO'
-        | 'MP'
-        | 'MQ'
-        | 'MR'
-        | 'MS'
-        | 'MT'
-        | 'MU'
-        | 'MV'
-        | 'MW'
-        | 'MX'
-        | 'MY'
-        | 'MZ'
-        | 'NA'
-        | 'NC'
-        | 'NE'
-        | 'NF'
-        | 'NG'
-        | 'NI'
-        | 'NL'
-        | 'NO'
-        | 'NP'
-        | 'NR'
-        | 'NU'
-        | 'NZ'
-        | 'OM'
-        | 'PA'
-        | 'PE'
-        | 'PF'
-        | 'PG'
-        | 'PH'
-        | 'PK'
-        | 'PL'
-        | 'PM'
-        | 'PR'
-        | 'PS'
-        | 'PT'
-        | 'PW'
-        | 'PY'
-        | 'QA'
-        | 'RE'
-        | 'RO'
-        | 'RS'
-        | 'RU'
-        | 'RW'
-        | 'SA'
-        | 'SB'
-        | 'SC'
-        | 'SD'
-        | 'SE'
-        | 'SG'
-        | 'SH'
-        | 'SI'
-        | 'SJ'
-        | 'SK'
-        | 'SL'
-        | 'SM'
-        | 'SN'
-        | 'SO'
-        | 'SR'
-        | 'SS'
-        | 'ST'
-        | 'SV'
-        | 'SX'
-        | 'SY'
-        | 'SZ'
-        | 'TA'
-        | 'TC'
-        | 'TD'
-        | 'TG'
-        | 'TH'
-        | 'TJ'
-        | 'TK'
-        | 'TL'
-        | 'TM'
-        | 'TN'
-        | 'TO'
-        | 'TR'
-        | 'TT'
-        | 'TV'
-        | 'TW'
-        | 'TZ'
-        | 'UA'
-        | 'UG'
-        | 'US'
-        | 'UY'
-        | 'UZ'
-        | 'VA'
-        | 'VC'
-        | 'VE'
-        | 'VG'
-        | 'VI'
-        | 'VN'
-        | 'VU'
-        | 'WF'
-        | 'WS'
-        | 'XK'
-        | 'YE'
-        | 'YT'
-        | 'ZA'
-        | 'ZM'
-        | 'ZW';
+        | "AC"
+        | "AD"
+        | "AE"
+        | "AF"
+        | "AG"
+        | "AI"
+        | "AL"
+        | "AM"
+        | "AO"
+        | "AR"
+        | "AS"
+        | "AT"
+        | "AU"
+        | "AW"
+        | "AX"
+        | "AZ"
+        | "BA"
+        | "BB"
+        | "BD"
+        | "BE"
+        | "BF"
+        | "BG"
+        | "BH"
+        | "BI"
+        | "BJ"
+        | "BL"
+        | "BM"
+        | "BN"
+        | "BO"
+        | "BQ"
+        | "BR"
+        | "BS"
+        | "BT"
+        | "BW"
+        | "BY"
+        | "BZ"
+        | "CA"
+        | "CC"
+        | "CD"
+        | "CF"
+        | "CG"
+        | "CH"
+        | "CI"
+        | "CK"
+        | "CL"
+        | "CM"
+        | "CN"
+        | "CO"
+        | "CR"
+        | "CU"
+        | "CV"
+        | "CW"
+        | "CX"
+        | "CY"
+        | "CZ"
+        | "DE"
+        | "DJ"
+        | "DK"
+        | "DM"
+        | "DO"
+        | "DZ"
+        | "EC"
+        | "EE"
+        | "EG"
+        | "EH"
+        | "ER"
+        | "ES"
+        | "ET"
+        | "FI"
+        | "FJ"
+        | "FK"
+        | "FM"
+        | "FO"
+        | "FR"
+        | "GA"
+        | "GB"
+        | "GD"
+        | "GE"
+        | "GF"
+        | "GG"
+        | "GH"
+        | "GI"
+        | "GL"
+        | "GM"
+        | "GN"
+        | "GP"
+        | "GQ"
+        | "GR"
+        | "GT"
+        | "GU"
+        | "GW"
+        | "GY"
+        | "HK"
+        | "HN"
+        | "HR"
+        | "HT"
+        | "HU"
+        | "ID"
+        | "IE"
+        | "IL"
+        | "IM"
+        | "IN"
+        | "IO"
+        | "IQ"
+        | "IR"
+        | "IS"
+        | "IT"
+        | "JE"
+        | "JM"
+        | "JO"
+        | "JP"
+        | "KE"
+        | "KG"
+        | "KH"
+        | "KI"
+        | "KM"
+        | "KN"
+        | "KP"
+        | "KR"
+        | "KW"
+        | "KY"
+        | "KZ"
+        | "LA"
+        | "LB"
+        | "LC"
+        | "LI"
+        | "LK"
+        | "LR"
+        | "LS"
+        | "LT"
+        | "LU"
+        | "LV"
+        | "LY"
+        | "MA"
+        | "MC"
+        | "MD"
+        | "ME"
+        | "MF"
+        | "MG"
+        | "MH"
+        | "MK"
+        | "ML"
+        | "MM"
+        | "MN"
+        | "MO"
+        | "MP"
+        | "MQ"
+        | "MR"
+        | "MS"
+        | "MT"
+        | "MU"
+        | "MV"
+        | "MW"
+        | "MX"
+        | "MY"
+        | "MZ"
+        | "NA"
+        | "NC"
+        | "NE"
+        | "NF"
+        | "NG"
+        | "NI"
+        | "NL"
+        | "NO"
+        | "NP"
+        | "NR"
+        | "NU"
+        | "NZ"
+        | "OM"
+        | "PA"
+        | "PE"
+        | "PF"
+        | "PG"
+        | "PH"
+        | "PK"
+        | "PL"
+        | "PM"
+        | "PR"
+        | "PS"
+        | "PT"
+        | "PW"
+        | "PY"
+        | "QA"
+        | "RE"
+        | "RO"
+        | "RS"
+        | "RU"
+        | "RW"
+        | "SA"
+        | "SB"
+        | "SC"
+        | "SD"
+        | "SE"
+        | "SG"
+        | "SH"
+        | "SI"
+        | "SJ"
+        | "SK"
+        | "SL"
+        | "SM"
+        | "SN"
+        | "SO"
+        | "SR"
+        | "SS"
+        | "ST"
+        | "SV"
+        | "SX"
+        | "SY"
+        | "SZ"
+        | "TA"
+        | "TC"
+        | "TD"
+        | "TG"
+        | "TH"
+        | "TJ"
+        | "TK"
+        | "TL"
+        | "TM"
+        | "TN"
+        | "TO"
+        | "TR"
+        | "TT"
+        | "TV"
+        | "TW"
+        | "TZ"
+        | "UA"
+        | "UG"
+        | "US"
+        | "UY"
+        | "UZ"
+        | "VA"
+        | "VC"
+        | "VE"
+        | "VG"
+        | "VI"
+        | "VN"
+        | "VU"
+        | "WF"
+        | "WS"
+        | "XK"
+        | "YE"
+        | "YT"
+        | "ZA"
+        | "ZM"
+        | "ZW";
 }
 
-declare module 'google-libphonenumber' {
+declare module "google-libphonenumber" {
     export = libphonenumber;
 }

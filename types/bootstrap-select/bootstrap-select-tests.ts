@@ -1,114 +1,114 @@
 // $ExpectType JQuery<HTMLDivElement>
-const $selectpicker = $<HTMLDivElement>('.selectpicker');
+const $selectpicker = $<HTMLDivElement>(".selectpicker");
 
 // $ExpectType JQuery<HTMLDivElement>
 $selectpicker.selectpicker({
     actionsBox: true,
-    container: 'body',
-    countSelectedText: 'counts > #',
-    deselectAllText: 'test',
+    container: "body",
+    countSelectedText: "counts > #",
+    deselectAllText: "test",
     dropdownAlignRight: true,
     dropupAuto: true,
-    header: 'test',
+    header: "test",
     hideDisabled: true,
-    iconBase: 'fa',
+    iconBase: "fa",
     liveSearch: true,
     liveSearchNormalize: true,
-    liveSearchPlaceholder: 'test',
-    liveSearchStyle: 'contains',
+    liveSearchPlaceholder: "test",
+    liveSearchStyle: "contains",
     maxOptions: 10,
-    maxOptionsText: 'test',
+    maxOptionsText: "test",
     mobile: true,
-    multipleSeparator: ', ',
-    noneSelectedText: 'test',
-    noneResultsText: 'test',
-    selectAllText: 'test',
-    selectedTextFormat: 'values',
+    multipleSeparator: ", ",
+    noneSelectedText: "test",
+    noneResultsText: "test",
+    selectAllText: "test",
+    selectedTextFormat: "values",
     selectOnTab: true,
     showContent: true,
     showIcon: true,
     showSubtext: true,
     showTick: true,
-    size: 'auto',
-    style: 'test',
-    styleBase: 'test',
-    tickIcon: 'test',
-    title: 'test',
+    size: "auto",
+    style: "test",
+    styleBase: "test",
+    tickIcon: "test",
+    title: "test",
     virtualScroll: true,
-    width: 'auto',
+    width: "auto",
     windowPadding: 0,
     whiteList: {
-        a: ['target', 'href', 'title', 'rel'],
+        a: ["target", "href", "title", "rel"],
     },
     sanitize: true,
     sanitizeFn: () => {},
 });
 
 // $ExpectType JQuery<HTMLDivElement>
-$selectpicker.selectpicker().trigger('change');
+$selectpicker.selectpicker().trigger("change");
 
 // $ExpectType JQuery<HTMLDivElement>
-$selectpicker.selectpicker('val', 'foo');
-$selectpicker.selectpicker('val', ['foo', 'bar']);
-$selectpicker.selectpicker('selectAll');
-$selectpicker.selectpicker('setStyle', 'btn-large', 'add');
-$selectpicker.selectpicker('val', 'foo').trigger('change');
+$selectpicker.selectpicker("val", "foo");
+$selectpicker.selectpicker("val", ["foo", "bar"]);
+$selectpicker.selectpicker("selectAll");
+$selectpicker.selectpicker("setStyle", "btn-large", "add");
+$selectpicker.selectpicker("val", "foo").trigger("change");
 
 /**
  * Methods
  */
-$selectpicker.selectpicker('val', 'Mustard');
-$selectpicker.selectpicker('val', ['Mustard', 'Relish']);
-$selectpicker.selectpicker('render');
-$selectpicker.selectpicker('selectAll');
-$selectpicker.selectpicker('deselectAll');
-$selectpicker.selectpicker('mobile');
-$selectpicker.addClass('col-lg-12').selectpicker('setStyle');
-$selectpicker.selectpicker('setStyle', 'btn-danger'); // Replace Class
-$selectpicker.selectpicker('setStyle', 'btn-large', 'add'); // Add Class
-$selectpicker.selectpicker('setStyle', 'btn-large', 'remove'); // Remove Class
-$selectpicker.selectpicker('refresh');
-$selectpicker.selectpicker('toggle');
-$selectpicker.selectpicker('hide');
-$selectpicker.selectpicker('show');
-$selectpicker.selectpicker('destroy');
+$selectpicker.selectpicker("val", "Mustard");
+$selectpicker.selectpicker("val", ["Mustard", "Relish"]);
+$selectpicker.selectpicker("render");
+$selectpicker.selectpicker("selectAll");
+$selectpicker.selectpicker("deselectAll");
+$selectpicker.selectpicker("mobile");
+$selectpicker.addClass("col-lg-12").selectpicker("setStyle");
+$selectpicker.selectpicker("setStyle", "btn-danger"); // Replace Class
+$selectpicker.selectpicker("setStyle", "btn-large", "add"); // Add Class
+$selectpicker.selectpicker("setStyle", "btn-large", "remove"); // Remove Class
+$selectpicker.selectpicker("refresh");
+$selectpicker.selectpicker("toggle");
+$selectpicker.selectpicker("hide");
+$selectpicker.selectpicker("show");
+$selectpicker.selectpicker("destroy");
 // @ts-expect-error
-$selectpicker.selectpicker('destroy', 'aa');
+$selectpicker.selectpicker("destroy", "aa");
 
 /**
  * Events
  */
 // $ExpectType JQuery<HTMLDivElement>
 $selectpicker
-    .on('show.bs.select', event => {
+    .on("show.bs.select", event => {
         event; // $ExpectType Event
     })
-    .on('shown.bs.select', event => {
+    .on("shown.bs.select", event => {
         event; // $ExpectType Event
     })
-    .on('hide.bs.select', event => {
+    .on("hide.bs.select", event => {
         event; // $ExpectType Event
     })
-    .on('hidden.bs.select', event => {
+    .on("hidden.bs.select", event => {
         event; // $ExpectType Event
     })
-    .on('loaded.bs.select', event => {
+    .on("loaded.bs.select", event => {
         event; // $ExpectType Event
     })
-    .on('rendered.bs.select', event => {
+    .on("rendered.bs.select", event => {
         event; // $ExpectType Event
     })
-    .on('refreshed.bs.select', event => {
+    .on("refreshed.bs.select", event => {
         event; // $ExpectType Event
     })
-    .on('changed.bs.select', (event, clickedIndex, isSelected, previousValue) => {
+    .on("changed.bs.select", (event, clickedIndex, isSelected, previousValue) => {
         event; // $ExpectType Event
         clickedIndex; // $ExpectType number | null
         isSelected; // $ExpectType boolean | null
         previousValue; // $ExpectType string
     });
 
-$.fn.selectpicker.Constructor.BootstrapVersion = '4';
+$.fn.selectpicker.Constructor.BootstrapVersion = "4";
 
 $.fn.selectpicker.Constructor.DEFAULTS.actionsBox; // $ExpectType boolean
 $.fn.selectpicker.Constructor.DEFAULTS.allowClear; // $ExpectType boolean

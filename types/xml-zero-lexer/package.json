@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/xml-zero-lexer",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/holloway/xml-zero.js/tree/master/packages/xml-zero-lexer"
+    ],
+    "devDependencies": {
+        "@types/xml-zero-lexer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "宁倬",
+            "githubUsername": "943297456"
+        }
+    ]
+}

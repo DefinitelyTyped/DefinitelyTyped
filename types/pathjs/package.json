@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pathjs",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/mtrpcic/pathjs"
+    ],
+    "devDependencies": {
+        "@types/pathjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lokesh Peta",
+            "githubUsername": "lokeshpeta"
+        }
+    ]
+}

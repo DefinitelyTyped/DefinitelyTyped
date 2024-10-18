@@ -19,21 +19,13 @@ declare class DataExporterFieldDef {
         | null;
 }
 declare namespace DataExporterFieldDef {
-    export {
-        newFromField,
-        LatitudeFormat,
-        LongitudeFormat,
-        AngleFormat,
-        DateFormat,
-        Field,
-        DataSet,
-    };
+    export { AngleFormat, DataSet, DateFormat, Field, LatitudeFormat, LongitudeFormat, newFromField };
 }
-import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
-type DateFormat = typeof import('@nginstack/engine/lib/date/DateFormat');
-type LatitudeFormat = typeof import('@nginstack/engine/lib/geo/LatitudeFormat');
-type LongitudeFormat = typeof import('@nginstack/engine/lib/geo/LongitudeFormat');
-type AngleFormat = typeof import('@nginstack/engine/lib/geo/AngleFormat');
+import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+type DateFormat = typeof import("@nginstack/engine/lib/date/DateFormat");
+type LatitudeFormat = typeof import("@nginstack/engine/lib/geo/LatitudeFormat");
+type LongitudeFormat = typeof import("@nginstack/engine/lib/geo/LongitudeFormat");
+type AngleFormat = typeof import("@nginstack/engine/lib/geo/AngleFormat");
 declare function newFromField(field: Field): DataExporterFieldDef;
-type Field = import('@nginstack/engine/lib/classdef/Field');
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type Field = import("@nginstack/engine/lib/classdef/Field");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");

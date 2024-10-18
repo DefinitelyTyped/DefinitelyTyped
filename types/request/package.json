@@ -1,6 +1,55 @@
 {
-  "private": true,
-  "dependencies": {
-    "form-data": "^2.5.0"
-  }
+    "private": true,
+    "name": "@types/request",
+    "version": "2.48.9999",
+    "projects": [
+        "https://github.com/request/request"
+    ],
+    "dependencies": {
+        "@types/caseless": "*",
+        "@types/node": "*",
+        "@types/tough-cookie": "*",
+        "form-data": "^2.5.0"
+    },
+    "devDependencies": {
+        "@types/request": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Ballesteros Velasco",
+            "githubUsername": "soywiz"
+        },
+        {
+            "name": "bonnici",
+            "githubUsername": "bonnici"
+        },
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        },
+        {
+            "name": "Christopher Currens",
+            "githubUsername": "ccurrens"
+        },
+        {
+            "name": "Jon Stevens",
+            "githubUsername": "lookfirst"
+        },
+        {
+            "name": "Matt R. Wilson",
+            "githubUsername": "mastermatt"
+        },
+        {
+            "name": "Jose Colella",
+            "githubUsername": "josecolella"
+        },
+        {
+            "name": "Marek Urbanowicz",
+            "githubUsername": "murbanowicz"
+        }
+    ]
 }

@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { RenderOptions, RenderCallback } from "..";
+import { RenderCallback, RenderOptions } from "..";
 import stylus = require("..");
 
 // TODO: rewrite this to proper import in futures
@@ -68,7 +68,7 @@ declare class Renderer extends EventEmitter {
      */
     import(file: string): this;
 
-    //#region EventEmitter Members
+    // #region EventEmitter Members
     addListener(event: string, listener: (...args: any[]) => any): this;
     on(event: string, listener: (...args: any[]) => any): this;
     once(event: string, listener: (...args: any[]) => any): this;

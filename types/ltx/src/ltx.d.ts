@@ -1,38 +1,38 @@
-import parse from './parse';
-import Parser, { ParserOptions } from './Parser';
-import { escapeXML, unescapeXML, escapeXMLText, unescapeXMLText } from './escape';
-import Element, { Node } from './Element';
-import equal, { nameEqual, attrsEqual, childrenEqual } from './equal';
-import createElement from './createElement';
-import tag from './tag';
-import tagString from './tagString';
-import { isNode, isElement, isText } from './is';
-import clone from './clone';
-import stringify from './stringify';
-import JSONify, { ElementJson } from './JSONify';
+import clone from "./clone";
+import createElement from "./createElement";
+import Element, { Node } from "./Element";
+import equal, { attrsEqual, childrenEqual, nameEqual } from "./equal";
+import { escapeXML, escapeXMLText, unescapeXML, unescapeXMLText } from "./escape";
+import { isElement, isNode, isText } from "./is";
+import JSONify, { ElementJson } from "./JSONify";
+import parse from "./parse";
+import Parser, { ParserOptions } from "./Parser";
+import stringify from "./stringify";
+import tag from "./tag";
+import tagString from "./tagString";
 
 export {
-    Element,
-    Node,
-    equal,
-    nameEqual,
     attrsEqual,
     childrenEqual,
-    isNode,
-    isElement,
-    isText,
     clone,
     createElement,
+    Element,
+    ElementJson,
+    equal,
     escapeXML,
-    unescapeXML,
     escapeXMLText,
-    unescapeXMLText,
+    isElement,
+    isNode,
+    isText,
+    JSONify,
+    nameEqual,
+    Node,
+    parse,
     Parser,
     ParserOptions,
-    parse,
+    stringify,
     tag,
     tagString,
-    stringify,
-    JSONify,
-    ElementJson,
+    unescapeXML,
+    unescapeXMLText,
 };

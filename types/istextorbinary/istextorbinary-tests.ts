@@ -1,14 +1,7 @@
-import {
-    isTextSync,
-    isText,
-    isBinarySync,
-    isBinary,
-    getEncodingSync,
-    getEncoding,
-} from 'istextorbinary';
+import { getEncoding, getEncodingSync, isBinary, isBinarySync, isText, isTextSync } from "istextorbinary";
 
-isTextSync('foo.txt'); // $ExpectType boolean
-isTextSync('foo.txt', new Buffer(1)); // $ExpectType boolean
+isTextSync("foo.txt"); // $ExpectType boolean
+isTextSync("foo.txt", new Buffer(1)); // $ExpectType boolean
 isTextSync(undefined, new Buffer(1)); // $ExpectType boolean
 // @ts-expect-error
 isTextSync();
@@ -17,11 +10,11 @@ isTextSync(undefined);
 // @ts-expect-error
 isTextSync(undefined, undefined);
 
-isText('foo.txt', undefined, (err, result) => {
+isText("foo.txt", undefined, (err, result) => {
     err; // $ExpectType null
     result; // $ExpectType boolean
 });
-isText('foo.txt', new Buffer(1), (err, result) => {
+isText("foo.txt", new Buffer(1), (err, result) => {
     err; // $ExpectType null
     result; // $ExpectType boolean
 });
@@ -32,8 +25,8 @@ isText(undefined, new Buffer(1), (err, result) => {
 // @ts-expect-error
 isText(undefined, undefined, (err, result) => {});
 
-isBinarySync('foo.txt'); // $ExpectType boolean
-isBinarySync('foo.txt', new Buffer(1)); // $ExpectType boolean
+isBinarySync("foo.txt"); // $ExpectType boolean
+isBinarySync("foo.txt", new Buffer(1)); // $ExpectType boolean
 isBinarySync(undefined, new Buffer(1)); // $ExpectType boolean
 // @ts-expect-error
 isBinarySync();
@@ -42,11 +35,11 @@ isBinarySync(undefined);
 // @ts-expect-error
 isBinarySync(undefined, undefined);
 
-isBinary('foo.txt', undefined, (err, result) => {
+isBinary("foo.txt", undefined, (err, result) => {
     err; // $ExpectType null
     result; // $ExpectType boolean
 });
-isBinary('foo.txt', new Buffer(1), (err, result) => {
+isBinary("foo.txt", new Buffer(1), (err, result) => {
     err; // $ExpectType null
     result; // $ExpectType boolean
 });

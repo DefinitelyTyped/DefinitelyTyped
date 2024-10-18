@@ -1,19 +1,19 @@
-import { cheet } from 'cheet.js';
+import { cheet } from "cheet.js";
 
 const sequences = {
-    cross: 'up down left right',
-    circle: 'left up right down',
+    cross: "up down left right",
+    circle: "left up right down",
 };
 
 // Main object
 
-cheet('↑ ↑ ↓ ↓ ← → ← → b a');
-cheet('h a n d l e r', (str, seq) => {});
-cheet('s o m e h a n d l e r s', {
+cheet("↑ ↑ ↓ ↓ ← → ← → b a");
+cheet("h a n d l e r", (str, seq) => {});
+cheet("s o m e h a n d l e r s", {
     done(str, seq) {},
     fail(str) {},
 });
-cheet('f u l l m u l t i p l e h a n d l e r s', {
+cheet("f u l l m u l t i p l e h a n d l e r s", {
     done(str, seq) {},
     fail(str, seq) {},
     next(str, key, num, seq) {},
@@ -34,7 +34,7 @@ cheet.fail(seq => {
     }
 });
 cheet.next((str, key, num, seq) => {
-    if (seq.join(' ') === sequences.cross) {
+    if (seq.join(" ") === sequences.cross) {
     } else {
     }
 });

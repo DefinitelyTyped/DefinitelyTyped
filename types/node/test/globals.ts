@@ -24,13 +24,17 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 {
     if (gc) {
         gc();
+        gc(true);
+        gc({ execution: "sync" }); // $ExpectType void
+        gc({ execution: "async" }); // $ExpectType Promise<void>
+        gc({ execution: "async", flavor: "regular", type: "major" }); // $ExpectType Promise<void>
     }
 }
 
 // structuredClone
 {
     structuredClone(123); // $ExpectType 123
-    structuredClone('hello'); // $ExpectType "hello"
+    structuredClone("hello"); // $ExpectType "hello"
     structuredClone({ test: 123 }); // $ExpectType { test: number; }
     structuredClone([{ test: 123 }]); // $ExpectType { test: number; }[]
 
@@ -40,9 +44,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 
 // Array.prototype.at()
 {
-    const mutableArray = ['a'];
+    const mutableArray = ["a"];
     mutableArray.at(-1);
-    const readonlyArray: ReadonlyArray<string> = ['b'];
+    const readonlyArray: readonly string[] = ["b"];
     readonlyArray.at(-1);
 }
 
@@ -50,4 +54,20 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     const x = new AbortController().signal;
     x.reason; // $ExpectType any
     x.throwIfAborted(); // $ExpectType void
+}
+
+{
+    const s = new Storage();
+    s.setItem("foo", "bar");
+    s.getItem("foo"); // $ExpectType string | null
+    s["foo"] = "baz";
+    s["foo"]; // $ExpectType any
+    delete s["foo"];
+    s.clear();
+}
+
+{
+    const e = new DOMException(); // $ExpectType DOMException
+    e.message; // $ExpectType string
+    e.name; // $ExpectType string
 }

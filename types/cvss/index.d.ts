@@ -1,8 +1,3 @@
-// Type definitions for cvss 1.0
-// Project: https://github.com/aaronmccall/cvss
-// Definitions by: Dave Lunny <https://github.com/himynameisdave>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface CVSSOptions {
     //  If validation returns an error, throw the error
     throw?: boolean;
@@ -14,7 +9,7 @@ export interface CVSSOptions {
     env?: boolean;
 }
 
-export type CVSSRating = 'None' | 'Low' | 'Medium' | 'High' | 'Critical';
+export type CVSSRating = "None" | "Low" | "Medium" | "High" | "Critical";
 
 export interface CVSSBase {
     score: number;
@@ -30,13 +25,13 @@ export interface CVSSBase {
 export function getScore(input: string, options?: CVSSOptions): number;
 
 //  Accepts the same arguments as getScore above, but enforces the baseOnly option.
-export function getBaseScore(input: string, options?: Omit<CVSSOptions, 'baseOnly'>): number;
+export function getBaseScore(input: string, options?: Omit<CVSSOptions, "baseOnly">): number;
 
 //  Accepts the same arguments as getScore above, but enforces the temporal option.
-export function getTemporalScore(input: string, options?: Omit<CVSSOptions, 'temporal'>): number;
+export function getTemporalScore(input: string, options?: Omit<CVSSOptions, "temporal">): number;
 
 //  Accepts the same arguments as getScore above, but enforces the temporal option.
-export function getEnvironmentalScore(input: string, options?: Omit<CVSSOptions, 'env'>): number;
+export function getEnvironmentalScore(input: string, options?: Omit<CVSSOptions, "env">): number;
 
 /**
  * Given a numeric score, returns the appropriate CVSS3 severity rating for that number:
@@ -54,7 +49,7 @@ export function getRating(score: number): CVSSRating;
  *   rating: getRating(getBaseScore(input))
  * }
  */
-export function getBase(input: string, options?: Omit<CVSSOptions, 'baseOnly'>): CVSSBase;
+export function getBase(input: string, options?: Omit<CVSSOptions, "baseOnly">): CVSSBase;
 
 /**
  * Returns an object with the environmental score and its rating.
@@ -64,7 +59,7 @@ export function getBase(input: string, options?: Omit<CVSSOptions, 'baseOnly'>):
  *   rating: getRating(getBaseScore(input))
  * }
  */
-export function getTemporal(input: string, options?: Omit<CVSSOptions, 'temporal'>): CVSSBase;
+export function getTemporal(input: string, options?: Omit<CVSSOptions, "temporal">): CVSSBase;
 
 /**
  * Returns an object with the environmental score and its rating.
@@ -74,7 +69,7 @@ export function getTemporal(input: string, options?: Omit<CVSSOptions, 'temporal
  *   rating: getRating(getBaseScore(input))
  * }
  */
-export function getEnvironmental(input: string, options?: Omit<CVSSOptions, 'env'>): CVSSBase;
+export function getEnvironmental(input: string, options?: Omit<CVSSOptions, "env">): CVSSBase;
 
 /**
  * Returns object with the score and rating for all three scores:

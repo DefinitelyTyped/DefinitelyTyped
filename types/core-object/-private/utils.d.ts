@@ -1,4 +1,4 @@
-export type Constructor<Instance> = new (...args: any[]) => Instance;
+export type Constructor<Instance> = new(...args: any[]) => Instance;
 export type Mix<T, U> = U & Pick<T, Exclude<keyof T, keyof U>>;
 export type Values<T> = T[keyof T];
 
@@ -14,13 +14,12 @@ export interface CallOrApply<This, Args, Return> {
     apply: (thisArg: This, args: Args extends undefined ? any[] : Args | IArguments) => Return;
 
     // TODO support this properly with `...args: Args` once we can restrict to 3.0+ on DT
-    call:
-        Args extends undefined ? (thisArg: This) => Return :
-        Args extends [infer A] ? (thisArg: This, a: A) => Return :
-        Args extends [infer A, infer B] ? (thisArg: This, a: A, b: B) => Return :
-        Args extends [infer A, infer B, infer C] ? (thisArg: This, a: A, b: B, c: C) => Return :
-        Args extends [infer A, infer B, infer C, infer D] ? (thisArg: This, a: A, b: B, c: C, d: D) => Return :
-        (thisArg: This, ...args: any[]) => Return;
+    call: Args extends undefined ? (thisArg: This) => Return
+        : Args extends [infer A] ? (thisArg: This, a: A) => Return
+        : Args extends [infer A, infer B] ? (thisArg: This, a: A, b: B) => Return
+        : Args extends [infer A, infer B, infer C] ? (thisArg: This, a: A, b: B, c: C) => Return
+        : Args extends [infer A, infer B, infer C, infer D] ? (thisArg: This, a: A, b: B, c: C, d: D) => Return
+        : (thisArg: This, ...args: any[]) => Return;
 }
 
 /**
@@ -29,12 +28,12 @@ export interface CallOrApply<This, Args, Return> {
  */
 export type Super<T> = {
     // TODO just do `infer Args` once we can restrict to 3.0+ on DT
-    [K in MethodNames<T>]:
-        T[K] extends () => infer Return ? CallOrApply<T, undefined, Return> :
-        T[K] extends (a: infer A) => infer Return ? CallOrApply<T, [A], Return> :
-        T[K] extends (a: infer A, b: infer B) => infer Return ? CallOrApply<T, [A, B], Return> :
-        T[K] extends (a: infer A, b: infer B, c: infer C) => infer Return ? CallOrApply<T, [A, B, C], Return> :
-        T[K] extends (a: infer A, b: infer B, c: infer C, d: infer D) => infer Return ? CallOrApply<T, [A, B, C, D], Return> :
-        T[K] extends (...args: any[]) => infer Return ? CallOrApply<T, any[], Return> :
-        never;
+    [K in MethodNames<T>]: T[K] extends () => infer Return ? CallOrApply<T, undefined, Return>
+        : T[K] extends (a: infer A) => infer Return ? CallOrApply<T, [A], Return>
+        : T[K] extends (a: infer A, b: infer B) => infer Return ? CallOrApply<T, [A, B], Return>
+        : T[K] extends (a: infer A, b: infer B, c: infer C) => infer Return ? CallOrApply<T, [A, B, C], Return>
+        : T[K] extends (a: infer A, b: infer B, c: infer C, d: infer D) => infer Return
+            ? CallOrApply<T, [A, B, C, D], Return>
+        : T[K] extends (...args: any[]) => infer Return ? CallOrApply<T, any[], Return>
+        : never;
 };

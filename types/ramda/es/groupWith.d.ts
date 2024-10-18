@@ -1,2 +1,2 @@
-import { groupWith } from '../index';
+import { groupWith } from "../index.js";
 export default groupWith;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace ControlLabel {
     export interface ControlLabelProps extends React.HTMLProps<ControlLabel> {
@@ -7,5 +7,5 @@ declare namespace ControlLabel {
         srOnly?: boolean | undefined;
     }
 }
-declare class ControlLabel extends React.Component<ControlLabel.ControlLabelProps> { }
+declare class ControlLabel extends React.Component<ControlLabel.ControlLabelProps> {}
 export = ControlLabel;

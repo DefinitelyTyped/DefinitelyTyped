@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/webgl2",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "webgl2",
+    "projects": [
+        "https://www.khronos.org/registry/webgl/specs/latest/2.0/"
+    ],
+    "devDependencies": {
+        "@types/webgl2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nico Kemnitz",
+            "githubUsername": "nkemnitz"
+        },
+        {
+            "name": "Adrian Blumer",
+            "githubUsername": "karhu"
+        }
+    ]
+}

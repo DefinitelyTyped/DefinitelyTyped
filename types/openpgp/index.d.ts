@@ -1,18 +1,5 @@
-// Type definitions for openpgp v4.4.10
-// Project: https://openpgpjs.org
-// Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
-//                 Errietta Kostala <https://github.com/errietta>
-//                 Daniel Montesinos <https://github.com/damonpam>
-//                 Carlos Villavicencio <https://github.com/po5i>
-//                 Eric Camellini <https://github.com/ecamellini>
-//                 SardineFish <https://github.com/SardineFish>
-//                 Ryo Ota <https://github.com/nwtgck>
-//                 Sergey Bakulin <https://github.com/vansergen>
-//                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
-//                 Ugo Sangiorgi <https://github.com/ugosan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import BN = require('bn.js');
-import stream = require('stream');
+import BN = require("bn.js");
+import stream = require("stream");
 
 export {};
 type NodeStream = stream;
@@ -1114,78 +1101,78 @@ export namespace enums {
         /**
          * NIST P-256 Curve
          */
-        p256 = 'p256',
-        'P-256' = 'p256',
-        secp256r1 = 'p256',
-        prime256v1 = 'p256',
-        '1.2.840.10045.3.1.7' = 'p256',
-        '2a8648ce3d030107' = 'p256',
-        '2A8648CE3D030107' = 'p256',
+        p256 = "p256",
+        "P-256" = "p256",
+        secp256r1 = "p256",
+        prime256v1 = "p256",
+        "1.2.840.10045.3.1.7" = "p256",
+        "2a8648ce3d030107" = "p256",
+        "2A8648CE3D030107" = "p256",
         /**
          * NIST P-384 Curve
          */
-        p384 = 'p384',
-        'P-384' = 'p384',
-        secp384r1 = 'p384',
-        '1.3.132.0.34' = 'p384',
-        '2b81040022' = 'p384',
-        '2B81040022' = 'p384',
+        p384 = "p384",
+        "P-384" = "p384",
+        secp384r1 = "p384",
+        "1.3.132.0.34" = "p384",
+        "2b81040022" = "p384",
+        "2B81040022" = "p384",
         /**
          * NIST P-521 Curve
          */
-        p521 = 'p521',
-        'P-521' = 'p521',
-        secp521r1 = 'p521',
-        '1.3.132.0.35' = 'p521',
-        '2b81040023' = 'p521',
-        '2B81040023' = 'p521',
+        p521 = "p521",
+        "P-521" = "p521",
+        secp521r1 = "p521",
+        "1.3.132.0.35" = "p521",
+        "2b81040023" = "p521",
+        "2B81040023" = "p521",
         /**
          * SECG SECP256k1 Curve
          */
-        secp256k1 = 'secp256k1',
-        '1.3.132.0.10' = 'secp256k1',
-        '2b8104000a' = 'secp256k1',
-        '2B8104000A' = 'secp256k1',
+        secp256k1 = "secp256k1",
+        "1.3.132.0.10" = "secp256k1",
+        "2b8104000a" = "secp256k1",
+        "2B8104000A" = "secp256k1",
         /**
          * Ed25519
          */
-        ED25519 = 'ed25519',
-        ed25519 = 'ed25519',
-        Ed25519 = 'ed25519',
-        '1.3.6.1.4.1.11591.15.1' = 'ed25519',
-        '2b06010401da470f01' = 'ed25519',
-        '2B06010401DA470F01' = 'ed25519',
+        ED25519 = "ed25519",
+        ed25519 = "ed25519",
+        Ed25519 = "ed25519",
+        "1.3.6.1.4.1.11591.15.1" = "ed25519",
+        "2b06010401da470f01" = "ed25519",
+        "2B06010401DA470F01" = "ed25519",
         /**
          * Curve25519
          */
-        X25519 = 'curve25519',
-        cv25519 = 'curve25519',
-        curve25519 = 'curve25519',
-        Curve25519 = 'curve25519',
-        '1.3.6.1.4.1.3029.1.5.1' = 'curve25519',
-        '2b060104019755010501' = 'curve25519',
-        '2B060104019755010501' = 'curve25519',
+        X25519 = "curve25519",
+        cv25519 = "curve25519",
+        curve25519 = "curve25519",
+        Curve25519 = "curve25519",
+        "1.3.6.1.4.1.3029.1.5.1" = "curve25519",
+        "2b060104019755010501" = "curve25519",
+        "2B060104019755010501" = "curve25519",
         /**
          * BrainpoolP256r1 Curve
          */
-        brainpoolP256r1 = 'brainpoolP256r1',
-        '1.3.36.3.3.2.8.1.1.7' = 'brainpoolP256r1',
-        '2b2403030208010107' = 'brainpoolP256r1',
-        '2B2403030208010107' = 'brainpoolP256r1',
+        brainpoolP256r1 = "brainpoolP256r1",
+        "1.3.36.3.3.2.8.1.1.7" = "brainpoolP256r1",
+        "2b2403030208010107" = "brainpoolP256r1",
+        "2B2403030208010107" = "brainpoolP256r1",
         /**
          * BrainpoolP384r1 Curve
          */
-        brainpoolP384r1 = 'brainpoolP384r1',
-        '1.3.36.3.3.2.8.1.1.11' = 'brainpoolP384r1',
-        '2b240303020801010b' = 'brainpoolP384r1',
-        '2B240303020801010B' = 'brainpoolP384r1',
+        brainpoolP384r1 = "brainpoolP384r1",
+        "1.3.36.3.3.2.8.1.1.11" = "brainpoolP384r1",
+        "2b240303020801010b" = "brainpoolP384r1",
+        "2B240303020801010B" = "brainpoolP384r1",
         /**
          * BrainpoolP512r1 Curve
          */
-        brainpoolP512r1 = 'brainpoolP512r1',
-        '1.3.36.3.3.2.8.1.1.13' = 'brainpoolP512r1',
-        '2b240303020801010d' = 'brainpoolP512r1',
-        '2B240303020801010D' = 'brainpoolP512r1',
+        brainpoolP512r1 = "brainpoolP512r1",
+        "1.3.36.3.3.2.8.1.1.13" = "brainpoolP512r1",
+        "2b240303020801010d" = "brainpoolP512r1",
+        "2B240303020801010D" = "brainpoolP512r1",
     }
 
     /**
@@ -1254,7 +1241,7 @@ export namespace enums {
          * Not implemented!
          */
         idea = 1,
-        '3des' = 2,
+        "3des" = 2,
         tripledes = 2,
         cast5 = 3,
         blowfish = 4,
@@ -1298,10 +1285,10 @@ export namespace enums {
      * {@link https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest|Parameters, algo}
      */
     enum webHash {
-        'SHA-1' = 2,
-        'SHA-256' = 8,
-        'SHA-384' = 9,
-        'SHA-512' = 10,
+        "SHA-1" = 2,
+        "SHA-256" = 8,
+        "SHA-384" = 9,
+        "SHA-512" = 10,
     }
 
     /**
@@ -1344,19 +1331,19 @@ export namespace enums {
         /**
          * Binary data 'b'
          */
-        binary = '',
+        binary = "",
         /**
          * Text data 't'
          */
-        text = '',
+        text = "",
         /**
          * Utf8 data 'u'
          */
-        utf8 = '',
+        utf8 = "",
         /**
          * MIME message body part 'm'
          */
-        mime = '',
+        mime = "",
     }
 
     /**
@@ -2203,11 +2190,11 @@ export namespace key {
      * @param data to be parsed
      * @returns result object with key and error arrays
      */
-    function read(data: Uint8Array): Promise<{ keys: Array<Key>; err: Array<Error> | null }>;
+    function read(data: Uint8Array): Promise<{ keys: Key[]; err: Error[] | null }>;
 
     interface KeyResult {
-        keys: Array<Key>;
-        err: Array<Error> | null;
+        keys: Key[];
+        err: Error[] | null;
     }
 
     /**
@@ -2299,7 +2286,12 @@ export namespace key {
      * @param userIds (optional) user IDs
      * @returns Preferred symmetric algorithm
      */
-    function getPreferredAlgo(type: "symmetric" | "aead", keys: any[], date: Date, userIds: any[]): Promise<enums.symmetric>;
+    function getPreferredAlgo(
+        type: "symmetric" | "aead",
+        keys: any[],
+        date: Date,
+        userIds: any[],
+    ): Promise<enums.symmetric>;
 
     /**
      * Returns whether aead is supported by all keys in the set
@@ -2898,7 +2890,12 @@ export namespace message {
      * @param type (optional) data packet type
      * @returns new message object
      */
-    function fromText(text: string | ReadableStream<String>, filename?: string, date?: Date, type?: "utf8" | "binary" | "text" | "mime"): Message;
+    function fromText(
+        text: string | ReadableStream<String>,
+        filename?: string,
+        date?: Date,
+        type?: "utf8" | "binary" | "text" | "mime",
+    ): Message;
 
     /**
      * creates new message object from binary data
@@ -2933,9 +2930,24 @@ export interface revokeKey_reasonForRevocation {
  * @see module:packet.List
  */
 export namespace packet {
-    type AnyPacket = Compressed | Literal | Marker | OnePassSignature | PublicKey | PublicKeyEncryptedSessionKey |
-        PublicSubkey | SecretKey | SecretSubkey | Signature | SymEncryptedAEADProtected | SymEncryptedIntegrityProtected |
-        SymEncryptedSessionKey | SymmetricallyEncrypted | Trust | UserAttribute | Userid;
+    type AnyPacket =
+        | Compressed
+        | Literal
+        | Marker
+        | OnePassSignature
+        | PublicKey
+        | PublicKeyEncryptedSessionKey
+        | PublicSubkey
+        | SecretKey
+        | SecretSubkey
+        | Signature
+        | SymEncryptedAEADProtected
+        | SymEncryptedIntegrityProtected
+        | SymEncryptedSessionKey
+        | SymmetricallyEncrypted
+        | Trust
+        | UserAttribute
+        | Userid;
 
     /**
      * Allocate a new packet
@@ -4914,7 +4926,9 @@ export namespace wkd {
          * @param options.rawBytes Returns Uint8Array instead of parsed key.
          * @returns The public key.
          */
-        lookup(options: { email: string; rawBytes?: boolean | undefined; }): Promise<Uint8Array | { keys: Array<key.Key>; err: Array<Error> | null }>;
+        lookup(
+            options: { email: string; rawBytes?: boolean | undefined },
+        ): Promise<Uint8Array | { keys: key.Key[]; err: Error[] | null }>;
     }
 }
 
@@ -5079,7 +5093,7 @@ export interface KeyOptions {
      * (optional) options for each subkey, default to main key options. e.g. [ {sign: true, passphrase: '123'}]
      *            sign parameter defaults to false, and indicates whether the subkey should sign rather than encrypt
      */
-    subkeys?: { sign: true; passphrase: string }[] | undefined;
+    subkeys?: Array<{ sign: true; passphrase: string }> | undefined;
 }
 
 /**
@@ -5128,15 +5142,15 @@ export function revokeKey(
     reasonForRevocation?: revokeKey_reasonForRevocation,
 ): Promise<
     | {
-          privateKey: key.Key;
-          privateKeyArmored: string;
-          publicKey: key.Key;
-          publicKeyArmored: string;
-      }
+        privateKey: key.Key;
+        privateKeyArmored: string;
+        publicKey: key.Key;
+        publicKeyArmored: string;
+    }
     | {
-          publicKey: key.Key;
-          publicKeyArmored: string;
-      }
+        publicKey: key.Key;
+        publicKeyArmored: string;
+    }
 >;
 
 /**
@@ -5187,7 +5201,7 @@ export interface EncryptOptions {
     /**
      * (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
      */
-    streaming?: 'web' | 'node' | false | undefined;
+    streaming?: "web" | "node" | false | undefined;
     /**
      * (optional) if the signature should be detached (if true, signature will be added to returned object)
      */
@@ -5273,7 +5287,7 @@ export interface DecryptOptions {
     /**
      * (optional) session keys in the form: { data:Uint8Array, algorithm:String }
      */
-    sessionKeys?: { data: Uint8Array; algorithm: string } | { data: Uint8Array; algorithm: string }[] | undefined;
+    sessionKeys?: { data: Uint8Array; algorithm: string } | Array<{ data: Uint8Array; algorithm: string }> | undefined;
     /**
      * (optional) array of public keys or single key, to verify signatures
      */
@@ -5281,11 +5295,11 @@ export interface DecryptOptions {
     /**
      * (optional) whether to return data as a string(Stream) or Uint8Array(Stream). If 'utf8' (the default), also normalize newlines.
      */
-    format?: 'utf8' | 'binary' | undefined;
+    format?: "utf8" | "binary" | undefined;
     /**
      * (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
      */
-    streaming?: 'web' | 'node' | false | undefined;
+    streaming?: "web" | "node" | false | undefined;
     /**
      * (optional) detached signature for verification
      */
@@ -5299,11 +5313,11 @@ export interface DecryptOptions {
 export interface DecryptResult {
     data: string | ReadableStream<String> | NodeStream | Uint8Array | ReadableStream<Uint8Array>;
     filename: string;
-    signatures: {
+    signatures: Array<{
         keyid: type.keyid.Keyid;
         verified: Promise<Boolean>;
         valid: boolean;
-    }[];
+    }>;
 }
 
 /**
@@ -5325,10 +5339,10 @@ export interface DecryptResult {
  *          }
  */
 export function decrypt(
-    options: DecryptOptions & { format: 'utf8' },
+    options: DecryptOptions & { format: "utf8" },
 ): Promise<DecryptResult & { data: string | ReadableStream<String> | NodeStream }>;
 export function decrypt(
-    options: DecryptOptions & { format: 'binary' },
+    options: DecryptOptions & { format: "binary" },
 ): Promise<DecryptResult & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>;
 export function decrypt(options: DecryptOptions): Promise<DecryptResult>;
 
@@ -5348,7 +5362,7 @@ export interface SignOptions {
     /**
      * (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
      */
-    streaming?: 'web' | 'node' | false | undefined;
+    streaming?: "web" | "node" | false | undefined;
     /**
      * (optional) if the return value should contain a detached signature
      */
@@ -5383,9 +5397,15 @@ export interface SignResult {
  *          signature: Signature (if `armor` was false)
  *          }{
  */
-export function sign(options: SignOptions & { armor?: true | undefined; detached?: false | undefined }): Promise<{ data: string }>;
-export function sign(options: SignOptions & { armor: false; detached?: false | undefined }): Promise<{ message: message.Message }>;
-export function sign(options: SignOptions & { armor?: true | undefined; detached: true }): Promise<{ signature: string }>;
+export function sign(
+    options: SignOptions & { armor?: true | undefined; detached?: false | undefined },
+): Promise<{ data: string }>;
+export function sign(
+    options: SignOptions & { armor: false; detached?: false | undefined },
+): Promise<{ message: message.Message }>;
+export function sign(
+    options: SignOptions & { armor?: true | undefined; detached: true },
+): Promise<{ signature: string }>;
 export function sign(
     options: SignOptions & { armor: false; detached: true },
 ): Promise<{ signature: signature.Signature }>;
@@ -5403,7 +5423,7 @@ export interface VerifyOptions {
     /**
      * (optional) whether to return data as a stream. Defaults to the type of stream `message` was created from, if any.
      */
-    streaming?: 'web' | 'node' | false | undefined;
+    streaming?: "web" | "node" | false | undefined;
     /**
      * (optional) detached signature for verification
      */
@@ -5416,11 +5436,11 @@ export interface VerifyOptions {
 
 export interface VerifyResult {
     data: string | ReadableStream<String> | NodeStream | Uint8Array | ReadableStream<Uint8Array> | NodeStream;
-    signatures: {
+    signatures: Array<{
         keyid: type.keyid.Keyid;
         verified: Promise<Boolean>;
         valid: boolean;
-    }[];
+    }>;
 }
 
 /**
@@ -5479,7 +5499,7 @@ export function decryptSessionKeys(
     message: message.Message,
     privateKeys?: key.Key | key.Key[],
     passwords?: string | string[],
-): Promise<{ data: Uint8Array; algorithm: string }[] | undefined>;
+): Promise<Array<{ data: Uint8Array; algorithm: string }> | undefined>;
 
 /**
  * Input validation
@@ -5499,7 +5519,7 @@ export function toArray(param: object): any[] | undefined;
  * @param streaming (optional) whether to return a ReadableStream
  * @returns the data in the respective format
  */
-export function convertStream(data: object, streaming?: 'web' | 'node' | false): object;
+export function convertStream(data: object, streaming?: "web" | "node" | false): object;
 
 /**
  * Convert object properties from Stream
@@ -5508,7 +5528,7 @@ export function convertStream(data: object, streaming?: 'web' | 'node' | false):
  * @param keys (optional) which keys to return as streams, if possible
  * @returns the data in the respective format
  */
-export function convertStreams(obj: object, streaming: 'web' | 'node' | false, keys: any[]): object;
+export function convertStreams(obj: object, streaming: "web" | "node" | false, keys: any[]): object;
 
 /**
  * Link result.data to the message stream for cancellation.

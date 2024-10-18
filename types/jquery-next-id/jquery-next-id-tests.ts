@@ -1,6 +1,6 @@
-$('div').nextId('my-prefix');
+$("div").nextId("my-prefix");
 
 $.fn.nextId.defaults = {
-  prefix: 'id',
-  separator: '-'
+    prefix: "id",
+    separator: "-",
 };

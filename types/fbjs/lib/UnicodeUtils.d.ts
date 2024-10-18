@@ -52,5 +52,5 @@ declare namespace UnicodeUtils {
     function substr(str: string, start?: number, length?: number): string;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = UnicodeUtils;

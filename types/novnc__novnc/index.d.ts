@@ -1,10 +1,5 @@
-// Type definitions for @novnc/novnc 1.3
-// Project: https://github.com/novnc/noVNC
-// Definitions by: Jake Jarvis <https://github.com/jakejarvis>
-//                 Maksim Ovcharik <https://github.com/ovcharik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare module '@novnc/novnc/core/rfb' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@novnc/novnc/lib/rfb" {
     /**
      * An `object` specifying the credentials to provide to the server when authenticating.
      */
@@ -106,7 +101,7 @@ declare module '@novnc/novnc/core/rfb' {
          * The `detail` property is an `object` with the property `capabilities` containing the new
          * value of `capabilities`.
          */
-        capabilities: CustomEvent<{ capabilities: NoVncClient['capabilities'] }>;
+        capabilities: CustomEvent<{ capabilities: NoVncClient["capabilities"] }>;
     }
 
     type NoVncEventType = keyof NoVncEvents;
@@ -295,10 +290,26 @@ declare module '@novnc/novnc/core/rfb' {
          * @param text A `string` specifying the clipboard data to send.
          */
         clipboardPasteFrom(text: string): void;
+
+        /**
+         * Return the current content of the screen encoded as a base64 data URL.
+         * @param type A `string` indicating the requested MIME type of the image
+         * @param encoderOptions A `number` between 0 and 1 indicating the image quality.
+         */
+        toDataURL(type?: string, encoderOptions?: number): string;
+
+        /**
+         * Used to return the current content of the screen encoded as a `Blob`.
+         * @param callback A callback function which will receive the resulting `Blob` as the single argument
+         * @param type A `string` indicating the requested MIME type of the image
+         * @param quality A `number` between 0 and 1 indicating the image quality.
+         */
+        toBlob(callback: (blob: Blob) => void, type?: string, quality?: number): void;
     }
 }
 
-declare module '@novnc/novnc/core/util/browser' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@novnc/novnc/lib/util/browser" {
     let isTouchDevice: boolean;
     let dragThreshold: number;
 
@@ -312,7 +323,8 @@ declare module '@novnc/novnc/core/util/browser' {
     function isFirefox(): boolean;
 }
 
-declare module '@novnc/novnc/core/input/util' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@novnc/novnc/lib/input/util" {
     interface KeyboardEventBase {
         char?: string;
         charCode?: number;

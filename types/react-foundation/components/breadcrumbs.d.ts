@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { FlexboxPropTypes, GeneralPropTypes } from "../utils";
 /**
  * Breadcrumbs component.
  * http://foundation.zurb.com/sites/docs/breadcrumbs.html

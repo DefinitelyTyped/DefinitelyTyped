@@ -1,4 +1,4 @@
-import byteRange = require('byte-range');
+import byteRange = require("byte-range");
 
 byteRange(1); // $ExpectType [number, number] || ByteRange
 byteRange(1, { signed: false }); // $ExpectType [number, number] || ByteRange

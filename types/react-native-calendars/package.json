@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/react-native-calendars",
+    "version": "1.1264.9999",
+    "projects": [
+        "https://github.com/wix/react-native-calendars#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*",
+        "@types/xdate": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-calendars": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tyler Zhang",
+            "githubUsername": "Tyler-Zhang"
+        },
+        {
+            "name": "David Noreña",
+            "githubUsername": "DavidNorena"
+        },
+        {
+            "name": "Fabian Meul",
+            "githubUsername": "FabianMeul"
+        }
+    ]
+}

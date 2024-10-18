@@ -1,6 +1,6 @@
-import { Class } from './Class';
-import { Events } from './Events';
-import { Value } from './Value';
+import { Class } from "./Class";
+import { Events } from "./Events";
+import { Value } from "./Value";
 
 export interface Messenger_Params {
     url: string;

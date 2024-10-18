@@ -1,9 +1,5 @@
-// Type definitions for ng-showdown 1.1
-// Project: https://github.com/showdownjs/ng-showdown#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import angular = require('angular');
-import { Converter } from 'showdown';
+import angular = require("angular");
+import { Converter } from "showdown";
 
 export as namespace ngShowdown;
 
@@ -38,7 +34,7 @@ export interface SDObject {
      * @param markdown The markdown string to be converted to HTML
      * @returns The converted HTML
      */
-    makeHtml: Converter['makeHtml'];
+    makeHtml: Converter["makeHtml"];
     /**
      * Strips a text of it's HTML tags. See https://stackoverflow.com/questions/17289448/angularjs-to-output-plain-text-instead-of-html
      *
@@ -49,21 +45,21 @@ export interface SDObject {
      * Gets the value of the configuration parameter of CONVERTER specified by key
      * @param key The config parameter key
      */
-    getOption: Converter['getOption'];
+    getOption: Converter["getOption"];
     /**
      * Gets the converter configuration params
      */
-    getOptions: Converter['getOptions'];
+    getOptions: Converter["getOptions"];
 }
 
 /**
  * AngularJS Filter to Strip HTML tags from text
  */
-export type StripHtmlFilter = SDObject['stripHtml'];
+export type StripHtmlFilter = SDObject["stripHtml"];
 
-declare module 'angular' {
+declare module "angular" {
     // tslint:disable:interface-name
     interface IFilterService {
-        (name: 'stripHtml'): ngShowdown.StripHtmlFilter;
+        (name: "stripHtml"): ngShowdown.StripHtmlFilter;
     }
 }

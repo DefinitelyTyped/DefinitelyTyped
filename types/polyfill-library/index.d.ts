@@ -1,11 +1,6 @@
-// Type definitions for polyfill-library 3.108
-// Project: https://github.com/financial-times/polyfill-library#readme
-// Definitions by: Qingrong Ke <https://github.com/keqingrong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 export interface PolyfillConfig {
     aliases: string[];
@@ -43,7 +38,7 @@ export interface Options {
      * Whether to return all polyfills or no polyfills if the user-agent is unknown or unsupported.
      * @default 'polyfill'
      */
-    unknown?: 'ignore' | 'polyfill';
+    unknown?: "ignore" | "polyfill";
     /**
      * Which features should be returned if the user-agent does not support them natively.
      * @default {}
@@ -66,7 +61,7 @@ export interface Options {
     rum?: boolean;
 }
 
-export type Flag = 'always' | 'gated';
+export type Flag = "always" | "gated";
 
 export interface Feature {
     [featureName: string]: {

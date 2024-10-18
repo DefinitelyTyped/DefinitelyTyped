@@ -1,12 +1,6 @@
-// Type definitions for passport-twitch-latest 1.0
-// Project: https://github.com/sascha-beloborodov/passport-twitch
-// Definitions by: Charlie Laabs <https://github.com/claabs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
-import * as PassportOauth2 from 'passport-oauth2';
-import * as passport from 'passport';
-import * as e from 'express';
+import * as e from "express";
+import * as passport from "passport";
+import * as PassportOauth2 from "passport-oauth2";
 
 export class Strategy extends PassportOauth2 {
     // Disabling this tslint rule as unifying the signatures makes the callback function default to inferring the
@@ -32,10 +26,10 @@ export class OAuth2Strategy extends Strategy {}
 
 export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
 
-export type StrategyOptions = Optional<PassportOauth2.StrategyOptions, 'authorizationURL' | 'tokenURL'>;
+export type StrategyOptions = Optional<PassportOauth2.StrategyOptions, "authorizationURL" | "tokenURL">;
 export type StrategyOptionsWithRequest = Optional<
     PassportOauth2.StrategyOptionsWithRequest,
-    'authorizationURL' | 'tokenURL'
+    "authorizationURL" | "tokenURL"
 >;
 
 export type VerifyFunction = (

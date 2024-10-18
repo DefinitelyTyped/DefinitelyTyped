@@ -1,6 +1,7 @@
-import { Euler } from './Euler.js';
-import { Quaternion } from './Quaternion.js';
-import { Vector3 } from './Vector3.js';
+import * as THREE from "three";
+import { Euler } from "./Euler.js";
+import { Quaternion } from "./Quaternion.js";
+import { Vector3 } from "./Vector3.js";
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author supereggbert / http://www.paulbrunt.co.uk/

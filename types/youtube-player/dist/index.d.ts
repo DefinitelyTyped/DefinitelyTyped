@@ -1,4 +1,4 @@
-import { Options, YouTubePlayer } from './types';
+import { Options, YouTubePlayer } from "./types";
 
 declare function PlayerFactory(
     maybeElementId: YouTubePlayer | HTMLElement | string,

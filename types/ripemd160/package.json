@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ripemd160",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/crypto-browserify/ripemd160#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ripemd160": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,93 +1,87 @@
-// Type definitions for prime8consulting:meteor-oauth2
-// Project: https://github.com/prime-8-consulting/meteor-oauth2/
-// Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="meteor" />
 
 declare namespace OAuth2Server {
     interface RefreshToken {
-        refreshToken : string;
-        clientId : string;
-        userId : string;
-        expires : Date;
+        refreshToken: string;
+        clientId: string;
+        userId: string;
+        expires: Date;
     }
 
     interface AuthCode {
-        authCode : string;
-        clientId : string;
-        userId : string;
-        expires : Date;
+        authCode: string;
+        clientId: string;
+        userId: string;
+        expires: Date;
     }
 
     interface AccessToken {
-        accessToken : string;
-        clientId : string;
-        userId : string;
-        expires : Date
+        accessToken: string;
+        clientId: string;
+        userId: string;
+        expires: Date;
     }
 
     interface Client {
-        clientId : string;
-        active : boolean;
-        redirectUri : string;
-        clientSecret : string;
+        clientId: string;
+        active: boolean;
+        redirectUri: string;
+        clientSecret: string;
     }
 
     interface PubSubNames {
         /**
          * Constant string representing the auth codes pub/sub.
          */
-        authCodes : string;
+        authCodes: string;
 
         /**
          * Constant string representing the refresh token pub/sub.
          */
-        refreshTokens : string;
+        refreshTokens: string;
     }
 
     interface MethodNames {
         /**
          * Constant string representing th authCodeGran meteor method.
          */
-        authCodeGrant : string;
+        authCodeGrant: string;
     }
 
     interface Collections {
         /**
          * Collection of the refresh tokens.
          */
-        refreshToken : Mongo.Collection<RefreshToken>;
+        refreshToken: Mongo.Collection<RefreshToken>;
 
         /**
          * Collection of the authorization codes.
          */
-        authCode : Mongo.Collection<AuthCode>;
+        authCode: Mongo.Collection<AuthCode>;
 
         /**
          * (server only) Collection of the access tokens.
          */
-        accessToken : Mongo.Collection<AccessToken>;
+        accessToken: Mongo.Collection<AccessToken>;
 
         /**
          * (server only) Collection of the clients authorized to use the oauth2 service.
          */
-        client : Mongo.Collection<Client>;
+        client: Mongo.Collection<Client>;
     }
 
     interface SubscribeTo {
         /**
          * Wrapper function to subscribe to the auth code subscription. Returns a standard subscription handle.
          */
-        authCode() : Meteor.SubscriptionHandle;
+        authCode(): Meteor.SubscriptionHandle;
     }
 
     interface AuthCodeGrantResult {
-        success : boolean;
-        error : any;
-        authorizationCode : string;
-        redirectToUri : string;
+        success: boolean;
+        error: any;
+        authorizationCode: string;
+        redirectToUri: string;
     }
 
     interface CallMethod {
@@ -95,23 +89,23 @@ declare namespace OAuth2Server {
          * Wrapper for Meteor.method to create an authorization code. This is an async function and a callback must be provided to be of any use.
          */
         authCodeGrant(
-            client_id : string,
-            redirect_uri : string,
-            response_type : string,
-            scope : string[],
-            state : string,
-            callback : (err : Meteor.Error, authCodeGrantResult : AuthCodeGrantResult) => void
-        ) : void;
+            client_id: string,
+            redirect_uri: string,
+            response_type: string,
+            scope: string[],
+            state: string,
+            callback: (err: Meteor.Error, authCodeGrantResult: AuthCodeGrantResult) => void,
+        ): void;
     }
 
     interface OAuth2Server {
-        pubSubNames : PubSubNames;
-        methodNames : MethodNames;
-        collections : Collections;
-        oauthserver : any;
-        subscribeTo : SubscribeTo;
-        callMethod : CallMethod;
+        pubSubNames: PubSubNames;
+        methodNames: MethodNames;
+        collections: Collections;
+        oauthserver: any;
+        subscribeTo: SubscribeTo;
+        callMethod: CallMethod;
     }
 }
 
-declare var oAuth2Server : OAuth2Server.OAuth2Server;
+declare var oAuth2Server: OAuth2Server.OAuth2Server;

@@ -1,8 +1,3 @@
-// Type definitions for db-hafas-stations-autocomplete 2.0
-// Project: https://github.com/derhuerst/db-hafas-stations-autocomplete
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = autocomplete;
 
 /**

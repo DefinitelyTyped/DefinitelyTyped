@@ -1,82 +1,82 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/mode/simple';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/mode/simple";
 
 const value = /([^&!|*><~:=*()\\/\x00]|\\[0-9a-f]{2})+/;
 
 // @ts-expect-error
-CodeMirror.defineSimpleMode('property-start-is-required', {});
+CodeMirror.defineSimpleMode("property-start-is-required", {});
 
-CodeMirror.defineSimpleMode('foobar', {
+CodeMirror.defineSimpleMode("foobar", {
     start: [],
 });
 
-CodeMirror.defineSimpleMode('rfc2254', {
+CodeMirror.defineSimpleMode("rfc2254", {
     meta: {
-        dontIndentStates: ['prop'],
+        dontIndentStates: ["prop"],
     },
     prop: [
-        { regex: /\s+/, token: 'space' },
-        { regex: /\*/, token: 'qualifier' },
-        { regex: /:/, token: 'qualifier' },
-        { regex: /[&!|]/, token: 'operator' },
-        { regex: /=/, token: 'operator' },
-        { regex: /~=/, token: 'operator' },
-        { regex: />=/, token: 'operator' },
-        { regex: /<=/, token: 'operator' },
-        { indent: true, regex: /\(/, token: 'bracket' },
-        { dedent: true, next: 'start', regex: /\)/, token: 'bracket' },
-        { regex: value, token: 'string' },
+        { regex: /\s+/, token: "space" },
+        { regex: /\*/, token: "qualifier" },
+        { regex: /:/, token: "qualifier" },
+        { regex: /[&!|]/, token: "operator" },
+        { regex: /=/, token: "operator" },
+        { regex: /~=/, token: "operator" },
+        { regex: />=/, token: "operator" },
+        { regex: /<=/, token: "operator" },
+        { indent: true, regex: /\(/, token: "bracket" },
+        { dedent: true, next: "start", regex: /\)/, token: "bracket" },
+        { regex: value, token: "string" },
     ],
     start: [
         {
             regex: /\s+/,
-            token: 'space',
+            token: "space",
         },
         {
             regex: /\*/,
-            token: 'qualifier',
+            token: "qualifier",
         },
         {
             regex: /:/,
-            token: 'qualifier',
+            token: "qualifier",
         },
         {
             regex: /[&!|]/,
-            token: 'operator',
+            token: "operator",
         },
         {
-            next: 'prop',
+            next: "prop",
             regex: /=/,
-            token: 'operator',
+            token: "operator",
         },
         {
-            next: 'prop',
+            next: "prop",
             regex: /~=/,
-            token: 'operator',
+            token: "operator",
         },
         {
-            next: 'prop',
+            next: "prop",
             regex: />=/,
-            token: 'operator',
+            token: "operator",
         },
         {
-            next: 'prop',
+            next: "prop",
             regex: /<=/,
-            token: 'operator',
+            token: "operator",
         },
         {
             indent: true,
             regex: /\(/,
-            token: 'bracket',
+            token: "bracket",
         },
         {
             dedent: true,
             regex: /\)/,
-            token: 'bracket',
+            token: "bracket",
         },
         {
             regex: value,
-            token: 'attribute',
+            token: "attribute",
         },
     ],
 });

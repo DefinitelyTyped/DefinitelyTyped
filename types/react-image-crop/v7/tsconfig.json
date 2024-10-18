@@ -1,31 +1,20 @@
 {
-    "compilerOptions":{
-        "module":"commonjs",
-        "lib":[
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny":true,
-        "noImplicitThis":true,
-        "strictNullChecks":true,
-        "strictFunctionTypes":true,
-        "jsx":"react",
-        "baseUrl":"../../",
-        "typeRoots":[
-            "../../"
-        ],
-        "types":[
-
-        ],
-        "paths":{
-            "react-image-crop":[
-                "react-image-crop/v7"
-            ]
-        },
-        "noEmit":true,
-        "forceConsistentCasingInFileNames":true
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "jsx": "react",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
-    "files":[
+    "files": [
         "index.d.ts",
         "test/react-image-crop-global-tests.ts",
         "test/react-image-crop-module-tests.tsx"

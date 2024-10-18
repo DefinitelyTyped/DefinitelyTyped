@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { InternationalProps, ReactDivAttr, ForwardRefProps, FCReturn } from '../../../typings/shared';
-import { ListBoxProps } from '../ListBox';
-import { ListBoxMenuIconTranslationKey } from '../ListBox/ListBoxMenuIcon';
+import * as React from "react";
+import { FCReturn, ForwardRefProps, InternationalProps, ReactDivAttr } from "../../../typings/shared";
+import { ListBoxProps } from "../ListBox";
+import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
 
 export interface OnChangeData<ItemType = string> {
     selectedItem?: ItemType | null | undefined;
 }
 
 export interface DropdownProps<ItemType = string>
-    extends Omit<ReactDivAttr, 'id' | 'onChange'>,
-        InternationalProps<ListBoxMenuIconTranslationKey> {
+    extends Omit<ReactDivAttr, "id" | "onChange">, InternationalProps<ListBoxMenuIconTranslationKey>
+{
     ariaLabel?: string | undefined;
-    direction?: 'bottom' | 'top' | undefined;
+    direction?: "bottom" | "top" | undefined;
     disabled?: boolean | undefined;
     downshiftProps?: any; // TODO
     id: string;
@@ -32,9 +32,9 @@ export interface DropdownProps<ItemType = string>
     onChange?(data: OnChangeData<ItemType>): void;
     renderSelectedItem?(item: ItemType): string;
     selectedItem?: ItemType | null | undefined;
-    size?: ListBoxProps['size'] | undefined;
+    size?: ListBoxProps["size"] | undefined;
     titleText?: React.ReactNode | undefined;
-    type?: ListBoxProps['type'] | undefined;
+    type?: ListBoxProps["type"] | undefined;
     warn?: boolean | undefined;
     warnText?: React.ReactNode | undefined;
 }

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/knockout-transformations",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/One-com/knockout-transformations"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout-transformations": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Wim Looman",
+            "githubUsername": "Nemo157"
+        }
+    ]
+}

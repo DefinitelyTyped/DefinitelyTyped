@@ -1,8 +1,3 @@
-// Type definitions for double-utils 1.0
-// Project: https://github.com/emilbayes/double-utils#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @returns The sign bit. `0` is positive, `1` is negative.
  *

@@ -1,15 +1,9 @@
-// Type definitions for Angular JS (ngResource module) 1.5
-// Project: http://angularjs.org
-// Definitions by: Diego Vilar <https://github.com/diegovilar>, Michael Jess <https://github.com/miffels>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     ///////////////////////////////////////////////////////////////////////////////
     // ngResource module (angular-resource.js)
     ///////////////////////////////////////////////////////////////////////////////
@@ -44,7 +38,12 @@ declare module 'angular' {
              * @param actions example: {update: { method: 'PUT' }, delete: deleteDescriptor } where deleteDescriptor: IActionDescriptor
              * @param options Hash with custom settings that should extend the default $resourceProvider behavior
              */
-            (url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<IResource<any>>;
+            (
+                url: string,
+                paramDefaults?: any,
+                actions?: IActionHash,
+                options?: IResourceOptions,
+            ): IResourceClass<IResource<any>>;
             <T>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<T>;
             <T, U>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): U;
         }
@@ -203,7 +202,7 @@ declare module 'angular' {
 
     namespace auto {
         interface IInjectorService {
-            get(name: '$resource'): resource.IResourceService;
+            get(name: "$resource"): resource.IResourceService;
         }
     }
 }

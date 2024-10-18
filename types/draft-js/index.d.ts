@@ -1,24 +1,5 @@
-// Type definitions for Draft.js v0.11.1
-// Project: https://facebook.github.io/draft-js/
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
-//                 Eelco Lempsink <https://github.com/eelco>
-//                 Yale Cason <https://github.com/ghotiphud>
-//                 Ryan Schwers <https://github.com/schwers>
-//                 Michael Wu <https://github.com/michael-yx-wu>
-//                 Willis Plummer <https://github.com/willisplummer>
-//                 Santiago Vilar <https://github.com/smvilar>
-//                 Ulf Schwekendiek <https://github.com/sulf>
-//                 Pablo Varela <https://github.com/pablopunk>
-//                 Claudio Procida <https://github.com/claudiopro>
-//                 Kevin Hawkinson <https://github.com/khawkinson>
-//                 Munif Tanjim <https://github.com/MunifTanjim>
-//                 Peter Dekkers <https://github.com/PeterDekkers>
-//                 Ankit Ranjan <https://github.com/ankitr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
-import * as Immutable from 'immutable';
-import * as React from 'react';
+import * as Immutable from "immutable";
+import * as React from "react";
 
 type SyntheticClipboardEvent = React.ClipboardEvent<{}>;
 type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
@@ -216,10 +197,10 @@ declare namespace Draft {
 
                 handlePastedText?(text: string, html: string | undefined, editorState: EditorState): DraftHandleValue;
 
-                handlePastedFiles?(files: Array<Blob>): DraftHandleValue;
+                handlePastedFiles?(files: Blob[]): DraftHandleValue;
 
                 /** Handle dropped files */
-                handleDroppedFiles?(selection: SelectionState, files: Array<Blob>): DraftHandleValue;
+                handleDroppedFiles?(selection: SelectionState, files: Blob[]): DraftHandleValue;
 
                 /** Handle other drops to prevent default text movement/insertion behaviour */
                 handleDrop?(
@@ -242,9 +223,9 @@ declare namespace Draft {
                 onCut?(editor: Editor, e: SyntheticClipboardEvent): void;
             }
 
-            type DraftTextAlignment = 'left' | 'center' | 'right';
+            type DraftTextAlignment = "left" | "center" | "right";
 
-            type DraftTextDirectionality = 'LTR' | 'RTL' | 'NEUTRAL';
+            type DraftTextDirectionality = "LTR" | "RTL" | "NEUTRAL";
         }
 
         namespace Components {
@@ -312,89 +293,80 @@ declare namespace Draft {
                 /**
                  * Self-explanatory.
                  */
-                | 'undo'
-                | 'redo'
-
+                | "undo"
+                | "redo"
                 /**
                  * Perform a forward deletion.
                  */
-                | 'delete'
-
+                | "delete"
                 /**
                  * Perform a forward deletion to the next word boundary after the selection.
                  */
-                | 'delete-word'
-
+                | "delete-word"
                 /**
                  * Perform a backward deletion.
                  */
-                | 'backspace'
-
+                | "backspace"
                 /**
                  * Perform a backward deletion to the previous word boundary before the
                  * selection.
                  */
-                | 'backspace-word'
-
+                | "backspace-word"
                 /**
                  * Perform a backward deletion to the beginning of the current line.
                  */
-                | 'backspace-to-start-of-line'
-
+                | "backspace-to-start-of-line"
                 /**
                  * Toggle styles. Commands may be intepreted to modify inline text ranges
                  * or block types.
                  */
-                | 'bold'
-                | 'code'
-                | 'italic'
-                | 'strikethrough'
-                | 'underline'
-
+                | "bold"
+                | "code"
+                | "italic"
+                | "strikethrough"
+                | "underline"
                 /**
                  * Split a block in two.
                  */
-                | 'split-block'
-
+                | "split-block"
                 /**
                  * Self-explanatory.
                  */
-                | 'transpose-characters'
-                | 'move-selection-to-start-of-block'
-                | 'move-selection-to-end-of-block'
-
+                | "transpose-characters"
+                | "move-selection-to-start-of-block"
+                | "move-selection-to-end-of-block"
                 /**
                  * Commands to support the "secondary" clipboard provided by certain
                  * browsers and operating systems.
                  */
-                | 'secondary-cut'
-                | 'secondary-paste';
+                | "secondary-cut"
+                | "secondary-paste";
 
             /**
              * A type that allows us to avoid passing boolean arguments
              * around to indicate whether a drag type is internal or external.
              */
-            type DraftDragType = 'internal' | 'external';
+            type DraftDragType = "internal" | "external";
 
             /**
              * The list of [default valid block types](https://draftjs.org/docs/advanced-topics-custom-block-render-map#draft-default-block-render-map),
              * according to the [`DefaultDraftBlockRenderMap`](https://github.com/facebook/draft-js/blob/main/src/model/immutable/DefaultDraftBlockRenderMap.js)
              */
             type CoreDraftBlockType =
-                | 'header-one'
-                | 'header-two'
-                | 'header-three'
-                | 'header-four'
-                | 'header-five'
-                | 'header-six'
-                | 'section'
-                | 'article'
-                | 'unordered-list-item'
-                | 'ordered-list-item'
-                | 'blockquote'
-                | 'atomic'
-                | 'code-block'
-                | 'unstyled';
+                | "header-one"
+                | "header-two"
+                | "header-three"
+                | "header-four"
+                | "header-five"
+                | "header-six"
+                | "section"
+                | "article"
+                | "unordered-list-item"
+                | "ordered-list-item"
+                | "blockquote"
+                | "atomic"
+                | "code-block"
+                | "unstyled";
 
             type CustomBlockType = string;
 
@@ -404,24 +376,24 @@ declare namespace Draft {
              * A type that allows us to avoid passing boolean arguments
              * around to indicate whether a deletion is forward or backward.
              */
-            type DraftRemovalDirection = 'backward' | 'forward';
+            type DraftRemovalDirection = "backward" | "forward";
 
             /**
              * A type that allows us to avoid returning boolean values
              * to indicate whether an event was handled or not.
              */
-            type DraftHandleValue = 'handled' | 'not-handled';
+            type DraftHandleValue = "handled" | "not-handled";
 
             /**
              * A type that defines if an fragment shall be inserted before or after
              * another fragment or if the selected fragment shall be replaced
              */
-            type DraftInsertionType = 'replace' | 'before' | 'after';
+            type DraftInsertionType = "replace" | "before" | "after";
 
             /**
              * Valid inline styles.
              */
-            type DraftInlineStyleType = 'BOLD' | 'CODE' | 'ITALIC' | 'STRIKETHROUGH' | 'UNDERLINE';
+            type DraftInlineStyleType = "BOLD" | "CODE" | "ITALIC" | "STRIKETHROUGH" | "UNDERLINE";
 
             /**
              * Possible entity types, like 'LINK', 'IMAGE', or custom ones.
@@ -454,7 +426,7 @@ declare namespace Draft {
              *   entity will delete only the segments affected by the deletion. Example:
              *   Facebook User mentions.
              */
-            type DraftEntityMutability = 'MUTABLE' | 'IMMUTABLE' | 'SEGMENTED';
+            type DraftEntityMutability = "MUTABLE" | "IMMUTABLE" | "SEGMENTED";
         }
 
         namespace Decorators {
@@ -492,10 +464,10 @@ declare namespace Draft {
              */
             interface DraftDecoratorComponentProps {
                 blockKey: string;
-                children?: Array<React.ReactNode>;
+                children?: React.ReactNode[];
                 contentState: ContentState;
                 decoratedText: string;
-                dir: 'ltr' | 'rtl' | undefined;
+                dir: "ltr" | "rtl" | undefined;
                 end: number;
                 // Many folks mistakenly assume that there will always be an 'entityKey'
                 // passed to a DecoratorComponent.
@@ -531,8 +503,9 @@ declare namespace Draft {
                     callback: (start: number, end: number) => void,
                     contentState: ContentState,
                 ) => void;
-                component: React.Component
-                    | typeof React.Component
+                component:
+                    | React.Component
+                    | React.ComponentClass<any>
                     | ((props: DraftDecoratorComponentProps & P) => React.ReactNode);
                 props?: P | undefined;
             }
@@ -557,7 +530,7 @@ declare namespace Draft {
              * preserved and the new match is discarded.
              */
             class CompositeDraftDecorator {
-                constructor(decorators: Array<DraftDecorator>);
+                constructor(decorators: DraftDecorator[]);
 
                 getDecorations(block: ContentBlock, contentState: ContentState): Immutable.List<string>;
                 getComponentForKey(key: string): Function;
@@ -615,8 +588,8 @@ declare namespace Draft {
                 type: DraftBlockType;
                 text: string;
                 depth: number;
-                inlineStyleRanges: Array<RawDraftInlineStyleRange>;
-                entityRanges: Array<RawDraftEntityRange>;
+                inlineStyleRanges: RawDraftInlineStyleRange[];
+                entityRanges: RawDraftEntityRange[];
                 data?: { [key: string]: any } | undefined;
             }
 
@@ -630,7 +603,7 @@ declare namespace Draft {
              * immutable objects.
              */
             interface RawDraftContentState {
-                blocks: Array<RawDraftContentBlock>;
+                blocks: RawDraftContentBlock[];
                 entityMap: { [key: string]: RawDraftEntity };
             }
 
@@ -638,7 +611,7 @@ declare namespace Draft {
                 html: string,
                 DOMBuilder?: Function,
                 blockRenderMap?: DraftBlockRenderMap,
-            ): { contentBlocks: Array<ContentBlock>; entityMap: any };
+            ): { contentBlocks: ContentBlock[]; entityMap: any };
             function convertFromRawToDraftState(rawState: RawDraftContentState): ContentState;
             function convertFromDraftStateToRaw(contentState: ContentState): RawDraftContentState;
         }
@@ -866,7 +839,7 @@ declare namespace Draft {
             }
 
             class ContentState extends Record {
-                static createFromBlockArray(blocks: Array<ContentBlock>, entityMap?: any): ContentState;
+                static createFromBlockArray(blocks: ContentBlock[], entityMap?: any): ContentState;
                 static createFromText(text: string, delimiter?: string): ContentState;
 
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
@@ -888,7 +861,7 @@ declare namespace Draft {
                 getBlockAfter(key: string): ContentBlock | undefined;
                 getBlockBefore(key: string): ContentBlock | undefined;
 
-                getBlocksAsArray(): Array<ContentBlock>;
+                getBlocksAsArray(): ContentBlock[];
                 getFirstBlock(): ContentBlock;
                 getLastBlock(): ContentBlock;
                 getPlainText(delimiter?: string): string;
@@ -908,12 +881,14 @@ declare namespace Draft {
                 static createEmpty(key: string): SelectionState;
 
                 merge(
-                    ...iterables: Immutable.Iterable<
-                        keyof SelectionStateProperties,
-                        SelectionStateProperties[keyof SelectionStateProperties]
-                    >[]
+                    ...iterables: Array<
+                        Immutable.Iterable<
+                            keyof SelectionStateProperties,
+                            SelectionStateProperties[keyof SelectionStateProperties]
+                        >
+                    >
                 ): SelectionState;
-                merge(...iterables: Partial<SelectionStateProperties>[]): SelectionState;
+                merge(...iterables: Array<Partial<SelectionStateProperties>>): SelectionState;
 
                 serialize(): string;
                 getAnchorKey(): string;
@@ -959,24 +934,24 @@ declare namespace Draft {
             }
 
             type EditorChangeType =
-                | 'adjust-depth'
-                | 'apply-entity'
-                | 'backspace-character'
-                | 'change-block-data'
-                | 'change-block-type'
-                | 'change-inline-style'
-                | 'move-block'
-                | 'delete-character'
-                | 'insert-characters'
-                | 'insert-fragment'
-                | 'redo'
-                | 'remove-range'
-                | 'spellcheck-change'
-                | 'split-block'
-                | 'undo';
+                | "adjust-depth"
+                | "apply-entity"
+                | "backspace-character"
+                | "change-block-data"
+                | "change-block-type"
+                | "change-inline-style"
+                | "move-block"
+                | "delete-character"
+                | "insert-characters"
+                | "insert-fragment"
+                | "redo"
+                | "remove-range"
+                | "spellcheck-change"
+                | "split-block"
+                | "undo";
 
             class BlockMapBuilder {
-                static createFromArray(blocks: Array<ContentBlock>): BlockMap;
+                static createFromArray(blocks: ContentBlock[]): BlockMap;
             }
 
             const DefaultDraftBlockRenderMap: Immutable.Map<any, any>;
@@ -1203,54 +1178,54 @@ import DraftModel = Draft.Model;
 import DraftComponent = Draft.Component;
 
 export {
-    Editor,
-    EditorProps,
-    EditorBlock,
-    EditorState,
-    EditorChangeType,
-    EditorCommand,
-    DraftDecoratorComponentProps,
-    DraftDecoratorType,
-    DraftDecorator,
-    CompositeDecorator,
-    Entity,
-    EntityInstance,
+    AtomicBlockUtils,
+    BlockMap,
     BlockMapBuilder,
     CharacterMetadata,
+    CompositeDecorator,
     ContentBlock,
     ContentState,
-    SelectionState,
-    DraftInlineStyle,
-    BlockMap,
-    AtomicBlockUtils,
-    KeyBindingUtil,
-    Modifier,
-    RichUtils,
-    DefaultDraftBlockRenderMap,
-    DefaultDraftInlineStyle,
-    RawDraftInlineStyleRange,
-    RawDraftEntityRange,
-    RawDraftEntity,
-    RawDraftContentBlock,
-    RawDraftContentState,
+    convertFromHTML,
     convertFromRaw,
     convertToRaw,
-    convertFromHTML,
+    DefaultDraftBlockRenderMap,
+    DefaultDraftInlineStyle,
+    DraftBlockRenderConfig,
+    DraftBlockRenderMap,
+    DraftBlockType,
+    DraftComponent,
+    DraftDecorator,
+    DraftDecoratorComponentProps,
+    DraftDecoratorType,
+    DraftDragType,
+    DraftEditorCommand,
+    DraftEntityMutability,
+    DraftEntityType,
+    DraftHandleValue,
+    DraftInlineStyle,
+    DraftInlineStyleType,
+    DraftInsertionType,
+    DraftModel,
+    DraftRemovalDirection,
+    DraftStyleMap,
+    Editor,
+    EditorBlock,
+    EditorChangeType,
+    EditorCommand,
+    EditorProps,
+    EditorState,
+    Entity,
+    EntityInstance,
     genKey,
     getDefaultKeyBinding,
     getVisibleSelectionRect,
-    DraftEditorCommand,
-    DraftDragType,
-    DraftBlockType,
-    DraftBlockRenderConfig,
-    DraftBlockRenderMap,
-    DraftInlineStyleType,
-    DraftEntityType,
-    DraftEntityMutability,
-    DraftRemovalDirection,
-    DraftHandleValue,
-    DraftInsertionType,
-    DraftStyleMap,
-    DraftModel,
-    DraftComponent
+    KeyBindingUtil,
+    Modifier,
+    RawDraftContentBlock,
+    RawDraftContentState,
+    RawDraftEntity,
+    RawDraftEntityRange,
+    RawDraftInlineStyleRange,
+    RichUtils,
+    SelectionState,
 };

@@ -1,10 +1,4 @@
-// Type definitions for falcor 2.0
-// Project: https://netflix.github.io/falcor/, https://github.com/netflix/falcor
-// Definitions by: Quramy <https://github.com/Quramy>, LukeRielley <https://github.com/lukerielley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import { Path, PathSet, PathValue, JSONEnvelope, JSONGraph, JSONGraphEnvelope } from 'falcor-json-graph';
+import { JSONEnvelope, JSONGraph, JSONGraphEnvelope, Path, PathSet, PathValue } from "falcor-json-graph";
 
 export as namespace falcor;
 
@@ -15,21 +9,22 @@ export as namespace falcor;
 export { XMlHttpSource as HttpDataSource } from "falcor-http-datasource";
 export {
     Atom,
+    atom,
     Error,
+    error,
+    JSONEnvelope,
+    JSONGraph,
+    JSONGraphEnvelope,
     Key,
     KeySet,
     Path,
     PathSet,
     PathValue,
-    JSONEnvelope,
-    JSONGraph,
-    JSONGraphEnvelope,
+    pathValue,
     Range,
-    Reference,
     ref,
-    atom,
-    error,
-    pathValue } from "falcor-json-graph";
+    Reference,
+} from "falcor-json-graph";
 
 /////////////////////////////////////////////////////
 //  DataSource
@@ -55,7 +50,12 @@ export abstract class DataSource {
     /**
      * Invokes a function in the DataSource's JSONGraph object.
      */
-    call(functionPath: Path, args?: any[], refSuffixes?: PathSet[], thisPaths?: PathSet[]): Observable<JSONGraphEnvelope>;
+    call(
+        functionPath: Path,
+        args?: any[],
+        refSuffixes?: PathSet[],
+        thisPaths?: PathSet[],
+    ): Observable<JSONGraphEnvelope>;
 }
 
 /////////////////////////////////////////////////////
@@ -122,8 +122,18 @@ export class Model {
     // NOTE: In http://netflix.github.io/falcor/doc/Model.html#call, it says that refPaths should be an PathSet[].
     // However, model implementation returns an error with setting refPaths as PathSet[] and it works with refPaths as PathSet.
     // So refPaths is defined as a PathSet in this .d.ts.
-    call(functionPath: string | Path, args?: any[], refPaths?: PathSet, thisPaths?: PathSet[]): ModelResponse<JSONEnvelope<any>>;
-    call<T>(functionPath: string | Path, args?: any[], refPaths?: PathSet, thisPaths?: PathSet[]): ModelResponse<JSONEnvelope<T>>;
+    call(
+        functionPath: string | Path,
+        args?: any[],
+        refPaths?: PathSet,
+        thisPaths?: PathSet[],
+    ): ModelResponse<JSONEnvelope<any>>;
+    call<T>(
+        functionPath: string | Path,
+        args?: any[],
+        refPaths?: PathSet,
+        thisPaths?: PathSet[],
+    ): ModelResponse<JSONEnvelope<T>>;
 
     /**
      * The invalidate method synchronously removes several {@link Path}s or {@link PathSet}s from a {@link Model} cache.
@@ -171,7 +181,7 @@ export class Model {
      * Returns a clone of the {@link Model} that enables batching. Within the configured time period, paths for get operations are collected and sent to the {@link DataSource} in a batch.
      * Batching can be more efficient if the {@link DataSource} access the network, potentially reducing the number of HTTP requests to the server.
      */
-    batch(schedulerOrDelay?: number | Scheduler): Model;       // FIXME what's a valid type for scheduler?
+    batch(schedulerOrDelay?: number | Scheduler): Model; // FIXME what's a valid type for scheduler?
 
     /**
      * Returns a clone of the {@link Model} that disables batching. This is the default mode. Each get operation will be executed on the {@link DataSource} separately.
@@ -225,7 +235,11 @@ export class ModelResponse<T> extends Observable<T> {
 }
 
 export interface Thenable<T> {
-    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U> | void): Thenable<U>;
+    then<U>(
+        onFulfilled?: (value: T) => U | Thenable<U>,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        onRejected?: (error: any) => U | Thenable<U> | void,
+    ): Thenable<U>;
 }
 
 /////////////////////////////////////////////////////
@@ -239,14 +253,22 @@ export class Observable<T> {
      * When forEach is called, we open the valve and the values within are pushed at us.
      * These values can be received using either callbacks or an {@link Observer} object.
      */
-    forEach(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback): Subscription;
+    forEach(
+        onNext?: ObservableOnNextCallback<T>,
+        onError?: ObservableOnErrorCallback,
+        onCompleted?: ObservableOnCompletedCallback,
+    ): Subscription;
 
     /**
      * The subscribe method is a synonym for {@link Observable.prototype.forEach} and triggers the execution of the Observable, causing the values within to be pushed to a callback.
      * An Observable is like a pipe of water that is closed.
      * When forEach is called, we open the valve and the values within are pushed at us.  These values can be received using either callbacks or an {@link Observer} object.
      */
-    subscribe(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback): Subscription;
+    subscribe(
+        onNext?: ObservableOnNextCallback<T>,
+        onError?: ObservableOnErrorCallback,
+        onCompleted?: ObservableOnCompletedCallback,
+    ): Subscription;
 }
 
 /**

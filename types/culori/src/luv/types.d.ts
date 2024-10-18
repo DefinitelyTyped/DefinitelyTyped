@@ -1,5 +1,5 @@
 export interface Luv {
-    mode: 'luv';
+    mode: "luv";
     l: number;
     u: number;
     v: number;

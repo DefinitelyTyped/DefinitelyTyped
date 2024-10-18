@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mixto",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/atom/mixto"
+    ],
+    "devDependencies": {
+        "@types/mixto": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        }
+    ]
+}

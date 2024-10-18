@@ -1,1 +1,1 @@
-export { RouteInfoWithAttributes as default } from '../route-info';
+export { RouteInfoWithAttributes as default } from "../route-info";

@@ -1,4 +1,4 @@
-import babelPluginTester from './';
+import babelPluginTester from "./";
 
-export * from './';
+export * from "./";
 export default babelPluginTester;

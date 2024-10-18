@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * A class for generating a two-dimensional ring geometry.
@@ -21,7 +21,7 @@ export class RingGeometry extends BufferGeometry {
      * @param innerRadius Expects a `Float`. Default `0.5`.
      * @param outerRadius Expects a `Float`. Default `1`.
      * @param thetaSegments Number of segments. A higher number means the ring will be more round. Minimum is 3. Expects a `Integer`. Default `32`.
-     * @param phiSegments Minimum is 1. Expects a `Integer`. Default `1`.
+     * @param phiSegments Number of segments per ring segment. Minimum is `1`. Expects a `Integer`. Default `1`.
      * @param thetaStart Starting angle. Expects a `Float`. Default `0`.
      * @param thetaLength Central angle. Expects a `Float`. Default `Math.PI * 2`.
      */
@@ -39,7 +39,7 @@ export class RingGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `RingGeometry`
      */
-    override readonly type: string | 'RingGeometry';
+    override readonly type: string | "RingGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

@@ -1,8 +1,8 @@
 /// <reference types="jquery" />
 
 declare namespace Dialogify {
-    type DialogifyEvent = 'show' | 'close' | 'cancel';
-    type locale = 'zh_TW' | 'zh_CN' | 'en_US';
+    type DialogifyEvent = "show" | "close" | "cancel";
+    type locale = "zh_TW" | "zh_CN" | "en_US";
 
     interface LocalizableButtonActions {
         ok: string;
@@ -109,7 +109,7 @@ declare namespace Dialogify {
          * @param this Dialogify instance.
          * @param event Mouse click event
          */
-        click?: JQuery.TypeEventHandler<Dialogify, null, Dialogify, Dialogify, 'click'>;
+        click?: JQuery.TypeEventHandler<Dialogify, null, Dialogify, Dialogify, "click">;
         /** Set `autofocus` property or not, `false` by default. */
         focused?: boolean;
         /** Set button as disabled or not, `false` by default. */
@@ -134,13 +134,13 @@ declare namespace Dialogify {
         position: BUTTON_CENTER | BUTTON_LEFT | string;
     }
 
-    type SIZE_LARGE = 'dialogify__autowidth';
+    type SIZE_LARGE = "dialogify__autowidth";
 
-    type BUTTON_CENTER = 'text-center';
-    type BUTTON_LEFT = 'text-left';
+    type BUTTON_CENTER = "text-center";
+    type BUTTON_LEFT = "text-left";
 
-    type BUTTON_PRIMARY = 'btn-primary';
-    type BUTTON_DANGER = 'btn-danger';
+    type BUTTON_PRIMARY = "btn-primary";
+    type BUTTON_DANGER = "btn-danger";
 
     const LOCALE: { [key in locale]: LocalizableButtonActions };
 

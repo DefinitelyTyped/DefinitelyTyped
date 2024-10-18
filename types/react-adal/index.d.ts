@@ -1,10 +1,4 @@
-// Type definitions for react-adal 0.5
-// Project: https://github.com/salvoravida/react-adal
-// Definitions by: Dimitry Korolev <https://github.com/dkorolev1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export type TokenCallback = (errorDesc: string | null, token: string | null, error: any) => void;
 
@@ -66,7 +60,7 @@ export interface AdalConfig {
     /**
      * Sets browser storage to either 'localStorage' or sessionStorage'. Defaults to `sessionStorage`.
      */
-    cacheLocation?: 'localStorage' | 'sessionStorage' | undefined;
+    cacheLocation?: "localStorage" | "sessionStorage" | undefined;
     /**
      * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
      */
@@ -114,9 +108,9 @@ export interface RequestInfo {
     valid: boolean;
 }
 
-export type RequestType = 'LOGIN' | 'RENEW_TOKEN' | 'UNKNOWN';
+export type RequestType = "LOGIN" | "RENEW_TOKEN" | "UNKNOWN";
 
-export type ResponseType = 'id_token token' | 'token';
+export type ResponseType = "id_token token" | "token";
 
 export interface UserInfo {
     /**
@@ -130,32 +124,32 @@ export interface UserInfo {
 }
 
 export interface Constants {
-    ACCESS_TOKEN: 'access_token';
-    EXPIRES_IN: 'expires_in';
-    ID_TOKEN: 'id_token';
-    ERROR_DESCRIPTION: 'error_description';
-    SESSION_STATE: 'session_state';
+    ACCESS_TOKEN: "access_token";
+    EXPIRES_IN: "expires_in";
+    ID_TOKEN: "id_token";
+    ERROR_DESCRIPTION: "error_description";
+    SESSION_STATE: "session_state";
     STORAGE: {
-        TOKEN_KEYS: 'adal.token.keys';
-        ACCESS_TOKEN_KEY: 'adal.access.token.key';
-        EXPIRATION_KEY: 'adal.expiration.key';
-        STATE_LOGIN: 'adal.state.login';
-        STATE_RENEW: 'adal.state.renew';
-        NONCE_IDTOKEN: 'adal.nonce.idtoken';
-        SESSION_STATE: 'adal.session.state';
-        USERNAME: 'adal.username';
-        IDTOKEN: 'adal.idtoken';
-        ERROR: 'adal.error';
-        ERROR_DESCRIPTION: 'adal.error.description';
-        LOGIN_REQUEST: 'adal.login.request';
-        LOGIN_ERROR: 'adal.login.error';
-        RENEW_STATUS: 'adal.token.renew.status';
+        TOKEN_KEYS: "adal.token.keys";
+        ACCESS_TOKEN_KEY: "adal.access.token.key";
+        EXPIRATION_KEY: "adal.expiration.key";
+        STATE_LOGIN: "adal.state.login";
+        STATE_RENEW: "adal.state.renew";
+        NONCE_IDTOKEN: "adal.nonce.idtoken";
+        SESSION_STATE: "adal.session.state";
+        USERNAME: "adal.username";
+        IDTOKEN: "adal.idtoken";
+        ERROR: "adal.error";
+        ERROR_DESCRIPTION: "adal.error.description";
+        LOGIN_REQUEST: "adal.login.request";
+        LOGIN_ERROR: "adal.login.error";
+        RENEW_STATUS: "adal.token.renew.status";
     };
-    RESOURCE_DELIMETER: '|';
-    LOADFRAME_TIMEOUT: '6000';
-    TOKEN_RENEW_STATUS_CANCELED: 'Canceled';
-    TOKEN_RENEW_STATUS_COMPLETED: 'Completed';
-    TOKEN_RENEW_STATUS_IN_PROGRESS: 'In Progress';
+    RESOURCE_DELIMETER: "|";
+    LOADFRAME_TIMEOUT: "6000";
+    TOKEN_RENEW_STATUS_CANCELED: "Canceled";
+    TOKEN_RENEW_STATUS_COMPLETED: "Completed";
+    TOKEN_RENEW_STATUS_IN_PROGRESS: "In Progress";
     LOGGING_LEVEL: {
         ERROR: 0;
         WARN: 1;
@@ -163,10 +157,10 @@ export interface Constants {
         VERBOSE: 3;
     };
     LEVEL_STRING_MAP: {
-        0: 'ERROR:';
-        1: 'WARNING:';
-        2: 'INFO:';
-        3: 'VERBOSE:';
+        0: "ERROR:";
+        1: "WARNING:";
+        2: "INFO:";
+        3: "VERBOSE:";
     };
     POPUP_WIDTH: 483;
     POPUP_HEIGHT: 600;
@@ -384,6 +378,6 @@ export function withAdalLogin(
     resource: string,
 ): (
     wrappedComponent: React.ComponentClass | React.FunctionComponent,
-    renderLoading: () => JSX.Element | null,
-    renderError: (error: any) => JSX.Element | null,
+    renderLoading: () => React.JSX.Element | null,
+    renderError: (error: any) => React.JSX.Element | null,
 ) => React.ComponentClass;

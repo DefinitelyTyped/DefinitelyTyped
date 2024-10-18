@@ -1,12 +1,7 @@
-// Type definitions for multy 0.1
-// Project: https://github.com/eduardorfs/multy
-// Definitions by: Jan Dolezel <https://github.com/dolezel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { BusboyConfig } from "busboy";
+import * as Koa from "koa";
 
-import * as Koa from 'koa';
-import { BusboyConfig } from 'busboy';
-
-declare module 'koa' {
+declare module "koa" {
     interface Request {
         body: any;
     }

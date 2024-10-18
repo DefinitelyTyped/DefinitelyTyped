@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/mapbox__sphericalmercator",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/mapbox/sphericalmercator",
+        "https://github.com/mapbox/node-sphericalmercator"
+    ],
+    "devDependencies": {
+        "@types/mapbox__sphericalmercator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicholas Husher",
+            "githubUsername": "nhusher"
+        },
+        {
+            "name": "Michael Bullington",
+            "githubUsername": "mbullington"
+        }
+    ]
+}

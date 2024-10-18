@@ -1,4 +1,4 @@
-import { path, url, version } from '@ffmpeg-installer/ffmpeg';
+import { path, url, version } from "@ffmpeg-installer/ffmpeg";
 
 const x: string = path;
 const y: string = url;

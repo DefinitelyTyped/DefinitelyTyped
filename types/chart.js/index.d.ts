@@ -1,49 +1,20 @@
-// Type definitions for Chart.js 2.9
-// Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
-// Definitions by: Alberto Nuti <https://github.com/anuti>
-//                 Fabien Lavocat <https://github.com/FabienLavocat>
-//                 KentarouTakeda <https://github.com/KentarouTakeda>
-//                 Larry Bahr <https://github.com/larrybahr>
-//                 Daniel Luz <https://github.com/mernen>
-//                 Joseph Page <https://github.com/josefpaij>
-//                 Dan Manastireanu <https://github.com/danmana>
-//                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
-//                 Simon Archer <https://github.com/archy-bold>
-//                 Ken Elkabany <https://github.com/braincore>
-//                 Alexandros Dorodoulis <https://github.com/alexdor>
-//                 Manuel Heidrich <https://github.com/mahnuh>
-//                 Conrad Holtzhausen <https://github.com/Conrad777>
-//                 Adrián Caballero <https://github.com/adripanico>
-//                 wertzui <https://github.com/wertzui>
-//                 Martin Trobäck <https://github.com/lekoaf>
-//                 Elian Cordoba <https://github.com/ElianCordoba>
-//                 Takuya Uehara <https://github.com/indigolain>
-//                 Ricardo Mello <https://github.com/ricmello>
-//                 Ray Nicholus <https://github.com/rnicholus>
-//                 Oscar Cabrera <https://github.com/mrjack88>
-//                 Carlos Anoceto <https://github.com/canoceto>
-//                 Nobuhiko Futagami <https://github.com/nobu222>
-//                 Marco Ru <https://github.com/Marcoru97>
-//                 Tony Liu <https://github.com/tonybadguy>
-//                 Mathias Helminger <https://github.com/Ilmarinen100>
-//                 Mostafa Sameti <https://github.com/IVIosi>
-//                 Samar Mohan <https://github.com/samarmohan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Moment } from 'moment';
+import { Moment } from "moment";
 
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
-        context: string | CanvasRenderingContext2D | HTMLCanvasElement | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
-        options: Chart.ChartConfiguration
+        context:
+            | string
+            | CanvasRenderingContext2D
+            | HTMLCanvasElement
+            | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
+        options: Chart.ChartConfiguration,
     );
     config: Chart.ChartConfiguration;
     data: Chart.ChartData;
     destroy: () => {};
-    update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
-    render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
+    update: ({ duration, lazy, easing }?: Chart.ChartUpdateProps) => {};
+    render: ({ duration, lazy, easing }?: Chart.ChartRenderProps) => {};
     stop: () => Chart;
     resize: () => Chart;
     clear: () => Chart;
@@ -69,7 +40,7 @@ declare class Chart {
 
     static defaults: {
         global: Chart.ChartOptions & Chart.ChartFontOptions & {
-            tooltips: Chart.ChartTooltipOptions
+            tooltips: Chart.ChartTooltipOptions;
         };
         [key: string]: any;
     };
@@ -83,7 +54,7 @@ declare class Chart {
     };
 
     static platform: {
-        disableCSSInjection: boolean
+        disableCSSInjection: boolean;
     };
 
     static scaleService: {
@@ -117,12 +88,12 @@ interface Meta {
     type: Chart.ChartType;
     data: MetaData[];
     dataset?: Chart.ChartDataSets | undefined;
-    controller: { [key: string]: any; };
+    controller: { [key: string]: any };
     hidden?: boolean | undefined;
     total?: string | undefined;
     xAxisID?: string | undefined;
     yAxisID?: string | undefined;
-    "$filler"?: { [key: string]: any; } | undefined;
+    "$filler"?: { [key: string]: any } | undefined;
 }
 
 interface MetaData {
@@ -167,39 +138,86 @@ interface Model {
 }
 
 declare namespace Chart {
-    type ChartType = 'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter';
+    type ChartType =
+        | "line"
+        | "bar"
+        | "horizontalBar"
+        | "radar"
+        | "doughnut"
+        | "polarArea"
+        | "bubble"
+        | "pie"
+        | "scatter";
 
-    type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
+    type TimeUnit = "millisecond" | "second" | "minute" | "hour" | "day" | "week" | "month" | "quarter" | "year";
 
-    type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
+    type ScaleType = "category" | "linear" | "logarithmic" | "time" | "radialLinear";
 
-    type PointStyle = 'circle' | 'cross' | 'crossRot' | 'dash' | 'line' | 'rect' | 'rectRounded' | 'rectRot' | 'star' | 'triangle';
+    type PointStyle =
+        | "circle"
+        | "cross"
+        | "crossRot"
+        | "dash"
+        | "line"
+        | "rect"
+        | "rectRounded"
+        | "rectRot"
+        | "star"
+        | "triangle";
 
-    type PositionType = 'left' | 'right' | 'top' | 'bottom' | 'chartArea';
+    type PositionType = "left" | "right" | "top" | "bottom" | "chartArea";
 
     // Allow extending the IteractionMode type alias
     // see https://github.com/microsoft/TypeScript/issues/28078#issuecomment-432339564
     interface InteractionModeRegistry {
-        'point': 'point';
-        'nearest': 'nearest';
-        'single': 'single';
-        'label': 'label';
-        'index': 'index';
-        'x-axis': 'x-axis';
-        'dataset': 'dataset';
-        'x': 'x';
-        'y': 'y';
+        "point": "point";
+        "nearest": "nearest";
+        "single": "single";
+        "label": "label";
+        "index": "index";
+        "x-axis": "x-axis";
+        "dataset": "dataset";
+        "x": "x";
+        "y": "y";
     }
     type InteractionMode = InteractionModeRegistry[keyof InteractionModeRegistry];
 
-    type Easing = 'linear' | 'easeInQuad' | 'easeOutQuad' | 'easeInOutQuad' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' |
-        'easeInQuart' | 'easeOutQuart' | 'easeInOutQuart' | 'easeInQuint' | 'easeOutQuint' | 'easeInOutQuint' | 'easeInSine' | 'easeOutSine' |
-        'easeInOutSine' | 'easeInExpo' | 'easeOutExpo' | 'easeInOutExpo' | 'easeInCirc' | 'easeOutCirc' | 'easeInOutCirc' | 'easeInElastic' |
-        'easeOutElastic' | 'easeInOutElastic' | 'easeInBack' | 'easeOutBack' | 'easeInOutBack' | 'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce';
+    type Easing =
+        | "linear"
+        | "easeInQuad"
+        | "easeOutQuad"
+        | "easeInOutQuad"
+        | "easeInCubic"
+        | "easeOutCubic"
+        | "easeInOutCubic"
+        | "easeInQuart"
+        | "easeOutQuart"
+        | "easeInOutQuart"
+        | "easeInQuint"
+        | "easeOutQuint"
+        | "easeInOutQuint"
+        | "easeInSine"
+        | "easeOutSine"
+        | "easeInOutSine"
+        | "easeInExpo"
+        | "easeOutExpo"
+        | "easeInOutExpo"
+        | "easeInCirc"
+        | "easeOutCirc"
+        | "easeInOutCirc"
+        | "easeInElastic"
+        | "easeOutElastic"
+        | "easeInOutElastic"
+        | "easeInBack"
+        | "easeOutBack"
+        | "easeInOutBack"
+        | "easeInBounce"
+        | "easeOutBounce"
+        | "easeInOutBounce";
 
-    type TextAlignment = 'left' | 'center' | 'right';
+    type TextAlignment = "left" | "center" | "right";
 
-    type BorderAlignment = 'center' | 'inner';
+    type BorderAlignment = "center" | "inner";
 
     type BorderWidth = number | { [key in PositionType]?: number };
 
@@ -215,10 +233,10 @@ declare namespace Chart {
         fillStyle?: string | undefined;
         hidden?: boolean | undefined;
         index?: number | undefined;
-        lineCap?: 'butt' | 'round' | 'square' | undefined;
+        lineCap?: "butt" | "round" | "square" | undefined;
         lineDash?: number[] | undefined;
         lineDashOffset?: number | undefined;
-        lineJoin?: 'bevel' | 'round' | 'miter' | undefined;
+        lineJoin?: "bevel" | "round" | "miter" | undefined;
         lineWidth?: number | undefined;
         strokeStyle?: string | undefined;
         pointStyle?: PointStyle | undefined;
@@ -343,7 +361,7 @@ declare namespace Chart {
     }
 
     interface ChartLegendOptions {
-        align?: 'center' | 'end' | 'start' | undefined;
+        align?: "center" | "end" | "start" | undefined;
         display?: boolean | undefined;
         position?: PositionType | undefined;
         fullWidth?: boolean | undefined;
@@ -369,7 +387,7 @@ declare namespace Chart {
     }
 
     interface ChartTooltipOptions {
-        axis?: 'x'|'y'|'xy' | undefined;
+        axis?: "x" | "y" | "xy" | undefined;
         enabled?: boolean | undefined;
         custom?: ((tooltipModel: ChartTooltipModel) => void) | undefined;
         mode?: InteractionMode | undefined;
@@ -484,7 +502,7 @@ declare namespace Chart {
         mode?: InteractionMode | undefined;
         animationDuration?: number | undefined;
         intersect?: boolean | undefined;
-        axis?: 'x' | 'y' | 'xy' | undefined;
+        axis?: "x" | "y" | "xy" | undefined;
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
@@ -521,8 +539,8 @@ declare namespace Chart {
         borderWidth?: number | Scriptable<number> | undefined;
     }
 
-    type CubicInterpolationMode = 'default' | 'monotone';
-    type FillMode = 'zero' | 'top' | 'bottom' | boolean;
+    type CubicInterpolationMode = "default" | "monotone";
+    type FillMode = "zero" | "top" | "bottom" | boolean;
 
     interface ChartLineOptions {
         cubicInterpolationMode?: CubicInterpolationMode | Scriptable<CubicInterpolationMode> | undefined;
@@ -614,7 +632,11 @@ declare namespace Chart {
         /**
          * If the callback returns null or undefined the associated grid line will be hidden.
          */
-        callback?(value: number | string, index: number, values: number[] | string[]): string | number | null | undefined;
+        callback?(
+            value: number | string,
+            index: number,
+            values: number[] | string[],
+        ): string | number | null | undefined;
         display?: boolean | undefined;
         fontColor?: ChartColor | undefined;
         fontFamily?: string | undefined;
@@ -639,7 +661,7 @@ declare namespace Chart {
          */
         sampleSize?: number | undefined;
         showLabelBackdrop?: boolean | undefined;
-        source?: 'auto' | 'data' | 'labels' | undefined;
+        source?: "auto" | "data" | "labels" | undefined;
         stepSize?: number | undefined;
         suggestedMax?: number | undefined;
         suggestedMin?: number | undefined;
@@ -663,7 +685,7 @@ declare namespace Chart {
         fontFamily?: string | undefined;
         fontSize?: number | undefined;
         fontStyle?: string | undefined;
-        lineHeight?: number|string | undefined;
+        lineHeight?: number | string | undefined;
     }
 
     interface LinearTickOptions extends TickOptions {
@@ -674,7 +696,7 @@ declare namespace Chart {
         suggestedMax?: number | undefined;
     }
 
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface LogarithmicTickOptions extends TickOptions {
     }
 
@@ -683,7 +705,7 @@ declare namespace Chart {
     type Scriptable<T> = (ctx: {
         chart?: Chart | undefined;
         dataIndex?: number | undefined;
-        dataset?: ChartDataSets | undefined
+        dataset?: ChartDataSets | undefined;
         datasetIndex?: number | undefined;
     }) => T;
 
@@ -695,10 +717,10 @@ declare namespace Chart {
         borderAlign?: BorderAlignment | BorderAlignment[] | Scriptable<BorderAlignment> | undefined;
         borderWidth?: BorderWidth | BorderWidth[] | Scriptable<BorderWidth> | undefined;
         borderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
-        borderCapStyle?: 'butt' | 'round' | 'square' | undefined;
+        borderCapStyle?: "butt" | "round" | "square" | undefined;
         borderDash?: number[] | undefined;
         borderDashOffset?: number | undefined;
-        borderJoinStyle?: 'bevel' | 'round' | 'miter' | undefined;
+        borderJoinStyle?: "bevel" | "round" | "miter" | undefined;
         borderSkipped?: PositionType | PositionType[] | Scriptable<PositionType> | undefined;
         categoryPercentage?: number | undefined;
         data?: Array<number | null | undefined | number[]> | ChartPoint[] | undefined;
@@ -712,7 +734,7 @@ declare namespace Chart {
         lineTension?: number | undefined;
         maxBarThickness?: number | undefined;
         minBarLength?: number | undefined;
-        steppedLine?: 'before' | 'after' | 'middle' | boolean | undefined;
+        steppedLine?: "before" | "after" | "middle" | boolean | undefined;
         order?: number | undefined;
         pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
         pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
@@ -724,15 +746,20 @@ declare namespace Chart {
         pointHoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
         pointHoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor> | undefined;
         pointHoverBorderWidth?: number | number[] | Scriptable<number> | undefined;
-        pointStyle?: PointStyle
+        pointStyle?:
+            | PointStyle
             | HTMLImageElement
             | HTMLCanvasElement
-            | Array<PointStyle
-            | HTMLImageElement
-            | HTMLCanvasElement>
-            | Scriptable<PointStyle
-            | HTMLImageElement
-            | HTMLCanvasElement>
+            | Array<
+                | PointStyle
+                | HTMLImageElement
+                | HTMLCanvasElement
+            >
+            | Scriptable<
+                | PointStyle
+                | HTMLImageElement
+                | HTMLCanvasElement
+            >
             | undefined;
         radius?: number | number[] | Scriptable<number> | undefined;
         rotation?: number | number[] | Scriptable<number> | undefined;
@@ -789,10 +816,10 @@ declare namespace Chart {
     }
 
     interface ChartXAxe extends CommonAxe {
-        distribution?: 'linear' | 'series' | undefined;
+        distribution?: "linear" | "series" | undefined;
     }
 
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ChartYAxe extends CommonAxe {
     }
 

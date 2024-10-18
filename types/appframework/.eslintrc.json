@@ -1,6 +1,6 @@
 {
     "rules": {
-        "trim-file": "off",
-        "prefer-declare-function": "off"
+        "@definitelytyped/prefer-declare-function": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

@@ -180,7 +180,7 @@ declare namespace jsrsasign {
          * [{sn:"123a", date:"208025235959Z", ext: [{extname:"cRLReason",code:3}]},
          *  {sn:"123b", date:"208026235959Z", ext: [{extname:"cRLReason",code:0}]}]
          */
-        getRevCertArray(): RevokedCertificate[];
+        getRevCertArray(): RevokedCertificate[] | null;
 
         /**
          * get revokedCertificate JSON parameter<br/>
@@ -352,7 +352,7 @@ declare namespace jsrsasign {
         getParam(): {
             version?: number;
             sigalg: string;
-            issuer: X500Name | Omit<X500Name, 'array'>;
+            issuer: X500Name | Omit<X500Name, "array">;
             thisupdate: string;
             nextupdate?: string;
             revcert?: RevokedCertificate[];

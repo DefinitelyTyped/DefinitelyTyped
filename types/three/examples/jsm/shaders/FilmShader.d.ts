@@ -1,12 +1,10 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "three";
 
 export const FilmShader: {
     uniforms: {
         tDiffuse: IUniform;
         time: IUniform;
-        nIntensity: IUniform;
-        sIntensity: IUniform;
-        sCount: IUniform;
+        intensity: IUniform;
         grayscale: IUniform;
     };
     vertexShader: string;

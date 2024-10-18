@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/polka",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/lukeed/polka"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*",
+        "@types/node": "*",
+        "@types/trouter": "*"
+    },
+    "devDependencies": {
+        "@types/compression": "*",
+        "@types/polka": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Kuczynski",
+            "githubUsername": "pkuczynski"
+        },
+        {
+            "name": "James Messinger",
+            "githubUsername": "JamesMessinger"
+        },
+        {
+            "name": "Brian Takita",
+            "githubUsername": "btakita"
+        }
+    ]
+}

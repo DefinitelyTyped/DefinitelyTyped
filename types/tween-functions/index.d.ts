@@ -1,8 +1,3 @@
-// Type definitions for tween-functions 1.2
-// Project: https://github.com/chenglou/tween-functions
-// Definitions by: Ivan Ergunov <https://github.com/hozblok>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace tweenFunctions {
     type TweenFunction = (
         /** Current elapsed time */

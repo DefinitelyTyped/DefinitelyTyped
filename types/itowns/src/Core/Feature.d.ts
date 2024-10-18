@@ -1,8 +1,10 @@
 import * as THREE from "three";
-import Coordinates from "./Geographic/Coordinates";
-import Style from "./Style";
-import Extent from "./Geographic/Extent";
 import Layer from "../Layer/Layer";
+import Coordinates from "./Geographic/Coordinates";
+import Extent from "./Geographic/Extent";
+import Style from "./Style";
+
+// TODO: Document public API
 
 export enum FEATURE_TYPES {
     POINT = 0,
@@ -12,7 +14,7 @@ export enum FEATURE_TYPES {
 
 export interface FeatureBuildingOptions { // TODO
     crs: string;
-    structure?: '2d' | '3d';
+    structure?: "2d" | "3d";
     filteringExtent?: any; // Event | boolean
     buildExtent?: any; // boolean
     forcedExtentCrs?: string;
@@ -21,7 +23,7 @@ export interface FeatureBuildingOptions { // TODO
     style?: Style;
 }
 
-type FeatureType = 'point' | 'line' | 'polygon';
+type FeatureType = "point" | "line" | "polygon";
 
 export class FeatureGeometry { // TODO
     constructor(feature: Feature);
@@ -35,29 +37,31 @@ export class FeatureGeometry { // TODO
     //     max: number;
     // };
 
-    startSubGeometry(count: number, feature: Feature): void;
+    // startSubGeometry(count: number, feature: Feature): void;
 
-    closeSubGeometry(count: number, feature: Feature): void;
+    // closeSubGeometry(count: number, feature: Feature): void;
 
     // getLastSubGeometry(): any;
 
     // baseAltitude(feature: any, coordinates: any): any;
 
-    pushCoordinates(coordIn: Coordinates, feature: Feature): void;
+    // pushCoordinates(coordIn: Coordinates, feature: Feature): void;
 
-    pushCoordinatesValues(
-        feature: Feature,
-        long: number,
-        lat: number,
-        normal?: THREE.Vector3): void;
+    // pushCoordinatesValues(
+    //     feature: Feature,
+    //     long: number,
+    //     lat: number,
+    //     normal?: THREE.Vector3,
+    // ): void;
 
-    updateExtent(): void;
+    // updateExtent(): void;
 }
 
 declare class Feature { // TODO
     constructor(
         type: FeatureType,
-        collection: FeatureCollection);
+        collection: FeatureCollection,
+    );
 
     type: FeatureType;
     vertices: number[];
@@ -75,9 +79,9 @@ declare class Feature { // TODO
     //     max: number;
     // };
 
-    bindNewGeometry(): FeatureGeometry;
+    // bindNewGeometry(): FeatureGeometry;
 
-    updateExtent(geometry: FeatureGeometry): void;
+    // updateExtent(geometry: FeatureGeometry): void;
 
     get geometryCount(): number;
 }
@@ -87,7 +91,7 @@ export default Feature;
 export class FeatureCollection extends THREE.Object3D { // TODO
     constructor(options: FeatureBuildingOptions | Layer);
 
-    readonly isFeatureCollection: boolean;
+    readonly isFeatureCollection: true;
 
     features: Feature[];
     extent: Extent;
@@ -105,23 +109,23 @@ export class FeatureCollection extends THREE.Object3D { // TODO
     //     max: number;
     // };
 
-    transformToLocalSystem(coordinates: Coordinates): Coordinates;
+    // transformToLocalSystem(coordinates: Coordinates): Coordinates;
 
-    updateExtent(extent: Extent): void;
+    // updateExtent(extent: Extent): void;
 
-    updateMatrixWorld(force: boolean): void;
+    // updateMatrixWorld(force: boolean): void;
 
-    removeEmptyFeature(): void;
+    // removeEmptyFeature(): void;
 
-    pushFeature(feature: Feature): void;
+    // pushFeature(feature: Feature): void;
 
     // requestFeature(type: FeatureType, callback: any): any;
 
-    requestFeatureByType(type: string): Feature;
+    // requestFeatureByType(type: string): Feature;
 
-    requestFeatureById(id: string, type: FeatureType): Feature;
+    // requestFeatureById(id: string, type: FeatureType): Feature;
 
-    newFeatureByReference(feature: Feature): Feature;
+    // newFeatureByReference(feature: Feature): Feature;
 
     // setParentStyle(style: any): void;
 }

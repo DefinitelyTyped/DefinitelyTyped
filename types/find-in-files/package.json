@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/find-in-files",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/kaesetoast/find-in-files"
+    ],
+    "devDependencies": {
+        "@types/find-in-files": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "goooseman",
+            "githubUsername": "goooseman"
+        }
+    ]
+}

@@ -1,12 +1,6 @@
-// Type definitions for tar-stream 1.6
-// Project: https://github.com/mafintosh/tar-stream
-// Definitions by: Guy Lichtman <https://github.com/glicht>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="node" />
 
-import stream = require('stream');
+import stream = require("stream");
 
 export type Callback = (err?: Error | null) => any;
 
@@ -19,8 +13,21 @@ export interface Headers {
     size?: number | undefined;
     mtime?: Date | undefined;
     linkname?: string | null | undefined;
-    type?: 'file' | 'link' | 'symlink' | 'character-device' | 'block-device' | 'directory' | 'fifo' |
-        'contiguous-file' | 'pax-header' | 'pax-global-header' | 'gnu-long-link-path' | 'gnu-long-path' | null | undefined;
+    type?:
+        | "file"
+        | "link"
+        | "symlink"
+        | "character-device"
+        | "block-device"
+        | "directory"
+        | "fifo"
+        | "contiguous-file"
+        | "pax-header"
+        | "pax-global-header"
+        | "gnu-long-link-path"
+        | "gnu-long-path"
+        | null
+        | undefined;
     uname?: string | undefined;
     gname?: string | undefined;
     devmajor?: number | undefined;

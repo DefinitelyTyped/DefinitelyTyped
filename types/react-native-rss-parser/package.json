@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-rss-parser",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/jameslawler/react-native-rss-parser"
+    ],
+    "devDependencies": {
+        "@types/react-native-rss-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emiliano Leite",
+            "githubUsername": "emilianoLeite"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 {
     "rules": {
-        "trim-file": "off"
+        "@definitelytyped/no-type-only-packages": "off"
     }
 }

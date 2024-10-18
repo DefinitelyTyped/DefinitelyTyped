@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/time-limited-regular-expressions",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/apostrophecms/time-limited-regular-expressions#readme"
+    ],
+    "devDependencies": {
+        "@types/time-limited-regular-expressions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Glenn",
+            "githubUsername": "promise"
+        }
+    ]
+}

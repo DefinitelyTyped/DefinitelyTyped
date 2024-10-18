@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import maki = require('@elastic/maki');
-import { IconName, SvgContent, Sprite } from '@elastic/maki';
-import fs = require('fs');
+import maki = require("@elastic/maki");
+import { IconName, Sprite, SvgContent } from "@elastic/maki";
+import fs = require("fs");
 
 maki.layouts; // $ExpectType { all: string[]; }
 maki.layouts.all; // $ExpectType string[]
@@ -18,11 +18,11 @@ const files: string[] = [];
 
 files.forEach(fileName => {
     maki.layouts.all.forEach((icon: IconName) => {
-        fs.readFile(`${__dirname}/icons/${icon}-11.svg`, 'utf8', (err, file) => {
+        fs.readFile(`${__dirname}/icons/${icon}-11.svg`, "utf8", (err, file) => {
             console.log(file);
         });
     });
 });
 
 maki.svgArray.forEach((svg: SvgContent) => console.log(svg));
-maki.spritesheet[1]['aerialway-15']; // $ExpectType Sprite
+maki.spritesheet[1]["aerialway-15"]; // $ExpectType Sprite

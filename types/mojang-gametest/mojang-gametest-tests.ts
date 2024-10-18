@@ -1,11 +1,11 @@
-import * as mc from 'mojang-minecraft';
+import * as mc from "mojang-minecraft";
 
-const overworld = mc.world.getDimension('overworld');
+const overworld = mc.world.getDimension("overworld");
 
 export function simpleMobTest(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
-    gt.register('StarterTests', 'simpleMobTest', (test: gt.Test) => {
-        const attackerId = 'fox';
-        const victimId = 'chicken';
+    gt.register("StarterTests", "simpleMobTest", (test: gt.Test) => {
+        const attackerId = "fox";
+        const victimId = "chicken";
 
         test.spawn(attackerId, new mc.BlockLocation(5, 2, 5));
         test.spawn(victimId, new mc.BlockLocation(2, 2, 2));
@@ -17,7 +17,7 @@ export function simpleMobTest(log: (message: string, status?: number) => void, t
         });
     })
         .maxTicks(400)
-        .structureName('gametests:mediumglass');
+        .structureName("gametests:mediumglass");
 }
 
 export default class SampleManager {
@@ -35,24 +35,24 @@ export default class SampleManager {
 
     gameplayLogger(message: string, status?: number) {
         if (status !== undefined && status > 0) {
-            message = 'SUCCESS: ' + message;
+            message = "SUCCESS: " + message;
         } else if (status !== undefined && status < 0) {
-            message = 'FAIL: ' + message;
+            message = "FAIL: " + message;
         }
 
         this.say(message);
     }
     say(message: string) {
-        mc.world.getDimension('overworld').runCommand('say ' + message);
+        mc.world.getDimension("overworld").runCommand("say " + message);
     }
 
     newChatMessage(chatEvent: mc.ChatEvent) {
         const message = chatEvent.message.toLowerCase();
 
-        if (message.startsWith('howto') && chatEvent.sender) {
+        if (message.startsWith("howto") && chatEvent.sender) {
             const nearbyBlock = chatEvent.sender.getBlockFromViewVector();
             if (!nearbyBlock) {
-                this.gameplayLogger('Please look at the block where you want me to run this.');
+                this.gameplayLogger("Please look at the block where you want me to run this.");
                 return;
             }
 
@@ -62,10 +62,10 @@ export default class SampleManager {
             const sampleId = message.substring(5).trim();
 
             if (sampleId.length < 2) {
-                let availableFuncStr = 'Here is my list of available samples:';
+                let availableFuncStr = "Here is my list of available samples:";
 
                 for (const sampleFuncKey in this._availableFuncs) {
-                    availableFuncStr += ' ' + sampleFuncKey;
+                    availableFuncStr += " " + sampleFuncKey;
                 }
 
                 this.say(availableFuncStr);
@@ -129,7 +129,7 @@ export default class SampleManager {
     }
 }
 
-import * as gt from 'mojang-gametest';
+import * as gt from "mojang-gametest";
 
 const mojangGameTestFuncs: {
     [name: string]: Array<(log: (message: string, status?: number) => void, location: mc.Location) => void>;

@@ -1,4 +1,4 @@
-import { createClient, FacetOptions } from 'solr-client';
+import { createClient, FacetOptions } from "solr-client";
 
 const client = createClient();
 const query = client.query();
@@ -6,11 +6,11 @@ const query = client.query();
 query; // $ExpectType Query
 client; // $ExpectType Client
 
-query.q({ id: '1' }); // $ExpectType Query
+query.q({ id: "1" }); // $ExpectType Query
 
 client.search(query); // $ExpectType ClientRequest
 
-() => {
+(() => {
     client.search(query, (err, data) => {
         if (err) {
             console.log(err);
@@ -18,7 +18,7 @@ client.search(query); // $ExpectType ClientRequest
             console.log(data);
         }
     });
-};
+});
 
 const facetOptions1: FacetOptions = {
     on: true,
@@ -26,30 +26,30 @@ const facetOptions1: FacetOptions = {
 
 const facetOptions2: FacetOptions = {
     on: true,
-    query: 'test',
-    field: 'test',
-    prefix: 'test',
-    sort: 'test',
+    query: "test",
+    field: "test",
+    prefix: "test",
+    sort: "test",
     limit: 1,
     offset: 1,
     mincout: 1,
     missing: false,
-    method: 'test',
-    pivot: 'test',
+    method: "test",
+    pivot: "test",
 };
 
 const facetOptions3: FacetOptions = {
     on: true,
-    query: 'test',
-    field: ['test', 'foo'],
-    prefix: 'test',
-    sort: 'test',
+    query: "test",
+    field: ["test", "foo"],
+    prefix: "test",
+    sort: "test",
     limit: 1,
     offset: 1,
     mincout: 1,
     missing: false,
-    method: 'test',
-    pivot: ['test', 'foo'],
+    method: "test",
+    pivot: ["test", "foo"],
 };
 
 facetOptions1; // $ExpectType FacetOptions

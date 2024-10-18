@@ -1,1 +1,1 @@
-export { toolkit as VerovioToolkit } from '..';
+export { toolkit as VerovioToolkit } from "..";

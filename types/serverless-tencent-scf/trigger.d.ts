@@ -3,7 +3,7 @@
  *
  * https://intl.cloud.tencent.com/document/product/583/31439
  */
-import { Handler } from './handler';
+import { Handler } from "./handler";
 
 // API Gateway Trigger Handler
 export type APIGatewayHandler<T> = Handler<APIGatewayEvent, T>;

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Sign In With Google JavaScript API 0.0
-// Project: https://developers.google.com/identity/gsi/web/reference/js-reference
-// Definitions by: Aron Høyer <https://github.com/aronhoyer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface IdConfiguration {
     /** Your application's client ID */
     client_id: string;
@@ -21,17 +16,23 @@ interface IdConfiguration {
     /** A random string for ID tokens. */
     nonce?: string;
     /** The title and words in the One Tap prompt. */
-    context?: 'signin' | 'signup' | 'use';
+    context?: "signin" | "signup" | "use";
     /** If you need to call One Tap in the parent domain and its subdomains, pass the parent domain to this field so that a single shared cookie is used. */
     state_cookie_domain?: string;
     /** The Sign In With Google button UX flow. */
-    ux_mode?: 'popup' | 'redirect';
+    ux_mode?: "popup" | "redirect";
     /** The origins that are allowed to embed the intermediate iframe. One Tap will run in the intermediate iframe mode if this field presents. */
     allowed_parent_origin?: string | string[];
     /** Overrides the default intermediate iframe behavior when users manually close One Tap. */
     intermediate_iframe_close_callback?: () => void;
     /** Enables upgraded One Tap UX on ITP browsers. */
     itp_support?: boolean;
+    /** Skip account selection by providing a user hint. */
+    login_hint?: string;
+    /** Limit account selection by domain */
+    hd?: string;
+    /** Allow the browser to control user sign-in prompts and mediate the sign-in flow between your website and Google. */
+    use_fedcm_for_prompt?: boolean;
 }
 
 interface CredentialResponse {
@@ -39,14 +40,14 @@ interface CredentialResponse {
     credential: string;
     /** This field sets how the credential is selected. */
     select_by:
-        | 'auto'
-        | 'user'
-        | 'user_1tap'
-        | 'user_2tap'
-        | 'btn'
-        | 'btn_confirm'
-        | 'btn_add_session'
-        | 'btn_confirm_add_session';
+        | "auto"
+        | "user"
+        | "user_1tap"
+        | "user_2tap"
+        | "btn"
+        | "btn_confirm"
+        | "btn_add_session"
+        | "btn_confirm_add_session";
 }
 
 interface GsiCredential {
@@ -65,41 +66,41 @@ interface PromptMomentNotification {
     isNotDisplayed: () => boolean;
     /** The detailed reason why the UI isn't displayed. */
     getNotDisplayedReason: () =>
-        | 'browser_not_supported'
-        | 'invalid_client'
-        | 'missing_client_id'
-        | 'opt_out_or_no_session'
-        | 'secure_http_required'
-        | 'suppressed_by_user'
-        | 'unregistered_origin'
-        | 'unknown_reason';
+        | "browser_not_supported"
+        | "invalid_client"
+        | "missing_client_id"
+        | "opt_out_or_no_session"
+        | "secure_http_required"
+        | "suppressed_by_user"
+        | "unregistered_origin"
+        | "unknown_reason";
     /** Is this notification for a skipped moment? */
     isSkippedMoment: () => boolean;
     /** The detailed reason for the skipped moment. */
-    getSkippedReason: () => 'auto_cancel' | 'user_cancel' | 'tap_outside' | 'issuing_failed';
+    getSkippedReason: () => "auto_cancel" | "user_cancel" | "tap_outside" | "issuing_failed";
     /** Is this notification for a dismissed moment? */
     isDismissedMoment: () => boolean;
     /** The detailed reason for the dismissal. */
-    getDismissedReason: () => 'credential_returned' | 'cancel_called' | 'flow_restarted';
+    getDismissedReason: () => "credential_returned" | "cancel_called" | "flow_restarted";
     /** Return a string for the moment type. */
-    getMomentType: () => 'display' | 'skipped' | 'dismissed';
+    getMomentType: () => "display" | "skipped" | "dismissed";
 }
 
 type MomentListener = (notification: PromptMomentNotification) => void;
 
 interface GsiButtonConfiguration {
     /** The button type: icon, or standard button. */
-    type: 'standard' | 'icon';
+    type: "standard" | "icon";
     /** The button theme. For example, filled_blue or filled_black. */
-    theme?: 'outline' | 'filled_blue' | 'filled_black';
+    theme?: "outline" | "filled_blue" | "filled_black";
     /** The button size. For example, small or large. */
-    size?: 'large' | 'medium' | 'small';
+    size?: "large" | "medium" | "small";
     /** The button text. For example, "Sign in with Google" or "Sign up with Google" */
-    text?: 'signin_with' | 'signup_with' | 'continue_with';
+    text?: "signin_with" | "signup_with" | "continue_with";
     /** The button shape. For example, rectangular or circular. */
-    shape?: 'rectangular' | 'pill' | 'circle' | 'square';
+    shape?: "rectangular" | "pill" | "circle" | "square";
     /** The Google logo alignment: left or center. */
-    logo_alignment?: 'left' | 'center';
+    logo_alignment?: "left" | "center";
     /** The button width, in pixels. */
     width?: string;
     /** If set, then the button language is rendered. */

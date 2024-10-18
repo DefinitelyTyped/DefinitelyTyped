@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/accurate-interval",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/klyngbaek/accurate-interval#readme"
+    ],
+    "devDependencies": {
+        "@types/accurate-interval": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artur Dziedziczak",
+            "githubUsername": "grayrattus"
+        }
+    ]
+}

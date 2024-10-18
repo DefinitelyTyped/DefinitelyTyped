@@ -302,7 +302,7 @@ declare namespace OO.ui {
              */
             actions?: boolean;
             /** Whether the toolbar is positioned above ('top') or below ('bottom') content. */
-            position?: 'top' | 'bottom';
+            position?: "top" | "bottom";
             /**
              * An overlay for the popup.
              * See <https://www.mediawiki.org/wiki/OOUI/Concepts#Overlays>.
@@ -472,14 +472,14 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
@@ -490,7 +490,7 @@ declare namespace OO.ui {
              * @param toolGroupFactory Factory for creating toolgroups
              * @param config Configuration options
              */
-            new (toolFactory: ToolFactory, toolGroupFactory: ToolGroupFactory, config?: ConfigOptions): Toolbar;
+            new(toolFactory: ToolFactory, toolGroupFactory: ToolGroupFactory, config?: ConfigOptions): Toolbar;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

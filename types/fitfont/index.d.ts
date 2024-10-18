@@ -1,8 +1,3 @@
-// Type definitions for fitfont 1.3
-// Project: https://github.com/gregoiresage/fitfont
-// Definitions by: Jérémy Jeanson <https://github.com/JeremyJeanson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Horizontal alignment
  */

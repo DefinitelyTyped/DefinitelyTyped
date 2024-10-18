@@ -1,6 +1,59 @@
 {
     "private": true,
+    "name": "@types/inquirer",
+    "version": "8.2.9999",
+    "projects": [
+        "https://github.com/SBoudrias/Inquirer.js"
+    ],
     "dependencies": {
+        "@types/through": "*",
         "rxjs": "^7.2.0"
-    }
+    },
+    "devDependencies": {
+        "@types/chalk-pipe": "*",
+        "@types/inquirer": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        },
+        {
+            "name": "Parvez",
+            "githubUsername": "ppathan"
+        },
+        {
+            "name": "Jouderian",
+            "githubUsername": "jouderianjr"
+        },
+        {
+            "name": "Qibang",
+            "githubUsername": "bang88"
+        },
+        {
+            "name": "Jason Dreyzehner",
+            "githubUsername": "bitjson"
+        },
+        {
+            "name": "Synarque",
+            "githubUsername": "synarque"
+        },
+        {
+            "name": "Justin Rockwood",
+            "githubUsername": "jrockwood"
+        },
+        {
+            "name": "Keith Kelly",
+            "githubUsername": "kwkelly"
+        },
+        {
+            "name": "Richard Lea",
+            "githubUsername": "chigix"
+        },
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
 }

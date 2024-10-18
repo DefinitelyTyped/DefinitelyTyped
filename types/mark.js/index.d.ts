@@ -1,15 +1,7 @@
-// Type definitions for mark.js 8.11
-// Project: https://markjs.io/
-// Definitions by: Soner Köksal <https://github.com/renjfk>
-//                 Lucian Buzzo <https://github.com/LucianBuzzo>
-//                 Joao Lourenco <https://github.com/blackstarzes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace Mark {
-    type MarkAccuracy = 'partially' | 'complementary' | 'exactly';
+    type MarkAccuracy = "partially" | "complementary" | "exactly";
 
     interface MarkAccuracyObject {
         value: MarkAccuracy;
@@ -30,7 +22,7 @@ declare namespace Mark {
         caseSensitive?: boolean | undefined;
         ignoreJoiners?: boolean | undefined;
         ignorePunctuation?: string[] | undefined;
-        wildcards?: 'disabled' | 'enabled' | 'withSpaces' | undefined;
+        wildcards?: "disabled" | "enabled" | "withSpaces" | undefined;
 
         each?(element: Element): void;
 
@@ -38,7 +30,7 @@ declare namespace Mark {
             textNode: Text,
             term: string,
             marksSoFar: number,
-            marksTotal: number
+            marksTotal: number,
         ): boolean;
 
         noMatch?(term: string): void;
@@ -62,7 +54,7 @@ declare namespace Mark {
             textNode: Text,
             term: string,
             marksSoFar: number,
-            marksTotal: number
+            marksTotal: number,
         ): boolean;
         noMatch?(term: string): void;
         done?(marksTotal: number): void;
@@ -81,7 +73,7 @@ declare namespace Mark {
             textNode: Text,
             term: string,
             marksSoFar: number,
-            marksTotal: number
+            marksTotal: number,
         ): boolean;
         noMatch?(term: string): void;
         done?(marksTotal: number): void;
@@ -110,7 +102,7 @@ declare namespace Mark {
 
 declare class Mark {
     constructor(
-        context: string | HTMLElement | ReadonlyArray<HTMLElement> | NodeList
+        context: string | HTMLElement | readonly HTMLElement[] | NodeList,
     );
 
     /**
@@ -121,8 +113,8 @@ declare class Mark {
      * @param options Optional options
      */
     mark(
-        keyword: string | ReadonlyArray<string>,
-        options?: Mark.MarkOptions
+        keyword: string | readonly string[],
+        options?: Mark.MarkOptions,
     ): void;
 
     /**
@@ -141,8 +133,8 @@ declare class Mark {
      * @param options Optional options
      */
     markRanges(
-        ranges: ReadonlyArray<Mark.Range>,
-        options?: Mark.MarkRangesOptions
+        ranges: readonly Mark.Range[],
+        options?: Mark.MarkRangesOptions,
     ): void;
 
     /**
@@ -158,8 +150,8 @@ export = Mark;
 declare global {
     interface JQuery {
         mark(
-            term: string | ReadonlyArray<string>,
-            options?: Mark.MarkOptions
+            term: string | readonly string[],
+            options?: Mark.MarkOptions,
         ): void;
 
         unmark(options?: Mark.UnmarkOptions): void;
@@ -167,8 +159,8 @@ declare global {
 
     interface JQueryStatic {
         mark(
-            term: string | ReadonlyArray<string>,
-            options?: Mark.MarkOptions
+            term: string | readonly string[],
+            options?: Mark.MarkOptions,
         ): void;
 
         unmark(options?: Mark.UnmarkOptions): void;

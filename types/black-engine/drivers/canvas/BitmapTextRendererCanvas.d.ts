@@ -1,2 +1,2 @@
 export class BitmapTextRendererCanvas extends BitmapTextRenderer {}
-import { BitmapTextRenderer } from '../BitmapTextRenderer';
+import { BitmapTextRenderer } from "../BitmapTextRenderer";

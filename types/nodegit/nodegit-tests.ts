@@ -1,14 +1,14 @@
-import * as Git from 'nodegit';
+import * as Git from "nodegit";
 
-Git.Repository.discover('startPath', 1, 'ceilingDirs').then(string => {
+Git.Repository.discover("startPath", 1, "ceilingDirs").then(string => {
     // Use string
 });
 
-Git.Repository.init('path', 0).then(repository => {
+Git.Repository.init("path", 0).then(repository => {
     // Use repository
 });
 
-Git.Repository.initExt('path', {
+Git.Repository.initExt("path", {
     flags: 0,
 }).then(repository => {
     // Use repository
@@ -25,7 +25,7 @@ const credential = Git.Credential;
 const cred = Git.Cred;
 
 tree.walk().start();
-tree.getEntry('/').then(entry => {
+tree.getEntry("/").then(entry => {
     // Use entry
 });
 
@@ -35,7 +35,7 @@ tree.diff(new Git.Tree()).then(diff => {
 
 // AnnotatedCommit Tests
 
-Git.AnnotatedCommit.fromFetchhead(repo, 'branch_name', 'remote_url', id).then(annotatedCommit => {
+Git.AnnotatedCommit.fromFetchhead(repo, "branch_name", "remote_url", id).then(annotatedCommit => {
     // Use annotatedCommit
 });
 
@@ -43,47 +43,46 @@ Git.AnnotatedCommit.fromRef(repo, ref).then(annotatedCommit => {
     // Use annotatedCommit
 });
 
-Git.AnnotatedCommit.fromRevspec(repo, 'revspec').then(annotatedCommit => {
+Git.AnnotatedCommit.fromRevspec(repo, "revspec").then(annotatedCommit => {
     // Use annotatedCommit
 });
 
 Git.AnnotatedCommit.lookup(repo, id).then(annotatedCommit => {
     // Use annotatedCommit
-    annotatedCommit.free();
     annotatedCommit.id();
 });
 
 // Attr tests
 
-let result = Git.Attr.addMacro(repo, 'name', 'values');
+let result = Git.Attr.addMacro(repo, "name", "values");
 
 Git.Attr.cacheFlush(repo);
 
-Git.Attr.get(repo, 1, 'path', 'name').then(string => {
+Git.Attr.get(repo, 1, "path", "name").then(string => {
     // Use string
 });
 
-const array = Git.Attr.getMany(repo, 1, 'path', 1, 'names');
+const array = Git.Attr.getMany(repo, 1, "path", 1, "names");
 
-result = Git.Attr.value('attr');
+result = Git.Attr.value("attr");
 
 const blameOptions = new Git.BlameOptions();
 
-Git.Blame.file(repo, 'path').then(blame => {
+Git.Blame.file(repo, "path").then(blame => {
     const hunk = blame.getHunkByLine(0);
     hunk.linesInHunk();
 });
 
-Git.Branch.lookup(repo, 'branch_name', Git.Branch.BRANCH.LOCAL).then(reference => {
+Git.Branch.lookup(repo, "branch_name", Git.Branch.BRANCH.LOCAL).then(reference => {
     // Use reference
 });
 
-repo.getCommit('0123456789abcdef0123456789abcdef').then(commit => {
-    const sig = Git.Signature.now('John Doe', 'jd@example.com');
-    const newCommit: Promise<Git.Oid> = commit.amend('ref', sig, sig, 'utf8', 'message', tree);
+repo.getCommit("0123456789abcdef0123456789abcdef").then(commit => {
+    const sig = Git.Signature.now("John Doe", "jd@example.com");
+    const newCommit: Promise<Git.Oid> = commit.amend("ref", sig, sig, "utf8", "message", tree);
 });
 
-const signature = Git.Signature.now('name', 'email');
+const signature = Git.Signature.now("name", "email");
 signature.name();
 signature.email();
 signature.when();
@@ -94,7 +93,7 @@ Git.Signature.default(repo).then(defaultSigniture => {
     defaultSigniture.when();
 });
 
-repo.createBlobFromBuffer(Buffer.from('test')).then((oid: Git.Oid) => oid.cpy());
+repo.createBlobFromBuffer(Buffer.from("test")).then((oid: Git.Oid) => oid.cpy());
 repo.commondir();
 
 repo.getHeadCommit().then(async commit => {
@@ -121,7 +120,7 @@ const commitList: Promise<Git.Commit[]> = revwalk.getCommitsUntil((commit: Git.C
     return true;
 });
 
-const historyEntries: Promise<Git.Revwalk.HistoryEntry[]> = revwalk.fileHistoryWalk('path', 100);
+const historyEntries: Promise<Git.Revwalk.HistoryEntry[]> = revwalk.fileHistoryWalk("path", 100);
 historyEntries.then((entries: Git.Revwalk.HistoryEntry[]) => {
     if (entries.length > 0) {
         const entry = entries[0];
@@ -154,7 +153,7 @@ revwalk.fastWalk(100).then(oids => {
     }
 });
 
-Git.Remote.create(repo, 'test-repository', 'https://github.com/test-repository/test-repository').then(remote => {
+Git.Remote.create(repo, "test-repository", "https://github.com/test-repository/test-repository").then(remote => {
     remote.connect(Git.Enums.DIRECTION.FETCH, {});
     remote.defaultBranch(); // $ExpectType Promise<string>
 });
@@ -169,13 +168,13 @@ Git.Worktree.openFromRepository(repo).then(worktree => {
     worktree.path(); // $ExpectType string
 });
 
-Git.Refspec.parse('+refs/heads/*:refs/remotes/origin/*', 0).then(refspec => {
+Git.Refspec.parse("+refs/heads/*:refs/remotes/origin/*", 0).then(refspec => {
     refspec.direction(); // $ExpectType number
     refspec.dst(); // $ExpectType string
-    refspec.dstMatches('+refs/heads/*'); // $ExpectType number
+    refspec.dstMatches("+refs/heads/*"); // $ExpectType number
     refspec.force(); // $ExpectType number
     refspec.src(); // $ExpectType string
-    refspec.srcMatches('refs/remotes/origin/*'); // $ExpectType number
+    refspec.srcMatches("refs/remotes/origin/*"); // $ExpectType number
     refspec.string(); // $ExpectType string
 });
 
@@ -196,7 +195,7 @@ Git.Rebase.init(repo, annotatedCommit, null, annotatedCommit, rebaseOptions).the
             signature,
             signature,
             "encoding",
-            "message"
+            "message",
         ).then(oid => {
             oid; // $ExpectType Oid
 
@@ -218,9 +217,9 @@ repo.cleanup();
 const cloneOptions: Git.CloneOptions = {
     fetchOpts: {
         callbacks: {
-            credentials: () => Git.Credential.sshKeyFromAgent("git")
-        }
-    }
+            credentials: () => Git.Credential.sshKeyFromAgent("git"),
+        },
+    },
 };
 
 Git.Clone("repo_url", "local_path", cloneOptions).then(repoClone => {

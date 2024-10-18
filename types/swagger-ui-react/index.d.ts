@@ -1,10 +1,4 @@
-// Type definitions for swagger-ui-react 4.18
-// Project: https://github.com/swagger-api/swagger-ui#readme
-// Definitions by: viki.green <https://github.com/VictoriaGreen93>, afrkorsakow <https://github.com/afrkorsakow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 interface Request {
     [k: string]: any;
@@ -27,10 +21,10 @@ export interface SwaggerUIProps {
     onComplete?: ((system: System) => void) | undefined;
     requestInterceptor?: ((req: Request) => Request | Promise<Request>) | undefined;
     responseInterceptor?: ((res: Response) => Response | Promise<Response>) | undefined;
-    docExpansion?: 'list' | 'full' | 'none' | undefined;
+    docExpansion?: "list" | "full" | "none" | undefined;
     defaultModelExpandDepth?: number | undefined;
     defaultModelsExpandDepth?: number | undefined;
-    defaultModelRendering?: 'example' | 'model';
+    defaultModelRendering?: "example" | "model";
     queryConfigEnabled?: boolean;
     plugins?: Plugin[] | undefined;
     supportedSubmitMethods?: string[] | undefined;

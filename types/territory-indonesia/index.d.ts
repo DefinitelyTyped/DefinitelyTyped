@@ -1,8 +1,3 @@
-// Type definitions for territory-indonesia 0.1
-// Project: https://github.com/eksant/territory-indonesia
-// Definitions by: Tifan <https://github.com/tifandotme>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Province {
     name: string;
     id: string;

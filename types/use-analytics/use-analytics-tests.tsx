@@ -1,3 +1,5 @@
+import { AnalyticsInstance } from "analytics";
+import * as React from "react";
 import {
     AnalyticsConsumer,
     AnalyticsContext,
@@ -7,9 +9,7 @@ import {
     usePage,
     useTrack,
     withAnalytics,
-} from 'use-analytics';
-import * as React from 'react';
-import { AnalyticsInstance } from 'analytics';
+} from "use-analytics";
 
 // Hooks
 {
@@ -17,16 +17,16 @@ import { AnalyticsInstance } from 'analytics';
     {
         const { track, page, identify, user } = useAnalytics();
 
-        track('trackThing');
+        track("trackThing");
         page();
-        identify('userId', { email: 'user@example.com' });
-        user('userId');
+        identify("userId", { email: "user@example.com" });
+        user("userId");
     }
 
     // useTrack
     {
         const track = useTrack();
-        track('trackThing');
+        track("trackThing");
     }
 
     // usePage
@@ -38,7 +38,7 @@ import { AnalyticsInstance } from 'analytics';
     // useIdentify
     {
         const identify = useIdentify();
-        identify('userId', { email: 'user@example.com' });
+        identify("userId", { email: "user@example.com" });
     }
 }
 

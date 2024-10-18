@@ -46,5 +46,5 @@ declare class DetailGrid {
 declare namespace DetailGrid {
     export { Event };
 }
-type Event = import('@nginstack/engine/lib/event/Event');
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+type Event = import("@nginstack/engine/lib/event/Event");
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");

@@ -2,18 +2,18 @@ import LeState = require("lestate");
 const State = LeState.createState();
 
 State.set({
-    test : {}
+    test: {},
 });
 
 const currentState = State.get();
 
 State.insert({
-    test : {}
+    test: {},
 });
 
 const currentDescription = State.getDescription();
 
 State.createListener({
-    id       : 0,
-    selector : state => ({ test : state.test })
+    id: 0,
+    selector: state => ({ test: state.test }),
 });

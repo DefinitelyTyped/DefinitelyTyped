@@ -1,24 +1,21 @@
 import {
-    Scene,
     Camera,
-    Material,
-    MeshDepthMaterial,
-    MeshNormalMaterial,
-    ShaderMaterial,
     Color,
+    ColorRepresentation,
+    Material,
+    MeshNormalMaterial,
+    Scene,
+    ShaderMaterial,
     Vector2,
     WebGLRenderer,
     WebGLRenderTarget,
-    ColorRepresentation,
-} from '../../../src/Three.js';
+} from "three";
 
-import { Pass, FullScreenQuad } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export enum OUTPUT {
-    Beauty,
     Default,
     SAO,
-    Depth,
     Normal,
 }
 
@@ -36,27 +33,21 @@ export interface SAOPassParams {
 }
 
 export class SAOPass extends Pass {
-    constructor(scene: Scene, camera: Camera, depthTexture?: boolean, useNormals?: boolean, resolution?: Vector2);
+    constructor(scene: Scene, camera: Camera, resolution?: Vector2);
     scene: Scene;
     camera: Camera;
-    supportsDepthTextureExtension: boolean;
-    supportsNormalTexture: boolean;
     originalClearColor: Color;
     oldClearColor: Color;
     oldClearAlpha: number;
     resolution: Vector2;
     saoRenderTarget: WebGLRenderTarget;
     blurIntermediateRenderTarget: WebGLRenderTarget;
-    beautyRenderTarget: WebGLRenderTarget;
     normalRenderTarget: WebGLRenderTarget;
-    depthRenderTarget: WebGLRenderTarget;
-    depthMaterial: MeshDepthMaterial;
     normalMaterial: MeshNormalMaterial;
     saoMaterial: ShaderMaterial;
     vBlurMaterial: ShaderMaterial;
     hBlurMaterial: ShaderMaterial;
     materialCopy: ShaderMaterial;
-    depthCopy: ShaderMaterial;
     fsQuad: FullScreenQuad;
     params: SAOPassParams;
 

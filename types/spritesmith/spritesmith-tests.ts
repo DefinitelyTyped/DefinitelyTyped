@@ -1,12 +1,12 @@
-import { SpritesmithResult } from 'spritesmith';
-import Spritesmith = require('spritesmith');
-import { Transform } from 'stream';
+import { SpritesmithResult } from "spritesmith";
+import Spritesmith = require("spritesmith");
+import { Transform } from "stream";
 
 // Generate our spritesheet
-const sprites = ['fork.png', 'github.png', 'twitter.png'];
+const sprites = ["fork.png", "github.png", "twitter.png"];
 // $ExpectType void
 Spritesmith.run({ src: sprites }, function handleResult(err, result) {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     result.image; // Buffer representation of image
     result.coordinates; // Object mapping filename to {x, y, width, height} of image
     result.properties; // Object with metadata about spritesheet {width, height}

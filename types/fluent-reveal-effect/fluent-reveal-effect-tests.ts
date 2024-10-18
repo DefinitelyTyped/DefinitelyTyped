@@ -1,7 +1,7 @@
-import { FluentRevealEffect } from 'fluent-reveal-effect';
+import { FluentRevealEffect } from "fluent-reveal-effect";
 
 // tests all values for the options object
-FluentRevealEffect.applyEffect('#element', {
+FluentRevealEffect.applyEffect("#element", {
     clickEffect: true,
     lightColor: "rgba(255,255,255,0.6)",
     gradientSize: 80,
@@ -10,9 +10,9 @@ FluentRevealEffect.applyEffect('#element', {
         borderSelector: ".btn-border",
         elementSelector: ".btn",
         lightColor: "rgba(255,255,255,0.3)",
-        gradientSize: 150
-    }
+        gradientSize: 150,
+    },
 });
 
 // tests no values for the options object
-FluentRevealEffect.applyEffect('.element2', {});
+FluentRevealEffect.applyEffect(".element2", {});

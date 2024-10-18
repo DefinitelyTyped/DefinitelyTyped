@@ -1,5 +1,5 @@
-import { version, compress, decompress } from 'lzbase62';
-import lzbase62 = require('lzbase62');
+import { compress, decompress, version } from "lzbase62";
+import lzbase62 = require("lzbase62");
 
 declare const data: string;
 
@@ -12,39 +12,39 @@ lzbase62.compress(data, {}); // $ExpectType string
 compress(data, {}); // $ExpectType string
 // $ExpectType string
 lzbase62.compress(data, {
-  onEnd() {},
+    onEnd() {},
 });
 // $ExpectType string
 compress(data, {
-  onEnd() {},
+    onEnd() {},
 });
 // $ExpectType ""
 lzbase62.compress(data, {
-  onData() {},
+    onData() {},
 });
 // $ExpectType ""
 compress(data, {
-  onData() {},
+    onData() {},
 });
 // $ExpectType ""
 lzbase62.compress(data, {
-  onData() {},
-  onEnd() {},
+    onData() {},
+    onEnd() {},
 });
 // $ExpectType ""
 compress(data, {
-  onData() {},
-  onEnd() {},
+    onData() {},
+    onEnd() {},
 });
 compress(data, {
-  onData(data) {
-    data; // $ExpectType string
-  },
+    onData(data) {
+        data; // $ExpectType string
+    },
 });
 lzbase62.compress(data, {
-  onData(data) {
-    data; // $ExpectType string
-  },
+    onData(data) {
+        data; // $ExpectType string
+    },
 });
 
 lzbase62.decompress(data); // $ExpectType string
@@ -53,37 +53,37 @@ lzbase62.decompress(data, {}); // $ExpectType string
 decompress(data, {}); // $ExpectType string
 // $ExpectType string
 lzbase62.decompress(data, {
-  onEnd() {},
+    onEnd() {},
 });
 // $ExpectType string
 decompress(data, {
-  onEnd() {},
+    onEnd() {},
 });
 // $ExpectType ""
 lzbase62.decompress(data, {
-  onData() {},
+    onData() {},
 });
 // $ExpectType ""
 decompress(data, {
-  onData() {},
+    onData() {},
 });
 // $ExpectType ""
 lzbase62.decompress(data, {
-  onData() {},
-  onEnd() {},
+    onData() {},
+    onEnd() {},
 });
 // $ExpectType ""
 decompress(data, {
-  onData() {},
-  onEnd() {},
+    onData() {},
+    onEnd() {},
 });
 decompress(data, {
-  onData(data) {
-    data; // $ExpectType string
-  },
+    onData(data) {
+        data; // $ExpectType string
+    },
 });
 lzbase62.decompress(data, {
-  onData(data) {
-    data; // $ExpectType string
-  },
+    onData(data) {
+        data; // $ExpectType string
+    },
 });

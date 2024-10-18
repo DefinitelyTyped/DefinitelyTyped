@@ -1,4 +1,4 @@
-import bind = require('function-bind');
+import bind = require("function-bind");
 
 declare function call<T, A extends any[], R>(this: (this: T, ...args: A) => R, thisArg: T, ...args: A): R;
 
@@ -19,27 +19,27 @@ const slice = expectType<(thisArg: any, start?: number, end?: number) => any[]>(
 expectType<(start?: number, end?: number) => any[]>(bind.call(call, Array.prototype.slice, null));
 
 // $ExpectType (end?: number | undefined) => any[]
-expectType<(end?: number) => any[]>(bind.call(call, Array.prototype.slice, ['a'], 1));
+expectType<(end?: number) => any[]>(bind.call(call, Array.prototype.slice, ["a"], 1));
 
-slice(['a']);
+slice(["a"]);
 
 // $ExpectType () => boolean
 bind.call(
     Boolean,
     null,
-    '1',
+    "1",
     // @ts-expect-error
-    '2',
-    '3',
-    '4',
-    '5',
+    "2",
+    "3",
+    "4",
+    "5",
 );
 
 // $ExpectType (value?: unknown) => boolean
 bind.call(Boolean, null);
 
 // $ExpectType () => boolean
-expectType<() => boolean>(bind.apply(Boolean, [null, '1', '2', '3', '4', '5']));
+expectType<() => boolean>(bind.apply(Boolean, [null, "1", "2", "3", "4", "5"]));
 
 // Class compatibility:
 class Foo {

@@ -14,8 +14,8 @@ const credentials_1: oauth2lib.ModuleOptions = {
         tokenHost: "https://api.oauth.com",
     },
     http: {
-        json: false
-    }
+        json: false,
+    },
 };
 
 const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode(credentials_1);
@@ -40,11 +40,11 @@ const credentials_3: oauth2lib.ModuleOptions = {
         tokenHost: "https://api.oauth.com",
     },
     http: {
-        json: 'strict'
-    }
+        json: "strict",
+    },
 };
 const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
-    credentials_3
+    credentials_3,
 );
 
 // Test custom `idParamName`
@@ -57,14 +57,14 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
             beforeRedirect(redirectMethod, statusCode, location, resHeaders, redirectOptions, next) {
                 // noop
             },
-            json: true
+            json: true,
         },
         options: {
-            bodyFormat: 'form',
-            authorizationMethod: 'body',
-            credentialsEncodingMode: 'loose',
-            scopeSeparator: ','
-        }
+            bodyFormat: "form",
+            authorizationMethod: "body",
+            credentialsEncodingMode: "loose",
+            scopeSeparator: ",",
+        },
     });
     oauth2AuthorizationCode.authorizeURL({ foobar: "x" });
 }
@@ -149,10 +149,10 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
 
 // #Access Token object
 async function TestFnAccessTokenObject(
-  oauthSubject:
-    | oauth2lib.AuthorizationCode
-    | oauth2lib.ClientCredentials
-    | oauth2lib.ResourceOwnerPassword
+    oauthSubject:
+        | oauth2lib.AuthorizationCode
+        | oauth2lib.ClientCredentials
+        | oauth2lib.ResourceOwnerPassword,
 ) {
     // Sample of a JSON access token (you got it through previous steps)
     const tokenObject = {
@@ -161,14 +161,14 @@ async function TestFnAccessTokenObject(
         expires_in: "7200",
     };
 
-    const httpOptions: oauth2lib.WreckHttpOptions =  {
+    const httpOptions: oauth2lib.WreckHttpOptions = {
         json: false,
         redirects: 0,
         headers: {
-            'some-header': 'value',
-            'other-header': 'other-value',
-            testNum: 123
-        }
+            "some-header": "value",
+            "other-header": "other-value",
+            testNum: 123,
+        },
     };
 
     // Create the access token wrapper

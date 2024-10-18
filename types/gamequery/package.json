@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gamequery",
+    "version": "0.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gamequery",
+    "projects": [
+        "http://gamequeryjs.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/gamequery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Laubreiter",
+            "githubUsername": "Laubi"
+        }
+    ]
+}

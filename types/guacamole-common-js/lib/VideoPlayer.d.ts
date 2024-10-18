@@ -1,6 +1,6 @@
-import { InputStream } from './InputStream';
-import { Mimetype } from './GuacCommon';
-import { VisibleLayer } from './VisibleLayer';
+import { Mimetype } from "./GuacCommon";
+import { InputStream } from "./InputStream";
+import { VisibleLayer } from "./VisibleLayer";
 
 /**
  * Abstract video player which accepts, queues and plays back arbitrary video

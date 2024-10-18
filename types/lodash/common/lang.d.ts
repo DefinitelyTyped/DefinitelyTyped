@@ -1,5 +1,5 @@
 import _ = require("../index");
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type GlobalFunction = Function;
 declare module "../index" {
     type FunctionBase = GlobalFunction;

@@ -1,5 +1,5 @@
-import { PortDiscoveryConfig } from './wire';
-import { Environment } from '../environment/environment';
+import { Environment } from "../environment/environment";
+import { PortDiscoveryConfig } from "./wire";
 export declare class PortDiscovery {
     private savedConfig;
     private namedPipeName;

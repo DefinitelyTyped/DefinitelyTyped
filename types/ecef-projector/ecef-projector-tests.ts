@@ -1,4 +1,4 @@
-import { project, unproject } from 'ecef-projector';
+import { project, unproject } from "ecef-projector";
 
 // $ExpectType [x: number, y: number, z: number]
 project(37.8043722, -122.2708026, 0.0);

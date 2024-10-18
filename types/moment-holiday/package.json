@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/moment-holiday",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/kodie/moment-holiday"
+    ],
     "dependencies": {
         "moment": ">=2.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/moment-holiday": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Winslow Dalpe",
+            "githubUsername": "rwdalpe"
+        }
+    ]
 }

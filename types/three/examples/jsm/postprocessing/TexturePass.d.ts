@@ -1,6 +1,6 @@
-import { Texture, ShaderMaterial, IUniform } from '../../../src/Three.js';
+import { IUniform, ShaderMaterial, Texture } from "three";
 
-import { Pass, FullScreenQuad } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class TexturePass extends Pass {
     constructor(map?: Texture, opacity?: number);

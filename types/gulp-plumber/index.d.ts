@@ -1,24 +1,18 @@
-// Type definitions for gulp-plumber
-// Project: https://github.com/floatdrop/gulp-plumber
-// Definitions by: Joe Skeen <https://github.com/joeskeen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /** Prevent pipe breaking caused by errors from gulp plugins */
-
 
 /** Prevent pipe breaking caused by errors from gulp plugins */
 interface GulpPlumber {
     /**
      * Returns Stream, that fixes pipe methods on Streams that are next in pipeline.
-     * 
+     *
      * @param options Sets options as described in the Options interface
      */
     (options?: Options): NodeJS.ReadWriteStream;
     /**
      * Returns Stream, that fixes pipe methods on Streams that are next in pipeline.
-     * 
+     *
      * @param errorHandler the function to be attached to the stream on('error')
      */
     (errorHandler: ErrorHandlerFunction): NodeJS.ReadWriteStream;
@@ -27,7 +21,7 @@ interface GulpPlumber {
 }
 
 interface Options {
-    /** 
+    /**
      * Handle errors in underlying streams and output them to console. Default true.
      * If function passed, it will be attached to stream on('error')
      * If false passed, error handler will not be attached

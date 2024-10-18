@@ -1,4 +1,4 @@
-import solverjs = require('solverjs');
+import solverjs = require("solverjs");
 
 solverjs.celToFah(0);
 solverjs.celToKel(0);

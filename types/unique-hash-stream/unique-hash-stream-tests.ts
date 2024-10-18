@@ -1,9 +1,9 @@
-import unique = require('unique-hash-stream');
+import unique = require("unique-hash-stream");
 
 const stream = unique();
 unique(doc => {
     doc; // $ExpectType any
-    return 'foo';
+    return "foo";
 });
 stream; // $ExpectType Transform
 unique.Unique; // $ExpectType typeof Transform

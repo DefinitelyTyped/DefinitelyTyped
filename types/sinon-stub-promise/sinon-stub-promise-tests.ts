@@ -1,4 +1,4 @@
-import * as sinon from 'sinon';
+import * as sinon from "sinon";
 
 function testReturnsPromise() {
     const stub = sinon.stub().returnsPromise();

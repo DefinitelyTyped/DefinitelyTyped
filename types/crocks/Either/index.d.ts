@@ -1,2 +1,2 @@
-import Either from './Either';
+import Either from "./Either";
 export default Either;

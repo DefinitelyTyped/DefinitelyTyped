@@ -202,7 +202,7 @@
 declare module "os" {
     
 
-    module os {
+    namespace os {
         
         
         /**

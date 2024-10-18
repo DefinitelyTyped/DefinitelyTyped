@@ -1,8 +1,8 @@
-import { SkinnedMesh } from '../Three.js';
-import { Object3D } from './../core/Object3D.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Bone } from './../objects/Bone.js';
-import { LineSegments } from './../objects/LineSegments.js';
+import { Object3D } from "../core/Object3D.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Bone } from "../objects/Bone.js";
+import { LineSegments } from "../objects/LineSegments.js";
+import { SkinnedMesh } from "../objects/SkinnedMesh.js";
 
 /**
  * A helper object to assist with visualizing a {@link Skeleton | Skeleton}
@@ -40,7 +40,7 @@ export class SkeletonHelper extends LineSegments {
      * @override
      * @defaultValue `SkeletonHelper`
      */
-    override readonly type: string | 'SkeletonHelper';
+    override readonly type: string | "SkeletonHelper";
 
     /**
      * The list of bones that the helper renders as {@link Line | Lines}.

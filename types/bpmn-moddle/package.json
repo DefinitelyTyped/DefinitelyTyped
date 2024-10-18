@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/bpmn-moddle",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/bpmn-io/bpmn-moddle"
+    ],
+    "devDependencies": {
+        "@types/bpmn-moddle": "workspace:."
+    },
+    "owners": []
+}

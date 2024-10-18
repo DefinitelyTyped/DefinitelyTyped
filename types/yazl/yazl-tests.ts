@@ -1,5 +1,5 @@
 import { ZipFile } from "yazl";
-import fs = require('fs');
+import fs = require("fs");
 
 const zipfile = new ZipFile();
 zipfile.addFile("file1.txt", "file1.txt");

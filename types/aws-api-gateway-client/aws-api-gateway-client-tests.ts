@@ -1,5 +1,5 @@
-import apiClientFactory, { ApiGatewayClient } from 'aws-api-gateway-client';
+import apiClientFactory, { ApiGatewayClient } from "aws-api-gateway-client";
 
 const client = apiClientFactory.newClient({
-    invokeUrl: 'APIGATEWAY_BASE_URL'
+    invokeUrl: "APIGATEWAY_BASE_URL",
 });

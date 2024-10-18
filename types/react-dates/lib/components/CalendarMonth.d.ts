@@ -1,3 +1,3 @@
-import { CalendarMonth } from '../../index';
+import { CalendarMonth } from "../../index";
 
 export default CalendarMonth;

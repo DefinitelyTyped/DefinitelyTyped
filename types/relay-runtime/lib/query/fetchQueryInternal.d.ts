@@ -1,6 +1,6 @@
-import { Environment, OperationDescriptor, RequestDescriptor } from '../store/RelayStoreTypes';
-import { GraphQLResponse } from '../network/RelayNetworkTypes';
-import { RelayObservable as Observable } from '../network/RelayObservable';
+import { GraphQLResponse } from "../network/RelayNetworkTypes";
+import { RelayObservable as Observable } from "../network/RelayObservable";
+import { Environment, OperationDescriptor, RequestDescriptor } from "../store/RelayStoreTypes";
 
 export function fetchQuery(environment: Environment, operation: OperationDescriptor): Observable<GraphQLResponse>;
 

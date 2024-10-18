@@ -1,17 +1,17 @@
-import * as babel from '@babel/standalone';
+import * as babel from "@babel/standalone";
 
 const options = {
     ast: true,
-    sourceMaps: true
+    sourceMaps: true,
 };
 
-babel.transform('code()', options);
+babel.transform("code()", options);
 
 const lolizer = () => ({
     visitor: {
-      Identifier(path: { node: { name: string}}) {
-        path.node.name = "LOL";
-      },
+        Identifier(path: { node: { name: string } }) {
+            path.node.name = "LOL";
+        },
     },
 });
 

@@ -1,21 +1,21 @@
-import vaultAuthAws = require('vault-auth-aws');
+import vaultAuthAws = require("vault-auth-aws");
 
 const config: vaultAuthAws.Config = {
     ssl: false,
-    host: 'localhost',
+    host: "localhost",
     port: 3000,
-    apiVersion: 'v1',
-    vaultLoginUrl: 'auth/aws/login',
-    vaultAppName: '',
+    apiVersion: "v1",
+    vaultLoginUrl: "auth/aws/login",
+    vaultAppName: "",
     followAllRedirects: true,
     certFilePath: undefined,
-    sslRejectUnAuthorized: true
+    sslRejectUnAuthorized: true,
 };
 
 const creds: vaultAuthAws.Creds = {
-    accessKeyId: '',
-    secretAccessKey: '',
-    sessionToken: ''
+    accessKeyId: "",
+    secretAccessKey: "",
+    sessionToken: "",
 };
 
 const vault = new vaultAuthAws(config);

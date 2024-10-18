@@ -1,9 +1,9 @@
-import { Styles } from '../../types/util';
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
-import Observer from '../util/observer';
-import WaveSurfer from '../wavesurfer';
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
+import { Styles } from "../../types/util";
+import Observer from "../util/observer";
+import WaveSurfer from "../wavesurfer";
 
-declare module '../../wavesurfer' {
+declare module "../../wavesurfer" {
     interface WaveSurfer {
         addRegion(regionParams: RegionParams): void;
         clearRegions(): void;
@@ -28,7 +28,7 @@ export default class RegionsPlugin extends Observer implements WaveSurferPlugin 
     readonly maxRegions: number;
     readonly params: RegionsPluginParams;
     readonly regionsMinLength: number;
-    readonly util: WaveSurfer['util'];
+    readonly util: WaveSurfer["util"];
     readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
@@ -53,7 +53,7 @@ export interface RegionsPluginParams extends PluginParams {
 }
 
 export class Region extends Observer {
-    constructor(params: RegionParams, regionsUtil: WaveSurfer['util'], ws: WaveSurfer);
+    constructor(params: RegionParams, regionsUtil: WaveSurfer["util"], ws: WaveSurfer);
 
     bindDragEvents(): void;
     bindEvents(): void;
@@ -61,7 +61,7 @@ export class Region extends Observer {
     formatTime(start: number, end: number): string;
     getWidth(): number;
     onDrag(delta: number): void;
-    onResize(delta: number, direction: 'start' | 'end'): void;
+    onResize(delta: number, direction: "start" | "end"): void;
     play(start?: number): void;
     playLoop(start?: number): void;
     remove(): void;
@@ -93,14 +93,14 @@ export class Region extends Observer {
     readonly minLength: number;
     readonly preventContextMenu: boolean;
     readonly regionHeight: string;
-    readonly regionsUtil: WaveSurfer['util'];
+    readonly regionsUtil: WaveSurfer["util"];
     readonly resize: boolean;
     readonly scroll: boolean;
     readonly scrollSpeed: number;
     readonly scrollThreshold: number;
     readonly start: number;
-    readonly style: WaveSurfer['util']['style'];
-    readonly util: WaveSurfer['util'];
+    readonly style: WaveSurfer["util"]["style"];
+    readonly util: WaveSurfer["util"];
     readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }
@@ -122,8 +122,8 @@ export interface RegionParams {
 }
 
 export interface RegionUpdatedEventParams {
-    action: 'drag' | 'resize' | 'contentEdited';
-    direction?: 'right' | 'left' | null;
+    action: "drag" | "resize" | "contentEdited";
+    direction?: "right" | "left" | null;
     oldText?: string;
     text?: string;
 }

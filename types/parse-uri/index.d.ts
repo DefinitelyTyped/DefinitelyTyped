@@ -1,8 +1,3 @@
-// Type definitions for parse-uri 1.0
-// Project: https://github.com/Kikobeats/parse-uri
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace parseURI {
     interface URI {
         source: string;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/array-equal",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/component/array-equal"
+    ],
+    "devDependencies": {
+        "@types/array-equal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

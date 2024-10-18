@@ -31,14 +31,14 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
          */
         static appendByNameToArray(
             name:
-                | 'basicconstraints'
-                | 'keyusage'
-                | 'crldistributionpoints'
-                | 'extkeyusage'
-                | 'authoritykeyidentifier'
-                | 'authorityinfoaccess'
-                | 'subjectaltname'
-                | 'issueraltname',
+                | "basicconstraints"
+                | "keyusage"
+                | "crldistributionpoints"
+                | "extkeyusage"
+                | "authoritykeyidentifier"
+                | "authorityinfoaccess"
+                | "subjectaltname"
+                | "issueraltname",
             extParams: Extension,
             a: any[],
         ): void;

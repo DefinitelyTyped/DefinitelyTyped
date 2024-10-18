@@ -26,7 +26,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): TabOptionWidget;
+            new(config?: ConfigOptions): TabOptionWidget;
             prototype: Prototype;
             static: Static;
             super: OptionWidget.Constructor;

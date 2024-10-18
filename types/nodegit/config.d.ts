@@ -1,4 +1,4 @@
-import { Buf } from './buf';
+import { Buf } from "./buf";
 
 export namespace Config {
     const enum LEVEL {

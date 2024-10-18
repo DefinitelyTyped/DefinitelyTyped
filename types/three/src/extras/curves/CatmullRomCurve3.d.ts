@@ -1,7 +1,7 @@
-import { Vector3 } from './../../math/Vector3.js';
-import { Curve } from './../core/Curve.js';
+import { Vector3 } from "../../math/Vector3.js";
+import { Curve } from "../core/Curve.js";
 
-export type CurveType = 'centripetal' | 'chordal' | 'catmullrom';
+export type CurveType = "centripetal" | "chordal" | "catmullrom";
 
 /**
  * Create a smooth **3D** spline curve from a series of points using the {@link https://en.wikipedia.org/wiki/Centripetal_Catmull-Rom_spline | Catmull-Rom} algorithm.
@@ -48,7 +48,7 @@ export class CatmullRomCurve3 extends Curve<Vector3> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `CatmullRomCurve3`
      */
-    override readonly type: string | 'CatmullRomCurve3';
+    override readonly type: string | "CatmullRomCurve3";
 
     /**
      * The curve will loop back onto itself when this is true.

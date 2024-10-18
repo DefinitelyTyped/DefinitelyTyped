@@ -1,20 +1,14 @@
-// Type definitions for react-blessed 0.7
-// Project: https://github.com/yomguithereal/react-blessed#readme
-// Definitions by: Century Guo <https://github.com/guoshencheng>
-//                 Robbie Nichols <https://github.com/defnotrobbie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
-import * as React from "react";
 import * as Blessed from "blessed";
+import * as React from "react";
 
 export {};
 
 /* RENDERER *****************************************************************/
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type Callback = () => void | null | undefined;
-export type renderer = (c: JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback) => React.Component | null;
-export function render(c: JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback): React.Component | null;
+export type renderer = (c: React.JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback) => React.Component | null;
+export function render(c: React.JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback): React.Component | null;
 
 export function createBlessedRenderer(bls: any): renderer;
 
@@ -117,11 +111,8 @@ export type ProgressBarEvent = undefined;
 export type ProgressBarEventHandler = EventHandler<ProgressBarEvent>;
 type ProgressBarEventProps = EventHandlerProp<ProgressBarEventNames, ProgressBarEventHandler>;
 interface EventProps
-    extends ScreenEventProps,
-        GenericEventProps,
-        MouseEventProps,
-        KeyPressEventProps,
-        WarningEventProps {}
+    extends ScreenEventProps, GenericEventProps, MouseEventProps, KeyPressEventProps, WarningEventProps
+{}
 
 /* BLESSED-REACT LOCALLY DEFINED PROPS **************************************/
 
@@ -176,12 +167,14 @@ type LayoutProps<T> = T extends LayoutElement ? Partial<Blessed.Widgets.LayoutOp
 // 'blessed' doesn't exist in a DOM so it probably doesn't make sense to allow any property
 type FilterOptions<T extends Record<any, any>> = Partial<Omit<KnownKeys<T>, "style" | "children">>;
 
-type ModifiedBlessedOptions<T extends Record<any, any>> = FilterOptions<T> & { children?: React.ReactNode; style?: ElementStyle } & EventProps;
+type ModifiedBlessedOptions<T extends Record<any, any>> = FilterOptions<T> & {
+    children?: React.ReactNode;
+    style?: ElementStyle;
+} & EventProps;
 
 /* REACT-BLESSED JSX ********************************************************/
 
 /**
- *
  * this type can be used to get props for 'react-blessed' elements in the same
  * manner that React.HTMLProps can be used to get DOM element props. e.g.
  * ```ts
@@ -242,47 +235,53 @@ export type BlessedIntrinsicElementsPrefixed = {
 // augment react JSX when old JSX transform is used
 declare module "react" {
     namespace JSX {
-        interface ButtonHTMLAttributes<T>
-            extends HTMLAttributes<T>,
-                Omit<
-                    DetailedBlessedProps<ButtonElement>,
-                    'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
+        interface ButtonHTMLAttributes<T> extends
+            HTMLAttributes<T>,
+            Omit<
+                DetailedBlessedProps<ButtonElement>,
+                "draggable" | "onBlur" | "onClick" | "onFocus" | "onResize" | "ref" | "style"
+            >
+        {}
 
-        interface TableHTMLAttributes<T>
-            extends HTMLAttributes<T>,
-                Omit<
-                    DetailedBlessedProps<TableElement>,
-                    'border' | 'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
+        interface TableHTMLAttributes<T> extends
+            HTMLAttributes<T>,
+            Omit<
+                DetailedBlessedProps<TableElement>,
+                "border" | "draggable" | "onBlur" | "onClick" | "onFocus" | "onResize" | "ref" | "style"
+            >
+        {}
 
-        interface TextareaHTMLAttributes<T>
-            extends HTMLAttributes<T>,
-                Omit<
-                    DetailedBlessedProps<TextElement>,
-                    'draggable' | 'fill' | 'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
+        interface TextareaHTMLAttributes<T> extends
+            HTMLAttributes<T>,
+            Omit<
+                DetailedBlessedProps<TextElement>,
+                "draggable" | "fill" | "focusable" | "onBlur" | "onClick" | "onFocus" | "onResize" | "ref" | "style"
+            >
+        {}
 
-        interface InputHTMLAttributes<T>
-            extends HTMLAttributes<T>,
-                Omit<
-                    DetailedBlessedProps<InputElement>,
-                    'draggable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
+        interface InputHTMLAttributes<T> extends
+            HTMLAttributes<T>,
+            Omit<
+                DetailedBlessedProps<InputElement>,
+                "draggable" | "onBlur" | "onClick" | "onFocus" | "onResize" | "ref" | "style"
+            >
+        {}
 
-        interface SVGLineElementAttributes<T>
-            extends SVGProps<T>,
-                Omit<
-                    DetailedBlessedProps<LineElement>,
-                    'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'orientation' | 'ref' | 'style'
-                > {}
+        interface SVGLineElementAttributes<T> extends
+            SVGProps<T>,
+            Omit<
+                DetailedBlessedProps<LineElement>,
+                "focusable" | "onBlur" | "onClick" | "onFocus" | "onResize" | "orientation" | "ref" | "style"
+            >
+        {}
 
-        interface SVGTextElementAttributes<T>
-            extends SVGProps<T>,
-                Omit<
-                    DetailedBlessedProps<TextElement>,
-                    'fill' | 'focusable' | 'onBlur' | 'onClick' | 'onFocus' | 'onResize' | 'ref' | 'style'
-                > {}
+        interface SVGTextElementAttributes<T> extends
+            SVGProps<T>,
+            Omit<
+                DetailedBlessedProps<TextElement>,
+                "fill" | "focusable" | "onBlur" | "onClick" | "onFocus" | "onResize" | "ref" | "style"
+            >
+        {}
 
         // set IntrinsicElements to 'react-blessed' elements both with and without
         // 'blessed-' prefix

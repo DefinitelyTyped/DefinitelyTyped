@@ -1,19 +1,10 @@
-// Type definitions for rox-node 5.0
-// Project: https://rollout.io
-// Definitions by: g-guirado <https://github.com/g-guirado>
-//                 AsafRollout: <https://github.com/asafRollout>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
- *
  * Official documentation for rox-node is available here:
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api
- *
  */
 
 export interface RoxContainer {
-  [key: string]: Flag | RoxNumber | RoxString;
+    [key: string]: Flag | RoxNumber | RoxString;
 }
 
 /**
@@ -42,51 +33,51 @@ export function setContext(globalContext: unknown): void;
 export function setup(apiKey: string, options?: RoxSetupOptions): Promise<unknown>;
 
 export interface RoxSetupOptions {
-  version?: string | undefined;
-  // https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/reporting/configuration-fetched-handler
-  configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
-  debugLevel?: 'verbose' | undefined;
-  // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_using_the_impressionhandler_option
-  impressionHandler?(reporting: RoxReporting, context: unknown): void;
-  platform?: string | undefined;
-  fetchIntervalInSec?: number | undefined;
-  disableNetworkFetch?: boolean | undefined;
-  devModeSecret?: string | undefined;
-  /**
-   * Set Roxy's URL for automated tests or local development.
-   *
-   * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/debugging/microservices-automated-testing-and-local-development
-   */
-  roxy?: string | undefined;
-  // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_dynamicpropertyrulehandler
-  dynamicPropertyRuleHandler?(propName: string, context: any): any;
+    version?: string | undefined;
+    // https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/reporting/configuration-fetched-handler
+    configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
+    debugLevel?: "verbose" | undefined;
+    // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_using_the_impressionhandler_option
+    impressionHandler?(reporting: RoxReporting, context: unknown): void;
+    platform?: string | undefined;
+    fetchIntervalInSec?: number | undefined;
+    disableNetworkFetch?: boolean | undefined;
+    devModeSecret?: string | undefined;
+    /**
+     * Set Roxy's URL for automated tests or local development.
+     *
+     * https://docs.cloudbees.com/docs/cloudbees-feature-flags/latest/debugging/microservices-automated-testing-and-local-development
+     */
+    roxy?: string | undefined;
+    // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_dynamicpropertyrulehandler
+    dynamicPropertyRuleHandler?(propName: string, context: any): any;
 }
 
 export enum RoxFetcherStatus {
-  AppliedFromEmbedded = 'APPLIED_FROM_EMBEDDED',
-  AppliedFromCache = 'APPLIED_FROM_CACHE',
-  AppliedFromNetwork = 'APPLIED_FROM_NETWORK',
-  ErrorFetchFailed = 'ERROR_FETCH_FAILED'
+    AppliedFromEmbedded = "APPLIED_FROM_EMBEDDED",
+    AppliedFromCache = "APPLIED_FROM_CACHE",
+    AppliedFromNetwork = "APPLIED_FROM_NETWORK",
+    ErrorFetchFailed = "ERROR_FETCH_FAILED",
 }
 
 export enum RoxErrorTrigger {
-  DYNAMIC_PROPERTIES_RULE = 'DYNAMIC_PROPERTIES_RULE',
-  CONFIGURATION_FETCHED_HANDLER = 'CONFIGURATION_FETCHED_HANDLER',
-  IMPRESSION_HANDLER = 'IMPRESSION_HANDLER',
-  CUSTOM_PROPERTY_GENERATOR = 'CUSTOM_PROPERTY_GENERATOR'
+    DYNAMIC_PROPERTIES_RULE = "DYNAMIC_PROPERTIES_RULE",
+    CONFIGURATION_FETCHED_HANDLER = "CONFIGURATION_FETCHED_HANDLER",
+    IMPRESSION_HANDLER = "IMPRESSION_HANDLER",
+    CUSTOM_PROPERTY_GENERATOR = "CUSTOM_PROPERTY_GENERATOR",
 }
 
 export interface RoxFetcherResult {
-  fetcherStatus: RoxFetcherStatus;
-  creationDate: Date;
-  hasChanges: boolean;
-  errorDetails?: string | undefined;
+    fetcherStatus: RoxFetcherStatus;
+    creationDate: Date;
+    hasChanges: boolean;
+    errorDetails?: string | undefined;
 }
 
 export interface RoxReporting {
-  name: string;
-  value: string;
-  targeting: boolean;
+    name: string;
+    value: string;
+    targeting: boolean;
 }
 
 /**
@@ -98,7 +89,7 @@ export function setCustomBooleanProperty(name: string, value: boolean | ((contex
 
 // https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_setuserspaceunhandlederrorhandler
 export function setUserspaceUnhandledErrorHandler(
-  handler: (errorTrigger: RoxErrorTrigger, error: Error) => void
+    handler: (errorTrigger: RoxErrorTrigger, error: Error) => void,
 ): void;
 
 /**
@@ -113,16 +104,16 @@ export function fetch(): void;
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_flag
  */
 export class Flag {
-  constructor(defaultValue?: boolean);
+    constructor(defaultValue?: boolean);
 
-  // The name of the Flag
-  readonly name: string;
+    // The name of the Flag
+    readonly name: string;
 
-  // Default value of the Flag
-  readonly defaultValue: boolean;
+    // Default value of the Flag
+    readonly defaultValue: boolean;
 
-  // Returns true when the flag is enabled
-  isEnabled(context?: unknown): boolean;
+    // Returns true when the flag is enabled
+    isEnabled(context?: unknown): boolean;
 }
 
 /**
@@ -131,16 +122,16 @@ export class Flag {
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_rox_roxstring
  */
 export class RoxString {
-  constructor(defaultValue: string, options?: ReadonlyArray<string>);
+    constructor(defaultValue: string, options?: readonly string[]);
 
-  // The name of the string flag
-  readonly name: string;
+    // The name of the string flag
+    readonly name: string;
 
-  // Default value of the string flag
-  readonly defaultValue: string;
+    // Default value of the string flag
+    readonly defaultValue: string;
 
-  // Returns the current value of the string flag, accounting for value overrides
-  getValue(context?: unknown): string;
+    // Returns the current value of the string flag, accounting for value overrides
+    getValue(context?: unknown): string;
 }
 
 /**
@@ -149,16 +140,16 @@ export class RoxString {
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_rox_roxnumber
  */
 export class RoxNumber {
-  constructor(defaultValue: number, options?: ReadonlyArray<number>);
+    constructor(defaultValue: number, options?: readonly number[]);
 
-  // The name of the number flag
-  readonly name: string;
+    // The name of the number flag
+    readonly name: string;
 
-  // Default value of the number flag
-  readonly defaultValue: number;
+    // Default value of the number flag
+    readonly defaultValue: number;
 
-  // Returns the current value of the number flag, accounting for value overrides
-  getValue(context?: unknown): number;
+    // Returns the current value of the number flag, accounting for value overrides
+    getValue(context?: unknown): number;
 }
 
 /**
@@ -174,38 +165,38 @@ export class RoxNumber {
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides
  */
 export namespace overrides {
-  /**
-   * Sets an override value on a specific flag, this function accepts two parameters flag name (
-   * full flag name including namespace) and desired value (from type String).
-   * This function also saves the override value on the local device disk,
-   * so it is "remembered" for the next the SDK is loaded to production.
-   *
-   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_setoverride
-   *
-   * Note that for boolean flag we still give the value as a string.
-   */
-  function setOverride(nameSpacedFlagName: string, value: string): void;
+    /**
+     * Sets an override value on a specific flag, this function accepts two parameters flag name (
+     * full flag name including namespace) and desired value (from type String).
+     * This function also saves the override value on the local device disk,
+     * so it is "remembered" for the next the SDK is loaded to production.
+     *
+     * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_setoverride
+     *
+     * Note that for boolean flag we still give the value as a string.
+     */
+    function setOverride(nameSpacedFlagName: string, value: string): void;
 
-  /**
-   * Clears the override value from the flag (and the disk).
-   *
-   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_clearoverride
-   */
-  function clearOverride(nameSpacedFlagName: string): void;
+    /**
+     * Clears the override value from the flag (and the disk).
+     *
+     * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_clearoverride
+     */
+    function clearOverride(nameSpacedFlagName: string): void;
 
-  /**
-   * Clears all override values
-   */
-  function clearAllOverrides(): void;
+    /**
+     * Clears all override values
+     */
+    function clearAllOverrides(): void;
 
-  function getOriginalValue(nameSpacedFlagName: string): string;
+    function getOriginalValue(nameSpacedFlagName: string): string;
 
-  /**
-   * full flag name including namespace
-   *
-   * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_hasoverride
-   */
-  function hasOverride(nameSpacedFlagName: string): boolean;
+    /**
+     * full flag name including namespace
+     *
+     * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_overrides_hasoverride
+     */
+    function hasOverride(nameSpacedFlagName: string): boolean;
 }
 
 /**
@@ -214,20 +205,20 @@ export namespace overrides {
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_rox_dynamicapi
  */
 export namespace dynamicApi {
-  /**
-   * Getting boolean value of a flag
-   */
-  function isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
+    /**
+     * Getting boolean value of a flag
+     */
+    function isEnabled(nameSpacedFlagName: string, defaultValue: boolean, context?: unknown): boolean;
 
-  /**
-   * Getting string value of a string flag
-   */
-  function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
+    /**
+     * Getting string value of a string flag
+     */
+    function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
 
-  /**
-   * Getting string value of a number flag
-   */
-  function getNumber(nameSpacedFlagName: string, defaultValue: number, context?: unknown): number;
+    /**
+     * Getting string value of a number flag
+     */
+    function getNumber(nameSpacedFlagName: string, defaultValue: number, context?: unknown): number;
 }
 
-export const flags: ReadonlyArray<Flag>;
+export const flags: readonly Flag[];

@@ -13,4 +13,4 @@ declare class HighchartsVisualization {
 declare namespace HighchartsVisualization {
     export { Event };
 }
-type Event = import('@nginstack/engine/lib/event/Event');
+type Event = import("@nginstack/engine/lib/event/Event");

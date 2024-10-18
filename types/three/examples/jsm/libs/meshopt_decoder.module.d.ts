@@ -1,1 +1,1 @@
-export * from 'meshoptimizer/meshopt_decoder.module.js';
+export * from "meshoptimizer/meshopt_decoder.module.js";

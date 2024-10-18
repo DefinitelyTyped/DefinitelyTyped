@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/html2json",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jxck/html2json"
+    ],
+    "devDependencies": {
+        "@types/html2json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "YEK-PLUS",
+            "githubUsername": "YEK-PLUS"
+        }
+    ]
+}

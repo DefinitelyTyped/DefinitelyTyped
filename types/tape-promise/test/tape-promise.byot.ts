@@ -1,5 +1,5 @@
-import tapeSync = require('tape');
-import tapePromise = require('tape-promise');
+import tapeSync = require("tape");
+import tapePromise = require("tape-promise");
 
 // Bring Your Own Tape:
 const tape = tapePromise.default(tapeSync);

@@ -1,12 +1,6 @@
-// Type definitions for jQuery Flagstrap Plugin v1.0
-// Project: https://github.com/blazeworx/flagstrap
-// Definitions by: Felipe de Sena Garcia <https://github.com/felipedgarcia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+/// <reference types="jquery" />
 
-///<reference types="jquery" />
-
-declare module jQueryFlagStrap {
+declare namespace jQueryFlagStrap {
     interface FlagStrapOptions {
         /**
          * Default: uniquely generated
@@ -44,25 +38,25 @@ declare module jQueryFlagStrap {
          */
         scrollableHeight?: string | undefined;
         /**
-        * Default: (all)
-        * Only show specific countries
-        * Example:
-        * 
-        * {"GB": "United Kingdom", "US": "United States"}
-        * 
-        * will only show the USA and UK.
-        */
+         * Default: (all)
+         * Only show specific countries
+         * Example:
+         *
+         * {"GB": "United Kingdom", "US": "United States"}
+         *
+         * will only show the USA and UK.
+         */
         countries?: Object | undefined;
         /**
          * Default: {value: "", text: "Please select a country"}
          * Set the placeholder value and text. To disable the placeholder define as (boolean) false.
          */
-        placeholder: boolean | FlagStrapPlaceholderOptions; 
+        placeholder: boolean | FlagStrapPlaceholderOptions;
         /**
          * Default: null
          * This callback gets called each time the select is changed. It receives two parameters, the new value, and the select element.
          */
-        onSelect?(value: any, element: any): void; 
+        onSelect?(value: any, element: any): void;
     }
 
     interface FlagStrapStatic {
@@ -79,7 +73,7 @@ interface JQuery {
     /**
      * A lightwieght jQuery plugin for creating Bootstrap 3 compatible country select boxes with flags.
      */
-    
+
     flagStrap(): void;
     flagStrap(options: jQueryFlagStrap.FlagStrapOptions): void;
 }

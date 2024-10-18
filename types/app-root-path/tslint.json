@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-consecutive-blank-lines": false,
-        "no-padding": false,
-        "no-redundant-jsdoc-2": false,
-        "prefer-const": false
-    }
-}

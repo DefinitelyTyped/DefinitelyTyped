@@ -1,10 +1,10 @@
-import ConsumableStream = require('consumable-stream');
+import ConsumableStream = require("consumable-stream");
 
 // Simple, dummy implementation of the abstract class
 
 class DummyConsumer {
     async next() {
-        return { done: true, value: 'dummy' };
+        return { done: true, value: "dummy" };
     }
 
     return() {

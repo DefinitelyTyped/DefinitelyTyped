@@ -1,17 +1,11 @@
-// Type definitions for strophejs-plugin-roster 1.1
-// Project: https://github.com/strophe/strophejs-plugin-roster#readme
-// Definitions by: LeartS <https://github.com/LeartS>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
-import { Strophe } from 'strophe.js';
+import { Strophe } from "strophe.js";
 
 export {};
 
 export type IqCallback = (stanza: Element) => any;
 export type IqID = string;
-export type RosterSubscriptionState = 'none' | 'to' | 'from' | 'both' | 'remove';
-export type PresenceSubscriptionType = 'subscribe' | 'unsubscribe' | 'subscribed' | 'unsubscribed';
+export type RosterSubscriptionState = "none" | "to" | "from" | "both" | "remove";
+export type PresenceSubscriptionType = "subscribe" | "unsubscribe" | "subscribed" | "unsubscribed";
 
 export interface RosterResource {
     priority: string;
@@ -28,8 +22,7 @@ export interface RosterItem {
     resources: { [resourceId: string]: RosterResource };
 }
 
-export type RosterUpdateCallback =
-    (items: RosterItem[], item: RosterItem, previousItem: RosterItem) => any;
+export type RosterUpdateCallback = (items: RosterItem[], item: RosterItem, previousItem: RosterItem) => any;
 export type PresenceRequestCallback = (from: string) => any;
 
 interface StropheRosterPlugin {
@@ -61,7 +54,7 @@ interface StropheRosterPlugin {
 }
 
 /*~ Here, declare the same module as the one you imported above */
-declare module 'strophe.js' {
+declare module "strophe.js" {
     namespace Strophe {
         interface Connection {
             roster: StropheRosterPlugin;

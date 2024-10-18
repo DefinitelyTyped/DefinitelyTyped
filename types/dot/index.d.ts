@@ -1,8 +1,3 @@
-// Type definitions for doT 1.1
-// Project: https://github.com/olado/dot
-// Definitions by: ZombieHunter <https://github.com/ZombieHunter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace doT;
 
 /** Version number */

@@ -1,7 +1,31 @@
 {
     "private": true,
+    "name": "@types/storybook__addon-info",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/storybookjs/storybook"
+    ],
     "dependencies": {
         "@storybook/addons": "^6.5.9",
-        "@storybook/react": "^6.5.9"
-    }
+        "@storybook/csf": "0.0.2--canary.4566f4d.1",
+        "@storybook/react": "^6.5.9",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/storybook__addon-info": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mark Kornblum",
+            "githubUsername": "mkornblum"
+        },
+        {
+            "name": "Mattias Wikstrom",
+            "githubUsername": "fyrkant"
+        },
+        {
+            "name": "Kevin Lee",
+            "githubUsername": "RunningCoderLee"
+        }
+    ]
 }

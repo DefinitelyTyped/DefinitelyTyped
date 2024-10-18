@@ -1,4 +1,5 @@
-import { AnyFunction } from '@ember/object/-private/types';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import { AnyFunction } from "@ember/object/-private/types";
 
 /**
  * Add an event listener
@@ -8,13 +9,13 @@ export function addListener<Context>(
     eventName: string,
     target: unknown,
     method: keyof Context | AnyFunction,
-    once?: boolean
+    once?: boolean,
 ): void;
 export function addListener<Context>(
     obj: Context,
     eventName: string,
     method: keyof Context | AnyFunction,
-    once?: boolean
+    once?: boolean,
 ): void;
 
 /**
@@ -24,12 +25,12 @@ export function removeListener<Context>(
     obj: Context,
     eventName: string,
     target: unknown,
-    method: keyof Context | AnyFunction
+    method: keyof Context | AnyFunction,
 ): void;
 export function removeListener<Context>(
     obj: Context,
     eventName: string,
-    method: keyof Context | AnyFunction
+    method: keyof Context | AnyFunction,
 ): void;
 
 /**

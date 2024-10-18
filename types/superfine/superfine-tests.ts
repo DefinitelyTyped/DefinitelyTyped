@@ -1,10 +1,10 @@
-import * as superfine from 'superfine';
+import * as superfine from "superfine";
 
 // Strongly typed HTML element root.
 superfine.patch(
-    document.createElement('div'),
+    document.createElement("div"),
     superfine.h(
-        'div',
+        "div",
         {
             onclick: e => {
                 console.log(e.clientX);
@@ -12,22 +12,22 @@ superfine.patch(
         },
         [
             superfine.h(
-                'input',
+                "input",
                 {
-                    type: 'number',
-                    value: '3',
-                    min: '2',
-                    max: '5',
+                    type: "number",
+                    value: "3",
+                    min: "2",
+                    max: "5",
                     disabled: false,
                     onchange: e => {
                         // TypeScript DOM library limitations prevent typing of e.target.value.
                         console.log(e.target);
-                    }
+                    },
                 },
-                []
+                [],
             ),
             superfine.h(
-                'svg',
+                "svg",
                 {
                     onclick: e => {
                         console.log(e.clientX);
@@ -35,132 +35,122 @@ superfine.patch(
                 },
                 [
                     superfine.h(
-                        'g',
+                        "g",
                         {},
                         superfine.h(
-                            'rect',
-                            {
-                            },
-                            []
+                            "rect",
+                            {},
+                            [],
                         ),
                     ),
                     superfine.h(
-                        'g',
+                        "g",
                         {},
                         [
                             superfine.h(
-                                'rect',
-                                {
-                                },
-                                []
+                                "rect",
+                                {},
+                                [],
                             ),
                             superfine.h(
-                                'rect',
-                                {
-                                }
+                                "rect",
+                                {},
                             ),
                             superfine.h(
-                                'text',
-                                {
-                                },
-                                'example string'
+                                "text",
+                                {},
+                                "example string",
                             ),
                             superfine.h(
-                                'text',
-                                {
-                                },
-                                ['example string']
+                                "text",
+                                {},
+                                ["example string"],
                             ),
-                            'example string',
+                            "example string",
                             superfine.h(
-                                'rect',
+                                "rect",
                                 {
-                                    key: 'example key a'
+                                    key: "example key a",
                                 },
-                                []
+                                [],
                             ),
                             superfine.h(
-                                'rect',
+                                "rect",
                                 {
-                                    key: 'example key b'
+                                    key: "example key b",
                                 },
-                                []
-                            )
-                        ]
-                    )
-                ]
+                                [],
+                            ),
+                        ],
+                    ),
+                ],
             ),
             superfine.h(
-                'a',
+                "a",
                 {
-                    href: '#anything'
+                    href: "#anything",
                 },
                 [
                     superfine.h(
-                        'ul',
+                        "ul",
                         {},
                         superfine.h(
-                            'li',
-                            {
-                            },
-                            []
-                        )
+                            "li",
+                            {},
+                            [],
+                        ),
                     ),
                     superfine.h(
-                        'ul',
+                        "ul",
                         {},
                         [
                             superfine.h(
-                                'li',
-                                {
-                                },
-                                []
+                                "li",
+                                {},
+                                [],
                             ),
                             superfine.h(
-                                'li',
-                                {
-                                }
+                                "li",
+                                {},
                             ),
                             superfine.h(
-                                'li',
-                                {
-                                },
-                                'example string'
+                                "li",
+                                {},
+                                "example string",
                             ),
                             superfine.h(
-                                'li',
-                                {
-                                },
-                                ['example string']
+                                "li",
+                                {},
+                                ["example string"],
                             ),
-                            'example string',
+                            "example string",
                             superfine.h(
-                                'li',
+                                "li",
                                 {
-                                    key: 'example key a'
+                                    key: "example key a",
                                 },
-                                []
+                                [],
                             ),
                             superfine.h(
-                                'li',
+                                "li",
                                 {
-                                    key: 'example key b'
+                                    key: "example key b",
                                 },
-                                []
-                            )
-                        ]
-                    )
-                ]
-            )
-        ]
-    )
+                                [],
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+        ],
+    ),
 );
 
 // Strongly typed SVG element root.
 superfine.patch(
-    document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+    document.createElementNS("http://www.w3.org/2000/svg", "svg"),
     superfine.h(
-        'svg',
+        "svg",
         {
             onclick: e => {
                 console.log(e.clientX);
@@ -168,59 +158,54 @@ superfine.patch(
         },
         [
             superfine.h(
-                'g',
+                "g",
                 {},
                 superfine.h(
-                    'rect',
-                    {
-                    },
-                    []
+                    "rect",
+                    {},
+                    [],
                 ),
             ),
             superfine.h(
-                'g',
+                "g",
                 {},
                 [
                     superfine.h(
-                        'rect',
-                        {
-                        },
-                        []
+                        "rect",
+                        {},
+                        [],
                     ),
                     superfine.h(
-                        'rect',
-                        {
-                        }
+                        "rect",
+                        {},
                     ),
                     superfine.h(
-                        'text',
-                        {
-                        },
-                        'example string'
+                        "text",
+                        {},
+                        "example string",
                     ),
                     superfine.h(
-                        'text',
-                        {
-                        },
-                        ['example string']
+                        "text",
+                        {},
+                        ["example string"],
                     ),
-                    'example string',
+                    "example string",
                     superfine.h(
-                        'rect',
+                        "rect",
                         {
-                            key: 'example key a'
+                            key: "example key a",
                         },
-                        []
+                        [],
                     ),
                     superfine.h(
-                        'rect',
+                        "rect",
                         {
-                            key: 'example key b'
+                            key: "example key b",
                         },
-                        []
-                    )
-                ]
-            )
-        ]
-    )
+                        [],
+                    ),
+                ],
+            ),
+        ],
+    ),
 );

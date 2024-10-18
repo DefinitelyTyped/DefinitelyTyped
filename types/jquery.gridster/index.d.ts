@@ -1,9 +1,3 @@
-// Type definitions for jQuery.gridster 0.5.6
-// Project: https://github.com/jbaldwin/gridster
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /*
 gridster-0.1.0.d.ts may be freely distributed under the MIT license.
 
@@ -39,8 +33,8 @@ interface GridsterDraggable {
     offset_left?: number | undefined;
     handle?: string | undefined;
     drag?: ((event: Event, ui: GridsterUi) => void) | undefined;
-    start?: ((event: Event, ui: { helper: JQuery; }) => void) | undefined;
-    stop?: ((event: Event, ui: { helper: JQuery; }) => void) | undefined;
+    start?: ((event: Event, ui: { helper: JQuery }) => void) | undefined;
+    stop?: ((event: Event, ui: { helper: JQuery }) => void) | undefined;
 }
 
 interface GridsterResizable {
@@ -51,8 +45,8 @@ interface GridsterResizable {
     max_size?: number[] | undefined;
     min_size?: number[] | undefined;
     resize?: ((event: Event, ui: GridsterUi, $el: JQuery) => void) | undefined;
-    start?: ((event: Event, ui: { helper: JQuery; }, $el: JQuery) => void) | undefined;
-    stop?: ((event: Event, ui: { helper: JQuery; }, $el: JQuery) => void) | undefined;
+    start?: ((event: Event, ui: { helper: JQuery }, $el: JQuery) => void) | undefined;
+    stop?: ((event: Event, ui: { helper: JQuery }, $el: JQuery) => void) | undefined;
 }
 
 interface GridsterUi {
@@ -85,185 +79,186 @@ interface GridsterCoords {
 }
 
 interface GridsterOptions {
+    /**
+     * Define who will be the draggable widgets.  Can be a CSS Selector String or a collection of HTMLElements.
+     * Type => string css selector
+     * Type => HTMLElement[]
+     * Default = 'li'
+     */
+    widget_selector?: string | HTMLElement[] | undefined;
 
     /**
-    * Define who will be the draggable widgets.  Can be a CSS Selector String or a collection of HTMLElements.
-    * Type => string css selector
-    * Type => HTMLElement[]
-    * Default = 'li'
-    **/
-    widget_selector?: string|HTMLElement[] | undefined;
-
-    /**
-    * Margin between widgets.  The first index for the horizontal margin (left, right) and the second for the vertical margin (top, bottom).
-    * Default = [10, 10]
-    **/
+     * Margin between widgets.  The first index for the horizontal margin (left, right) and the second for the vertical margin (top, bottom).
+     * Default = [10, 10]
+     */
     widget_margins?: number[] | undefined;
 
     /**
-    * Base widget dimensions in pixels.  The first index for the width and the second for the height.
-    * Default = [400, 225]
-    **/
-    widget_base_dimensions?: ('auto'|number)[] | undefined;
+     * Base widget dimensions in pixels.  The first index for the width and the second for the height.
+     * Default = [400, 225]
+     */
+    widget_base_dimensions?: Array<"auto" | number> | undefined;
 
     /**
-    * Add more columns in addition to those that have been calculated.
-    * Default = 0
-    **/
+     * Add more columns in addition to those that have been calculated.
+     * Default = 0
+     */
     extra_cols?: number | undefined;
 
     /**
-    * Add more rows in addition to those that have been calculated.
-    * Default = 0
-    **/
+     * Add more rows in addition to those that have been calculated.
+     * Default = 0
+     */
     extra_rows?: number | undefined;
 
     /**
-    * The minimum required columns.
-    * Default = 1
-    **/
+     * The minimum required columns.
+     * Default = 1
+     */
     min_cols?: number | undefined;
 
     /**
-    * The maximum columns possible (set to null for no maximum).
-    * Default = null
-    **/
+     * The maximum columns possible (set to null for no maximum).
+     * Default = null
+     */
     max_cols?: number | undefined;
 
     /**
-    * The minimum required rows.
-    * Default = 15
-    **/
+     * The minimum required rows.
+     * Default = 15
+     */
     min_rows?: number | undefined;
 
     /**
-    * The maximum number of columns that a widget can span.
-    * Default = 6
-    **/
+     * The maximum number of columns that a widget can span.
+     * Default = 6
+     */
     max_size_x?: number | undefined;
 
     /**
-    * If true, all the CSS required to  osition      l widgets in their respective col umns and rows will be generated automatically and injectedt the<head> of thed cument.You can set this to false, and write your own CSS targeting rows and cols via data - attributes like so: [data - col = "1"] { left: 10px; }
-    * Default = true
-    **/
+     * If true, all the CSS required to  osition      l widgets in their respective col umns and rows will be generated automatically and injectedt the<head> of thed cument.You can set this to false, and write your own CSS targeting rows and cols via data - attributes like so: [data - col = "1"] { left: 10px; }
+     * Default = true
+     */
     autogenerate_sytesheet?: boolean | undefined;
 
     /**
-    * Avoid that widgets loaded from the DOM can be overlapped.  It is helpful if the positions were bad stored in the database or if there was any conflict.
-    * Default = true
-    **/
+     * Avoid that widgets loaded from the DOM can be overlapped.  It is helpful if the positions were bad stored in the database or if there was any conflict.
+     * Default = true
+     */
     avoid_overlapped_widgets?: boolean | undefined;
 
     /**
-    * Return the data you want for each widget in the serialization.
-    **/
+     * Return the data you want for each widget in the serialization.
+     */
     serialize_params?: (($w: JQuery, wgd: GridsterCoords) => any) | undefined;
 
     /**
-    * An object with all options for Collision class you want to overwrite.  @see GridsterCollision or docs for more info.
-    **/
+     * An object with all options for Collision class you want to overwrite.  @see GridsterCollision or docs for more info.
+     */
     collision?: GridsterCollision | undefined;
 
     /**
-    * An object with all options for Draggable class you want to overwrite.  @see GridsterDraggable or docs for more info.
-    **/
+     * An object with all options for Draggable class you want to overwrite.  @see GridsterDraggable or docs for more info.
+     */
     draggable?: GridsterDraggable | undefined;
 
     /**
-    * A string to differentiate one gridster from another
-    **/
+     * A string to differentiate one gridster from another
+     */
     namespace?: string | undefined;
 
     /**
      * A boolean to specify if the stylesheet should be generated or not
-     **/
+     */
     autogenerate_stylesheet?: boolean | undefined;
 
     /**
      * An object with all options for Resizable class you want to overwrite.  @see GridsterResizable or docs for more info.
-     **/
+     */
     resize?: GridsterResizable | undefined;
 }
 
 interface JQuery {
-
     /**
-    * Gridster
-    * @param options An object with all the gridster options you want to overwrite.
-    * @return Gridster jQuery instance.
-    **/
+     * Gridster
+     * @param options An object with all the gridster options you want to overwrite.
+     * @return Gridster jQuery instance.
+     */
     gridster(options?: GridsterOptions): JQuery;
 }
 
 interface Gridster {
-
     /**
-    * Create a new widget with the given html and add it to the grid.
-    * @param html The string representing the HTML of the widget or the HTMLElement.
-    * @param size_x The number of rows the widget occupies horizontally.  Defaults to 1.
-    * @param size_y The number of columns the widget occupies vertically.  Defaults to 1.
-    * @param col The column the widget should start in.
-    * @param row The row the widget should start in.
-    * @return Returns the jQuery wrapped HTMLElement representing the widget that was just created.
-    **/
+     * Create a new widget with the given html and add it to the grid.
+     * @param html The string representing the HTML of the widget or the HTMLElement.
+     * @param size_x The number of rows the widget occupies horizontally.  Defaults to 1.
+     * @param size_y The number of columns the widget occupies vertically.  Defaults to 1.
+     * @param col The column the widget should start in.
+     * @param row The row the widget should start in.
+     * @return Returns the jQuery wrapped HTMLElement representing the widget that was just created.
+     */
     add_widget(html: string, size_x?: number, size_y?: number, col?: number, row?: number): JQuery;
 
     /**
-    * @see add_widget
-    **/
+     * @see add_widget
+     */
     add_widget(html: HTMLElement, size_x?: number, size_y?: number, col?: number, row?: number): JQuery;
 
     /**
-    * @see add_widget
-    **/
+     * @see add_widget
+     */
     add_widget(html: JQuery, size_x?: number, size_y?: number, col?: number, row?: number): JQuery;
 
     /**
      * Get the highest occupied cell.
      * @return Returns the farthest position {row: number, col: number} occupied in the grid.
-     **/
+     */
     get_highest_occupied_cell(): GridsterCoords;
 
     /**
-    * Change the size of a widget.
-    * @param $widget The jQuery wrapped HTMLElement that represents the widget is going to be resized.
-    * @param size_x The number of rows that the widget is going to span.  Defaults to current size_x.
-    * @param size_y The number of columns that the widget is going to span.  Defaults to current size_y.
-    * @param callback Callback function wehn the widget is finished resizing.
-    * @return Returns $widget.
-    **/
-    resize_widget($widget: JQuery, size_x?: number, size_y?: number, callback?: (size_x: number, size_y: number) => void): JQuery;
-
+     * Change the size of a widget.
+     * @param $widget The jQuery wrapped HTMLElement that represents the widget is going to be resized.
+     * @param size_x The number of rows that the widget is going to span.  Defaults to current size_x.
+     * @param size_y The number of columns that the widget is going to span.  Defaults to current size_y.
+     * @param callback Callback function wehn the widget is finished resizing.
+     * @return Returns $widget.
+     */
+    resize_widget(
+        $widget: JQuery,
+        size_x?: number,
+        size_y?: number,
+        callback?: (size_x: number, size_y: number) => void,
+    ): JQuery;
 
     /**
      * Resize all the widgets in the grid.
      * @param options The options to use to resize the widgets.
      * @return Returns the instance of the Gridster class.
-     **/
+     */
     resize_widget_dimensions(options: GridsterOptions): Gridster;
 
     /**
-    * Remove a widget from the grid.
-    * @param el The jQuery wrapped HTMLElement you want to remove.
-    * @param silent Boolean If true widgets below the removed one will not move up.
-    * @param callback Callback function executed when the widget is removed.
-    * @return Returns the instance of the Gridster class.
-    **/
+     * Remove a widget from the grid.
+     * @param el The jQuery wrapped HTMLElement you want to remove.
+     * @param silent Boolean If true widgets below the removed one will not move up.
+     * @param callback Callback function executed when the widget is removed.
+     * @return Returns the instance of the Gridster class.
+     */
     remove_widget(el: HTMLElement, silent?: boolean, callback?: (el: HTMLElement) => void): Gridster;
 
     /**
-    * @see remove_widget
-    **/
+     * @see remove_widget
+     */
     remove_widget(el: HTMLElement, callback: (el: HTMLElement) => void): Gridster;
 
     /**
-    * @see remove_widget
-    **/
+     * @see remove_widget
+     */
     remove_widget(el: JQuery, silent?: boolean, callback?: (el: HTMLElement) => void): Gridster;
 
     /**
-    * @see remove_widget
-    **/
+     * @see remove_widget
+     */
     remove_widget(el: JQuery, callback: (el: HTMLElement) => void): Gridster;
 
     /**
@@ -271,37 +266,37 @@ interface Gridster {
      * @param widget The index of the widget to be resized.
      * @param size An array representing the size (x, y) to set on the widget.
      * @return Returns the instance of the Gridster class.
-     **/
+     */
     set_widget_min_size(widget: number, size: number[]): Gridster;
 
     /**
-    * Returns a serialized array of the widgets in the grid.
-    * @param $widgets The collection of jQuery wrap ed HTMLElements you want to serialize.  If no argument is passed a l widgets will be serialized.
-    * @return Returns an array of objects with the data specified in the serialized_params option.
-    **/
+     * Returns a serialized array of the widgets in the grid.
+     * @param $widgets The collection of jQuery wrap ed HTMLElements you want to serialize.  If no argument is passed a l widgets will be serialized.
+     * @return Returns an array of objects with the data specified in the serialized_params option.
+     */
     serialize<T>($widgets?: HTMLElement[]): T[];
 
     /**
-    * Returns a serialized array of the widgets that have changed their position.
-    * @return Returns an array of objects with the data specified in the serialized_params option.
-    **/
+     * Returns a serialized array of the widgets that have changed their position.
+     * @return Returns an array of objects with the data specified in the serialized_params option.
+     */
     serialize_changed<T>(): T[];
 
     /**
-    * Enables dragging.
-    * @return Returns the instance of the Gridster class.
-    **/
+     * Enables dragging.
+     * @return Returns the instance of the Gridster class.
+     */
     enable(): Gridster;
 
     /**
-    * Disables dragging.
-    * @return Returns the instance of the Gridster class.
-    **/
+     * Disables dragging.
+     * @return Returns the instance of the Gridster class.
+     */
     disable(): Gridster;
 
     /**
-    * Returns the options used to initialize the grid
-    * @return Returns the options used to initialize the grid
-    **/
+     * Returns the options used to initialize the grid
+     * @return Returns the options used to initialize the grid
+     */
     options: GridsterOptions;
 }

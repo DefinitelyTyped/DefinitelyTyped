@@ -1,5 +1,5 @@
-import { Object3D } from '../../../src/Three.js';
+import { Object3D, WebGLRenderer } from "three";
 
 export class XRPlanes extends Object3D {
-    constructor(renderer: THREE.WebGLRenderer);
+    constructor(renderer: WebGLRenderer);
 }

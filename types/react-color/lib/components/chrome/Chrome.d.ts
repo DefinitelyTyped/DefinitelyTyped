@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { ColorPickerProps } from "../../..";
 import { Classes } from "reactcss";
+import { ColorPickerProps } from "../../..";
 
 export interface ChromePickerStylesProps {
     picker: CSSProperties;
@@ -23,4 +23,4 @@ export interface ChromePickerProps extends ColorPickerProps<ChromePicker> {
     styles?: Partial<Classes<ChromePickerStylesProps>> | undefined;
 }
 
-export default class ChromePicker extends Component<ChromePickerProps> { }
+export default class ChromePicker extends Component<ChromePickerProps> {}

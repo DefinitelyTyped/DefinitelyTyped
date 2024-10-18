@@ -1,16 +1,10 @@
-// Type definitions for non-npm package meteor-astronomy 2.6
-// Project: https://github.com/jagi/meteor-astronomy/
-// Definitions by: Igor Golovin <https://github.com/Deadly0>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="meteor" />
 
 declare namespace MeteorAstronomy {
     type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // tslint:disable-line:ban-types
+    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
     type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
-    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // tslint:disable-line:ban-types
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
     type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
 
     type TypeOptionsPrimitives = typeof String | typeof Date | typeof Boolean | typeof Object | typeof Number;
@@ -55,13 +49,16 @@ declare namespace MeteorAstronomy {
     interface ClassModel<T> {
         name: string;
         collection?: Mongo.Collection<T> | undefined;
-        fields: Fields<Omit<T, '_id'>>;
+        fields: Fields<Omit<T, "_id">>;
         behaviors?: object | undefined;
-        secured?: {
-            insert: boolean,
-            update: boolean,
-            remove: boolean,
-        } | boolean | undefined;
+        secured?:
+            | {
+                insert: boolean;
+                update: boolean;
+                remove: boolean;
+            }
+            | boolean
+            | undefined;
         helpers?: Helpers<T> | undefined;
         events?: object | undefined;
         meteorMethods?: object | undefined;
@@ -74,13 +71,16 @@ declare namespace MeteorAstronomy {
     }
 
     type Model<T> = T & {
-        set(fields: Partial<T>, options?: {cast?: boolean | undefined; clone?: boolean | undefined; merge?: boolean | undefined}): void;
+        set(
+            fields: Partial<T>,
+            options?: { cast?: boolean | undefined; clone?: boolean | undefined; merge?: boolean | undefined },
+        ): void;
         set(field: string, value: any): void;
         get(field: string): any;
         get(fields: string[]): Partial<T>;
         isModified(field?: string): boolean;
         getModified(): any;
-        getModifiedValues(options?: {old?: boolean | undefined, raw?: boolean | undefined}): Partial<T>;
+        getModifiedValues(options?: { old?: boolean | undefined; raw?: boolean | undefined }): Partial<T>;
         getModifier(): any;
         raw(): T;
         raw(field: string): any;
@@ -124,8 +124,18 @@ declare namespace MeteorAstronomy {
         findOne(selector?: MongoQuery<T>, options?: FindOneOptions): Model<T>;
         find(selector?: MongoQuery<T>, options?: FindOptions): Mongo.Cursor<Model<T>>;
         insert(doc: T, callback?: () => void): string;
-        update(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpdateOptions, callback?: () => void): number;
-        upsert(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpsertOptions, callback?: () => void): number;
+        update(
+            selector: MongoQuery<T>,
+            modifier: Mongo.Modifier<T>,
+            options?: UpdateOptions,
+            callback?: () => void,
+        ): number;
+        upsert(
+            selector: MongoQuery<T>,
+            modifier: Mongo.Modifier<T>,
+            options?: UpsertOptions,
+            callback?: () => void,
+        ): number;
         remove(selector: MongoQuery<T>, callback?: () => void): number;
     }
 
@@ -135,7 +145,7 @@ declare namespace MeteorAstronomy {
     };
 }
 
-declare module 'meteor/jagi:astronomy' { // tslint:disable-line:no-single-declare-module
+declare module "meteor/jagi:astronomy" { // eslint-disable-line @definitelytyped/no-single-declare-module
     namespace Class {
         function create<T extends {}>(model: MeteorAstronomy.ClassModel<T>): MeteorAstronomy.Class<T>;
     }

@@ -1,5 +1,5 @@
-import * as turbostatus from 'turbostatus';
+import * as turbostatus from "turbostatus";
 
-turbostatus.checkout('./', 'master');
-turbostatus.isRepo('./');
-turbostatus.describe('./');
+turbostatus.checkout("./", "master");
+turbostatus.isRepo("./");
+turbostatus.describe("./");

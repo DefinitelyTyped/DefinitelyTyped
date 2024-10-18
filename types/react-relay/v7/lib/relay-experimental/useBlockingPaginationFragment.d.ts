@@ -1,7 +1,7 @@
-import { GraphQLTaggedNode, OperationType } from 'relay-runtime';
-import { KeyType, KeyTypeData } from './helpers';
-import { LoadMoreFn } from './useLoadMoreFunction';
-import { RefetchFnDynamic } from './useRefetchableFragmentNode';
+import { GraphQLTaggedNode, OperationType } from "relay-runtime";
+import { KeyType, KeyTypeData } from "./helpers";
+import { LoadMoreFn } from "./useLoadMoreFunction";
+import { RefetchFnDynamic } from "./useRefetchableFragmentNode";
 
 export interface ReturnTypeNode<TQuery extends OperationType, TKey extends KeyType | null, TFragmentData> {
     data: TFragmentData;
@@ -11,17 +11,15 @@ export interface ReturnTypeNode<TQuery extends OperationType, TKey extends KeyTy
     hasPrevious: boolean;
     refetch: RefetchFnDynamic<TQuery, TKey>;
 }
-
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useBlockingPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
     componentDisplayName?: string,
-): // eslint-disable-next-line no-unnecessary-generics
-ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
-
+): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useBlockingPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null,
     componentDisplayName?: string,
-): // eslint-disable-next-line no-unnecessary-generics
-ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey> | null>;
+): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey> | null>;

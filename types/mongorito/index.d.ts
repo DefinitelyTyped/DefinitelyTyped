@@ -1,14 +1,16 @@
-// Type definitions for mongorito 3.0
-// Project: https://github.com/vadimdemedes/mongorito, https://github.com/vdemedes/mongorito
-// Definitions by: Pinguet62 <https://github.com/pinguet62>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+import {
+    Collection,
+    CreateIndexesOptions,
+    Db,
+    DropIndexesOptions,
+    Long,
+    MongoClientOptions,
+    ReadPreference,
+} from "mongodb";
 
-import { Collection, CreateIndexesOptions, Db, DropIndexesOptions, Long, MongoClientOptions, ReadPreference } from 'mongodb';
+export { DBRef, Long, MaxKey, MinKey, ObjectId, Timestamp } from "mongodb";
 
-export { Timestamp, ObjectId, MinKey, MaxKey, DBRef, Long } from 'mongodb';
-
-export type Class<T> = new (...args: any[]) => T;
+export type Class<T> = new(...args: any[]) => T;
 export type ModelClass = Class<Model>;
 
 export class MQuery {
@@ -62,7 +64,9 @@ export class Model extends Query {
      * @see mongodb.Collection#listIndexes()
      * @see mongodb.CommandCursor#toArray()
      */
-    static listIndexes(options?: { batchSize?: number | undefined, readPreference?: ReadPreference | string | undefined }): Promise<any[]>;
+    static listIndexes(
+        options?: { batchSize?: number | undefined; readPreference?: ReadPreference | string | undefined },
+    ): Promise<any[]>;
 
     /**
      * @see mongodb.Collection#createIndex()
@@ -123,7 +127,7 @@ export enum ActionTypes {
     DROP_INDEX = "@@mongorito/DROP_INDEX",
     LIST_INDEXES = "@@mongorito/LIST_INDEXES",
     QUERY = "@@mongorito/QUERY",
-    CALL = "@@mongorito/CALL"
+    CALL = "@@mongorito/CALL",
 }
 
 export interface GetAction {
@@ -206,17 +210,17 @@ export interface ListIndexesAction {
 export interface QueryAction {
     type: ActionTypes.QUERY;
     method: string;
-    query: Array<{ method: string, args: any }>;
+    query: Array<{ method: string; args: any }>;
 }
 
 export interface CallAction {
     type: ActionTypes.CALL;
     method: string;
-    args: Array<{ method: string, args: any }>;
+    args: Array<{ method: string; args: any }>;
 }
 
 export type Action =
-    GetAction
+    | GetAction
     | SetAction
     | UnsetAction
     | RefreshAction
@@ -267,7 +271,7 @@ export type Plugin = (modelClass: ModelClass) => (store: PluginStore) => (next: 
 export enum DatabaseState {
     STATE_CONNECTED = 0,
     STATE_CONNECTING = 1,
-    STATE_DISCONNECTED = 2
+    STATE_DISCONNECTED = 2,
 }
 
 export class Database {

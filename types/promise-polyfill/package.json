@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/promise-polyfill",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/taylorhakes/promise-polyfill"
+    ],
+    "devDependencies": {
+        "@types/promise-polyfill": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steve Jenkins",
+            "githubUsername": "skysteve"
+        },
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        }
+    ]
+}

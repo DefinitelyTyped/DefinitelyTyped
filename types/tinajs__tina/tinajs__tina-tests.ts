@@ -1,4 +1,4 @@
-import { Page, Component } from "@tinajs/tina";
+import { Component, Page } from "@tinajs/tina";
 
 function sayHi() {
     return "hi";
@@ -6,17 +6,17 @@ function sayHi() {
 
 Page.mixin({
     onLoad: sayHi,
-    created: sayHi
+    created: sayHi,
 });
 
 Component.mixin({
-    created: sayHi
+    created: sayHi,
 });
 
 Page.define({
     properties: {
-        content: String
-    }
+        content: String,
+    },
 });
 
 Page.define({
@@ -25,19 +25,19 @@ Page.define({
             methods: {
                 lol() {
                     return;
-                }
-            }
+                },
+            },
         },
         {
             methods: {
                 tiktok() {
                     return;
-                }
-            }
-        }
+                },
+            },
+        },
     ],
     data: {
-        count: 0
+        count: 0,
     },
     compute({ count }) {
         return { countPlus1: count + 1 };
@@ -48,10 +48,10 @@ Page.define({
     methods: {
         handleTapButton(event) {
             this.data.count;
-        }
-    }
+        },
+    },
 });
 
 Component.define({
-    data: {}
+    data: {},
 });

@@ -1,4 +1,4 @@
-import SpriteSymbol from './symbol';
+import SpriteSymbol from "./symbol";
 
 export default class BrowserSpriteSymbol extends SpriteSymbol {
     static createFromExistingNode(node: Element): BrowserSpriteSymbol;

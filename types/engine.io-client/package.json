@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/engine.io-client",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/socketio/engine.io-client"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/engine.io": "*",
+        "@types/engine.io-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "KentarouTakeda",
+            "githubUsername": "KentarouTakeda"
+        }
+    ]
+}

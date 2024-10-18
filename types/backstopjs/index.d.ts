@@ -1,18 +1,13 @@
-// Type definitions for backstopjs 6.1
-// Project: https://github.com/garris/backstopjs#readme
-// Definitions by: Darío Blanco <https://github.com/darioblanco>, MindDoc <https://github.com/minddocdev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface CommonConfig {
     asyncCaptureLimit?: number | undefined;
     asyncCompareLimit?: number | undefined;
     baseUrl?: string | undefined;
     ci?:
         | {
-              format?: string | undefined;
-              testReportFileName?: string | undefined;
-              testSuiteName?: string | undefined;
-          }
+            format?: string | undefined;
+            testReportFileName?: string | undefined;
+            testSuiteName?: string | undefined;
+        }
         | undefined;
     debugWindow?: boolean | undefined;
     debug?: boolean | undefined;
@@ -22,29 +17,29 @@ export interface CommonConfig {
     onReadyScript?: string | undefined;
     paths?:
         | {
-              ci_report?: string | undefined;
-              bitmaps_reference?: string | undefined;
-              bitmaps_test?: string | undefined;
-              engine_scripts?: string | undefined;
-              html_report?: string | undefined;
-              json_report?: string | undefined;
-          }
+            ci_report?: string | undefined;
+            bitmaps_reference?: string | undefined;
+            bitmaps_test?: string | undefined;
+            engine_scripts?: string | undefined;
+            html_report?: string | undefined;
+            json_report?: string | undefined;
+        }
         | undefined;
-    report?: Array<'browser' | 'CI' | 'json'> | undefined;
+    report?: Array<"browser" | "CI" | "json"> | undefined;
     resembleOutputOptions?:
         | {
-              // See https://github.com/rsmbl/Resemble.js
-              errorColor?:
-                  | {
-                        red: number;
-                        green: number;
-                        blue: number;
-                    }
-                  | undefined;
-              errorType?: string | undefined;
-              transparency?: number | undefined;
-              ignoreAntialiasing?: boolean | undefined;
-          }
+            // See https://github.com/rsmbl/Resemble.js
+            errorColor?:
+                | {
+                    red: number;
+                    green: number;
+                    blue: number;
+                }
+                | undefined;
+            errorType?: string | undefined;
+            transparency?: number | undefined;
+            ignoreAntialiasing?: boolean | undefined;
+        }
         | undefined;
     scenarios: Scenario[];
     viewports: Viewport[];
@@ -59,22 +54,22 @@ export interface CommonEngineOptions {
 }
 
 export interface PlaywrightEngineConfig extends CommonConfig {
-    engine?: 'playwright' | undefined;
+    engine?: "playwright" | undefined;
     engineOptions?:
         | ({
-              browser?: 'chromium' | 'firefox' | 'webkit';
-              storageState?: string;
-          } & CommonEngineOptions)
+            browser?: "chromium" | "firefox" | "webkit";
+            storageState?: string;
+        } & CommonEngineOptions)
         | undefined;
 }
 
 export interface PuppeteerEngineConfig extends CommonConfig {
-    engine?: 'puppeteer' | undefined;
+    engine?: "puppeteer" | undefined;
     engineOptions?:
         | ({
-              browser?: never;
-              storageState?: never;
-          } & CommonEngineOptions)
+            browser?: never;
+            storageState?: never;
+        } & CommonEngineOptions)
         | undefined;
 }
 
@@ -126,12 +121,12 @@ export interface ViewportNext {
 // Create a Viewport version that uses `name` for legacy support.
 // https://github.com/garris/BackstopJS/blob/aa7de8ee059074f947768cfd04db1776348e1a7a/core/util/createBitmaps.js#L25
 export interface ViewportLegacy {
-    name: 'phone' | 'tablet' | 'desktop';
+    name: "phone" | "tablet" | "desktop";
     width: number;
     height: number;
 }
 
 export default function backstop(
-    command: 'approve' | 'init' | 'reference' | 'test',
+    command: "approve" | "init" | "reference" | "test",
     options?: { docker?: boolean; config?: Config | string | undefined; filter?: string | undefined },
 ): Promise<void>;

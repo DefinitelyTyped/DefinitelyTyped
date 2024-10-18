@@ -1,7 +1,34 @@
 {
     "private": true,
+    "name": "@types/jaeger-client",
+    "version": "3.18.9999",
+    "projects": [
+        "https://github.com/jaegertracing/jaeger-client-node#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "opentracing": "~0.14.3",
         "prom-client": "~11.3.0 || ^12.0.0 || ^13.0.0 || ^14.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/jaeger-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jgeth",
+            "githubUsername": "jgeth"
+        },
+        {
+            "name": "tsachis",
+            "githubUsername": "tsachi"
+        },
+        {
+            "name": "MiLk",
+            "githubUsername": "MiLk"
+        },
+        {
+            "name": "doochik",
+            "githubUsername": "doochik"
+        }
+    ]
 }

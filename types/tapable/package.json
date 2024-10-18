@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/tapable",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/webpack/tapable.git"
+    ],
     "dependencies": {
         "tapable": "^2.2.0"
-    }
+    },
+    "devDependencies": {
+        "@types/tapable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "e-cloud",
+            "githubUsername": "e-cloud"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        }
+    ]
 }

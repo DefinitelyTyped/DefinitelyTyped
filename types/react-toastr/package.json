@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-toastr",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/tomchentw/react-toastr",
+        "https://tomchentw.github.io/react-toastr"
+    ],
+    "dependencies": {
+        "@types/react": "^16"
+    },
+    "devDependencies": {
+        "@types/react-toastr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Holmer",
+            "githubUsername": "shssoichiro"
+        },
+        {
+            "name": "Dan Regazzi",
+            "githubUsername": "DanRegazzi"
+        }
+    ]
+}

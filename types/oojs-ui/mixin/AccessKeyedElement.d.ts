@@ -85,7 +85,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): AccessKeyedElement;
+            new(config?: ConfigOptions): AccessKeyedElement;
             prototype: Prototype;
             static: Static;
         }

@@ -5,18 +5,18 @@ args
     .option("opt2", "desc", false, (value: any): any => value)
     .options([
         {
-            name: 'opt3',
-            description: 'desc',
+            name: "opt3",
+            description: "desc",
             defaultValue: 1,
-            init: (value: any) => { },
+            init: (value: any) => {},
         },
         {
-            name: 'opt4',
-            description: 'desc',
+            name: "opt4",
+            description: "desc",
         },
     ])
     .command("cm1", "desc")
-    .command("cm2", "desc", (value: any): void => { }, ['a'])
+    .command("cm2", "desc", (value: any): void => {}, ["a"])
     .example("ex1", "desc")
     .examples([
         {
@@ -25,41 +25,41 @@ args
         },
     ]);
 
-args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
+args.parse(["~/bin/node", "~/dir", "arg", "--param"], {
     help: true,
     name: "name",
     version: true,
     usageFilter: (a: any): any => a,
     value: "value",
     mri: {
-        args: ['a'],
+        args: ["a"],
         alias: {
             a: "b",
-            c: ['d'],
+            c: ["d"],
         },
-        boolean: ['wat'],
+        boolean: ["wat"],
         default: {
-            foo: 'bar',
+            foo: "bar",
         },
-        string: ['zulu'],
+        string: ["zulu"],
         unknown: (param: string): boolean => true,
     },
     minimist: {
-        string: ['string'],
-        boolean: ['string'],
+        string: ["string"],
+        boolean: ["string"],
         alias: {
-            bar: 'foo',
-            foo: ['bar1', 'bar2'],
+            bar: "foo",
+            foo: ["bar1", "bar2"],
         },
         default: {
-            foo: 'bar',
+            foo: "bar",
         },
         stopEarly: true,
         "--": false,
         unknown: (param: string): boolean => true,
     },
     mainColor: "yellow",
-    subColor: "dim"
+    subColor: "dim",
 });
 
 args.showHelp();

@@ -1,20 +1,20 @@
-import stringifyObject from 'stringify-object';
-// tslint:disable-next-line:no-duplicate-imports testing imports
-import type { Options } from 'stringify-object';
+import stringifyObject from "stringify-object";
+// eslint-disable-next-line no-duplicate-imports -- testing imports
+import type { Options } from "stringify-object";
 
 const options: Options = {
-    indent: '  ',
+    indent: "  ",
     singleQuotes: false,
     inlineCharacterLimit: 12,
-    filter: (o, prop) => prop !== '_hidden_',
+    filter: (o, prop) => prop !== "_hidden_",
     transform: (val, key, value) => value,
 };
 
 stringifyObject({ a: 1, b: 2, c: 3 });
 
-stringifyObject('abc', {
-    indent: '  ',
+stringifyObject("abc", {
+    indent: "  ",
 });
-stringifyObject('abc', options);
+stringifyObject("abc", options);
 
-stringifyObject([1, 2, 3], options, ' ');
+stringifyObject([1, 2, 3], options, " ");

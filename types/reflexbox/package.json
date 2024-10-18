@@ -1,7 +1,35 @@
 {
     "private": true,
+    "name": "@types/reflexbox",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/rebassjs/rebass/tree/master/packages/reflexbox"
+    ],
     "dependencies": {
+        "@emotion/react": "*",
         "@emotion/styled": "*",
-        "@emotion/react": "*"
-    }
+        "@types/react": "*",
+        "@types/styled-system": "*"
+    },
+    "devDependencies": {
+        "@types/reflexbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Danyil Karuna",
+            "githubUsername": "iamkd"
+        },
+        {
+            "name": "Anton Vasin",
+            "githubUsername": "antonvasin"
+        },
+        {
+            "name": "Victor Orlov",
+            "githubUsername": "vittorio"
+        },
+        {
+            "name": "akameco",
+            "githubUsername": "akameco"
+        }
+    ]
 }

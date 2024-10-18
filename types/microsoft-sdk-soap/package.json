@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/microsoft-sdk-soap",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "microsoft-sdk-soap",
+    "projects": [
+        "https://code.msdn.microsoft.com/SdkSoapjs-9b51b99a"
+    ],
+    "dependencies": {
+        "@types/q": "^0"
+    },
+    "devDependencies": {
+        "@types/microsoft-sdk-soap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Markus Mauch",
+            "githubUsername": "markusmauch"
+        }
+    ]
+}

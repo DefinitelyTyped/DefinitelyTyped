@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/meteor-universe-i18n",
+    "version": "1.14.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "https://github.com/vazco/meteor-universe-i18n",
+    "projects": [
+        "meteor-universe-i18n"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-universe-i18n": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mathias Scherer",
+            "githubUsername": "mathewmeconry"
+        },
+        {
+            "name": "Radosław Miernik",
+            "githubUsername": "radekmie"
+        }
+    ]
+}

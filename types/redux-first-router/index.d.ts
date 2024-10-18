@@ -1,20 +1,5 @@
-// Type definitions for redux-first-router 2.1
-// Project: https://github.com/faceyspacey/redux-first-router#readme
-// Definitions by: Valbrand <https://github.com/Valbrand>
-//                 viggyfresh <https://github.com/viggyfresh>
-//                 janb87 <https://github.com/janb87>
-//                 corydeppen <https://github.com/corydeppen>
-//                 jscinoz <https://github.com/jscinoz>
-//                 surgeboris <https://github.com/surgeboris>
-//                 geirsagberg <https://github.com/geirsagberg>
-//                 Harry Hedger <https://github.com/hedgerh>
-//                 Adam Rich <https://github.com/adam1658>
-//                 Karl-Aksel Puulmann <https://github.com/macobo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Dispatch, Store, Reducer, Middleware, StoreEnhancer } from 'redux';
-import { History } from 'history';
+import { History } from "history";
+import { Dispatch, Middleware, Reducer, Store, StoreEnhancer } from "redux";
 
 export type Nullable<T> = T | null | undefined;
 
@@ -85,7 +70,7 @@ export interface Location {
     search?: string | undefined;
 }
 
-export type LocationKind = 'load' | 'back' | 'next' | 'pop' | 'stealth' | 'push' | 'replace' | 'redirect';
+export type LocationKind = "load" | "back" | "next" | "pop" | "stealth" | "push" | "replace" | "redirect";
 
 export interface LocationState<TKeys = {}, TState = any> {
     pathname: string;
@@ -302,7 +287,7 @@ export type DisplayConfirmLeave = (message: string, callback: (unblock: boolean)
 
 export type ScrollUpdater = (performedByUser: boolean) => void;
 
-export const NOT_FOUND: '@@redux-first-router/NOT_FOUND';
+export const NOT_FOUND: "@@redux-first-router/NOT_FOUND";
 
 export function actionToPath<TKeys = {}, TState = any>(
     action: ReceivedAction,
@@ -337,6 +322,7 @@ export function isLocationAction(action: any): boolean;
 
 export function next(): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function nextPath(): string | void;
 
 export function pathToAction<TKeys = {}, TState = any>(
@@ -345,6 +331,7 @@ export function pathToAction<TKeys = {}, TState = any>(
     querySerializer?: QuerySerializer,
 ): ReceivedAction;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function prevPath(): string | void;
 
 export function push(pathname: string): void;
@@ -353,6 +340,7 @@ export function redirect(action: Action): Action;
 
 export function replace(pathname: string): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function scrollBehavior(): ScrollBehavior | void;
 
 export function setKind(action: Action, kind: string): Action;

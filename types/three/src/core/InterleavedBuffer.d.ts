@@ -1,6 +1,6 @@
-import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
-import { Usage } from '../constants.js';
-import { TypedArray } from './BufferAttribute.js';
+import { Usage } from "../constants.js";
+import { TypedArray } from "./BufferAttribute.js";
+import { InterleavedBufferAttribute } from "./InterleavedBufferAttribute.js";
 
 /**
  * **"Interleaved"** means that multiple attributes, possibly of different types, (e.g., _position, normal, uv, color_) are packed into a single array buffer.
@@ -10,6 +10,8 @@ import { TypedArray } from './BufferAttribute.js';
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBuffer.js | Source}
  */
 export class InterleavedBuffer {
+    readonly isInterleavedBuffer: true;
+
     /**
      * Create a new instance of {@link InterleavedBuffer}
      * @param array A {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} with a shared buffer. Stores the geometry data.
@@ -41,15 +43,19 @@ export class InterleavedBuffer {
     usage: Usage;
 
     /**
-     * Object containing offset and count.
-     * @defaultValue `{ offset: number = 0; count: number = -1 }`
+     * This can be used to only update some components of stored data. Use the {@link .addUpdateRange} function to add
+     * ranges to this array.
      */
-    updateRange: {
-        /** @defaultValue `0` */
-        offset: number;
-        /** @defaultValue `-1` */
+    updateRanges: Array<{
+        /**
+         * Position at which to start update.
+         */
+        start: number;
+        /**
+         * The number of components to update.
+         */
         count: number;
-    };
+    }>;
 
     /**
      * A version number, incremented every time the {@link BufferAttribute.needsUpdate | needsUpdate} property is set to true.
@@ -98,6 +104,17 @@ export class InterleavedBuffer {
      * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData | WebGLRenderingContext.bufferData}.
      */
     setUsage(value: Usage): this;
+
+    /**
+     * Adds a range of data in the data array to be updated on the GPU. Adds an object describing the range to the
+     * {@link .updateRanges} array.
+     */
+    addUpdateRange(start: number, count: number): void;
+
+    /**
+     * Clears the {@link .updateRanges} array.
+     */
+    clearUpdateRanges(): void;
 
     /**
      * Copies another {@link InterleavedBuffer} to this {@link InterleavedBuffer} instance.

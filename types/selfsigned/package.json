@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/selfsigned",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jfromaniello/selfsigned"
+    ],
+    "devDependencies": {
+        "@types/selfsigned": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steven Chim",
+            "githubUsername": "chimurai"
+        }
+    ]
+}

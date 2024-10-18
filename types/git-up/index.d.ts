@@ -1,8 +1,3 @@
-// Type definitions for git-up 7.0
-// Project: https://github.com/IonicaBizau/git-up
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = gitUp;
 
 /**

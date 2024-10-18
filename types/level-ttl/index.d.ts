@@ -1,10 +1,5 @@
-// Type definitions for level-ttl 3.1
-// Project: https://github.com/level/level-ttl
-// Definitions by: Carson Farmer <https://github.com/carsonfarmer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { LevelUp } from 'levelup';
-import { AbstractLevelDOWN, AbstractIterator, ErrorCallback } from 'abstract-leveldown';
+import { AbstractIterator, AbstractLevelDOWN, ErrorCallback } from "abstract-leveldown";
+import { LevelUp } from "levelup";
 
 declare namespace ttl {
     interface LevelTTLOptions {
@@ -60,5 +55,8 @@ declare namespace ttl {
  * @param opts
  * @see {@link https://github.com/level/level-ttl#usage level-ttl Usage}
  */
-declare function ttl<K = any, V = any>(db: LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>, opts?: ttl.LevelTTLOptions): ttl.LevelTTL<K, V>;
+declare function ttl<K = any, V = any>(
+    db: LevelUp<AbstractLevelDOWN<K, V>, AbstractIterator<K, V>>,
+    opts?: ttl.LevelTTLOptions,
+): ttl.LevelTTL<K, V>;
 export = ttl;

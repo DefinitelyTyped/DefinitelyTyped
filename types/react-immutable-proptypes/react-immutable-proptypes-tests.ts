@@ -1,6 +1,6 @@
-import * as PropTypes from 'prop-types';
-import * as Immutable from 'immutable';
-import * as ImmutablePropTypes from 'react-immutable-proptypes';
+import * as Immutable from "immutable";
+import * as PropTypes from "prop-types";
+import * as ImmutablePropTypes from "react-immutable-proptypes";
 
 interface Props {
     list: Immutable.List<any>;
@@ -38,33 +38,33 @@ const propTypes: PropTypes.ValidationMap<Props> = {
     record: ImmutablePropTypes.record.isRequired,
     iterable: ImmutablePropTypes.iterable.isRequired,
     listOf: ImmutablePropTypes.listOf(
-        PropTypes.string.isRequired
+        PropTypes.string.isRequired,
     ).isRequired,
     mapOf: ImmutablePropTypes.mapOf(
         PropTypes.number.isRequired,
-        PropTypes.string.isRequired
+        PropTypes.string.isRequired,
     ).isRequired,
     mapOfNoKey: ImmutablePropTypes.mapOf(
-        PropTypes.number.isRequired
+        PropTypes.number.isRequired,
     ).isRequired,
     orderedMapOf: ImmutablePropTypes.orderedMapOf(
         PropTypes.number.isRequired,
-        PropTypes.string.isRequired
+        PropTypes.string.isRequired,
     ).isRequired,
     orderedMapOfNoKey: ImmutablePropTypes.orderedMapOf(
-        PropTypes.number.isRequired
+        PropTypes.number.isRequired,
     ).isRequired,
     setOf: ImmutablePropTypes.setOf(
-        PropTypes.string.isRequired
+        PropTypes.string.isRequired,
     ).isRequired,
     orderedSetOf: ImmutablePropTypes.orderedSetOf(
-        PropTypes.string.isRequired
+        PropTypes.string.isRequired,
     ).isRequired,
     stackOf: ImmutablePropTypes.stackOf(
-        PropTypes.string.isRequired
+        PropTypes.string.isRequired,
     ).isRequired,
     iterableOf: ImmutablePropTypes.iterableOf(
-        PropTypes.string.isRequired
+        PropTypes.string.isRequired,
     ).isRequired,
     recordOf: ImmutablePropTypes.recordOf({
         foo: PropTypes.string.isRequired,

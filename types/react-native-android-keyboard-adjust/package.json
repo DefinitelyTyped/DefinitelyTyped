@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/react-native-android-keyboard-adjust",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zubricky/react-native-android-keyboard-adjust"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "react-native": "*",
+        "@types/react-native-android-keyboard-adjust": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Stelmakh",
+            "githubUsername": "stelmakhivan"
+        }
+    ]
+}

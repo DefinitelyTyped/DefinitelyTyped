@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/tunnel-ssh",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/agebrock/tunnel-ssh"
+    ],
+    "dependencies": {
+        "@types/ssh2": "*"
+    },
+    "devDependencies": {
+        "@types/tunnel-ssh": "workspace:."
+    },
+    "owners": []
+}

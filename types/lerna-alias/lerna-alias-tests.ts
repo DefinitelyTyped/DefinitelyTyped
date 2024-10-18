@@ -1,8 +1,8 @@
-import { Aliases, Options, jest, rollup, webpack } from 'lerna-alias';
+import { Aliases, jest, Options, rollup, webpack } from "lerna-alias";
 
 const opt1: Options = {};
-const opt2: Options = { directory: 'test1', mainFields: ['module', 'main'] };
-const opt3: Options = { sourceDirectory: 'lib' };
+const opt2: Options = { directory: "test1", mainFields: ["module", "main"] };
+const opt3: Options = { sourceDirectory: "lib" };
 const opt4: Options = { sourceDirectory: false };
 // @ts-expect-error
 const opt5: Options = { sourceDirectory: true };

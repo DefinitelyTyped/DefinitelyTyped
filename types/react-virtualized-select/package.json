@@ -1,6 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/react-select": "^1.0.0"
-  }
+    "private": true,
+    "name": "@types/react-virtualized-select",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/bvaughn/react-virtualized-select"
+    ],
+    "dependencies": {
+        "@types/react": "^17",
+        "@types/react-select": "^1.0.0",
+        "@types/react-virtualized": "*"
+    },
+    "devDependencies": {
+        "@types/react-virtualized-select": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Kelley",
+            "githubUsername": "seansfkelley"
+        }
+    ]
 }

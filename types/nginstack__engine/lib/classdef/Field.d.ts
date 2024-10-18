@@ -92,6 +92,7 @@ declare class Field {
         ERROR: number;
         DELETE: number;
         UNLINK: number;
+        IGNORE: number;
     };
     detailFilter: string;
     private _propertiesToAssign;
@@ -162,10 +163,10 @@ declare class Field {
 declare namespace Field {
     export { Event, AdapterDescriptor, Limit };
 }
-type AdapterDescriptor = import('../event/AdapterDescriptor');
 interface Limit {
     START: number;
     END: number;
 }
 import FieldGroup = require('./FieldGroup.js');
 type Event = import('../event/Event');
+type AdapterDescriptor = import('../event/AdapterDescriptor');

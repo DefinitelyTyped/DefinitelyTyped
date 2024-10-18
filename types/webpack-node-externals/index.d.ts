@@ -1,19 +1,11 @@
-// Type definitions for webpack-node-externals 3.0
-// Project: https://github.com/liady/webpack-node-externals
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-//                 Manuel Pogge <https://github.com/MrSpoocy>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
-
 /// <reference types="node" />
-import { ExternalsPlugin } from 'webpack';
+import { ExternalsPlugin } from "webpack";
 
 export = webpackNodeExternals;
 
 type GetArrayInnerType<T> = T extends Array<infer U> ? U : never;
 /** The webpack types don't export this so we have to derive it. */
-type ExternalItem = GetArrayInnerType<ExternalsPlugin['externals']>;
+type ExternalItem = GetArrayInnerType<ExternalsPlugin["externals"]>;
 
 declare function webpackNodeExternals(options?: webpackNodeExternals.Options): ExternalItem;
 
@@ -47,7 +39,7 @@ declare namespace webpackNodeExternals {
          * 'commonjs' for node modules.
          * @default 'commonjs'
          */
-        importType?: 'var' | 'this' | 'commonjs' | 'amd' | 'umd' | ImportTypeCallback | undefined;
+        importType?: "var" | "this" | "commonjs" | "amd" | "umd" | "module" | ImportTypeCallback | undefined;
         /**
          * The folder in which to search for the node modules.
          * @default 'node_modules'

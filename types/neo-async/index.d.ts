@@ -1,9 +1,3 @@
-// Type definitions for neo-async 2.6
-// Project: https://github.com/suguru03/neo-async
-// Definitions by: Corentin Verpillat <https://github.com/corentinverpillat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface Dictionary<T> {
     [key: string]: T;
 }
@@ -71,7 +65,7 @@ export interface DataContainer<T> {
 }
 
 export interface CallbackContainer {
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     callback: Function;
 }
 
@@ -98,7 +92,7 @@ export interface QueueObject<T> {
     /**
      * Returns an array of items currently being processed.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     workersList<TWorker extends DataContainer<T>, CallbackContainer>(): TWorker[];
 
     /**
@@ -125,31 +119,31 @@ export interface QueueObject<T> {
      * Instead of a single task, a tasks array can be submitted.
      * The respective callback is used for every task in the list.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     push<R>(task: T | T[]): Promise<R>;
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     push<R, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
 
     /**
      * Add a new task to the front of the queue
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     unshift<R>(task: T | T[]): Promise<R>;
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     unshift<R, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
 
     /**
      * The same as `q.push`, except this returns a promise that rejects if an error occurs.
      * The `callback` arg is ignored
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     pushAsync<R>(task: T | T[]): Promise<R>;
 
     /**
      * The same as `q.unshift`, except this returns a promise that rejects if an error occurs.
      * The `callback` arg is ignored
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     unshiftAsync<R>(task: T | T[]): Promise<R>;
 
     /**
@@ -244,10 +238,10 @@ export interface QueueObject<T> {
  * - The `unshift` method was removed.
  */
 // FIXME: can not use Omit due to ts version restriction. Replace Pick with Omit, when ts 3.5+ will be allowed
-export interface AsyncPriorityQueue<T> extends Pick<QueueObject<T>, Exclude<keyof QueueObject<T>, 'push' | 'unshift'>> {
-    // eslint-disable-next-line no-unnecessary-generics
+export interface AsyncPriorityQueue<T> extends Pick<QueueObject<T>, Exclude<keyof QueueObject<T>, "push" | "unshift">> {
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     push<R>(task: T | T[], priority?: number): Promise<R>;
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     push<R, E = Error>(task: T | T[], priority: number, callback: AsyncResultCallback<R, E>): void;
 }
 
@@ -269,7 +263,7 @@ export function each<T, E = Error>(
     iterator: AsyncIterator<T, E>,
     callback: ErrorCallback<E>,
 ): void;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function each<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncIterator<T, E>): Promise<void>;
 export const eachSeries: typeof each;
 export function eachLimit<T, E = Error>(
@@ -278,10 +272,10 @@ export function eachLimit<T, E = Error>(
     iterator: AsyncIterator<T, E>,
     callback: ErrorCallback<E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function eachLimit<T, E = Error>(
     arr: IterableCollection<T>,
     limit: number,
-    // eslint-disable-next-line no-unnecessary-generics
     iterator: AsyncIterator<T, E>,
 ): Promise<void>;
 export const forEach: typeof each;
@@ -292,9 +286,9 @@ export function forEachOf<T, E = Error>(
     iterator: AsyncForEachOfIterator<T, E>,
     callback: ErrorCallback<E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function forEachOf<T, E = Error>(
     obj: IterableCollection<T>,
-    // eslint-disable-next-line no-unnecessary-generics
     iterator: AsyncForEachOfIterator<T, E>,
 ): Promise<void>;
 export const forEachOfSeries: typeof forEachOf;
@@ -304,10 +298,10 @@ export function forEachOfLimit<T, E = Error>(
     iterator: AsyncForEachOfIterator<T, E>,
     callback: ErrorCallback<E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function forEachOfLimit<T, E = Error>(
     obj: IterableCollection<T>,
     limit: number,
-    // eslint-disable-next-line no-unnecessary-generics
     iterator: AsyncForEachOfIterator<T, E>,
 ): Promise<void>;
 export const eachOf: typeof forEachOf;
@@ -318,9 +312,9 @@ export function map<T, R, E = Error>(
     iterator: AsyncResultIterator<T, R, E>,
     callback: AsyncResultArrayCallback<R, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function map<T, R, E = Error>(
     arr: T[] | IterableIterator<T> | Dictionary<T>,
-    // eslint-disable-next-line no-unnecessary-generics
     iterator: AsyncResultIterator<T, R, E>,
 ): Promise<R[]>;
 export const mapSeries: typeof map;
@@ -330,10 +324,10 @@ export function mapLimit<T, R, E = Error>(
     iterator: AsyncResultIterator<T, R, E>,
     callback: AsyncResultArrayCallback<R, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function mapLimit<T, R, E = Error>(
     arr: IterableCollection<T>,
     limit: number,
-    // eslint-disable-next-line no-unnecessary-generics
     iterator: AsyncResultIterator<T, R, E>,
 ): Promise<R[]>;
 
@@ -343,10 +337,10 @@ export function mapValuesLimit<T, R, E = Error>(
     iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void,
     callback: AsyncResultObjectCallback<R, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function mapValuesLimit<T, R, E = Error>(
     obj: Dictionary<T>,
     limit: number,
-    // eslint-disable-next-line no-unnecessary-generics
     iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void,
 ): Promise<R>;
 
@@ -355,18 +349,19 @@ export function mapValues<T, R, E = Error>(
     iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void,
     callback: AsyncResultObjectCallback<R, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function mapValues<T, R, E = Error>(
     obj: Dictionary<T>,
-    // eslint-disable-next-line no-unnecessary-generics
     iteratee: (value: T, key: string, callback: AsyncResultCallback<R, E>) => void,
 ): Promise<R>;
 export const mapValuesSeries: typeof mapValues;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function filter<T, E = Error>(
     arr: IterableCollection<T>,
     iterator: AsyncBooleanIterator<T, E>,
     callback: AsyncResultArrayCallback<T, E>,
 ): void;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function filter<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>): Promise<T[]>;
 export const filterSeries: typeof filter;
 export function filterLimit<T, E = Error>(
@@ -375,10 +370,10 @@ export function filterLimit<T, E = Error>(
     iterator: AsyncBooleanIterator<T, E>,
     callback: AsyncResultArrayCallback<T, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function filterLimit<T, E = Error>(
     arr: IterableCollection<T>,
     limit: number,
-    // eslint-disable-next-line no-unnecessary-generics
     iterator: AsyncBooleanIterator<T, E>,
 ): Promise<T[]>;
 export const select: typeof filter;
@@ -412,9 +407,9 @@ export function detectLimit<T, E = Error>(
 export const find: typeof detect;
 export const findSeries: typeof detect;
 export const findLimit: typeof detectLimit;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function sortBy<T, V, E = Error>(
     arr: T[] | IterableIterator<T>,
-    // eslint-disable-next-line no-unnecessary-generics
     iterator: AsyncResultIterator<T, V, E>,
     callback?: AsyncResultArrayCallback<T, E>,
 ): void;
@@ -471,9 +466,9 @@ export function series<T, E = Error>(
     tasks: Dictionary<AsyncFunction<T, E>>,
     callback?: AsyncResultObjectCallback<T, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function series<T, R, E = Error>(
     tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>,
-// eslint-disable-next-line no-unnecessary-generics
 ): Promise<R>;
 export function parallel<T, E = Error>(
     tasks: Array<AsyncFunction<T, E>>,
@@ -483,9 +478,9 @@ export function parallel<T, E = Error>(
     tasks: Dictionary<AsyncFunction<T, E>>,
     callback?: AsyncResultObjectCallback<T, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function parallel<T, R, E = Error>(
     tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>,
-// eslint-disable-next-line no-unnecessary-generics
 ): Promise<R>;
 export function parallelLimit<T, E = Error>(
     tasks: Array<AsyncFunction<T, E>>,
@@ -497,38 +492,37 @@ export function parallelLimit<T, E = Error>(
     limit: number,
     callback?: AsyncResultObjectCallback<T, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function parallelLimit<T, R, E = Error>(
     tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>,
     limit: number,
-// eslint-disable-next-line no-unnecessary-generics
 ): Promise<R>;
 export function whilst<E = Error>(
     test: (cb: (err: any, truth: boolean) => boolean) => boolean,
     fn: AsyncVoidFunction<E>,
     callback: ErrorCallback<E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function whilst<R, E = Error>(
     test: (cb: (err: any, truth: boolean) => boolean) => boolean,
-    // eslint-disable-next-line no-unnecessary-generics
     fn: AsyncVoidFunction<E>,
-// eslint-disable-next-line no-unnecessary-generics
 ): Promise<R>;
 export function doWhilst<T, E = Error>(
     fn: AsyncFunctionEx<T, E>,
     test: (...results: T[]) => boolean,
     callback: ErrorCallback<E>,
 ): void;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function doWhilst<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean): Promise<R>;
 export function until<E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function until<R, E = Error>(test: () => boolean, fn: AsyncVoidFunction<E>): Promise<R>;
 export function doUntil<T, E = Error>(
     fn: AsyncFunctionEx<T, E>,
     test: (...results: T[]) => boolean,
     callback: ErrorCallback<E>,
 ): void;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function doUntil<T, R, E = Error>(fn: AsyncFunctionEx<T, E>, test: (...results: T[]) => boolean): Promise<R>;
 export function during<E = Error>(
     test: (testCallback: AsyncBooleanResultCallback<E>) => void,
@@ -541,27 +535,27 @@ export function doDuring<E = Error>(
     callback: ErrorCallback<E>,
 ): void;
 export function forever<E = Error>(next: (next: ErrorCallback<E>) => void, errBack: ErrorCallback<E>): void;
-// tslint:disable-next-line:ban-types
-export function waterfall<T, E = Error>(tasks: Function[], callback?: AsyncResultCallback<T, E>): void; // eslint-disable-line no-unnecessary-generics
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function waterfall<T, E = Error>(tasks: Function[], callback?: AsyncResultCallback<T, E>): void; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function compose(...fns: Function[]): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function seq(...fns: Function[]): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function applyEach(fns: Function[], ...argsAndCallback: any[]): void; // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function applyEachSeries(fns: Function[], ...argsAndCallback: any[]): void; // applyEachSeries(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function queue<T, E = Error>(worker: AsyncWorker<T, E>, concurrency?: number): QueueObject<T>;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function queue<T, R, E = Error>(worker: AsyncResultIterator<T, R, E>, concurrency?: number): QueueObject<T>;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function priorityQueue<T, E = Error>(worker: AsyncWorker<T, E>, concurrency?: number): AsyncPriorityQueue<T>;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function cargo<T, E = Error>(worker: AsyncWorker<T[], E>, payload?: number): QueueObject<T>;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function cargoQueue<T, E = Error>(
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     worker: AsyncWorker<T[], E>,
     concurrency?: number,
     payload?: number,
@@ -575,7 +569,7 @@ export function auto<R extends Dictionary<any>, E = Error>(
     tasks: AsyncAutoTasks<R, E>,
     callback?: AsyncResultCallback<R, E>,
 ): void;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 
 export interface RetryOptions {
@@ -583,14 +577,14 @@ export interface RetryOptions {
     interval?: number | ((retryCount: number) => number);
     errorFilter?: (error: Error) => boolean;
 }
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function retry<T, E = Error>(
     opts?: number | RetryOptions,
-    // eslint-disable-next-line no-unnecessary-generics
     task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
 ): Promise<void>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function retry<T, E = Error>(
     opts?: number | RetryOptions,
-    // eslint-disable-next-line no-unnecessary-generics
     task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
     callback?: AsyncResultCallback<any, E>,
 ): void;
@@ -600,9 +594,9 @@ export function retryable<T, E = Error>(
     opts: number | (RetryOptions & { arity?: number }),
     task: AsyncFunction<T, E>,
 ): AsyncFunction<T, E>;
-// tslint:disable-next-line:ban-types
-export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>; // eslint-disable-line no-unnecessary-generics
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function nextTick(callback: Function, ...args: any[]): void;
 export const setImmediate: typeof nextTick;
 
@@ -625,7 +619,7 @@ export function times<T, E = Error>(
     iterator: AsyncResultIterator<number, T, E>,
     callback: AsyncResultArrayCallback<T, E>,
 ): void;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function times<T, E = Error>(n: number, iterator: AsyncResultIterator<number, T, E>): Promise<T>;
 export const timesSeries: typeof times;
 export function timesLimit<T, E = Error>(
@@ -634,16 +628,16 @@ export function timesLimit<T, E = Error>(
     iterator: AsyncResultIterator<number, T, E>,
     callback: AsyncResultArrayCallback<T, E>,
 ): void;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function timesLimit<T, E = Error>(
     n: number,
     limit: number,
-    // eslint-disable-next-line no-unnecessary-generics
     iterator: AsyncResultIterator<number, T, E>,
 ): Promise<T>;
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function transform<T, R, E = Error>(
     arr: T[],
-    // eslint-disable-next-line no-unnecessary-generics
     iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void,
     callback?: AsyncResultArrayCallback<T, E>,
 ): void;
@@ -654,9 +648,9 @@ export function transform<T, R, E = Error>(
     callback?: AsyncResultArrayCallback<T, E>,
 ): void;
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function transform<T, R, E = Error>(
     arr: { [key: string]: T },
-    // eslint-disable-next-line no-unnecessary-generics
     iteratee: (acc: { [key: string]: R }, item: T, key: string, callback: (error?: E) => void) => void,
     callback?: AsyncResultObjectCallback<T, E>,
 ): void;
@@ -671,19 +665,19 @@ export function transform<T, R, E = Error>(
 export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>): void;
 
 // Utils
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function memoize(fn: Function, hasher?: Function): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function unmemoize(fn: Function): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function ensureAsync(fn: (...argsAndCallback: any[]) => void): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function constant(...values: any[]): AsyncFunction<any>;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function asyncify(fn: Function): (...args: any[]) => any;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function wrapSync(fn: Function): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function log(fn: Function, ...args: any[]): void;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function dir(fn: Function, ...args: any[]): void;

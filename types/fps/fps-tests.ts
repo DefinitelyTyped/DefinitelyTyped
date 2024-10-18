@@ -32,7 +32,7 @@ ticker.ticks;
 tickerWithOptions.tick();
 
 // $ExpectType void
-ticker.on('data', framerate => {
+ticker.on("data", framerate => {
     // $ExpectType number
     const frames = framerate;
 });

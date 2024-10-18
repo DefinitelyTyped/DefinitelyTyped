@@ -1,8 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 
 // Make sure all exports are defined, even though "connect" is the only one with
 // actual types.
-import { connect, Provider, nuclearMixin, provideReactor, nuclearComponent } from 'nuclear-js-react-addons-chefsplate';
+import { connect, nuclearComponent, nuclearMixin, Provider, provideReactor } from "nuclear-js-react-addons-chefsplate";
 
 /******************** FUNCTION COMPONENT TESTS ********************************/
 

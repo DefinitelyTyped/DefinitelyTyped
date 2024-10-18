@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/express-as-promise",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/bergos/express-as-promise"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-as-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Pluskiewicz",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "Ludovic Muller",
+            "githubUsername": "ludovicm67"
+        }
+    ]
+}

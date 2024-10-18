@@ -1,13 +1,5 @@
-// Type definitions for redlock 4.0
-// Project: https://github.com/mike-marcacci/node-redlock
-// Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Doug Ayers <https://github.com/douglascayers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
-import * as Promise from 'bluebird';
-import { EventEmitter } from 'events';
+import * as Promise from "bluebird";
+import { EventEmitter } from "events";
 
 export = Redlock;
 
@@ -113,7 +105,7 @@ declare namespace Redlock {
      * This error is returned when there is an error locking a resource.
      */
     class LockError extends Error {
-        readonly name: 'LockError';
+        readonly name: "LockError";
         attempts: number;
         constructor(message?: string);
     }
@@ -256,22 +248,22 @@ declare class Redlock extends EventEmitter {
      * Subscribe to `clientError` events.
      * Alias for `on(event, listener)` function.
      */
-    addListener(event: 'clientError', listener: (err: any) => void): this;
+    addListener(event: "clientError", listener: (err: any) => void): this;
 
     /**
      * Subscribe to `clientError` events.
      * Your callback is invoked every time this event is emitted.
      */
-    on(event: 'clientError', listener: (err: any) => void): this;
+    on(event: "clientError", listener: (err: any) => void): this;
 
     /**
      * Subscribe to `clientError` events.
      * Your callback is invoked only once for this event.
      */
-    once(event: 'clientError', listener: (err: any) => void): this;
+    once(event: "clientError", listener: (err: any) => void): this;
 
     /**
      * Unsubscribe from the `clientError` event.
      */
-    removeListener(event: 'clientError', listener: (err: any) => void): this;
+    removeListener(event: "clientError", listener: (err: any) => void): this;
 }

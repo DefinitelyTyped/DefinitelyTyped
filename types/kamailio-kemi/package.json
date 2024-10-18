@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/kamailio-kemi",
+    "version": "5.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "kamailio-kemi",
+    "projects": [
+        "https://github.com/kamailio/kamailio/"
+    ],
+    "devDependencies": {
+        "@types/kamailio-kemi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bonan",
+            "githubUsername": "bonan"
+        }
+    ]
+}

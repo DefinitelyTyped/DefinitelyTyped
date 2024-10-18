@@ -1,4 +1,4 @@
-import { Messenger_Params, Messenger } from './Messenger';
+import { Messenger, Messenger_Params } from "./Messenger";
 
 export interface PreviewFrame_Params extends Messenger_Params {
     container: any; // TODO

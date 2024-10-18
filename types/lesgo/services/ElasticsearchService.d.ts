@@ -1,5 +1,5 @@
-import { Client, ClientOptions, RequestParams } from '@elastic/elasticsearch';
-import { Readable as ReadableStream } from 'stream';
+import { Client, ClientOptions, RequestParams } from "@elastic/elasticsearch";
+import { Readable as ReadableStream } from "stream";
 
 export type ProfileId = string | number;
 
@@ -15,7 +15,7 @@ export interface Index {
     };
 }
 
-export type ConnectionType = 'aws' | string;
+export type ConnectionType = "aws" | string;
 
 export interface ElasticsearchServiceParams {
     index: string | string[];
@@ -48,33 +48,33 @@ export default class ElasticsearchService {
 
     getClient(): Client;
 
-    search(body: RequestParams.Search['body']): Promise<Record<string, any>>;
+    search(body: RequestParams.Search["body"]): Promise<Record<string, any>>;
 
     createIndices(
-        settings: RequestParams.IndicesCreate['body'],
+        settings: RequestParams.IndicesCreate["body"],
         index?: string | string[],
     ): Promise<Record<string, any>>;
 
     deleteIndices(
         index: string | string[],
-        options?: Omit<RequestParams.IndicesDelete, 'index'>,
+        options?: Omit<RequestParams.IndicesDelete, "index">,
     ): Promise<Record<string, any>>;
 
     // The return here should've been a boolean but the actual code implementation gets for response.body
     existIndices(
         index: string | string[],
-        options?: Omit<RequestParams.IndicesExists, 'index'>,
-    ): Promise<Record<string, any>['body']>;
+        options?: Omit<RequestParams.IndicesExists, "index">,
+    ): Promise<Record<string, any>["body"]>;
 
     putMapping(index: string | string[], type: string, body: Record<string, any>): Promise<Record<string, any>>;
 
     get(id: string): Promise<Record<string, any>>;
 
-    indexOrCreateById(body: RequestParams.Index['body'], refresh?: 'wait_for' | boolean): Promise<Record<string, any>>;
+    indexOrCreateById(body: RequestParams.Index["body"], refresh?: "wait_for" | boolean): Promise<Record<string, any>>;
 
     bulkIndex(bodies: RequestBodyWithId[]): Promise<Record<string, any>>;
 
-    create(id: string, body: RequestParams.Index['body']): Promise<Record<string, any>>;
+    create(id: string, body: RequestParams.Index["body"]): Promise<Record<string, any>>;
 
     updateById(id: string): Promise<Record<string, any>>;
 

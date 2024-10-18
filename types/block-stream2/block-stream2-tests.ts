@@ -1,4 +1,4 @@
-import BlockStream2 = require('block-stream2');
+import BlockStream2 = require("block-stream2");
 
 (async () => {
     new BlockStream2();

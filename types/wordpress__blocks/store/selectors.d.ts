@@ -1,4 +1,4 @@
-import { Block, BlockStyle } from '../';
+import { Block, BlockStyle } from "../";
 
 export {
     getBlockSupport,
@@ -11,7 +11,7 @@ export {
     hasBlockSupport,
     hasChildBlocks,
     hasChildBlocksWithInserterSupport,
-} from '../';
+} from "../";
 
 /**
  * Returns block styles by block name.

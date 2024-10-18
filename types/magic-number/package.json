@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/magic-number",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/stpettersens/node-magic-number"
+    ],
+    "devDependencies": {
+        "@types/magic-number": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        }
+    ]
+}

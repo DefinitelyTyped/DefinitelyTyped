@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-reconciler",
+    "version": "0.28.9999",
+    "projects": [
+        "https://reactjs.org/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-reconciler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        },
+        {
+            "name": "Zhang Haocong",
+            "githubUsername": "zhanghaocong"
+        },
+        {
+            "name": "Mathieu Dutour",
+            "githubUsername": "mathieudutour"
+        }
+    ]
+}

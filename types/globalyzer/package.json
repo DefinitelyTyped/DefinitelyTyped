@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/globalyzer",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/terkelg/globalyzer#readme"
+    ],
+    "devDependencies": {
+        "@types/globalyzer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

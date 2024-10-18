@@ -1,9 +1,3 @@
-// Type definitions for jQuery Browser Plugin 0.1
-// Project: https://github.com/gabceb/jquery-browser-plugin
-// Definitions by: Anderson Friaça <https://github.com/AndersonFriaca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 export interface Matchs {
@@ -23,7 +17,7 @@ export interface Matchs {
     kindle?: boolean | undefined;
     playbook?: boolean | undefined;
     silk?: boolean | undefined;
-    ['windows phone']?: boolean | undefined;
+    ["windows phone"]?: boolean | undefined;
     cros?: boolean | undefined;
     mac?: boolean | undefined;
     linux?: boolean | undefined;
@@ -35,7 +29,7 @@ export interface Matchs {
     iemobile?: boolean | undefined;
     msie?: boolean | undefined;
     msedge?: boolean | undefined;
-    uaMatch: ((ua?: string) => Matchs);
+    uaMatch: (ua?: string) => Matchs;
 }
 declare global {
     interface Window {

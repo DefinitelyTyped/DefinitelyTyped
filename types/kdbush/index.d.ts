@@ -1,21 +1,15 @@
-// Type definitions for kdbush 3.0
-// Project: https://github.com/mourner/kdbush
-// Definitions by: DenisCarriere <https://github.com/DenisCarriere>
-//                 SangYeob Bono Yu <https://github.com/deminoth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Points = number[][];
 type Get<T> = (point: T) => number;
 type ArrayType =
-  typeof Int8Array
-  | typeof Int16Array
-  | typeof Int32Array
-  | typeof Float32Array
-  | typeof Float64Array
-  | typeof Uint8Array
-  | typeof Uint16Array
-  | typeof Uint32Array
-  | typeof Array;
+    | typeof Int8Array
+    | typeof Int16Array
+    | typeof Int32Array
+    | typeof Float32Array
+    | typeof Float64Array
+    | typeof Uint8Array
+    | typeof Uint16Array
+    | typeof Uint32Array
+    | typeof Array;
 
 declare class KDBush<T> {
     constructor(points: Points);

@@ -1,25 +1,25 @@
-import * as React from 'react';
-import DualListBox, { Option, ValueOption } from 'react-dual-listbox';
+import * as React from "react";
+import DualListBox, { Option, ValueOption } from "react-dual-listbox";
 
 /** Example options */
 // Flat options
 const flatOptions: Array<ValueOption<string>> = [
-    { label: 'One', value: 'one' }, // ValueOption<string>
-    { label: 'Two', value: 'two' }, // ValueOption<string>
+    { label: "One", value: "one" }, // ValueOption<string>
+    { label: "Two", value: "two" }, // ValueOption<string>
 ];
 const readonlyFlatOptions = flatOptions as ReadonlyArray<ValueOption<string>>;
 
 // Nested options
 const nestedOptions: Array<Option<string>> = [
-    { label: 'Option 1', value: '1' }, // ValueOption<string>
+    { label: "Option 1", value: "1" }, // ValueOption<string>
     {
-        label: 'Category',
+        label: "Category",
         options: [
-            { label: 'Option 2', value: '2' }, // ValueOption<string>
+            { label: "Option 2", value: "2" }, // ValueOption<string>
             {
-                label: 'Nested Category',
+                label: "Nested Category",
                 options: [
-                    { label: 'Option 3', value: '4' }, // ValueOption<string>
+                    { label: "Option 3", value: "4" }, // ValueOption<string>
                 ],
             }, // CategoryOption<string>
         ],
@@ -77,7 +77,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         selected: [],
     }}
     onFilterChange={() => {}}
-    filterPlaceholder={''}
+    filterPlaceholder={""}
     filterCallback={(option: Option<string>) => true}
 />;
 <DualListBox
@@ -88,7 +88,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         selected: [],
     }}
     onFilterChange={() => {}}
-    filterPlaceholder={''}
+    filterPlaceholder={""}
     filterCallback={(option: Option<string>) => true}
 />;
 
@@ -101,7 +101,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         selected: [],
     }}
     onFilterChange={() => {}}
-    filterPlaceholder={''}
+    filterPlaceholder={""}
     filterCallback={(option: Option<string>) => true}
 />;
 // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
@@ -113,7 +113,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         selected: [],
     }}
     onFilterChange={() => {}}
-    filterPlaceholder={''}
+    filterPlaceholder={""}
     filterCallback={(option: Option<string>) => true}
 />;
 
@@ -121,11 +121,11 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
 <DualListBox
     options={flatOptions}
     available={flatOptions.map(o => o.value)}
-    lang={{ availableHeader: 'Available', selectedHeader: 'Selected' }}
+    lang={{ availableHeader: "Available", selectedHeader: "Selected" }}
 />;
 
 /** Action alignment. */
-<DualListBox options={flatOptions} alignActions={'top'} />;
+<DualListBox options={flatOptions} alignActions={"top"} />;
 
 /** Disabled. */
 <DualListBox options={flatOptions} disabled />;
@@ -161,7 +161,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
     className="my-special-class"
     options={flatOptions}
     selected={[]}
-    alignActions={'top'}
+    alignActions={"top"}
     allowDuplicates
     available={flatOptions.map(o => o.value)}
     icons={{
@@ -177,7 +177,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         moveTop: <span className="fa fa-double-angle-up" />,
         moveBottom: <span className="fa fa-double-angle-down" />,
     }}
-    lang={{ availableHeader: 'Available', selectedHeader: 'Selected' }}
+    lang={{ availableHeader: "Available", selectedHeader: "Selected" }}
     moveKeyCodes={[13, 32]}
     simpleValue={false}
     onChange={optionsChange}
@@ -187,7 +187,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         selected: [],
     }}
     onFilterChange={() => {}}
-    filterPlaceholder={''}
+    filterPlaceholder={""}
     filterCallback={(option: Option<string>) => true}
     disabled
     preserveSelectOrder

@@ -1,4 +1,4 @@
-import cache = require('persistent-cache');
+import cache = require("persistent-cache");
 
 // Types
 type Err = NodeJS.ErrnoException | null;
@@ -7,16 +7,16 @@ type Err = NodeJS.ErrnoException | null;
 const cats = cache();
 
 // Put
-cats.put('Cindy', {color: 'red'}, (err: Err) => console.log(err || 'done!'));
-cats.putSync('babies', ['Ron', 'Emily']);
+cats.put("Cindy", { color: "red" }, (err: Err) => console.log(err || "done!"));
+cats.putSync("babies", ["Ron", "Emily"]);
 
 // Get
-cats.get('babies', (err: Err, babies: any) => {
+cats.get("babies", (err: Err, babies: any) => {
     // check err for errors
     if (err) return;
     console.log(babies); // ['Ron', 'Emily']
 });
-console.log(cats.getSync('Cindy')); // { color: 'red' }
+console.log(cats.getSync("Cindy")); // { color: 'red' }
 
 // Keys
 cats.keys((err: Err, keys: string[]) => {
@@ -29,28 +29,28 @@ console.log(cats.keysSync()); // ['Cindy', 'babies']
 cats.keysSync();
 
 // Delete
-cats.delete('babies', (err: Err) => {
+cats.delete("babies", (err: Err) => {
     // Handle errors
     if (err) return;
-    console.log('babies removed from cache');
+    console.log("babies removed from cache");
 });
 
 // Unlink
-cats.unlink((err: Err) => console.log(err || 'done!'));
+cats.unlink((err: Err) => console.log(err || "done!"));
 
 // @ts-expect-error
-cats.put('no-callback-error', { data: 'test' });
+cats.put("no-callback-error", { data: "test" });
 // @ts-expect-error
-cats.get('no-callback-error');
+cats.get("no-callback-error");
 // @ts-expect-error
-cats.keys('no-callback-error');
+cats.keys("no-callback-error");
 // @ts-expect-error
-cats.delete('no-callback-error');
+cats.delete("no-callback-error");
 
 // @ts-expect-error
-cats.put(2241, { data: 'non-string-name-error' }, console.log);
+cats.put(2241, { data: "non-string-name-error" }, console.log);
 // @ts-expect-error
-cats.put(undefined, { data: 'non-string-name-error' }, console.log);
+cats.put(undefined, { data: "non-string-name-error" }, console.log);
 // @ts-expect-error
 cats.get(2241, console.log);
 // @ts-expect-error
@@ -64,9 +64,9 @@ cats.delete(2241, console.log);
 // @ts-expect-error
 cats.delete(undefined, console.log);
 // @ts-expect-error
-cats.putSync(2241, { data: 'non-string-name-error' }, console.log);
+cats.putSync(2241, { data: "non-string-name-error" }, console.log);
 // @ts-expect-error
-cats.putSync(undefined, { data: 'non-string-name-error' }, console.log);
+cats.putSync(undefined, { data: "non-string-name-error" }, console.log);
 // @ts-expect-error
 cats.getSync(2241, console.log);
 // @ts-expect-error

@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/google.analytics",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google.analytics",
+    "projects": [
+        "https://developers.google.com/analytics/devguides/collection/gajs/",
+        "https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference"
+    ],
+    "devDependencies": {
+        "@types/google.analytics": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ronnie Haakon Hegelund",
+            "url": "http://ronniehegelund.blogspot.dk"
+        },
+        {
+            "name": "Pat Kujawa",
+            "url": "http://patkujawa.com"
+        },
+        {
+            "name": "Tyler Murphy",
+            "githubUsername": "tyler-murphy"
+        }
+    ]
+}

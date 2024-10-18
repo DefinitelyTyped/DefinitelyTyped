@@ -1,9 +1,3 @@
-// Type definitions for quicksettings 3.0
-// Project: https://github.com/bit101/quicksettings
-// Definitions by: janizde <https://github.com/janizde>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 export type ChangeHandler<T> = (value: T) => void;
 export type AnyModel = Record<string, any>;
 
@@ -176,7 +170,7 @@ export interface QuickSettingsPanel<M = AnyModel, S = string> {
     addPassword(title: KeyWhereType<M, string>, text: string, callback?: ChangeHandler<string>): this;
     bindPassword<K extends KeyWhereType<M, string>>(title: K, text: string, object: Record<K, string>): this;
 
-    addProgressBar(title: string, max: number, value: number, valueDisplay?: 'numbers' | 'percent'): this;
+    addProgressBar(title: string, max: number, value: number, valueDisplay?: "numbers" | "percent"): this;
     setProgressMax(title: string, max: number): this;
 
     addText(title: KeyWhereType<M, string>, text: string, callback?: ChangeHandler<string>): this;
@@ -199,12 +193,12 @@ interface QuickSettings {
      * @param       parent      title of panel (default "QuickSettings")
      * @returns                 New QuickSettings Panel
      */
-    create<M = AnyModel, S = string>(
+    create<M = AnyModel, S = string>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
         x?: number,
         y?: number,
         panelTitle?: string,
         parent?: HTMLElement,
-    ): QuickSettingsPanel<M, S>; // eslint-disable-line no-unnecessary-generics
+    ): QuickSettingsPanel<M, S>;
     useExtStyleSheet(): void;
 }
 

@@ -1,10 +1,3 @@
-// Type definitions for non-npm package jitsi-meet 2.0
-// Project: https://github.com/jitsi/jitsi-meet
-// Definitions by: Tom Price <https://github.com/tomtom5152>
-//                 Philipp Katz <https://github.com/qqilihq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 export interface ConfigHosts {
     domain?: string | undefined;
     anonymousdomain?: string | undefined;
@@ -107,7 +100,7 @@ export interface ChromeExtensionBanner {
 
 export interface ConfigLocalRecording {
     enabled?: boolean | undefined;
-    format?: 'ogg' | 'flac' | 'wav' | undefined;
+    format?: "ogg" | "flac" | "wav" | undefined;
 }
 
 export interface ConfigE2EPing {
@@ -338,7 +331,7 @@ export interface InterfaceConfig {
     PROVIDER_NAME?: string | undefined;
     RECENT_LIST_ENABLED?: boolean | undefined;
     REMOTE_THUMBNAIL_RATIO?: number | undefined;
-    SETTINGS_SECTIONS?: Array<'devices' | 'language' | 'moderator' | 'profile' | 'calendar'> | undefined;
+    SETTINGS_SECTIONS?: Array<"devices" | "language" | "moderator" | "profile" | "calendar"> | undefined;
     SHOW_BRAND_WATERMARK?: boolean | undefined;
     SHOW_CHROME_EXTENSION_BANNER?: boolean | undefined;
 
@@ -351,11 +344,38 @@ export interface InterfaceConfig {
     SUPPORT_URL?: string | undefined;
 
     TOOLBAR_ALWAYS_VISIBLE?: boolean | undefined;
-    TOOLBAR_BUTTONS?: Array<'microphone' | 'camera' | 'closedcaptions' | 'desktop' | 'embedmeeting' | 'fullscreen' |
-        'fodeviceselection' | 'hangup' | 'profile' | 'chat' | 'recording' |
-        'livestreaming' | 'etherpad' | 'sharedvideo' | 'settings' | 'raisehand' |
-        'videoquality' | 'filmstrip' | 'invite' | 'feedback' | 'stats' | 'shortcuts' |
-        'tileview' | 'videobackgroundblur' | 'download' | 'help' | 'mute-everyone' | 'security'> | undefined;
+    TOOLBAR_BUTTONS?:
+        | Array<
+            | "microphone"
+            | "camera"
+            | "closedcaptions"
+            | "desktop"
+            | "embedmeeting"
+            | "fullscreen"
+            | "fodeviceselection"
+            | "hangup"
+            | "profile"
+            | "chat"
+            | "recording"
+            | "livestreaming"
+            | "etherpad"
+            | "sharedvideo"
+            | "settings"
+            | "raisehand"
+            | "videoquality"
+            | "filmstrip"
+            | "invite"
+            | "feedback"
+            | "stats"
+            | "shortcuts"
+            | "tileview"
+            | "videobackgroundblur"
+            | "download"
+            | "help"
+            | "mute-everyone"
+            | "security"
+        >
+        | undefined;
 
     TOOLBAR_TIMEOUT?: number | undefined;
 
@@ -414,12 +434,28 @@ export interface DeviceMap {
 }
 
 export type ExternalAPICommands =
-    'displayName' | 'password' | 'toggleLobby' | 'sendTones' | 'subject' | 'toggleAudio' | 'toggleVideo' |
-    'toggleFilmStrip' | 'toggleChat' | 'toggleShareScreen' | 'toggleTileView' | 'hangup' | 'email' | 'avatarUrl' |
-    'sendEndpointTextMessage' | 'setLargeVideoParticipant' | 'setVideoQuality' | 'muteEveryone' | 'startRecording' |
-    'stopRecording';
+    | "displayName"
+    | "password"
+    | "toggleLobby"
+    | "sendTones"
+    | "subject"
+    | "toggleAudio"
+    | "toggleVideo"
+    | "toggleFilmStrip"
+    | "toggleChat"
+    | "toggleShareScreen"
+    | "toggleTileView"
+    | "hangup"
+    | "email"
+    | "avatarUrl"
+    | "sendEndpointTextMessage"
+    | "setLargeVideoParticipant"
+    | "setVideoQuality"
+    | "muteEveryone"
+    | "startRecording"
+    | "stopRecording";
 
-export type RecordingMode = 'file' | 'stream';
+export type RecordingMode = "file" | "stream";
 
 export interface RecordingOptions {
     mode: RecordingMode;
@@ -468,7 +504,7 @@ export interface LargeVideoChangedEvent {
     id: string;
 }
 
-export type LogLevels = 'info' | 'error' | 'debug' | 'warn';
+export type LogLevels = "info" | "error" | "debug" | "warn";
 
 export interface LogEvent {
     logLevel: LogLevels;
@@ -480,7 +516,7 @@ export interface MicErrorEvent {
     message: string;
 }
 
-export type ScreenSharingSourceTypes = 'window' | 'screen' | 'proxy' | 'device';
+export type ScreenSharingSourceTypes = "window" | "screen" | "proxy" | "device";
 
 export interface ScreenSharingStatusChangedEvent {
     on: boolean;
@@ -646,7 +682,9 @@ export interface TypedEventEmitter<Events, K extends keyof Events> {
 /**
  * @see https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-iframe
  */
-export interface JitsiMeetExternalAPI extends TypedEventEmitter<ExternalAPIEventCallbacks, keyof ExternalAPIEventCallbacks> {
+export interface JitsiMeetExternalAPI
+    extends TypedEventEmitter<ExternalAPIEventCallbacks, keyof ExternalAPIEventCallbacks>
+{
     // tslint gets unhappy about a constructor on an interface, but this is what is passed to it
     // constructor(domain: string, options?: ExternalAPIOptions): this;
 
@@ -713,4 +751,4 @@ export interface JitsiMeetExternalAPIConstructor {
 
 // this helps with `import type Jitsi` declarations as sometimes babel can get upset that the implementation is loaded
 // at runtime
-export as namespace Jitsi
+export as namespace Jitsi;

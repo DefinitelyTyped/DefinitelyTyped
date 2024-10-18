@@ -1,4 +1,4 @@
-export const REVISION: '106';
+export const REVISION: "106";
 export const MOUSE: MOUSE;
 
 export interface MOUSE {

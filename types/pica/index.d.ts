@@ -1,10 +1,3 @@
-// Type definitions for pica 9.0
-// Project: https://github.com/nodeca/pica
-// Definitions by: Hamit YILMAZ <https://github.com/hmtylmz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 sapphi-red <https://github.com/sapphi-red>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace pica {
     interface PicaOptions {
         /**
@@ -22,7 +15,7 @@ declare namespace pica {
          *
          * @default ['js', 'wasm', 'ww']
          */
-        features?: Array<'js' | 'wasm' | 'cib' | 'ww'> | ['all'] | undefined;
+        features?: Array<"js" | "wasm" | "cib" | "ww"> | ["all"] | undefined;
         /**
          * cache timeout, ms. Webworkers create is not fast.
          *
@@ -59,7 +52,7 @@ declare namespace pica {
          *
          * @default 'mks2013'
          */
-        filter?: 'box' | 'hamming' | 'lanczos2' | 'lanczos3' | 'mks2013' | undefined;
+        filter?: "box" | "hamming" | "lanczos2" | "lanczos3" | "mks2013" | undefined;
         /**
          * in percents, >=0.
          *
@@ -114,7 +107,7 @@ declare namespace pica {
          *
          * @default 'mks2013'
          */
-        filter?: 'box' | 'hamming' | 'lanczos2' | 'lanczos3' | 'mks2013' | undefined;
+        filter?: "box" | "hamming" | "lanczos2" | "lanczos3" | "mks2013" | undefined;
         /**
          * in percents, >=0.
          *
@@ -173,7 +166,7 @@ declare namespace pica {
     }
 
     interface PicaStatic {
-        new (config?: PicaOptions): Pica;
+        new(config?: PicaOptions): Pica;
         (config?: PicaOptions): Pica;
     }
 }

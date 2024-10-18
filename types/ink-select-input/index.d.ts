@@ -1,11 +1,4 @@
-// Type definitions for ink-select-input 3.0
-// Project: https://github.com/vadimdemedes/ink-select-input#readme
-// Definitions by: Łukasz Ostrowski <https://github.com/lukostry>
-//                 Jakub Satnik <https://github.com/shatodj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component } from 'react';
+import { Component } from "react";
 
 export interface ItemOfSelectInput {
     label: string;
@@ -17,12 +10,12 @@ export interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInpu
     focus?: boolean | undefined;
     indicatorComponent?: Component | undefined;
     itemComponent?: Component | undefined;
-    items?: ReadonlyArray<T> | undefined;
+    items?: readonly T[] | undefined;
     limit?: number | undefined;
     initialIndex?: number | undefined;
     onSelect?: ((item: T) => void) | undefined;
 }
 
-declare class SelectInput extends Component<SelectInputProps> { }
+declare class SelectInput extends Component<SelectInputProps> {}
 
 export default SelectInput;

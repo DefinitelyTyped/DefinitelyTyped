@@ -1,5 +1,5 @@
-import * as Popper from '@popperjs/core';
-import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+import * as Popper from "@popperjs/core";
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
 declare class Tooltip extends BaseComponent {
     static getInstance: GetInstanceFactory<Tooltip>;
@@ -12,7 +12,7 @@ declare class Tooltip extends BaseComponent {
 
     static jQueryInterface: Tooltip.jQueryInterface;
 
-    static NAME: 'tooltip';
+    static NAME: "tooltip";
 
     /**
      * Default settings of this plugin
@@ -22,16 +22,16 @@ declare class Tooltip extends BaseComponent {
     static Default: Tooltip.Options;
 
     static Event: Record<
-        | 'CLICK'
-        | 'FOCUSIN'
-        | 'FOCUSOUT'
-        | 'HIDDEN'
-        | 'HIDE'
-        | 'INSERTED'
-        | 'MOUSEENTER'
-        | 'MOUSELEAVE'
-        | 'SHOW'
-        | 'SHOWN',
+        | "CLICK"
+        | "FOCUSIN"
+        | "FOCUSOUT"
+        | "HIDDEN"
+        | "HIDE"
+        | "INSERTED"
+        | "MOUSEENTER"
+        | "MOUSELEAVE"
+        | "SHOW"
+        | "SHOWN",
         string
     >;
 
@@ -96,40 +96,40 @@ declare namespace Tooltip {
         /**
          * This event fires immediately when the show instance method is called.
          */
-        show = 'show.bs.tooltip',
+        show = "show.bs.tooltip",
 
         /**
          * This event is fired when the tooltip has been made visible to the
          * user (will wait for CSS transitions to complete).
          */
-        shown = 'shown.bs.tooltip',
+        shown = "shown.bs.tooltip",
 
         /**
          * This event is fired immediately when the hide instance method has
          * been called.
          */
-        hide = 'hide.bs.tooltip',
+        hide = "hide.bs.tooltip",
 
         /**
          * This event is fired when the tooltip has finished being hidden from
          * the user (will wait for CSS transitions to complete).
          */
-        hidden = 'hidden.bs.tooltip',
+        hidden = "hidden.bs.tooltip",
 
         /**
          * This event is fired after the show.bs.tooltip event when the tooltip
          * template has been added to the DOM.
          */
-        inserted = 'inserted.bs.tooltip',
+        inserted = "inserted.bs.tooltip",
     }
 
     type Offset = [number, number];
 
     type OffsetFunction = () => Offset;
 
-    type PopoverPlacement = 'auto' | 'top' | 'bottom' | 'left' | 'right';
+    type PopoverPlacement = "auto" | "top" | "bottom" | "left" | "right";
 
-    type PopperConfigFunction = (defaultBsPopperConfig: Options) => Partial<Popper.Options>;
+    type PopperConfigFunction = (defaultBsPopperConfig: Popper.Options) => Partial<Popper.Options>;
 
     interface Options {
         /**
@@ -235,14 +235,14 @@ declare namespace Tooltip {
          * @default 'hover focus'
          */
         trigger:
-            | 'click'
-            | 'hover'
-            | 'focus'
-            | 'manual'
-            | 'click hover'
-            | 'click focus'
-            | 'hover focus'
-            | 'click hover focus';
+            | "click"
+            | "hover"
+            | "focus"
+            | "manual"
+            | "click hover"
+            | "click focus"
+            | "hover focus"
+            | "click hover focus";
 
         /**
          * Offset of the tooltip relative to its target.
@@ -302,7 +302,7 @@ declare namespace Tooltip {
          *
          * @see {@link https://v5.getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer}
          */
-        allowList: Record<keyof HTMLElementTagNameMap | '*', Array<string | RegExp>>;
+        allowList: Record<keyof HTMLElementTagNameMap | "*", Array<string | RegExp>>;
 
         /**
          * Here you can supply your own sanitize function. This can be useful if
@@ -310,6 +310,7 @@ declare namespace Tooltip {
          *
          * @default null
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         sanitizeFn: () => void | null;
 
         /**
@@ -332,15 +333,15 @@ declare namespace Tooltip {
     type jQueryInterface = (
         config?:
             | Partial<Options>
-            | 'show'
-            | 'hide'
-            | 'toggle'
-            | 'enable'
-            | 'disable'
-            | 'toggleEnabled'
-            | 'update'
-            | 'setContent'
-            | 'dispose',
+            | "show"
+            | "hide"
+            | "toggle"
+            | "enable"
+            | "disable"
+            | "toggleEnabled"
+            | "update"
+            | "setContent"
+            | "dispose",
     ) => JQuery;
 }
 

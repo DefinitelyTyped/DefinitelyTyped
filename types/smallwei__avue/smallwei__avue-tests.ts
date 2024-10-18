@@ -1,4 +1,4 @@
-import Avue, { AvueCrudOption, AvueFormOption } from '@smallwei/avue';
+import Avue, { AvueCrudOption, AvueFormOption } from "@smallwei/avue";
 
 Avue.install;
 
@@ -9,14 +9,14 @@ interface User {
 
 const crudOption: AvueCrudOption<User> = {
     column: [
-        { label: 'id', prop: 'id' },
-        { label: 'name', prop: 'name' },
+        { label: "id", prop: "id" },
+        { label: "name", prop: "name" },
     ],
 };
 
 const formOption: AvueFormOption<User> = {
     column: [
-        { label: 'id', prop: 'id' },
-        { label: 'name', prop: 'name' },
+        { label: "id", prop: "id" },
+        { label: "name", prop: "name" },
     ],
 };

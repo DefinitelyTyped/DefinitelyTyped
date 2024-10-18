@@ -1,6 +1,6 @@
-import datasetFactory = require('rdf-dataset-indexed');
-import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term, Stream } from 'rdf-js';
-import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
+import datasetFactory = require("rdf-dataset-indexed");
+import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Stream, Term } from "@rdfjs/types";
+import { DatasetIndexed } from "rdf-dataset-indexed/dataset";
 
 interface QuadBnode extends BaseQuad {
     subject: Term;
@@ -64,6 +64,6 @@ removeMatches = dataset.removeMatches(null, null, null, null);
 
 const some: boolean = dataset.some((q: QuadBnode) => true);
 
-const toArray: QuadBnode[] =  dataset.toArray();
+const toArray: QuadBnode[] = dataset.toArray();
 
 const toStream: Stream = dataset.toStream();

@@ -1,4 +1,4 @@
-import * as profiler from 'gc-profiler';
+import * as profiler from "gc-profiler";
 
 // test type exports
 type GCProfiler = profiler.GCProfiler;
@@ -11,7 +11,7 @@ profiler.GCCallbackFlags.kGCCallbackFlagConstructRetainedObjectInfos; // $Expect
 profiler.GCCallbackFlags.kGCCallbackFlagForced; // $ExpectType 4
 
 // $ExpectType GCProfiler
-profiler.addListener('gc', info => {
+profiler.addListener("gc", info => {
     info; // $ExpectType GCInfo
 
     info.date; // $ExpectType Date
@@ -20,50 +20,50 @@ profiler.addListener('gc', info => {
     info.forced; // $ExpectType boolean
     info.flags; // $ExpectType number
 });
-profiler.addListener('foo', (...args) => {
+profiler.addListener("foo", (...args) => {
     args; // $ExpectType any[]
 });
 // $ExpectType GCProfiler
-profiler.on('gc', info => {
+profiler.on("gc", info => {
     info; // $ExpectType GCInfo
 });
-profiler.on('foo', (...args) => {
+profiler.on("foo", (...args) => {
     args; // $ExpectType any[]
 });
 // $ExpectType GCProfiler
-profiler.once('gc', info => {
+profiler.once("gc", info => {
     info; // $ExpectType GCInfo
 });
-profiler.once('foo', (...args) => {
+profiler.once("foo", (...args) => {
     args; // $ExpectType any[]
 });
 // $ExpectType GCProfiler
-profiler.removeListener('gc', info => {
+profiler.removeListener("gc", info => {
     info; // $ExpectType GCInfo
 });
-profiler.removeListener('foo', (...args) => {
+profiler.removeListener("foo", (...args) => {
     args; // $ExpectType any[]
 });
 // $ExpectType GCProfiler
-profiler.off('gc', info => {
+profiler.off("gc", info => {
     info; // $ExpectType GCInfo
 });
-profiler.off('foo', (...args) => {
+profiler.off("foo", (...args) => {
     args; // $ExpectType any[]
 });
 // $ExpectType GCProfiler
-profiler.prependListener('gc', info => {
+profiler.prependListener("gc", info => {
     info; // $ExpectType GCInfo
 });
-profiler.prependListener('foo', (...args) => {
+profiler.prependListener("foo", (...args) => {
     args; // $ExpectType any[]
 });
 // $ExpectType GCProfiler
-profiler.prependOnceListener('gc', info => {
+profiler.prependOnceListener("gc", info => {
     info; // $ExpectType GCInfo
 });
-profiler.prependOnceListener('foo', (...args) => {
+profiler.prependOnceListener("foo", (...args) => {
     args; // $ExpectType any[]
 });
 // $ExpectType boolean
-profiler.emit('gc', null as any as profiler.GCInfo);
+profiler.emit("gc", null as any as profiler.GCInfo);

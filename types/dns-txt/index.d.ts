@@ -1,8 +1,3 @@
-// Type definitions for dns-txt 2.0
-// Project: https://github.com/watson/dns-txt
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = dnsTxt;

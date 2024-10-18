@@ -1,7 +1,25 @@
 {
     "private": true,
+    "name": "@types/redux-immutable",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/gajus/redux-immutable"
+    ],
     "dependencies": {
-        "redux": "^3.6.0",
-        "immutable": "^3.8.1"
-    }
+        "immutable": "^3.8.1",
+        "redux": "^3.6.0"
+    },
+    "devDependencies": {
+        "@types/redux-immutable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Sebald",
+            "githubUsername": "sebald"
+        },
+        {
+            "name": "Gavin Gregory",
+            "githubUsername": "gavingregory"
+        }
+    ]
 }

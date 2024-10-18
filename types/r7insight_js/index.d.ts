@@ -1,8 +1,3 @@
-// Type definitions for r7insight_js 1.1
-// Project: https://github.com/rapid7/r7insight_js
-// Definitions by: Nick Malyarsky <https://github.com/nmalyarsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Insight log options
  */
@@ -15,7 +10,7 @@ export interface Options {
     /**
      * The Insight log region
      */
-    region: 'eu' | 'us';
+    region: "eu" | "us";
 
     /**
      * Use SSL/TLS to send events
@@ -40,7 +35,7 @@ export interface Options {
     /**
      * Append basic information about browser capabilities
      */
-    page_info?: 'never' | 'per-page' | 'per-entry';
+    page_info?: "never" | "per-page" | "per-entry";
 
     /**
      * Echo events to the screen via the console object. This will logged at the same level as the call to R7Insight, e.g. R7Insight.warn(msg) => console.warn(msg)

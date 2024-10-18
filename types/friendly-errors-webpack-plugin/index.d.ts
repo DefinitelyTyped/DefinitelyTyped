@@ -1,10 +1,4 @@
-// Type definitions for friendly-errors-webpack-plugin 0.1
-// Project: https://github.com/geowarin/friendly-errors-webpack-plugin
-// Definitions by: Arne Bahlo <https://github.com/bahlo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Plugin, Compiler } from 'webpack';
+import { Compiler, Plugin } from "webpack";
 
 export = FriendlyErrorsWebpackPlugin;
 
@@ -22,8 +16,8 @@ declare namespace FriendlyErrorsWebpackPlugin {
 
     interface Options {
         compilationSuccessInfo?: {
-            messages: string[],
-            notes: string[],
+            messages: string[];
+            notes: string[];
         } | undefined;
         onErrors?(severity: Severity, errors: string): void;
         clearConsole?: boolean | undefined;

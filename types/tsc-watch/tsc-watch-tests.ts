@@ -1,19 +1,19 @@
-import TscWatchClient = require('tsc-watch/client');
+import TscWatchClient = require("tsc-watch/client");
 const watch = new TscWatchClient();
 
-watch.on('first_success', () => {
-    console.log('First success!');
+watch.on("first_success", () => {
+    console.log("First success!");
 });
 
-watch.on('success', () => {
+watch.on("success", () => {
     // Your code goes here...
 });
 
-watch.on('compile_errors', () => {
+watch.on("compile_errors", () => {
     // Your code goes here...
 });
 
-watch.start('--project', '.');
+watch.start("--project", ".");
 
 try {
     // do something...

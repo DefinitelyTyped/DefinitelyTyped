@@ -1,14 +1,14 @@
-import convertLab65ToRgb from './convertLab65ToRgb';
-import convertLab65ToXyz65 from './convertLab65ToXyz65';
-import convertRgbToLab65 from './convertRgbToLab65';
-import convertXyz65ToLab65 from './convertXyz65ToLab65';
-import lab from '../lab/definition';
+import lab from "../lab/definition";
+import convertLab65ToRgb from "./convertLab65ToRgb";
+import convertLab65ToXyz65 from "./convertLab65ToXyz65";
+import convertRgbToLab65 from "./convertRgbToLab65";
+import convertXyz65ToLab65 from "./convertXyz65ToLab65";
 
 interface Lab65DefinitionMixin {
-    mode: 'lab65';
+    mode: "lab65";
 
-    parse: ['--lab-d65'];
-    serialize: '--lab-d65';
+    parse: ["--lab-d65"];
+    serialize: "--lab-d65";
 
     toMode: {
         xyz65: typeof convertLab65ToXyz65;

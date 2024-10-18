@@ -1,10 +1,10 @@
-import { Jobs } from 'meteor/msavin:sjobs';
+import { Jobs } from "meteor/msavin:sjobs";
 
 Jobs.register({
     sendReminder(message: string) {
         const instance = this;
 
-        const call = HTTP.put('http://www.magic.com/email/send', { content: message });
+        const call = HTTP.put("http://www.magic.com/email/send", { content: message });
 
         if (call.statusCode !== 200) {
             instance.reschedule({
@@ -18,9 +18,9 @@ Jobs.register({
     },
 });
 
-Jobs.run('sendReminder', 'The future is here!');
+Jobs.run("sendReminder", "The future is here!");
 
-Jobs.run('sendReminder', 'The future is here!', {
+Jobs.run("sendReminder", "The future is here!", {
     in: {
         days: 3,
     },
@@ -34,7 +34,7 @@ Jobs.run('sendReminder', 'The future is here!', {
 Jobs.register({
     syncData() {
         const instance = this;
-        const call = HTTP.put('http://www.magic.com/syncData');
+        const call = HTTP.put("http://www.magic.com/syncData");
 
         if (call.statusCode === 200) {
             instance.replicate({
@@ -54,9 +54,9 @@ Jobs.register({
     },
 });
 
-Jobs.start('sendReminder');
+Jobs.start("sendReminder");
 
-Jobs.start(['sendReminder', 'sendEmail']);
+Jobs.start(["sendReminder", "sendEmail"]);
 
 Jobs.configure({
     autoStart: false,
@@ -65,11 +65,11 @@ Jobs.configure({
     interval: 5000,
     startupDelay: 200,
     maxWait: 10000,
-    setServerId: () => 'SERVER1',
+    setServerId: () => "SERVER1",
 });
 
 Meteor.startup(() => {
-    Jobs.run('syncData', {
+    Jobs.run("syncData", {
         singular: true,
     });
 });

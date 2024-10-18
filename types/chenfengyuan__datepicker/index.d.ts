@@ -1,9 +1,3 @@
-// Type definitions for @chenfengyuan/datepicker 1.0
-// Project: https://fengyuanchen.github.io/datepicker
-// Definitions by: Anton Rieder <https://github.com/aried3r>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 /// <reference types="jquery"/>
 
 export interface DatepickerPlugin<TElement = HTMLElement> {
@@ -11,7 +5,7 @@ export interface DatepickerPlugin<TElement = HTMLElement> {
 }
 
 export interface DatePickerEvent extends Event {
-    namespace: 'datepicker';
+    namespace: "datepicker";
     view: string;
     date: Date;
 }
@@ -247,7 +241,7 @@ export interface DatepickerOptions {
     /**
      * Filter each date item. If it returns `false`, the related date will be disabled.
      */
-    filter?: ((date: Date, view: 'day' | 'month' | 'year') => boolean | undefined) | undefined;
+    filter?: ((date: Date, view: "day" | "month" | "year") => boolean | undefined) | undefined;
 
     /**
      * A shortcut of the "show.datepicker" event.
@@ -265,13 +259,29 @@ export interface DatepickerOptions {
     pick?: ((event: DatePickerEvent) => void) | undefined;
 }
 
-export type DatePickerMethod = 'show' | 'hide' | 'update' | 'pick' | 'reset' |
-    'getMonthName' | 'getDayName' | 'getDate' | 'setDate' | 'setStartDate' | 'setEndDate' |
-    'parseDate' | 'formatDate' | 'destroy';
+export type DatePickerMethod =
+    | "show"
+    | "hide"
+    | "update"
+    | "pick"
+    | "reset"
+    | "getMonthName"
+    | "getDayName"
+    | "getDate"
+    | "setDate"
+    | "setStartDate"
+    | "setEndDate"
+    | "parseDate"
+    | "formatDate"
+    | "destroy";
 
 declare global {
     interface JQuery<TElement = HTMLElement> {
         datepicker(options?: DatepickerOptions): DatepickerPlugin<TElement>;
-        datepicker(method: DatePickerMethod, ...args: ReadonlyArray<number | boolean | Date | string>): void | string | Date;
+        datepicker(
+            method: DatePickerMethod,
+            ...args: ReadonlyArray<number | boolean | Date | string>
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ): void | string | Date;
     }
 }

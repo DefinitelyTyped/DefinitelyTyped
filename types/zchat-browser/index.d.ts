@@ -1,10 +1,3 @@
-// Type definitions for non-npm package zchat-browser 1.112
-// Project: https://api.zopim.com/web-sdk/#introduction
-// Definitions by: David Copley <https://github.com/davidcopley>
-//                 Matthew Go <https://github.com/lezgomatt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export as namespace zChat;
 
 export interface InitOptions {
@@ -12,16 +5,16 @@ export interface InitOptions {
     suppress_console_error?: boolean | undefined;
     authentication?:
         | {
-              jwt_fn?: ((callback: (jwt: string) => void) => void) | undefined;
-          }
+            jwt_fn?: ((callback: (jwt: string) => void) => void) | undefined;
+        }
         | undefined;
 }
 
 export function init(options: InitOptions): void;
 
-export function getAccountStatus(): 'online' | 'offline' | 'away';
+export function getAccountStatus(): "online" | "offline" | "away";
 
-export function getConnectionStatus(): 'connected' | 'connecting' | 'closed';
+export function getConnectionStatus(): "connected" | "connecting" | "closed";
 
 export function getVisitorInfo(): VisitorInfo;
 
@@ -52,13 +45,13 @@ export function sendChatMsg(msg: string, callback?: (err: Error) => void): void;
 export type SendFileError = Error & { message: SendFileErrorMessage };
 
 export type SendFileErrorMessage =
-    | 'NOT_SUPPORTED'
-    | 'NOT_ALLOWED'
-    | 'CONN_ERROR'
-    | 'INVALID_EXTENSION'
-    | 'EXCEED_SIZE_LIMIT'
-    | 'INTERNAL_ERROR'
-    | 'UNKNOWN_ERROR';
+    | "NOT_SUPPORTED"
+    | "NOT_ALLOWED"
+    | "CONN_ERROR"
+    | "INVALID_EXTENSION"
+    | "EXCEED_SIZE_LIMIT"
+    | "INTERNAL_ERROR"
+    | "UNKNOWN_ERROR";
 
 export interface SendFileCallbackData {
     mime_type: string;
@@ -85,15 +78,15 @@ export interface SendOfflineMsgOptions {
 
 export function sendOfflineMsg(options: SendOfflineMsgOptions, callback?: (err: Error) => void): void;
 
-export function addTags(tags: ReadonlyArray<string>, callback?: (err: Error) => void): void;
+export function addTags(tags: readonly string[], callback?: (err: Error) => void): void;
 
-export function removeTags(tags: ReadonlyArray<string>, callback?: (err: Error) => void): void;
+export function removeTags(tags: readonly string[], callback?: (err: Error) => void): void;
 
 export function sendTyping(is_typing: boolean): void;
 
 export function getChatInfo(): { rating: string | null; comment: string | null };
 
-export function sendChatRating(rating: 'good' | 'bad' | null, callback?: (err: Error) => void): void;
+export function sendChatRating(rating: "good" | "bad" | null, callback?: (err: Error) => void): void;
 
 export function sendChatComment(comment: string, callback?: (err: Error) => void): void;
 
@@ -122,23 +115,23 @@ export function logout(): void;
 
 export const EMAIL_REGEX: RegExp;
 
-export function on(event_name: 'account_status', handler: (event_data: AccountsStatusEventData) => void): void;
-export function on(event_name: 'connection_update', handler: (event_data: ConnectionUpdateEventData) => void): void;
-export function on(event_name: 'department_update', handler: (event_data: Department) => void): void;
-export function on(event_name: 'visitor_update', handler: (event_data: VisitorInfo) => void): void;
-export function on(event_name: 'agent_update', handler: (event_data: AgentInfo) => void): void;
-export function on(event_name: 'chat', handler: (event_data: ChatEventData) => void): void;
-export function on(event_name: 'history', handler: (event_data: HistoryEventData) => void): void;
-export function on(event_name: 'error', handler: (event_data: ErrorEventData) => void): void;
+export function on(event_name: "account_status", handler: (event_data: AccountsStatusEventData) => void): void;
+export function on(event_name: "connection_update", handler: (event_data: ConnectionUpdateEventData) => void): void;
+export function on(event_name: "department_update", handler: (event_data: Department) => void): void;
+export function on(event_name: "visitor_update", handler: (event_data: VisitorInfo) => void): void;
+export function on(event_name: "agent_update", handler: (event_data: AgentInfo) => void): void;
+export function on(event_name: "chat", handler: (event_data: ChatEventData) => void): void;
+export function on(event_name: "history", handler: (event_data: HistoryEventData) => void): void;
+export function on(event_name: "error", handler: (event_data: ErrorEventData) => void): void;
 
-export function un(event_name: 'account_status', handler: (event_data: AccountsStatusEventData) => void): void;
-export function un(event_name: 'connection_update', handler: (event_data: ConnectionUpdateEventData) => void): void;
-export function un(event_name: 'department_update', handler: (event_data: Department) => void): void;
-export function un(event_name: 'visitor_update', handler: (event_data: VisitorInfo) => void): void;
-export function un(event_name: 'agent_update', handler: (event_data: AgentInfo) => void): void;
-export function un(event_name: 'chat', handler: (event_data: ChatEventData) => void): void;
-export function un(event_name: 'history', handler: (event_data: HistoryEventData) => void): void;
-export function un(event_name: 'error', handler: (event_data: ErrorEventData) => void): void;
+export function un(event_name: "account_status", handler: (event_data: AccountsStatusEventData) => void): void;
+export function un(event_name: "connection_update", handler: (event_data: ConnectionUpdateEventData) => void): void;
+export function un(event_name: "department_update", handler: (event_data: Department) => void): void;
+export function un(event_name: "visitor_update", handler: (event_data: VisitorInfo) => void): void;
+export function un(event_name: "agent_update", handler: (event_data: AgentInfo) => void): void;
+export function un(event_name: "chat", handler: (event_data: ChatEventData) => void): void;
+export function un(event_name: "history", handler: (event_data: HistoryEventData) => void): void;
+export function un(event_name: "error", handler: (event_data: ErrorEventData) => void): void;
 
 export interface VisitorInfo {
     display_name: string;
@@ -156,13 +149,15 @@ export interface AgentInfo {
 export interface Department {
     id: number;
     name: string;
-    status: 'online' | 'away' | 'offline';
+    status: "online" | "away" | "offline";
 }
 
-export type OperatingHours = { enabled: boolean; timezone: string } & (
-    | { type: 'account'; acount_schedule: Schedule }
-    | { type: 'department'; department_schedule: { [id: number]: Schedule } }
-);
+export type OperatingHours =
+    & { enabled: boolean; timezone: string }
+    & (
+        | { type: "account"; acount_schedule: Schedule }
+        | { type: "department"; department_schedule: { [id: number]: Schedule } }
+    );
 
 export interface Schedule {
     0: Period[];
@@ -179,12 +174,12 @@ export interface Period {
     end: number;
 }
 
-export type AccountsStatusEventData = 'online' | 'away' | 'offline';
+export type AccountsStatusEventData = "online" | "away" | "offline";
 
-export type ConnectionUpdateEventData = 'connecting' | 'connected' | 'closed';
+export type ConnectionUpdateEventData = "connecting" | "connected" | "closed";
 
 export interface ChatMsgChatEventData {
-    type: 'chat.msg';
+    type: "chat.msg";
     nick: string;
     display_name: string;
     timestamp: number;
@@ -197,32 +192,32 @@ export namespace StructuredMessage {
     type Message = QuickReplies | ButtonTemplate | PanelTemplate | PanelTemplateCarousel | ListTemplate;
 
     interface QuickReplies {
-        type: 'QUICK_REPLIES';
+        type: "QUICK_REPLIES";
         msg: string;
-        quick_replies: Array<Button<'QUICK_REPLY_ACTION'>>;
+        quick_replies: Array<Button<"QUICK_REPLY_ACTION">>;
     }
 
     interface ButtonTemplate {
-        type: 'BUTTON_TEMPLATE';
+        type: "BUTTON_TEMPLATE";
         msg: string;
-        buttons: Array<Button<'QUICK_REPLY_ACTION' | 'LINK_ACTION'>>;
+        buttons: Array<Button<"QUICK_REPLY_ACTION" | "LINK_ACTION">>;
     }
 
     interface PanelTemplate {
-        type: 'PANEL_TEMPLATE';
+        type: "PANEL_TEMPLATE";
         panel: Panel;
-        buttons?: Array<Button<'LINK_ACTION'>> | undefined;
+        buttons?: Array<Button<"LINK_ACTION">> | undefined;
     }
 
     interface Panel {
         heading: string;
         paragraph?: string | undefined;
         image_url?: string | undefined;
-        action?: Action<'LINK_ACTION'> | undefined;
+        action?: Action<"LINK_ACTION"> | undefined;
     }
 
     interface PanelTemplateCarousel {
-        type: 'PANEL_TEMPLATE_CAROUSEL';
+        type: "PANEL_TEMPLATE_CAROUSEL";
         items: PanelTemplate[];
     }
 
@@ -230,28 +225,28 @@ export namespace StructuredMessage {
         heading: string;
         paragraph: string;
         image_url?: string | undefined;
-        action: Action<'LINK_ACTION'>;
+        action: Action<"LINK_ACTION">;
     }
 
     interface ListTemplate {
-        type: 'LIST_TEMPLATE';
+        type: "LIST_TEMPLATE";
         items: ListItem[];
-        buttons?: Array<Button<'QUICK_REPLY_ACTION' | 'LINK_ACTION'>> | undefined;
+        buttons?: Array<Button<"QUICK_REPLY_ACTION" | "LINK_ACTION">> | undefined;
     }
 
-    interface Button<T extends 'QUICK_REPLY_ACTION' | 'LINK_ACTION'> {
+    interface Button<T extends "QUICK_REPLY_ACTION" | "LINK_ACTION"> {
         text: string;
         action: Action<T>;
     }
 
-    interface Action<T extends 'QUICK_REPLY_ACTION' | 'LINK_ACTION'> {
+    interface Action<T extends "QUICK_REPLY_ACTION" | "LINK_ACTION"> {
         type: T;
         value: string;
     }
 }
 
 export interface ChatFileChatEventData {
-    type: 'chat.file';
+    type: "chat.file";
     nick: string;
     display_name: string;
     timestamp: number;
@@ -273,34 +268,34 @@ export interface AttachmentMetadata {
 }
 
 export interface ChatQueuePositionChatEventData {
-    type: 'chat.queue_position';
+    type: "chat.queue_position";
     nick: string;
     queue_position: number;
 }
 
 export interface ChatMemberJoinChatEventData {
-    type: 'chat.memberjoin';
+    type: "chat.memberjoin";
     nick: string;
     display_name: string;
     timestamp: number;
 }
 
 export interface ChatMemberLeaveChatEventData {
-    type: 'chat.memberleave';
+    type: "chat.memberleave";
     nick: string;
     display_name: string;
     timestamp: number;
 }
 
 export interface ChatRequestRatingChatEventData {
-    type: 'chat.request.rating';
+    type: "chat.request.rating";
     nick: string;
     display_name: string;
     timestamp: number;
 }
 
 export interface ChatRatingChatEventData {
-    type: 'chat.rating';
+    type: "chat.rating";
     nick: string;
     display_name: string;
     timestamp: number;
@@ -309,7 +304,7 @@ export interface ChatRatingChatEventData {
 }
 
 export interface ChatCommentChatEventData {
-    type: 'chat.comment';
+    type: "chat.comment";
     nick: string;
     display_name: string;
     timestamp: number;
@@ -318,13 +313,13 @@ export interface ChatCommentChatEventData {
 }
 
 export interface TypingChatEventData {
-    type: 'typing';
+    type: "typing";
     nick: string;
     typing: boolean;
 }
 
 export interface LastReadChatEventData {
-    type: 'last_read';
+    type: "last_read";
     nick: string;
     timestamp: number;
 }

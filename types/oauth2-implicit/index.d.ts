@@ -1,8 +1,3 @@
-// Type definitions for oauth2-implicit 0.7
-// Project: https://github.com/jasonkuhrt/oauth2-implicit
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface AuthState {
     [key: string]: any;
     originalUrl: string;

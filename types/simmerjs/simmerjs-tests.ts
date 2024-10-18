@@ -8,10 +8,10 @@ new Simmer(window, {
     depth: 1,
     errorHandling: true,
     specificityThreshold: 2,
-    selectorMaxLength: 4
+    selectorMaxLength: 4,
 });
 new Simmer(window, {
-    errorHandling: (error: any, element: Element) => console.error(error, element)
+    errorHandling: (error: any, element: Element) => console.error(error, element),
 });
 
 const queryEngine = (selector: string, onError: (error: any) => void): ArrayLike<Element> => [];

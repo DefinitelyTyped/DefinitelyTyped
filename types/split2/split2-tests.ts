@@ -1,12 +1,16 @@
 import split = require("split2");
-import { Transform } from "stream";
 import { Options } from "split2";
+import { Transform } from "stream";
 
 let stream: Transform;
 let options: Options = {};
 const matcherString = "\t";
 const matcherRegex = /\r?\n/;
-const matcherSymbolSplit = { [Symbol.split](str: string) { return str.split('\n'); } };
+const matcherSymbolSplit = {
+    [Symbol.split](str: string) {
+        return str.split("\n");
+    },
+};
 
 stream = split();
 stream = split(JSON.parse);

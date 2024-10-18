@@ -1,4 +1,4 @@
-import * as dedent from 'dedent';
+import * as dedent from "dedent";
 
 const lines: string = dedent`
   first

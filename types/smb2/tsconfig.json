@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
-		"baseUrl": "../",
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -9,10 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -1,8 +1,3 @@
-// Type definitions for store.js 1.3.20
-// Project: https://github.com/marcuswestin/store.js/
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // store.js exposes a simple API for cross browser local storage
 
 interface StoreJSStatic {
@@ -22,7 +17,6 @@ interface StoreJSStatic {
 }
 
 declare var store: StoreJSStatic;
-declare module 'store' {
+declare module "store" {
     export = store;
 }
-

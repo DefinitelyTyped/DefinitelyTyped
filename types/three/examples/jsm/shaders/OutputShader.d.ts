@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "three";
 
 export const OutputShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         toneMappingExposure: IUniform;

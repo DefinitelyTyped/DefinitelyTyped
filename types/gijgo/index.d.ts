@@ -1,21 +1,14 @@
-// Type definitions for Gijgo v1.9.12
-// Project: http://gijgo.com
-// Definitions by: Atanas Atanasov <https://github.com/atatanasov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-declare module 'gijgo' {
+declare module "gijgo" {
     export = Types;
 }
 
-declare module Types {
-
-    //Grid
+declare namespace Types {
+    // Grid
     interface GridPager {
         limit?: number | undefined;
-        sizes?: Array<number> | undefined;
-        leftControls?: Array<any> | undefined;
-        rightControls?: Array<any> | undefined;
+        sizes?: number[] | undefined;
+        leftControls?: any[] | undefined;
+        rightControls?: any[] | undefined;
     }
 
     interface GridColumn {
@@ -80,17 +73,17 @@ declare module Types {
     }
 
     interface GridOptimisticPersistence {
-        localStorage: Array<string>;
-        sessionStorage: Array<string>;
+        localStorage: string[];
+        sessionStorage: string[];
     }
 
     interface GridSettings<Entity> {
-        //Configuration options
+        // Configuration options
         autoGenerateColumns?: boolean | undefined;
         autoLoad?: boolean | undefined;
         bodyRowHeight?: string | undefined;
         columnReorder?: boolean | undefined;
-        columns?: Array<GridColumn> | undefined;
+        columns?: GridColumn[] | undefined;
         dataSource?: any;
         defaultColumnSettings?: GridColumn | undefined;
         detailTemplate?: string | undefined;
@@ -126,15 +119,17 @@ declare module Types {
         width?: number | undefined;
         params?: any;
 
-        //Events
+        // Events
         beforeEmptyRowInsert?: ((e: any, $row: JQuery) => any) | undefined;
         cellDataBound?: ((e: any, $wrapper: JQuery, id: string, column: GridColumn, record: Entity) => any) | undefined;
-        cellDataChanged?: ((e: any, $cell: JQuery, column: GridColumn, record: Entity, oldValue: any, newValue: any) => any) | undefined;
+        cellDataChanged?:
+            | ((e: any, $cell: JQuery, column: GridColumn, record: Entity, oldValue: any, newValue: any) => any)
+            | undefined;
         columnHide?: ((e: any, column: GridColumn) => any) | undefined;
         columnShow?: ((e: any, column: GridColumn) => any) | undefined;
-        dataBinding?: ((e: any, records: Array<Entity>) => any) | undefined;
-        dataBound?: ((e: any, records: Array<Entity>, totalRecords: number) => any) | undefined;
-        dataFiltered?: ((e: any, records: Array<Entity>) => any) | undefined;
+        dataBinding?: ((e: any, records: Entity[]) => any) | undefined;
+        dataBound?: ((e: any, records: Entity[], totalRecords: number) => any) | undefined;
+        dataFiltered?: ((e: any, records: Entity[]) => any) | undefined;
         destroying?: ((e: any) => any) | undefined;
         detailCollapse?: ((e: any, detailWrapper: JQuery, id: string) => any) | undefined;
         detailExpand?: ((e: any, detailWrapper: JQuery, id: string) => any) | undefined;
@@ -151,21 +146,21 @@ declare module Types {
 
     interface Grid<Entity, Params> extends JQuery {
         addRow(record: Entity): Grid<Entity, Params>;
-        cancel(id: string): Grid<Entity, Params>; 
+        cancel(id: string): Grid<Entity, Params>;
         clear(showNotFoundText?: boolean): Grid<Entity, Params>;
-        collapseAll(): Grid<Entity, Params>; 
+        collapseAll(): Grid<Entity, Params>;
         count(): number;
         destroy(keepTableTag?: boolean, keepWrapperTag?: boolean): void;
         downloadCSV(filename?: string, includeAllRecords?: boolean): Grid<Entity, Params>;
         edit(id: string): Grid<Entity, Params>;
         expandAll(): Grid<Entity, Params>;
-        //get(position: number): Entity; //TODO: rename to getByPosition to avoid conflicts with jquery.get
-        getAll(includeAllRecords?: boolean): Array<Entity>;
+        // get(position: number): Entity; //TODO: rename to getByPosition to avoid conflicts with jquery.get
+        getAll(includeAllRecords?: boolean): Entity[];
         getById(id: string): Entity;
-        getChanges(): Array<Entity>;
+        getChanges(): Entity[];
         getCSV(includeAllRecords?: boolean): string;
         getSelected(): string;
-        getSelections(): Array<string>;
+        getSelections(): string[];
         hideColumn(field: string): Grid<Entity, Params>;
         makeResponsive(): Grid<Entity, Params>;
         reload(params?: Params): Grid<Entity, Params>;
@@ -176,7 +171,7 @@ declare module Types {
         showColumn(field: string): Grid<Entity, Params>;
         title(text: any): any;
         unSelectAll(): Grid<Entity, Params>;
-        update(id: string): Grid<Entity, Params>; 
+        update(id: string): Grid<Entity, Params>;
         updateRow(id: string, record: Entity): Grid<Entity, Params>;
     }
 
@@ -199,7 +194,7 @@ declare module Types {
         uiLibrary?: string | undefined;
         width?: number | undefined;
 
-        //Events
+        // Events
         closed?: ((e: any) => any) | undefined;
         closing?: ((e: any) => any) | undefined;
         drag?: ((e: any) => any) | undefined;
@@ -226,13 +221,13 @@ declare module Types {
         uiLibrary?: string | undefined;
         iconsLibrary?: string | undefined;
 
-        //Events
+        // Events
         change?: ((e: any, state: string) => any) | undefined;
     }
 
     interface Checkbox extends JQuery {
-        //toggle(): Checkbox;
-        state(value: string):  string | Checkbox;
+        // toggle(): Checkbox;
+        state(value: string): string | Checkbox;
         destroy(): void;
     }
 
@@ -252,8 +247,8 @@ declare module Types {
         uiLibrary?: string | undefined;
         iconsLibrary?: string | undefined;
         weekStartDay?: number | undefined;
-        disableDates?: Array<any> | Function | undefined;
-        disableDaysOfWeek?: Array<number> | undefined;
+        disableDates?: any[] | Function | undefined;
+        disableDaysOfWeek?: number[] | undefined;
         calendarWeeks?: boolean | undefined;
         keyboardNavigation?: boolean | undefined;
         locale?: string | undefined;
@@ -265,7 +260,7 @@ declare module Types {
         showOnFocus?: boolean | undefined;
         showRightIcon?: boolean | undefined;
 
-        //Events
+        // Events
         change?: ((e: any) => any) | undefined;
         open?: ((e: any) => any) | undefined;
         close?: ((e: any) => any) | undefined;
@@ -276,7 +271,7 @@ declare module Types {
         close(): DatePicker;
         destroy(): void;
         open(): DatePicker;
-        value(value?: string):  string | DatePicker;
+        value(value?: string): string | DatePicker;
     }
 
     // DropDown
@@ -296,13 +291,13 @@ declare module Types {
         icons?: DropDownIcons | undefined;
         placeholder?: string | undefined;
 
-        //Events
+        // Events
         change?: ((e: any) => any) | undefined;
         dataBound?: ((e: any) => any) | undefined;
     }
 
     interface DropDown extends JQuery {
-        value(value: string):  string | DropDown;
+        value(value: string): string | DropDown;
         destroy(): void;
     }
 
@@ -314,13 +309,13 @@ declare module Types {
         iconsLibrary?: string | undefined;
         locale?: string | undefined;
 
-        //Events
+        // Events
         changing?: ((e: any) => any) | undefined;
         changed?: ((e: any) => any) | undefined;
     }
 
     interface Editor extends JQuery {
-        content(html?: string):  string | Editor;
+        content(html?: string): string | Editor;
         destroy(): void;
     }
 
@@ -337,7 +332,7 @@ declare module Types {
         locale?: string | undefined;
         size?: string | undefined;
 
-        //Events
+        // Events
         change?: ((e: any) => any) | undefined;
         open?: ((e: any) => any) | undefined;
         close?: ((e: any) => any) | undefined;
@@ -348,7 +343,7 @@ declare module Types {
         close(): TimePicker;
         destroy(): void;
         open(): TimePicker;
-        value(value?: string):  string | TimePicker;
+        value(value?: string): string | TimePicker;
     }
 
     // DateTimePicker
@@ -363,13 +358,13 @@ declare module Types {
         value?: string | undefined;
         width?: number | undefined;
 
-        //Events
+        // Events
         change?: ((e: any) => any) | undefined;
     }
 
     interface DateTimePicker extends JQuery {
         destroy(): void;
-        value(value?: string):  string | DateTimePicker;
+        value(value?: string): string | DateTimePicker;
     }
 
     // Slider
@@ -380,14 +375,14 @@ declare module Types {
         value?: string | undefined;
         width?: number | undefined;
 
-        //Events
+        // Events
         change?: ((e: any) => any) | undefined;
         slide?: ((e: any, value: number) => any) | undefined;
     }
 
     interface Slider extends JQuery {
         destroy(): void;
-        value(value?: string):  string | Slider;
+        value(value?: string): string | Slider;
     }
 
     // Tree
@@ -426,8 +421,7 @@ declare module Types {
         paramNames?: TreeParamNames | undefined;
         lazyLoading?: boolean | undefined;
 
-
-        //Events
+        // Events
         initialized?: ((e: any) => any) | undefined;
         dataBinding?: ((e: any) => any) | undefined;
         dataBound?: ((e: any) => any) | undefined;
@@ -444,41 +438,40 @@ declare module Types {
     }
 
     interface Tree extends JQuery {
-        reload(params: any):  any;
+        reload(params: any): any;
         render(response: any): any;
         addNode(data: any, parentNode: any, position: number): Tree;
         removeNode(node: any): Tree;
-        updateNode(id: string, record: any) : Tree;
+        updateNode(id: string, record: any): Tree;
         destroy(): void;
         expand(node: any, cascade: boolean): Tree;
-        collapse(node: any, cascade: boolean) : Tree;
+        collapse(node: any, cascade: boolean): Tree;
         expandAll(): Tree;
-        collapseAll() : Tree;
-        getDataById(id: string) : any;
-        getDataByText(text: string) : any;
-        getNodeById(id: string) : any;
-        getNodeByText(id: string) : any;
-        getAll(): Array<any>;
-        //select(node: any) : Tree;
-        unselect(node: any) : Tree;
-        selectAll() : Tree;
-        unselectAll() : Tree;
-        getSelections() : Array<string>;
-        getChildren(node: any, cascade?: boolean) : Array<any>;
-        enable(node: any, cascade?: boolean) : Tree;
-        disable(node: any, cascade?: boolean) : Tree;
-        enableAll() : Tree;
-        disableAll() : Tree;
-        //parents(id: string): Array<string>;
+        collapseAll(): Tree;
+        getDataById(id: string): any;
+        getDataByText(text: string): any;
+        getNodeById(id: string): any;
+        getNodeByText(id: string): any;
+        getAll(): any[];
+        // select(node: any) : Tree;
+        unselect(node: any): Tree;
+        selectAll(): Tree;
+        unselectAll(): Tree;
+        getSelections(): string[];
+        getChildren(node: any, cascade?: boolean): any[];
+        enable(node: any, cascade?: boolean): Tree;
+        disable(node: any, cascade?: boolean): Tree;
+        enableAll(): Tree;
+        disableAll(): Tree;
+        // parents(id: string): Array<string>;
 
-        getCheckedNodes() : Array<string>;
-        checkAll() : Tree;
+        getCheckedNodes(): string[];
+        checkAll(): Tree;
         uncheckAll(): Tree;
-        check(node: any) : Tree;
-        uncheck(node: any) : Tree;
+        check(node: any): Tree;
+        uncheck(node: any): Tree;
     }
 }
-
 
 interface JQuery {
     grid(settings: Types.GridSettings<any>): Types.Grid<any, any>;

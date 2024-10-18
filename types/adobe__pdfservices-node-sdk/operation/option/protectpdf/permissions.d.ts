@@ -1,4 +1,4 @@
-import { PasswordProtectOptions } from './password-protect-options';
+import { PasswordProtectOptions } from "./password-protect-options";
 
 /**
  * Document Permissions for {@link ProtectPDFOperation}

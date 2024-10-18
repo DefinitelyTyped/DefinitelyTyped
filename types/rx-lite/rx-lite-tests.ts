@@ -1,11 +1,11 @@
-import * as Rx from 'rx-lite';
+import * as Rx from "rx-lite";
 
 let obsNum: Rx.Observable<number>;
 let obsStr: Rx.Observable<string>;
 
 function fromCallback() {
     // 0 arguments
-    const func0: (cb: (result: number) => void) => void = () => { };
+    const func0: (cb: (result: number) => void) => void = () => {};
     obsNum = Rx.Observable.fromCallback(func0)();
     obsNum = Rx.Observable.fromCallback(func0, obsStr)();
     obsNum = Rx.Observable.fromCallback(func0, obsStr, (results: number[]) => results[0])();
@@ -29,17 +29,20 @@ function fromCallback() {
     obsStr = Rx.Observable.fromCallback(func3, {}, (results: string[]) => results[0])(1, "", true);
 
     // multiple results
-    const func0m: (cb: (result1: number, result2: number, result3: number) => void) => void = () => { };
+    const func0m: (cb: (result1: number, result2: number, result3: number) => void) => void = () => {};
     obsNum = Rx.Observable.fromCallback(func0m, obsStr, (results: number[]) => results[0])();
-    const func1m: (a: string, cb: (result1: number, result2: number, result3: number) => void) => void = () => { };
+    const func1m: (a: string, cb: (result1: number, result2: number, result3: number) => void) => void = () => {};
     obsNum = Rx.Observable.fromCallback(func1m, obsStr, (results: number[]) => results[0])("");
-    const func2m: (a: string, b: number, cb: (result1: string, result2: string, result3: string) => void) => void = () => { };
+    const func2m: (a: string, b: number, cb: (result1: string, result2: string, result3: string) => void) => void =
+        () => {};
     obsStr = Rx.Observable.fromCallback(func2m, obsStr, (results: string[]) => results[0])("", 10);
 }
 
 function toPromise() {
     const promiseImpl: {
-        new <T>(resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void): Rx.IPromise<T>;
+        new<T>(
+            resolver: (resolvePromise: (value: T) => void, rejectPromise: (reason: any) => void) => void,
+        ): Rx.IPromise<T>;
     } = undefined as any;
 
     Rx.config.Promise = promiseImpl;
@@ -65,7 +68,7 @@ function test_scan() {
 
     /* With a seed */
     const source2: Rx.Observable<string> = Rx.Observable.range(1, 3)
-        .scan((acc, x, i, source) => acc + x, '...');
+        .scan((acc, x, i, source) => acc + x, "...");
 }
 
 function test_concatAll() {
@@ -76,14 +79,15 @@ function test_concatAll() {
 
     const subscription = source.subscribe(
         x => {
-            console.log('Next: %s', x);
+            console.log("Next: %s", x);
         },
         err => {
-            console.log('Error: %s', err);
+            console.log("Error: %s", err);
         },
         () => {
-            console.log('Completed');
-        });
+            console.log("Completed");
+        },
+    );
 }
 
 // https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/mergeall.md
@@ -99,14 +103,15 @@ function test_mergeAll() {
         x => {
             // $ExpectType number
             x;
-            console.log('Next: %s', x);
+            console.log("Next: %s", x);
         },
         err => {
-            console.log('Error: %s', err);
+            console.log("Error: %s", err);
         },
         () => {
-            console.log('Completed');
-        });
+            console.log("Completed");
+        },
+    );
 }
 
 // from https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/publish.md
@@ -116,13 +121,13 @@ function test_publish() {
     const source = interval
         .take(2)
         .doAction(x => {
-            console.log('Side effect');
+            console.log("Side effect");
         });
 
     const published = source.publish();
 
-    published.subscribe(createObserver('SourceA'));
-    published.subscribe(createObserver('SourceB'));
+    published.subscribe(createObserver("SourceA"));
+    published.subscribe(createObserver("SourceB"));
 
     const connection = published.connect();
 
@@ -132,11 +137,12 @@ function test_publish() {
                 console.log(`Next: ${tag}${x}`);
             },
             err => {
-                console.log('Error: ' + err);
+                console.log("Error: " + err);
             },
             () => {
-                console.log('Completed');
-            });
+                console.log("Completed");
+            },
+        );
     }
 
     // => Side effect

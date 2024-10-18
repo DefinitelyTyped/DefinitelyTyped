@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bootstrap-colorpicker",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/farbelous/bootstrap-colorpicker/tree/v2.x"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap-colorpicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aleksandar Manukov",
+            "githubUsername": "aleksandar-manukov"
+        }
+    ]
+}

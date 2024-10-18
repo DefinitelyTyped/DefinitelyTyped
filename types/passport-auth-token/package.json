@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/passport-auth-token",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mbell8903/passport-auth-token.git"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*",
+        "@types/passport-strategy": "*"
+    },
+    "devDependencies": {
+        "@types/koa": "*",
+        "@types/koa-passport": "*",
+        "@types/koa-router": "*",
+        "@types/passport-auth-token": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ian Woongsoo Lee",
+            "githubUsername": "yummyummyummy"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import { Opaque } from 'ember/-private/type-utils';
+import { Opaque } from "ember/-private/type-utils";
 
 /**
  * Template-only components have no backing class instance, so this in their
@@ -42,5 +42,5 @@ export type TOC<S> = TemplateOnlyComponent<S>;
 // information supplied via this generic. While it may appear useless on this
 // class definition and extension, it is used by external tools and should not
 // be removed.
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export default function templateOnly<S>(moduleName?: string): TemplateOnlyComponent<S>;

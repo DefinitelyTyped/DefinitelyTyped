@@ -1,12 +1,7 @@
-// Type definitions for is-file-esm 1.0
-// Project: https://github.com/davidmarkclements/is-file-esm
-// Definitions by: Leon Si <https://github.com/leonzalion>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Result {
     esm: boolean;
-    type: 'module' | 'commonjs' | undefined;
-    extType: 'c' | 'm' | 'j';
+    type: "module" | "commonjs" | undefined;
+    extType: "c" | "m" | "j";
     path: string;
     pkgPath: string;
 }

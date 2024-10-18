@@ -1,183 +1,183 @@
 // test without options
-$('#timepicker').timepicker({});
+$("#timepicker").timepicker({});
 
 // test each option
-$('#timepicker').timepicker({
-    appendTo: '#timepicker',
+$("#timepicker").timepicker({
+    appendTo: "#timepicker",
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     appendTo: clickedElement => clickedElement,
 });
 
-$('#timepicker').timepicker({
-    appendTo: $('#timepicker'),
+$("#timepicker").timepicker({
+    appendTo: $("#timepicker"),
 });
 
-$('#timepicker').timepicker({
-    className: 'timepicker',
+$("#timepicker").timepicker({
+    className: "timepicker",
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     closeOnWindowScroll: true,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     disableTimeRanges: [
-        ['3:00am', '4:30am'],
-        ['5:00pm', '8:00pm'],
+        ["3:00am", "4:30am"],
+        ["5:00pm", "8:00pm"],
     ],
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     disableTextInput: true,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     disableTouchKeyboard: true,
 });
 
-$('#timepicker').timepicker({
-    durationTime: '8:00am',
+$("#timepicker").timepicker({
+    durationTime: "8:00am",
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     forceRoundTime: true,
 });
 
-$('#timepicker').timepicker({
-    lang: { am: 'am', pm: 'pm', AM: 'AM', PM: 'PM', decimal: '.', mins: 'mins', hr: 'hr', hrs: 'hrs' },
+$("#timepicker").timepicker({
+    lang: { am: "am", pm: "pm", AM: "AM", PM: "PM", decimal: ".", mins: "mins", hr: "hr", hrs: "hrs" },
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     listWidth: 10,
 });
 
-$('#timepicker').timepicker({
-    maxTime: '8:00pm',
+$("#timepicker").timepicker({
+    maxTime: "8:00pm",
 });
 
-$('#timepicker').timepicker({
-    minTime: '8:00am',
+$("#timepicker").timepicker({
+    minTime: "8:00am",
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     noneOption: true,
 });
 
-$('#timepicker').timepicker({
-    noneOption: 'none',
+$("#timepicker").timepicker({
+    noneOption: "none",
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     noneOption: {
-        label: 'label',
-        value: 'value',
-        className: 'className',
+        label: "label",
+        value: "value",
+        className: "className",
     },
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     noneOption: {
-        label: 'label',
-        value: 'value',
+        label: "label",
+        value: "value",
     },
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     noneOption: [
-        'none',
+        "none",
         {
-            label: 'label',
-            value: 'value',
-            className: 'className',
+            label: "label",
+            value: "value",
+            className: "className",
         },
     ],
 });
 
-$('#timepicker').timepicker({
-    orientation: 'l',
+$("#timepicker").timepicker({
+    orientation: "l",
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     roundingFunction: (seconds, {}) => (seconds && Number.isFinite(seconds) ? Number(seconds) : 0),
 });
 
-$('#timepicker').timepicker({
-    scrollDefault: '8:00am',
+$("#timepicker").timepicker({
+    scrollDefault: "8:00am",
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     scrollDefault: new Date(),
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     scrollDefault: 0,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     selectOnBlur: true,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     show2400: true,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     showDuration: true,
 });
 
-$('#timepicker').timepicker({
-    showOn: ['focus'],
+$("#timepicker").timepicker({
+    showOn: ["focus"],
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     showOn: null,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     step: 60,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     stopScrollPropagation: true,
 });
 
-$('#timepicker').timepicker({
-    timeFormat: 'H:i',
+$("#timepicker").timepicker({
+    timeFormat: "H:i",
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     timeFormat: (date: Date) => `${date.getHours()}:${date.getMinutes()}`,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     typeaheadHighlight: true,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     useSelect: true,
 });
 
-$('#timepicker').timepicker({
+$("#timepicker").timepicker({
     wrapHours: true,
 });
 
 // test each method
-$('#timepicker').timepicker('getSecondsFromMidnight');
+$("#timepicker").timepicker("getSecondsFromMidnight");
 
-$('#timepicker').timepicker('getTime');
-$('#timepicker').timepicker('getTime', new Date());
+$("#timepicker").timepicker("getTime");
+$("#timepicker").timepicker("getTime", new Date());
 
-$('#timepicker').timepicker('hide');
+$("#timepicker").timepicker("hide");
 
-$('#timepicker').timepicker('isVisible');
+$("#timepicker").timepicker("isVisible");
 
-$('#timepicker').timepicker('option', {});
-$('#timepicker').timepicker('option', { step: 60 });
+$("#timepicker").timepicker("option", {});
+$("#timepicker").timepicker("option", { step: 60 });
 
-$('#timepicker').timepicker('remove');
+$("#timepicker").timepicker("remove");
 
-$('#timepicker').timepicker('setTime', new Date());
+$("#timepicker").timepicker("setTime", new Date());
 
-$('#timepicker').timepicker('show');
+$("#timepicker").timepicker("show");

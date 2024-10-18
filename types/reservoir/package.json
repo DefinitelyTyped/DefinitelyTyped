@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/reservoir",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/imbcmdth/reservoir"
+    ],
+    "devDependencies": {
+        "@types/reservoir": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Vanderkam",
+            "githubUsername": "danvk"
+        }
+    ]
+}

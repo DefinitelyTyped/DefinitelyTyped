@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/raf",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/chrisdickinson/raf#readme"
+    ],
+    "devDependencies": {
+        "@types/raf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Lorantfy",
+            "githubUsername": "BenLorantfy"
+        }
+    ]
+}

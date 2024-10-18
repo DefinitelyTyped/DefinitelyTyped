@@ -1,6 +1,6 @@
-import express = require('express');
-import * as redis from 'redis';
-import rateLimiter = require('redis-rate-limiter');
+import express = require("express");
+import * as redis from "redis";
+import rateLimiter = require("redis-rate-limiter");
 
 var num: number;
 var str: string;
@@ -8,31 +8,33 @@ var options: redis.ClientOpts;
 var redisClient = redis.createClient(num, str, options);
 
 var limit = rateLimiter.create({
-  redis: redisClient,
-  key: function(x) { return x.ip },
-  rate: '100/minute'
+    redis: redisClient,
+    key: function(x) {
+        return x.ip;
+    },
+    rate: "100/minute",
 });
 
 var request = {} as express.Request;
 limit(request, function(err, rate) {
-  if (err) {
-    console.warn('Rate limiting not available');
-  } else {
-    console.log('Rate window: '  + rate.window);  // 60
-    console.log('Rate limit: '   + rate.limit);   // 100
-    console.log('Rate current: ' + rate.current); // 74
-    if (rate.over) {
-      console.error('Over the limit!');
+    if (err) {
+        console.warn("Rate limiting not available");
+    } else {
+        console.log("Rate window: " + rate.window); // 60
+        console.log("Rate limit: " + rate.limit); // 100
+        console.log("Rate current: " + rate.current); // 74
+        if (rate.over) {
+            console.error("Over the limit!");
+        }
     }
-  }
 });
 
 var middleware = rateLimiter.middleware({
-  redis: redisClient,
-  key: 'ip',
-  rate: '100/minute',
-  deleteImmediatelyIfRaceCondition: true,
-  onPossibleRaceCondition: key => console.log(`A race condition has been detected for <${key}>!`)
+    redis: redisClient,
+    key: "ip",
+    rate: "100/minute",
+    deleteImmediatelyIfRaceCondition: true,
+    onPossibleRaceCondition: key => console.log(`A race condition has been detected for <${key}>!`),
 });
 
 var app = express();

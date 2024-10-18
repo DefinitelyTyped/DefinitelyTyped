@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/googlemaps.infobubble",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "googlemaps.infobubble",
+    "projects": [
+        "http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/"
+    ],
+    "dependencies": {
+        "@types/google-maps": "*"
+    },
+    "devDependencies": {
+        "@types/googlemaps.infobubble": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Johan Nilsson",
+            "githubUsername": "Dashue"
+        }
+    ]
+}

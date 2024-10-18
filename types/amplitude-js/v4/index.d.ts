@@ -1,12 +1,6 @@
-// Type definitions for Amplitude SDK 4.4.0
-// Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
-//                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace amplitude;
 
-type Callback = (responseCode: number, responseBody: string, details?: { reason: string; }) => void;
+type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 type LogReturn = number | void;
 
 interface Config {
@@ -25,7 +19,7 @@ interface Config {
     includeReferrer?: boolean | undefined;
     includeUtm?: boolean | undefined;
     language?: string | undefined;
-    logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
+    logLevel?: "DISABLE" | "ERROR" | "WARN" | "INFO" | undefined;
     optOut?: boolean | undefined;
     platform?: string | undefined;
     saveEvents?: boolean | undefined;
@@ -45,7 +39,7 @@ interface Config {
         platform?: boolean | undefined;
         region?: boolean | undefined;
         version_name?: boolean | undefined;
-    } | undefined,
+    } | undefined;
     unsentKey?: string | undefined;
     unsentIdentifyKey?: string | undefined;
     uploadBatchSize?: number | undefined;
@@ -62,7 +56,6 @@ export class Identify {
 }
 
 export class Revenue {
-
     setProductId(productId: string): Revenue;
     setQuantity(quantity: number): Revenue;
     setPrice(price: number): Revenue;
@@ -71,7 +64,6 @@ export class Revenue {
 }
 
 export class AmplitudeClient {
-
     constructor(instanceName?: string);
 
     options: Config;
@@ -106,13 +98,18 @@ export class AmplitudeClient {
     logRevenue(pric: number, quantity: number, product: string): LogReturn;
     logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
 
-    Identify: typeof Identify
-    Revenue: typeof Revenue
+    Identify: typeof Identify;
+    Revenue: typeof Revenue;
 }
 
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)
 
-export function init(apiKey: string, userId?: string, options?: Config, callback?: (client: AmplitudeClient) => void): void;
+export function init(
+    apiKey: string,
+    userId?: string,
+    options?: Config,
+    callback?: (client: AmplitudeClient) => void,
+): void;
 
 export function setVersionName(version: string): void;
 
@@ -141,8 +138,6 @@ export function logEventWithGroups(event: string, data?: any, groups?: any, call
 export function logRevenueV2(revenue_obj: Revenue): LogReturn;
 export function logRevenue(pric: number, quantity: number, product: string): LogReturn;
 export function logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
-
-
 
 export function getInstance(instanceName?: string): AmplitudeClient;
 export const __VERSION__: string;

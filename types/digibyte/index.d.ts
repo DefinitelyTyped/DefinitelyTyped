@@ -1,20 +1,13 @@
-// Type definitions for digibyte 0.14
-// Project: https://github.com/digicontributer/digibyte-js
-// Definitions by: Lautaro Dragan <https://github.com/lautarodragan>
-//                 Adam Wolfe <https://github.com/werewolfe>
-//                 Ryan Aunur Rassyid <https://github.com/nyancodeid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 export namespace crypto {
-    class BN { }
+    class BN {}
 
     namespace ECDSA {
         function sign(message: Buffer, key: PrivateKey): Signature;
-        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: 'little'): boolean;
+        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: "little"): boolean;
     }
 
     namespace Hash {
@@ -30,7 +23,7 @@ export namespace crypto {
     }
 
     namespace Random {
-       function getRandomBuffer(size: number): Buffer;
+        function getRandomBuffer(size: number): Buffer;
     }
 
     namespace Point {}

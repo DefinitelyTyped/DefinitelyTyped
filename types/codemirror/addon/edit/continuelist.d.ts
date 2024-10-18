@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface CommandActions {
         newlineAndIndentContinueMarkdownList(cm: Editor): void | typeof Pass;
     }

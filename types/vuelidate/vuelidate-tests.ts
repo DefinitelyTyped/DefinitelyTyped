@@ -1,199 +1,199 @@
-import { Validation } from 'vuelidate'
+import { Validation } from "vuelidate";
 import {
-    required,
-    integer,
-    decimal,
-    minLength,
-    sameAs,
-    or,
-    helpers,
+    and,
     CustomRule,
+    decimal,
+    helpers,
+    integer,
     ipAddress,
-    url, and
-} from 'vuelidate/lib/validators'
+    minLength,
+    or,
+    required,
+    sameAs,
+    url,
+} from "vuelidate/lib/validators";
 
-import Vue, { ComponentOptions } from 'vue'
+import Vue, { ComponentOptions } from "vue";
 
 // excerpt from vue-class-component/src/declarations.ts
-type VueClass<V> = { new(...args: any[]): V & Vue } & typeof Vue
+type VueClass<V> = { new(...args: any[]): V & Vue } & typeof Vue;
 
 // excerpt from vue-class-component/src/index.ts
 function Component(options: ComponentOptions<Vue> | VueClass<Vue>): any {
     return null; // mocked
 }
 
-const mustBeCool: CustomRule = (value: string) => value.indexOf('cool') >= 0
+const mustBeCool: CustomRule = (value: string) => value.indexOf("cool") >= 0;
 
-const mustBeCool2: CustomRule = (value: string) => !helpers.req(value) || value.indexOf('cool') >= 0
+const mustBeCool2: CustomRule = (value: string) => !helpers.req(value) || value.indexOf("cool") >= 0;
 
-const contains = (param: string): CustomRule =>
-    (value: string) => !helpers.req(value) || value.indexOf(param) >= 0
+const contains = (param: string): CustomRule => (value: string) => !helpers.req(value) || value.indexOf(param) >= 0;
 
 const mustBeCool3 = helpers.withParams(
-    {type: 'mustBeCool3'},
-    (value: any) => !helpers.req(value) || value.indexOf('cool') >= 0
-)
+    { type: "mustBeCool3" },
+    (value: any) => !helpers.req(value) || value.indexOf("cool") >= 0,
+);
 
-const mustBeCool3Result: boolean = mustBeCool3(50)
+const mustBeCool3Result: boolean = mustBeCool3(50);
 
-const mustBeCool4 = helpers.regex('mustBeCool4', /^.*cool.*$/)
+const mustBeCool4 = helpers.regex("mustBeCool4", /^.*cool.*$/);
 
-const mustBeSame = (reference: string) => helpers.withParams(
-    {type: 'mustBeSame'},
-    (value: any, parentVm?: Vue) =>
-        value === helpers.ref(reference, self, parentVm)
-)
+const mustBeSame = (reference: string) =>
+    helpers.withParams(
+        { type: "mustBeSame" },
+        (value: any, parentVm?: Vue) => value === helpers.ref(reference, self, parentVm),
+    );
 
-const mustHaveLength = (minLen: number) => helpers.withParams(
-    {type: 'mustHaveLength'},
-    (value: any) =>
-        helpers.len(value) > minLen
-)
+const mustHaveLength = (minLen: number) =>
+    helpers.withParams(
+        { type: "mustHaveLength" },
+        (value: any) => helpers.len(value) > minLen,
+    );
 
 @Component({
     validations: {
         password: {
             required,
             minLength: minLength(6),
-            mustHaveLength: mustHaveLength(6)
+            mustHaveLength: mustHaveLength(6),
         },
         repeatPassword: {
-            sameAsPassword: sameAs('password'),
-            mustBeSame: mustBeSame('password'),
-            sameAsPassword2: sameAs(vm => vm.password)
+            sameAsPassword: sameAs("password"),
+            mustBeSame: mustBeSame("password"),
+            sameAsPassword2: sameAs(vm => vm.password),
         },
         form: {
             nestedA: {
-                required
+                required,
             },
             nestedB: {
-                required
+                required,
             },
             nestedOfLength: {
-                mustHaveLength: mustHaveLength(6)
-            }
+                mustHaveLength: mustHaveLength(6),
+            },
         },
         age: {
             required,
-            integer
+            integer,
         },
         coolFactor: {
             required,
-            decimal
+            decimal,
         },
-        flatA: {required},
-        flatB: {required},
+        flatA: { required },
+        flatB: { required },
         forGroup: {
-            nested: {required}
+            nested: { required },
         },
-        validationGroup: ['age', 'coolFactor', 'flatA', 'flatB', 'forGroup.nested'],
+        validationGroup: ["age", "coolFactor", "flatA", "flatB", "forGroup.nested"],
         people: {
             required,
             minLength: minLength(3),
             $each: {
                 name: {
                     required,
-                    minLength: minLength(2)
-                }
-            }
+                    minLength: minLength(2),
+                },
+            },
         },
         username: {
             required,
             isUnique(value: string) {
                 // standalone validator ideally should not assume a field is required
-                if (value === '') return true
+                if (value === "") return true;
 
                 // simulate async call, fail for all logins with even length
                 return new Promise((resolve, reject) => {
                     setTimeout(() => {
-                        resolve(typeof value === 'string' && value.length % 2 !== 0)
-                    }, 350 + Math.random() * 300)
-                })
-            }
+                        resolve(typeof value === "string" && value.length % 2 !== 0);
+                    }, 350 + Math.random() * 300);
+                });
+            },
         },
         myField: {
             required,
             mustBeCool,
             mustBeCool2,
-            containsA: contains('a'),
-            mustBeCool3
+            containsA: contains("a"),
+            mustBeCool3,
         },
         hostOrLong: {
             required,
-            or: or(url, minLength(50))
+            or: or(url, minLength(50)),
         },
         coolHost: {
             required,
-            and: and(url, mustBeCool)
-        }
-    }
+            and: and(url, mustBeCool),
+        },
+    },
 })
 export class ValidComponent extends Vue {
-    password = ''
-    repeatPassword = ''
+    password = "";
+    repeatPassword = "";
 
     form = {
-        nestedA: 'A',
-        nestedB: 'B',
-        nestedOfLength: ''
-    }
+        nestedA: "A",
+        nestedB: "B",
+        nestedOfLength: "",
+    };
 
-    age = 50
-    coolFactor = 0.25
+    age = 50;
+    coolFactor = 0.25;
 
-    flatA = ''
-    flatB = ''
+    flatA = "";
+    flatB = "";
     forGroup = {
-        nested: ''
-    }
+        nested: "",
+    };
 
-    people: string[] = ['Pierre', 'Paul', 'Jacques']
+    people: string[] = ["Pierre", "Paul", "Jacques"];
 
-    username = ''
+    username = "";
 
-    myField = ''
+    myField = "";
 
-    touchMap = new WeakMap()
+    touchMap = new WeakMap();
 
     delayTouch(v: Validation) {
-        v.$reset()
+        v.$reset();
         if (this.touchMap.has(v)) {
-            clearTimeout(this.touchMap.get(v))
+            clearTimeout(this.touchMap.get(v));
         }
-        this.touchMap.set(v, setTimeout(v.$touch, 1000))
+        this.touchMap.set(v, setTimeout(v.$touch, 1000));
     }
 
     accessValidatorParams() {
-        console.log(this.$v.$params.form)
+        console.log(this.$v.$params.form);
 
         if (this.$v.form) {
-            console.log(this.$v.form.$params)
-            console.log(this.$v.form.$params.nestedA)
-            console.log(this.$v.form.nestedA)
-            console.log(this.$v.form.$params.nestedOfLength)
-            console.log(this.$v.form.nestedOfLength)
+            console.log(this.$v.form.$params);
+            console.log(this.$v.form.$params.nestedA);
+            console.log(this.$v.form.nestedA);
+            console.log(this.$v.form.$params.nestedOfLength);
+            console.log(this.$v.form.nestedOfLength);
         }
-        console.log(this.$v.validationGroup.$params)
+        console.log(this.$v.validationGroup.$params);
     }
 
     accessGroups() {
-        console.log(this.$v.validationGroup)
+        console.log(this.$v.validationGroup);
     }
 
     accessDollarV() {
-        console.log(this.$v.$invalid)
+        console.log(this.$v.$invalid);
     }
 
-    hasDescription = false
+    hasDescription = false;
 
     get isRepoValid() {
-        return !this.$v.$invalid
+        return !this.$v.$invalid;
     }
 
     get isPasswordLengthOk() {
         if (this.$v.password) {
-            return !this.$v.password.minLength
-        } else return false
+            return !this.$v.password.minLength;
+        } else return false;
     }
 
     verifyNoTypeRecursion() {
@@ -201,22 +201,22 @@ export class ValidComponent extends Vue {
         const root = this.$v.$root;
         const children = this.$v.$children;
 
-        parent // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>> | null
-        root // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>
-        children // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>[]
+        parent; // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>> | null
+        root; // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>
+        children; // $ExpectType Vue<Record<string, any>, Record<string, any>, never, never, (event: string, ...args: any[]) => Vue<Record<string, any>, Record<string, any>, never, never, any>>[]
     }
 }
 
 @Component({
     validations() {
-        const self = this as Valid2Component // assert
+        const self = this as Valid2Component; // assert
         return self.myToggle
-            ? {myField1: required, myField2: contains('maybe')}
-            : {myField1: contains('maybe'), myField2: required}
-    }
+            ? { myField1: required, myField2: contains("maybe") }
+            : { myField1: contains("maybe"), myField2: required };
+    },
 })
 export class Valid2Component extends Vue {
-    myToggle = false
-    myField1 = ''
-    myField2 = ''
+    myToggle = false;
+    myField1 = "";
+    myField2 = "";
 }

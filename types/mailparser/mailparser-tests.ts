@@ -1,23 +1,23 @@
-import { MailParser, simpleParser } from 'mailparser';
-import { getDecoder } from 'iconv-lite';
+import { getDecoder } from "iconv-lite";
+import { MailParser, simpleParser } from "mailparser";
 
 const mailparser = new MailParser();
 
-mailparser.on('headers', (headers) => {
-        console.log('Subject:', headers.get('subject'));
-    });
+mailparser.on("headers", (headers) => {
+    console.log("Subject:", headers.get("subject"));
+});
 
 // Attachments
-mailparser.on('data', data => {
-    if (data.type === 'attachment') {
+mailparser.on("data", data => {
+    if (data.type === "attachment") {
         console.log(data.filename);
         data.content.pipe(process.stdout);
-        data.content.on('end', () => data.release());
+        data.content.on("end", () => data.release());
     }
 });
 
-mailparser.on('data', data => {
-    if (data.type === 'text') {
+mailparser.on("data", data => {
+    if (data.type === "text") {
         console.log(data.html);
     }
 });
@@ -25,26 +25,26 @@ mailparser.on('data', data => {
 // Validate options
 const mailparser2 = new MailParser(
     {
-       skipHtmlToText: true,
-       maxHtmlLengthToParse: 88,
-       formatDateString: (d: Date) => d.toDateString(),
-       skipImageLinks: true,
-       skipTextToHtml: true,
-       skipTextLinks: true,
-       Iconv: getDecoder("ascii"),
-       keepCidLinks: true
-    }
+        skipHtmlToText: true,
+        maxHtmlLengthToParse: 88,
+        formatDateString: (d: Date) => d.toDateString(),
+        skipImageLinks: true,
+        skipTextToHtml: true,
+        skipTextLinks: true,
+        Iconv: getDecoder("ascii"),
+        keepCidLinks: true,
+    },
 );
 
 // Pipe file to MailParser
 // This example pipes a readableStream file to MailParser
-import fs = require('fs');
-fs.createReadStream('email.eml').pipe(mailparser);
+import fs = require("fs");
+fs.createReadStream("email.eml").pipe(mailparser);
 
 // check different sources and promise/callback api for simpleParser
-const sourceString = '';
-const sourceBuffer = new Buffer('');
-const sourceStream = fs.createReadStream('foo.eml');
+const sourceString = "";
+const sourceBuffer = new Buffer("");
+const sourceStream = fs.createReadStream("foo.eml");
 
 simpleParser(sourceString, (err, mail) => err ? err : mail.html);
 simpleParser(sourceBuffer, (err, mail) => err ? err : mail.html);
@@ -61,7 +61,7 @@ simpleParser(sourceBuffer, { keepCidLinks: true }).then(mail => mail.html).catch
 simpleParser(sourceStream, { keepCidLinks: true }).then(mail => mail.html).catch(err => err);
 
 simpleParser(sourceString, (err, mail) => {
-    console.log(mail.headers.get('subject'));
+    console.log(mail.headers.get("subject"));
     console.log(mail.subject);
 
     // Attachments
@@ -80,6 +80,7 @@ simpleParser(sourceString, (err, mail) => {
     console.log(mail.textAsHtml);
 
     // References are either arrays or strings
-    if (mail.references && !Array.isArray(mail.references))
+    if (mail.references && !Array.isArray(mail.references)) {
         mail.references.toLowerCase();
+    }
 });

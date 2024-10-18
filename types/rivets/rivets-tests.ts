@@ -1,18 +1,18 @@
-import { Rivets } from 'rivets';
+import { Rivets } from "rivets";
 
 Rivets.configure({
     // Attribute prefix in templates
-    prefix: 'rv',
+    prefix: "rv",
     // Preload templates with initial data on bind
     preloadData: true,
     // Root sightglass interface for keypaths
-    rootInterface: '.',
+    rootInterface: ".",
     // Template delimiters for text bindings
-    templateDelimiters: ['[[', ']]'],
+    templateDelimiters: ["[[", "]]"],
     // Augment the event handler of the on-* binder
     handler(target: any, event: any, binding: any) {
         this.call(target, event, binding.view.models);
-    }
+    },
 });
 
 const t = { test: ["hello", "one", "two"] };

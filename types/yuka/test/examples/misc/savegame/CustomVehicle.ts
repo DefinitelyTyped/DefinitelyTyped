@@ -11,7 +11,7 @@ export class CustomVehicle extends Vehicle {
 
     constructor() {
         super();
-        this.name = 'vehicle';
+        this.name = "vehicle";
         this.target = null;
     }
 
@@ -43,7 +43,7 @@ export class CustomVehicle extends Vehicle {
     resolveReferences(entities: Map<string, GameEntity>) {
         super.resolveReferences(entities);
 
-        if (typeof this.target === 'string') {
+        if (typeof this.target === "string") {
             const entity = entities.get(this.target);
             if (entity instanceof CustomEntity) {
                 this.target = entity;

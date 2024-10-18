@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/search-index",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/fergiemcdowall/search-index"
+    ],
+    "dependencies": {
+        "@types/abstract-leveldown": "*"
+    },
+    "devDependencies": {
+        "@types/search-index": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Travis Harrison",
+            "githubUsername": "TravisYeah"
+        },
+        {
+            "name": "Henry Tsai",
+            "githubUsername": "thehenrytsai"
+        }
+    ]
+}

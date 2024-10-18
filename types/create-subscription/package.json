@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/create-subscription",
+    "version": "16.4.9999",
+    "projects": [
+        "https://github.com/facebook/react/tree/master/packages/create-subscription",
+        "https://github.com/facebook/react"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/create-subscription": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "githubUsername": "Asana"
+        },
+        {
+            "name": "Vincent Siao",
+            "githubUsername": "vsiao"
+        }
+    ]
+}

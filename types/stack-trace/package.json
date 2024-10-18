@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/stack-trace",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/felixge/node-stack-trace"
+    ],
+    "devDependencies": {
+        "@types/stack-trace": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Exceptionless",
+            "githubUsername": "exceptionless"
+        }
+    ]
+}

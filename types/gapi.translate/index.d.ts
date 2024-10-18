@@ -1,15 +1,7 @@
-// Type definitions for Google Translate API
-// Project: https://developers.google.com/translate/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client.language {
-
     export interface detections {
-
         /**
          * Detect the language of text.
          */
@@ -26,8 +18,6 @@ declare namespace gapi.client.language {
     }
 
     export interface languages {
-
-
         /**
          * List the source/target languages supported by the API
          */
@@ -40,12 +30,10 @@ declare namespace gapi.client.language {
              * Selector specifying which fields to include in a partial response.
              */
             fields?: string | undefined;
-        }): HttpRequest<GoogleApiTranslateLanguageListResponse>
-
+        }): HttpRequest<GoogleApiTranslateLanguageListResponse>;
     }
 
     export interface translations {
-
         /**
          * Returns text translations from one language to another.
          */
@@ -79,40 +67,34 @@ declare namespace gapi.client.language {
              */
             prettyprint?: string | undefined;
         }): HttpRequest<GoogleApiTranslateTranslationListResponse>;
-
     }
 }
 
-
 interface GoogleApiTranslateTranslationListResponse {
-
     data: {
-        translations: {
+        translations: Array<{
             translatedText: string;
             detectedSourceLanguage: string;
-        }[];
-    }
-
+        }>;
+    };
 }
 
 interface GoogleApiTranslateLanguageListResponse {
-
     data: {
-        languages: {
+        languages: Array<{
             language: string;
             name: string;
-        }[];
-    }
-
+        }>;
+    };
 }
 
 interface GoogleApiTranslateDetectionListResponse {
-
     data: {
-        detections: {
-            language: string;
-            confidence: number;
-        }[][];
-    }
-
+        detections: Array<
+            Array<{
+                language: string;
+                confidence: number;
+            }>
+        >;
+    };
 }

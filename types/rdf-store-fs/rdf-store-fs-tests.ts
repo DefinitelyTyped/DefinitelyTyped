@@ -1,34 +1,34 @@
-import { Term, Stream, Quad_Graph } from '@rdfjs/types';
-import $rdf from 'rdf-ext';
-import StoreFs = require('rdf-store-fs');
-import FlatFilenameResolver = require('rdf-store-fs/lib/FlatFilenameResolver.js');
+import { Quad_Graph, Stream, Term } from "@rdfjs/types";
+import $rdf from "rdf-ext";
+import StoreFs = require("rdf-store-fs");
+import FlatFilenameResolver = require("rdf-store-fs/lib/FlatFilenameResolver.js");
 
 let flatStore = new StoreFs.FlatMultiFileStore({
-    path: '/',
-    baseIRI: 'http://example.com/'
+    path: "/",
+    baseIRI: "http://example.com/",
 });
 
 flatStore = new StoreFs.FlatMultiFileStore({
-    path: '/',
-    baseIRI: 'http://example.com/',
-    extension: 'n3',
-    factory: $rdf
+    path: "/",
+    baseIRI: "http://example.com/",
+    extension: "n3",
+    factory: $rdf,
 });
 
 let resolver = new FlatFilenameResolver({
-    path: '/',
-    baseIRI: 'http://example.com/',
+    path: "/",
+    baseIRI: "http://example.com/",
 });
 
 resolver = new FlatFilenameResolver({
-    path: '/',
-    baseIRI: 'http://example.com/',
-    extension: 'n3',
-    factory: $rdf
+    path: "/",
+    baseIRI: "http://example.com/",
+    extension: "n3",
+    factory: $rdf,
 });
 
 let multiStore = new StoreFs.MultiFileStore({
-    resolver
+    resolver,
 });
 
 multiStore = new StoreFs.MultiFileStore({ resolver, factory: $rdf });
@@ -45,20 +45,20 @@ function store_match() {
 
 function store_import() {
     const stream: Stream = <any> {};
-    // $ExpectType EventEmitter
+    // $ExpectType EventEmitter<DefaultEventMap>
     let imported = flatStore.import(stream);
     imported = flatStore.import(stream, { truncate: true });
 }
 
 function store_remove() {
     const stream: Stream = <any> {};
-    // $ExpectType EventEmitter
+    // $ExpectType EventEmitter<DefaultEventMap>
     const event = flatStore.remove(stream);
 }
 
 function store_removeMatches() {
     const term: Term = <any> {};
-    // $ExpectType EventEmitter
+    // $ExpectType EventEmitter<DefaultEventMap>
     let event = flatStore.removeMatches();
     event = flatStore.removeMatches(term);
     event = flatStore.removeMatches(term, term);
@@ -68,7 +68,7 @@ function store_removeMatches() {
 
 function store_deleteGraph() {
     const graph: Quad_Graph = <any> {};
-    // $ExpectType EventEmitter
+    // $ExpectType EventEmitter<DefaultEventMap>
     const event = flatStore.deleteGraph(graph);
 }
 

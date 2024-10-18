@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2022",
+        "module": "node16",
+        "target": "es2021",
         "lib": [
-            "es2022"
+            "es2021"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -11,10 +11,6 @@
         "strictFunctionTypes": true,
         "types": [],
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "noEmit": true
     },
     "files": [
@@ -34,6 +30,7 @@
         "test/scenario-stream.ts",
         "test/stream.ts",
         "test/transformstream.ts",
+        "test/true-client-ip-tests.ts",
         "test/url-search-params-tests.ts",
         "test/user-location.ts"
     ]

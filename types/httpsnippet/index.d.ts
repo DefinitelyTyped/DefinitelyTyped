@@ -1,9 +1,4 @@
-// Type definitions for httpsnippet 1.23
-// Project: https://github.com/Kong/httpsnippet
-// Definitions by: Marcell Toth <https://github.com/marcelltoth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Har, Request } from 'har-format';
+import { Har, Request } from "har-format";
 
 /*~ This declaration specifies that the class constructor function
  *~ is the exported object from the file

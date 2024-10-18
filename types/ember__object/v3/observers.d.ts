@@ -7,12 +7,12 @@ export function addObserver<Context, Target>(
     obj: Context,
     key: keyof Context,
     target: Target,
-    method: ObserverMethod<Target, Context>
+    method: ObserverMethod<Target, Context>,
 ): void;
 export function addObserver<Context>(
     obj: Context,
     key: keyof Context,
-    method: ObserverMethod<Context, Context>
+    method: ObserverMethod<Context, Context>,
 ): void;
 /**
  * Remove an observer you have previously registered on this object. Pass
@@ -23,10 +23,10 @@ export function removeObserver<Context, Target>(
     obj: Context,
     key: keyof Context,
     target: Target,
-    method: ObserverMethod<Target, Context>
+    method: ObserverMethod<Target, Context>,
 ): any;
 export function removeObserver<Context>(
     obj: Context,
     key: keyof Context,
-    method: ObserverMethod<Context, Context>
+    method: ObserverMethod<Context, Context>,
 ): any;

@@ -1,9 +1,9 @@
-import { createMockEnvironment, MockPayloadGenerator, testResolver } from 'relay-test-utils';
-import { FragmentRefs, graphql } from 'relay-runtime';
-import { readFragment } from 'relay-runtime/lib/store/ResolverFragments';
+import { FragmentRefs, graphql } from "relay-runtime";
+import { readFragment } from "relay-runtime/lib/store/ResolverFragments";
+import { createMockEnvironment, MockPayloadGenerator, testResolver } from "relay-test-utils";
 
-import { loadQuery, PreloadedQuery, RelayEnvironmentProvider, useFragment, usePreloadedQuery } from 'react-relay';
-import React from 'react';
+import React from "react";
+import { loadQuery, PreloadedQuery, RelayEnvironmentProvider, useFragment, usePreloadedQuery } from "react-relay";
 
 interface UserComponent_user {
     readonly id: string;
@@ -11,14 +11,14 @@ interface UserComponent_user {
     readonly profile_picture: {
         readonly uri: string;
     };
-    readonly ' $fragmentType': 'UserComponent_user';
+    readonly " $fragmentType": "UserComponent_user";
 }
 
 type UserComponent_user$data = UserComponent_user;
 
 interface UserComponent_user$key {
-    readonly ' $data'?: UserComponent_user$data | undefined;
-    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
+    readonly " $data"?: UserComponent_user$data | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"UserComponent_user">;
 }
 
 const userQuery = graphql`
@@ -58,7 +58,7 @@ const UserComponent = ({ userKey }: { userKey: UserComponent_user$key }) => {
 };
 
 function MockPayloadGeneratorTests() {
-    // @ExpectType MockEnvironment
+    // $ExpectType RelayMockEnvironment
     const environment = createMockEnvironment();
 
     // to get an operation type
@@ -78,7 +78,7 @@ function MockPayloadGeneratorTests() {
             const id = generateId();
 
             return {
-                id: (context.name || '') + String(id),
+                id: (context.name || "") + String(id),
             };
         },
     });
@@ -97,7 +97,7 @@ function MockPayloadGeneratorTests() {
 }
 
 function environmentTests() {
-    // @ExpectType MockEnvironment
+    // $ExpectType RelayMockEnvironment
     const environment = createMockEnvironment();
 
     const queryRef = loadQuery(environment, userQuery, {});
@@ -118,6 +118,59 @@ function environmentTests() {
     environment.mock.nextValue(operation, { data: {} });
     environment.mock.resolve(operation, { data: {} });
     environment.mock.queuePendingOperation(userQuery, {});
+
+    // $ExpectType OperationDescriptor
+    const newOperation = environment.mock.getMostRecentOperation();
+
+    // $ExpectType readonly GraphQLSingularResponse[]
+    const mockDataWithDeferredPayload1 = MockPayloadGenerator.generateWithDefer(newOperation, null, {
+        generateDeferredPayload: true,
+        mockClientData: true,
+    });
+
+    // $ExpectType readonly GraphQLSingularResponse[]
+    const mockDataWithDeferredPayload2 = MockPayloadGenerator.generateWithDefer(newOperation, null, {
+        generateDeferredPayload: true,
+    });
+
+    // $ExpectType GraphQLSingularResponse
+    const mockDataWithoutDeferredPayload1 = MockPayloadGenerator.generateWithDefer(newOperation, null, {
+        generateDeferredPayload: false,
+        mockClientData: true,
+    });
+
+    // $ExpectType GraphQLSingularResponse
+    const mockDataWithoutDeferredPayload2 = MockPayloadGenerator.generateWithDefer(newOperation, null, {
+        mockClientData: true,
+    });
+
+    // $ExpectType GraphQLSingularResponse
+    const mockDataWithoutDeferredPayload3 = MockPayloadGenerator.generateWithDefer(newOperation, null);
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithoutDeferredPayload1,
+    );
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithoutDeferredPayload2,
+    );
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithoutDeferredPayload3,
+    );
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithDeferredPayload1,
+    );
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithDeferredPayload2,
+    );
 }
 
 function testResolverTests() {
@@ -135,22 +188,22 @@ function testResolverTests() {
             rootKey,
         );
 
-        return `Hello ${user.name ?? 'stranger'}!`;
+        return `Hello ${user.name ?? "stranger"}!`;
     }
 
     // $ExpectType string
     const result = testResolver(myTestResolver, {
-        name: 'Elizabeth',
-        id: '123',
+        name: "Elizabeth",
+        id: "123",
         profile_picture: {
-            uri: '/profile.png',
+            uri: "/profile.png",
         },
     });
 
     testResolver(myTestResolver, {
-        name: 'Elizabeth',
+        name: "Elizabeth",
         // @ts-expect-error foo is not in the object
-        foo: 'bar',
+        foo: "bar",
     });
 
     testResolver(myTestResolver, {

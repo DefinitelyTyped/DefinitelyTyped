@@ -1,4 +1,27 @@
 {
+    "private": true,
+    "name": "@types/aws-sdk2-types",
+    "version": "0.0.9999",
     "license": "Apache-2.0",
-    "private": true
+    "nonNpm": true,
+    "nonNpmDescription": "aws-sdk2-types",
+    "projects": [
+        "https://aws.amazon.com/blogs/developer/why-and-how-you-should-use-aws-sdk-for-javascript-v3-on-node-js-18"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/aws-sdk2-types": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amazon.com, Inc. or its affiliates",
+            "githubUsername": "aws"
+        },
+        {
+            "name": "Nathan Shively-Sanders",
+            "githubUsername": "sandersn"
+        }
+    ]
 }

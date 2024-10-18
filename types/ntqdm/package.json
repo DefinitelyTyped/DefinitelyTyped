@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ntqdm",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jhedin/ntqdm"
+    ],
+    "devDependencies": {
+        "@types/ntqdm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christoph Thiede",
+            "githubUsername": "LinqLover"
+        }
+    ]
+}

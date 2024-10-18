@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/scrambo",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/nickcolley/scrambo"
+    ],
+    "devDependencies": {
+        "@types/scrambo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Mühl",
+            "githubUsername": "padarom"
+        }
+    ]
+}

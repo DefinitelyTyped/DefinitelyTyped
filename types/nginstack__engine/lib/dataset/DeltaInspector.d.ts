@@ -11,5 +11,5 @@ declare namespace DeltaInspector {
     export { DBKey, DataSet, RecordIterator };
 }
 type DBKey = import('../dbkey/DBKey');
-type RecordIterator = import('./RecordIterator');
 type DataSet = import('./DataSet');
+type RecordIterator = import('./RecordIterator');

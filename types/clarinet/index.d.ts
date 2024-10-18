@@ -1,8 +1,3 @@
-// Type definitions for clarinet 0.12
-// Project: https://github.com/dscape/clarinet
-// Definitions by: corno <https://github.com/corno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import { Stream } from "stream";

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/d3-graphviz",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/magjac/d3-graphviz"
+    ],
+    "dependencies": {
+        "@types/d3-selection": "^1",
+        "@types/d3-transition": "^1",
+        "@types/d3-zoom": "^1"
+    },
+    "devDependencies": {
+        "@types/d3-graphviz": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dom Parfitt",
+            "githubUsername": "DomParfitt"
+        }
+    ]
+}

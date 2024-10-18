@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/amap-js-api-transfer",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "amap-js-api-transfer",
+    "projects": [
+        "https://lbs.amap.com/api/javascript-api/reference/route-search#m_AMap.Transfer"
+    ],
+    "dependencies": {
+        "@types/amap-js-api": "*",
+        "@types/amap-js-api-place-search": "*"
+    },
+    "devDependencies": {
+        "@types/amap-js-api-transfer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "breeze9527",
+            "githubUsername": "breeze9527"
+        }
+    ]
+}

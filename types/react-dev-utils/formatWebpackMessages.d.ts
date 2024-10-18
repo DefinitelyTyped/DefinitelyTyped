@@ -1,4 +1,4 @@
-import { Stats } from 'webpack';
+import { Stats } from "webpack";
 
 /**
  * Extracts and prettifies warning and error messages from webpack

@@ -1,8 +1,3 @@
-// Type definitions for ooura 2.1
-// Project: https://github.com/audioplastic/ooura#readme
-// Definitions by: sukumo28 <https://github.com/sukumo28>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Ooura;
 
 interface Info {

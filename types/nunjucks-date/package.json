@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nunjucks-date",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/techmsi/nunjucks-date"
+    ],
+    "devDependencies": {
+        "@types/nunjucks-date": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "kruncher",
+            "githubUsername": "kruncher"
+        }
+    ]
+}

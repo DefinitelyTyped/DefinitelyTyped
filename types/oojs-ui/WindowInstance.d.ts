@@ -53,7 +53,7 @@ declare namespace OO.ui {
         }
 
         interface Constructor {
-            new (): WindowInstance;
+            new(): WindowInstance;
             prototype: Prototype;
             static: {};
         }

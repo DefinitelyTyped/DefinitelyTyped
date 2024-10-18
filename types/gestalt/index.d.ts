@@ -1,19 +1,4 @@
-// Type definitions for gestalt 101.0
-// Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
-// Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
-//                 Josh Gachnang <https://github.com/joshgachnang>
-//                 Calvin Chhour <https://github.com/calvinchhour>
-//                 Muhammed Hafiz <https://github.com/zifahm>
-//                 Kyle Hensel <https://github.com/k-yle>
-//                 Francisco Jimenez <https://github.com/jimenezff>
-//                 Charlie Gu <https://github.com/czgu>
-//                 Jay Kim <https://github.com/keyworks>
-//                 Vaibhav Sharma <https://github.com/v4iv>
-//                 Juan Alvarez <https://github.com/juanjalvarez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-import React = require('react');
+import React = require("react");
 
 /**
  * Helpers
@@ -26,13 +11,13 @@ export type AbstractEventHandler<T extends React.SyntheticEvent<HTMLElement> | E
 ) => void;
 export type ReactForwardRef<T, P> = React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<T>>;
 
-export type FourDirections = 'up' | 'right' | 'down' | 'left';
+export type FourDirections = "up" | "right" | "down" | "left";
 
 export type EventHandlerType = (args: { readonly event: React.SyntheticEvent }) => void;
 
 export interface OnNavigationArgs {
     href: string;
-    target?: null | 'self' | 'blank' | undefined;
+    target?: null | "self" | "blank" | undefined;
 }
 
 export type OnNavigationType = (args: OnNavigationArgs) => EventHandlerType | null | undefined;
@@ -41,7 +26,7 @@ export type SignedUpTo12 = -12 | -11 | -10 | -9 | -8 | -7 | -6 | -5 | -4 | -3 | 
 
 export interface BadgeObject {
     text: string;
-    type?: 'info' | 'error' | 'warning' | 'success' | 'neutral' | 'darkWash' | 'lightWash' | undefined;
+    type?: "info" | "error" | "warning" | "success" | "neutral" | "darkWash" | "lightWash" | undefined;
 }
 
 /**
@@ -50,32 +35,32 @@ export interface BadgeObject {
  */
 export interface ActivationCardProps {
     message: string;
-    status: 'notStarted' | 'pending' | 'needsAttention' | 'complete';
+    status: "notStarted" | "pending" | "needsAttention" | "complete";
     statusMessage: string;
     title: string;
     dismissButton?:
         | {
-              accessibilityLabel: string;
-              onDismiss: () => void;
-          }
+            accessibilityLabel: string;
+            onDismiss: () => void;
+        }
         | undefined;
     link?:
         | {
-              accessibilityLabel: string;
-              href: string;
-              label: string;
-              onClick?:
-                  | AbstractEventHandler<
-                        | React.MouseEvent<HTMLButtonElement>
-                        | React.MouseEvent<HTMLAnchorElement>
-                        | React.KeyboardEvent<HTMLAnchorElement>
-                        | React.KeyboardEvent<HTMLButtonElement>,
-                        { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-                    >
-                  | undefined;
-              rel?: 'none' | 'nofollow' | undefined;
-              target?: null | 'self' | 'blank' | undefined;
-          }
+            accessibilityLabel: string;
+            href: string;
+            label: string;
+            onClick?:
+                | AbstractEventHandler<
+                    | React.MouseEvent<HTMLButtonElement>
+                    | React.MouseEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLButtonElement>,
+                    { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+                >
+                | undefined;
+            rel?: "none" | "nofollow" | undefined;
+            target?: null | "self" | "blank" | undefined;
+        }
         | undefined;
 }
 
@@ -87,7 +72,7 @@ export interface AvatarProps {
     name: string;
     accessibilityLabel?: string | undefined;
     outline?: boolean | undefined;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit' | undefined;
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "fit" | undefined;
     src?: string | undefined;
     verified?: boolean | undefined;
 }
@@ -106,8 +91,8 @@ export interface AvatarGroupProps {
     addCollaborators?: boolean | undefined;
     href?: string | undefined;
     onClick?: OnTapType | undefined;
-    role?: 'button' | 'link' | undefined;
-    size?: 'xs' | 'sm' | 'md' | 'fit' | undefined;
+    role?: "button" | "link" | undefined;
+    size?: "xs" | "sm" | "md" | "fit" | undefined;
 }
 
 /**
@@ -119,7 +104,7 @@ export interface AvatarPairProps {
         name: string;
         src?: string | undefined;
     }>;
-    size?: 'md' | 'lg' | 'fit' | undefined;
+    size?: "md" | "lg" | "fit" | undefined;
 }
 
 /**
@@ -128,33 +113,34 @@ export interface AvatarPairProps {
  */
 export interface BadgeProps {
     text: string;
-    position?: 'middle' | 'top' | undefined;
+    position?: "middle" | "top" | undefined;
     type?:
-        | 'info'
-        | 'error'
-        | 'warning'
-        | 'success'
-        | 'neutral'
-        | 'darkWash'
-        | 'lightWash'
-        | 'recommendation'
+        | "info"
+        | "error"
+        | "warning"
+        | "success"
+        | "neutral"
+        | "darkWash"
+        | "lightWash"
+        | "recommendation"
         | undefined;
 }
 
-export type BoxPassthroughProps = Omit<React.ComponentProps<'div'>, 'onClick' | 'className' | 'style' | 'ref'> &
-    React.RefAttributes<HTMLDivElement>;
+export type BoxPassthroughProps =
+    & Omit<React.ComponentProps<"div">, "onClick" | "className" | "style" | "ref">
+    & React.RefAttributes<HTMLDivElement>;
 
 /**
  * Box Props Interface
  * https://gestalt.netlify.app/Box
  */
 export interface BoxProps extends BoxPassthroughProps {
-    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch' | undefined;
-    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    smAlignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    mdAlignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    lgAlignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignContent?: "start" | "end" | "center" | "between" | "around" | "evenly" | "stretch" | undefined;
+    alignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    alignSelf?: "auto" | "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    smAlignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    mdAlignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    lgAlignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
 
     /**
      * Changes the underlying DOM element when needed for accessibility or SEO reasons. Note that currently only block-level elements are available.
@@ -162,51 +148,51 @@ export interface BoxProps extends BoxPassthroughProps {
      * @default 'div'
      */
     as?:
-        | 'article'
-        | 'aside'
-        | 'details'
-        | 'div'
-        | 'figcaption'
-        | 'figure'
-        | 'footer'
-        | 'header'
-        | 'main'
-        | 'nav'
-        | 'section'
-        | 'summary'
+        | "article"
+        | "aside"
+        | "details"
+        | "div"
+        | "figcaption"
+        | "figure"
+        | "footer"
+        | "header"
+        | "main"
+        | "nav"
+        | "section"
+        | "summary"
         | undefined;
-    borderStyle?: 'sm' | 'lg' | 'shadow' | 'raisedTopShadow' | 'raisedBottomShadow' | 'none' | undefined;
+    borderStyle?: "sm" | "lg" | "shadow" | "raisedTopShadow" | "raisedBottomShadow" | "none" | undefined;
     bottom?: boolean | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'darkWash'
-        | 'lightWash'
-        | 'transparent'
-        | 'transparentDarkGray'
-        | 'default'
-        | 'infoBase'
-        | 'infoWeak'
-        | 'errorBase'
-        | 'errorWeak'
-        | 'warningBase'
-        | 'warningWeak'
-        | 'successBase'
-        | 'successWeak'
-        | 'recommendationBase'
-        | 'recommendationWeak'
-        | 'shopping'
-        | 'primary'
-        | 'secondary'
-        | 'tertiary'
-        | 'selected'
-        | 'inverse'
-        | 'brand'
-        | 'education'
-        | 'elevationAccent'
-        | 'elevationFloating'
-        | 'elevationRaised'
-        | 'dark'
-        | 'light'
+        | "darkWash"
+        | "lightWash"
+        | "transparent"
+        | "transparentDarkGray"
+        | "default"
+        | "infoBase"
+        | "infoWeak"
+        | "errorBase"
+        | "errorWeak"
+        | "warningBase"
+        | "warningWeak"
+        | "successBase"
+        | "successWeak"
+        | "recommendationBase"
+        | "recommendationWeak"
+        | "shopping"
+        | "primary"
+        | "secondary"
+        | "tertiary"
+        | "selected"
+        | "inverse"
+        | "brand"
+        | "education"
+        | "elevationAccent"
+        | "elevationFloating"
+        | "elevationRaised"
+        | "dark"
+        | "light"
         | undefined;
     column?: UnsignedUpTo12 | undefined;
     smColumn?: UnsignedUpTo12 | undefined;
@@ -214,50 +200,50 @@ export interface BoxProps extends BoxPassthroughProps {
     lgColumn?: UnsignedUpTo12 | undefined;
     dangerouslySetInlineStyle?:
         | {
-              __style: {
-                  [key: string]: string | number | undefined;
-              };
-          }
+            __style: {
+                [key: string]: string | number | undefined;
+            };
+        }
         | undefined;
-    direction?: 'row' | 'column' | undefined;
-    smDirection?: 'row' | 'column' | undefined;
-    mdDirection?: 'row' | 'column' | undefined;
-    lgDirection?: 'row' | 'column' | undefined;
-    display?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden' | undefined;
-    smDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden' | undefined;
-    mdDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden' | undefined;
-    lgDisplay?: 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden' | undefined;
+    direction?: "row" | "column" | undefined;
+    smDirection?: "row" | "column" | undefined;
+    mdDirection?: "row" | "column" | undefined;
+    lgDirection?: "row" | "column" | undefined;
+    display?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden" | undefined;
+    smDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden" | undefined;
+    mdDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden" | undefined;
+    lgDisplay?: "none" | "flex" | "block" | "inlineBlock" | "visuallyHidden" | undefined;
     fit?: boolean | undefined;
-    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    flex?: "grow" | "shrink" | "none" | undefined;
     height?: number | string | undefined;
-    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
+    justifyContent?: "start" | "end" | "center" | "between" | "around" | "evenly" | undefined;
     left?: boolean | undefined;
-    margin?: SignedUpTo12 | 'auto' | undefined;
-    smMargin?: SignedUpTo12 | 'auto' | undefined;
-    mdMargin?: SignedUpTo12 | 'auto' | undefined;
-    lgMargin?: SignedUpTo12 | 'auto' | undefined;
-    marginBottom?: SignedUpTo12 | 'auto' | undefined;
-    smMarginBottom?: SignedUpTo12 | 'auto' | undefined;
-    mdMarginBottom?: SignedUpTo12 | 'auto' | undefined;
-    lgMarginBottom?: SignedUpTo12 | 'auto' | undefined;
-    marginEnd?: SignedUpTo12 | 'auto' | undefined;
-    smMarginEnd?: SignedUpTo12 | 'auto' | undefined;
-    mdMarginEnd?: SignedUpTo12 | 'auto' | undefined;
-    lgMarginEnd?: SignedUpTo12 | 'auto' | undefined;
-    marginStart?: SignedUpTo12 | 'auto' | undefined;
-    smMarginStart?: SignedUpTo12 | 'auto' | undefined;
-    mdMarginStart?: SignedUpTo12 | 'auto' | undefined;
-    lgMarginStart?: SignedUpTo12 | 'auto' | undefined;
-    marginTop?: SignedUpTo12 | 'auto' | undefined;
-    smMarginTop?: SignedUpTo12 | 'auto' | undefined;
-    mdMarginTop?: SignedUpTo12 | 'auto' | undefined;
-    lgMarginTop?: SignedUpTo12 | 'auto' | undefined;
+    margin?: SignedUpTo12 | "auto" | undefined;
+    smMargin?: SignedUpTo12 | "auto" | undefined;
+    mdMargin?: SignedUpTo12 | "auto" | undefined;
+    lgMargin?: SignedUpTo12 | "auto" | undefined;
+    marginBottom?: SignedUpTo12 | "auto" | undefined;
+    smMarginBottom?: SignedUpTo12 | "auto" | undefined;
+    mdMarginBottom?: SignedUpTo12 | "auto" | undefined;
+    lgMarginBottom?: SignedUpTo12 | "auto" | undefined;
+    marginEnd?: SignedUpTo12 | "auto" | undefined;
+    smMarginEnd?: SignedUpTo12 | "auto" | undefined;
+    mdMarginEnd?: SignedUpTo12 | "auto" | undefined;
+    lgMarginEnd?: SignedUpTo12 | "auto" | undefined;
+    marginStart?: SignedUpTo12 | "auto" | undefined;
+    smMarginStart?: SignedUpTo12 | "auto" | undefined;
+    mdMarginStart?: SignedUpTo12 | "auto" | undefined;
+    lgMarginStart?: SignedUpTo12 | "auto" | undefined;
+    marginTop?: SignedUpTo12 | "auto" | undefined;
+    smMarginTop?: SignedUpTo12 | "auto" | undefined;
+    mdMarginTop?: SignedUpTo12 | "auto" | undefined;
+    lgMarginTop?: SignedUpTo12 | "auto" | undefined;
     maxHeight?: number | string | undefined;
     maxWidth?: number | string | undefined;
     minHeight?: number | string | undefined;
     minWidth?: number | string | undefined;
     opacity?: 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1 | undefined;
-    overflow?: 'visible' | 'hidden' | 'scroll' | 'scrollX' | 'scrollY' | 'auto' | undefined;
+    overflow?: "visible" | "hidden" | "scroll" | "scrollX" | "scrollY" | "auto" | undefined;
     padding?: UnsignedUpTo12 | undefined;
     smPadding?: UnsignedUpTo12 | undefined;
     mdPadding?: UnsignedUpTo12 | undefined;
@@ -270,12 +256,12 @@ export interface BoxProps extends BoxPassthroughProps {
     smPaddingY?: UnsignedUpTo12 | undefined;
     mdPaddingY?: UnsignedUpTo12 | undefined;
     lgPaddingY?: UnsignedUpTo12 | undefined;
-    position?: 'static' | 'absolute' | 'relative' | 'fixed' | undefined;
+    position?: "static" | "absolute" | "relative" | "fixed" | undefined;
     right?: boolean | undefined;
     role?: string | undefined;
-    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
+    rounding?: "pill" | "circle" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
     top?: boolean | undefined;
-    userSelect?: 'auto' | 'none' | undefined;
+    userSelect?: "auto" | "none" | undefined;
     width?: number | string | undefined;
     wrap?: boolean | undefined;
     zIndex?: Indexable | undefined;
@@ -292,13 +278,13 @@ export interface ButtonProps {
     accessibilityHaspopup?: boolean | undefined;
     accessibilityLabel?: string | undefined;
     color?:
-        | 'gray'
-        | 'red'
-        | 'blue'
-        | 'transparent'
-        | 'semiTransparentWhite'
-        | 'transparentWhiteText'
-        | 'white'
+        | "gray"
+        | "red"
+        | "blue"
+        | "transparent"
+        | "semiTransparentWhite"
+        | "transparentWhiteText"
+        | "white"
         | undefined;
     disabled?: boolean | undefined;
     href?: string | undefined;
@@ -307,20 +293,20 @@ export interface ButtonProps {
     name?: string | undefined;
     onClick?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLButtonElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLButtonElement>,
-              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-          >
+            | React.MouseEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>,
+            { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+        >
         | undefined;
-    rel?: 'none' | 'nofollow' | undefined;
-    role?: 'button' | 'link' | undefined;
+    rel?: "none" | "nofollow" | undefined;
+    role?: "button" | "link" | undefined;
     selected?: boolean | undefined;
-    size?: 'sm' | 'md' | 'lg' | undefined;
+    size?: "sm" | "md" | "lg" | undefined;
     tabIndex?: -1 | 0 | undefined;
-    target?: null | 'self' | 'blank' | undefined;
-    type?: 'submit' | 'button' | undefined;
+    target?: null | "self" | "blank" | undefined;
+    type?: "submit" | "button" | undefined;
 }
 
 /**
@@ -338,15 +324,15 @@ export interface ActionData {
     label: string;
     onClick?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.MouseEvent<HTMLButtonElement>
-              | React.KeyboardEvent<HTMLButtonElement>,
-              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-          >
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.MouseEvent<HTMLButtonElement>
+            | React.KeyboardEvent<HTMLButtonElement>,
+            { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+        >
         | undefined;
-    rel?: 'none' | 'nofollow' | undefined;
-    target?: null | 'self' | 'blank' | undefined;
+    rel?: "none" | "nofollow" | undefined;
+    target?: null | "self" | "blank" | undefined;
 }
 
 /**
@@ -356,12 +342,12 @@ export interface ActionData {
 export interface CalloutProps {
     iconAccessibilityLabel: string;
     message: string;
-    type: 'error' | 'info' | 'recommendation' | 'success' | 'warning';
+    type: "error" | "info" | "recommendation" | "success" | "warning";
     dismissButton?:
         | {
-              accessibilityLabel: string;
-              onDismiss: () => void;
-          }
+            accessibilityLabel: string;
+            onDismiss: () => void;
+        }
         | undefined;
     primaryAction?: ActionData | undefined;
     secondaryAction?: ActionData | undefined;
@@ -396,9 +382,9 @@ export interface CheckboxProps {
     label?: string | undefined;
     name?: string | undefined;
     onClick?: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }> | undefined;
-    size?: 'sm' | 'md' | undefined;
+    size?: "sm" | "md" | undefined;
     subtext?: string | undefined;
-    labelDisplay?: 'visible' | 'hidden' | undefined;
+    labelDisplay?: "visible" | "hidden" | undefined;
 }
 
 /**
@@ -423,26 +409,26 @@ export interface ComboBoxProps {
     errorMessage?: string | undefined;
     helperText?: string | undefined;
     inputValue?: string | undefined;
-    labelDisplay?: 'visible' | 'hidden' | undefined;
+    labelDisplay?: "visible" | "hidden" | undefined;
     onChange?: ((args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void) | undefined;
     onBlur?:
         | ((args: {
-              event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
-              value: string;
-          }) => void)
+            event: React.FocusEvent<HTMLInputElement> | React.SyntheticEvent<HTMLInputElement>;
+            value: string;
+        }) => void)
         | undefined;
     onFocus?: ((args: { event: React.FocusEvent<HTMLInputElement>; value: string }) => void) | undefined;
     onKeyDown?: ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void) | undefined;
     onClear?: (() => void) | undefined;
     onSelect?:
         | ((args: {
-              event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
-              item: ComboBoxItemType;
-          }) => void)
+            event: React.SyntheticEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>;
+            item: ComboBoxItemType;
+        }) => void)
         | undefined;
     placeholder?: string | undefined;
     selectedOption?: ComboBoxItemType | undefined;
-    size?: 'md' | 'lg' | undefined;
+    size?: "md" | "lg" | undefined;
     tags?: ReadonlyArray<React.ReactElement<TagProps, typeof Tag>> | undefined;
 }
 
@@ -465,7 +451,7 @@ export interface CollageProps {
  * https://gestalt.netlify.app/ColorSchemeProvider
  */
 export interface ColorSchemeProviderProps {
-    colorScheme: 'light' | 'dark' | 'userPreference';
+    colorScheme: "light" | "dark" | "userPreference";
     id?: string | undefined;
 }
 
@@ -496,15 +482,15 @@ export interface ContainerProps {
 export interface DatapointProps {
     title: string;
     value: string;
-    size?: 'md' | 'lg' | undefined;
+    size?: "md" | "lg" | undefined;
     tooltipText?: string | undefined;
     trend?: { accessibilityLabel: string; value: number } | undefined;
-    trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
+    trendSentiment?: "good" | "bad" | "neutral" | "auto" | undefined;
     badge?: BadgeObject | undefined;
     tooltipZIndex?: Indexable | undefined;
 }
 
-export type DeviceType = 'desktop' | 'mobile';
+export type DeviceType = "desktop" | "mobile";
 
 export interface DeviceTypeProviderProps {
     deviceType: DeviceType;
@@ -577,7 +563,7 @@ export interface DropdownProps {
     /**
      *  Define a controlled size to dropdown's Popover.
      */
-    maxHeight?: '30vh' | undefined;
+    maxHeight?: "30vh" | undefined;
     zIndex?: Indexable | undefined;
 }
 
@@ -606,7 +592,7 @@ export interface DropdownItemProps {
      * Either the selected item info or an array of selected items,
      * used to determine when the "selected" icon appears on an item
      */
-    selected?: DropdownOption | ReadonlyArray<DropdownOption> | undefined;
+    selected?: DropdownOption | readonly DropdownOption[] | undefined;
 }
 
 export interface DropdownLinkProps {
@@ -633,12 +619,12 @@ export interface DropdownLinkProps {
 
     onClick?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLButtonElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLButtonElement>
-              | React.KeyboardEvent<HTMLAnchorElement>,
-              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-          >
+            | React.MouseEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>
+            | React.KeyboardEvent<HTMLAnchorElement>,
+            { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+        >
         | undefined;
 }
 
@@ -655,7 +641,7 @@ export interface FieldsetProps {
     children: React.ReactNode;
     id?: string;
     legend: string;
-    legendDisplay?: 'visible' | 'hidden' | undefined;
+    legendDisplay?: "visible" | "hidden" | undefined;
     errorMessage?: string;
 }
 
@@ -664,18 +650,18 @@ export interface FieldsetProps {
  * https://gestalt.netlify.app/Flex
  */
 export interface FlexProps {
-    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch' | undefined;
-    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    smAlignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    mdAlignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    lgAlignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignContent?: "start" | "end" | "center" | "between" | "around" | "evenly" | "stretch" | undefined;
+    alignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    alignSelf?: "auto" | "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    smAlignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    mdAlignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    lgAlignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
     children?: React.ReactNode | undefined;
-    direction?: 'row' | 'column' | undefined;
-    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    direction?: "row" | "column" | undefined;
+    flex?: "grow" | "shrink" | "none" | undefined;
     gap?: UnsignedUpTo12 | { row: UnsignedUpTo12; column: UnsignedUpTo12 } | undefined;
     height?: number | string | undefined;
-    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
+    justifyContent?: "start" | "end" | "center" | "between" | "around" | "evenly" | undefined;
     maxHeight?: number | string | undefined;
     maxWidth?: number | string | undefined;
     minHeight?: number | string | undefined;
@@ -689,9 +675,9 @@ export interface FlexProps {
 }
 
 export interface FlexItemProps {
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignSelf?: "auto" | "start" | "end" | "center" | "baseline" | "stretch" | undefined;
     children?: React.ReactNode | undefined;
-    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    flex?: "grow" | "shrink" | "none" | undefined;
     minWidth?: number | string | undefined;
     flexBasis?: string | number | undefined;
 }
@@ -701,23 +687,23 @@ export interface FlexItemProps {
  * https://gestalt.netlify.app/Heading
  */
 export interface HeaderProps {
-    accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6 | 'none' | undefined;
-    align?: 'start' | 'end' | 'center' | 'forceLeft' | 'forceRight' | undefined;
+    accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6 | "none" | undefined;
+    align?: "start" | "end" | "center" | "forceLeft" | "forceRight" | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'default'
-        | 'subtle'
-        | 'success'
-        | 'error'
-        | 'warning'
-        | 'shopping'
-        | 'inverse'
-        | 'light'
-        | 'dark'
+        | "default"
+        | "subtle"
+        | "success"
+        | "error"
+        | "warning"
+        | "shopping"
+        | "inverse"
+        | "light"
+        | "dark"
         | undefined;
     id?: string | undefined;
-    overflow?: 'normal' | 'breakWord' | undefined;
-    size?: '100' | '200' | '300' | '400' | '500' | '600' | undefined;
+    overflow?: "normal" | "breakWord" | undefined;
+    size?: "100" | "200" | "300" | "400" | "500" | "600" | undefined;
     truncate?: boolean | undefined;
     lineClamp?: number | undefined;
 }
@@ -725,24 +711,24 @@ export interface HeaderProps {
 export interface HelpButtonLinkType {
     accessibilityLabel?: string | undefined;
     externalLinkIcon?:
-        | 'none'
-        | 'default'
+        | "none"
+        | "default"
         | {
-              color: IconProps['color'];
-              size: IconProps['size'];
-          };
+            color: IconProps["color"];
+            size: IconProps["size"];
+        };
     href: string;
     onClick?:
         | AbstractEventHandler<
-              React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-              {
-                  dangerouslyDisableOnNavigation: () => void;
-              }
-          >
+            React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+            {
+                dangerouslyDisableOnNavigation: () => void;
+            }
+        >
         | undefined;
     text: string;
-    ref?: React.Ref<'a'>;
-    target?: null | 'self' | 'blank';
+    ref?: React.Ref<"a">;
+    target?: null | "self" | "blank";
 }
 
 /**
@@ -764,7 +750,7 @@ export interface HelpButtonProps {
      * Specifies the preferred position of the tooltip and popover relative to HelpButton.
      * See [Popover's ideal direction variant](https://gestalt.pinterest.systems/web/popover#Ideal-direction) to learn more.
      */
-    idealDirection?: 'up' | 'right' | 'down' | 'left' | undefined;
+    idealDirection?: "up" | "right" | "down" | "left" | undefined;
     /**
      * Enables correct behavior when HelpButton is used within a fixed container.
      * To achieve this it removes the Layer component around Popover and enables positioning relative to its anchor element.
@@ -791,14 +777,14 @@ export interface HelpButtonProps {
      */
     onClick?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLDivElement>
-              | React.KeyboardEvent<HTMLDivElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>,
-              {
-                  dangerouslyDisableOnNavigation: () => void;
-              }
-          >
+            | React.MouseEvent<HTMLDivElement>
+            | React.KeyboardEvent<HTMLDivElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>,
+            {
+                dangerouslyDisableOnNavigation: () => void;
+            }
+        >
         | undefined;
     /**
      * Informational content that's displayed when the user clicks on HelpButton.
@@ -812,191 +798,191 @@ export interface HelpButtonProps {
 }
 
 export type Icons =
-    | 'ad'
-    | 'ad-group'
-    | 'add'
-    | 'add-circle'
-    | 'add-layout'
-    | 'add-pin'
-    | 'ads-stats'
-    | 'ads-overview'
-    | 'alert'
-    | 'align-bottom-center'
-    | 'align-bottom-left'
-    | 'align-bottom-right'
-    | 'align-bottom'
-    | 'align-middle'
-    | 'align-top-center'
-    | 'align-top-left'
-    | 'align-top-right'
-    | 'align-top'
-    | 'android-share'
-    | 'angled-pin'
-    | 'apps'
-    | 'arrow-back'
-    | 'arrow-circle-down'
-    | 'arrow-circle-forward'
-    | 'arrow-circle-up'
-    | 'arrow-down'
-    | 'arrow-end'
-    | 'arrow-forward'
-    | 'arrow-start'
-    | 'arrow-up'
-    | 'arrow-up-right'
-    | 'bell'
-    | 'calendar'
-    | 'camera'
-    | 'camera-roll'
-    | 'cancel'
-    | 'canonical-pin'
-    | 'captions'
-    | 'color-picker'
-    | 'check'
-    | 'check-circle'
-    | 'circle-outline'
-    | 'clear'
-    | 'clock'
-    | 'code'
-    | 'cog'
-    | 'compass'
-    | 'compose'
-    | 'copy-to-clipboard'
-    | 'crop'
-    | 'dash'
-    | 'conversion-tag'
-    | 'credit-card'
-    | 'directional-arrow-left'
-    | 'directional-arrow-right'
-    | 'download'
-    | 'drag-drop'
-    | 'duplicate'
-    | 'edit'
-    | 'ellipsis'
-    | 'ellipsis-circle-outline'
-    | 'envelope'
-    | 'eye'
-    | 'eye-hide'
-    | 'facebook'
-    | 'face-happy'
-    | 'face-neutral'
-    | 'face-sad'
-    | 'face-smiley'
-    | 'file-unknown'
-    | 'fill-opaque'
-    | 'fill-transparent'
-    | 'filter'
-    | 'flag'
-    | 'flash'
-    | 'flashlight'
-    | 'flipHorizontal'
-    | 'flipVertical'
-    | 'folder'
-    | 'gif'
-    | 'globe'
-    | 'globe-checked'
-    | 'gmail'
-    | 'google-plus'
-    | 'graph-bar'
-    | 'handle'
-    | 'hand-pointing'
-    | 'heart'
-    | 'heart-outline'
-    | 'heart-broken'
-    | 'history'
-    | 'home'
-    | 'idea-pin'
-    | 'impressum'
-    | 'insights-audience'
-    | 'insights-conversions'
-    | 'info-circle'
-    | 'key'
-    | 'knoop'
-    | 'lightbulb'
-    | 'lightning-bolt-circle'
-    | 'link'
-    | 'location'
-    | 'lock'
-    | 'logo-large'
-    | 'logo-small'
-    | 'logout'
-    | 'margins-large'
-    | 'margins-medium'
-    | 'margins-small'
-    | 'maximize'
-    | 'megaphone'
-    | 'menu'
-    | 'minimize'
-    | 'move'
-    | 'mute'
-    | 'music-off'
-    | 'music-on'
-    | 'overlay-text'
-    | 'overview'
-    | 'pause'
-    | 'people'
-    | 'person'
-    | 'person-add'
-    | 'phone'
-    | 'pin'
-    | 'pincode'
-    | 'pin-hide'
-    | 'pinterest'
-    | 'play'
-    | 'protect'
-    | 'refresh'
-    | 'question-mark'
-    | 'remove'
-    | 'reorder-images'
-    | 'replace'
-    | 'report'
-    | 'rotate'
-    | 'scale'
-    | 'search'
-    | 'security'
-    | 'shopping-bag'
-    | 'smiley'
-    | 'smiley-outline'
-    | 'send'
-    | 'share'
-    | 'sound'
-    | 'sort-ascending'
-    | 'sort-descending'
-    | 'sparkle'
-    | 'speech'
-    | 'speech-ellipsis'
-    | 'star'
-    | 'star-half'
-    | 'switch-account'
-    | 'tag'
-    | 'terms'
-    | 'text-align-left'
-    | 'text-align-center'
-    | 'text-align-right'
-    | 'text-all-caps'
-    | 'text-extra-small'
-    | 'text-large'
-    | 'text-line-height'
-    | 'text-medium'
-    | 'text-sentence-case'
-    | 'text-size'
-    | 'text-small'
-    | 'text-spacing'
-    | 'trash-can'
-    | 'trending'
-    | 'twitter'
-    | 'video-camera'
-    | 'view-type-default'
-    | 'view-type-dense'
-    | 'view-type-list'
-    | 'visit'
-    | 'workflow-status-all'
-    | 'workflow-status-canceled'
-    | 'workflow-status-halted'
-    | 'workflow-status-in-progress'
-    | 'workflow-status-ok'
-    | 'workflow-status-problem'
-    | 'workflow-status-unstarted'
-    | 'workflow-status-warning';
+    | "ad"
+    | "ad-group"
+    | "add"
+    | "add-circle"
+    | "add-layout"
+    | "add-pin"
+    | "ads-stats"
+    | "ads-overview"
+    | "alert"
+    | "align-bottom-center"
+    | "align-bottom-left"
+    | "align-bottom-right"
+    | "align-bottom"
+    | "align-middle"
+    | "align-top-center"
+    | "align-top-left"
+    | "align-top-right"
+    | "align-top"
+    | "android-share"
+    | "angled-pin"
+    | "apps"
+    | "arrow-back"
+    | "arrow-circle-down"
+    | "arrow-circle-forward"
+    | "arrow-circle-up"
+    | "arrow-down"
+    | "arrow-end"
+    | "arrow-forward"
+    | "arrow-start"
+    | "arrow-up"
+    | "arrow-up-right"
+    | "bell"
+    | "calendar"
+    | "camera"
+    | "camera-roll"
+    | "cancel"
+    | "canonical-pin"
+    | "captions"
+    | "color-picker"
+    | "check"
+    | "check-circle"
+    | "circle-outline"
+    | "clear"
+    | "clock"
+    | "code"
+    | "cog"
+    | "compass"
+    | "compose"
+    | "copy-to-clipboard"
+    | "crop"
+    | "dash"
+    | "conversion-tag"
+    | "credit-card"
+    | "directional-arrow-left"
+    | "directional-arrow-right"
+    | "download"
+    | "drag-drop"
+    | "duplicate"
+    | "edit"
+    | "ellipsis"
+    | "ellipsis-circle-outline"
+    | "envelope"
+    | "eye"
+    | "eye-hide"
+    | "facebook"
+    | "face-happy"
+    | "face-neutral"
+    | "face-sad"
+    | "face-smiley"
+    | "file-unknown"
+    | "fill-opaque"
+    | "fill-transparent"
+    | "filter"
+    | "flag"
+    | "flash"
+    | "flashlight"
+    | "flipHorizontal"
+    | "flipVertical"
+    | "folder"
+    | "gif"
+    | "globe"
+    | "globe-checked"
+    | "gmail"
+    | "google-plus"
+    | "graph-bar"
+    | "handle"
+    | "hand-pointing"
+    | "heart"
+    | "heart-outline"
+    | "heart-broken"
+    | "history"
+    | "home"
+    | "idea-pin"
+    | "impressum"
+    | "insights-audience"
+    | "insights-conversions"
+    | "info-circle"
+    | "key"
+    | "knoop"
+    | "lightbulb"
+    | "lightning-bolt-circle"
+    | "link"
+    | "location"
+    | "lock"
+    | "logo-large"
+    | "logo-small"
+    | "logout"
+    | "margins-large"
+    | "margins-medium"
+    | "margins-small"
+    | "maximize"
+    | "megaphone"
+    | "menu"
+    | "minimize"
+    | "move"
+    | "mute"
+    | "music-off"
+    | "music-on"
+    | "overlay-text"
+    | "overview"
+    | "pause"
+    | "people"
+    | "person"
+    | "person-add"
+    | "phone"
+    | "pin"
+    | "pincode"
+    | "pin-hide"
+    | "pinterest"
+    | "play"
+    | "protect"
+    | "refresh"
+    | "question-mark"
+    | "remove"
+    | "reorder-images"
+    | "replace"
+    | "report"
+    | "rotate"
+    | "scale"
+    | "search"
+    | "security"
+    | "shopping-bag"
+    | "smiley"
+    | "smiley-outline"
+    | "send"
+    | "share"
+    | "sound"
+    | "sort-ascending"
+    | "sort-descending"
+    | "sparkle"
+    | "speech"
+    | "speech-ellipsis"
+    | "star"
+    | "star-half"
+    | "switch-account"
+    | "tag"
+    | "terms"
+    | "text-align-left"
+    | "text-align-center"
+    | "text-align-right"
+    | "text-all-caps"
+    | "text-extra-small"
+    | "text-large"
+    | "text-line-height"
+    | "text-medium"
+    | "text-sentence-case"
+    | "text-size"
+    | "text-small"
+    | "text-spacing"
+    | "trash-can"
+    | "trending"
+    | "twitter"
+    | "video-camera"
+    | "view-type-default"
+    | "view-type-dense"
+    | "view-type-list"
+    | "visit"
+    | "workflow-status-all"
+    | "workflow-status-canceled"
+    | "workflow-status-halted"
+    | "workflow-status-in-progress"
+    | "workflow-status-ok"
+    | "workflow-status-problem"
+    | "workflow-status-unstarted"
+    | "workflow-status-warning";
 
 /**
  * Icon Props Interface
@@ -1006,17 +992,17 @@ export interface IconProps {
     accessibilityLabel: string;
 
     color?:
-        | 'default'
-        | 'subtle'
-        | 'success'
-        | 'error'
-        | 'warning'
-        | 'info'
-        | 'inverse'
-        | 'shopping'
-        | 'brandPrimary'
-        | 'light'
-        | 'dark'
+        | "default"
+        | "subtle"
+        | "success"
+        | "error"
+        | "warning"
+        | "info"
+        | "inverse"
+        | "shopping"
+        | "brandPrimary"
+        | "light"
+        | "dark"
         | undefined;
     dangerouslySetSvgPath?: { __path: string } | undefined;
     icon?: Icons | undefined;
@@ -1029,7 +1015,7 @@ export interface IconProps {
  * https://gestalt.netlify.app/IconButton
  */
 export interface IconButtonProps {
-    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red' | undefined;
+    bgColor?: "transparent" | "darkGray" | "transparentDarkGray" | "gray" | "lightGray" | "white" | "red" | undefined;
     accessibilityControls?: string | undefined;
     accessibilityExpanded?: boolean | undefined;
     accessibilityHaspopup?: boolean | undefined;
@@ -1039,25 +1025,25 @@ export interface IconButtonProps {
     disabled?: boolean | undefined;
     href?: string | undefined;
     icon?: Icons | undefined;
-    iconColor?: 'gray' | 'darkGray' | 'red' | 'white' | 'brandPrimary' | undefined;
+    iconColor?: "gray" | "darkGray" | "red" | "white" | "brandPrimary" | undefined;
     onClick?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.MouseEvent<HTMLButtonElement>
-              | React.KeyboardEvent<HTMLButtonElement>,
-              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-          >
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.MouseEvent<HTMLButtonElement>
+            | React.KeyboardEvent<HTMLButtonElement>,
+            { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+        >
         | undefined;
     padding?: 1 | 2 | 3 | 4 | 5 | undefined;
-    rel?: 'none' | 'nofollow' | undefined;
-    role?: 'button' | 'link' | undefined;
+    rel?: "none" | "nofollow" | undefined;
+    role?: "button" | "link" | undefined;
     selected?: boolean | undefined;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined;
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
     tabIndex?: -1 | 0 | undefined;
-    target?: null | 'self' | 'blank' | undefined;
-    tooltip?: Pick<TooltipProps, 'accessibilityLabel' | 'inline' | 'idealDirection' | 'text' | 'zIndex'> | undefined;
-    type?: 'submit' | 'button' | undefined;
+    target?: null | "self" | "blank" | undefined;
+    tooltip?: Pick<TooltipProps, "accessibilityLabel" | "inline" | "idealDirection" | "text" | "zIndex"> | undefined;
+    type?: "submit" | "button" | undefined;
 }
 
 /**
@@ -1067,17 +1053,17 @@ export interface IconButtonProps {
 export interface IconButtonFloatingProps {
     accessibilityControls?: string | undefined;
     accessibilityExpanded?: boolean | undefined;
-    accessibilityPopupRole: 'menu' | 'dialog';
+    accessibilityPopupRole: "menu" | "dialog";
     accessibilityLabel: string;
     icon: Icons;
     onClick?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.MouseEvent<HTMLButtonElement>
-              | React.KeyboardEvent<HTMLButtonElement>,
-              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-          >
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.MouseEvent<HTMLButtonElement>
+            | React.KeyboardEvent<HTMLButtonElement>,
+            { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+        >
         | undefined;
     selected?: boolean | undefined;
 }
@@ -1089,19 +1075,19 @@ export interface IconButtonFloatingProps {
 export interface ImageProps {
     alt: string;
     color: string;
-    crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
-    decoding?: 'sync' | 'async' | 'auto';
+    crossOrigin?: "anonymous" | "use-credentials" | undefined;
+    decoding?: "sync" | "async" | "auto";
     elementTiming?: string | undefined;
     naturalHeight: number;
     naturalWidth: number;
     src: string;
     children?: React.ReactNode | undefined;
-    fit?: 'cover' | 'contain' | 'none' | undefined;
-    fetchPriority?: 'high' | 'low' | 'auto' | undefined;
-    loading?: 'eager' | 'lazy' | 'auto' | undefined;
+    fit?: "cover" | "contain" | "none" | undefined;
+    fetchPriority?: "high" | "low" | "auto" | undefined;
+    loading?: "eager" | "lazy" | "auto" | undefined;
     onError?: AbstractEventHandler<React.SyntheticEvent<HTMLImageElement>> | undefined;
     onLoad?: AbstractEventHandler<React.SyntheticEvent<HTMLImageElement>> | undefined;
-    role?: 'img' | 'presentation' | undefined;
+    role?: "img" | "presentation" | undefined;
     sizes?: string | undefined;
     srcSet?: string | undefined;
 }
@@ -1139,14 +1125,14 @@ export interface LetterboxProps {
  * Link Props Interface
  * https://gestalt.netlify.app/Link
  */
-export type ExternalLinkIcon = 'none' | 'default' | { color: IconProps['color']; size: TextProps['size'] };
+export type ExternalLinkIcon = "none" | "default" | { color: IconProps["color"]; size: TextProps["size"] };
 export interface LinkProps {
     href: string;
     accessibilityLabel?: string | undefined;
     children?: React.ReactNode | undefined;
-    hoverStyle?: 'none' | 'underline' | undefined;
+    hoverStyle?: "none" | "underline" | undefined;
     id?: string | undefined;
-    display?: 'inline' | 'inlineBlock' | 'block' | undefined;
+    display?: "inline" | "inlineBlock" | "block" | undefined;
 
     /**
      * When supplied, a "visit" icon is shown at the end of Link. See the [externalLinkIcon and rel variant](https://gestalt.pinterest.systems/link#externalLinkIcon-and-rel) to learn more.
@@ -1155,16 +1141,16 @@ export interface LinkProps {
     onBlur?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>> | undefined;
     onClick?:
         | AbstractEventHandler<
-              React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-          >
+            React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+            { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+        >
         | undefined;
     onFocus?: AbstractEventHandler<React.FocusEvent<HTMLAnchorElement>> | undefined;
-    rel?: 'none' | 'nofollow' | undefined;
-    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
-    tapStyle?: 'none' | 'compress' | undefined;
-    target?: null | 'self' | 'blank' | undefined;
-    underline?: 'auto' | 'none' | 'always' | 'hover' | undefined;
+    rel?: "none" | "nofollow" | undefined;
+    rounding?: "pill" | "circle" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
+    tapStyle?: "none" | "compress" | undefined;
+    target?: null | "self" | "blank" | undefined;
+    underline?: "auto" | "none" | "always" | "hover" | undefined;
 }
 
 export interface ListItemProps {
@@ -1173,9 +1159,9 @@ export interface ListItemProps {
 
 export interface ListProps {
     label: string | React.ReactElement<typeof Text>;
-    labelDisplay?: 'visible' | 'hidden' | undefined;
-    spacing?: 'regular' | 'condensed' | undefined;
-    type?: 'bare' | 'ordered' | 'unordered' | undefined;
+    labelDisplay?: "visible" | "hidden" | undefined;
+    spacing?: "regular" | "condensed" | undefined;
+    type?: "bare" | "ordered" | "unordered" | undefined;
 }
 
 /**
@@ -1185,7 +1171,7 @@ export interface ListProps {
 export interface MaskProps {
     children?: React.ReactNode | undefined;
     height?: number | string | undefined;
-    rounding?: 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
+    rounding?: "circle" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
     wash?: boolean | undefined;
     width?: number | string | undefined;
     willChangeTransform?: boolean | undefined;
@@ -1205,10 +1191,10 @@ export interface MasonryCache<K, V> {
 export interface MasonryProps<T = any> {
     columnWidth?: number | undefined;
     gutterWidth?: number | undefined;
-    items: ReadonlyArray<T>;
+    items: readonly T[];
     loadItems?: false | ((_arg?: { from: number }) => undefined | boolean | {}) | undefined;
     measurementStore?: MasonryCache<T, any>;
-    layout?: 'basic' | 'basicCentered' | 'flexible' | 'serverRenderedFlexible' | 'uniformRow' | undefined;
+    layout?: "basic" | "basicCentered" | "flexible" | "serverRenderedFlexible" | "uniformRow" | undefined;
     renderItem: (args: { data: T; itemIdx: number; isMeasuring: boolean }) => React.ReactNode;
     flexible?: boolean | undefined;
     minCols?: number | undefined;
@@ -1230,15 +1216,15 @@ export interface ModalProps {
      */
     _dangerouslyDisableScrollBoundaryContainer?: boolean;
     accessibilityModalLabel: string;
-    align?: 'center' | 'start' | undefined;
+    align?: "center" | "start" | undefined;
     children?: React.ReactNode | undefined;
     closeOnOutsideClick?: boolean | undefined;
     footer?: React.ReactNode | undefined;
     heading?: React.ReactNode | undefined;
     onDismiss: () => void;
-    pending?: 'defaut' | 'none' | undefined;
-    role?: 'alertdialog' | 'dialog' | undefined;
-    size?: 'sm' | 'md' | 'lg' | number | undefined;
+    pending?: "defaut" | "none" | undefined;
+    role?: "alertdialog" | "dialog" | undefined;
+    size?: "sm" | "md" | "lg" | number | undefined;
     subHeading?: string | undefined;
 }
 
@@ -1259,8 +1245,8 @@ export interface ModalAlertActionDataType {
         | React.MouseEvent<HTMLButtonElement>,
         { dangerouslyDisableOnNavigation: () => void }
     >;
-    rel?: 'none' | 'nofollow' | undefined;
-    target?: null | 'self' | 'blank' | undefined;
+    rel?: "none" | "nofollow" | undefined;
+    target?: null | "self" | "blank" | undefined;
 }
 
 export interface ModalAlertProps {
@@ -1268,7 +1254,7 @@ export interface ModalAlertProps {
     accessibilityModalLabel: string;
     heading: string;
     onDismiss: () => void;
-    type?: 'default' | 'warning' | 'error' | undefined;
+    type?: "default" | "warning" | "error" | undefined;
     primaryAction: ModalAlertActionDataType;
     secondaryAction?: ModalAlertActionDataType | undefined;
 }
@@ -1284,7 +1270,7 @@ export interface ModuleProps {
     iconAccessibilityLabel?: string | undefined;
     iconButton?: React.ReactElement<typeof IconButton> | undefined;
     title?: string | undefined;
-    type?: 'error' | 'info' | undefined;
+    type?: "error" | "info" | undefined;
 }
 
 /**
@@ -1299,8 +1285,8 @@ export interface ModuleExpandableProps {
         title: string;
         icon?: Icons | undefined;
         iconButton?: React.ReactElement<typeof IconButton> | undefined;
-        summary?: ReadonlyArray<string> | undefined;
-        type?: 'info' | 'error' | undefined;
+        summary?: readonly string[] | undefined;
+        type?: "info" | "error" | undefined;
         iconAccessibilityLabel?: string | undefined;
         children?: React.ReactNode | undefined;
         badge?: BadgeObject | undefined;
@@ -1325,7 +1311,7 @@ export interface NumberFieldProps {
     /**
      * Indicate if autocomplete should be available to the input.
      */
-    autoComplete?: 'on' | 'off' | undefined;
+    autoComplete?: "on" | "off" | undefined;
     /**
      * Indicate if the input is disabled
      * @default false
@@ -1334,7 +1320,7 @@ export interface NumberFieldProps {
     /**
      *  Optionally specify the action label to present for the enter key on virtual keyboards.
      */
-    enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
+    enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
     /**
      * For most cases, pass a string with a helpful error message (be sure to localize!).
      * In certain instances it can be useful to make some text clickable; to suppor this you may instead pass a React.Node to wrap text in Link or TapArea.
@@ -1383,7 +1369,7 @@ export interface NumberFieldProps {
      *
      * @default "md"
      */
-    size?: 'md' | 'lg' | undefined;
+    size?: "md" | "lg" | undefined;
     /**
      * Indicates the amount the value will increase or decrease when using the input's arrows.
      */
@@ -1436,7 +1422,7 @@ export interface PageHeaderAction {
 export interface PageHeaderProps {
     title: string;
     badge?: PageHeaderBadge | undefined;
-    borderStyle?: 'sm' | 'none' | undefined;
+    borderStyle?: "sm" | "none" | undefined;
     helperIconButton?: PageHeaderHelperIconButton | undefined;
     helperLink?: {
         accessibilityLabel: string;
@@ -1445,9 +1431,10 @@ export interface PageHeaderProps {
         onClick?: (args: {
             event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>;
             dangerouslyDisableOnNavigation: () => void;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         }) => void | undefined;
     };
-    items?: ReadonlyArray<React.ReactNode> | undefined;
+    items?: readonly React.ReactNode[] | undefined;
     dropdownAccessibilityLabel?: string | undefined;
     maxWidth?: number | string | undefined;
     primaryAction?: PageHeaderAction | undefined;
@@ -1463,15 +1450,15 @@ export interface PageHeaderProps {
 export interface PogProps {
     accessibilityLabel?: string | undefined;
     active?: boolean | undefined;
-    bgColor?: 'transparent' | 'darkGray' | 'transparentDarkGray' | 'gray' | 'lightGray' | 'white' | 'red' | undefined;
+    bgColor?: "transparent" | "darkGray" | "transparentDarkGray" | "gray" | "lightGray" | "white" | "red" | undefined;
     dangerouslySetSvgPath?: { __path: string } | undefined;
     focused?: boolean | undefined;
     hovered?: boolean | undefined;
     icon?: Icons | undefined;
-    iconColor?: 'gray' | 'darkGray' | 'red' | 'white' | 'brandPrimary' | undefined;
+    iconColor?: "gray" | "darkGray" | "red" | "white" | "brandPrimary" | undefined;
     padding?: 1 | 2 | 3 | 4 | 5 | undefined;
     selected?: boolean | undefined;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined;
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
 }
 
 /**
@@ -1482,18 +1469,18 @@ export interface PopoverProps {
     anchor: HTMLElement | null | undefined; // ideally a HTMLAnchorElement
     onDismiss: () => void;
     children?: React.ReactNode | undefined;
-    color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray' | undefined;
+    color?: "blue" | "orange" | "red" | "white" | "darkGray" | undefined;
     id?: string | undefined;
     idealDirection?: FourDirections | undefined;
     positionRelativeToAnchor?: boolean | undefined;
     shouldFocus?: boolean | undefined;
     showCaret?: boolean | undefined;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number | undefined;
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "flexible" | number | undefined;
     /**
      *  This property can be set when `ScrollBoundaryContainer` is set to `overflow="visible"`
      *  - but therefore limits the height of the Popover-based component. Some cases require
      */
-    __dangerouslySetMaxHeight?: '30vh';
+    __dangerouslySetMaxHeight?: "30vh";
     onKeyDown?: AbstractEventHandler<React.KeyboardEvent<HTMLElement>>;
     accessibilityDismissButtonLabel?: string | undefined;
     showDismissButton?: boolean | undefined;
@@ -1513,28 +1500,28 @@ export interface PopoverEducationalProps {
     message?: React.ReactElement<typeof Text> | undefined;
     primaryAction?:
         | {
-              accessibilityLabel?: string | undefined;
-              href?: string | undefined;
-              text: string | undefined;
-              onClick?:
-                  | AbstractEventHandler<
-                        | React.MouseEvent<HTMLButtonElement>
-                        | React.MouseEvent<HTMLAnchorElement>
-                        | React.KeyboardEvent<HTMLAnchorElement>
-                        | React.KeyboardEvent<HTMLButtonElement>,
-                        {
-                            dangerouslyDisableOnNavigation: () => void;
-                        }
-                    >
-                  | undefined;
-              rel?: 'none' | 'nofollow' | undefined;
-              target?: null | 'self' | 'blank' | undefined;
-          }
+            accessibilityLabel?: string | undefined;
+            href?: string | undefined;
+            text: string | undefined;
+            onClick?:
+                | AbstractEventHandler<
+                    | React.MouseEvent<HTMLButtonElement>
+                    | React.MouseEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLButtonElement>,
+                    {
+                        dangerouslyDisableOnNavigation: () => void;
+                    }
+                >
+                | undefined;
+            rel?: "none" | "nofollow" | undefined;
+            target?: null | "self" | "blank" | undefined;
+        }
         | undefined;
-    role?: 'dialog' | 'tooltip' | undefined;
+    role?: "dialog" | "tooltip" | undefined;
     shouldFocus?: boolean | undefined;
     zIndex?: Indexable | undefined;
-    size?: 'sm' | 'flexible' | undefined;
+    size?: "sm" | "flexible" | undefined;
 }
 
 /**
@@ -1560,7 +1547,7 @@ export interface RadioButtonProps {
     image?: React.ReactNode | undefined;
     label?: string | undefined;
     name?: string | undefined;
-    size?: 'sm' | 'md' | undefined;
+    size?: "sm" | "md" | undefined;
 }
 
 /**
@@ -1571,9 +1558,9 @@ export interface RadioGroupProps {
     id: string;
     children: React.ReactNode;
     legend: string;
-    direction?: 'column' | 'row' | undefined;
+    direction?: "column" | "row" | undefined;
     errorMessage?: string | undefined;
-    legendDisplay?: 'visible' | 'hidden' | undefined;
+    legendDisplay?: "visible" | "hidden" | undefined;
 }
 
 /**
@@ -1581,15 +1568,15 @@ export interface RadioGroupProps {
  * https://gestalt.netlify.app/Row
  */
 export interface RowProps {
-    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch' | undefined;
-    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignContent?: "start" | "end" | "center" | "between" | "around" | "evenly" | "stretch" | undefined;
+    alignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    alignSelf?: "auto" | "start" | "end" | "center" | "baseline" | "stretch" | undefined;
     children?: React.ReactNode | undefined;
     fit?: boolean | undefined;
-    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    flex?: "grow" | "shrink" | "none" | undefined;
     gap?: UnsignedUpTo12 | undefined;
     height?: number | string | undefined;
-    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
+    justifyContent?: "start" | "end" | "center" | "between" | "around" | "evenly" | undefined;
     maxHeight?: number | string | undefined;
     maxWidth?: number | string | undefined;
     minHeight?: number | string | undefined;
@@ -1605,7 +1592,7 @@ export interface RowProps {
 export interface ScrollBoundaryContainerProps {
     children: React.ReactNode;
     height?: number | string | undefined;
-    overflow?: 'scroll' | 'scrollX' | 'scrollY' | 'auto' | 'visible' | undefined;
+    overflow?: "scroll" | "scrollX" | "scrollY" | "auto" | "visible" | undefined;
 }
 
 /**
@@ -1616,14 +1603,14 @@ export interface SearchFieldProps {
     accessibilityLabel: string;
     accessibilityClearButtonLabel?: string;
     id: string;
-    autoComplete?: 'on' | 'off' | 'username' | 'name' | undefined;
+    autoComplete?: "on" | "off" | "username" | "name" | undefined;
     errorMessage?: string | undefined;
     onChange: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     onBlur?: ((args: { event: React.SyntheticEvent<HTMLInputElement> }) => void) | undefined;
     onFocus?: ((args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void) | undefined;
     onKeyDown?: ((args: { event: React.KeyboardEvent<HTMLInputElement>; value: string }) => void) | undefined;
     placeholder?: string | undefined;
-    size?: 'md' | 'lg' | undefined;
+    size?: "md" | "lg" | undefined;
     value?: string | undefined;
     label?: string | undefined;
 }
@@ -1651,10 +1638,10 @@ export interface SelectListProps {
     errorMessage?: string | undefined;
     helperText?: string | undefined;
     label?: string | undefined;
-    labelDisplay?: 'visible' | 'hidden';
+    labelDisplay?: "visible" | "hidden";
     name?: string | undefined;
     placeholder?: string | undefined;
-    size?: 'md' | 'lg' | undefined;
+    size?: "md" | "lg" | undefined;
     value?: string | undefined;
 }
 
@@ -1729,7 +1716,7 @@ export interface SideNavigationTopItemProps {
      * When set to 'page' or 'section', it displays the item in "active" state.
      * See the [Accessibility](https://gestalt.pinterest.systems/SideNavigation#Accessibility) guidelines to learn more.
      */
-    active?: 'page' | 'section' | undefined;
+    active?: "page" | "section" | undefined;
     /**
      * When supplied, will display a
      * [Badge](https://gestalt.pinterest.systems/badge) next to the item's label.
@@ -1737,9 +1724,9 @@ export interface SideNavigationTopItemProps {
      */
     badge?:
         | {
-              text: string;
-              type?: 'info' | 'error' | 'warning' | 'success' | 'neutral' | undefined;
-          }
+            text: string;
+            type?: "info" | "error" | "warning" | "success" | "neutral" | undefined;
+        }
         | undefined;
     /**
      * When supplied, will display a counter. See the [Counter](https://gestalt.pinterest.systems/SideNavigation#Counter) variant to learn more.
@@ -1762,12 +1749,12 @@ export interface SideNavigationTopItemProps {
      */
     onClick?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLButtonElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLButtonElement>,
-              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-          >
+            | React.MouseEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>,
+            { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+        >
         | undefined;
 
     /**
@@ -1776,22 +1763,22 @@ export interface SideNavigationTopItemProps {
     label: string;
     primaryAction?:
         | {
-              icon?: 'ellipsis' | 'edit' | 'trash-can';
-              onClick?:
-                  | AbstractEventHandler<
-                        | React.MouseEvent<HTMLButtonElement>
-                        | React.MouseEvent<HTMLAnchorElement>
-                        | React.KeyboardEvent<HTMLAnchorElement>
-                        | React.KeyboardEvent<HTMLButtonElement>
-                    >
-                  | undefined;
-              tooltip: {
-                  accessibilityLabel?: string | undefined;
-                  text: string;
-                  zIndex?: Indexable | undefined;
-              };
-              dropdownItems?: Array<React.ReactElement<(typeof Dropdown)['Item']>>;
-          }
+            icon?: "ellipsis" | "edit" | "trash-can";
+            onClick?:
+                | AbstractEventHandler<
+                    | React.MouseEvent<HTMLButtonElement>
+                    | React.MouseEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLButtonElement>
+                >
+                | undefined;
+            tooltip: {
+                accessibilityLabel?: string | undefined;
+                text: string;
+                zIndex?: Indexable | undefined;
+            };
+            dropdownItems?: Array<React.ReactElement<(typeof Dropdown)["Item"]>>;
+        }
         | undefined;
 }
 
@@ -1799,7 +1786,7 @@ export interface SideNavigationNestedItemProps {
     /**
      * When set to 'page' or 'section', it displays the item in "active" state. See the [Accessibility](https://gestalt.pinterest.systems/SideNavigation#Accessibility) guidelines to learn more.
      */
-    active?: 'page' | 'section' | undefined;
+    active?: "page" | "section" | undefined;
     /**
      * Directs users to the url when item is selected.
      */
@@ -1813,12 +1800,12 @@ export interface SideNavigationNestedItemProps {
      */
     onClick?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLButtonElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLButtonElement>,
-              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-          >
+            | React.MouseEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>,
+            { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+        >
         | undefined;
 }
 
@@ -1840,7 +1827,7 @@ export interface SideNavigationNestedGroupProps {
     /**
      * Nested directories can be static or expandable. See [nested directory](#Nested-directory) variant for more information.
      */
-    display?: 'expandable' | 'static' | undefined;
+    display?: "expandable" | "static" | undefined;
     /**
      * When supplied, will display Icon. See the [Icon](https://gestalt.pinterest.systems/SideNavigation#Icon) variant to learn more.
      */
@@ -1856,22 +1843,22 @@ export interface SideNavigationNestedGroupProps {
 
     primaryAction?:
         | {
-              icon?: 'ellipsis' | 'edit' | 'trash-can';
-              onClick?:
-                  | AbstractEventHandler<
-                        | React.MouseEvent<HTMLButtonElement>
-                        | React.MouseEvent<HTMLAnchorElement>
-                        | React.KeyboardEvent<HTMLAnchorElement>
-                        | React.KeyboardEvent<HTMLButtonElement>
-                    >
-                  | undefined;
-              tooltip: {
-                  accessibilityLabel?: string | undefined;
-                  text: string;
-                  zIndex?: Indexable | undefined;
-              };
-              dropdownItems?: Array<React.ReactElement<(typeof Dropdown)['Item']>>;
-          }
+            icon?: "ellipsis" | "edit" | "trash-can";
+            onClick?:
+                | AbstractEventHandler<
+                    | React.MouseEvent<HTMLButtonElement>
+                    | React.MouseEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLButtonElement>
+                >
+                | undefined;
+            tooltip: {
+                accessibilityLabel?: string | undefined;
+                text: string;
+                zIndex?: Indexable | undefined;
+            };
+            dropdownItems?: Array<React.ReactElement<(typeof Dropdown)["Item"]>>;
+        }
         | undefined;
 }
 
@@ -1883,7 +1870,7 @@ export interface SideNavigationNestedGroup {
     /**
      * Nested directories can be static or expandable. See [nested directory](#Nested-directory) variant for more information.
      */
-    display?: 'expandable' | 'static' | undefined;
+    display?: "expandable" | "static" | undefined;
     /**
      * Label for the group. See [nested directory](#Nested-directory) variant for more information.
      */
@@ -1893,12 +1880,11 @@ export interface SideNavigationNestedGroup {
 /**
  * Sheet Props Interface
  * https://gestalt.netlify.app/Sheet
- *
  */
 export type OverlayPanelNodeOrRenderProp =
     | ((prop: { onDismissStart: () => void }) => React.ReactNode)
     | React.ReactNode;
-export type OnAnimationEndStateType = 'in' | 'out';
+export type OnAnimationEndStateType = "in" | "out";
 export interface OverlayPanel {
     accessibilityDismissButtonLabel?: string | undefined;
     accessibilityLabel: string;
@@ -1915,11 +1901,11 @@ export interface OverlayPanel {
             text?: string | undefined;
             onClick?:
                 | AbstractEventHandler<
-                      | React.MouseEvent<HTMLButtonElement>
-                      | React.MouseEvent<HTMLAnchorElement>
-                      | React.KeyboardEvent<HTMLAnchorElement>
-                      | React.KeyboardEvent<HTMLButtonElement>
-                  >
+                    | React.MouseEvent<HTMLButtonElement>
+                    | React.MouseEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLButtonElement>
+                >
                 | undefined;
         };
         secondaryAction?: {
@@ -1927,50 +1913,49 @@ export interface OverlayPanel {
             text?: string | undefined;
             onClick?:
                 | AbstractEventHandler<
-                      | React.MouseEvent<HTMLButtonElement>
-                      | React.MouseEvent<HTMLAnchorElement>
-                      | React.KeyboardEvent<HTMLAnchorElement>
-                      | React.KeyboardEvent<HTMLButtonElement>
-                  >
+                    | React.MouseEvent<HTMLButtonElement>
+                    | React.MouseEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLAnchorElement>
+                    | React.KeyboardEvent<HTMLButtonElement>
+                >
                 | undefined;
         };
     };
     onDismiss: () => void;
-    size?: 'sm' | 'md' | 'lg' | undefined;
+    size?: "sm" | "md" | "lg" | undefined;
     subHeading?: OverlayPanelNodeOrRenderProp | undefined;
 }
 
 /**
  * Slim Banner Props Interface
  * https://gestalt.netlify.app/slimbanner
- *
  */
 export interface SlimBannerProps {
     dismissButton?:
         | {
-              accessibilityLabel: string;
-              onDismiss: () => void;
-          }
+            accessibilityLabel: string;
+            onDismiss: () => void;
+        }
         | undefined;
     primaryAction?:
         | {
-              accessibilityLabel: string;
-              disabled?: boolean;
-              href?: string;
-              label: string;
-              onClick?:
-                  | AbstractEventHandler<
-                        | React.MouseEvent<HTMLButtonElement>
-                        | React.MouseEvent<HTMLAnchorElement>
-                        | React.MouseEvent<HTMLAnchorElement>
-                        | React.MouseEvent<HTMLButtonElement>,
-                        {
-                            rel?: 'none' | 'nofollow';
-                            target?: null | 'self' | 'blank';
-                        }
-                    >
-                  | undefined;
-          }
+            accessibilityLabel: string;
+            disabled?: boolean;
+            href?: string;
+            label: string;
+            onClick?:
+                | AbstractEventHandler<
+                    | React.MouseEvent<HTMLButtonElement>
+                    | React.MouseEvent<HTMLAnchorElement>
+                    | React.MouseEvent<HTMLAnchorElement>
+                    | React.MouseEvent<HTMLButtonElement>,
+                    {
+                        rel?: "none" | "nofollow";
+                        target?: null | "self" | "blank";
+                    }
+                >
+                | undefined;
+        }
         | undefined;
 
     /**
@@ -1979,13 +1964,13 @@ export interface SlimBannerProps {
     helperLink?: {
         accessibilityLabel: string;
         href: string;
-        target?: null | 'self' | 'blank' | undefined;
+        target?: null | "self" | "blank" | undefined;
         text: string;
         onClick?:
             | AbstractEventHandler<
-                  React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-                  { dangerouslyDisableOnNavigation?: (() => void) | undefined }
-              >
+                React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+                { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+            >
             | undefined;
     };
     /**
@@ -1994,23 +1979,22 @@ export interface SlimBannerProps {
     iconAccessibilityLabel?: string | undefined;
     /**
      * Main content of SlimBanner. Content should be [localized](https://gestalt.pinterest.systems/slimbanner#Localization).
-     *
      */
     message: React.ReactElement<typeof Text> | string;
     /**
      * The type of SlimBanner. See the [variants](https://gestalt.pinterest.systems/slimbanner#Variants) to learn more.
      */
     type?:
-        | 'neutral'
-        | 'error'
-        | 'info'
-        | 'warning'
-        | 'success'
-        | 'errorBare'
-        | 'infoBare'
-        | 'warningBare'
-        | 'successBare'
-        | 'recommendation'
+        | "neutral"
+        | "error"
+        | "info"
+        | "warning"
+        | "success"
+        | "errorBare"
+        | "infoBare"
+        | "warningBare"
+        | "successBare"
+        | "recommendation"
         | undefined;
 }
 
@@ -2022,7 +2006,7 @@ export interface SpinnerProps {
     accessibilityLabel: string;
     show: boolean;
     delay?: boolean | undefined;
-    size?: 'sm' | 'md' | undefined;
+    size?: "sm" | "md" | undefined;
 }
 
 /**
@@ -2030,15 +2014,15 @@ export interface SpinnerProps {
  * https://gestalt.netlify.app/Stack
  */
 export interface StackProps {
-    alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | 'stretch' | undefined;
-    alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
-    alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch' | undefined;
+    alignContent?: "start" | "end" | "center" | "between" | "around" | "evenly" | "stretch" | undefined;
+    alignItems?: "start" | "end" | "center" | "baseline" | "stretch" | undefined;
+    alignSelf?: "auto" | "start" | "end" | "center" | "baseline" | "stretch" | undefined;
     children?: React.ReactNode | undefined;
     fit?: boolean | undefined;
-    flex?: 'grow' | 'shrink' | 'none' | undefined;
+    flex?: "grow" | "shrink" | "none" | undefined;
     gap?: UnsignedUpTo12 | undefined;
     height?: number | string | undefined;
-    justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
+    justifyContent?: "start" | "end" | "center" | "between" | "around" | "evenly" | undefined;
     maxHeight?: number | string | undefined;
     maxWidth?: number | string | undefined;
     minHeight?: number | string | undefined;
@@ -2052,7 +2036,7 @@ export interface StackProps {
  * https://gestalt.netlify.app/status
  */
 export interface StatusProps {
-    type: 'unstarted' | 'inProgress' | 'halted' | 'ok' | 'problem' | 'canceled' | 'warning';
+    type: "unstarted" | "inProgress" | "halted" | "ok" | "problem" | "canceled" | "warning";
     accessibilityLabel?: string | undefined;
     subtext?: string | undefined;
     title?: string | undefined;
@@ -2090,7 +2074,7 @@ export interface SwitchProps {
  */
 export interface TableProps {
     accessibilityLabel: string;
-    borderStyle?: 'sm' | 'none' | undefined;
+    borderStyle?: "sm" | "none" | undefined;
     children?: React.ReactNode | undefined;
     maxHeight?: number | string | undefined;
     stickyColumns?: number | undefined;
@@ -2113,12 +2097,12 @@ export interface TableFooterProps {
 
 export interface TableHeaderProps {
     children?: React.ReactNode | undefined;
-    display?: 'tableHeaderGroup' | 'visuallyHidden';
+    display?: "tableHeaderGroup" | "visuallyHidden";
     sticky?: boolean | undefined;
 }
 
 export interface TableHeaderCellProps extends TableCellProps {
-    scope?: 'col' | 'row' | 'colgroup' | 'rowgroup';
+    scope?: "col" | "row" | "colgroup" | "rowgroup";
     colSpan?: number;
     rowSpan?: number;
 }
@@ -2139,14 +2123,14 @@ export interface TableRowExpandableProps {
     expandedContents: React.ReactNode;
     id: string;
     children?: React.ReactNode | undefined;
-    hoverStyle?: 'none' | 'gray' | undefined;
+    hoverStyle?: "none" | "gray" | undefined;
     onExpand?:
         | AbstractEventHandler<
-              | React.MouseEvent<HTMLButtonElement>
-              | React.MouseEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLAnchorElement>
-              | React.KeyboardEvent<HTMLButtonElement>
-          >
+            | React.MouseEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>
+        >
         | undefined;
 }
 
@@ -2154,8 +2138,8 @@ export interface TableSortableHeaderCellProps extends TableHeaderCellProps {
     onSortChange: AbstractEventHandler<
         React.MouseEvent<HTMLTableCellElement> | React.KeyboardEvent<HTMLTableCellElement>
     >;
-    sortOrder: 'asc' | 'desc';
-    status: 'active' | 'inactive';
+    sortOrder: "asc" | "desc";
+    status: "active" | "inactive";
 }
 
 /**
@@ -2173,12 +2157,12 @@ export interface TabsProps {
         href: string;
         text: React.ReactNode;
         id?: string | undefined;
-        indicator?: 'dot' | number | undefined;
+        indicator?: "dot" | number | undefined;
         ref?: { current?: HTMLElement | undefined } | undefined;
     }>;
-    size?: 'md' | 'lg';
+    size?: "md" | "lg";
     wrap?: boolean;
-    bgColor?: 'default' | 'transparent';
+    bgColor?: "default" | "transparent";
 }
 
 /**
@@ -2190,7 +2174,7 @@ export interface TagProps {
     disabled?: boolean | undefined;
     onRemove?: AbstractEventHandler<React.MouseEvent<HTMLButtonElement>> | undefined;
     text: string;
-    type?: 'default' | 'error' | 'warning';
+    type?: "default" | "error" | "warning";
 }
 
 export type OnTapType = AbstractEventHandler<
@@ -2215,19 +2199,19 @@ export interface TapAreaProps {
     fullHeight?: boolean | undefined;
     fullWidth?: boolean | undefined;
     href?: string | undefined;
-    mouseCursor?: 'copy' | 'grab' | 'grabbing' | 'move' | 'noDrop' | 'pointer' | 'zoomIn' | 'zoomOut' | undefined;
+    mouseCursor?: "copy" | "grab" | "grabbing" | "move" | "noDrop" | "pointer" | "zoomIn" | "zoomOut" | undefined;
     onBlur?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onFocus?: AbstractEventHandler<React.FocusEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onMouseDown?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onMouseEnter?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onMouseLeave?: AbstractEventHandler<React.MouseEvent<HTMLDivElement | HTMLAnchorElement>> | undefined;
     onTap?: OnTapType | undefined;
-    rel?: 'none' | 'nofollow' | undefined;
-    role?: 'button' | 'link' | undefined;
-    rounding?: 'pill' | 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
+    rel?: "none" | "nofollow" | undefined;
+    role?: "button" | "link" | undefined;
+    rounding?: "pill" | "circle" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | undefined;
     tabIndex?: -1 | 0 | undefined;
-    tapStyle?: 'none' | 'compress' | undefined;
-    target?: null | 'self' | 'blank' | undefined;
+    tapStyle?: "none" | "compress" | undefined;
+    target?: null | "self" | "blank" | undefined;
 }
 
 /**
@@ -2235,27 +2219,27 @@ export interface TapAreaProps {
  * https://gestalt.netlify.app/Text
  */
 export interface TextProps {
-    align?: 'start' | 'end' | 'center' | 'forceLeft' | 'forceRight' | undefined;
+    align?: "start" | "end" | "center" | "forceLeft" | "forceRight" | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'default'
-        | 'subtle'
-        | 'success'
-        | 'error'
-        | 'warning'
-        | 'shopping'
-        | 'link'
-        | 'inverse'
-        | 'light'
-        | 'dark'
+        | "default"
+        | "subtle"
+        | "success"
+        | "error"
+        | "warning"
+        | "shopping"
+        | "link"
+        | "inverse"
+        | "light"
+        | "dark"
         | undefined;
     inline?: boolean | undefined;
     italic?: boolean | undefined;
-    overflow?: 'normal' | 'breakWord' | 'noWrap' | undefined;
-    size?: '100' | '200' | '300' | '400' | '500' | '600' | undefined;
+    overflow?: "normal" | "breakWord" | "noWrap" | undefined;
+    size?: "100" | "200" | "300" | "400" | "500" | "600" | undefined;
     lineClamp?: number;
     underline?: boolean | undefined;
-    weight?: 'bold' | 'normal' | undefined;
+    weight?: "bold" | "normal" | undefined;
     title?: string | undefined;
 }
 
@@ -2292,7 +2276,7 @@ export interface TextAreaProps {
     maxLength?: MaxLength | undefined;
     value?: string | undefined;
     readonly?: boolean;
-    labelDisplay?: 'visible' | 'hidden' | undefined;
+    labelDisplay?: "visible" | "hidden" | undefined;
 }
 
 /**
@@ -2302,7 +2286,7 @@ export interface TextAreaProps {
 export interface TextFieldProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: string }) => void;
-    autoComplete?: 'bday' | 'current-password' | 'email' | 'new-password' | 'on' | 'off' | 'username' | undefined;
+    autoComplete?: "bday" | "current-password" | "email" | "new-password" | "on" | "off" | "username" | undefined;
     /**
      * @default false
      */
@@ -2310,7 +2294,7 @@ export interface TextFieldProps {
     /**
      *  Optionally specify the action label to present for the enter key on virtual keyboards.
      */
-    enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
+    enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
     errorMessage?: React.ReactNode | undefined;
     /**
      * More information about how to complete the form field
@@ -2328,7 +2312,7 @@ export interface TextFieldProps {
      *
      * @default "md"
      */
-    size?: 'md' | 'lg' | undefined;
+    size?: "md" | "lg" | undefined;
     /**
      * List of tags to display in the component
      */
@@ -2336,9 +2320,9 @@ export interface TextFieldProps {
     /**
      * @default "text"
      */
-    type?: 'date' | 'email' | 'password' | 'text' | 'url' | 'tel' | undefined;
+    type?: "date" | "email" | "password" | "text" | "url" | "tel" | undefined;
     value?: string | undefined;
-    labelDisplay?: 'visible' | 'hidden' | undefined;
+    labelDisplay?: "visible" | "hidden" | undefined;
 }
 
 /**
@@ -2349,36 +2333,36 @@ export interface ToastProps {
     text: string | React.ReactElement<typeof Text>;
     dissmissButton:
         | {
-              accessibilityLabel?: string | undefined;
-              onDismiss: () => void;
-          }
+            accessibilityLabel?: string | undefined;
+            onDismiss: () => void;
+        }
         | undefined;
     helperLink?:
         | {
-              text: string;
-              accessibilityLabel: string;
-              href: string;
-              onClick?: AbstractEventHandler<
-                  React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-                  { dangerouslyDisableOnNavigation: () => void }
-              >;
-          }
+            text: string;
+            accessibilityLabel: string;
+            href: string;
+            onClick?: AbstractEventHandler<
+                React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+                { dangerouslyDisableOnNavigation: () => void }
+            >;
+        }
         | undefined;
     primaryAction?: {
         accessibilityLabel: string;
         href?: string;
         label: string;
-        onClick?: ButtonProps['onClick'] | undefined;
-        rel?: LinkProps['rel'] | undefined;
-        size?: ButtonProps['size'] | undefined;
-        target?: LinkProps['target'] | undefined;
+        onClick?: ButtonProps["onClick"] | undefined;
+        rel?: LinkProps["rel"] | undefined;
+        size?: ButtonProps["size"] | undefined;
+        target?: LinkProps["target"] | undefined;
     };
     thumbnail?:
         | { image: React.ReactElement<typeof Image> }
         | { avatar: React.ReactElement<typeof Avatar> }
         | { icon: React.ReactElement<typeof Icon> }
         | undefined;
-    variant?: 'default' | 'success' | 'error' | 'progress' | undefined;
+    variant?: "default" | "success" | "error" | "progress" | undefined;
 }
 
 /**
@@ -2404,21 +2388,21 @@ export interface UpsellProps {
     message: string | React.ReactElement<typeof Text>;
     dismissButton?:
         | {
-              accessibilityLabel: string;
-              onDismiss: () => void;
-          }
+            accessibilityLabel: string;
+            onDismiss: () => void;
+        }
         | undefined;
     imageData?:
         | {
-              component: React.ReactElement<any, typeof Image | typeof Icon>;
-              width?: number | undefined;
-              mask?:
-                  | {
-                        rounding: 'circle' | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-                        wash: boolean;
-                    }
-                  | undefined;
-          }
+            component: React.ReactElement<any, typeof Image | typeof Icon>;
+            width?: number | undefined;
+            mask?:
+                | {
+                    rounding: "circle" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+                    wash: boolean;
+                }
+                | undefined;
+        }
         | undefined;
     primaryAction?: ActionData | undefined;
     secondaryAction?: ActionData | undefined;
@@ -2449,19 +2433,19 @@ export interface VideoProps {
     accessibilityPlayLabel?: string | undefined;
     accessibilityUnmuteLabel?: string | undefined;
     aspectRatio: number;
-    backgroundColor?: 'black' | 'transparent' | undefined;
+    backgroundColor?: "black" | "transparent" | undefined;
     captions: string;
     playbackRate?: number | undefined;
     playing?: boolean | undefined;
-    preload?: 'auto' | 'metadata' | 'none' | undefined;
-    src: string | ReadonlyArray<{ type: 'video/m3u8' | 'video/mp4' | 'video/ogg'; src: string }>;
+    preload?: "auto" | "metadata" | "none" | undefined;
+    src: string | ReadonlyArray<{ type: "video/m3u8" | "video/mp4" | "video/ogg"; src: string }>;
     volume?: number | undefined;
     children?: Node | undefined;
     controls?: boolean | undefined;
     disableRemotePlayback?: boolean | undefined;
-    crossOrigin?: 'anonymous' | 'use-credentials' | undefined;
+    crossOrigin?: "anonymous" | "use-credentials" | undefined;
     loop?: boolean | undefined;
-    objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down' | undefined;
+    objectFit?: "fill" | "contain" | "cover" | "none" | "scale-down" | undefined;
     onDurationChange?:
         | ((args: { event: React.SyntheticEvent<HTMLVideoElement>; duration: number }) => void)
         | undefined;

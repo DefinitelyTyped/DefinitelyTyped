@@ -16,9 +16,9 @@ I18n.t("some.missing.scope", { defaultValue: "A default message" });
 I18n.t("noun", { defaultValue: "I'm a {{noun}}", noun: "Mac" });
 I18n.t("some.missing.scope", { defaults: [{ scope: "some.existing.scope" }] });
 I18n.t("some.missing.scope", { defaults: [{ message: "Some message" }] });
-I18n.translate("message", {defaultValue: { one: "%{count} message", other: "%{count} messages"}, count: 1});
+I18n.translate("message", { defaultValue: { one: "%{count} message", other: "%{count} messages" }, count: 1 });
 I18n.translate("foo", {
-    defaults: [{scope: "bar"}],
+    defaults: [{ scope: "bar" }],
     defaultValue: (scope: string) => scope.toUpperCase(),
 });
 
@@ -26,7 +26,7 @@ I18n.fallbacks = true;
 I18n.fallbacks = "de";
 I18n.fallbacks = {
     de: "en",
-    "de-DE": [ "de", "en" ]
+    "de-DE": ["de", "en"],
 };
 I18n.locales.no = ["nb", "en"];
 I18n.locales.no = "nb";
@@ -45,14 +45,13 @@ I18n.missingTranslation = (scope, options) => undefined;
 
 I18n.t("inbox.counting", { count: 10 });
 I18n.pluralization["ru"] = count => {
-    const key =
-        count % 10 === 1 && count % 100 !== 11
-            ? "one"
-            : [2, 3, 4].indexOf(count % 10) >= 0 && [12, 13, 14].indexOf(count % 100) < 0
-            ? "few"
-            : count % 10 === 0 || [5, 6, 7, 8, 9].indexOf(count % 10) >= 0 || [11, 12, 13, 14].indexOf(count % 100) >= 0
-            ? "many"
-            : "other";
+    const key = count % 10 === 1 && count % 100 !== 11
+        ? "one"
+        : [2, 3, 4].indexOf(count % 10) >= 0 && [12, 13, 14].indexOf(count % 100) < 0
+        ? "few"
+        : count % 10 === 0 || [5, 6, 7, 8, 9].indexOf(count % 10) >= 0 || [11, 12, 13, 14].indexOf(count % 100) >= 0
+        ? "many"
+        : "other";
     return [key];
 };
 
@@ -75,7 +74,7 @@ I18n.toNumber(1000, { delimiter: ".", precision: 0 });
 I18n.toCurrency(1000, { precision: 0 });
 
 I18n.toHumanSize(1234);
-I18n.toHumanSize(1024 * 1024, {scope: "extended"});
+I18n.toHumanSize(1024 * 1024, { scope: "extended" });
 
 I18n.l("date.formats.short", "2009-09-18");
 I18n.l("time.formats.short", "2009-09-18 23:12:43");

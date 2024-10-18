@@ -1,17 +1,12 @@
-// Type definitions for html 1.0
-// Project: https://github.com/maxogden/commonjs-html-prettyprinter
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface PrintOptions {
     /**
      * Put braces on the same line as control statements (`collapse`),
      * or put braces on own line (Allman / ANSI style, `expand`),
      * or just put end braces on own line (`end-expand`). Default: `collapse`.
      */
-    brace_style?: 'collapse' | 'expand' | 'end-expand' | undefined;
+    brace_style?: "collapse" | "expand" | "end-expand" | undefined;
     /** Default: `normal`. */
-    indent_scripts?: 'keep' | 'separate' | 'normal' | undefined;
+    indent_scripts?: "keep" | "separate" | "normal" | undefined;
     /** indentation size. Default: 4. */
     indent_size?: number | undefined;
     /** character to indent with. Default: " " (space). */

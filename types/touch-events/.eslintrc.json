@@ -1,6 +1,5 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-useless-files": "off"
+        "@definitelytyped/no-useless-files": "off"
     }
 }

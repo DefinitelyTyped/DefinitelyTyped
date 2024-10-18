@@ -1,4 +1,4 @@
-import TerminalNode from './TerminalNode';
+import TerminalNode from "./TerminalNode";
 
 export default class ErrorNode extends TerminalNode {
     isErrorNode(): boolean;

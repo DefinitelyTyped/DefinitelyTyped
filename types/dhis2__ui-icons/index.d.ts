@@ -1,10 +1,4 @@
-// Type definitions for @dhis2/ui-icons 7.8
-// Project: https://github.com/dhis2/ui/tree/master/icons
-// Definitions by: Alexis Rico <https://github.com/SferaDev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
-import * as React from 'react';
+import * as React from "react";
 
 // https://github.com/dhis2/ui/blob/master/icons/templates/icon-template.js
 export interface IconProps {

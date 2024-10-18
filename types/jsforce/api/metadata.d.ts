@@ -1,6 +1,6 @@
-import { Callback, Connection } from '../connection';
-import { EventEmitter } from 'events';
-import { Stream } from 'stream';
+import { EventEmitter } from "events";
+import { Stream } from "stream";
+import { Callback, Connection } from "../connection";
 
 interface DeployResult {
     id: string;
@@ -66,7 +66,7 @@ interface MetadataInfo {
 }
 
 interface Package {
-    apiAccessLevel?: 'Unrestricted' | 'Restricted' | undefined;
+    apiAccessLevel?: "Unrestricted" | "Restricted" | undefined;
     description?: string | undefined;
     fullName?: string | undefined;
     namespacePrefix?: string | undefined;
@@ -116,7 +116,7 @@ interface RetrieveResult {
 interface SaveResult {
     success: boolean;
     fullName: string;
-    errors?: SaveError | Array<SaveError> | undefined;
+    errors?: SaveError | SaveError[] | undefined;
 }
 
 interface SaveError {
@@ -187,44 +187,44 @@ export class Metadata {
 
     checkStatus(
         ids: string | string[],
-        callback?: Callback<AsyncResult | Array<AsyncResult>>,
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     create(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>,
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     createAsync(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>,
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     createSync(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>,
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     delete(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<SaveResult | Array<SaveResult>>,
-    ): Promise<SaveResult | Array<SaveResult>>;
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     deleteAsync(
         type: string,
-        metadata: string | string[] | MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<AsyncResult | Array<AsyncResult>>,
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        metadata: string | string[] | MetadataInfo | MetadataInfo[],
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     deleteSync(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<SaveResult | Array<SaveResult>>,
-    ): Promise<SaveResult | Array<SaveResult>>;
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     deploy(
         zipInput: Stream | Buffer | string,
@@ -235,22 +235,22 @@ export class Metadata {
     describe(version?: string, callback?: Callback<DescribeMetadataResult>): Promise<DescribeMetadataResult>;
 
     list(
-        queries: ListMetadataQuery | Array<ListMetadataQuery>,
+        queries: ListMetadataQuery | ListMetadataQuery[],
         version?: string,
-        callback?: Callback<Array<FileProperties>>,
-    ): Promise<Array<FileProperties>>;
+        callback?: Callback<FileProperties[]>,
+    ): Promise<FileProperties[]>;
 
     read(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<MetadataInfo | Array<MetadataInfo>>,
-    ): Promise<MetadataInfo | Array<MetadataInfo>>;
+        callback?: Callback<MetadataInfo | MetadataInfo[]>,
+    ): Promise<MetadataInfo | MetadataInfo[]>;
 
     readSync(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<MetadataInfo | Array<MetadataInfo>>,
-    ): Promise<MetadataInfo | Array<MetadataInfo>>;
+        callback?: Callback<MetadataInfo | MetadataInfo[]>,
+    ): Promise<MetadataInfo | MetadataInfo[]>;
 
     rename(
         type: string,
@@ -263,25 +263,25 @@ export class Metadata {
 
     update(
         type: string,
-        updateMetadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>,
-    ): Promise<SaveResult | Array<SaveResult>>;
+        updateMetadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     updateAsync(
         type: string,
         updateMetadata: MetadataInfo,
-        callback?: Callback<AsyncResult | Array<AsyncResult>>,
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     updateSync(
         type: string,
-        updateMetadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>,
-    ): Promise<SaveResult | Array<SaveResult>>;
+        updateMetadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     upsert(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<UpsertResult | Array<UpsertResult>>,
-    ): Promise<UpsertResult | Array<UpsertResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<UpsertResult | UpsertResult[]>,
+    ): Promise<UpsertResult | UpsertResult[]>;
 }

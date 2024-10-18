@@ -1,36 +1,36 @@
-import historyApiFallback = require('connect-history-api-fallback-exclusions');
-import express = require('express');
+import historyApiFallback = require("connect-history-api-fallback-exclusions");
+import express = require("express");
 
 const app = express();
 app.use(historyApiFallback());
 
 historyApiFallback({
-    verbose: true
+    verbose: true,
 });
 
 historyApiFallback({
-    logger: console.log.bind(console)
+    logger: console.log.bind(console),
 });
 
 historyApiFallback({
     exclusions: [
-      '/api/*',
-      '/health',
+        "/api/*",
+        "/health",
     ],
 });
 
 historyApiFallback({
     rewrites: [
-        { from: /\/soccer/, to: '/soccer.html' }
-    ]
+        { from: /\/soccer/, to: "/soccer.html" },
+    ],
 });
 
 historyApiFallback({
-    index: 'default.html'
+    index: "default.html",
 });
 
 historyApiFallback({
-    htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
+    htmlAcceptHeaders: ["text/html", "application/xhtml+xml"],
 });
 
 historyApiFallback({
@@ -38,10 +38,10 @@ historyApiFallback({
         {
             from: /^\/libs\/(.*)$/,
             to(context) {
-                return './bower_components' + context.parsedUrl.pathname;
-            }
-        }
-    ]
+                return "./bower_components" + context.parsedUrl.pathname;
+            },
+        },
+    ],
 });
 
 historyApiFallback({
@@ -49,13 +49,13 @@ historyApiFallback({
         {
             from: /\/app\/login/,
             to: function onMatch(ctx) {
-                if (ctx.parsedUrl.path && ctx.parsedUrl.path.indexOf('.js')) {
-                    return ctx.parsedUrl.href || '';
+                if (ctx.parsedUrl.path && ctx.parsedUrl.path.indexOf(".js")) {
+                    return ctx.parsedUrl.href || "";
                 }
-                return '/app/login/index.html';
-            }
-        }
-    ]
+                return "/app/login/index.html";
+            },
+        },
+    ],
 });
 
 historyApiFallback({
@@ -64,7 +64,7 @@ historyApiFallback({
             from: /^\/libs\/(.*)$/,
             to(context) {
                 return `/${context.match[2]}/${context.match[3]}`;
-            }
-        }
-    ]
+            },
+        },
+    ],
 });

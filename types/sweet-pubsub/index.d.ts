@@ -1,8 +1,3 @@
-// Type definitions for sweet-pubsub 1.1
-// Project: https://github.com/oldboyxx/sweet-pubsub
-// Definitions by: Emilio Escobar <https://github.com/emilioivan12>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface SweetPubsub {
     on<CBFn extends (...args: any[]) => unknown>(
         topic: string,

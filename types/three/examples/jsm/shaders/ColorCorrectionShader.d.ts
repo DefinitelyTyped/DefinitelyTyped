@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "three";
 
 export const ColorCorrectionShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         powRGB: IUniform;

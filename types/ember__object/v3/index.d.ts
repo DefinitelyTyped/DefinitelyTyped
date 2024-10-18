@@ -1,23 +1,14 @@
-// Type definitions for non-npm package @ember/object 3.12
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fobject
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import CoreObject from '@ember/object/core';
-import Observable from '@ember/object/observable';
 import {
     ComputedPropertyCallback,
-    UnwrapComputedPropertyGetter,
-    UnwrapComputedPropertySetter,
-    UnwrapComputedPropertyGetters,
-    UnwrapComputedPropertySetters,
     ExtractPropertyNamesOfType,
-} from '@ember/object/-private/types';
-import ComputedProperty, * as ComputedNamespace from '@ember/object/computed';
+    UnwrapComputedPropertyGetter,
+    UnwrapComputedPropertyGetters,
+    UnwrapComputedPropertySetter,
+    UnwrapComputedPropertySetters,
+} from "@ember/object/-private/types";
+import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
+import CoreObject from "@ember/object/core";
+import Observable from "@ember/object/observable";
 
 /**
  * `Ember.Object` is the main base class for all Ember objects. It is a subclass
@@ -218,7 +209,7 @@ export function notifyPropertyChange(obj: object, keyName: string): void;
 
 export const action: MethodDecorator;
 
-declare module '@ember/utils/-private/types' {
+declare module "@ember/utils/-private/types" {
     interface TypeLookup {
         class: typeof EmberObject;
         instance: EmberObject;

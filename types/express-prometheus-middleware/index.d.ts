@@ -1,8 +1,3 @@
-// Type definitions for express-prometheus-middleware 1.2
-// Project: https://github.com/joao-fontenele/express-prometheus-middleware#readme
-// Definitions by: Floris de Bijl <https://github.com/Fdebijl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import express = require("express");
 
 interface Labels {

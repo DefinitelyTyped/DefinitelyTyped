@@ -1,11 +1,5 @@
-// Type definitions for idyll-document 2.9
-// Project: https://github.com/idyll-lang/idyll/tree/master/packages/idyll-document
-// Definitions by: Thanh Ngo <https://github.com/iocat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
+import { AST, Options as CompilerOptions } from "idyll-compiler";
 import { ElementType, PureComponent } from "react";
-import { Options as CompilerOptions, AST } from "idyll-compiler";
 
 export interface IdyllDocumentProps {
     /**
@@ -44,10 +38,12 @@ export interface IdyllDocumentProps {
     /**
      * The React component rendered when an error occurs
      */
-    errorComponent?: ElementType<{
-        className?: string | undefined;
-        children: Error["message"] | null;
-    }> | undefined;
+    errorComponent?:
+        | ElementType<{
+            className?: string | undefined;
+            children: Error["message"] | null;
+        }>
+        | undefined;
     /**
      * Compiler option for Idyll compiler when compiling markup
      */

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parsecurrency",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mktj/parsecurrency#readme"
+    ],
+    "devDependencies": {
+        "@types/parsecurrency": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cristian Greco",
+            "githubUsername": "cristianrgreco"
+        }
+    ]
+}

@@ -1,15 +1,6 @@
-// Type definitions for loader-utils 2.0
-// Project: https://github.com/webpack/loader-utils#readme
-// Definitions by: Gyusun Yeom <https://github.com/Perlmint>
-//                 Totooria Hyperion <https://github.com/TotooriaHyperion>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Jesse Katsumata <https://github.com/Naturalclar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 
-import { loader } from 'webpack';
+import { loader } from "webpack";
 
 export type Readonly<T> = {
     readonly [P in keyof T]: T[P];
@@ -25,9 +16,9 @@ export interface OptionObject {
     [key: string]: null | false | true | string;
 }
 
-export type HashType = 'sha1' | 'md4' | 'md5' | 'sha256' | 'sha512';
+export type HashType = "sha1" | "md4" | "md5" | "sha256" | "sha512";
 
-export type DigestType = 'hex' | 'base26' | 'base32' | 'base36' | 'base49' | 'base52' | 'base58' | 'base62' | 'base64';
+export type DigestType = "hex" | "base26" | "base32" | "base36" | "base49" | "base52" | "base58" | "base62" | "base64";
 
 /**
  * Recommended way to retrieve the options of a loader invocation

@@ -1,8 +1,3 @@
-// Type definitions for ellipsize 0.1
-// Project: https://github.com/mvhenten/ellipsize
-// Definitions by: Stefan Natter <https://github.com/natterstefan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Ellipsizes a string near a word boundary.
  *

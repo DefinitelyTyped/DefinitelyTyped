@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/n-readlines",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/nacholibre/node-readlines"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/n-readlines": "workspace:."
+    },
+    "owners": []
+}

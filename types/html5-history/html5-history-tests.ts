@@ -1,4 +1,4 @@
-import * as History from 'html5-history';
+import * as History from "html5-history";
 
 History.init();
 History.getState();

@@ -9,5 +9,5 @@ declare class EntityOptions {
 declare namespace EntityOptions {
     export { Field, ModelDef };
 }
-type Field = import('@nginstack/engine/lib/classdef/Field');
-type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
+type Field = import("@nginstack/engine/lib/classdef/Field");
+type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");

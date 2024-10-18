@@ -1,12 +1,12 @@
-import imagemin from 'imagemin';
-import imageminZopfli = require('imagemin-zopfli');
+import imagemin from "imagemin";
+import imageminZopfli = require("imagemin-zopfli");
 
-imagemin(['*.png'], {
+imagemin(["*.png"], {
     plugins: [
         imageminZopfli(),
         imageminZopfli({}),
         imageminZopfli({
-            '8bit': true,
+            "8bit": true,
             transparent: true,
             iterations: 256,
             more: true,

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.blockui",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.blockui",
+    "projects": [
+        "http://malsup.com/jquery/block/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.blockui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeffrey Lee",
+            "url": "http://blog.darkthread.net/"
+        }
+    ]
+}

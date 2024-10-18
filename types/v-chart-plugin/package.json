@@ -1,6 +1,16 @@
 {
-  "private": true,
-  "dependencies": {
-    "vue": "^2.0.0"
-  }
+    "private": true,
+    "name": "@types/v-chart-plugin",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/ignoreintuition/v-chart-plugin",
+        "https://resurgencewebdesign.com/v-chart"
+    ],
+    "dependencies": {
+        "vue": "^2.0.0"
+    },
+    "devDependencies": {
+        "@types/v-chart-plugin": "workspace:."
+    },
+    "owners": []
 }

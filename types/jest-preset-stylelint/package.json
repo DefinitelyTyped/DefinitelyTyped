@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jest-preset-stylelint",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/stylelint/jest-preset-stylelint"
+    ],
+    "devDependencies": {
+        "@types/jest-preset-stylelint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marc Fallows",
+            "githubUsername": "marcfallows"
+        }
+    ]
+}

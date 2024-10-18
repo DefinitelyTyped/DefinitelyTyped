@@ -1,6 +1,7 @@
 {
     "rules": {
-        "no-const-enum": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

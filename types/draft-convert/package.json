@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/draft-convert",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/HubSpot/draft-convert"
+    ],
+    "dependencies": {
+        "@types/draft-js": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/draft-convert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Agustin Valeriani",
+            "githubUsername": "avaleriani"
+        },
+        {
+            "name": "Munif Tanjim",
+            "githubUsername": "MunifTanjim"
+        },
+        {
+            "name": "Vadim Chistokhvalov",
+            "githubUsername": "vadim-ch"
+        }
+    ]
+}

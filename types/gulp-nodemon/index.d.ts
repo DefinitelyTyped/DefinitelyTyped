@@ -1,13 +1,7 @@
-// Type definitions for gulp-nodemon
-// Project: https://github.com/JacksonGariety/gulp-nodemon
-// Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import * as Gulp from "gulp";
 
 declare namespace nodemon {
-
     interface Nodemon {
         (option?: Option): EventEmitter;
     }
@@ -19,7 +13,7 @@ declare namespace nodemon {
     // TODO: Properties may be insufficient
     // TODO: In future this interface should be moved to nodemon.d.ts
     interface _Option {
-        env?: { [key: string]: string | boolean | number; } | undefined;
+        env?: { [key: string]: string | boolean | number } | undefined;
         script?: string | undefined;
         /**
          * Extensions to look for, ie. js,jade,hbs.
@@ -66,8 +60,8 @@ declare namespace nodemon {
          * Exit on crash, allows use of nodemon with daemon tools like forever.js.
          */
         exitcrash?: boolean | undefined;
-        execMap?: { [key: string]: string | boolean | number; } | undefined;
-        events?: { [key: string]: string; } | undefined;
+        execMap?: { [key: string]: string | boolean | number } | undefined;
+        events?: { [key: string]: string } | undefined;
         restartable?: string | undefined;
         args?: string[] | undefined;
         nodeArgs?: string[] | undefined;

@@ -14,15 +14,15 @@ export interface CompressionLevel {
      * This option uses JPEG medium quality compression.
      * Output pdf will not contain hidden layers, document structure, metadata, javascript, user properties and print settings.
      */
-    HIGH: 'HIGH';
+    HIGH: "HIGH";
     /**
      * Reduces the file size of pdf by reducing resolution of the coloured and grayscale images above 200 dpi to 144 dpi (dots per inch).
      * This option uses JP2K medium quality compression.
      */
-    MEDIUM: 'MEDIUM';
+    MEDIUM: "MEDIUM";
     /**
      * Reduces the file size of pdf by reducing resolution of the coloured and grayscale images above 250 dpi to 200 dpi (dots per inch).
      * This option uses JP2K high quality compression.
      */
-    LOW: 'LOW';
+    LOW: "LOW";
 }

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Collapse, UnmountClosed } from 'react-collapse';
+import * as React from "react";
+import { Collapse, UnmountClosed } from "react-collapse";
 
 class TestRequired extends React.Component {
     render() {
@@ -19,8 +19,8 @@ class TestRequired extends React.Component {
 class TestAll extends React.Component {
     render() {
         const theme = {
-            collapse: 'collapse-class',
-            content: 'content-class',
+            collapse: "collapse-class",
+            content: "content-class",
         };
 
         const onRest = () => {};
@@ -28,7 +28,7 @@ class TestAll extends React.Component {
 
         const initialStyle = {
             height: 200,
-            overflow: 'auto',
+            overflow: "auto",
         };
 
         return (

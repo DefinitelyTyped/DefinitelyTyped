@@ -1,8 +1,3 @@
-// Type definitions for async-csv 2.1
-// Project: https://github.com/anton-bot/async-csv#readme
-// Definitions by: Moritz Friedrich <https://github.com/Radiergummi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare const CsvAsync: {
@@ -20,7 +15,6 @@ declare const CsvAsync: {
     parse(input: string, options?: CsvAsync.CsvParseOptions): Promise<unknown[]>;
 
     /**
-     *
      * @param data
      * @param handler
      * @param options
@@ -56,7 +50,7 @@ declare namespace CsvAsync {
 
     type PlainObject<T> = Record<string, T>;
 
-    type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
+    type RecordDelimiter = string | Buffer | "auto" | "unix" | "mac" | "windows" | "ascii" | "unicode";
 
     interface CastingContext {
         readonly column?: number | string | undefined;

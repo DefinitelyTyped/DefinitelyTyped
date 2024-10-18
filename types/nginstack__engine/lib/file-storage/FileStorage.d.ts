@@ -3,6 +3,7 @@ declare function FileStorage(classKey: number): void;
 declare class FileStorage {
     constructor(classKey: number);
     private classKey_;
+    private classDef_;
     private linkFieldName_;
     private linkedTableName_;
     private attributeNames_;
@@ -12,6 +13,7 @@ declare class FileStorage {
     private maxFiles_;
     private maxFileSize_;
     private maxTotalSize_;
+    private hasMain_;
     private dataRel_;
     private fileInfos_;
     private fileFieldName_;
@@ -25,8 +27,9 @@ declare class FileStorage {
     maxFiles: number;
     maxFileSize: number;
     maxTotalSize: number;
+    cacheControl: string;
     private tryGetFileInfo_;
-    hasViewPermission(fileKey: number, userKey: number): string;
+    userHasViewPermission(fileKey: number, userKey?: number): boolean;
     tryGetFileUrl(fileKey: number): string;
     tryGetFileName(fileKey: number): string;
     getFileSize(fileKey: number): string;
@@ -40,6 +43,7 @@ declare class FileStorage {
     getLinkedFilesCount(key: number | DBKey): number;
     findFileByName(fileName: string): FileInfo;
     relationshipExists(fileKey: number, targetKey: number): boolean;
+    defineRelationshipAsMain(fileKey: number, recordKey: number): void;
     linkFile(fileKey: number, recordKey: number): void;
     addFile(
         originalFileName: string,
@@ -56,14 +60,15 @@ declare class FileStorage {
     ): void;
 }
 declare namespace FileStorage {
-    export { StorageKind, FileInfo, DBKey };
+    export { StorageKind, FileInfo, DBKey, DataSet };
 }
 type StorageKind = string;
 declare namespace StorageKind {
-    const VFS: string;
-    const LOB: string;
+    let VFS: string;
+    let LOB: string;
 }
-type DBKey = any;
-type FileInfo = import('./FileInfo');
 import File = require('../io/File.js');
 import MemoryStream = require('../io/MemoryStream.js');
+type FileInfo = import('./FileInfo');
+type DBKey = import('../dbkey/DBKey');
+type DataSet = import('../dataset/DataSet');

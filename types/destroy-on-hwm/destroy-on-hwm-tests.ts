@@ -1,5 +1,5 @@
-import { PassThrough } from 'stream';
-import destroyOnHWM = require('destroy-on-hwm');
+import { PassThrough } from "stream";
+import destroyOnHWM = require("destroy-on-hwm");
 
 const stream = new PassThrough();
 

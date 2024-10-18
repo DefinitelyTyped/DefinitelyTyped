@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bluebird",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/petkaantonov/bluebird"
+    ],
+    "devDependencies": {
+        "@types/bluebird": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Hecker",
+            "githubUsername": "lhecker"
+        }
+    ]
+}

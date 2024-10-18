@@ -1,3 +1,3 @@
-import DFASerializer from './DFASerializer';
+import DFASerializer from "./DFASerializer";
 
 export default class LexerDFASerializer extends DFASerializer {}

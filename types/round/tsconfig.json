@@ -1,12 +1,8 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "ES6"
-        ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
         ],
         "types": [],
         "noImplicitAny": true,

@@ -1,8 +1,3 @@
-// Type definitions for xsalsa20-encoding 1.1
-// Project: https://github.com/little-core-labs/xsalsa20-encoding
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = createCodec;
@@ -120,7 +115,7 @@ declare namespace createCodec {
     type ValueToEncode = Buffer | string | readonly number[] | JSONParsedBuffer;
 
     interface JSONParsedBuffer {
-        type: 'Buffer';
+        type: "Buffer";
         data: readonly number[];
     }
 

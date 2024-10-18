@@ -9,18 +9,18 @@ declare const paramCodes: {
 };
 
 declare const stripTypeIds: {
-    'sk6812-rgbw': 403703808;
-    'sk6812-rbgw': 403701768;
-    'sk6812-grbw': 403181568;
-    'sk6812-gbrw': 403177488;
-    'sk6812-brgw': 402657288;
-    'sk6812-bgrw': 402655248;
-    'ws2811-rgb': 1050624;
-    'ws2811-rbg': 1048584;
-    'ws2811-grb': 528384;
-    'ws2811-gbr': 524304;
-    'ws2811-brg': 4104;
-    'ws2811-bgr': 2064;
+    "sk6812-rgbw": 403703808;
+    "sk6812-rbgw": 403701768;
+    "sk6812-grbw": 403181568;
+    "sk6812-gbrw": 403177488;
+    "sk6812-brgw": 402657288;
+    "sk6812-bgrw": 402655248;
+    "ws2811-rgb": 1050624;
+    "ws2811-rbg": 1048584;
+    "ws2811-grb": 528384;
+    "ws2811-gbr": 524304;
+    "ws2811-brg": 4104;
+    "ws2811-bgr": 2064;
     ws2812: 528384;
     sk6812: 528384;
     sk6812w: 403177488;
@@ -44,4 +44,4 @@ declare const stripType: {
     SK6812W: 403177488;
 };
 
-export { paramCodes, stripTypeIds, stripType };
+export { paramCodes, stripType, stripTypeIds };

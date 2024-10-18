@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/node-ssh",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/steelbrain/node-ssh"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/ssh2": "*",
+        "@types/ssh2-streams": "*"
+    },
+    "devDependencies": {
+        "@types/node-ssh": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

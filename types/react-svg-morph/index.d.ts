@@ -1,9 +1,4 @@
-// Type definitions for react-svg-morph 0.2
-// Project: https://github.com/gorangajic/react-svg-morph#readme
-// Definitions by: Haseeb Majid <https://github.com/hmajid2301>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface MorphReplaceProps {
     children: React.ReactElement;

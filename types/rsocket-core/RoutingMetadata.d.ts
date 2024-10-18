@@ -1,5 +1,5 @@
 export class RoutingMetadata implements Iterable<string> {
-    constructor(buffer: Buffer)
+    constructor(buffer: Buffer);
 
     [Symbol.iterator](): Iterator<string>;
 }

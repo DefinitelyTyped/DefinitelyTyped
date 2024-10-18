@@ -1,8 +1,3 @@
-// Type definitions for json-buffer 3.0
-// Project: https://github.com/dominictarr/json-buffer
-// Definitions by: Paul Hawxby <https://github.com/phawxby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Converts supplied object to a string and safely handles buffers by converting them to a base64 string.
  *

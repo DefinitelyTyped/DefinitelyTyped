@@ -1,8 +1,3 @@
-// Type definitions for css.escape 1.5
-// Project: https://github.com/mathiasbynens/CSS.escape
-// Definitions by: Mihnea Stoian <https://github.com/mihnea-s>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     const CSS: {
         /**

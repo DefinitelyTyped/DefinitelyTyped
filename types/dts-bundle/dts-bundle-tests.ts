@@ -5,19 +5,19 @@ var opts = {
 
     // name of module likein package.json
     // - used to declare module & import/require
-    name: 'cool-project',
+    name: "cool-project",
     // path to entry-point (generated .d.ts file for main module)
     // - either relative or absolute
-    main: 'build/index.d.ts',
+    main: "build/index.d.ts",
 
     // Optional
 
     // base directory to be used for discovering type declarations (i.e. from this project itself)
     // - default: dirname of main
-    baseDir: 'build',
+    baseDir: "build",
     // path of output file
     // - default: "<baseDir>/<name>.d.ts"
-    out: 'dist/cool-project.d.ts',
+    out: "dist/cool-project.d.ts",
     // include typings outside of the 'baseDir' (i.e. like node.d.ts)
     // - default: false
     externals: false,
@@ -34,16 +34,16 @@ var opts = {
     newline: "\n",
     // indentation to use in output file
     // - default 4 spaces
-    indent: '   ',
+    indent: "   ",
     // prefix for rewriting module names
     // - default '__'
-    prefix: '__',
+    prefix: "__",
     // separator for rewriting module 'path' names
     // - default: forward slash (like sub-modules)
-    separator: '/',
+    separator: "/",
     // enable verbose mode, prints detailed info about all references and includes/excludes
     // - default: false
-    verbose: false
+    verbose: false,
 };
 
 // run it

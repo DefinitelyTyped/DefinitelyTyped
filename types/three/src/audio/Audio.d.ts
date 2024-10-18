@@ -1,6 +1,6 @@
-import { Object3D } from './../core/Object3D.js';
-import { AudioListener } from './AudioListener.js';
-import { AudioContext } from './AudioContext.js';
+import { Object3D } from "../core/Object3D.js";
+import { AudioContext } from "./AudioContext.js";
+import { AudioListener } from "./AudioListener.js";
 
 // Extras / Audio /////////////////////////////////////////////////////////////////////
 
@@ -40,7 +40,7 @@ export class Audio<NodeType extends AudioNode = GainNode> extends Object3D {
      * @remarks Sub-classes will update this value.
      * @defaultValue `Audio`
      */
-    readonly type: string | 'Audio';
+    readonly type: string | "Audio";
 
     /**
      * A reference to the listener object of this audio.
@@ -173,14 +173,17 @@ export class Audio<NodeType extends AudioNode = GainNode> extends Object3D {
      * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is true, starts playback.
      */
     play(delay?: number): this;
+
     /**
      * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is true, pauses playback.
      */
     pause(): this;
+
     /**
      * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is enabled, stops playback.
+     * @param delay (optional) - The delay, in seconds, at which the audio should start playing.
      */
-    stop(): this;
+    stop(delay?: number): this;
 
     /**
      * Called automatically when playback finished.

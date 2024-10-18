@@ -1,12 +1,6 @@
-// Type definitions for moment-business-time 1.1
-// Project: https://github.com/lennym/moment-business-time
-// Definitions by: Tomasz Nguyen <https://github.com/swist>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as moment from "moment";
 
-import * as moment from 'moment';
-
-declare module 'moment' {
+declare module "moment" {
     interface Moment {
         nextWorkingDay: () => Moment;
         nextWorkingTime: () => Moment;
@@ -52,6 +46,6 @@ declare module 'moment' {
 
     interface TransitionTime {
         moment: Moment;
-        transition: 'open' | 'close';
+        transition: "open" | "close";
     }
 }

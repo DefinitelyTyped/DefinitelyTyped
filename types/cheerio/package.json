@@ -1,0 +1,56 @@
+{
+    "private": true,
+    "name": "@types/cheerio",
+    "version": "0.22.9999",
+    "projects": [
+        "https://github.com/cheeriojs/cheerio"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cheerio": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bret Little",
+            "githubUsername": "blittle"
+        },
+        {
+            "name": "VILIC VANE",
+            "url": "http://vilic.info"
+        },
+        {
+            "name": "Wayne Maurer",
+            "githubUsername": "wmaurer"
+        },
+        {
+            "name": "Umar Nizamani",
+            "githubUsername": "umarniz"
+        },
+        {
+            "name": "LiJinyao",
+            "githubUsername": "LiJinyao"
+        },
+        {
+            "name": "Chennakrishna",
+            "githubUsername": "chennakrishna8"
+        },
+        {
+            "name": "AzSiAz",
+            "githubUsername": "AzSiAz"
+        },
+        {
+            "name": "Ryo Ota",
+            "githubUsername": "nwtgck"
+        },
+        {
+            "name": "Hiroki Osame",
+            "githubUsername": "privatenumber"
+        },
+        {
+            "name": "Artishevskiy Alexey",
+            "githubUsername": "dhvcc"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/country-select-js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mrmarkfrench/country-select-js"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/country-select-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Humberto Rocha",
+            "githubUsername": "humrochagf"
+        }
+    ]
+}

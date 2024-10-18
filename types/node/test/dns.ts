@@ -1,20 +1,44 @@
 import {
-    lookup,
     ADDRCONFIG,
-    V4MAPPED,
+    ADDRGETNETWORKPARAMS,
+    ALL,
+    AnyRecord,
+    BADFAMILY,
+    BADFLAGS,
+    BADHINTS,
+    BADNAME,
+    BADQUERY,
+    BADRESP,
+    BADSTR,
+    CANCELLED,
+    CONNREFUSED,
+    DESTRUCTION,
+    EOF,
+    FILE,
+    FORMERR,
+    LOADIPHLPAPI,
+    lookup,
     LookupAddress,
     lookupService,
-    resolve,
-    AnyRecord,
     MxRecord,
-    resolve4,
+    NODATA,
+    NOMEM,
+    NONAME,
+    NOTFOUND,
+    NOTIMP,
+    NOTINITIALIZED,
+    promises,
     RecordWithTtl,
+    REFUSED,
+    resolve,
+    resolve4,
     resolve6,
     Resolver,
-    ALL,
-    promises,
+    SERVFAIL,
     setDefaultResultOrder,
-} from 'node:dns';
+    TIMEOUT,
+    V4MAPPED,
+} from "node:dns";
 
 lookup("nodejs.org", (err, address, family) => {
     const _err: NodeJS.ErrnoException | null = err;
@@ -41,19 +65,19 @@ lookup(
     {
         family: 4,
         hints: ADDRCONFIG | V4MAPPED | ALL,
-        all: false
+        all: false,
     },
     (err, address, family) => {
         const _err: NodeJS.ErrnoException | null = err;
         const _address: string = address;
         const _family: number = family;
-    }
+    },
 );
 lookup("nodejs.org", { all: true }, (err, addresses) => {
     const _err: NodeJS.ErrnoException | null = err;
     const _address: LookupAddress[] = addresses;
 });
-lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
+lookup("nodejs.org", { all: true, order: "ipv6first" }, (err, addresses) => {
     const _err: NodeJS.ErrnoException | null = err;
     const _address: LookupAddress[] = addresses;
 });
@@ -117,7 +141,7 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
 {
     let resolver = new Resolver();
     resolver.setLocalAddress("4.4.4.4", "8.8.8.8");
-    resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
+    resolver.setServers(["4.4.4.4"] as readonly string[]);
     resolver.resolve("nodejs.org", (err, addresses) => {
         const _addresses: string[] = addresses;
     });
@@ -129,7 +153,7 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
 {
     let resolver = new promises.Resolver();
     resolver.setLocalAddress("4.4.4.4", "8.8.8.8");
-    resolver.setServers(["4.4.4.4"] as ReadonlyArray<string>);
+    resolver.setServers(["4.4.4.4"] as readonly string[]);
     // $ExpectType Promise<string[]>
     resolver.resolve("nodejs.org");
     resolver.cancel();
@@ -137,11 +161,46 @@ resolve6("nodejs.org", { ttl: true }, (err, addresses) => {
     resolver = new promises.Resolver({ timeout: 1500 });
 }
 
-setDefaultResultOrder('ipv4first');
-setDefaultResultOrder('verbatim');
+setDefaultResultOrder("ipv4first");
+setDefaultResultOrder("verbatim");
 // @ts-expect-error
-setDefaultResultOrder('wrong');
-promises.setDefaultResultOrder('ipv4first');
-promises.setDefaultResultOrder('verbatim');
+setDefaultResultOrder("wrong");
+promises.setDefaultResultOrder("ipv4first");
+promises.setDefaultResultOrder("verbatim");
 // @ts-expect-error
-promises.setDefaultResultOrder('wrong');
+promises.setDefaultResultOrder("wrong");
+
+// DNS error codes
+{
+    const nodata: typeof NODATA = "ENODATA";
+    const formerr: typeof FORMERR = "EFORMERR";
+    const servfail: typeof SERVFAIL = "ESERVFAIL";
+    const notfound: typeof NOTFOUND = "ENOTFOUND";
+    const notimp: typeof NOTIMP = "ENOTIMP";
+    const refused: typeof REFUSED = "EREFUSED";
+    const badquery: typeof BADQUERY = "EBADQUERY";
+    const badname: typeof BADNAME = "EBADNAME";
+    const badfamily: typeof BADFAMILY = "EBADFAMILY";
+    const badresp: typeof BADRESP = "EBADRESP";
+    const connrefused: typeof CONNREFUSED = "ECONNREFUSED";
+    const timeout: typeof TIMEOUT = "ETIMEOUT";
+    const eof: typeof EOF = "EOF";
+    const file: typeof FILE = "EFILE";
+    const nomem: typeof NOMEM = "ENOMEM";
+    const destruction: typeof DESTRUCTION = "EDESTRUCTION";
+    const badstr: typeof BADSTR = "EBADSTR";
+    const badflags: typeof BADFLAGS = "EBADFLAGS";
+    const noname: typeof NONAME = "ENONAME";
+    const badhints: typeof BADHINTS = "EBADHINTS";
+    const notinitialized: typeof NOTINITIALIZED = "ENOTINITIALIZED";
+    const loadiphlpapi: typeof LOADIPHLPAPI = "ELOADIPHLPAPI";
+    const addrgetnetworkparams: typeof ADDRGETNETWORKPARAMS = "EADDRGETNETWORKPARAMS";
+    const cancelled: typeof CANCELLED = "ECANCELLED";
+
+    // @ts-expect-error
+    const wrongNotfound: typeof NOTFOUND = "NOTFOUND";
+    // @ts-expect-error
+    const wrongConnrefused: typeof CONNREFUSED = "CCONNREFUSED";
+    // @ts-expect-error
+    const wrongEof: typeof EOF = "WAT";
+}

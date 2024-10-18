@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jsdeferred",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/cho45/jsdeferred"
+    ],
+    "dependencies": {
+        "@types/jquery": "^2"
+    },
+    "devDependencies": {
+        "@types/jsdeferred": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daisuke Mino",
+            "githubUsername": "minodisk"
+        }
+    ]
+}

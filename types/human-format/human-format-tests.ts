@@ -10,7 +10,7 @@ humanFormat(1337, {
 
 // $ExpectType string
 humanFormat(13337, {
-    maxDecimals: 'auto',
+    maxDecimals: "auto",
 });
 
 // $ExpectType string
@@ -23,7 +23,7 @@ humanFormat.bytes(65536);
 
 // $ExpectType string
 humanFormat(1337, {
-    separator: ' - ',
+    separator: " - ",
 });
 
 const timeScale = new humanFormat.Scale({
@@ -38,16 +38,16 @@ humanFormat(26729235, { scale: timeScale });
 // $ExpectType ScaleOptions
 timeScale.findPrefix(100);
 // $ExpectType ParseResult
-timeScale.parse('10 months');
+timeScale.parse("10 months");
 
 // $ExpectType string
-humanFormat.raw(100, { prefix: 'k' });
+humanFormat.raw(100, { prefix: "k" });
 
 // $ExpectType string
-humanFormat(100, { unit: 'm', prefix: 'k' });
+humanFormat(100, { unit: "m", prefix: "k" });
 
 // $ExpectType number
-humanFormat.parse('1.34 kiB', { scale: 'binary' });
+humanFormat.parse("1.34 kiB", { scale: "binary" });
 
 // $ExpectType ParseResult
-humanFormat.parse.raw('1.34 kB');
+humanFormat.parse.raw("1.34 kB");

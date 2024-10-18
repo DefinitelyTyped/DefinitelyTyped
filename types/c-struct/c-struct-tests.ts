@@ -1,7 +1,7 @@
-import { register, Schema, type } from 'c-struct';
+import { register, Schema, type } from "c-struct";
 
 register(
-    'foo',
+    "foo",
     new Schema({
         baz: type.boolean,
     }),

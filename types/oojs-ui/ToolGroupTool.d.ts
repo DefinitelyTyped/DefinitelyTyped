@@ -65,7 +65,7 @@ declare namespace OO.ui {
              * @param toolGroup
              * @param config Configuration options
              */
-            new (toolGroup: ToolGroup, config?: ConfigOptions): ToolGroupTool;
+            new(toolGroup: ToolGroup, config?: ConfigOptions): ToolGroupTool;
             prototype: Prototype;
             static: Static;
             super: Tool.Constructor;

@@ -1,13 +1,6 @@
-// Type definitions for react-date-range 1.4
-// Project: https://github.com/hypeserver/react-date-range
-// Definitions by: Junbong Lee <https://github.com/Junbong>
-//                 Minseok Choi <https://github.com/Curzy>
-//                 John Demetriou <https://github.com/DemetriouJohn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { Locale } from 'date-fns';
+import { Locale } from "date-fns";
+import * as React from "react";
+import { Optional } from "./_util";
 
 // =============================================================================
 // Helper Types/Interfaces
@@ -34,7 +27,7 @@ export interface RangeKeyDict {
     [key: string]: Range;
 }
 
-export type Preview = Pick<Range, 'startDate' | 'endDate' | 'color'>;
+export type Preview = Pick<Range, "startDate" | "endDate" | "color">;
 
 export interface AriaLabelsShape {
     dateInput?: RangeKeyDict | undefined;
@@ -119,7 +112,7 @@ export interface CalendarProps {
      */
     ariaLabels?: AriaLabelsShape | undefined;
     /** default: `forwards` */
-    calendarFocus?: 'forwards' | 'backwards' | undefined;
+    calendarFocus?: "forwards" | "backwards" | undefined;
     /** default: none */
     className?: string | undefined;
     /**
@@ -147,7 +140,7 @@ export interface CalendarProps {
     /** default: `d` */
     dayDisplayFormat?: string | undefined;
     /** default: `vertical` */
-    direction?: 'vertical' | 'horizontal' | undefined;
+    direction?: "vertical" | "horizontal" | undefined;
     /** default: `[]` */
     disabledDates?: Date[] | undefined;
     /**
@@ -157,7 +150,7 @@ export interface CalendarProps {
      */
     disabledDay?: ((date: Date) => boolean) | undefined;
     /** default: `date` */
-    displayMode?: 'dateRange' | 'date' | undefined;
+    displayMode?: "dateRange" | "date" | undefined;
     /** default: `true` */
     dragSelectionEnabled?: boolean | undefined;
     /** default: `false` */
@@ -200,13 +193,13 @@ export interface CalendarProps {
      */
     navigatorRenderer?:
         | ((
-              currFocusedDate: Date,
-              changeShownDate: (
-                  value: Date | number | string,
-                  mode?: 'set' | 'setYear' | 'setMonth' | 'monthOffset',
-              ) => void,
-              props: CalendarProps,
-          ) => JSX.Element)
+            currFocusedDate: Date,
+            changeShownDate: (
+                value: Date | number | string,
+                mode?: "set" | "setYear" | "setMonth" | "monthOffset",
+            ) => void,
+            props: CalendarProps,
+        ) => React.JSX.Element)
         | undefined;
     /** default: none */
     onChange?: ((date: Date) => void) | undefined;
@@ -256,7 +249,7 @@ export class Calendar extends React.Component<CalendarProps> {}
 // DateRange Component
 // =============================================================================
 
-export interface DateRangeProps extends Omit<CalendarProps, 'onChange'> {
+export interface DateRangeProps extends Omit<CalendarProps, "onChange"> {
     /** default: none */
     onChange?: ((rangesByKey: RangeKeyDict) => void) | undefined;
     /** default: `false` */
@@ -323,7 +316,7 @@ export class DefinedRange extends React.Component<DefinedRangeProps> {}
 export const defaultStaticRanges: StaticRange[];
 export const defaultInputRanges: InputRange[];
 
-export function createStaticRanges(ranges: StaticRange[]): StaticRange[];
+export function createStaticRanges(ranges: Array<Optional<StaticRange, "isSelected">>): StaticRange[];
 
 // =============================================================================
 // DateRangePicker Component

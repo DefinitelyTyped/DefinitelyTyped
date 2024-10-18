@@ -1,4 +1,4 @@
-import * as base16 from 'base16';
+import * as base16 from "base16";
 
 const base16Theme: base16.Base16Theme = base16.solarized;
 

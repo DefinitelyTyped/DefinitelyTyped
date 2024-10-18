@@ -4,7 +4,7 @@ export class GameObject extends MessageDispatcher {
     static intersectsAt(gameObject: GameObject, point: Vector, outVector?: Vector): boolean;
     static intersectsWith(gameObject: GameObject, point: Vector): GameObject | null;
     static findWithTag(tag: string): GameObject[] | null;
-    static findComponents(gameObject: GameObject, type: new () => Component): Component[];
+    static findComponents(gameObject: GameObject, type: new() => Component): Component[];
     static forEach(gameObject: GameObject, action: (arg0: GameObject) => any): void;
     static find(name: string, node?: GameObject): GameObject;
     static findById(id: number, node?: GameObject): GameObject;
@@ -148,9 +148,9 @@ export class GameObject extends MessageDispatcher {
     set touchable(arg: boolean);
     get touchable(): boolean;
 }
-import { MessageDispatcher } from '../messages/MessageDispatcher';
-import { Rectangle } from '../geom/Rectangle';
-import { Component } from './Component';
-import { Matrix } from '../geom/Matrix';
-import { Vector } from '../geom/Vector';
-import { DirtyFlag } from './DirtyFlag';
+import { Matrix } from "../geom/Matrix";
+import { Rectangle } from "../geom/Rectangle";
+import { Vector } from "../geom/Vector";
+import { MessageDispatcher } from "../messages/MessageDispatcher";
+import { Component } from "./Component";
+import { DirtyFlag } from "./DirtyFlag";

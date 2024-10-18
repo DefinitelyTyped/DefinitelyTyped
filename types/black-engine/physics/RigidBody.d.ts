@@ -36,5 +36,5 @@ export class RigidBody extends Component {
     update(): void;
     clearFlags(): void;
 }
-import { Component } from '../core/Component';
-import { Pair } from './arcade/pairs/Pair';
+import { Component } from "../core/Component";
+import { Pair } from "./arcade/pairs/Pair";

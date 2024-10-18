@@ -1,8 +1,8 @@
-import textDiffCreate = require('textdiff-create');
-import type { Change } from 'textdiff-create';
+import textDiffCreate = require("textdiff-create");
+import type { Change } from "textdiff-create";
 
 // $ExpectType Change[]
-const result = textDiffCreate('one', 'two');
+const result = textDiffCreate("one", "two");
 
 // $ExpectType Change
 const firstChange = result[0];

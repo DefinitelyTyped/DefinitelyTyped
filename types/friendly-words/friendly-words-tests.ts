@@ -1,4 +1,4 @@
-import { objects, predicates, teams, collections } from "friendly-words";
+import { collections, objects, predicates, teams } from "friendly-words";
 
 // $ExpectType string[]
 objects;

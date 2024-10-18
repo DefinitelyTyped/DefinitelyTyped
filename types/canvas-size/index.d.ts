@@ -1,8 +1,3 @@
-// Type definitions for canvas-size 1.2
-// Project: https://github.com/jhildenbiddle/canvas-size
-// Definitions by: Daniel Kucal <https://github.com/DanielKucal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface CanvasSizeCommonOptions {
     useWorker?: boolean;
     usePromise?: boolean;

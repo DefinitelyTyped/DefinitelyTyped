@@ -11,5 +11,5 @@ export interface AuthWrapperConfig extends AuthConfig {
 }
 
 export default function authWrapper<OwnProps = {}>(
-    config: AuthWrapperConfig
+    config: AuthWrapperConfig,
 ): AuthWrapperDecorator<OwnProps & InjectedAuthProps>;

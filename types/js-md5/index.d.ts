@@ -1,8 +1,3 @@
-// Type definitions for js-md5 0.7
-// Project: https://github.com/emn178/js-md5
-// Definitions by: Michael McCarthy <https://github.com/mwmccarthy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace md5 {
     type message = string | any[] | Uint8Array | ArrayBuffer;
 

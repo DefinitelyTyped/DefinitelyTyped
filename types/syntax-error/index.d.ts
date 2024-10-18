@@ -1,8 +1,3 @@
-// Type definitions for syntax-error 1.4
-// Project: https://github.com/browserify/syntax-error, https://github.com/substack/node-syntax-error
-// Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as acorn from "acorn";
 
 /**
@@ -13,6 +8,10 @@ import * as acorn from "acorn";
  * Options will be passed through to acorn-node. acorn-node defaults to options
  * that match the most recent Node versions.
  */
-declare function syntaxError(src: any, file?: string, opts?: acorn.Options): (SyntaxError & { line: number; column: number; annotated: string; inspect(): string }) | undefined;
+declare function syntaxError(
+    src: any,
+    file?: string,
+    opts?: acorn.Options,
+): (SyntaxError & { line: number; column: number; annotated: string; inspect(): string }) | undefined;
 
 export = syntaxError;

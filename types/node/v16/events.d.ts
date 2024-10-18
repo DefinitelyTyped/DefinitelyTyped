@@ -22,7 +22,7 @@
  * the `eventEmitter.emit()` method is used to trigger the event.
  *
  * ```js
- * const EventEmitter = require('events');
+ * import EventEmitter from 'node:events';
  *
  * class MyEmitter extends EventEmitter {}
  *
@@ -34,7 +34,9 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/events.js)
  */
-declare module 'events' {
+declare module "events" {
+    import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
+
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
@@ -50,18 +52,34 @@ declare module 'events' {
             listener: (...args: any[]) => void,
             opts?: {
                 once: boolean;
-            }
+            },
         ): any;
     }
     interface StaticEventEmitterOptions {
         signal?: AbortSignal | undefined;
     }
-    interface EventEmitter extends NodeJS.EventEmitter {}
+    interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
+    type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
+    type DefaultEventMap = [never];
+    type AnyRest = [...args: any[]];
+    type Args<K, T> = T extends DefaultEventMap ? AnyRest : (
+        K extends keyof T ? T[K] : never
+    );
+    type Key<K, T> = T extends DefaultEventMap ? string | symbol : K | keyof T;
+    type Key2<K, T> = T extends DefaultEventMap ? string | symbol : K & keyof T;
+    type Listener<K, T, F> = T extends DefaultEventMap ? F : (
+        K extends keyof T ? (
+                T[K] extends unknown[] ? (...args: T[K]) => void : never
+            )
+            : never
+    );
+    type Listener1<K, T> = Listener<K, T, (...args: any[]) => void>;
+    type Listener2<K, T> = Listener<K, T, Function>;
     /**
      * The `EventEmitter` class is defined and exposed by the `events` module:
      *
      * ```js
-     * const EventEmitter = require('events');
+     * import EventEmitter from 'node:events';
      * ```
      *
      * All `EventEmitter`s emit the event `'newListener'` when new listeners are
@@ -70,8 +88,11 @@ declare module 'events' {
      * It supports the following option:
      * @since v0.1.26
      */
-    class EventEmitter {
+    class EventEmitter<T extends EventMap<T> = DefaultEventMap> {
         constructor(options?: EventEmitterOptions);
+
+        [EventEmitter.captureRejectionSymbol]?<K>(error: Error, event: Key<K, T>, ...args: Args<K, T>): void;
+
         /**
          * Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
          * event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
@@ -82,7 +103,7 @@ declare module 'events' {
          * semantics and does not listen to the `'error'` event.
          *
          * ```js
-         * const { once, EventEmitter } = require('events');
+         * import { once, EventEmitter } from 'node:events';
          *
          * async function run() {
          *   const ee = new EventEmitter();
@@ -114,7 +135,7 @@ declare module 'events' {
          * special handling:
          *
          * ```js
-         * const { EventEmitter, once } = require('events');
+         * import { EventEmitter, once } from 'node:events';
          *
          * const ee = new EventEmitter();
          *
@@ -130,7 +151,7 @@ declare module 'events' {
          * An `AbortSignal` can be used to cancel waiting for the event:
          *
          * ```js
-         * const { EventEmitter, once } = require('events');
+         * import { EventEmitter, once } from 'node:events';
          *
          * const ee = new EventEmitter();
          * const ac = new AbortController();
@@ -154,11 +175,15 @@ declare module 'events' {
          * ```
          * @since v11.13.0, v10.16.0
          */
-        static once(emitter: NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(
+            emitter: NodeEventTarget,
+            eventName: string | symbol,
+            options?: StaticEventEmitterOptions,
+        ): Promise<any[]>;
         static once(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
-         * const { on, EventEmitter } = require('events');
+         * import { on, EventEmitter } from 'node:events';
          *
          * (async () => {
          *   const ee = new EventEmitter();
@@ -187,7 +212,7 @@ declare module 'events' {
          * An `AbortSignal` can be used to cancel waiting on events:
          *
          * ```js
-         * const { on, EventEmitter } = require('events');
+         * import { on, EventEmitter } from 'node:events';
          * const ac = new AbortController();
          *
          * (async () => {
@@ -214,12 +239,16 @@ declare module 'events' {
          * @param eventName The name of the event being listened for
          * @return that iterates `eventName` events emitted by the `emitter`
          */
-        static on(emitter: NodeJS.EventEmitter, eventName: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
+        static on(
+            emitter: NodeJS.EventEmitter,
+            eventName: string,
+            options?: StaticEventEmitterOptions,
+        ): NodeJS.AsyncIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
          *
          * ```js
-         * const { EventEmitter, listenerCount } = require('events');
+         * import { EventEmitter, listenerCount } from 'node:events';
          * const myEmitter = new EventEmitter();
          * myEmitter.on('event', () => {});
          * myEmitter.on('event', () => {});
@@ -242,7 +271,7 @@ declare module 'events' {
          * event target. This is useful for debugging and diagnostic purposes.
          *
          * ```js
-         * const { getEventListeners, EventEmitter } = require('events');
+         * import { getEventListeners, EventEmitter } from 'node:events';
          *
          * {
          *   const ee = new EventEmitter();
@@ -262,10 +291,10 @@ declare module 'events' {
         static getEventListeners(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
          * ```js
-         * const {
+         * import {
          *   setMaxListeners,
          *   EventEmitter
-         * } = require('events');
+         * } from 'node:events';
          *
          * const target = new EventTarget();
          * const emitter = new EventEmitter();
@@ -274,7 +303,7 @@ declare module 'events' {
          * ```
          * @since v15.4.0
          * @param n A non-negative number. The maximum number of listeners per `EventTarget` event.
-         * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
+         * @param eventTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
          * objects.
          */
         static setMaxListeners(n?: number, ...eventTargets: Array<DOMEventTarget | NodeJS.EventEmitter>): void;
@@ -296,7 +325,7 @@ declare module 'events' {
         static captureRejections: boolean;
         static defaultMaxListeners: number;
     }
-    import internal = require('node:events');
+    import internal = require("node:events");
     namespace EventEmitter {
         // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
         export { internal as EventEmitter };
@@ -306,19 +335,63 @@ declare module 'events' {
              */
             signal?: AbortSignal | undefined;
         }
+
+        export interface EventEmitterReferencingAsyncResource extends AsyncResource {
+            readonly eventEmitter: EventEmitterAsyncResource;
+        }
+
+        export interface EventEmitterAsyncResourceOptions extends AsyncResourceOptions, EventEmitterOptions {
+            /**
+             * The type of async event, this is required when instantiating `EventEmitterAsyncResource`
+             * directly rather than as a child class.
+             * @default new.target.name if instantiated as a child class.
+             */
+            name?: string;
+        }
+
+        /**
+         * Integrates `EventEmitter` with `AsyncResource` for `EventEmitter`s that require
+         * manual async tracking. Specifically, all events emitted by instances of
+         * `EventEmitterAsyncResource` will run within its async context.
+         *
+         * The EventEmitterAsyncResource class has the same methods and takes the
+         * same options as EventEmitter and AsyncResource themselves.
+         * @throws if `options.name` is not provided when instantiated directly.
+         * @since v17.4.0, v16.14.0
+         */
+        export class EventEmitterAsyncResource extends EventEmitter {
+            /**
+             * @param options Only optional in child class.
+             */
+            constructor(options?: EventEmitterAsyncResourceOptions);
+            /**
+             * Call all destroy hooks. This should only ever be called once. An
+             * error will be thrown if it is called more than once. This must be
+             * manually called. If the resource is left to be collected by the GC then
+             * the destroy hooks will never be called.
+             */
+            emitDestroy(): void;
+            /** The unique asyncId assigned to the resource. */
+            readonly asyncId: number;
+            /** The same triggerAsyncId that is passed to the AsyncResource constructor. */
+            readonly triggerAsyncId: number;
+            /** The underlying AsyncResource */
+            readonly asyncResource: EventEmitterReferencingAsyncResource;
+        }
     }
     global {
         namespace NodeJS {
-            interface EventEmitter {
+            interface EventEmitter<T extends EventMap<T> = DefaultEventMap> {
+                [EventEmitter.captureRejectionSymbol]?<K>(error: Error, event: Key<K, T>, ...args: Args<K, T>): void;
                 /**
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
                  */
-                addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                addListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
                  * Adds the `listener` function to the end of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
-                 * already been added. Multiple calls passing the same combination of `eventName`and `listener` will result in the `listener` being added, and called, multiple
+                 * already been added. Multiple calls passing the same combination of `eventName` and `listener` will result in the `listener` being added, and called, multiple
                  * times.
                  *
                  * ```js
@@ -345,7 +418,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                on(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                on<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName`. The
                  * next time `eventName` is triggered, this listener is removed and then invoked.
@@ -374,7 +447,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                once(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                once<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
                  * Removes the specified `listener` from the listener array for the event named`eventName`.
                  *
@@ -454,12 +527,12 @@ declare module 'events' {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                removeListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
                  * Alias for `emitter.removeListener()`.
                  * @since v10.0.0
                  */
-                off(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                off<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
                  * Removes all listeners, or those of the specified `eventName`.
                  *
@@ -470,7 +543,7 @@ declare module 'events' {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeAllListeners(event?: string | symbol): this;
+                removeAllListeners(event?: Key<unknown, T>): this;
                 /**
                  * By default `EventEmitter`s will print a warning if more than `10` listeners are
                  * added for a particular event. This is a useful default that helps finding
@@ -499,7 +572,7 @@ declare module 'events' {
                  * ```
                  * @since v0.1.26
                  */
-                listeners(eventName: string | symbol): Function[];
+                listeners<K>(eventName: Key<K, T>): Array<Listener2<K, T>>;
                 /**
                  * Returns a copy of the array of listeners for the event named `eventName`,
                  * including any wrappers (such as those created by `.once()`).
@@ -529,7 +602,7 @@ declare module 'events' {
                  * ```
                  * @since v9.4.0
                  */
-                rawListeners(eventName: string | symbol): Function[];
+                rawListeners<K>(eventName: Key<K, T>): Array<Listener2<K, T>>;
                 /**
                  * Synchronously calls each of the listeners registered for the event named`eventName`, in the order they were registered, passing the supplied arguments
                  * to each.
@@ -537,7 +610,7 @@ declare module 'events' {
                  * Returns `true` if the event had listeners, `false` otherwise.
                  *
                  * ```js
-                 * const EventEmitter = require('events');
+                 * import EventEmitter from 'node:events';
                  * const myEmitter = new EventEmitter();
                  *
                  * // First listener
@@ -570,17 +643,17 @@ declare module 'events' {
                  * ```
                  * @since v0.1.26
                  */
-                emit(eventName: string | symbol, ...args: any[]): boolean;
+                emit<K>(eventName: Key<K, T>, ...args: Args<K, T>): boolean;
                 /**
                  * Returns the number of listeners listening to the event named `eventName`.
                  * @since v3.2.0
                  * @param eventName The name of the event being listened for
                  */
-                listenerCount(eventName: string | symbol): number;
+                listenerCount<K>(eventName: Key<K, T>, listener?: Listener2<K, T>): number;
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
-                 * already been added. Multiple calls passing the same combination of `eventName`and `listener` will result in the `listener` being added, and called, multiple
+                 * already been added. Multiple calls passing the same combination of `eventName` and `listener` will result in the `listener` being added, and called, multiple
                  * times.
                  *
                  * ```js
@@ -594,7 +667,7 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                prependListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
@@ -610,13 +683,13 @@ declare module 'events' {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
+                prependOnceListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
                  * Returns an array listing the events for which the emitter has registered
                  * listeners. The values in the array are strings or `Symbol`s.
                  *
                  * ```js
-                 * const EventEmitter = require('events');
+                 * import EventEmitter from 'node:events';
                  * const myEE = new EventEmitter();
                  * myEE.on('foo', () => {});
                  * myEE.on('bar', () => {});
@@ -629,13 +702,13 @@ declare module 'events' {
                  * ```
                  * @since v6.0.0
                  */
-                eventNames(): Array<string | symbol>;
+                eventNames(): Array<(string | symbol) & Key2<unknown, T>>;
             }
         }
     }
     export = EventEmitter;
 }
-declare module 'node:events' {
-    import events = require('events');
+declare module "node:events" {
+    import events = require("events");
     export = events;
 }

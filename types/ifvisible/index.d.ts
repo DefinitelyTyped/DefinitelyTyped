@@ -1,8 +1,3 @@
-// Type definitions for ifvisible 1.1
-// Project: https://github.com/muhammaddadu/ifvisible
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface OnEveryReturn {
     /**
      * Callback function you passed to onEvery

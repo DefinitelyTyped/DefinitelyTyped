@@ -226,7 +226,7 @@ declare namespace dojox {
              */
             isZipCode(value: String): void;
         }
-        module _base {
+        namespace _base {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/validate/_base._cardInfo.html
              *

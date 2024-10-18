@@ -1,6 +1,6 @@
-import sh = require('mvdan-sh');
-import { LangVariant, ParNamesOperator, Node } from 'mvdan-sh';
-import assert = require('assert');
+import sh = require("mvdan-sh");
+import { LangVariant, Node, ParNamesOperator } from "mvdan-sh";
+import assert = require("assert");
 
 // LangVariant/Token/RedirOperator/... isn't really exported by `mvdan-sh`.
 // Therefore, it's value is expected to not be accessible.
@@ -19,7 +19,7 @@ const operator = ParNamesOperator.NamesPrefix;
 const { syntax } = sh;
 
 const node: Node = syntax
-    .NewParser(syntax.KeepComments(true), syntax.StopAt('$$'), syntax.Variant(variant))
+    .NewParser(syntax.KeepComments(true), syntax.StopAt("$$"), syntax.Variant(variant))
     .Parse(`yarn`);
 
 syntax
@@ -39,7 +39,7 @@ syntax
 const parser = syntax.NewParser();
 const lines = [
     "foo\n",
-    "bar; baz\n"
+    "bar; baz\n",
 ];
 
 // Test parser.InteractiveStep
@@ -53,7 +53,7 @@ const src = {
             return null;
         }
         return lines.shift()!;
-    }
+    },
 };
 
 // Test parser.Interactive && parser.Incomplete
@@ -72,13 +72,13 @@ try {
 // Test Commands
 // The shell commands are ported from https://github.com/mvdan/sh/blob/master/syntax/canonical.sh
 const commands = [
-    '! foo bar >a &',
-    'foo() { bar; }',
+    "! foo bar >a &",
+    "foo() { bar; }",
     `{
         var1="some long value" # var1 comment
         var2=short             # var2 comment
     }`,
-    'if foo; then bar; fi',
+    "if foo; then bar; fi",
     `for foo in a b c; do
         bar
     done`,
@@ -88,25 +88,25 @@ const commands = [
         B
         ;;
     esac`,
-    'foo | bar',
+    "foo | bar",
     `foo &&
         $(bar) &&
         (more)`,
-    'foo 2>&1',
-    '$((3 + 4))'
+    "foo 2>&1",
+    "$((3 + 4))",
 ];
 
 const expect = [
-    'CallExpr',
-    'FuncDecl',
-    'Block',
-    'IfClause',
-    'ForClause',
-    'CaseClause',
-    'BinaryCmd',
-    'BinaryCmd',
-    'CallExpr',
-    'CallExpr'
+    "CallExpr",
+    "FuncDecl",
+    "Block",
+    "IfClause",
+    "ForClause",
+    "CaseClause",
+    "BinaryCmd",
+    "BinaryCmd",
+    "CallExpr",
+    "CallExpr",
 ];
 
 for (let i = 0; i < commands.length; i++) {

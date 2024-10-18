@@ -31,13 +31,13 @@ export default class FontAwesome5Icon extends Component<
         name: string,
         size?: number,
         color?: string,
-        fa5Style?: ValueOf<typeof FA5Style>
+        fa5Style?: ValueOf<typeof FA5Style>,
     ): Promise<ImageSource>;
     static getImageSourceSync(
         name: string,
         size?: number,
         color?: string,
-        fa5Style?: ValueOf<typeof FA5Style>
+        fa5Style?: ValueOf<typeof FA5Style>,
     ): ImageSource;
     static loadFont(file?: string): Promise<void>;
     static hasIcon(name: string): boolean;

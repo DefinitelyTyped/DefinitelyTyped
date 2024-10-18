@@ -31,6 +31,6 @@ export namespace Matrix {
     const __identity: Matrix;
     const pool: ObjectPool;
 }
-import { Vector } from './Vector';
-import { Rectangle } from './Rectangle';
-import { ObjectPool } from '../utils/ObjectPool';
+import { ObjectPool } from "../utils/ObjectPool";
+import { Rectangle } from "./Rectangle";
+import { Vector } from "./Vector";

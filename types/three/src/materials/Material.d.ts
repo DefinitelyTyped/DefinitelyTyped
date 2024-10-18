@@ -1,23 +1,34 @@
-import { Plane } from '../math/Plane.js';
-import { EventDispatcher } from '../core/EventDispatcher.js';
-import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
-import { Shader } from '../renderers/shaders/ShaderLib.js';
+import { Camera } from "../cameras/Camera.js";
 import {
+    Blending,
     BlendingDstFactor,
     BlendingEquation,
-    Blending,
     BlendingSrcFactor,
+    Combine,
     DepthModes,
+    NormalMapTypes,
+    PixelFormat,
     Side,
     StencilFunc,
     StencilOp,
-    PixelFormat,
-} from '../constants.js';
+} from "../constants.js";
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { EventDispatcher } from "../core/EventDispatcher.js";
+import { JSONMeta, Object3D } from "../core/Object3D.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Plane } from "../math/Plane.js";
+import { Group } from "../objects/Group.js";
+import { WebGLProgramParametersWithUniforms } from "../renderers/webgl/WebGLPrograms.js";
+import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
+import { Scene } from "../scenes/Scene.js";
+import { EulerTuple, SourceJSON, TextureJSON, Vector2Tuple } from "../Three.js";
 
 export interface MaterialParameters {
     alphaHash?: boolean | undefined;
     alphaTest?: number | undefined;
     alphaToCoverage?: boolean | undefined;
+    blendAlpha?: number | undefined;
+    blendColor?: ColorRepresentation | undefined;
     blendDst?: BlendingDstFactor | undefined;
     blendDstAlpha?: number | undefined;
     blendEquation?: BlendingEquation | undefined;
@@ -38,7 +49,7 @@ export interface MaterialParameters {
     polygonOffset?: boolean | undefined;
     polygonOffsetFactor?: number | undefined;
     polygonOffsetUnits?: number | undefined;
-    precision?: 'highp' | 'mediump' | 'lowp' | null | undefined;
+    precision?: "highp" | "mediump" | "lowp" | null | undefined;
     premultipliedAlpha?: boolean | undefined;
     forceSinglePass?: boolean | undefined;
     dithering?: boolean | undefined;
@@ -57,28 +68,210 @@ export interface MaterialParameters {
     stencilFail?: StencilOp | undefined;
     stencilZFail?: StencilOp | undefined;
     stencilZPass?: StencilOp | undefined;
-    userData?: any;
+    userData?: Record<string, any> | undefined;
+}
+
+export interface MaterialJSON {
+    metadata: { version: number; type: string; generator: string };
+
+    uuid: string;
+    type: string;
+
+    name?: string;
+
+    color?: number;
+    roughness?: number;
+    metalness?: number;
+
+    sheen?: number;
+    sheenColor?: number;
+    sheenRoughness?: number;
+    emissive?: number;
+    emissiveIntensity?: number;
+
+    specular?: number;
+    specularIntensity?: number;
+    specularColor?: number;
+    shininess?: number;
+    clearcoat?: number;
+    clearcoatRoughness?: number;
+    clearcoatMap?: string;
+    clearcoatRoughnessMap?: string;
+    clearcoatNormalMap?: string;
+    clearcoatNormalScale?: Vector2Tuple;
+
+    dispersion?: number;
+
+    iridescence?: number;
+    iridescenceIOR?: number;
+    iridescenceThicknessRange?: number;
+    iridescenceMap?: string;
+    iridescenceThicknessMap?: string;
+
+    anisotropy?: number;
+    anisotropyRotation?: number;
+    anisotropyMap?: string;
+
+    map?: string;
+    matcap?: string;
+    alphaMap?: string;
+
+    lightMap?: string;
+    lightMapIntensity?: number;
+
+    aoMap?: string;
+    aoMapIntensity?: number;
+
+    bumpMap?: string;
+    bumpScale?: number;
+
+    normalMap?: string;
+    normalMapType?: NormalMapTypes;
+    normalScale?: Vector2Tuple;
+
+    displacementMap?: string;
+    displacementScale?: number;
+    displacementBias?: number;
+
+    roughnessMap?: string;
+    metalnessMap?: string;
+
+    emissiveMap?: string;
+    specularMap?: string;
+    specularIntensityMap?: string;
+    specularColorMap?: string;
+
+    envMap?: string;
+    combine?: Combine;
+
+    envMapRotation?: EulerTuple;
+    envMapIntensity?: number;
+    reflectivity?: number;
+    refractionRatio?: number;
+
+    gradientMap?: string;
+
+    transmission?: number;
+    transmissionMap?: string;
+    thickness?: number;
+    thicknessMap?: string;
+    attenuationDistance?: number;
+    attenuationColor?: number;
+
+    size?: number;
+    shadowSide?: number;
+    sizeAttenuation?: boolean;
+
+    blending?: Blending;
+    side?: Side;
+    vertexColors?: boolean;
+
+    opacity?: number;
+    transparent?: boolean;
+
+    blendSrc?: BlendingSrcFactor;
+    blendDst?: BlendingDstFactor;
+    blendEquation?: BlendingEquation;
+    blendSrcAlpha?: number | null;
+    blendDstAlpha?: number | null;
+    blendEquationAlpha?: number | null;
+    blendColor?: number;
+    blendAlpha?: number;
+
+    depthFunc?: DepthModes;
+    depthTest?: boolean;
+    depthWrite?: boolean;
+    colorWrite?: boolean;
+
+    stencilWriteMask?: number;
+    stencilFunc?: StencilFunc;
+    stencilRef?: number;
+    stencilFuncMask?: number;
+    stencilFail?: StencilOp;
+    stencilZFail?: StencilOp;
+    stencilZPass?: StencilOp;
+    stencilWrite?: boolean;
+
+    rotation?: number;
+
+    polygonOffset?: boolean;
+    polygonOffsetFactor?: number;
+    polygonOffsetUnits?: number;
+
+    linewidth?: number;
+    dashSize?: number;
+    gapSize?: number;
+    scale?: number;
+
+    dithering?: boolean;
+
+    alphaTest?: number;
+    alphaHash?: boolean;
+    alphaToCoverage?: boolean;
+    premultipliedAlpha?: boolean;
+    forceSinglePass?: boolean;
+
+    wireframe?: boolean;
+    wireframeLinewidth?: number;
+    wireframeLinecap?: string;
+    wireframeLinejoin?: string;
+
+    flatShading?: boolean;
+
+    visible?: boolean;
+
+    toneMapped?: boolean;
+
+    fog?: boolean;
+
+    userData?: Record<string, unknown>;
+
+    textures?: Array<Omit<TextureJSON, "metadata">>;
+    images?: SourceJSON[];
 }
 
 /**
  * Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
  */
-export class Material extends EventDispatcher {
+export class Material extends EventDispatcher<{ dispose: {} }> {
     constructor();
 
+    /**
+     * Read-only flag to check if a given object is of type {@link Material}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMaterial: true;
+
+    /**
+     * Enables alpha hashed transparency, an alternative to {@link .transparent} or {@link .alphaTest}. The material
+     * will not be rendered if opacity is lower than a random threshold. Randomization introduces some grain or noise,
+     * but approximates alpha blending without the associated problems of sorting. Using TAARenderPass can reduce the
+     * resulting noise.
+     */
     alphaHash: boolean;
 
     /**
-     * Sets the alpha value to be used when running an alpha test. Default is 0.
-     * @default 0
-     */
-    alphaTest: number;
-
-    /**
-     * Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.
+     * Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts (meaning when the renderer was
+     * created with *antialias* parameter set to `true`). Enabling this will smooth aliasing on clip plane edges and
+     * alphaTest-clipped edges.
      * @default false
      */
     alphaToCoverage: boolean;
+
+    /**
+     * Represents the alpha value of the constant blend color. This property has only an effect when using custom
+     * blending with {@link ConstantAlphaFactor} or {@link OneMinusConstantAlphaFactor}.
+     * @default 0
+     */
+    blendAlpha: number;
+
+    /**
+     * Represent the RGB values of the constant blend color. This property has only an effect when using custom
+     * blending with {@link ConstantColorFactor} or {@link OneMinusConstantColorFactor}.
+     * @default 0x000000
+     */
+    blendColor: Color;
 
     /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
@@ -135,7 +328,7 @@ export class Material extends EventDispatcher {
      * See the WebGL / clipping /intersection example. Default is null.
      * @default null
      */
-    clippingPlanes: Plane[];
+    clippingPlanes: Plane[] | null;
 
     /**
      * Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.
@@ -163,7 +356,8 @@ export class Material extends EventDispatcher {
     depthFunc: DepthModes;
 
     /**
-     * Whether to have depth test enabled when rendering this material. Default is true.
+     * Whether to have depth test enabled when rendering this material. When the depth test is disabled, the depth write
+     * will also be implicitly disabled.
      * @default true
      */
     depthTest: boolean;
@@ -233,23 +427,10 @@ export class Material extends EventDispatcher {
     stencilZPass: StencilOp;
 
     /**
-     * Used to check whether this or derived classes are materials. Default is true.
-     * You should not change this, as it used internally for optimisation.
-     */
-    readonly isMaterial: true;
-
-    /**
      * Material name. Default is an empty string.
      * @default ''
      */
     name: string;
-
-    /**
-     * Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.
-     * This property is automatically set to true when instancing a new material.
-     * @default false
-     */
-    needsUpdate: boolean;
 
     /**
      * Opacity. Default is 1.
@@ -279,7 +460,7 @@ export class Material extends EventDispatcher {
      * Override the renderer's default precision for this material. Can be "highp", "mediump" or "lowp". Defaults is null.
      * @default null
      */
-    precision: 'highp' | 'mediump' | 'lowp' | null;
+    precision: "highp" | "mediump" | "lowp" | null;
 
     /**
      * Whether to premultiply the alpha (transparency) value. See WebGL / Materials / Transparency for an example of the difference. Default is false.
@@ -314,8 +495,9 @@ export class Material extends EventDispatcher {
     shadowSide: Side | null;
 
     /**
-     * Defines whether this material is tone mapped according to the renderer's toneMapping setting.
-     * Default is true.
+     * Defines whether this material is tone mapped according to the renderer's
+     * {@link WebGLRenderer.toneMapping toneMapping} setting. It is ignored when rendering to a render target or using
+     * post processing.
      * @default true
      */
     toneMapped: boolean;
@@ -323,7 +505,6 @@ export class Material extends EventDispatcher {
     /**
      * Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.
      * When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.
-     * Default is false.
      * @default false
      */
     transparent: boolean;
@@ -355,7 +536,7 @@ export class Material extends EventDispatcher {
      * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
      * @default {}
      */
-    userData: any;
+    userData: Record<string, any>;
 
     /**
      * This starts at 0 and counts how many times .needsUpdate is set to true.
@@ -364,29 +545,41 @@ export class Material extends EventDispatcher {
     version: number;
 
     /**
-     * Return a new material with the same parameters as this material.
+     * Gets the alpha value to be used when running an alpha test. Default is 0.
+     * @default 0
      */
-    clone(): this;
+    get alphaTest(): number;
 
     /**
-     * Copy the parameters from the passed material into this material.
-     * @param material
+     * Sets the alpha value to be used when running an alpha test. Default is 0.
+     * @default 0
      */
-    copy(material: Material): this;
+    set alphaTest(value: number);
 
     /**
-     * This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@link Texture}.
+     * An optional callback that is executed immediately before the material is used to render a 3D object.
+     * Unlike properties, the callback is not supported by {@link .clone()}, {@link .copy()} and {@link .toJSON()}.
+     * This callback is only supported in `WebGLRenderer` (not `WebGPURenderer`).
      */
-    dispose(): void;
+    onBeforeRender(
+        renderer: WebGLRenderer,
+        scene: Scene,
+        camera: Camera,
+        geometry: BufferGeometry,
+        object: Object3D,
+        group: Group,
+    ): void;
 
     /**
      * An optional callback that is executed immediately before the shader program is compiled.
      * This function is called with the shader source code as a parameter.
      * Useful for the modification of built-in materials.
-     * @param shader Source code of the shader
-     * @param renderer WebGLRenderer Context that is initializing the material
+     * Unlike properties, the callback is not supported by {@link .clone()}, {@link .copy()} and {@link .toJSON()}.
+     * This callback is only supported in `WebGLRenderer` (not `WebGPURenderer`).
+     * @param parameters WebGL program parameters
+     * @param renderer WebGLRenderer context that is initializing the material
      */
-    onBeforeCompile(shader: Shader, renderer: WebGLRenderer): void;
+    onBeforeCompile(parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
 
     /**
      * In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader as needed.
@@ -403,5 +596,36 @@ export class Material extends EventDispatcher {
      * Convert the material to three.js JSON format.
      * @param meta Object containing metadata such as textures or images for the material.
      */
-    toJSON(meta?: any): any;
+    toJSON(meta?: JSONMeta): MaterialJSON;
+
+    /**
+     * Return a new material with the same parameters as this material.
+     */
+    clone(): this;
+
+    /**
+     * Copy the parameters from the passed material into this material.
+     * @param material
+     */
+    copy(material: Material): this;
+
+    /**
+     * Frees the GPU-related resources allocated by this instance. Call this method whenever this instance is no longer
+     * used in your app.
+     *
+     * Material textures must be disposed of by the dispose() method of {@link Texture}.
+     */
+    dispose(): void;
+
+    /**
+     * Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.
+     * This property is automatically set to true when instancing a new material.
+     * @default false
+     */
+    set needsUpdate(value: boolean);
+
+    /**
+     * @deprecated onBuild() has been removed.
+     */
+    onBuild(object: Object3D, parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
 }

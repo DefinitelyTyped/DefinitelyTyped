@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/proj4leaflet",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kartena/Proj4Leaflet#readme"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/leaflet": "*",
+        "@types/proj4": "*"
+    },
+    "devDependencies": {
+        "@types/proj4leaflet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

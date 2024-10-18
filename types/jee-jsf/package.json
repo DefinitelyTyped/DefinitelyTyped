@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/jee-jsf",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jee-jsf",
+    "projects": [
+        "https://docs.oracle.com/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/js-api/symbols/jsf.ajax.html"
+    ],
+    "devDependencies": {
+        "@types/jee-jsf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lars Michaelis and Stephan Zerhusen",
+            "url": "https://github.com/ButterFaces/ButterFaces"
+        }
+    ]
+}

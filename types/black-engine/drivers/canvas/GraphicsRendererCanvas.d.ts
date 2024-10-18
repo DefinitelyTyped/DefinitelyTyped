@@ -3,4 +3,4 @@ export class GraphicsRendererCanvas extends GraphicsRenderer {
     private __drawCommandBuffer;
     private __renderNode;
 }
-import { GraphicsRenderer } from '../GraphicsRenderer';
+import { GraphicsRenderer } from "../GraphicsRenderer";

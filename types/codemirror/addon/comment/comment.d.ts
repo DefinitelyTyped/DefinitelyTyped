@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface Editor {
         /** Tries to uncomment the current selection, and if that fails, line-comments it. */
         toggleComment(options?: CommentOptions): void;

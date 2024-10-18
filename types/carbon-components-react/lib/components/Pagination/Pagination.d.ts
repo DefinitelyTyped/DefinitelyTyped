@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { ReactDivAttr } from '../../../typings/shared';
+import * as React from "react";
+import { ReactDivAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = 'id' | 'onChange';
+type ExcludedAttributes = "id" | "onChange";
 
 export interface PaginationPageSize {
     text: string;
@@ -27,7 +27,7 @@ export interface PaginationProps extends Omit<ReactDivAttr, ExcludedAttributes> 
     pageSizes: readonly number[] | readonly PaginationPageSize[];
     pageText?(page: number): string;
     pagesUnknown?: boolean | undefined;
-    size?: 'sm' | 'md' | 'lg' | undefined;
+    size?: "sm" | "md" | "lg" | undefined;
     totalItems?: number | undefined;
 }
 

@@ -1,5 +1,5 @@
-import { IncomingForm, Options } from "../";
 import { PassThrough, Transform } from "stream";
+import { IncomingForm, Options } from "../";
 
 export class MultipartParser extends Transform {
     constructor(options?: Partial<Options>);

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/core-util-is",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/isaacs/core-util-is#readme"
+    ],
+    "dependencies": {
+        "buffer": "*"
+    },
+    "devDependencies": {
+        "@types/core-util-is": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

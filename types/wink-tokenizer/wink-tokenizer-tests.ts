@@ -3,7 +3,7 @@ import * as Tokenizer from "wink-tokenizer";
 const tokenizer = new Tokenizer();
 
 tokenizer.defineConfig({
-    currency: false
+    currency: false,
 });
 
 tokenizer.tokenize("asd asd asd ads");
@@ -13,15 +13,15 @@ tokenizer.getTokensFP();
 // samples taken from the official API docs:
 // https://winkjs.org/wink-tokenizer/Tokenizer.html#getTokensFP
 // Adding a regex for an existing tag
-tokenizer.addRegex(/\(oo\)/gi, 'emoticon');
-tokenizer.tokenize('(oo) Hi!');
+tokenizer.addRegex(/\(oo\)/gi, "emoticon");
+tokenizer.tokenize("(oo) Hi!");
 // -> [ { value: '(oo)', tag: 'emoticon' },
 //      { value: 'Hi', tag: 'word' },
 //      { value: '!', tag: 'punctuation' } ]
 
 // Adding a regex to parse a new token type
-tokenizer.addRegex(/hello/gi, 'greeting', 'g');
-tokenizer.tokenize('hello, how are you?');
+tokenizer.addRegex(/hello/gi, "greeting", "g");
+tokenizer.tokenize("hello, how are you?");
 // -> [ { value: 'hello', tag: 'greeting' },
 //      { value: ',', tag: 'punctuation' },
 //      { value: 'how', tag: 'word' },
@@ -32,7 +32,7 @@ tokenizer.tokenize('hello, how are you?');
 
 // Using definConfig will reset the above!
 tokenizer.defineConfig({ word: true });
-tokenizer.tokenize('hello, how are you?');
+tokenizer.tokenize("hello, how are you?");
 // -> [ { value: 'hello', tag: 'word' },
 //      { value: ',', tag: 'punctuation' },
 //      { value: 'how', tag: 'word' },

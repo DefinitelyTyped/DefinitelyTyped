@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/http-errors",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jshttp/http-errors"
+    ],
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/http-errors": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

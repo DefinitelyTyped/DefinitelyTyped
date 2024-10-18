@@ -1,15 +1,9 @@
-// Type definitions for rpi-gpio 2.1
-// Project: https://github.com/JamesBarwell/rpi-gpio.js#readme
-// Definitions by: Giles Roadnight <https://github.com/Roaders>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 /// <reference types="node" />
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-type MODE = 'mode_rpi' | 'mode_bcm';
-type PinDirection = 'in' | 'out' | 'low' | 'high';
-type EDGE = 'none' | 'rising' | 'falling' | 'both';
+type MODE = "mode_rpi" | "mode_bcm";
+type PinDirection = "in" | "out" | "low" | "high";
+type EDGE = "none" | "rising" | "falling" | "both";
 type ValueCallback<T> = (err?: Error | null, value?: T) => void;
 type ErrorCallback = (err?: Error | null) => void;
 

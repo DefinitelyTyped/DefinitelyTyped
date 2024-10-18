@@ -1,7 +1,7 @@
-import Connection = require('@xmpp/connection');
-import { EventEmitter } from '@xmpp/events';
-import reconnect = require('@xmpp/reconnect');
-import { Element } from '@xmpp/xml';
+import Connection = require("@xmpp/connection");
+import { EventEmitter } from "@xmpp/events";
+import reconnect = require("@xmpp/reconnect");
+import { Element } from "@xmpp/xml";
 
 // test type exports
 type R<T extends Connection> = reconnect.Reconnect<T>;
@@ -12,7 +12,7 @@ class Foo extends Connection {
     hookOutgoing?: (stanza: Element) => Promise<void>;
 
     headerElement() {
-        return new Element('foo');
+        return new Element("foo");
     }
 
     socketParameters(service: string) {
@@ -20,7 +20,7 @@ class Foo extends Connection {
     }
 }
 
-const entity = new Foo({ service: 'foo', domain: 'foo.bar' });
+const entity = new Foo({ service: "foo", domain: "foo.bar" });
 
 const rec = reconnect({ entity }); // $ExpectType Reconnect<Foo>
 const e: EventEmitter = rec;
@@ -33,26 +33,26 @@ rec.stop(); // $ExpectType void
 
 new rec.constructor(entity); // $ExpectType ReconnectCls<Foo>
 
-rec.addListener('reconnected', () => {});
-rec.addListener('reconnecting', () => {});
+rec.addListener("reconnected", () => {});
+rec.addListener("reconnecting", () => {});
 
-rec.on('reconnected', () => {});
-rec.on('reconnecting', () => {});
+rec.on("reconnected", () => {});
+rec.on("reconnecting", () => {});
 
-rec.once('reconnected', () => {});
-rec.once('reconnecting', () => {});
+rec.once("reconnected", () => {});
+rec.once("reconnecting", () => {});
 
-rec.prependListener('reconnected', () => {});
-rec.prependListener('reconnecting', () => {});
+rec.prependListener("reconnected", () => {});
+rec.prependListener("reconnecting", () => {});
 
-rec.prependOnceListener('reconnected', () => {});
-rec.prependOnceListener('reconnecting', () => {});
+rec.prependOnceListener("reconnected", () => {});
+rec.prependOnceListener("reconnecting", () => {});
 
-rec.removeListener('reconnected', () => {});
-rec.removeListener('reconnecting', () => {});
+rec.removeListener("reconnected", () => {});
+rec.removeListener("reconnecting", () => {});
 
-rec.off('reconnected', () => {});
-rec.off('reconnecting', () => {});
+rec.off("reconnected", () => {});
+rec.off("reconnecting", () => {});
 
-rec.emit('reconnected');
-rec.emit('reconnecting');
+rec.emit("reconnected");
+rec.emit("reconnecting");

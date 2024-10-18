@@ -1,15 +1,6 @@
-// Type definitions for D3JS d3-axis module 3.0
-// Project: https://github.com/d3/d3-axis/, https://d3js.org/d3-axis
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.0
 
-import { Selection, TransitionLike } from 'd3-selection';
+import { Selection, TransitionLike } from "d3-selection";
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -18,7 +9,7 @@ import { Selection, TransitionLike } from 'd3-selection';
 /**
  * A helper type to alias elements which can serve as a domain for an axis.
  */
-export type AxisDomain = number | string | Date | { valueOf(): number};
+export type AxisDomain = number | string | Date | { valueOf(): number };
 
 /**
  * A helper interface to describe the minimal contract to be met by a time interval
@@ -67,12 +58,18 @@ export interface Axis<Domain> {
      *
      * @param context A selection of or a transition defined on SVG containers (either SVG or G elements).
      */
-    (context: Selection<SVGSVGElement, any, any, any> | Selection<SVGGElement, any, any, any> | TransitionLike<SVGSVGElement, any> | TransitionLike<SVGGElement, any>): void;
+    (
+        context:
+            | Selection<SVGSVGElement, any, any, any>
+            | Selection<SVGGElement, any, any, any>
+            | TransitionLike<SVGSVGElement, any>
+            | TransitionLike<SVGGElement, any>,
+    ): void;
 
     /**
      * Gets the current scale underlying the axis.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     scale<A extends AxisScale<Domain>>(): A;
 
     /**

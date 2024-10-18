@@ -1,17 +1,8 @@
-// Type definitions for Mdast 3.0
-// Project: https://github.com/syntax-tree/mdast, https://github.com/wooorm/mdast
-// Definitions by: Christian Murphy <https://github.com/ChristianMurphy>
-//                 Jun Lu <https://github.com/lujun2>
-//                 Remco Haszing <https://github.com/remcohaszing>
-//                 Titus Wormer <https://github.com/wooorm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+import { Literal as UnistLiteral, Node, Parent as UnistParent } from "unist";
 
-import { Parent as UnistParent, Literal as UnistLiteral, Node } from 'unist';
+export type AlignType = "left" | "right" | "center" | null;
 
-export type AlignType = 'left' | 'right' | 'center' | null;
-
-export type ReferenceType = 'shortcut' | 'collapsed' | 'full';
+export type ReferenceType = "shortcut" | "collapsed" | "full";
 
 /**
  * This map registers all node types that may be used where markdown block content is accepted.
@@ -195,31 +186,31 @@ export interface Literal extends UnistLiteral {
 }
 
 export interface Root extends Parent {
-    type: 'root';
+    type: "root";
 }
 
 export interface Paragraph extends Parent {
-    type: 'paragraph';
+    type: "paragraph";
     children: PhrasingContent[];
 }
 
 export interface Heading extends Parent {
-    type: 'heading';
+    type: "heading";
     depth: 1 | 2 | 3 | 4 | 5 | 6;
     children: PhrasingContent[];
 }
 
 export interface ThematicBreak extends Node {
-    type: 'thematicBreak';
+    type: "thematicBreak";
 }
 
 export interface Blockquote extends Parent {
-    type: 'blockquote';
+    type: "blockquote";
     children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface List extends Parent {
-    type: 'list';
+    type: "list";
     ordered?: boolean | null | undefined;
     start?: number | null | undefined;
     spread?: boolean | null | undefined;
@@ -227,103 +218,103 @@ export interface List extends Parent {
 }
 
 export interface ListItem extends Parent {
-    type: 'listItem';
+    type: "listItem";
     checked?: boolean | null | undefined;
     spread?: boolean | null | undefined;
     children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface Table extends Parent {
-    type: 'table';
+    type: "table";
     align?: AlignType[] | null | undefined;
     children: TableContent[];
 }
 
 export interface TableRow extends Parent {
-    type: 'tableRow';
+    type: "tableRow";
     children: RowContent[];
 }
 
 export interface TableCell extends Parent {
-    type: 'tableCell';
+    type: "tableCell";
     children: PhrasingContent[];
 }
 
 export interface HTML extends Literal {
-    type: 'html';
+    type: "html";
 }
 
 export interface Code extends Literal {
-    type: 'code';
+    type: "code";
     lang?: string | null | undefined;
     meta?: string | null | undefined;
 }
 
 export interface YAML extends Literal {
-    type: 'yaml';
+    type: "yaml";
 }
 
 export interface Definition extends Node, Association, Resource {
-    type: 'definition';
+    type: "definition";
 }
 
 export interface FootnoteDefinition extends Parent, Association {
-    type: 'footnoteDefinition';
+    type: "footnoteDefinition";
     children: Array<BlockContent | DefinitionContent>;
 }
 
 export interface Text extends Literal {
-    type: 'text';
+    type: "text";
 }
 
 export interface Emphasis extends Parent {
-    type: 'emphasis';
+    type: "emphasis";
     children: PhrasingContent[];
 }
 
 export interface Strong extends Parent {
-    type: 'strong';
+    type: "strong";
     children: PhrasingContent[];
 }
 
 export interface Delete extends Parent {
-    type: 'delete';
+    type: "delete";
     children: PhrasingContent[];
 }
 
 export interface InlineCode extends Literal {
-    type: 'inlineCode';
+    type: "inlineCode";
 }
 
 export interface Break extends Node {
-    type: 'break';
+    type: "break";
 }
 
 export interface Link extends Parent, Resource {
-    type: 'link';
+    type: "link";
     children: StaticPhrasingContent[];
 }
 
 export interface Image extends Node, Resource, Alternative {
-    type: 'image';
+    type: "image";
 }
 
 export interface LinkReference extends Parent, Reference {
-    type: 'linkReference';
+    type: "linkReference";
     children: StaticPhrasingContent[];
 }
 
 export interface ImageReference extends Node, Reference, Alternative {
-    type: 'imageReference';
+    type: "imageReference";
 }
 
 export interface Footnote extends Parent {
-    type: 'footnote';
+    type: "footnote";
     children: PhrasingContent[];
 }
 
 export interface FootnoteReference extends Node, Association {
-    type: 'footnoteReference';
+    type: "footnoteReference";
 }
 
 // Mixin

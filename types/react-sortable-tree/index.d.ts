@@ -1,19 +1,9 @@
-// Type definitions for react-sortable-tree 0.3
-// Project: https://frontend-collective.github.io/react-sortable-tree
-// Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
-//                 Jovica Zoric <https://github.com/jzoric>
-//                 Kevin Perrine <https://github.com/kevinsperrine>
-//                 Alex Maclean <https://github.com/acemac>
-//                 Jan Dolezel <https://github.com/dolezel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as React from "react";
+import { ConnectDragPreview, ConnectDragSource, ConnectDropTarget } from "react-dnd";
+import { Index, ListProps } from "react-virtualized";
 
-import * as React from 'react';
-import { ListProps, Index } from 'react-virtualized';
-import { ConnectDragSource, ConnectDragPreview, ConnectDropTarget } from 'react-dnd';
-
-export * from './utils/tree-data-utils';
-export * from './utils/default-handlers';
+export * from "./utils/default-handlers";
+export * from "./utils/tree-data-utils";
 
 export interface GetTreeItemChildren<T = {}> {
     done: (children: Array<TreeItem<T>>) => void;
@@ -108,19 +98,19 @@ export interface NodeRendererProps<T = {}> {
     canDrag: boolean;
     scaffoldBlockPxWidth: number;
     toggleChildrenVisibility?(data: NodeData<T>): void;
-    buttons?: JSX.Element[] | undefined;
+    buttons?: React.JSX.Element[] | undefined;
     className?: string | undefined;
     style?: React.CSSProperties | undefined;
-    title?: ((data: NodeData<T>) => JSX.Element | JSX.Element) | undefined;
-    subtitle?: ((data: NodeData<T>) => JSX.Element | JSX.Element) | undefined;
-    icons?: JSX.Element[] | undefined;
+    title?: ((data: NodeData<T>) => React.JSX.Element | React.JSX.Element) | undefined;
+    subtitle?: ((data: NodeData<T>) => React.JSX.Element | React.JSX.Element) | undefined;
+    icons?: React.JSX.Element[] | undefined;
     lowerSiblingCounts: number[];
     swapDepth?: number | undefined;
     swapFrom?: number | undefined;
     swapLength?: number | undefined;
     listIndex: number;
     treeId: string;
-    rowDirection?: 'ltr' | 'rtl' | undefined;
+    rowDirection?: "ltr" | "rtl" | undefined;
 
     connectDragPreview: ConnectDragPreview;
     connectDragSource: ConnectDragSource;
@@ -154,10 +144,10 @@ export interface TreeRendererProps<T = {}> {
     swapLength?: number | undefined;
     scaffoldBlockPxWidth: number;
     lowerSiblingCounts: number[];
-    rowDirection?: 'ltr' | 'rtl' | undefined;
+    rowDirection?: "ltr" | "rtl" | undefined;
 
     listIndex: number;
-    children: JSX.Element[];
+    children: React.JSX.Element[];
     style?: React.CSSProperties | undefined;
 
     // Drop target
@@ -196,7 +186,7 @@ export interface ReactSortableTreeProps<T = {}> extends ThemeTreeProps<T> {
     onVisibilityToggle?(data: OnVisibilityToggleData<T>): void;
     onDragStateChanged?(data: OnDragStateChangedData<T>): void;
     maxDepth?: number | undefined;
-    rowDirection?: 'ltr' | 'rtl' | undefined;
+    rowDirection?: "ltr" | "rtl" | undefined;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean | undefined;
     canDrop?(data: OnDragPreviousAndNextLocation<T> & NodeData<T>): boolean;
     canNodeHaveChildren?(node: TreeItem<T>): boolean;
@@ -212,10 +202,12 @@ export interface ReactSortableTreeProps<T = {}> extends ThemeTreeProps<T> {
     isVirtualized?: boolean | undefined;
 }
 
-// eslint-disable-next-line no-unnecessary-generics
-declare function SortableTree<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): JSX.Element;
-// eslint-disable-next-line no-unnecessary-generics
-declare function SortableTreeWithoutDndContext<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function SortableTree<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): React.JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function SortableTreeWithoutDndContext<T>(
+    props: React.PropsWithChildren<ReactSortableTreeProps<T>>,
+): React.JSX.Element;
 
 export { SortableTree, SortableTreeWithoutDndContext };
 export default SortableTree;

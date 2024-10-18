@@ -1,9 +1,3 @@
-// Type definitions for cloudflare 2.7
-// Project: https://github.com/cloudflare/node-cloudflare
-// Definitions by: Samuel Corsi-House <https://github.com/Xenfo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 declare namespace Cloudflare {
     type RecordTypes =
         | "A"
@@ -24,7 +18,7 @@ declare namespace Cloudflare {
         | "SSHFP"
         | "SVCB"
         | "TLSA"
-        | "URI read only";
+        | "URI";
 
     type ResponseObjectPromise = Promise<object>;
 
@@ -35,7 +29,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordWithoutPriority {
-        type: Exclude<RecordTypes, 'MX' | 'SRV' | 'URI'>;
+        type: Exclude<RecordTypes, "MX" | "SRV" | "URI">;
         name: string;
         content: string;
         ttl: number;
@@ -43,7 +37,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordWithPriority {
-        type: Extract<RecordTypes, 'MX' | 'URI'>;
+        type: Extract<RecordTypes, "MX" | "URI">;
         name: string;
         content: string;
         ttl: number;
@@ -52,36 +46,72 @@ declare namespace Cloudflare {
     }
 
     interface SrvDnsRecord {
-        type: 'SRV';
+        type: "SRV";
         data: {
-          name: string;
-          service: string;
-          proto: string;
-          ttl: number;
-          proxied?: boolean | undefined;
-          priority: number;
-          weight: number;
-          port: number;
-          target: string;
+            name: string;
+            service: string;
+            proto: string;
+            ttl: number;
+            proxied?: boolean | undefined;
+            priority: number;
+            weight: number;
+            port: number;
+            target: string;
         };
     }
 
     type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority | SrvDnsRecord;
+    type ExistingDnsRecordByType<RecordType extends RecordTypes> =
+        & (RecordType extends "MX" | "URI" ? DnsRecordWithPriority
+            : RecordType extends "SRV" ? SrvDnsRecord
+            : RecordType extends Exclude<RecordTypes, "MX" | "SRV" | "URI"> ? DnsRecordWithoutPriority
+            : DnsRecord)
+        & { id: string };
 
     interface DNSRecords {
-        edit(
+        edit(zone_id: string, id: string, record: DnsRecord): ResponseObjectPromise;
+        browse<RecordType extends RecordTypes = any>(
             zone_id: string,
-            id: string,
-            record: DnsRecord,
-        ): ResponseObjectPromise;
-        browse(zone_id: string): ResponseObjectPromise;
+            options?: DnsRecordsBrowseOptions<RecordType>,
+        ): Promise<DnsRecordsBrowseResponse<RecordType>>;
         export(zone_id: string): ResponseObjectPromise;
         del(zone_id: string, id: string): ResponseObjectPromise;
         read(zone_id: string, id: string): ResponseObjectPromise;
-        add(
-            zone_id: string,
-            record: DnsRecord,
-        ): ResponseObjectPromise;
+        add(zone_id: string, record: DnsRecord): ResponseObjectPromise;
+    }
+
+    interface DnsRecordsBrowseOptions<RecordType extends RecordTypes> {
+        page?: number;
+        per_page?: number;
+        name?: string;
+        content?: string;
+        type?: RecordType;
+        order?: "type" | "name" | "content" | "ttl" | "proxied";
+        direction?: "asc" | "desc";
+        match?: "any" | "all";
+        tag?: string;
+        tag_match?: "any" | "all";
+        search?: string;
+        comment?: string;
+        // TODO: support nested filters (for example tag.absent)
+    }
+
+    interface DnsRecordsBrowseResponse<RecordType extends RecordTypes> {
+        result: Array<ExistingDnsRecordByType<RecordType>> | null;
+        result_info: {
+            page: number;
+            per_page: number;
+            count: number;
+            total_count: number;
+        };
+        success: boolean;
+        errors: ResponseMessageObject[];
+        messages: ResponseMessageObject[];
+    }
+
+    interface ResponseMessageObject {
+        code: number;
+        message: string;
     }
 
     interface EnterpriseZoneWorkerScripts {
@@ -201,7 +231,8 @@ declare namespace Cloudflare {
             params: {
                 files?:
                     | string[]
-                    | { url: string; headers: { Origin: string; "CF-IPCountry": string; "CF-Device-Type": string } } | undefined;
+                    | { url: string; headers: { Origin: string; "CF-IPCountry": string; "CF-Device-Type": string } }
+                    | undefined;
                 tags?: string[] | undefined;
                 hosts?: string[] | undefined;
                 prefixes?: string[] | undefined;

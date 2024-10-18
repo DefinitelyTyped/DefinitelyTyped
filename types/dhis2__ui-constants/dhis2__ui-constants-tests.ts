@@ -1,4 +1,4 @@
-import { colors, elevations, layer, theme } from '@dhis2/ui-constants';
+import { colors, elevations, layer, theme } from "@dhis2/ui-constants";
 
 colors.blue050;
 colors.blue100;

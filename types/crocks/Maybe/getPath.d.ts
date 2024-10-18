@@ -1,4 +1,4 @@
-import Maybe from './Maybe';
+import Maybe from "./Maybe";
 
 /**
  * getPath :: [ (String | Integer) ] -> a -> Maybe b

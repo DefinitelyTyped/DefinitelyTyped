@@ -1,11 +1,3 @@
-// Type definitions for qrcode.react 1.0
-// Project: https://github.com/zpao/qrcode.react, http://zpao.github.io/qrcode.react
-// Definitions by: Mleko <https://github.com/mleko>,
-//                 Yonas <https://github.com/yonasadiel>,
-//                 Bjoluc <https://github.com/bjoluc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare namespace qrcode {
@@ -24,16 +16,16 @@ declare namespace qrcode {
         includeMargin?: boolean | undefined;
         bgColor?: string | undefined;
         fgColor?: string | undefined;
-        level?: "L"|"M"|"Q"|"H" | undefined;
+        level?: "L" | "M" | "Q" | "H" | undefined;
         imageSettings?: ImageSettings | undefined;
     }
 
     type CanvasQRCodeProps = BaseQRCodeProps & {
-        renderAs?: "canvas" | undefined
+        renderAs?: "canvas" | undefined;
     } & React.CanvasHTMLAttributes<HTMLCanvasElement>;
 
     type SvgQRCodeProps = BaseQRCodeProps & {
-        renderAs: "svg"
+        renderAs: "svg";
     } & React.SVGProps<SVGSVGElement>;
 
     type QRCode = React.ComponentClass<CanvasQRCodeProps | SvgQRCodeProps>;

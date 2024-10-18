@@ -1,4 +1,4 @@
-import week = require('week');
+import week = require("week");
 
 let weekNumber: string;
 

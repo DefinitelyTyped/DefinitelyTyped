@@ -1,4 +1,4 @@
-import decode = require('heic-decode');
+import decode = require("heic-decode");
 const { all } = decode;
 
 // $ExpectType Promise<DecodedImage>

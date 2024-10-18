@@ -1,13 +1,7 @@
-// Type definitions for non-npm package zedit__upf 2.0
-// Project: https://github.com/zedit/zedit-unified-patching-framework
-// Definitions by: Alex Layton <https://github.com/awlayton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
+import type { FileHandle, GameMode, RecordHandle, XELib } from "xelib";
 
-import type { XELib, GameMode, RecordHandle, FileHandle } from 'xelib';
-
-import type { FSJetpack } from 'fs-jetpack/types';
-import type { FileFilter } from 'electron';
+import type { FileFilter } from "electron";
+import type { FSJetpack } from "fs-jetpack/types";
 
 /**
  * UPF modules have these variables exposed globally:
@@ -20,17 +14,17 @@ declare global {
      * @deprecated The Patcher used in this call contains deprecated option types
      * @see LegacyPatcher
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function registerPatcher<L extends {} = {}, S extends {} = {}>(patcher: LegacyPatcher<S, L>): void;
     /**
      * Function for registering a patcher with UPF
      *
      * Generics are needed for inference within Patcher interface to work
      */
-    /* eslint-disable no-unnecessary-generics */
+    /* eslint-disable @definitelytyped/no-unnecessary-generics */
     // tslint:disable-next-line:unified-signatures
     function registerPatcher<L extends {} = {}, S extends {} = {}>(patcher: Patcher<S, L>): void;
-    /* eslint-enable no-unnecessary-generics */
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
 
     /**
      * @see FileHelpers
@@ -152,46 +146,48 @@ export interface XELibModule extends XELib {
  */
 export type ExectuteCTX<S, L> = [FileHandle, Helpers, S, L];
 
-export type ProcessBlock<S, L> = (
-    | {
-          /**
-           * Loaded records which pass filter will be copied to the patch plugin,
-           * and then passed to the patch function.
-           */
-          load: {
-              /**
-               * Record signature to load.
-               * You can view record signatures by top level group names
-               * on the tree view and in record headers.
-               */
-              signature: string;
-              /**
-               * Pass true to include override records.
-               *
-               * @default false
-               */
-              overrides?: boolean | undefined;
-              /**
-               * Filter function. Called for each loaded record.
-               * Return false to skip patching a record.
-               */
-              filter?: ((record: RecordHandle) => boolean) | undefined;
-          };
-      }
-    | {
-          /**
-           * A function which can be used instead of load.
-           * The records function allows you to return a custom array of records to patch.
-           */
-          records: (filesToPatch: FileHandle[], helpers: Helpers, settings: S, locals: L) => RecordHandle[];
-      }
-) & {
-    /**
-     * Called for each record copied to the patch plugin.
-     * This is the step where you set values on the record.
-     */
-    patch?: ((record: RecordHandle, helpers: Helpers, settings: S, locals: L) => void) | undefined;
-};
+export type ProcessBlock<S, L> =
+    & (
+        | {
+            /**
+             * Loaded records which pass filter will be copied to the patch plugin,
+             * and then passed to the patch function.
+             */
+            load: {
+                /**
+                 * Record signature to load.
+                 * You can view record signatures by top level group names
+                 * on the tree view and in record headers.
+                 */
+                signature: string;
+                /**
+                 * Pass true to include override records.
+                 *
+                 * @default false
+                 */
+                overrides?: boolean | undefined;
+                /**
+                 * Filter function. Called for each loaded record.
+                 * Return false to skip patching a record.
+                 */
+                filter?: ((record: RecordHandle) => boolean) | undefined;
+            };
+        }
+        | {
+            /**
+             * A function which can be used instead of load.
+             * The records function allows you to return a custom array of records to patch.
+             */
+            records: (filesToPatch: FileHandle[], helpers: Helpers, settings: S, locals: L) => RecordHandle[];
+        }
+    )
+    & {
+        /**
+         * Called for each record copied to the patch plugin.
+         * This is the step where you set values on the record.
+         */
+        patch?: ((record: RecordHandle, helpers: Helpers, settings: S, locals: L) => void) | undefined;
+    };
 
 /**
  * @typeParam S Type for the Patcher's settings
@@ -278,22 +274,23 @@ export interface Patcher<S extends {}, L extends {}> {
  *
  * @see Patcher
  */
-export type LegacyPatcher<S extends {}, L extends {}> = Patcher<S, L> &
-    (
+export type LegacyPatcher<S extends {}, L extends {}> =
+    & Patcher<S, L>
+    & (
         | {
-              /**
-               * @deprecated Use function version
-               * @see Patcher.requiredFiles
-               */
-              requiredFiles: string[];
-          }
+            /**
+             * @deprecated Use function version
+             * @see Patcher.requiredFiles
+             */
+            requiredFiles: string[];
+        }
         | {
-              /**
-               * @deprecated Use function version
-               * @see Patcher.execute
-               */
-              execute: Executor<S, L>;
-          }
+            /**
+             * @deprecated Use function version
+             * @see Patcher.execute
+             */
+            execute: Executor<S, L>;
+        }
     );
 
 /**

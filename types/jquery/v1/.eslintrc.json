@@ -1,5 +1,7 @@
 {
     "rules": {
-        "trim-file": "off"
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

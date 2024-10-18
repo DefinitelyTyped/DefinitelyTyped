@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/jquery.pnotify",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.pnotify",
+    "projects": [
+        "https://github.com/sciactive/pnotify"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.pnotify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Sichau",
+            "githubUsername": "DavidSichau"
+        },
+        {
+            "name": "Robin Maenhaut",
+            "githubUsername": "FUNExtreme"
+        }
+    ]
+}

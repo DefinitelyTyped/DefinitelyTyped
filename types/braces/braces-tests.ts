@@ -13,7 +13,7 @@ braces.expand("a/{x,y,z}/b");
 braces("x{a..e}y", bracesOpts);
 
 // $ExpectType string[]
-braces("x{\\a..e}y", { ...bracesOpts, keepEscaping: false});
+braces("x{\\a..e}y", { ...bracesOpts, keepEscaping: false });
 
 // $ExpectType string[]
-braces("x{\\a..e}y", { ...bracesOpts, keepEscaping: true});
+braces("x{\\a..e}y", { ...bracesOpts, keepEscaping: true });

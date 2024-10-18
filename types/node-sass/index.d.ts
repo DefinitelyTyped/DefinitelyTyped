@@ -1,12 +1,12 @@
-// Type definitions for node-sass 4.11
-// Project: https://github.com/sass/node-sass
-// Definitions by: Asana <https://github.com/pspeter3>, Chris Eppstein <https://github.com/chriseppstein>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
-export type ImporterReturnType = { file: string } | { file?: string | undefined; contents: string } | Error | null | types.Null | types.Error;
+export type ImporterReturnType =
+    | { file: string }
+    | { file?: string | undefined; contents: string }
+    | Error
+    | null
+    | types.Null
+    | types.Error;
 
 /**
  * The context value is a value that is shared for the duration of a single render.
@@ -29,7 +29,12 @@ export interface SyncContext extends Context {
     callback: undefined;
 }
 
-export type AsyncImporter = (this: AsyncContext, url: string, prev: string, done: (data: ImporterReturnType) => void) => void;
+export type AsyncImporter = (
+    this: AsyncContext,
+    url: string,
+    prev: string,
+    done: (data: ImporterReturnType) => void,
+) => void;
 export type SyncImporter = (this: SyncContext, url: string, prev: string) => ImporterReturnType;
 export type Importer = AsyncImporter | SyncImporter;
 
@@ -38,39 +43,152 @@ export type Importer = AsyncImporter | SyncImporter;
 // ** Sync Sass functions receiving fixed # of arguments ***
 export type SyncSassFn = (this: SyncContext, ...$args: types.Value[]) => types.ReturnValue;
 
-/* tslint:disable:max-line-length */
 // ** Sync Sass functions receiving variable # of arguments ***
 export type SyncSassVarArgFn1 = (this: SyncContext, $arg1: types.Value[]) => types.ReturnValue;
 export type SyncSassVarArgFn2 = (this: SyncContext, $arg1: types.Value, $arg2: types.Value[]) => types.ReturnValue;
-export type SyncSassVarArgFn3 = (this: SyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value[]) => types.ReturnValue;
-export type SyncSassVarArgFn4 = (this: SyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value[]) => types.ReturnValue;
-export type SyncSassVarArgFn5 = (this: SyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, $arg5: types.Value[]) => types.ReturnValue;
-export type SyncSassVarArgFn6 = (this: SyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, $arg5: types.Value, $arg6: types.Value[]) => types.ReturnValue;
+export type SyncSassVarArgFn3 = (
+    this: SyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value[],
+) => types.ReturnValue;
+export type SyncSassVarArgFn4 = (
+    this: SyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value[],
+) => types.ReturnValue;
+export type SyncSassVarArgFn5 = (
+    this: SyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value,
+    $arg5: types.Value[],
+) => types.ReturnValue;
+export type SyncSassVarArgFn6 = (
+    this: SyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value,
+    $arg5: types.Value,
+    $arg6: types.Value[],
+) => types.ReturnValue;
 
 export type SassFunctionCallback = ($result: types.ReturnValue) => void;
 
 // ** Async Sass functions receiving fixed # of arguments ***
 export type AsyncSassFn0 = (this: AsyncContext, cb: SassFunctionCallback) => void;
 export type AsyncSassFn1 = (this: AsyncContext, $arg1: types.Value, cb: SassFunctionCallback) => void;
-export type AsyncSassFn2 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, cb: SassFunctionCallback) => void;
-export type AsyncSassFn3 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, cb: SassFunctionCallback) => void;
-export type AsyncSassFn4 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, cb: SassFunctionCallback) => void;
-export type AsyncSassFn5 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, $arg5: types.Value, cb: SassFunctionCallback) => void;
-export type AsyncSassFn6 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, $arg5: types.Value, $arg6: types.Value, cb: SassFunctionCallback) => void;
+export type AsyncSassFn2 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    cb: SassFunctionCallback,
+) => void;
+export type AsyncSassFn3 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    cb: SassFunctionCallback,
+) => void;
+export type AsyncSassFn4 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value,
+    cb: SassFunctionCallback,
+) => void;
+export type AsyncSassFn5 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value,
+    $arg5: types.Value,
+    cb: SassFunctionCallback,
+) => void;
+export type AsyncSassFn6 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value,
+    $arg5: types.Value,
+    $arg6: types.Value,
+    cb: SassFunctionCallback,
+) => void;
 
 // *** Async Sass Functions receiving variable # of arguments ***
 export type AsyncSassVarArgFn1 = (this: AsyncContext, $arg1: types.Value[], cb: SassFunctionCallback) => void;
-export type AsyncSassVarArgFn2 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value[], cb: SassFunctionCallback) => void;
-export type AsyncSassVarArgFn3 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value[], cb: SassFunctionCallback) => void;
-export type AsyncSassVarArgFn4 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value[], cb: SassFunctionCallback) => void;
-export type AsyncSassVarArgFn5 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, $arg5: types.Value[], cb: SassFunctionCallback) => void;
-export type AsyncSassVarArgFn6 = (this: AsyncContext, $arg1: types.Value, $arg2: types.Value, $arg3: types.Value, $arg4: types.Value, $arg5: types.Value, $arg6: types.Value[], cb: SassFunctionCallback) => void;
-/* tslint:enable:max-line-length */
+export type AsyncSassVarArgFn2 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value[],
+    cb: SassFunctionCallback,
+) => void;
+export type AsyncSassVarArgFn3 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value[],
+    cb: SassFunctionCallback,
+) => void;
+export type AsyncSassVarArgFn4 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value[],
+    cb: SassFunctionCallback,
+) => void;
+export type AsyncSassVarArgFn5 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value,
+    $arg5: types.Value[],
+    cb: SassFunctionCallback,
+) => void;
+export type AsyncSassVarArgFn6 = (
+    this: AsyncContext,
+    $arg1: types.Value,
+    $arg2: types.Value,
+    $arg3: types.Value,
+    $arg4: types.Value,
+    $arg5: types.Value,
+    $arg6: types.Value[],
+    cb: SassFunctionCallback,
+) => void;
 
-export type SyncSassFunction = SyncSassFn | SyncSassVarArgFn1 | SyncSassVarArgFn2 | SyncSassVarArgFn3 | SyncSassVarArgFn4 | SyncSassVarArgFn5 | SyncSassVarArgFn6;
+export type SyncSassFunction =
+    | SyncSassFn
+    | SyncSassVarArgFn1
+    | SyncSassVarArgFn2
+    | SyncSassVarArgFn3
+    | SyncSassVarArgFn4
+    | SyncSassVarArgFn5
+    | SyncSassVarArgFn6;
 
-export type AsyncSassFunction = AsyncSassFn0 | AsyncSassFn1 | AsyncSassFn2 | AsyncSassFn3 | AsyncSassFn4 | AsyncSassFn5 | AsyncSassFn6
-                                                            | AsyncSassVarArgFn1 | AsyncSassVarArgFn2 | AsyncSassVarArgFn3 | AsyncSassVarArgFn4 | AsyncSassVarArgFn5 | AsyncSassVarArgFn6;
+export type AsyncSassFunction =
+    | AsyncSassFn0
+    | AsyncSassFn1
+    | AsyncSassFn2
+    | AsyncSassFn3
+    | AsyncSassFn4
+    | AsyncSassFn5
+    | AsyncSassFn6
+    | AsyncSassVarArgFn1
+    | AsyncSassVarArgFn2
+    | AsyncSassVarArgFn3
+    | AsyncSassVarArgFn4
+    | AsyncSassVarArgFn5
+    | AsyncSassVarArgFn6;
 
 export type SassFunction = SyncSassFunction | AsyncSassFunction;
 
@@ -200,7 +318,7 @@ export namespace types {
         /**
          * Constructs a new Sass string. Does not require use of the `new` keyword.
          */
-        new (value: string): String;
+        new(value: string): String;
         /**
          * Constructs a new Sass string. Can also be used with the `new` keyword.
          */
@@ -264,7 +382,7 @@ export namespace types {
          * @param [a] float 0 - 1 inclusive
          * @returns a SassColor instance.
          */
-        new (r: number, g: number, b: number, a?: number): Color;
+        new(r: number, g: number, b: number, a?: number): Color;
 
         /**
          * Constructs a new Sass color given a 4 byte number. Do not invoke with the `new` keyword.
@@ -286,7 +404,7 @@ export namespace types {
          *   let components = [c.getR(), c.getG(), c.getR(), c.getA()] // [ 136, 0, 255, 0.8 ]
          *   assert.deepEqual(componentBytes, components); // does not raise.
          */
-        new (hexN: number): Color;
+        new(hexN: number): Color;
 
         /**
          * Constructs a new Sass color given the RGBA component values. Do not invoke with the `new` keyword.
@@ -351,7 +469,7 @@ export namespace types {
         setSeparator(isComma: boolean): void;
     }
     interface ListConstructor {
-        new (length: number, commaSeparator?: boolean): List;
+        new(length: number, commaSeparator?: boolean): List;
         (length: number, commaSeparator?: boolean): List;
     }
     export const List: ListConstructor;
@@ -363,7 +481,7 @@ export namespace types {
         setKey(index: number, key: Value): void;
     }
     interface MapConstructor {
-        new (length: number): Map;
+        new(length: number): Map;
         (length: number): Map;
     }
     export const Map: MapConstructor;
@@ -386,7 +504,7 @@ export namespace types {
          * An error return value for async functions.
          * For synchronous functions, this can be returned or a standard error object can be thrown.
          */
-        new (message: string): Error;
+        new(message: string): Error;
         /**
          * An error return value for async functions.
          * For synchronous functions, this can be returned or a standard error object can be thrown.

@@ -1,5 +1,5 @@
-import Range = require('../classes/range');
-import semver = require('../index');
+import Range = require("../classes/range");
+import semver = require("../index");
 
 /**
  * Return the valid range or null if it's not valid

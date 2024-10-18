@@ -9,8 +9,10 @@ const obj: any = {
     nil: null,
     undef: undefined,
 
-    fn: function echo(arg: any) { return arg; },
-    re: /([^\s]+)/g
+    fn: function echo(arg: any) {
+        return arg;
+    },
+    re: /([^\s]+)/g,
 };
 
 serialize(obj);

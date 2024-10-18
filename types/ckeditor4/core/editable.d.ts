@@ -1,6 +1,6 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly editable: { new (editor: editor, element: HTMLElement | dom.element): editable };
+        readonly editable: { new(editor: editor, element: HTMLElement | dom.element): editable };
     }
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editable.html */
     interface editable extends dom.element {
@@ -12,9 +12,13 @@ declare namespace CKEDITOR {
         attachListener(
             obj: event | editable,
             eventName: string,
-            listenerFunction: (ei: eventInfo<dom.domObject<Event | EventTarget>
-                | dom.event<Event | EventTarget>
-                | eventData>) => void,
+            listenerFunction: (
+                ei: eventInfo<
+                    | dom.domObject<Event | EventTarget>
+                    | dom.event<Event | EventTarget>
+                    | eventData
+                >,
+            ) => void,
             scopeobj?: unknown,
             listenerData?: unknown,
             priority?: number,

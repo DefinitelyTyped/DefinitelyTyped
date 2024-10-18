@@ -1,10 +1,4 @@
-// Type definitions for fbt 1.0
-// Project: https://github.com/facebook/fbt
-// Definitions by: Davyd <https://github.com/retyui>
-//                 Alexander Nanberg <https://github.com/alexandernanberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-import * as React from 'react';
+import * as React from "react";
 
 export interface ParamOptions {
     /**
@@ -44,7 +38,7 @@ export interface PluralOptions {
      *  - "ifMany": Show the count only in plural case
      *  - "yes": Show the count in all cases
      */
-    showCount?: 'yes' | 'no' | 'ifMany';
+    showCount?: "yes" | "no" | "ifMany";
     /**
      * Name of the token where count shows up. (Default: `"number"`)
      */
@@ -85,22 +79,22 @@ export interface FbtOptions {
     subject?: IntlVariationsGender;
 }
 
-export interface FbtApi<Output extends {fbt: unknown, params: unknown}> {
-    (text: string | string[], description: string, options?: FbtOptions): Output['fbt'];
+export interface FbtApi<Output extends { fbt: unknown; params: unknown }> {
+    (text: string | string[], description: string, options?: FbtOptions): Output["fbt"];
 
-    param(name: string, value: unknown, options?: ParamOptions): Output['params'];
+    param(name: string, value: unknown, options?: ParamOptions): Output["params"];
 
-    sameParam(name: string): Output['params'];
+    sameParam(name: string): Output["params"];
 
-    name(tokenName: string, value: unknown, gender: IntlVariationsGender): Output['params'];
+    name(tokenName: string, value: unknown, gender: IntlVariationsGender): Output["params"];
 
-    plural(singularPhrase: string, count: number, options?: PluralOptions): Output['params'];
+    plural(singularPhrase: string, count: number, options?: PluralOptions): Output["params"];
 
-    enum<Range extends { [enumKey: string]: string }>(enumKey: keyof Range, enumRange: Range): Output['params'];
+    enum<Range extends { [enumKey: string]: string }>(enumKey: keyof Range, enumRange: Range): Output["params"];
 
-    enum(index: string, range: string[]): Output['params'];
+    enum(index: string, range: string[]): Output["params"];
 
-    pronoun(type: PronounType, gender: GenderConst, options?: PronounOptions): Output['params'];
+    pronoun(type: PronounType, gender: GenderConst, options?: PronounOptions): Output["params"];
 
     //
     /**
@@ -108,7 +102,7 @@ export interface FbtApi<Output extends {fbt: unknown, params: unknown}> {
      * NOTE: The transform will throw if it encounters a common string not in the map provided.
      * https://facebook.github.io/fbt/docs/common#runtime-api
      */
-    c: (text: string) => Output['fbt'];
+    c: (text: string) => Output["fbt"];
 
     // https://github.com/facebook/fbt/blob/d14af3e7dcf775562d4c4d27e62861bd9394ea6b/runtime/shared/fbt.js#L453-L455
     // Only used in React Native in fbsource
@@ -149,7 +143,7 @@ export class FbtResult {
 }
 
 // https://github.com/facebook/fbt/blob/d14af3e7dcf775562d4c4d27e62861bd9394ea6b/packages/babel-plugin-fbt/src/FbtConstants.js#L70-L75
-export type PronounType = 'object' | 'possessive' | 'reflexive' | 'subject';
+export type PronounType = "object" | "possessive" | "reflexive" | "subject";
 
 // https://github.com/facebook/fbt/blob/d14af3e7dcf775562d4c4d27e62861bd9394ea6b/runtime/nonfb/GenderConst.js#L17-L32
 export enum GenderConst {
@@ -239,7 +233,7 @@ export default fbt;
  * See: https://github.com/facebook/fbt/blob/d14af3e7dcf775562d4c4d27e62861bd9394ea6b/packages/babel-plugin-fbt/src/FbtUtil.js#L84-L94
  */
 export interface FbtEnumProps {
-    'enum-range': string[] | { [enumKey: string]: string };
+    "enum-range": string[] | { [enumKey: string]: string };
     value: string;
 }
 export const FbtEnum: React.FC<FbtEnumProps>;
@@ -275,26 +269,26 @@ export interface FbtProps extends FbtOptions {
     desc: string;
 }
 
-declare global {
+declare module "react" {
     namespace JSX {
         type PropsWithChildren<P> = P & { children?: React.ReactNode | undefined };
         type PropsWithStringChild<P> = P & { children?: string | string[] | undefined };
 
         interface IntrinsicElements {
             fbt: PropsWithChildren<FbtProps>;
-            'fbt:enum': FbtEnumProps;
-            'fbt:name': PropsWithChildren<FbtNameProps>;
-            'fbt:param': PropsWithChildren<FbtParamProps>;
-            'fbt:plural': PropsWithChildren<FbtPluralProps>;
-            'fbt:pronoun': FbtPronounProps;
-            'fbt:same-param': FbtSameParamProps;
+            "fbt:enum": FbtEnumProps;
+            "fbt:name": PropsWithChildren<FbtNameProps>;
+            "fbt:param": PropsWithChildren<FbtParamProps>;
+            "fbt:plural": PropsWithChildren<FbtPluralProps>;
+            "fbt:pronoun": FbtPronounProps;
+            "fbt:same-param": FbtSameParamProps;
             fbs: PropsWithChildren<FbtProps>;
-            'fbs:enum': FbtEnumProps;
-            'fbs:name': PropsWithStringChild<FbtNameProps>;
-            'fbs:param': PropsWithStringChild<FbtParamProps>;
-            'fbs:plural': PropsWithStringChild<FbtPluralProps>;
-            'fbs:pronoun': FbtPronounProps;
-            'fbs:same-param': FbtSameParamProps;
+            "fbs:enum": FbtEnumProps;
+            "fbs:name": PropsWithStringChild<FbtNameProps>;
+            "fbs:param": PropsWithStringChild<FbtParamProps>;
+            "fbs:plural": PropsWithStringChild<FbtPluralProps>;
+            "fbs:pronoun": FbtPronounProps;
+            "fbs:same-param": FbtSameParamProps;
         }
     }
 }

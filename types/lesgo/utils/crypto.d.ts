@@ -1,4 +1,4 @@
-import { BinaryLike } from 'crypto';
+import { BinaryLike } from "crypto";
 
 export function encrypt(text: string): string;
 export function decrypt(text: string): string;

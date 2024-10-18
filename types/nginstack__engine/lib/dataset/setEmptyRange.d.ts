@@ -10,7 +10,7 @@ declare namespace setEmptyRange {
     };
 }
 type DataSet = import('./DataSet');
-declare var NUMERIC_EMPTY_RANGE_START_: number;
-declare var NUMERIC_EMPTY_RANGE_END_: number;
-declare var STRING_EMPTY_RANGE_START_: string;
-declare var STRING_EMPTY_RANGE_END_: string;
+declare let NUMERIC_EMPTY_RANGE_START_: number;
+declare let NUMERIC_EMPTY_RANGE_END_: number;
+declare let STRING_EMPTY_RANGE_START_: string;
+declare let STRING_EMPTY_RANGE_END_: string;

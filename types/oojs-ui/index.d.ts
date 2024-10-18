@@ -1,10 +1,3 @@
-// Type definitions for OOUI 0.47
-// Project: https://www.mediawiki.org/wiki/OOUI
-// Definitions by: diskdance <https://github.com/diskdance>
-//                 Chlod Aidan Alejandro <https://github.com/ChlodAlejandro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /// <reference types="jquery" />
 /// <reference types="oojs" />
 /// <reference path="utils.d.ts" />
@@ -79,7 +72,6 @@
 /// <reference path="SearchInputWidget.d.ts" />
 /// <reference path="SearchWidget.d.ts" />
 /// <reference path="SelectFileInputWidget.d.ts" />
-/// <reference path="SelectFileWidget.d.ts" />
 /// <reference path="SelectWidget.d.ts" />
 /// <reference path="StackLayout.d.ts" />
 /// <reference path="TabOptionWidget.d.ts" />

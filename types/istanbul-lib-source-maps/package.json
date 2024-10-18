@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/istanbul-lib-source-maps",
+    "version": "4.0.9999",
+    "projects": [
+        "https://istanbul.js.org",
+        "https://github.com/istanbuljs/istanbuljs"
+    ],
     "dependencies": {
+        "@types/istanbul-lib-coverage": "*",
         "source-map": "^0.6.1"
-    }
+    },
+    "devDependencies": {
+        "@types/istanbul-lib-source-maps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Cheatham",
+            "githubUsername": "jason0x43"
+        },
+        {
+            "name": "Sridhar Mallela",
+            "githubUsername": "sridharmallela"
+        }
+    ]
 }

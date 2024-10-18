@@ -1,11 +1,4 @@
-// Type definitions for express-useragent 1.0
-// Project: https://www.npmjs.org/package/express-useragent
-// Definitions by: Isman Usoh <https://github.com/isman-usoh>
-//                 Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from "express";
 
 declare global {
     namespace Express {
@@ -81,11 +74,11 @@ export function getPlatform(string: string): string;
 
 export function testCompatibilityMode(): void;
 
-export function testSilk(): 'Silk' | false;
+export function testSilk(): "Silk" | false;
 
 export function testKindleFire(): string | false;
 
-export function testCaptiveNetwork(): 'CaptiveNetwork' | false;
+export function testCaptiveNetwork(): "CaptiveNetwork" | false;
 
 export function reset(): Details;
 
@@ -122,11 +115,11 @@ export class UserAgent {
 
     testCompatibilityMode(): void;
 
-    testSilk(): 'Silk' | false;
+    testSilk(): "Silk" | false;
 
     testKindleFire(): string | false;
 
-    testCaptiveNetwork(): 'CaptiveNetwork' | false;
+    testCaptiveNetwork(): "CaptiveNetwork" | false;
 
     reset(): Details;
 

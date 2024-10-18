@@ -49,5 +49,5 @@ export class Texture {
     get native(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
     get id(): number;
 }
-import { Vector } from '../geom/Vector';
-import { Rectangle } from '../geom/Rectangle';
+import { Rectangle } from "../geom/Rectangle";
+import { Vector } from "../geom/Vector";

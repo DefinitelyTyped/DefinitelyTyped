@@ -19,22 +19,25 @@ export default class ObjectProxy<T extends object = object> extends EmberObject 
     get<K extends keyof T>(key: K): UnwrapComputedPropertyGetter<T[K]> | undefined;
 
     getProperties<K extends keyof this>(
-        list: K[]
+        list: K[],
     ): Pick<UnwrapComputedPropertyGetters<this>, K>;
     getProperties<K extends keyof this>(
         ...list: K[]
     ): Pick<UnwrapComputedPropertyGetters<this>, K>;
     getProperties<K extends keyof T>(
-        list: K[]
+        list: K[],
     ): Pick<Partial<UnwrapComputedPropertyGetters<T>>, K>;
     getProperties<K extends keyof T>(
         ...list: K[]
     ): Pick<Partial<UnwrapComputedPropertyGetters<T>>, K>;
 
-    set<K extends keyof this>(key: K, value: UnwrapComputedPropertySetters<this>[K]): UnwrapComputedPropertySetters<this>[K];
+    set<K extends keyof this>(
+        key: K,
+        value: UnwrapComputedPropertySetters<this>[K],
+    ): UnwrapComputedPropertySetters<this>[K];
     set<K extends keyof T>(key: K, value: UnwrapComputedPropertySetters<T>[K]): UnwrapComputedPropertySetters<T>[K];
 
     setProperties<K extends (keyof this | keyof T)>(
-        hash: Pick<UnwrapComputedPropertySetters<this & T>, K>
+        hash: Pick<UnwrapComputedPropertySetters<this & T>, K>,
     ): Pick<UnwrapComputedPropertySetters<this & T>, K>;
 }

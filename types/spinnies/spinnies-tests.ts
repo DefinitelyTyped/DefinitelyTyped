@@ -8,33 +8,33 @@ function spinniesClass() {
         spinnerColor: "greenBright",
         succeedPrefix: "✓",
         failPrefix: "✖",
-        disableSpins: false
+        disableSpins: false,
     });
 
     // $ExpectType Options
     spinnies.options;
 
     spinnies.add("spinner-1", {
-        text: "I a another spinner"
+        text: "I a another spinner",
     });
 
     spinnies.add("spinner-2", {
-        text: "I am another spinner"
+        text: "I am another spinner",
     });
 
     // $ExpectType SpinnerOptions
-    spinnies.pick('spinner-1');
+    spinnies.pick("spinner-1");
 
     // $ExpectType SpinnerOptions
-    spinnies.update('spinner-1', {
-        text: "Still spinning"
+    spinnies.update("spinner-1", {
+        text: "Still spinning",
     });
 
     // $ExpectType SpinnerOptions
-    spinnies.succeed('spinner-1', { text: "Success!" });
+    spinnies.succeed("spinner-1", { text: "Success!" });
 
     // $ExpectType SpinnerOptions
-    spinnies.fail('spinner-2', { text: "Fail :-(" });
+    spinnies.fail("spinner-2", { text: "Fail :-(" });
 
     // $ExpectType SpinnerOptions
     spinnies.remove("spinner-1");
@@ -46,10 +46,10 @@ function spinniesClass() {
 function customSpinner() {
     const spinner: Spinnies.Spinner = {
         interval: 80,
-        frames: ['🍇', '🍈', '🍉', '🍋']
+        frames: ["🍇", "🍈", "🍉", "🍋"],
     };
 
-    const spinnies = new Spinnies({ color: 'blue', succeedColor: 'green', spinner });
+    const spinnies = new Spinnies({ color: "blue", succeedColor: "green", spinner });
 }
 
 function disableSpins() {

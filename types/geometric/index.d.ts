@@ -1,8 +1,3 @@
-// Type definitions for geometric 2.5
-// Project: https://github.com/HarryStevens/geometric#readme
-// Definitions by: Linda Paiste <https://github.com/lindapaiste>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace geometric;
 
 // -------------------------------PRIMITIVES-------------------------------------------//
@@ -206,7 +201,7 @@ export function polygonTranslate(polygon: Polygon, angle: number, distance: numb
  * On computer screens where the top-left corner is at [0, 0], a polygon with a negative signed area has a
  * counter-clockwise winding order.
  */
-export function polygonWind(polygon: Polygon, order?: 'cw' | 'ccw' | 'clockwise'): Polygon;
+export function polygonWind(polygon: Polygon, order?: "cw" | "ccw" | "clockwise"): Polygon;
 
 // -------------------------------RELATIONSHIPS-------------------------------------------//
 

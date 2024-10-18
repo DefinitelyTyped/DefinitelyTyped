@@ -14,7 +14,7 @@ runWith({
     foo: {
         a: false,
         b: 3,
-        c: 'hi',
+        c: "hi",
     },
     bar: 42,
 }, () => {
@@ -23,21 +23,21 @@ runWith({
 
 // Run with async callback
 runWith({
-    some: 'value'
+    some: "value",
 }, async () => {
     return;
 });
 
 // Set value with value typing
-set<ALSPayload, 'bar'>('bar', 23);
+set<ALSPayload, "bar">("bar", 23);
 
 // Set value with payload typing
-set<ALSPayload>('bar', 23);
+set<ALSPayload>("bar", 23);
 
 // Set value without typing
-set('bar', 23);
+set("bar", 23);
 
 // Get value
-const anyTyped = get('bar');
-const broadlyTyped = get<ALSPayload>('bar');
-const correctlyTyped = get<ALSPayload, 'bar'>('bar');
+const anyTyped = get("bar");
+const broadlyTyped = get<ALSPayload>("bar");
+const correctlyTyped = get<ALSPayload, "bar">("bar");

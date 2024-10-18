@@ -1,7 +1,7 @@
-import CanvasDraw from 'react-canvas-draw';
-import * as React from 'react';
+import * as React from "react";
+import CanvasDraw from "react-canvas-draw";
 
-const AllOptions: JSX.Element = (
+const AllOptions: React.JSX.Element = (
     <CanvasDraw
         onChange={canvas => canvas.getSaveData()}
         loadTimeOffset={7}
@@ -26,14 +26,14 @@ const AllOptions: JSX.Element = (
         hideGridY={false}
         enablePanAndZoom={true}
         mouseZoomFactor={0.01}
-        zoomExtents={{ min: 0.33, max: 3}}
+        zoomExtents={{ min: 0.33, max: 3 }}
         clampLinesToDocument={true}
         className="className"
-        style={{ border: '1px solid #000' }}
+        style={{ border: "1px solid #000" }}
     />
 );
 
-const NoOptions: JSX.Element = <CanvasDraw />;
+const NoOptions: React.JSX.Element = <CanvasDraw />;
 
 function RefTest() {
     const ref = React.useRef<CanvasDraw>(null);
@@ -41,8 +41,8 @@ function RefTest() {
     if (ref.current) {
         ref.current.clear();
         ref.current.undo();
-        ref.current.loadSaveData('data');
-        ref.current.loadSaveData('data', true);
+        ref.current.loadSaveData("data");
+        ref.current.loadSaveData("data", true);
         const saveData: string = ref.current.getSaveData();
     }
 

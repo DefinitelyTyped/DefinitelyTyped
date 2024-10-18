@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-settings-list",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/evetstech/react-native-settings-list"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-settings-list": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MrLuje",
+            "githubUsername": "MrLuje"
+        }
+    ]
+}

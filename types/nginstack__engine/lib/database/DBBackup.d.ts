@@ -28,19 +28,19 @@ declare namespace DBBackup {
         RestoreResult,
     };
 }
-interface RestoreResult {
-    success: boolean;
-    error: string;
-    tables: RestoredTable[];
-}
-declare var IGNORE_DUPLICATED_KEYS: number;
-declare var IGNORE_EXISTING_TABLES: number;
-declare var MERGE_ILOG_TABLE: number;
-declare var DRY_RUN: number;
+declare let IGNORE_DUPLICATED_KEYS: number;
+declare let IGNORE_EXISTING_TABLES: number;
+declare let MERGE_ILOG_TABLE: number;
+declare let DRY_RUN: number;
 interface RestoredTable {
     name: string;
     recordCount: number;
     merged: boolean;
     ignored: boolean;
     ignoredKeys: number[];
+}
+interface RestoreResult {
+    success: boolean;
+    error: string;
+    tables: RestoredTable[];
 }

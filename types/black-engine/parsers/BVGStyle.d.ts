@@ -26,6 +26,6 @@ export class BVGStyle {
     compute(): void;
     clone(): BVGStyle;
 }
-import { CapsStyle } from '../display/CapsStyle';
-import { JointStyle } from '../display/JointStyle';
-import { FillRule } from '../display/FillRule';
+import { CapsStyle } from "../display/CapsStyle";
+import { FillRule } from "../display/FillRule";
+import { JointStyle } from "../display/JointStyle";

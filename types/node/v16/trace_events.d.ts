@@ -12,7 +12,7 @@
  * * `node.async_hooks`: Enables capture of detailed `async_hooks` trace data.
  * The `async_hooks` events have a unique `asyncId` and a special `triggerId` `triggerAsyncId` property.
  * * `node.bootstrap`: Enables capture of Node.js bootstrap milestones.
- * * `node.console`: Enables capture of `console.time()` and `console.count()`output.
+ * * `node.console`: Enables capture of `console.time()` and `console.count()` output.
  * * `node.dns.native`: Enables capture of trace data for DNS queries.
  * * `node.environment`: Enables capture of Node.js Environment milestones.
  * * `node.fs.sync`: Enables capture of trace data for file system sync methods.
@@ -46,7 +46,7 @@
  * Alternatively, trace events may be enabled using the `trace_events` module:
  *
  * ```js
- * const trace_events = require('trace_events');
+ * import trace_events from 'node:trace_events';
  * const tracing = trace_events.createTracing({ categories: ['node.perf'] });
  * tracing.enable();  // Enable trace event capture for the 'node.perf' category
  *
@@ -75,7 +75,7 @@
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/trace_events.js)
  */
-declare module 'trace_events' {
+declare module "trace_events" {
     /**
      * The `Tracing` object is used to enable or disable tracing for sets of
      * categories. Instances are created using the
@@ -122,7 +122,7 @@ declare module 'trace_events' {
      * Creates and returns a `Tracing` object for the given set of `categories`.
      *
      * ```js
-     * const trace_events = require('trace_events');
+     * import trace_events from 'node:trace_events';
      * const categories = ['node.perf', 'node.async_hooks'];
      * const tracing = trace_events.createTracing({ categories });
      * tracing.enable();
@@ -142,7 +142,7 @@ declare module 'trace_events' {
      * Given the file `test.js` below, the command`node --trace-event-categories node.perf test.js` will print`'node.async_hooks,node.perf'` to the console.
      *
      * ```js
-     * const trace_events = require('trace_events');
+     * import trace_events from 'node:trace_events';
      * const t1 = trace_events.createTracing({ categories: ['node.async_hooks'] });
      * const t2 = trace_events.createTracing({ categories: ['node.perf'] });
      * const t3 = trace_events.createTracing({ categories: ['v8'] });
@@ -156,6 +156,6 @@ declare module 'trace_events' {
      */
     function getEnabledCategories(): string | undefined;
 }
-declare module 'node:trace_events' {
-    export * from 'trace_events';
+declare module "node:trace_events" {
+    export * from "trace_events";
 }

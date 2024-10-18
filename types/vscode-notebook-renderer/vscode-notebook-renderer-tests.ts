@@ -16,7 +16,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
     context.setState({ unknownProp: true });
 
     if (context.postMessage) {
-        context.postMessage('hello world');
+        context.postMessage("hello world");
     }
     if (context.onDidReceiveMessage) {
         context.onDidReceiveMessage(message => {
@@ -41,7 +41,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             json;
             // $ExpectType () => Blob
             blob;
-            // $ExpectType () => Uint8Array
+            // $ExpectType () => Uint8Array || () => Uint8Array<ArrayBuffer>
             data;
         },
 
@@ -50,7 +50,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             id;
         },
 
-        otherProp: () => { },
+        otherProp: () => {},
     };
 };
 

@@ -7,7 +7,7 @@ declare namespace jsrsasign.KJUR.asn1 {
      * var t2 = new KJUR.asn1.x509.Time{'type': 'gen',  'str': '20130508235959Z'} // GeneralizedTime
      */
     class Time extends ASN1Object {
-        constructor(params?: StringParam & { type?: 'gen' | undefined });
+        constructor(params?: StringParam & { type?: "gen" | undefined });
         setTimeParams(timeParams: StringParam | HexParam | DateParam | string): void;
 
         getEncodedHex(): string;

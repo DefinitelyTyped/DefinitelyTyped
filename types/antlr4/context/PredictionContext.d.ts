@@ -1,4 +1,4 @@
-import HashCode from '../misc/HashCode';
+import HashCode from "../misc/HashCode";
 
 export default class PredictionContext {
     static readonly EMPTY: null;

@@ -42,7 +42,7 @@ declare namespace cardform {
         mode?: string;
     }
 
-    type AVAILABLE_PROCESSING_MODE = 'aggregator' | 'gateway';
+    type AVAILABLE_PROCESSING_MODE = "aggregator" | "gateway";
 
     interface Error {
         message: string;

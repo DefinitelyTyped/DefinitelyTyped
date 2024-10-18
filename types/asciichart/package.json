@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/asciichart",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/kroitor/asciichart"
+    ],
+    "devDependencies": {
+        "@types/asciichart": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "pokutuna",
+            "githubUsername": "pokutuna"
+        }
+    ]
+}

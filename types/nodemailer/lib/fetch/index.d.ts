@@ -2,11 +2,11 @@
 
 type ms = number;
 
-import _Cookies = require('./cookies');
+import _Cookies = require("./cookies");
 
-import * as http from 'http';
-import { Writable } from 'stream';
-import * as tls from 'tls';
+import * as http from "http";
+import { Writable } from "stream";
+import * as tls from "tls";
 
 declare namespace fetch {
     type Cookies = _Cookies;

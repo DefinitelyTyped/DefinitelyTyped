@@ -1,9 +1,3 @@
-// Type definitions for unique-push-id 1.0
-// Project: https://github.com/limit-zero/unique-push-id
-// Definitions by: Nathan Amick <https://github.com/namick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /**
  * Fancy ID generator that creates 20-character string identifiers with the following properties:
  *

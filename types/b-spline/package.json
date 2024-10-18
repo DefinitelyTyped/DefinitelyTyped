@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/b-spline",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/thibauts/b-spline"
+    ],
+    "devDependencies": {
+        "@types/b-spline": "workspace:."
+    },
+    "owners": []
+}

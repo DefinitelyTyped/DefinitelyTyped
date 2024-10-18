@@ -1,4 +1,4 @@
-import { EditorMode, MetaboxDescriptor, MetaboxLocation } from '../';
+import { EditorMode, MetaboxDescriptor, MetaboxLocation } from "../";
 
 /**
  * Returns the current active general sidebar name, or `null` if there is no general sidebar active.
@@ -40,10 +40,10 @@ export function getMetaBoxesPerLocation(location: MetaboxLocation): MetaboxDescr
  * @param preferenceKey - Preference Key.
  * @param [defaultValue] - Default Value.
  */
-export function getPreference<T = unknown>(preferenceKey: string): T | undefined; // eslint-disable-line no-unnecessary-generics
+export function getPreference<T = unknown>(preferenceKey: string): T | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 export function getPreference<T>(
     preferenceKey: string,
-    defaultValue: T
+    defaultValue: T,
 ): T extends string ? string : T extends number ? number : T;
 
 /**

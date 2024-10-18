@@ -1,8 +1,3 @@
-// Type definitions for jsonstream-next 3.0
-// Project: https://github.com/dominictarr/JSONStream
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

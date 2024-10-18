@@ -1,4 +1,4 @@
-import {Credentials} from '../credentials';
+import { Credentials } from "../credentials";
 export class EnvironmentCredentials extends Credentials {
     /**
      * Creates a new EnvironmentCredentials class with a given variable prefix envPrefix.

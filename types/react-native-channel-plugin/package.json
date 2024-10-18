@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-channel-plugin",
+    "version": "0.7.9999",
+    "projects": [
+        "https://developers.channel.io/docs/react-native-quickstart"
+    ],
+    "devDependencies": {
+        "@types/react-native-channel-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Han Lee",
+            "githubUsername": "hahnlee"
+        }
+    ]
+}

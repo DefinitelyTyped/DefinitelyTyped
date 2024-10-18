@@ -1,4 +1,4 @@
-import { Point, PointCompatible, PointLike } from './text-buffer';
+import { Point, PointCompatible, PointLike } from "./text-buffer";
 
 /** Represents a region in a buffer in row/column coordinates. */
 export class Range {

@@ -1,7 +1,39 @@
 {
     "private": true,
+    "name": "@types/apollo-upload-client",
+    "version": "18.0.9999",
+    "projects": [
+        "https://github.com/jaydenseric/apollo-upload-client#readme"
+    ],
+    "exports": {
+        "./createUploadLink.mjs": {
+            "types": "./createUploadLink.d.mts"
+        },
+        "./formDataAppendFile.mjs": {
+            "types": "./formDataAppendFile.d.mts"
+        },
+        "./isExtractableFile.mjs": {
+            "types": "./isExtractableFile.d.mts"
+        },
+        "./package.json": "./package.json"
+    },
     "dependencies": {
-        "@apollo/client": "^3.7.0",
+        "@apollo/client": "^3.8.0",
+        "@types/extract-files": "*",
         "graphql": "14 - 16"
-    }
+    },
+    "devDependencies": {
+        "@types/apollo-upload-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Edward Sammut Alessi",
+            "githubUsername": "Slessi"
+        },
+        {
+            "name": "tyankatsu",
+            "githubUsername": "tyankatsu0105"
+        }
+    ],
+    "minimumTypeScriptVersion": "4.7"
 }

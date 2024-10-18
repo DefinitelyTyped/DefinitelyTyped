@@ -1,3 +1,3 @@
-import { MissingFieldHandler } from '../store/RelayStoreTypes';
+import { MissingFieldHandler } from "../store/RelayStoreTypes";
 
 export default function getHandler(): MissingFieldHandler[];

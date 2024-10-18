@@ -1,8 +1,3 @@
-// Type definitions for node-temperature-converter 1.0
-// Project: https://github.com/Project-IX/ntc#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class Celsius {
     /**
      * Celsius constructor

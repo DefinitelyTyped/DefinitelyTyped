@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-export type Encoding = 'ascii' | 'base64' | 'hex' | 'utf8';
+export type Encoding = "ascii" | "base64" | "hex" | "utf8";
 
 /**
  * Read a uint24 from a buffer starting at the given offset.

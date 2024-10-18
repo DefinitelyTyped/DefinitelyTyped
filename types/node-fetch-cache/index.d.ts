@@ -1,18 +1,13 @@
-// Type definitions for node-fetch-cache 3.0
-// Project: https://github.com/mistval/node-fetch-cache#readme
-// Definitions by: Yusuke Fujiki <https://github.com/fujikky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import fetch = require("node-fetch");
 
-import fetch, { Response } from 'node-fetch';
-
-declare class NFCResponse extends Response {
+declare class NFCResponse extends fetch.Response {
     ejectFromCache(): Promise<void>;
 }
 
 interface Cache {
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(value: any): Promise<any>;
+    set(key: string, bodyStream: fetch.Response["body"], metaData: any): Promise<any>;
 }
 
 interface MemoryCacheOptions {
@@ -23,7 +18,7 @@ export class MemoryCache implements Cache {
     constructor(options?: MemoryCacheOptions);
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(value: any): Promise<any>;
+    set(key: string, bodyStream: fetch.Response["body"], metaData: any): Promise<any>;
 }
 
 interface FileSystemCacheOptions {
@@ -35,7 +30,7 @@ export class FileSystemCache implements Cache {
     constructor(options?: FileSystemCacheOptions);
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(value: any): Promise<any>;
+    set(key: string, bodyStream: fetch.Response["body"], metaData: any): Promise<any>;
 }
 
 type FetchBuilder = (cache: Cache) => FetchCache;

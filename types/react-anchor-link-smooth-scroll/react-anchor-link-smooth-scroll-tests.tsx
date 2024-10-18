@@ -1,5 +1,5 @@
-import * as React from 'react';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
+import * as React from "react";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 export default class ReactAnimateOnScrollTest extends React.Component {
     render() {

@@ -39,6 +39,7 @@ declare class ViewDef {
     zoomImageOnHover: boolean;
     canNavigate: boolean;
     tooltip: string;
+    icon: string;
     field(name: string, type?: string, size?: number, ...args: any[]): Field;
     defineGrid(gridName: string, func: (arg0: any) => any): void;
     toString(): string;
@@ -53,8 +54,8 @@ declare class ViewDef {
 declare namespace ViewDef {
     export { Field };
 }
-import Logger = require('@nginstack/engine/lib/log/Logger.js');
-import GlobalActionSet = require('./GlobalActionSet.js');
-import CellThumbnail = require('./CellThumbnail.js');
-import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
-type Field = import('@nginstack/engine/lib/classdef/Field');
+import Logger = require("@nginstack/engine/lib/log/Logger.js");
+import GlobalActionSet = require("./GlobalActionSet.js");
+import CellThumbnail = require("./CellThumbnail.js");
+import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+type Field = import("@nginstack/engine/lib/classdef/Field");

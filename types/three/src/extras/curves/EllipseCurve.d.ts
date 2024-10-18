@@ -1,5 +1,5 @@
-import { Curve } from './../core/Curve.js';
-import { Vector2 } from '../../math/Vector2.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { Curve } from "../core/Curve.js";
 
 /**
  * Creates a 2d curve in the shape of an ellipse
@@ -58,7 +58,7 @@ export class EllipseCurve extends Curve<Vector2> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `EllipseCurve`
      */
-    override readonly type: string | 'EllipseCurve';
+    override readonly type: string | "EllipseCurve";
 
     /**
      * The X center of the ellipse.

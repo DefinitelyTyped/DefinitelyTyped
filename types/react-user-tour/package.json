@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-user-tour",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/socialtables/react-user-tour"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-user-tour": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlo Cancellieri",
+            "githubUsername": "ccancellieri"
+        }
+    ]
+}

@@ -4,9 +4,9 @@ import Reef = require("reefjs");
 Reef.debug(true);
 
 // Hello World
-const app = new Reef('#someelement', {
+const app = new Reef("#someelement", {
     data: {
-        sayHello: 'Hello world',
+        sayHello: "Hello world",
     },
 
     template: props => {
@@ -17,9 +17,9 @@ const app = new Reef('#someelement', {
 app.render();
 
 // Nested components
-const nc = new Reef('#nc', {
+const nc = new Reef("#nc", {
     data: {
-        id: 'test',
+        id: "test",
     },
 
     template: props => {
@@ -32,15 +32,15 @@ const nc = new Reef('#nc', {
     },
 });
 
-const nc2 = new Reef('#name1', {
+const nc2 = new Reef("#name1", {
     template: () => {
-        return 'My name is David!';
+        return "My name is David!";
     },
 });
 
-const nc3 = new Reef('#name2', {
+const nc3 = new Reef("#name2", {
     data: {
-        name: 'Jane',
+        name: "Jane",
     },
 
     template: props => {
@@ -52,18 +52,18 @@ nc.attach([nc2, nc3]);
 nc.render();
 
 // Edit data
-nc.data.name = 'Daniel!';
+nc.data.name = "Daniel!";
 
 // Detach component
 nc.detach(nc3);
 
 // Clone Data
 const copyOfData = Reef.clone(app.data);
-copyOfData.sayHello = 'Welcome message';
+copyOfData.sayHello = "Welcome message";
 
-const app2 = new Reef('#someelement2', {
+const app2 = new Reef("#someelement2", {
     data: {
-        sayHello: 'Hello world',
+        sayHello: "Hello world",
     },
 
     template: (props) => {
@@ -78,7 +78,7 @@ app2.data = copyOfData;
 // Shared data
 const store = new Reef.Store({
     data: {
-        todos: ['Swim', 'Climb', 'Jump', 'Play'],
+        todos: ["Swim", "Climb", "Jump", "Play"],
     },
 
     setters: {
@@ -94,20 +94,22 @@ const store = new Reef.Store({
     },
 });
 
-const app3 = new Reef('#app', {
+const app3 = new Reef("#app", {
     store,
     template: (props) => {
         return `<h1>${props.heading}</h1>
         <ul>
-			${props.todos
+			${
+            props.todos
                 .map((todo: string) => {
                     return `<li>${todo}</li>`;
-                }).join('')}
+                }).join("")
+        }
 		</ul>`;
     },
 });
 
 app3.render();
 
-store.do('addTodo', 'Sleep');
-store.get('total');
+store.do("addTodo", "Sleep");
+store.get("total");

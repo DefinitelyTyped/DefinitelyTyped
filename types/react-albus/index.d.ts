@@ -1,13 +1,5 @@
-// Type definitions for react-albus 2.0
-// Project: https://github.com/americanexpress/react-albus#readme
-// Definitions by: Sindre Seppola <https://github.com/sseppola>
-//                 Conrad Reuter <https://github.com/conradreuter>
-//                 Jonas Kugelmann <https://github.com/kuirak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from "react";
 import { History } from "history";
+import * as React from "react";
 
 export interface StepObject {
     id: string;
@@ -29,7 +21,7 @@ export interface WizardComponentProps {
 }
 
 export function withWizard<P>(
-    component: React.ComponentType<P & WizardComponentProps>
+    component: React.ComponentType<P & WizardComponentProps>,
 ): React.ComponentType<P>;
 
 export type WizardProps = {

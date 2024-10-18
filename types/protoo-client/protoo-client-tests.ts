@@ -1,11 +1,11 @@
-import * as protoo from 'protoo-client';
+import * as protoo from "protoo-client";
 
 // $ExpectType WebSocketTransport
-const transport = new protoo.WebSocketTransport('ws://foo', {
-    protocols: ['foo', 'bar'],
-    origin: 'https://example.com',
+const transport = new protoo.WebSocketTransport("ws://foo", {
+    protocols: ["foo", "bar"],
+    origin: "https://example.com",
     headers: {
-        'X-Foo': 'bar',
+        "X-Foo": "bar",
     },
     requestOptions: {},
     clientConfig: {

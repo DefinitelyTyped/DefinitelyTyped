@@ -1,6 +1,7 @@
 {
     "rules": {
-        "no-unnecessary-generics": "off",
-        "no-single-element-tuple-type": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

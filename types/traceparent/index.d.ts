@@ -1,8 +1,3 @@
-// Type definitions for traceparent 1.0
-// Project: https://github.com/elastic/node-traceparent
-// Definitions by: Manuel Guilbault <https://github.com/manuel-guilbault>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface TraceParentSettings {

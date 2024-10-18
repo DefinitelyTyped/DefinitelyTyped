@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * This can be used as a helper object to view a {@link BufferGeometry | geometry} as a wireframe.
@@ -28,7 +28,7 @@ export class WireframeGeometry<TBufferGeometry extends BufferGeometry = BufferGe
      * @remarks Sub-classes will update this value.
      * @defaultValue `WireframeGeometry`
      */
-    override readonly type: string | 'WireframeGeometry';
+    override readonly type: string | "WireframeGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

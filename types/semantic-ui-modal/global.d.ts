@@ -9,56 +9,56 @@ declare namespace SemanticUI {
         /**
          * Shows the modal
          */
-        (behavior: 'show'): JQuery;
+        (behavior: "show"): JQuery;
         /**
          * Hides the modal
          */
-        (behavior: 'hide'): JQuery;
+        (behavior: "hide"): JQuery;
         /**
          * Toggles the modal
          */
-        (behavior: 'toggle'): JQuery;
+        (behavior: "toggle"): JQuery;
         /**
          * Refreshes centering of modal on page
          */
-        (behavior: 'refresh'): JQuery;
+        (behavior: "refresh"): JQuery;
         /**
          * Shows associated page dimmer
          */
-        (behavior: 'show dimmer'): JQuery;
+        (behavior: "show dimmer"): JQuery;
         /**
          * Hides associated page dimmer
          */
-        (behavior: 'hide dimmer'): JQuery;
+        (behavior: "hide dimmer"): JQuery;
         /**
          * Hides all modals not selected modal in a dimmer
          */
-        (behavior: 'hide others'): JQuery;
+        (behavior: "hide others"): JQuery;
         /**
          * Hides all visible modals in the same dimmer
          */
-        (behavior: 'hide all'): JQuery;
+        (behavior: "hide all"): JQuery;
         /**
          * Caches current modal size
          */
-        (behavior: 'cache sizes'): JQuery;
+        (behavior: "cache sizes"): JQuery;
         /**
          * Returns whether the modal can fit on the page
          */
-        (behavior: 'can fit'): boolean;
+        (behavior: "can fit"): boolean;
         /**
          * Returns whether the modal is active
          */
-        (behavior: 'is active'): boolean;
+        (behavior: "is active"): boolean;
         /**
          * Sets modal to active
          */
-        (behavior: 'set active'): JQuery;
-        (behavior: 'attach events', selector: string | JQuery, event?: string): JQuery;
-        (behavior: 'destroy'): JQuery;
-        <K extends keyof ModalSettings>(behavior: 'setting', name: K, value?: undefined): ModalSettings._Impl[K];
-        <K extends keyof ModalSettings>(behavior: 'setting', name: K, value: ModalSettings._Impl[K]): JQuery;
-        (behavior: 'setting', value: ModalSettings): JQuery;
+        (behavior: "set active"): JQuery;
+        (behavior: "attach events", selector: string | JQuery, event?: string): JQuery;
+        (behavior: "destroy"): JQuery;
+        <K extends keyof ModalSettings>(behavior: "setting", name: K, value?: undefined): ModalSettings._Impl[K];
+        <K extends keyof ModalSettings>(behavior: "setting", name: K, value: ModalSettings._Impl[K]): JQuery;
+        (behavior: "setting", value: ModalSettings): JQuery;
         (settings?: ModalSettings): JQuery;
     }
 
@@ -68,34 +68,37 @@ declare namespace SemanticUI {
     type ModalSettings = ModalSettings.Param;
 
     namespace ModalSettings {
-        type Param = (Pick<_Impl, 'detachable'> |
-            Pick<_Impl, 'autofocus'> |
-            Pick<_Impl, 'observeChanges'> |
-            Pick<_Impl, 'allowMultiple'> |
-            Pick<_Impl, 'keyboardShortcuts'> |
-            Pick<_Impl, 'offset'> |
-            Pick<_Impl, 'context'> |
-            Pick<_Impl, 'closable'> |
-            Pick<_Impl, 'dimmerSettings'> |
-            Pick<_Impl, 'transition'> |
-            Pick<_Impl, 'duration'> |
-            Pick<_Impl, 'queue'> |
-            Pick<_Impl, 'onShow'> |
-            Pick<_Impl, 'onVisible'> |
-            Pick<_Impl, 'onHide'> |
-            Pick<_Impl, 'onHidden'> |
-            Pick<_Impl, 'onApprove'> |
-            Pick<_Impl, 'onDeny'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
-            Partial<Pick<_Impl, keyof _Impl>>;
+        type Param =
+            & (
+                | Pick<_Impl, "detachable">
+                | Pick<_Impl, "autofocus">
+                | Pick<_Impl, "observeChanges">
+                | Pick<_Impl, "allowMultiple">
+                | Pick<_Impl, "keyboardShortcuts">
+                | Pick<_Impl, "offset">
+                | Pick<_Impl, "context">
+                | Pick<_Impl, "closable">
+                | Pick<_Impl, "dimmerSettings">
+                | Pick<_Impl, "transition">
+                | Pick<_Impl, "duration">
+                | Pick<_Impl, "queue">
+                | Pick<_Impl, "onShow">
+                | Pick<_Impl, "onVisible">
+                | Pick<_Impl, "onHide">
+                | Pick<_Impl, "onHidden">
+                | Pick<_Impl, "onApprove">
+                | Pick<_Impl, "onDeny">
+                | Pick<_Impl, "selector">
+                | Pick<_Impl, "className">
+                | Pick<_Impl, "error">
+                | Pick<_Impl, "namespace">
+                | Pick<_Impl, "name">
+                | Pick<_Impl, "silent">
+                | Pick<_Impl, "debug">
+                | Pick<_Impl, "performance">
+                | Pick<_Impl, "verbose">
+            )
+            & Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Modal Settings
@@ -189,6 +192,7 @@ declare namespace SemanticUI {
             /**
              * Is called after a modal starts to hide. If the function returns false, the modal will not hide.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onHide(this: JQuery, $element: JQuery): false | void;
             /**
              * Is called after a modal has finished hiding animation.
@@ -197,10 +201,12 @@ declare namespace SemanticUI {
             /**
              * Is called after a positive, approve or ok button is pressed. If the function returns false, the modal will not hide.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onApprove(this: JQuery, $element: JQuery): false | void;
             /**
              * Is called after a negative, deny or cancel button is pressed. If the function returns false the modal will not hide.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onDeny(this: JQuery, $element: JQuery): false | void;
 
             // endregion
@@ -262,10 +268,13 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'close'> |
-                Pick<_Impl, 'approve'> |
-                Pick<_Impl, 'deny'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "close">
+                    | Pick<_Impl, "approve">
+                    | Pick<_Impl, "deny">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -286,9 +295,12 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'active'> |
-                Pick<_Impl, 'scrolling'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "active">
+                    | Pick<_Impl, "scrolling">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -305,8 +317,9 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'method'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (Pick<_Impl, "method">)
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

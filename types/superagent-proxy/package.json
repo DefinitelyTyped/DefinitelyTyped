@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/superagent-proxy",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/TooTallNate/superagent-proxy#readme"
+    ],
+    "dependencies": {
+        "@types/superagent": "*"
+    },
+    "devDependencies": {
+        "@types/superagent-proxy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Imhoff",
+            "githubUsername": "dwieeb"
+        },
+        {
+            "name": "Roh Rajendra",
+            "githubUsername": "neurally"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
-import PredictionContext from '../context/PredictionContext';
-import HashMap from '../misc/HashMap';
+import PredictionContext from "../context/PredictionContext";
+import HashMap from "../misc/HashMap";
 
 /**
  * Used to cache {@link PredictionContext} objects. Its used for the shared

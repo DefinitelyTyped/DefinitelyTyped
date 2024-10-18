@@ -1,6 +1,3 @@
-// Type definitions for name-initials 0.1
-// Project: https://github.com/ericvera/name-initials#readme
-// Definitions by: atlowChemi <https://github.com/atlowChemi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+declare function nameInitials(name: string): string;
 
-export default function nameInitials(name: string): string;
+export = nameInitials;

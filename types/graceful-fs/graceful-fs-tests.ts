@@ -1,10 +1,10 @@
-import gfs = require('graceful-fs');
-import * as gfs2 from 'graceful-fs';
-import * as fs from 'fs';
-import { promisify } from 'util';
+import gfs = require("graceful-fs");
+import * as fs from "fs";
+import * as gfs2 from "graceful-fs";
+import { promisify } from "util";
 
-const str = '';
-const buf = Buffer.from('');
+const str = "";
+const buf = Buffer.from("");
 
 // verify that interfaces & types are correctly re-exported
 const watcher: gfs.FSWatcher | null = null;

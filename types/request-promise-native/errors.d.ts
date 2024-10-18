@@ -1,4 +1,4 @@
-import rp = require('.');
+import rp = require(".");
 
 export interface RequestError extends Error {
     cause: any;

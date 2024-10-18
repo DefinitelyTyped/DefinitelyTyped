@@ -1,8 +1,3 @@
-// Type definitions for lockfile-info 1.0
-// Project: https://github.com/ljharb/lockfile-info
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface LockfileInfo {
     hasPackageJSON: boolean;
     hasNodeModulesDir: boolean;

@@ -1,4 +1,4 @@
-import RecognitionException from './RecognitionException';
+import RecognitionException from "./RecognitionException";
 
 /**
  * This signifies any kind of mismatched input exceptions such as

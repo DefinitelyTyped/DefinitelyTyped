@@ -1,2 +1,2 @@
-import { all } from '../index';
+import { all } from "../index";
 export default all;

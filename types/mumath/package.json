@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/mumath",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/dfcreative/mumath"
+    ],
+    "devDependencies": {
+        "@types/mumath": "workspace:."
+    },
+    "owners": []
+}

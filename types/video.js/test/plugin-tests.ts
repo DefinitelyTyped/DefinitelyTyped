@@ -1,6 +1,6 @@
-import videojs from 'video.js';
+import videojs from "video.js";
 
-declare module 'video.js' {
+declare module "video.js" {
     interface VideoJsPlayer {
         somePlugin(options?: SomePluginOptions): SomePluginType;
     }
@@ -16,9 +16,9 @@ declare module 'video.js' {
     class SomePluginType {}
 }
 
-videojs('example_video_1').somePlugin();
+videojs("example_video_1").somePlugin();
 
-videojs('example_video_2', {
+videojs("example_video_2", {
     autoplay: true,
     plugins: {
         somePlugin: {
@@ -28,12 +28,12 @@ videojs('example_video_2', {
     },
 });
 
-videojs('example_video_3', {
+videojs("example_video_3", {
     plugins: {},
 });
 
 {
     // id from configuration #59436
-    const element = document.getElementsByClassName('video-js')[0];
-    const player = videojs(element, { id: 'test' });
+    const element = document.getElementsByClassName("video-js")[0];
+    const player = videojs(element, { id: "test" });
 }

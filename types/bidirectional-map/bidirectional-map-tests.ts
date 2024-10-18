@@ -1,7 +1,7 @@
 import BiMap from "bidirectional-map";
 
 const bidirectionalMap = new BiMap({
-    one: 1
+    one: 1,
 });
 bidirectionalMap.size; // $ExpectType number
 bidirectionalMap.set("two", 2);

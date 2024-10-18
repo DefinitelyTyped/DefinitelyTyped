@@ -4,6 +4,7 @@ import { EngineAPI } from "./engine";
 import { MacroAPI } from "./macro";
 import { SaveAPI } from "./save";
 import { ScriptingAPI } from "./scripting";
+import { SerialAPI } from "./serial";
 import { SettingsAPI } from "./settings";
 import { StateAPI } from "./state";
 import { StoryAPI } from "./story";
@@ -37,8 +38,14 @@ declare global {
      * @since 2.0.0
      */
     const Macro: MacroAPI;
+
     /**
-     *
+     * Serial API
+     * @since 2.37.0
+     */
+    const Serial: SerialAPI;
+
+    /**
      * @since 2.28.0
      */
     const SimpleAudio: SimpleAudioAPI;
@@ -53,7 +60,7 @@ declare global {
      * Strings localization object.
      * @since 2.10.0
      */
-    const l10nStrings: {[x: string]: string};
+    const l10nStrings: { [x: string]: string };
 
     /**
      * Object that authors/developers may use to set up various bits of static data. Generally, you would use this for data that

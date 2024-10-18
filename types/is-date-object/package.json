@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-date-object",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/is-date-object"
+    ],
+    "devDependencies": {
+        "@types/is-date-object": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

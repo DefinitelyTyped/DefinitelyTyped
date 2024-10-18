@@ -1,2 +1,2 @@
-import { reduceBy } from '../index';
+import { reduceBy } from "../index";
 export default reduceBy;

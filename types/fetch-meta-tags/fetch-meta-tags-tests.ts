@@ -1,19 +1,21 @@
-import fetchMeta from 'fetch-meta-tags';
+import fetchMeta from "fetch-meta-tags";
 
-// $ExpectType fetchedMeta
-const data = fetchMeta('https://alessandrorabitti.com/');
+(async () => {
+    // $ExpectType fetchedMeta<"https://alessandrorabitti.com/">
+    const data = await fetchMeta("https://alessandrorabitti.com/");
 
-// @ts-expect-error
-fetchMeta(true);
+    // @ts-expect-error
+    await fetchMeta(true);
 
-// @ts-expect-error
-fetchMeta(false);
+    // @ts-expect-error
+    await fetchMeta(false);
 
-// @ts-expect-error
-fetchMeta(1983);
+    // @ts-expect-error
+    await fetchMeta(1983);
 
-// @ts-expect-error
-fetchMeta(undefined);
+    // @ts-expect-error
+    await fetchMeta(undefined);
 
-// @ts-expect-error
-fetchMeta({});
+    // @ts-expect-error
+    await fetchMeta({});
+})();

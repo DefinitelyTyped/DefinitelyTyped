@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import { UnwrapComputedPropertyGetter } from "@ember/object/-private/types";
 
 /**
@@ -8,7 +9,7 @@ import { UnwrapComputedPropertyGetter } from "@ember/object/-private/types";
  */
 export function cacheFor<T, K extends keyof T>(
     obj: T,
-    key: K
+    key: K,
 ): UnwrapComputedPropertyGetter<T[K]> | undefined;
 
 /**

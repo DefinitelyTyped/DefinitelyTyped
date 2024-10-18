@@ -34,7 +34,7 @@ export class AppStoreConnect {
     switchProvider(providerId: string): Promise<void> {
         return new Promise((resolve, reject) => {
             if (this.instance && this.loggedIn) {
-                this.instance.changeProvider(providerId,  (error: Error) => {
+                this.instance.changeProvider(providerId, (error: Error) => {
                     if (error) {
                         reject(error);
                     } else {
@@ -42,7 +42,7 @@ export class AppStoreConnect {
                     }
                 });
             } else {
-                reject('AppStoreConnect has not been properly initialized.  It is likely you did not login first.');
+                reject("AppStoreConnect has not been properly initialized.  It is likely you did not login first.");
             }
         });
     }
@@ -67,7 +67,9 @@ export class AppStoreConnect {
                     }
                 });
             } else {
-                reject('Cannot query AppStoreConnect.  It appears it has not been properly initialized.  Perhaps you did not login first?');
+                reject(
+                    "Cannot query AppStoreConnect.  It appears it has not been properly initialized.  Perhaps you did not login first?",
+                );
             }
         });
     }

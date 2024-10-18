@@ -1,4 +1,4 @@
-import { ReactElement, ReactInstance } from 'react';
+import { ReactElement, ReactInstance } from "react";
 
 export interface ShallowRenderer {
     /**
@@ -18,5 +18,6 @@ export interface ShallowRenderer {
 
 /**
  * Call this in your tests to create a shallow renderer.
+ * @deprecated See https://react.dev/warnings/react-test-renderer
  */
 export function createRenderer(): ShallowRenderer;

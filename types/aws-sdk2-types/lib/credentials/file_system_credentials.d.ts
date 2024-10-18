@@ -1,4 +1,4 @@
-import {Credentials} from '../credentials';
+import { Credentials } from "../credentials";
 export class FileSystemCredentials extends Credentials {
     /**
      * Creates a new FileSystemCredentials object from a filename.
@@ -8,5 +8,5 @@ export class FileSystemCredentials extends Credentials {
     /**
      * The path to the JSON file on disk containing the credentials.
      */
-    filename: string
+    filename: string;
 }

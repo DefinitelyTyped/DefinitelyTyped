@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/xmpp__connection",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/connection"
+    ],
+    "dependencies": {
+        "@types/xmpp__error": "*",
+        "@types/xmpp__events": "*",
+        "@types/xmpp__jid": "*",
+        "@types/xmpp__xml": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/xmpp__connection": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

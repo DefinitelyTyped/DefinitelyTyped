@@ -1,9 +1,4 @@
-// Type definitions for react-modal-view 1.1
-// Project: https://github.com/StevenIseki/react-modal-view
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode } from "react";
 
 export interface ModalProps {
     /** Modal contents */
@@ -24,7 +19,7 @@ export default class Modal extends Component<ModalProps> {
      * Doesn't seem to be used anywhere.
      * Not actually assignable to ModalProps
      */
-    static get defaultProps(): { type: 'notice'; message: null };
+    static get defaultProps(): { type: "notice"; message: null };
 
     handleBeforeComponentUpdate(props: ModalProps): void;
 

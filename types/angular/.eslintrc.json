@@ -1,5 +1,9 @@
 {
     "rules": {
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

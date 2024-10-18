@@ -1,8 +1,3 @@
-// Type definitions for non-npm package obs-browser 2.17
-// Project: https://github.com/obsproject/obs-browser
-// Definitions by: Dillon Pentz <https://github.com/VodBox>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace obsstudio {
     /**
      * OBS Browser plugin version.

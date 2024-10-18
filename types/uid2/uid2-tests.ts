@@ -1,4 +1,4 @@
-import uid2 = require('uid2');
+import uid2 = require("uid2");
 
 uid2(20); // $ExpectType string
 

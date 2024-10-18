@@ -1,6 +1,14 @@
 import * as React from "react";
 import Sticky from "react-sticky-el";
 
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "custom-element": unknown;
+        }
+    }
+}
+
 const StickyBasic = () => <Sticky />;
 const StickyAllFeatures = () => (
     <Sticky
@@ -21,3 +29,5 @@ const StickyAllFeatures = () => (
         children="a child"
     />
 );
+
+<Sticky wrapperCmp="custom-element" />;

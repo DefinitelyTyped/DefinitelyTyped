@@ -1,4 +1,4 @@
-import { Callback, userid } from '../index';
+import { Callback, userid } from "../index";
 
 export interface Chat {
     /**

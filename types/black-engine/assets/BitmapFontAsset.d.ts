@@ -30,5 +30,5 @@ export class BitmapFontCharData {
         [x: number]: number;
     };
 }
-import { Asset } from './Asset';
-import { Texture } from '../textures/Texture';
+import { Texture } from "../textures/Texture";
+import { Asset } from "./Asset";

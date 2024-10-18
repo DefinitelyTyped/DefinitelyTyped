@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/xmpp__stream-features",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/stream-features"
+    ],
+    "dependencies": {
+        "@types/koa": "*",
+        "@types/koa-compose": "*",
+        "@types/xmpp__middleware": "*",
+        "@types/xmpp__xml": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__stream-features": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

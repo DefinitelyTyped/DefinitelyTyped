@@ -1,8 +1,3 @@
-// Type definitions for stopcock 1.1
-// Project: https://github.com/lpinca/stopcock
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = stopcock;
 
 /**
@@ -76,8 +71,7 @@ declare namespace stopcock {
     }
 
     interface LimiterFunction<TFn extends (...args: any[]) => unknown> {
-        (...args: Parameters<TFn>): ReturnType<TFn> extends PromiseLike<infer TRetVal>
-            ? Promise<TRetVal>
+        (...args: Parameters<TFn>): ReturnType<TFn> extends PromiseLike<infer TRetVal> ? Promise<TRetVal>
             : Promise<ReturnType<TFn>>;
 
         /**

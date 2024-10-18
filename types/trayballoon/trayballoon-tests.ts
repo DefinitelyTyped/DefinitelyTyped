@@ -1,13 +1,12 @@
-import trayballoon = require( "trayballoon" );
+import trayballoon = require("trayballoon");
 
 function testTrayballoon() {
-    trayballoon( {
+    trayballoon({
         text: "text",
         title: "title",
         icon: "icon",
         timeout: 5000,
-        wait: true
+        wait: true,
     }, () => {
-
-    } );
+    });
 }

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -8,16 +8,15 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "build/index.cjs.d.ts",
         "index.d.ts",
-        "linkify-it-tests.ts"
+        "index.d.mts",
+        "linkify-it-tests.ts",
+        "linkify-it-tests.mts"
     ]
 }

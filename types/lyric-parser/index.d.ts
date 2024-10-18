@@ -1,8 +1,3 @@
-// Type definitions for lyric-parser 1.0
-// Project: https://github.com/ustbhuangyi/lyric-parser
-// Definitions by: Wang KaiLing <https://github.com/wkl007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Lyric {
     constructor(lrc: string, handler: (params: { lineNum: number; txt: string }) => void);
 

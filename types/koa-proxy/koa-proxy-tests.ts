@@ -1,28 +1,28 @@
-import Koa = require('koa');
-import proxy = require('koa-proxy');
+import Koa = require("koa");
+import proxy = require("koa-proxy");
 
 const app = new Koa();
 
 app.use(proxy({
-    host: 'https://api.github.com',
-    match: /^\/repos\//
+    host: "https://api.github.com",
+    match: /^\/repos\//,
 }));
 
 app.use(proxy({
-    host: 'https://api.github.com',
-    map: (path) => `/mapped/${path}`
+    host: "https://api.github.com",
+    map: (path) => `/mapped/${path}`,
 }));
 
 app.use(proxy({
-    host: 'https://api.github.com',
+    host: "https://api.github.com",
     map: {
-        '/foo/bar': '/repos'
-    }
+        "/foo/bar": "/repos",
+    },
 }));
 
 app.use(proxy({
-    host: 'https://api.github.com',
-    encoding: 'gbk'
+    host: "https://api.github.com",
+    encoding: "gbk",
 }));
 
 app.listen(3000);

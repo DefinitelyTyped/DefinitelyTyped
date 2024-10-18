@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/gaze",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/shama/gaze"
+    ],
+    "devDependencies": {
+        "@types/gaze": "workspace:."
+    },
+    "owners": []
+}

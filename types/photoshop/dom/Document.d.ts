@@ -1,24 +1,24 @@
+import { Channel } from "./Channel";
+import { Channels } from "./collections/Channels";
+import { ColorSamplers } from "./collections/ColorSamplers";
+import { CountItems } from "./collections/CountItems";
+import { Guides } from "./collections/Guides";
+import { HistoryStates } from "./collections/HistoryStates";
+import { LayerComps } from "./collections/LayerComps";
+import { Layers } from "./collections/Layers";
+import { PathItems } from "./collections/PathItems";
 import * as Constants from "./Constants";
 import { ExecutionContext } from "./CoreModules";
-import { Layers } from "./collections/Layers";
-import { Guides } from "./collections/Guides";
-import { ColorSamplers } from "./collections/ColorSamplers";
-import { LayerComps } from "./collections/LayerComps";
-import { CountItems } from "./collections/CountItems";
-import { HistoryStates } from "./collections/HistoryStates";
-import { PathItems } from "./collections/PathItems";
-import { Channels } from "./collections/Channels";
-import { Selection } from "./Selection";
-import { Layer } from "./Layer";
-import { Channel } from "./Channel";
 import { HistoryState } from "./HistoryState";
-import { PixelLayerCreateOptions, TextLayerCreateOptions, GroupLayerCreateOptions } from "./types/LayerTypes";
+import { Layer } from "./Layer";
+import { BMPSaveOptions, GIFSaveOptions, JPEGSaveOptions, PhotoshopSaveOptions, PNGSaveOptions } from "./Objects";
 import { Bounds } from "./objects/Bounds";
-import { SolidColor } from "./objects/SolidColor";
 import { NoColor } from "./objects/Colors";
 import { BitmapConversionOptions, IndexedConversionOptions } from "./objects/ConversionOptions";
-import { PhotoshopSaveOptions, BMPSaveOptions, GIFSaveOptions, JPEGSaveOptions, PNGSaveOptions } from "./Objects";
+import { SolidColor } from "./objects/SolidColor";
+import { Selection } from "./Selection";
 import { CalculationsOptions } from "./types/CalculationsTypes";
+import { GroupLayerCreateOptions, PixelLayerCreateOptions, TextLayerCreateOptions } from "./types/LayerTypes";
 /**
  * Execution Context with the Document injected for modal execution within Document.suspendHistory
  * @ignore
@@ -304,7 +304,12 @@ export declare class Document {
      * @async
      * @minVersion 23.0
      */
-    convertProfile(destinationProfile: string, intent: Constants.Intent, blackPointCompensation?: boolean, dither?: boolean): Promise<void>;
+    convertProfile(
+        destinationProfile: string,
+        intent: Constants.Intent,
+        blackPointCompensation?: boolean,
+        dither?: boolean,
+    ): Promise<void>;
     /**
      * Applies trapping to a CMYK document.
      *
@@ -347,7 +352,13 @@ export declare class Document {
      * @async
      * @minVersion 23.0
      */
-    resizeImage(width?: number, height?: number, resolution?: number, resampleMethod?: Constants.ResampleMethod, amount?: number): Promise<void>;
+    resizeImage(
+        width?: number,
+        height?: number,
+        resolution?: number,
+        resampleMethod?: Constants.ResampleMethod,
+        amount?: number,
+    ): Promise<void>;
     /**
      * Trims the transparent area around the image on the specified sides of the canvas
      * base on trimType

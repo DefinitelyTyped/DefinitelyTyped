@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 class Rectangle {
     constructor(public width: number, public height: number) {
@@ -11,8 +11,8 @@ class Rectangle {
     }
 }
 
-() => {
+(() => {
     const square = new Rectangle(2, 2);
-    R.hasIn('width', square); // => true
-    R.hasIn('area', square); // => true
-};
+    R.hasIn("width", square); // => true
+    R.hasIn("area", square); // => true
+});

@@ -107,7 +107,7 @@ brwoser.ua;
 // $ExpectType boolean
 brwoser.mobile;
 
-const plat: 'android' | 'ios' | 'windows' | 'mac' | 'other' = brwoser.plat;
+const plat: "android" | "ios" | "windows" | "mac" | "other" = brwoser.plat;
 
 // $ExpectType boolean
 brwoser.mac;
@@ -245,11 +245,11 @@ brwoser.isWebGL();
  * convert-from.ts
  */
 
-declare const convertType: 'baidu' | 'mapbar' | 'gps' | null;
+declare const convertType: "baidu" | "mapbar" | "gps" | null;
 // $ExpectType void
 AMap.convertFrom(lnglat, convertType, (status, result) => {
-    const temp: 'complete' | 'error' = status;
-    if (typeof result !== 'string') {
+    const temp: "complete" | "error" = status;
+    if (typeof result !== "string") {
         // $ExpectType string
         result.info;
         // $ExpectType LngLat[]
@@ -260,11 +260,11 @@ AMap.convertFrom(lnglat, convertType, (status, result) => {
     }
 });
 // $ExpectType void
-AMap.convertFrom([lnglat], null, () => { });
+AMap.convertFrom([lnglat], null, () => {});
 // $ExpectType void
-AMap.convertFrom(lnglatTuple, null, () => { });
+AMap.convertFrom(lnglatTuple, null, () => {});
 // $ExpectType void
-AMap.convertFrom([lnglatTuple], null, () => { });
+AMap.convertFrom([lnglatTuple], null, () => {});
 
 /**
  * dom-util.ts
@@ -279,24 +279,24 @@ domUtil.getViewport(div);
 domUtil.getViewportOffset(div);
 
 // $ExpectType HTMLDivElement
-domUtil.create('div');
+domUtil.create("div");
 // $ExpectType HTMLAnchorElement
-domUtil.create('a');
+domUtil.create("a");
 // $ExpectType HTMLDivElement
-domUtil.create('div', div);
+domUtil.create("div", div);
 // $ExpectType HTMLDivElement
-domUtil.create('div', div, 'className');
+domUtil.create("div", div, "className");
 
 // $ExpectType void
 domUtil.setClass(div);
 // $ExpectType void
-domUtil.setClass(div, 'className');
+domUtil.setClass(div, "className");
 
 // $ExpectType boolean
-domUtil.hasClass(div, 'className');
+domUtil.hasClass(div, "className");
 
 // $ExpectType void
-domUtil.removeClass(div, 'className');
+domUtil.removeClass(div, "className");
 
 // $ExpectType void
 domUtil.setOpacity(div, 1);
@@ -306,7 +306,7 @@ domUtil.rotate(div, 10);
 // $ExpectType void
 domUtil.rotate(div, 10, { x: 10, y: 10 });
 
-const util2: typeof AMap.DomUtil = domUtil.setCss(div, { textAlign: 'left' });
+const util2: typeof AMap.DomUtil = domUtil.setCss(div, { textAlign: "left" });
 // @ts-expect-error
 domUtil.setCss(div, { textAlign: 10 });
 
@@ -321,7 +321,7 @@ domUtil.remove(div);
  */
 
 // $ExpectType Map
-map.on('hotspotclick', (event: AMap.Map.EventMap['hotspotclick']) => {
+map.on("hotspotclick", (event: AMap.Map.EventMap["hotspotclick"]) => {
     // $ExpectType "hotspotclick"
     event.type;
     // $ExpectType string
@@ -331,13 +331,13 @@ map.on('hotspotclick', (event: AMap.Map.EventMap['hotspotclick']) => {
 });
 
 // $ExpectType EventListener<0>
-AMap.event.addDomListener(div, 'click', event => {
+AMap.event.addDomListener(div, "click", event => {
     // $ExpectType number
     event.clientX;
 });
 
 // $ExpectType EventListener<1>
-AMap.event.addListener(map, 'hotspotclick', function(event: AMap.Map.EventMap['hotspotclick']) {
+AMap.event.addListener(map, "hotspotclick", function(event: AMap.Map.EventMap["hotspotclick"]) {
     // $ExpectType "hotspotclick"
     event.type;
     // $ExpectType string
@@ -347,7 +347,7 @@ AMap.event.addListener(map, 'hotspotclick', function(event: AMap.Map.EventMap['h
     // $ExpectType number
     this.test;
 }, { test: 1 });
-AMap.event.addListener(map, 'click', (event: AMap.Map.EventMap['click']) => {
+AMap.event.addListener(map, "click", (event: AMap.Map.EventMap["click"]) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType LngLat
@@ -357,35 +357,40 @@ AMap.event.addListener(map, 'click', (event: AMap.Map.EventMap['click']) => {
 });
 
 // $ExpectType EventListener<1>
-const eventListener = AMap.event.addListenerOnce(map, 'hotspotclick', function(event: AMap.Map.EventMap['hotspotclick']) {
-    // $ExpectType "hotspotclick"
-    event.type;
-    // $ExpectType string
-    event.id;
-    // $ExpectType LngLat
-    event.lnglat;
-    // $ExpectType number
-    this.test;
-}, { test: 1 });
+const eventListener = AMap.event.addListenerOnce(
+    map,
+    "hotspotclick",
+    function(event: AMap.Map.EventMap["hotspotclick"]) {
+        // $ExpectType "hotspotclick"
+        event.type;
+        // $ExpectType string
+        event.id;
+        // $ExpectType LngLat
+        event.lnglat;
+        // $ExpectType number
+        this.test;
+    },
+    { test: 1 },
+);
 
 // $ExpectType void
 AMap.event.removeListener(eventListener);
 
 // $ExpectType void
-AMap.event.trigger(map, 'click', {
+AMap.event.trigger(map, "click", {
     lnglat,
     pixel,
-    target: map
+    target: map,
 });
 // $ExpectType void
-AMap.event.trigger(map, 'hotspotclick', {
+AMap.event.trigger(map, "hotspotclick", {
     lnglat,
-    name: 'name',
-    id: 'id',
-    isIndoorPOI: true
+    name: "name",
+    id: "id",
+    isIndoorPOI: true,
 });
 // $ExpectType void
-AMap.event.trigger(map, 'complete');
+AMap.event.trigger(map, "complete");
 
 /**
  * geometry-util.ts
@@ -603,7 +608,7 @@ testLnglat.multiplyBy(1, true);
  */
 
 // $ExpectType Map
-new AMap.Map('map');
+new AMap.Map("map");
 // $ExpectType Map
 new AMap.Map(div);
 
@@ -617,9 +622,9 @@ const testMap = new AMap.Map(div, {
     center: [1, 2],
     labelzIndex: 110,
     zooms: [5, 15],
-    lang: 'zh_cn',
-    defaultCursor: 'default',
-    crs: 'EPSG4326',
+    lang: "zh_cn",
+    defaultCursor: "default",
+    crs: "EPSG4326",
     animateEnable: true,
     isHotspot: false,
     defaultLayer: tileLayer,
@@ -635,12 +640,12 @@ const testMap = new AMap.Map(div, {
     jogEnable: true,
     scrollWheel: true,
     touchZoom: true,
-    mapStyle: '',
-    features: ['road'],
+    mapStyle: "",
+    features: ["road"],
     showBuildingBlock: true,
-    skyColor: '#fff',
+    skyColor: "#fff",
     preloadMode: true,
-    mask: [[1, 2], [2, 3], [3, 4]]
+    mask: [[1, 2], [2, 3], [3, 4]],
 });
 
 // $ExpectType number
@@ -739,7 +744,7 @@ testMap.setZoomAndCenter(13, lnglat);
 testMap.setZoomAndCenter(13, [1, 2]);
 
 // $ExpectType void
-testMap.setCity('city', (coord, zoom) => {
+testMap.setCity("city", (coord, zoom) => {
     // $ExpectType string
     coord[0];
     // $ExpectType string
@@ -758,7 +763,7 @@ testMap.setLimitBounds(bounds);
 testMap.clearLimitBounds();
 
 // $ExpectType void
-testMap.setLang('zh_cn');
+testMap.setLang("zh_cn");
 
 // $ExpectType void
 testMap.setRotation(1);
@@ -778,11 +783,11 @@ testMap.setStatus({
     rotateEnable: false,
     scrollWheel: true,
     touchZoom: true,
-    zoomEnable: true
+    zoomEnable: true,
 });
 
 // $ExpectType void
-testMap.setDefaultCursor('default');
+testMap.setDefaultCursor("default");
 
 // $ExpectType void
 testMap.zoomIn();
@@ -802,9 +807,9 @@ testMap.panBy(1, 2);
 testMap.clearMap();
 
 // $ExpectType Map
-testMap.plugin('plugin name', () => { });
+testMap.plugin("plugin name", () => {});
 // $ExpectType Map
-testMap.plugin(['plugin name'], () => { });
+testMap.plugin(["plugin name"], () => {});
 
 // $ExpectType void
 testMap.clearInfoWindow();
@@ -828,16 +833,16 @@ testMap.lngLatToContainer(lnglat);
 testMap.lnglatTocontainer(lnglat);
 
 // $ExpectType void
-testMap.setMapStyle('');
+testMap.setMapStyle("");
 // $ExpectType string
 testMap.getMapStyle();
 
 // $ExpectType void
-testMap.setFeatures('all');
+testMap.setFeatures("all");
 // $ExpectType void
-testMap.setFeatures(['bg']);
+testMap.setFeatures(["bg"]);
 
-const feature: 'all' | 'bg' | 'point' | 'road' | 'building' | AMap.Map.Feature[] = testMap.getFeatures();
+const feature: "all" | "bg" | "point" | "road" | "building" | AMap.Map.Feature[] = testMap.getFeatures();
 
 // $ExpectType void
 testMap.setDefaultLayer(tileLayer);
@@ -861,10 +866,10 @@ testMap.geodeticCoordToLngLat(pixel);
 // $ExpectType void
 testMap.destroy();
 
-declare function dblClickHandler(this: AMap.Map, event: AMap.Map.EventMap['dblclick']): void;
+declare function dblClickHandler(this: AMap.Map, event: AMap.Map.EventMap["dblclick"]): void;
 
 // $ExpectType Map
-testMap.on('click', (event: AMap.Map.EventMap['click']) => {
+testMap.on("click", (event: AMap.Map.EventMap["click"]) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType Pixel
@@ -875,16 +880,16 @@ testMap.on('click', (event: AMap.Map.EventMap['click']) => {
     event.target;
 });
 // $ExpectType Map
-testMap.on('dblclick', dblClickHandler);
+testMap.on("dblclick", dblClickHandler);
 // $ExpectType Map
-testMap.on('complete', (event: AMap.Map.EventMap['complete']) => {
+testMap.on("complete", (event: AMap.Map.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
     // @ts-expect-error
     event.value;
 });
 // $ExpectType Map
-testMap.on('hotspotclick', (event: AMap.Map.EventMap['hotspotclick']) => {
+testMap.on("hotspotclick", (event: AMap.Map.EventMap["hotspotclick"]) => {
     // $ExpectType string
     event.id;
     // $ExpectType LngLat
@@ -895,7 +900,7 @@ testMap.on('hotspotclick', (event: AMap.Map.EventMap['hotspotclick']) => {
     event.type;
 });
 // $ExpectType Map
-testMap.on('custom', (event: AMap.Event<'custom', { test: string }>) => {
+testMap.on("custom", (event: AMap.Event<"custom", { test: string }>) => {
     // $ExpectType "custom"
     event.type;
     // $ExpectType string
@@ -903,31 +908,31 @@ testMap.on('custom', (event: AMap.Event<'custom', { test: string }>) => {
 });
 
 // $ExpectType Map
-testMap.off('dblclick', dblClickHandler);
+testMap.off("dblclick", dblClickHandler);
 // $ExpectType Map
-testMap.off('click', 'mv');
+testMap.off("click", "mv");
 
 // $ExpectType Map
-testMap.emit('click', {
+testMap.emit("click", {
     target: testMap,
     lnglat,
-    pixel
+    pixel,
 });
 
-testMap.emit('complete');
+testMap.emit("complete");
 // $ExpectType Map
-testMap.emit('hotspotclick', {
+testMap.emit("hotspotclick", {
     lnglat,
-    name: '123',
-    id: '123',
-    isIndoorPOI: true
+    name: "123",
+    id: "123",
+    isIndoorPOI: true,
 });
 // $ExpectType Map
-testMap.emit('custom', {
-    test: 1
+testMap.emit("custom", {
+    test: 1,
 });
 // $ExpectType Map
-testMap.emit('custom', undefined);
+testMap.emit("custom", undefined);
 
 /**
  * pixel.ts
@@ -976,12 +981,12 @@ testPixel.toFixed(2);
  * plugin.ts
  */
 
-AMap.plugin('plugin name', () => {
- // callback
+AMap.plugin("plugin name", () => {
+    // callback
 });
 
-AMap.service('plugin name', () => {
- // callback
+AMap.service("plugin name", () => {
+    // callback
 });
 
 /**
@@ -1010,13 +1015,13 @@ testSize.contains({ x: 10, y: 10 });
 const util = AMap.Util;
 
 // $ExpectType string
-util.colorNameToHex('colorName');
+util.colorNameToHex("colorName");
 
 // $ExpectType string
-util.rgbHex2Rgba('rgbHex');
+util.rgbHex2Rgba("rgbHex");
 
 // $ExpectType string
-util.argbHex2Rgba('argbHex');
+util.argbHex2Rgba("argbHex");
 
 // $ExpectType boolean
 util.isEmpty({});
@@ -1032,7 +1037,7 @@ util.deleteItemFromArrayByIndex([1], 1);
 // $ExpectType number
 util.indexOf([1], 1);
 // @ts-expect-error
-util.indexOf([1], '1');
+util.indexOf([1], "1");
 
 // $ExpectType number
 util.format(1);
@@ -1064,18 +1069,18 @@ if (util.isDOM(value2)) {
 // $ExpectType boolean
 util.includes([1], 1);
 // @ts-expect-error
-util.includes([1], '1');
+util.includes([1], "1");
 
 // $ExpectType number
-util.requestIdleCallback(() => { });
+util.requestIdleCallback(() => {});
 // $ExpectType number
-const idleCallbackHandle = util.requestIdleCallback(() => { }, { timeout: 1 });
+const idleCallbackHandle = util.requestIdleCallback(() => {}, { timeout: 1 });
 
 // $ExpectType void
 util.cancelIdleCallback(idleCallbackHandle);
 
 // $ExpectType number
-util.requestAnimFrame(() => { });
+util.requestAnimFrame(() => {});
 // $ExpectType number
 const animFrameHandle = util.requestAnimFrame(function() {
     // $ExpectType number
@@ -1099,16 +1104,16 @@ new AMap.View2D({
     center: [1, 2],
     rotation: 1,
     zoom: 10,
-    crs: 'EPGS3395'
+    crs: "EPGS3395",
 });
 
 // $ExpectType View2D
 const testView2d = new AMap.View2D({
-    center: lnglat
+    center: lnglat,
 });
 
 // $ExpectType View2D
-testView2d.on('complete', () => { });
+testView2d.on("complete", () => {});
 
 /**
  * layer/buildings.ts
@@ -1125,7 +1130,7 @@ const testBuildings = new AMap.Buildings({
     heightFactor: 1,
     visible: true,
     zIndex: 10,
-    map
+    map,
 });
 
 testBuildings.setStyle({
@@ -1134,22 +1139,22 @@ testBuildings.setStyle({
         {
             visible: true,
             rejectTexture: true,
-            color1: 'ffffff00',
-            color2: 'ffffcc00',
-            path: [[1, 2]]
+            color1: "ffffff00",
+            color2: "ffffcc00",
+            path: [[1, 2]],
         },
         {
             visible: true,
             rejectTexture: true,
-            color1: 'ffffff00',
-            color2: 'ffffcc00',
-            path: [lnglat]
+            color1: "ffffff00",
+            color2: "ffffcc00",
+            path: [lnglat],
         },
         {
-            color1: 'ff99ff00',
-            path: [lnglat]
+            color1: "ff99ff00",
+            path: [lnglat],
         },
-    ]
+    ],
 });
 
 /**
@@ -1162,7 +1167,7 @@ new AMap.CanvasLayer({
     bounds,
     visible: true,
     zooms: [1, 2],
-    opacity: 1
+    opacity: 1,
 });
 
 // $ExpectType CanvasLayer
@@ -1171,7 +1176,7 @@ new AMap.CanvasLayer();
 new AMap.CanvasLayer({});
 // $ExpectType CanvasLayer
 const testCanvasLayer = new AMap.CanvasLayer({
-    bounds
+    bounds,
 });
 
 // $ExpectType void
@@ -1232,7 +1237,7 @@ const testFlexible = new AMap.TileLayer.Flexible({
     visible: true,
     map,
     zIndex: 1,
-    zooms: [1, 2]
+    zooms: [1, 2],
 });
 
 // $ExpectType void
@@ -1265,7 +1270,7 @@ new AMap.ImageLayer({
     bounds,
     visible: true,
     zooms: [1, 2],
-    opacity: 1
+    opacity: 1,
 });
 
 // $ExpectType ImageLayer
@@ -1274,7 +1279,7 @@ new AMap.ImageLayer();
 new AMap.ImageLayer({});
 // $ExpectType ImageLayer
 const testImageLayer = new AMap.ImageLayer({
-    bounds
+    bounds,
 });
 
 // $ExpectType void
@@ -1301,7 +1306,7 @@ testImageLayer.setzIndex(10);
 testImageLayer.getElement();
 
 // $ExpectType void
-testImageLayer.setImageUrl('url');
+testImageLayer.setImageUrl("url");
 
 // $ExpectType string | undefined
 testImageLayer.getImageUrl();
@@ -1319,7 +1324,7 @@ const testLabelsLayer = new AMap.LabelsLayer({
     visible: true,
     zIndex: 1,
     zooms: [1, 1],
-    opacity: 1
+    opacity: 1,
 });
 
 // $ExpectType void
@@ -1334,13 +1339,13 @@ testLabelsLayer.remove(labelMarker);
 testLabelsLayer.clear();
 
 // $ExpectType any
-testLabelsLayer.on('click', () => { });
+testLabelsLayer.on("click", () => {});
 
 // $ExpectType any
-testLabelsLayer.off('click', () => { });
+testLabelsLayer.off("click", () => {});
 
 // $ExpectType any
-testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
+testLabelsLayer.on("click", (event: AMap.LabelsLayer.EventMap["click"]) => {
     {
         const { data, opts } = event.data;
         // $ExpectType number
@@ -1593,7 +1598,7 @@ testTileLayerGroup.setOptions({});
 
 // $ExpectType LayerGroup<TileLayer>
 testTileLayerGroup.setOptions({
-    tileSize: 256
+    tileSize: 256,
 });
 // layerGruop.setOptions({
 //     // @ts-expect-error
@@ -1605,7 +1610,7 @@ testAnyLauerGroup.addLayer(tileLayer);
 testAnyLauerGroup.addLayer(massMarksLayer);
 
 testAnyLauerGroup.setOptions({
-    test: 1
+    test: 1,
 });
 
 /**
@@ -1614,17 +1619,17 @@ testAnyLauerGroup.setOptions({
 
 const massMarksStyle1 = {
     anchor: pixel,
-    url: '',
+    url: "",
     size,
-    rotation: 1
+    rotation: 1,
 };
 const massMarksStyle2 = {
     anchor: pixel,
-    url: '',
-    size
+    url: "",
+    size,
 };
 const massMarksData1 = {
-    lnglat
+    lnglat,
 };
 
 interface MassMarksCustomData extends AMap.MassMarks.Data {
@@ -1634,8 +1639,8 @@ interface MassMarksCustomData extends AMap.MassMarks.Data {
 const massMarksMassMarksCustomData: MassMarksCustomData = {
     lnglat: [1, 2],
     style: 1,
-    name: '',
-    id: ''
+    name: "",
+    id: "",
 };
 
 // @ts-expect-error
@@ -1644,15 +1649,15 @@ new AMap.MassMarks();
 new AMap.MassMarks([], {});
 
 new AMap.MassMarks([], {
-    style: [massMarksStyle1, massMarksStyle2]
+    style: [massMarksStyle1, massMarksStyle2],
 });
 new AMap.MassMarks([massMarksData1], {
-    style: [massMarksStyle1, massMarksStyle2]
+    style: [massMarksStyle1, massMarksStyle2],
 });
 
 // $ExpectType MassMarks<MassMarksCustomData>
 const testMassMarks = new AMap.MassMarks<MassMarksCustomData>([massMarksMassMarksCustomData], {
-    style: [massMarksStyle1, massMarksStyle2]
+    style: [massMarksStyle1, massMarksStyle2],
 });
 
 // $ExpectType void
@@ -1664,7 +1669,7 @@ testMassMarks.setStyle([massMarksStyle1]);
 testMassMarks.getStyle();
 
 // $ExpectType void
-testMassMarks.setData('');
+testMassMarks.setData("");
 
 // @ts-expect-error
 testMassMarks.setData(massMarksData1);
@@ -1682,7 +1687,7 @@ massMarksCustomData.lnglat;
 // $ExpectType void
 testMassMarks.clear();
 
-testMassMarks.on('click', (event: AMap.MassMarks.EventMap<typeof testMassMarks>['click']) => {
+testMassMarks.on("click", (event: AMap.MassMarks.EventMap<typeof testMassMarks>["click"]) => {
     // $ExpectType "click"
     event.type;
 
@@ -1707,13 +1712,13 @@ new AMap.TileLayer({});
 const testTileLayer = new AMap.TileLayer({
     map,
     tileSize: 256,
-    tileUrl: '',
-    errorUrl: '',
-    getTileUrl: (x, y, z) => '',
+    tileUrl: "",
+    errorUrl: "",
+    getTileUrl: (x, y, z) => "",
     zIndex: 1,
     opacity: 0.1,
     zooms: [3, 18],
-    detectRetina: true
+    detectRetina: true,
 });
 
 // $ExpectType string[]
@@ -1723,7 +1728,7 @@ testTileLayer.getTiles();
 testTileLayer.reload();
 
 // $ExpectType void
-testTileLayer.setTileUrl('');
+testTileLayer.setTileUrl("");
 // $ExpectType void
 testTileLayer.setTileUrl((x, y, level) => {
     // $ExpectType number
@@ -1732,25 +1737,25 @@ testTileLayer.setTileUrl((x, y, level) => {
     y;
     // $ExpectType number
     level;
-    return '';
+    return "";
 });
 
 // $ExpectType TileLayer
-testTileLayer.on('complete', () => { });
+testTileLayer.on("complete", () => {});
 
-testTileLayer.off('complete', () => { });
+testTileLayer.off("complete", () => {});
 
-testTileLayer.emit('complete');
+testTileLayer.emit("complete");
 
 // $ExpectType Traffic
 const testTrafficLayer = new AMap.TileLayer.Traffic({});
 // $ExpectType Traffic
 new AMap.TileLayer.Traffic({
     autoRefresh: true,
-    interval: 180
+    interval: 180,
 });
 
-testTrafficLayer.on('complete', () => { });
+testTrafficLayer.on("complete", () => {});
 
 /**
  * layer/videoLayer.ts
@@ -1762,7 +1767,7 @@ new AMap.VideoLayer({
     bounds,
     visible: true,
     zooms: [1, 2],
-    opacity: 1
+    opacity: 1,
 });
 
 // $ExpectType VideoLayer
@@ -1771,7 +1776,7 @@ new AMap.VideoLayer();
 new AMap.VideoLayer({});
 // $ExpectType VideoLayer
 const testVideoLayer = new AMap.VideoLayer({
-    bounds
+    bounds,
 });
 
 // $ExpectType void
@@ -1798,7 +1803,7 @@ testVideoLayer.setzIndex(10);
 testVideoLayer.getElement();
 
 // $ExpectType void
-testVideoLayer.setVideoUrl('url');
+testVideoLayer.setVideoUrl("url");
 
 // $ExpectType string | string[] | undefined
 testVideoLayer.getVideoUrl();
@@ -1809,29 +1814,29 @@ testVideoLayer.getVideoUrl();
 
 // $ExpectType WMS
 new AMap.TileLayer.WMS({
-    url: 'url',
-    params: {}
+    url: "url",
+    params: {},
 });
 // $ExpectType WMS
 const testWms = new AMap.TileLayer.WMS({
-    url: 'url',
+    url: "url",
     blend: true,
     params: {
-        VERSION: 'version',
-        LAYERS: 'layers',
-        STYLES: 'styles',
-        FORMAT: 'format',
-        TRANSPARENT: 'TRUE',
-        BGCOLOR: '#000',
-        EXCEPTIONS: 'exceptions',
-        TIME: 'time',
-        ELEVATION: 'elevation'
+        VERSION: "version",
+        LAYERS: "layers",
+        STYLES: "styles",
+        FORMAT: "format",
+        TRANSPARENT: "TRUE",
+        BGCOLOR: "#000",
+        EXCEPTIONS: "exceptions",
+        TIME: "time",
+        ELEVATION: "elevation",
     },
     zooms: [1, 2],
     tileSize: 256,
     opacity: 1,
     zIndex: 10,
-    visible: true
+    visible: true,
 });
 
 // $ExpectType void
@@ -1855,22 +1860,22 @@ testWms.setzIndex(10);
 testWms.getzIndex();
 
 // $ExpectType void
-testWms.setUrl('url');
+testWms.setUrl("url");
 
 // $ExpectType string
 testWms.getUrl();
 
 // $ExpectType void
 testWms.setParams({
-    VERSION: 'version',
-    LAYERS: 'layers',
-    STYLES: 'styles',
-    FORMAT: 'format',
-    TRANSPARENT: 'TRUE',
-    BGCOLOR: '#000',
-    EXCEPTIONS: 'exceptions',
-    TIME: 'time',
-    ELEVATION: 'elevation'
+    VERSION: "version",
+    LAYERS: "layers",
+    STYLES: "styles",
+    FORMAT: "format",
+    TRANSPARENT: "TRUE",
+    BGCOLOR: "#000",
+    EXCEPTIONS: "exceptions",
+    TIME: "time",
+    ELEVATION: "elevation",
 });
 
 {
@@ -1901,12 +1906,12 @@ testWms.setParams({
 
 // $ExpectType WMTS
 new AMap.TileLayer.WMTS({
-    url: 'url',
-    params: {}
+    url: "url",
+    params: {},
 });
 // $ExpectType WMTS
 const testWmts = new AMap.TileLayer.WMTS({
-    url: 'url',
+    url: "url",
     blend: true,
     tileSize: 256,
     zooms: [1, 2],
@@ -1914,11 +1919,11 @@ const testWmts = new AMap.TileLayer.WMTS({
     zIndex: 10,
     visible: true,
     params: {
-        Version: 'version',
-        Layer: 'layers',
-        Style: 'style',
-        Format: 'format'
-    }
+        Version: "version",
+        Layer: "layers",
+        Style: "style",
+        Format: "format",
+    },
 });
 
 // $ExpectType void
@@ -1942,17 +1947,17 @@ testWmts.setzIndex(10);
 testWmts.getzIndex();
 
 // $ExpectType void
-testWmts.setUrl('url');
+testWmts.setUrl("url");
 
 // $ExpectType string
 testWmts.getUrl();
 
 // $ExpectType void
 testWmts.setParams({
-    Version: 'version',
-    Layer: 'layers',
-    Style: 'style',
-    Format: 'format'
+    Version: "version",
+    Layer: "layers",
+    Style: "style",
+    Format: "format",
 });
 
 {
@@ -1980,9 +1985,9 @@ const bezierCurvePath = [
     [1, 2, 3],
     [
         [1, 2, 3],
-        [1, 2]
+        [1, 2],
     ],
-    [1, 2]
+    [1, 2],
 ];
 
 // @ts-expect-error
@@ -1993,18 +1998,18 @@ new AMap.BezierCurve({});
 const testBezierCurve = new AMap.BezierCurve<BezierCurveExtraData>({
     map,
     path: bezierCurvePath,
-    strokeColor: '#FF0000',
+    strokeColor: "#FF0000",
     strokeOpacity: 0.6,
     strokeWeight: 10,
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     strokeDasharray: [1, 5],
     zIndex: 10,
     bubble: false,
     showDir: true,
-    cursor: 'pointer',
+    cursor: "pointer",
     isOutline: true,
-    outlineColor: '#00FF00',
-    borderWeight: 2
+    outlineColor: "#00FF00",
+    borderWeight: 2,
 });
 
 // $ExpectType void
@@ -2018,18 +2023,18 @@ testBezierCurve.setOptions({});
 testBezierCurve.setOptions({
     map,
     path: bezierCurvePath,
-    strokeColor: '#FF0000',
+    strokeColor: "#FF0000",
     strokeOpacity: 0.6,
     strokeWeight: 10,
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     strokeDasharray: [1, 5],
     zIndex: 10,
     bubble: false,
     showDir: true,
-    cursor: 'pointer',
+    cursor: "pointer",
     isOutline: true,
-    outlineColor: '#00FF00',
-    borderWeight: 2
+    outlineColor: "#00FF00",
+    borderWeight: 2,
 });
 
 {
@@ -2096,12 +2101,12 @@ testBezierCurve.setMap(map);
 // $ExpectType void
 testBezierCurve.setExtData({ test: 1 });
 // @ts-expect-error
-testBezierCurve.setExtData({ test: '123' });
+testBezierCurve.setExtData({ test: "123" });
 
 // $ExpectType {} | BezierCurveExtraData
 testBezierCurve.getExtData();
 
-testBezierCurve.on('click', (event: AMap.BezierCurve.EventMap<typeof testBezierCurve>['click']) => {
+testBezierCurve.on("click", (event: AMap.BezierCurve.EventMap<typeof testBezierCurve>["click"]) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType LngLat
@@ -2110,14 +2115,14 @@ testBezierCurve.on('click', (event: AMap.BezierCurve.EventMap<typeof testBezierC
     event.target;
 });
 
-testBezierCurve.on('show', (event: AMap.BezierCurve.EventMap<typeof testBezierCurve>['show']) => {
+testBezierCurve.on("show", (event: AMap.BezierCurve.EventMap<typeof testBezierCurve>["show"]) => {
     // $ExpectType "show"
     event.type;
     // $ExpectType BezierCurve<BezierCurveExtraData>
     event.target;
 });
 
-testBezierCurve.on('options', (event: AMap.BezierCurve.EventMap<typeof testBezierCurve>['options']) => {
+testBezierCurve.on("options", (event: AMap.BezierCurve.EventMap<typeof testBezierCurve>["options"]) => {
     // $ExpectType "options"
     event.type;
     // @ts-expect-error
@@ -2141,16 +2146,16 @@ const testCircle = new AMap.Circle<CircleExtraData>({
     zIndex: 10,
     center: lnglat,
     bubble: true,
-    cursor: 'pointer',
+    cursor: "pointer",
     radius: 1000,
-    strokeColor: '#FF0000',
+    strokeColor: "#FF0000",
     strokeOpacity: 0.8,
     strokeWeight: 3,
-    fillColor: '#00FF00',
+    fillColor: "#00FF00",
     fillOpacity: 0.5,
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     extData: { test: 1 },
-    strokeDasharray: [2, 4]
+    strokeDasharray: [2, 4],
 });
 
 // $ExpectType void
@@ -2177,16 +2182,16 @@ testCircle.setOptions({
     zIndex: 10,
     center: lnglat,
     bubble: true,
-    cursor: 'pointer',
+    cursor: "pointer",
     radius: 1000,
-    strokeColor: '#FF0000',
+    strokeColor: "#FF0000",
     strokeOpacity: 0.8,
     strokeWeight: 3,
-    fillColor: '#00FF00',
+    fillColor: "#00FF00",
     fillOpacity: 0.5,
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     extData: { test: 1 },
-    strokeDasharray: [2, 4]
+    strokeDasharray: [2, 4],
 });
 
 {
@@ -2244,7 +2249,7 @@ testCircle.setMap(map);
 // $ExpectType void
 testCircle.setExtData({ test: 2 });
 // @ts-expect-error
-testCircle.setExtData({ test: '1' });
+testCircle.setExtData({ test: "1" });
 
 // $ExpectType {} | CircleExtraData
 testCircle.getExtData();
@@ -2254,21 +2259,21 @@ testCircle.contains(lnglat);
 // $ExpectType boolean
 testCircle.contains(lnglatTuple);
 
-testCircle.on('click', (event: AMap.Circle.EventMap<typeof testCircle>['click']) => {
+testCircle.on("click", (event: AMap.Circle.EventMap<typeof testCircle>["click"]) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType Circle<CircleExtraData>
     event.target;
 });
 
-testCircle.on('setCenter', (event: AMap.Circle.EventMap<typeof testCircle>['setCenter']) => {
+testCircle.on("setCenter", (event: AMap.Circle.EventMap<typeof testCircle>["setCenter"]) => {
     // $ExpectType "setCenter"
     event.type;
     // @ts-expect-error
     event.target;
 });
 
-testCircle.on('change', (event: AMap.Circle.EventMap<typeof testCircle>['change']) => {
+testCircle.on("change", (event: AMap.Circle.EventMap<typeof testCircle>["change"]) => {
     // $ExpectType "change"
     event.type;
     // $ExpectType Circle<CircleExtraData>
@@ -2288,19 +2293,19 @@ new AMap.ContextMenu();
 new AMap.ContextMenu({});
 // $ExpectType ContextMenu<ContextMenuExtraData>
 const testContextMenu = new AMap.ContextMenu<ContextMenuExtraData>({
-    content: '<div>content</div>',
+    content: "<div>content</div>",
 });
 
 // $ExpectType void
-testContextMenu.addItem('item', function() {
+testContextMenu.addItem("item", function() {
     // $ExpectType HTMLLIElement
     this;
 });
 // $ExpectType void
-testContextMenu.addItem('item', () => { }, 1);
+testContextMenu.addItem("item", () => {}, 1);
 
 // $ExpectType void
-testContextMenu.removeItem('item', () => {});
+testContextMenu.removeItem("item", () => {});
 
 // $ExpectType void
 testContextMenu.open(map, lnglatTuple);
@@ -2310,12 +2315,12 @@ testContextMenu.open(map, lnglat);
 // $ExpectType void
 testContextMenu.close();
 
-testContextMenu.on('items', (event: AMap.ContextMenu.EventMap<typeof testContextMenu>['items']) => {
+testContextMenu.on("items", (event: AMap.ContextMenu.EventMap<typeof testContextMenu>["items"]) => {
     // $ExpectType "items"
     event.type;
 });
 
-testContextMenu.on('open', (event: AMap.ContextMenu.EventMap<typeof testContextMenu>['open']) => {
+testContextMenu.on("open", (event: AMap.ContextMenu.EventMap<typeof testContextMenu>["open"]) => {
     // $ExpectType "open"
     event.type;
     // $ExpectType ContextMenu<ContextMenuExtraData>
@@ -2340,15 +2345,15 @@ const testEllipse = new AMap.Ellipse<EllipseExtraData>({
     center: lnglat,
     radius: [10000, 15000],
     bubble: false,
-    cursor: 'pointer',
-    strokeColor: '#FF0000',
+    cursor: "pointer",
+    strokeColor: "#FF0000",
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: '#0000FF',
+    fillColor: "#0000FF",
     fillOpacity: 0.5,
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     extData: { test: 1 },
-    strokeDasharray: [1, 5]
+    strokeDasharray: [1, 5],
 });
 
 // $ExpectType LngLat | undefined
@@ -2369,15 +2374,15 @@ testEllipse.setOptions({
     center: lnglat,
     radius: [10000, 15000],
     bubble: false,
-    cursor: 'pointer',
-    strokeColor: '#FF0000',
+    cursor: "pointer",
+    strokeColor: "#FF0000",
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: '#0000FF',
+    fillColor: "#0000FF",
     fillOpacity: 0.5,
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     extData: { test: 1 },
-    strokeDasharray: [1, 5]
+    strokeDasharray: [1, 5],
 });
 
 {
@@ -2450,21 +2455,21 @@ interface GeoJSONExtraData {
 
 const geoJSONObject: AMap.GeoJSON.GeoJSONObject[] = [
     {
-        type: 'Feature',
+        type: "Feature",
         properties: {},
         geometry: {
-            type: 'Point',
-            coordinates: lnglatTuple
-        }
+            type: "Point",
+            coordinates: lnglatTuple,
+        },
     },
     {
-        type: 'Feature',
+        type: "Feature",
         properties: { test: 1 },
         geometry: {
-            type: 'LineString',
-            coordinates: [lnglatTuple, lnglatTuple]
-        }
-    }
+            type: "LineString",
+            coordinates: [lnglatTuple, lnglatTuple],
+        },
+    },
 ];
 
 // $ExpectType GeoJSON<any>
@@ -2499,7 +2504,7 @@ const testGeoJSON = new AMap.GeoJSON<GeoJSONExtraData>({
         // $ExpectType LngLat
         coord;
         return coord;
-    }
+    },
 });
 
 // $ExpectType void
@@ -2534,7 +2539,7 @@ testGeoJSON.hide();
 // $ExpectType GeoJSON<GeoJSONExtraData>
 testGeoJSON.show();
 
-testGeoJSON.on('click', (event: AMap.MapsEvent<'click', AMap.Overlay>) => {
+testGeoJSON.on("click", (event: AMap.MapsEvent<"click", AMap.Overlay>) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType Overlay<any>
@@ -2553,15 +2558,15 @@ new AMap.Icon({});
 new AMap.Icon({
     size,
     imageOffset: pixel,
-    image: 'image uri',
-    imageSize: size
+    image: "image uri",
+    imageSize: size,
 });
 // $ExpectType Icon
 const testIcon = new AMap.Icon({
     size: [1, 2],
     imageOffset: pixel,
-    image: 'image uri',
-    imageSize: [1, 2]
+    image: "image uri",
+    imageSize: [1, 2],
 });
 
 // $ExpectType Size
@@ -2589,12 +2594,12 @@ const testInfoWindow = new AMap.InfoWindow<InfoWindowExtraData>({
     isCustom: false,
     autoMove: false,
     closeWhenClickMap: false,
-    content: 'content',
+    content: "content",
     size: [100, 100],
-    anchor: 'bottom-center',
+    anchor: "bottom-center",
     offset: new AMap.Pixel(10, 10),
     position: lnglat,
-    showShadow: true
+    showShadow: true,
 });
 
 // $ExpectType void
@@ -2611,7 +2616,7 @@ testInfoWindow.close();
 testInfoWindow.getIsOpen();
 
 // $ExpectType void
-testInfoWindow.setContent('content');
+testInfoWindow.setContent("content");
 // $ExpectType void
 testInfoWindow.setContent(div);
 
@@ -2643,21 +2648,21 @@ testInfoWindow.setAnchor(testInfoWindowAnchor);
 // $ExpectType Size | undefined
 testInfoWindow.getSize();
 
-testInfoWindow.on('change', (event: AMap.InfoWindow.EventMap<typeof testInfoWindow>['change']) => {
+testInfoWindow.on("change", (event: AMap.InfoWindow.EventMap<typeof testInfoWindow>["change"]) => {
     // $ExpectType "change"
     event.type;
     // $ExpectType InfoWindow<InfoWindowExtraData>
     event.target;
 });
 
-testInfoWindow.on('close', (event: AMap.InfoWindow.EventMap<typeof testInfoWindow>['close']) => {
+testInfoWindow.on("close", (event: AMap.InfoWindow.EventMap<typeof testInfoWindow>["close"]) => {
     // $ExpectType "close"
     event.type;
     // $ExpectType InfoWindow<InfoWindowExtraData>
     event.target;
 });
 
-testInfoWindow.on('open', (event: AMap.InfoWindow.EventMap<typeof testInfoWindow>['open']) => {
+testInfoWindow.on("open", (event: AMap.InfoWindow.EventMap<typeof testInfoWindow>["open"]) => {
     // $ExpectType "open"
     event.type;
     // $ExpectType InfoWindow<InfoWindowExtraData>
@@ -2681,27 +2686,27 @@ const testLabelMarker = new AMap.LabelMarker({
     rank: 10,
     zIndex: 10,
     icon: {
-        type: 'image',
-        image: 'https://a.amap.com/jsapi_demos/static/images/poi-marker.png',
+        type: "image",
+        image: "https://a.amap.com/jsapi_demos/static/images/poi-marker.png",
         clipOrigin: [14, 92],
         clipSize: [50, 68],
         size: [25, 34],
-        anchor: 'bottom-center',
+        anchor: "bottom-center",
         angel: 0,
-        retina: true
+        retina: true,
     },
     text: {
-        content: '全聚德烤鸭',
-        direction: 'left',
+        content: "全聚德烤鸭",
+        direction: "left",
         offset: [0, 0],
         style: {
             fontSize: 15,
-            fontWeight: 'normal',
-            fillColor: '#666',
-            strokeColor: '#fff',
-            strokeWidth: 1
-        }
-    }
+            fontWeight: "normal",
+            fillColor: "#666",
+            strokeColor: "#fff",
+            strokeWidth: 1,
+        },
+    },
 });
 
 // $ExpectType void
@@ -2723,10 +2728,10 @@ testLabelMarker.getOpacity();
 testLabelMarker.setOpacity(1);
 
 // $ExpectType any
-testLabelMarker.on('click', () => {});
+testLabelMarker.on("click", () => {});
 
 // $ExpectType any
-testLabelMarker.off('click', () => {});
+testLabelMarker.off("click", () => {});
 
 /**
  * overlay/marker.ts
@@ -2746,36 +2751,36 @@ new AMap.Marker({});
 export const testMarker = new AMap.Marker<MarkerExtraData>({
     map,
     position: lnglat,
-    anchor: 'bottom-center',
+    anchor: "bottom-center",
     offset: pixel,
-    icon: 'iconUrl',
-    content: 'htmlString',
+    icon: "iconUrl",
+    content: "htmlString",
     topWhenClick: true,
     raiseOnDrag: true,
-    cursor: 'default',
+    cursor: "default",
     visible: true,
     zIndex: 10,
     angle: 10,
     autoRotation: true,
-    animation: 'AMAP_ANIMATION_BOUNCE',
+    animation: "AMAP_ANIMATION_BOUNCE",
     shadow: icon,
-    title: '123',
+    title: "123",
     clickable: true,
     shape: markerShape,
     label: {
-        content: 'label',
+        content: "label",
         offset: pixel,
-        direction: 'left'
+        direction: "left",
     },
     extData: {
-        test: 123
-    }
+        test: 123,
+    },
 });
 
 // $ExpectType void
 testMarker.markOnAMAP({
-    name: '123',
-    position: [1, 2]
+    name: "123",
+    position: [1, 2],
 });
 // $ExpectType void
 testMarker.markOnAMAP();
@@ -2784,7 +2789,7 @@ testMarker.markOnAMAP({});
 // $ExpectType void
 testMarker.markOnAMAP({
     position: [1, 2],
-    name: '123'
+    name: "123",
 });
 
 const testMarkerAnchor = testMarker.getAnchor();
@@ -2808,7 +2813,7 @@ testMarker.getOffset();
 testMarker.setOffset(pixel);
 
 // $ExpectType void
-testMarker.setAnimation('AMAP_ANIMATION_BOUNCE');
+testMarker.setAnimation("AMAP_ANIMATION_BOUNCE");
 
 // $ExpectType AnimationName
 testMarker.getAnimation();
@@ -2834,9 +2839,9 @@ testMarker.setLabel();
 testMarker.setLabel({});
 // $ExpectType void
 testMarker.setLabel({
-    content: 'label content',
+    content: "label content",
     offset: pixel,
-    direction: 'top'
+    direction: "top",
 });
 
 {
@@ -2851,7 +2856,7 @@ testMarker.setLabel({
         // $ExpectType Pixel | undefined
         testMarkerLabel.offset;
 
-        type TempLabelDirection = 'top' | 'right' | 'bottom' | 'left' | 'center' | undefined;
+        type TempLabelDirection = "top" | "right" | "bottom" | "left" | "center" | undefined;
         const tempLabelDirection: TempLabelDirection = testMarkerLabel.direction;
     } else {
         // $ExpectType undefined
@@ -2869,7 +2874,7 @@ testMarker.setzIndex(100);
 testMarker.getzIndex();
 
 // $ExpectType void
-testMarker.setIcon('icon uri');
+testMarker.setIcon("icon uri");
 // $ExpectType void
 testMarker.setIcon(icon);
 
@@ -2883,10 +2888,10 @@ testMarker.setDraggable(true);
 testMarker.getDraggable();
 
 // $ExpectType void
-testMarker.setCursor('default');
+testMarker.setCursor("default");
 
 // $ExpectType void
-testMarker.setContent('content');
+testMarker.setContent("content");
 // $ExpectType void
 testMarker.setContent(domEle);
 
@@ -2920,7 +2925,7 @@ testMarker.resumeMove();
 testMarker.setMap(map);
 
 // $ExpectType void
-testMarker.setTitle('title');
+testMarker.setTitle("title");
 // @ts-expect-error
 testMarker.setTitle();
 
@@ -2938,7 +2943,7 @@ testMarker.setShadow();
 // $ExpectType void
 testMarker.setShadow(icon);
 // $ExpectType void
-testMarker.setShadow('shadow url');
+testMarker.setShadow("shadow url");
 
 // $ExpectType string | Icon | undefined
 testMarker.getShadow();
@@ -2951,7 +2956,7 @@ testMarker.setShape(markerShape);
 // $ExpectType MarkerShape | undefined
 testMarker.getShape();
 
-testMarker.on('click', (event: AMap.Marker.EventMap<typeof testMarker>['click']) => {
+testMarker.on("click", (event: AMap.Marker.EventMap<typeof testMarker>["click"]) => {
     // $ExpectType {} | MarkerExtraData
     event.target.getExtData();
 });
@@ -2962,29 +2967,29 @@ testMarker.on('click', (event: AMap.Marker.EventMap<typeof testMarker>['click'])
 
 // $ExpectType MarkerShape
 new AMap.MarkerShape({
-    type: 'circle',
-    coords: [1, 1, 1]
+    type: "circle",
+    coords: [1, 1, 1],
 });
 // $ExpectType MarkerShape
 new AMap.MarkerShape({
-    type: 'rect',
-    coords: [1, 1, 1, 2]
+    type: "rect",
+    coords: [1, 1, 1, 2],
 });
 // $ExpectType MarkerShape
 new AMap.MarkerShape({
-    type: 'poly',
-    coords: [1, 2, 3, 4, 5]
+    type: "poly",
+    coords: [1, 2, 3, 4, 5],
 });
 
 // @ts-expect-error
 new AMap.MarkerShape({
-    type: 'circle',
-    coords: [1, 1]
+    type: "circle",
+    coords: [1, 1],
 });
 // @ts-expect-error
 new AMap.MarkerShape({
-    type: 'rect',
-    coords: [1, 1, 1, 2, 2]
+    type: "rect",
+    coords: [1, 1, 1, 2, 2],
 });
 
 /**
@@ -3079,30 +3084,30 @@ testOverlayGroup.setMap(map);
 
 // $ExpectType OverlayGroup<Overlay<any>, any>
 testOverlayGroup2.setOptions({
-    test: 1
+    test: 1,
 });
 // $ExpectType OverlayGroup<Marker<any>, any>
 testOverlayGroup.setOptions({
     map,
     position: lnglat,
     offset: pixel,
-    icon: 'iconUrl',
-    content: 'htmlString',
+    icon: "iconUrl",
+    content: "htmlString",
     topWhenClick: true,
     raiseOnDrag: true,
-    cursor: 'default',
+    cursor: "default",
     visible: true,
     zIndex: 10,
     angle: 10,
     autoRotation: true,
-    animation: 'AMAP_ANIMATION_BOUNCE',
+    animation: "AMAP_ANIMATION_BOUNCE",
     shadow: icon,
-    title: '123',
+    title: "123",
     clickable: true,
     shape: markerShape,
     extData: {
-        test: 123
-    }
+        test: 123,
+    },
 });
 
 // $ExpectType OverlayGroup<Marker<any>, any>
@@ -3111,7 +3116,7 @@ testOverlayGroup.show();
 // $ExpectType OverlayGroup<Marker<any>, any>
 testOverlayGroup.hide();
 
-testOverlayGroup.on('click', (event: AMap.MapsEvent<'click', AMap.Overlay>) => {
+testOverlayGroup.on("click", (event: AMap.MapsEvent<"click", AMap.Overlay>) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType Overlay<any>
@@ -3138,17 +3143,17 @@ const testPolygon = new AMap.Polygon<PolygonExtraData>({
     map,
     zIndex: 10,
     bubble: true,
-    cursor: 'pointer',
-    strokeColor: '#00FF00',
+    cursor: "pointer",
+    strokeColor: "#00FF00",
     strokeOpacity: 0.3,
     strokeWeight: 5,
-    fillColor: '#0000FF',
+    fillColor: "#0000FF",
     fillOpacity: 0.5,
     draggable: true,
     extData: { test: 1 },
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     strokeDasharray: [2, 4],
-    path: polygonPath1
+    path: polygonPath1,
 });
 
 // $ExpectType void
@@ -3166,17 +3171,17 @@ testPolygon.setOptions({
     map,
     zIndex: 10,
     bubble: true,
-    cursor: 'pointer',
-    strokeColor: '#00FF00',
+    cursor: "pointer",
+    strokeColor: "#00FF00",
     strokeOpacity: 0.8,
     strokeWeight: 5,
-    fillColor: '#0000FF',
+    fillColor: "#0000FF",
     fillOpacity: 0.5,
     draggable: true,
     extData: { test: 1 },
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     strokeDasharray: [4, 2],
-    path: [polygonPath2, polygonPath1]
+    path: [polygonPath2, polygonPath1],
 });
 
 {
@@ -3235,7 +3240,7 @@ testPolygon.contains(lnglat);
 // $ExpectType boolean
 testPolygon.contains(lnglatTuple);
 
-testPolygon.on('click', (event: AMap.Polygon.EventMap<typeof testPolygon>['click']) => {
+testPolygon.on("click", (event: AMap.Polygon.EventMap<typeof testPolygon>["click"]) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType Polygon<PolygonExtraData>
@@ -3259,22 +3264,22 @@ const testPolyline = new AMap.Polyline<PolylineExtraData>({
     map,
     zIndex: 10,
     bubble: true,
-    cursor: 'default',
+    cursor: "default",
     geodesic: true,
     isOutline: true,
     borderWeight: 1,
-    outlineColor: '#AA0000',
+    outlineColor: "#AA0000",
     path: [lnglat],
-    strokeColor: '#0000AA',
+    strokeColor: "#0000AA",
     strokeOpacity: 0.5,
     strokeWeight: 10,
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     strokeDasharray: [20, 10, 20],
-    lineJoin: 'bevel',
-    lineCap: 'butt',
+    lineJoin: "bevel",
+    lineCap: "butt",
     draggable: true,
     extData: { test: 1 },
-    showDir: true
+    showDir: true,
 });
 // Polyline<PolylineExtraData>
 
@@ -3290,22 +3295,22 @@ testPolyline.setOptions({
     map,
     zIndex: 10,
     bubble: true,
-    cursor: 'default',
+    cursor: "default",
     geodesic: true,
     isOutline: true,
     borderWeight: 1,
-    outlineColor: '#AA0000',
+    outlineColor: "#AA0000",
     path: [lnglat, lnglat],
-    strokeColor: '#0000AA',
+    strokeColor: "#0000AA",
     strokeOpacity: 0.5,
     strokeWeight: 10,
-    strokeStyle: 'dashed',
+    strokeStyle: "dashed",
     strokeDasharray: [20, 10, 20],
-    lineJoin: 'bevel',
-    lineCap: 'butt',
+    lineJoin: "bevel",
+    lineCap: "butt",
     draggable: true,
     extData: { test: 1 },
-    showDir: true
+    showDir: true,
 });
 
 {
@@ -3375,7 +3380,7 @@ testPolyline.setExtData({ test: 1 });
 // $ExpectType {} | PolylineExtraData
 testPolyline.getExtData();
 
-testPolyline.on('click', (event: AMap.Polyline.EventMap<typeof testPolyline>['click']) => {
+testPolyline.on("click", (event: AMap.Polyline.EventMap<typeof testPolyline>["click"]) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType Polyline<PolylineExtraData>
@@ -3400,15 +3405,15 @@ const testRectangle = new AMap.Rectangle<RectangleExtraData>({
     zIndex: 10,
     bounds,
     bubble: false,
-    cursor: 'pointer',
-    strokeColor: '#00FF00',
+    cursor: "pointer",
+    strokeColor: "#00FF00",
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: '#0000FF',
+    fillColor: "#0000FF",
     fillOpacity: 0.5,
-    strokeStyle: 'solid',
+    strokeStyle: "solid",
     extData: { test: 1 },
-    strokeDasharray: [1, 5]
+    strokeDasharray: [1, 5],
 });
 
 // $ExpectType Bounds | undefined
@@ -3425,15 +3430,15 @@ testRectangle.setOptions({
     zIndex: 10,
     bounds,
     bubble: false,
-    cursor: 'pointer',
-    strokeColor: '#00FF00',
+    cursor: "pointer",
+    strokeColor: "#00FF00",
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: '#0000FF',
+    fillColor: "#0000FF",
     fillOpacity: 0.5,
-    strokeStyle: 'solid',
+    strokeStyle: "solid",
     extData: { test: 1 },
-    strokeDasharray: [1, 5]
+    strokeDasharray: [1, 5],
 });
 
 {
@@ -3479,7 +3484,7 @@ testRectangle.hide();
 testRectangle.show();
 
 // $ExpectType void
-testRectangle.setExtData({test: 2});
+testRectangle.setExtData({ test: 2 });
 
 // $ExpectType {} | RectangleExtraData
 testRectangle.getExtData();
@@ -3489,14 +3494,14 @@ testRectangle.contains(lnglat);
 // $ExpectType boolean
 testRectangle.contains(lnglatTuple);
 
-testRectangle.on('click', (event: AMap.Rectangle.EventMap<typeof testRectangle>['click']) => {
+testRectangle.on("click", (event: AMap.Rectangle.EventMap<typeof testRectangle>["click"]) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType Rectangle<RectangleExtraData>
     event.target;
 });
 
-testRectangle.on('setBounds', (event: AMap.Rectangle.EventMap<typeof testRectangle>['setBounds']) => {
+testRectangle.on("setBounds", (event: AMap.Rectangle.EventMap<typeof testRectangle>["setBounds"]) => {
     // $ExpectType "setBounds"
     event.type;
     // @ts-expect-error
@@ -3517,27 +3522,27 @@ new AMap.Text();
 new AMap.Text({});
 // $ExpectType Text<TextExtraData>
 const testText = new AMap.Text<TextExtraData>({
-    text: 'content',
-    textAlign: 'center',
-    verticalAlign: 'top',
+    text: "content",
+    textAlign: "center",
+    verticalAlign: "top",
     map,
     position: lnglat,
-    anchor: 'bottom-center',
+    anchor: "bottom-center",
     offset: pixel,
     topWhenClick: true,
     bubble: true,
     draggable: true,
     raiseOnDrag: true,
-    cursor: 'default',
+    cursor: "default",
     visible: true,
     zIndex: 100,
     angle: 45,
     autoRotation: true,
-    animation: 'AMAP_ANIMATION_BOUNCE',
-    shadow: 'https://webapi.amap.com/theme/v1.3/markers/0.png',
-    title: 'title',
+    animation: "AMAP_ANIMATION_BOUNCE",
+    shadow: "https://webapi.amap.com/theme/v1.3/markers/0.png",
+    title: "title",
     clickable: true,
-    extData: { test: 1 }
+    extData: { test: 1 },
 });
 
 const testTextAnchor = testText.getAnchor();
@@ -3558,18 +3563,18 @@ testText.setAnchor();
 testText.getText();
 
 // $ExpectType void
-testText.setText('123');
+testText.setText("123");
 
 // $ExpectType void
 testText.setStyle({
-    background: 'red',
-    width: '200px'
+    background: "red",
+    width: "200px",
 });
 
 // $ExpectType void
 testText.markOnAMAP({
-    name: '123',
-    position: lnglatTuple
+    name: "123",
+    position: lnglatTuple,
 });
 
 // $ExpectType Pixel
@@ -3579,7 +3584,7 @@ testText.getOffset();
 testText.setOffset(pixel);
 
 // $ExpectType void
-testText.setAnimation('AMAP_ANIMATION_BOUNCE');
+testText.setAnimation("AMAP_ANIMATION_BOUNCE");
 
 // $ExpectType AnimationName
 testText.getAnimation();
@@ -3618,7 +3623,7 @@ testText.hide();
 testText.show();
 
 // $ExpectType void
-testText.setCursor('default');
+testText.setCursor("default");
 
 // $ExpectType void
 testText.moveAlong([lnglat], 100);
@@ -3650,7 +3655,7 @@ testText.resumeMove();
 testText.setMap(map);
 
 // $ExpectType void
-testText.setTitle('title');
+testText.setTitle("title");
 // @ts-expect-error
 testText.setTitle();
 
@@ -3668,7 +3673,7 @@ testText.setShadow();
 // $ExpectType void
 testText.setShadow(icon);
 // $ExpectType void
-testText.setShadow('shadow url');
+testText.setShadow("shadow url");
 
 // $ExpectType void
 testText.setExtData({ test: 1 });
@@ -3676,7 +3681,7 @@ testText.setExtData({ test: 1 });
 // $ExpectType {} | TextExtraData
 testText.getExtData();
 
-testText.on('click', (event: AMap.Text.EventMap<typeof testText>['click']) => {
+testText.on("click", (event: AMap.Text.EventMap<typeof testText>["click"]) => {
     // $ExpectType "click"
     event.type;
     // $ExpectType Text<TextExtraData>

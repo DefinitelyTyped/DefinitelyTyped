@@ -6,7 +6,7 @@ export interface DropdownSkeletonProps extends ReactDivAttr {
     /**
      * @deprecated
      */
-    inline?: boolean | undefined,
+    inline?: boolean | undefined;
     size?: ListBoxSize | undefined;
 }
 

@@ -1,7 +1,23 @@
 {
     "private": true,
+    "name": "@types/remark-abbr",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/zestedesavoir/zmarkdown",
+        "https://zestedesavoir.github.io/zmarkdown/"
+    ],
     "dependencies": {
+        "@types/unist": "^2",
         "remark": "^12.0.0",
         "unified": "^9.2.0"
-    }
+    },
+    "devDependencies": {
+        "@types/remark-abbr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luke Carrier",
+            "githubUsername": "LukeCarrier"
+        }
+    ]
 }

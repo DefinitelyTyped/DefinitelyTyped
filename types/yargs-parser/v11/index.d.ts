@@ -1,9 +1,3 @@
-// Type definitions for yargs-parser 11.0
-// Project: https://github.com/yargs/yargs-parser#readme
-// Definitions by: Miles Johnson <https://github.com/milesj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace yargsParser {
     interface Arguments {
         /** Non-option arguments */
@@ -23,17 +17,17 @@ declare namespace yargsParser {
     }
 
     interface Configuration {
-        'boolean-negation': boolean;
-        'camel-case-expansion': boolean;
-        'combine-arrays': boolean;
-        'dot-notation': boolean;
-        'duplicate-arguments-array': boolean;
-        'flatten-duplicate-arrays': boolean;
-        'negation-prefix': string;
-        'parse-numbers': boolean;
-        'populate--': boolean;
-        'set-placeholder-key': boolean;
-        'short-option-groups': boolean;
+        "boolean-negation": boolean;
+        "camel-case-expansion": boolean;
+        "combine-arrays": boolean;
+        "dot-notation": boolean;
+        "duplicate-arguments-array": boolean;
+        "flatten-duplicate-arrays": boolean;
+        "negation-prefix": string;
+        "parse-numbers": boolean;
+        "populate--": boolean;
+        "set-placeholder-key": boolean;
+        "short-option-groups": boolean;
     }
 
     interface Options {
@@ -50,7 +44,7 @@ declare namespace yargsParser {
         normalize?: string[] | undefined;
         string?: string[] | undefined;
         number?: string[] | undefined;
-        '--'?: boolean | undefined;
+        "--"?: boolean | undefined;
     }
 
     interface Parser {

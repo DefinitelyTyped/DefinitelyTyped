@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
     /**
@@ -9,9 +9,11 @@ declare global {
      * @param successCallback method to call on success. See jQuery API docs for available arguments: http://api.jquery.com/jQuery.ajax/
      * @param errorCallback see above. Additionally it is logged if the request failed.
      */
-    function postAjax(action: string, data: any,
+    function postAjax(
+        action: string,
+        data: any,
         successCallback: (data: any, textStatus: string, jqXHR: JQuery.jqXHR) => void,
-        errorCallback: (jqXHR: JQuery.jqXHR, textStatus: string, errorThrown: string) => void
+        errorCallback: (jqXHR: JQuery.jqXHR, textStatus: string, errorThrown: string) => void,
     ): any;
 
     function outOfDateUserPrompt(): void;

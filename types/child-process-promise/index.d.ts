@@ -1,25 +1,20 @@
-// Type definitions for child-process-promise 2.2
-// Project: https://github.com/patrick-steele-idem/child-process-promise
-// Definitions by: Luis Paulo <https://github.com/TheDSCPL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import {
     ChildProcess,
-    ExecFileOptionsWithBufferEncoding, ExecFileOptionsWithOtherEncoding,
+    ExecFileOptionsWithBufferEncoding,
+    ExecFileOptionsWithOtherEncoding,
     ExecFileOptionsWithStringEncoding,
     ExecOptions,
     ForkOptions,
-    SpawnOptions
-} from 'child_process';
+    SpawnOptions,
+} from "child_process";
 
 /**
  * Simple wrapper around the child_process module that makes use of promises
  */
 
-export interface PromiseResult<Enc extends string|Buffer> {
+export interface PromiseResult<Enc extends string | Buffer> {
     childProcess: ChildProcess;
     stdout: Enc;
     stderr: Enc;
@@ -38,7 +33,7 @@ export interface Options {
      * Pass an additional capture option to buffer the result of stdout and/or stderr
      * Default: []
      */
-    capture?: []|['stdout'|'stderr']|['stdout', 'stderr']|['stderr', 'stdout'] | undefined;
+    capture?: [] | ["stdout" | "stderr"] | ["stdout", "stderr"] | ["stderr", "stdout"] | undefined;
     /**
      * Array of the numbers that should be interpreted as successful execution codes
      * Default: [0]
@@ -46,59 +41,59 @@ export interface Options {
     successfulExitCodes?: number[] | undefined;
 }
 
-export function  exec(
+export function exec(
     command: Readonly<string>,
-    options: Readonly<Options & { encoding: "buffer" | null } & ExecOptions>
+    options: Readonly<Options & { encoding: "buffer" | null } & ExecOptions>,
 ): ChildProcessPromise<PromiseResult<Buffer>>;
-export function  exec(
+export function exec(
     command: Readonly<string>,
-    options: Readonly<Options & { encoding?: BufferEncoding | undefined } & ExecOptions>
+    options: Readonly<Options & { encoding?: BufferEncoding | undefined } & ExecOptions>,
 ): ChildProcessPromise<PromiseResult<string>>;
-export function  exec(
+export function exec(
     command: Readonly<string>,
-    options: Readonly<Options & { encoding?: string | undefined } & ExecOptions>
+    options: Readonly<Options & { encoding?: string | undefined } & ExecOptions>,
 ): ChildProcessPromise<PromiseResult<string | Buffer>>;
-export function  exec(
+export function exec(
     command: Readonly<string>,
-    options?: Readonly<Options & ExecOptions>
+    options?: Readonly<Options & ExecOptions>,
 ): ChildProcessPromise<PromiseResult<string>>;
 
-export function  execFile(
+export function execFile(
     file: Readonly<string>,
-    options: Readonly<Options & ExecFileOptionsWithBufferEncoding>
+    options: Readonly<Options & ExecFileOptionsWithBufferEncoding>,
 ): ChildProcessPromise<PromiseResult<Buffer>>;
-export function  execFile(
+export function execFile(
     file: Readonly<string>,
-    args: ReadonlyArray<string> | null,
-    options: Readonly<Options & ExecFileOptionsWithBufferEncoding>
+    args: readonly string[] | null,
+    options: Readonly<Options & ExecFileOptionsWithBufferEncoding>,
 ): ChildProcessPromise<PromiseResult<Buffer>>;
-export function  execFile(
+export function execFile(
     file: Readonly<string>,
-    options: Readonly<Options & ExecFileOptionsWithStringEncoding>
+    options: Readonly<Options & ExecFileOptionsWithStringEncoding>,
 ): ChildProcessPromise<PromiseResult<string>>;
-export function  execFile(
+export function execFile(
     file: Readonly<string>,
-    options: Readonly<Options & ExecFileOptionsWithOtherEncoding>
+    options: Readonly<Options & ExecFileOptionsWithOtherEncoding>,
 ): ChildProcessPromise<PromiseResult<string | Buffer>>;
-export function  execFile(
+export function execFile(
     file: Readonly<string>,
-    args: ReadonlyArray<string> | null,
-    options: Readonly<Options & ExecFileOptionsWithOtherEncoding>
+    args: readonly string[] | null,
+    options: Readonly<Options & ExecFileOptionsWithOtherEncoding>,
 ): ChildProcessPromise<PromiseResult<string | Buffer>>;
-export function  execFile(
+export function execFile(
     file: Readonly<string>,
-    args?: ReadonlyArray<string> | null,
-    options?: Readonly<Options & ExecFileOptionsWithStringEncoding>
+    args?: readonly string[] | null,
+    options?: Readonly<Options & ExecFileOptionsWithStringEncoding>,
 ): ChildProcessPromise<PromiseResult<string>>;
 
-export function  spawn(
+export function spawn(
     command: Readonly<string>,
-    args?: ReadonlyArray<string> | null,
-    options?: Readonly<Options & SpawnOptions>
+    args?: readonly string[] | null,
+    options?: Readonly<Options & SpawnOptions>,
 ): ChildProcessPromise<SpawnPromiseResult>;
 
 export function fork(
     modulePath: string,
-    args?: ReadonlyArray<string>,
-    options?: Readonly<Options & ForkOptions>
+    args?: readonly string[],
+    options?: Readonly<Options & ForkOptions>,
 ): ChildProcessPromise<SpawnPromiseResult>;

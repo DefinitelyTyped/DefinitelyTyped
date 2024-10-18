@@ -25,6 +25,6 @@ declare namespace Controller {
     export { wrap, Response, Request };
 }
 import RouteResult = require('./RouteResult.js');
-type Request = import('../http/Request');
-type Response = import('../http/Response');
 declare function wrap(object: any): Controller;
+type Response = import('../http/Response');
+type Request = import('../http/Request');

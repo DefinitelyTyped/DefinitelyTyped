@@ -1,8 +1,8 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
-import { Texture } from './../textures/Texture.js';
-import { Vector2 } from './../math/Vector2.js';
-import { MaterialParameters, Material } from './Material.js';
-import { NormalMapTypes } from '../constants.js';
+import { NormalMapTypes } from "../constants.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshToonMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
@@ -35,6 +35,13 @@ export interface MeshToonMaterialParameters extends MaterialParameters {
 
 export class MeshToonMaterial extends Material {
     constructor(parameters?: MeshToonMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshToonMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshToonMaterial: true;
 
     /**
      * @default 'MeshToonMaterial'

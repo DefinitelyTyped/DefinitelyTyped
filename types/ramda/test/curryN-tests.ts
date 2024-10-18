@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function addFourNumbers(a: number, b: number, c: number, d: number): number {
         return a + b + c + (d || 0);
     }
@@ -19,4 +19,4 @@ import * as R from 'ramda';
 
     R.curryN(3)(addFourNumbers)(R.__, 1, 2)(3); // $ExpectType number
     R.curryN(3, addFourNumbers)(R.__, 1, 2)(3); // $ExpectType number
-};
+});

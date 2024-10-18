@@ -1,9 +1,9 @@
-import { ShaderMaterial } from '../../../src/Three.js';
+import { ShaderMaterial } from "three";
 
-import { Pass, FullScreenQuad } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class FilmPass extends Pass {
-    constructor(noiseIntensity?: number, scanlinesIntensity?: number, scanlinesCount?: number, grayscale?: boolean);
+    constructor(intensity?: number, grayscale?: boolean);
     uniforms: object;
     material: ShaderMaterial;
     fsQuad: FullScreenQuad;

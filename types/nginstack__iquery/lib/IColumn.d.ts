@@ -51,4 +51,4 @@ interface ColumnConfig {
     useCoalesce: boolean;
     weight: string;
 }
-import IClauseSelect = require('./IClauseSelect.js');
+import IClauseSelect = require("./IClauseSelect.js");

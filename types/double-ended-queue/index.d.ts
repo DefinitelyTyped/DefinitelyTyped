@@ -1,9 +1,3 @@
-// Type definitions for double-ended-queue 2.1
-// Project: https://github.com/petkaantonov/deque
-// Definitions by: Dmitry <https://github.com/dsagal>
-//                 Dmitry Parzhitsky <https://github.com/parzh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Deque<Item> {
     /**
      * Amount of items currently in the queue.
@@ -131,19 +125,19 @@ declare const Deque: {
      * Creates an empty double-ended queue with initial capacity of 16.
      * If you know the optimal size before-hand, use `new Deque(capacity: number)`.
      */
-    new <Item>(): Deque<Item>; // eslint-disable-line no-unnecessary-generics
+    new<Item>(): Deque<Item>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
     /**
      * Creates a double-ended queue from `items`.
      */
-    new <Item>(items: ReadonlyArray<Item>): Deque<Item>;
+    new<Item>(items: readonly Item[]): Deque<Item>;
 
     /**
      * Creates an empty double-ended queue with the given capacity.
      * Capacity should be the maximum amount of items the queue will hold at a given time.
      * The reason to give an initial capacity is to avoid potentially expensive resizing operations at runtime.
      */
-    new <Item>(capacity: number): Deque<Item>; // eslint-disable-line no-unnecessary-generics
+    new<Item>(capacity: number): Deque<Item>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 };
 
 // tslint:enable:unified-signatures

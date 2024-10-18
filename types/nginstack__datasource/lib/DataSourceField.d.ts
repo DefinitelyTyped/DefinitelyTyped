@@ -47,13 +47,13 @@ declare class DataSourceField {
         src:
             | DataSourceField
             | {
-                  [x: string]: any;
-              }
+                [x: string]: any;
+            },
     ): void;
     toString(): string;
     clone(): DataSourceField;
     unshare(): DataSourceField;
 }
 declare namespace DataSourceField {
-    const PREFIX_SEPARATOR: string;
+    let PREFIX_SEPARATOR: string;
 }

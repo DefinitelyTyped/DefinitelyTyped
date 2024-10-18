@@ -1,22 +1,12 @@
-// Type definitions for Angular UI Bootstrap 1.0.0
-// Project: https://github.com/angular-ui/bootstrap
-// Definitions by:  Brian Surowiec <https://github.com/xt0rted>,
-//                  Ryan Southgate <https://github.com/ry8806>
-//                  Alfie Johnson <https://github.com/alfiej>
-//                  Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare const moduleName: 'ui.bootstrap';
+declare const moduleName: "ui.bootstrap";
 export = moduleName;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui.bootstrap {
-
         interface IAccordionConfig {
             /**
              * Controls whether expanding an item will cause the other items to close.
@@ -209,7 +199,6 @@ declare module 'angular' {
         }
 
         interface IDatepickerPopupConfig extends IDatepickerConfig {
-
             /**
              * A list of alternate formats acceptable for manual entry.
              *
@@ -243,7 +232,7 @@ declare module 'angular' {
              */
             html5Types?: {
                 date?: string | undefined;
-                'datetime-local'?: string | undefined;
+                "datetime-local"?: string | undefined;
                 month?: string | undefined;
             } | undefined;
 
@@ -371,7 +360,7 @@ declare module 'angular' {
         /**
          * @deprecated use IModalInstanceService instead.
          */
-        interface IModalServiceInstance extends IModalInstanceService { }
+        interface IModalServiceInstance extends IModalInstanceService {}
 
         interface IModalScope extends angular.IScope {
             /**
@@ -552,7 +541,6 @@ declare module 'angular' {
             value: any;
         }
 
-
         interface IPaginationConfig {
             /**
              * Total number of items in all pages.
@@ -681,7 +669,6 @@ declare module 'angular' {
             nextText?: string | undefined;
         }
 
-
         interface IPositionCoordinates {
             width?: number | undefined;
             height?: number | undefined;
@@ -701,7 +688,6 @@ declare module 'angular' {
             offset(element: JQuery): IPositionCoordinates;
         }
 
-
         interface IProgressConfig {
             /**
              * Whether bars use transitions to achieve the width change.
@@ -717,7 +703,6 @@ declare module 'angular' {
              */
             max?: number | undefined;
         }
-
 
         interface IRatingConfig {
             /**
@@ -746,9 +731,8 @@ declare module 'angular' {
              *
              * @default ["one", "two", "three", "four", "five"]
              */
-            titles?: Array<string> | undefined;
+            titles?: string[] | undefined;
         }
-
 
         interface ITimepickerConfig {
             /**
@@ -784,7 +768,7 @@ declare module 'angular' {
              *
              * @default null
              */
-            meridians?: Array<string> | undefined;
+            meridians?: string[] | undefined;
 
             /**
              * Whether the user can type inside the hours & minutes input.
@@ -828,7 +812,6 @@ declare module 'angular' {
              */
             templateUrl?: string | undefined;
         }
-
 
         interface ITooltipOptions {
             /**
@@ -893,7 +876,6 @@ declare module 'angular' {
             setTriggers(triggers: Object): void;
         }
 
-
         /**
          * WARNING: $transition is now deprecated. Use $animate from ngAnimate instead.
          */
@@ -920,7 +902,11 @@ declare module 'angular' {
              *
              * @return A promise that is resolved when the transition finishes.
              */
-            (element: angular.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): angular.IPromise<angular.IAugmentedJQuery>;
+            (
+                element: angular.IAugmentedJQuery,
+                trigger: any,
+                options?: ITransitionServiceOptions,
+            ): angular.IPromise<angular.IAugmentedJQuery>;
         }
 
         interface ITransitionServiceOptions {

@@ -1,7 +1,7 @@
 import promiseTheWorld = require("promise-the-world");
-import { Deferred } from 'promise-the-world/defer';
-import { Mutex } from 'promise-the-world/mutex';
-import { Queue } from 'promise-the-world/queue';
+import { Deferred } from "promise-the-world/defer";
+import { Mutex } from "promise-the-world/mutex";
+import { Queue } from "promise-the-world/queue";
 
 const { defer, queue, delay, mutex } = promiseTheWorld;
 
@@ -10,9 +10,9 @@ function deferTest(): Promise<string> {
     const deferred: Deferred<string> = defer<string>();
 
     if (foo) {
-        deferred.resolve('foo');
+        deferred.resolve("foo");
     } else {
-        deferred.reject(new Error('bar'));
+        deferred.reject(new Error("bar"));
     }
 
     deferred.resolve();
@@ -47,8 +47,8 @@ function mutexTest(): Promise<any> {
     }
 
     return Promise.all([
-        limitedFetch('http://example.org/'),
-        limitedFetch('http://example.com/')
+        limitedFetch("http://example.org/"),
+        limitedFetch("http://example.com/"),
     ]);
 }
 
@@ -62,8 +62,8 @@ function queueTest() {
     const pending: number = fetchQueue.pending;
 
     const queued: Promise<[string, number, boolean]> = Promise.all([
-        fetchQueue.add(() => Promise.resolve('foo')),
+        fetchQueue.add(() => Promise.resolve("foo")),
         fetchQueue.add(() => Promise.resolve(10)),
-        fetchQueue.add(() => Promise.resolve(false))
+        fetchQueue.add(() => Promise.resolve(false)),
     ]);
 }

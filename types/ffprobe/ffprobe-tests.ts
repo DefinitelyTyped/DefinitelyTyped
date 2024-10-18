@@ -1,33 +1,33 @@
-import ffprobe = require('ffprobe');
-import ffprobeStatic = require('ffprobe-static');
+import ffprobe = require("ffprobe");
+import ffprobeStatic = require("ffprobe-static");
 
 const handleSideData = (side_data: ffprobe.SideData) => {
-    if ('rotation' in side_data) {
+    if ("rotation" in side_data) {
         side_data.rotation;
         side_data.displaymatrix;
-    } else if (side_data.side_data_type === 'Spherical Mapping') {
-        if (side_data.projection === 'cubemap') {
+    } else if (side_data.side_data_type === "Spherical Mapping") {
+        if (side_data.projection === "cubemap") {
             side_data.padding;
-        } else if (side_data.projection === 'tiled equirectangular') {
+        } else if (side_data.projection === "tiled equirectangular") {
             side_data.bound_bottom;
             side_data.bound_top;
         }
-    } else if (side_data.side_data_type === 'Mastering display metadata') {
-        if ('red_x' in side_data) {
+    } else if (side_data.side_data_type === "Mastering display metadata") {
+        if ("red_x" in side_data) {
             side_data.red_x;
             side_data.blue_x;
             side_data.green_x;
             side_data.white_point_x;
 
-            if ('max_luminance' in side_data) {
+            if ("max_luminance" in side_data) {
                 side_data.min_luminance;
             }
         }
 
-        if ('min_luminance' in side_data) {
+        if ("min_luminance" in side_data) {
             side_data.max_luminance;
 
-            if ('red_y' in side_data) {
+            if ("red_y" in side_data) {
                 side_data.red_y;
                 side_data.blue_y;
                 side_data.green_y;
@@ -37,7 +37,7 @@ const handleSideData = (side_data: ffprobe.SideData) => {
     }
 };
 
-ffprobe('./file.mp4', { path: ffprobeStatic.path })
+ffprobe("./file.mp4", { path: ffprobeStatic.path })
     .then(info => {
         info; // $ExpectType FFProbeResult
 
@@ -52,7 +52,7 @@ ffprobe('./file.mp4', { path: ffprobeStatic.path })
     .catch((err: Error) => {
         err; // $ExpectType Error
     });
-ffprobe('./file.mp4', { path: ffprobeStatic.path }, (err, info) => {
+ffprobe("./file.mp4", { path: ffprobeStatic.path }, (err, info) => {
     if (err) {
         err; // $ExpectType Error
     } else {
@@ -61,5 +61,5 @@ ffprobe('./file.mp4', { path: ffprobeStatic.path }, (err, info) => {
 });
 (async () => {
     // $ExpectType FFProbeResult
-    const result = await ffprobe('/path/to/movie.avi', { path: ffprobeStatic.path });
+    const result = await ffprobe("/path/to/movie.avi", { path: ffprobeStatic.path });
 })();

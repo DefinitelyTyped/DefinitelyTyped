@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Digital Goods API 2.0
-// Project: https://wicg.github.io/digital-goods/
-// Definitions by: vantezzen <https://github.com/vantezzen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface DigitalGoodsService {
     /**
      * Get details about specific SKUs from the payment provider.
@@ -25,7 +20,7 @@ interface DigitalGoodsService {
     consume(purchaseToken: string): Promise<void>;
 }
 
-type ItemType = 'product' | 'subscription';
+type ItemType = "product" | "subscription";
 
 interface DigitalGoodsProductDetails {
     itemId: string;

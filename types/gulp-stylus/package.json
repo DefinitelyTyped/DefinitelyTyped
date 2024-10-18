@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/gulp-stylus",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/stevelacy/gulp-stylus"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-stylus": "workspace:."
+    },
+    "owners": []
+}

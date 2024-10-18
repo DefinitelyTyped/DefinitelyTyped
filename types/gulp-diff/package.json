@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-diff",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/creativelive/gulp-diff"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-diff": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ika",
+            "githubUsername": "ikatyang"
+        }
+    ]
+}

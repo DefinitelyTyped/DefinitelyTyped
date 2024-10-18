@@ -1,8 +1,3 @@
-// Type definitions for html-escape 2.0
-// Project: https://github.com/parshap/html-escape
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Escape a string to be safe for use in html. `&`, `<`, `'`, and `"`
  * characters are replaced with with their [named character references][]:

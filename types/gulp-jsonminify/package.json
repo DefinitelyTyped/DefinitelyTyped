@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-jsonminify",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tcarlsen/gulp-jsonminify"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-jsonminify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pine Mizune",
+            "githubUsername": "pine"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hark",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/otalk/hark"
+    ],
+    "devDependencies": {
+        "@types/hark": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "baiyufei",
+            "githubUsername": "baiyufei"
+        }
+    ]
+}

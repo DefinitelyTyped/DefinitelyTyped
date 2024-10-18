@@ -11,10 +11,10 @@ export interface CalendarBaseProps {
     disableWeekday?: string[] | undefined;
     disableWeekends?: boolean | undefined;
     localizedText?: {
-        nextMonth?: string | undefined
-        previousMonth?: string | undefined
-        show12NextYears?: string | undefined
-        show12PreviousYears?: string | undefined
+        nextMonth?: string | undefined;
+        previousMonth?: string | undefined;
+        show12NextYears?: string | undefined;
+        show12PreviousYears?: string | undefined;
     } | undefined;
 }
 

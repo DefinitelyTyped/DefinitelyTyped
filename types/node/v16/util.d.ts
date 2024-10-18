@@ -4,12 +4,12 @@
  * it:
  *
  * ```js
- * const util = require('util');
+ * import util from 'node:util';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/util.js)
  */
-declare module 'util' {
-    import * as types from 'node:util/types';
+declare module "util" {
+    import * as types from "node:util/types";
     export interface InspectOptions {
         /**
          * If set to `true`, getters are going to be
@@ -19,7 +19,7 @@ declare module 'util' {
          * the getter function.
          * @default `false`
          */
-        getters?: 'get' | 'set' | boolean | undefined;
+        getters?: "get" | "set" | boolean | undefined;
         showHidden?: boolean | undefined;
         /**
          * @default 2
@@ -50,7 +50,18 @@ declare module 'util' {
         compact?: boolean | number | undefined;
         sorted?: boolean | ((a: string, b: string) => number) | undefined;
     }
-    export type Style = 'special' | 'number' | 'bigint' | 'boolean' | 'undefined' | 'null' | 'string' | 'symbol' | 'date' | 'regexp' | 'module';
+    export type Style =
+        | "special"
+        | "number"
+        | "bigint"
+        | "boolean"
+        | "undefined"
+        | "null"
+        | "string"
+        | "symbol"
+        | "date"
+        | "regexp"
+        | "module";
     export type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => string;
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
@@ -147,7 +158,7 @@ declare module 'util' {
      * timestamp.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.log('Timestamped message.');
      * ```
@@ -188,7 +199,7 @@ declare module 'util' {
      * Circular references point to their anchor by using a reference index:
      *
      * ```js
-     * const { inspect } = require('util');
+     * import { inspect } from 'node:util';
      *
      * const obj = {};
      * obj.a = [obj];
@@ -206,7 +217,7 @@ declare module 'util' {
      * The following example inspects all properties of the `util` object:
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * console.log(util.inspect(util, { showHidden: true, depth: null }));
      * ```
@@ -214,7 +225,7 @@ declare module 'util' {
      * The following example highlights the effect of the `compact` option:
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * const o = {
      *   a: [1, 2, [[
@@ -271,7 +282,7 @@ declare module 'util' {
      * with no remaining strong references may be garbage collected at any time.
      *
      * ```js
-     * const { inspect } = require('util');
+     * import { inspect } from 'node:util';
      *
      * const obj = { a: 1 };
      * const obj2 = { b: 2 };
@@ -285,8 +296,8 @@ declare module 'util' {
      * impact the result of `util.inspect()`.
      *
      * ```js
-     * const { inspect } = require('util');
-     * const assert = require('assert');
+     * import { inspect } from 'node:util';
+     * import assert from 'node:assert';
      *
      * const o1 = {
      *   b: [2, 3, 1],
@@ -317,7 +328,7 @@ declare module 'util' {
      * @return The representation of `object`.
      */
     export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
-    export function inspect(object: any, options: InspectOptions): string;
+    export function inspect(object: any, options?: InspectOptions): string;
     export namespace inspect {
         let colors: NodeJS.Dict<[number, number]>;
         let styles: {
@@ -339,7 +350,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is an `Array`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isArray([]);
      * // Returns: true
@@ -356,7 +367,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a `RegExp`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isRegExp(/some regexp/);
      * // Returns: true
@@ -373,7 +384,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a `Date`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isDate(new Date());
      * // Returns: true
@@ -390,7 +401,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is an `Error`. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isError(new Error());
      * // Returns: true
@@ -404,7 +415,7 @@ declare module 'util' {
      * possible to obtain an incorrect result when the `object` argument manipulates`@@toStringTag`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      * const obj = { name: 'Error', message: 'an error occurred' };
      *
      * util.isError(obj);
@@ -418,7 +429,7 @@ declare module 'util' {
      */
     export function isError(object: unknown): object is Error;
     /**
-     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and`extends` keywords to get language level inheritance support. Also note
+     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and `extends` keywords to get language level inheritance support. Also note
      * that the two styles are [semantically incompatible](https://github.com/nodejs/node/issues/4179).
      *
      * Inherit the prototype methods from one [constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor) into another. The
@@ -429,8 +440,8 @@ declare module 'util' {
      * through the `constructor.super_` property.
      *
      * ```js
-     * const util = require('util');
-     * const EventEmitter = require('events');
+     * import util from 'node:util';
+     * import EventEmitter from 'node:events';
      *
      * function MyStream() {
      *   EventEmitter.call(this);
@@ -456,7 +467,7 @@ declare module 'util' {
      * ES6 example using `class` and `extends`:
      *
      * ```js
-     * const EventEmitter = require('events');
+     * import EventEmitter from 'node:events';
      *
      * class MyStream extends EventEmitter {
      *   write(data) {
@@ -485,7 +496,7 @@ declare module 'util' {
      * environment variable, then the returned function operates similar to `console.error()`. If not, then the returned function is a no-op.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      * const debuglog = util.debuglog('foo');
      *
      * debuglog('hello from foo [%d]', 123);
@@ -504,7 +515,7 @@ declare module 'util' {
      * The `section` supports wildcard also:
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      * const debuglog = util.debuglog('foo-bar');
      *
      * debuglog('hi there, it\'s foo-bar [%d]', 2333);
@@ -524,7 +535,7 @@ declare module 'util' {
      * unnecessary wrapping.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      * let debuglog = util.debuglog('internals', (debug) => {
      *   // Replace with a logging function that optimizes out
      *   // testing if the section is enabled
@@ -542,7 +553,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isBoolean(1);
      * // Returns: false
@@ -559,7 +570,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a `Buffer`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isBuffer({ length: 0 });
      * // Returns: false
@@ -576,7 +587,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a `Function`. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * function Foo() {}
      * const Bar = () => {};
@@ -596,7 +607,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is strictly `null`. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isNull(0);
      * // Returns: false
@@ -614,7 +625,7 @@ declare module 'util' {
      * returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isNullOrUndefined(0);
      * // Returns: false
@@ -631,7 +642,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a `Number`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isNumber(false);
      * // Returns: false
@@ -651,7 +662,7 @@ declare module 'util' {
      * Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isObject(5);
      * // Returns: false
@@ -670,7 +681,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a primitive type. Otherwise, returns`false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isPrimitive(5);
      * // Returns: true
@@ -699,7 +710,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a `string`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isString('');
      * // Returns: true
@@ -718,7 +729,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is a `Symbol`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * util.isSymbol(5);
      * // Returns: false
@@ -735,7 +746,7 @@ declare module 'util' {
      * Returns `true` if the given `object` is `undefined`. Otherwise, returns `false`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * const foo = undefined;
      * util.isUndefined(5);
@@ -754,7 +765,7 @@ declare module 'util' {
      * such a way that it is marked as deprecated.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * exports.obsoleteFunction = util.deprecate(() => {
      *   // Do something here.
@@ -770,7 +781,7 @@ declare module 'util' {
      * the warning will be emitted only once for that `code`.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * const fn1 = util.deprecate(someFunction, someMessage, 'DEP0001');
      * const fn2 = util.deprecate(someOtherFunction, someOtherMessage, 'DEP0001');
@@ -790,7 +801,7 @@ declare module 'util' {
      * If the `--throw-deprecation` command-line flag is set, or the`process.throwDeprecation` property is set to `true`, then an exception will be
      * thrown when the deprecated function is called.
      *
-     * The `--throw-deprecation` command-line flag and `process.throwDeprecation`property take precedence over `--trace-deprecation` and`process.traceDeprecation`.
+     * The `--throw-deprecation` command-line flag and `process.throwDeprecation` property take precedence over `--trace-deprecation` and `process.traceDeprecation`.
      * @since v0.8.0
      * @param fn The function that is being deprecated.
      * @param msg A warning message to display when the deprecated function is invoked.
@@ -824,7 +835,7 @@ declare module 'util' {
      * first argument will be the rejection reason (or `null` if the `Promise`resolved), and the second argument will be the resolved value.
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * async function fn() {
      *   return 'hello world';
@@ -867,48 +878,91 @@ declare module 'util' {
      * @return a callback style function
      */
     export function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
-    export function callbackify<TResult>(fn: () => Promise<TResult>): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    export function callbackify<T1>(fn: (arg1: T1) => Promise<void>): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
-    export function callbackify<T1, TResult>(fn: (arg1: T1) => Promise<TResult>): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    export function callbackify<T1, T2>(fn: (arg1: T1, arg2: T2) => Promise<void>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
-    export function callbackify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2) => Promise<TResult>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
-    export function callbackify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<TResult>(
+        fn: () => Promise<TResult>,
+    ): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1>(
+        fn: (arg1: T1) => Promise<void>,
+    ): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, TResult>(
+        fn: (arg1: T1) => Promise<TResult>,
+    ): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2>(
+        fn: (arg1: T1, arg2: T2) => Promise<void>,
+    ): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, TResult>(
+        fn: (arg1: T1, arg2: T2) => Promise<TResult>,
+    ): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3>(
+        fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>,
+    ): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>
+        fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>,
     ): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
     export function callbackify<T1, T2, T3, T4>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, T4, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>,
+    ): (
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+        arg4: T4,
+        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+    ) => void;
     export function callbackify<T1, T2, T3, T4, T5>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, T4, T5, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>,
+    ): (
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+        arg4: T4,
+        arg5: T5,
+        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+    ) => void;
     export function callbackify<T1, T2, T3, T4, T5, T6>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException) => void) => void;
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>,
+    ): (
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+        arg4: T4,
+        arg5: T5,
+        arg6: T6,
+        callback: (err: NodeJS.ErrnoException) => void,
+    ) => void;
     export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>,
+    ): (
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+        arg4: T4,
+        arg5: T5,
+        arg6: T6,
+        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+    ) => void;
     export interface CustomPromisifyLegacy<TCustom extends Function> extends Function {
         __promisify__: TCustom;
     }
     export interface CustomPromisifySymbol<TCustom extends Function> extends Function {
         [promisify.custom]: TCustom;
     }
-    export type CustomPromisify<TCustom extends Function> = CustomPromisifySymbol<TCustom> | CustomPromisifyLegacy<TCustom>;
+    export type CustomPromisify<TCustom extends Function> =
+        | CustomPromisifySymbol<TCustom>
+        | CustomPromisifyLegacy<TCustom>;
     /**
      * Takes a function following the common error-first callback style, i.e. taking
      * an `(err, value) => ...` callback as the last argument, and returns a version
      * that returns promises.
      *
      * ```js
-     * const util = require('util');
-     * const fs = require('fs');
+     * import util from 'node:util';
+     * import fs from 'node:fs';
      *
      * const stat = util.promisify(fs.stat);
      * stat('.').then((stats) => {
@@ -921,8 +975,8 @@ declare module 'util' {
      * Or, equivalently using `async function`s:
      *
      * ```js
-     * const util = require('util');
-     * const fs = require('fs');
+     * import util from 'node:util';
+     * import fs from 'node:fs';
      *
      * const stat = util.promisify(fs.stat);
      *
@@ -943,7 +997,7 @@ declare module 'util' {
      * work as expected unless handled specially:
      *
      * ```js
-     * const util = require('util');
+     * import util from 'node:util';
      *
      * class Foo {
      *   constructor() {
@@ -969,23 +1023,37 @@ declare module 'util' {
      * @since v8.0.0
      */
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    export function promisify<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => Promise<TResult>;
+    export function promisify<TResult>(
+        fn: (callback: (err: any, result: TResult) => void) => void,
+    ): () => Promise<TResult>;
     export function promisify(fn: (callback: (err?: any) => void) => void): () => Promise<void>;
-    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: any, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1, TResult>(
+        fn: (arg1: T1, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1) => Promise<TResult>;
     export function promisify<T1>(fn: (arg1: T1, callback: (err?: any) => void) => void): (arg1: T1) => Promise<void>;
-    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: any, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
-    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: any, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, TResult>(
+        fn: (arg1: T1, arg2: T2, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(
+        fn: (arg1: T1, arg2: T2, callback: (err?: any) => void) => void,
+    ): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: any) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
     export function promisify<T1, T2, T3, T4, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: any, result: TResult) => void) => void
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: any) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
     export function promisify<T1, T2, T3, T4, T5, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: any, result: TResult) => void) => void
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
     export function promisify<T1, T2, T3, T4, T5>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
@@ -1028,7 +1096,7 @@ declare module 'util' {
             options?: {
                 fatal?: boolean | undefined;
                 ignoreBOM?: boolean | undefined;
-            }
+            },
         );
         /**
          * Decodes the `input` and returns a string. If `options.stream` is `true`, any
@@ -1042,7 +1110,7 @@ declare module 'util' {
             input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
             options?: {
                 stream?: boolean | undefined;
-            }
+            },
         ): string;
     }
     export interface EncodeIntoResult {
@@ -1094,12 +1162,34 @@ declare module 'util' {
          */
         encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
     }
+
+    import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from "util";
+    global {
+        /**
+         * `TextDecoder` class is a global reference for `import { TextDecoder } from 'node:util'`
+         * https://nodejs.org/api/globals.html#textdecoder
+         * @since v11.0.0
+         */
+        var TextDecoder: typeof globalThis extends {
+            onmessage: any;
+            TextDecoder: infer TextDecoder;
+        } ? TextDecoder
+            : typeof _TextDecoder;
+
+        /**
+         * `TextEncoder` class is a global reference for `import { TextEncoder } from 'node:util'`
+         * https://nodejs.org/api/globals.html#textencoder
+         * @since v11.0.0
+         */
+        var TextEncoder: typeof globalThis extends {
+            onmessage: any;
+            TextEncoder: infer TextEncoder;
+        } ? TextEncoder
+            : typeof _TextEncoder;
+    }
 }
-declare module 'util/types' {
-    export * from 'util/types';
-}
-declare module 'util/types' {
-    import { KeyObject, webcrypto } from 'node:crypto';
+declare module "util/types" {
+    import { KeyObject, webcrypto } from "node:crypto";
     /**
      * Returns `true` if the value is a built-in [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) or
      * [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instance.
@@ -1365,7 +1455,10 @@ declare module 'util/types' {
      * ```
      * @since v10.0.0
      */
-    function isMap<T>(object: T | {}): object is T extends ReadonlyMap<any, any> ? (unknown extends T ? never : ReadonlyMap<any, any>) : Map<unknown, unknown>;
+    function isMap<T>(
+        object: T | {},
+    ): object is T extends ReadonlyMap<any, any> ? (unknown extends T ? never : ReadonlyMap<any, any>)
+        : Map<unknown, unknown>;
     /**
      * Returns `true` if the value is an iterator returned for a built-in [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.
      *
@@ -1451,7 +1544,9 @@ declare module 'util/types' {
      * ```
      * @since v10.0.0
      */
-    function isSet<T>(object: T | {}): object is T extends ReadonlySet<any> ? (unknown extends T ? never : ReadonlySet<any>) : Set<unknown>;
+    function isSet<T>(
+        object: T | {},
+    ): object is T extends ReadonlySet<any> ? (unknown extends T ? never : ReadonlySet<any>) : Set<unknown>;
     /**
      * Returns `true` if the value is an iterator returned for a built-in [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) instance.
      *
@@ -1586,9 +1681,9 @@ declare module 'util/types' {
      */
     function isCryptoKey(object: unknown): object is webcrypto.CryptoKey;
 }
-declare module 'node:util' {
-    export * from 'util';
+declare module "node:util" {
+    export * from "util";
 }
-declare module 'node:util/types' {
-    export * from 'util/types';
+declare module "node:util/types" {
+    export * from "util/types";
 }

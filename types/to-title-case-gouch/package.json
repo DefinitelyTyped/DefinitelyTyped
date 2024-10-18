@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/to-title-case-gouch",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "to-title-case-gouch",
+    "projects": [
+        "https://github.com/gouch/to-title-case"
+    ],
+    "devDependencies": {
+        "@types/to-title-case-gouch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        }
+    ]
+}

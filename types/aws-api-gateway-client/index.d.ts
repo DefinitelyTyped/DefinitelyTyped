@@ -1,8 +1,3 @@
-// Type definitions for aws-api-gateway-client 0.3
-// Project: https://github.com/kndt84/aws-api-gateway-client
-// Definitions by: Jussi Kinnula <https://github.com/jussikinnula>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ApiGatewayClientConfig {
     accessKey?: string | undefined;
     secretKey?: string | undefined;
@@ -30,13 +25,13 @@ export interface ApiGatewayClient {
     invokeApi(
         params: Record<string, unknown>,
         pathTemplate: string,
-        method: 'GET' | 'POST' | 'DELETE' | 'UPDATE',
+        method: "GET" | "POST" | "DELETE" | "UPDATE",
         additionalParams?: {
             headers?: { [key: string]: unknown };
             queryParams?: { [key: string]: string | number | boolean };
             timeout?: number;
         },
-        body?: string
+        body?: string,
     ): Promise<Response>;
 }
 

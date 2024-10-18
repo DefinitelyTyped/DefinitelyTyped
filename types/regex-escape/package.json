@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/regex-escape",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/regex-escape.js"
+    ],
+    "devDependencies": {
+        "@types/regex-escape": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
-import { Object } from './object';
-import { Repository } from './repository';
-import { Reference } from './reference';
+import { Object } from "./object";
+import { Reference } from "./reference";
+import { Repository } from "./repository";
 
 export namespace Revparse {
     const enum MODE {

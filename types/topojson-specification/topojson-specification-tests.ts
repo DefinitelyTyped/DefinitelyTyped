@@ -33,11 +33,14 @@ const multiPolygon: TopoJSON.MultiPolygon = {
 const geometryCollection: TopoJSON.GeometryCollection = {
     type: "GeometryCollection",
     geometries: [
-        {type: "Polygon", arcs: [[0]]},
-        {type: "MultiPolygon", arcs: [[[0]]]},
-        {type: "GeometryCollection", geometries: [
-            {type: "Point", coordinates: [0, 0]}
-        ]}
+        { type: "Polygon", arcs: [[0]] },
+        { type: "MultiPolygon", arcs: [[[0]]] },
+        {
+            type: "GeometryCollection",
+            geometries: [
+                { type: "Point", coordinates: [0, 0] },
+            ],
+        },
     ],
 };
 
@@ -55,7 +58,7 @@ interface TestProp {
 const pointWithProp: TopoJSON.Point<TestProp> = {
     type: "Point",
     coordinates: [0, 0],
-    properties: {color: "orange", size: 42},
+    properties: { color: "orange", size: 42 },
 };
 
 const str: string = pointWithProp.properties!.color;
@@ -108,7 +111,7 @@ topology = {
         [[0, 0], [1, 0], [0, 1]],
         [[1, 1], [-1, 0], [0, -1]],
         [[1, 1]],
-        [[0, 0]]
+        [[0, 0]],
     ],
 };
 
@@ -118,37 +121,37 @@ topology = {
         example: {
             type: "GeometryCollection",
             geometries: [
-            {
-                type: "Point",
-                properties: {
-                    prop0: "value0",
-                },
-                coordinates: [102, 0.5],
-            },
-            {
-                type: "LineString",
-                properties: {
-                    prop0: "value0",
-                    prop1: 0,
-                },
-                arcs: [0],
-            },
-            {
-                type: "Polygon",
-                properties: {
-                    prop0: "value0",
-                    prop1: {
-                        this: "that",
+                {
+                    type: "Point",
+                    properties: {
+                        prop0: "value0",
                     },
+                    coordinates: [102, 0.5],
                 },
-                arcs: [[-2]],
-            }
+                {
+                    type: "LineString",
+                    properties: {
+                        prop0: "value0",
+                        prop1: 0,
+                    },
+                    arcs: [0],
+                },
+                {
+                    type: "Polygon",
+                    properties: {
+                        prop0: "value0",
+                        prop1: {
+                            this: "that",
+                        },
+                    },
+                    arcs: [[-2]],
+                },
             ],
         },
     },
     arcs: [
         [[102, 0], [103, 1], [104, 0], [105, 1]],
-        [[100, 0], [101, 0], [101, 1], [100, 1], [100, 0]]
+        [[100, 0], [101, 0], [101, 1], [100, 1], [100, 0]],
     ],
 };
 
@@ -163,5 +166,16 @@ topology = { type: "Topology", objects: { foo: { type: "hello", arcs: [[0]] } },
 topology = { type: "Topology", objects: { foo: { type: "Point" } }, arcs: [] };
 
 // must fail: Property 'arcs' is missing in type '{ type: "Polygon"; }'
-// @ts-expect-error
-topology = { type: "Topology", objects: { foo: { type: "GeometryCollection", geometries: [{type: "Polygon"}] } }, arcs: [] };
+topology = {
+    type: "Topology",
+    objects: {
+        foo: {
+            type: "GeometryCollection",
+            geometries: [
+                // @ts-expect-error
+                { type: "Polygon" },
+            ],
+        },
+    },
+    arcs: [],
+};

@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.beyondcorp-v1alpha": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.beyondcorp-v1alpha",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "BeyondCorp API v1alpha",
+    "projects": [
+        "https://cloud.google.com/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.beyondcorp-v1alpha": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.beyondcorp-v1alpha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

@@ -1,20 +1,20 @@
 type RuleType =
-    | 'string'
-    | 'number'
-    | 'boolean'
-    | 'method'
-    | 'regexp'
-    | 'integer'
-    | 'float'
-    | 'array'
-    | 'object'
-    | 'enum'
-    | 'date'
-    | 'url'
-    | 'hex'
-    | 'email'
-    | 'pattern'
-    | 'any';
+    | "string"
+    | "number"
+    | "boolean"
+    | "method"
+    | "regexp"
+    | "integer"
+    | "float"
+    | "array"
+    | "object"
+    | "enum"
+    | "date"
+    | "url"
+    | "hex"
+    | "email"
+    | "pattern"
+    | "any";
 interface ValidateOption {
     suppressWarning?: boolean;
     suppressValidatorError?: boolean;
@@ -55,6 +55,7 @@ interface RuleItem {
         callback: (error?: string | Error) => void,
         source: Values,
         options: ValidateOption,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => SyncValidateResult | void;
 }
 type Rule = RuleItem | RuleItem[];
@@ -167,9 +168,9 @@ interface RuleValuePackage {
     source: Values;
     field: string;
 }
-interface InternalRuleItem extends Omit<RuleItem, 'validator'> {
+interface InternalRuleItem extends Omit<RuleItem, "validator"> {
     field?: string;
     fullField?: string;
     fullFields?: string[];
-    validator?: RuleItem['validator'] | ExecuteValidator;
+    validator?: RuleItem["validator"] | ExecuteValidator;
 }

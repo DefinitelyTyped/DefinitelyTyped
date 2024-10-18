@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/trim",
+    "version": "0.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/trim"
+    ],
+    "devDependencies": {
+        "@types/trim": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steve Jenkins",
+            "githubUsername": "skysteve"
+        }
+    ]
+}

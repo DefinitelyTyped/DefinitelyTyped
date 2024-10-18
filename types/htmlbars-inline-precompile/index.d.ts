@@ -1,10 +1,3 @@
-// Type definitions for non-npm package htmlbars-inline-precompile 3.0
-// Project: https://github.com/ember-cli/ember-cli-htmlbars-inline-precompile
-// Definitions by: Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Chris Krycho <https://github.com/chriskrycho>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This is a bit of a funky one: it's from a [Babel plugin], but is exported for
 // Ember applications as the module `"htmlbars-inline-precompile"`. It acts
 // like a tagged string from the perspective of consumers, but is actually an

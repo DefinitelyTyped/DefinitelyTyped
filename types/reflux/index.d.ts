@@ -1,11 +1,4 @@
-// Type definitions for RefluxJS 6.4
-// Project: https://github.com/reflux/refluxjs
-// Definitions by: Maurice de Beijer <https://github.com/mauricedb>
-//                 James Liang <https://github.com/LiangZugeng>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export as namespace Reflux;
 
@@ -54,7 +47,9 @@ export class Component<TOfStore extends typeof Store = typeof Store, P = any, S 
     mapStoreToState(storeType: TOfStore, mappingFunc: (newState: any) => any): void;
 }
 
-export class PureComponent<TOfStore extends typeof Store = typeof Store, P = any, S = any, SS = any> extends React.PureComponent<P, S, SS> {
+export class PureComponent<TOfStore extends typeof Store = typeof Store, P = any, S = any, SS = any>
+    extends React.PureComponent<P, S, SS>
+{
     store: TOfStore;
     stores: TOfStore[];
     storeKeys: string[];

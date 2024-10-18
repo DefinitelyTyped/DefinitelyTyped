@@ -1,4 +1,4 @@
-import { MSKEvent, MSKHandler, MSKRecord, MSKRecordHeader } from 'aws-lambda';
+import { MSKEvent, MSKHandler, MSKRecord, MSKRecordHeader } from "aws-lambda";
 
 declare let headers: MSKRecordHeader[];
 declare let header: MSKRecordHeader;

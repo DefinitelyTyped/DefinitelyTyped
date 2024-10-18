@@ -1,4 +1,4 @@
-import * as binary from 'relay-compiler';
+import * as binary from "relay-compiler";
 
 // $ExpectType string | null
 const compilerPath = binary;

@@ -1,8 +1,3 @@
-// Type definitions for jquery-migrate 3.3
-// Project: https://github.com/jquery/jquery-migrate
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 
 interface JQueryStatic {

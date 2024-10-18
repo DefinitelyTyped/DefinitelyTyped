@@ -1,16 +1,12 @@
-// Type definitions for rollup-plugin-progress 1.1
-// Project: https://github.com/jkuri/rollup-plugin-progress#readme
-// Definitions by: Jeroen Claassens <https://github.com/favna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import { Plugin } from "rollup";
 
-/// <reference types="node" />
-import { Plugin } from 'rollup';
-
-export interface PluginProgressOptions {
-    clearLine?: boolean | undefined;
+declare namespace PluginProgress {
+    interface PluginProgressOptions {
+        /** @default true */
+        clearLine?: boolean | undefined;
+    }
 }
 
-declare function progress(options?: PluginProgressOptions): Plugin;
+declare function PluginProgress(options?: PluginProgress.PluginProgressOptions): Plugin;
 
-export default progress;
+export = PluginProgress;

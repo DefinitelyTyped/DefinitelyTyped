@@ -1,8 +1,3 @@
-// Type definitions for read-time-estimate 0.0
-// Project: https://github.com/pritishvaidya/read-time-estimate#readme
-// Definitions by: rubek <https://github.com/rubek-joshi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ You can declare types that are available via importing the module */
 export interface ReadTimeEstimate {
     humanizedDuration: string;

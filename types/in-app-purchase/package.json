@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/in-app-purchase",
+    "version": "1.11.9999",
+    "projects": [
+        "https://github.com/voltrue2/in-app-purchase#readme"
+    ],
+    "devDependencies": {
+        "@types/in-app-purchase": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonas Lochmann",
+            "githubUsername": "l-jonas"
+        },
+        {
+            "name": "Dennis Kugelmann",
+            "githubUsername": "IchordeDionysos"
+        },
+        {
+            "name": "Alexander Tartmin",
+            "githubUsername": "Baskerville42"
+        },
+        {
+            "name": "Hiroshi Kikuchi",
+            "githubUsername": "kikuchy"
+        }
+    ]
+}

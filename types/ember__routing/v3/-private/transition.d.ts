@@ -1,5 +1,5 @@
-import RouteInfo from './route-info';
-import RouteInfoWithAttributes from './route-info-with-attributes';
+import RouteInfo from "./route-info";
+import RouteInfoWithAttributes from "./route-info-with-attributes";
 
 export default interface Transition<T = unknown> extends Partial<Promise<T>> {
     /**

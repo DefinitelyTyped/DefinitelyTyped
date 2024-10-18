@@ -1,15 +1,15 @@
 import * as React from "react";
-import * as ReactNative from "react-native";
 import * as ReactDOMServer from "react-dom/server";
+import * as ReactNative from "react-native";
 
 import styled, {
     css,
     isStyledComponent,
+    ReactNativeThemedStyledComponentsModule,
+    ThemeConsumer,
     ThemeProps,
     ThemeProvider,
     withTheme,
-    ThemeConsumer,
-    ReactNativeThemedStyledComponentsModule,
 } from "styled-components/native";
 import {} from "styled-components/cssprop";
 
@@ -74,12 +74,12 @@ async function typedThemes() {
 
     const ThemedView = styled.View`
         background: ${(props) => {
-            // $ExpectType string
-            props.theme.color;
-            // $ExpectType string | undefined
-            props.testID;
-            return props.theme.color;
-        }};
+        // $ExpectType string
+        props.theme.color;
+        // $ExpectType string | undefined
+        props.testID;
+        return props.theme.color;
+    }};
     `;
     const ThemedView2 = styled.View((props) => {
         // $ExpectType string
@@ -103,12 +103,12 @@ async function typedThemes() {
     });
     const themedCss = css`
         background: ${(props) => {
-            // $ExpectType string
-            props.theme.color;
-            // $ExpectType "theme"
-            type Keys = keyof typeof props;
-            return props.theme.color;
-        }};
+        // $ExpectType string
+        props.theme.color;
+        // $ExpectType "theme"
+        type Keys = keyof typeof props;
+        return props.theme.color;
+    }};
     `;
     //  can't use a FlattenInterpolation as the first argument, would make broken css
     // @ts-expect-error

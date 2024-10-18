@@ -1,7 +1,7 @@
-import { WriteStream } from 'fs';
-import { Wrapper } from './wrapper';
-import { Repository } from './repository';
-import { Oid } from './oid';
+import { WriteStream } from "fs";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Wrapper } from "./wrapper";
 
 export class Blob {
     /**
@@ -27,7 +27,6 @@ export class Blob {
     static lookup(repo: Repository, id: string | Oid | Blob): Promise<Blob>;
     static lookupPrefix(repo: Repository, id: Oid, len: number): Promise<Blob>;
 
-    free(): void;
     id(): Oid;
     isBinary(): number;
     owner(): Repository;

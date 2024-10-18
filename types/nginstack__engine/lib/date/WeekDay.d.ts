@@ -1,9 +1,9 @@
 export type exports = number;
-declare const MON: number;
-declare const TUE: number;
-declare const WED: number;
-declare const THU: number;
-declare const FRI: number;
-declare const SAT: number;
-declare const SUN: number;
+declare let MON: number;
+declare let TUE: number;
+declare let WED: number;
+declare let THU: number;
+declare let FRI: number;
+declare let SAT: number;
+declare let SUN: number;
 export {};

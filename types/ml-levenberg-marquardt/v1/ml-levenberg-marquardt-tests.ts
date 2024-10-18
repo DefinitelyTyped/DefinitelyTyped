@@ -1,26 +1,32 @@
-import LM = require('ml-levenberg-marquardt');
+import LM = require("ml-levenberg-marquardt");
 
 function sinFunction([a, b]: number[]) {
-  return (t: number) => a * Math.sin(b * t);
+    return (t: number) => a * Math.sin(b * t);
 }
 
 const data = {
-  x: [
-    0, Math.PI / 2, Math.PI, Math.PI * 3 / 2
-  ],
-  y: [
-    0, 1, 0, -1
-  ]
+    x: [
+        0,
+        Math.PI / 2,
+        Math.PI,
+        Math.PI * 3 / 2,
+    ],
+    y: [
+        0,
+        1,
+        0,
+        -1,
+    ],
 };
 
-const initialValues = [ 2, 4 ];
+const initialValues = [2, 4];
 
 const options = {
-  damping: 1.5,
-  initialValues,
-  gradientDifference: 10e-2,
-  maxIterations: 100,
-  errorTolerance: 10e-3
+    damping: 1.5,
+    initialValues,
+    gradientDifference: 10e-2,
+    maxIterations: 100,
+    errorTolerance: 10e-3,
 };
 
 const fittedParams = LM(data, sinFunction, options);

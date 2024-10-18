@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/clearbladejs-client",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "clearbladejs-client",
+    "projects": [
+        "https://github.com/ClearBlade/JavaScript-API"
+    ],
+    "dependencies": {
+        "@types/paho-mqtt": "*"
+    },
+    "devDependencies": {
+        "@types/clearbladejs-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jim Bouquet",
+            "githubUsername": "ClearBlade"
+        }
+    ]
+}

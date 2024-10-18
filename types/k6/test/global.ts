@@ -1,30 +1,35 @@
-import { bytes } from 'k6';
-
 // open
 // @ts-expect-error
 open();
 // @ts-expect-error
 open(5);
-const text: string = open('file.txt');
+const text: string = open("file.txt");
 // @ts-expect-error
-open(5, 'b');
+open(5, "b");
 // @ts-expect-error
-open('file.bin', 5);
+open("file.bin", 5);
 // @ts-expect-error
-open('file.bin', 'notamode');
-const arrayBuffer: ArrayBuffer = open('file.bin', 'b');
+open("file.bin", "notamode");
+const arrayBuffer: ArrayBuffer = open("file.bin", "b");
 // @ts-expect-error
-open('file.bin', 'b', 5);
+open("file.bin", "b", 5);
 
 // state
-// @ts-expect-error
-__VU = 9;
 __VU; // $ExpectType number
-// @ts-expect-error
-__ITER = 9;
+__VU = 9;
 __ITER; // $ExpectType number
+__ITER = 9;
 
 // environment
 // @ts-expect-error
 __ENV = 5;
 __ENV; // $ExpectType { [name: string]: string; }
+
+// import.meta.resolve
+import.meta.resolve("test"); // $ExpectType string
+
+// @ts-expect-error
+import.meta.resolve();
+
+// @ts-expect-error
+import.meta.resolve("test", "something");

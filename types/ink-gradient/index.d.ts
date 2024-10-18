@@ -1,9 +1,4 @@
-// Type definitions for ink-gradient 2.0
-// Project: https://github.com/sindresorhus/ink-gradient
-// Definitions by: aaronleopold <https://github.com/aaronleopold>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 // This needs to be updated when TypeScript enhances their support for mutual
 // exclusivity in properties. This edit I made will now throw errors when
@@ -14,19 +9,19 @@ type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T
 
 interface PropsName {
     name:
-        | 'cristal'
-        | 'teen'
-        | 'mind'
-        | 'morning'
-        | 'vice'
-        | 'passion'
-        | 'fruit'
-        | 'instagram'
-        | 'atlas'
-        | 'retro'
-        | 'summer'
-        | 'pastel'
-        | 'rainbow';
+        | "cristal"
+        | "teen"
+        | "mind"
+        | "morning"
+        | "vice"
+        | "passion"
+        | "fruit"
+        | "instagram"
+        | "atlas"
+        | "retro"
+        | "summer"
+        | "pastel"
+        | "rainbow";
 }
 
 // note, object[] in this case refers to objects interpretable by tinycolor2

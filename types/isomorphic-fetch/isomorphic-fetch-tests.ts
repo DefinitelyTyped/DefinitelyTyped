@@ -1,10 +1,10 @@
-import fetchImportedViaCommonJS = require('isomorphic-fetch');
-import * as fetchImportedViaES6Module from 'isomorphic-fetch';
+import fetchImportedViaCommonJS = require("isomorphic-fetch");
+import * as fetchImportedViaES6Module from "isomorphic-fetch";
 
 function test_isomorphicFetchTestCases_ambient() {
-    expectSuccess(fetch('http://localhost:3000/good'), 'Good response');
+    expectSuccess(fetch("http://localhost:3000/good"), "Good response");
 
-    fetch('http://localhost:3000/bad')
+    fetch("http://localhost:3000/bad")
         .then((response: Response) => {
             return response.text();
         })
@@ -13,9 +13,9 @@ function test_isomorphicFetchTestCases_ambient() {
 }
 
 function test_isomorphicFetchTestCases_commonjs() {
-    expectSuccess(fetchImportedViaCommonJS('http://localhost:3000/good'), 'Good response');
+    expectSuccess(fetchImportedViaCommonJS("http://localhost:3000/good"), "Good response");
 
-    fetchImportedViaCommonJS('http://localhost:3000/bad')
+    fetchImportedViaCommonJS("http://localhost:3000/bad")
         .then((response: Response) => {
             return response.text();
         })
@@ -24,9 +24,9 @@ function test_isomorphicFetchTestCases_commonjs() {
 }
 
 function test_isomorphicFetchTestCases_es6() {
-    expectSuccess(fetchImportedViaES6Module('http://localhost:3000/good'), 'Good response');
+    expectSuccess(fetchImportedViaES6Module("http://localhost:3000/good"), "Good response");
 
-    fetchImportedViaES6Module('http://localhost:3000/bad')
+    fetchImportedViaES6Module("http://localhost:3000/bad")
         .then((response: Response) => {
             return response.text();
         })
@@ -40,31 +40,31 @@ function test_whatwgTestCases_ambient() {
     let requestOptions: RequestInit = {
         method: "POST",
         headers,
-        mode: 'same-origin',
-        credentials: 'omit',
-        cache: 'default'
+        mode: "same-origin",
+        credentials: "omit",
+        cache: "default",
     };
 
-    expectSuccess(fetch('http://localhost:3000/poster', requestOptions), 'Post response:');
+    expectSuccess(fetch("http://localhost:3000/poster", requestOptions), "Post response:");
 
     requestOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-        }
+            "Content-Type": "application/json",
+        },
     };
 
-    expectSuccess(fetch('http://localhost:3000/poster', requestOptions), 'Post response:');
+    expectSuccess(fetch("http://localhost:3000/poster", requestOptions), "Post response:");
 
     requestOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-        }
+            "Content-Type": "application/json",
+        },
     };
-    const request: Request = new Request('http://localhost:3000/poster', requestOptions);
+    const request: Request = new Request("http://localhost:3000/poster", requestOptions);
 
-    expectSuccess(fetch(request), 'Post response:');
+    expectSuccess(fetch(request), "Post response:");
 }
 
 function test_whatwgTestCases_commonjs() {
@@ -73,31 +73,31 @@ function test_whatwgTestCases_commonjs() {
     let requestOptions: RequestInit = {
         method: "POST",
         headers,
-        mode: 'same-origin',
-        credentials: 'omit',
-        cache: 'default'
+        mode: "same-origin",
+        credentials: "omit",
+        cache: "default",
     };
 
-    expectSuccess(fetchImportedViaCommonJS('http://localhost:3000/poster', requestOptions), 'Post response:');
+    expectSuccess(fetchImportedViaCommonJS("http://localhost:3000/poster", requestOptions), "Post response:");
 
     requestOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-        }
+            "Content-Type": "application/json",
+        },
     };
 
-    expectSuccess(fetchImportedViaCommonJS('http://localhost:3000/poster', requestOptions), 'Post response:');
+    expectSuccess(fetchImportedViaCommonJS("http://localhost:3000/poster", requestOptions), "Post response:");
 
     requestOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-        }
+            "Content-Type": "application/json",
+        },
     };
-    const request: Request = new Request('http://localhost:3000/poster', requestOptions);
+    const request: Request = new Request("http://localhost:3000/poster", requestOptions);
 
-    expectSuccess(fetchImportedViaCommonJS(request), 'Post response:');
+    expectSuccess(fetchImportedViaCommonJS(request), "Post response:");
 }
 
 function test_whatwgTestCases_es6() {
@@ -106,37 +106,37 @@ function test_whatwgTestCases_es6() {
     let requestOptions: RequestInit = {
         method: "POST",
         headers,
-        mode: 'same-origin',
-        credentials: 'omit',
-        cache: 'default'
+        mode: "same-origin",
+        credentials: "omit",
+        cache: "default",
     };
 
-    expectSuccess(fetchImportedViaES6Module('http://localhost:3000/poster', requestOptions), 'Post response:');
+    expectSuccess(fetchImportedViaES6Module("http://localhost:3000/poster", requestOptions), "Post response:");
 
     requestOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-        }
+            "Content-Type": "application/json",
+        },
     };
 
-    expectSuccess(fetchImportedViaES6Module('http://localhost:3000/poster', requestOptions), 'Post response:');
+    expectSuccess(fetchImportedViaES6Module("http://localhost:3000/poster", requestOptions), "Post response:");
 
     requestOptions = {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-        }
+            "Content-Type": "application/json",
+        },
     };
-    const request: Request = new Request('http://localhost:3000/poster', requestOptions);
+    const request: Request = new Request("http://localhost:3000/poster", requestOptions);
 
-    expectSuccess(fetchImportedViaES6Module(request), 'Post response:');
+    expectSuccess(fetchImportedViaES6Module(request), "Post response:");
 }
 
 function expectSuccess(promise: Promise<Response>, responseText: string) {
     promise.then((response: Response) => {
         return response.text();
     })
-    .then((text: string) => {
-    });
+        .then((text: string) => {
+        });
 }

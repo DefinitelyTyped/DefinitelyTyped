@@ -1,10 +1,3 @@
-// Type definitions for keen-tracking 4.5
-// Project: https://github.com/keen/keen-tracking.js#readme, https://keen.io
-// Definitions by: Rui Ferreira <https://github.com/rui-ferreira>
-//                 Tudor Tacal <https://github.com/TudorTacal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export interface KeenAutoTrackingConfig {
     recordPageViews?: boolean | undefined;
     recordPageViewsOnExit?: boolean | undefined;

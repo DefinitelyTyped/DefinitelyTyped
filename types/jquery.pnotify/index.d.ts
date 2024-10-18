@@ -1,9 +1,3 @@
-// Type definitions for jquery.pnotify 3.x
-// Project: https://github.com/sciactive/pnotify
-// Definitions by: David Sichau <https://github.com/DavidSichau>, Robin Maenhaut <https://github.com/FUNExtreme>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 type NoticeTypeOptions = "notice" | "info" | "success" | "error";
@@ -37,7 +31,7 @@ interface PNotifyconfirmButton {
      *  Whether to trigger this button when the user hits enter in a single line prompt.
      */
     promptTrigger?: boolean | undefined;
-    click: (notice: PNotify, value: any) => void
+    click: (notice: PNotify, value: any) => void;
 }
 
 interface PNotifyconfirm {
@@ -53,12 +47,12 @@ interface PNotifyconfirm {
     /**
      * Classes to add to the input element of the prompt.
      */
-    prompt_class?: string | undefined
+    prompt_class?: string | undefined;
 
     /**
      * The default value of the prompt.
      */
-    prompt_default?: string | undefined
+    prompt_default?: string | undefined;
 
     /**
      * Whether the prompt should accept multiple lines of text.
@@ -74,7 +68,6 @@ interface PNotifyconfirm {
      * The buttons to display, and their callbacks.
      */
     buttons?: PNotifyconfirmButton[] | undefined;
-
 }
 
 interface PNotifyButtons {
@@ -134,9 +127,9 @@ interface PNotifyOptions {
      */
     text_escape?: boolean | undefined;
     /**
-    * Support for PNotifyconfirm options
-    */
-    confirm?: PNotifyconfirm | undefined
+     * Support for PNotifyconfirm options
+     */
+    confirm?: PNotifyconfirm | undefined;
     /**
      * What styling classes to use. (Can be either "brighttheme", "jqueryui", "bootstrap2", "bootstrap3", "fontawesome" or a custom style object)
      */
@@ -159,7 +152,7 @@ interface PNotifyOptions {
         /**
          * The opacity of the notice (if it's non-blocking) when the mouse is over it.
          */
-        nonblock_opacity?: number | undefined
+        nonblock_opacity?: number | undefined;
     } | undefined;
 
     /**
@@ -191,9 +184,9 @@ interface PNotifyOptions {
      */
     icon?: any;
     /**
-     * The animation to use when displaying and hiding the notice. "none" and "fade" are supported through CSS. 
+     * The animation to use when displaying and hiding the notice. "none" and "fade" are supported through CSS.
      * Others are supported through the Animate module and Animate.css.
-     */ 
+     */
     animation?: string | undefined;
     /**
      * Speed at which the notice animates in and out. "slow", "def" or "normal", "fast" or number of milliseconds.
@@ -230,7 +223,7 @@ interface PNotifyOptions {
          * Only show the sticker button on hover.
          */
         sticker_hover?: boolean | undefined;
-    } | undefined
+    } | undefined;
 
     /**
      * After a delay, remove the notice, set to false for sticky note.
@@ -263,37 +256,36 @@ interface PNotifyOptions {
 }
 
 interface PNotifyStyling {
-    container?: string | undefined,
-    notice?: string | undefined,
-    notice_icon?: string | undefined,
-    info?: string | undefined,
-    info_icon?: string | undefined,
-    success?: string | undefined,
-    success_icon?: string | undefined,
-    error?: string | undefined,
-    error_icon?: string | undefined,
+    container?: string | undefined;
+    notice?: string | undefined;
+    notice_icon?: string | undefined;
+    info?: string | undefined;
+    info_icon?: string | undefined;
+    success?: string | undefined;
+    success_icon?: string | undefined;
+    error?: string | undefined;
+    error_icon?: string | undefined;
     // buttons
-    closer?: string | undefined,
-    pin_down?: string | undefined,
-    pin_up?: string | undefined,
+    closer?: string | undefined;
+    pin_down?: string | undefined;
+    pin_up?: string | undefined;
     // confirm
-    btn?: string | undefined,
-    btnhover?: string | undefined,
-    btnactive?: string | undefined,
-    btnfocus?: string | undefined,
-    input?: string | undefined,
-    text?: string | undefined,
+    btn?: string | undefined;
+    btnhover?: string | undefined;
+    btnactive?: string | undefined;
+    btnfocus?: string | undefined;
+    input?: string | undefined;
+    text?: string | undefined;
     // history
-    hi_menu?: string | undefined,
-    hi_btn?: string | undefined,
-    hi_btnhov?: string | undefined,
-    hi_hnd?: string | undefined,
+    hi_menu?: string | undefined;
+    hi_btn?: string | undefined;
+    hi_btnhov?: string | undefined;
+    hi_hnd?: string | undefined;
     // reference
-    athing?: string | undefined
+    athing?: string | undefined;
 }
 
 interface PNotify {
-
     /**
      * The state can be "initializing", "opening", "open", "closing", and "closed"
      */
@@ -318,12 +310,11 @@ interface PNotify {
      *  Get the DOM element.
      */
     get(): JQuery;
-
 }
 
 interface PNotifyConstructor {
-    new (options?: PNotifyOptions): PNotify;
-    
+    new(options?: PNotifyOptions): PNotify;
+
     /**
      * Remove all notices.
      */
@@ -331,14 +322,14 @@ interface PNotifyConstructor {
 
     /**
      * Remove all the notices in a stack.
-     * @param stack 
+     * @param stack
      */
     removeStack(stack: PNotifyStack): void;
-    
+
     /**
      * Reposition the notices, optionally animating their movement.
      */
-    positionAll(animate?: boolean): void
+    positionAll(animate?: boolean): void;
 }
 
 declare var PNotify: PNotifyConstructor;

@@ -1,13 +1,13 @@
-import luhn = require('luhn-generator/dist/luhn');
-import { checksum, generate, random, validate, InputOptions } from 'luhn-generator/dist/luhn';
-import luhnCJS = require('luhn-generator');
+import luhn = require("luhn-generator/dist/luhn");
+import { checksum, generate, InputOptions, random, validate } from "luhn-generator/dist/luhn";
+import luhnCJS = require("luhn-generator");
 import {
     checksum as checksumCJS,
     generate as generateCJS,
+    InputOptions as InputOptionsCJS,
     random as randomCJS,
     validate as validateCJS,
-    InputOptions as InputOptionsCJS,
-} from 'luhn-generator';
+} from "luhn-generator";
 
 luhn.checksum(1); // $ExpectType number
 checksum(1); // $ExpectType number

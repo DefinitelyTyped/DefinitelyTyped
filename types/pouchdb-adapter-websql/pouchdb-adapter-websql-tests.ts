@@ -6,13 +6,13 @@ function isString(someString: string) {
 }
 
 function testConstructor() {
-    let db = new PouchDB('basic');
+    let db = new PouchDB("basic");
     db = new PouchDB(null, {
-        adapter: 'websql'
+        adapter: "websql",
     });
-    db = new PouchDB('sized', {
-        adapter: 'websql',
-        size: 10
+    db = new PouchDB("sized", {
+        adapter: "websql",
+        size: 10,
     });
 
     db.info().then((info) => {

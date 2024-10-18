@@ -1,36 +1,31 @@
-// Type definitions for timespan-parser 1.2
-// Project: https://github.com/gilly3/timespan-parser/
-// Definitions by: OpportunityLiu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace timespan {
     type Unit =
-        | 'msec'
-        | 'ms'
-        | 'seconds'
-        | 'second'
-        | 'sec'
-        | 's'
-        | 'minutes'
-        | 'minute'
-        | 'min'
-        | 'm'
-        | 'hours'
-        | 'hour'
-        | 'hr'
-        | 'h'
-        | 'days'
-        | 'day'
-        | 'd'
-        | 'weeks'
-        | 'week'
-        | 'w'
-        | 'months'
-        | 'month'
-        | 'M'
-        | 'years'
-        | 'year'
-        | 'y';
+        | "msec"
+        | "ms"
+        | "seconds"
+        | "second"
+        | "sec"
+        | "s"
+        | "minutes"
+        | "minute"
+        | "min"
+        | "m"
+        | "hours"
+        | "hour"
+        | "hr"
+        | "h"
+        | "days"
+        | "day"
+        | "d"
+        | "weeks"
+        | "week"
+        | "w"
+        | "months"
+        | "month"
+        | "M"
+        | "years"
+        | "year"
+        | "y";
 
     interface Options {
         /** The unit that value represents. Defaults to `"seconds"`. */

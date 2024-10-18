@@ -1,2 +1,2 @@
-import thisNumberValue = require('../2015/thisNumberValue');
+import thisNumberValue = require("../2015/thisNumberValue");
 export = thisNumberValue;

@@ -1,10 +1,4 @@
-// Type definitions for cytoscape-edgehandles 4.0
-// Project: https://github.com/cytoscape/cytoscape.js-edgehandles
-// Definitions by: o-su <https://github.com/o-su>
-//                 Felix Barczewicz <https://github.com/DieserFelix>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import cy = require('cytoscape');
+import cy = require("cytoscape");
 
 declare const cytoscapeEdgehandles: cy.Ext;
 export = cytoscapeEdgehandles;
@@ -67,7 +61,7 @@ declare namespace cytoscapeEdgehandles {
         /**
          * Manually start the gesture (as if the handle were already held)
          */
-        start: (sourceNode: string) => void;
+        start: (sourceNode: cytoscape.NodeSingular) => void;
         /**
          * Manually completes or cancels the gesture
          */

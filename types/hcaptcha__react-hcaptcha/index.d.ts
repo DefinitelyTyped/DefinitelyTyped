@@ -1,10 +1,4 @@
-// Type definitions for @hcaptcha/react-hcaptcha 0.1
-// Project: https://github.com/hCaptcha/react-hcaptcha
-// Definitions by: Matt Sutkowski <https://github.com/msutkowski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 interface HCaptchaState {
     isApiReady: boolean;
@@ -19,8 +13,8 @@ interface HCaptchaProps {
     onVerify?: ((token: string) => any) | undefined;
     languageOverride?: string | undefined;
     sitekey: string;
-    size?: 'normal' | 'compact' | 'invisible' | undefined;
-    theme?: 'light' | 'dark' | undefined;
+    size?: "normal" | "compact" | "invisible" | undefined;
+    theme?: "light" | "dark" | undefined;
     tabIndex?: number | undefined;
     id?: string | undefined;
     reCaptchaCompat?: boolean | undefined;

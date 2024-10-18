@@ -7,8 +7,8 @@ class Test extends React.Component {
 
     render() {
         const icons: ToggleIcons = {
-            checked : (<div />),
-            unchecked : (<div />),
+            checked: <div />,
+            unchecked: <div />,
         };
 
         return (
@@ -16,20 +16,20 @@ class Test extends React.Component {
                 <Toggle
                     checked
                     defaultChecked
-                    onChange={ this.handleEvent }
-                    onFocus={ this.handleEvent }
-                    onBlur={ this.handleEvent }
+                    onChange={this.handleEvent}
+                    onFocus={this.handleEvent}
+                    onBlur={this.handleEvent}
                     name="toggle"
                     value="value"
                     id="toggle"
-                    icons={ icons }
+                    icons={icons}
                     aria-labelby="test"
                     aria-label="test"
                     disabled
                 />
 
                 <Toggle
-                    icons={ false }
+                    icons={false}
                 />
             </div>
         );

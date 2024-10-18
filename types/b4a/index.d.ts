@@ -1,8 +1,3 @@
-// Type definitions for b4a 1.6
-// Project: https://github.com/holepunchto/b4a#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -45,7 +40,7 @@ export function compare(buf1: Uint8Array, buf2: Uint8Array): -1 | 0 | 1;
 /**
  * See https://nodejs.org/api/buffer.html#static-method-bufferconcatlist-totallength
  */
-export function concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer | Uint8Array;
+export function concat(list: readonly Uint8Array[], totalLength?: number): Buffer | Uint8Array;
 /**
  * See https://nodejs.org/api/buffer.html#bufcopytarget-targetstart-sourcestart-sourceend
  */
@@ -81,17 +76,17 @@ export function from(
 /**
  * See https://nodejs.org/api/buffer.html#static-method-bufferfrombuffer
  */
-export function from(data: Uint8Array | ReadonlyArray<number>): Buffer | Uint8Array;
+export function from(data: Uint8Array | readonly number[]): Buffer | Uint8Array;
 /**
  * See https://nodejs.org/api/buffer.html#static-method-bufferfromarray
  */
 // tslint:disable-next-line unified-signatures
-export function from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer | Uint8Array;
+export function from(data: WithImplicitCoercion<Uint8Array | readonly number[] | string>): Buffer | Uint8Array;
 /**
  * See https://nodejs.org/api/buffer.html#static-method-bufferfromstring-encoding
  */
 export function from(
-    str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string },
+    str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: "string"): string },
     encoding?: BufferEncoding,
 ): Buffer | Uint8Array;
 /**

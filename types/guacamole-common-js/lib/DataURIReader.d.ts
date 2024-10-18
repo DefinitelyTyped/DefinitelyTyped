@@ -1,4 +1,4 @@
-import { InputStream } from './InputStream';
+import { InputStream } from "./InputStream";
 /**
  * A reader which automatically handles the given input stream, returning
  * received blobs as a single data URI built over the course of the stream.

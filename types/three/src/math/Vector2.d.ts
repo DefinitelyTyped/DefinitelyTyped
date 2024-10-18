@@ -1,142 +1,17 @@
-import { Matrix3 } from './Matrix3.js';
-import { BufferAttribute } from './../core/BufferAttribute.js';
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { Matrix3 } from "./Matrix3.js";
 
-export type Vector2Tuple = [number, number];
+export type Vector2Tuple = [x: number, y: number];
 
-/**
- * ( interface Vector<T> )
- *
- * Abstract interface of {@link https://github.com/mrdoob/three.js/blob/master/src/math/Vector2.js|Vector2},
- * {@link https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js|Vector3}
- * and {@link https://github.com/mrdoob/three.js/blob/master/src/math/Vector4.js|Vector4}.
- *
- * Currently the members of Vector is NOT type safe because it accepts different typed vectors.
- *
- * Those definitions will be changed when TypeScript innovates Generics to be type safe.
- *
- * @example
- * const v:THREE.Vector = new THREE.Vector3();
- * v.addVectors(new THREE.Vector2(0, 1), new THREE.Vector2(2, 3)); // invalid but compiled successfully
- */
-export interface Vector {
-    setComponent(index: number, value: number): this;
-
-    getComponent(index: number): number;
-
-    set(...args: number[]): this;
-
-    setScalar(scalar: number): this;
-
-    /**
-     * copy(v:T):T;
-     */
-    copy(v: Vector): this;
-
-    /**
-     * NOTE: The second argument is deprecated.
-     *
-     * add(v:T):T;
-     */
-    add(v: Vector): this;
-
-    /**
-     * addVectors(a:T, b:T):T;
-     */
-    addVectors(a: Vector, b: Vector): this;
-
-    addScaledVector(vector: Vector, scale: number): this;
-
-    /**
-     * Adds the scalar value s to this vector's values.
-     */
-    addScalar(scalar: number): this;
-
-    /**
-     * sub(v:T):T;
-     */
-    sub(v: Vector): this;
-
-    /**
-     * subVectors(a:T, b:T):T;
-     */
-    subVectors(a: Vector, b: Vector): this;
-
-    /**
-     * multiplyScalar(s:number):T;
-     */
-    multiplyScalar(s: number): this;
-
-    /**
-     * divideScalar(s:number):T;
-     */
-    divideScalar(s: number): this;
-
-    /**
-     * negate():T;
-     */
-    negate(): this;
-
-    /**
-     * dot(v:T):T;
-     */
-    dot(v: Vector): number;
-
-    /**
-     * lengthSq():number;
-     */
-    lengthSq(): number;
-
-    /**
-     * length():number;
-     */
-    length(): number;
-
-    /**
-     * normalize():T;
-     */
-    normalize(): this;
-
-    /**
-     * NOTE: Vector4 doesn't have the property.
-     *
-     * distanceTo(v:T):number;
-     */
-    distanceTo?(v: Vector): number;
-
-    /**
-     * NOTE: Vector4 doesn't have the property.
-     *
-     * distanceToSquared(v:T):number;
-     */
-    distanceToSquared?(v: Vector): number;
-
-    /**
-     * setLength(l:number):T;
-     */
-    setLength(l: number): this;
-
-    /**
-     * lerp(v:T, alpha:number):T;
-     */
-    lerp(v: Vector, alpha: number): this;
-
-    /**
-     * equals(v:T):boolean;
-     */
-    equals(v: Vector): boolean;
-
-    /**
-     * clone():T;
-     */
-    clone(): Vector;
+export interface Vector2Like {
+    readonly x: number;
+    readonly y: number;
 }
 
 /**
  * 2D vector.
- *
- * ( class Vector2 implements Vector<Vector2> )
  */
-export class Vector2 implements Vector {
+export class Vector2 {
     constructor(x?: number, y?: number);
 
     /**
@@ -190,12 +65,12 @@ export class Vector2 implements Vector {
     /**
      * Copies value of v to this vector.
      */
-    copy(v: Vector2): this;
+    copy(v: Vector2Like): this;
 
     /**
      * Adds v to this vector.
      */
-    add(v: Vector2, w?: Vector2): this;
+    add(v: Vector2Like): this;
 
     /**
      * Adds the scalar value s to this vector's x and y values.
@@ -205,17 +80,17 @@ export class Vector2 implements Vector {
     /**
      * Sets this vector to a + b.
      */
-    addVectors(a: Vector2, b: Vector2): this;
+    addVectors(a: Vector2Like, b: Vector2Like): this;
 
     /**
      * Adds the multiple of v and s to this vector.
      */
-    addScaledVector(v: Vector2, s: number): this;
+    addScaledVector(v: Vector2Like, s: number): this;
 
     /**
      * Subtracts v from this vector.
      */
-    sub(v: Vector2): this;
+    sub(v: Vector2Like): this;
 
     /**
      * Subtracts s from this vector's x and y components.
@@ -225,12 +100,12 @@ export class Vector2 implements Vector {
     /**
      * Sets this vector to a - b.
      */
-    subVectors(a: Vector2, b: Vector2): this;
+    subVectors(a: Vector2Like, b: Vector2Like): this;
 
     /**
      * Multiplies this vector by v.
      */
-    multiply(v: Vector2): this;
+    multiply(v: Vector2Like): this;
 
     /**
      * Multiplies this vector by scalar s.
@@ -240,7 +115,7 @@ export class Vector2 implements Vector {
     /**
      * Divides this vector by v.
      */
-    divide(v: Vector2): this;
+    divide(v: Vector2Like): this;
 
     /**
      * Divides this vector by scalar s.
@@ -256,12 +131,12 @@ export class Vector2 implements Vector {
     /**
      * If this vector's x or y value is greater than v's x or y value, replace that value with the corresponding min value.
      */
-    min(v: Vector2): this;
+    min(v: Vector2Like): this;
 
     /**
      * If this vector's x or y value is less than v's x or y value, replace that value with the corresponding max value.
      */
-    max(v: Vector2): this;
+    max(v: Vector2Like): this;
 
     /**
      * If this vector's x or y value is greater than the max vector's x or y value, it is replaced by the corresponding value.
@@ -269,7 +144,7 @@ export class Vector2 implements Vector {
      * @param min the minimum x and y values.
      * @param max the maximum x and y values in the desired range.
      */
-    clamp(min: Vector2, max: Vector2): this;
+    clamp(min: Vector2Like, max: Vector2Like): this;
 
     /**
      * If this vector's x or y values are greater than the max value, they are replaced by the max value.
@@ -315,12 +190,12 @@ export class Vector2 implements Vector {
     /**
      * Computes dot product of this vector and v.
      */
-    dot(v: Vector2): number;
+    dot(v: Vector2Like): number;
 
     /**
      * Computes cross product of this vector and v.
      */
-    cross(v: Vector2): number;
+    cross(v: Vector2Like): number;
 
     /**
      * Computes squared length of this vector.
@@ -331,11 +206,6 @@ export class Vector2 implements Vector {
      * Computes length of this vector.
      */
     length(): number;
-
-    /**
-     * @deprecated Use {@link Vector2#manhattanLength .manhattanLength()} instead.
-     */
-    lengthManhattan(): number;
 
     /**
      * Computes the Manhattan length of this vector.
@@ -362,24 +232,19 @@ export class Vector2 implements Vector {
     /**
      * Computes distance of this vector to v.
      */
-    distanceTo(v: Vector2): number;
+    distanceTo(v: Vector2Like): number;
 
     /**
      * Computes squared distance of this vector to v.
      */
-    distanceToSquared(v: Vector2): number;
-
-    /**
-     * @deprecated Use {@link Vector2#manhattanDistanceTo .manhattanDistanceTo()} instead.
-     */
-    distanceToManhattan(v: Vector2): number;
+    distanceToSquared(v: Vector2Like): number;
 
     /**
      * Computes the Manhattan length (distance) from this vector to the given vector v
      *
      * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
      */
-    manhattanDistanceTo(v: Vector2): number;
+    manhattanDistanceTo(v: Vector2Like): number;
 
     /**
      * Normalizes this vector and multiplies it by l.
@@ -391,7 +256,7 @@ export class Vector2 implements Vector {
      * @param v vector to interpolate towards.
      * @param alpha interpolation factor in the closed interval [0, 1].
      */
-    lerp(v: Vector2, alpha: number): this;
+    lerp(v: Vector2Like, alpha: number): this;
 
     /**
      * Sets this vector to be the vector linearly interpolated between v1 and v2 where alpha is the distance along the line connecting the two vectors - alpha = 0 will be v1, and alpha = 1 will be v2.
@@ -399,12 +264,12 @@ export class Vector2 implements Vector {
      * @param v2 vector to interpolate towards.
      * @param alpha interpolation factor in the closed interval [0, 1].
      */
-    lerpVectors(v1: Vector2, v2: Vector2, alpha: number): this;
+    lerpVectors(v1: Vector2Like, v2: Vector2Like, alpha: number): this;
 
     /**
      * Checks for strict equality of this vector and v.
      */
-    equals(v: Vector2): boolean;
+    equals(v: Vector2Like): boolean;
 
     /**
      * Sets this vector's x and y value from the provided array or array-like.
@@ -442,7 +307,7 @@ export class Vector2 implements Vector {
      * @param center the point around which to rotate.
      * @param angle the angle to rotate, in radians.
      */
-    rotateAround(center: Vector2, angle: number): this;
+    rotateAround(center: Vector2Like, angle: number): this;
 
     /**
      * Sets this vector's x and y from Math.random

@@ -1,19 +1,19 @@
-import TagManager from 'react-gtm-module';
+import TagManager from "react-gtm-module";
 
 TagManager.initialize({
-    gtmId: 'GTM-000000'
+    gtmId: "GTM-000000",
 });
 
 TagManager.initialize({
-    gtmId: 'GTM-000000',
+    gtmId: "GTM-000000",
     events: {},
-    auth: '',
-    preview: '',
+    auth: "",
+    preview: "",
     dataLayer: {},
-    dataLayerName: ''
+    dataLayerName: "",
 });
 
 TagManager.dataLayer({
     dataLayer: {},
-    dataLayerName: ''
+    dataLayerName: "",
 });

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { CardIOView, CardDetails, CardIOUtilities, CardIOModule } from 'react-native-awesome-card-io';
-import { Platform } from 'react-native';
+import * as React from "react";
+import { Platform } from "react-native";
+import { CardDetails, CardIOModule, CardIOUtilities, CardIOView } from "react-native-awesome-card-io";
 
 export default class CardIOExample extends React.Component {
     componentWillMount() {
-        if (Platform.OS === 'ios') {
+        if (Platform.OS === "ios") {
             CardIOUtilities.preload();
         }
     }
@@ -15,7 +15,7 @@ export default class CardIOExample extends React.Component {
 
     scanCard() {
         CardIOModule.scanCard({
-            guideColor: '#FF00FF',
+            guideColor: "#FF00FF",
             requireCVV: false,
             hideCardIOLogo: true,
             suppressManualEntry: true,
@@ -31,7 +31,7 @@ export default class CardIOExample extends React.Component {
                 didScanCard={(card: CardDetails) => {
                     console.log(card);
                 }}
-            ></CardIOView>
+            />
         );
     }
 }

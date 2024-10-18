@@ -1,10 +1,5 @@
-// Type definitions for rollup-plugin-css-only 3.1
-// Project: https://github.com/thgh/rollup-plugin-css-only
-// Definitions by: Mateusz Szewc <https://github.com/SitamMatt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import { Plugin, OutputBundle } from 'rollup';
+import { OutputBundle, Plugin } from "rollup";
 
 declare namespace css {
     interface Options {

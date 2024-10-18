@@ -40,7 +40,7 @@ declare class VirtualFileSystem {
 declare namespace VirtualFileSystem {
     export { getInstance, File, MemoryStream, DBKey };
 }
+declare function getInstance(): VirtualFileSystem;
 type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');
 type DBKey = import('../dbkey/DBKey');
-declare function getInstance(): VirtualFileSystem;

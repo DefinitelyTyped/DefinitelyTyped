@@ -10,8 +10,20 @@ declare namespace CKEDITOR {
                 readonly border: tools.style.borderConstructor;
             };
             readonly buffers: {
-                readonly event: { new (minInterval: number, output: (...args: any[]) => void, contextObj?: object): tools.buffers.event }
-                readonly throttle: { new (minInterval: number, output: (...args: any[]) => void, contextObj?: object): tools.buffers.throttle }
+                readonly event: {
+                    new(
+                        minInterval: number,
+                        output: (...args: any[]) => void,
+                        contextObj?: object,
+                    ): tools.buffers.event;
+                };
+                readonly throttle: {
+                    new(
+                        minInterval: number,
+                        output: (...args: any[]) => void,
+                        contextObj?: object,
+                    ): tools.buffers.throttle;
+                };
             };
         } & tools;
     }
@@ -78,7 +90,7 @@ declare namespace CKEDITOR {
 
         createClass(definition: {
             $?: (...args: any[]) => unknown;
-            base?: abstract new (...args: any[]) => any;
+            base?: abstract new(...args: any[]) => any;
             privates?: { [name: string]: (...args: any[]) => unknown };
             proto?: { [name: string]: (...args: any[]) => unknown };
             statics?: { [name: string]: (...args: any[]) => unknown };
@@ -296,7 +308,7 @@ declare namespace CKEDITOR {
         }
 
         interface colorConstructor {
-            new (): color;
+            new(): color;
             namedColors: { [colorName: string]: string };
         }
 
@@ -344,7 +356,7 @@ declare namespace CKEDITOR {
             }
 
             interface borderConstructor {
-                new (props: { color: string; style: string; width: string }): border;
+                new(props: { color: string; style: string; width: string }): border;
 
                 fromCssRule(value: string): border;
 
@@ -359,16 +371,16 @@ declare namespace CKEDITOR {
             }
 
             interface borderShorthand {
-                'border-color'?: string;
-                'border-style'?: string;
-                'border-width'?: string;
+                "border-color"?: string;
+                "border-style"?: string;
+                "border-width"?: string;
             }
 
             interface borderStyle {
-                'border-top': border;
-                'border-right': border;
-                'border-bottom': border;
-                'border-left': border;
+                "border-top": border;
+                "border-right": border;
+                "border-bottom": border;
+                "border-left": border;
             }
 
             interface border {

@@ -1,6 +1,6 @@
 /// <reference types="../experimental"/>
 
-import React = require('react');
+import React = require("react");
 
 // NOTE: forward declarations for tests
 declare var console: Console;
@@ -24,24 +24,24 @@ function suspenseTest() {
 
 // Unsupported `revealOrder` triggers a runtime warning
 // @ts-expect-error
-<React.SuspenseList revealOrder="something">
+<React.unstable_SuspenseList revealOrder="something">
     <React.Suspense fallback="Loading">Content</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="backwards">
+<React.unstable_SuspenseList revealOrder="backwards">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="forwards">
+<React.unstable_SuspenseList revealOrder="forwards">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
-<React.SuspenseList revealOrder="together">
+<React.unstable_SuspenseList revealOrder="together">
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
-</React.SuspenseList>;
+</React.unstable_SuspenseList>;
 
 function useEvent() {
     // Implicit any
@@ -57,7 +57,7 @@ function useEvent() {
         return Number(value);
     });
     // $ExpectType number
-    typedEvent('1');
+    typedEvent("1");
     // Argument of type '{}' is not assignable to parameter of type 'string'.
     // @ts-expect-error
     typedEvent({});
@@ -72,115 +72,13 @@ function useEvent() {
     );
 }
 
-function useAsyncAction() {
-    const [isPending, startTransition] = React.useTransition();
-
-    function handleClick() {
-        // $ExpectType void
-        startTransition(async () => {});
-    }
-}
-
-function formActionsTest() {
-    <form
-        action={formData => {
-            // $ExpectType FormData
-            formData;
-        }}
-    >
-        <input type="text" name="title" defaultValue="Hello" />
-        <input
-            type="submit"
-            formAction={formData => {
-                // $ExpectType FormData
-                formData;
-            }}
-            value="Save"
-        />
-        <button
-            formAction={formData => {
-                // $ExpectType FormData
-                formData;
-            }}
-        >
-            Delete
-        </button>
-    </form>;
-}
-
-const useOptimistic = React.experimental_useOptimistic;
-function Optimistic() {
-    const savedCartSize = 0;
-    const [optimisticCartSize, addToOptimisticCart] = useOptimistic(savedCartSize, (prevSize, newItem) => {
-        // This is the default type for un-inferrable generics in TypeScript.
-        // To have a concrete type either type the second parameter in the reducer (see addToOptimisticCartTyped)
-        // or declare the type of the generic (see addToOptimisticCartTyped2)
-        // $ExpectType unknown
-        newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
-        return prevSize + 1;
-    });
-    // $ExpectType number
-    optimisticCartSize;
-
-    const [, addToOptimisticCartTyped] = useOptimistic(savedCartSize, (prevSize, newItem: string) => {
-        // $ExpectType string
-        newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
-        return prevSize + 1;
-    });
-    const [, addToOptimisticCartTyped2] = useOptimistic<number, string>(savedCartSize, (prevSize, newItem) => {
-        // $ExpectType string
-        newItem;
-        console.log('Increment optimistic cart size for ' + newItem);
-        return prevSize + 1;
-    });
-
-    const addItemToCart = (item: unknown) => {
-        addToOptimisticCart(item);
-        addToOptimisticCartTyped(
-            // @ts-expect-error unknown is not assignable to string
-            item,
-        );
-        addToOptimisticCartTyped(String(item));
-        addToOptimisticCartTyped2(
-            // @ts-expect-error unknown is not assignable to string
-            item,
-        );
-        addToOptimisticCartTyped2(String(item));
-    };
-
-    const [state, setStateDefaultAction] = useOptimistic(1);
-    const handleClick = () => {
-        setStateDefaultAction(2);
-        setStateDefaultAction(() => 3);
-        setStateDefaultAction(n => n + 1);
-        // @ts-expect-error string is not assignable to number
-        setStateDefaultAction('4');
-    };
-}
-
-// ReactNode tests
-{
-    // @ts-expect-error
-    const render: React.ReactNode = () => React.createElement('div');
-    // @ts-expect-error
-    const emptyObject: React.ReactNode = { };
-    // @ts-expect-error
-    const plainObject: React.ReactNode = { dave: true };
-    const promise: React.ReactNode = Promise.resolve('React');
-    // @ts-expect-error plain objects are not allowed
-    <div>{{ dave: true }}</div>;
-    <div>{Promise.resolve('React')}</div>;
-}
-
 function elementTypeTests() {
-    const ReturnPromise = () => Promise.resolve('React');
+    const ReturnPromise = () => Promise.resolve("React");
     // @ts-expect-error Needs https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
         render() {
-          return Promise.resolve('React');
+            return Promise.resolve("React");
         }
     }
 
@@ -191,3 +89,55 @@ function elementTypeTests() {
     <RenderPromise />;
     React.createElement(RenderPromise);
 }
+
+function taintTests() {
+    const taintUniqueValue = React.experimental_taintUniqueValue;
+    const taintObjectReference = React.experimental_taintObjectReference;
+
+    const process = {
+        env: {
+            SECRET: "0967af1802d2a516e88c7c42e0b8ef95",
+        },
+    };
+    const user = {
+        name: "Sebbie",
+    };
+
+    taintUniqueValue("Cannot pass a secret token to the client", process, process.env.SECRET);
+    taintUniqueValue(undefined, process, process.env.SECRET);
+    // @ts-expect-error Probably meant `taintObjectReference`
+    taintUniqueValue(
+        undefined,
+        user,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error should use taintObjectReference instead
+        process.env,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error Not unique
+        5,
+    );
+
+    taintObjectReference("Don't pass the raw user object to the client", user);
+    taintObjectReference(undefined, user);
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        process.env.SECRET,
+    );
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        true,
+    );
+}
+
+<div inert={true} />;
+<div inert={false} />;
+<div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
+ inert="" />;

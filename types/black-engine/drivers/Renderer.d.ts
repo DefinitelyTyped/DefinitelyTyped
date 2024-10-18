@@ -20,9 +20,9 @@ export namespace Renderer {
     const __dirty: boolean;
     const skipUnchangedFrames: boolean;
 }
-import { BlendMode } from './BlendMode';
-import { Texture } from '../textures/Texture';
-import { MapMap } from '../utils/MapMap';
-import { RenderSession } from './RenderSession';
-import { VideoNullDriver } from './VideoNullDriver';
-import { DisplayObject } from '../display/DisplayObject';
+import { DisplayObject } from "../display/DisplayObject";
+import { Texture } from "../textures/Texture";
+import { MapMap } from "../utils/MapMap";
+import { BlendMode } from "./BlendMode";
+import { RenderSession } from "./RenderSession";
+import { VideoNullDriver } from "./VideoNullDriver";

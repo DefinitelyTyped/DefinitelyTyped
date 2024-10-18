@@ -1,8 +1,3 @@
-// Type definitions for graphite 0.1
-// Project: https://github.com/felixge/node-graphite
-// Definitions by: Christian Muñoz <https://github.com/ctumolosus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Callback = (err: any) => void;
 
 interface GraphiteClientProperties {

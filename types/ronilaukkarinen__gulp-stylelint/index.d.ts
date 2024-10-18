@@ -1,11 +1,6 @@
-// Type definitions for @ronilaukkarinen/gulp-stylelint 14.1
-// Project: https://github.com/ronilaukkarinen/gulp-stylelint
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as stylelint from 'stylelint';
+import * as stylelint from "stylelint";
 
 interface GulpStylelint {
     (options?: gulpStylelint.Options): NodeJS.ReadWriteStream;
@@ -19,7 +14,7 @@ declare namespace gulpStylelint {
         save?: string;
     }
 
-    interface Options extends Omit<stylelint.LinterOptions, 'files' | 'formatter'> {
+    interface Options extends Omit<stylelint.LinterOptions, "files" | "formatter"> {
         /**
          * When set to true, the process will end with non-zero error code if any error-level warnings were raised.
          *

@@ -1,8 +1,3 @@
-// Type definitions for base62-random 0.3
-// Project: https://github.com/deployable/base62-random#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = base62;
 
 /**

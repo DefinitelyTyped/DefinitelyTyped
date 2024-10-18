@@ -1,16 +1,14 @@
-
-
 // All exemple scripts from PhotonUI documentation:
 
 // Accel Manager
 // We add a field to test accels
 var field = new photonui.TextField({
-    value: "Text Field"
+    value: "Text Field",
 });
 photonui.domInsert(field, "demo");
 
 // ... And  a label to display things
-var label = new photonui.Label({text: ""});
+var label = new photonui.Label({ text: "" });
 photonui.domInsert(label, "demo");
 
 // We create the accel
@@ -37,13 +35,13 @@ accel.addAccel("accel4", "ctrl + x > c", function() {
 
 // BoxLayout
 var box = new photonui.BoxLayout({
-    orientation: "vertical",  // "vertical" or "horizontal"
-    spacing: 5,               // spacing between widgets
+    orientation: "vertical", // "vertical" or "horizontal"
+    spacing: 5, // spacing between widgets
     children: [
         new photonui.Button(),
         new photonui.Button(),
-        new photonui.Button()
-    ]
+        new photonui.Button(),
+    ],
 });
 
 photonui.domInsert(box, "demo");
@@ -55,8 +53,8 @@ var btn = new photonui.Button({
     callbacks: {
         click: function(widget: any, event: any) {
             alert("Someone clicked on " + widget.text);
-        }
-    }
+        },
+    },
 });
 
 photonui.domInsert(btn, "demo");
@@ -64,7 +62,7 @@ photonui.domInsert(btn, "demo");
 // canvas
 var canvas = new photonui.Canvas({
     width: 200,
-    height: 150
+    height: 150,
 });
 
 photonui.domInsert(canvas, "demo");
@@ -83,7 +81,7 @@ ctx.stroke();
 
 // Checkbox
 var check = new photonui.CheckBox({
-    value: true
+    value: true,
 });
 
 photonui.domInsert(check, "demo");
@@ -131,8 +129,8 @@ var btn2 = new photonui.ColorButton({
         "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
-        }
-    }
+        },
+    },
 });
 
 photonui.domInsert(btn2, "demo");
@@ -143,8 +141,8 @@ var palette = new photonui.ColorPalette({
         "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
-        }
-    }
+        },
+    },
 });
 
 photonui.domInsert(palette, "demo");
@@ -154,14 +152,14 @@ var palette = new photonui.ColorPalette({
         ["#D32F2F", "#F44336", "#E91E63", "#9C27B0", "#673AB7"],
         ["#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688"],
         ["#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107"],
-        ["#FF9800", "#FF5722", "#795548", "#9E9E9E", "#607D8B"]
+        ["#FF9800", "#FF5722", "#795548", "#9E9E9E", "#607D8B"],
     ],
     callbacks: {
         "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
-        }
-    }
+        },
+    },
 });
 
 photonui.domInsert(palette, "demo");
@@ -173,8 +171,8 @@ var colorPicker = new photonui.ColorPicker({
         "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
-        }
-    }
+        },
+    },
 });
 
 photonui.domInsert(colorPicker, "demo");
@@ -186,16 +184,16 @@ var dlg = new photonui.ColorPickerDialog({
         "value-changed": function(widget: any, value: any) {
             var header = document.getElementsByTagName("header")[0];
             header.style.backgroundColor = value;
-        }
-    }
+        },
+    },
 });
 
 // Add a button to show up the dialog
 var btn = new photonui.Button({
     text: "Display the dialog",
     callbacks: {
-        click: dlg.show.bind(dlg)
-    }
+        click: dlg.show.bind(dlg),
+    },
 });
 
 photonui.domInsert(btn, "demo");
@@ -206,24 +204,25 @@ var pos = photonui.Helpers.getAbsolutePosition("demo");
 new photonui.Dialog({
     title: "My Dialog",
     visible: true,
-    x: pos.x, y: pos.y,
+    x: pos.x,
+    y: pos.y,
     child: new photonui.Label("Hello, I'm a dialog"),
     padding: 10,
     buttons: [
-        new photonui.Button()
+        new photonui.Button(),
     ],
     callbacks: {
         "close-button-clicked": function(widget: any) {
             widget.destroy();
-        }
-    }
+        },
+    },
 });
 
 // FAIcon
 var icon = new photonui.FAIcon({
     iconName: "fa-camera",
-    size: "fa-3x",  // "", "fa-lg", "fa-2x", "fa-3x", "fa-4x", "fa5x"
-    color: "#DB624F"
+    size: "fa-3x", // "", "fa-lg", "fa-2x", "fa-3x", "fa-4x", "fa5x"
+    color: "#DB624F",
 });
 
 photonui.domInsert(icon, "demo");
@@ -231,21 +230,20 @@ photonui.domInsert(icon, "demo");
 // FileManager
 // File manager that accepts PNG, JPEG, BMP and SVG files
 var fm = new photonui.FileManager({
-    acceptedMimes: ["image/png", "image/jpeg"], 
+    acceptedMimes: ["image/png", "image/jpeg"],
     acceptedExts: ["bmp", "svg"],
-    dropZone: document,        // Enable file d&d
-    multiselect: true,         // Allow to select more than one file
+    dropZone: document, // Enable file d&d
+    multiselect: true, // Allow to select more than one file
     callbacks: {
         "file-open": function(widget: any, file: any, x: number, y: number) {
             // x and y are defined only with d&d
             if (x !== undefined) {
-                alert(file.name + " dropped at ("+x+", "+y+")");
-            }
-            else {
+                alert(file.name + " dropped at (" + x + ", " + y + ")");
+            } else {
                 alert(file.name + " opened");
             }
-        }
-    }
+        },
+    },
 });
 
 // Button to show the "file open" dialog
@@ -254,8 +252,8 @@ var btn = new photonui.Button({
     callbacks: {
         click: function(widget: any, event: any) {
             fm.open();
-        }
-    }
+        },
+    },
 });
 
 photonui.domInsert(btn, "demo");
@@ -269,8 +267,8 @@ var fl = new photonui.FluidLayout({
         new photonui.Button(),
         new photonui.Button(),
         new photonui.Button(),
-        new photonui.Button()
-    ]
+        new photonui.Button(),
+    ],
 });
 
 photonui.domInsert(fl, "demo");
@@ -286,13 +284,13 @@ var select = new photonui.FontSelect({
         "Impact",
         "Time New Roman",
         "Titillium Web",
-        "Verdana"
+        "Verdana",
     ],
     callbacks: {
         "value-changed": function(widget: any, value: any) {
             alert("Value changed: " + value);
-        }
-    }
+        },
+    },
 });
 
 photonui.domInsert(select, "demo");
@@ -307,39 +305,47 @@ var grid = new photonui.GridLayout({
         new photonui.Button({
             text: "Widget 1",
             layoutOptions: {
-                x: 0, y: 0,
-                cols: 1, rows: 1
-            }
+                x: 0,
+                y: 0,
+                cols: 1,
+                rows: 1,
+            },
         }),
         new photonui.Button({
             text: "Widget 2",
             layoutOptions: {
-                x: 1, y: 0,
-                cols: 1, rows: 1
-            }
+                x: 1,
+                y: 0,
+                cols: 1,
+                rows: 1,
+            },
         }),
         new photonui.Button({
             text: "Widget 3",
             layoutOptions: {
-                x: 2, y: 0,
-                cols: 1, rows: 2
-            }
+                x: 2,
+                y: 0,
+                cols: 1,
+                rows: 2,
+            },
         }),
         new photonui.Button({
             text: "Widget 4",
             layoutOptions: {
-                x: 0, y: 1,
-                cols: 2, rows: 1
-            }
-        })
-    ]
+                x: 0,
+                y: 1,
+                cols: 2,
+                rows: 1,
+            },
+        }),
+    ],
 });
 
 photonui.domInsert(grid, "demo");
 
 // Image
 var img = new photonui.Image({
-    url: "../../images/favicon.png"
+    url: "../../images/favicon.png",
 });
 
 photonui.domInsert(img, "demo");
@@ -347,7 +353,7 @@ photonui.domInsert(img, "demo");
 // Label
 var label = new photonui.Label({
     text: "My Label",
-    textAlign: "left"
+    textAlign: "left",
 });
 
 photonui.domInsert(label, "demo");
@@ -358,17 +364,17 @@ var menu = new photonui.Menu({
     children: [
         new photonui.MenuItem({
             text: "Menu Item 1",
-            icon: new photonui.FAIcon("fa-paper-plane")
+            icon: new photonui.FAIcon("fa-paper-plane"),
         }),
         new photonui.MenuItem({
             text: "Menu Item 2",
-            icon: new photonui.FAIcon("fa-gears")
+            icon: new photonui.FAIcon("fa-gears"),
         }),
         new photonui.MenuItem({
             text: "Menu Item 3",
-            icon: new photonui.FAIcon("fa-paw")
-        })
-    ]
+            icon: new photonui.FAIcon("fa-paw"),
+        }),
+    ],
 });
 
 photonui.domInsert(menu, "demo");
@@ -383,35 +389,37 @@ var menu = new photonui.Menu({
             callbacks: {
                 click: function(widget: any, event: any) {
                     alert("You clicked on me!");
-                }
-            }
+                },
+            },
         }),
         new photonui.MenuItem({
             text: "Menu Item 2",
-            icon: new photonui.FAIcon("fa-gears")
+            icon: new photonui.FAIcon("fa-gears"),
         }),
         new photonui.MenuItem({
             text: "Menu Item 3",
-            icon: new photonui.FAIcon("fa-paw")
-        })
-    ]
+            icon: new photonui.FAIcon("fa-paw"),
+        }),
+    ],
 });
 
 photonui.domInsert(menu, "demo");
 
 // Mouse Manager
 var img = new photonui.Image({
-    url: "../../images/favicon.png"
+    url: "../../images/favicon.png",
 });
 
 var mouse = new photonui.MouseManager({
     element: img,
     callbacks: {
         "click": function(manager: any, mstate: any) {
-            alert("You clicked on the image at " + 
-                  mstate.x + ", " + mstate.y);
-        }
-    }
+            alert(
+                "You clicked on the image at "
+                    + mstate.x + ", " + mstate.y,
+            );
+        },
+    },
 });
 
 photonui.domInsert(img, "demo");
@@ -420,10 +428,11 @@ photonui.domInsert(img, "demo");
 var field2 = new photonui.NumericField({
     placeholder: "placeholder",
     decimalDigits: 2,
-    min: -10, max: 10,
-    step: 0.5,           // When scrolling over the field
-    decimalSymbol: ".",  // "." or ","
-    value: 5.5
+    min: -10,
+    max: 10,
+    step: 0.5, // When scrolling over the field
+    decimalSymbol: ".", // "." or ","
+    value: 5.5,
 });
 
 photonui.domInsert(field2, "demo");
@@ -439,18 +448,18 @@ var popup = new photonui.PopupMenu({
             callbacks: {
                 click: function(widget: any, event: any) {
                     alert("You clicked on me!");
-                }
-            }
+                },
+            },
         }),
         new photonui.MenuItem({
             text: "Menu Item 2",
-            icon: new photonui.FAIcon("fa-gears")
+            icon: new photonui.FAIcon("fa-gears"),
         }),
         new photonui.MenuItem({
             text: "Menu Item 3",
-            icon: new photonui.FAIcon("fa-paw")
-        })
-    ]
+            icon: new photonui.FAIcon("fa-paw"),
+        }),
+    ],
 });
 
 popup.popupXY(pos.x, pos.y);
@@ -463,8 +472,8 @@ var popup = new photonui.PopupWindow({
     width: 200,
     height: 200,
     child: new photonui.Label({
-        text: "Click anywhere to close"
-    })
+        text: "Click anywhere to close",
+    }),
 });
 
 popup.popupXY(pos.x, pos.y);
@@ -472,7 +481,7 @@ popup.popupXY(pos.x, pos.y);
 // ProgressBar
 var pb = new photonui.ProgressBar({
     textVisible: true,
-    value: 0.42
+    value: 0.42,
 });
 
 photonui.domInsert(pb, "demo");
@@ -481,15 +490,15 @@ photonui.domInsert(pb, "demo");
 var select2 = new photonui.Select({
     value: "item1",
     children: [
-        new photonui.MenuItem({value: "item1", text: "Item 1"}),
-        new photonui.MenuItem({value: "item2", text: "Item 2"}),
-        new photonui.MenuItem({value: "item3", text: "Item 3"})
+        new photonui.MenuItem({ value: "item1", text: "Item 1" }),
+        new photonui.MenuItem({ value: "item2", text: "Item 2" }),
+        new photonui.MenuItem({ value: "item3", text: "Item 3" }),
     ],
     callbacks: {
         "value-changed": function(widget: any, value: any) {
             alert("Value changed: " + value);
-        }
-    }
+        },
+    },
 });
 
 photonui.domInsert(select2, "demo");
@@ -504,25 +513,28 @@ var box = new photonui.BoxLayout({
     children: [
         new photonui.Slider({
             fieldVisible: false,
-            min: 0, max: 100,
+            min: 0,
+            max: 100,
             step: 5,
-            value: 50
+            value: 50,
         }),
         new photonui.Slider({
             fieldVisible: true,
-            min: -100, max: 100,
+            min: -100,
+            max: 100,
             step: 10,
-            value: -50
+            value: -50,
         }),
         new photonui.Slider({
             fieldVisible: true,
-            min: 0, max: 1,
+            min: 0,
+            max: 1,
             decimalDigits: 2,
             decimalSymbol: ".",
             step: 0.05,
-            value: 0.5
-        })
-    ]
+            value: 0.5,
+        }),
+    ],
 });
 
 photonui.domInsert(box, "demo");
@@ -534,15 +546,15 @@ var spriteSheet = new photonui.SpriteSheet({
     imageUrl: "./spritesheet.png",
     size: 16,
     icons: {
-        "remove":    [ 0,  0],
-        "add":       [16,  0],
-        "grayHeart": [32,  0],
-        "redHeart":  [48,  0],
-        "battery1":  [ 0, 16],
-        "battery2":  [16, 16],
-        "battery3":  [32, 16],
-        "battery4":  [48, 16]
-    }
+        "remove": [0, 0],
+        "add": [16, 0],
+        "grayHeart": [32, 0],
+        "redHeart": [48, 0],
+        "battery1": [0, 16],
+        "battery2": [16, 16],
+        "battery3": [32, 16],
+        "battery4": [48, 16],
+    },
 });
 
 // Create an icon from the spritesheet
@@ -557,51 +569,51 @@ var menu = new photonui.Menu({
         new photonui.SubMenuItem({
             text: "Submenu Item",
             menuName: "submenu1",
-            icon: new photonui.FAIcon("fa-paw")
+            icon: new photonui.FAIcon("fa-paw"),
         }),
         new photonui.Menu({
-            visible: true,  // false to hide it by default
+            visible: true, // false to hide it by default
             name: "submenu1",
             iconVisible: true,
             children: [
                 new photonui.MenuItem({
                     text: "Submenu Item 1",
-                    icon: new photonui.FAIcon("fa-gamepad")
+                    icon: new photonui.FAIcon("fa-gamepad"),
                 }),
                 new photonui.MenuItem({
                     text: "Sumbenu Item 2",
-                    icon: new photonui.FAIcon("fa-flask")
-                })
-            ]
-        })
-    ]
+                    icon: new photonui.FAIcon("fa-flask"),
+                }),
+            ],
+        }),
+    ],
 });
 
 photonui.domInsert(menu, "demo");
 
 // Switch
 var sw = new photonui.Switch({
-    value: true
+    value: true,
 });
 
 photonui.domInsert(sw, "demo");
 
 // TabItem
 var tabs = new photonui.TabLayout({
-    tabsPosition: "top",  // "top", "bottom", "left" or "right"
+    tabsPosition: "top", // "top", "bottom", "left" or "right"
     children: [
         new photonui.TabItem({
             title: "Tab 1",
-            child: new photonui.Label("Widget inside the first tab")
+            child: new photonui.Label("Widget inside the first tab"),
         }),
         new photonui.TabItem({
             title: "Tab 2",
-            child: new photonui.Button()
+            child: new photonui.Button(),
         }),
         new photonui.TabItem({
-            title: "Tab 3"
-        })
-    ]
+            title: "Tab 3",
+        }),
+    ],
 });
 
 photonui.domInsert(tabs, "demo");
@@ -610,20 +622,20 @@ document.getElementById("demo")
 
 // TabLayout
 var tabs = new photonui.TabLayout({
-    tabsPosition: "top",  // "top", "bottom", "left" or "right"
+    tabsPosition: "top", // "top", "bottom", "left" or "right"
     children: [
         new photonui.TabItem({
             title: "Tab 1",
-            child: new photonui.Label("Widget inside the first tab")
+            child: new photonui.Label("Widget inside the first tab"),
         }),
         new photonui.TabItem({
             title: "Tab 2",
-            child: new photonui.Button()
+            child: new photonui.Button(),
         }),
         new photonui.TabItem({
-            title: "Tab 3"
-        })
-    ]
+            title: "Tab 3",
+        }),
+    ],
 });
 
 photonui.domInsert(tabs, "demo");
@@ -632,7 +644,7 @@ document.getElementById("demo")
 
 // Text
 var text = new photonui.Text({
-    rawHtml: "<strong>Lorem ipsum</strong> dolor sit amet..."
+    rawHtml: "<strong>Lorem ipsum</strong> dolor sit amet...",
 });
 
 photonui.domInsert(text, "demo");
@@ -640,7 +652,7 @@ photonui.domInsert(text, "demo");
 // TextAreaField
 var field3 = new photonui.TextAreaField({
     placeholder: "placeholder",
-    value: "This is a\nTextArea"
+    value: "This is a\nTextArea",
 });
 
 photonui.domInsert(field3, "demo");
@@ -648,7 +660,7 @@ photonui.domInsert(field3, "demo");
 // TextField
 var field = new photonui.TextField({
     placeholder: "placeholder",
-    value: "Text"
+    value: "Text",
 });
 
 photonui.domInsert(field, "demo");
@@ -662,8 +674,8 @@ var grid = new photonui.GridLayout({
             forInputName: "username-field",
             layoutOptions: {
                 gridX: 0,
-                gridY: 0
-            }
+                gridY: 0,
+            },
         }),
         new photonui.TextField({
             name: "username-field",
@@ -671,16 +683,16 @@ var grid = new photonui.GridLayout({
             value: "Anakin",
             layoutOptions: {
                 gridX: 1,
-                gridY: 0
-            }
+                gridY: 0,
+            },
         }),
         new photonui.Label({
             text: "Password:",
             forInputName: "password-field",
             layoutOptions: {
                 gridX: 0,
-                gridY: 1
-            }
+                gridY: 1,
+            },
         }),
         new photonui.TextField({
             name: "password-field",
@@ -689,8 +701,8 @@ var grid = new photonui.GridLayout({
             value: "D4RK51D3",
             layoutOptions: {
                 gridX: 1,
-                gridY: 1
-            }
+                gridY: 1,
+            },
         }),
         new photonui.Button({
             text: "Login",
@@ -700,18 +712,18 @@ var grid = new photonui.GridLayout({
                     var usernameField = photonui.getWidget("username-field");
                     var passwordField = photonui.getWidget("password-field");
                     alert(
-                        "Username: " + (<photonui.TextField>usernameField).value +
-                        ", Password: " + (<photonui.TextField>passwordField).value
+                        "Username: " + (<photonui.TextField> usernameField).value
+                            + ", Password: " + (<photonui.TextField> passwordField).value,
                     );
-                }
+                },
             },
             layoutOptions: {
                 gridX: 0,
                 gridY: 2,
-                gridWidth: 2
-            }
-        })
-    ]
+                gridWidth: 2,
+            },
+        }),
+    ],
 });
 
 photonui.domInsert(grid, "demo");
@@ -719,7 +731,7 @@ photonui.domInsert(grid, "demo");
 // ToggleButton
 var toggle = new photonui.ToggleButton({
     value: false,
-    text: "Toggle Button"
+    text: "Toggle Button",
 });
 
 photonui.domInsert(toggle, "demo");
@@ -730,10 +742,10 @@ var toggle2 = new photonui.ToggleButton({
     buttonColor: "red",
     callbacks: {
         "value-changed": function(widget: any, value: any) {
-            widget.text = "Value: " + ((value) ? "on" : "off");
-            widget.buttonColor = (value) ? "green" : "red";
-        }
-    }
+            widget.text = "Value: " + (value ? "on" : "off");
+            widget.buttonColor = value ? "green" : "red";
+        },
+    },
 });
 
 photonui.domInsert(toggle2, "demo");
@@ -744,16 +756,16 @@ var translation = new photonui.Translation();
 translation.addCatalogs({
     "fr": {
         "messages": {
-            "Hello World": ["Bonjour le monde"]
-        }
-    }
+            "Hello World": ["Bonjour le monde"],
+        },
+    },
 });
 
-translation.locale = "fr";  // Change the locale to test
+translation.locale = "fr"; // Change the locale to test
 
 var label = new photonui.Label({
     text: _("Hello World"),
-    text2: translation.lazyGettext("Hello World")
+    text2: translation.lazyGettext("Hello World"),
 });
 
 photonui.domInsert(label, "demo");
@@ -764,46 +776,46 @@ tr.addCatalogs({
         "plural-forms": "nplurals=2; plural=(n > 1);",
         "messages": {
             "Hello World": ["Bonjour le monde"],
-            'Browser language is "{lang}".': ["La langue du navigateur est « {lang} »."],
-            "Close": ["Fermer"]
-        }
+            "Browser language is \"{lang}\".": ["La langue du navigateur est « {lang} »."],
+            "Close": ["Fermer"],
+        },
     },
     "it": {
         "plural-forms": "nplurals=2; plural=(n != 1);",
         "messages": {
             "Hello World": ["Buongiorno il mondo"],
-            'Browser language is "{lang}".': ['La lingua del browser è "{lang}".'],
-            "Close": ["Chiudere"]
-        }
-    }
+            "Browser language is \"{lang}\".": ["La lingua del browser è \"{lang}\"."],
+            "Close": ["Chiudere"],
+        },
+    },
 });
-tr.locale = tr.guessUserLanguage();  // Browser language
+tr.locale = tr.guessUserLanguage(); // Browser language
 
 // Language selector
 var layout = new photonui.BoxLayout({
     orientation: "vertical",
     children: [
         new photonui.Label({
-            text: _('Browser language is "{lang}".', {
-                lang: tr.guessUserLanguage()
-            })
+            text: _("Browser language is \"{lang}\".", {
+                lang: tr.guessUserLanguage(),
+            }),
         }),
         new photonui.Select({
             name: "lang",
             placeholder: "Choose a language...",
             value: tr.locale,
             children: [
-                new photonui.MenuItem({value: "en", text: "English"}),
-                new photonui.MenuItem({value: "fr", text: "Français"}),
-                new photonui.MenuItem({value: "it", text: "Italiano"}),
+                new photonui.MenuItem({ value: "en", text: "English" }),
+                new photonui.MenuItem({ value: "fr", text: "Français" }),
+                new photonui.MenuItem({ value: "it", text: "Italiano" }),
             ],
             callbacks: {
                 "value-changed": function(widget: any, value: any) {
                     tr.locale = value;
-                }
-            }
-        })
-    ]
+                },
+            },
+        }),
+    ],
 });
 photonui.domInsert(layout, "demo");
 
@@ -812,18 +824,23 @@ var pos = photonui.Helpers.getAbsolutePosition("demo");
 var win = new photonui.Window({
     visible: true,
     title: _("Hello World"),
-    x: pos.x, y: pos.y + 100,
+    x: pos.x,
+    y: pos.y + 100,
     width: 250,
     padding: 20,
     child: new photonui.Button({
         text: _("Close"),
         callbacks: {
-            "click": function() { win.hide(); }
-        }
+            "click": function() {
+                win.hide();
+            },
+        },
     }),
     callbacks: {
-        "close-button-clicked": function(widget: any) { widget.hide(); }
-    }
+        "close-button-clicked": function(widget: any) {
+            widget.hide();
+        },
+    },
 });
 
 // Viewport
@@ -831,8 +848,8 @@ var viewport = new photonui.Viewport({
     width: 300,
     height: 200,
     padding: 5,
-    horizontalScrollbar: false,  // true, false or null (= auto)
-    verticalScrollbar: null,     // true, false or null (= auto)
+    horizontalScrollbar: false, // true, false or null (= auto)
+    verticalScrollbar: null, // true, false or null (= auto)
     child: new photonui.BoxLayout({
         children: [
             new photonui.Button(),
@@ -844,9 +861,9 @@ var viewport = new photonui.Viewport({
             new photonui.Button(),
             new photonui.Button(),
             new photonui.Button(),
-            new photonui.Button()
-        ]
-    })
+            new photonui.Button(),
+        ],
+    }),
 });
 
 photonui.domInsert(viewport, "demo");
@@ -857,16 +874,18 @@ var pos = photonui.Helpers.getAbsolutePosition("demo");
 new photonui.Window({
     title: "My Window",
     visible: true,
-    x: pos.x, y: pos.y,
-    width: 300, height: 100,
+    x: pos.x,
+    y: pos.y,
+    width: 300,
+    height: 100,
     callbacks: {
         "close-button-clicked": function(widget: any) {
             widget.destroy();
         },
         "position-changed": function(widget: any, x: number, y: number) {
             widget.title = "My Window (x: " + x + ", y: " + y + ")";
-        }
-    }
+        },
+    },
 });
 
 // Get the position of the #demo area to display windows
@@ -878,21 +897,22 @@ var win1 = new photonui.Window({
     title: "Window 1",
     visible: true,
     padding: 10,
-    x: pos.x + 20, y: pos.y + 50,
+    x: pos.x + 20,
+    y: pos.y + 50,
     child: new photonui.Button({
         text: "Center Me",
         callbacks: {
             click: function(widget: any, event: any) {
                 win1.center();
                 win1.y = pos.y;
-            }
-        }
+            },
+        },
     }),
     callbacks: {
         "close-button-clicked": function(widget: any) {
             widget.destroy();
-        }
-    }
+        },
+    },
 });
 
 // Create a second window without "close" button
@@ -901,7 +921,8 @@ var win2 = new photonui.Window({
     visible: true,
     height: 100,
     closeButtonVisible: false,
-    x: pos.x, y: pos.y
+    x: pos.x,
+    y: pos.y,
 });
 
 // Focus the first window

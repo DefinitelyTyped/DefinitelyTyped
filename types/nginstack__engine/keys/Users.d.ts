@@ -1,3 +1,3 @@
-export const ADMINISTRATOR: number;
-export const ANONYMOUS: number;
-export const SYSTEM: number;
+export let ADMINISTRATOR: number;
+export let ANONYMOUS: number;
+export let SYSTEM: number;

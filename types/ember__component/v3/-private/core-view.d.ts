@@ -1,6 +1,6 @@
-import EmberObject from '@ember/object';
-import Evented from '@ember/object/evented';
-import ActionHandler from '@ember/object/-private/action-handler';
+import EmberObject from "@ember/object";
+import ActionHandler from "@ember/object/-private/action-handler";
+import Evented from "@ember/object/evented";
 
 /**
  * Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main

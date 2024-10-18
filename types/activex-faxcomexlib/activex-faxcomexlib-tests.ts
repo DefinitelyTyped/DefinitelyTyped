@@ -13,29 +13,29 @@ const collectionToArray = <T>(col: { Item(index: any): T }): T[] => {
 };
 
 const toSafeArray = <T>(...items: T[]): SafeArray<T> => {
-    const dict: Scripting.Dictionary<number, T> = new ActiveXObject('Scripting.Dictionary');
+    const dict: Scripting.Dictionary<number, T> = new ActiveXObject("Scripting.Dictionary");
     items.forEach((x, index) => dict.Add(index, x));
     return dict.Items();
 };
 
 const VB = {
-    InputBox: (prompt: string): string => ''
+    InputBox: (prompt: string): string => "",
 };
 
 const getServer = () => {
-    const server = new ActiveXObject('FaxComEx.FaxServer');
-    server.Connect('');
+    const server = new ActiveXObject("FaxComEx.FaxServer");
+    server.Connect("");
     return server;
 };
 
 {
     // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693376(v=vs.85).aspx
-    const server = new ActiveXObject('FaxComEx.FaxServer');
-    const document = new ActiveXObject('FaxComEx.FaxDocument');
+    const server = new ActiveXObject("FaxComEx.FaxServer");
+    const document = new ActiveXObject("FaxComEx.FaxDocument");
 
     // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692919(v=vs.85).aspx
-    server.Connect('');
-    server.Connect('computername');
+    server.Connect("");
+    server.Connect("computername");
 }
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693502(v=vs.85).aspx
@@ -90,12 +90,12 @@ ${activity.QueuedMessages} queued messages`);
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693400(v=vs.85).aspx
 {
     const device = getServer().GetDevices().Item(1);
-    device.CSID = 'Accounts payable';
-    device.Description = 'Primary fax device';
+    device.CSID = "Accounts payable";
+    device.Description = "Primary fax device";
     device.ReceiveMode = FAXCOMEXLib.FAX_DEVICE_RECEIVE_MODE_ENUM.fdrmAUTO_ANSWER;
     device.RingsBeforeAnswer = 5;
     device.SendEnabled = true;
-    device.TSID = 'Accounts payable';
+    device.TSID = "Accounts payable";
     device.Save();
 }
 
@@ -131,7 +131,7 @@ Sending now: ${device.SendingNow}`);
 {
     const outputRuleInfo = (rule: FAXCOMEXLib.FaxOutboundRoutingRule, index?: number) => {
         WScript.Echo(`
-Outbound routing rule number: ${index || 'unknown'}
+Outbound routing rule number: ${index || "unknown"}
 Area code: ${rule.AreaCode}
 Country/region code: ${rule.CountryCode}
 Device ID: ${rule.DeviceId}
@@ -152,9 +152,9 @@ Is device used: ${rule.UseDevice}`
         rule.Refresh();
         outputRuleInfo(rule, index);
 
-        if (!rule.UseDevice) { return; }
-        if (VB.InputBox('Do you want to change the device for this rule (Y/N)?') === 'Y') {
-            const newDeviceID = parseInt(VB.InputBox('Enter new device ID'), 10);
+        if (!rule.UseDevice) return;
+        if (VB.InputBox("Do you want to change the device for this rule (Y/N)?") === "Y") {
+            const newDeviceID = parseInt(VB.InputBox("Enter new device ID"), 10);
             rule.DeviceId = newDeviceID;
             rule.Save();
         }
@@ -175,24 +175,24 @@ Input 1, 2, 3, 4, or 0 to exit
     let rule: FAXCOMEXLib.FaxOutboundRoutingRule;
     switch (result) {
         case 1:
-            countryCode = parseInt(VB.InputBox('Enter the country/region code'), 10);
-            areaCode = parseInt(VB.InputBox('Enter the area code'), 10);
+            countryCode = parseInt(VB.InputBox("Enter the country/region code"), 10);
+            areaCode = parseInt(VB.InputBox("Enter the area code"), 10);
             rule = outboundRoutingRules.ItemByCountryAndArea(countryCode, areaCode);
             outputRuleInfo(rule);
             break;
         case 2:
-            countryCode = parseInt(VB.InputBox('Enter the country/region code'), 10);
-            areaCode = parseInt(VB.InputBox('Enter the area code'), 10);
+            countryCode = parseInt(VB.InputBox("Enter the country/region code"), 10);
+            areaCode = parseInt(VB.InputBox("Enter the area code"), 10);
             outboundRoutingRules.RemoveByCountryAndArea(countryCode, areaCode);
             break;
         case 3:
-            itemNumber = parseInt(VB.InputBox('Enter the item number'), 10);
+            itemNumber = parseInt(VB.InputBox("Enter the item number"), 10);
             outboundRoutingRules.Remove(itemNumber);
             break;
         case 4:
-            countryCode = parseInt(VB.InputBox('Enter the country/region code'), 10);
-            areaCode = parseInt(VB.InputBox('Enter the area code'), 10);
-            rule = outboundRoutingRules.Add(countryCode, areaCode, true, '', id);
+            countryCode = parseInt(VB.InputBox("Enter the country/region code"), 10);
+            areaCode = parseInt(VB.InputBox("Enter the area code"), 10);
+            rule = outboundRoutingRules.Add(countryCode, areaCode, true, "", id);
             break;
     }
 }
@@ -202,7 +202,7 @@ Input 1, 2, 3, 4, or 0 to exit
     const server = getServer();
     const outboundRouting = server.OutboundRouting;
     const outboundRoutingGroups = outboundRouting.GetGroups();
-    const groupName = VB.InputBox('Provide a name for the outbound routing group');
+    const groupName = VB.InputBox("Provide a name for the outbound routing group");
     const outboundRoutingGroup = outboundRoutingGroups.Add(groupName);
     const devices = collectionToArray(server.GetDevices());
 
@@ -232,8 +232,8 @@ Device status: ${routingGroup.Status}
     });
 
     // allow user to remove a routing group
-    if (VB.InputBox('Do you want to remove a routing group (Y/N)?') === 'Y') {
-        const itemNumber = VB.InputBox('Enter the item number for the group you want to remove');
+    if (VB.InputBox("Do you want to remove a routing group (Y/N)?") === "Y") {
+        const itemNumber = VB.InputBox("Enter the item number for the group you want to remove");
         outboundRoutingGroups.Remove(itemNumber);
     }
 }
@@ -245,7 +245,7 @@ Device status: ${routingGroup.Status}
     WScript.Echo(`Number of accounts: ${accounts.length}`);
     accounts.forEach(account => WScript.Echo(account.AccountName));
 
-    const accountName = VB.InputBox('Enter an account name');
+    const accountName = VB.InputBox("Enter an account name");
     accountSet.AddAccount(accountName);
     accountSet.RemoveAccount(accountName);
 }
@@ -254,7 +254,7 @@ Device status: ${routingGroup.Status}
 {
     const incomingJobs = collectionToArray(getServer().Folders.IncomingQueue.GetJobs());
     WScript.Echo(`There are ${incomingJobs.length} jobs in the incoming queue.`);
-    const n = parseInt(VB.InputBox('Input the number of a job for which you want information'), 10);
+    const n = parseInt(VB.InputBox("Input the number of a job for which you want information"), 10);
     const job = incomingJobs[n - 1];
     WScript.Echo(`
 Available operations: ${job.AvailableOperations}
@@ -275,21 +275,21 @@ Transmission end: ${new Date(job.TransmissionEnd)}
 TSID: ${job.TSID}
 `.trim());
 
-    if (VB.InputBox('Cancel this fax (Y/N)?') === 'Y') {
+    if (VB.InputBox("Cancel this fax (Y/N)?") === "Y") {
         job.Cancel();
     }
 
-    if (VB.InputBox('Open this fax (Y/N)?') === 'Y') {
-        const fileName = VB.InputBox('Enter path to save');
+    if (VB.InputBox("Open this fax (Y/N)?") === "Y") {
+        const fileName = VB.InputBox("Enter path to save");
         job.CopyTiff(fileName);
-        new ActiveXObject('WScript.Shell').Run(fileName);
+        new ActiveXObject("WScript.Shell").Run(fileName);
     }
 }
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692914(v=vs.85).aspx
 {
-    const server = new ActiveXObject('FaxComEx.FaxServer');
-    server.Connect('');
+    const server = new ActiveXObject("FaxComEx.FaxServer");
+    server.Connect("");
     const outgoingQueue = server.Folders.OutgoingQueue;
     outgoingQueue.AgeLimit = 2;
     outgoingQueue.AllowPersonalCoverPages = true;
@@ -307,12 +307,11 @@ TSID: ${job.TSID}
     const outgoingQueue = getServer().Folders.OutgoingQueue;
     outgoingQueue.Refresh();
     WScript.Echo(`There are ${outgoingQueue.GetJobs().Count} faxes in the outgoing queue`);
-    const inputResult = VB.InputBox('Which fax should be displayed (item number or job name)?');
+    const inputResult = VB.InputBox("Which fax should be displayed (item number or job name)?");
     const itemNumber = parseInt(inputResult, 10);
-    const job =
-        isNaN(itemNumber) ?
-            outgoingQueue.GetJob(inputResult) :
-            outgoingQueue.GetJobs().Item(itemNumber);
+    const job = isNaN(itemNumber)
+        ? outgoingQueue.GetJob(inputResult)
+        : outgoingQueue.GetJobs().Item(itemNumber);
 
     WScript.Echo(`
 Available operations: ${job.AvailableOperations}
@@ -330,9 +329,9 @@ Priority: ${job.Priority}
 Receipt type: ${job.ReceiptType}
 `.trim());
 
-    const fileName = VB.InputBox('Enter path to save');
+    const fileName = VB.InputBox("Enter path to save");
     job.CopyTiff(fileName);
-    new ActiveXObject('WScript.Shell').Run(fileName);
+    new ActiveXObject("WScript.Shell").Run(fileName);
 
     const answer = VB.InputBox(`
 Do you want to:
@@ -344,16 +343,16 @@ the job?
 `.trim());
 
     switch (answer) {
-        case 'C':
+        case "C":
             job.Cancel();
             break;
-        case 'P':
+        case "P":
             job.Pause();
             break;
-        case 'R':
+        case "R":
             job.Restart();
             break;
-        case 'E':
+        case "E":
             job.Resume();
             break;
     }
@@ -361,38 +360,38 @@ the job?
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692936(v=vs.85).aspx
 {
-    const document = new ActiveXObject('FaxComEx.FaxDocument');
-    document.Body = 'C:\\docs\\body.txt';
-    document.DocumentName = 'My First Fax';
+    const document = new ActiveXObject("FaxComEx.FaxDocument");
+    document.Body = "C:\\docs\\body.txt";
+    document.DocumentName = "My First Fax";
     document.Priority = FAXCOMEXLib.FAX_PRIORITY_TYPE_ENUM.fptHIGH;
-    document.Recipients.Add('12225550100', 'Bud');
+    document.Recipients.Add("12225550100", "Bud");
     document.AttachFaxToReceipt = true;
     document.CoverPageType = FAXCOMEXLib.FAX_COVERPAGE_TYPE_ENUM.fcptSERVER;
-    document.Note = 'Here is the info you requested';
-    document.ReceiptAddress = 'someone@example.com';
+    document.Note = "Here is the info you requested";
+    document.ReceiptAddress = "someone@example.com";
     document.ReceiptType = FAXCOMEXLib.FAX_RECEIPT_TYPE_ENUM.frtMAIL;
     document.ScheduleType = FAXCOMEXLib.FAX_SCHEDULE_TYPE_ENUM.fstSPECIFIC_TIME;
     document.ScheduleTime = new Date(0, 0, 0, 16, 35, 47).getVarDate();
-    document.Subject = 'Today\'s fax';
+    document.Subject = "Today's fax";
 
     // set sender properties
     const sender = document.Sender;
-    sender.Title = 'Mr.';
-    sender.Name = 'Bob';
-    sender.City = 'Cleveland Heights';
-    sender.State = 'Ohio';
-    sender.Company = 'Microsoft';
-    sender.Country = 'USA';
-    sender.Email = 'someone@microsoft.com';
-    sender.FaxNumber = '12165555554';
-    sender.HomePhone = '12165555555';
-    sender.OfficeLocation = 'Downtown';
-    sender.OfficePhone = '12165555553';
-    sender.StreetAddress = '123 Main Street';
-    sender.TSID = 'Office fax machine';
-    sender.ZipCode = '44118';
-    sender.BillingCode = '23A54';
-    sender.Department = 'Accts Payable';
+    sender.Title = "Mr.";
+    sender.Name = "Bob";
+    sender.City = "Cleveland Heights";
+    sender.State = "Ohio";
+    sender.Company = "Microsoft";
+    sender.Country = "USA";
+    sender.Email = "someone@microsoft.com";
+    sender.FaxNumber = "12165555554";
+    sender.HomePhone = "12165555555";
+    sender.OfficeLocation = "Downtown";
+    sender.OfficePhone = "12165555553";
+    sender.StreetAddress = "123 Main Street";
+    sender.TSID = "Office fax machine";
+    sender.ZipCode = "44118";
+    sender.BillingCode = "23A54";
+    sender.Department = "Accts Payable";
     sender.SaveDefaultSender();
 
     const server = getServer();
@@ -405,14 +404,14 @@ the job?
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693479(v=vs.85).aspx
 {
-    const document = new ActiveXObject('FaxComEx.FaxDocument');
-    document.Body = 'C:\\docs\\body.txt';
-    document.DocumentName = 'My First Fax';
+    const document = new ActiveXObject("FaxComEx.FaxDocument");
+    document.Body = "C:\\docs\\body.txt";
+    document.DocumentName = "My First Fax";
 
     const recipients = document.Recipients;
-    recipients.Add('12225550105', 'H');
-    recipients.Add('12225550104', 'N');
-    recipients.Add('12225550103', 'G');
+    recipients.Add("12225550105", "H");
+    recipients.Add("12225550104", "N");
+    recipients.Add("12225550103", "G");
 
     WScript.Echo(`Number of recipients: ${recipients.Count}`);
     collectionToArray(recipients).forEach((recipient, index) =>
@@ -422,7 +421,7 @@ the job?
     document.Sender.LoadDefaultSender();
     document.GroupBroadcastReceipts = true;
 
-    const jobIDs = document.Submit('');
+    const jobIDs = document.Submit("");
     new VBArray(jobIDs).toArray().forEach(jobID => WScript.Echo(`The job ID is ${jobID}`));
 
     while (recipients.Count > 0) {
@@ -433,23 +432,23 @@ the job?
 // https://msdn.microsoft.com/en-us/library/windows/desktop/aa964962(v=vs.85).aspx
 {
     const server = getServer();
-    const prefetchCount = parseInt(VB.InputBox('How many messages should be prefetched?'), 10);
+    const prefetchCount = parseInt(VB.InputBox("How many messages should be prefetched?"), 10);
     server.CurrentAccount.Folders.IncomingArchive.Refresh();
     const messageIterator = server.Folders.IncomingArchive.GetMessages(prefetchCount);
     messageIterator.MoveFirst();
     for (let i = 1; i <= prefetchCount; i++) {
-        if (i > 1 && VB.InputBox('View next message? (Y/N)') !== 'Y') { break; }
+        if (i > 1 && VB.InputBox("View next message? (Y/N)") !== "Y") break;
         const message = messageIterator.Message as FAXCOMEXLib.FaxIncomingMessage;
         if (messageIterator.AtEOF) {
             WScript.Echo(`End of file reached`);
             break;
         }
         if (!message.WasReAssigned) {
-            if (VB.InputBox('Message not reassigned. Reassign (Y/N)?') === 'Y') {
-                message.Subject = 'Reassigning message';
-                message.SenderName = 'Test user';
-                message.Recipients = VB.InputBox('Enter username, e.g. Domain\\UserName');
-                message.SenderFaxNumber = '1234';
+            if (VB.InputBox("Message not reassigned. Reassign (Y/N)?") === "Y") {
+                message.Subject = "Reassigning message";
+                message.SenderName = "Test user";
+                message.Recipients = VB.InputBox("Enter username, e.g. Domain\\UserName");
+                message.SenderFaxNumber = "1234";
                 message.ReAssign();
             }
         }
@@ -460,21 +459,21 @@ the job?
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms693402(v=vs.85).aspx
 {
     const server = getServer();
-    const prefetchCount = parseInt(VB.InputBox('How many messages should be prefetched?'), 10);
+    const prefetchCount = parseInt(VB.InputBox("How many messages should be prefetched?"), 10);
     server.Folders.OutgoingArchive.Refresh();
     const messageIterator = server.Folders.OutgoingArchive.GetMessages(prefetchCount);
     messageIterator.MoveFirst();
     for (let i = 1; i <= prefetchCount; i++) {
-        if (i > 1 && VB.InputBox('View next message? (Y/N)') !== 'Y') { break; }
+        if (i > 1 && VB.InputBox("View next message? (Y/N)") !== "Y") break;
         if (messageIterator.AtEOF) {
             WScript.Echo(`End of file reached`);
             break;
         }
         const message = messageIterator.Message as FAXCOMEXLib.FaxOutgoingMessage;
 
-        const fileName = VB.InputBox('Enter path to save');
+        const fileName = VB.InputBox("Enter path to save");
         message.CopyTiff(fileName);
-        new ActiveXObject('WScript.Shell').Run(fileName);
+        new ActiveXObject("WScript.Shell").Run(fileName);
 
         WScript.Echo(`Message information:
 CSID: ${message.CSID}
@@ -494,7 +493,7 @@ Transmission end time: ${new Date(message.TransmissionEnd)}
 Transmission start time: ${new Date(message.TransmissionStart)}
 TSID: ${message.TSID}`);
 
-        if (VB.InputBox('Delete this fax from the archive (Y/N)?') === 'Y') {
+        if (VB.InputBox("Delete this fax from the archive (Y/N)?") === "Y") {
             message.Delete();
         }
     }
@@ -512,19 +511,18 @@ Low quota water mark: ${outgoingArchive.LowQuotaWaterMark}
 Size high: ${outgoingArchive.SizeHigh}
 Size low: ${outgoingArchive.SizeLow}
 Size quota warning: ${outgoingArchive.SizeQuotaWarning}
-Is archive used? ${outgoingArchive.UseArchive}`.trim()
-    );
+Is archive used? ${outgoingArchive.UseArchive}`.trim());
 
-    const newLimit = VB.InputBox('Set new age limit (enter empty value or Cancel to leave unchanged');
+    const newLimit = VB.InputBox("Set new age limit (enter empty value or Cancel to leave unchanged");
     if (newLimit) {
         outgoingArchive.AgeLimit = parseInt(newLimit, 10);
     }
 
-    const messageID = VB.InputBox('Retrieve a message by ID (enter an empty value or press Cancel to exit');
+    const messageID = VB.InputBox("Retrieve a message by ID (enter an empty value or press Cancel to exit");
     if (messageID) {
-        const fileName = VB.InputBox('Enter path to save');
+        const fileName = VB.InputBox("Enter path to save");
         outgoingArchive.GetMessage(messageID).CopyTiff(fileName);
-        new ActiveXObject('WScript.Shell').Run(fileName);
+        new ActiveXObject("WScript.Shell").Run(fileName);
     }
 }
 
@@ -547,20 +545,20 @@ Transmission start: ${new Date(message.TransmissionStart)}
 // https://msdn.microsoft.com/en-us/library/windows/desktop/ms692976(v=vs.85).aspx
 {
     const server = getServer();
-    const prefetchCount = parseInt(VB.InputBox('How many messages should be prefetched?'), 10);
+    const prefetchCount = parseInt(VB.InputBox("How many messages should be prefetched?"), 10);
     server.Folders.IncomingArchive.Refresh();
     const messageIterator = server.Folders.IncomingArchive.GetMessages(prefetchCount);
     messageIterator.MoveFirst();
     for (let i = 1; i <= prefetchCount; i++) {
-        if (i > 1 && VB.InputBox('View next message? (Y/N)') !== 'Y') { break; }
+        if (i > 1 && VB.InputBox("View next message? (Y/N)") !== "Y") break;
         const message = messageIterator.Message as FAXCOMEXLib.FaxIncomingMessage;
         if (messageIterator.AtEOF) {
             WScript.Echo(`End of file reached`);
             break;
         }
-        const fileName = VB.InputBox('Enter path to save TIFF file');
+        const fileName = VB.InputBox("Enter path to save TIFF file");
         message.CopyTiff(fileName);
-        new ActiveXObject('WScript.Shell').Run(fileName);
+        new ActiveXObject("WScript.Shell").Run(fileName);
 
         messageIterator.MoveNext();
     }
@@ -585,8 +583,8 @@ Is archive used? ${incomingArchive.UseArchive}
     incomingArchive.AgeLimit = 4;
     incomingArchive.Save();
 
-    const messageID = VB.InputBox('Message ID to retrieve information? (Leave empty, or Cancel, to exit)');
-    if (messageID !== '') {
+    const messageID = VB.InputBox("Message ID to retrieve information? (Leave empty, or Cancel, to exit)");
+    if (messageID !== "") {
         const message = incomingArchive.GetMessage(messageID);
         WScript.Echo(`
 Caller ID: ${message.CallerId}
@@ -602,7 +600,7 @@ Transmission end: ${new Date(message.TransmissionEnd)}
 TSID: ${message.TSID}
 `.trim());
 
-        if (VB.InputBox('Delete this message from the archive (Y/N)?') === 'Y') {
+        if (VB.InputBox("Delete this message from the archive (Y/N)?") === "Y") {
             message.Delete();
         }
     }
@@ -645,8 +643,8 @@ Use for inbound routing? ${receiptOptions.UseForInboundRouting}
     receiptOptions.AllowedReceipts = FAXCOMEXLib.FAX_RECEIPT_TYPE_ENUM.frtMAIL;
     receiptOptions.AuthenticationType = FAXCOMEXLib.FAX_SMTP_AUTHENTICATION_TYPE_ENUM.fsatBASIC;
     receiptOptions.SMTPPort = 25;
-    receiptOptions.SMTPSender = 'someone@example.com';
-    receiptOptions.SMTPServer = 'My SMTP Server';
+    receiptOptions.SMTPSender = "someone@example.com";
+    receiptOptions.SMTPServer = "My SMTP Server";
     receiptOptions.UseForInboundRouting = true;
     receiptOptions.Save();
 }
@@ -675,7 +673,7 @@ Unique name: ${provider.UniqueName}
     const server = getServer();
     const device = server.GetDevices().Item(1);
     const deviceProperty = toSafeArray(1, 2, 3);
-    const propertyName = '{B1F944B9-9A16-45d1-933A-4060A4871AB0}';
+    const propertyName = "{B1F944B9-9A16-45d1-933A-4060A4871AB0}";
     device.SetExtensionProperty(propertyName, deviceProperty);
     new VBArray(device.GetExtensionProperty(propertyName)).toArray().forEach(x => WScript.Echo(x));
 }
@@ -693,9 +691,14 @@ Unique name: ${provider.UniqueName}
 {
     const server = getServer();
 
-    ActiveXObject.on(server, 'OnOutgoingJobAdded', ['pFaxServer', 'bstrJobId'], prm => WScript.Echo('New job added to queue'));
+    ActiveXObject.on(
+        server,
+        "OnOutgoingJobAdded",
+        ["pFaxServer", "bstrJobId"],
+        prm => WScript.Echo("New job added to queue"),
+    );
 
-    ActiveXObject.on(server, 'OnOutgoingJobChanged', ['pFaxServer', 'bstrJobId', 'pJobStatus'], prm => {
+    ActiveXObject.on(server, "OnOutgoingJobChanged", ["pFaxServer", "bstrJobId", "pJobStatus"], prm => {
         const status = prm.pJobStatus;
         WScript.Echo(`
 Available operations: ${status.AvailableOperations}
@@ -721,10 +724,15 @@ TSID: ${status.TSID}
         } catch {}
     });
 
-    ActiveXObject.on(server, 'OnServerShutDown', ['pFaxServer'], prm => WScript.Echo('The local fax server has been shut down'));
+    ActiveXObject.on(
+        server,
+        "OnServerShutDown",
+        ["pFaxServer"],
+        prm => WScript.Echo("The local fax server has been shut down"),
+    );
 
     server.ListenToServerEvents(
-        FAXCOMEXLib.FAX_SERVER_EVENTS_TYPE_ENUM.fsetFXSSVC_ENDED +
-        FAXCOMEXLib.FAX_SERVER_EVENTS_TYPE_ENUM.fsetOUT_QUEUE
+        FAXCOMEXLib.FAX_SERVER_EVENTS_TYPE_ENUM.fsetFXSSVC_ENDED
+            + FAXCOMEXLib.FAX_SERVER_EVENTS_TYPE_ENUM.fsetOUT_QUEUE,
     );
 }

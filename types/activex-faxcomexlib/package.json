@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/activex-faxcomexlib",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft Fax Service Extended COM Type Library - FAXCOMEXLib",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/windows/desktop/ms684513(v=vs.85).aspx"
+    ],
     "dependencies": {
+        "@types/activex-stdole": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-faxcomexlib": "workspace:.",
+        "@types/activex-scripting": "*",
+        "@types/windows-script-host": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

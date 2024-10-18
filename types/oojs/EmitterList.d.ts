@@ -83,7 +83,7 @@ declare namespace OO {
     }
 
     interface EmitterListConstructor {
-        new (): EmitterList;
+        new(): EmitterList;
         prototype: EmitterList;
         static: {};
     }

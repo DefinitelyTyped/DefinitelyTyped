@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/leaflet-curve",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/onikiienko/Leaflet.curve"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-curve": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Onikiienko",
+            "githubUsername": "onikiienko"
+        },
+        {
+            "name": "Andrea",
+            "githubUsername": "AndreaCimini"
+        }
+    ]
+}

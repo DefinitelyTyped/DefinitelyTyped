@@ -1,0 +1,73 @@
+{
+    "private": true,
+    "name": "@types/enzyme",
+    "version": "3.10.9999",
+    "projects": [
+        "https://github.com/airbnb/enzyme"
+    ],
+    "dependencies": {
+        "@types/cheerio": "*",
+        "@types/react": "^16"
+    },
+    "devDependencies": {
+        "@types/enzyme": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marian Palkus",
+            "githubUsername": "MarianPalkus"
+        },
+        {
+            "name": "Cap3",
+            "url": "http://www.cap3.de"
+        },
+        {
+            "name": "Ivo Stratev",
+            "githubUsername": "NoHomey"
+        },
+        {
+            "name": "jwbay",
+            "githubUsername": "jwbay"
+        },
+        {
+            "name": "huhuanming",
+            "githubUsername": "huhuanming"
+        },
+        {
+            "name": "MartynasZilinskas",
+            "githubUsername": "MartynasZilinskas"
+        },
+        {
+            "name": "Torgeir Hovden",
+            "githubUsername": "thovden"
+        },
+        {
+            "name": "Martin Hochel",
+            "githubUsername": "hotell"
+        },
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "Mateusz Sokoła",
+            "githubUsername": "mateuszsokola"
+        },
+        {
+            "name": "Braiden Cutforth",
+            "githubUsername": "braidencutforth"
+        },
+        {
+            "name": "Erick Zhao",
+            "githubUsername": "erickzhao"
+        },
+        {
+            "name": "Jack Tomaszewski",
+            "githubUsername": "jtomaszewski"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

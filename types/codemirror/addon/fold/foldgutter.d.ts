@@ -1,8 +1,8 @@
 // See docs https://codemirror.net/doc/manual.html#addon_foldgutter
 
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface EditorConfiguration {
         /**
          * Provides an option foldGutter, which can be used to create a gutter with markers indicating the blocks that can be folded.

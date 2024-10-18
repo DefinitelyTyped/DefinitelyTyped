@@ -40,5 +40,5 @@ export class Input extends System {
     get stagePosition(): Vector;
     get pressedKeys(): number[];
 }
-import { System } from '../core/System';
-import { Vector } from '../geom/Vector';
+import { System } from "../core/System";
+import { Vector } from "../geom/Vector";

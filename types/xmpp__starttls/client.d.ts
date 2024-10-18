@@ -1,6 +1,6 @@
-import { Entity, IncomingContext } from '@xmpp/middleware';
-import { StreamFeatures } from '@xmpp/stream-features';
-import { Middleware } from 'koa-compose';
+import { Entity, IncomingContext } from "@xmpp/middleware";
+import { StreamFeatures } from "@xmpp/stream-features";
+import { Middleware } from "koa-compose";
 
 export = starttls;
 

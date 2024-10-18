@@ -1,4 +1,4 @@
-import * as dateUnitMs from 'date-unit-ms';
+import * as dateUnitMs from "date-unit-ms";
 
 dateUnitMs.ms; // $ExpectType 1
 dateUnitMs.second; // $ExpectType 1000

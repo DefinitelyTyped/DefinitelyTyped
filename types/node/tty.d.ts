@@ -1,13 +1,13 @@
 /**
- * The `node:tty` module provides the `tty.ReadStream` and `tty.WriteStream`classes. In most cases, it will not be necessary or possible to use this module
+ * The `node:tty` module provides the `tty.ReadStream` and `tty.WriteStream` classes. In most cases, it will not be necessary or possible to use this module
  * directly. However, it can be accessed using:
  *
  * ```js
- * const tty = require('node:tty');
+ * import tty from 'node:tty';
  * ```
  *
  * When Node.js detects that it is being run with a text terminal ("TTY")
- * attached, `process.stdin` will, by default, be initialized as an instance of`tty.ReadStream` and both `process.stdout` and `process.stderr` will, by
+ * attached, `process.stdin` will, by default, be initialized as an instance of `tty.ReadStream` and both `process.stdout` and `process.stderr` will, by
  * default, be instances of `tty.WriteStream`. The preferred method of determining
  * whether Node.js is being run within a TTY context is to check that the value of
  * the `process.stdout.isTTY` property is `true`:
@@ -20,11 +20,11 @@
  * ```
  *
  * In most cases, there should be little to no reason for an application to
- * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/tty.js)
+ * manually create instances of the `tty.ReadStream` and `tty.WriteStream` classes.
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/tty.js)
  */
-declare module 'tty' {
-    import * as net from 'node:net';
+declare module "tty" {
+    import * as net from "node:net";
     /**
      * The `tty.isatty()` method returns `true` if the given `fd` is associated with
      * a TTY and `false` if it is not, including whenever `fd` is not a non-negative
@@ -45,7 +45,7 @@ declare module 'tty' {
          * raw device.
          *
          * This flag is always `false` when a process starts, even if the terminal is
-         * operating in raw mode. Its value will change with subsequent calls to`setRawMode`.
+         * operating in raw mode. Its value will change with subsequent calls to `setRawMode`.
          * @since v0.7.7
          */
         isRaw: boolean;
@@ -76,24 +76,24 @@ declare module 'tty' {
      */
     type Direction = -1 | 0 | 1;
     /**
-     * Represents the writable side of a TTY. In normal circumstances,`process.stdout` and `process.stderr` will be the only`tty.WriteStream` instances created for a Node.js process and there
+     * Represents the writable side of a TTY. In normal circumstances, `process.stdout` and `process.stderr` will be the only`tty.WriteStream` instances created for a Node.js process and there
      * should be no reason to create additional instances.
      * @since v0.5.8
      */
     class WriteStream extends net.Socket {
         constructor(fd: number);
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'resize', listener: () => void): this;
+        addListener(event: "resize", listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'resize'): boolean;
+        emit(event: "resize"): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'resize', listener: () => void): this;
+        on(event: "resize", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'resize', listener: () => void): this;
+        once(event: "resize", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'resize', listener: () => void): this;
+        prependListener(event: "resize", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'resize', listener: () => void): this;
+        prependOnceListener(event: "resize", listener: () => void): this;
         /**
          * `writeStream.clearLine()` clears the current line of this `WriteStream` in a
          * direction identified by `dir`.
@@ -149,7 +149,7 @@ declare module 'tty' {
          * * 256 colors: `FORCE_COLOR = 2`
          * * 16,777,216 colors: `FORCE_COLOR = 3`
          *
-         * Disabling color support is also possible by using the `NO_COLOR` and`NODE_DISABLE_COLORS` environment variables.
+         * Disabling color support is also possible by using the `NO_COLOR` and `NODE_DISABLE_COLORS` environment variables.
          * @since v9.9.0
          * @param [env=process.env] An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */
@@ -179,7 +179,7 @@ declare module 'tty' {
         hasColors(count: number, env?: object): boolean;
         /**
          * `writeStream.getWindowSize()` returns the size of the TTY
-         * corresponding to this `WriteStream`. The array is of the type`[numColumns, numRows]` where `numColumns` and `numRows` represent the number
+         * corresponding to this `WriteStream`. The array is of the type `[numColumns, numRows]` where `numColumns` and `numRows` represent the number
          * of columns and rows in the corresponding TTY.
          * @since v0.7.7
          */
@@ -203,6 +203,6 @@ declare module 'tty' {
         isTTY: boolean;
     }
 }
-declare module 'node:tty' {
-    export * from 'tty';
+declare module "node:tty" {
+    export * from "tty";
 }

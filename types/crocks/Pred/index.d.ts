@@ -1,2 +1,2 @@
-import Pred from './Pred';
+import Pred from "./Pred";
 export default Pred;

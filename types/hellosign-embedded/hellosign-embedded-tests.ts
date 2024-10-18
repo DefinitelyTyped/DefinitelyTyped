@@ -1,25 +1,25 @@
-import HelloSign from 'hellosign-embedded';
+import HelloSign from "hellosign-embedded";
 
 // init - without params
 new HelloSign();
 
 // init - with params
-const client = new HelloSign({ clientId: 'init123' });
+const client = new HelloSign({ clientId: "init123" });
 
 // open - only url
-client.open('http://example.org');
+client.open("http://example.org");
 
 // open - with options
-client.open('http://example.org', {
+client.open("http://example.org", {
     allowCancel: true,
-    container: document.getElementById('#hellosign-container'),
+    container: document.getElementById("#hellosign-container"),
     debug: true,
     hideHeader: true,
-    redirectTo: 'https://github.com/DefinitelyTyped/DefinitelyTyped',
-    locale: 'en_US',
+    redirectTo: "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    locale: "en_US",
     skipDomainVerification: true,
     whiteLabeling: {
-        page_background_color: '#f7f8f9',
+        page_background_color: "#f7f8f9",
     },
 });
 
@@ -28,7 +28,7 @@ client.close();
 
 // on
 // event as string
-client.on('error', data => {
+client.on("error", data => {
     console.log(data.code);
     console.log(data.signatureId);
 });
@@ -39,7 +39,7 @@ client.on(HelloSign.events.DECLINE, data => {
 
 // once
 // event as string
-client.once('ready', data => {
+client.once("ready", data => {
     console.log(data.signatureId);
 });
 // event as enum
@@ -50,14 +50,14 @@ client.once(HelloSign.events.REASSIGN, data => {
 
 // off
 // only name as string
-client.off('message');
+client.off("message");
 // only name as enum
 client.off(HelloSign.events.CLOSE);
 // name and cb as enum
 const cb = () => {};
 client.off(HelloSign.events.CLOSE, cb);
 
-client.off('cancel');
+client.off("cancel");
 
 // getters
 client.isOpen;

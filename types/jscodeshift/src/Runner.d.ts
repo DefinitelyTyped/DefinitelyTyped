@@ -1,4 +1,4 @@
-import { Options } from './core';
+import { Options } from "./core";
 
 export function run(
     transformFile: string,

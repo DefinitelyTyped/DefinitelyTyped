@@ -1,10 +1,5 @@
-// Type definitions for @xmpp/reconnect 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/reconnect
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { EventEmitter } from '@xmpp/events';
-import Connection = require('@xmpp/connection');
+import { EventEmitter } from "@xmpp/events";
+import Connection = require("@xmpp/connection");
 
 export = reconnect;
 

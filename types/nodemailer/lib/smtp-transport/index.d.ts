@@ -1,35 +1,35 @@
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import * as stream from 'stream';
+import { EventEmitter } from "events";
+import * as stream from "stream";
 
-import { Transport, TransportOptions } from '../..';
-import * as shared from '../shared';
+import { Transport, TransportOptions } from "../..";
+import * as shared from "../shared";
 
-import Mail = require('../mailer');
-import MailMessage = require('../mailer/mail-message');
-import MimeNode = require('../mime-node');
-import SMTPConnection = require('../smtp-connection');
-import XOAuth2 = require('../xoauth2');
+import Mail = require("../mailer");
+import MailMessage = require("../mailer/mail-message");
+import MimeNode = require("../mime-node");
+import SMTPConnection = require("../smtp-connection");
+import XOAuth2 = require("../xoauth2");
 
 declare namespace SMTPTransport {
     interface AuthenticationTypeCustom extends SMTPConnection.Credentials {
-        type: 'CUSTOM';
+        type: "CUSTOM";
         method: string;
     }
 
     interface AuthenticationTypeLogin {
-        type: 'LOGIN';
+        type: "LOGIN";
         user: string;
         credentials: SMTPConnection.Credentials;
         method: string | false;
     }
 
     interface AuthenticationTypeOAuth2 {
-        type: 'OAUTH2';
+        type: "OAUTH2";
         user: string;
         oauth2: XOAuth2;
-        method: 'XOAUTH2';
+        method: "XOAUTH2";
     }
 
     type AuthenticationType = AuthenticationTypeLogin | AuthenticationTypeOAuth2;
@@ -90,26 +90,26 @@ declare class SMTPTransport extends EventEmitter implements Transport<SMTPTransp
     /** Releases resources */
     close(): void;
 
-    addListener(event: 'close', listener: () => void): this;
-    addListener(event: 'error', listener: (err: Error) => void): this;
+    addListener(event: "close", listener: () => void): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
 
-    emit(event: 'close'): boolean;
-    emit(event: 'error', error: Error): boolean;
+    emit(event: "close"): boolean;
+    emit(event: "error", error: Error): boolean;
 
-    on(event: 'close', listener: () => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
 
-    once(event: 'close', listener: () => void): this;
-    once(event: 'error', listener: (err: Error) => void): this;
+    once(event: "close", listener: () => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
 
-    prependListener(event: 'close', listener: () => void): this;
-    prependListener(event: 'error', listener: (err: Error) => void): this;
+    prependListener(event: "close", listener: () => void): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
 
-    prependOnceListener(event: 'close', listener: () => void): this;
-    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+    prependOnceListener(event: "close", listener: () => void): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
 
-    listeners(event: 'close'): Array<() => void>;
-    listeners(event: 'error'): Array<(err: Error) => void>;
+    listeners(event: "close"): Array<() => void>;
+    listeners(event: "error"): Array<(err: Error) => void>;
 }
 
 export = SMTPTransport;

@@ -1,4 +1,4 @@
-import $getProto = require('es-abstract/helpers/getProto');
+import $getProto = require("es-abstract/helpers/getProto");
 
 declare const any: unknown;
 

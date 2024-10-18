@@ -7,7 +7,7 @@ function centerAlign(len: number, longest: number, line: string, lines: string[]
         prefix: "~ ",
         line,
         lines,
-        idx
+        idx,
     };
 }
 

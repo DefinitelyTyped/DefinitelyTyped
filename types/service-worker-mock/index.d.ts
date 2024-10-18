@@ -1,9 +1,3 @@
-// Type definitions for service-worker-mock 2.0
-// Project: https://github.com/pinterest/service-workers/tree/master/packages/service-worker-mock#readme
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export = makeServiceWorkerEnv;
 declare function makeServiceWorkerEnv(): WorkerGlobalScope;
 
@@ -42,10 +36,10 @@ declare global {
      * Used to trigger active listeners.
      */
     function trigger(type: keyof ServiceWorkerGlobalScopeEventMap): Promise<void>;
-    function trigger(name: 'fetch', request: string | Request): Promise<void>;
-    function trigger(name: 'notificationclick' | 'notificationclose', args: Notification): Promise<void>;
-    function trigger(name: 'push', args: Partial<PushEvent>): Promise<void>;
-    function trigger(name: 'message', args: Partial<MessageEvent>): Promise<void>;
+    function trigger(name: "fetch", request: string | Request): Promise<void>;
+    function trigger(name: "notificationclick" | "notificationclose", args: Notification): Promise<void>;
+    function trigger(name: "push", args: Partial<PushEvent>): Promise<void>;
+    function trigger(name: "message", args: Partial<MessageEvent>): Promise<void>;
 
     /**
      * Used to generate a snapshot of the service worker internals.

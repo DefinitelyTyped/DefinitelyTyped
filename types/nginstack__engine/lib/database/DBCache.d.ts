@@ -9,6 +9,7 @@ declare class DBCache {
     dbDate: Date;
     dbUTCDate: Date;
     initializedSuccessfully: boolean;
+    lastSynchronizedVersion: number;
     getTable(tableName: string): DataSet;
     copyTableStructure(tableName: string, ds: DataSet): void;
     getFieldValue(

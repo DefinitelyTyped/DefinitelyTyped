@@ -39,7 +39,6 @@ declare namespace echarts {
          * + [series-candlestick.itemStyle.borderColor0](https://echarts.apache.org/en/option.htmlseries-candlestick.itemStyle.borderColor0)
          * : border color for bearish candle stick (namely, decrease)
          *
-         *
          * @see https://echarts.apache.org/en/option.html#series-candlestick
          */
         interface SeriesCandlestick {
@@ -54,7 +53,6 @@ declare namespace echarts {
              * Component ID, not specified by default.
              * If specified, it can be used to refer the component in option
              * or API.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.id
              */
@@ -72,7 +70,6 @@ declare namespace echarts {
              * [yAxisIndex](https://echarts.apache.org/en/option.html#series-cartesian2d.yAxisIndex)
              * to assign the corresponding axis component.
              *
-             *
              * @default
              * "cartesian2d"
              * @see https://echarts.apache.org/en/option.html#series-candlestick.coordinateSystem
@@ -84,7 +81,6 @@ declare namespace echarts {
              * [x axis](https://echarts.apache.org/en/option.html#xAxis)
              * to combine with, which is useful for multiple x axes in one chart.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.xAxisIndex
              */
             xAxisIndex?: number | undefined;
@@ -93,7 +89,6 @@ declare namespace echarts {
              * Index of
              * [y axis](https://echarts.apache.org/en/option.html#yAxis)
              * to combine with, which is useful for multiple y axes in one chart.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.yAxisIndex
              */
@@ -106,7 +101,6 @@ declare namespace echarts {
              * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.name
              */
             name?: string | undefined;
@@ -116,7 +110,6 @@ declare namespace echarts {
              * [legend](https://echarts.apache.org/en/option.html#legend)
              * is being hovered.
              *
-             *
              * @default
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-candlestick.legendHoverLink
@@ -125,7 +118,6 @@ declare namespace echarts {
 
             /**
              * Whether to enable animitation when hovering on box.
-             *
              *
              * @default
              * "true"
@@ -147,7 +139,6 @@ declare namespace echarts {
              * + otherwise use `'vertical'`;
              * + otherwise use `'horizontal'`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.layout
              */
             layout?: string | undefined;
@@ -156,7 +147,6 @@ declare namespace echarts {
              * Specify bar width.
              * Absolute value (like `10`) or percentage (like `'20%'`, according
              * to band width) can be used. Auto adapt by default.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.barWidth
              */
@@ -167,7 +157,6 @@ declare namespace echarts {
              * Absolute value (like `10`) or percentage (like `'20%'`, according
              * to band width) can be used. Auto adapt by default.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.barMinWidth
              */
             barMinWidth?: number | undefined;
@@ -177,14 +166,12 @@ declare namespace echarts {
              * Absolute value (like `10`) or percentage (like `'20%'`, according
              * to band width) can be used. Auto adapt by default.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.barMaxWidth
              */
             barMaxWidth?: number | undefined;
 
             /**
              * Item style of candlestick.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle
              */
@@ -201,7 +188,6 @@ declare namespace echarts {
                  * colors.
                  * >
                  * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.itemStyle)
-                 *
                  *
                  * @default
                  * "#c23531"
@@ -222,7 +208,6 @@ declare namespace echarts {
                  * >
                  * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.itemStyle)
                  *
-                 *
                  * @default
                  * #314656
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.color0
@@ -241,7 +226,6 @@ declare namespace echarts {
                  * colors.
                  * >
                  * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.itemStyle)
-                 *
                  *
                  * @default
                  * "#c23531"
@@ -262,7 +246,6 @@ declare namespace echarts {
                  * >
                  * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.itemStyle)
                  *
-                 *
                  * @default
                  * #314656
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.borderColor0
@@ -272,7 +255,6 @@ declare namespace echarts {
                 /**
                  * Border width of candlestick.
                  * There is no border when it is `0`.
-                 *
                  *
                  * @default
                  * 1
@@ -289,14 +271,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.itemStyle)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.shadowBlur
                  */
                 shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.shadowColor
                  */
@@ -305,14 +285,12 @@ declare namespace echarts {
                 /**
                  * Offset distance on the horizontal direction of shadow.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.shadowOffsetY
                  */
@@ -323,7 +301,6 @@ declare namespace echarts {
                  * Supports value from 0 to 1, and the component will not be
                  * drawn when set to 0.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.itemStyle.opacity
                  */
                 opacity?: number | undefined;
@@ -331,7 +308,6 @@ declare namespace echarts {
 
             /**
              * Emphasis style of candlestick.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis
              */
@@ -353,7 +329,6 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.emphasis.itemStyle)
                      *
-                     *
                      * @default
                      * "#c23531"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.color
@@ -372,7 +347,6 @@ declare namespace echarts {
                      * single colors.
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.emphasis.itemStyle)
-                     *
                      *
                      * @default
                      * #314656
@@ -393,7 +367,6 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.emphasis.itemStyle)
                      *
-                     *
                      * @default
                      * "#c23531"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.borderColor
@@ -413,7 +386,6 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.emphasis.itemStyle)
                      *
-                     *
                      * @default
                      * #314656
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.borderColor0
@@ -423,7 +395,6 @@ declare namespace echarts {
                     /**
                      * Border width of candlestick.
                      * There is no border when it is `0`.
-                     *
                      *
                      * @default
                      * 2
@@ -440,14 +411,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.emphasis.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.shadowColor
                      */
@@ -456,14 +425,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.shadowOffsetY
                      */
@@ -473,7 +440,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.emphasis.itemStyle.opacity
                      */
@@ -491,7 +457,6 @@ declare namespace echarts {
              * But when the optimization enabled, the style of single data item
              * can't be customized any more.
              *
-             *
              * @default
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-candlestick.large
@@ -500,7 +465,6 @@ declare namespace echarts {
 
             /**
              * The threshold enabling the drawing optimization.
-             *
              *
              * @default
              * 600
@@ -519,7 +483,6 @@ declare namespace echarts {
              * workflow, which processes and renders data chunk by chunk alone
              * with each frame, avoiding to block the UI thread of the browser.
              *
-             *
              * @default
              * 5000
              * @see https://echarts.apache.org/en/option.html#series-candlestick.progressive
@@ -529,7 +492,6 @@ declare namespace echarts {
             /**
              * If current data amount is over the threshold, "progressive rendering"
              * is enabled.
-             *
              *
              * @default
              * 10000
@@ -544,7 +506,6 @@ declare namespace echarts {
              * + `'mod'`: slice data by mod, which make the data items of each
              * chunk coming from all over the data, bringing better visual effect
              * while progressive rendering.
-             *
              *
              * @default
              * "mod"
@@ -596,7 +557,6 @@ declare namespace echarts {
              * displayed vertically, which is better to show diemsion names.
              * Otherwise, `tooltip` will displayed only value horizontally.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.dimensions
              */
             dimensions?: any[] | undefined;
@@ -634,7 +594,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick)
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.encode
              */
             encode?: object | undefined;
@@ -649,14 +608,12 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick)
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.data
              */
-            data?: (number | SeriesCandlestick.DataObject)[][] | undefined;
+            data?: Array<Array<number | SeriesCandlestick.DataObject>> | undefined;
 
             /**
              * Mark point in a chart.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint
              */
@@ -697,7 +654,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint)
                  *
-                 *
                  * @default
                  * "pin"
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.symbol
@@ -724,7 +680,6 @@ declare namespace echarts {
                  * , and the second parameter `params` is the rest parameters
                  * of data item.
                  *
-                 *
                  * @default
                  * 50
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.symbolSize
@@ -737,14 +692,12 @@ declare namespace echarts {
                  * `symbolRotate` value will be ignored, and compulsively use
                  * tangent angle.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.symbolRotate
                  */
                 symbolRotate?: number | undefined;
 
                 /**
                  * Whether to keep aspect for symbols in the form of `path://`.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.symbolKeepAspect
                  */
@@ -766,7 +719,6 @@ declare namespace echarts {
                  * It can be used to make the arrow in the bottom to be at data
                  * position when symbol is pin.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.symbolOffset
@@ -778,7 +730,6 @@ declare namespace echarts {
                  * Default value is false, for triggering and responding to
                  * mouse events.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.silent
                  */
                 silent?: boolean | undefined;
@@ -786,13 +737,11 @@ declare namespace echarts {
                 /**
                  * Label of mark point.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label
                  */
                 label?: {
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.show
                      */
@@ -830,7 +779,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.position
@@ -844,7 +792,6 @@ declare namespace echarts {
                      * See:
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
-                     *
                      *
                      * @default
                      * 5
@@ -860,7 +807,6 @@ declare namespace echarts {
                      * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rotate
                      */
                     rotate?: number | undefined;
@@ -869,7 +815,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.offset
                      */
@@ -914,7 +859,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -924,7 +868,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -940,7 +883,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -959,7 +901,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.fontWeight
@@ -971,7 +912,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.fontFamily
@@ -980,7 +920,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -1002,7 +941,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.align
                      */
                     align?: string | undefined;
@@ -1021,7 +959,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -1033,7 +970,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.lineHeight
                      */
@@ -1054,7 +990,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.backgroundColor
@@ -1067,7 +1002,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.borderColor
@@ -1077,14 +1011,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.borderRadius
                      */
@@ -1101,14 +1033,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -1119,7 +1049,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -1127,14 +1056,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.shadowOffsetY
                      */
@@ -1160,7 +1087,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.width
                      */
                     width?: number | string | undefined;
@@ -1176,7 +1102,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.height
                      */
                     height?: number | string | undefined;
@@ -1187,7 +1112,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.textBorderColor
@@ -1197,14 +1121,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -1215,7 +1137,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -1223,14 +1144,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.textShadowOffsetY
                      */
@@ -1246,7 +1165,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich
                      */
                     rich?: {
@@ -1259,7 +1177,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -1275,7 +1192,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -1294,7 +1210,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -1306,7 +1221,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -1315,7 +1229,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -1337,7 +1250,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -1356,7 +1268,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -1368,7 +1279,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -1390,7 +1300,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -1403,7 +1312,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -1413,14 +1321,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -1439,14 +1345,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -1457,7 +1361,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -1465,14 +1368,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -1500,7 +1401,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -1517,7 +1417,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -1528,7 +1427,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -1538,14 +1436,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -1556,7 +1452,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -1564,14 +1459,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -1585,7 +1478,6 @@ declare namespace echarts {
                     emphasis?: {
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.show
                          */
@@ -1623,7 +1515,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.position
                          */
                         position?: any[] | string | undefined;
@@ -1635,7 +1526,6 @@ declare namespace echarts {
                          * See:
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
-                         *
                          *
                          * @default
                          * 5
@@ -1651,7 +1541,6 @@ declare namespace echarts {
                          * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rotate
                          */
                         rotate?: number | undefined;
@@ -1660,7 +1549,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.offset
                          */
@@ -1707,7 +1595,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -1717,7 +1604,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -1733,7 +1619,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -1752,7 +1637,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.fontWeight
@@ -1764,7 +1648,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.fontFamily
@@ -1773,7 +1656,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -1795,7 +1677,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.align
                          */
                         align?: string | undefined;
@@ -1814,7 +1695,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -1826,7 +1706,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.emphasis)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.lineHeight
                          */
@@ -1847,7 +1726,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.backgroundColor
@@ -1860,7 +1738,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.borderColor
@@ -1870,14 +1747,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.borderRadius
                          */
@@ -1895,14 +1770,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -1913,7 +1786,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -1921,14 +1793,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.shadowOffsetY
                          */
@@ -1956,7 +1826,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.width
                          */
                         width?: number | string | undefined;
@@ -1973,7 +1842,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.height
                          */
                         height?: number | string | undefined;
@@ -1984,7 +1852,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.textBorderColor
@@ -1994,14 +1861,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -2012,7 +1877,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -2020,14 +1884,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.textShadowOffsetY
                          */
@@ -2043,7 +1905,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich
                          */
                         rich?: {
@@ -2056,7 +1917,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -2072,7 +1932,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -2091,7 +1950,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -2103,7 +1961,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -2112,7 +1969,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -2136,7 +1992,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -2157,7 +2012,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -2170,7 +2024,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -2193,7 +2046,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -2206,7 +2058,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -2216,14 +2067,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -2243,14 +2092,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -2261,7 +2108,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -2269,14 +2115,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -2308,7 +2152,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -2326,7 +2169,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -2337,7 +2179,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -2347,14 +2188,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -2365,7 +2204,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -2373,14 +2211,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -2392,7 +2228,6 @@ declare namespace echarts {
 
                 /**
                  * Mark point style.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle
                  */
@@ -2410,14 +2245,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "#000"
@@ -2428,7 +2261,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.borderWidth
                      */
                     borderWidth?: number | undefined;
@@ -2436,7 +2268,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -2453,14 +2284,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.shadowColor
                      */
@@ -2469,14 +2298,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.shadowOffsetY
                      */
@@ -2486,7 +2313,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.opacity
                      */
@@ -2510,7 +2336,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.itemStyle.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -2518,7 +2343,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "#000"
@@ -2529,7 +2353,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.borderWidth
                          */
                         borderWidth?: number | undefined;
@@ -2537,7 +2360,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -2554,14 +2376,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.itemStyle.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.shadowColor
                          */
@@ -2570,14 +2390,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.shadowOffsetY
                          */
@@ -2587,7 +2405,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.itemStyle.emphasis.opacity
                          */
@@ -2626,13 +2443,11 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data
                  */
                 data?: {
                     /**
                      * Mark point name.
-                     *
                      *
                      * @default
                      * ''
@@ -2650,7 +2465,6 @@ declare namespace echarts {
                      * + `'max'` minimum value.
                      * + `'average'` average value.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.type
                      */
                     type?: string | undefined;
@@ -2662,7 +2476,6 @@ declare namespace echarts {
                      * in dimensions, it could be `0` (xAxis, radiusAxis), `1`
                      * (yAxis, angleAxis), and use the first value axis dimension
                      * by default.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.valueIndex
                      */
@@ -2677,7 +2490,6 @@ declare namespace echarts {
                      * It may be the direct name of a dimension, like `x`, or
                      * `angle` for line charts, or `open`, or `close` for candlestick
                      * charts.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.valueDim
                      */
@@ -2703,15 +2515,10 @@ declare namespace echarts {
                      * value in
                      * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                      *
-                     *
                      * Please notice that in this case `xAxis.data`
                      * must not be written as \[number, number,
                      *
-                     *
-                     *
                      * \], but can only be written \[string, string,
-                     *
-                     *
                      *
                      * \].
                      * Otherwise it is not able to be located by markPoint /
@@ -2721,14 +2528,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.coord
                      */
                     coord?: any[] | undefined;
 
                     /**
                      * X position according to container, in pixel.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.x
                      */
@@ -2737,14 +2542,12 @@ declare namespace echarts {
                     /**
                      * Y position according to container, in pixel.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.y
                      */
                     y?: number | undefined;
 
                     /**
                      * Label value, which can be ignored.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.value
                      */
@@ -2786,7 +2589,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.symbol
                      */
                     symbol?: string | undefined;
@@ -2798,7 +2600,6 @@ declare namespace echarts {
                      * For example, `[20, 10]` means symbol width is `20`, and
                      * height is`10`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.symbolSize
                      */
                     symbolSize?: any[] | number | undefined;
@@ -2809,14 +2610,12 @@ declare namespace echarts {
                      * `symbolRotate` value will be ignored, and compulsively
                      * use tangent angle.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.symbolRotate
                      */
                     symbolRotate?: number | undefined;
 
                     /**
                      * Whether to keep aspect for symbols in the form of `path://`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.symbolKeepAspect
                      */
@@ -2838,7 +2637,6 @@ declare namespace echarts {
                      * It can be used to make the arrow in the bottom to be
                      * at data position when symbol is pin.
                      *
-                     *
                      * @default
                      * [0, 0]
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.symbolOffset
@@ -2847,7 +2645,6 @@ declare namespace echarts {
 
                     /**
                      * Mark point style.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle
                      */
@@ -2866,7 +2663,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -2874,7 +2670,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "#000"
@@ -2885,7 +2680,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.borderWidth
                          */
                         borderWidth?: number | undefined;
@@ -2893,7 +2687,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -2910,14 +2703,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.shadowColor
                          */
@@ -2926,14 +2717,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.shadowOffsetY
                          */
@@ -2943,7 +2732,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.opacity
                          */
@@ -2967,7 +2755,6 @@ declare namespace echarts {
                              * >
                              * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.itemStyle.emphasis)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.color
                              */
                             color?: EChartOption.Color | undefined;
@@ -2975,7 +2762,6 @@ declare namespace echarts {
                             /**
                              * border color, whose format is similar to that
                              * of `color`.
-                             *
                              *
                              * @default
                              * "#000"
@@ -2987,7 +2773,6 @@ declare namespace echarts {
                              * border width.
                              * No border when it is set to be 0.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.borderWidth
                              */
                             borderWidth?: number | undefined;
@@ -2995,7 +2780,6 @@ declare namespace echarts {
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
                              * or `'dotted'`. `'solid'` by default.
-                             *
                              *
                              * @default
                              * "solid"
@@ -3012,14 +2796,12 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.itemStyle.emphasis)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.shadowBlur
                              */
                             shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.shadowColor
                              */
@@ -3029,7 +2811,6 @@ declare namespace echarts {
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
@@ -3037,7 +2818,6 @@ declare namespace echarts {
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.shadowOffsetY
                              */
@@ -3047,7 +2827,6 @@ declare namespace echarts {
                              * Opacity of the component.
                              * Supports value from 0 to 1, and the component
                              * will not be drawn when set to 0.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.itemStyle.emphasis.opacity
                              */
@@ -3061,7 +2840,6 @@ declare namespace echarts {
                     label?: {
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.show
                          */
@@ -3099,7 +2877,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.position
                          */
                         position?: any[] | string | undefined;
@@ -3111,7 +2888,6 @@ declare namespace echarts {
                          * See:
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
-                         *
                          *
                          * @default
                          * 5
@@ -3127,7 +2903,6 @@ declare namespace echarts {
                          * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rotate
                          */
                         rotate?: number | undefined;
@@ -3136,7 +2911,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.offset
                          */
@@ -3147,7 +2921,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -3163,7 +2936,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -3182,7 +2954,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.fontWeight
@@ -3194,7 +2965,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.fontFamily
@@ -3203,7 +2973,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -3225,7 +2994,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.align
                          */
                         align?: string | undefined;
@@ -3244,7 +3012,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -3256,7 +3023,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.lineHeight
                          */
@@ -3277,7 +3043,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.backgroundColor
@@ -3290,7 +3055,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.borderColor
@@ -3300,14 +3064,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.borderRadius
                          */
@@ -3325,14 +3087,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -3343,7 +3103,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -3351,14 +3110,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.shadowOffsetY
                          */
@@ -3386,7 +3143,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.width
                          */
                         width?: number | string | undefined;
@@ -3403,7 +3159,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.height
                          */
                         height?: number | string | undefined;
@@ -3414,7 +3169,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.textBorderColor
@@ -3424,14 +3178,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -3442,7 +3194,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -3450,14 +3201,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.textShadowOffsetY
                          */
@@ -3473,7 +3222,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich
                          */
                         rich?: {
@@ -3486,7 +3234,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -3502,7 +3249,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -3521,7 +3267,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -3533,7 +3278,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -3542,7 +3286,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -3566,7 +3309,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -3587,7 +3329,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -3600,7 +3341,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -3623,7 +3363,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -3636,7 +3375,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -3646,14 +3384,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -3673,14 +3409,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -3691,7 +3425,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -3699,14 +3432,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -3738,7 +3469,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -3756,7 +3486,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -3767,7 +3496,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -3777,14 +3505,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -3795,7 +3521,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -3803,14 +3528,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -3824,7 +3547,6 @@ declare namespace echarts {
                         emphasis?: {
                             /**
                              * Whether to show label.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.show
                              */
@@ -3862,7 +3584,6 @@ declare namespace echarts {
                              * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.position
                              */
                             position?: any[] | string | undefined;
@@ -3874,7 +3595,6 @@ declare namespace echarts {
                              * See:
                              * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
-                             *
                              *
                              * @default
                              * 5
@@ -3890,7 +3610,6 @@ declare namespace echarts {
                              * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rotate
                              */
                             rotate?: number | undefined;
@@ -3899,7 +3618,6 @@ declare namespace echarts {
                              * Whether to move text slightly.
                              * For example: `[30, 40]` means move `30` horizontally
                              * and move `40` vertically.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.offset
                              */
@@ -3910,7 +3628,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -3926,7 +3643,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -3945,7 +3661,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.fontWeight
@@ -3957,7 +3672,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.fontFamily
@@ -3966,7 +3680,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -3988,7 +3701,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.emphasis)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.align
                              */
                             align?: string | undefined;
@@ -4007,7 +3719,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.emphasis)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -4019,7 +3730,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.emphasis)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.lineHeight
                              */
@@ -4041,7 +3751,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.backgroundColor
@@ -4054,7 +3763,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.borderColor
@@ -4064,14 +3772,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.borderRadius
                              */
@@ -4090,14 +3796,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -4108,7 +3812,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -4116,14 +3819,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.shadowOffsetY
                              */
@@ -4151,7 +3852,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.width
                              */
                             width?: number | string | undefined;
@@ -4168,7 +3868,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.height
                              */
                             height?: number | string | undefined;
@@ -4179,7 +3878,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.textBorderColor
@@ -4189,14 +3887,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -4207,7 +3903,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -4215,14 +3910,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.textShadowOffsetY
                              */
@@ -4238,7 +3931,6 @@ declare namespace echarts {
                              * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
@@ -4251,7 +3943,6 @@ declare namespace echarts {
                                      *
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
-                                     *
                                      *
                                      * @default
                                      * ""#fff""
@@ -4267,7 +3958,6 @@ declare namespace echarts {
                                      * + `'normal'`
                                      * + `'italic'`
                                      * + `'oblique'`
-                                     *
                                      *
                                      * @default
                                      * "normal"
@@ -4286,7 +3976,6 @@ declare namespace echarts {
                                      * + `'lighter'`
                                      * + 100 | 200 | 300 | 400...
                                      *
-                                     *
                                      * @default
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -4299,7 +3988,6 @@ declare namespace echarts {
                                      * Can also be 'serif' , 'monospace',
                                      * ...
                                      *
-                                     *
                                      * @default
                                      * "sans-serif"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -4308,7 +3996,6 @@ declare namespace echarts {
 
                                     /**
                                      * font size
-                                     *
                                      *
                                      * @default
                                      * 12
@@ -4332,7 +4019,6 @@ declare namespace echarts {
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string | undefined;
@@ -4353,7 +4039,6 @@ declare namespace echarts {
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string | undefined;
@@ -4366,7 +4051,6 @@ declare namespace echarts {
                                      * used. For example:
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
@@ -4389,7 +4073,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -4402,7 +4085,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -4412,14 +4094,12 @@ declare namespace echarts {
                                     /**
                                      * Border width of the text fregment.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
@@ -4439,14 +4119,12 @@ declare namespace echarts {
                                      * the width and height of the content,
                                      * without `padding`.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -4457,7 +4135,6 @@ declare namespace echarts {
                                     /**
                                      * Show blur of the text block.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number | undefined;
@@ -4465,14 +4142,12 @@ declare namespace echarts {
                                     /**
                                      * Shadow X offset of the text block.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
@@ -4504,7 +4179,6 @@ declare namespace echarts {
                                      * Notice, `width` and `height` only work
                                      * when `rich` specified.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string | undefined;
@@ -4522,7 +4196,6 @@ declare namespace echarts {
                                      * Notice, `width` and `height` only work
                                      * when `rich` specified.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string | undefined;
@@ -4533,7 +4206,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -4543,14 +4215,12 @@ declare namespace echarts {
                                     /**
                                      * Storke line width of the text.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -4561,7 +4231,6 @@ declare namespace echarts {
                                     /**
                                      * Shadow blue of the text itself.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number | undefined;
@@ -4569,14 +4238,12 @@ declare namespace echarts {
                                     /**
                                      * Shadow X offset of the text itself.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
@@ -4590,7 +4257,6 @@ declare namespace echarts {
                 /**
                  * Whether to enable animation.
                  *
-                 *
                  * @default
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.animation
@@ -4601,7 +4267,6 @@ declare namespace echarts {
                  * Whether to set graphic number threshold to animation.
                  * Animation will be disabled when graphic number is larger
                  * than threshold.
-                 *
                  *
                  * @default
                  * 2000
@@ -4615,7 +4280,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint)
                  *
-                 *
                  * @default
                  * 1000
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.animationDuration
@@ -4627,7 +4291,6 @@ declare namespace echarts {
                  * Varied easing effects can be found at
                  * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
-                 *
                  *
                  * @default
                  * "cubicOut"
@@ -4648,7 +4311,6 @@ declare namespace echarts {
                  * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.animationDelay
                  */
                 animationDelay?: Function | number | undefined;
@@ -4659,7 +4321,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markPoint)
                  *
-                 *
                  * @default
                  * 300
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.animationDurationUpdate
@@ -4668,7 +4329,6 @@ declare namespace echarts {
 
                 /**
                  * Easing method used for animation.
-                 *
                  *
                  * @default
                  * "cubicOut"
@@ -4690,7 +4350,6 @@ declare namespace echarts {
                  *
                  * prefix
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markPoint.animationDelayUpdate
                  */
                 animationDelayUpdate?: Function | number | undefined;
@@ -4699,7 +4358,6 @@ declare namespace echarts {
             /**
              * Use a line in the chart to illustrate.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine
              */
             markLine?: {
@@ -4707,7 +4365,6 @@ declare namespace echarts {
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
                  * mouse events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.silent
                  */
@@ -4720,7 +4377,6 @@ declare namespace echarts {
                  * [data.symbol](https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.symbol)
                  * for more format information.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.symbol
                  */
                 symbol?: any[] | string | undefined;
@@ -4732,7 +4388,6 @@ declare namespace echarts {
                  * **Attention:** You cannot assgin width and height seperately
                  * as normal `symbolSize`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.symbolSize
                  */
                 symbolSize?: any[] | number | undefined;
@@ -4740,7 +4395,6 @@ declare namespace echarts {
                 /**
                  * Precison of marking line value, which is useful when displaying
                  * average value mark line.
-                 *
                  *
                  * @default
                  * 2
@@ -4751,13 +4405,11 @@ declare namespace echarts {
                 /**
                  * Mark line text.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.label
                  */
                 label?: {
                     /**
                      * Whether show label or not.
-                     *
                      *
                      * @default
                      * "true"
@@ -4771,7 +4423,6 @@ declare namespace echarts {
                      * + `'start'` starting point of the line.
                      * + `'middle'` middle point of the line.
                      * + `'end'` ending point of the line.
-                     *
                      *
                      * @default
                      * "end"
@@ -4819,7 +4470,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -4830,7 +4480,6 @@ declare namespace echarts {
                     emphasis?: {
                         /**
                          * Whether show label or not.
-                         *
                          *
                          * @default
                          * "true"
@@ -4844,7 +4493,6 @@ declare namespace echarts {
                          * + `'start'` starting point of the line.
                          * + `'middle'` middle point of the line.
                          * + `'end'` ending point of the line.
-                         *
                          *
                          * @default
                          * "end"
@@ -4894,7 +4542,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.label.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.label.emphasis.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -4903,7 +4550,6 @@ declare namespace echarts {
 
                 /**
                  * Mark line style.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle
                  */
@@ -4921,7 +4567,6 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.lineStyle)
                      *
-                     *
                      * @default
                      * "#000"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.color
@@ -4930,7 +4575,6 @@ declare namespace echarts {
 
                     /**
                      * line width.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.width
                      */
@@ -4944,7 +4588,6 @@ declare namespace echarts {
                      * + `'solid'`
                      * + `'dashed'`
                      * + `'dotted'`
-                     *
                      *
                      * @default
                      * "solid"
@@ -4961,14 +4604,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.lineStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.shadowColor
                      */
@@ -4977,14 +4618,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.shadowOffsetY
                      */
@@ -4995,7 +4634,6 @@ declare namespace echarts {
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.opacity
                      */
                     opacity?: number | undefined;
@@ -5003,7 +4641,6 @@ declare namespace echarts {
                     /**
                      * Edge curvature, which supports value from 0 to 1.
                      * The larger the value, the greater the curvature.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.curveness
                      */
@@ -5027,7 +4664,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.lineStyle.emphasis)
                          *
-                         *
                          * @default
                          * "#000"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.color
@@ -5036,7 +4672,6 @@ declare namespace echarts {
 
                         /**
                          * line width.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.width
                          */
@@ -5050,7 +4685,6 @@ declare namespace echarts {
                          * + `'solid'`
                          * + `'dashed'`
                          * + `'dotted'`
-                         *
                          *
                          * @default
                          * "solid"
@@ -5067,14 +4701,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.lineStyle.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.shadowColor
                          */
@@ -5083,14 +4715,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.shadowOffsetY
                          */
@@ -5100,7 +4730,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.lineStyle.emphasis.opacity
                          */
@@ -5152,13 +4781,11 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data
                  */
                 data?: {
                     /**
                      * Data of the starting point.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0
                      */
@@ -5172,7 +4799,6 @@ declare namespace echarts {
                          * + `'min'` maximum value.
                          * + `'max'` minimum value.
                          * + `'average'` average value.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.type
                          */
@@ -5188,7 +4814,6 @@ declare namespace echarts {
                          * (for yAxis, or angleAxis).
                          * Dimension of the first numeric axis is used by default.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.valueIndex
                          */
                         valueIndex?: number | undefined;
@@ -5202,7 +4827,6 @@ declare namespace echarts {
                          * It may be the direct name of a dimension, like `x`,
                          * or `angle` for line charts, or `open`, or `close`
                          * for candlestick charts.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.valueDim
                          */
@@ -5229,15 +4853,10 @@ declare namespace echarts {
                          * value in
                          * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                          *
-                         *
                          * Please notice that in this case `xAxis.data`
                          * must not be written as \[number, number,
                          *
-                         *
-                         *
                          * \], but can only be written \[string, string,
-                         *
-                         *
                          *
                          * \].
                          * Otherwise it is not able to be located by markPoint
@@ -5247,14 +4866,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.0)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.coord
                          */
                         coord?: any[] | undefined;
 
                         /**
                          * Name of the marker, which will display as a label.
-                         *
                          *
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-candlestick.markLine.data.0.name
                          */
@@ -5263,14 +4880,12 @@ declare namespace echarts {
                         /**
                          * X position according to container, in pixel.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.x
                          */
                         x?: number | undefined;
 
                         /**
                          * Y position according to container, in pixel.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.y
                          */
@@ -5288,12 +4903,11 @@ declare namespace echarts {
                          *     xAxis: '2020-01-01'
                          * }]
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.xAxis
                          */
                         xAxis?: number | string | undefined;
 
-                         /**
+                        /**
                          * Markline at y at given value, which only works for single data item. Example:
                          * data: [{
                          *     name: 'A horizontal line with X valued 100',
@@ -5305,14 +4919,12 @@ declare namespace echarts {
                          *     yAxis: '2020-01-01'
                          * }]
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.yAxis
                          */
                         yAxis?: number | string | undefined;
 
                         /**
                          * Label value, which can be ignored.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.value
                          */
@@ -5356,7 +4968,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.0)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.symbol
                          */
                         symbol?: string | undefined;
@@ -5368,7 +4979,6 @@ declare namespace echarts {
                          * For example, `[20, 10]` means symbol width is `20`,
                          * and height is`10`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.symbolSize
                          */
                         symbolSize?: any[] | number | undefined;
@@ -5379,7 +4989,6 @@ declare namespace echarts {
                          * `markLine`, `symbolRotate` value will be ignored,
                          * and compulsively use tangent angle.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.symbolRotate
                          */
                         symbolRotate?: number | undefined;
@@ -5387,7 +4996,6 @@ declare namespace echarts {
                         /**
                          * Whether to keep aspect for symbols in the form of
                          * `path://`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.symbolKeepAspect
                          */
@@ -5410,7 +5018,6 @@ declare namespace echarts {
                          * It can be used to make the arrow in the bottom to
                          * be at data position when symbol is pin.
                          *
-                         *
                          * @default
                          * [0, 0]
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.symbolOffset
@@ -5420,7 +5027,6 @@ declare namespace echarts {
                         /**
                          * Line style of this data item, which will be merged
                          * with `lineStyle` of starting point and ending point.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle
                          */
@@ -5439,7 +5045,6 @@ declare namespace echarts {
                              * >
                              * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.0.lineStyle)
                              *
-                             *
                              * @default
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.color
@@ -5448,7 +5053,6 @@ declare namespace echarts {
 
                             /**
                              * line width.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.width
                              */
@@ -5462,7 +5066,6 @@ declare namespace echarts {
                              * + `'solid'`
                              * + `'dashed'`
                              * + `'dotted'`
-                             *
                              *
                              * @default
                              * "solid"
@@ -5479,14 +5082,12 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.0.lineStyle)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.shadowBlur
                              */
                             shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.shadowColor
                              */
@@ -5496,7 +5097,6 @@ declare namespace echarts {
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
@@ -5504,7 +5104,6 @@ declare namespace echarts {
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.shadowOffsetY
                              */
@@ -5515,7 +5114,6 @@ declare namespace echarts {
                              * Supports value from 0 to 1, and the component
                              * will not be drawn when set to 0.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.opacity
                              */
                             opacity?: number | undefined;
@@ -5524,7 +5122,6 @@ declare namespace echarts {
                              * Edge curvature, which supports value from 0 to
                              * 1.
                              * The larger the value, the greater the curvature.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.curveness
                              */
@@ -5548,7 +5145,6 @@ declare namespace echarts {
                                  * >
                                  * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.0.lineStyle.emphasis)
                                  *
-                                 *
                                  * @default
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.color
@@ -5557,7 +5153,6 @@ declare namespace echarts {
 
                                 /**
                                  * line width.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.width
                                  */
@@ -5571,7 +5166,6 @@ declare namespace echarts {
                                  * + `'solid'`
                                  * + `'dashed'`
                                  * + `'dotted'`
-                                 *
                                  *
                                  * @default
                                  * "solid"
@@ -5589,7 +5183,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.0.lineStyle.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -5597,7 +5190,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow color.
                                  * Support same format as `color`.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.shadowColor
                                  */
@@ -5607,7 +5199,6 @@ declare namespace echarts {
                                  * Offset distance on the horizontal direction
                                  * of shadow.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
@@ -5615,7 +5206,6 @@ declare namespace echarts {
                                 /**
                                  * Offset distance on the vertical direction
                                  * of shadow.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.shadowOffsetY
                                  */
@@ -5626,7 +5216,6 @@ declare namespace echarts {
                                  * Supports value from 0 to 1, and the component
                                  * will not be drawn when set to 0.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.opacity
                                  */
                                 opacity?: number | undefined;
@@ -5635,7 +5224,6 @@ declare namespace echarts {
                                  * Edge curvature, which supports value from
                                  * 0 to 1.
                                  * The larger the value, the greater the curvature.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.lineStyle.emphasis.curveness
                                  */
@@ -5647,13 +5235,11 @@ declare namespace echarts {
                          * Label of this data item, which will be merged with
                          * `label` of starting point and ending point.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.label
                          */
                         label?: {
                             /**
                              * Whether show label or not.
-                             *
                              *
                              * @default
                              * "true"
@@ -5667,7 +5253,6 @@ declare namespace echarts {
                              * + `'start'` starting point of the line.
                              * + `'middle'` middle point of the line.
                              * + `'end'` ending point of the line.
-                             *
                              *
                              * @default
                              * "end"
@@ -5717,7 +5302,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.0.label)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.label.formatter
                              */
                             formatter?: Function | string | undefined;
@@ -5728,7 +5312,6 @@ declare namespace echarts {
                             emphasis?: {
                                 /**
                                  * Whether show label or not.
-                                 *
                                  *
                                  * @default
                                  * "true"
@@ -5742,7 +5325,6 @@ declare namespace echarts {
                                  * + `'start'` starting point of the line.
                                  * + `'middle'` middle point of the line.
                                  * + `'end'` ending point of the line.
-                                 *
                                  *
                                  * @default
                                  * "end"
@@ -5792,7 +5374,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.0.label.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.0.label.emphasis.formatter
                                  */
                                 formatter?: Function | string | undefined;
@@ -5802,7 +5383,6 @@ declare namespace echarts {
 
                     /**
                      * Data of the ending point.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1
                      */
@@ -5816,7 +5396,6 @@ declare namespace echarts {
                          * + `'min'` maximum value.
                          * + `'max'` minimum value.
                          * + `'average'` average value.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.type
                          */
@@ -5832,7 +5411,6 @@ declare namespace echarts {
                          * (for yAxis, or angleAxis).
                          * Dimension of the first numeric axis is used by default.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.valueIndex
                          */
                         valueIndex?: number | undefined;
@@ -5846,7 +5424,6 @@ declare namespace echarts {
                          * It may be the direct name of a dimension, like `x`,
                          * or `angle` for line charts, or `open`, or `close`
                          * for candlestick charts.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.valueDim
                          */
@@ -5873,15 +5450,10 @@ declare namespace echarts {
                          * value in
                          * [axis.data](https://echarts.apache.org/en/option.html#xAxis.data)
                          *
-                         *
                          * Please notice that in this case `xAxis.data`
                          * must not be written as \[number, number,
                          *
-                         *
-                         *
                          * \], but can only be written \[string, string,
-                         *
-                         *
                          *
                          * \].
                          * Otherwise it is not able to be located by markPoint
@@ -5891,14 +5463,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.1)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.coord
                          */
                         coord?: any[] | undefined;
 
                         /**
                          * Name of the marker, which will display as a label.
-                         *
                          *
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-candlestick.markLine.data.1.name
                          */
@@ -5907,7 +5477,6 @@ declare namespace echarts {
                         /**
                          * X position according to container, in pixel.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.x
                          */
                         x?: number | undefined;
@@ -5915,14 +5484,12 @@ declare namespace echarts {
                         /**
                          * Y position according to container, in pixel.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.y
                          */
                         y?: number | undefined;
 
                         /**
                          * Label value, which can be ignored.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.value
                          */
@@ -5966,7 +5533,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.1)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.symbol
                          */
                         symbol?: string | undefined;
@@ -5978,7 +5544,6 @@ declare namespace echarts {
                          * For example, `[20, 10]` means symbol width is `20`,
                          * and height is`10`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.symbolSize
                          */
                         symbolSize?: any[] | number | undefined;
@@ -5989,7 +5554,6 @@ declare namespace echarts {
                          * `markLine`, `symbolRotate` value will be ignored,
                          * and compulsively use tangent angle.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.symbolRotate
                          */
                         symbolRotate?: number | undefined;
@@ -5997,7 +5561,6 @@ declare namespace echarts {
                         /**
                          * Whether to keep aspect for symbols in the form of
                          * `path://`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.symbolKeepAspect
                          */
@@ -6020,7 +5583,6 @@ declare namespace echarts {
                          * It can be used to make the arrow in the bottom to
                          * be at data position when symbol is pin.
                          *
-                         *
                          * @default
                          * [0, 0]
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.symbolOffset
@@ -6030,7 +5592,6 @@ declare namespace echarts {
                         /**
                          * Line style of this data item, which will be merged
                          * with `lineStyle` of starting point and ending point.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle
                          */
@@ -6049,7 +5610,6 @@ declare namespace echarts {
                              * >
                              * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.1.lineStyle)
                              *
-                             *
                              * @default
                              * "#000"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.color
@@ -6058,7 +5618,6 @@ declare namespace echarts {
 
                             /**
                              * line width.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.width
                              */
@@ -6072,7 +5631,6 @@ declare namespace echarts {
                              * + `'solid'`
                              * + `'dashed'`
                              * + `'dotted'`
-                             *
                              *
                              * @default
                              * "solid"
@@ -6089,14 +5647,12 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.1.lineStyle)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.shadowBlur
                              */
                             shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.shadowColor
                              */
@@ -6106,7 +5662,6 @@ declare namespace echarts {
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
@@ -6114,7 +5669,6 @@ declare namespace echarts {
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.shadowOffsetY
                              */
@@ -6125,7 +5679,6 @@ declare namespace echarts {
                              * Supports value from 0 to 1, and the component
                              * will not be drawn when set to 0.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.opacity
                              */
                             opacity?: number | undefined;
@@ -6134,7 +5687,6 @@ declare namespace echarts {
                              * Edge curvature, which supports value from 0 to
                              * 1.
                              * The larger the value, the greater the curvature.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.curveness
                              */
@@ -6158,7 +5710,6 @@ declare namespace echarts {
                                  * >
                                  * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.1.lineStyle.emphasis)
                                  *
-                                 *
                                  * @default
                                  * "#000"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.color
@@ -6167,7 +5718,6 @@ declare namespace echarts {
 
                                 /**
                                  * line width.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.width
                                  */
@@ -6181,7 +5731,6 @@ declare namespace echarts {
                                  * + `'solid'`
                                  * + `'dashed'`
                                  * + `'dotted'`
-                                 *
                                  *
                                  * @default
                                  * "solid"
@@ -6199,7 +5748,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.1.lineStyle.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -6207,7 +5755,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow color.
                                  * Support same format as `color`.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.shadowColor
                                  */
@@ -6217,7 +5764,6 @@ declare namespace echarts {
                                  * Offset distance on the horizontal direction
                                  * of shadow.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
@@ -6225,7 +5771,6 @@ declare namespace echarts {
                                 /**
                                  * Offset distance on the vertical direction
                                  * of shadow.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.shadowOffsetY
                                  */
@@ -6236,7 +5781,6 @@ declare namespace echarts {
                                  * Supports value from 0 to 1, and the component
                                  * will not be drawn when set to 0.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.opacity
                                  */
                                 opacity?: number | undefined;
@@ -6245,7 +5789,6 @@ declare namespace echarts {
                                  * Edge curvature, which supports value from
                                  * 0 to 1.
                                  * The larger the value, the greater the curvature.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.lineStyle.emphasis.curveness
                                  */
@@ -6257,13 +5800,11 @@ declare namespace echarts {
                          * Label of this data item, which will be merged with
                          * `label` of starting point and ending point.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.label
                          */
                         label?: {
                             /**
                              * Whether show label or not.
-                             *
                              *
                              * @default
                              * "true"
@@ -6277,7 +5818,6 @@ declare namespace echarts {
                              * + `'start'` starting point of the line.
                              * + `'middle'` middle point of the line.
                              * + `'end'` ending point of the line.
-                             *
                              *
                              * @default
                              * "end"
@@ -6327,7 +5867,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.1.label)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.label.formatter
                              */
                             formatter?: Function | string | undefined;
@@ -6338,7 +5877,6 @@ declare namespace echarts {
                             emphasis?: {
                                 /**
                                  * Whether show label or not.
-                                 *
                                  *
                                  * @default
                                  * "true"
@@ -6352,7 +5890,6 @@ declare namespace echarts {
                                  * + `'start'` starting point of the line.
                                  * + `'middle'` middle point of the line.
                                  * + `'end'` ending point of the line.
-                                 *
                                  *
                                  * @default
                                  * "end"
@@ -6402,7 +5939,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine.data.1.label.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.data.1.label.emphasis.formatter
                                  */
                                 formatter?: Function | string | undefined;
@@ -6414,7 +5950,6 @@ declare namespace echarts {
                 /**
                  * Whether to enable animation.
                  *
-                 *
                  * @default
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.animation
@@ -6425,7 +5960,6 @@ declare namespace echarts {
                  * Whether to set graphic number threshold to animation.
                  * Animation will be disabled when graphic number is larger
                  * than threshold.
-                 *
                  *
                  * @default
                  * 2000
@@ -6439,7 +5973,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine)
                  *
-                 *
                  * @default
                  * 1000
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.animationDuration
@@ -6451,7 +5984,6 @@ declare namespace echarts {
                  * Varied easing effects can be found at
                  * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
-                 *
                  *
                  * @default
                  * "cubicOut"
@@ -6472,7 +6004,6 @@ declare namespace echarts {
                  * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.animationDelay
                  */
                 animationDelay?: Function | number | undefined;
@@ -6483,7 +6014,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markLine)
                  *
-                 *
                  * @default
                  * 300
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.animationDurationUpdate
@@ -6492,7 +6022,6 @@ declare namespace echarts {
 
                 /**
                  * Easing method used for animation.
-                 *
                  *
                  * @default
                  * "cubicOut"
@@ -6512,7 +6041,6 @@ declare namespace echarts {
                  * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markLine.animationDelayUpdate
                  */
                 animationDelayUpdate?: Function | number | undefined;
@@ -6522,7 +6050,6 @@ declare namespace echarts {
              * Used to mark an area in chart.
              * For example, mark a time interval.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea
              */
             markArea?: {
@@ -6531,7 +6058,6 @@ declare namespace echarts {
                  * Default value is false, for triggering and responding to
                  * mouse events.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.silent
                  */
                 silent?: boolean | undefined;
@@ -6539,13 +6065,11 @@ declare namespace echarts {
                 /**
                  * Label in mark area.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label
                  */
                 label?: {
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.show
                      */
@@ -6583,7 +6107,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.position
                      */
                     position?: any[] | string | undefined;
@@ -6595,7 +6118,6 @@ declare namespace echarts {
                      * See:
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
-                     *
                      *
                      * @default
                      * 5
@@ -6611,7 +6133,6 @@ declare namespace echarts {
                      * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rotate
                      */
                     rotate?: number | undefined;
@@ -6620,7 +6141,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.offset
                      */
@@ -6631,7 +6151,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -6647,7 +6166,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -6666,7 +6184,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.fontWeight
@@ -6678,7 +6195,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.fontFamily
@@ -6687,7 +6203,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -6709,7 +6224,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.align
                      */
                     align?: string | undefined;
@@ -6728,7 +6242,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -6740,7 +6253,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.lineHeight
                      */
@@ -6761,7 +6273,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.backgroundColor
@@ -6774,7 +6285,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.borderColor
@@ -6784,14 +6294,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.borderRadius
                      */
@@ -6808,14 +6316,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -6826,7 +6332,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -6834,14 +6339,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.shadowOffsetY
                      */
@@ -6867,7 +6370,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.width
                      */
                     width?: number | string | undefined;
@@ -6883,7 +6385,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.height
                      */
                     height?: number | string | undefined;
@@ -6894,7 +6395,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.textBorderColor
@@ -6904,14 +6404,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -6922,7 +6420,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -6930,14 +6427,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.textShadowOffsetY
                      */
@@ -6953,7 +6448,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich
                      */
                     rich?: {
@@ -6966,7 +6460,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -6982,7 +6475,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -7001,7 +6493,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -7013,7 +6504,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -7022,7 +6512,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -7044,7 +6533,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -7063,7 +6551,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -7075,7 +6562,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -7097,7 +6583,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -7110,7 +6595,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -7120,14 +6604,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -7146,14 +6628,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -7164,7 +6644,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -7172,14 +6651,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -7207,7 +6684,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -7224,7 +6700,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -7235,7 +6710,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -7245,14 +6719,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -7263,7 +6735,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -7271,14 +6742,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -7292,7 +6761,6 @@ declare namespace echarts {
                     emphasis?: {
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.show
                          */
@@ -7330,7 +6798,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.position
                          */
                         position?: any[] | string | undefined;
@@ -7342,7 +6809,6 @@ declare namespace echarts {
                          * See:
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
-                         *
                          *
                          * @default
                          * 5
@@ -7358,7 +6824,6 @@ declare namespace echarts {
                          * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rotate
                          */
                         rotate?: number | undefined;
@@ -7367,7 +6832,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.offset
                          */
@@ -7378,7 +6842,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -7394,7 +6857,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -7413,7 +6875,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.fontWeight
@@ -7425,7 +6886,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.fontFamily
@@ -7434,7 +6894,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -7456,7 +6915,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.align
                          */
                         align?: string | undefined;
@@ -7475,7 +6933,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -7487,7 +6944,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.emphasis)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.lineHeight
                          */
@@ -7508,7 +6964,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.backgroundColor
@@ -7521,7 +6976,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.borderColor
@@ -7531,14 +6985,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.borderRadius
                          */
@@ -7556,14 +7008,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -7574,7 +7024,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -7582,14 +7031,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.shadowOffsetY
                          */
@@ -7617,7 +7064,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.width
                          */
                         width?: number | string | undefined;
@@ -7634,7 +7080,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.height
                          */
                         height?: number | string | undefined;
@@ -7645,7 +7090,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.textBorderColor
@@ -7655,14 +7099,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -7673,7 +7115,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -7681,14 +7122,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.textShadowOffsetY
                          */
@@ -7704,7 +7143,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich
                          */
                         rich?: {
@@ -7717,7 +7155,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -7733,7 +7170,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -7752,7 +7188,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -7764,7 +7199,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -7773,7 +7207,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -7797,7 +7230,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -7818,7 +7250,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -7831,7 +7262,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -7854,7 +7284,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -7867,7 +7296,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -7877,14 +7305,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -7904,14 +7330,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -7922,7 +7346,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -7930,14 +7353,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -7969,7 +7390,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -7987,7 +7407,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -7998,7 +7417,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -8008,14 +7426,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -8026,7 +7442,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -8034,14 +7449,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -8053,7 +7466,6 @@ declare namespace echarts {
 
                 /**
                  * Style of the mark area.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle
                  */
@@ -8071,14 +7483,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "#000"
@@ -8089,7 +7499,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.borderWidth
                      */
                     borderWidth?: number | undefined;
@@ -8097,7 +7506,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -8114,14 +7522,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.shadowColor
                      */
@@ -8130,14 +7536,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.shadowOffsetY
                      */
@@ -8147,7 +7551,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.opacity
                      */
@@ -8171,7 +7574,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.itemStyle.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -8179,7 +7581,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "#000"
@@ -8190,7 +7591,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.borderWidth
                          */
                         borderWidth?: number | undefined;
@@ -8198,7 +7598,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -8215,14 +7614,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.itemStyle.emphasis)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.shadowColor
                          */
@@ -8231,14 +7628,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.shadowOffsetY
                          */
@@ -8248,7 +7643,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.itemStyle.emphasis.opacity
                          */
@@ -8299,13 +7693,11 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data
                  */
                 data?: {
                     /**
                      * Specify the left-top point.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0
                      */
@@ -8318,7 +7710,6 @@ declare namespace echarts {
                          * + `'min'` max value。
                          * + `'max'` min value。
                          * + `'average'` average value。
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.type
                          */
@@ -8333,7 +7724,6 @@ declare namespace echarts {
                          * `1` (means yAxis, angleAxis), using the dimension
                          * of the first axis by default.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.valueIndex
                          */
                         valueIndex?: number | undefined;
@@ -8347,7 +7737,6 @@ declare namespace echarts {
                          * the value can be `x`, `angle` in line chart, and
                          * `open`, `close` in candlestick).
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.valueDim
                          */
                         valueDim?: string | undefined;
@@ -8360,14 +7749,12 @@ declare namespace echarts {
                          * [polar](https://echarts.apache.org/en/option.html#polar)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.coord
                          */
                         coord?: any[] | undefined;
 
                         /**
                          * Name of the marker, which will display as a label.
-                         *
                          *
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-candlestick.markArea.data.0.name
                          */
@@ -8377,7 +7764,6 @@ declare namespace echarts {
                          * x value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.x
                          */
                         x?: number | undefined;
@@ -8386,14 +7772,12 @@ declare namespace echarts {
                          * y value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.y
                          */
                         y?: number | undefined;
 
                         /**
                          * value of the item, not necessary.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.value
                          */
@@ -8403,7 +7787,6 @@ declare namespace echarts {
                          * Style of the item.
                          * `itemStyle` of start point and end point will be
                          * merged together.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle
                          */
@@ -8422,7 +7805,6 @@ declare namespace echarts {
                              * >
                              * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.itemStyle)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.color
                              */
                             color?: EChartOption.Color | undefined;
@@ -8430,7 +7812,6 @@ declare namespace echarts {
                             /**
                              * border color, whose format is similar to that
                              * of `color`.
-                             *
                              *
                              * @default
                              * "#000"
@@ -8442,7 +7823,6 @@ declare namespace echarts {
                              * border width.
                              * No border when it is set to be 0.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.borderWidth
                              */
                             borderWidth?: number | undefined;
@@ -8450,7 +7830,6 @@ declare namespace echarts {
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
                              * or `'dotted'`. `'solid'` by default.
-                             *
                              *
                              * @default
                              * "solid"
@@ -8467,14 +7846,12 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.itemStyle)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.shadowBlur
                              */
                             shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.shadowColor
                              */
@@ -8484,7 +7861,6 @@ declare namespace echarts {
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
@@ -8492,7 +7868,6 @@ declare namespace echarts {
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.shadowOffsetY
                              */
@@ -8502,7 +7877,6 @@ declare namespace echarts {
                              * Opacity of the component.
                              * Supports value from 0 to 1, and the component
                              * will not be drawn when set to 0.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.opacity
                              */
@@ -8526,7 +7900,6 @@ declare namespace echarts {
                                  * >
                                  * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.itemStyle.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.color
                                  */
                                 color?: EChartOption.Color | undefined;
@@ -8534,7 +7907,6 @@ declare namespace echarts {
                                 /**
                                  * border color, whose format is similar to
                                  * that of `color`.
-                                 *
                                  *
                                  * @default
                                  * "#000"
@@ -8546,7 +7918,6 @@ declare namespace echarts {
                                  * border width.
                                  * No border when it is set to be 0.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.borderWidth
                                  */
                                 borderWidth?: number | undefined;
@@ -8554,7 +7925,6 @@ declare namespace echarts {
                                 /**
                                  * Border type, which can be `'solid'`, `'dashed'`,
                                  * or `'dotted'`. `'solid'` by default.
-                                 *
                                  *
                                  * @default
                                  * "solid"
@@ -8572,7 +7942,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.itemStyle.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -8580,7 +7949,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow color.
                                  * Support same format as `color`.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.shadowColor
                                  */
@@ -8590,7 +7958,6 @@ declare namespace echarts {
                                  * Offset distance on the horizontal direction
                                  * of shadow.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
@@ -8598,7 +7965,6 @@ declare namespace echarts {
                                 /**
                                  * Offset distance on the vertical direction
                                  * of shadow.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.shadowOffsetY
                                  */
@@ -8608,7 +7974,6 @@ declare namespace echarts {
                                  * Opacity of the component.
                                  * Supports value from 0 to 1, and the component
                                  * will not be drawn when set to 0.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.itemStyle.emphasis.opacity
                                  */
@@ -8621,13 +7986,11 @@ declare namespace echarts {
                          * Label style of start point and end point will be
                          * merged together.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label
                          */
                         label?: {
                             /**
                              * Whether to show label.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.show
                              */
@@ -8665,7 +8028,6 @@ declare namespace echarts {
                              * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.position
                              */
                             position?: any[] | string | undefined;
@@ -8677,7 +8039,6 @@ declare namespace echarts {
                              * See:
                              * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
-                             *
                              *
                              * @default
                              * 5
@@ -8693,7 +8054,6 @@ declare namespace echarts {
                              * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rotate
                              */
                             rotate?: number | undefined;
@@ -8702,7 +8062,6 @@ declare namespace echarts {
                              * Whether to move text slightly.
                              * For example: `[30, 40]` means move `30` horizontally
                              * and move `40` vertically.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.offset
                              */
@@ -8713,7 +8072,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -8729,7 +8087,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -8748,7 +8105,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.fontWeight
@@ -8760,7 +8116,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.fontFamily
@@ -8769,7 +8124,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -8791,7 +8145,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.align
                              */
                             align?: string | undefined;
@@ -8810,7 +8163,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -8822,7 +8174,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.lineHeight
                              */
@@ -8844,7 +8195,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.backgroundColor
@@ -8857,7 +8207,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.borderColor
@@ -8867,14 +8216,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.borderRadius
                              */
@@ -8893,14 +8240,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -8911,7 +8256,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -8919,14 +8263,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.shadowOffsetY
                              */
@@ -8954,7 +8296,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.width
                              */
                             width?: number | string | undefined;
@@ -8971,7 +8312,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.height
                              */
                             height?: number | string | undefined;
@@ -8982,7 +8322,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.textBorderColor
@@ -8992,14 +8331,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -9010,7 +8347,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -9018,14 +8354,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.textShadowOffsetY
                              */
@@ -9041,7 +8375,6 @@ declare namespace echarts {
                              * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich
                              */
                             rich?: {
@@ -9054,7 +8387,6 @@ declare namespace echarts {
                                      *
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
-                                     *
                                      *
                                      * @default
                                      * ""#fff""
@@ -9070,7 +8402,6 @@ declare namespace echarts {
                                      * + `'normal'`
                                      * + `'italic'`
                                      * + `'oblique'`
-                                     *
                                      *
                                      * @default
                                      * "normal"
@@ -9089,7 +8420,6 @@ declare namespace echarts {
                                      * + `'lighter'`
                                      * + 100 | 200 | 300 | 400...
                                      *
-                                     *
                                      * @default
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -9102,7 +8432,6 @@ declare namespace echarts {
                                      * Can also be 'serif' , 'monospace',
                                      * ...
                                      *
-                                     *
                                      * @default
                                      * "sans-serif"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -9111,7 +8440,6 @@ declare namespace echarts {
 
                                     /**
                                      * font size
-                                     *
                                      *
                                      * @default
                                      * 12
@@ -9135,7 +8463,6 @@ declare namespace echarts {
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string | undefined;
@@ -9156,7 +8483,6 @@ declare namespace echarts {
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string | undefined;
@@ -9169,7 +8495,6 @@ declare namespace echarts {
                                      * used. For example:
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
@@ -9192,7 +8517,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -9205,7 +8529,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -9215,14 +8538,12 @@ declare namespace echarts {
                                     /**
                                      * Border width of the text fregment.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
@@ -9242,14 +8563,12 @@ declare namespace echarts {
                                      * the width and height of the content,
                                      * without `padding`.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -9260,7 +8579,6 @@ declare namespace echarts {
                                     /**
                                      * Show blur of the text block.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number | undefined;
@@ -9268,14 +8586,12 @@ declare namespace echarts {
                                     /**
                                      * Shadow X offset of the text block.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
@@ -9307,7 +8623,6 @@ declare namespace echarts {
                                      * Notice, `width` and `height` only work
                                      * when `rich` specified.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string | undefined;
@@ -9325,7 +8640,6 @@ declare namespace echarts {
                                      * Notice, `width` and `height` only work
                                      * when `rich` specified.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string | undefined;
@@ -9336,7 +8650,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -9346,14 +8659,12 @@ declare namespace echarts {
                                     /**
                                      * Storke line width of the text.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -9364,7 +8675,6 @@ declare namespace echarts {
                                     /**
                                      * Shadow blue of the text itself.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number | undefined;
@@ -9372,14 +8682,12 @@ declare namespace echarts {
                                     /**
                                      * Shadow X offset of the text itself.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
@@ -9393,7 +8701,6 @@ declare namespace echarts {
                             emphasis?: {
                                 /**
                                  * Whether to show label.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.show
                                  */
@@ -9432,7 +8739,6 @@ declare namespace echarts {
                                  * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                                  * .
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.position
                                  */
                                 position?: any[] | string | undefined;
@@ -9445,7 +8751,6 @@ declare namespace echarts {
                                  * See:
                                  * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                                  * .
-                                 *
                                  *
                                  * @default
                                  * 5
@@ -9461,7 +8766,6 @@ declare namespace echarts {
                                  * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                                  * .
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rotate
                                  */
                                 rotate?: number | undefined;
@@ -9470,7 +8774,6 @@ declare namespace echarts {
                                  * Whether to move text slightly.
                                  * For example: `[30, 40]` means move `30` horizontally
                                  * and move `40` vertically.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.offset
                                  */
@@ -9481,7 +8784,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -9497,7 +8799,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -9516,7 +8817,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.fontWeight
@@ -9528,7 +8828,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.fontFamily
@@ -9537,7 +8836,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -9561,7 +8859,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.align
                                  */
                                 align?: string | undefined;
@@ -9582,7 +8879,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -9595,7 +8891,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.emphasis)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.lineHeight
                                  */
@@ -9618,7 +8913,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.backgroundColor
@@ -9631,7 +8925,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.borderColor
@@ -9641,14 +8934,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.borderRadius
                                  */
@@ -9668,14 +8959,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -9686,7 +8975,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -9694,14 +8982,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.shadowOffsetY
                                  */
@@ -9733,7 +9019,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.width
                                  */
                                 width?: number | string | undefined;
@@ -9751,7 +9036,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.height
                                  */
                                 height?: number | string | undefined;
@@ -9762,7 +9046,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.textBorderColor
@@ -9772,14 +9055,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -9790,7 +9071,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -9798,14 +9078,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.textShadowOffsetY
                                  */
@@ -9821,7 +9099,6 @@ declare namespace echarts {
                                  * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                                  * please.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
@@ -9835,7 +9112,6 @@ declare namespace echarts {
                                          * If set as `'auto'`, the color will
                                          * assigned as visual color, such as
                                          * series color.
-                                         *
                                          *
                                          * @default
                                          * ""#fff""
@@ -9851,7 +9127,6 @@ declare namespace echarts {
                                          * + `'normal'`
                                          * + `'italic'`
                                          * + `'oblique'`
-                                         *
                                          *
                                          * @default
                                          * "normal"
@@ -9870,7 +9145,6 @@ declare namespace echarts {
                                          * + `'lighter'`
                                          * + 100 | 200 | 300 | 400...
                                          *
-                                         *
                                          * @default
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -9883,7 +9157,6 @@ declare namespace echarts {
                                          * Can also be 'serif' , 'monospace',
                                          * ...
                                          *
-                                         *
                                          * @default
                                          * "sans-serif"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -9892,7 +9165,6 @@ declare namespace echarts {
 
                                         /**
                                          * font size
-                                         *
                                          *
                                          * @default
                                          * 12
@@ -9916,7 +9188,6 @@ declare namespace echarts {
                                          *
                                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
                                         align?: string | undefined;
@@ -9937,7 +9208,6 @@ declare namespace echarts {
                                          *
                                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
                                         verticalAlign?: string | undefined;
@@ -9950,7 +9220,6 @@ declare namespace echarts {
                                          * be used. For example:
                                          *
                                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
-                                         *
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
@@ -9974,7 +9243,6 @@ declare namespace echarts {
                                          * assigned as visual color, such as
                                          * series color.
                                          *
-                                         *
                                          * @default
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -9988,7 +9256,6 @@ declare namespace echarts {
                                          * assigned as visual color, such as
                                          * series color.
                                          *
-                                         *
                                          * @default
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -9998,14 +9265,12 @@ declare namespace echarts {
                                         /**
                                          * Border width of the text fregment.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
                                         borderWidth?: number | undefined;
 
                                         /**
                                          * Border radius of the text fregment.
-                                         *
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
@@ -10027,14 +9292,12 @@ declare namespace echarts {
                                          * the width and height of the content,
                                          * without `padding`.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
                                         padding?: any[] | number | undefined;
 
                                         /**
                                          * Shadow color of the text block.
-                                         *
                                          *
                                          * @default
                                          * "transparent"
@@ -10045,7 +9308,6 @@ declare namespace echarts {
                                         /**
                                          * Show blur of the text block.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
                                         shadowBlur?: number | undefined;
@@ -10053,14 +9315,12 @@ declare namespace echarts {
                                         /**
                                          * Shadow X offset of the text block.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
                                         shadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text block.
-                                         *
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
@@ -10093,7 +9353,6 @@ declare namespace echarts {
                                          * Notice, `width` and `height` only
                                          * work when `rich` specified.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
                                         width?: number | string | undefined;
@@ -10112,7 +9371,6 @@ declare namespace echarts {
                                          * Notice, `width` and `height` only
                                          * work when `rich` specified.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
                                         height?: number | string | undefined;
@@ -10124,7 +9382,6 @@ declare namespace echarts {
                                          * assigned as visual color, such as
                                          * series color.
                                          *
-                                         *
                                          * @default
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -10134,14 +9391,12 @@ declare namespace echarts {
                                         /**
                                          * Storke line width of the text.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
                                         textBorderWidth?: number | undefined;
 
                                         /**
                                          * Shadow color of the text itself.
-                                         *
                                          *
                                          * @default
                                          * "transparent"
@@ -10152,7 +9407,6 @@ declare namespace echarts {
                                         /**
                                          * Shadow blue of the text itself.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
                                         textShadowBlur?: number | undefined;
@@ -10160,14 +9414,12 @@ declare namespace echarts {
                                         /**
                                          * Shadow X offset of the text itself.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
                                         textShadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text itself.
-                                         *
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
@@ -10181,7 +9433,6 @@ declare namespace echarts {
                     /**
                      * Specify the right-bottom point.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1
                      */
                     1?: {
@@ -10193,7 +9444,6 @@ declare namespace echarts {
                          * + `'min'` max value。
                          * + `'max'` min value。
                          * + `'average'` average value。
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.type
                          */
@@ -10208,7 +9458,6 @@ declare namespace echarts {
                          * `1` (means yAxis, angleAxis), using the dimension
                          * of the first axis by default.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.valueIndex
                          */
                         valueIndex?: number | undefined;
@@ -10222,7 +9471,6 @@ declare namespace echarts {
                          * the value can be `x`, `angle` in line chart, and
                          * `open`, `close` in candlestick).
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.valueDim
                          */
                         valueDim?: string | undefined;
@@ -10235,14 +9483,12 @@ declare namespace echarts {
                          * [polar](https://echarts.apache.org/en/option.html#polar)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.coord
                          */
                         coord?: any[] | undefined;
 
                         /**
                          * Name of the marker, which will display as a label.
-                         *
                          *
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-candlestick.markArea.data.1.name
                          */
@@ -10252,7 +9498,6 @@ declare namespace echarts {
                          * x value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.x
                          */
                         x?: number | undefined;
@@ -10261,14 +9506,12 @@ declare namespace echarts {
                          * y value on screen coordinate system, can be pixel
                          * number (like `5`), or percent value (like `'20%'`).
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.y
                          */
                         y?: number | undefined;
 
                         /**
                          * value of the item, not necessary.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.value
                          */
@@ -10278,7 +9521,6 @@ declare namespace echarts {
                          * Style of the item.
                          * `itemStyle` of start point and end point will be
                          * merged together.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle
                          */
@@ -10297,7 +9539,6 @@ declare namespace echarts {
                              * >
                              * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.itemStyle)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.color
                              */
                             color?: EChartOption.Color | undefined;
@@ -10305,7 +9546,6 @@ declare namespace echarts {
                             /**
                              * border color, whose format is similar to that
                              * of `color`.
-                             *
                              *
                              * @default
                              * "#000"
@@ -10317,7 +9557,6 @@ declare namespace echarts {
                              * border width.
                              * No border when it is set to be 0.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.borderWidth
                              */
                             borderWidth?: number | undefined;
@@ -10325,7 +9564,6 @@ declare namespace echarts {
                             /**
                              * Border type, which can be `'solid'`, `'dashed'`,
                              * or `'dotted'`. `'solid'` by default.
-                             *
                              *
                              * @default
                              * "solid"
@@ -10342,14 +9580,12 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.itemStyle)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.shadowBlur
                              */
                             shadowBlur?: number | undefined;
 
                             /**
                              * Shadow color. Support same format as `color`.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.shadowColor
                              */
@@ -10359,7 +9595,6 @@ declare namespace echarts {
                              * Offset distance on the horizontal direction of
                              * shadow.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
@@ -10367,7 +9602,6 @@ declare namespace echarts {
                             /**
                              * Offset distance on the vertical direction of
                              * shadow.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.shadowOffsetY
                              */
@@ -10377,7 +9611,6 @@ declare namespace echarts {
                              * Opacity of the component.
                              * Supports value from 0 to 1, and the component
                              * will not be drawn when set to 0.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.opacity
                              */
@@ -10401,7 +9634,6 @@ declare namespace echarts {
                                  * >
                                  * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.itemStyle.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.color
                                  */
                                 color?: EChartOption.Color | undefined;
@@ -10409,7 +9641,6 @@ declare namespace echarts {
                                 /**
                                  * border color, whose format is similar to
                                  * that of `color`.
-                                 *
                                  *
                                  * @default
                                  * "#000"
@@ -10421,7 +9652,6 @@ declare namespace echarts {
                                  * border width.
                                  * No border when it is set to be 0.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.borderWidth
                                  */
                                 borderWidth?: number | undefined;
@@ -10429,7 +9659,6 @@ declare namespace echarts {
                                 /**
                                  * Border type, which can be `'solid'`, `'dashed'`,
                                  * or `'dotted'`. `'solid'` by default.
-                                 *
                                  *
                                  * @default
                                  * "solid"
@@ -10447,7 +9676,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.itemStyle.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -10455,7 +9683,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow color.
                                  * Support same format as `color`.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.shadowColor
                                  */
@@ -10465,7 +9692,6 @@ declare namespace echarts {
                                  * Offset distance on the horizontal direction
                                  * of shadow.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
@@ -10473,7 +9699,6 @@ declare namespace echarts {
                                 /**
                                  * Offset distance on the vertical direction
                                  * of shadow.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.shadowOffsetY
                                  */
@@ -10483,7 +9708,6 @@ declare namespace echarts {
                                  * Opacity of the component.
                                  * Supports value from 0 to 1, and the component
                                  * will not be drawn when set to 0.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.itemStyle.emphasis.opacity
                                  */
@@ -10496,13 +9720,11 @@ declare namespace echarts {
                          * Label style of start point and end point will be
                          * merged together.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label
                          */
                         label?: {
                             /**
                              * Whether to show label.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.show
                              */
@@ -10540,7 +9762,6 @@ declare namespace echarts {
                              * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                              * .
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.position
                              */
                             position?: any[] | string | undefined;
@@ -10552,7 +9773,6 @@ declare namespace echarts {
                              * See:
                              * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                              * .
-                             *
                              *
                              * @default
                              * 5
@@ -10568,7 +9788,6 @@ declare namespace echarts {
                              * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                              * .
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rotate
                              */
                             rotate?: number | undefined;
@@ -10577,7 +9796,6 @@ declare namespace echarts {
                              * Whether to move text slightly.
                              * For example: `[30, 40]` means move `30` horizontally
                              * and move `40` vertically.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.offset
                              */
@@ -10588,7 +9806,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -10604,7 +9821,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -10623,7 +9839,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.fontWeight
@@ -10635,7 +9850,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.fontFamily
@@ -10644,7 +9858,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -10666,7 +9879,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.align
                              */
                             align?: string | undefined;
@@ -10685,7 +9897,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -10697,7 +9908,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.lineHeight
                              */
@@ -10719,7 +9929,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.backgroundColor
@@ -10732,7 +9941,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.borderColor
@@ -10742,14 +9950,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.borderRadius
                              */
@@ -10768,14 +9974,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -10786,7 +9990,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -10794,14 +9997,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.shadowOffsetY
                              */
@@ -10829,7 +10030,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.width
                              */
                             width?: number | string | undefined;
@@ -10846,7 +10046,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.height
                              */
                             height?: number | string | undefined;
@@ -10857,7 +10056,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.textBorderColor
@@ -10867,14 +10065,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -10885,7 +10081,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -10893,14 +10088,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.textShadowOffsetY
                              */
@@ -10916,7 +10109,6 @@ declare namespace echarts {
                              * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich
                              */
                             rich?: {
@@ -10929,7 +10121,6 @@ declare namespace echarts {
                                      *
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
-                                     *
                                      *
                                      * @default
                                      * ""#fff""
@@ -10945,7 +10136,6 @@ declare namespace echarts {
                                      * + `'normal'`
                                      * + `'italic'`
                                      * + `'oblique'`
-                                     *
                                      *
                                      * @default
                                      * "normal"
@@ -10964,7 +10154,6 @@ declare namespace echarts {
                                      * + `'lighter'`
                                      * + 100 | 200 | 300 | 400...
                                      *
-                                     *
                                      * @default
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -10977,7 +10166,6 @@ declare namespace echarts {
                                      * Can also be 'serif' , 'monospace',
                                      * ...
                                      *
-                                     *
                                      * @default
                                      * "sans-serif"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -10986,7 +10174,6 @@ declare namespace echarts {
 
                                     /**
                                      * font size
-                                     *
                                      *
                                      * @default
                                      * 12
@@ -11010,7 +10197,6 @@ declare namespace echarts {
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string | undefined;
@@ -11031,7 +10217,6 @@ declare namespace echarts {
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string | undefined;
@@ -11044,7 +10229,6 @@ declare namespace echarts {
                                      * used. For example:
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
@@ -11067,7 +10251,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -11080,7 +10263,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -11090,14 +10272,12 @@ declare namespace echarts {
                                     /**
                                      * Border width of the text fregment.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
@@ -11117,14 +10297,12 @@ declare namespace echarts {
                                      * the width and height of the content,
                                      * without `padding`.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -11135,7 +10313,6 @@ declare namespace echarts {
                                     /**
                                      * Show blur of the text block.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number | undefined;
@@ -11143,14 +10320,12 @@ declare namespace echarts {
                                     /**
                                      * Shadow X offset of the text block.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
@@ -11182,7 +10357,6 @@ declare namespace echarts {
                                      * Notice, `width` and `height` only work
                                      * when `rich` specified.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string | undefined;
@@ -11200,7 +10374,6 @@ declare namespace echarts {
                                      * Notice, `width` and `height` only work
                                      * when `rich` specified.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string | undefined;
@@ -11211,7 +10384,6 @@ declare namespace echarts {
                                      * If set as `'auto'`, the color will assigned
                                      * as visual color, such as series color.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -11221,14 +10393,12 @@ declare namespace echarts {
                                     /**
                                      * Storke line width of the text.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -11239,7 +10409,6 @@ declare namespace echarts {
                                     /**
                                      * Shadow blue of the text itself.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number | undefined;
@@ -11247,14 +10416,12 @@ declare namespace echarts {
                                     /**
                                      * Shadow X offset of the text itself.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
@@ -11268,7 +10435,6 @@ declare namespace echarts {
                             emphasis?: {
                                 /**
                                  * Whether to show label.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.show
                                  */
@@ -11307,7 +10473,6 @@ declare namespace echarts {
                                  * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                                  * .
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.position
                                  */
                                 position?: any[] | string | undefined;
@@ -11320,7 +10485,6 @@ declare namespace echarts {
                                  * See:
                                  * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                                  * .
-                                 *
                                  *
                                  * @default
                                  * 5
@@ -11336,7 +10500,6 @@ declare namespace echarts {
                                  * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                                  * .
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rotate
                                  */
                                 rotate?: number | undefined;
@@ -11345,7 +10508,6 @@ declare namespace echarts {
                                  * Whether to move text slightly.
                                  * For example: `[30, 40]` means move `30` horizontally
                                  * and move `40` vertically.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.offset
                                  */
@@ -11356,7 +10518,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -11372,7 +10533,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -11391,7 +10551,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.fontWeight
@@ -11403,7 +10562,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.fontFamily
@@ -11412,7 +10570,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -11436,7 +10593,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.align
                                  */
                                 align?: string | undefined;
@@ -11457,7 +10613,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.emphasis)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -11470,7 +10625,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.emphasis)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.lineHeight
                                  */
@@ -11493,7 +10647,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.backgroundColor
@@ -11506,7 +10659,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.borderColor
@@ -11516,14 +10668,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.borderRadius
                                  */
@@ -11543,14 +10693,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -11561,7 +10709,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -11569,14 +10716,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.shadowOffsetY
                                  */
@@ -11608,7 +10753,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.width
                                  */
                                 width?: number | string | undefined;
@@ -11626,7 +10770,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.height
                                  */
                                 height?: number | string | undefined;
@@ -11637,7 +10780,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.textBorderColor
@@ -11647,14 +10789,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -11665,7 +10805,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -11673,14 +10812,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.textShadowOffsetY
                                  */
@@ -11696,7 +10833,6 @@ declare namespace echarts {
                                  * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                                  * please.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
@@ -11710,7 +10846,6 @@ declare namespace echarts {
                                          * If set as `'auto'`, the color will
                                          * assigned as visual color, such as
                                          * series color.
-                                         *
                                          *
                                          * @default
                                          * ""#fff""
@@ -11726,7 +10861,6 @@ declare namespace echarts {
                                          * + `'normal'`
                                          * + `'italic'`
                                          * + `'oblique'`
-                                         *
                                          *
                                          * @default
                                          * "normal"
@@ -11745,7 +10879,6 @@ declare namespace echarts {
                                          * + `'lighter'`
                                          * + 100 | 200 | 300 | 400...
                                          *
-                                         *
                                          * @default
                                          * "normal"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -11758,7 +10891,6 @@ declare namespace echarts {
                                          * Can also be 'serif' , 'monospace',
                                          * ...
                                          *
-                                         *
                                          * @default
                                          * "sans-serif"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -11767,7 +10899,6 @@ declare namespace echarts {
 
                                         /**
                                          * font size
-                                         *
                                          *
                                          * @default
                                          * 12
@@ -11791,7 +10922,6 @@ declare namespace echarts {
                                          *
                                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.align
                                          */
                                         align?: string | undefined;
@@ -11812,7 +10942,6 @@ declare namespace echarts {
                                          *
                                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                          */
                                         verticalAlign?: string | undefined;
@@ -11825,7 +10954,6 @@ declare namespace echarts {
                                          * be used. For example:
                                          *
                                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E)
-                                         *
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                          */
@@ -11849,7 +10977,6 @@ declare namespace echarts {
                                          * assigned as visual color, such as
                                          * series color.
                                          *
-                                         *
                                          * @default
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -11863,7 +10990,6 @@ declare namespace echarts {
                                          * assigned as visual color, such as
                                          * series color.
                                          *
-                                         *
                                          * @default
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -11873,14 +10999,12 @@ declare namespace echarts {
                                         /**
                                          * Border width of the text fregment.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                          */
                                         borderWidth?: number | undefined;
 
                                         /**
                                          * Border radius of the text fregment.
-                                         *
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                          */
@@ -11902,14 +11026,12 @@ declare namespace echarts {
                                          * the width and height of the content,
                                          * without `padding`.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.padding
                                          */
                                         padding?: any[] | number | undefined;
 
                                         /**
                                          * Shadow color of the text block.
-                                         *
                                          *
                                          * @default
                                          * "transparent"
@@ -11920,7 +11042,6 @@ declare namespace echarts {
                                         /**
                                          * Show blur of the text block.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                          */
                                         shadowBlur?: number | undefined;
@@ -11928,14 +11049,12 @@ declare namespace echarts {
                                         /**
                                          * Shadow X offset of the text block.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                          */
                                         shadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text block.
-                                         *
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                          */
@@ -11968,7 +11087,6 @@ declare namespace echarts {
                                          * Notice, `width` and `height` only
                                          * work when `rich` specified.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.width
                                          */
                                         width?: number | string | undefined;
@@ -11987,7 +11105,6 @@ declare namespace echarts {
                                          * Notice, `width` and `height` only
                                          * work when `rich` specified.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.height
                                          */
                                         height?: number | string | undefined;
@@ -11999,7 +11116,6 @@ declare namespace echarts {
                                          * assigned as visual color, such as
                                          * series color.
                                          *
-                                         *
                                          * @default
                                          * "transparent"
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -12009,14 +11125,12 @@ declare namespace echarts {
                                         /**
                                          * Storke line width of the text.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                          */
                                         textBorderWidth?: number | undefined;
 
                                         /**
                                          * Shadow color of the text itself.
-                                         *
                                          *
                                          * @default
                                          * "transparent"
@@ -12027,7 +11141,6 @@ declare namespace echarts {
                                         /**
                                          * Shadow blue of the text itself.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                          */
                                         textShadowBlur?: number | undefined;
@@ -12035,14 +11148,12 @@ declare namespace echarts {
                                         /**
                                          * Shadow X offset of the text itself.
                                          *
-                                         *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                          */
                                         textShadowOffsetX?: number | undefined;
 
                                         /**
                                          * Shadow Y offset of the text itself.
-                                         *
                                          *
                                          * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                          */
@@ -12057,7 +11168,6 @@ declare namespace echarts {
                 /**
                  * Whether to enable animation.
                  *
-                 *
                  * @default
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.animation
@@ -12068,7 +11178,6 @@ declare namespace echarts {
                  * Whether to set graphic number threshold to animation.
                  * Animation will be disabled when graphic number is larger
                  * than threshold.
-                 *
                  *
                  * @default
                  * 2000
@@ -12082,7 +11191,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea)
                  *
-                 *
                  * @default
                  * 1000
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.animationDuration
@@ -12094,7 +11202,6 @@ declare namespace echarts {
                  * Varied easing effects can be found at
                  * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
                  * .
-                 *
                  *
                  * @default
                  * "cubicOut"
@@ -12115,7 +11222,6 @@ declare namespace echarts {
                  * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.animationDelay
                  */
                 animationDelay?: Function | number | undefined;
@@ -12126,7 +11232,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.markArea)
                  *
-                 *
                  * @default
                  * 300
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.animationDurationUpdate
@@ -12135,7 +11240,6 @@ declare namespace echarts {
 
                 /**
                  * Easing method used for animation.
-                 *
                  *
                  * @default
                  * "cubicOut"
@@ -12154,7 +11258,6 @@ declare namespace echarts {
                  * See
                  * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
                  * for more information.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.markArea.animationDelayUpdate
                  */
@@ -12175,7 +11278,6 @@ declare namespace echarts {
              * Canvases with bigger `zlevel` will be placed on Canvases with
              * smaller `zlevel`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.zlevel
              */
             zlevel?: number | undefined;
@@ -12189,7 +11291,6 @@ declare namespace echarts {
              * `z` has a lower priority to `zlevel`, and will not create new
              * Canvas.
              *
-             *
              * @default
              * 2
              * @see https://echarts.apache.org/en/option.html#series-candlestick.z
@@ -12201,7 +11302,6 @@ declare namespace echarts {
              * Default value is false, for triggering and responding to mouse
              * events.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.silent
              */
             silent?: boolean | undefined;
@@ -12211,7 +11311,6 @@ declare namespace echarts {
              * for different data to have different animation effect:
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick)
-             *
              *
              * @default
              * 300
@@ -12224,7 +11323,6 @@ declare namespace echarts {
              * Varied easing effects can be found at
              * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
-             *
              *
              * @default
              * "linear"
@@ -12244,14 +11342,12 @@ declare namespace echarts {
              * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.animationDelay
              */
             animationDelay?: Function | number | undefined;
 
             /**
              * tooltip settings in this series.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.tooltip
              */
@@ -12263,7 +11359,6 @@ declare namespace echarts {
                 /**
                  * Name of data item.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.data.name
                  */
                 name?: string | undefined;
@@ -12273,14 +11368,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.data.value
                  */
                 value?: any[] | undefined;
 
                 /**
                  * Style of a candle box.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle
                  */
@@ -12297,7 +11390,6 @@ declare namespace echarts {
                      * single colors.
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.itemStyle)
-                     *
                      *
                      * @default
                      * "#c23531"
@@ -12318,7 +11410,6 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.itemStyle)
                      *
-                     *
                      * @default
                      * #314656
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.color0
@@ -12337,7 +11428,6 @@ declare namespace echarts {
                      * single colors.
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.itemStyle)
-                     *
                      *
                      * @default
                      * "#c23531"
@@ -12358,7 +11448,6 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.itemStyle)
                      *
-                     *
                      * @default
                      * #314656
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.borderColor0
@@ -12368,7 +11457,6 @@ declare namespace echarts {
                     /**
                      * Border width of candlestick.
                      * There is no border when it is `0`.
-                     *
                      *
                      * @default
                      * 1
@@ -12385,14 +11473,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.shadowColor
                      */
@@ -12401,14 +11487,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.shadowOffsetY
                      */
@@ -12419,7 +11503,6 @@ declare namespace echarts {
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-candlestick.data.itemStyle.opacity
                      */
                     opacity?: number | undefined;
@@ -12427,7 +11510,6 @@ declare namespace echarts {
 
                 /**
                  * Emphasis style of a candle box.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis
                  */
@@ -12450,7 +11532,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.emphasis.itemStyle)
                          *
-                         *
                          * @default
                          * "#c23531"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.color
@@ -12470,7 +11551,6 @@ declare namespace echarts {
                          * single colors.
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.emphasis.itemStyle)
-                         *
                          *
                          * @default
                          * #314656
@@ -12492,7 +11572,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.emphasis.itemStyle)
                          *
-                         *
                          * @default
                          * "#c23531"
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.borderColor
@@ -12513,7 +11592,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.emphasis.itemStyle)
                          *
-                         *
                          * @default
                          * #314656
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.borderColor0
@@ -12523,7 +11601,6 @@ declare namespace echarts {
                         /**
                          * Border width of candlestick.
                          * There is no border when it is `0`.
-                         *
                          *
                          * @default
                          * 2
@@ -12540,14 +11617,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-candlestick.candlestick.data.emphasis.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.shadowColor
                          */
@@ -12556,14 +11631,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.shadowOffsetY
                          */
@@ -12574,7 +11647,6 @@ declare namespace echarts {
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-candlestick.data.emphasis.itemStyle.opacity
                          */
                         opacity?: number | undefined;
@@ -12583,7 +11655,6 @@ declare namespace echarts {
 
                 /**
                  * tooltip settings in this series data.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-candlestick.data.tooltip
                  */

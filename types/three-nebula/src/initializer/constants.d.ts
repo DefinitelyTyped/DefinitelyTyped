@@ -5,7 +5,7 @@ import {
     NoBlending,
     NormalBlending,
     SubtractiveBlending,
-} from '../core/three/';
+} from "../core/three/";
 export interface SupportedMaterialBlendingModes {
     AdditiveBlending: typeof AdditiveBlending;
     CustomBlending: typeof CustomBlending;
@@ -30,14 +30,14 @@ export const SUPPORTED_MATERIAL_BLENDING_MODES: SUPPORTED_MATERIAL_BLENDING_MODE
 
 export interface DEFAULT_MATERIAL_PROPERTIES {
     color: number | string;
-    blending: SupportedMaterialBlendingModes['AdditiveBlending'];
+    blending: SupportedMaterialBlendingModes["AdditiveBlending"];
     fog: boolean;
 }
 export const DEFAULT_MATERIAL_PROPERTIES: DEFAULT_MATERIAL_PROPERTIES;
 
 export interface DEFAULT_JSON_MATERIAL_PROPERTIES {
     color: number | string;
-    blending: SupportedMaterialBlendingModes['AdditiveBlending'];
+    blending: SupportedMaterialBlendingModes["AdditiveBlending"];
     fog: boolean;
 }
 export const DEFAULT_JSON_MATERIAL_PROPERTIES: DEFAULT_JSON_MATERIAL_PROPERTIES;

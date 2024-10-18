@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/microsoft-ajax",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "microsoft-ajax",
+    "projects": [
+        "http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx"
+    ],
+    "devDependencies": {
+        "@types/microsoft-ajax": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Patrick Magee",
+            "githubUsername": "pjmagee"
+        }
+    ]
+}

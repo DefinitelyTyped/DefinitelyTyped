@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/localized-countries",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/marcbachmann/localized-countries#readme"
+    ],
+    "devDependencies": {
+        "@types/localized-countries": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

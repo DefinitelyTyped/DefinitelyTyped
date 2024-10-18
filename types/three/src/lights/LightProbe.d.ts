@@ -1,5 +1,5 @@
-import { SphericalHarmonics3 } from './../math/SphericalHarmonics3.js';
-import { Light } from './Light.js';
+import { SphericalHarmonics3 } from "../math/SphericalHarmonics3.js";
+import { Light } from "./Light.js";
 
 /**
  * Light probes are an alternative way of adding light to a 3D scene.

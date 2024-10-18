@@ -76,8 +76,9 @@ declare namespace OO.ui.mixin {
              * If an element is already set, it will be cleaned up before setting up the new element.
              *
              * @param $label Element to use as label
+             * @return The element, for chaining
              */
-            setLabelElement($label: JQuery): void;
+            setLabelElement($label: JQuery): this;
 
             /**
              * Set the 'id' attribute of the label element.
@@ -142,7 +143,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): LabelElement;
+            new(config?: ConfigOptions): LabelElement;
             prototype: Prototype;
             static: Static;
         }

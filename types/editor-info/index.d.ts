@@ -1,13 +1,8 @@
-// Type definitions for editor-info 0.0
-// Project: https://github.com/fisker/editor-info#readme
-// Definitions by: Matt Wilkinson <https://github.com/matwilko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] } & {};
 
 interface EditorMap {
-    VSCODE: 'Visual Studio Code';
-    ATOM: 'Atom';
+    VSCODE: "Visual Studio Code";
+    ATOM: "Atom";
 }
 
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents -- This is intentional
@@ -20,15 +15,15 @@ type EditorData<Constant extends keyof EditorMap> = Simplify<
     }
 >;
 
-type NoEditorData = { [key in keyof EditorMap]: false } & { name: ''; isEditor: false };
+type NoEditorData = { [key in keyof EditorMap]: false } & { name: ""; isEditor: false };
 
-// tslint:disable-next-line:no-empty-interface -- This is intentional to get some of the benefits of interfaces over types
-interface VsCode extends EditorData<'VSCODE'> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- This is intentional to get some of the benefits of interfaces over types
+interface VsCode extends EditorData<"VSCODE"> {}
 
-// tslint:disable-next-line:no-empty-interface -- This is intentional to get some of the benefits of interfaces over types
-interface Atom extends EditorData<'ATOM'> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- This is intentional to get some of the benefits of interfaces over types
+interface Atom extends EditorData<"ATOM"> {}
 
-// tslint:disable-next-line:no-empty-interface -- This is intentional to get some of the benefits of interfaces over types
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- This is intentional to get some of the benefits of interfaces over types
 interface NoEditor extends NoEditorData {}
 
 declare const info: Atom | NoEditor | VsCode;

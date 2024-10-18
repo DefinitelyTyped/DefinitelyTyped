@@ -1,8 +1,3 @@
-// Type definitions for non-npm package magicmirror-module 2.16
-// Project: https://magicmirror.builders/
-// Definitions by: Jalibu <https://github.com/jalibu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Module {
     /* tslint:disable:no-unnecessary-generics */
     function register<T>(
@@ -54,7 +49,7 @@ declare namespace Module {
 }
 
 /* tslint:disable:no-single-declare-module */
-declare module 'node_helper' {
+declare module "node_helper" {
     function create(object: ThisType<NonNullable<NodeHelperModule>> & Partial<NodeHelperModule>): void;
 
     interface NodeHelperModule {
@@ -75,7 +70,7 @@ declare module 'node_helper' {
     }
 }
 
-declare module 'logger' {
+declare module "logger" {
     function debug(message?: any, ...optionalParams: any[]): void;
     function info(message?: any, ...optionalParams: any[]): void;
     function log(message?: any, ...optionalParams: any[]): void;
@@ -99,6 +94,6 @@ declare const config: {
     modules: any[];
     port: number;
     timeFormat: 12 | 24;
-    units: 'metric' | 'imperial';
+    units: "metric" | "imperial";
     zoom: number;
 };

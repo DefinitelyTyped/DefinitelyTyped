@@ -1,9 +1,4 @@
-// Type definitions for flutterwave-node 1.0
-// Project: https://github.com/Flutterwave/ravepay-nodejs
-// Definitions by: Besemuna <https://github.com/besemuna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from "axios";
 
 declare class Rave {
     constructor(publicKey: string, privateKey: string, productionFlag: boolean);
@@ -1820,9 +1815,9 @@ interface SettlementFetchResponse extends BaseResponse {
         source_bankcode: any;
         created_at: string;
         updated_at: string;
-        'Account.parent_account_id': number;
-        'Account.country': string;
-        'Account.createdAt': string;
+        "Account.parent_account_id": number;
+        "Account.country": string;
+        "Account.createdAt": string;
         transactions: {
             page_info: {
                 total: number;

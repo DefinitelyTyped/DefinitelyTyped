@@ -1,12 +1,12 @@
 // Adapted from README
 
-import { create, destroy } from 'socketcluster-client';
-import { ClientOptions, SubscribeStateChangeData } from 'socketcluster-client/lib/scclientsocket';
-import { SCChannel } from 'sc-channel';
-import WebSocket = require('ws');
+import { SCChannel } from "sc-channel";
+import { create, destroy } from "socketcluster-client";
+import { ClientOptions, SubscribeStateChangeData } from "socketcluster-client/lib/scclientsocket";
+import WebSocket = require("ws");
 
 const secureClientOptions: ClientOptions = {
-    hostname: 'securedomain.com',
+    hostname: "securedomain.com",
     secure: true,
     port: 443,
     rejectUnauthorized: false,
@@ -14,19 +14,19 @@ const secureClientOptions: ClientOptions = {
 
 let socket = create(secureClientOptions);
 
-socket.on('connect', () => {
-    console.log('CONNECTED');
+socket.on("connect", () => {
+    console.log("CONNECTED");
 });
 
 // Listen to an event called 'rand' from the server
-socket.on('rand', (num: any) => {
-    console.log('RANDOM: ' + num);
+socket.on("rand", (num: any) => {
+    console.log("RANDOM: " + num);
 });
 
 const options: ClientOptions = {
-    path: '/socketcluster/',
+    path: "/socketcluster/",
     port: 8000,
-    hostname: '127.0.0.1',
+    hostname: "127.0.0.1",
     autoConnect: true,
     secure: false,
     rejectUnauthorized: false,
@@ -45,7 +45,7 @@ const options: ClientOptions = {
     codecEngine: null,
     subscriptionRetryOptions: {},
     query: {
-        yourparam: 'hello',
+        yourparam: "hello",
     },
 };
 socket = create(options);
@@ -56,51 +56,51 @@ const subscribeListener: (
     channelName: string,
     subscriptionOptions: SCChannel.SCChannelOptions,
 ) => void = channelname => {
-    console.log('subscribe:' + channelname);
+    console.log("subscribe:" + channelname);
 };
-socket.on('subscribe', subscribeListener);
-socket.once('subscribe', subscribeListener);
-socket.off('subscribe', subscribeListener);
-socket.off('subscribe');
+socket.on("subscribe", subscribeListener);
+socket.once("subscribe", subscribeListener);
+socket.off("subscribe", subscribeListener);
+socket.off("subscribe");
 
 const subscribeFailListener: (
     err: Error,
     channelName: string,
     subscriptionOptions: SCChannel.SCChannelOptions,
 ) => void = channelname => {
-    console.log('subscribeFail:' + channelname);
+    console.log("subscribeFail:" + channelname);
 };
-socket.on('subscribeFail', subscribeFailListener);
-socket.once('subscribeFail', subscribeFailListener);
-socket.off('subscribeFail', subscribeFailListener);
-socket.off('subscribeFail');
+socket.on("subscribeFail", subscribeFailListener);
+socket.once("subscribeFail", subscribeFailListener);
+socket.off("subscribeFail", subscribeFailListener);
+socket.off("subscribeFail");
 
 const unsubscribeListener: (channelName: string) => void = channelname => {
-    console.log('unsubscribe:' + channelname);
+    console.log("unsubscribe:" + channelname);
 };
-socket.on('unsubscribe', unsubscribeListener);
-socket.once('unsubscribe', unsubscribeListener);
-socket.off('unsubscribe', unsubscribeListener);
-socket.off('unsubscribe');
+socket.on("unsubscribe", unsubscribeListener);
+socket.once("unsubscribe", unsubscribeListener);
+socket.off("unsubscribe", unsubscribeListener);
+socket.off("unsubscribe");
 
 const subscribeStateChangeListener: (stateChangeData: SubscribeStateChangeData) => void = data => {
-    console.log('subscribeStateChange:' + JSON.stringify(data));
+    console.log("subscribeStateChange:" + JSON.stringify(data));
 };
-socket.on('subscribeStateChange', subscribeStateChangeListener);
-socket.once('subscribeStateChange', subscribeStateChangeListener);
-socket.off('subscribeStateChange', subscribeStateChangeListener);
-socket.off('subscribeStateChange');
+socket.on("subscribeStateChange", subscribeStateChangeListener);
+socket.once("subscribeStateChange", subscribeStateChangeListener);
+socket.off("subscribeStateChange", subscribeStateChangeListener);
+socket.off("subscribeStateChange");
 
 const messageListener: (message: WebSocket.Data) => void = data => {
-    console.log('message:' + data);
+    console.log("message:" + data);
 };
-socket.on('message', messageListener);
-socket.once('message', messageListener);
-socket.off('message', messageListener);
-socket.off('message');
+socket.on("message", messageListener);
+socket.once("message", messageListener);
+socket.off("message", messageListener);
+socket.off("message");
 
 const channels = socket.channels;
-const testChannel = channels['test'];
+const testChannel = channels["test"];
 
 // $ExpectType ChannelState
 testChannel.getState();

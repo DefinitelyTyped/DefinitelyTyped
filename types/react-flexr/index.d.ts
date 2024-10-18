@@ -1,15 +1,8 @@
-// Type definitions for react-flexr v2.0.2
-// Project: https://github.com/kodyl/react-flexr
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare namespace __ReactFlexr {
-    interface GridProps {
+    interface GridProps extends React.RefAttributes<Grid> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<Grid> | undefined;
         /**
          * Vertical Align Sub Cells: top, center, bottom
          */
@@ -36,9 +29,9 @@ declare namespace __ReactFlexr {
     export class Grid extends React.Component<GridProps> {
     }
 
-    interface CellProps {
+    interface CellProps extends React.RefAttributes<Cell> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<Cell> | undefined;
+
         /**
          * Vertical Align This Cell: top, center, bottom
          */

@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/apicalypse",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/igdb/node-apicalypse"
+    ],
     "dependencies": {
         "axios": "^0.19.0"
-    }
+    },
+    "devDependencies": {
+        "@types/apicalypse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Susam",
+            "githubUsername": "susam-projects"
+        }
+    ]
 }

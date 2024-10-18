@@ -1,8 +1,10 @@
-import SteamCommunity = require('steamcommunity');
+import SteamCommunity = require("steamcommunity");
 
 const EResult = SteamCommunity.EResult;
 
-const community = new SteamCommunity();
+const community = new SteamCommunity({
+    timeout: 5000,
+});
 
 /* register events */
 community.on("confKeyNeeded", (tag, callback) => {
@@ -16,22 +18,22 @@ community.on("error", (err) => {
 
 /* login */
 community.login({
-    accountName: 'anything',
-    password: 'anything123',
-    steamguard: '7554A',
-    authCode: '7554A',
-    twoFactorCode: '7554A',
-    captcha: 'anything',
+    accountName: "anything",
+    password: "anything123",
+    steamguard: "7554A",
+    authCode: "7554A",
+    twoFactorCode: "7554A",
+    captcha: "anything",
     disableMobile: false,
 }, (err, sessionID, cookies, steamguard) => {
     if (err) {
-        if (err.message === 'SteamGuard') {
-            console.log('This account does not have two-factor authentication enabled.');
+        if (err.message === "SteamGuard") {
+            console.log("This account does not have two-factor authentication enabled.");
             process.exit();
             return;
         }
 
-        if (err.message === 'CAPTCHA') {
+        if (err.message === "CAPTCHA") {
             console.log(err.captchaurl);
 
             return;
@@ -42,21 +44,21 @@ community.login({
         return;
     }
 
-    console.log('Logged on!');
+    console.log("Logged on!");
 
     /* disable two factor */
-    community.disableTwoFactor('R123456', (err) => {
+    community.disableTwoFactor("R123456", (err) => {
         if (err) {
             console.log(err);
             process.exit();
             return;
         }
 
-        console.log('Two-factor authentication disabled!');
+        console.log("Two-factor authentication disabled!");
     });
 
     /* return a specific group */
-    community.getSteamGroup('asd4564as65d', (err, group) => {
+    community.getSteamGroup("asd4564as65d", (err, group) => {
         if (err) {
             console.log(err);
             process.exit(1);
@@ -64,18 +66,18 @@ community.login({
 
         group.getAllAnnouncements(null, (err, announcements) => {
             if (announcements.length === 0) {
-                console.log('This group has no announcements');
+                console.log("This group has no announcements");
                 return;
             }
 
             const announcement = announcements[0];
 
             /* edit the 1st announcement */
-            group.editAnnouncement(announcement.aid, 'Header', 'We love cats!', error => {
+            group.editAnnouncement(announcement.aid, "Header", "We love cats!", error => {
                 if (!error) {
-                    console.log('Annoucement edited!');
+                    console.log("Annoucement edited!");
                 } else {
-                    console.log('Unable to edit annoucement! %j', error);
+                    console.log("Unable to edit annoucement! %j", error);
                     process.exit(1);
                 }
             });
@@ -83,9 +85,9 @@ community.login({
             /* delete the 1st announcement */
             group.deleteAnnouncement(announcement.aid, err => {
                 if (!err) {
-                    console.log('Deleted');
+                    console.log("Deleted");
                 } else {
-                    console.log('Error deleting announcement.');
+                    console.log("Error deleting announcement.");
                 }
             });
         });
@@ -95,13 +97,15 @@ community.login({
     community.enableTwoFactor((err, response) => {
         if (err) {
             if (err.eresult === EResult.Fail) {
-                console.log('Error: Failed to enable two-factor authentication. Do you have a phone number attached to your account?');
+                console.log(
+                    "Error: Failed to enable two-factor authentication. Do you have a phone number attached to your account?",
+                );
                 process.exit();
                 return;
             }
 
             if (err.eresult === EResult.RateLimitExceeded) {
-                console.log('Error: RateLimitExceeded. Try again later.');
+                console.log("Error: RateLimitExceeded. Try again later.");
                 process.exit();
                 return;
             }
@@ -121,16 +125,16 @@ community.login({
         console.log(`Writing secrets to ${filename}`);
         console.log(`Revocation code: ${response.revocation_code}`);
 
-        community.finalizeTwoFactor(response.shared_secret, '123456', (err) => {
+        community.finalizeTwoFactor(response.shared_secret, "123456", (err) => {
             if (err) {
-                if (err.message === 'Invalid activation code') {
+                if (err.message === "Invalid activation code") {
                     console.log(err);
                     return;
                 }
 
                 console.log(err);
             } else {
-                console.log('Two-factor authentication enabled!');
+                console.log("Two-factor authentication enabled!");
             }
 
             process.exit();

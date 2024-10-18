@@ -1,13 +1,13 @@
 /// <reference types="node" />
-import assert = require('assert');
-import { BinTree, RBTree } from 'bintrees';
+import assert = require("assert");
+import { BinTree, RBTree } from "bintrees";
 
 // Declaring shims removes mocha dependency.  These tests are never executed, only typechecked, so this is fine.
 declare function describe(description: string, callback: () => void): void;
 declare function it(description: string, callback: () => void): void;
 
-describe('bintrees', () => {
-    it('builds a simple tree', () => {
+describe("bintrees", () => {
+    it("builds a simple tree", () => {
         let treeA = new RBTree((a: number, b: number) => a - b);
 
         treeA.insert(5);
@@ -17,23 +17,22 @@ describe('bintrees', () => {
         assert.equal(treeA.size, 1);
     });
 
-    it('builds a tree of strings', () => {
-        let treeB = new BinTree((a:string, b:string) => a.length - b.length);
+    it("builds a tree of strings", () => {
+        let treeB = new BinTree((a: string, b: string) => a.length - b.length);
 
-        treeB.insert('hi');
-        treeB.insert('there');
-        treeB.insert('how');
-        treeB.insert('are'); // ignored
-        treeB.remove('how');
+        treeB.insert("hi");
+        treeB.insert("there");
+        treeB.insert("how");
+        treeB.insert("are"); // ignored
+        treeB.remove("how");
 
         assert.equal(treeB.size, 2);
-        assert.equal(treeB.min(), 'hi');
+        assert.equal(treeB.min(), "hi");
     });
 
-    it('maintains a tree of objects', () => {
-
+    it("maintains a tree of objects", () => {
         interface C {
-            id: number
+            id: number;
         }
 
         let treeC = new BinTree<C>((a: C, b: C) => a.id - b.id);
@@ -50,12 +49,12 @@ describe('bintrees', () => {
         assert.deepEqual(ids, [100, 105, 110]);
     });
 
-    it('has null as a possible max return type', () => {
+    it("has null as a possible max return type", () => {
         let treeA = new RBTree((a: number, b: number) => a - b);
 
         const max = treeA.max();
 
         const foo: Exclude<typeof max, number> = null;
         assert(foo === null);
-    })
+    });
 });

@@ -1,5 +1,5 @@
-import GulpRunner = require('.');
-import Vinyl = require('vinyl');
+import GulpRunner = require(".");
+import Vinyl = require("vinyl");
 
 /** A `gulp-run` command. */
 declare class Command {

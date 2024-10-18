@@ -1,23 +1,23 @@
 const isWebmSupported: boolean = window.MediaRecorder.isTypeSupported(
-    'video/webm'
+    "video/webm",
 );
 
 const mediaStream = new MediaStream();
 
 const mediaRecorderOptions: MediaRecorderOptions = {
-    mimeType: 'video/webm',
+    mimeType: "video/webm",
     audioBitsPerSecond: 1000000,
     videoBitsPerSecond: 4000000,
-    audioBitrateMode: 'variable'
+    audioBitrateMode: "variable",
 };
 
-const blobEvent = new BlobEvent('dataavailable', {
+const blobEvent = new BlobEvent("dataavailable", {
     data: new Blob(),
-    bubbles: false
+    bubbles: false,
 });
-const errorEvent = new MediaRecorderErrorEvent('error', {
+const errorEvent = new MediaRecorderErrorEvent("error", {
     error: new DOMException(),
-    bubbles: false
+    bubbles: false,
 });
 
 const onDataAvailable = (event: BlobEvent) => {
@@ -38,12 +38,12 @@ recorder.stop();
 recorder.start(1000);
 recorder.pause();
 recorder.requestData();
-const state: 'inactive' | 'recording' | 'paused' = recorder.state;
-const isRecording = state === 'recording';
-const isAudioVariableBitrate = recorder.audioBitrateMode === 'variable';
+const state: "inactive" | "recording" | "paused" = recorder.state;
+const isRecording = state === "recording";
+const isAudioVariableBitrate = recorder.audioBitrateMode === "variable";
 
-recorder.addEventListener('start', onEvent);
-recorder.removeEventListener('start', onEvent);
+recorder.addEventListener("start", onEvent);
+recorder.removeEventListener("start", onEvent);
 recorder.dispatchEvent(blobEvent);
 
 recorder.ondataavailable = onDataAvailable;
@@ -61,8 +61,8 @@ recorder.onresume = null;
 recorder.onstart = null;
 recorder.onstop = null;
 
-recorder.addEventListener('dataavailable', (e: BlobEvent) => {});
-recorder.addEventListener('error', (e: Event) => {});
-recorder.addEventListener('pause', onEvent);
-recorder.addEventListener('resume', onEvent);
-recorder.addEventListener('dataavailable', onEvent);
+recorder.addEventListener("dataavailable", (e: BlobEvent) => {});
+recorder.addEventListener("error", (e: Event) => {});
+recorder.addEventListener("pause", onEvent);
+recorder.addEventListener("resume", onEvent);
+recorder.addEventListener("dataavailable", onEvent);

@@ -1,10 +1,5 @@
-// Type definitions for web-push 3.3
-// Project: https://github.com/web-push-libs/web-push
-// Definitions by: Paul Lessing <https://github.com/paullessing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import https = require('https');
+import https = require("https");
 /**
  * To send a push notification call this method with a subscription, optional payload and any options.
  *
@@ -21,7 +16,11 @@ import https = require('https');
  * @see WebPushError
  * @see https://github.com/web-push-libs/web-push#sendnotificationpushsubscription-payload-options
  */
-export function sendNotification(subscription: PushSubscription, payload?: string | Buffer | null, options?: RequestOptions): Promise<SendResult>;
+export function sendNotification(
+    subscription: PushSubscription,
+    payload?: string | Buffer | null,
+    options?: RequestOptions,
+): Promise<SendResult>;
 
 /**
  * Generate VAPID keys.
@@ -58,13 +57,18 @@ export function setGCMAPIKey(apiKey: string | null): void;
  * @see ContentEncoding
  * @see https://github.com/web-push-libs/web-push#encryptuserpublickey-userauth-payload-contentencoding
  */
-export function encrypt(userPublicKey: string, userAuth: string, payload: string | Buffer, contentEncoding: ContentEncoding): EncryptionResult;
+export function encrypt(
+    userPublicKey: string,
+    userAuth: string,
+    payload: string | Buffer,
+    contentEncoding: ContentEncoding,
+): EncryptionResult;
 
 /**
  * This method takes the required VAPID parameters and returns the required
  * header to be added to a Web Push Protocol Request.
  * @param audience         This must be the origin of the push service.
- * @param subject          This should be a URL or a 'mailto:' email address.
+ * @param subject          This should be a 'https:' URL or a 'mailto:' email address.
  * @param publicKey        The VAPID public key.
  * @param privateKey       The VAPID private key.
  * @param contentEncoding  The contentEncoding type.
@@ -72,21 +76,36 @@ export function encrypt(userPublicKey: string, userAuth: string, payload: string
  * @returns                 Returns an Object with the Authorization and 'Crypto-Key' values to be used as headers.
  */
 export function getVapidHeaders(
-    audience: string, subject: string, publicKey: string, privateKey: string, contentEncoding: 'aes128gcm', expiration?: number
+    audience: string,
+    subject: string,
+    publicKey: string,
+    privateKey: string,
+    contentEncoding: "aes128gcm",
+    expiration?: number,
 ): {
     Authorization: string;
 };
 export function getVapidHeaders(
-    audience: string, subject: string, publicKey: string, privateKey: string, contentEncoding: 'aesgcm', expiration?: number
+    audience: string,
+    subject: string,
+    publicKey: string,
+    privateKey: string,
+    contentEncoding: "aesgcm",
+    expiration?: number,
 ): {
     Authorization: string;
-    'Crypto-Key': string;
+    "Crypto-Key": string;
 };
 export function getVapidHeaders(
-    audience: string, subject: string, publicKey: string, privateKey: string, contentEncoding: ContentEncoding, expiration?: number
+    audience: string,
+    subject: string,
+    publicKey: string,
+    privateKey: string,
+    contentEncoding: ContentEncoding,
+    expiration?: number,
 ): {
     Authorization: string;
-    'Crypto-Key'?: string | undefined;
+    "Crypto-Key"?: string | undefined;
 };
 
 /**
@@ -107,21 +126,48 @@ export function getVapidHeaders(
  * @see RequestDetails
  * @see https://github.com/web-push-libs/web-push#generaterequestdetailspushsubscription-payload-options
  */
-export function generateRequestDetails(subscription: PushSubscription, payload?: null, options?: RequestOptions): RequestDetails & { body: null };
-export function generateRequestDetails(subscription: PushSubscription, payload?: string | Buffer, options?: RequestOptions): RequestDetails & { body: Buffer };
-export function generateRequestDetails(subscription: PushSubscription, payload?: string | Buffer, options?: RequestOptions): RequestDetails;
+export function generateRequestDetails(
+    subscription: PushSubscription,
+    payload?: null,
+    options?: RequestOptions,
+): RequestDetails & { body: null };
+export function generateRequestDetails(
+    subscription: PushSubscription,
+    payload?: string | Buffer,
+    options?: RequestOptions,
+): RequestDetails & { body: Buffer };
+export function generateRequestDetails(
+    subscription: PushSubscription,
+    payload?: string | Buffer,
+    options?: RequestOptions,
+): RequestDetails;
 
 /**
  * Valid content encodings used by encrypt(), getVapidHeaders(), generateRequestDetails() and sendNotification().
  */
-export type ContentEncoding = 'aesgcm' | 'aes128gcm';
+export type ContentEncoding = "aesgcm" | "aes128gcm";
 
 /**
  * Map of valid content encodings.
  */
 export const supportedContentEncodings: {
-    readonly AES_GCM: 'aesgcm' & ContentEncoding;
-    readonly AES_128_GCM: 'aws128gcm' & ContentEncoding;
+    readonly AES_GCM: "aesgcm" & ContentEncoding;
+    readonly AES_128_GCM: "aws128gcm" & ContentEncoding;
+};
+
+/**
+ * Valid urgency used by RequestOptions.
+ */
+export type Urgency = "very-low" | "low" | "normal" | "high";
+
+/**
+ * Map of valid urgency values.
+ */
+export const supportedUrgency: {
+    readonly VERY_LOW: "very-low" & Urgency;
+    readonly LOW: "low" & Urgency;
+    readonly NORMAL: "normal" & Urgency;
+    readonly HIGH: "high" & Urgency;
 };
 
 /**
@@ -145,10 +191,10 @@ export interface VapidKeys {
  * When making requests where you want to define VAPID details, call this method before sendNotification()
  * or pass in the details and options to sendNotification.
  *
- * @param  subject     This must be either a URL or a 'mailto:' address.
+ * @param  subject     This must be either a 'https:' URL or a 'mailto:' address.
  *                     For example: 'https://my-site.com/contact' or 'mailto: contact@my-site.com'
- * @param  publicKey   The public VAPID key.
- * @param  privateKey  The private VAPID key.
+ * @param  publicKey   The public VAPID key, a URL safe, base64 encoded string.
+ * @param  privateKey  The private VAPID key, a URL safe, base64 encoded string.
  */
 export function setVapidDetails(subject: string, publicKey: string, privateKey: string): void;
 
@@ -170,27 +216,78 @@ export interface Headers {
 }
 
 /**
+ * Options which can be passed to the https-proxy-agent constructor.
+ * These are the usual http.Agent constructor options, and some additional properties:
+ * headers - Object containing additional headers to send to the proxy server in the CONNECT request.
+ * @see https://www.npmjs.com/package/https-proxy-agent#user-content-api
+ */
+export type HttpsProxyAgentOptions = https.AgentOptions & { headers: Headers };
+
+/**
  * Options for configuring the outgoing request in generateRequestDetails() or sendNotification().
  */
 export interface RequestOptions {
-    /** Is the HTTPS Agent instance which will be used in the https.request method. If the proxy options defined, agent will be ignored! */
-    agent?: https.Agent | undefined;
-    headers?: Headers | undefined;
-    gcmAPIKey?: string | undefined; // can be a GCM API key to be used for this request and this request only. This overrides any API key set via setGCMAPIKey().
-    vapidDetails?: { // should be an object with subject, publicKey and privateKey values defined. These values should follow the VAPID Spec. (https://tools.ietf.org/html/draft-thomson-webpush-vapid)
-        subject: string;
-        publicKey: string;
-        privateKey: string;
-    } | undefined;
-    TTL?: number | undefined; // a value in seconds that describes how long a push message is retained by the push service (by default, four weeks).
-    contentEncoding?: ContentEncoding | undefined; // the type of push encoding to use (e.g. 'aesgcm', by default, or 'aes128gcm').
-    proxy?: string | undefined; // proxy hostname/ip and a port to tunnel your requests through (eg. http://< hostname >:< port >).
     /**
-     * Is the timeout to receive the full response. So if you have a socket timeout of 1 second, and a response comprised of 3 TCP packets,
-     * where each response packet takes 0.9 seconds to arrive, for a total response time of 2.7 seconds, then there will be no timeout.
+     * Can be a GCM API key to be used for this request and this request only. This overrides any API key set via setGCMAPIKey().
+     */
+    gcmAPIKey?: string | undefined;
+    /**
+     * Should be an object with subject, publicKey and privateKey values defined. These values should follow the VAPID Spec.
+     * @see https://datatracker.ietf.org/doc/html/draft-thomson-webpush-vapid
+     */
+    vapidDetails?:
+        | {
+            subject: string;
+            publicKey: string;
+            privateKey: string;
+        }
+        | undefined;
+    /**
+     * A value in milliseconds that specifies the request's socket timeout.
+     * On timeout, the request will be destroyed and the promise will be rejected with a meaningful error.
+     * It's a common misconception that a socket timeout is the timeout to receive the full response.
+     * So if you have a socket timeout of 1 second, and a response comprised of 3 TCP packets,
+     * where each response packet takes 0.9 seconds to arrive, for a total response time of 2.7 seconds,
+     * then there will be no timeout.
      * Once a socket 'timeout' triggers the request will be aborted by the library (by default undefined).
      */
     timeout?: number | undefined;
+    /**
+     * A value in seconds that describes how long a push message is retained by the push service (by default, four weeks).
+     */
+    TTL?: number | undefined;
+    /**
+     * An object with all the extra headers you want to add to the request.
+     */
+    headers?: Headers | undefined;
+    /**
+     * The type of push encoding to use (e.g. 'aesgcm', by default, or 'aes128gcm').
+     * @see supportedContentEncodings
+     */
+    contentEncoding?: ContentEncoding | undefined;
+    /**
+     * To indicate to the push service whether to send the notification immediately
+     * or prioritize the recipient’s device power considerations for delivery.
+     * Provide one of the following values: very-low, low, normal, or high.
+     * To attempt to deliver the notification immediately, specify high.
+     * @see supportedUrgency
+     */
+    urgency?: Urgency | undefined;
+    /**
+     * Optionally provide an identifier that the push service uses to coalesce notifications.
+     * Use a maximum of 32 characters from the URL or filename-safe Base64 characters sets.
+     */
+    topic?: string | undefined;
+    /**
+     * The HttpsProxyAgent's constructor argument that may either be a string URI of the proxy server
+     * (eg. http://< hostname >:< port >) or an "options" object with more specific properties.
+     * @see https://github.com/TooTallNate/node-https-proxy-agent#new-httpsproxyagentobject-optionsb
+     */
+    proxy?: string | HttpsProxyAgentOptions | undefined;
+    /**
+     * The HTTPS Agent instance which will be used in the https.request method. If the proxy options are defined, agent will be ignored!
+     */
+    agent?: https.Agent | undefined;
 }
 
 /**
@@ -198,7 +295,7 @@ export interface RequestOptions {
  * Buffer is null unless a payload was passed into generateRequestDetails().
  */
 export interface RequestDetails {
-    method: 'POST';
+    method: "POST";
     headers: Headers;
     body: Buffer | null;
     endpoint: string;
@@ -224,11 +321,5 @@ export class WebPushError extends Error {
     readonly body: string;
     readonly endpoint: string;
 
-    constructor(
-        message: string,
-        statusCode: number,
-        headers: Headers,
-        body: string,
-        endpoint: string
-    );
+    constructor(message: string, statusCode: number, headers: Headers, body: string, endpoint: string);
 }

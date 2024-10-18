@@ -1,26 +1,20 @@
-// Type definitions for cli-table2 0.2
-// Project: https://github.com/jamestalmage/cli-table2
-// Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace CliTable2 {
     type CharName =
-        "top" |
-        "top-mid" |
-        "top-left" |
-        "top-right" |
-        "bottom" |
-        "bottom-mid" |
-        "bottom-left" |
-        "bottom-right" |
-        "left" |
-        "left-mid" |
-        "mid" |
-        "mid-mid" |
-        "right" |
-        "right-mid" |
-        "middle";
+        | "top"
+        | "top-mid"
+        | "top-left"
+        | "top-right"
+        | "bottom"
+        | "bottom-mid"
+        | "bottom-left"
+        | "bottom-right"
+        | "left"
+        | "left-mid"
+        | "mid"
+        | "mid-mid"
+        | "right"
+        | "right-mid"
+        | "middle";
 
     type HorizontalAlignment = "left" | "center" | "right";
     type VerticalAlignment = "top" | "center" | "bottom";
@@ -92,7 +86,7 @@ declare namespace CliTable2 {
 }
 
 interface CliTable2 {
-    new (options?: CliTable2.TableConstructorOptions): CliTable2.Table;
+    new(options?: CliTable2.TableConstructorOptions): CliTable2.Table;
     readonly prototype: CliTable2.Table;
 }
 

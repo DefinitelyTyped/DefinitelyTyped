@@ -1,11 +1,11 @@
-import DataApiClient = require('data-api-client');
-import { PaginatorObject } from './pagination/Paginator';
+import DataApiClient = require("data-api-client");
+import { PaginatorObject } from "./pagination/Paginator";
 
 export type iParams = Parameters<typeof DataApiClient>[0];
 
 export type iDataAPIClient = ReturnType<typeof DataApiClient>;
 
-export type AuroraDbServiceParams = Pick<iParams, 'secretArn' | 'resourceArn' | 'database'>;
+export type AuroraDbServiceParams = Pick<iParams, "secretArn" | "resourceArn" | "database">;
 
 export default class AuroraDbService {
     protected client: iDataAPIClient;
@@ -14,7 +14,7 @@ export default class AuroraDbService {
 
     connect(opts: AuroraDbServiceParams): void;
 
-    query(sql: string, params: [] | unknown): ReturnType<iDataAPIClient['query']>;
+    query(sql: string, params: [] | unknown): ReturnType<iDataAPIClient["query"]>;
 
     select(sql: string, params: [] | unknown): Promise<any[]>;
 

@@ -1,6 +1,45 @@
 {
-  "private": true,
-  "dependencies": {
-    "kleur": "^3.0.3"
-  }
+    "private": true,
+    "name": "@types/prompts",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/terkelg/prompts"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "kleur": "^3.0.3"
+    },
+    "devDependencies": {
+        "@types/prompts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Berkay GURSOY",
+            "githubUsername": "Berkays"
+        },
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        },
+        {
+            "name": "Kamontat Chantrachirathumrong",
+            "githubUsername": "kamontat"
+        },
+        {
+            "name": "theweirdone",
+            "githubUsername": "theweirdone"
+        },
+        {
+            "name": "whoaa512",
+            "githubUsername": "whoaa512"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Christopher Hiller",
+            "githubUsername": "boneskull"
+        }
+    ]
 }

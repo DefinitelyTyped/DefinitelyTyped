@@ -1,8 +1,3 @@
-// Type definitions for git-branch-is 4.0
-// Project: https://github.com/kevinoid/git-branch-is
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Checks that the current branch of a git repository has a given name
  */

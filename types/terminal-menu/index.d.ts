@@ -1,8 +1,3 @@
-// Type definitions for terminal-menu v2.1.1
-// Project: https://github.com/substack/terminal-menu
-// Definitions by: Arun Aravind <https://github.com/aravindarun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare module "terminal-menu" {
@@ -20,7 +15,6 @@ declare module "terminal-menu" {
     function MenuContainerFactory(options: MenuContainerFactory.TerminalMenuOptions): MenuContainerFactory.TerminalMenu;
 
     namespace MenuContainerFactory {
-
         /**
          * A Thickness structure specifying the amount of padding to apply.
          */
@@ -28,22 +22,22 @@ declare module "terminal-menu" {
             /**
              * Represents width of the left side of the bounding rectangle.
              */
-            left: number,
+            left: number;
 
             /**
              * Represents width of the right side of the bounding rectangle.
              */
-            right: number,
+            right: number;
 
             /**
              * Represents width of the upper side of the bounding rectangle.
              */
-            top: number,
+            top: number;
 
             /**
              * Represents width of the lower side of the bounding rectangle.
              */
-            bottom: number
+            bottom: number;
         }
 
         /**
@@ -97,7 +91,7 @@ declare module "terminal-menu" {
              * Index of the menu item to be selected.
              * Default = 0
              */
-            selected?: number | undefined
+            selected?: number | undefined;
         }
 
         /**
@@ -111,10 +105,10 @@ declare module "terminal-menu" {
             add(label: string): void;
 
             /**
-              * Create a new selectable menu item with label as the anchor.
-              * @param label Label to use as the menu item anchor.
-              * @param callback Callback to invoke when the menu item is selected.
-              */
+             * Create a new selectable menu item with label as the anchor.
+             * @param label Label to use as the menu item anchor.
+             * @param callback Callback to invoke when the menu item is selected.
+             */
             add(label: string, callback: (label: string, index: number) => void): void;
 
             /**

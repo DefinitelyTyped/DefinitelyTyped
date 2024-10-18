@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/less",
+    "version": "3.0.9999",
+    "projects": [
+        "http://lesscss.org/"
+    ],
+    "devDependencies": {
+        "@types/less": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Hasner",
+            "githubUsername": "thasner"
+        },
+        {
+            "name": "Pranay Prakash",
+            "githubUsername": "pranaygp"
+        },
+        {
+            "name": "Daniel Waxweiler",
+            "githubUsername": "dwaxweiler"
+        },
+        {
+            "name": "Richard Lea",
+            "githubUsername": "chigix"
+        }
+    ]
+}

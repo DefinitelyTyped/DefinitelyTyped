@@ -1,11 +1,11 @@
-import { Request, Response, Express, NextFunction } from 'express';
-import { GradeService } from './Services/GradeService';
-import { DeepLinkingService } from './Services/DeepLinking';
-import { Database, DatabaseOptions } from '../Utils/Database';
-import { NamesAndRolesService } from './Services/NamesAndRoles';
-import { PlatformConfig } from './../Utils/Platform';
-import { IdToken } from '../IdToken';
-import { Platform } from '../Utils/Platform';
+import { Express, NextFunction, Request, Response } from "express";
+import { IdToken } from "../IdToken";
+import { Database, DatabaseOptions } from "../Utils/Database";
+import { PlatformConfig } from "./../Utils/Platform";
+import { Platform } from "../Utils/Platform";
+import { DeepLinkingService } from "./Services/DeepLinking";
+import { GradeService } from "./Services/GradeService";
+import { NamesAndRolesService } from "./Services/NamesAndRoles";
 
 export interface ServerAddonFunction {
     (app: Express): void;
@@ -39,7 +39,13 @@ export interface ProviderOptions {
 }
 
 export interface OnConnectCallback {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (connection: IdToken, request: Request, response: Response, next: NextFunction): Response | void;
+}
+
+export interface UnregisteredPlatformCallback {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    (request: Request, response: Response): Response | void;
 }
 
 export interface OnConnectOptions {
@@ -70,6 +76,8 @@ declare class Provider {
 
     onDeepLinking(_connectCallback: OnConnectCallback, options?: OnConnectOptions): true;
 
+    onUnregisteredPlatform(_unregisteredPlatformCallback: UnregisteredPlatformCallback): true;
+
     loginUrl(): string;
 
     appUrl(): string;
@@ -86,7 +94,7 @@ declare class Provider {
 
     getPlatform(url: string): Promise<Platform | false>;
 
-    deletePlatform(url: string): Promise<boolean>;
+    deletePlatform(url: string, clientId: string): Promise<boolean>;
 
     getAllPlatforms(): Promise<Platform[] | false>;
 

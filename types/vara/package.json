@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vara",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/akzhy/vara#readme"
+    ],
+    "devDependencies": {
+        "@types/vara": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richard Haddad",
+            "githubUsername": "Chnapy"
+        }
+    ]
+}

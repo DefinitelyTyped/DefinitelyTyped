@@ -1,27 +1,27 @@
-import FilesArchivePlugin = require('webpack-files-archive-plugin');
-import { Configuration } from 'webpack';
+import FilesArchivePlugin = require("webpack-files-archive-plugin");
+import { Configuration } from "webpack";
 
 const config: Configuration = {
     plugins: [
         // @ts-expect-error
         new FilesArchivePlugin(),
         new FilesArchivePlugin({
-            format: ['zip', 'tar'],
+            format: ["zip", "tar"],
         }),
         new FilesArchivePlugin({
-            format: 'zip',
+            format: "zip",
         }),
         new FilesArchivePlugin({
-            format: 'tar',
+            format: "tar",
         }),
         new FilesArchivePlugin({
             // @ts-expect-error
-            format: 'rar',
+            format: "rar",
         }),
         new FilesArchivePlugin({
-            format: ['zip', 'tar'],
-            output: 'build',
-            ext: 'gz',
+            format: ["zip", "tar"],
+            output: "build",
+            ext: "gz",
         }),
     ],
 };

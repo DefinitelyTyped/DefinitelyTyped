@@ -1,4 +1,4 @@
-import { S3Client } from '@aws-sdk/client-s3';
+import { S3Client } from "@aws-sdk/client-s3";
 import multer = require("multer");
 import s3Storage = require("multer-s3");
 

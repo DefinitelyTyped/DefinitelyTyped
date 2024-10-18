@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mapbox__rehype-prism",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/mapbox/rehype-prism"
+    ],
     "dependencies": {
+        "@types/hast": "^2",
         "unified": "^10.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/mapbox__rehype-prism": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
 }

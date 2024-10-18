@@ -1,5 +1,5 @@
-import { Vector2 } from './../../math/Vector2.js';
-import { Curve } from './../core/Curve.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { Curve } from "../core/Curve.js";
 
 /**
  * Create a smooth **2D** spline curve from a series of points.
@@ -42,7 +42,7 @@ export class SplineCurve extends Curve<Vector2> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `SplineCurve`
      */
-    override readonly type: string | 'SplineCurve';
+    override readonly type: string | "SplineCurve";
 
     /**
      * The array of {@link THREE.Vector2 | Vector2} points that define the curve.

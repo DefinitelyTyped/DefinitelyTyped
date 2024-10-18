@@ -1,10 +1,4 @@
-// Type definitions for express-flash-2 1.0
-// Project: https://github.com/jack2gs/express-flash-2
-// Definitions by: Matheus Salmi <https://github.com/mathsalmi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import express = require('express');
+import express = require("express");
 
 /**
  * Expose `flash()` function on responses.
@@ -37,7 +31,6 @@ declare global {
              *      req.flash('error', 'email delivery failed');
              *      req.flash('info', 'email re-sent');
              *
-             *
              * Formatting:
              *
              * Flash notifications also support arbitrary formatting support.
@@ -51,7 +44,7 @@ declare global {
             flash(type: string, msg: string | any[]): void;
 
             locals: {
-                flash?: Flash | undefined
+                flash?: Flash | undefined;
             };
         }
     }

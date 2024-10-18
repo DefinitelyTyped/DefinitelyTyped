@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "three";
 
 export const KaleidoShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         sides: IUniform;

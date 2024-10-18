@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/azure-function-log-intercept",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/BrianRosamilia/azure-function-log-intercept"
+    ],
     "dependencies": {
         "@azure/functions": "^1.2"
-    }
+    },
+    "devDependencies": {
+        "@types/azure-function-log-intercept": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

@@ -1,9 +1,3 @@
-// Type definitions for ali-app 1.0
-// Project: https://docs.alipay.com/mini/api/overview
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // 公共部分
 declare namespace my {
     // #region 基本参数
@@ -39,7 +33,7 @@ declare namespace my {
 
 // 界面
 declare namespace my {
-    //#region 导航栏 https://docs.alipay.com/mini/api/ui-navigate
+    // #region 导航栏 https://docs.alipay.com/mini/api/ui-navigate
     interface NavigateToOptions extends BaseOptions {
         /** 需要跳转的应用内页面的路径 */
         url: string;
@@ -107,9 +101,9 @@ declare namespace my {
 
     /** 隐藏导航栏 loading。 */
     function hideNavigationBarLoading(): void;
-    //#endregion
+    // #endregion
 
-    //#region TabBar https://docs.alipay.com/mini/api/ui-tabbar
+    // #region TabBar https://docs.alipay.com/mini/api/ui-tabbar
     interface SwitchTabOptions extends BaseOptions {
         /**
          * 需要跳转的 tabBar 页面的路径
@@ -121,9 +115,9 @@ declare namespace my {
      * 跳转到指定 tabBar 页面，并关闭其他所有非 tabBar 页面
      */
     function switchTab(options: SwitchTabOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 交互反馈 https://docs.alipay.com/mini/api/ui-feedback
+    // #region 交互反馈 https://docs.alipay.com/mini/api/ui-feedback
 
     interface AlertOptions extends BaseOptions {
         /** alert框的标题 */
@@ -144,7 +138,7 @@ declare namespace my {
         confirmButtonText: string;
         /** 确认按钮文字，默认‘取消’ */
         cancelButtonText: string;
-        success(result: { confirm: boolean; }): void;
+        success(result: { confirm: boolean }): void;
     }
     function confirm(options: Partial<ConfirmOptions>): void;
 
@@ -156,12 +150,12 @@ declare namespace my {
         /** 输入框内的提示文案 */
         placeholder?: string | undefined;
         /** message对齐方式，可用枚举left/center/right，iOS ‘center’, android ‘left’ */
-        align?: 'left' | 'center' | 'right' | string | undefined;
+        align?: "left" | "center" | "right" | string | undefined;
         /** 确认按钮文字，默认‘确定’ */
         okButtonText: string;
         /** 确认按钮文字，默认‘取消’ */
         cancelButtonText: string;
-        success(result: { ok: boolean; inputValue: string; }): void;
+        success(result: { ok: boolean; inputValue: string }): void;
     }
     function prompt(options: PromptOptions): void;
 
@@ -171,7 +165,7 @@ declare namespace my {
          */
         content: string;
         /** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
-        type?: 'none' | 'success' | 'fail' | 'exception' | string | undefined;
+        type?: "none" | "success" | "fail" | "exception" | string | undefined;
         /**
          * 显示时长，单位为 ms，默认 2000
          */
@@ -213,9 +207,8 @@ declare namespace my {
         index: number;
         /**
          * 飘红类型，支持 none（无红点）/ point（纯红点） / num（数字红点）/ text（文案红点）/ more（...）
-         *
          */
-        type: 'none' | 'point' | 'num' | 'text' | 'more' | string;
+        type: "none" | "point" | "num" | "text" | "more" | string;
 
         /**
          * 自定义飘红文案：
@@ -258,9 +251,9 @@ declare namespace my {
      * 显示操作菜单
      */
     function showActionSheet(options: ActionSheetOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 下拉刷新 https://docs.alipay.com/mini/api/ui-pulldown
+    // #region 下拉刷新 https://docs.alipay.com/mini/api/ui-pulldown
     /**
      * Page 实现的接口对象
      */
@@ -277,13 +270,13 @@ declare namespace my {
      * 停止当前页面的下拉刷新。
      */
     function stopPullDownRefresh(): void;
-    //#endregion
+    // #endregion
 
-    //#region 联系人 https://docs.alipay.com/mini/api/ui-contact
+    // #region 联系人 https://docs.alipay.com/mini/api/ui-contact
     interface ChoosePhoneContactOptions extends BaseOptions {
         success(result: {
-            name: string;    // 选中的联系人姓名
-            mobile: string;    // 选中的联系人手机号
+            name: string; // 选中的联系人姓名
+            mobile: string; // 选中的联系人手机号
         }): void;
         /**
          * 10    没有权限
@@ -300,11 +293,11 @@ declare namespace my {
         /** 单次最多选择联系人个数，默认 1，最大 10 */
         count: number;
         success(result: {
-            realName: string;    // 账号的真实姓名
-            mobile: string;        // 账号对应的手机号码
-            email: string;        // 账号的邮箱
-            avatar: string;        // 账号的头像链接
-            userId: string;        // 支付宝账号唯一 userId
+            realName: string; // 账号的真实姓名
+            mobile: string; // 账号对应的手机号码
+            email: string; // 账号的邮箱
+            avatar: string; // 账号的头像链接
+            userId: string; // 支付宝账号唯一 userId
         }): void;
         /**
          * 10    没有权限
@@ -337,13 +330,13 @@ declare namespace my {
         /**
          * 账号的显示名称：也即支付宝设置的备注名称，默认为朋友圈里面的昵称
          */
-        displayName: string;    // 账号的显示名称：也即支付宝设置的备注名称，默认为朋友圈里面的昵称
+        displayName: string; // 账号的显示名称：也即支付宝设置的备注名称，默认为朋友圈里面的昵称
     }
     interface ChooseContactOptions extends BaseOptions {
         /** 选择类型，值为single（单选）或者 multi（多选） */
-        chooseType: 'single' | 'multi' | string;
+        chooseType: "single" | "multi" | string;
         /** 包含手机通讯录联系人的模式：默认为不包含（none）、或者仅仅包含双向通讯录联系人（known）、或者包含手机通讯录联系人（all） */
-        includeMobileContactMode?: 'none' | 'known' | 'all' | string | undefined;
+        includeMobileContactMode?: "none" | "known" | "all" | string | undefined;
         /** 是否包含自己 */
         includeMe?: boolean | undefined;
         /** 最大选择人数，仅 chooseType 为 multi 时才有效 */
@@ -359,20 +352,20 @@ declare namespace my {
      * 唤起选人组件，默认只包含支付宝联系人，可以通过修改参数包含手机通讯录联系人或者双向通讯录联系人。
      */
     function chooseContact(options: ChooseContactOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 选择城市 https://docs.alipay.com/mini/api/ui-city
+    // #region 选择城市 https://docs.alipay.com/mini/api/ui-city
     interface City {
-        city: string;    // 城市名
-        adCode: string;    // 行政区划代码
-        spell?: string | undefined;    // 城市名对应拼音拼写，方便用户搜索
+        city: string; // 城市名
+        adCode: string; // 行政区划代码
+        spell?: string | undefined; // 城市名对应拼音拼写，方便用户搜索
     }
     interface ChooseCityOptions extends BaseOptions {
-        showLocatedCity: boolean;    //     是否显示当前定位城市，默认 false
-        showHotCities: boolean;        //     是否显示热门城市，默认 true
-        cities: City[];                // 自定义城市列表，列表内对象字段见下表
-        hotCities: City[];            // 自定义热门城市列表，列表内对象字段见下表
-        success(result: { city: string; adCode: string; }): void;
+        showLocatedCity: boolean; //     是否显示当前定位城市，默认 false
+        showHotCities: boolean; //     是否显示热门城市，默认 true
+        cities: City[]; // 自定义城市列表，列表内对象字段见下表
+        hotCities: City[]; // 自定义热门城市列表，列表内对象字段见下表
+        success(result: { city: string; adCode: string }): void;
     }
     /**
      * 打开城市选择列表
@@ -380,9 +373,9 @@ declare namespace my {
      * 如果用户没有选择任何城市直接点击了返回，将不会触发回调函数。
      */
     function chooseCity(options: Partial<ChooseCityOptions>): void;
-    //#endregion
+    // #endregion
 
-    //#region 选择日期 https://docs.alipay.com/mini/api/ui-date
+    // #region 选择日期 https://docs.alipay.com/mini/api/ui-date
     interface DatePickerOptions extends BaseOptions {
         /**
          * 返回的日期格式，
@@ -392,14 +385,14 @@ declare namespace my {
          * 4. yyyy-MM （最低基础库：1.1.1, 可用 canIUse('datePicker.object.format.yyyy-MM') 判断）
          * 5. yyyy （最低基础库：1.1.1,可用 canIUse('datePicker.object.format.yyyy') 判断）
          */
-        format: 'yyyy-MM-dd' | 'HH:mm' | 'yyyy-MM-dd HH:mm' | 'yyyy-MM' | 'yyyy';
+        format: "yyyy-MM-dd" | "HH:mm" | "yyyy-MM-dd HH:mm" | "yyyy-MM" | "yyyy";
         /** 初始选择的日期时间，默认当前时间 */
         currentDate: string;
         /** 最小日期时间 */
         startDate: string;
         /** 最大日期时间 */
         endDate: string;
-        success(result: { date: string; }): void;
+        success(result: { date: string }): void;
         /** 11 用户取消操作 */
         fail(error: 11): void;
     }
@@ -407,9 +400,9 @@ declare namespace my {
      * 打开日期选择列表
      */
     function datePicker(optiosn: Partial<DatePickerOptions>): void;
-    //#endregion
+    // #endregion
 
-    //#region 动画 https://docs.alipay.com/mini/api/ui-animation
+    // #region 动画 https://docs.alipay.com/mini/api/ui-animation
     type TimingFunction =
         | "linear"
         | "ease"
@@ -549,7 +542,7 @@ declare namespace my {
             c: number,
             d: number,
             tx: number,
-            ty: number
+            ty: number,
         ): Animation;
         /** 同transform-function matrix3d */
         matrix3d(
@@ -568,19 +561,19 @@ declare namespace my {
             a4: number,
             b4: number,
             c4: number,
-            d4: number
+            d4: number,
         ): Animation;
     }
-    //#endregion
+    // #endregion
 
-    //#region 画布 https://docs.alipay.com/mini/api/ui-canvas
+    // #region 画布 https://docs.alipay.com/mini/api/ui-canvas
     interface ToTempFilePathOptions extends BaseOptions {
-        x: number;            // 画布 x 轴起点，默认为 0
-        y: number;            // 画布 y 轴起点，默认为 0
-        width: number;        // 画布宽度，默认为 canvas 宽度 - x
-        height: number;        // 画布高度，默认为 canvas 高度 - y
-        destWidth: number;    // 输出的图片宽度，默认为 width
-        destHeight: number;    // 输出的图片高度，默认为 height
+        x: number; // 画布 x 轴起点，默认为 0
+        y: number; // 画布 y 轴起点，默认为 0
+        width: number; // 画布宽度，默认为 canvas 宽度 - x
+        height: number; // 画布高度，默认为 canvas 高度 - y
+        destWidth: number; // 输出的图片宽度，默认为 width
+        destHeight: number; // 输出的图片高度，默认为 height
     }
     type Color = string | number[] | number | CanvasAction;
 
@@ -609,11 +602,11 @@ declare namespace my {
          * textAlign 是 Canvas 2D API 描述绘制文本时，文本的对齐方式的属性。注意，该对齐是基于
          * CanvasRenderingContext2D.fillText 方法的x的值。所以如果 textAlign="center"，那么该文本将画在 x-50%*width
          */
-        setTextAlign(textAlign: 'left' | 'right' | 'center' | 'start' | 'end'): void;
+        setTextAlign(textAlign: "left" | "right" | "center" | "start" | "end"): void;
         /**
          * textBaseline 是 Canvas 2D API 描述绘制文本时，当前文本基线的属性。
          */
-        setTextBaseline(textBaseline: 'top' | 'hanging' | 'middle' | 'alphabetic' | 'ideographic' | 'bottom'): void;
+        setTextBaseline(textBaseline: "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom"): void;
         /**
          * 设置填充色。
          *
@@ -668,14 +661,14 @@ declare namespace my {
          *
          * @param lineCap 线条的结束端点样式
          */
-        setLineCap(lineCap: 'round' | 'butt' | 'square'): void;
+        setLineCap(lineCap: "round" | "butt" | "square"): void;
 
         /**
          * 设置线条的交点样式。
          *
          * @param lineJoin 线条的结束交点样式
          */
-        setLineJoin(lineJoin: 'round' | 'bevel' | 'miter'): void;
+        setLineJoin(lineJoin: "round" | "bevel" | "miter"): void;
 
         /**
          * 设置最大斜接长度，斜接长度指的是在两条线交汇处内角和外角之间的距离。 当 setLineJoin() 为 miter 时才有效。超过最大倾斜长度的，连接处将以 lineJoin 为 bevel 来显示
@@ -726,7 +719,6 @@ declare namespace my {
 
         /**
          * 对当前路径中的内容进行填充。默认的填充色为黑色。
-         *
          */
         fill(): void;
 
@@ -746,7 +738,6 @@ declare namespace my {
         /**
          * 关闭一个路径
          * 关闭路径会连接起点和终点。
-         *
          */
         closePath(): void;
 
@@ -793,7 +784,6 @@ declare namespace my {
 
         /**
          * 将当前创建的路径设置为当前剪切路径。
-         *
          */
         clip(): void;
 
@@ -881,7 +871,14 @@ declare namespace my {
          * @param translateX 水平移动
          * @param translateY 垂直移动
          */
-        transform(scaleX: number, skewX: number, skewY: number, scaleY: number, translateX: number, translateY: number): void;
+        transform(
+            scaleX: number,
+            skewX: number,
+            skewY: number,
+            scaleY: number,
+            translateX: number,
+            translateY: number,
+        ): void;
 
         /**
          * 使用单位矩阵重新设置（覆盖）当前的变换并调用变换的方法，此变换由方法的变量进行描述。
@@ -893,11 +890,17 @@ declare namespace my {
          * @param translateX 水平移动
          * @param translateY 垂直移动
          */
-        setTransform(scaleX: number, skewX: number, skewY: number, scaleY: number, translateX: number, translateY: number): void;
+        setTransform(
+            scaleX: number,
+            skewX: number,
+            skewY: number,
+            scaleY: number,
+            translateX: number,
+            translateY: number,
+        ): void;
 
         /**
          * 保存当前的绘图上下文。
-         *
          */
         save(): void;
 
@@ -921,11 +924,11 @@ declare namespace my {
      * 该绘图上下文只作用于对应 canvasId 的 <canvas/>
      */
     function createCanvasContext(canvasId: string): ConvasContext;
-    //#endregion
+    // #endregion
 
-    //#region 地图 https://docs.alipay.com/mini/api/ui-map
+    // #region 地图 https://docs.alipay.com/mini/api/ui-map
     interface GetCenterLocationOptions extends BaseOptions {
-        success?(res: { longitude: string; latitude: string; }): void;
+        success?(res: { longitude: string; latitude: string }): void;
     }
 
     interface MapContext extends BaseOptions {
@@ -949,19 +952,18 @@ declare namespace my {
      */
     function createMapContext(mapId: string): MapContext;
 
-    //#endregion
+    // #endregion
 
-    //#region 键盘 https://docs.alipay.com/mini/api/ui-hidekeyboard
+    // #region 键盘 https://docs.alipay.com/mini/api/ui-hidekeyboard
     /**
      * 隐藏键盘
-     *
      */
     function hideKeyboard(): void;
-    //#endregion
+    // #endregion
 
-    //#region 滚动 https://docs.alipay.com/mini/api/scroll
+    // #region 滚动 https://docs.alipay.com/mini/api/scroll
     interface PageScrollToOptions {
-        scrollTop: number;    // 滚动到页面的目标位置，单位 px
+        scrollTop: number; // 滚动到页面的目标位置，单位 px
     }
 
     /**
@@ -970,9 +972,9 @@ declare namespace my {
      * @param options
      */
     function pageScrollTo(options: PageScrollToOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 节点查询 https://docs.alipay.com/mini/api/selector-query
+    // #region 节点查询 https://docs.alipay.com/mini/api/selector-query
     interface RectArea {
         /** 节点的左边界坐标 */
         left: number;
@@ -1014,7 +1016,7 @@ declare namespace my {
          * 节点信息会在callback中返回。
          */
         boundingClientRect<T extends NodesRefRect | NodesRefRect[]>(
-            callback?: (rect: T) => void
+            callback?: (rect: T) => void,
         ): SelectorQuery;
         /**
          * 添加节点的滚动位置查询请求，以像素为单位。
@@ -1077,39 +1079,39 @@ declare namespace my {
      * @returns
      */
     function createSelectorQuery(page?: any): SelectorQuery;
-    //#endregion
+    // #endregion
 
-    //#region 级联选择 https://docs.alipay.com/mini/api/ewdxl3
+    // #region 级联选择 https://docs.alipay.com/mini/api/ewdxl3
     interface MultiLevelSelectItem {
         name: string;
         subList?: MultiLevelSelectItem[] | undefined;
     }
     interface MultiLevelSelectOptions extends BaseOptions {
-        title?: string | undefined;                        // 标题
-        list?: MultiLevelSelectItem[] | undefined;        // 选择数据列表
-        name?: string | undefined;                        // 条目名称
-        subList?: MultiLevelSelectItem[] | undefined;    // 子条目列表
+        title?: string | undefined; // 标题
+        list?: MultiLevelSelectItem[] | undefined; // 选择数据列表
+        name?: string | undefined; // 条目名称
+        subList?: MultiLevelSelectItem[] | undefined; // 子条目列表
         success?(res: {
-            success: boolean;                // 是否选择完成,取消返回false
-            result: MultiLevelSelectItem[];    // 选择的结果，如[{“name”:”杭州市”},{“name”:”上城区”},{“name”:”古翠街道”}]
+            success: boolean; // 是否选择完成,取消返回false
+            result: MultiLevelSelectItem[]; // 选择的结果，如[{“name”:”杭州市”},{“name”:”上城区”},{“name”:”古翠街道”}]
         }): void;
     }
 
     function multiLevelSelect(options?: MultiLevelSelectOptions): void;
-    //#endregion
+    // #endregion
 }
 
 // 开放接口
 declare namespace my {
-    //#region 用户授权 https://docs.alipay.com/mini/api/openapi-authorize
+    // #region 用户授权 https://docs.alipay.com/mini/api/openapi-authorize
     interface GetAuthCodeOptions extends BaseOptions {
-        scopes?: string | string[] | undefined;    // 授权类型，默认 auth_base。支持 auth_base（静默授权）/ auth_user（主动授权） / auth_zhima（芝麻信用）
+        scopes?: string | string[] | undefined; // 授权类型，默认 auth_base。支持 auth_base（静默授权）/ auth_user（主动授权） / auth_zhima（芝麻信用）
         success?(res: {
-            authCode: string;    // 授权码
+            authCode: string; // 授权码
             authErrorScope: {
                 [scope: string]: number;
-            };    // 失败的授权类型，key是授权失败的 scope，value 是对应的错误码
-            authSucessScope: string[];    // 成功的授权 scope
+            }; // 失败的授权类型，key是授权失败的 scope，value 是对应的错误码
+            authSucessScope: string[]; // 成功的授权 scope
         }): void;
     }
     /**
@@ -1117,13 +1119,13 @@ declare namespace my {
      * 详细用户授权接入参考 [指引](https://docs.alipay.com/mini/introduce/auth)。
      */
     function getAuthCode(options: GetAuthCodeOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 客户端获取会员信息 https://docs.alipay.com/mini/api/userinfo
+    // #region 客户端获取会员信息 https://docs.alipay.com/mini/api/userinfo
     interface GetAuthUserInfoOptions extends BaseOptions {
         success?(res: {
-            nickName: string;    // 用户昵称
-            avatar: string;        // 用户头像链接
+            nickName: string; // 用户昵称
+            avatar: string; // 用户头像链接
         }): void;
     }
     /**
@@ -1131,11 +1133,11 @@ declare namespace my {
      * 获取会员信息首先需要获取用户授权，详细会员信息获取参考[指引](https://docs.alipay.com/mini/introduce/auth)，采用 jsapi 调用的方式。
      */
     function getAuthUserInfo(options: GetAuthUserInfoOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 小程序唤起支付 https://docs.alipay.com/mini/api/openapi-pay
+    // #region 小程序唤起支付 https://docs.alipay.com/mini/api/openapi-pay
     interface TradePayOptions extends BaseOptions {
-        tradeNO?: string | undefined;    // 接入小程序支付时传入此参数。此参数为支付宝交易号
+        tradeNO?: string | undefined; // 接入小程序支付时传入此参数。此参数为支付宝交易号
         success?(res: {
             // resultCode | 描述
             // -----------|------
@@ -1155,11 +1157,11 @@ declare namespace my {
      * @param options
      */
     function tradePay(options: TradePayOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 支付代扣签约 https://docs.alipay.com/mini/api/pay-sign
+    // #region 支付代扣签约 https://docs.alipay.com/mini/api/pay-sign
     interface PaySignCenterOptions extends BaseOptions {
-        signStr: string;    // 签约字符串
+        signStr: string; // 签约字符串
     }
 
     /**
@@ -1174,21 +1176,21 @@ declare namespace my {
      * 6002 | 网络连接错误     * @param options
      */
     function paySignCenter(options: PaySignCenterOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 小程序二维码 https://docs.alipay.com/mini/api/openapi-qrcode
+    // #region 小程序二维码 https://docs.alipay.com/mini/api/openapi-qrcode
     // @see https://docs.alipay.com/mini/api/openapi-qrcode
     // @see https://docs.alipay.com/mini/introduce/qrcode
-    //#endregion
+    // #endregion
 
-    //#region 跳转支付宝卡包 https://docs.alipay.com/mini/api/card-voucher-ticket
+    // #region 跳转支付宝卡包 https://docs.alipay.com/mini/api/card-voucher-ticket
     /**
      * 打开支付宝卡列表。
      * 有关支付宝卡包详细功能，见[支付宝卡包产品介绍](https://docs.alipay.com/mini/introduce/voucher)
      */
     function openCardList(): void;
     interface OpenMerchantCardList extends BaseOptions {
-        partnerId: string;    // 商户编号
+        partnerId: string; // 商户编号
     }
 
     /**
@@ -1199,7 +1201,7 @@ declare namespace my {
     function openMerchantCardList(options: OpenMerchantCardList): void;
 
     interface OpenCardDetailOptions extends BaseOptions {
-        passId: string;    // 卡实例Id
+        passId: string; // 卡实例Id
     }
     /**
      * 打开当前用户的某张卡的详情页
@@ -1222,7 +1224,7 @@ declare namespace my {
     function openVoucherList(): void;
 
     interface OpenMerchantVoucherListOptions extends BaseOptions {
-        partnerId: string;    // 商户编号
+        partnerId: string; // 商户编号
     }
     /**
      * 打开当前用户的某个商户的券列表
@@ -1231,11 +1233,11 @@ declare namespace my {
     function openMerchantVoucherList(options: OpenMerchantVoucherListOptions): void;
 
     interface OpenVoucherDetailOptions1 extends BaseOptions {
-        passId: string;            // 券实例Id，调用券发放接口可以获取该参数（如果传入了partnerId和serialNumber则不需传入）
+        passId: string; // 券实例Id，调用券发放接口可以获取该参数（如果传入了partnerId和serialNumber则不需传入）
     }
     interface OpenVoucherDetailOptions2 extends BaseOptions {
-        partnerId: string;        // 商户编号，以 2088 为开头（如果传入了passId则不需传入）
-        serialNumber: string;    // 序列号，调用新建卡券模板可以获取该参数（如果传入了passId则不需传入）
+        partnerId: string; // 商户编号，以 2088 为开头（如果传入了passId则不需传入）
+        serialNumber: string; // 序列号，调用新建卡券模板可以获取该参数（如果传入了passId则不需传入）
     }
     /**
      * 打开当前用户的某张券的详情页（非口碑）
@@ -1244,11 +1246,11 @@ declare namespace my {
     function openVoucherDetail(options: OpenVoucherDetailOptions1 | OpenVoucherDetailOptions2): void;
 
     interface OpenKBVoucherDetailOptions1 extends BaseOptions {
-        passId: string;            // 卡实例Id（如果传入了partnerId和serialNumber则不需传入）
+        passId: string; // 卡实例Id（如果传入了partnerId和serialNumber则不需传入）
     }
     interface OpenKBVoucherDetailOptions2 extends BaseOptions {
-        partnerId: string;        // 商户编号（如果传入了passId则不需传入）
-        serialNumber: string;    // 序列号（如果传入了passId则不需传入）
+        partnerId: string; // 商户编号（如果传入了passId则不需传入）
+        serialNumber: string; // 序列号（如果传入了passId则不需传入）
     }
     /**
      * 打开当前用户的某张券的详情页（口碑）
@@ -1263,7 +1265,7 @@ declare namespace my {
     function openTicketList(): void;
 
     interface OpenMerchantTicketListOptions extends BaseOptions {
-        partnerId: string;    // 商户编号
+        partnerId: string; // 商户编号
     }
     /**
      * 打开某个商户的票列表
@@ -1272,11 +1274,11 @@ declare namespace my {
     function openMerchantTicketList(options: OpenMerchantTicketListOptions): void;
 
     interface OpenTicketDetailOptions1 extends BaseOptions {
-        passId: string;    // 卡实例Id（如果传入了partnerId和serialNumber则不需要传入passId）
+        passId: string; // 卡实例Id（如果传入了partnerId和serialNumber则不需要传入passId）
     }
     interface OpenTicketDetailOptions2 extends BaseOptions {
-        partnerId: string;    // 商户编号（如果传入了passId则不需要传入partnerId）
-        serialNumber: string;    // 序列号（如果传入了passId则不需要传入serialNumber）
+        partnerId: string; // 商户编号（如果传入了passId则不需要传入partnerId）
+        serialNumber: string; // 序列号（如果传入了passId则不需要传入serialNumber）
     }
     /**
      * 打开当前用户的某张票的详情页
@@ -1284,24 +1286,24 @@ declare namespace my {
      * 有关支付宝卡包详细功能，见[支付宝卡包产品介绍](https://docs.alipay.com/mini/introduce/voucher)
      */
     function openTicketDetail(options: OpenTicketDetailOptions1 | OpenTicketDetailOptions2): void;
-    //#endregion
+    // #endregion
 
-    //#region 会员开卡授权 https://docs.alipay.com/mini/api/add-card-auth
+    // #region 会员开卡授权 https://docs.alipay.com/mini/api/add-card-auth
     interface AddCardAuthResult {
-        success: true | boolean;        // true 表示领卡成功
-        resultStatus: string;    // 9000 表示成功
+        success: true | boolean; // true 表示领卡成功
+        resultStatus: string; // 9000 表示成功
         result: {
-            app_id: string;            // 应用id
-            auth_code: string;        // 授权码，用于换取authtoken
-            state: string;            // 授权的state
-            scope: string;            // 授权scope
-            template_id: string;    // 会员卡模板Id
-            request_id: string;        // 会员卡表单信息请求Id
-            out_string: string;        // 会员卡领卡链接透传参数
+            app_id: string; // 应用id
+            auth_code: string; // 授权码，用于换取authtoken
+            state: string; // 授权的state
+            scope: string; // 授权scope
+            template_id: string; // 会员卡模板Id
+            request_id: string; // 会员卡表单信息请求Id
+            out_string: string; // 会员卡领卡链接透传参数
         };
     }
     interface AddCardAuthResult {
-        success: false | boolean;        // false 表示领卡失败
+        success: false | boolean; // false 表示领卡失败
         /**
          * 失败的错误码
          * 领卡失败 code 说明
@@ -1324,15 +1326,15 @@ declare namespace my {
      * 小程序唤起会员开卡授权页面，小程序接入会员卡[点此查看](https://docs.alipay.com/mini/introduce/card)
      */
     function addCardAuth(options: AddCardAuthOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 芝麻认证 https://docs.alipay.com/mini/api/zm-service
+    // #region 芝麻认证 https://docs.alipay.com/mini/api/zm-service
     interface StartZMVerifyOptions extends BaseOptions {
-        bizNo: string;    // 认证标识
+        bizNo: string; // 认证标识
         success?(res: {
-            token: string;    // 认证标识
-            passed: string;    // 认证是否通过
-            reason?: string | undefined;    // 认证不通过原因
+            token: string; // 认证标识
+            passed: string; // 认证是否通过
+            reason?: string | undefined; // 认证不通过原因
         }): void;
     }
     /**
@@ -1341,13 +1343,12 @@ declare namespace my {
      * 需要通过蚂蚁开发平台，调用certification.initialize接口进行[认证初始化](https://docs.alipay.com/zmxy/271/105914)。获得biz_no 后，方能通过以下接口激活芝麻认证小程序。
      */
     function startZMVerify(options: StartZMVerifyOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 信用借还 https://docs.alipay.com/mini/api/zmcreditborrow
+    // #region 信用借还 https://docs.alipay.com/mini/api/zmcreditborrow
     interface ZMCreditBorrowOptions extends BaseOptions {
         /**
          * 外部订单号，需要唯一，由商户传入，芝麻内部会做幂等控制，格式为：yyyyMMddHHmmss+随机数
-         *
          */
         out_order_no: string;
         /**
@@ -1386,7 +1387,7 @@ declare namespace my {
          * N: 不支持
          * 注：支付押金的金额等同于deposit_amount。
          */
-        deposit_state?: string | undefined;    // 该字段目前默认传Y；
+        deposit_state?: string | undefined; // 该字段目前默认传Y；
         /**
          * 回调到商户的小程序schema地址。说明：商户的回调地址可以在商户后台里进行配置，服务端回调时，首先根据参数：invoke_type 查询是否有对应的配置地址，如果有，则使用已定义的地址，否则，使用该字段定义的地址执行回调；
          * 参考表格下方的说明一；
@@ -1406,7 +1407,7 @@ declare namespace my {
          * TINYAPP：回跳至小程序地址；
          * WINDOWS：支付宝服务窗，默认值；
          */
-        invoke_type?: 'TINYAPP' | 'TINYAPP' | 'WINDOWS' | string | undefined;
+        invoke_type?: "TINYAPP" | "TINYAPP" | "WINDOWS" | string | undefined;
         /**
          * 信用业务服务，注意：该字段不能为空，且必须根据说明的指引配置商户专属的场景ID，商户自助接入时，登录后台可配置场景ID，将后台配置的场景ID作为该字段的输入；
          * 参考说明一自助进行配置；
@@ -1426,14 +1427,12 @@ declare namespace my {
         mobile_no?: string | undefined;
         /**
          * 物品借用地点的描述，便于用户知道物品是在哪里借的。可为空
-         *
          */
         borrow_shop_name?: string | undefined;
         /**
          * 租金的结算方式，非必填字段，默认是支付宝租金结算支付 merchant：表示商户自行结算，信用借还不提供租金支付能力； alipay：表示使用支付宝支付功能，给用户提供租金代扣及赔偿金支付能力；
-         *
          */
-        rent_settle_type?: 'merchant' | 'alipay' | string | undefined;
+        rent_settle_type?: "merchant" | "alipay" | string | undefined;
         /**
          * 商户请求状态上下文。商户发起借用服务时，需要在借用结束后返回给商户的参数，格式：json；
          * 如果json的某一项值包含中文，请使用encodeURIComponent对该值进行编码；
@@ -1469,7 +1468,7 @@ declare namespace my {
              * 9000    成功
              * 4000    系统异常
              */
-            resultStatus: '6001' | '6002' | '9000' | '4000' | string;
+            resultStatus: "6001" | "6002" | "9000" | "4000" | string;
             result: {
                 /**
                  * 商户发起借用服务时传入的参数，需要在借用结束后返回给商户的参数
@@ -1492,22 +1491,22 @@ declare namespace my {
                 /**
                  * 是否准入:Y:准入；N:不准入(该字段目前无实际意义)
                  */
-                admit_state: 'Y' | 'N' | string;
+                admit_state: "Y" | "N" | string;
                 /**
                  * 物品借用/租赁者的用户id
                  * @example
                  * 2088202924240029
                  */
                 user_id: string;
-                callbackData: any;    // todo only in example
-            }
+                callbackData: any; // todo only in example
+            };
         }): void;
     }
     function zmCreditBorrow(options: ZMCreditBorrowOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 文本风险识别 https://docs.alipay.com/mini/api/text-identification
-    type TextRiskIdentificationType = 'keyword' | '0' | '1' | '2' | '3' | string;
+    // #region 文本风险识别 https://docs.alipay.com/mini/api/text-identification
+    type TextRiskIdentificationType = "keyword" | "0" | "1" | "2" | "3" | string;
     interface TextRiskIdentificationOptions extends BaseOptions {
         /**
          * 需要进行风险识别的文本内容
@@ -1548,9 +1547,9 @@ declare namespace my {
      * 文本风险识别， **支付宝客户端10.1.10及以上版本支持。**详细接入参考[指引](https://docs.alipay.com/mini/introduce/text-identification)
      */
     function textRiskIdentification(options: TextRiskIdentificationOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 小程序跳转 https://docs.alipay.com/mini/api/open-miniprogram
+    // #region 小程序跳转 https://docs.alipay.com/mini/api/open-miniprogram
     interface NavigateToMiniProgramOptions extends BaseOptions {
         /**
          * 要跳转的目标小程序appId
@@ -1567,7 +1566,7 @@ declare namespace my {
         /**
          * 要打开的小程序版本，有效值 develop（开发版），trial（体验版），release（正式版） ，仅在当前小程序为开发版或体验版时此参数有效；如果当前小程序是正式版，则打开的小程序必定是正式版。默认值 release
          */
-        envVersion?: 'develop' | 'trial' | 'release' | string | undefined;
+        envVersion?: "develop" | "trial" | "release" | string | undefined;
     }
     /**
      * 跳转到其他小程序。详细接入参考[指引](https://docs.alipay.com/mini/introduce/open-miniprogram)
@@ -1584,9 +1583,9 @@ declare namespace my {
      * 跳转回上一个小程序，只有当另一个小程序跳转到当前小程序时才会能调用成功
      */
     function navigateBackMiniProgram(options: NavigateBackMiniProgramOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region webview组件控制 https://docs.alipay.com/mini/api/webview-context
+    // #region webview组件控制 https://docs.alipay.com/mini/api/webview-context
     interface WebViewContext {
         postMessage(param: any): void;
     }
@@ -1596,12 +1595,12 @@ declare namespace my {
      * @param webviewId 要创建的web-view所对应的id属性
      */
     function createWebViewContext(webviewId: string): WebViewContext;
-    //#endregion
+    // #endregion
 }
 
 // 多媒体
 declare namespace my {
-    //#region 图片 https://docs.alipay.com/mini/api/media-image
+    // #region 图片 https://docs.alipay.com/mini/api/media-image
     type ImageSourceType = "album" | "camera";
     interface ChooseImageOptions extends BaseOptions {
         /** 最大可选照片数，默认1张 */
@@ -1623,12 +1622,12 @@ declare namespace my {
 
     interface GenerateImageFromCodeOptions extends BaseOptions {
         code: string;
-        format: 'QRCODE';
+        format: "QRCODE";
         width: number;
         /**
          * @defaultValue 'H'
          */
-        correctLevel?: 'L' | 'M' | 'Q' | 'H';
+        correctLevel?: "L" | "M" | "Q" | "H";
         success?(res: { image: string }): void;
     }
 
@@ -1714,31 +1713,31 @@ declare namespace my {
          */
         src: string;
         success?(res: {
-            width: number;    // 图片宽度（单位px）
-            height: number;    // 图片高度（单位px）
-            path: string;    // 图片本地路径
+            width: number; // 图片宽度（单位px）
+            height: number; // 图片高度（单位px）
+            path: string; // 图片本地路径
             orientation:
-                | 'up'
-                | 'up-mirrored'
-                | 'down'
-                | ' down-mirrored'
-                | 'left-mirrored'
-                | 'right'
-                | 'lright-mirrored'
-                | 'left';
-            type: 'png' | 'jpg' | 'gif' | 'webp' | 'hevc' | 'bmp' | 'heic';
+                | "up"
+                | "up-mirrored"
+                | "down"
+                | " down-mirrored"
+                | "left-mirrored"
+                | "right"
+                | "lright-mirrored"
+                | "left";
+            type: "png" | "jpg" | "gif" | "webp" | "hevc" | "bmp" | "heic";
         }): void;
     }
     /**
      * 获取图片信息。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.getimageinfo)
      */
     function getImageInfo(options: GetImageInfoOptions): void;
-    //#endregion
+    // #endregion
 }
 
 // 缓存
 declare namespace my {
-    //#region 缓存 https://docs.alipay.com/mini/api/storage
+    // #region 缓存 https://docs.alipay.com/mini/api/storage
     interface SetStorageOptions extends BaseOptions {
         /** 本地缓存中的指定的 key */
         key: string;
@@ -1758,7 +1757,7 @@ declare namespace my {
      * @param key 本地缓存中的指定的 key
      * @param data 需要存储的内容
      */
-    function setStorageSync(options: { key: string; data: any; }): void;
+    function setStorageSync(options: { key: string; data: any }): void;
 
     interface GetStorageOptions extends BaseOptions {
         /** 本地缓存中的指定的 key */
@@ -1776,7 +1775,7 @@ declare namespace my {
      * 同步获取缓存数据。
      * 这是同步接口
      */
-    function getStorageSync(options: { key: string; }): any;
+    function getStorageSync(options: { key: string }): any;
 
     interface RemoveStorageOptions extends BaseOptions {
         key: string;
@@ -1792,7 +1791,7 @@ declare namespace my {
      * 这是同步接口。
      * @param key 缓存数据的key
      */
-    function removeStorageSync(options: { key: string; }): void;
+    function removeStorageSync(options: { key: string }): void;
 
     /**
      * 清除本地数据缓存。
@@ -1829,12 +1828,12 @@ declare namespace my {
     function getStorageInfo(options: GetStorageInfoOptions): void;
 
     function getStorageInfoSync(): StorageInfo;
-    //#endregion
+    // #endregion
 }
 
 // 文件
 declare namespace my {
-    //#region 文件 https://docs.alipay.com/mini/api/file
+    // #region 文件 https://docs.alipay.com/mini/api/file
     interface SavedFileData {
         /** 文件保存路径 */
         apFilePath: string;
@@ -1859,7 +1858,7 @@ declare namespace my {
         /** 文件路径 */
         apFilePath: string;
         /** 摘要算法，支持md5和sha1，默认为md5 */
-        digestAlgorithm?: 'md5' | 'sha1' | undefined;
+        digestAlgorithm?: "md5" | "sha1" | undefined;
         success?(options: GetFileInfoSuccess): void;
     }
     /**
@@ -1898,7 +1897,7 @@ declare namespace my {
                 createTime: number;
                 /** 文件路径 */
                 apFilePath: string;
-            }>
+            }>;
         }): void;
     }
     function getSavedFileList(options: GetSavedFileListOptions): void;
@@ -1908,12 +1907,12 @@ declare namespace my {
      * 删除某个保存的文件
      */
     function removeSavedFile(options: RemoveSavedFileOptions): void;
-    //#endregion
+    // #endregion
 }
 
 // 位置
 declare namespace my {
-    //#region 位置 https://docs.alipay.com/mini/api/location
+    // #region 位置 https://docs.alipay.com/mini/api/location
     interface LocationData {
         /** 经度 */
         longitude: string;
@@ -1963,10 +1962,12 @@ declare namespace my {
         /**
          * 需要POI级别逆地理的才会有的字段, 定位点附近的 POI 信息，结构是：{ name, address } （type > 2生效）
          */
-        pois?: Array<{
-            name: string;
-            address: string;
-        }> | undefined;
+        pois?:
+            | Array<{
+                name: string;
+                address: string;
+            }>
+            | undefined;
     }
     interface GetLocationOptions extends BaseOptions {
         /**
@@ -2030,12 +2031,12 @@ declare namespace my {
      * 使用支付宝内置地图选择地理位置。
      */
     function chooseLocation(options: ChooseLocationOptions): void;
-    //#endregion
+    // #endregion
 }
 
 // 网络
 declare namespace my {
-    //#region 网络 https://docs.alipay.com/mini/api/network
+    // #region 网络 https://docs.alipay.com/mini/api/network
     interface RequestHeader {
         [key: string]: string;
     }
@@ -2053,7 +2054,7 @@ declare namespace my {
          */
         timeout?: number | undefined;
         /** 期望返回的数据格式，默认json，支持json，text，base64 */
-        dataType?: 'json' | 'text' | 'base64' | undefined;
+        dataType?: "json" | "text" | "base64" | undefined;
         /** 收到开发者服务成功返回的回调函数，res = {data: '开发者服务器返回的内容'} */
         success?(res: DataResponse): void;
     }
@@ -2069,7 +2070,7 @@ declare namespace my {
         /**
          * 文件类型
          */
-        fileType: 'image' | 'video' | 'audio';
+        fileType: "image" | "video" | "audio";
         /** HTTP 请求 Header */
         header?: RequestHeader | undefined;
         /** HTTP 请求中其他额外的 form 数据 */
@@ -2107,7 +2108,7 @@ declare namespace my {
         data?: any;
         /** 设置请求的头部 */
         header?: RequestHeader | undefined;
-        method?: 'GET' | 'POST' | undefined;    // todo missing in api
+        method?: "GET" | "POST" | undefined; // todo missing in api
     }
     /**
      * 创建一个 WebSocket 的连接；
@@ -2158,16 +2159,18 @@ declare namespace my {
     /**
      * 监听WebSocket接受到服务器的消息事件。
      */
-    function onSocketMessage(callback: (res: {
-        /**
-         * 需要发送的内容：普通的文本内容 String 或者经 base64 编码后的 String
-         */
-        data: string | ArrayBuffer;
-        /**
-         * 如果需要发送二进制数据，需要将入参数据经 base64 编码成 String 后赋值 data，同时将此字段设置为true，否则如果是普通的文本内容 String，不需要设置此字段
-         */
-        isBuffer?: boolean | undefined;
-    }) => void): void;
+    function onSocketMessage(
+        callback: (res: {
+            /**
+             * 需要发送的内容：普通的文本内容 String 或者经 base64 编码后的 String
+             */
+            data: string | ArrayBuffer;
+            /**
+             * 如果需要发送二进制数据，需要将入参数据经 base64 编码成 String 后赋值 data，同时将此字段设置为true，否则如果是普通的文本内容 String，不需要设置此字段
+             */
+            isBuffer?: boolean | undefined;
+        }) => void,
+    ): void;
     function offSocketMessage(callback: (error: any) => void): void;
 
     interface CloseSocketOptions extends BaseOptions {
@@ -2182,12 +2185,12 @@ declare namespace my {
      * 取消监听WebSocket关闭。
      */
     function offSocketClose(callback: (error: any) => void): void;
-    //#endregion
+    // #endregion
 }
 
 // 设备
 declare namespace my {
-    //#region canIUse https://docs.alipay.com/mini/api/can-i-use
+    // #region canIUse https://docs.alipay.com/mini/api/can-i-use
     /**
      * 判断当前小程序的 API、入参或返回值、组件、属性等在当前版本是否支持。
      * 参数使用 ${API}.${type}.${param}.${option} 或者 ${component}.${attribute}.${option} 方式来调用
@@ -2200,12 +2203,12 @@ declare namespace my {
      * - option 表示组件属性值
      */
     function canIUse(api: string): boolean;
-    //#endregion
+    // #endregion
 
-    //#region 获取基础库版本号 https://docs.alipay.com/mini/api/sdk-version
+    // #region 获取基础库版本号 https://docs.alipay.com/mini/api/sdk-version
     const SDKVersion: string;
-    //#endregion
-    //#region 系统信息 https://docs.alipay.com/mini/api/system-info
+    // #endregion
+    // #region 系统信息 https://docs.alipay.com/mini/api/system-info
     interface SystemInfo {
         /**
          * 手机型号
@@ -2246,7 +2249,7 @@ declare namespace my {
         /**
          * 系统名：Android，iOS
          */
-        platform: 'Android' | 'iOS' | string;
+        platform: "Android" | "iOS" | string;
         /**
          * 屏幕宽度
          */
@@ -2266,16 +2269,16 @@ declare namespace my {
         /**
          * 当前运行的客户端，当前是支付宝则有效值是"alipay"
          */
-        app: 'alipay' | string;
+        app: "alipay" | string;
     }
     interface GetSystemInfoOptions extends BaseOptions {
         success?(res: SystemInfo): void;
     }
     function getSystemInfo(options: GetSystemInfoOptions): void;
     function getSystemInfoSync(): SystemInfo;
-    //#endregion
+    // #endregion
 
-    //#region 网络状态 https://docs.alipay.com/mini/api/network-status
+    // #region 网络状态 https://docs.alipay.com/mini/api/network-status
     interface GetNetworkTypeOptions extends BaseOptions {
         success?(res: {
             /** 网络是否可用 */
@@ -2284,26 +2287,28 @@ declare namespace my {
             networkType: NetworkType;
         }): void;
     }
-    type NetworkType = 'UNKNOWN' | 'NOTREACHABLE' | 'WIFI' | '3G' | '2G' | '4G' | 'WWAN';
+    type NetworkType = "UNKNOWN" | "NOTREACHABLE" | "WIFI" | "3G" | "2G" | "4G" | "WWAN";
     function getNetworkType(options: GetNetworkTypeOptions): void;
 
     /**
      * 开始网络状态变化的监听
      */
-    function onNetworkStatusChange(callback: (res: {
-        /** 网络是否可用 */
-        isConnected: boolean;
-        /** 网络类型值 UNKNOWN / NOTREACHABLE / WIFI / 3G / 2G / 4G / WWAN */
-        networkType: NetworkType;
-    }) => void): void;
+    function onNetworkStatusChange(
+        callback: (res: {
+            /** 网络是否可用 */
+            isConnected: boolean;
+            /** 网络类型值 UNKNOWN / NOTREACHABLE / WIFI / 3G / 2G / 4G / WWAN */
+            networkType: NetworkType;
+        }) => void,
+    ): void;
 
     /**
      * 取消网络状态变化的监听
      */
     function offNetworkStatusChange(): void;
-    //#endregion
+    // #endregion
 
-    //#region 剪贴板 https://docs.alipay.com/mini/api/clipboard
+    // #region 剪贴板 https://docs.alipay.com/mini/api/clipboard
     interface GetClipboardOptions extends BaseOptions {
         success?(res: {
             text: string;
@@ -2316,13 +2321,13 @@ declare namespace my {
         text: string;
     }
     function setClipboard(options: SetClipboardOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 摇一摇 https://docs.alipay.com/mini/api/shake
+    // #region 摇一摇 https://docs.alipay.com/mini/api/shake
     function watchShake(options: BaseOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 震动 https://docs.alipay.com/mini/api/vibrate
+    // #region 震动 https://docs.alipay.com/mini/api/vibrate
     /**
      * 调用震动功能。
      */
@@ -2337,9 +2342,9 @@ declare namespace my {
      * 调用震动功能。
      */
     function vibrateShort(options?: BaseOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 拨打电话 https://docs.alipay.com/mini/api/macke-call
+    // #region 拨打电话 https://docs.alipay.com/mini/api/macke-call
     interface MakePhoneCallOptions extends BaseOptions {
         /**
          * 需要拨打的电话号码
@@ -2350,9 +2355,9 @@ declare namespace my {
      * 拨打电话
      */
     function makePhoneCall(options: MakePhoneCallOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 获取服务器时间 https://docs.alipay.com/mini/api/get-server-time
+    // #region 获取服务器时间 https://docs.alipay.com/mini/api/get-server-time
     interface GetServerTimeOptions extends BaseOptions {
         success?(res: {
             /** 服务器时间的毫秒数 */
@@ -2360,9 +2365,9 @@ declare namespace my {
         }): void;
     }
     function getServerTime(options: GetServerTimeOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 用户截屏事件 https://docs.alipay.com/mini/api/user-capture-screen
+    // #region 用户截屏事件 https://docs.alipay.com/mini/api/user-capture-screen
     /**
      * 监听用户主动截屏事件，用户使用系统截屏按键截屏时触发此事件
      */
@@ -2372,9 +2377,9 @@ declare namespace my {
      * 取消监听截屏事件。一般需要与 my.onUserCaptureScreen 成对出现。
      */
     function offUserCaptureScreen(): void;
-    //#endregion
+    // #endregion
 
-    //#region 屏幕亮度 https://docs.alipay.com/mini/api/screen-brightness
+    // #region 屏幕亮度 https://docs.alipay.com/mini/api/screen-brightness
     interface SetKeepScreenOnOptions extends BaseOptions {
         /** 是否保持屏幕常亮 */
         keepScreenOn: boolean;
@@ -2403,9 +2408,9 @@ declare namespace my {
      * 设置屏幕亮度
      */
     function setScreenBrightness(options: SetScreenBrightnessOptions): void;
-    //#endregion
+    // #endregion
 
-    //#region 权限引导 https://docs.alipay.com/mini/api/show-auth-guide
+    // #region 权限引导 https://docs.alipay.com/mini/api/show-auth-guide
     interface showAuthGuideOptions extends BaseOptions {
         /**
          * 引导的权限标识，用于标识该权限类型(如 LBS)
@@ -2423,15 +2428,25 @@ declare namespace my {
          * lbs总开关    LBSSERVICE    iOS
          * lbs开关(app)    LBS    iOS
          */
-        authType: 'BACKGROUNDER' | 'SHORTCUT' | 'MICROPHONE' | 'ADDRESSBOOK' | 'CAMERA' | 'PHOTO' | 'NOTIFICATION' | 'SELFSTARTING' | 'LBSSERVICE' | 'LBS';
+        authType:
+            | "BACKGROUNDER"
+            | "SHORTCUT"
+            | "MICROPHONE"
+            | "ADDRESSBOOK"
+            | "CAMERA"
+            | "PHOTO"
+            | "NOTIFICATION"
+            | "SELFSTARTING"
+            | "LBSSERVICE"
+            | "LBS";
     }
     function showAuthGuide(options: showAuthGuideOptions): void;
-    //#endregion
+    // #endregion
 }
 
 // 扫码
 declare namespace my {
-    //#region 扫码 https://docs.alipay.com/mini/api/scan
+    // #region 扫码 https://docs.alipay.com/mini/api/scan
     type scanType = "qr" | "bar";
     interface ScanCodeData {
         /**
@@ -2464,15 +2479,15 @@ declare namespace my {
      * 调起客户端扫码界面，扫码成功后返回对应的结果
      */
     function scan(options: ScanOptions): void;
-    //#endregion
+    // #endregion
 }
 
 // 蓝牙
 declare namespace my {
-    //#region 快速接入 https://docs.alipay.com/mini/api/bluetooth-intro
-    //#endregion
+    // #region 快速接入 https://docs.alipay.com/mini/api/bluetooth-intro
+    // #endregion
 
-    //#region API https://docs.alipay.com/mini/api/bluetooth-api
+    // #region API https://docs.alipay.com/mini/api/bluetooth-api
     interface OpenBluetoothAdapterOptions extends BaseOptions {
         /** 不传的话默认是true，表示是否在离开当前页面时自动断开蓝牙(仅对android有效) */
         autoClose: boolean;
@@ -2579,7 +2594,7 @@ declare namespace my {
         success(
             res: {
                 devices: BluetoothDevice[];
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
@@ -2592,7 +2607,7 @@ declare namespace my {
         success(
             res: {
                 devices: BluetoothDevice[];
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
@@ -2638,7 +2653,7 @@ declare namespace my {
      * 向低功耗蓝牙设备特征值中写入数据。
      */
     function writeBLECharacteristicValue(
-        options: WriteBLECharacteristicValueOptions
+        options: WriteBLECharacteristicValueOptions,
     ): void;
 
     interface ReadBLECharacteristicValueOptions extends BaseOptions {
@@ -2670,7 +2685,7 @@ declare namespace my {
                      */
                     value: ArrayBuffer;
                 };
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
 
@@ -2739,18 +2754,20 @@ declare namespace my {
         /**
          * 成功则返回本机蓝牙适配器状态
          */
-        success(res: {
-            services: Array<{
-                /**
-                 * 蓝牙设备服务的 uuid
-                 */
-                serviceId: string;
-                /**
-                 * 该服务是否为主服务
-                 */
-                isPrimary: boolean;
-            }>;
-        } & ErrMsgResponse): void;
+        success(
+            res: {
+                services: Array<{
+                    /**
+                     * 蓝牙设备服务的 uuid
+                     */
+                    serviceId: string;
+                    /**
+                     * 该服务是否为主服务
+                     */
+                    isPrimary: boolean;
+                }>;
+            } & ErrMsgResponse,
+        ): void;
     }
     /**
      * 获取蓝牙设备所有 service（服务）
@@ -2769,43 +2786,45 @@ declare namespace my {
         /**
          * 成功则返回本机蓝牙适配器状态
          */
-        success(res: {
-            characteristics: Array<{
-                /**
-                 * 蓝牙设备特征值的 uuid
-                 */
-                characteristicId: string;
-                /**
-                 * 蓝牙设备特征值对应服务的 uuid
-                 */
-                serviceId: string;
-                /**
-                 * 蓝牙设备特征值对应的16进制值
-                 */
-                value: ArrayBuffer;
-                /**
-                 * 该特征值支持的操作类型
-                 */
-                properties: Array<{
+        success(
+            res: {
+                characteristics: Array<{
                     /**
-                     * 该特征值是否支持 read 操作
+                     * 蓝牙设备特征值的 uuid
                      */
-                    read: boolean;
+                    characteristicId: string;
                     /**
-                     * 该特征值是否支持 write 操作
+                     * 蓝牙设备特征值对应服务的 uuid
                      */
-                    write: boolean;
+                    serviceId: string;
                     /**
-                     * 该特征值是否支持 notify 操作
+                     * 蓝牙设备特征值对应的16进制值
                      */
-                    notify: boolean;
+                    value: ArrayBuffer;
                     /**
-                     * 该特征值是否支持 indicate 操作
+                     * 该特征值支持的操作类型
                      */
-                    indicate: boolean;
+                    properties: Array<{
+                        /**
+                         * 该特征值是否支持 read 操作
+                         */
+                        read: boolean;
+                        /**
+                         * 该特征值是否支持 write 操作
+                         */
+                        write: boolean;
+                        /**
+                         * 该特征值是否支持 notify 操作
+                         */
+                        notify: boolean;
+                        /**
+                         * 该特征值是否支持 indicate 操作
+                         */
+                        indicate: boolean;
+                    }>;
                 }>;
-            }>;
-        } & ErrMsgResponse): void;
+            } & ErrMsgResponse,
+        ): void;
     }
     /**
      * 获取蓝牙设备所有 characteristic（特征值）
@@ -2898,12 +2917,12 @@ declare namespace my {
      * 移除本机蓝牙状态变化的事件的监听。
      */
     function offBluetoothAdapterStateChange(): void;
-    //#endregion
+    // #endregion
 }
 
 // iBeacon
 declare namespace my {
-    //#region iBeacon https://docs.alipay.com/mini/api/yqleyc
+    // #region iBeacon https://docs.alipay.com/mini/api/yqleyc
     interface StartBeaconDiscoveryOptions extends BaseOptions {
         /**
          * iBeacon设备广播的 uuids
@@ -2983,12 +3002,12 @@ declare namespace my {
      * 监听 iBeacon 服务的状态变化
      */
     function onBeaconServiceChange(options: BeaconServiceChangeOptions): void;
-    //#endregion
+    // #endregion
 }
 
 // 数据安全
 declare namespace my {
-    //#region 数据安全 https://docs.alipay.com/mini/api/data-safe
+    // #region 数据安全 https://docs.alipay.com/mini/api/data-safe
     interface RsaOptions extends BaseOptions {
         /**
          * 使用rsa加密还是rsa解密，encrypt加密，decrypt解密
@@ -3013,18 +3032,18 @@ declare namespace my {
      * 非对称加密。
      */
     function rsa(options: RsaOptions): void;
-    //#endregion
+    // #endregion
 }
 
 // 分享
 declare namespace my {
-    //#region 分享 https://docs.alipay.com/mini/api/share_app
-    //#endregion
+    // #region 分享 https://docs.alipay.com/mini/api/share_app
+    // #endregion
 }
 
 // 自定义分析
 declare namespace my {
-    //#region 自定义分析 https://docs.alipay.com/mini/api/report
+    // #region 自定义分析 https://docs.alipay.com/mini/api/report
     /**
      * 自定义分析数据的上报接口。使用前需要在小程序管理后台的事件管理中新建事件，并配置好事件名和字段。
      *
@@ -3037,7 +3056,7 @@ declare namespace my {
      * 隐藏分享按钮。
      */
     function hideShareMenu(options?: BaseOptions): void;
-    //#endregion
+    // #endregion
 }
 
 declare namespace my {
@@ -3133,7 +3152,7 @@ declare namespace my {
         relativeToViewport(margins?: Margins): IntersectionObserver;
         observe(
             selector?: string,
-            callback?: (response: ObserveResponse) => void
+            callback?: (response: ObserveResponse) => void,
         ): IntersectionObserver;
         disconnect(): void;
     }
@@ -3181,7 +3200,7 @@ declare namespace my {
          */
         setData(
             data: any,
-            callback?: () => void
+            callback?: () => void,
         ): void;
         hasBehavior(behavior: any): boolean;
         triggerEvent(
@@ -3191,11 +3210,11 @@ declare namespace my {
                 bubbles: boolean;
                 composed: boolean;
                 capturePhase: boolean;
-            }>
+            }>,
         ): void;
         createSelectorQuery(): SelectorQuery;
         createIntersectionObserver(
-            options?: CreateIntersectionObserverOption
+            options?: CreateIntersectionObserverOption,
         ): IntersectionObserver;
         /**
          * 使用选择器选择组件实例节点
@@ -3278,8 +3297,8 @@ declare namespace my {
         detail: Detail;
     }
     interface Options {
-        query: any;        // 当前小程序的 query
-        path: string;    // 当前小程序的页面地址
+        query: any; // 当前小程序的 query
+        path: string; // 当前小程序的页面地址
     }
     interface PageOptions {
         data: any;

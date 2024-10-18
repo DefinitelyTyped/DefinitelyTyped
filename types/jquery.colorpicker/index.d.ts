@@ -1,20 +1,14 @@
-// Type definitions for jQuery Colorpicker Plugin 1.4.3
-// Project: https://github.com/vanderlee/colorpicker
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
-
 /// <reference types="jquery" />
 
 interface JQueryColorpickerOptions {
     // Events
     // TODO: Figure out actual types.
-    cancel?: Function | undefined,
-    close?: Function | undefined,
-    init?: Function | undefined,
-    select?: Function | undefined,
-    ok?: Function | undefined,
-    open?: Function | undefined,
+    cancel?: Function | undefined;
+    close?: Function | undefined;
+    init?: Function | undefined;
+    select?: Function | undefined;
+    ok?: Function | undefined;
+    open?: Function | undefined;
 
     alpha?: boolean | undefined;
     altAlpha?: boolean | undefined;
@@ -39,7 +33,7 @@ interface JQueryColorpickerOptions {
     hsv?: boolean | undefined;
     inline?: boolean | undefined;
     inlineFrame?: boolean | undefined;
-    layout?: { [part: string]: number[]; } | undefined;
+    layout?: { [part: string]: number[] } | undefined;
     limit?: string | undefined;
     modal?: boolean | undefined;
     mode?: string | undefined;
@@ -61,14 +55,14 @@ interface JQueryColorpickerOptions {
 }
 
 interface JQueryColorpickerStatic {
-    limits: { [name: string]: (color: any) => void; };
-    parsers: { [name: string]: (color: any) => any; };
-    parts: { [name: string]: (inst: any) => any; };
-    partslists: { [name: string]: string[]; };
-    regional: { [key: string]: string; };
-    swatches: { [swatch: string]: { [name: string]: JQueryColorpickerStatic.RGB; }; };
-    writers: { [name: string]: (color: any, that: any) => any; };
-    Color: { new(r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color; };
+    limits: { [name: string]: (color: any) => void };
+    parsers: { [name: string]: (color: any) => any };
+    parts: { [name: string]: (inst: any) => any };
+    partslists: { [name: string]: string[] };
+    regional: { [key: string]: string };
+    swatches: { [swatch: string]: { [name: string]: JQueryColorpickerStatic.RGB } };
+    writers: { [name: string]: (color: any, that: any) => any };
+    Color: { new(r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color };
 }
 
 declare namespace JQueryColorpickerStatic {

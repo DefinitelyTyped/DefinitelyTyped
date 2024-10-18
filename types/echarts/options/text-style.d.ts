@@ -5,8 +5,22 @@ declare namespace echarts {
          */
         interface BaseTextStyle {
             color?: string | undefined;
-            fontStyle?: 'normal' | 'italic' | 'oblique' | undefined;
-            fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | undefined;
+            fontStyle?: "normal" | "italic" | "oblique" | undefined;
+            fontWeight?:
+                | "normal"
+                | "bold"
+                | "bolder"
+                | "lighter"
+                | 100
+                | 200
+                | 300
+                | 400
+                | 500
+                | 600
+                | 700
+                | 800
+                | 900
+                | undefined;
             fontFamily?: string | undefined;
             fontSize?: number | undefined;
             lineHeight?: number | undefined;

@@ -1,10 +1,5 @@
-// Type definitions for reload 3.2
-// Project: https://github.com/alallier/reload#readme
-// Definitions by: Victor Nascimento Bakke <https://github.com/Gipphe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import express = require('express');
-import ws = require('ws');
+import express = require("express");
+import ws = require("ws");
 
 declare function reload(
     app: express.Express,

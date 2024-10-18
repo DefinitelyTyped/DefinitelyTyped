@@ -1,14 +1,14 @@
-import * as Store from 'jfs';
+import * as Store from "jfs";
 
 interface TestStore {
     foo: string;
     bar: number;
 }
 
-const db = new Store<TestStore>('data', {type: 'memory'});
+const db = new Store<TestStore>("data", { type: "memory" });
 
 // save with custom ID
-db.save('bar', 123, (err, id) => {
+db.save("bar", 123, (err, id) => {
     // now the data is stored in the file data/anId.json
 });
 
@@ -18,14 +18,14 @@ db.save(333, (err, id) => {
 });
 
 // save synchronously
-db.saveSync('foo', 'test');
+db.saveSync("foo", "test");
 
-db.get('bar', (err, obj) => {
+db.get("bar", (err, obj) => {
     // obj = { foo: ''bar' }
 });
 
 // get synchronously
-const val = db.getSync('bar');
+const val = db.getSync("bar");
 
 // get all available objects
 db.all((err, objs) => {
@@ -36,9 +36,9 @@ db.all((err, objs) => {
 const objs = db.allSync();
 
 // delete by ID
-db.delete('foo', err => {
+db.delete("foo", err => {
     // the file data/myId.json was removed
 });
 
 // delete synchronously
-db.deleteSync('bar');
+db.deleteSync("bar");

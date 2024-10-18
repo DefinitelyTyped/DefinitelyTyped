@@ -1,5 +1,5 @@
-import { CrawlerRequestResponse } from 'crawler';
-import Crawler = require('crawler');
+import { CrawlerRequestResponse } from "crawler";
+import Crawler = require("crawler");
 
 // Examples taken from README, edited
 
@@ -11,24 +11,24 @@ const c = new Crawler({
         } else {
             const typedRes: CrawlerRequestResponse = res;
             const $ = typedRes.$;
-            console.log($('title').text());
+            console.log($("title").text());
         }
         done();
     },
 });
 
-c.queue('http://www.amazon.com');
-c.queue(['http://www.google.com/', 'http://www.yahoo.com']);
+c.queue("http://www.amazon.com");
+c.queue(["http://www.google.com/", "http://www.yahoo.com"]);
 c.queue([
     {
-        uri: 'http://parishackers.org/',
+        uri: "http://parishackers.org/",
         jQuery: false,
         http2: true,
         callback: (error, res, done) => {
             if (error) {
                 console.log(error);
             } else {
-                console.log('Grabbed', res.body.length, 'bytes');
+                console.log("Grabbed", res.body.length, "bytes");
             }
             done();
         },
@@ -36,17 +36,17 @@ c.queue([
 ]);
 c.queue([
     {
-        html: '<p>This is a <strong>test</strong></p>',
+        html: "<p>This is a <strong>test</strong></p>",
     },
 ]);
 
 // Another example
 
 c.queue({
-    uri: 'http://www.google.com',
-    parameter1: 'value1',
-    parameter2: 'value2',
-    parameter3: 'value3',
+    uri: "http://www.google.com",
+    parameter1: "value1",
+    parameter2: "value2",
+    parameter3: "value3",
     callback: (error, res, done) => {
         if (!error) {
             console.log(res.options.parameter1);
@@ -87,7 +87,7 @@ new Crawler({
 });
 
 c.queue({
-    uri: 'http://www.google.com',
+    uri: "http://www.google.com",
     preRequest: (options, done) => {
         setTimeout(() => {
             console.log(options);
@@ -99,7 +99,7 @@ c.queue({
 // Another example
 
 c.direct({
-    uri: 'http://www.google.com',
+    uri: "http://www.google.com",
     skipEventRequest: false,
     callback: (error, response) => {
         if (error) {
@@ -112,18 +112,18 @@ c.direct({
 
 // More snippets from README
 
-c.setLimiterProperty('limiterName', 'propertyName', 'value');
+c.setLimiterProperty("limiterName", "propertyName", "value");
 
-c.on('schedule', options => {
-    options.proxy = 'http://proxy:port';
+c.on("schedule", options => {
+    options.proxy = "http://proxy:port";
 });
 
-c.on('request', options => {
+c.on("request", options => {
     options.qs.timestamp = new Date().getTime();
 });
 
-c.on('drain', () => {
-    console.log('For example, release a connection to database.');
+c.on("drain", () => {
+    console.log("For example, release a connection to database.");
 });
 
 new Crawler({
@@ -131,12 +131,12 @@ new Crawler({
 });
 
 new Crawler({
-    jQuery: 'cheerio',
+    jQuery: "cheerio",
 });
 
 new Crawler({
     jQuery: {
-        name: 'cheerio',
+        name: "cheerio",
         options: {
             normalizeWhitespace: true,
             xmlMode: true,
@@ -147,16 +147,16 @@ new Crawler({
 // Fixed vs rotating User-Agent strings
 
 new Crawler({
-    userAgent: 'UA-1',
+    userAgent: "UA-1",
 });
 
-const uaArray = ['UA-1', 'UA-2'];
+const uaArray = ["UA-1", "UA-2"];
 
 new Crawler({
     rotateUA: true,
     userAgent: uaArray,
 }).direct({
-    uri: 'http://www.google.com',
+    uri: "http://www.google.com",
     callback: (error, response) => {},
 });
 

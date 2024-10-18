@@ -1,11 +1,3 @@
-// Type definitions for async-lock 1.4
-// Project: https://github.com/rain1017/async-lock, https://github.com/rogierschouten/async-lock
-// Definitions by: Alejandro <https://github.com/afharo>
-//                 Anatoly <https://github.com/rhymmor>
-//                 Humulus <https://github.com/humulus>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace AsyncLock {
     type AsyncLockDoneCallback<T> = (err?: Error | null, ret?: T) => void;
 

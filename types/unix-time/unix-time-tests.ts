@@ -1,4 +1,4 @@
-import unixTime = require('unix-time');
+import unixTime = require("unix-time");
 
 unixTime(1); // $ExpectType number
 unixTime(new Date()); // $ExpectType number

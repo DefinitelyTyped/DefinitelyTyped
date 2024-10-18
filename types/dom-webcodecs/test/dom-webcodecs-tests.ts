@@ -26,7 +26,7 @@ function genericCodec(codec: AudioDecoder | AudioEncoder | VideoDecoder | VideoE
     codec.close();
 }
 
-function errorCallback(error: DOMException): void { }
+function errorCallback(error: DOMException): void {}
 
 //////////////////////////////////////////////////
 // audio-decoder.any.js
@@ -73,9 +73,9 @@ AudioDecoder.isConfigSupported({
 });
 
 AudioDecoder.isConfigSupported(audioDecoderConfig).then((result: AudioDecoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType AudioDecoderConfig
+    // $ExpectType AudioDecoderConfig | undefined
     result.config;
 });
 
@@ -128,6 +128,11 @@ AudioDecoder.isConfigSupported(futureAudioDecoderConfig);
 // $ExpectType void
 audioDecoder.configure(futureAudioDecoderConfig);
 
+audioDecoder.ondequeue = () => "";
+
+// $ExpectType void
+audioDecoder.addEventListener("dequeue", (e) => e, { once: true });
+
 genericCodec(audioDecoder);
 
 //////////////////////////////////////////////////
@@ -169,9 +174,9 @@ AudioEncoder.isConfigSupported({
 });
 
 AudioEncoder.isConfigSupported(audioEncoderConfig).then((result: AudioEncoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType AudioEncoderConfig
+    // $ExpectType AudioEncoderConfig | undefined
     result.config;
 });
 
@@ -222,6 +227,9 @@ audioEncoder.configure(futureAudioEncoderConfig);
 
 // $ExpectType void
 audioEncoder.encode(audioFrame);
+
+// $ExpectType void
+audioEncoder.addEventListener("dequeue", (e) => e, { once: true });
 
 // $ExpectType void
 audioFrame.close();
@@ -425,6 +433,9 @@ videoDecoder.configure(futureVideoDecoderConfig);
 genericCodec(videoDecoder);
 
 // $ExpectType void
+videoDecoder.addEventListener("dequeue", () => {}, { once: true });
+
+// $ExpectType void
 videoDecoder.decode(encodedVideoChunk);
 
 // $ExpectType Promise<void>
@@ -545,6 +556,9 @@ videoEncoder.configure(futureVideoEncoderConfig);
 videoEncoder.encodeQueueSize;
 
 // $ExpectType void
+videoEncoder.addEventListener("dequeue", () => {}, { once: true });
+
+// $ExpectType void
 videoEncoder.encode(videoFrame);
 
 // $ExpectType Promise<void>
@@ -599,7 +613,7 @@ new VideoFrame(new ArrayBuffer(1024), {
 });
 
 const videoFramePlaneInit: VideoFrameBufferInit = {
-    format: 'BGRA',
+    format: "BGRA",
     timestamp: 1234,
     codedWidth: 4,
     codedHeight: 2,
@@ -608,7 +622,7 @@ const videoFramePlaneInit: VideoFrameBufferInit = {
 new VideoFrame(new ArrayBuffer(1024), videoFramePlaneInit);
 
 new VideoFrame(new ArrayBuffer(1024), {
-    format: 'BGRA',
+    format: "BGRA",
     timestamp: 1234,
     duration: 4321,
     codedWidth: 4,

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/swipe",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/thebird/Swipe"
+    ],
+    "devDependencies": {
+        "@types/swipe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrey Kurdyumov",
+            "githubUsername": "kant2002"
+        }
+    ]
+}

@@ -1,43 +1,43 @@
 import {
-    Error,
-    Credentials,
-    ExecutionContext,
-    ExportPDF,
-    FileRef,
+    ClientConfig,
     CombineFiles,
     CompressPDF,
     CreatePDF,
+    Credentials,
     DeletePages,
     DocumentMerge,
+    Error,
+    ExecutionContext,
+    ExportPDF,
     ExportPDFToImages,
-    ProtectPDF,
-    PageRanges,
-    ClientConfig,
     ExtractPDF,
+    FileRef,
     InsertPages,
     LinearizePDF,
     OCR,
+    PageRanges,
     PDFProperties,
+    ProtectPDF,
     RemoveProtection,
     ReorderPages,
     ReplacePages,
     RotatePages,
     SplitPDF,
-} from '@adobe/pdfservices-node-sdk';
-import { DocumentMergeOptions } from '@adobe/pdfservices-node-sdk/operation/option/documentmerge/document-merge-options';
+} from "@adobe/pdfservices-node-sdk";
+import { DocumentMergeOptions } from "@adobe/pdfservices-node-sdk/operation/option/documentmerge/document-merge-options";
 
 function combineFiles() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const combineFilesOperation = CombineFiles.Operation.createNew();
     const input1 = FileRef.createFromLocalFile(
-        'test/resources/combinePagesInput1.pdf',
+        "test/resources/combinePagesInput1.pdf",
         CombineFiles.SupportedSourceFormat.pdf,
     );
     const input2 = FileRef.createFromLocalFile(
-        'test/resources/combinePagesInput1.pdf',
+        "test/resources/combinePagesInput1.pdf",
         CombineFiles.SupportedSourceFormat.pdf,
     );
 
@@ -46,17 +46,17 @@ function combineFiles() {
 
     combineFilesOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/CombinedPDF.pdf'))
+        .then(result => result.saveAsFile("output/CombinedPDF.pdf"))
         .catch(err => {});
 }
 function compressPDF() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const compressPdfOperation = CompressPDF.Operation.createNew();
     const input = FileRef.createFromLocalFile(
-        'test/resources/compressInput.pdf',
+        "test/resources/compressInput.pdf",
         CompressPDF.SupportedSourceFormat.pdf,
     );
 
@@ -64,17 +64,17 @@ function compressPDF() {
 
     compressPdfOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/compressOutput.pdf'))
+        .then(result => result.saveAsFile("output/compressOutput.pdf"))
         .catch(err => {});
 }
 function createPDF() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const createPDFOperation = CreatePDF.Operation.createNew();
     const input = FileRef.createFromLocalFile(
-        'test/resources/createPDFInput.docx',
+        "test/resources/createPDFInput.docx",
         CreatePDF.SupportedSourceFormat.docx,
     );
 
@@ -82,7 +82,7 @@ function createPDF() {
 
     createPDFOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/createPDF.pdf'))
+        .then(result => result.saveAsFile("output/createPDF.pdf"))
         .catch(err => {
             if (err instanceof Error.ServiceApiError || err instanceof Error.ServiceUsageError) {
             } else {
@@ -92,35 +92,35 @@ function createPDF() {
 
 function deletePages() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const deletePagesOperation = DeletePages.Operation.createNew();
     const pageRanges = new PageRanges();
 
     deletePagesOperation.setInput(
-        FileRef.createFromLocalFile('~/Documents/deletePagesOperationInput.pdf', DeletePages.SupportedSourceFormat.pdf),
+        FileRef.createFromLocalFile("~/Documents/deletePagesOperationInput.pdf", DeletePages.SupportedSourceFormat.pdf),
     );
     pageRanges.addSinglePage(1);
     deletePagesOperation.setPageRanges(pageRanges);
 
     deletePagesOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/deletePagesOperationOutput.pdf'))
+        .then(result => result.saveAsFile("output/deletePagesOperationOutput.pdf"))
         .catch(err => {});
 }
 
 function documentMerge() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const documentMergeOptions = DocumentMerge.options;
-    const jsonDataForMerge = JSON.parse('{"customerName": "James", "customerVisits": 100}');
+    const jsonDataForMerge = JSON.parse("{\"customerName\": \"James\", \"customerVisits\": 100}");
     const options = new DocumentMergeOptions(jsonDataForMerge, documentMergeOptions.OutputFormat.PDF);
     const documentMergeOperation = DocumentMerge.Operation.createNew(options);
     const input = FileRef.createFromLocalFile(
-        '~/Documents/DocumentMergeOperationInput.docx',
+        "~/Documents/DocumentMergeOperationInput.docx",
         DocumentMerge.SupportedSourceFormat.docx,
     );
 
@@ -128,33 +128,33 @@ function documentMerge() {
 
     documentMergeOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/DocumentMergeOperationOutput.pdf'))
+        .then(result => result.saveAsFile("output/DocumentMergeOperationOutput.pdf"))
         .catch(err => {});
 }
 
 function exportPDF() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const exportPdfOperation = ExportPDF.Operation.createNew(ExportPDF.SupportedTargetFormats.DOCX);
-    const input = FileRef.createFromLocalFile('test/resources/PDF.pdf', ExportPDF.SupportedSourceFormat.pdf);
+    const input = FileRef.createFromLocalFile("test/resources/PDF.pdf", ExportPDF.SupportedSourceFormat.pdf);
 
     exportPdfOperation.setInput(input);
 
     exportPdfOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/exportPdf.docx'))
+        .then(result => result.saveAsFile("output/exportPdf.docx"))
         .catch(err => {});
 }
 
 function exportPdfToImages() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const exportPDFToImages = ExportPDFToImages.Operation.createNew(ExportPDFToImages.SupportedTargetFormats.JPEG);
-    const input = FileRef.createFromLocalFile('test/resources/PDF.pdf', ExportPDFToImages.SupportedSourceFormat.pdf);
+    const input = FileRef.createFromLocalFile("test/resources/PDF.pdf", ExportPDFToImages.SupportedSourceFormat.pdf);
 
     exportPDFToImages.setInput(input);
 
@@ -173,10 +173,10 @@ function exportPdfToImages() {
 function extractPdf() {
     try {
         const credentials = Credentials.serviceAccountCredentialsBuilder()
-            .fromFile('pdfservices-api-credentials.json')
+            .fromFile("pdfservices-api-credentials.json")
             .build();
 
-        const clientConfig = ClientConfig.clientConfigBuilder().fromFile('pdfservices-api-client-config.json').build();
+        const clientConfig = ClientConfig.clientConfigBuilder().fromFile("pdfservices-api-client-config.json").build();
 
         const clientContext = ExecutionContext.create(credentials, clientConfig);
 
@@ -189,7 +189,7 @@ function extractPdf() {
 
         const extractPDFOperation = ExtractPDF.Operation.createNew();
         const input = FileRef.createFromLocalFile(
-            'test/resources/extractPDFInput',
+            "test/resources/extractPDFInput",
             ExtractPDF.SupportedSourceFormat.pdf,
         );
 
@@ -198,7 +198,7 @@ function extractPdf() {
 
         extractPDFOperation
             .execute(clientContext)
-            .then(result => result.saveAsFile('output/extractPdf.zip'))
+            .then(result => result.saveAsFile("output/extractPdf.zip"))
             .catch(err => {});
     } catch (err) {
         throw err;
@@ -207,39 +207,39 @@ function extractPdf() {
 
 function insertPages() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const insertPagesOperation = InsertPages.Operation.createNew();
 
     insertPagesOperation.setBaseInput(
         FileRef.createFromLocalFile(
-            '~/Documents/insertPagesOperationBaseInput.pdf',
+            "~/Documents/insertPagesOperationBaseInput.pdf",
             InsertPages.SupportedSourceFormat.pdf,
         ),
     );
     insertPagesOperation.addPagesToInsertAt(
         1,
         FileRef.createFromLocalFile(
-            '~/Documents/insertPagesOperationFileToInsertInput.pdf',
+            "~/Documents/insertPagesOperationFileToInsertInput.pdf",
             InsertPages.SupportedSourceFormat.pdf,
         ),
     );
 
     insertPagesOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/insertPagesOperationOutput.pdf'))
+        .then(result => result.saveAsFile("output/insertPagesOperationOutput.pdf"))
         .catch(err => {});
 }
 
 function linearizePdf() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const linearizePdfOperation = LinearizePDF.Operation.createNew();
     const input = FileRef.createFromLocalFile(
-        'test/resources/linearizeInput.pdf',
+        "test/resources/linearizeInput.pdf",
         LinearizePDF.SupportedSourceFormat.pdf,
     );
 
@@ -247,33 +247,33 @@ function linearizePdf() {
 
     linearizePdfOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/linearizeOutput.pdf'))
+        .then(result => result.saveAsFile("output/linearizeOutput.pdf"))
         .catch(err => {});
 }
 function ocr() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const ocrOperation = OCR.Operation.createNew();
-    const input = FileRef.createFromLocalFile('test/resources/ocrInput.pdf', OCR.SupportedSourceFormat.pdf);
+    const input = FileRef.createFromLocalFile("test/resources/ocrInput.pdf", OCR.SupportedSourceFormat.pdf);
 
     ocrOperation.setInput(input);
 
     ocrOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/ocrOutput.pdf'))
+        .then(result => result.saveAsFile("output/ocrOutput.pdf"))
         .catch(err => {});
 }
 
 function pdfProperties() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const clientContext = ExecutionContext.create(credentials);
     const pdfPropertiesOperation = PDFProperties.Operation.createNew();
     const input = FileRef.createFromLocalFile(
-        'test/resources/PDFPropertiesOperationInput.pdf',
+        "test/resources/PDFPropertiesOperationInput.pdf",
         PDFProperties.SupportedSourceFormat.pdf,
     );
 
@@ -287,7 +287,7 @@ function pdfProperties() {
 
 async function protectPDF() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const protectPDFOptions = ProtectPDF.options;
@@ -298,46 +298,46 @@ async function protectPDF() {
     permissions.addPermission(protectPDFOptions.Permission.COPY_CONTENT);
 
     const options = new protectPDFOptions.PasswordProtectOptions.Builder()
-        .setUserPassword('openpassword')
-        .setOwnerPassword('permissionspassword')
+        .setUserPassword("openpassword")
+        .setOwnerPassword("permissionspassword")
         .setPermissions(permissions)
         .setEncryptionAlgorithm(protectPDFOptions.EncryptionAlgorithm.AES_256)
         .setContentEncryption(protectPDFOptions.ContentEncryption.ALL_CONTENT_EXCEPT_METADATA)
         .build();
     const protectPDFOperation = ProtectPDF.Operation.createNew(options);
-    const input = FileRef.createFromLocalFile('~/Documents/protectPDFInput.pdf', ProtectPDF.SupportedSourceFormat.pdf);
+    const input = FileRef.createFromLocalFile("~/Documents/protectPDFInput.pdf", ProtectPDF.SupportedSourceFormat.pdf);
 
     protectPDFOperation.setInput(input);
 
     protectPDFOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/protectPDFOutput.pdf'))
+        .then(result => result.saveAsFile("output/protectPDFOutput.pdf"))
         .catch(err => {});
 }
 
 function removeProtection() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const removeProtectionOperation = RemoveProtection.Operation.createNew();
     const input = FileRef.createFromLocalFile(
-        '~/Documents/removeProtectionInput.pdf',
+        "~/Documents/removeProtectionInput.pdf",
         RemoveProtection.SupportedSourceFormat.pdf,
     );
 
     removeProtectionOperation.setInput(input);
-    removeProtectionOperation.setPassword('password');
+    removeProtectionOperation.setPassword("password");
 
     removeProtectionOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/removeProtectionOutput.pdf'))
+        .then(result => result.saveAsFile("output/removeProtectionOutput.pdf"))
         .catch(err => {});
 }
 
 function reorderPage() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const reorderPagesOperation = ReorderPages.Operation.createNew();
@@ -345,7 +345,7 @@ function reorderPage() {
 
     reorderPagesOperation.setInput(
         FileRef.createFromLocalFile(
-            '~/Documents/reorderPagesOperationInput.pdf',
+            "~/Documents/reorderPagesOperationInput.pdf",
             ReorderPages.SupportedSourceFormat.pdf,
         ),
     );
@@ -355,64 +355,64 @@ function reorderPage() {
 
     reorderPagesOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/reorderPagesOperationOutput.pdf'))
+        .then(result => result.saveAsFile("output/reorderPagesOperationOutput.pdf"))
         .catch(err => {});
 }
 
 function replacePages() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const replacePagesOperation = ReplacePages.Operation.createNew();
 
     replacePagesOperation.setBaseInput(
         FileRef.createFromLocalFile(
-            '~/Documents/replacePagesOperationBaseInput.pdf',
+            "~/Documents/replacePagesOperationBaseInput.pdf",
             ReplacePages.SupportedSourceFormat.pdf,
         ),
     );
     replacePagesOperation.addPagesForReplace(
         1,
         FileRef.createFromLocalFile(
-            '~/Documents/replacePagesOperationFileToBeReplacedWithInput.pdf',
+            "~/Documents/replacePagesOperationFileToBeReplacedWithInput.pdf",
             ReplacePages.SupportedSourceFormat.pdf,
         ),
     );
 
     replacePagesOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/replacePagesOperationOutput.pdf'))
+        .then(result => result.saveAsFile("output/replacePagesOperationOutput.pdf"))
         .catch(err => {});
 }
 
 function rotatePages() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const rotatePagesOperation = RotatePages.Operation.createNew();
 
     rotatePagesOperation.setInput(
-        FileRef.createFromLocalFile('~/Documents/rotatePagesOperationInput.pdf', RotatePages.SupportedSourceFormat.pdf),
+        FileRef.createFromLocalFile("~/Documents/rotatePagesOperationInput.pdf", RotatePages.SupportedSourceFormat.pdf),
     );
     rotatePagesOperation.setAngleToRotatePagesBy(RotatePages.Angle._90);
 
     rotatePagesOperation
         .execute(executionContext)
-        .then(result => result.saveAsFile('output/rotatePagesOperationOutput.pdf'))
+        .then(result => result.saveAsFile("output/rotatePagesOperationOutput.pdf"))
         .catch(err => {});
 }
 
 function spitPages() {
     const credentials = Credentials.serviceAccountCredentialsBuilder()
-        .fromFile('pdfservices-api-credentials.json')
+        .fromFile("pdfservices-api-credentials.json")
         .build();
     const executionContext = ExecutionContext.create(credentials);
     const splitPDFOperation = SplitPDF.Operation.createNew();
 
     splitPDFOperation.setInput(
-        FileRef.createFromLocalFile('~/Documents/splitPDFInput.pdf', SplitPDF.SupportedSourceFormat.pdf),
+        FileRef.createFromLocalFile("~/Documents/splitPDFInput.pdf", SplitPDF.SupportedSourceFormat.pdf),
     );
     splitPDFOperation.setPageCount(2);
 

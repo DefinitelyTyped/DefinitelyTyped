@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     // coerceArray :: (a|[a]) -> [a]
     const coerceArray = R.unless(R.is(Array), R.of(Array));
     const a: number[] = coerceArray([1, 2, 3]); // => [1, 2, 3]
@@ -17,4 +17,4 @@ import * as R from 'ramda';
 
     // $ExpectType string | number
     const abnormal = bodyTemperature(38); // => 'abnormal: 38'
-};
+});

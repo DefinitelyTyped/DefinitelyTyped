@@ -1,2 +1,2 @@
-import { composeWith } from '../index';
+import { composeWith } from "../index";
 export default composeWith;

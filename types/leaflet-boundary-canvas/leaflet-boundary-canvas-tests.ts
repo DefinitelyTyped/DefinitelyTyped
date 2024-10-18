@@ -1,15 +1,15 @@
-import * as L from 'leaflet';
-import 'leaflet-boundary-canvas';
-import type { FeatureCollection } from 'geojson';
+import * as L from "leaflet";
+import "leaflet-boundary-canvas";
+import type { FeatureCollection } from "geojson";
 
 const geojson: FeatureCollection = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         {
-            type: 'Feature',
+            type: "Feature",
             properties: {},
             geometry: {
-                type: 'Polygon',
+                type: "Polygon",
                 coordinates: [
                     [
                         [-74.00822086214981, 40.753286818103476],
@@ -58,10 +58,10 @@ const geojson: FeatureCollection = {
     ],
 };
 
-const url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const attribution = "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors";
 
-const map = L.map('map', {
+const map = L.map("map", {
     center: [40.76965, -73.97747],
     zoom: 13,
 });
@@ -74,7 +74,7 @@ const layer = L.TileLayer.boundaryCanvas(url, {
 
 layer.addTo(map);
 
-const map2 = L.map('map', {
+const map2 = L.map("map", {
     center: [40.76965, -73.97747],
     zoom: 13,
 });
@@ -87,7 +87,7 @@ const layer2 = new L.TileLayer.BoundaryCanvas(url, {
 
 layer2.addTo(map2);
 
-const map3 = L.map('map', {
+const map3 = L.map("map", {
     center: [40.76965, -73.97747],
     zoom: 13,
 });

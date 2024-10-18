@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/tough-cookie",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/salesforce/tough-cookie"
+    ],
+    "devDependencies": {
+        "@types/tough-cookie": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        },
+        {
+            "name": "LiJinyao",
+            "githubUsername": "LiJinyao"
+        },
+        {
+            "name": "Michael Wei",
+            "githubUsername": "no2chem"
+        }
+    ]
+}

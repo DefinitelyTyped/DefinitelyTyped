@@ -37,7 +37,7 @@ declare namespace echarts {
              */
             interface DimensionObject {
                 name?: string | undefined;
-                type?: 'number' | 'float' | 'int' | 'ordinal' | 'time' | undefined;
+                type?: "number" | "float" | "int" | "ordinal" | "time" | undefined;
                 displayName?: string | undefined;
             }
         }

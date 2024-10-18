@@ -1,8 +1,3 @@
-// Type definitions for binary-xml 0.0
-// Project: https://github.com/song940/binary-xml#readme
-// Definitions by: atlowChemi <https://github.com/atlowChemi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface Options {
@@ -16,7 +11,9 @@ interface Attribute {
     name: string;
     value: any;
     typedValue: {
-        value: number; type: string; rawType: number;
+        value: number;
+        type: string;
+        rawType: number;
     };
 }
 

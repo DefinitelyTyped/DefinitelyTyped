@@ -4,16 +4,13 @@ import Coordinates from "./Coordinates";
 // export const globalExtentTMS: Map<any, any>;
 // export const schemeTiles: Map<any, any>;
 
-export default class Extent {
+declare class Extent {
     static fromBox3(crs: string, box: THREE.Box3): Extent;
 
-    constructor(crs: string,
-                v0: number | number[] | Coordinates,
-                v1?: number | Coordinates,
-                v2?: number,
-                v3?: number);
+    // TODO: Explicit constructor type
+    constructor(crs: string, v0: number | number[] | Coordinates, v1?: number | Coordinates, v2?: number, v3?: number);
 
-    readonly isExtent: boolean;
+    readonly isExtent: true;
 
     crs: string;
     zoom: number;
@@ -52,10 +49,8 @@ export default class Extent {
 
     intersect(extent: Extent): Extent;
 
-    set(v0: number | number[] | Coordinates | Extent,
-        v1?: number | Coordinates,
-        v2?: number,
-        v3?: number): Extent;
+    // TODO: Explicit constructor type
+    set(v0: number | number[] | Coordinates | Extent, v1?: number | Coordinates, v2?: number, v3?: number): Extent;
 
     copy(extent: Extent): Extent;
 
@@ -79,3 +74,5 @@ export default class Extent {
 
     clampByExtent(extent: Extent): Extent;
 }
+
+export default Extent;

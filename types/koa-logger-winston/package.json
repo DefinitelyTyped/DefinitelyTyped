@@ -1,6 +1,17 @@
 {
     "private": true,
+    "name": "@types/koa-logger-winston",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/selbyk/koa-logger-winston#readme"
+    ],
     "dependencies": {
+        "@types/koa": "*",
+        "@types/node": "*",
         "winston": "^3.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/koa-logger-winston": "workspace:."
+    },
+    "owners": []
 }

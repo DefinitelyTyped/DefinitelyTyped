@@ -4,11 +4,11 @@ import {
     BufferAttribute,
     BufferGeometry,
     InterleavedBufferAttribute,
-    TrianglesDrawModes,
-    Mesh,
     Line,
+    Mesh,
     Points,
-} from '../../../src/Three.js';
+    TrianglesDrawModes,
+} from "three";
 
 export function deepCloneAttribute(attribute: BufferAttribute): BufferAttribute;
 export function mergeGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
@@ -35,13 +35,3 @@ export function deinterleaveGeometry(geometry: BufferGeometry): void;
  * @param creaseAngle The crease angle in radians.
  */
 export function toCreasedNormals(geometry: BufferGeometry, creaseAngle?: number): BufferGeometry;
-
-/**
- * @deprecated Use mergeGeometries instead.
- */
-export function mergeBufferGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
-
-/**
- * @deprecated Use mergeAttributes instead.
- */
-export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;

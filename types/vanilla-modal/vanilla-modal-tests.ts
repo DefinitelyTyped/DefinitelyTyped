@@ -1,4 +1,4 @@
-import VanillaModal from 'vanilla-modal';
+import VanillaModal from "vanilla-modal";
 
 const modalInstance = new VanillaModal();
-modalInstance.open('#foo');
+modalInstance.open("#foo");

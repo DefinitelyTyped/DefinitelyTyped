@@ -1,8 +1,9 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
-import { Texture } from './../textures/Texture.js';
-import { Vector2 } from './../math/Vector2.js';
-import { MaterialParameters, Material } from './Material.js';
-import { Combine, NormalMapTypes } from '../constants.js';
+import { Combine, NormalMapTypes } from "../constants.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Euler } from "../math/Euler.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshPhongMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
@@ -29,6 +30,7 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
     specularMap?: Texture | null | undefined;
     alphaMap?: Texture | null | undefined;
     envMap?: Texture | null | undefined;
+    envMapRotation?: Euler | undefined;
     combine?: Combine | undefined;
     reflectivity?: number | undefined;
     refractionRatio?: number | undefined;
@@ -42,6 +44,13 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
 
 export class MeshPhongMaterial extends Material {
     constructor(parameters?: MeshPhongMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshPhongMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshPhongMaterial: true;
 
     /**
      * @default 'MeshNormalMaterial'
@@ -157,6 +166,11 @@ export class MeshPhongMaterial extends Material {
      * @default null
      */
     envMap: Texture | null;
+
+    /**
+     * The rotation of the environment map in radians. Default is `(0,0,0)`.
+     */
+    envMapRotation: Euler;
 
     /**
      * @default THREE.MultiplyOperation

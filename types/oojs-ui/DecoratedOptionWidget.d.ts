@@ -32,22 +32,20 @@ declare namespace OO.ui {
 
     namespace DecoratedOptionWidget {
         interface ConfigOptions
-            extends OptionWidget.ConfigOptions,
-                mixin.IconElement.ConfigOptions,
-                mixin.IndicatorElement.ConfigOptions {}
+            extends OptionWidget.ConfigOptions, mixin.IconElement.ConfigOptions, mixin.IndicatorElement.ConfigOptions
+        {}
 
         interface Static extends OptionWidget.Static, mixin.IconElement.Static, mixin.IndicatorElement.Static {}
 
         interface Props extends OptionWidget.Props, mixin.IconElement.Props, mixin.IndicatorElement.Props {}
 
         interface Prototype
-            extends OptionWidget.Prototype,
-                mixin.IconElement.Prototype,
-                mixin.IndicatorElement.Prototype {}
+            extends OptionWidget.Prototype, mixin.IconElement.Prototype, mixin.IndicatorElement.Prototype
+        {}
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): DecoratedOptionWidget;
+            new(config?: ConfigOptions): DecoratedOptionWidget;
             prototype: Prototype;
             static: Static;
             super: OptionWidget.Constructor;

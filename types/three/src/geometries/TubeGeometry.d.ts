@@ -1,6 +1,6 @@
-import { Curve } from './../extras/core/Curve.js';
-import { Vector3 } from './../math/Vector3.js';
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Curve } from "../extras/core/Curve.js";
+import { Vector3 } from "../math/Vector3.js";
 
 /**
  * Creates a tube that extrudes along a 3d curve.
@@ -52,7 +52,7 @@ export class TubeGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `TubeGeometry`
      */
-    override readonly type: string | 'TubeGeometry';
+    override readonly type: string | "TubeGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

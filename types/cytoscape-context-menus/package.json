@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cytoscape-context-menus",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/iVis-at-Bilkent/cytoscape.js-context-menus"
+    ],
+    "dependencies": {
+        "@types/cytoscape": "*"
+    },
+    "devDependencies": {
+        "@types/cytoscape-context-menus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Musa Ali",
+            "githubUsername": "hellomusa"
+        }
+    ]
+}

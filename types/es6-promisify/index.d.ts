@@ -1,8 +1,3 @@
-// Type definitions for es6-promisify 6.0
-// Project: https://github.com/digitaldesignlabs/es6-promisify#readme
-// Definitions by: Brian Schlenker <https://github.com/bschlenk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // If the issue at https://github.com/Microsoft/TypeScript/issues/1360 is fixed,
 // then an update should be submitted replacing the promisify declaration with
 // the following declarations.
@@ -16,14 +11,14 @@ export type Callback<T> = (err: any, arg?: T) => any;
 export type CallbackFunction = (...args: any[]) => any;
 export type PromiseFunction = (...args: any[]) => Promise<any>;
 
-export function promisify<T>(original: (cb: Callback<T>) => any):
-    () => Promise<T>;
-export function promisify<T, U>(original: (param1: U, cb: Callback<T>) => any):
-    (param1: U) => Promise<T>;
-export function promisify<T, U, V>(original: (param1: U, param2: V, cb: Callback<T>) => any):
-    (param1: U, param2: V) => Promise<T>;
-export function promisify<T, U, V, W>(original: (param1: U, param2: V, param3: W, cb: Callback<T>) => any):
-    (param1: U, param2: V, param3: W) => Promise<T>;
+export function promisify<T>(original: (cb: Callback<T>) => any): () => Promise<T>;
+export function promisify<T, U>(original: (param1: U, cb: Callback<T>) => any): (param1: U) => Promise<T>;
+export function promisify<T, U, V>(
+    original: (param1: U, param2: V, cb: Callback<T>) => any,
+): (param1: U, param2: V) => Promise<T>;
+export function promisify<T, U, V, W>(
+    original: (param1: U, param2: V, param3: W, cb: Callback<T>) => any,
+): (param1: U, param2: V, param3: W) => Promise<T>;
 export function promisify(original: CallbackFunction): PromiseFunction;
 
 export namespace promisify {

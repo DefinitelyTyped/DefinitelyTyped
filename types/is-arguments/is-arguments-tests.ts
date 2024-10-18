@@ -1,7 +1,7 @@
-import isArguments = require('is-arguments');
+import isArguments = require("is-arguments");
 
-(value: unknown) => {
+((value: unknown) => {
     if (isArguments(value)) {
         value; // $ExpectType IArguments
     }
-};
+});

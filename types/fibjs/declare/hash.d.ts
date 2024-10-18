@@ -202,7 +202,7 @@
 declare module "hash" {
     
 
-    module hash {
+    namespace hash {
         
         /**
          * 

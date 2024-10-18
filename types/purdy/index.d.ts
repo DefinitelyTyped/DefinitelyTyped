@@ -1,9 +1,3 @@
-// Type definitions for purdy 3.5
-// Project: https://github.com/danielb2/purdy.js
-// Definitions by: YellowKirby <https://github.com/YellowKirby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare function Purdy(obj: object, options: Purdy.Options): void;
 
 declare namespace Purdy {
@@ -14,13 +8,13 @@ declare namespace Purdy {
     }
 
     interface Options {
-        depth?: number|null | undefined;
+        depth?: number | null | undefined;
         plain?: boolean | undefined;
         json?: boolean | undefined;
         path?: boolean | undefined;
         proto?: boolean | undefined;
         indent?: number | undefined;
-        align?: 'left'|'right' | undefined;
+        align?: "left" | "right" | undefined;
         arrayIndex?: boolean | undefined;
         pathPrefix?: string | undefined;
     }

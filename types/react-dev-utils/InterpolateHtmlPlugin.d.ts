@@ -1,5 +1,5 @@
-import webpack = require('webpack');
-import HtmlWebpackPlugin = require('html-webpack-plugin');
+import webpack = require("webpack");
+import HtmlWebpackPlugin = require("html-webpack-plugin");
 
 /**
  * This Webpack plugin lets us interpolate custom variables into `index.html`.

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace ListGroup {
     interface ListGroupProps extends React.HTMLProps<ListGroup> {
@@ -8,5 +8,5 @@ declare namespace ListGroup {
         fill?: boolean | undefined;
     }
 }
-declare class ListGroup extends React.Component<ListGroup.ListGroupProps> { }
+declare class ListGroup extends React.Component<ListGroup.ListGroupProps> {}
 export = ListGroup;

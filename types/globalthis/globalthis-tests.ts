@@ -1,4 +1,4 @@
-import getGlobal = require('globalthis');
+import getGlobal = require("globalthis");
 
 getGlobal(); // $ExpectType typeof globalThis
 getGlobal.implementation; // $ExpectType typeof globalThis

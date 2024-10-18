@@ -1,4 +1,4 @@
-import { InputStream } from './InputStream.d';
+import { InputStream } from "./InputStream.d";
 
 /**
  * A reader which automatically handles the given input stream, returning

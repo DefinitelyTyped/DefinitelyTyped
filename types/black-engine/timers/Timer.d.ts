@@ -26,4 +26,4 @@ export class Timer extends Component {
     set startOnAdded(arg: boolean);
     get startOnAdded(): boolean;
 }
-import { Component } from '../core/Component';
+import { Component } from "../core/Component";

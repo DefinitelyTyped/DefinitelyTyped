@@ -1,4 +1,4 @@
-import { BufferedProcess, NodeProcessOptions } from '../index';
+import { BufferedProcess, NodeProcessOptions } from "../index";
 
 /**
  *  Like BufferedProcess, but accepts a Node script as the command to run.

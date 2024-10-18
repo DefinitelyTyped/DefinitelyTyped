@@ -27,7 +27,7 @@ export class Simulator {
 
     predict() {
         const env = this.env;
-        const Q: {[k: string]: number[]} = {};
+        const Q: { [k: string]: number[] } = {};
         init(Q, env);
         for (let i = 0; i < this.episodes; i++) {
             // The implementation starts with a large epsilon so action selection will focus on
@@ -43,8 +43,8 @@ export class Simulator {
     }
 }
 
-function getBestPolicy(Q: {[k: string]: number[]}): {[k: string]: number} {
-    const policy: {[k: string]: number} = {};
+function getBestPolicy(Q: { [k: string]: number[] }): { [k: string]: number } {
+    const policy: { [k: string]: number } = {};
     for (const key in Q) {
         const actionValues = Q[key];
         const bestAction = MathUtils.argmax(actionValues)[0];
@@ -58,7 +58,7 @@ function getKey(state: [number, number, boolean]): string {
     return `${state[0]}-${state[1]}-${Number(state[2])}`;
 }
 
-function getProbabilities(Q: {[k: string]: number[]}, state: [number, number, boolean], epsilon: number, nA: number) {
+function getProbabilities(Q: { [k: string]: number[] }, state: [number, number, boolean], epsilon: number, nA: number) {
     const key = getKey(state);
     const actionValues = Q[key];
     const probabilities = actionValues.map(() => epsilon / nA);
@@ -67,7 +67,7 @@ function getProbabilities(Q: {[k: string]: number[]}, state: [number, number, bo
     return probabilities;
 }
 
-function init(Q: {[k: string]: number[]}, env: BlackjackEnvironment) {
+function init(Q: { [k: string]: number[] }, env: BlackjackEnvironment) {
     const actionSpace = env.actionSpace;
     const observationSpace = env.observationSpace;
 
@@ -77,7 +77,7 @@ function init(Q: {[k: string]: number[]}, env: BlackjackEnvironment) {
     }
 }
 
-function playEpisode(env: BlackjackEnvironment, Q: {[k: string]: number[]}, epsilon: number) {
+function playEpisode(env: BlackjackEnvironment, Q: { [k: string]: number[] }, epsilon: number) {
     const episode = [];
     const actionSpace = env.actionSpace;
     const nA = actionSpace.length;
@@ -95,9 +95,9 @@ function playEpisode(env: BlackjackEnvironment, Q: {[k: string]: number[]}, epsi
 
         // When the action was sampled, interact with the environment and generate new state
 
-        const {state, reward, done} = env.step(action);
+        const { state, reward, done } = env.step(action);
 
-        episode.push({state: currentState, action, reward});
+        episode.push({ state: currentState, action, reward });
 
         currentState = state;
 
@@ -107,10 +107,15 @@ function playEpisode(env: BlackjackEnvironment, Q: {[k: string]: number[]}, epsi
     return episode;
 }
 
-function updateQ(env: BlackjackEnvironment, episode: Array<{state: [number, number, boolean], action: number, reward: number}>, Q: {[k: string]: number[]}, alpha: number) {
+function updateQ(
+    env: BlackjackEnvironment,
+    episode: Array<{ state: [number, number, boolean]; action: number; reward: number }>,
+    Q: { [k: string]: number[] },
+    alpha: number,
+) {
     let G = 0;
     for (let t = episode.length - 1; t >= 0; t--) {
-        const {state, action, reward} = episode[t];
+        const { state, action, reward } = episode[t];
         const key = getKey(state);
         G += reward;
         Q[key][action] += alpha * (G - Q[key][action]);

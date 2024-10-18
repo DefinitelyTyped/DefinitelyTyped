@@ -1,4 +1,4 @@
-export { };
+export {};
 
 declare global {
     var currentPane: string;

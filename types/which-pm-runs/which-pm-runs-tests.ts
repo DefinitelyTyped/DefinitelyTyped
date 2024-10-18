@@ -1,3 +1,3 @@
-import whichPMRuns = require('which-pm-runs');
+import whichPMRuns = require("which-pm-runs");
 
 whichPMRuns();

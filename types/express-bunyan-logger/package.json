@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/express-bunyan-logger",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/villadora/express-bunyan-logger"
+    ],
+    "dependencies": {
+        "@types/bunyan": "*",
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-bunyan-logger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shrey Jain",
+            "githubUsername": "shreyjain1994"
+        },
+        {
+            "name": "Matt R. Wilson",
+            "githubUsername": "mastermatt"
+        }
+    ]
+}

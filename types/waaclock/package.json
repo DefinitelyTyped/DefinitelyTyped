@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/waaclock",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/sebpiq/WAAClock"
+    ],
+    "devDependencies": {
+        "@types/waaclock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mel Bourgeois",
+            "githubUsername": "Smona"
+        }
+    ]
+}

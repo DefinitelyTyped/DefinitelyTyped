@@ -1,4 +1,4 @@
-import mongooseMock = require('mongoose-mock');
+import mongooseMock = require("mongoose-mock");
 
 // returns a mongoose object
-mongooseMock.connect('url');
+mongooseMock.connect("url");

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/trtc-js-sdk",
+    "version": "4.9.9999",
+    "projects": [
+        "https://github.com/tencentyun/TRTCSDK#readme"
+    ],
+    "devDependencies": {
+        "@types/trtc-js-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "yokots",
+            "githubUsername": "yokots"
+        },
+        {
+            "name": "Wang KaiLing",
+            "githubUsername": "wkl007"
+        }
+    ]
+}

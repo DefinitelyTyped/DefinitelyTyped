@@ -1,4 +1,4 @@
-import { Gradation } from './';
+import { Gradation } from "./";
 
 declare const canonical: Gradation[];
 

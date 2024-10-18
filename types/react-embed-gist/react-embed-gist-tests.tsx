@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import ReactEmbedGist from 'react-embed-gist';
+import ReactEmbedGist from "react-embed-gist";
 
 <ReactEmbedGist gist="username/gist-id" />;
 

@@ -1,4 +1,4 @@
-import equal from '../src/equal';
+import equal from "../src/equal";
 
 export default equal;
-export * from '../src/equal';
+export * from "../src/equal";

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/vue-writer",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/quelchx/vue-writer#readme"
+    ],
+    "dependencies": {
+        "vue": "^3.0.5"
+    },
+    "devDependencies": {
+        "@types/vue-writer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Abubaker Yahia",
+            "githubUsername": "BekYahia"
+        }
+    ]
+}

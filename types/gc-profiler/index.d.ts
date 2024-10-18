@@ -1,8 +1,3 @@
-// Type definitions for gc-profiler 1.4
-// Project: https://github.com/bretcope/node-gc-profiler#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = GCProfiler;
@@ -29,21 +24,21 @@ declare namespace GCProfiler {
             readonly kGCCallbackFlagForced: 4;
         };
 
-        addListener(eventName: 'gc', listener: (info: GCInfo) => void): this;
+        addListener(eventName: "gc", listener: (info: GCInfo) => void): this;
         addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
-        on(eventName: 'gc', listener: (info: GCInfo) => void): this;
+        on(eventName: "gc", listener: (info: GCInfo) => void): this;
         on(eventName: string | symbol, listener: (...args: any[]) => void): this;
-        once(eventName: 'gc', listener: (info: GCInfo) => void): this;
+        once(eventName: "gc", listener: (info: GCInfo) => void): this;
         once(eventName: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(eventName: 'gc', listener: (info: GCInfo) => void): this;
+        removeListener(eventName: "gc", listener: (info: GCInfo) => void): this;
         removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
-        off(eventName: 'gc', listener: (info: GCInfo) => void): this;
+        off(eventName: "gc", listener: (info: GCInfo) => void): this;
         off(eventName: string | symbol, listener: (...args: any[]) => void): this;
-        emit(eventName: 'gc', info: GCInfo): boolean;
+        emit(eventName: "gc", info: GCInfo): boolean;
         emit(eventName: string | symbol, ...args: any[]): boolean;
-        prependListener(eventName: 'gc', listener: (info: GCInfo) => void): this;
+        prependListener(eventName: "gc", listener: (info: GCInfo) => void): this;
         prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(eventName: 'gc', listener: (info: GCInfo) => void): this;
+        prependOnceListener(eventName: "gc", listener: (info: GCInfo) => void): this;
         prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
     }
 
@@ -71,5 +66,5 @@ declare namespace GCProfiler {
         flags: number;
     }
 
-    type GCType = 'Scavenge' | 'MarkSweepCompact' | 'IncrementalMarking' | 'ProcessWeakCallbacks' | 'All';
+    type GCType = "Scavenge" | "MarkSweepCompact" | "IncrementalMarking" | "ProcessWeakCallbacks" | "All";
 }

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 const testCases = [
     <span />,
@@ -6,9 +6,16 @@ const testCases = [
     <span autoFocus />,
     <span className="klass" />,
     <span contentEditable />,
+    <span
+        contentEditable
+        // @ts-expect-error -- Use data-placeholder instead.
+        placeholder="foo"
+    />,
+    <span contentEditable="plaintext-only" />,
     <span contextMenu="menuId" />,
     <span dir="rtl" />,
     <span draggable />,
+    <span enterKeyHint="done" />,
     <span hidden />,
     <span id="s" />,
     <span lang="art-x-tokipona" />,
@@ -23,6 +30,7 @@ const testCases = [
     <span autoCapitalize="on" />,
     <span autoCapitalize="words" />,
     <span autoCapitalize="sentences" />,
+    <span autoCapitalize="characters" />,
     <span autoCorrect="off" />,
     <span autoCorrect="on" />,
     <span translate="no" />,
@@ -30,10 +38,10 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
-    <details open={true} onToggle={() => {}} />,
-    <input value={['one', 'two'] as ReadonlyArray<string>} />,
-    <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />,
+    <details open={true} onToggle={() => {}} name="foo" />,
+    <input value={["one", "two"] as readonly string[]} />,
+    <input value={["one", "two"] as string[]} />,
+    <input value={["one", "two"]} />,
     <input enterKeyHint="done" />,
     <input accept="image/*" capture="user" />,
     <input accept="image/*" capture="environment" />,
@@ -59,6 +67,18 @@ const testCases = [
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="high" />
+    </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="low" />
+    </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="auto" />
+    </picture>,
     <dialog
         onCancel={event => {
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
@@ -68,9 +88,10 @@ const testCases = [
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
         }}
-    ></dialog>,
+    >
+    </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
-    <center></center>
+    <center></center>,
 ];
 
 // Needed to check these HTML elements in event callbacks.

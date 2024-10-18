@@ -1,24 +1,11 @@
-// Type definitions for react-map-gl 6.1
-// Project: https://github.com/visgl/react-map-gl#readme
-// Definitions by: Robert Imig <https://github.com/rimig>
-//                 Fabio Berta <https://github.com/fnberta>
-//                 Sander Siim <https://github.com/sandersiim>
-//                 Arman Safikhani <https://github.com/Arman92>
-//                 William Chiu <https://github.com/chiuhow>
-//                 David Baumgold <https://github.com/singingwolfboy>
-//                 Ilja Reznik <https://github.com/ireznik>
-//                 Arthur Cheung <https://github.com/arthur-cheung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference lib='dom' />
 
-import * as React from 'react';
-import * as MapboxGL from 'mapbox-gl';
-import * as GeoJSON from 'geojson';
-import WebMercatorViewport from 'viewport-mercator-project';
+import * as GeoJSON from "geojson";
+import * as MapboxGL from "mapbox-gl";
+import * as React from "react";
+import WebMercatorViewport from "viewport-mercator-project";
 
-export { WebMercatorViewport } from 'viewport-mercator-project';
+export { WebMercatorViewport } from "viewport-mercator-project";
 
 export interface ViewState {
     latitude: number;
@@ -140,7 +127,7 @@ export interface ViewportProps {
     minZoom: number;
     maxPitch: number;
     minPitch: number;
-    transitionDuration?: number | 'auto' | undefined;
+    transitionDuration?: number | "auto" | undefined;
     transitionInterpolator?: TransitionInterpolator | undefined;
     transitionInterruption?: TRANSITION_EVENTS | undefined;
     transitionEasing?: EasingFunction | undefined;
@@ -272,7 +259,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     onViewStateChange?: ContextViewStateChangeHandler | undefined;
     onViewportChange?: ContextViewportChangeHandler | undefined;
     onInteractionStateChange?: ((state: ExtraState) => void) | undefined;
-    transitionDuration?: number | 'auto' | undefined;
+    transitionDuration?: number | "auto" | undefined;
     transitionInterpolator?: TransitionInterpolator | undefined;
     transitionInterruption?: TRANSITION_EVENTS | undefined;
     transitionEasing?: EasingFunction | undefined;
@@ -409,7 +396,7 @@ export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDiv
 
 export interface ScaleControlProps extends BaseControlProps {
     maxWidth?: number | undefined;
-    unit?: 'imperial' | 'metric' | 'nautical' | undefined;
+    unit?: "imperial" | "metric" | "nautical" | undefined;
 }
 
 export class ScaleControl extends BaseControl<ScaleControlProps, HTMLDivElement> {}
@@ -479,11 +466,11 @@ export interface SourceProps {
     tiles?: string[] | undefined;
     tileSize?: number | undefined;
     bounds?: number[] | undefined;
-    scheme?: 'xyz' | 'tms' | undefined;
+    scheme?: "xyz" | "tms" | undefined;
     minzoom?: number | undefined;
     maxzoom?: number | undefined;
     attribution?: string | undefined;
-    encoding?: 'terrarium' | 'mapbox' | undefined;
+    encoding?: "terrarium" | "mapbox" | undefined;
     data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string | undefined;
     buffer?: number | undefined;
     tolerance?: number | undefined;

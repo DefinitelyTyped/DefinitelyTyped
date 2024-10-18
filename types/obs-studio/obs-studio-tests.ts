@@ -13,14 +13,14 @@ window.obsstudio.getCurrentScene((scene: OBSSceneInfo) => {
     scene.height;
 });
 
-window.obsstudio.setCurrentScene('Scene 1');
+window.obsstudio.setCurrentScene("Scene 1");
 
 window.obsstudio.getCurrentTransition();
 window.obsstudio.getCurrentTransition((transition: string) => {
     transition;
 });
 
-window.obsstudio.setCurrentTransition('Cut');
+window.obsstudio.setCurrentTransition("Cut");
 
 window.obsstudio.getScenes();
 window.obsstudio.getScenes((scenes: string[]) => {
@@ -66,106 +66,106 @@ const sceneChangeCb = (event: CustomEvent<OBSSceneInfo>) => {
     event.detail.height;
 };
 
-window.addEventListener('obsSceneChanged', sceneChangeCb);
-window.removeEventListener('obsSceneChanged', sceneChangeCb);
+window.addEventListener("obsSceneChanged", sceneChangeCb);
+window.removeEventListener("obsSceneChanged", sceneChangeCb);
 
-window.addEventListener('obsStreamingStarting', (event: CustomEvent<null>) => {
+window.addEventListener("obsStreamingStarting", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsStreamingStarted', (event: CustomEvent<null>) => {
+window.addEventListener("obsStreamingStarted", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsStreamingStopping', (event: CustomEvent<null>) => {
+window.addEventListener("obsStreamingStopping", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsStreamingStopped', (event: CustomEvent<null>) => {
+window.addEventListener("obsStreamingStopped", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsRecordingStarting', (event: CustomEvent<null>) => {
+window.addEventListener("obsRecordingStarting", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsRecordingStarted', (event: CustomEvent<null>) => {
+window.addEventListener("obsRecordingStarted", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsRecordingStopping', (event: CustomEvent<null>) => {
+window.addEventListener("obsRecordingStopping", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsRecordingStopped', (event: CustomEvent<null>) => {
+window.addEventListener("obsRecordingStopped", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsRecordingPaused', (event: CustomEvent<null>) => {
+window.addEventListener("obsRecordingPaused", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsRecordingUnpaused', (event: CustomEvent<null>) => {
+window.addEventListener("obsRecordingUnpaused", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsReplaybufferStarting', (event: CustomEvent<null>) => {
+window.addEventListener("obsReplaybufferStarting", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsReplaybufferStarted', (event: CustomEvent<null>) => {
+window.addEventListener("obsReplaybufferStarted", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsReplaybufferStopping', (event: CustomEvent<null>) => {
+window.addEventListener("obsReplaybufferStopping", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsReplaybufferStopped', (event: CustomEvent<null>) => {
+window.addEventListener("obsReplaybufferStopped", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsReplaybufferSaved', (event: CustomEvent<null>) => {
+window.addEventListener("obsReplaybufferSaved", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsVirtualcamStarted', (event: CustomEvent<null>) => {
+window.addEventListener("obsVirtualcamStarted", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsVirtualcamStopped', (event: CustomEvent<null>) => {
+window.addEventListener("obsVirtualcamStopped", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsExit', (event: CustomEvent<null>) => {
+window.addEventListener("obsExit", (event: CustomEvent<null>) => {
     event;
     event.detail;
 });
 
-window.addEventListener('obsSourceActiveChanged', (event: CustomEvent<ActiveInfo>) => {
+window.addEventListener("obsSourceActiveChanged", (event: CustomEvent<ActiveInfo>) => {
     event;
     event.detail;
     event.detail.active;
 });
 
-window.addEventListener('obsSourceVisibleChanged', (event: CustomEvent<VisibleInfo>) => {
+window.addEventListener("obsSourceVisibleChanged", (event: CustomEvent<VisibleInfo>) => {
     event;
     event.detail;
     event.detail.visible;

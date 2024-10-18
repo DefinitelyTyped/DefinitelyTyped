@@ -1,9 +1,3 @@
-// Type definitions for wpapi 1.1
-// Project: https://github.com/wp-api/node-wpapi
-// Definitions by: Guo Yunhe <https://github.com/guoyunhe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export = WPAPI;
 
 /**
@@ -102,7 +96,7 @@ declare class WPAPI {
     registerRoute(
         namespace: string,
         restBase: string,
-        options?: WPAPI.RegisterRouteOptions
+        options?: WPAPI.RegisterRouteOptions,
     ): WPAPI.WPRequestFactory;
 
     /**
@@ -323,7 +317,7 @@ declare namespace WPAPI {
          */
         param(
             props: string | { [name: string]: string | number | any[] },
-            value?: string | number | any[]
+            value?: string | number | any[],
         ): WPRequest;
 
         /**
@@ -350,7 +344,7 @@ declare namespace WPAPI {
          */
         setHeaders(
             headers: string | { [name: string]: string },
-            value?: string
+            value?: string,
         ): WPRequest;
 
         /**
@@ -384,7 +378,7 @@ declare namespace WPAPI {
          */
         then(
             successCallback?: (data: any) => void,
-            failureCallback?: (error: Error) => void
+            failureCallback?: (error: Error) => void,
         ): Promise<any>;
 
         /**
@@ -475,7 +469,7 @@ declare namespace WPAPI {
 
     type TransportFunction = (
         wpreq: WPRequest,
-        cb?: WPRequestCallback
+        cb?: WPRequestCallback,
     ) => Promise<any>;
 
     interface Routes {

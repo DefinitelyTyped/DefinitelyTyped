@@ -1,15 +1,6 @@
-// Type definitions for mailgun-js 0.22
-// Project: https://github.com/bojand/mailgun-js
-// Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
-//                 Andi Pätzold <https://github.com/andipaetzold>
-//                 Jiri Balcar <https://github.com/JiriBalcar>
-//                 Ryan Leonard <https://github.com/CodeLenny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import * as FormData from 'form-data';
+import * as FormData from "form-data";
 
 declare const Mailgun: Mailgun.MailgunExport;
 export = Mailgun;
@@ -28,9 +19,10 @@ declare namespace Mailgun {
         retry?:
             | number
             | {
-                  times: number;
-                  interval: number;
-              } | undefined;
+                times: number;
+                interval: number;
+            }
+            | undefined;
         proxy?: string | undefined;
         testMode?: boolean | undefined;
         testModeLogger?: ((httpOptions: LoggerHttpOptions, payload: string, form: FormData) => void) | undefined;
@@ -71,7 +63,7 @@ declare namespace Mailgun {
     type AttachmentData = string | Buffer | NodeJS.ReadWriteStream | Attachment;
 
     interface MailgunExport {
-        new (options: ConstructorParams): Mailgun;
+        new(options: ConstructorParams): Mailgun;
         (options: ConstructorParams): Mailgun;
     }
 
@@ -90,31 +82,31 @@ declare namespace Mailgun {
             subject?: string | undefined;
             text?: string | undefined;
             html?: string | undefined;
-            'amp-html'?: string | undefined;
-            attachment?: AttachmentData | ReadonlyArray<AttachmentData> | undefined;
-            inline?: AttachmentData | ReadonlyArray<AttachmentData> | undefined;
+            "amp-html"?: string | undefined;
+            attachment?: AttachmentData | readonly AttachmentData[] | undefined;
+            inline?: AttachmentData | readonly AttachmentData[] | undefined;
 
             // Mailgun options
-            'o:testmode'?: 'yes' | 'no' | 'true' | 'false' | 'True' | 'False' | undefined;
-            'o:tag'?: string | string[] | undefined;
-            'o:deliverytime'?: string | undefined;
-            'o:deliverytime-optimize-period'?: string | undefined;
-            'o:dkim'?: 'yes' | 'no' | boolean | undefined;
-            'o:tracking'?: 'yes' | 'no' | boolean | undefined;
-            'o:tracking-opens'?: 'yes' | 'no' | boolean | undefined;
-            'o:tracking-clicks'?: 'yes' | 'no' | 'htmlonly' | boolean | undefined;
-            'o:require-tls'?: 'yes' | 'no' | 'True' | 'False' | undefined;
-            'o:skip-verification'?: 'yes' | 'no' | 'True' | 'False' | undefined;
+            "o:testmode"?: "yes" | "no" | "true" | "false" | "True" | "False" | undefined;
+            "o:tag"?: string | string[] | undefined;
+            "o:deliverytime"?: string | undefined;
+            "o:deliverytime-optimize-period"?: string | undefined;
+            "o:dkim"?: "yes" | "no" | boolean | undefined;
+            "o:tracking"?: "yes" | "no" | boolean | undefined;
+            "o:tracking-opens"?: "yes" | "no" | boolean | undefined;
+            "o:tracking-clicks"?: "yes" | "no" | "htmlonly" | boolean | undefined;
+            "o:require-tls"?: "yes" | "no" | "True" | "False" | undefined;
+            "o:skip-verification"?: "yes" | "no" | "True" | "False" | undefined;
 
             // Standard email headers
-            'h:Reply-To'?: string | undefined;
-            'h:In-Reply-To'?: string | undefined;
-            'h:References'?: string | undefined;
-            'h:Importance'?: string | undefined;
+            "h:Reply-To"?: string | undefined;
+            "h:In-Reply-To"?: string | undefined;
+            "h:References"?: string | undefined;
+            "h:Importance"?: string | undefined;
         }
 
         interface BatchData extends SendData {
-            'recipient-variables'?: string | BatchSendRecipientVars | undefined;
+            "recipient-variables"?: string | BatchSendRecipientVars | undefined;
         }
 
         type SendTemplateData = SendData & {
@@ -123,7 +115,7 @@ declare namespace Mailgun {
         };
 
         interface BatchSendRecipientVars {
-            [email: string]: {[key: string]: any};
+            [email: string]: { [key: string]: any };
         }
 
         interface SendResponse {
@@ -180,11 +172,11 @@ declare namespace Mailgun {
 
         interface ValidationOptionsPublic {
             api_key?: string | undefined;
-            mailbox_verification?: boolean | 'true' | 'false' | undefined;
+            mailbox_verification?: boolean | "true" | "false" | undefined;
         }
 
         interface ValidationOptionsPrivate {
-            mailbox_verification?: boolean | 'true' | 'false' | undefined;
+            mailbox_verification?: boolean | "true" | "false" | undefined;
         }
 
         interface ValidateResponse {
@@ -193,7 +185,7 @@ declare namespace Mailgun {
             is_disposable_address: boolean;
             is_role_address: boolean;
             is_valid: boolean;
-            mailbox_verification: 'true' | 'false' | 'unknown' | null;
+            mailbox_verification: "true" | "false" | "unknown" | null;
             parts: {
                 display_name: string | null;
                 domain: string;
@@ -205,7 +197,7 @@ declare namespace Mailgun {
     interface Mailgun {
         messages(): Messages;
         lists(list: string): Lists;
-        Attachment: new (params: AttachmentParams) => Attachment;
+        Attachment: new(params: AttachmentParams) => Attachment;
         validateWebhook(bodyTimestamp: number, bodyToken: string, bodySignature: string): boolean;
 
         parse(addressList: string[], callback?: validation.ValidationCallback): Promise<validation.ParseResponse>;

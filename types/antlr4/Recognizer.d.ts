@@ -1,10 +1,10 @@
-import ATNSimulator from './atn/ATNSimulator';
-import ConsoleErrorListener from './error/ConsoleErrorListener';
-import ErrorListener from './error/ErrorListener';
-import ProxyErrorListener from './error/ProxyErrorListener';
-import Token from './Token';
-import ParserRuleContext from './context/ParserRuleContext';
-import RecognitionException from './error/RecognitionException';
+import ATNSimulator from "./atn/ATNSimulator";
+import ParserRuleContext from "./context/ParserRuleContext";
+import ConsoleErrorListener from "./error/ConsoleErrorListener";
+import ErrorListener from "./error/ErrorListener";
+import ProxyErrorListener from "./error/ProxyErrorListener";
+import RecognitionException from "./error/RecognitionException";
+import Token from "./Token";
 
 export default class Recognizer {
     checkVersion(toolVersion: number): void;
@@ -17,7 +17,7 @@ export default class Recognizer {
 
     getSymbolicNames(): Array<string | null>;
 
-    getTokenNames(): Array<string | '<INVALID'>;
+    getTokenNames(): Array<string | "<INVALID">;
 
     getTokenTypeMap(): Record<string, number>;
 

@@ -1,6 +1,6 @@
-import { format, formatMongoose, MongodbUriParser, parse } from 'mongodb-uri';
+import { format, formatMongoose, MongodbUriParser, parse } from "mongodb-uri";
 
-const urlString = 'mongodb://localhost';
+const urlString = "mongodb://localhost";
 const parser = new MongodbUriParser();
 
 const parsed1 = parser.parse(urlString);

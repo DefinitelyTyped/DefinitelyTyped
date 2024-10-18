@@ -1,20 +1,3 @@
-// Type definitions for elasticsearch 5.0
-// Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/16.x/index.html
-// Definitions by: Casper Skydt <https://github.com/CasperSkydt>
-//                 Blake Smith <https://github.com/bfsmith>
-//                 Dave Dunkin <https://github.com/ddunkin>
-//                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Margus Lamp <https://github.com/mlamp>
-//                 Ahmad Ferdous Bin Alam <https://github.com/ahmadferdous>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Paul Brabban <https://github.com/brabster>
-//                 Budi Irawan <https://github.com/deerawan>
-//                 Yonatan Kiron <https://github.com/YonatanKiron>
-//                 Jani Šumak <https://github.com/dasdachs>
-//                 Chris Midgley <https://github.com/midgleyc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import HttpConnector = require("./src/lib/connectors/http");
 
 export class Client {
@@ -32,11 +15,17 @@ export class Client {
     clearScroll(params: ClearScrollParams): Promise<any>;
     count(params: CountParams, callback: (error: any, response: CountResponse) => void): void;
     count(params: CountParams): Promise<CountResponse>;
-    create(params: CreateDocumentParams, callback: (err: any, response: CreateDocumentResponse, status: any) => void): void;
+    create(
+        params: CreateDocumentParams,
+        callback: (err: any, response: CreateDocumentResponse, status: any) => void,
+    ): void;
     create(params: CreateDocumentParams): Promise<CreateDocumentResponse>;
     delete(params: DeleteDocumentParams, callback: (error: any, response: DeleteDocumentResponse) => void): void;
     delete(params: DeleteDocumentParams): Promise<DeleteDocumentResponse>;
-    deleteByQuery(params: DeleteDocumentByQueryParams, callback: (error: any, response: DeleteDocumentByQueryResponse) => void): void;
+    deleteByQuery(
+        params: DeleteDocumentByQueryParams,
+        callback: (error: any, response: DeleteDocumentByQueryResponse) => void,
+    ): void;
     deleteByQuery(params: DeleteDocumentByQueryParams): Promise<DeleteDocumentByQueryResponse>;
     deleteScript(params: DeleteScriptParams, callback: (error: any, response: any) => void): void;
     deleteScript(params: DeleteScriptParams): Promise<any>;
@@ -64,7 +53,10 @@ export class Client {
     mget<T>(params: MGetParams): Promise<MGetResponse<T>>;
     msearch<T>(params: MSearchParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
     msearch<T>(params: MSearchParams): Promise<MSearchResponse<T>>;
-    msearchTemplate<T>(params: MSearchTemplateParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
+    msearchTemplate<T>(
+        params: MSearchTemplateParams,
+        callback: (error: any, response: MSearchResponse<T>) => void,
+    ): void;
     msearchTemplate<T>(params: MSearchTemplateParams): Promise<MSearchResponse<T>>;
     mtermvectors(params: MTermVectorsParams, callback: (error: any, response: any) => void): void;
     mtermvectors(params: MTermVectorsParams): Promise<any>;
@@ -94,7 +86,10 @@ export class Client {
     termvectors(params: TermvectorsParams): Promise<any>;
     update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
     update(params: UpdateDocumentParams): Promise<any>;
-    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: UpdateDocumentByQueryResponse) => void): void;
+    updateByQuery(
+        params: UpdateDocumentByQueryParams,
+        callback: (error: any, response: UpdateDocumentByQueryResponse) => void,
+    ): void;
     updateByQuery(params: UpdateDocumentByQueryParams): Promise<UpdateDocumentByQueryResponse>;
     close(): void;
 }
@@ -535,7 +530,7 @@ export interface ReindexParams extends GenericParams {
                 host: string;
                 username?: string | undefined;
                 password?: string | undefined;
-            } | undefined
+            } | undefined;
         };
         dest: {
             index: string;
@@ -547,7 +542,7 @@ export interface ReindexParams extends GenericParams {
         script?: {
             inline: string;
             lang: string;
-        } | undefined
+        } | undefined;
     };
 }
 
@@ -1026,13 +1021,19 @@ export class Indices {
     delete(params: IndicesDeleteParams): Promise<any>;
     deleteAlias(params: IndicesDeleteAliasParams, callback: (error: any, response: any, status: any) => void): void;
     deleteAlias(params: IndicesDeleteAliasParams): Promise<any>;
-    deleteTemplate(params: IndicesDeleteTemplateParams, callback: (error: any, response: any, status: any) => void): void;
+    deleteTemplate(
+        params: IndicesDeleteTemplateParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     deleteTemplate(params: IndicesDeleteTemplateParams): Promise<any>;
     exists(params: IndicesExistsParams, callback: (error: any, response: boolean, status: any) => void): void;
     exists(params: IndicesExistsParams): Promise<boolean>;
     existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: boolean, status: any) => void): void;
     existsAlias(params: IndicesExistsAliasParams): Promise<boolean>;
-    existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsTemplate(
+        params: IndicesExistsTemplateParams,
+        callback: (error: any, response: boolean, status: any) => void,
+    ): void;
     existsTemplate(params: IndicesExistsTemplateParams): Promise<boolean>;
     existsType(params: IndicesExistsTypeParams, callback: (error: any, response: boolean, status: any) => void): void;
     existsType(params: IndicesExistsTypeParams): Promise<boolean>;
@@ -1046,7 +1047,10 @@ export class Indices {
     get(params: IndicesGetParams): Promise<any>;
     getAlias(params: IndicesGetAliasParams, callback: (error: any, response: any, status: any) => void): void;
     getAlias(params: IndicesGetAliasParams): Promise<any>;
-    getFieldMapping(params: IndicesGetFieldMappingParams, callback: (error: any, response: any, status: any) => void): void;
+    getFieldMapping(
+        params: IndicesGetFieldMappingParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     getFieldMapping(params: IndicesGetFieldMappingParams): Promise<any>;
     getMapping(params: IndicesGetMappingParams, callback: (error: any, response: any, status: any) => void): void;
     getMapping(params: IndicesGetMappingParams): Promise<any>;
@@ -1104,7 +1108,7 @@ export interface IndicesAnalyzeParams extends GenericParams {
 
 export interface IndicesClearCacheParams extends GenericParams {
     fieldData?: boolean | undefined;
-    fielddata?: boolean | undefined;    // yes the docs really have both
+    fielddata?: boolean | undefined; // yes the docs really have both
     fields?: NameList | undefined;
     query?: boolean | undefined;
     ignoreUnavailable?: boolean | undefined;
@@ -1198,7 +1202,7 @@ export interface IndicesForcemergeParams extends GenericParams {
     expandWildcards?: ExpandWildcards | undefined;
     maxNumSegments?: number | undefined;
     onlyExpungeDeletes?: boolean | undefined;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     waitForMerge?: boolean | undefined;
     index: NameList;
 }
@@ -1292,16 +1296,16 @@ export interface IndicesPutAliasParams extends GenericParams {
 }
 
 export interface IndicesPutMappingParams extends GenericParams {
-  timeout?: TimeSpan | undefined;
-  masterTimeout?: TimeSpan | undefined;
-  ignoreUnavailable?: boolean | undefined;
-  allowNoIndices?: boolean | undefined;
-  expandWildcards?: ExpandWildcards | undefined;
-  updateAllTypes?: boolean | undefined;
-  index: NameList;
-  type: string;
-  includeTypeName?: boolean | undefined;
-  body: any;
+    timeout?: TimeSpan | undefined;
+    masterTimeout?: TimeSpan | undefined;
+    ignoreUnavailable?: boolean | undefined;
+    allowNoIndices?: boolean | undefined;
+    expandWildcards?: ExpandWildcards | undefined;
+    updateAllTypes?: boolean | undefined;
+    index: NameList;
+    type: string;
+    includeTypeName?: boolean | undefined;
+    body: any;
 }
 
 export interface IndicesPutSettingsParams extends GenericParams {
@@ -1338,7 +1342,7 @@ export interface IndicesRefreshParams extends GenericParams {
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     force?: boolean | undefined;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     index: NameList;
 }
 
@@ -1366,7 +1370,7 @@ export interface IndicesSegmentsParams extends GenericParams {
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
     human?: boolean | undefined;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     verbose?: boolean | undefined;
     index: NameList;
 }
@@ -1376,7 +1380,7 @@ export interface IndicesShardStoresParams extends GenericParams {
     ignoreUnavailable?: boolean | undefined;
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     index: NameList;
 }
 
@@ -1439,7 +1443,7 @@ export interface IndicesValidateQueryParams extends GenericParams {
     ignoreUnavailable?: boolean | undefined;
     allowNoIndices?: boolean | undefined;
     expandWildcards?: ExpandWildcards | undefined;
-    operationThreading?: any;   // even the docs don't know what this does
+    operationThreading?: any; // even the docs don't know what this does
     q?: string | undefined;
     analyzer?: string | undefined;
     analyzeWildcard?: boolean | undefined;
@@ -1453,7 +1457,10 @@ export interface IndicesValidateQueryParams extends GenericParams {
 }
 
 export class Ingest {
-    deletePipeline(params: IngestDeletePipelineParams, callback: (error: any, response: any, status: any) => void): void;
+    deletePipeline(
+        params: IngestDeletePipelineParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     deletePipeline(params: IngestDeletePipelineParams): Promise<any>;
     getPipeline(params: IngestGetPipelineParams, callback: (error: any, response: any, status: any) => void): void;
     getPipeline(params: IngestGetPipelineParams): Promise<any>;
@@ -1530,21 +1537,33 @@ export interface NodesStatsParams extends GenericParams {
 export class Snapshot {
     create(params: SnapshotCreateParams, callback: (error: any, response: any, status: any) => void): void;
     create(params: SnapshotCreateParams): Promise<any>;
-    createRepository(params: SnapshotCreateRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
+    createRepository(
+        params: SnapshotCreateRepositoryParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     createRepository(params: SnapshotCreateRepositoryParams): Promise<any>;
     delete(params: SnapshotDeleteParams, callback: (error: any, response: any, status: any) => void): void;
     delete(params: SnapshotDeleteParams): Promise<any>;
-    deleteRepository(params: SnapshotDeleteRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
+    deleteRepository(
+        params: SnapshotDeleteRepositoryParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     deleteRepository(params: SnapshotDeleteRepositoryParams): Promise<any>;
     get(params: SnapshotGetParams, callback: (error: any, response: any, status: any) => void): void;
     get(params: SnapshotGetParams): Promise<any>;
-    getRepository(params: SnapshotGetRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
+    getRepository(
+        params: SnapshotGetRepositoryParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     getRepository(params: SnapshotGetRepositoryParams): Promise<any>;
     restore(params: SnapshotRestoreParams, callback: (error: any, response: any, status: any) => void): void;
     restore(params: SnapshotRestoreParams): Promise<any>;
     status(params: SnapshotStatusParams, callback: (error: any, response: any, status: any) => void): void;
     status(params: SnapshotStatusParams): Promise<any>;
-    verifyRepository(params: SnapshotVerifyRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
+    verifyRepository(
+        params: SnapshotVerifyRepositoryParams,
+        callback: (error: any, response: any, status: any) => void,
+    ): void;
     verifyRepository(params: SnapshotVerifyRepositoryParams): Promise<any>;
 }
 

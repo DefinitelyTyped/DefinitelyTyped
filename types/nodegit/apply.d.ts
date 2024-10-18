@@ -1,8 +1,8 @@
-import { ApplyOptions } from './apply-options';
-import { Diff } from './diff';
-import { Index } from './index_';
-import { Repository } from './repository';
-import { Tree } from './tree';
+import { ApplyOptions } from "./apply-options";
+import { Diff } from "./diff";
+import { Index } from "./index_";
+import { Repository } from "./repository";
+import { Tree } from "./tree";
 
 export namespace Apply {
     const enum FLAGS {

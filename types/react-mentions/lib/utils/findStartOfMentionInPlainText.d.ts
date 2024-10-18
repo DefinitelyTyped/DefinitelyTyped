@@ -4,7 +4,7 @@
  * does not lie inside a mention, returns indexInPlainText.
  */
 
-import { Config } from './applyChangeToValue';
+import { Config } from "./applyChangeToValue";
 
 export function findStartOfMentionInPlainText(
     value: string,

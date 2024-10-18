@@ -1,9 +1,3 @@
-// Type definitions for EvaporateJS 2.1
-// Project: https://github.com/TTLabs/EvaporateJS
-// Definitions by: Andrew Kuklewicz <https://github.com/kookster>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export = Evaporate;
 
 declare class Evaporate {
@@ -41,21 +35,27 @@ declare namespace Evaporate {
         aws_url?: string | undefined;
         aws_key?: string | undefined;
         awsRegion?: string | undefined;
-        awsSignatureVersion?: '2' | '4' | undefined;
+        awsSignatureVersion?: "2" | "4" | undefined;
         signerUrl?: string | undefined;
         sendCanonicalRequestToSignerUrl?: boolean | undefined;
         s3FileCacheHoursAgo?: null | number | undefined;
         signParams?: object | undefined;
         signHeaders?: object | undefined;
-        customAuthMethod?: null | ((
-            signParams: object,
-            signHeaders: object,
-            stringToSign: string,
-            signatureDateTime: string,
-            canonicalRequest: string
-        ) => Promise<string>) | undefined;
+        customAuthMethod?:
+            | null
+            | ((
+                signParams: object,
+                signHeaders: object,
+                stringToSign: string,
+                signatureDateTime: string,
+                canonicalRequest: string,
+            ) => Promise<string>)
+            | undefined;
         maxFileSize?: number | undefined;
-        signResponseHandler?: null | ((response: any, stringToSign: string, signatureDateTime: string) => Promise<string>) | undefined;
+        signResponseHandler?:
+            | null
+            | ((response: any, stringToSign: string, signatureDateTime: string) => Promise<string>)
+            | undefined;
         xhrWithCredentials?: boolean | undefined;
         localTimeOffset?: number | undefined;
         evaporateChanged?: ((evaporate: Evaporate, evaporatingCount: number) => void) | undefined;
@@ -97,10 +97,19 @@ declare namespace Evaporate {
     }
 
     type ImmutableOptionKeys =
-        | 'maxConcurrentParts' | 'logging' | 'cloudfront' | 'encodeFilename'
-        | 'computeContentMd5' | 'allowS3ExistenceOptimization' | 'onlyRetryForSameFileName'
-        | 'timeUrl' | 'cryptoMd5Method' | 'cryptoHexEncodedHash256' | 'awsRegion' | 'awsSignatureVersion'
-        | 'evaporateChanged';
+        | "maxConcurrentParts"
+        | "logging"
+        | "cloudfront"
+        | "encodeFilename"
+        | "computeContentMd5"
+        | "allowS3ExistenceOptimization"
+        | "onlyRetryForSameFileName"
+        | "timeUrl"
+        | "cryptoMd5Method"
+        | "cryptoHexEncodedHash256"
+        | "awsRegion"
+        | "awsSignatureVersion"
+        | "evaporateChanged";
     type AddOverrideOptionKeys = Exclude<keyof CreateConfig, ImmutableOptionKeys>;
     interface AddOverrideOptions extends Pick<CreateConfig, AddOverrideOptionKeys> {}
 

@@ -1,15 +1,3 @@
-// Type definitions for koa-router 7.4
-// Project: https://github.com/alexmingoia/koa-router#readme
-// Definitions by: Jerry Chin <https://github.com/hellopao>
-//                 Pavel Ivanov <https://github.com/schfkt>
-//                 JounQin <https://github.com/JounQin>
-//                 Romain Faust <https://github.com/romain-faust>
-//                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
-//                 Andrea Gueugnaut <https://github.com/falinor>
-//                 Yves Kaufmann <https://github.com/yveskaufmann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import * as Router from "koa-router";
@@ -135,7 +123,7 @@ declare namespace Router {
         constructor(
             path: string | RegExp,
             methods: string[],
-            middleware: Array<Router.IMiddleware>,
+            middleware: Router.IMiddleware[],
             opts?: ILayerOptions,
         );
 
@@ -173,7 +161,7 @@ declare namespace Router {
 
 declare class Router<StateT = any, CustomT = {}> {
     params: Object;
-    stack: Array<Router.Layer>;
+    stack: Router.Layer[];
 
     /**
      * Create a new router.
@@ -202,7 +190,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     get(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     get<T, U>(
@@ -212,7 +200,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     get<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -226,7 +214,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     post(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     post<T, U>(
@@ -236,7 +224,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     post<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -250,7 +238,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     put(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     put<T, U>(
@@ -260,7 +248,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     put<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -274,7 +262,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     link(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     link<T, U>(
@@ -284,7 +272,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     link<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -298,7 +286,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     unlink(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     unlink<T, U>(
@@ -308,7 +296,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     unlink<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -322,7 +310,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     delete(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     delete<T, U>(
@@ -332,7 +320,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     delete<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -346,7 +334,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     del(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     del<T, U>(
@@ -356,7 +344,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     del<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -370,7 +358,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     head(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     head<T, U>(
@@ -380,7 +368,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     head<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -394,7 +382,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     options(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     options<T, U>(
@@ -404,7 +392,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     options<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -418,7 +406,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     patch(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     patch<T, U>(
@@ -428,7 +416,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     patch<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -442,7 +430,7 @@ declare class Router<StateT = any, CustomT = {}> {
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     all(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         ...middleware: Array<Router.IMiddleware<StateT, CustomT>>
     ): Router<StateT, CustomT>;
     all<T, U>(
@@ -452,7 +440,7 @@ declare class Router<StateT = any, CustomT = {}> {
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
     all<T, U>(
-        path: string | RegExp | (string | RegExp)[],
+        path: string | RegExp | Array<string | RegExp>,
         middleware: Koa.Middleware<T, U>,
         routeHandler: Router.IMiddleware<StateT & T, CustomT & U>,
     ): Router<StateT & T, CustomT & U>;
@@ -519,7 +507,6 @@ declare class Router<StateT = any, CustomT = {}> {
      *
      * router.url('user', { id: 3 }, { query: "limit=1" });
      * // => "/users/3?limit=1"
-     *
      */
     url(name: string, params: any, options?: Router.IUrlOptionsQuery): string;
     url(name: string, params: any, options?: Router.IUrlOptionsQuery): Error;

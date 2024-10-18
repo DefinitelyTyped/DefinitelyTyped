@@ -1,14 +1,14 @@
-import * as PirateBay from 'thepiratebay';
+import * as PirateBay from "thepiratebay";
 
 // $ExpectType Promise<TorrentSearchResult[]>
-const searchResultPromise = PirateBay.search('Game of Thrones', {
-    category: 'all',
+const searchResultPromise = PirateBay.search("Game of Thrones", {
+    category: "all",
     filter: {
-        verified: false
+        verified: false,
     },
     page: 0,
-    orderBy: 'leeches',
-    sortBy: 'desc'
+    orderBy: "leeches",
+    sortBy: "desc",
 });
 searchResultPromise.then((res: PirateBay.TorrentSearchResult[]) => {
     res[0].id; // $ExpectType string
@@ -33,7 +33,7 @@ searchResultPromise.then((res: PirateBay.TorrentSearchResult[]) => {
 PirateBay.search(15);
 
 // $ExpectType Promise<TorrentDetails>
-const torrentPromise = PirateBay.getTorrent('15496322');
+const torrentPromise = PirateBay.getTorrent("15496322");
 torrentPromise.then((torrent: PirateBay.TorrentDetails) => {
     torrent.id; // $ExpectType string
     torrent.name; // $ExpectType string
@@ -52,9 +52,12 @@ PirateBay.getTorrent(15496322);
 // @ts-expect-error
 PirateBay.getTorrent(false);
 // $ExpectType Promise<TorrentDetails>
-PirateBay.getTorrent('https://thepiratebay.org/torrent/15496322/Ubuntu_16.04.1_LTS_Desktop_64-bit');
+PirateBay.getTorrent("https://thepiratebay.org/torrent/15496322/Ubuntu_16.04.1_LTS_Desktop_64-bit");
 // $ExpectType Promise<TorrentDetails>
-PirateBay.getTorrent({ name: "ubuntu", link: 'https://thepiratebay.org/torrent/15496322/Ubuntu_16.04.1_LTS_Desktop_64-bit' });
+PirateBay.getTorrent({
+    name: "ubuntu",
+    link: "https://thepiratebay.org/torrent/15496322/Ubuntu_16.04.1_LTS_Desktop_64-bit",
+});
 
 // $ExpectType Promise<TorrentSearchResult[]>
 PirateBay.topTorrents();
@@ -71,13 +74,13 @@ PirateBay.recentTorrents(10);
 // @ts-expect-error
 PirateBay.userTorrents();
 // $ExpectType Promise<TorrentSearchResult[]>
-PirateBay.userTorrents('alice', {
+PirateBay.userTorrents("alice", {
     page: 3,
-    orderBy: 'name',
-    sortBy: 'asc'
+    orderBy: "name",
+    sortBy: "asc",
 });
 // $ExpectType Promise<TorrentSearchResult[]>
-PirateBay.userTorrents('bob');
+PirateBay.userTorrents("bob");
 
 // $ExpectType Promise<CategoryGroup[]>
 const categoryGroup = PirateBay.getCategories();
@@ -101,4 +104,4 @@ tvShow.then((seasons: PirateBay.TVSeason[]) => {
     torrents[0].link; // $ExpectType string
 });
 // $ExpectType Promise<TVSeason[]>
-PirateBay.getTvShow('15');
+PirateBay.getTvShow("15");

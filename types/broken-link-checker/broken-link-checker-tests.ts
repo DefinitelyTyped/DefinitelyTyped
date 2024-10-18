@@ -1,10 +1,10 @@
 import * as blc from "broken-link-checker";
 
-() => {
+(() => {
     const siteChecker = new blc.SiteChecker({}, {});
-};
+});
 
-() => {
+(() => {
     const siteChecker = new blc.SiteChecker(
         {
             acceptedSchemes: ["http", "https"],
@@ -26,9 +26,9 @@ import * as blc from "broken-link-checker";
         },
         {},
     );
-};
+});
 
-() => {
+(() => {
     const siteChecker = new blc.SiteChecker(
         {},
         {
@@ -36,4 +36,4 @@ import * as blc from "broken-link-checker";
             end: () => {},
         },
     );
-};
+});

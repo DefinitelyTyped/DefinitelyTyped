@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-twitter-conversion-tracker",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/evankyle/react-twitter-conversion-tracker"
+    ],
+    "devDependencies": {
+        "@types/react-twitter-conversion-tracker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Coteh",
+            "githubUsername": "Coteh"
+        }
+    ]
+}

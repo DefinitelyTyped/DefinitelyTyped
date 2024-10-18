@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/express-redis-cache",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/rv-kip/express-redis-cache"
+    ],
     "dependencies": {
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*",
         "@types/redis": "^2.8.0"
-    }
+    },
+    "devDependencies": {
+        "@types/express-redis-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJ Livingston",
+            "githubUsername": "ajliv"
+        }
+    ]
 }

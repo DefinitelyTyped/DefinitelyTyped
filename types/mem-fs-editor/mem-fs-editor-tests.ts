@@ -1,10 +1,10 @@
 // tslint:disable:no-mergeable-namespace no-namespace
 
-import { Options as TemplateOptions, Data as TemplateData } from 'ejs';
-import { JSONSchema7Type } from 'json-schema';
-import * as MemFs from 'mem-fs';
-import * as MemFsEditor from 'mem-fs-editor';
-import { Transform } from 'stream';
+import { Data as TemplateData, Options as TemplateOptions } from "ejs";
+import { JSONSchema7Type } from "json-schema";
+import * as MemFs from "mem-fs";
+import * as MemFsEditor from "mem-fs-editor";
+import { Transform } from "stream";
 
 declare const STORE: MemFs.Store;
 

@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/rdf-dataset-indexed",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/rdf-ext/rdf-dataset-indexed"
+    ],
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdf-dataset-indexed": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wilkinson",
+            "githubUsername": "thewilkybarkid"
+        }
+    ]
+}

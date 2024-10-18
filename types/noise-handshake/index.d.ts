@@ -1,12 +1,7 @@
-// Type definitions for noise-handshake 3.0
-// Project: https://github.com/chm-diederichs/noise-handshake#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import SymmetricState = require('./symmetric-state');
-import * as curve from './dh';
+import SymmetricState = require("./symmetric-state");
+import * as curve from "./dh";
 
 export = NoiseState;
 
@@ -53,7 +48,7 @@ export = NoiseState;
 declare class NoiseState extends SymmetricState {
     readonly s: NoiseState.KeyPair;
     readonly e: NoiseState.KeyPair | null;
-    readonly pattern: 'XX' | 'IK';
+    readonly pattern: "XX" | "IK";
     readonly handshake: Array<symbol | symbol[]>;
     readonly protocol: Buffer | Uint8Array;
     readonly initiator: boolean;
@@ -79,7 +74,7 @@ declare class NoiseState extends SymmetricState {
     hash: Buffer | Uint8Array | null;
 
     constructor(
-        pattern: 'XX' | 'IK',
+        pattern: "XX" | "IK",
         initiator: boolean,
         staticKeypair?: NoiseState.KeyPair,
         opts?: SymmetricState.Options,

@@ -1,4 +1,4 @@
-import { Request } from 'hapi';
+import { Request } from "hapi";
 
 declare const req: Request;
 const act: boolean = req.active();

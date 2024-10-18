@@ -1,8 +1,3 @@
-// Type definitions for @hyggedyne/scrabbleify 0.1
-// Project: https://github.com/relativityboy/scrabbleify#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Scrabbleify words (mix letters within words and output the result)
  *

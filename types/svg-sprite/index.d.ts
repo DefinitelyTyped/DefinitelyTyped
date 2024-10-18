@@ -1,12 +1,6 @@
-// Type definitions for svg-sprite
-// Project: https://github.com/jkphl/svg-sprite
-// Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
-import File = require('vinyl');
-import { Logger } from 'winston';
+import File = require("vinyl");
+import { Logger } from "winston";
 
 declare namespace sprite {
     interface SVGSpriterConstructor extends NodeJS.EventEmitter {
@@ -14,7 +8,7 @@ declare namespace sprite {
          * The spriter's constructor (always the entry point)
          * @param config Main configuration for the spriting process
          */
-        new (config: Config): SVGSpriter;
+        new(config: Config): SVGSpriter;
     }
 
     interface SVGSpriter {
@@ -45,7 +39,7 @@ declare namespace sprite {
          * Simple Promise wrapper on `SVGSpriter.compile`.
          * @param config Configuration object (same as in `SVGSpriter.compile`).
          */
-        compileAsync(config?: Config): Promise<{ result: any, data: any }>;
+        compileAsync(config?: Config): Promise<{ result: any; data: any }>;
         /**
          * Accessing the intermediate SVG resources
          * @param dest Base directory for the SVG files in case the will be written to disk.
@@ -144,7 +138,7 @@ declare namespace sprite {
         /**
          * List of transformations / optimizations
          */
-        transform?: (string | CustomConfigurationTransform | CustomCallbackTransform)[] | undefined;
+        transform?: Array<string | CustomConfigurationTransform | CustomCallbackTransform> | undefined;
         /**
          * Path to YAML file with meta / accessibility data
          */
@@ -164,8 +158,8 @@ declare namespace sprite {
      */
     interface CustomConfigurationTransform {
         [transformationName: string]: {
-            plugins?: { [transformationName: string]: boolean }[] | undefined;
-        }
+            plugins?: Array<{ [transformationName: string]: boolean }> | undefined;
+        };
     }
 
     /**
@@ -180,7 +174,7 @@ declare namespace sprite {
              * @param callback Callback
              */
             (shape: any, sprite: SVGSpriter, callback: Function): any;
-        }
+        };
     }
 
     interface Svg {
@@ -205,6 +199,11 @@ declare namespace sprite {
          * @default true
          */
         namespaceIDs?: boolean | undefined;
+        /**
+         * Under some circumstances, the automatically generated ID namespaces might interfere with external scripts.
+         * In these situations it might be helpful to prefix all IDs with a custom prefix set with this option.
+         */
+        namespaceIDPrefix?: string;
         /**
          * In order to avoid CSS class name ambiguities, the default behavior is to namespace CSS class names in the source SVGs before compiling them into a sprite.
          * Each class name is prepended with a unique string. Disable this option to keep the class names untouched.

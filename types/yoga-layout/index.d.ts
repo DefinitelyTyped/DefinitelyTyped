@@ -1,9 +1,3 @@
-// Type definitions for yoga-layout 1.9
-// Project: https://github.com/facebook/yoga#readme
-// Definitions by: tnobody <https://github.com/tnobody>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 declare const ALIGN_AUTO: 0;
 declare const ALIGN_COUNT: 8;
 declare const ALIGN_FLEX_START: 1;
@@ -83,83 +77,83 @@ declare const WRAP_WRAP: 1;
 declare const WRAP_WRAP_REVERSE: 2;
 
 interface ConstantsStatic {
-   readonly ALIGN_AUTO: typeof ALIGN_AUTO;
-   readonly ALIGN_COUNT: typeof ALIGN_COUNT;
-   readonly ALIGN_FLEX_START: typeof ALIGN_FLEX_START;
-   readonly ALIGN_CENTER: typeof ALIGN_CENTER;
-   readonly ALIGN_FLEX_END: typeof ALIGN_FLEX_END;
-   readonly ALIGN_STRETCH: typeof ALIGN_STRETCH;
-   readonly ALIGN_BASELINE: typeof ALIGN_BASELINE;
-   readonly ALIGN_SPACE_BETWEEN: typeof ALIGN_SPACE_BETWEEN;
-   readonly ALIGN_SPACE_AROUND: typeof ALIGN_SPACE_AROUND;
-   readonly DIMENSION_COUNT: typeof DIMENSION_COUNT;
-   readonly DIMENSION_WIDTH: typeof DIMENSION_WIDTH;
-   readonly DIMENSION_HEIGHT: typeof DIMENSION_HEIGHT;
-   readonly DIRECTION_COUNT: typeof DIRECTION_COUNT;
-   readonly DIRECTION_INHERIT: typeof DIRECTION_INHERIT;
-   readonly DIRECTION_LTR: typeof DIRECTION_LTR;
-   readonly DIRECTION_RTL: typeof DIRECTION_RTL;
-   readonly DISPLAY_COUNT: typeof DISPLAY_COUNT;
-   readonly DISPLAY_FLEX: typeof DISPLAY_FLEX;
-   readonly DISPLAY_NONE: typeof DISPLAY_NONE;
-   readonly EDGE_COUNT: typeof EDGE_COUNT;
-   readonly EDGE_LEFT: typeof EDGE_LEFT;
-   readonly EDGE_TOP: typeof EDGE_TOP;
-   readonly EDGE_RIGHT: typeof EDGE_RIGHT;
-   readonly EDGE_BOTTOM: typeof EDGE_BOTTOM;
-   readonly EDGE_START: typeof EDGE_START;
-   readonly EDGE_END: typeof EDGE_END;
-   readonly EDGE_HORIZONTAL: typeof EDGE_HORIZONTAL;
-   readonly EDGE_VERTICAL: typeof EDGE_VERTICAL;
-   readonly EDGE_ALL: typeof EDGE_ALL;
-   readonly EXPERIMENTAL_FEATURE_COUNT: typeof EXPERIMENTAL_FEATURE_COUNT;
-   readonly EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS: typeof EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS;
-   readonly FLEX_DIRECTION_COUNT: typeof FLEX_DIRECTION_COUNT;
-   readonly FLEX_DIRECTION_COLUMN: typeof FLEX_DIRECTION_COLUMN;
-   readonly FLEX_DIRECTION_COLUMN_REVERSE: typeof FLEX_DIRECTION_COLUMN_REVERSE;
-   readonly FLEX_DIRECTION_ROW: typeof FLEX_DIRECTION_ROW;
-   readonly FLEX_DIRECTION_ROW_REVERSE: typeof FLEX_DIRECTION_ROW_REVERSE;
-   readonly JUSTIFY_COUNT: typeof JUSTIFY_COUNT;
-   readonly JUSTIFY_FLEX_START: typeof JUSTIFY_FLEX_START;
-   readonly JUSTIFY_CENTER: typeof JUSTIFY_CENTER;
-   readonly JUSTIFY_FLEX_END: typeof JUSTIFY_FLEX_END;
-   readonly JUSTIFY_SPACE_BETWEEN: typeof JUSTIFY_SPACE_BETWEEN;
-   readonly JUSTIFY_SPACE_AROUND: typeof JUSTIFY_SPACE_AROUND;
-   readonly JUSTIFY_SPACE_EVENLY: typeof JUSTIFY_SPACE_EVENLY;
-   readonly LOG_LEVEL_COUNT: typeof LOG_LEVEL_COUNT;
-   readonly LOG_LEVEL_ERROR: typeof LOG_LEVEL_ERROR;
-   readonly LOG_LEVEL_WARN: typeof LOG_LEVEL_WARN;
-   readonly LOG_LEVEL_INFO: typeof LOG_LEVEL_INFO;
-   readonly LOG_LEVEL_DEBUG: typeof LOG_LEVEL_DEBUG;
-   readonly LOG_LEVEL_VERBOSE: typeof LOG_LEVEL_VERBOSE;
-   readonly LOG_LEVEL_FATAL: typeof LOG_LEVEL_FATAL;
-   readonly MEASURE_MODE_COUNT: typeof MEASURE_MODE_COUNT;
-   readonly MEASURE_MODE_UNDEFINED: typeof MEASURE_MODE_UNDEFINED;
-   readonly MEASURE_MODE_EXACTLY: typeof MEASURE_MODE_EXACTLY;
-   readonly MEASURE_MODE_AT_MOST: typeof MEASURE_MODE_AT_MOST;
-   readonly NODE_TYPE_COUNT: typeof NODE_TYPE_COUNT;
-   readonly NODE_TYPE_DEFAULT: typeof NODE_TYPE_DEFAULT;
-   readonly NODE_TYPE_TEXT: typeof NODE_TYPE_TEXT;
-   readonly OVERFLOW_COUNT: typeof OVERFLOW_COUNT;
-   readonly OVERFLOW_VISIBLE: typeof OVERFLOW_VISIBLE;
-   readonly OVERFLOW_HIDDEN: typeof OVERFLOW_HIDDEN;
-   readonly OVERFLOW_SCROLL: typeof OVERFLOW_SCROLL;
-   readonly POSITION_TYPE_COUNT: typeof POSITION_TYPE_COUNT;
-   readonly POSITION_TYPE_RELATIVE: typeof POSITION_TYPE_RELATIVE;
-   readonly POSITION_TYPE_ABSOLUTE: typeof POSITION_TYPE_ABSOLUTE;
-   readonly PRINT_OPTIONS_COUNT: typeof PRINT_OPTIONS_COUNT;
-   readonly PRINT_OPTIONS_LAYOUT: typeof PRINT_OPTIONS_LAYOUT;
-   readonly PRINT_OPTIONS_STYLE: typeof PRINT_OPTIONS_STYLE;
-   readonly PRINT_OPTIONS_CHILDREN: typeof PRINT_OPTIONS_CHILDREN;
-   readonly UNIT_COUNT: typeof UNIT_COUNT;
-   readonly UNIT_UNDEFINED: typeof UNIT_UNDEFINED;
-   readonly UNIT_POINT: typeof UNIT_POINT;
-   readonly UNIT_PERCENT: typeof UNIT_PERCENT;
-   readonly UNIT_AUTO: typeof UNIT_AUTO;
-   readonly WRAP_COUNT: typeof WRAP_COUNT;
-   readonly WRAP_NO_WRAP: typeof WRAP_NO_WRAP;
-   readonly WRAP_WRAP: typeof WRAP_WRAP;
-   readonly WRAP_WRAP_REVERSE: typeof WRAP_WRAP_REVERSE;
+    readonly ALIGN_AUTO: typeof ALIGN_AUTO;
+    readonly ALIGN_COUNT: typeof ALIGN_COUNT;
+    readonly ALIGN_FLEX_START: typeof ALIGN_FLEX_START;
+    readonly ALIGN_CENTER: typeof ALIGN_CENTER;
+    readonly ALIGN_FLEX_END: typeof ALIGN_FLEX_END;
+    readonly ALIGN_STRETCH: typeof ALIGN_STRETCH;
+    readonly ALIGN_BASELINE: typeof ALIGN_BASELINE;
+    readonly ALIGN_SPACE_BETWEEN: typeof ALIGN_SPACE_BETWEEN;
+    readonly ALIGN_SPACE_AROUND: typeof ALIGN_SPACE_AROUND;
+    readonly DIMENSION_COUNT: typeof DIMENSION_COUNT;
+    readonly DIMENSION_WIDTH: typeof DIMENSION_WIDTH;
+    readonly DIMENSION_HEIGHT: typeof DIMENSION_HEIGHT;
+    readonly DIRECTION_COUNT: typeof DIRECTION_COUNT;
+    readonly DIRECTION_INHERIT: typeof DIRECTION_INHERIT;
+    readonly DIRECTION_LTR: typeof DIRECTION_LTR;
+    readonly DIRECTION_RTL: typeof DIRECTION_RTL;
+    readonly DISPLAY_COUNT: typeof DISPLAY_COUNT;
+    readonly DISPLAY_FLEX: typeof DISPLAY_FLEX;
+    readonly DISPLAY_NONE: typeof DISPLAY_NONE;
+    readonly EDGE_COUNT: typeof EDGE_COUNT;
+    readonly EDGE_LEFT: typeof EDGE_LEFT;
+    readonly EDGE_TOP: typeof EDGE_TOP;
+    readonly EDGE_RIGHT: typeof EDGE_RIGHT;
+    readonly EDGE_BOTTOM: typeof EDGE_BOTTOM;
+    readonly EDGE_START: typeof EDGE_START;
+    readonly EDGE_END: typeof EDGE_END;
+    readonly EDGE_HORIZONTAL: typeof EDGE_HORIZONTAL;
+    readonly EDGE_VERTICAL: typeof EDGE_VERTICAL;
+    readonly EDGE_ALL: typeof EDGE_ALL;
+    readonly EXPERIMENTAL_FEATURE_COUNT: typeof EXPERIMENTAL_FEATURE_COUNT;
+    readonly EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS: typeof EXPERIMENTAL_FEATURE_WEB_FLEX_BASIS;
+    readonly FLEX_DIRECTION_COUNT: typeof FLEX_DIRECTION_COUNT;
+    readonly FLEX_DIRECTION_COLUMN: typeof FLEX_DIRECTION_COLUMN;
+    readonly FLEX_DIRECTION_COLUMN_REVERSE: typeof FLEX_DIRECTION_COLUMN_REVERSE;
+    readonly FLEX_DIRECTION_ROW: typeof FLEX_DIRECTION_ROW;
+    readonly FLEX_DIRECTION_ROW_REVERSE: typeof FLEX_DIRECTION_ROW_REVERSE;
+    readonly JUSTIFY_COUNT: typeof JUSTIFY_COUNT;
+    readonly JUSTIFY_FLEX_START: typeof JUSTIFY_FLEX_START;
+    readonly JUSTIFY_CENTER: typeof JUSTIFY_CENTER;
+    readonly JUSTIFY_FLEX_END: typeof JUSTIFY_FLEX_END;
+    readonly JUSTIFY_SPACE_BETWEEN: typeof JUSTIFY_SPACE_BETWEEN;
+    readonly JUSTIFY_SPACE_AROUND: typeof JUSTIFY_SPACE_AROUND;
+    readonly JUSTIFY_SPACE_EVENLY: typeof JUSTIFY_SPACE_EVENLY;
+    readonly LOG_LEVEL_COUNT: typeof LOG_LEVEL_COUNT;
+    readonly LOG_LEVEL_ERROR: typeof LOG_LEVEL_ERROR;
+    readonly LOG_LEVEL_WARN: typeof LOG_LEVEL_WARN;
+    readonly LOG_LEVEL_INFO: typeof LOG_LEVEL_INFO;
+    readonly LOG_LEVEL_DEBUG: typeof LOG_LEVEL_DEBUG;
+    readonly LOG_LEVEL_VERBOSE: typeof LOG_LEVEL_VERBOSE;
+    readonly LOG_LEVEL_FATAL: typeof LOG_LEVEL_FATAL;
+    readonly MEASURE_MODE_COUNT: typeof MEASURE_MODE_COUNT;
+    readonly MEASURE_MODE_UNDEFINED: typeof MEASURE_MODE_UNDEFINED;
+    readonly MEASURE_MODE_EXACTLY: typeof MEASURE_MODE_EXACTLY;
+    readonly MEASURE_MODE_AT_MOST: typeof MEASURE_MODE_AT_MOST;
+    readonly NODE_TYPE_COUNT: typeof NODE_TYPE_COUNT;
+    readonly NODE_TYPE_DEFAULT: typeof NODE_TYPE_DEFAULT;
+    readonly NODE_TYPE_TEXT: typeof NODE_TYPE_TEXT;
+    readonly OVERFLOW_COUNT: typeof OVERFLOW_COUNT;
+    readonly OVERFLOW_VISIBLE: typeof OVERFLOW_VISIBLE;
+    readonly OVERFLOW_HIDDEN: typeof OVERFLOW_HIDDEN;
+    readonly OVERFLOW_SCROLL: typeof OVERFLOW_SCROLL;
+    readonly POSITION_TYPE_COUNT: typeof POSITION_TYPE_COUNT;
+    readonly POSITION_TYPE_RELATIVE: typeof POSITION_TYPE_RELATIVE;
+    readonly POSITION_TYPE_ABSOLUTE: typeof POSITION_TYPE_ABSOLUTE;
+    readonly PRINT_OPTIONS_COUNT: typeof PRINT_OPTIONS_COUNT;
+    readonly PRINT_OPTIONS_LAYOUT: typeof PRINT_OPTIONS_LAYOUT;
+    readonly PRINT_OPTIONS_STYLE: typeof PRINT_OPTIONS_STYLE;
+    readonly PRINT_OPTIONS_CHILDREN: typeof PRINT_OPTIONS_CHILDREN;
+    readonly UNIT_COUNT: typeof UNIT_COUNT;
+    readonly UNIT_UNDEFINED: typeof UNIT_UNDEFINED;
+    readonly UNIT_POINT: typeof UNIT_POINT;
+    readonly UNIT_PERCENT: typeof UNIT_PERCENT;
+    readonly UNIT_AUTO: typeof UNIT_AUTO;
+    readonly WRAP_COUNT: typeof WRAP_COUNT;
+    readonly WRAP_NO_WRAP: typeof WRAP_NO_WRAP;
+    readonly WRAP_WRAP: typeof WRAP_WRAP;
+    readonly WRAP_WRAP_REVERSE: typeof WRAP_WRAP_REVERSE;
 }
 
 declare namespace Yoga {
@@ -311,10 +305,15 @@ declare namespace Yoga {
         setMaxWidth(maxWidth: number | string): void;
         setMaxWidthPercent(maxWidth: number): void;
         setMeasureFunc(
-            measureFunc: (width: number, widthMeasureMode: YogaMeasureMode, height: number, heightMeasureMode: YogaMeasureMode) => {
+            measureFunc: (
+                width: number,
+                widthMeasureMode: YogaMeasureMode,
+                height: number,
+                heightMeasureMode: YogaMeasureMode,
+            ) => {
                 width?: number | undefined;
-                height?: number | undefined
-            } | null
+                height?: number | undefined;
+            } | null,
         ): void;
         setMinHeight(minHeight: number | string): void;
         setMinHeightPercent(minHeight: number): void;
@@ -358,20 +357,22 @@ declare class Layout {
         height: number,
     );
 
-    fromJs(expose: (
-        left: number,
-        right: number,
-        top: number,
-        bottom: number,
-        width: number,
-        height: number,
-    ) => any): void;
+    fromJs(
+        expose: (
+            left: number,
+            right: number,
+            top: number,
+            bottom: number,
+            width: number,
+            height: number,
+        ) => any,
+    ): void;
 
     toString(): string;
 }
 
 declare class Size {
-    static fromJS(dim: { width: number, height: number }): Size;
+    static fromJS(dim: { width: number; height: number }): Size;
 
     readonly width: number;
     readonly height: number;

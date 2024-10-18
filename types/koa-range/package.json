@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/koa-range",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/koajs/koa-range",
+        "https://github.com/yorkie/koa-range"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-range": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sami Kukkonen",
+            "githubUsername": "strax"
+        }
+    ]
+}

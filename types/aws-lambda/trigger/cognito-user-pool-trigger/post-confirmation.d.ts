@@ -1,5 +1,5 @@
-import { Handler } from '../../handler';
-import { BaseTriggerEvent, StringMap } from './_common';
+import { Handler } from "../../handler";
+import { BaseTriggerEvent, StringMap } from "./_common";
 
 export interface BasePostConfirmationTriggerEvent<T extends string> extends BaseTriggerEvent<T> {
     request: {
@@ -8,11 +8,13 @@ export interface BasePostConfirmationTriggerEvent<T extends string> extends Base
     };
 }
 
-export type PostConfirmationConfirmSignUpTriggerEvent =
-    BasePostConfirmationTriggerEvent<'PostConfirmation_ConfirmSignUp'>;
+export type PostConfirmationConfirmSignUpTriggerEvent = BasePostConfirmationTriggerEvent<
+    "PostConfirmation_ConfirmSignUp"
+>;
 
-export type PostConfirmationConfirmForgotPassword =
-    BasePostConfirmationTriggerEvent<'PostConfirmation_ConfirmForgotPassword'>;
+export type PostConfirmationConfirmForgotPassword = BasePostConfirmationTriggerEvent<
+    "PostConfirmation_ConfirmForgotPassword"
+>;
 
 /**
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-post-confirmation.html

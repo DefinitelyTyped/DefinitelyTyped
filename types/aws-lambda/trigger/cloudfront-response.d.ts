@@ -1,5 +1,5 @@
-import { CloudFrontEvent, CloudFrontRequest, CloudFrontResponse, CloudFrontResultResponse } from '../common/cloudfront';
-import { Callback, Handler } from '../handler';
+import { CloudFrontEvent, CloudFrontRequest, CloudFrontResponse, CloudFrontResultResponse } from "../common/cloudfront";
+import { Callback, Handler } from "../handler";
 
 export type CloudFrontResponseHandler = Handler<CloudFrontResponseEvent, CloudFrontResponseResult>;
 export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
@@ -12,7 +12,7 @@ export type CloudFrontResponseCallback = Callback<CloudFrontResponseResult>;
 export interface CloudFrontResponseEvent {
     Records: Array<{
         cf: CloudFrontEvent & {
-            readonly request: Pick<CloudFrontRequest, Exclude<keyof CloudFrontRequest, 'body'>>;
+            readonly request: Pick<CloudFrontRequest, Exclude<keyof CloudFrontRequest, "body">>;
             response: CloudFrontResponse;
         };
     }>;

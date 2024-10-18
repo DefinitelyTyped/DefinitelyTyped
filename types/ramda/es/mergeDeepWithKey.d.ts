@@ -1,2 +1,2 @@
-import { mergeDeepWithKey } from '../index';
+import { mergeDeepWithKey } from "../index.js";
 export default mergeDeepWithKey;

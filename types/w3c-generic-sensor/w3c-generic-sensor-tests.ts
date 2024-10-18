@@ -5,20 +5,20 @@ const accelerometer1 = () => {
     sensor.start();
 
     sensor.onreading = () => {
-        console.log('Acceleration along X-axis: ' + sensor.x);
-        console.log('Acceleration along Y-axis: ' + sensor.y);
-        console.log('Acceleration along Z-axis: ' + sensor.z);
+        console.log("Acceleration along X-axis: " + sensor.x);
+        console.log("Acceleration along Y-axis: " + sensor.y);
+        console.log("Acceleration along Z-axis: " + sensor.z);
     };
 
     sensor.onerror = event => console.log(event.error.name, event.error.message);
 };
 
 const gravitySensor1 = () => {
-    const sensor = new GravitySensor({ frequency: 5, referenceFrame: 'screen' });
+    const sensor = new GravitySensor({ frequency: 5, referenceFrame: "screen" });
 
     sensor.onreading = () => {
         if (sensor.y && sensor.y >= 9.8) {
-            console.log('Web page is perpendicular to the ground.');
+            console.log("Web page is perpendicular to the ground.");
         }
     };
 
@@ -30,9 +30,9 @@ const linearAccelerationSensor1 = () => {
 
     const sensor = new LinearAccelerationSensor({ frequency: 60 });
 
-    sensor.addEventListener('reading', () => {
+    sensor.addEventListener("reading", () => {
         if (sensor.x && sensor.x > shakeThreshold) {
-            console.log('Shake detected.');
+            console.log("Shake detected.");
         }
     });
 
@@ -46,9 +46,9 @@ const gyroscope1 = () => {
     sensor.start();
 
     sensor.onreading = () => {
-        console.log('Angular velocity around the X-axis ' + sensor.x);
-        console.log('Angular velocity around the Y-axis ' + sensor.y);
-        console.log('Angular velocity around the Z-axis ' + sensor.z);
+        console.log("Angular velocity around the X-axis " + sensor.x);
+        console.log("Angular velocity around the Y-axis " + sensor.y);
+        console.log("Angular velocity around the Z-axis " + sensor.z);
     };
 
     sensor.onerror = event => console.log(event.error.name, event.error.message);
@@ -61,9 +61,9 @@ const magnetometer1 = () => {
     sensor.start();
 
     sensor.onreading = () => {
-        console.log('Magnetic field along the X-axis ' + sensor.x);
-        console.log('Magnetic field along the Y-axis ' + sensor.y);
-        console.log('Magnetic field along the Z-axis ' + sensor.z);
+        console.log("Magnetic field along the X-axis " + sensor.x);
+        console.log("Magnetic field along the Y-axis " + sensor.y);
+        console.log("Magnetic field along the Z-axis " + sensor.z);
     };
 
     sensor.onerror = event => console.log(event.error.name, event.error.message);
@@ -78,7 +78,7 @@ const magnetometer2 = () => {
             return;
         }
         const heading = Math.atan2(sensor.y, sensor.x) * (180 / Math.PI);
-        console.log('Heading in degrees: ' + heading);
+        console.log("Heading in degrees: " + heading);
     };
 };
 
@@ -98,15 +98,15 @@ const magnetometer3 = () => {
 
         // Get the magnetic declination at the given latitude and longitude.
         const response = await fetch(
-            'https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination' +
-                `?lat1=${latitude}&lon1=${longitude}&resultFormat=csv`,
+            "https://www.ngdc.noaa.gov/geomag-web/calculators/calculateDeclination"
+                + `?lat1=${latitude}&lon1=${longitude}&resultFormat=csv`,
         );
         const text = await response.text();
 
-        const declination = parseFloat(text.replace(/^#.*$/gm, '').trim().split(',')[4]);
+        const declination = parseFloat(text.replace(/^#.*$/gm, "").trim().split(",")[4]);
 
         // Compensate for the magnetic declination to get the geographic north.
-        console.log('True heading in degrees: ' + (heading + declination));
+        console.log("True heading in degrees: " + (heading + declination));
     };
 };
 
@@ -134,7 +134,7 @@ const orientation2 = () => {
         try {
             sensor.populateMatrix(mat4);
         } catch (err) {
-            console.log('mat4 has not been updated: ' + err);
+            console.log("mat4 has not been updated: " + err);
         }
         // Drawing...
     }
@@ -280,7 +280,7 @@ const ambienLightSensor = () => {
     sensor.start();
 
     sensor.onreading = () => {
-        console.log('Illuminance measured in lux' + sensor.illuminance);
+        console.log("Illuminance measured in lux" + sensor.illuminance);
     };
 
     sensor.onerror = event => console.log(event.error.name, event.error.message);

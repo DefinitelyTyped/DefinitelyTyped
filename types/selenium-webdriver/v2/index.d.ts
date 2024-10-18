@@ -1,15 +1,9 @@
-// Type definitions for Selenium WebDriverJS 2.53
-// Project: https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-import * as chrome from './chrome';
-import * as edge from './edge';
-import * as firefox from './firefox';
-import * as ie from './ie';
-import * as opera from './opera';
-import * as safari from './safari';
+import * as chrome from "./chrome";
+import * as edge from "./edge";
+import * as firefox from "./firefox";
+import * as ie from "./ie";
+import * as opera from "./opera";
+import * as safari from "./safari";
 
 export namespace error {
     class IError extends Error {
@@ -1127,7 +1121,6 @@ export namespace promise {
          *       });
          * </code></pre>
          *
-         *
          * @param {function(): (R|promise.Promise.<R>)} callback The function
          *     to call when this promise is resolved.
          * @return {!promise.Promise.<R>} A promise that will be fulfilled
@@ -1153,13 +1146,11 @@ export namespace promise {
      * <p>If this Deferred is cancelled, the cancellation reason will be forward to
      * the Deferred's canceller function (if provided). The canceller may return a
      * truth-y value to override the reason provided for rejection.
-     *
      */
     class Deferred<T> extends Promise<T> {
         // region Constructors
 
         /**
-         *
          * @param {promise.ControlFlow=} opt_flow The control flow
          *     this instance was created under. This should only be provided during
          *     unit tests.
@@ -1268,8 +1259,7 @@ export namespace promise {
      * @final
      */
     class ControlFlow extends EventEmitter {
-        /**
-         */
+        /** */
         constructor();
 
         /**
@@ -1589,7 +1579,6 @@ interface IButton {
  * Representations of pressable keys that aren't text.  These are stored in
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
- *
  */
 export var Button: IButton;
 
@@ -1677,7 +1666,6 @@ interface IKey {
  * Representations of pressable keys that aren't text.  These are stored in
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
- *
  */
 export var Key: IKey;
 
@@ -1694,7 +1682,6 @@ export var Key: IKey;
  *         dragAndDrop(element3, element4).
  *         keyUp(Key.SHIFT).
  *         perform();
- *
  */
 export class ActionSequence {
     // region Constructors
@@ -2189,7 +2176,6 @@ export class AlertPromise extends Alert implements promise.IThenable<Alert> {
      *       });
      * </code></pre>
      *
-     *
      * @param {function(): (R|promise.Promise.<R>)} callback The function
      *     to call when this promise is resolved.
      * @return {!promise.Promise.<R>} A promise that will be fulfilled
@@ -2273,8 +2259,7 @@ interface ProxyConfig {
 export class Builder {
     // region Constructors
 
-    /**
-     */
+    /** */
     constructor();
 
     // endregion
@@ -2624,7 +2609,6 @@ export class By {
  * Care should be taken when using JavaScript minifiers (such as the
  * Closure compiler), as locator hashes will always be parsed using
  * the un-obfuscated properties listed.
- *
  */
 type ByHash =
     | { className: string }
@@ -3117,8 +3101,7 @@ export class Listener {
 export class EventEmitter {
     // region Constructors
 
-    /**
-     */
+    /** */
     constructor();
 
     // endregion
@@ -3642,7 +3625,6 @@ export class FileDetector {
  *   driver.call(function() {
  *     alert('message is abc? ' + (message.join('') == 'abc'));
  *   });
- *
  */
 export class WebDriver {
     // region Constructors
@@ -4457,7 +4439,6 @@ interface Serializable<T> {
  *     }, function(error) {
  *       alert('The element was not found, as expected');
  *     });
- *
  */
 export class WebElement implements Serializable<IWebElementId> {
     /**
@@ -4921,7 +4902,6 @@ export class WebElementPromise extends WebElement implements promise.IThenable<W
      *         throw Error('two');  // Hides Error: one
      *       });
      * </code></pre>
-     *
      *
      * @param {function(): (R|promise.Promise.<R>)} callback The function
      *     to call when this promise is resolved.

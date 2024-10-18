@@ -1,17 +1,17 @@
-import { createReadStream } from 'fs';
-import { fromStream, calculate, hardware_support, sse42_crc, table_crc } from 'sse4_crc32';
+import { createReadStream } from "fs";
+import { calculate, fromStream, hardware_support, sse42_crc, table_crc } from "sse4_crc32";
 
 // $ExpectType Crc32CStream
-fromStream(createReadStream('./test.txt'), 1);
+fromStream(createReadStream("./test.txt"), 1);
 
 // $ExpectType number
-calculate('123', 1);
+calculate("123", 1);
 
 // $ExpectType number
-sse42_crc!('123', 1);
+sse42_crc!("123", 1);
 
 // $ExpectType number
-table_crc!('123', 1);
+table_crc!("123", 1);
 
 // $ExpectType boolean | undefined
 hardware_support;

@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/compression",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/expressjs/compression"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/compression": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Santi Albo",
+            "githubUsername": "santialbo"
+        },
+        {
+            "name": "Rob van der Burgt",
+            "githubUsername": "rburgt"
+        },
+        {
+            "name": "Neil Bryson Cargamento",
+            "githubUsername": "neilbryson"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for Google Ads Scripts 1.0
-// Project: https://developers.google.com/google-ads/scripts
-// Definitions by: JJPell <https://github.com/JJPell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // These definitions were initially written around 03-2021
 // The files paths and folder structure are designed to resemble the Google Ads Scripts documentation website folder structure
 // https://developers.google.com/google-ads/scripts/docs/reference/adsapp/adsapp

@@ -1,13 +1,13 @@
 /**
- * The `v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/) built into the Node.js binary. It can be accessed using:
+ * The `node:v8` module exposes APIs that are specific to the version of [V8](https://developers.google.com/v8/) built into the Node.js binary. It can be accessed using:
  *
  * ```js
- * const v8 = require('v8');
+ * import v8 from 'node:v8';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.20.2/lib/v8.js)
  */
-declare module 'v8' {
-    import { Readable } from 'node:stream';
+declare module "v8" {
+    import { Readable } from "node:stream";
     interface HeapSpaceInfo {
         space_name: string;
         space_size: number;
@@ -29,6 +29,9 @@ declare module 'v8' {
         does_zap_garbage: DoesZapCodeSpaceFlag;
         number_of_native_contexts: number;
         number_of_detached_contexts: number;
+        total_global_handles_size: number;
+        used_global_handles_size: number;
+        external_memory: number;
     }
     interface HeapCodeStatistics {
         code_and_metadata_size: number;
@@ -68,6 +71,15 @@ declare module 'v8' {
      * of contexts that were detached and not yet garbage collected. This number
      * being non-zero indicates a potential memory leak.
      *
+     * `total_global_handles_size` The value of total\_global\_handles\_size is the
+     * total memory size of V8 global handles.
+     *
+     * `used_global_handles_size` The value of used\_global\_handles\_size is the
+     * used memory size of V8 global handles.
+     *
+     * `external_memory` The value of external\_memory is the memory size of array
+     * buffers and external strings.
+     *
      * ```js
      * {
      *   total_heap_size: 7326976,
@@ -80,7 +92,10 @@ declare module 'v8' {
      *   peak_malloced_memory: 1127496,
      *   does_zap_garbage: 0,
      *   number_of_native_contexts: 1,
-     *   number_of_detached_contexts: 0
+     *   number_of_detached_contexts: 0,
+     *   total_global_handles_size: 8192,
+     *   used_global_handles_size: 3296,
+     *   external_memory: 318824
      * }
      * ```
      * @since v1.0.0
@@ -90,7 +105,7 @@ declare module 'v8' {
      * Returns statistics about the V8 heap spaces, i.e. the segments which make up
      * the V8 heap. Neither the ordering of heap spaces, nor the availability of a
      * heap space can be guaranteed as the statistics are provided via the
-     * V8[`GetHeapSpaceStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#ac673576f24fdc7a33378f8f57e1d13a4) function and may change from one V8 version to the
+     * V8 [`GetHeapSpaceStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#ac673576f24fdc7a33378f8f57e1d13a4) function and may change from one V8 version to the
      * next.
      *
      * The value returned is an array of objects containing the following properties:
@@ -149,7 +164,7 @@ declare module 'v8' {
      *
      * ```js
      * // Print GC events to stdout for one minute.
-     * const v8 = require('v8');
+     * import v8 from 'node:v8';
      * v8.setFlagsFromString('--trace_gc');
      * setTimeout(() => { v8.setFlagsFromString('--notrace_gc'); }, 60e3);
      * ```
@@ -163,9 +178,16 @@ declare module 'v8' {
      * Chrome DevTools. The JSON schema is undocumented and specific to the
      * V8 engine. Therefore, the schema may change from one version of V8 to the next.
      *
+     * Creating a heap snapshot requires memory about twice the size of the heap at
+     * the time the snapshot is created. This results in the risk of OOM killers
+     * terminating the process.
+     *
+     * Generating a snapshot is a synchronous operation which blocks the event loop
+     * for a duration depending on the heap size.
+     *
      * ```js
      * // Print heap snapshot to the console
-     * const v8 = require('v8');
+     * import v8 from 'node:v8';
      * const stream = v8.getHeapSnapshot();
      * stream.pipe(process.stdout);
      * ```
@@ -182,13 +204,20 @@ declare module 'v8' {
      * A heap snapshot is specific to a single V8 isolate. When using `worker threads`, a heap snapshot generated from the main thread will
      * not contain any information about the workers, and vice versa.
      *
+     * Creating a heap snapshot requires memory about twice the size of the heap at
+     * the time the snapshot is created. This results in the risk of OOM killers
+     * terminating the process.
+     *
+     * Generating a snapshot is a synchronous operation which blocks the event loop
+     * for a duration depending on the heap size.
+     *
      * ```js
-     * const { writeHeapSnapshot } = require('v8');
-     * const {
+     * import { writeHeapSnapshot } from 'node:v8';
+     * import {
      *   Worker,
      *   isMainThread,
-     *   parentPort
-     * } = require('worker_threads');
+     *   parentPort,
+     * } from 'node:worker_threads';
      *
      * if (isMainThread) {
      *   const worker = new Worker(__filename);
@@ -219,13 +248,16 @@ declare module 'v8' {
      */
     function writeHeapSnapshot(filename?: string): string;
     /**
-     * Returns an object with the following properties:
+     * Get statistics about code and its metadata in the heap, see
+     * V8 [`GetHeapCodeAndMetadataStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#a6079122af17612ef54ef3348ce170866) API. Returns an object with the
+     * following properties:
      *
      * ```js
      * {
      *   code_and_metadata_size: 212208,
      *   bytecode_and_metadata_size: 161368,
-     *   external_script_source_size: 1410794
+     *   external_script_source_size: 1410794,
+     *   cpu_profiler_metadata_size: 0,
      * }
      * ```
      * @since v12.8.0
@@ -275,7 +307,7 @@ declare module 'v8' {
          */
         writeDouble(value: number): void;
         /**
-         * Write raw bytes into the serializer’s internal buffer. The deserializer
+         * Write raw bytes into the serializer's internal buffer. The deserializer
          * will require a way to compute the length of the buffer.
          * For use inside of a custom `serializer._writeHostObject()`.
          */
@@ -331,7 +363,7 @@ declare module 'v8' {
          */
         readDouble(): number;
         /**
-         * Read raw bytes from the deserializer’s internal buffer. The `length` parameter
+         * Read raw bytes from the deserializer's internal buffer. The `length` parameter
          * must correspond to the length of the buffer that was passed to `serializer.writeRawBytes()`.
          * For use inside of a custom `deserializer._readHostObject()`.
          */
@@ -344,6 +376,10 @@ declare module 'v8' {
     class DefaultDeserializer extends Deserializer {}
     /**
      * Uses a `DefaultSerializer` to serialize `value` into a buffer.
+     *
+     * `ERR_BUFFER_TOO_LARGE` will be thrown when trying to
+     * serialize a huge object which requires buffer
+     * larger than `buffer.constants.MAX_LENGTH`.
      * @since v8.0.0
      */
     function serialize(value: any): Buffer;
@@ -362,20 +398,27 @@ declare module 'v8' {
      *
      * When the process is about to exit, one last coverage will still be written to
      * disk unless {@link stopCoverage} is invoked before the process exits.
-     * @since v15.1.0, v12.22.0
+     * @since v15.1.0, v14.18.0, v12.22.0
      */
     function takeCoverage(): void;
     /**
      * The `v8.stopCoverage()` method allows the user to stop the coverage collection
      * started by `NODE_V8_COVERAGE`, so that V8 can release the execution count
      * records and optimize code. This can be used in conjunction with {@link takeCoverage} if the user wants to collect the coverage on demand.
-     * @since v15.1.0, v12.22.0
+     * @since v15.1.0, v14.18.0, v12.22.0
      */
     function stopCoverage(): void;
     /**
+     * The API is a no-op if `--heapsnapshot-near-heap-limit` is already set from the command line or the API is called more than once.
+     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v16.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
+     * @experimental
+     * @since v16.18.0
+     */
+    function setHeapSnapshotNearHeapLimit(limit: number): void;
+    /**
      * Called when a promise is constructed. This does not mean that corresponding before/after events will occur, only that the possibility exists. This will
      * happen if a promise is created without ever getting a continuation.
-     * @since v17.1.0, v16.14.0
+     * @since v16.14.0
      * @param promise The promise being created.
      * @param parent The promise continued from, if applicable.
      */
@@ -387,14 +430,14 @@ declare module 'v8' {
      *
      * The before callback will be called 0 to N times. The before callback will typically be called 0 times if no continuation was ever made for the promise.
      * The before callback may be called many times in the case where many continuations have been made from the same promise.
-     * @since v17.1.0, v16.14.0
+     * @since v16.14.0
      */
     interface Before {
         (promise: Promise<unknown>): void;
     }
     /**
      * Called immediately after a promise continuation executes. This may be after a `then()`, `catch()`, or `finally()` handler or before an await after another await.
-     * @since v17.1.0, v16.14.0
+     * @since v16.14.0
      */
     interface After {
         (promise: Promise<unknown>): void;
@@ -402,7 +445,7 @@ declare module 'v8' {
     /**
      * Called when the promise receives a resolution or rejection value. This may occur synchronously in the case of {@link Promise.resolve()} or
      * {@link Promise.reject()}.
-     * @since v17.1.0, v16.14.0
+     * @since v16.14.0
      */
     interface Settled {
         (promise: Promise<unknown>): void;
@@ -413,7 +456,7 @@ declare module 'v8' {
      *
      * Because promises are asynchronous resources whose lifecycle is tracked via the promise hooks mechanism, the `init()`, `before()`, `after()`, and
      * `settled()` callbacks must not be async functions as they create more promises which would produce an infinite loop.
-     * @since v17.1.0, v16.14.0
+     * @since v16.14.0
      */
     interface HookCallbacks {
         init?: Init;
@@ -424,28 +467,28 @@ declare module 'v8' {
     interface PromiseHooks {
         /**
          * The `init` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
-         * @since v17.1.0, v16.14.0
+         * @since v16.14.0
          * @param init The {@link Init | `init` callback} to call when a promise is created.
          * @return Call to stop the hook.
          */
         onInit: (init: Init) => Function;
         /**
          * The `settled` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
-         * @since v17.1.0, v16.14.0
+         * @since v16.14.0
          * @param settled The {@link Settled | `settled` callback} to call when a promise is created.
          * @return Call to stop the hook.
          */
         onSettled: (settled: Settled) => Function;
         /**
          * The `before` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
-         * @since v17.1.0, v16.14.0
+         * @since v16.14.0
          * @param before The {@link Before | `before` callback} to call before a promise continuation executes.
          * @return Call to stop the hook.
          */
         onBefore: (before: Before) => Function;
         /**
          * The `after` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
-         * @since v17.1.0, v16.14.0
+         * @since v16.14.0
          * @param after The {@link After | `after` callback} to call after a promise continuation executes.
          * @return Call to stop the hook.
          */
@@ -455,7 +498,7 @@ declare module 'v8' {
          * The callbacks `init()`/`before()`/`after()`/`settled()` are called for the respective events during a promise's lifetime.
          * All callbacks are optional. For example, if only promise creation needs to be tracked, then only the init callback needs to be passed.
          * The hook callbacks must be plain functions. Providing async functions will throw as it would produce an infinite microtask loop.
-         * @since v17.1.0, v16.14.0
+         * @since v16.14.0
          * @param callbacks The {@link HookCallbacks | Hook Callbacks} to register
          * @return Used for disabling hooks
          */
@@ -463,10 +506,121 @@ declare module 'v8' {
     }
     /**
      * The `promiseHooks` interface can be used to track promise lifecycle events.
-     * @since v17.1.0, v16.14.0
+     * @since v16.14.0
      */
     const promiseHooks: PromiseHooks;
+    type StartupSnapshotCallbackFn = (args: any) => any;
+    interface StartupSnapshot {
+        /**
+         * Add a callback that will be called when the Node.js instance is about to get serialized into a snapshot and exit.
+         * This can be used to release resources that should not or cannot be serialized or to convert user data into a form more suitable for serialization.
+         * @since v16.17.0
+         */
+        addSerializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * Add a callback that will be called when the Node.js instance is deserialized from a snapshot.
+         * The `callback` and the `data` (if provided) will be serialized into the snapshot, they can be used to re-initialize the state of the application or
+         * to re-acquire resources that the application needs when the application is restarted from the snapshot.
+         * @since v16.17.0
+         */
+        addDeserializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * This sets the entry point of the Node.js application when it is deserialized from a snapshot. This can be called only once in the snapshot building script.
+         * If called, the deserialized application no longer needs an additional entry point script to start up and will simply invoke the callback along with the deserialized
+         * data (if provided), otherwise an entry point script still needs to be provided to the deserialized application.
+         * @since v16.17.0
+         */
+        setDeserializeMainFunction(callback: StartupSnapshotCallbackFn, data?: any): void;
+        /**
+         * Returns true if the Node.js instance is run to build a snapshot.
+         * @since v16.17.0
+         */
+        isBuildingSnapshot(): boolean;
+    }
+    /**
+     * The `v8.startupSnapshot` interface can be used to add serialization and deserialization hooks for custom startup snapshots.
+     *
+     * ```bash
+     * $ node --snapshot-blob snapshot.blob --build-snapshot entry.js
+     * # This launches a process with the snapshot
+     * $ node --snapshot-blob snapshot.blob
+     * ```
+     *
+     * In the example above, `entry.js` can use methods from the `v8.startupSnapshot` interface to specify how to save information for custom objects
+     * in the snapshot during serialization
+     * and how the information can be used to synchronize these objects during deserialization of the snapshot.
+     * For example, if the `entry.js` contains the following script:
+     *
+     * ```js
+     * 'use strict';
+     *
+     * import fs from 'node:fs';
+     * import zlib from 'node:zlib';
+     * import path from 'node:path';
+     * import assert from 'node:assert';
+     *
+     * import v8 from 'node:v8';
+     *
+     * class BookShelf {
+     *   storage = new Map();
+     *
+     *   // Reading a series of files from directory and store them into storage.
+     *   constructor(directory, books) {
+     *     for (const book of books) {
+     *       this.storage.set(book, fs.readFileSync(path.join(directory, book)));
+     *     }
+     *   }
+     *
+     *   static compressAll(shelf) {
+     *     for (const [ book, content ] of shelf.storage) {
+     *       shelf.storage.set(book, zlib.gzipSync(content));
+     *     }
+     *   }
+     *
+     *   static decompressAll(shelf) {
+     *     for (const [ book, content ] of shelf.storage) {
+     *       shelf.storage.set(book, zlib.gunzipSync(content));
+     *     }
+     *   }
+     * }
+     *
+     * // __dirname here is where the snapshot script is placed
+     * // during snapshot building time.
+     * const shelf = new BookShelf(__dirname, [
+     *   'book1.en_US.txt',
+     *   'book1.es_ES.txt',
+     *   'book2.zh_CN.txt',
+     * ]);
+     *
+     * assert(v8.startupSnapshot.isBuildingSnapshot());
+     * // On snapshot serialization, compress the books to reduce size.
+     * v8.startupSnapshot.addSerializeCallback(BookShelf.compressAll, shelf);
+     * // On snapshot deserialization, decompress the books.
+     * v8.startupSnapshot.addDeserializeCallback(BookShelf.decompressAll, shelf);
+     * v8.startupSnapshot.setDeserializeMainFunction((shelf) => {
+     *   // process.env and process.argv are refreshed during snapshot
+     *   // deserialization.
+     *   const lang = process.env.BOOK_LANG || 'en_US';
+     *   const book = process.argv[1];
+     *   const name = `${book}.${lang}.txt`;
+     *   console.log(shelf.storage.get(name));
+     * }, shelf);
+     * ```
+     *
+     * The resulted binary will get print the data deserialized from the snapshot during start up, using the refreshed `process.env` and `process.argv` of the launched process:
+     *
+     * ```bash
+     * $ BOOK_LANG=es_ES node --snapshot-blob snapshot.blob book1
+     * # Prints content of book1.es_ES.txt deserialized from the snapshot.
+     * ```
+     *
+     * Currently the application deserialized from a user-land snapshot cannot be snapshotted again, so these APIs are only available to applications that are not deserialized from a user-land snapshot.
+     *
+     * @experimental
+     * @since v16.17.0
+     */
+    const startupSnapshot: StartupSnapshot;
 }
-declare module 'node:v8' {
-    export * from 'v8';
+declare module "node:v8" {
+    export * from "v8";
 }

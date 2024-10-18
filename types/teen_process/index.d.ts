@@ -1,20 +1,15 @@
-// Type definitions for teen_process 2.0
-// Project: https://github.com/appium/node-teen_process
-// Definitions by: Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { ChildProcess, SpawnOptions } from 'child_process';
-import { URL } from 'url';
+import { ChildProcess, SpawnOptions } from "child_process";
+import { EventEmitter } from "events";
+import { URL } from "url";
 
-export { spawn } from 'child_process';
+export { spawn } from "child_process";
 
 /**
  * Options for {@link exec teen_process.exec}.
  */
-export interface TeenProcessExecOptions extends Pick<SpawnOptions, 'cwd' | 'env' | 'shell'> {
+export interface TeenProcessExecOptions extends Pick<SpawnOptions, "cwd" | "env" | "shell"> {
     cwd?: string | URL | undefined;
     env?: NodeJS.ProcessEnv | undefined;
     timeout?: number | undefined;
@@ -92,12 +87,12 @@ export interface TeenProcessExecResult<T extends string | Buffer> {
  */
 export function exec(
     cmd: string,
-    args: ReadonlyArray<string> | undefined,
+    args: readonly string[] | undefined,
     opts: TeenProcessExecOptions & { isBuffer: true },
 ): Promise<TeenProcessExecResult<Buffer>>;
 export function exec(
     cmd: string,
-    args?: ReadonlyArray<string>,
+    args?: readonly string[],
     opts?: TeenProcessExecOptions,
 ): Promise<TeenProcessExecResult<string>>;
 
@@ -118,17 +113,17 @@ export interface SubProcessOptions extends SpawnOptions {
  */
 export class SubProcess extends EventEmitter {
     cmd: string;
-    args: ReadonlyArray<string>;
+    args: readonly string[];
     proc: ChildProcess | null;
     opts: SubProcessOptions;
     expectingExit: boolean;
     rep: string;
 
-    constructor(cmd: string, args?: ReadonlyArray<string>, opts?: SubProcessOptions);
+    constructor(cmd: string, args?: readonly string[], opts?: SubProcessOptions);
 
     readonly isRunning: boolean;
 
-    emitLines(stream: string, lines: ReadonlyArray<string>): void;
+    emitLines(stream: string, lines: readonly string[]): void;
 
     /**
      * spawn the subprocess and return control whenever we deem that it has fully "started".
@@ -165,7 +160,7 @@ export class SubProcess extends EventEmitter {
      * await proc.join(); // will throw on exitcode not 0
      * await proc.join([0, 1]); // will throw on exitcode not 0 or 1
      */
-    join(allowedExitCodes?: ReadonlyArray<number>): Promise<number>;
+    join(allowedExitCodes?: readonly number[]): Promise<number>;
 
     /*
      * This will only work if the process is created with the `detached` option
@@ -180,49 +175,49 @@ export class SubProcess extends EventEmitter {
 
     addListener(event: string, listener: (...args: any[]) => void): this;
     addListener(
-        event: 'exit' | 'stop' | 'end' | 'die',
+        event: "exit" | "stop" | "end" | "die",
         listener: (code: number | null, signal: NodeJS.Signals | null) => void,
     ): this;
-    addListener(event: 'output', listener: (stdout: string, stderr: string) => void): this;
-    addListener(event: 'lines-stdout' | 'lines-stderr', listener: (lines: string[]) => void): this;
-    addListener(event: 'stream-line', listener: (line: string) => void): this;
+    addListener(event: "output", listener: (stdout: string, stderr: string) => void): this;
+    addListener(event: "lines-stdout" | "lines-stderr", listener: (lines: string[]) => void): this;
+    addListener(event: "stream-line", listener: (line: string) => void): this;
     emit(event: string | symbol, ...args: any[]): boolean;
-    emit(event: 'exit' | 'stop' | 'end' | 'die', code: number | null, signal: NodeJS.Signals | null): boolean;
-    emit(event: 'output', stdout: string, stderr: string): this;
-    emit(event: 'lines-stdout' | 'lines-stderr', lines: string[]): this;
-    emit(event: 'stream-line', line: string): this;
+    emit(event: "exit" | "stop" | "end" | "die", code: number | null, signal: NodeJS.Signals | null): boolean;
+    emit(event: "output", stdout: string, stderr: string): this;
+    emit(event: "lines-stdout" | "lines-stderr", lines: string[]): this;
+    emit(event: "stream-line", line: string): this;
     on(event: string, listener: (...args: any[]) => void): this;
     on(
-        event: 'exit' | 'stop' | 'end' | 'die',
+        event: "exit" | "stop" | "end" | "die",
         listener: (code: number | null, signal: NodeJS.Signals | null) => void,
     ): this;
-    on(event: 'output', listener: (stdout: string, stderr: string) => void): this;
-    on(event: 'lines-stdout' | 'lines-stderr', listener: (lines: string[]) => void): this;
-    on(event: 'stream-line', listener: (line: string) => void): this;
+    on(event: "output", listener: (stdout: string, stderr: string) => void): this;
+    on(event: "lines-stdout" | "lines-stderr", listener: (lines: string[]) => void): this;
+    on(event: "stream-line", listener: (line: string) => void): this;
     once(event: string, listener: (...args: any[]) => void): this;
     once(
-        event: 'exit' | 'stop' | 'end' | 'die',
+        event: "exit" | "stop" | "end" | "die",
         listener: (code: number | null, signal: NodeJS.Signals | null) => void,
     ): this;
-    once(event: 'output', listener: (stdout: string, stderr: string) => void): this;
-    once(event: 'lines-stdout' | 'lines-stderr', listener: (lines: string[]) => void): this;
-    once(event: 'stream-line', listener: (line: string) => void): this;
+    once(event: "output", listener: (stdout: string, stderr: string) => void): this;
+    once(event: "lines-stdout" | "lines-stderr", listener: (lines: string[]) => void): this;
+    once(event: "stream-line", listener: (line: string) => void): this;
     prependListener(event: string, listener: (...args: any[]) => void): this;
     prependListener(
-        event: 'exit' | 'stop' | 'end' | 'die',
+        event: "exit" | "stop" | "end" | "die",
         listener: (code: number | null, signal: NodeJS.Signals | null) => void,
     ): this;
-    prependListener(event: 'output', listener: (stdout: string, stderr: string) => void): this;
-    prependListener(event: 'lines-stdout' | 'lines-stderr', listener: (lines: string[]) => void): this;
-    prependListener(event: 'stream-line', listener: (line: string) => void): this;
+    prependListener(event: "output", listener: (stdout: string, stderr: string) => void): this;
+    prependListener(event: "lines-stdout" | "lines-stderr", listener: (lines: string[]) => void): this;
+    prependListener(event: "stream-line", listener: (line: string) => void): this;
     prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     prependOnceListener(
-        event: 'exit' | 'stop' | 'end' | 'die',
+        event: "exit" | "stop" | "end" | "die",
         listener: (code: number | null, signal: NodeJS.Signals | null) => void,
     ): this;
-    prependOnceListener(event: 'output', listener: (stdout: string, stderr: string) => void): this;
-    prependOnceListener(event: 'lines-stdout' | 'lines-stderr', listener: (lines: string[]) => void): this;
-    prependOnceListener(event: 'stream-line', listener: (line: string) => void): this;
+    prependOnceListener(event: "output", listener: (stdout: string, stderr: string) => void): this;
+    prependOnceListener(event: "lines-stdout" | "lines-stderr", listener: (lines: string[]) => void): this;
+    prependOnceListener(event: "stream-line", listener: (line: string) => void): this;
 }
 
 /**

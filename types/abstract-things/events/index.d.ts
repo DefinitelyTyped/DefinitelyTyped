@@ -11,7 +11,7 @@ export interface Stoppable {
 
 export default class EventEmitter {
     constructor(options?: EventEmitterOptions);
-    ['triggerListenerChange'](): void;
+    ["triggerListenerChange"](): void;
 
     get hasListeners(): boolean;
 

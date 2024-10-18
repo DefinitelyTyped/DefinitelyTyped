@@ -1,6 +1,27 @@
 {
     "private": true,
+    "name": "@types/gulp-if",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/robrich/gulp-if"
+    ],
     "dependencies": {
-        "@types/minimatch": "*"
-    }
+        "@types/gulp-match": "*",
+        "@types/minimatch": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-if": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        }
+    ]
 }

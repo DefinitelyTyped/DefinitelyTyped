@@ -1,9 +1,9 @@
-import lockfileInfo = require('lockfile-info');
+import lockfileInfo = require("lockfile-info");
 
 lockfileInfo; // $ExpectType (cwd?: string | undefined) => Promise<LockfileInfo>
 
 lockfileInfo(); // $ExpectType Promise<LockfileInfo>
-const p = lockfileInfo('.'); // $ExpectType Promise<LockfileInfo>
+const p = lockfileInfo("."); // $ExpectType Promise<LockfileInfo>
 
 p.then(({
     hasPackageJSON,

@@ -1,6 +1,65 @@
 {
     "private": true,
+    "name": "@types/node-fetch",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/bitinn/node-fetch"
+    ],
     "dependencies": {
-        "form-data": "^3.0.0"
-    }
+        "@types/node": "*",
+        "form-data": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/node-fetch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Torsten Werner",
+            "githubUsername": "torstenwerner"
+        },
+        {
+            "name": "Niklas Lindgren",
+            "githubUsername": "nikcorg"
+        },
+        {
+            "name": "Vinay Bedre",
+            "githubUsername": "vinaybedre"
+        },
+        {
+            "name": "Antonio Román",
+            "githubUsername": "kyranet"
+        },
+        {
+            "name": "Andrew Leedham",
+            "githubUsername": "AndrewLeedham"
+        },
+        {
+            "name": "Jason Li",
+            "githubUsername": "JasonLi914"
+        },
+        {
+            "name": "Steve Faulkner",
+            "githubUsername": "southpolesteve"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "Alex Savin",
+            "githubUsername": "alexandrusavin"
+        },
+        {
+            "name": "Alexis Tyler",
+            "githubUsername": "OmgImAlexis"
+        },
+        {
+            "name": "Jakub Kisielewski",
+            "githubUsername": "kbkk"
+        },
+        {
+            "name": "David Glasser",
+            "githubUsername": "glasser"
+        }
+    ]
 }

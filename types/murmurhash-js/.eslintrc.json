@@ -1,7 +1,5 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "prefer-declare-function": "off"
+        "@definitelytyped/prefer-declare-function": "off"
     }
 }

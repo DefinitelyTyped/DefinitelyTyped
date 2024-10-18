@@ -1,9 +1,3 @@
-// Type definitions for bootstrap-treeview.js 1.20
-// Project: https://github.com/jonmiles/bootstrap-treeview
-// Definitions by: Jan Böhmer <https://github.com/jbtronics>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface BootstrapTreeViewNodeData {
@@ -50,7 +44,7 @@ interface BootstrapTreeViewOptions {
     showCheckbox?: boolean | undefined;
     showIcon?: boolean | undefined;
     showTags?: boolean | undefined;
-    uncheckedIcon?: boolean | undefined;
+    uncheckedIcon?: string | undefined;
 
     onNodeSelected?(event: any, node: BootstrapTreeViewNodeData): void;
     onNodeChecked?(event: any, node: BootstrapTreeViewNodeData): void;

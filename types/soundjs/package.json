@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/soundjs",
+    "version": "0.6.9999",
+    "projects": [
+        "http://www.createjs.com/#!/SoundJS"
+    ],
+    "dependencies": {
+        "@types/createjs-lib": "*",
+        "@types/preloadjs": "*"
+    },
+    "devDependencies": {
+        "@types/soundjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Ferreira",
+            "url": "https://bitbucket.org/drk4"
+        }
+    ]
+}

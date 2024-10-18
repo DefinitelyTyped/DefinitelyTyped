@@ -1,9 +1,9 @@
 import SmoothScroll = require("smooth-scroll");
 
 // Initialize and destroy SmoothScroll
-const example1 = new SmoothScroll('a[href*="#"]', {
+const example1 = new SmoothScroll("a[href*=\"#\"]", {
     ignore: ".ignore",
-    header: '[data-scroll="header"]',
+    header: "[data-scroll=\"header\"]",
     topOnEmptyHash: false,
     speed: 1000,
     speedAsDuration: true,
@@ -15,7 +15,7 @@ const example1 = new SmoothScroll('a[href*="#"]', {
     customEasing: () => 50,
     updateURL: false,
     popstate: false,
-    emitEvents: false
+    emitEvents: false,
 });
 example1.destroy();
 
@@ -28,7 +28,7 @@ const example2 = () => {
 
 // Scrolling to a specific Y-position
 const example3 = () => {
-    const scroll = new SmoothScroll('a[href*="#"]');
+    const scroll = new SmoothScroll("a[href*=\"#\"]");
     scroll.animateScroll(750);
 };
 

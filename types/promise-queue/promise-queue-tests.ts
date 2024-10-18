@@ -1,9 +1,9 @@
-import PromiseQueue = require('promise-queue');
+import PromiseQueue = require("promise-queue");
 
 PromiseQueue.configure(Promise);
 
 const queue1 = new PromiseQueue();
-const queue2 = new PromiseQueue(1, 1, {onEmpty: () => null});
+const queue2 = new PromiseQueue(1, 1, { onEmpty: () => null });
 
 const queuedPromise: Promise<number> = queue1.add(() => Promise.resolve(123));
 

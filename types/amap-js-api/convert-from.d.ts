@@ -10,8 +10,8 @@ declare namespace AMap {
              */
             locations: LngLat[];
         }
-        type Type = 'gps' | 'baidu' | 'mapbar';
-        type SearchStatus = 'complete' | 'error';
+        type Type = "gps" | "baidu" | "mapbar";
+        type SearchStatus = "complete" | "error";
     }
     /**
      * 为坐标转换类，支持将其他坐标系的坐标点转换为高德坐标系。
@@ -22,6 +22,6 @@ declare namespace AMap {
     function convertFrom(
         lnglat: LocationValue | LocationValue[],
         type: convertFrom.Type | null,
-        callback: (status: convertFrom.SearchStatus, result: string | convertFrom.Result) => void
+        callback: (status: convertFrom.SearchStatus, result: string | convertFrom.Result) => void,
     ): void;
 }

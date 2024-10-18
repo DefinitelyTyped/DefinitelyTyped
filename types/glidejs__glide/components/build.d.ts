@@ -1,4 +1,4 @@
-export type BuildEvents = 'build.before' | 'build.after';
+export type BuildEvents = "build.before" | "build.after";
 
 export interface BuildEventsBus {
     on(event: BuildEvents, handler: () => void): { remove(): void };

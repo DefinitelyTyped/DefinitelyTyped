@@ -1,9 +1,9 @@
-import { AnnotatedCommit } from './annotated-commit';
-import { Repository } from './repository';
-import { Strarray } from './str-array';
-import { CheckoutOptions } from './checkout-options';
-import { Commit } from './commit';
-import { Tag } from './tag';
+import { AnnotatedCommit } from "./annotated-commit";
+import { CheckoutOptions } from "./checkout-options";
+import { Commit } from "./commit";
+import { Repository } from "./repository";
+import { Strarray } from "./str-array";
+import { Tag } from "./tag";
 
 export namespace Reset {
     const enum TYPE {

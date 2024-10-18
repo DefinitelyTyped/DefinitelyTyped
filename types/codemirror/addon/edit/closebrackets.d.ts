@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface AutoCloseBrackets {
         /**
          * String containing pairs of matching characters.

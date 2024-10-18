@@ -1,8 +1,3 @@
-// Type definitions for tr46 3.0
-// Project: https://github.com/jsdom/tr46
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Converts a string of Unicode symbols to a case-folded Punycode string of ASCII symbols.
  */
@@ -30,24 +25,26 @@ export interface Options {
      */
     checkJoiners?: boolean | undefined;
     /**
+     * When set to `true`, invalid Punycode strings within the input will be allowed.
+     * @default false
+     */
+    ignoreInvalidPunycode?: boolean | undefined;
+    /**
+     * When set to `true`, uses transitional (compatibility) processing of the deviation characters.
+     * @default false
+     */
+    transitionalProcessing?: boolean | undefined;
+    /**
      * When set to `true`, input will be validated according to [STD3 Rules](http://unicode.org/reports/tr46/#STD3_Rules).
      * @default false
      */
     useSTD3ASCIIRules?: boolean | undefined;
+}
+
+export interface ToASCIIOptions extends Options {
     /**
      * When set to `true`, the length of each DNS label within the input will be checked for validation.
      * @default false
      */
     verifyDNSLength?: boolean | undefined;
 }
-
-export interface ToASCIIOptions extends Options {
-    /**
-     * When set to `"transitional"`, symbols within the input will be validated according to the older
-     * IDNA2003 protocol. When set to `"nontransitional"`, the current IDNA2008 protocol will be used.
-     * @default 'nontransitional'
-     */
-    processingOption?: ProcessingOption | undefined;
-}
-
-export type ProcessingOption = 'nontransitional' | 'transitional';

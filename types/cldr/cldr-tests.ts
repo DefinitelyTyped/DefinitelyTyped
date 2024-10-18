@@ -1,38 +1,29 @@
 /// <reference types="node" />
 
-import Cldr, {
-  load,
-  WindowsZone,
-  Finder,
-  Alias,
-  CurrencyInfo,
-  KeyType,
-  NumberingSystem,
-  WeekData,
-} from 'cldr';
+import Cldr, { Alias, CurrencyInfo, Finder, KeyType, load, NumberingSystem, WeekData, WindowsZone } from "cldr";
 
-import { promisify } from 'util';
+import { promisify } from "util";
 
 // $ExpectType Cldr
-load('/path/to/cldr');
+load("/path/to/cldr");
 
 // $ExpectType void
-Cldr.checkValidLocaleId('localeId');
+Cldr.checkValidLocaleId("localeId");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractTextToSpeechCharacterLabels('localeId');
+Cldr.extractTextToSpeechCharacterLabels("localeId");
 
 // $ExpectType Partial<Record<string, string>>
 Cldr.extractTextToSpeechCharacterLabels();
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDerivedTextToSpeechCharacterLabels('localeId');
+Cldr.extractDerivedTextToSpeechCharacterLabels("localeId");
 
 // $ExpectType Partial<Record<string, string>>
 Cldr.extractDerivedTextToSpeechCharacterLabels();
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractAllTextToSpeechCharacterLabels('localeId');
+Cldr.extractAllTextToSpeechCharacterLabels("localeId");
 
 // $ExpectType Partial<Record<string, string>>
 Cldr.extractAllTextToSpeechCharacterLabels();
@@ -44,7 +35,7 @@ Cldr.documentByFileName;
 Cldr.cldrPath;
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.fileNamesByTypeAndNormalizedLocaleId('localeid');
+Cldr.fileNamesByTypeAndNormalizedLocaleId("localeid");
 
 // $ExpectType string[]
 Cldr.localeIds;
@@ -65,34 +56,34 @@ Cldr.localesByParentLocale;
 Cldr.windowsZonesByMapZone;
 
 // $ExpectType void
-Cldr.getDocument('filename', (error: Error | null, document: Document) => {});
+Cldr.getDocument("filename", (error: Error | null, document: Document) => {});
 
 // $ExpectType Document
-Cldr.getDocument('filename');
+Cldr.getDocument("filename");
 
 // $ExpectType (arg1: string) => Promise<Document>
 promisify(Cldr.getDocument);
 
 // $ExpectType string
-Cldr.resolveParentLocaleId('localeid');
+Cldr.resolveParentLocaleId("localeid");
 
 // $ExpectType WindowsZone[]
-Cldr.extractWindowsZonesByTimeZone('timezone');
+Cldr.extractWindowsZonesByTimeZone("timezone");
 
 // $ExpectType WindowsZone[]
-Cldr.extractWindowsZonesByName('name');
+Cldr.extractWindowsZonesByName("name");
 
 // $ExpectType string[]
-Cldr.expandLocaleIdToPrioritizedList('localeid');
+Cldr.expandLocaleIdToPrioritizedList("localeid");
 
 // $ExpectType Document[]
-Cldr.getPrioritizedDocumentsForLocale('localeid', 'type');
+Cldr.getPrioritizedDocumentsForLocale("localeid", "type");
 
 // $ExpectType void
 Cldr.preload((error: Error | undefined) => {});
 
 // $ExpectType void
-Cldr.preload(['localeid'], (error: Error | undefined) => {});
+Cldr.preload(["localeid"], (error: Error | undefined) => {});
 
 // $ExpectType () => Promise<void>
 promisify(Cldr.preload);
@@ -101,25 +92,25 @@ promisify(Cldr.preload);
 promisify<string[]>(Cldr.preload);
 
 // $ExpectType Finder
-Cldr.createFinder(Cldr.getPrioritizedDocumentsForLocale('localeid', 'type'));
+Cldr.createFinder(Cldr.getPrioritizedDocumentsForLocale("localeid", "type"));
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractLocaleDisplayPattern('localeid');
+Cldr.extractLocaleDisplayPattern("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractLanguageDisplayNames('localeid');
+Cldr.extractLanguageDisplayNames("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractTimeZoneDisplayNames('localeid');
+Cldr.extractTimeZoneDisplayNames("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractTimeZoneFormats('localeid');
+Cldr.extractTimeZoneFormats("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractTerritoryDisplayNames('localeid');
+Cldr.extractTerritoryDisplayNames("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractSubdivisionDisplayNames('localeid');
+Cldr.extractSubdivisionDisplayNames("localeid");
 
 // $ExpectType Partial<Record<string, Alias>>
 Cldr.extractSubdivisionAliases();
@@ -128,121 +119,121 @@ Cldr.extractSubdivisionAliases();
 Cldr.extractTerritoryAliases();
 
 // $ExpectType Partial<Record<string, CurrencyInfo>>
-Cldr.extractCurrencyInfoById('localeid');
+Cldr.extractCurrencyInfoById("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractScriptDisplayNames('localeid');
+Cldr.extractScriptDisplayNames("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractVariantDisplayNames('localeid');
+Cldr.extractVariantDisplayNames("localeid");
 
 // $ExpectType Partial<Record<string, KeyType>>
-Cldr.extractKeyTypes('localeid');
+Cldr.extractKeyTypes("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractMeasurementSystemNames('localeid');
+Cldr.extractMeasurementSystemNames("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractCodePatterns('localeid');
+Cldr.extractCodePatterns("localeid");
 
 // $ExpectType object
-Cldr.extractEraNames('localeid', 'calendarid');
+Cldr.extractEraNames("localeid", "calendarid");
 
 // $ExpectType object
-Cldr.extractQuarterNames('localeid', 'calendarid');
+Cldr.extractQuarterNames("localeid", "calendarid");
 
 // $ExpectType object
-Cldr.extractDayPeriods('localeid', 'calendarid');
+Cldr.extractDayPeriods("localeid", "calendarid");
 
 // $ExpectType object
-Cldr.extractCyclicNames('localeid', 'calendarid');
+Cldr.extractCyclicNames("localeid", "calendarid");
 
 // $ExpectType object
-Cldr.extractMonthNames('localeid', 'calendarid');
+Cldr.extractMonthNames("localeid", "calendarid");
 
 // $ExpectType object
-Cldr.extractMonthPatterns('localeid', 'calendarid');
+Cldr.extractMonthPatterns("localeid", "calendarid");
 
 // $ExpectType object
-Cldr.extractDayNames('localeid', 'calendarid');
+Cldr.extractDayNames("localeid", "calendarid");
 
 // $ExpectType object
-Cldr.extractFields('localeid');
+Cldr.extractFields("localeid");
 
 // $ExpectType object
-Cldr.extractDateTimePatterns('localeid', 'calendarid');
+Cldr.extractDateTimePatterns("localeid", "calendarid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDateOrTimeFormats('localeid', 'calendarid', 'date');
+Cldr.extractDateOrTimeFormats("localeid", "calendarid", "date");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDateOrTimeFormats('localeid', undefined, 'date');
+Cldr.extractDateOrTimeFormats("localeid", undefined, "date");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDateOrTimeFormats('localeid', 'calendarid', 'time');
+Cldr.extractDateOrTimeFormats("localeid", "calendarid", "time");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDateOrTimeFormats('localeid', undefined, 'time');
+Cldr.extractDateOrTimeFormats("localeid", undefined, "time");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDateFormats('localeid', 'calendarid');
+Cldr.extractDateFormats("localeid", "calendarid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractTimeFormats('localeid', 'calendarid');
+Cldr.extractTimeFormats("localeid", "calendarid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDateFormatItems('localeid', 'calendarid');
+Cldr.extractDateFormatItems("localeid", "calendarid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDateIntervalFormats('localeid', 'calendarid');
+Cldr.extractDateIntervalFormats("localeid", "calendarid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDateIntervalFallbackFormat('localeid', 'calendarid');
+Cldr.extractDateIntervalFallbackFormat("localeid", "calendarid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractNumberSymbols('localeid', 'numbersystemid');
+Cldr.extractNumberSymbols("localeid", "numbersystemid");
 
 // $ExpectType object
-Cldr.extractNumberFormats('localeid', 'numbersystemid');
+Cldr.extractNumberFormats("localeid", "numbersystemid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDefaultNumberSystemId('localeid');
+Cldr.extractDefaultNumberSystemId("localeid");
 
 // $ExpectType object
-Cldr.extractUnitPatterns('localeid');
+Cldr.extractUnitPatterns("localeid");
 
 // $ExpectType Partial<Record<string, string>>
-Cldr.extractDelimiters('localeid');
+Cldr.extractDelimiters("localeid");
 
 // $ExpectType object
-Cldr.extractListPatterns('localeid');
+Cldr.extractListPatterns("localeid");
 
 // $ExpectType object
-Cldr.extractCharacters('localeid');
+Cldr.extractCharacters("localeid");
 
 // $ExpectType object
-Cldr.extractPluralClasses('localeid', 'cardinal');
+Cldr.extractPluralClasses("localeid", "cardinal");
 
 // $ExpectType object
-Cldr.extractPluralClasses('localeid', 'ordinal');
+Cldr.extractPluralClasses("localeid", "ordinal");
 
 // $ExpectType any
-Cldr.extractPluralRuleFunction('localeid', 'cardinal');
+Cldr.extractPluralRuleFunction("localeid", "cardinal");
 
 // $ExpectType any
-Cldr.extractPluralRuleFunction('localeid', 'ordinal');
+Cldr.extractPluralRuleFunction("localeid", "ordinal");
 
 // $ExpectType object
-Cldr.extractRbnfFunctionByType('localeid');
+Cldr.extractRbnfFunctionByType("localeid");
 
 // $ExpectType object
-Cldr.extractRbnfFunctionByType('localeid', ['typeid']);
+Cldr.extractRbnfFunctionByType("localeid", ["typeid"]);
 
 // $ExpectType NumberingSystem
-Cldr.extractNumberingSystem('numberingsystemid');
+Cldr.extractNumberingSystem("numberingsystemid");
 
 // $ExpectType object
-Cldr.extractLayout('localeid');
+Cldr.extractLayout("localeid");
 
 // $ExpectType object
 Cldr.extractTerritories();

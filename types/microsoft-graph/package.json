@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/microsoft-graph",
+    "version": "2.40.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "microsoft-graph",
+    "projects": [
+        "https://github.com/microsoftgraph/msgraph-typescript-typings"
+    ],
+    "devDependencies": {
+        "@types/microsoft-graph": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Microsoft Graph Team",
+            "githubUsername": "microsoftgraph"
+        },
+        {
+            "name": "Michael Mainer",
+            "githubUsername": "MIchaelMainer"
+        },
+        {
+            "name": "Geoffrey Koros",
+            "githubUsername": "koros"
+        },
+        {
+            "name": "Mustafa Zengin",
+            "githubUsername": "zengin"
+        },
+        {
+            "name": "DeVere Dyett",
+            "githubUsername": "ddyett"
+        },
+        {
+            "name": "Gavin Barron",
+            "githubUsername": "gavinbarron"
+        }
+    ]
+}

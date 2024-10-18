@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/dom-background-sync",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-background-sync-browser",
+    "projects": [
+        "https://wicg.github.io/background-sync/spec/#api-description"
+    ],
+    "devDependencies": {
+        "@types/dom-background-sync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hana Joo",
+            "githubUsername": "h-joo"
+        },
+        {
+            "name": "Jan Kuehle",
+            "githubUsername": "frigus02"
+        },
+        {
+            "name": "Martin Probst",
+            "githubUsername": "mprobst"
+        }
+    ]
+}

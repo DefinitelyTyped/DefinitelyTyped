@@ -10,10 +10,10 @@ declare class UserAuthenticator {
     validateUserAccess(userId: string, remoteAddress: string): number;
 }
 declare namespace UserAuthenticator {
-    const LOGIN_FAIL: number;
-    const WITHOUT_PERMISSION: number;
-    const USER_LOCKED: number;
-    const PASSWORD_EXPIRED: number;
-    const OK: number;
-    const USER_NOT_EXISTS: number;
+    let LOGIN_FAIL: number;
+    let WITHOUT_PERMISSION: number;
+    let USER_LOCKED: number;
+    let PASSWORD_EXPIRED: number;
+    let OK: number;
+    let USER_NOT_EXISTS: number;
 }

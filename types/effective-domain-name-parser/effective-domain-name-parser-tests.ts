@@ -1,6 +1,6 @@
-import { parse } from 'effective-domain-name-parser';
+import { parse } from "effective-domain-name-parser";
 
-const parsedTest = parse('www.us.test.com'); // { tld: 'com', sld: 'test', subdomain: 'www.us' }
+const parsedTest = parse("www.us.test.com"); // { tld: 'com', sld: 'test', subdomain: 'www.us' }
 
 // $ExpectType string
 parsedTest.tld;
@@ -12,4 +12,4 @@ parsedTest.sld;
 parsedTest.subdomain;
 
 // @ts-expect-error
-parse(['www.us.test.com']);
+parse(["www.us.test.com"]);

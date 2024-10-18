@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/firebase-token-generator",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/firebase/firebase-token-generator-node"
+    ],
+    "devDependencies": {
+        "@types/firebase-token-generator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hans Van den Keybus",
+            "githubUsername": "dotdotcommadot"
+        }
+    ]
+}

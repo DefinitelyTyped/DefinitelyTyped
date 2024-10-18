@@ -1,0 +1,50 @@
+{
+    "private": true,
+    "name": "@types/react-color",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/casesandberg/react-color/",
+        "http://casesandberg.github.io/react-color"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/reactcss": "*"
+    },
+    "devDependencies": {
+        "@types/react-color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Karol Janyst",
+            "githubUsername": "LKay"
+        },
+        {
+            "name": "Marks Polakovs",
+            "githubUsername": "markspolakovs"
+        },
+        {
+            "name": "Matthieu Montaudouin",
+            "githubUsername": "mntdn"
+        },
+        {
+            "name": "Nokogiri",
+            "githubUsername": "nkgrnkgr"
+        },
+        {
+            "name": "0815Strohhut",
+            "githubUsername": "0815Strohhut"
+        },
+        {
+            "name": "Daniel Fürst",
+            "githubUsername": "dnlfrst"
+        },
+        {
+            "name": "Erick Tamayo",
+            "githubUsername": "ericktamayo"
+        },
+        {
+            "name": "Alexander P. Cerutti",
+            "githubUsername": "alexandercerutti"
+        }
+    ]
+}

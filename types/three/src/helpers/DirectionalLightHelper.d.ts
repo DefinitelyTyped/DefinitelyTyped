@@ -1,8 +1,8 @@
-import { DirectionalLight } from './../lights/DirectionalLight.js';
-import { Line } from './../objects/Line.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Object3D } from './../core/Object3D.js';
-import { ColorRepresentation } from '../math/Color.js';
+import { Object3D } from "../core/Object3D.js";
+import { DirectionalLight } from "../lights/DirectionalLight.js";
+import { ColorRepresentation } from "../math/Color.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Line } from "../objects/Line.js";
 
 /**
  * Helper object to assist with visualizing a {@link THREE.DirectionalLight | DirectionalLight}'s effect on the scene
@@ -11,6 +11,8 @@ import { ColorRepresentation } from '../math/Color.js';
  * @example
  * ```typescript
  * const light = new THREE.DirectionalLight(0xFFFFFF);
+ * scene.add(light);
+ *
  * const helper = new THREE.DirectionalLightHelper(light, 5);
  * scene.add(helper);
  * ```
@@ -32,7 +34,7 @@ export class DirectionalLightHelper extends Object3D {
      * @override
      * @defaultValue `DirectionalLightHelper`
      */
-    override readonly type: string | 'DirectionalLightHelper';
+    override readonly type: string | "DirectionalLightHelper";
 
     /**
      * Contains the line mesh showing the location of the directional light.

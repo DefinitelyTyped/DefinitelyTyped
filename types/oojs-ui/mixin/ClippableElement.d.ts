@@ -127,7 +127,7 @@ declare namespace OO.ui.mixin {
              *
              * @return 'left' or 'right'
              */
-            getHorizontalAnchorEdge(): 'left' | 'right';
+            getHorizontalAnchorEdge(): "left" | "right";
 
             /**
              * Return the side of the clippable on which it is "anchored" (aligned to something else).
@@ -144,7 +144,7 @@ declare namespace OO.ui.mixin {
              *
              * @return 'top' or 'bottom'
              */
-            getVerticalAnchorEdge(): 'top' | 'bottom';
+            getVerticalAnchorEdge(): "top" | "bottom";
 
             /**
              * Clip element to visible boundaries and allow scrolling when needed. You should call
@@ -164,7 +164,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ClippableElement;
+            new(config?: ConfigOptions): ClippableElement;
             prototype: Prototype;
             static: {};
         }

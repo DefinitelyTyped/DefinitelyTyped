@@ -1,0 +1,57 @@
+{
+    "private": true,
+    "name": "@types/ssh2-sftp-client",
+    "version": "7.1.9999",
+    "projects": [
+        "https://github.com/theophilusx/ssh2-sftp-client"
+    ],
+    "dependencies": {
+        "@types/ssh2": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/ssh2-sftp-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "igrayson",
+            "githubUsername": "igrayson"
+        },
+        {
+            "name": "Ascari Andrea",
+            "githubUsername": "ascariandrea"
+        },
+        {
+            "name": "Kartik Malik",
+            "githubUsername": "kartik2406"
+        },
+        {
+            "name": "Michael Pertl",
+            "githubUsername": "viamuli"
+        },
+        {
+            "name": "Taylor Herron",
+            "githubUsername": "gbhmt"
+        },
+        {
+            "name": "Lane Goldberg",
+            "githubUsername": "builtbylane"
+        },
+        {
+            "name": "Lorenzo Adinolfi",
+            "githubUsername": "loru88"
+        },
+        {
+            "name": "Tom Xu",
+            "githubUsername": "hengkx"
+        },
+        {
+            "name": "Joseph Burger",
+            "githubUsername": "candyapplecorn"
+        },
+        {
+            "name": "Emma Milner",
+            "githubUsername": "tsop14"
+        }
+    ]
+}

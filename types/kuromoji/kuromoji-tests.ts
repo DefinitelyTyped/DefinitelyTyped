@@ -1,4 +1,4 @@
-import * as kuromoji from 'kuromoji';
+import * as kuromoji from "kuromoji";
 
 // From https://github.com/takuyaa/kuromoji.js/blob/master/README.md#usage
 kuromoji.builder({ dicPath: "/url/to/dictionary/dir/" }).build((err, tokenizer) => {
@@ -25,8 +25,8 @@ kuromoji.builder({ dicPath: "/url/to/dictionary/dir/" }).build((err, tokenizer) 
 // From https://github.com/takuyaa/kuromoji.js/blob/master/test/resource/minimum-dic/minimum.csv
 const minimum_dict = [
     "すもも,1285,1285,7546,名詞,一般,*,*,*,*,すもも,スモモ,スモモ",
-    "もも,1285,1285,7219,名詞,一般,*,*,*,*,もも,モモ,モモ"
-].join('\n');
+    "もも,1285,1285,7219,名詞,一般,*,*,*,*,もも,モモ,モモ",
+].join("\n");
 
 let builder = kuromoji.dictionaryBuilder();
 builder = builder.addTokenInfoDictionary(minimum_dict);

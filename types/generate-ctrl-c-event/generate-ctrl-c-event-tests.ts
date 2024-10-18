@@ -1,4 +1,4 @@
-import * as ctrlc from 'generate-ctrl-c-event';
+import * as ctrlc from "generate-ctrl-c-event";
 
 let eventFunc: () => void = ctrlc.generateCtrlC;
 eventFunc = ctrlc.generateCtrlBreak;

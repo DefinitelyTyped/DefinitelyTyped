@@ -25,12 +25,12 @@
 
 // See https://github.com/facebook/react/blob/master/packages/react-is/src/ReactIs.js to see how the exports are declared,
 
-import ReactIs = require('.');
-import { ReactElement } from 'react';
+import ReactIs = require(".");
+import { ReactElement } from "react";
 
 export {};
 
-declare module '.' {
+declare module "." {
     function isSuspenseList(value: any): value is ReactElement;
 
     const SuspenseList: symbol;

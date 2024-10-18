@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges } from "../pdfservices-sdk";
 
 /**
  * An operation to delete pages in a PDF file.
@@ -24,7 +24,6 @@ import { ExecutionContext, FileRef, PageRanges } from '../pdfservices-sdk';
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class PageActions {
     pageActions: any[];
@@ -35,7 +34,6 @@ export class PageActions {
 export class DeletePagesOperation {
     /**
      * Constructs a {@link DeletePagesOperation} instance.
-     *
      */
     static createNew(): DeletePagesOperation;
     static get SupportedSourceFormat(): {
@@ -52,7 +50,6 @@ export class DeletePagesOperation {
     setInput(sourceFileRef: FileRef): void;
     /**
      * Specifies the pages to delete from the input PDF file.
-     *
      */
     setPageRanges(pageRanges: PageRanges): void;
     /**

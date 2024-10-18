@@ -1,4 +1,4 @@
-import NetgearRouter = require('netgear');
+import NetgearRouter = require("netgear");
 
 // note: options can be passed in here. See login options.
 const router = new NetgearRouter();
@@ -18,8 +18,8 @@ async function getRouterInfo() {
 
         // for other methods you first need to be logged in. Passing options will override previous settings
         const options = {
-            password: 'mySecretPassword', // Password can also be passed during login
-            host: '192.168.1.1', // Autodiscovery will be performed when left out
+            password: "mySecretPassword", // Password can also be passed during login
+            host: "192.168.1.1", // Autodiscovery will be performed when left out
             port: 80, // SOAP port. Autodiscovery will be performed when left out
             tls: false, // TLS/SSL (HTTPS) is only supported on certain router types
         };
@@ -66,7 +66,7 @@ async function getRouterInfo() {
         console.log(firmware);
 
         // logout
-        console.log('going to logout now');
+        console.log("going to logout now");
         await router.logout();
     } catch (error) {
         console.log(error);
@@ -76,7 +76,7 @@ async function getRouterInfo() {
 getRouterInfo();
 
 // function to block or allow an attached device
-async function blockOrAllow(mac: string, action: 'Block' | 'Allow') {
+async function blockOrAllow(mac: string, action: "Block" | "Allow") {
     try {
         await router.login();
         await router.setBlockDeviceEnable(true);
@@ -88,10 +88,10 @@ async function blockOrAllow(mac: string, action: 'Block' | 'Allow') {
 }
 
 // block a device with mac 'AA:BB:CC:DD:EE:FF'
-blockOrAllow('AA:BB:CC:DD:EE:FF', 'Block');
+blockOrAllow("AA:BB:CC:DD:EE:FF", "Block");
 
 // allow a device with mac 'AA:BB:CC:DD:EE:FF'
-blockOrAllow('AA:BB:CC:DD:EE:FF', 'Allow');
+blockOrAllow("AA:BB:CC:DD:EE:FF", "Allow");
 
 // function to retrieve Guest Wifi status
 async function getGuestWifiStatus() {
@@ -116,15 +116,15 @@ async function doWifiStuff() {
         await router.login();
         // enable 2.4GHz-1 guest wifi
         await router.setGuestWifi(true);
-        console.log('2.4-1 enabled');
+        console.log("2.4-1 enabled");
         // disable 5GHz-1 guest wifi
         await router.set5GGuestWifi(false);
-        console.log('5-1 disabled');
+        console.log("5-1 disabled");
         // disable 5GHz-2 guest wifi
         await router.set5GGuestWifi2(false);
-        console.log('5-2 disabled');
+        console.log("5-2 disabled");
         // set 5GHz-1 wifi to channel 4
-        await router.setWifiChannel('4', '5G');
+        await router.setWifiChannel("4", "5G");
     } catch (error) {
         console.log(error);
     }
@@ -138,12 +138,12 @@ async function doQosStuff() {
         await router.login();
         // Set the qosEnableStatus.
         await router.setQoSEnableStatus(true);
-        console.log('Qos enabled');
+        console.log("Qos enabled");
         // Set the getBandwidthControlOptions.
-        console.log('trying to set Qos Bandwidth options...');
+        console.log("trying to set Qos Bandwidth options...");
         await router.setBandwidthControlOptions(60.5, 50.5); // in MB/s
         // Get the getBandwidthControlOptions.
-        console.log('trying to get Qos Bandwidth options...');
+        console.log("trying to get Qos Bandwidth options...");
         const bandwidthControlOptions = await router.getBandwidthControlOptions();
         console.log(bandwidthControlOptions);
     } catch (error) {
@@ -159,7 +159,7 @@ async function doTrafficMeterStuff() {
         await router.login();
         // enable trafficMeter.
         await router.enableTrafficMeter(true);
-        console.log('Traffic meter enabled');
+        console.log("Traffic meter enabled");
     } catch (error) {
         console.log(error);
     }
@@ -173,7 +173,7 @@ async function doParentalControlStuff() {
         await router.login();
         // disable parental control
         await router.enableParentalControl(false);
-        console.log('Parental control disabled');
+        console.log("Parental control disabled");
     } catch (error) {
         console.log(error);
     }
@@ -186,8 +186,8 @@ async function setNetgearDeviceName() {
     try {
         await router.login();
         // set router name to 'TEST'
-        await router.setNetgearDeviceName('TEST');
-        console.log('router name changed to TEST');
+        await router.setNetgearDeviceName("TEST");
+        console.log("router name changed to TEST");
     } catch (error) {
         console.log(error);
     }
@@ -199,7 +199,7 @@ setNetgearDeviceName();
 async function updateNewFirmware() {
     try {
         await router.login();
-        console.log('trying to update router firmware');
+        console.log("trying to update router firmware");
         await router.updateNewFirmware();
     } catch (error) {
         console.log(error);
@@ -212,7 +212,7 @@ updateNewFirmware();
 async function speedTest() {
     try {
         await router.login();
-        console.log('speed test is starting... (wait a minute)');
+        console.log("speed test is starting... (wait a minute)");
         const speed = await router.speedTest(); // takes 1 minute to respond!
         console.log(speed);
     } catch (error) {
@@ -227,7 +227,7 @@ async function reboot() {
     try {
         await router.login();
         // Reboot the router
-        console.log('going to reboot the router now');
+        console.log("going to reboot the router now");
         await router.reboot();
     } catch (error) {
         console.log(error);
@@ -246,7 +246,7 @@ async function wol(MAC: string, secureOnPassword: string) {
     }
 }
 
-wol('AA:BB:CC:DD:EE:FF', '00:00:00:00:00:00');
+wol("AA:BB:CC:DD:EE:FF", "00:00:00:00:00:00");
 
 const a: Promise<string[]> = router.getSystemLogs();
 const b: Promise<string[]> = router.getSystemLogs(false);

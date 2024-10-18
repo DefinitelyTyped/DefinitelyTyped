@@ -1,5 +1,7 @@
-import Tagify = require('@yaireo/tagify');
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Tagify = require("@yaireo/tagify");
 
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
     AddEventData,
     BaseTagData,
@@ -13,8 +15,8 @@ import {
     DropDownShowEventData,
     DropDownUpdatedEventData,
     EditBeforeUpdateEventData,
-    EditKeydownEventData,
     EditInputEventData,
+    EditKeydownEventData,
     EditStartEventData,
     EditUpdatedEventData,
     FocusEventData,
@@ -24,9 +26,9 @@ import {
     RemoveEventData,
     TagData,
     TagifySettings,
-} from '@yaireo/tagify';
+} from "@yaireo/tagify";
 
-import { MutableRefObject, ReactElement } from 'react';
+import { MutableRefObject, ReactElement } from "react";
 
 declare namespace Tags {
     /**
@@ -35,7 +37,7 @@ declare namespace Tags {
      * - `textarea` - renders an HTML TEXTAREA element and switch tagify to mixed
      * mode
      */
-    type InputMode = 'input' | 'textarea';
+    type InputMode = "input" | "textarea";
 
     /**
      * Base react props that for both the {@link Tags} and {@link MixedTags}
@@ -318,6 +320,19 @@ declare namespace Tags {
         readOnly?: boolean | undefined;
 
         /**
+         * Toggles "disabled" state.
+         * @default undefined
+         */
+        disabled?: boolean | undefined;
+
+        /**
+         * Toggles if user can manually type/paste/edit tags.
+         * If `false`, tags may only be added from the whitelist.
+         * @default true
+         */
+        userInput?: boolean | undefined;
+
+        /**
          * Settings for the tagify component.
          *
          * This property __cannot be updated__, i.e. setting this to a different
@@ -409,7 +424,7 @@ declare namespace Tags {
      * @returns The rendered React tagify element.
      */
     // Type parameter is used more than once within the TagifyMixedTagsReactProps interface
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function MixedTags<T extends BaseTagData = TagData>(props: TagifyMixedTagsReactProps<T>): ReactElement;
 }
 
@@ -422,7 +437,7 @@ declare namespace Tags {
  * @returns The rendered React tagify element.
  */
 // Type parameter is used more than once within the TagifyTagsReactProps interface
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function Tags<T extends BaseTagData = TagData>(props: Tags.TagifyTagsReactProps<T>): ReactElement;
 
 export = Tags;

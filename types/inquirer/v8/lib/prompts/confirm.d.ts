@@ -1,6 +1,6 @@
-import { Interface as ReadlineInterface } from 'readline';
-import { Answers, ConfirmQuestionOptions } from '../..';
-import Prompt = require('./base');
+import { Interface as ReadlineInterface } from "readline";
+import { Answers, ConfirmQuestionOptions } from "../..";
+import Prompt = require("./base");
 
 /**
  * The question-options for the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`}.

@@ -1,8 +1,8 @@
-import karma = require('karma');
+import karma = require("karma");
 
 const test = (config: karma.Config) => {
     config.set({
-        reporters: ['spec'],
+        reporters: ["spec"],
         specReporter: {
             maxLogLines: 5,
             suppressErrorSummary: true,
@@ -12,21 +12,21 @@ const test = (config: karma.Config) => {
             showSpecTiming: false,
             failFast: true,
         },
-        plugins: ['karma-spec-reporter'],
+        plugins: ["karma-spec-reporter"],
     });
 };
 
 const testWithPrefixes = (config: karma.Config) => {
     config.set({
-        reporters: ['spec'],
+        reporters: ["spec"],
         specReporter: {
             prefixes: {
-                success: 'OK',
-                failure: 'KO',
-                skipped: '--',
+                success: "OK",
+                failure: "KO",
+                skipped: "--",
             },
             suppressSummary: true,
         },
-        plugins: ['karma-spec-reporter'],
+        plugins: ["karma-spec-reporter"],
     });
 };

@@ -1,11 +1,3 @@
-// Type definitions for pulltorefreshjs 0.1
-// Project: https://github.com/BoxFactura/pulltorefresh.js
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-//                 Tamas Kinsztler <https://github.com/humpedli>
-//                 Samuel Bodin <https://github.com/bodinsamuel>
-//                 Stefan Langeder <https://github.com/slangeder>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function init(options?: Options): PullToRefreshInstance;
 
 export interface PullToRefreshInstance {

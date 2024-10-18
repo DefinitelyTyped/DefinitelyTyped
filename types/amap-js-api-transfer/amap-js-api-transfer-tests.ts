@@ -6,21 +6,21 @@ declare const lnglatTuple: [number, number];
 new AMap.Transfer();
 // $ExpectType Transfer
 new AMap.Transfer({
-    city: 'city'
+    city: "city",
 });
 // $ExpectType Transfer
 const transfer = new AMap.Transfer({
-    city: 'city1',
+    city: "city1",
     policy: AMap.TransferPolicy.LEAST_TIME,
     nightflag: true,
-    cityd: 'city2',
-    extensions: 'base',
+    cityd: "city2",
+    extensions: "base",
     map,
-    panel: 'panel',
+    panel: "panel",
     hideMarkers: false,
     isOutline: true,
-    outlineColor: 'green',
-    autoFitView: true
+    outlineColor: "green",
+    autoFitView: true,
 });
 
 // $ExpectType void
@@ -29,8 +29,8 @@ transfer.search(lnglat, lnglat);
 transfer.search(lnglatTuple, lnglatTuple);
 // $ExpectType void
 transfer.search(lnglat, lnglat, (status, result) => {
-    const temp: 'complete' | 'no_data' | 'error' = status;
-    if (typeof result !== 'string') {
+    const temp: "complete" | "no_data" | "error" = status;
+    if (typeof result !== "string") {
         // $ExpectType SearchResultBase
         result;
         // $ExpectType LngLat
@@ -68,7 +68,7 @@ transfer.search(lnglat, lnglat, (status, result) => {
             plan.segments;
             const segments = plan.segments[0];
             switch (segments.transit_mode) {
-                case 'WALK':
+                case "WALK":
                     // $ExpectType number
                     segments.distance;
                     // $ExpectType string
@@ -107,7 +107,7 @@ transfer.search(lnglat, lnglat, (status, result) => {
                     // $ExpectType "WALK"
                     segments.transit_mode;
                     break;
-                case 'TAXI':
+                case "TAXI":
                     // $ExpectType number
                     segments.distance;
                     // $ExpectType string
@@ -135,7 +135,7 @@ transfer.search(lnglat, lnglat, (status, result) => {
                     // $ExpectType "TAXI"
                     segments.transit_mode;
                     break;
-                case 'RAILWAY':
+                case "RAILWAY":
                     // $ExpectType number
                     segments.distance;
                     // $ExpectType string
@@ -185,7 +185,7 @@ transfer.search(lnglat, lnglat, (status, result) => {
                         // $ExpectType string
                         railwayDetails.type;
 
-                        if ('alters' in railwayDetails) {
+                        if ("alters" in railwayDetails) {
                             // $ExpectType Alter[]
                             railwayDetails.alters;
                             {
@@ -218,9 +218,9 @@ transfer.search(lnglat, lnglat, (status, result) => {
                     // $ExpectType "RAILWAY"
                     segments.transit_mode;
                     break;
-                case 'SUBWAY':
-                case 'METRO_RAIL':
-                case 'BUS':
+                case "SUBWAY":
+                case "METRO_RAIL":
+                case "BUS":
                     // $ExpectType number
                     segments.distance;
                     // $ExpectType string
@@ -312,9 +312,9 @@ transfer.search(lnglat, lnglat, (status, result) => {
 });
 
 // $ExpectType void
-transfer.search([{ keyword: 'origin' }, { keyword: 'destination' }], (status, result) => {
-    const temp: 'complete' | 'no_data' | 'error' = status;
-    if (typeof result !== 'string') {
+transfer.search([{ keyword: "origin" }, { keyword: "destination" }], (status, result) => {
+    const temp: "complete" | "no_data" | "error" = status;
+    if (typeof result !== "string") {
         // $ExpectType SearchResultExt
         result;
         // $ExpectType PoiExt
@@ -331,10 +331,10 @@ transfer.search([{ keyword: 'origin' }, { keyword: 'destination' }], (status, re
     }
 });
 
-transfer.on('complete', (event: AMap.Transfer.EventMap['complete']) => {
+transfer.on("complete", (event: AMap.Transfer.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
-    if ('info' in event) {
+    if ("info" in event) {
         // $ExpectType string
         event.info;
         // $ExpectType LngLat
@@ -346,7 +346,7 @@ transfer.on('complete', (event: AMap.Transfer.EventMap['complete']) => {
         // $ExpectType TransferPlan[]
         event.plans;
     }
-    if ('originName' in event) {
+    if ("originName" in event) {
         // $ExpectType PoiExt
         event.start;
         // $ExpectType PoiExt
@@ -363,7 +363,7 @@ transfer.on('complete', (event: AMap.Transfer.EventMap['complete']) => {
     }
 });
 
-transfer.on('error', (event: AMap.Transfer.EventMap['error']) => {
+transfer.on("error", (event: AMap.Transfer.EventMap["error"]) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string

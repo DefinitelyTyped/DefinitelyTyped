@@ -1,9 +1,3 @@
-// Type definitions for whatwg-encoding 2.0
-// Project: https://github.com/jsdom/whatwg-encoding
-// Definitions by: fengkx <https://github.com/fengkx>
-//                 BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Performs the [decode](https://encoding.spec.whatwg.org/#decode) algorithm (in which any BOM will override
  * the passed fallback encoding).
@@ -58,4 +52,4 @@ export function isSupported(name: string): boolean;
  */
 export function getBOMEncoding(uint8Array: Uint8Array): BOMEncoding | null;
 
-export type BOMEncoding = 'UTF-16BE' | 'UTF-16LE' | 'UTF-8';
+export type BOMEncoding = "UTF-16BE" | "UTF-16LE" | "UTF-8";

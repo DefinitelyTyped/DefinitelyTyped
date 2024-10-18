@@ -1,2 +1,2 @@
-import GetV = require('../2015/GetV');
+import GetV = require("../2015/GetV");
 export = GetV;

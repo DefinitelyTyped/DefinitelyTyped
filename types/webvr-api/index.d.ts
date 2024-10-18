@@ -1,8 +1,3 @@
-// Type definitions for WebVR API
-// Project: https://w3c.github.io/webvr/
-// Definitions by: efokschaner <https://github.com/efokschaner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Typescript doesn't allow redefinition of type aliases even if they match,
 // thus the _dt_alias to signal this being an alias for the use of DefinitelyTyped
 type VRDisplayEventReason_dt_alias = "mounted" | "navigation" | "requested" | "unmounted";
@@ -213,7 +208,7 @@ interface VRStageParameters {
 
 interface Navigator {
     getVRDisplays(): Promise<VRDisplay[]>;
-    readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
+    readonly activeVRDisplays: readonly VRDisplay[];
 }
 
 interface VRDisplayEventInit extends EventInit {
@@ -244,12 +239,32 @@ interface Window {
     addEventListener(type: "vrdisplayactivate", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
     addEventListener(type: "vrdisplayblur", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
     addEventListener(type: "vrdisplayconnect", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "vrdisplaydeactivate", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "vrdisplaydisconnect", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: "vrdisplaydeactivate",
+        listener: (this: Window, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
+    addEventListener(
+        type: "vrdisplaydisconnect",
+        listener: (this: Window, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: "vrdisplayfocus", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "vrdisplaypointerrestricted", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "vrdisplaypointerunrestricted", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "vrdisplaypresentchange", listener: (this: Window, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: "vrdisplaypointerrestricted",
+        listener: (this: Window, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
+    addEventListener(
+        type: "vrdisplaypointerunrestricted",
+        listener: (this: Window, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
+    addEventListener(
+        type: "vrdisplaypresentchange",
+        listener: (this: Window, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
 }
 
 interface Gamepad {

@@ -1,12 +1,6 @@
-// Type definitions for cross-spawn 6.0
-// Project: https://github.com/moxystudio/node-cross-spawn
-// Definitions by: Alorel <https://github.com/Alorel>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as child_process from 'child_process';
+import * as child_process from "child_process";
 
 declare namespace spawn {
     /**
@@ -29,7 +23,7 @@ declare namespace spawn {
 declare function spawn(command: string, options: child_process.SpawnOptions): child_process.ChildProcess;
 declare function spawn(
     command: string,
-    args?: ReadonlyArray<string>,
+    args?: readonly string[],
     options?: child_process.SpawnOptions,
 ): child_process.ChildProcess;
 

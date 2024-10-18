@@ -1,8 +1,3 @@
-// Type definitions for payment 2.1
-// Project: https://github.com/jessepollak/payment#readme
-// Definitions by: Alexandre Paré <https://github.com/apare>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Fns {
     /**
      * Validates a card number:
@@ -101,7 +96,7 @@ declare var Payment: {
     /**
      * Overrides the array of card types with a new array.
      */
-    setCardArray(cardTypes: ReadonlyArray<CardType>): void;
+    setCardArray(cardTypes: readonly CardType[]): void;
     /**
      * Add a new card type to the card array.
      */

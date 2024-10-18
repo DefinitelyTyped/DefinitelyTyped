@@ -1,4 +1,4 @@
-import webfontloader = require('webfontloader');
+import webfontloader = require("webfontloader");
 
 var config: webfontloader.Config = {
     context: window,
@@ -11,18 +11,18 @@ var config: webfontloader.Config = {
     fontactive: function(familyName: string, fvd: string) {},
     fontinactive: function(familyName: string, fvd: string) {},
     google: {
-        families: ['Droid Sans', 'Droid Serif:bold'],
-        text: 'abcdedfghijklmopqrstuvwxyz!',
+        families: ["Droid Sans", "Droid Serif:bold"],
+        text: "abcdedfghijklmopqrstuvwxyz!",
     },
     custom: {
-        families: ['My Font', 'My Other Font:n4,i4,n7'],
-        urls: ['/fonts.css'],
+        families: ["My Font", "My Other Font:n4,i4,n7"],
+        urls: ["/fonts.css"],
     },
     fontdeck: {
-        id: 'xxxx',
+        id: "xxxx",
     },
     monotype: {
-        projectId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+        projectId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         version: 12345,
         loadAllFonts: true,
     },

@@ -1,13 +1,8 @@
-// Type definitions for gulp-util 3.0
-// Project: https://github.com/gulpjs/gulp-util
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import vinyl = require('vinyl');
-import chalk from 'chalk';
-import through2 = require('through2');
+import vinyl = require("vinyl");
+import chalk from "chalk";
+import through2 = require("through2");
 
 export { vinyl as File };
 

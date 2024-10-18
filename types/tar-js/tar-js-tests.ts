@@ -6,12 +6,12 @@ console.log(tar.written === 0);
 const out: Uint8Array = tar.out;
 console.log(out);
 tar.append("foo.txt", "foo");
-tar.append("bar.txt", "bar", {mode: 0o755, mtime: 123, uid: 0, gid: 0, owner: "owner", group: "group"});
+tar.append("bar.txt", "bar", { mode: 0o755, mtime: 123, uid: 0, gid: 0, owner: "owner", group: "group" });
 tar.append("baz.txt", "baz", (out1) => {
     const out2: Uint8Array = out1;
     console.log(out2);
 });
-tar.append("hoge.txt", "hoge", {mode: 0o755, mtime: 123, uid: 0, gid: 0, owner: "owner", group: "group"}, (out1) => {
+tar.append("hoge.txt", "hoge", { mode: 0o755, mtime: 123, uid: 0, gid: 0, owner: "owner", group: "group" }, (out1) => {
     const out2: Uint8Array = out1;
     console.log(out2);
 });

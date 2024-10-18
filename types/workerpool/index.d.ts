@@ -1,15 +1,7 @@
-// Type definitions for workerpool 6.4
-// Project: https://github.com/josdejong/workerpool
-// Definitions by: Alorel <https://github.com/Alorel>
-//                 Seulgi Kim <https://github.com/sgkim126>
-//                 Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="node" />
 
-import * as cp from 'child_process';
-import * as wt from 'worker_threads';
+import * as cp from "child_process";
+import * as wt from "worker_threads";
 
 export interface WorkerPoolStats {
     totalWorkers: number;
@@ -45,7 +37,7 @@ export interface WorkerPool {
      * The proxy contains a proxy for all methods available on the worker.
      * All methods return promises resolving the methods result.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     proxy<T extends { [k: string]: (...args: any[]) => any }>(): Promise<Proxy<T>>;
 
     /** Retrieve statistics on workers, and active and pending tasks. */
@@ -88,14 +80,14 @@ export class Promise<T, E = Error> {
 }
 
 export namespace Promise {
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export class CancellationError extends Error {
-        name: 'CancellationError';
+        name: "CancellationError";
     }
 
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export class TimeoutError extends Error {
-        name: 'TimeoutError';
+        name: "TimeoutError";
     }
 }
 
@@ -123,13 +115,20 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * The minimum number of workers that must be initialized and kept available.
      * Setting this to 'max' will create maxWorkers default workers.
      */
-    minWorkers?: number | 'max' | undefined;
+    minWorkers?: number | "max" | undefined;
 
     /**
      * The default number of maxWorkers is the number of CPU's minus one.
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
      */
     maxWorkers?: number | undefined;
+
+    /**
+     * The maximum number of tasks allowed to be queued. Can be used to prevent running out of memory.
+     * If the maximum is exceeded, adding a new task will throw an error.
+     * The default value is `Infinity`.
+     */
+    maxQueueSize?: number | undefined;
 
     /**
      * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:
@@ -140,7 +139,7 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * - In case of `'thread'`, `worker_threads` will be used. If `worker_threads` are not available, an error is thrown.
      *   Only available in a node.js environment.
      */
-    workerType?: 'auto' | 'web' | 'process' | 'thread' | undefined;
+    workerType?: "auto" | "web" | "process" | "thread" | undefined;
 
     /**
      * The timeout in milliseconds to wait for a worker to cleanup it's resources on termination before stopping it forcefully.
@@ -155,6 +154,7 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * Optionally, this callback can return an object containing one or more of the above properties.
      * The provided properties will be used to override the Pool properties for the worker being created.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onCreateWorker?: ((options: WorkerHandlerOptions) => WorkerHandlerOptions | void) | undefined;
     /**
      * A callback that is called whenever a worker is being terminated.
@@ -195,6 +195,6 @@ export interface WorkerOptions {
  */
 export function worker(methods?: { [k: string]: (...args: any[]) => any }, options?: WorkerOptions): any;
 export function workerEmit(payload: any): void;
-export const platform: 'node' | 'browser';
+export const platform: "node" | "browser";
 export const isMainThread: boolean;
 export const cpus: number;

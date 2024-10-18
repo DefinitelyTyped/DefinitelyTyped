@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * A class for generating sphere geometries.
@@ -46,7 +46,7 @@ export class SphereGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `SphereGeometry`
      */
-    override readonly type: string | 'SphereGeometry';
+    override readonly type: string | "SphereGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

@@ -1,4 +1,4 @@
-import { ServiceAccountCredentials } from './service-account-credentials';
+import { ServiceAccountCredentials } from "./service-account-credentials";
 export class ServiceAccountCredentialsBuilder {
     /**
      * Set Client ID (API Key)

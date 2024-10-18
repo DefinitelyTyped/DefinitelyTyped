@@ -1,7 +1,7 @@
-import '@bigbite/wp-cypress';
+import "@bigbite/wp-cypress";
 
 // $ExpectType Chainable<Exec>
-cy.wp('cli version');
+cy.wp("cli version");
 
 // @ts-expect-error
 cy.wp();
@@ -13,7 +13,7 @@ cy.wp(null);
 cy.wp(1);
 
 // $ExpectType Chainable<Exec>
-cy.seed('MySeeder');
+cy.seed("MySeeder");
 
 // @ts-expect-error
 cy.seed();
@@ -25,7 +25,7 @@ cy.seed(null);
 cy.seed(1);
 
 // $ExpectType Chainable<Exec>
-cy.seedClean('MySeeder');
+cy.seedClean("MySeeder");
 
 // @ts-expect-error
 cy.seedClean();
@@ -37,7 +37,7 @@ cy.seedClean(null);
 cy.seedClean(1);
 
 // $ExpectType Chainable<Exec>
-cy.cleanThenSeed('MySeeder');
+cy.cleanThenSeed("MySeeder");
 
 // @ts-expect-error
 cy.cleanThenSeed();
@@ -49,7 +49,7 @@ cy.cleanThenSeed(null);
 cy.cleanThenSeed(1);
 
 // $ExpectType Chainable<Exec>
-cy.resetWP('5.9');
+cy.resetWP("5.9");
 
 // $ExpectType Chainable<Exec>
 cy.resetWP(false);
@@ -61,7 +61,7 @@ cy.resetWP(null);
 cy.resetWP(1);
 
 // $ExpectType Chainable<Exec>
-cy.installTheme('my-theme');
+cy.installTheme("my-theme");
 
 // @ts-expect-error
 cy.installTheme();
@@ -73,7 +73,7 @@ cy.installTheme(null);
 cy.installTheme(1);
 
 // $ExpectType Chainable<Exec>
-cy.installPlugin('my-plugin');
+cy.installPlugin("my-plugin");
 
 // @ts-expect-error
 cy.installPlugin();
@@ -85,7 +85,7 @@ cy.installPlugin(null);
 cy.installPlugin(1);
 
 // $ExpectType Chainable<Exec>
-cy.activatePlugin('my-plugin');
+cy.activatePlugin("my-plugin");
 
 // @ts-expect-error
 cy.activatePlugin();
@@ -97,7 +97,7 @@ cy.activatePlugin(null);
 cy.activatePlugin(1);
 
 // $ExpectType Chainable<Exec>
-cy.deactivatePlugin('my-plugin');
+cy.deactivatePlugin("my-plugin");
 
 // @ts-expect-error
 cy.deactivatePlugin();
@@ -114,11 +114,11 @@ cy.visitAdmin();
 // Handle `options` param
 // $ExpectType Chainable<AUTWindow>
 cy.visitAdmin({
-    method: 'GET',
+    method: "GET",
 });
 
 // @ts-expect-error
-cy.visitAdmin('https://example.com');
+cy.visitAdmin("https://example.com");
 
 // @ts-expect-error
 cy.visitAdmin(1);
@@ -132,14 +132,14 @@ cy.editPost(1);
 // Handle `options` param
 // $ExpectType Chainable<AUTWindow>
 cy.editPost(1, {
-    method: 'GET',
+    method: "GET",
 });
 
 // @ts-expect-error
-cy.editPost('1');
+cy.editPost("1");
 
 // @ts-expect-error
-cy.editPost(1, 'https://example.com');
+cy.editPost(1, "https://example.com");
 
 // @ts-expect-error
 cy.editPost(1, 1);
@@ -151,7 +151,7 @@ cy.editPost(1, null);
 cy.saveCurrentPost();
 
 // @ts-expect-error
-cy.saveCurrentPost('my-post');
+cy.saveCurrentPost("my-post");
 
 // @ts-expect-error
 cy.saveCurrentPost(1);
@@ -160,13 +160,13 @@ cy.saveCurrentPost(1);
 cy.saveCurrentPost(null);
 
 // $ExpectType Chainable<Exec>
-cy.switchUser('myUser', 'myPassword');
+cy.switchUser("myUser", "myPassword");
 
 // $ExpectType Chainable<Exec>
-cy.switchUser('myUser', null);
+cy.switchUser("myUser", null);
 
 // $ExpectType Chainable<Exec>
-cy.switchUser('myUser');
+cy.switchUser("myUser");
 
 // $ExpectType Chainable<Exec>
 cy.switchUser();
@@ -178,7 +178,7 @@ cy.switchUser(1, 1);
 cy.switchUser(1);
 
 // @ts-expect-error
-cy.switchUser('myUser', 1);
+cy.switchUser("myUser", 1);
 
 // @ts-expect-error
 cy.switchUser(null, null);
@@ -190,7 +190,7 @@ cy.switchUser(null);
 cy.logout();
 
 // @ts-expect-error
-cy.logout('myUser');
+cy.logout("myUser");
 
 // @ts-expect-error
 cy.logout(1);

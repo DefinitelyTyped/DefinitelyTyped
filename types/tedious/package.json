@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/tedious",
+    "version": "4.0.9999",
+    "projects": [
+        "http://tediousjs.github.io/tedious/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/tedious": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "Chris Thompson",
+            "githubUsername": "cjthompson"
+        },
+        {
+            "name": "Guilherme Amorim",
+            "githubUsername": "guiampm"
+        },
+        {
+            "name": "Simon Childs",
+            "githubUsername": "csharpsi"
+        }
+    ]
+}

@@ -12,7 +12,7 @@ declare namespace OO.ui {
     interface MessageWidget extends MessageWidget.Props, MessageWidget.Prototype {}
 
     namespace MessageWidget {
-        type Type = 'notice' | 'error' | 'warning' | 'success';
+        type Type = "notice" | "error" | "warning" | "success";
 
         /**
          * @see https://www.mediawiki.org/wiki/OOUI/Elements/Flagged#MessageWidget
@@ -24,11 +24,13 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
                 mixin.TitledElement.ConfigOptions,
-                mixin.FlaggedElement.ConfigOptions {
+                mixin.FlaggedElement.ConfigOptions
+        {
             /**
              * The type of the notice widget. This will also
              * impact the flags that the widget receives (and hence its CSS design) as well
@@ -45,28 +47,34 @@ declare namespace OO.ui {
         }
 
         interface Static
-            extends Widget.Static,
+            extends
+                Widget.Static,
                 mixin.IconElement.Static,
                 mixin.LabelElement.Static,
                 mixin.TitledElement.Static,
-                mixin.FlaggedElement.Static {
+                mixin.FlaggedElement.Static
+        {
             /** An object defining the icon name per defined type. */
             iconMap: Record<string, Icon>;
         }
 
         interface Props
-            extends Widget.Props,
+            extends
+                Widget.Props,
                 mixin.IconElement.Props,
                 mixin.LabelElement.Props,
                 mixin.TitledElement.Props,
-                mixin.FlaggedElement.Props {}
+                mixin.FlaggedElement.Props
+        {}
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.LabelElement.Prototype,
                 mixin.TitledElement.Prototype,
-                mixin.FlaggedElement.Prototype {
+                mixin.FlaggedElement.Prototype
+        {
             /**
              * Set the inline state of the widget.
              *
@@ -124,21 +132,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MessageWidget;
+            new(config?: ConfigOptions): MessageWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

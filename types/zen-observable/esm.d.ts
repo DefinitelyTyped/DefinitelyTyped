@@ -1,11 +1,11 @@
-import Observable = require('.');
+import Observable = require(".");
 
 /**
  * @see https://github.com/zenparsing/zen-observable/blob/master/esm.js
  */
 export default Observable;
 export { Observable };
-export * from './extras';
+export * from "./extras";
 
 export type SubscriptionObserver<T> = ZenObservable.SubscriptionObserver<T>;
 export type Subscription = ZenObservable.Subscription;

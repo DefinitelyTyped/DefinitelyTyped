@@ -1,11 +1,11 @@
-import { MiddlewareFunction } from 'middy';
-import { HttpGatewayEvent } from './normalizeHttpRequestMiddleware';
-import AuroraDbService from '../services/AuroraDbService';
+import { MiddlewareFunction } from "middy";
+import AuroraDbService from "../services/AuroraDbService";
+import { HttpGatewayEvent } from "./normalizeHttpRequestMiddleware";
 
 export interface MiddlewareOptions {
     headers?: Record<string, string>;
     debugMode?: boolean;
-    zipWhenRequest?: Array<'ELB' | 'APIGATEWAY'>;
+    zipWhenRequest?: Array<"ELB" | "APIGATEWAY">;
     db?: AuroraDbService;
 }
 

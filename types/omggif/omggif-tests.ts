@@ -1,4 +1,4 @@
-import * as omggif from 'omggif';
+import * as omggif from "omggif";
 
 // (c) Dean McNamee <dean@gmail.com>, 2013.
 // Node omggif example to write out a few example images.

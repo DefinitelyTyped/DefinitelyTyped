@@ -1,3 +1,3 @@
-import { rules } from 'eslint-config-prettier';
+import { rules } from "eslint-config-prettier";
 
-const value: 0 | 'off' = rules.whitespace;
+const value: 0 | "off" = rules.whitespace;

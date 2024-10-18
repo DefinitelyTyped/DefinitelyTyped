@@ -1,9 +1,3 @@
-// Type definitions for chai-html 1.3
-// Project: https://github.com/i-like-robots/chai-html
-// Definitions by: Alex <https://github.com/adjerbetian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
 declare global {
@@ -22,4 +16,4 @@ declare namespace ChaiHtml {
 
 declare const chaiHtml: Chai.ChaiPlugin;
 declare namespace chaiHtml {}
-export = chaiHtml;
+export default chaiHtml;

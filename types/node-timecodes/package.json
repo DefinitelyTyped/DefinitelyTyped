@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/node-timecodes",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/Synchronized-TV/node-timecodes"
+    ],
+    "devDependencies": {
+        "@types/node-timecodes": "workspace:."
+    },
+    "owners": []
+}

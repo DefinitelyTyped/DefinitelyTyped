@@ -1,18 +1,18 @@
-import * as React from 'react';
-import Carousel = require('react-gallery-carousel');
+import * as React from "react";
+import Carousel = require("react-gallery-carousel");
 
 const images: Carousel.Images = [
     {
         src: `https://placedog.net/700/420?id=1`,
         srcset: `https://placedog.net/400/240?id=1 400w, https://placedog.net/700/420?id=1 700w`,
-        sizes: '(max-width: 1000px) 400px, (max-width: 2000px) 700px, 1000px',
+        sizes: "(max-width: 1000px) 400px, (max-width: 2000px) 700px, 1000px",
         alt: `Dogs are domesticated mammals, not natural wild animals.`,
         thumbnail: `https://placedog.net/100/60?id=1`,
     },
     {
         src: `https://placedog.net/700/420?id=2`,
         srcset: `https://placedog.net/400/240?id=2 400w, https://placedog.net/700/420?id=2 700w`,
-        sizes: '(max-width: 1000px) 400px, (max-width: 2000px) 700px, 1000px',
+        sizes: "(max-width: 1000px) 400px, (max-width: 2000px) 700px, 1000px",
         alt: `Dogs are domesticated mammals, not natural wild animals.`,
         thumbnail: `https://placedog.net/100/60?id=2`,
     },
@@ -31,7 +31,7 @@ const images: Carousel.Images = [
     shouldSwipeOnMouse={false}
     shouldMinimizeOnSwipeDown={false}
     index={1}
-    style={{ userSelect: 'text' }}
+    style={{ userSelect: "text" }}
 >
     <h3>This is the example 2</h3>
 </Carousel>;
@@ -52,8 +52,8 @@ const images: Carousel.Images = [
     hasDotButtonsAtMax="bottom"
     hasThumbnails={false}
     hasThumbnailsAtMax={true}
-    thumbnailWidth={'15%'}
-    thumbnailHeight={'15%'}
+    thumbnailWidth={"15%"}
+    thumbnailHeight={"15%"}
     shouldMaximizeOnClick={true}
     shouldMinimizeOnClick={true}
     activeIcon={
@@ -90,7 +90,7 @@ const images: Carousel.Images = [
 
 // Image object without the required src should be an error
 // @ts-expect-error
-<Carousel images={[{ alt: 'alt description' }]} />;
+<Carousel images={[{ alt: "alt description" }]} />;
 
 // Should support new params on the onIndexChange callback
 <Carousel

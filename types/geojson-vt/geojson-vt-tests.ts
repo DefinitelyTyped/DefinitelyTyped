@@ -1,15 +1,15 @@
-import * as geojsonvt from 'geojson-vt';
-import * as GJ from 'geojson';
+import * as GJ from "geojson";
+import * as geojsonvt from "geojson-vt";
 
 const GeoJSONData: GJ.FeatureCollection = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         {
-            type: 'Feature',
-            id: '20',
-            properties: { name: 'Kansas', density: 35.09 },
+            type: "Feature",
+            id: "20",
+            properties: { name: "Kansas", density: 35.09 },
             geometry: {
-                type: 'Polygon',
+                type: "Polygon",
                 coordinates: [
                     [
                         [-101.90605, 40.001626],
@@ -44,6 +44,9 @@ const GeoJsonVTOptions: geojsonvt.Options = {
     indexMaxZoom: 5, // max zoom in the initial tile index
     indexMaxPoints: 100000, // max number of points per tile in the index
 };
+
+GeoJsonVTOptions.lineMetrics; // $ExpectType boolean | undefined
+GeoJsonVTOptions.generateId; // $ExpectType boolean | undefined
 
 const gjv = geojsonvt(GeoJSONData, GeoJsonVTOptions);
 gjv; // $ExpectType GeoJSONVT

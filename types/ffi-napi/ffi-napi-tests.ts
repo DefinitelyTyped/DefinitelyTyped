@@ -1,8 +1,8 @@
-import ffi = require('ffi-napi');
-import ref = require('ref-napi');
-import ref_struct = require('ref-struct-di');
-import ref_union = require('ref-union-di');
-import ref_array = require('ref-array-di');
+import ffi = require("ffi-napi");
+import ref = require("ref-napi");
+import ref_struct = require("ref-struct-di");
+import ref_union = require("ref-union-di");
+import ref_array = require("ref-array-di");
 const Struct = ref_struct(ref);
 const Union = ref_union(ref);
 const TArray = ref_array(ref);
@@ -13,67 +13,67 @@ const TArray = ref_array(ref);
     const sqlite3PtrPtr = ref.refType(sqlite3Ptr);
     const stringPtr = ref.refType(ref.types.CString);
 
-    const libsqlite3 = ffi.Library('libsqlite3', {
-      sqlite3_open: [ 'int', [ 'string', sqlite3PtrPtr ] ],
-      sqlite3_close: [ 'int', [ sqlite3PtrPtr ] ],
-      sqlite3_exec: [ 'int', [ sqlite3PtrPtr, 'string', 'pointer', 'pointer', stringPtr ] ],
-      sqlite3_changes: [ 'int', [ sqlite3PtrPtr ]]
+    const libsqlite3 = ffi.Library("libsqlite3", {
+        sqlite3_open: ["int", ["string", sqlite3PtrPtr]],
+        sqlite3_close: ["int", [sqlite3PtrPtr]],
+        sqlite3_exec: ["int", [sqlite3PtrPtr, "string", "pointer", "pointer", stringPtr]],
+        sqlite3_changes: ["int", [sqlite3PtrPtr]],
     });
 
     const dbPtrPtr = ref.alloc(sqlite3PtrPtr);
     libsqlite3.sqlite3_open("test.sqlite3", dbPtrPtr);
 }
 {
-    const func = ffi.ForeignFunction(new Buffer(10), 'int', [ 'int' ]);
+    const func = ffi.ForeignFunction(new Buffer(10), "int", ["int"]);
     func(-5);
     func.async(-5, (err: any, res: any) => {});
 }
 {
-    const funcPtr = ffi.Callback('int', [ 'int' ], Math.abs);
-    const func    = ffi.ForeignFunction(funcPtr, 'int', [ 'int' ]);
+    const funcPtr = ffi.Callback("int", ["int"], Math.abs);
+    const func = ffi.ForeignFunction(funcPtr, "int", ["int"]);
 }
 {
-    const printfPointer = ffi.DynamicLibrary().get('printf');
-    const printfGen = ffi.VariadicForeignFunction(printfPointer, 'void', [ 'string' ]);
-    printfGen()('Hello World!\n');
-    printfGen('int')('This is an int: %d\n', 10);
-    printfGen('string')('This is a string: %s\n', 'hello');
+    const printfPointer = ffi.DynamicLibrary().get("printf");
+    const printfGen = ffi.VariadicForeignFunction(printfPointer, "void", ["string"]);
+    printfGen()("Hello World!\n");
+    printfGen("int")("This is an int: %d\n", 10);
+    printfGen("string")("This is a string: %s\n", "hello");
 }
 {
     ref.address(Buffer.alloc(1));
     const intBuf = ref.alloc(ref.types.int);
     const intWith4 = ref.alloc(ref.types.int, 4);
-    const buf0 = ref.allocCString('hello world');
-    const type = ref.coerceType('int **');
+    const buf0 = ref.allocCString("hello world");
+    const type = ref.coerceType("int **");
     const val = ref.deref(intBuf);
 }
 {
     ref.isNull(Buffer.alloc(1));
 }
 {
-    const str = ref.readCString(Buffer.from('hello\0world\0'), 0);
-    const buf = ref.alloc('int64');
-    ref.writeInt64BE(buf, 0, '9223372036854775807');
+    const str = ref.readCString(Buffer.from("hello\0world\0"), 0);
+    const buf = ref.alloc("int64");
+    ref.writeInt64BE(buf, 0, "9223372036854775807");
     const val = ref.readInt64BE(buf, 0);
 }
 {
     const voidPtrType = ref.refType(ref.types.void);
-    const buf = ref.alloc('int64');
-    ref.writeInt64LE(buf, 0, '9223372036854775807');
+    const buf = ref.alloc("int64");
+    ref.writeInt64LE(buf, 0, "9223372036854775807");
 }
 {
     const S1 = Struct({ a: ref.types.int });
-    const S2 = new Struct({ a: 'int' });
+    const S2 = new Struct({ a: "int" });
 }
 {
     const P = new Struct();
-    P.defineProperty('a', ref.types.int);
-    P.defineProperty('d', 'long');
+    P.defineProperty("a", ref.types.int);
+    P.defineProperty("d", "long");
 }
 {
     const SimpleStruct = Struct({
-        first : ref.types.byte,
-        last  : ref.types.byte
+        first: ref.types.byte,
+        last: ref.types.byte,
     });
 
     const ss = new SimpleStruct({ first: 50, last: 100 });
@@ -81,11 +81,11 @@ const TArray = ref_array(ref);
 }
 {
     const ST = Struct();
-    const test: ref.Type = ST.fields['t'].type;
+    const test: ref.Type = ST.fields["t"].type;
 }
 {
-    const CharArray = TArray('char');
-    const b = Buffer.from('hello', 'ascii');
+    const CharArray = TArray("char");
+    const b = Buffer.from("hello", "ascii");
     const a = new CharArray(b);
 }
 {
@@ -105,40 +105,40 @@ const TArray = ref_array(ref);
     const array = IntArray.untilZeros(buf);
 }
 {
-    const refCharArr = TArray('char')([1, 3, 5], 2).ref();
+    const refCharArr = TArray("char")([1, 3, 5], 2).ref();
 }
 {
     // You can also access just functions in the current process by passing a null
     const current = ffi.Library(null, {
-      atoi: [ 'int', [ 'string' ] ]
+        atoi: ["int", ["string"]],
     });
-    current.atoi('1234');
+    current.atoi("1234");
 }
 
 declare const any: any;
 
 // $ExpectType ForeignFunction<void, []> | VariadicForeignFunction<CoerceType<"void">, []> | ((args_0: (err: any, value: void) => void) => void)
-ffi.Library(null, { x: ["void", [], any]}).x;
+ffi.Library(null, { x: ["void", [], any] }).x;
 // $ExpectType ForeignFunction<void, []>
-ffi.Library(null, { x: ["void", [], undefined]}).x;
+ffi.Library(null, { x: ["void", [], undefined] }).x;
 // $ExpectType ForeignFunction<void, []>
-ffi.Library(null, { x: ["void", [], { }]}).x;
+ffi.Library(null, { x: ["void", [], {}] }).x;
 // $ExpectType ForeignFunction<void, []>
-ffi.Library(null, { x: ["void", [], { varargs: false }]}).x;
+ffi.Library(null, { x: ["void", [], { varargs: false }] }).x;
 // $ExpectType ForeignFunction<void, []>
-ffi.Library(null, { x: ["void", [], { async: false }]}).x;
+ffi.Library(null, { x: ["void", [], { async: false }] }).x;
 // $ExpectType ForeignFunction<void, []>
-ffi.Library(null, { x: ["void", [], { abi: 0 }]}).x;
+ffi.Library(null, { x: ["void", [], { abi: 0 }] }).x;
 // $ExpectType VariadicForeignFunction<CoerceType<"void">, []>
-ffi.Library(null, { x: ["void", [], { varargs: true }]}).x;
+ffi.Library(null, { x: ["void", [], { varargs: true }] }).x;
 // $ExpectType (args_0: (err: any, value: void) => void) => void
-ffi.Library(null, { x: ["void", [], { async: true }]}).x;
+ffi.Library(null, { x: ["void", [], { async: true }] }).x;
 
 {
     // Ensure functions types are valid.
     const PCALLBACK = ffi.Function("bool", ["int32"]);
     const lib = ffi.Library(null, {
-        foo: ["void", [PCALLBACK]]
+        foo: ["void", [PCALLBACK]],
     });
     const callback = (x: number) => x > 0;
     lib.foo(callback);

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/compressible",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jshttp/compressible#readme"
+    ],
+    "devDependencies": {
+        "@types/compressible": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

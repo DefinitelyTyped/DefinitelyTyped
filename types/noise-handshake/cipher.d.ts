@@ -5,7 +5,7 @@ declare class CipherState {
     static readonly NONCEBYTES: 8;
     static readonly KEYBYTES: 32;
 
-    readonly CIPHER_ALG: 'ChaChaPoly';
+    readonly CIPHER_ALG: "ChaChaPoly";
     key: Buffer | Uint8Array | null;
     nonce: number | null;
 

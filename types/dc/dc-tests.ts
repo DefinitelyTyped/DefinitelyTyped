@@ -1,7 +1,6 @@
-import * as crossfilter from 'crossfilter';
+import * as crossfilter from "crossfilter";
 import * as d3 from "d3";
 import * as dc from "dc";
-
 
 interface IYelpData {
     city: string;
@@ -16,7 +15,7 @@ interface IYelpData {
     stars: number;
     latitude: number;
     open: boolean;
-    categories: string[]
+    categories: string[];
 }
 
 interface IYelpDataExtended {
@@ -26,7 +25,6 @@ interface IYelpDataExtended {
     review_avg: number;
     star_avg: number;
 }
-
 
 /********************************************************
  *                            *
@@ -41,7 +39,7 @@ interface IYelpDataExtended {
  *                            *
  ********************************************************/
 d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
-    if (yelp_data == null) return
+    if (yelp_data == null) return;
 
     /********************************************************
      *                           *
@@ -72,8 +70,8 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
     var cityDimension: CrossFilter.Dimension<IYelpData, string> = ndx.dimension((d: IYelpData) => d.city);
     var cityGroup: CrossFilter.Group<IYelpData, string, string> = cityDimension.group();
     var cityDimensionGroup: CrossFilter.Group<IYelpData, string, IYelpDataExtended> = cityDimension.group().reduce(
-        //add
-        (p: IYelpDataExtended, v:IYelpData) => {
+        // add
+        (p: IYelpDataExtended, v: IYelpData) => {
             ++p.count;
             p.review_sum += v.review_count;
             p.star_sum += v.stars;
@@ -81,8 +79,8 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
             p.star_avg = p.star_sum / p.count;
             return p;
         },
-        //remove
-        (p: IYelpDataExtended, v:IYelpData) => {
+        // remove
+        (p: IYelpDataExtended, v: IYelpData) => {
             --p.count;
             p.review_sum -= v.review_count;
             p.star_sum -= v.stars;
@@ -90,10 +88,10 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
             p.star_avg = p.star_sum / p.count;
             return p;
         },
-        //init
+        // init
         () => {
-            return {count: 0, review_sum: 0, star_sum: 0, review_avg: 0, star_avg: 0};
-        }
+            return { count: 0, review_sum: 0, star_sum: 0, review_avg: 0, star_avg: 0 };
+        },
     );
 
     // for pieChart
@@ -108,15 +106,15 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
      *                           *
      ********************************************************/
 
-    var x = d3.scaleLinear().domain([0, 5.5])
-    var xAxis = d3.axisBottom(x)
+    var x = d3.scaleLinear().domain([0, 5.5]);
+    var xAxis = d3.axisBottom(x);
     bubbleChart
         .width(650)
         .height(300)
         .dimension(cityDimension)
         .group(cityDimensionGroup)
         .transitionDuration(1500)
-        .colors(["#a60000","#ff0000", "#ff4040","#ff7373","#67e667","#39e639","#00cc00"])
+        .colors(["#a60000", "#ff0000", "#ff4040", "#ff7373", "#67e667", "#39e639", "#00cc00"])
         .colorDomain([-12000, 12000])
         .x(x)
         .xAxis(xAxis)
@@ -147,9 +145,8 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
             dc.events.trigger(() => {
                 if (chart.filter()) {
                     console.log(chart.filter());
-                    volumeChart.filter([chart.filter()-.25,chart.filter()-(-0.25)]);
-                }
-                else volumeChart.filterAll();
+                    volumeChart.filter([chart.filter() - .25, chart.filter() - (-0.25)]);
+                } else volumeChart.filterAll();
             }));
 
     volumeChart
@@ -164,16 +161,15 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
         .elasticY(true)
         .on("filtered", (chart: dc.BarChart) =>
             dc.events.trigger(() => {
-                if(chart.filter()) {
+                if (chart.filter()) {
                     console.log(chart.filter());
                     lineChart.filter(chart.filter());
-                }
-                else {
-                    lineChart.filterAll()
+                } else {
+                    lineChart.filterAll();
                 }
             }))
         .xAxis()
-            .tickFormat((v: string) => v);
+        .tickFormat((v: string) => v);
 
     console.log(startValueGroup.top(1)[0].value);
 
@@ -187,7 +183,7 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
         .renderHorizontalGridLines(true)
         .elasticY(true)
         .xAxis()
-            .tickFormat((v: string) => v);
+        .tickFormat((v: string) => v);
 
     lineChart.legend(dc.legend().x(200).y(10).itemHeight(13).gap(5));
 
@@ -197,12 +193,10 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
         .dimension(cityDimension)
         .group(cityGroup)
         .renderLabel(true)
-        .colors(["#a60000","#ff0000", "#ff4040","#ff7373","#67e667","#39e639","#00cc00"])
+        .colors(["#a60000", "#ff0000", "#ff4040", "#ff7373", "#67e667", "#39e639", "#00cc00"])
         .colorDomain([0, 0])
         .renderlet((chart: dc.RowChart) => bubbleChart.filter(chart.filter()))
-        .on("filtered", (chart: dc.RowChart) =>
-            dc.events.trigger(() =>
-                bubbleChart.filter(chart.filter())));
+        .on("filtered", (chart: dc.RowChart) => dc.events.trigger(() => bubbleChart.filter(chart.filter())));
 
     dataTable
         .width(800)
@@ -215,7 +209,9 @@ d3.json<IYelpData[]>("data/yelp_test_set_business.json").then((yelp_data) => {
             (d: IYelpData) => d.city,
             (d: IYelpData) => d.stars,
             (d: IYelpData) => d.review_count,
-            (d: IYelpData) => '<a href=\"http://maps.google.com/maps?z=12&t=m&q=loc:' + d.latitude + '+' + d.longitude +"\" target=\"_blank\">Map</a>"
+            (d: IYelpData) =>
+                "<a href=\"http://maps.google.com/maps?z=12&t=m&q=loc:" + d.latitude + "+" + d.longitude
+                + "\" target=\"_blank\">Map</a>",
         ])
         .sortBy((d: IYelpData) => d.stars)
         // (optional) sort order, :default ascending

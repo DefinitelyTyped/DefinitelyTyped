@@ -1,4 +1,4 @@
-import FacebookAdsApi from './api';
+import FacebookAdsApi from "./api";
 export default class Cursor extends Array<Record<string, any>> {
     sourceObject: Record<string, any>;
     _api: FacebookAdsApi;
@@ -7,16 +7,18 @@ export default class Cursor extends Array<Record<string, any>> {
     _buildObjectsFromResponse: (response: Record<string, any>) => Array<Record<string, any>>;
     paging: any;
     summary: any;
+    headers: any;
     clear: () => void;
-    next: () => Promise<any>;
+    next: () => any;
     previous: () => Promise<any>;
     hasNext: () => boolean;
     hasPrevious: () => boolean;
     set: (array: Array<Record<string, any>>) => void;
-    constructor(
-        sourceObject: Record<string, any>,
-        targetClass: Record<string, any>,
-        params: Record<string, any>,
-        endpoint?: string | null,
-    );
+    /**
+     * @param  {Object} sourceObject
+     * @param  {Object} targetClass
+     * @param  {Object} [params]
+     * @param  {String} [endpoint]
+     */
+    constructor(sourceObject: Record<string, any>, targetClass: Record<string, any>, params: Record<string, any>, endpoint: string | null | undefined);
 }

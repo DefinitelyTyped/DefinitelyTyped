@@ -1,17 +1,126 @@
-// Type definitions for @npmcli/package-json 2.0
-// Project: https://github.com/npm/package-json
-// Definitions by: Michaël De Boey <https://github.com/MichaelDeBoey>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+interface NormalizeOptions {
+    /**
+     * Enables optional strict mode when applying the normalizeData step.
+     */
+    strict?: boolean;
+
+    /**
+     * Optional normalization steps that will be applied to the package.json
+     * file, replacing the default steps.
+     */
+    steps?: string[];
+
+    /**
+     * Optional git root to provide when applying the gitHead step.
+     */
+    root?: string;
+
+    /**
+     * If provided, a message about each change that was made to the packument
+     * will be added to this array.
+     */
+    changes?: string[];
+
+    /**
+     * Allow package names to not be lowercase.
+     */
+    allowLegacyCase?: boolean;
+}
 
 declare class NPMCliPackageJson {
-    constructor(path: string);
+    static normalizeSteps: readonly string[];
+    static fixSteps: readonly string[];
+    static prepareSteps: readonly string[];
 
-    /** @async */
-    static load: (path?: string) => Promise<NPMCliPackageJson>;
-    save: () => Promise<void>;
-    update: (content: NPMCliPackageJson.Content) => void;
+    constructor();
+
+    /**
+     * Create a new empty package.json, so we can save at the given path even
+     * though we didn't start from a parsed file.
+     *
+     * @async
+     */
+    static create: (
+        path: string,
+        opts?: {
+            data?: NPMCliPackageJson.Content;
+        },
+    ) => Promise<NPMCliPackageJson>;
+
+    /**
+     * Load a package.json at given path and JSON parses.
+     *
+     * @async
+     */
+    static load: (
+        path: string,
+        opts?: {
+            /**
+             * If true, a new package.json will be created if one does not already
+             * exist. Will not clobber an existing package.json that cannot be
+             * parsed.
+             */
+            create?: boolean;
+        },
+    ) => Promise<NPMCliPackageJson>;
+
+    /**
+     * npm pkg fix
+     *
+     * @async
+     */
+    static fix: (path: string, opts?: Omit<NormalizeOptions, "steps">) => Promise<NPMCliPackageJson>;
+
+    /**
+     * read-package-json compatible behavior
+     *
+     * @async
+     */
+    static prepare: (path: string, opts?: NormalizeOptions) => Promise<NPMCliPackageJson>;
+
+    /**
+     * read-package-json-fast compatible behavior
+     *
+     * @async
+     */
+    static normalize: (path: string, opts?: NormalizeOptions) => Promise<NPMCliPackageJson>;
+
+    /**
+     * Load content from given path
+     *
+     * @async
+     */
+    load: (path: string, parseIndex?: boolean) => Promise<this>;
+
+    /**
+     * Load data from a JSON string
+     */
+    fromJSON: (data: string) => this;
+
+    /**
+     * Load data from a comment
+     */
+    fromComment: (data: string) => this;
 
     content: NPMCliPackageJson.Content;
+    path: string;
+    filename: string | undefined;
+
+    create: (path: string) => this;
+
+    update: (content: NPMCliPackageJson.Content) => this;
+
+    /** @async */
+    save: () => Promise<void>;
+
+    /** @async */
+    normalize: (opts?: NormalizeOptions) => Promise<this>;
+
+    /** @async */
+    prepare: (opts?: NormalizeOptions) => Promise<this>;
+
+    /** @async */
+    fix: (opts?: Omit<NormalizeOptions, "steps">) => Promise<this>;
 }
 
 declare namespace NPMCliPackageJson {
@@ -30,27 +139,27 @@ declare namespace PackageJson {
     type Person =
         | string
         | {
-              name: string;
-              url?: string;
-              email?: string;
-          };
+            name: string;
+            url?: string;
+            email?: string;
+        };
 
     type BugsLocation =
         | string
         | {
-              /**
-               * The URL to the package's issue tracker.
-               */
-              url?: string;
+            /**
+             * The URL to the package's issue tracker.
+             */
+            url?: string;
 
-              /**
-               * The email address to which issues should be reported.
-               */
-              email?: string;
-          };
+            /**
+             * The email address to which issues should be reported.
+             */
+            email?: string;
+        };
 
     interface DirectoryLocations {
-        [directoryType: string]: unknown;
+        [directoryType: string]: JsonValue | undefined;
 
         /**
          * Location for executable scripts. Sugar to generate entries in the `bin` property by walking the folder.
@@ -223,31 +332,34 @@ declare namespace PackageJson {
          * Run with the `npm restart` command, after `restart`. Note: `npm restart` will run the `stop` and `start` scripts if no `restart` script is provided.
          */
         postrestart?: string;
-    } & Record<string, string>;
+    } & Partial<Record<string, string>>;
 
     /**
      * Dependencies of the package. The version range is a string which has one or more space-separated descriptors. Dependencies can also be identified with a tarball or Git URL.
      */
-    type Dependency = Record<string, string>;
+    type Dependency = Partial<Record<string, string>>;
 
     /**
-     * Conditions which provide a way to resolve a package entry point based on the environment.
+     * A mapping of conditions and the paths to which they resolve.
      */
-    type ExportCondition = LiteralUnion<
-        'import' | 'require' | 'node' | 'node-addons' | 'deno' | 'browser' | 'electron' | 'react-native' | 'default',
-        string
-    >;
+    interface ExportConditions {
+        [condition: string]: Exports;
+    }
 
     /**
      * Entry points of a module, optionally with conditions and subpath exports.
      */
-    type Exports = null | string | string[] | { [key in ExportCondition]: Exports } | { [key: string]: Exports };
+    type Exports =
+        | null
+        | string
+        | Array<string | ExportConditions>
+        | ExportConditions;
 
     /**
-     * Import map entries of a module, optionally with conditions.
+     * Import map entries of a module, optionally with conditions and subpath imports.
      */
     interface Imports {
-        [key: string]: string | { [key in ExportCondition]: Exports };
+        [key: `#${string}`]: Exports;
     }
 
     interface NonStandardEntryPoints {
@@ -262,15 +374,17 @@ declare namespace PackageJson {
         esnext?:
             | string
             | {
-                  [moduleName: string]: string | undefined;
-                  main?: string;
-                  browser?: string;
-              };
+                [moduleName: string]: string | undefined;
+                main?: string;
+                browser?: string;
+            };
 
         /**
          * A hint to JavaScript bundlers or component tools when packaging modules for client side use.
          */
-        browser?: string | Record<string, string | false>;
+        browser?:
+            | string
+            | Partial<Record<string, string | false>>;
 
         /**
          * Denote which files in your project are "pure" and therefore safe for Webpack to prune if unused.
@@ -289,7 +403,7 @@ declare namespace PackageJson {
         /**
          * Version selection map of TypeScript.
          */
-        typesVersions?: Record<string, Record<string, string[]>>;
+        typesVersions?: Partial<Record<string, Partial<Record<string, string[]>>>>;
 
         /**
          * Location of the bundled TypeScript declaration file. Alias of `types`.
@@ -298,7 +412,7 @@ declare namespace PackageJson {
     }
 
     /**
-     * An alternative configuration for Yarn workspaces.
+     * An alternative configuration for workspaces.
      */
     interface WorkspaceConfig {
         /**
@@ -307,12 +421,10 @@ declare namespace PackageJson {
         packages?: WorkspacePattern[];
 
         /**
-         * Designed to solve the problem of packages which break when their `node_modules` are moved to the root workspace directory - a process known as hoisting.
-         * For these packages, both within your workspace, and also some that have been installed via `node_modules`, it is important to have a mechanism for
-         * preventing the default Yarn workspace behavior. By adding workspace pattern strings here, Yarn will resume non-workspace behavior for any package which
-         * matches the defined patterns.
+         * Designed to solve the problem of packages which break when their `node_modules` are moved to the root workspace directory - a process known as hoisting. For these packages, both within your workspace, and also some that have been installed via `node_modules`, it is important to have a mechanism for preventing the default Yarn workspace behavior. By adding workspace pattern strings here, Yarn will resume non-workspace behavior for any package which matches the defined patterns.
          *
-         * [Read more](https://classic.yarnpkg.com/blog/2018/02/15/nohoist/)
+         * [Supported](https://classic.yarnpkg.com/blog/2018/02/15/nohoist/) by Yarn.
+         * [Not supported](https://github.com/npm/rfcs/issues/287) by npm.
          */
         nohoist?: WorkspacePattern[];
     }
@@ -330,19 +442,9 @@ declare namespace PackageJson {
 
     interface YarnConfiguration {
         /**
-         * Used to configure [Yarn workspaces](https://classic.yarnpkg.com/docs/workspaces/).
-         *
-         * Workspaces allow you to manage multiple packages within the same repository in such a way that you only need to run `yarn install` once to install all of them in a single pass.
-         *
-         * Please note that the top-level `private` property of `package.json` **must** be set to `true` in order to use workspaces.
-         */
-        workspaces?: WorkspacePattern[] | WorkspaceConfig;
-
-        /**
          * If your package only allows one version of a given dependency, and you’d like to enforce the same behavior as `yarn install --flat` on the command-line, set this to `true`.
          *
-         * Note that if your `package.json` contains `"flat": true` and other packages depend on yours (e.g. you are building a library rather than an app), those other packages will
-         * also need `"flat": true` in their `package.json` or be installed with `yarn install --flat` on the command-line.
+         * Note that if your `package.json` contains `"flat": true` and other packages depend on yours (e.g. you are building a library rather than an app), those other packages will also need `"flat": true` in their `package.json` or be installed with `yarn install --flat` on the command-line.
          */
         flat?: boolean;
 
@@ -386,7 +488,7 @@ declare namespace PackageJson {
         /**
          * The URL to the package's homepage.
          */
-        homepage?: LiteralUnion<'.', string>;
+        homepage?: LiteralUnion<".", string>;
 
         /**
          * The URL to the package's issue tracker and/or the email address to which issues should be reported.
@@ -428,7 +530,7 @@ declare namespace PackageJson {
          *
          * [Read more.](https://nodejs.org/api/esm.html#esm_package_json_type_field)
          */
-        type?: 'module' | 'commonjs';
+        type?: "module" | "commonjs";
 
         /**
          * The module ID that is the primary entry point to the program.
@@ -452,7 +554,9 @@ declare namespace PackageJson {
         /**
          * The executable files that should be installed into the `PATH`.
          */
-        bin?: string | Record<string, string>;
+        bin?:
+            | string
+            | Partial<Record<string, string>>;
 
         /**
          * Filenames to put in place for the `man` program to find.
@@ -470,16 +574,16 @@ declare namespace PackageJson {
         repository?:
             | string
             | {
-                  type: string;
-                  url: string;
+                type: string;
+                url: string;
 
-                  /**
-                   * Relative path to package.json if it is placed in non-root directory (for example if it is part of a monorepo).
-                   *
-                   * [Read more.](https://github.com/npm/rfcs/blob/latest/implemented/0010-monorepo-subdirectory-declaration.md)
-                   */
-                  directory?: string;
-              };
+                /**
+                 * Relative path to package.json if it is placed in non-root directory (for example if it is part of a monorepo).
+                 *
+                 * [Read more.](https://github.com/npm/rfcs/blob/latest/implemented/0010-monorepo-subdirectory-declaration.md)
+                 */
+                directory?: string;
+            };
 
         /**
          * Script commands that are run at various times in the lifecycle of the package. The key is the lifecycle event, and the value is the command to run at that point.
@@ -489,7 +593,7 @@ declare namespace PackageJson {
         /**
          * Is used to set configuration parameters used in package scripts that persist across upgrades.
          */
-        config?: Record<string, unknown>;
+        config?: JsonObject;
 
         /**
          * The dependencies of the package.
@@ -514,7 +618,7 @@ declare namespace PackageJson {
         /**
          * Indicate peer dependencies that are optional.
          */
-        peerDependenciesMeta?: Record<string, { optional: true }>;
+        peerDependenciesMeta?: Partial<Record<string, { optional: true }>>;
 
         /**
          * Package names that are bundled when the package is published.
@@ -530,7 +634,7 @@ declare namespace PackageJson {
          * Engines that this package runs on.
          */
         engines?: {
-            [EngineName in 'npm' | 'node' | string]: string;
+            [EngineName in "npm" | "node" | string]?: string;
         };
 
         /**
@@ -543,20 +647,20 @@ declare namespace PackageJson {
          */
         os?: Array<
             LiteralUnion<
-                | 'aix'
-                | 'darwin'
-                | 'freebsd'
-                | 'linux'
-                | 'openbsd'
-                | 'sunos'
-                | 'win32'
-                | '!aix'
-                | '!darwin'
-                | '!freebsd'
-                | '!linux'
-                | '!openbsd'
-                | '!sunos'
-                | '!win32',
+                | "aix"
+                | "darwin"
+                | "freebsd"
+                | "linux"
+                | "openbsd"
+                | "sunos"
+                | "win32"
+                | "!aix"
+                | "!darwin"
+                | "!freebsd"
+                | "!linux"
+                | "!openbsd"
+                | "!sunos"
+                | "!win32",
                 string
             >
         >;
@@ -566,28 +670,28 @@ declare namespace PackageJson {
          */
         cpu?: Array<
             LiteralUnion<
-                | 'arm'
-                | 'arm64'
-                | 'ia32'
-                | 'mips'
-                | 'mipsel'
-                | 'ppc'
-                | 'ppc64'
-                | 's390'
-                | 's390x'
-                | 'x32'
-                | 'x64'
-                | '!arm'
-                | '!arm64'
-                | '!ia32'
-                | '!mips'
-                | '!mipsel'
-                | '!ppc'
-                | '!ppc64'
-                | '!s390'
-                | '!s390x'
-                | '!x32'
-                | '!x64',
+                | "arm"
+                | "arm64"
+                | "ia32"
+                | "mips"
+                | "mipsel"
+                | "ppc"
+                | "ppc64"
+                | "s390"
+                | "s390x"
+                | "x32"
+                | "x64"
+                | "!arm"
+                | "!arm64"
+                | "!ia32"
+                | "!mips"
+                | "!mipsel"
+                | "!ppc"
+                | "!ppc64"
+                | "!s390"
+                | "!s390x"
+                | "!x32"
+                | "!x64",
                 string
             >
         >;
@@ -605,8 +709,7 @@ declare namespace PackageJson {
         private?: boolean;
 
         /**
-         * A set of config values that will be used at publish-time. It's especially handy to set the tag, registry or access,
-         * to ensure that a given package is not tagged with 'latest', published to the global public registry or that a scoped module is private by default.
+         * A set of config values that will be used at publish-time. It's especially handy to set the tag, registry or access, to ensure that a given package is not tagged with 'latest', published to the global public registry or that a scoped module is private by default.
          */
         publishConfig?: PublishConfig;
 
@@ -615,36 +718,65 @@ declare namespace PackageJson {
          *
          * [Read more.](https://github.com/npm/rfcs/blob/latest/accepted/0017-add-funding-support.md)
          */
-        funding?:
-            | string
-            | {
-                  /**
-                   * The type of funding.
-                   */
-                  type?: LiteralUnion<
-                      'github' | 'opencollective' | 'patreon' | 'individual' | 'foundation' | 'corporation',
-                      string
-                  >;
+        funding?: string | {
+            /**
+             * The type of funding.
+             */
+            type?: LiteralUnion<
+                | "github"
+                | "opencollective"
+                | "patreon"
+                | "individual"
+                | "foundation"
+                | "corporation",
+                string
+            >;
 
-                  /**
-                   * The URL to the funding page.
-                   */
-                  url: string;
-              };
+            /**
+             * The URL to the funding page.
+             */
+            url: string;
+        };
+
+        /**
+         * Used to configure [npm workspaces](https://docs.npmjs.com/cli/using-npm/workspaces) / [Yarn workspaces](https://classic.yarnpkg.com/docs/workspaces/).
+         *
+         * Workspaces allow you to manage multiple packages within the same repository in such a way that you only need to run your install command once in order to install all of them in a single pass.
+         *
+         * Please note that the top-level `private` property of `package.json` **must** be set to `true` in order to use workspaces.
+         */
+        workspaces?: WorkspacePattern[] | WorkspaceConfig;
+    }
+
+    /**
+     * Type for [`package.json` file used by the Node.js runtime](https://nodejs.org/api/packages.html#nodejs-packagejson-field-definitions).
+     */
+    interface NodeJsStandard {
+        /**
+         * Defines which package manager is expected to be used when working on the current project. It can set to any of the [supported package managers](https://nodejs.org/api/corepack.html#supported-package-managers), and will ensure that your teams use the exact same package manager versions without having to install anything else than Node.js.
+         *
+         * __This field is currently experimental and needs to be opted-in; check the [Corepack](https://nodejs.org/api/corepack.html) page for details about the procedure.__
+         *
+         * @example
+         * ```json
+         * {
+         * "packageManager": "<package manager name>@<version>"
+         * }
+         * ```
+         */
+        packageManager?: string;
     }
 
     interface PublishConfig {
         /**
          * Additional, less common properties from the [npm docs on `publishConfig`](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#publishconfig).
          */
-        [additionalProperties: string]: unknown;
+        [additionalProperties: string]: JsonValue | undefined;
 
         /**
-         * When publishing scoped packages, the access level defaults to restricted. If you want your scoped package to
-         * be publicly viewable (and installable) set `--access=public`. The only valid values for access are public and restricted.
-         * Unscoped packages always have an access level of public.
+         * When publishing scoped packages, the access level defaults to restricted. If you want your scoped package to be publicly viewable (and installable) set `--access=public`. The only valid values for access are public and restricted. Unscoped packages always have an access level of public.
          */
-        access?: 'public' | 'restricted';
+        access?: "public" | "restricted";
 
         /**
          * The base URL of the npm registry.
@@ -663,17 +795,53 @@ declare namespace PackageJson {
 }
 
 /**
- * Type for [npm's `package.json` file](https://docs.npmjs.com/creating-a-package-json-file).Also includes types for fields used by other popular projects, like TypeScript and Yarn.
+ * Type for [npm's `package.json` file](https://docs.npmjs.com/creating-a-package-json-file). Also includes types for fields used by other popular projects, like TypeScript and Yarn.
  *
  * @category File
  */
-type PackageJsonType = PackageJson.PackageJsonStandard &
-    PackageJson.NonStandardEntryPoints &
-    PackageJson.TypeScriptConfiguration &
-    PackageJson.YarnConfiguration &
-    PackageJson.JSPMConfiguration;
+type PackageJsonType =
+    & JsonObject
+    & PackageJson.NodeJsStandard
+    & PackageJson.PackageJsonStandard
+    & PackageJson.NonStandardEntryPoints
+    & PackageJson.TypeScriptConfiguration
+    & PackageJson.YarnConfiguration
+    & PackageJson.JSPMConfiguration;
 
-// Copied from https://github.com/sindresorhus/type-fest/blob/c5796f5fce6fc8346792929468159648caec30e0/source/literal-union.d.ts
+// Copied from https://github.com/sindresorhus/type-fest/blob/e02f228f6391bb2b26c32a55dfe1e3aa2386d515/source/basic.d.ts
+/**
+ * Matches a JSON object.
+ *
+ * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from. Don't use this as a direct return type as the user would have to double-cast it: `jsonObject as unknown as CustomResponse`. Instead, you could extend your CustomResponse type from it to ensure your type only uses JSON-compatible types: `interface CustomResponse extends JsonObject { … }`.
+ *
+ * @category JSON
+ */
+type JsonObject = { [Key in string]: JsonValue } & { [Key in string]?: JsonValue | undefined };
+
+/**
+ * Matches a JSON array.
+ *
+ * @category JSON
+ */
+type JsonArray = JsonValue[] | readonly JsonValue[];
+
+/**
+ * Matches any valid JSON primitive value.
+ *
+ * @category JSON
+ */
+type JsonPrimitive = string | number | boolean | null;
+
+/**
+ * Matches any valid JSON value.
+ *
+ * @see `Jsonify` if you need to transform a type to one that is assignable to `JsonValue`.
+ *
+ * @category JSON
+ */
+type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+
+// Copied from https://github.com/sindresorhus/type-fest/blob/e02f228f6391bb2b26c32a55dfe1e3aa2386d515/source/literal-union.d.ts
 /**
  * Allows creating a union type by combining primitive types and literal types without sacrificing auto-completion in IDEs for the literal type part of the union.
  *
@@ -706,7 +874,7 @@ type PackageJsonType = PackageJson.PackageJsonStandard &
  */
 type LiteralUnion<LiteralType, BaseType extends Primitive> = LiteralType | (BaseType & Record<never, never>);
 
-// Copied from https://github.com/sindresorhus/type-fest/blob/c5796f5fce6fc8346792929468159648caec30e0/source/primitive.d.ts
+// Copied from https://github.com/sindresorhus/type-fest/blob/e02f228f6391bb2b26c32a55dfe1e3aa2386d515/source/primitive.d.ts
 /**
  * Matches any [primitive value](https://developer.mozilla.org/en-US/docs/Glossary/Primitive).
  *

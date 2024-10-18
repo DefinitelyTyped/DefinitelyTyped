@@ -1,7 +1,26 @@
 {
     "private": true,
+    "name": "@types/hapi__glue",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/hapijs/glue"
+    ],
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
+        "@types/node": "*",
         "joi": "^17.7.0"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi__glue": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        },
+        {
+            "name": "Avery Fay",
+            "githubUsername": "btmorex"
+        }
+    ]
 }

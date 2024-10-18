@@ -1,8 +1,3 @@
-// Type definitions for revalidate 1.1
-// Project: https://github.com/jfairbank/revalidate
-// Definitions by: alex3165 <https://github.com/alex3165>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This project is licensed under the MIT license.
 // Copyrights are respective of each contributor listed at the beginning of each definition file.
 
@@ -52,8 +47,14 @@ export type ConfigurableValidator = UnconfiguredValidator & CurryableValidator;
 
 export type Validator = ConfiguredValidator & UnconfiguredValidator;
 
-export function createValidator(curriedDefinition: ValidatorImpl, defaultMessageCreator?: MessageCreator): ConfigurableValidator;
-export function composeValidators(firstValidator: Validator | any, ...validators: Validator[]): ComposedCurryableValidator;
+export function createValidator(
+    curriedDefinition: ValidatorImpl,
+    defaultMessageCreator?: MessageCreator,
+): ConfigurableValidator;
+export function composeValidators(
+    firstValidator: Validator | any,
+    ...validators: Validator[]
+): ComposedCurryableValidator;
 export function combineValidators(validators: any, options?: CombineValidatorsOptions): ConfiguredCombinedValidator;
 
 export function hasLengthBetween(min: number, max: number): ConfigurableValidator;

@@ -1,9 +1,3 @@
-// Type definitions for podium 1.0
-// Project: https://github.com/hapijs/podium
-// Definitions by: AJP <https://github.com/AJamesPhillips>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * Podium
  * Node (semi) compatible event emitter with extra features.
@@ -43,7 +37,11 @@ interface Podium {
      * @param callback  an optional callback method invoked when all subscribers have been notified using the signature function()
      * @see {@link https://github.com/hapijs/podium/blob/master/API.md#podiumemitcriteria-data-callback}
      */
-    emit(criteria: string | {name: string, channel?: string | undefined, tags?: string | string[] | undefined}, data: any, callback?: (() => void)): void;
+    emit(
+        criteria: string | { name: string; channel?: string | undefined; tags?: string | string[] | undefined },
+        data: any,
+        callback?: () => void,
+    ): void;
 
     /**
      * podium.on(criteria, listener)
@@ -175,10 +173,10 @@ declare namespace Podium {
      * @see {@link https://github.com/hapijs/podium/blob/master/API.md#podiumoncriteria-listener}
      */
     export interface Listener {
-    (data: any, tags?: Tags, callback?: () => void): void;
+        (data: any, tags?: Tags, callback?: () => void): void;
     }
 
-    export type Tags = {[tag: string]: boolean};
+    export type Tags = { [tag: string]: boolean };
 }
 
 declare var Podium: Podium;

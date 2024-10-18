@@ -1,9 +1,4 @@
-// Type definitions for video-react 0.15
-// Project: https://github.com/video-react/video-react
-// Definitions by: Fabio Nettis <https://github.com/fabio-nettis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { LegacyRef } from 'react';
+import { JSX, RefAttributes } from "react";
 
 export type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
 
@@ -13,7 +8,7 @@ export interface StaticPlayerInstanceMethods {
     /**
      * Get the redux State.
      */
-    getState: () => PlayerState;
+    getState: () => { player: PlayerState };
     /**
      * Play the video.
      */
@@ -145,6 +140,33 @@ export interface PlayerState {
      * Set the id of the video element.
      */
     videoId: string;
+    /**
+     * All available subtitles.
+     */
+    textTracks: TextTrack[];
+    /**
+     * Active subtitle.
+     */
+    activeTextTrack?: TextTrack;
+}
+
+export interface TextTrack {
+    /**
+     * Kind of the track, usually 'captions'.
+     */
+    kind: string;
+    /**
+     * Label of the track.
+     */
+    label: string;
+    /**
+     * Language of the track.
+     */
+    language: string;
+    /**
+     * Visibility of the track. i.e. 'showing' or 'hide'.
+     */
+    mode: string;
 }
 
 export interface PlayerActions {
@@ -185,6 +207,18 @@ export interface PlayerActions {
      */
     replay: (seconds: number) => void;
     /**
+     * Change video speed
+     */
+    changeRate: (rate: number) => void;
+    /**
+     * Change video volume
+     */
+    changeVolume: (volume: number) => void;
+    /**
+     * Mute/Unmute video
+     */
+    mute: (mute: boolean) => void;
+    /**
      * Enter or exist full screen
      */
     toggleFullscreen: () => void;
@@ -192,10 +226,13 @@ export interface PlayerActions {
      * Subscribe to the player state changes.
      */
     subscribeToStateChange: (listener: StateListener) => void;
+    /**
+     * Activate a text track.
+     */
+    activateTextTrack: (track: TextTrack) => void;
 }
 
-export interface PlayerProps {
-    ref?: LegacyRef<PlayerReference> | undefined;
+export interface PlayerProps extends RefAttributes<PlayerReference> {
     /**
      * In fluid mode, it’s 100% wide all the time, the height will be
      * calculated by the video's ratio.
@@ -234,7 +271,7 @@ export interface PlayerProps {
      * - auto: indicates that both video and audio should be preloaded.
      * (even if the user is not interacting with the video)
      */
-    preload?: 'none' | 'metadata' | 'auto';
+    preload?: "none" | "metadata" | "auto";
     /**
      * A Boolean attribute which indicates the default setting of the audio
      * contained in the video. If set, the audio will be initially silenced.
@@ -266,6 +303,30 @@ export interface PlayerProps {
      * Seek the Video at A Specific Time On Load
      */
     startTime?: number;
+    /**
+     * Set Cross Origin configuration
+     */
+    crossOrigin?: string;
+    /**
+     * Event on Play
+     */
+    onPlay?: () => void;
+    /**
+     * Event on Ended
+     */
+    onEnded?: () => void;
+    /**
+     * Event on Load start
+     */
+    onLoadStart?: () => void;
+    /**
+     * Event on Pause start
+     */
+    onPause?: () => void;
+    /**
+     * Set the id of the video element.
+     */
+    videoId?: string;
 
     children?: React.ReactNode;
 }
@@ -349,7 +410,7 @@ export interface BigPlayButtonProps {
     /**
      * Determines the position of the big play button.
      */
-    position?: 'center' | 'left' | 'left-top' | 'left-bottom' | 'right' | 'right-top' | 'right-bottom';
+    position?: "center" | "left" | "left-top" | "left-bottom" | "right" | "right-top" | "right-bottom";
     className?: string;
 }
 

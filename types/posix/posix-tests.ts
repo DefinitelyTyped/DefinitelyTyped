@@ -1,4 +1,4 @@
-import * as posix from 'posix';
+import * as posix from "posix";
 
 /* test-chroot */
 
@@ -6,7 +6,7 @@ import * as posix from 'posix';
 posix.chroot();
 
 // $ExpectType void
-posix.chroot('path');
+posix.chroot("path");
 
 /* test-getegid */
 
@@ -32,7 +32,7 @@ posix.getgrnam();
 // @ts-expect-error
 posix.getgrnam(1, 2);
 
-const group = posix.getgrnam('daemon');
+const group = posix.getgrnam("daemon");
 
 // $ExpectType string
 group.name;
@@ -73,7 +73,7 @@ posix.getpwnam();
 // @ts-expect-error
 posix.getpwnam(1, 2);
 
-const passwd = posix.getpwnam('root');
+const passwd = posix.getpwnam("root");
 
 // $ExpectType string
 passwd.name;
@@ -99,7 +99,7 @@ passwd.dir;
 /* test-getrlimit */
 
 // @ts-expect-error
-posix.getrlimit('foobar');
+posix.getrlimit("foobar");
 
 // @ts-expect-error
 posix.getrlimit();
@@ -107,7 +107,7 @@ posix.getrlimit();
 // @ts-expect-error
 posix.getrlimit(0);
 
-const limit = posix.getrlimit('core');
+const limit = posix.getrlimit("core");
 
 // $ExpectType number | null
 limit.soft;
@@ -117,21 +117,21 @@ limit.hard;
 
 /* test-initgroups */
 
-posix.initgroups?.('root', 0);
+posix.initgroups?.("root", 0);
 
 // $ExpectType void
-posix.initgroups!('root', 0);
+posix.initgroups!("root", 0);
 
 // @ts-expect-error
-posix.initgroups('root', 0);
+posix.initgroups("root", 0);
 
 // @ts-expect-error
-posix.initgroups?.('root');
+posix.initgroups?.("root");
 
 /* test-setegid */
 
 // $ExpectType void
-posix.setegid('daemon');
+posix.setegid("daemon");
 
 // $ExpectType void
 posix.setegid(0);
@@ -139,7 +139,7 @@ posix.setegid(0);
 /* test-seteuid */
 
 // $ExpectType void
-posix.seteuid('daemon');
+posix.seteuid("daemon");
 
 // $ExpectType void
 posix.seteuid(0);
@@ -150,10 +150,10 @@ posix.seteuid(0);
 posix.setpgid();
 
 // @ts-expect-error
-posix.setpgid('a', 1);
+posix.setpgid("a", 1);
 
 // @ts-expect-error
-posix.setpgid(1, 'a');
+posix.setpgid(1, "a");
 
 // $ExpectType number
 posix.getpgid(0);
@@ -170,10 +170,10 @@ posix.getpgid();
 posix.setregid(0, 0);
 
 // $ExpectType void
-posix.setregid('daemon', 'daemon');
+posix.setregid("daemon", "daemon");
 
 // @ts-expect-error
-posix.setregid('root');
+posix.setregid("root");
 
 /* test-setreuid */
 
@@ -181,10 +181,10 @@ posix.setregid('root');
 posix.setreuid(0, 0);
 
 // $ExpectType void
-posix.setreuid('root', 'root');
+posix.setreuid("root", "root");
 
 // @ts-expect-error
-posix.setreuid('root');
+posix.setreuid("root");
 
 /* test-setrlimit */
 
@@ -192,19 +192,19 @@ posix.setreuid('root');
 posix.setrlimit();
 
 // @ts-expect-error
-posix.setrlimit('nofile');
+posix.setrlimit("nofile");
 
 // @ts-expect-error
-posix.setrlimit('foobar', { soft: 100 });
+posix.setrlimit("foobar", { soft: 100 });
 
 // $ExpectType void
-posix.setrlimit('cpu', { soft: null, hard: null });
+posix.setrlimit("cpu", { soft: null, hard: null });
 
 // $ExpectType void
-posix.setrlimit('nofile', { soft: 500 });
+posix.setrlimit("nofile", { soft: 500 });
 
 // @ts-expect-error
-posix.setrlimit('foobar', { soft: 100 });
+posix.setrlimit("foobar", { soft: 100 });
 
 /* test-setsid */
 
@@ -217,19 +217,19 @@ posix.setsid();
 /* test-syslog */
 
 // @ts-expect-error
-posix.openlog('foobar', 1);
+posix.openlog("foobar", 1);
 
 // @ts-expect-error
-posix.closelog('foobar');
+posix.closelog("foobar");
 
 // @ts-expect-error
-posix.openlog('foobar', { xxx: 1 }, 'local0');
+posix.openlog("foobar", { xxx: 1 }, "local0");
 
 // @ts-expect-error
-posix.openlog('foobar', {}, 'xxx');
+posix.openlog("foobar", {}, "xxx");
 
 // $ExpectType void
-posix.openlog('test-node-syslog', { cons: true, ndelay: true, pid: true }, 'local0');
+posix.openlog("test-node-syslog", { cons: true, ndelay: true, pid: true }, "local0");
 
 // $ExpectType LogMask
 posix.setlogmask({ info: 1, debug: 1 });
@@ -238,43 +238,43 @@ posix.setlogmask({ info: 1, debug: 1 });
 posix.setlogmask();
 
 // $ExpectType void
-posix.syslog('info', 'hello from node-posix (info)');
+posix.syslog("info", "hello from node-posix (info)");
 
 // @ts-expect-error
-posix.syslog('error');
+posix.syslog("error");
 
 // @ts-expect-error
-posix.closelog('bye');
+posix.closelog("bye");
 
 // $ExpectType void
 posix.closelog();
 
 /* test-swap */
 
-posix.swapon?.('path');
+posix.swapon?.("path");
 
-posix.swapon?.('path', { prefer: true });
+posix.swapon?.("path", { prefer: true });
 
 // $ExpectType void
-posix.swapon!('path', { prefer: true });
+posix.swapon!("path", { prefer: true });
 
 if (posix.swapon) {
     // $ExpectType void
-    posix.swapon('path', { prefer: true });
+    posix.swapon("path", { prefer: true });
 }
 
 // @ts-expect-error
-posix.swapon('path');
+posix.swapon("path");
 
 // @ts-expect-error
-posix.swapon('path', { prefer: true });
+posix.swapon("path", { prefer: true });
 
-posix.swapoff?.('path');
+posix.swapoff?.("path");
 
 // $ExpectType void
-posix.swapoff!('path');
+posix.swapoff!("path");
 
 if (posix.swapoff) {
     // $ExpectType void
-    posix.swapoff('path');
+    posix.swapoff("path");
 }

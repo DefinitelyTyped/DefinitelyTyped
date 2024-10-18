@@ -1,5 +1,5 @@
-import {Service} from '../service';
-import {DocumentClient as DDBDocumentClient} from '../dynamodb/document_client';
+import { DocumentClient as DDBDocumentClient } from "../dynamodb/document_client";
+import { Service } from "../service";
 export class DynamoDBCustomizations extends Service {
     /**
      * The document client simplifies working with items in Amazon DynamoDB by abstracting away the notion of attribute values.

@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3 from 'd3-delaunay';
+import * as d3 from "d3-delaunay";
 
 // Test Delaunay class
 
@@ -18,17 +18,21 @@ const defaultDelaunayFromIterator = d3.Delaunay.from((function*() {
     yield [0, 1] as [number, number];
     yield [1, 1] as [number, number];
 })());
-const customDelaunayFromArray = d3.Delaunay.from({length: 4}, (d, i) => i & 1, (d, i) => (i >> 1) & 1);
-const customDelaunayFromIterator = d3.Delaunay.from((function*() {
-    yield {x: 0, y: 0};
-    yield {x: 1, y: 0};
-    yield {x: 0, y: 1};
-    yield {x: 1, y: 1};
-})(), p => p.x, p => p.y);
+const customDelaunayFromArray = d3.Delaunay.from({ length: 4 }, (d, i) => i & 1, (d, i) => (i >> 1) & 1);
+const customDelaunayFromIterator = d3.Delaunay.from(
+    (function*() {
+        yield { x: 0, y: 0 };
+        yield { x: 1, y: 0 };
+        yield { x: 0, y: 1 };
+        yield { x: 1, y: 1 };
+    })(),
+    p => p.x,
+    p => p.y,
+);
 
-const {points, halfedges, hull, triangles} = defaultDelaunayFromArray;
+const { points, halfedges, hull, triangles } = defaultDelaunayFromArray;
 for (let i = 0, l = points.length; i < l; i++) {
-    typeof(points[i]);
+    typeof (points[i]);
 }
 for (let i = 0, l = halfedges.length; i < l; i++) {
     const j = halfedges[i];
@@ -55,7 +59,7 @@ for (let i = 0, l = triangles.length; i < l; i++) {
 }
 const findClosest = defaultDelaunayFromArray.find(0.5, 0.5);
 for (const neighbor of defaultDelaunayFromArray.neighbors(0)) {
-    typeof(neighbor);
+    typeof neighbor;
 }
 const render: string = defaultDelaunayFromArray.render();
 const renderHull: string = defaultDelaunayFromArray.renderHull();
@@ -82,7 +86,7 @@ const updatedDelaunay: d3.Delaunay<[number, number]> = defaultDelaunayFromArray.
 // Test Voronoi class
 
 const v = defaultDelaunayFromArray.voronoi();
-const {circumcenters, vectors} = v;
+const { circumcenters, vectors } = v;
 const d: d3.Delaunay<[number, number]> = v.delaunay;
 for (let i = 0, l = circumcenters.length; i < l; i++) {
     const x: number = circumcenters[i * 2];

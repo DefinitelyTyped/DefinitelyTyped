@@ -1,6 +1,7 @@
-import { IUniform, Texture } from '../../../src/Three.js';
+import { IUniform, Texture } from "three";
 
 export const ACESFilmicToneMappingShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform<Texture>;
         exposure: IUniform<number>;

@@ -1,8 +1,3 @@
-// Type definitions for lcm 0.0
-// Project: https://github.com/nickleefly/node-lcm
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Compute the least common multiple using [Euclid’s algorithm](http://en.wikipedia.org/wiki/Euclidean_algorithm).
  *

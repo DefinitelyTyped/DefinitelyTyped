@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-full-name",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/dschnelldavis/parse-full-name"
+    ],
+    "devDependencies": {
+        "@types/parse-full-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "n8",
+            "githubUsername": "n8Guy"
+        }
+    ]
+}

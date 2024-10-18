@@ -1,8 +1,3 @@
-// Type definitions for @creativebulma/bulma-tagsinput 1.0
-// Project: https://github.com/CreativeBulma/bulma-tagsinput
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace BulmaTagsInput {
     interface BulmaTagsInputItem {
         value: string;
@@ -131,7 +126,7 @@ declare namespace BulmaTagsInput {
          *
          * @default "text"
          */
-        searchOn?: 'value' | 'text' | undefined;
+        searchOn?: "value" | "text" | undefined;
 
         /**
          * When true, tags can be selected either by mouse click or using _left_ or _right_ arrow keys.
@@ -171,13 +166,13 @@ declare namespace BulmaTagsInput {
          * Trigerred before adding new tag. The concerned item is passed as parameter. You can modify the item
          * before its treatment by returning the new item data or prevent tag to be added by returning false.
          */
-        'before.add': string | BulmaTagsInputItem;
+        "before.add": string | BulmaTagsInputItem;
 
         /**
          * Triggered once a tag has been added. The added item and the related tag are passed in an object as
          * parameter.
          */
-        'after.add': {
+        "after.add": {
             item: string | BulmaTagsInputItem;
             tag: string;
         };
@@ -186,28 +181,28 @@ declare namespace BulmaTagsInput {
          * Triggered before removing a tag. The concerned item is passed as parameter. You can prevent
          * deletion by returning `false`.
          */
-        'before.remove': string | BulmaTagsInputItem;
+        "before.remove": string | BulmaTagsInputItem;
 
         /**
          * Triggered once a tag has been removed. The removed item is passed as parameter.
          */
-        'after.remove': string | BulmaTagsInputItem;
+        "after.remove": string | BulmaTagsInputItem;
 
         /**
          * Triggered before flushing items. Items array is passed as parameter.
          */
-        'before.flush': Array<string | BulmaTagsInputItem>;
+        "before.flush": Array<string | BulmaTagsInputItem>;
 
         /**
          * Triggered after flushing items.
          */
-        'after.flush': Array<string | BulmaTagsInputItem>;
+        "after.flush": Array<string | BulmaTagsInputItem>;
 
         /**
          * Triggered before selecting an item. The concerned item and related tag are passed in an
          * Object as parameter.
          */
-        'before.select': {
+        "before.select": {
             item: string | BulmaTagsInputItem;
             tag: string;
         };
@@ -216,7 +211,7 @@ declare namespace BulmaTagsInput {
          * Triggered once an item has been selected. The concerned item and related tag are passed in
          * an Object as parameter.
          */
-        'after.select': {
+        "after.select": {
             item: string | BulmaTagsInputItem;
             tag: string;
         };
@@ -225,7 +220,7 @@ declare namespace BulmaTagsInput {
          * Triggered before unselect an item. The concerned item and related tag are passed in an Object
          * as parameter.
          */
-        'before.unselect': {
+        "before.unselect": {
             item: string | BulmaTagsInputItem;
             tag: string;
         };
@@ -234,7 +229,7 @@ declare namespace BulmaTagsInput {
          * Triggered once an item has been unselected. The concerned item and related tag are passed in
          * an Object as parameter.
          */
-        'after.unselect': {
+        "after.unselect": {
             item: string | BulmaTagsInputItem;
             tag: string;
         };

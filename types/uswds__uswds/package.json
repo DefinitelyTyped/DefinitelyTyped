@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/uswds__uswds",
+    "version": "3.9.9999",
+    "projects": [
+        "https://github.com/uswds/uswds"
+    ],
+    "devDependencies": {
+        "@types/uswds__uswds": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Morgan Spencer",
+            "githubUsername": "lunchbreakdev"
+        },
+        {
+            "name": "Andrew Duthie",
+            "githubUsername": "aduth"
+        }
+    ]
+}

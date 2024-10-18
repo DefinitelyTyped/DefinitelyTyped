@@ -1,22 +1,23 @@
-import Splitting = require('splitting');
-import 'splitting/dist/splitting.css';
-import 'splitting/dist/splitting-cells.css';
+import Splitting = require("splitting");
+import "splitting/dist/splitting.css";
+import "splitting/dist/splitting-cells.css";
 
 // Base splitting function
 
-Splitting();
-Splitting({});
-Splitting({
-    target: '.target',
-    by: 'chars',
-    key: 'foo',
+Splitting(); // $ExpectType Result[]
+Splitting({}); // $ExpectType Result[]
+Splitting({ // $ExpectType Result[]
+    target: ".target",
+    by: "chars",
+    key: "foo",
 });
 
+// $ExpectType Result[]
 Splitting({ key: null });
 
-Splitting({ target: document.createElement('span') });
-Splitting({ target: [document.createElement('span')] });
-Splitting({ target: document.querySelectorAll('.target') });
+Splitting({ target: document.createElement("span") }); // $ExpectType Result[]
+Splitting({ target: [document.createElement("span")] }); // $ExpectType Result[]
+Splitting({ target: document.querySelectorAll(".target") }); // $ExpectType Result[]
 
 // HTML function
 
@@ -25,11 +26,11 @@ Splitting.html();
 // @ts-expect-error
 Splitting.html({});
 
-Splitting.html({ content: '<span>ABC</span>' });
+Splitting.html({ content: "<span>ABC</span>" });
 Splitting.html({
-    content: '<span>ABC</span>',
-    by: 'chars',
-    key: 'foo',
+    content: "<span>ABC</span>",
+    by: "chars",
+    key: "foo",
 });
 
 // Add function
@@ -38,8 +39,8 @@ Splitting.html({
 Splitting.add();
 
 Splitting.add({
-    by: 'plugin',
-    key: 'foo',
+    by: "plugin",
+    key: "foo",
     depends: [],
     split() {
         return [];

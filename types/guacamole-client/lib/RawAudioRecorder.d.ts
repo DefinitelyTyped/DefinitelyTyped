@@ -1,6 +1,6 @@
-import { Mimetype } from './GuacCommon.d';
-import { AudioRecorder } from './AudioRecorder.d';
-import { OutputStream } from './OutputStream.d';
+import { AudioRecorder } from "./AudioRecorder.d";
+import { Mimetype } from "./GuacCommon.d";
+import { OutputStream } from "./OutputStream.d";
 
 /**
  * Implementation of Guacamole.AudioRecorder providing support for raw PCM
@@ -8,7 +8,7 @@ import { OutputStream } from './OutputStream.d';
  * require any browser-level support for its audio formats.
  */
 export class RawAudioRecorder extends AudioRecorder {
-    static isSupportedType: typeof AudioRecorder['isSupportedType'];
+    static isSupportedType: typeof AudioRecorder["isSupportedType"];
 
     /**
      * Returns a list of all mimetypes supported by Guacamole.RawAudioRecorder. Only

@@ -10,7 +10,7 @@ declare interface StaticFiles {
         type: string;
     };
 }
-declare module WebApp {
+declare namespace WebApp {
     var defaultArch: string;
     var clientPrograms: {
         [key: string]: {
@@ -38,7 +38,7 @@ declare module WebApp {
     function decodeRuntimeConfig(rtimeConfigString: string): unknown;
     function encodeRuntimeConfig(rtimeConfig: unknown): string;
 }
-declare module WebAppInternals {
+declare namespace WebAppInternals {
     var NpmModules: {
         [key: string]: {
             version: string;

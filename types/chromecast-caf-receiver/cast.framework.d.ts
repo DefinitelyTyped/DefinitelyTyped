@@ -1,8 +1,8 @@
-import * as breaks from './cast.framework.breaks';
-import * as events from './cast.framework.events';
-import * as messages from './cast.framework.messages';
-import * as system from './cast.framework.system';
-import * as ui from './cast.framework.ui';
+import * as breaks from "./cast.framework.breaks";
+import * as events from "./cast.framework.events";
+import * as messages from "./cast.framework.messages";
+import * as system from "./cast.framework.system";
+import * as ui from "./cast.framework.ui";
 
 export import breaks = breaks;
 export import events = events;
@@ -25,12 +25,12 @@ export enum LoggerLevel {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ContentProtection
  */
 export enum ContentProtection {
-    NONE = 'none',
-    CLEARKEY = 'clearkey',
-    PLAYREADY = 'playready',
-    WIDEVINE = 'widevine',
-    AES_128 = 'aes_128',
-    AES_128_CKP = 'aes_128_ckp',
+    NONE = "none",
+    CLEARKEY = "clearkey",
+    PLAYREADY = "playready",
+    WIDEVINE = "widevine",
+    AES_128 = "aes_128",
+    AES_128_CKP = "aes_128_ckp",
 }
 
 /**
@@ -556,7 +556,7 @@ export class PlayerManager {
             | events.EventType.TIMED_METADATA_CHANGED
             | events.EventType.TIMED_METADATA_ENTER
             | events.EventType.TIMED_METADATA_EXIT,
-        eventListener: TimedMetadataEventHandler
+        eventListener: TimedMetadataEventHandler,
     ): void;
 
     /**
@@ -568,7 +568,12 @@ export class PlayerManager {
     /**
      * Sends a media status message to all senders (broadcast). Applications use this to send a custom state change.
      */
-    broadcastStatus(includeMedia?: boolean, requestId?: number, customData?: any, includeQueueItems?: boolean): void;
+    broadcastStatus(
+        includeMedia?: boolean,
+        requestId?: number,
+        customData?: messages.MediaStatusCustomData | null,
+        includeQueueItems?: boolean,
+    ): void;
 
     /**
      * Convert media time to absolute time.
@@ -736,7 +741,7 @@ export class PlayerManager {
         requestId: number,
         type: messages.ErrorType,
         reason?: messages.ErrorReason,
-        customData?: any,
+        customData?: unknown,
     ): void;
 
     /**
@@ -751,7 +756,7 @@ export class PlayerManager {
         senderId: string,
         requestId: number,
         includeMedia?: boolean,
-        customData?: any,
+        customData?: messages.MediaStatusCustomData | null,
         includeQueueItems?: boolean,
     ): void;
 
@@ -889,6 +894,11 @@ export class PlaybackConfig {
     enableSmoothLiveRefresh?: boolean | undefined;
 
     /**
+     * A flag to enable Shaka Player's DOM-based text renderer, shaka.text.UITextDisplayer.
+     */
+    enableUITextDisplayer?: boolean | undefined;
+
+    /**
      * A flag whether to ignore TTML positioning information.
      */
     ignoreTtmlPositionInfo?: boolean | undefined;
@@ -981,6 +991,24 @@ export class NetworkRequestInfo {
      */
     withCredentials: boolean;
 }
+
+/**
+ * Represents variants of Shaka Player that could be loaded.
+ *
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ShakaVariant
+ */
+export enum ShakaVariant {
+    /**
+     * The standard, default build.
+     */
+    STANDARD = "STANDARD",
+
+    /**
+     * A debug build.
+     */
+    DEBUG = "DEBUG",
+}
+
 /**
  * Cast receiver context options. All options are optionals.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.CastReceiverOptions
@@ -1051,6 +1079,13 @@ export class CastReceiverOptions {
     queue?: QueueBase | undefined;
 
     /**
+     * Which build of Shaka Player should be loaded.
+     *
+     * Set to `cast.framework.ShakaVariant.DEBUG` to load a debug build.
+     */
+    shakaVariant?: ShakaVariant | undefined;
+
+    /**
      * Shaka version in the MAJOR.MINOR.PATCH format, for example "3.2.11" (the current default).
      * Supported versions are >=3.2.11 <5.0.0. Deprecated but still compatible versions are >=2.5.6 <3.2.11.
      * NOTE: Shaka Player versions older than the default are not recommended, as many bugs have been fixed in the latest versions.
@@ -1059,7 +1094,7 @@ export class CastReceiverOptions {
      * force the use of a version other than what you specify here. This flag should be used only as a temporary measure,
      * and under guidance from the Cast support team. (https://developers.google.com/cast/support) Use at your own risk.
      */
-    shakaVersion?: string |undefined;
+    shakaVersion?: string | undefined;
 
     /**
      * Indicate the receiver should not load the MPL player.
@@ -1105,7 +1140,7 @@ export class CastReceiverOptions {
     /**
      * If true, use Shaka Player for HLS content. Defaults to false.
      */
-    useShakaForHls?: boolean |undefined;
+    useShakaForHls?: boolean | undefined;
 
     /**
      * An integer used as an internal version number to represent your receiver version.

@@ -1,14 +1,9 @@
-// Type definitions for http-agent 0.1
-// Project: https://github.com/indexzero/http-agent
-// Definitions by: Ivan Ergunov <https://github.com/hozblok>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import EventEmitter = require('events');
-import request = require('request');
+import EventEmitter = require("events");
+import request = require("request");
 
 export type HttpAgentUrl = string | request.OptionsWithUri;
 
-export type HttpAgentUrls = ReadonlyArray<HttpAgentUrl>;
+export type HttpAgentUrls = readonly HttpAgentUrl[];
 
 export interface HttpAgentOptions extends request.CoreOptions {
     urls?: HttpAgentUrls;
@@ -36,6 +31,7 @@ export class HttpAgent extends EventEmitter {
     addUrl(url: string): void;
     start(): void;
     stop(): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     back(): boolean | void;
     next(url: string): void;
     readonly prevUrls: string[];

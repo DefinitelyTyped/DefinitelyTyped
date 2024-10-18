@@ -36,7 +36,6 @@ declare namespace GoogleAdsScripts {
          *
          * Typical usage:
          *
-         *
          *      while (accountIterator.hasNext()) {
          *        var account = accountIterator.next();
          *      }
@@ -47,7 +46,6 @@ declare namespace GoogleAdsScripts {
          * Fetches accounts. Supports filtering and sorting.
          *
          * Typical usage:
-         *
          *
          *      var accountSelector = AdsManagerApp
          *          .accounts()
@@ -61,11 +59,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface ManagedAccountSelector
-            extends Base.Selector<ManagedAccountIterator>,
+            extends
+                Base.Selector<ManagedAccountIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithLimit {
+                Base.SelectorWithLimit
+        {
             /**
              * Executes the function specified by functionName on each ManagedAccount that the AccountSelector matches.
              * Once all the accounts have been processed, the callback function, if specified by `optionalCallbackFunctionName`, is executed once.
@@ -87,14 +87,12 @@ declare namespace GoogleAdsScripts {
              *
              * `JSON.stringify(value)` can be used to convert a value to JSON and then return the string. For example,
              *
-             *
              *       return JSON.stringify({value:10, list:[1,2,3,4,5,6], name: "Joe Smith"});
              *
              * These will be passed into the callback function in a list of ExecutionResult objects.
              * If `JSON.stringify(value)` is used in the callback function, the value can then be turned back into a JavaScript object with `JSON.parse(returnValue)`.
              *
              * For example,
-             *
              *
              *      function optionalCallbackFunctionName(results) {
              *        for (var i = 0; i < results.length; i++) {
@@ -107,7 +105,6 @@ declare namespace GoogleAdsScripts {
              * You can limit the number of accounts for the executeInParallel method using `accountSelector.withLimit(accountLimit)`.
              *
              * The signature for the optionalCallbackFunctionName should be:
-             *
              *
              *      function callbackMethod(results: ExecutionResult[]) {
              *

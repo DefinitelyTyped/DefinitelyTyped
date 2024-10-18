@@ -1,4 +1,4 @@
-import sprintf = require('sprintf-js');
+import sprintf = require("sprintf-js");
 
 declare const str: string;
 declare const num: number;

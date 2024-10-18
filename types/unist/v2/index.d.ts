@@ -1,15 +1,3 @@
-// Type definitions for non-npm package Unist 2.0
-// Project: https://github.com/syntax-tree/unist
-// Definitions by: bizen241 <https://github.com/bizen241>
-//                 Jun Lu <https://github.com/lujun2>
-//                 Hernan Rajchert <https://github.com/hrajchert>
-//                 Titus Wormer <https://github.com/wooorm>
-//                 Junyoung Choi <https://github.com/rokt33r>
-//                 Ben Moon <https://github.com/GuiltyDolphin>
-//                 JounQin <https://github.com/JounQin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Syntactic units in unist syntax trees are called nodes.
  *
@@ -97,7 +85,8 @@ export type NodeData<TNode extends Node<object>> = TNode extends Node<infer TDat
  * @typeParam ChildNode Node item of {@link Parent.children}
  */
 export interface Parent<ChildNode extends Node<object> = Node, TData extends object = NodeData<ChildNode>>
-    extends Node<TData> {
+    extends Node<TData>
+{
     /**
      * List representing the children of a node.
      */

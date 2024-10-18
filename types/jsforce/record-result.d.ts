@@ -1,4 +1,4 @@
-import { SalesforceId } from './salesforce-id';
+import { SalesforceId } from "./salesforce-id";
 
 interface ErrorResult {
     errors: Error[];

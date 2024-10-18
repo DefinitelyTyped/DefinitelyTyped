@@ -1,4 +1,4 @@
-import { GraphQLTaggedNode, OperationType, RenderPolicy, VariablesOf } from 'relay-runtime';
+import { GraphQLTaggedNode, OperationType, RenderPolicy, VariablesOf } from "relay-runtime";
 
 export function useClientQuery<TQuery extends OperationType>(
     gqlQuery: GraphQLTaggedNode,
@@ -6,4 +6,4 @@ export function useClientQuery<TQuery extends OperationType>(
     options?: {
         UNSTABLE_renderPolicy?: RenderPolicy | undefined;
     },
-): TQuery['response'];
+): TQuery["response"];

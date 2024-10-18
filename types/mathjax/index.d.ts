@@ -1,8 +1,3 @@
-// Type definitions for MathJax
-// Project: https://github.com/mathjax/MathJax
-// Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // These are slightly preliminary and can use some more strong typing here and there. Please feel free to improve.
 declare namespace MathJax {
     export const Hub: Hub;
@@ -511,7 +506,7 @@ declare namespace MathJax {
         /*Creates a MathJax cookie using the MathJax.HTML.Cookie.prefix and the name as the cookie name, and the
         * key:value pairs in the data object as the data for the cookie.
         */
-        Set(name: string, data: any): void
+        Set(name: string, data: any): void;
         /*Looks up the data for the cookie named name and merges the data into the given obj object, or returns a new
         * object containing the data.
         */
@@ -1682,7 +1677,6 @@ declare namespace MathJax {
         getJaxFromMath(math: any): ElementJax;
         Zoom(jax: any, span: any, math: any, Mw: number, Mh: number): ZoomStruct;
     }
-
 
     export interface ZoomStruct {
         /*The vertical offset from the top of the span to the baseline of the mathematics*/

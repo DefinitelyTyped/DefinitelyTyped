@@ -1,4 +1,4 @@
-import agent = require('agent-base');
+import agent = require("agent-base");
 
 agent(); // $ExpectType Agent
 agent({ timeout: 1000 }); // $ExpectType Agent
@@ -14,7 +14,7 @@ agent(0);
 // @ts-expect-error
 agent(1);
 // @ts-expect-error
-agent('');
+agent("");
 // @ts-expect-error
 agent(true);
 // @ts-expect-error
@@ -25,7 +25,7 @@ agent((req, opts) => {}, 0);
 // @ts-expect-error
 agent((req, opts) => {}, 1);
 // @ts-expect-error
-agent((req, opts) => {}, '');
+agent((req, opts) => {}, "");
 // @ts-expect-error
 agent((req, opts) => {}, true);
 // @ts-expect-error

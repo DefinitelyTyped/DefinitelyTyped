@@ -1,10 +1,4 @@
-// Type definitions for geojson-vt 3.2
-// Project: https://github.com/mapbox/geojson-vt
-// Definitions by: Cody Duong <https://github.com/codyduong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
-import * as GJ from 'geojson';
+import * as GJ from "geojson";
 
 declare namespace geojsonvt {
     interface Options {
@@ -19,11 +13,11 @@ declare namespace geojsonvt {
         /** logging level (0 to disable, 1 or 2) */
         debug?: 0 | 1 | 2;
         /** whether to enable line metrics tracking for LineString/MultiLineString features */
-        lineMetrics?: false;
+        lineMetrics?: boolean;
         /** name of a feature property to promote to feature.id. Cannot be used with `generateId` */
         promoteId?: null | string;
         /** whether to generate feature ids. Cannot be used with `promoteId` */
-        generateId?: false;
+        generateId?: boolean;
         /** max zoom in the initial tile index */
         indexMaxZoom?: number;
         /** max number of points per tile in the index */
@@ -31,9 +25,9 @@ declare namespace geojsonvt {
     }
     enum FeatureTypes {
         Unknown = 0,
-        Point,
-        Linestring,
-        Polygon,
+        Point = 1,
+        Linestring = 2,
+        Polygon = 3,
     }
     type Geometry = [number, number];
     /**
@@ -65,7 +59,7 @@ declare namespace geojsonvt {
         minX: number;
         minY: number;
         tags?: Record<string, any>;
-        type?: Exclude<GJ.GeoJsonGeometryTypes, 'GeometryCollection'>; // Converts all collections to single types
+        type?: Exclude<GJ.GeoJsonGeometryTypes, "GeometryCollection">; // Converts all collections to single types
     }
     /**
      * Resulting tiles conform to the JSON equivalent of the vector tile specification.

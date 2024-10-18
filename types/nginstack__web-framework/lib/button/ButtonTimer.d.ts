@@ -2,7 +2,7 @@ export = ButtonTimer;
 declare function ButtonTimer(button: Button): void;
 declare class ButtonTimer {
     constructor(button: Button);
-    button: import('./Button');
+    button: import("./Button");
     interval: number;
     enabled: boolean;
     toString(): string;
@@ -11,4 +11,4 @@ declare class ButtonTimer {
 declare namespace ButtonTimer {
     export { Button };
 }
-type Button = import('./Button');
+type Button = import("./Button");

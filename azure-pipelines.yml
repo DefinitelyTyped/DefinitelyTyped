@@ -1,37 +1,21 @@
-# Learn more at: https://aka.ms/yaml
-jobs:
-- job: npmRunTest
-  pool:
-    vmImage: ubuntu-latest
-    demands: npm
-
-  timeoutInMinutes: 360
-
-  steps:
-  - task: NodeTool@0
-    displayName: Use Node 16
-    inputs:
-      versionSpec: 16.x
-      checkLatest: true
-  - task: Npm@1
-    displayName: 'npm install'
-    inputs:
-      verbose: false
-
-  - script: |
-      if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && npm run update-codeowners; fi
-      git checkout -- .
-
-      npm run test-all
-
-
-    displayName: 'npm run test-all'
-
-  - task: PublishPipelineArtifact@1
-    condition: eq(variables['System.debug'], 'true')
-    inputs:
-      targetPath: '$(Pipeline.Workspace)'
-      publishLocation: 'pipeline'
-
 trigger:
-- master
+  - master
+
+pr: none
+
+jobs:
+  - job: npmRunTest
+    pool:
+      vmImage: ubuntu-latest
+      demands: npm
+
+    timeoutInMinutes: 360
+
+    steps:
+      - checkout: self
+        fetchDepth: 1
+        fetchTags: false
+
+      - script: |
+          echo "Disabled"
+        displayName: 'Do nothing'

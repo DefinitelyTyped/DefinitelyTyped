@@ -1,37 +1,37 @@
 interface Avatar {
-  image_url: string;
+    image_url: string;
 }
 
 interface FromToObject {
-  id: string;
-  type: string;
+    id: string;
+    type: string;
 }
 
 interface Owner {
-  avatar: Avatar;
-  away_mode_enabled: boolean;
-  away_mode_reassign: boolean;
-  email: string;
-  id: string;
-  name: string;
-  type: string;
+    avatar: Avatar;
+    away_mode_enabled: boolean;
+    away_mode_reassign: boolean;
+    email: string;
+    id: string;
+    name: string;
+    type: string;
 }
 
 interface MessageModel {
-  body: string;
-  message_type: string;
-  subject?: string | undefined;
+    body: string;
+    message_type: string;
+    subject?: string | undefined;
 }
 
 export interface CreateMessage extends MessageModel {
-  from: FromToObject;
-  template?: string | undefined;
-  to: FromToObject;
+    from: FromToObject;
+    template?: string | undefined;
+    to: FromToObject;
 }
 
 export interface Message extends MessageModel {
-  created_at: number;
-  id: string;
-  owner: Owner;
-  type: string;
+    created_at: number;
+    id: string;
+    owner: Owner;
+    type: string;
 }

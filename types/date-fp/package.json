@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/date-fp",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/cullophid/date-fp#readme"
+    ],
+    "devDependencies": {
+        "@types/date-fp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Crosson",
+            "githubUsername": "EricCrosson"
+        }
+    ]
+}

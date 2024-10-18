@@ -1,5 +1,5 @@
-import gm = require('gm');
-import stream = require('stream');
+import gm = require("gm");
+import stream = require("stream");
 
 declare const src: string;
 declare const matrix: string;
@@ -230,7 +230,7 @@ gm(src)
     .region(width, height, x, y)
     .remote()
     .render()
-    .repage('+')
+    .repage("+")
     .repage(width, height, x, y)
     .repage(width, height, x, y, options)
     .sample(geometry)
@@ -384,7 +384,7 @@ readStream = imageMagick(src)
     .adjoin()
     .stream();
 
-const customGm = gm.subClass({ imageMagick: '7+', appPath: '' });
+const customGm = gm.subClass({ imageMagick: "7+", appPath: "" });
 readStream = customGm(src).stream();
 
 const stringTimeoutGm = gm.subClass({ timeout: "0" });
@@ -397,7 +397,7 @@ const passStream = imageMagick(readStream).stream();
 
 const buffers: Buffer[] = [];
 let buffer: Buffer;
-passStream.on('data', (chunk) => buffers.push(chunk as Buffer)).on('close', () => {
+passStream.on("data", (chunk) => buffers.push(chunk as Buffer)).on("close", () => {
     buffer = Buffer.concat(buffers);
     const readstream = imageMagick(buffer).stream();
 });

@@ -1,22 +1,15 @@
-// Type definitions for @node-red/registry 1.3
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/registry, https://nodered.org/
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
-import { EventEmitter } from 'events';
-import { Request, Response, NextFunction, Express } from 'express';
-import { Server as HttpsServer } from 'https';
-import { LocalSettings } from '@node-red/runtime';
-import * as util from '@node-red/util';
+import { LocalSettings } from "@node-red/runtime";
+import * as util from "@node-red/util";
+import { EventEmitter } from "events";
+import { Express, NextFunction, Request, Response } from "express";
+import { Server as HttpsServer } from "https";
 
 declare const registry: registry.RegistryModule;
 
 export = registry;
 
 declare namespace registry {
-    interface RegistryModule {} // tslint:disable-line:no-empty-interface
+    interface RegistryModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;
@@ -30,7 +23,7 @@ declare namespace registry {
     };
 
     interface NodeCredential {
-        type: 'text' | 'password';
+        type: "text" | "password";
     }
 
     type NodeCredentials<TCreds> = {
@@ -44,13 +37,13 @@ declare namespace registry {
          * @param constructor - the constructor function for this node type
          * @param opts - optional additional options for the node
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
-            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line no-unnecessary-generics
+            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             opts?: {
-                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line no-unnecessary-generics
-                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line no-unnecessary-generics
+                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
             },
         ): void;
 
@@ -93,7 +86,7 @@ declare namespace registry {
         register(type: string): void;
     }
 
-    type NodeApiLog = Omit<util.Log, 'init'>;
+    type NodeApiLog = Omit<util.Log, "init">;
 
     interface NodeAPISettings {
         get(prop: string): any;
@@ -123,10 +116,10 @@ declare namespace registry {
          * @param id - the string id of the plugin
          * @param definition - the definition object of the plugin
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         registerPlugin<TPluginDef extends PluginDef = PluginDef>(
             id: string,
-            definition: PluginDefinition<TPluginDef>, // eslint-disable-line no-unnecessary-generics
+            definition: PluginDefinition<TPluginDef>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
         ): void;
 
         /**
@@ -134,7 +127,7 @@ declare namespace registry {
          * @param id - the string id of the plugin
          * @returns the plugin definition
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         get<TPluginDef extends PluginDef = PluginDef>(id: string): PluginDefinition<TPluginDef>;
 
         /**
@@ -142,7 +135,7 @@ declare namespace registry {
          * @param type - the string type of the plugin
          * @returns the plugin definitions
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         getByType<TPluginDef extends PluginDef = PluginDef>(type: string): Array<PluginDefinition<TPluginDef>>;
     }
     interface PluginDefinition<TPluginDef> {
@@ -155,7 +148,7 @@ declare namespace registry {
         onadd?: () => void;
     }
     interface PluginDef {
-        '*': unknown;
+        "*": unknown;
     }
 
     /**
@@ -287,7 +280,7 @@ declare namespace registry {
          * More info: https://nodered.org/docs/creating-nodes/node-js#receiving-messages
          */
         on(
-            event: 'input',
+            event: "input",
             listener: (
                 msg: NodeMessageInFlow,
                 send: (msg: NodeMessage | Array<NodeMessage | NodeMessage[] | null>) => void,
@@ -301,25 +294,25 @@ declare namespace registry {
          * system, they should register a listener on the close event.
          * More info: https://nodered.org/docs/creating-nodes/node-js#closing-the-node
          */
-        on(event: 'close', listener: () => void): this;
+        on(event: "close", listener: () => void): this;
         /**
          * If the node needs to do any asynchronous work to complete the tidy up, the
          * registered listener should accept an argument which is a function to be called
          * when all the work is complete.
          * More info: https://nodered.org/docs/creating-nodes/node-js#closing-the-node
          */
-        on(event: 'close', listener: (done: () => void) => void): this; // tslint:disable-line:unified-signatures
+        on(event: "close", listener: (done: () => void) => void): this; // tslint:disable-line:unified-signatures
         /**
          * If the registered listener accepts two arguments, the first will be a boolean
          * flag that indicates whether the node is being closed because it has been removed
          * entirely, or that it is just being restarted.
          * More info: https://nodered.org/docs/creating-nodes/node-js#closing-the-node
          */
-        on(event: 'close', listener: (removed: boolean, done: () => void) => void): this; // tslint:disable-line:unified-signatures
+        on(event: "close", listener: (removed: boolean, done: () => void) => void): this; // tslint:disable-line:unified-signatures
     }
 
-    type NodeStatusFill = 'red' | 'green' | 'yellow' | 'blue' | 'grey';
-    type NodeStatusShape = 'ring' | 'dot';
+    type NodeStatusFill = "red" | "green" | "yellow" | "blue" | "grey";
+    type NodeStatusShape = "ring" | "dot";
 
     interface NodeStatus {
         fill?: NodeStatusFill | undefined;
@@ -420,7 +413,7 @@ declare namespace registry {
         flow: NodeContextData;
     }
 
-    type FlowType = 'subflow' | 'flow';
+    type FlowType = "subflow" | "flow";
 
     interface FlowInfo {
         TYPE: FlowType;
@@ -429,7 +422,7 @@ declare namespace registry {
         subflowDef?: SubflowDef;
     }
 
-    type SubflowDefEnvType = 'cred' | string;
+    type SubflowDefEnvType = "cred" | string;
 
     interface SubflowDefEnv {
         name: string;

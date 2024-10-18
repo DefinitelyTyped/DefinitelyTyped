@@ -1,7 +1,36 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/undertaker": ">=1.2.6",
-    "chokidar": "^3.3.1"
-  }
+    "private": true,
+    "name": "@types/gulp",
+    "version": "4.0.9999",
+    "projects": [
+        "http://gulpjs.com"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/undertaker": ">=1.2.6",
+        "@types/vinyl-fs": "*",
+        "chokidar": "^3.3.1"
+    },
+    "devDependencies": {
+        "@types/gulp": "workspace:.",
+        "@types/undertaker-registry": "*"
+    },
+    "owners": [
+        {
+            "name": "Drew Noakes",
+            "url": "https://drewnoakes.com"
+        },
+        {
+            "name": "Juan Arroyave",
+            "url": "http://jarroyave.co"
+        },
+        {
+            "name": "Giedrius Grabauskas",
+            "githubUsername": "GiedriusGrabauskas"
+        },
+        {
+            "name": "David Gabison",
+            "githubUsername": "pulsovi"
+        }
+    ]
 }

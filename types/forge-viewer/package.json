@@ -1,0 +1,43 @@
+{
+    "private": true,
+    "name": "@types/forge-viewer",
+    "version": "7.89.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Forge Viewer",
+    "projects": [
+        "https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/"
+    ],
+    "devDependencies": {
+        "@types/forge-viewer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Autodesk Forge Partner Development",
+            "githubUsername": "Autodesk-Forge"
+        },
+        {
+            "name": "Autodesk Developer Advocacy and Support",
+            "githubUsername": "autodesk-platform-services"
+        },
+        {
+            "name": "Alan Smith",
+            "githubUsername": "alansmithnbs"
+        },
+        {
+            "name": "Jan Liska",
+            "githubUsername": "liskaj"
+        },
+        {
+            "name": "Petr Broz",
+            "githubUsername": "petrbroz"
+        },
+        {
+            "name": "Eason Kang",
+            "githubUsername": "yiskang"
+        },
+        {
+            "name": "Cyrille Fauvel",
+            "githubUsername": "cyrillef"
+        }
+    ]
+}

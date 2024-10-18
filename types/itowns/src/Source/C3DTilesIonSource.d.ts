@@ -1,7 +1,6 @@
-import C3DTilesSource, { C3DTilesSourceOptions } from './C3DTilesSource';
+import C3DTilesSource, { C3DTilesSourceOptions } from "./C3DTilesSource";
 
-export interface C3DTilesIonSourceOptions
-extends Omit<C3DTilesSourceOptions, 'url'> {
+export interface C3DTilesIonSourceOptions extends Omit<C3DTilesSourceOptions, "url"> {
     accessToken: string;
     assetId: number;
 }

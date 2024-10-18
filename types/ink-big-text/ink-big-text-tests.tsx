@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as Gradient from 'ink-gradient';
-import * as BigText from 'ink-big-text';
+import * as BigText from "ink-big-text";
+import * as Gradient from "ink-gradient";
+import * as React from "react";
 
 function test() {
     return (

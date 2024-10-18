@@ -2,7 +2,7 @@ import EWMA = require("ewma");
 const clock = {
     now() {
         return 4541;
-    }
+    },
 };
 
 // $ExpectType EwmaClass

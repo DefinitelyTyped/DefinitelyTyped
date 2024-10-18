@@ -1,4 +1,4 @@
-import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
 declare class Offcanvas extends BaseComponent {
     /**
@@ -43,7 +43,7 @@ declare namespace Offcanvas {
          *
          * @default true
          */
-        backdrop: boolean | 'static';
+        backdrop: boolean | "static";
 
         /**
          * Closes the offcanvas when escape key is pressed
@@ -64,25 +64,25 @@ declare namespace Offcanvas {
         /**
          * This event fires immediately when the show instance method is called.
          */
-        show = 'show.bs.offcanvas',
+        show = "show.bs.offcanvas",
 
         /**
          * This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
          */
-        shown = 'shown.bs.offcanvas',
+        shown = "shown.bs.offcanvas",
 
         /**
          * This event is fired immediately when the hide method has been called.
          */
-        hide = 'hide.bs.offcanvas',
+        hide = "hide.bs.offcanvas",
 
         /**
          * This event is fired when an offcanvas element has been hidden from the user (will wait for CSS transitions to complete).
          */
-        hidden = 'hidden.bs.offcanvas',
+        hidden = "hidden.bs.offcanvas",
     }
 
-    type jQueryInterface = (config?: 'toggle' | 'show' | 'hide') => JQuery;
+    type jQueryInterface = (config?: "toggle" | "show" | "hide") => JQuery;
 }
 
 export default Offcanvas;

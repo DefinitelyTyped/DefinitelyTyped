@@ -1,4 +1,4 @@
-import { Config } from './applyChangeToValue';
+import { Config } from "./applyChangeToValue";
 
 export interface Mention {
     display: string;

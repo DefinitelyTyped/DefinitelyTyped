@@ -1,4 +1,4 @@
-import { ReactChild } from 'react';
+import { ReactElement } from "react";
 
 declare namespace children {
     /**
@@ -9,7 +9,7 @@ declare namespace children {
      *
      * @deprecated since 11.17.0. Use the html source instead.
      */
-    function concat(...blockNodes: ReactChild[]): ReactChild[];
+    function concat(...blockNodes: Array<ReactElement | number | string>): React.ReactElement | number | string[];
 
     /**
      * Given an iterable set of DOM nodes, returns equivalent block children.
@@ -19,7 +19,7 @@ declare namespace children {
      *
      * @deprecated since 11.17.0. Use the html source instead.
      */
-    function fromDOM(domNodes: ArrayLike<Node>): ReactChild[];
+    function fromDOM(domNodes: ArrayLike<Node>): Array<ReactElement | number | string>;
 
     /**
      * Given block children, returns an array of block nodes.
@@ -28,7 +28,7 @@ declare namespace children {
      *
      * @deprecated since 11.17.0. Use the html source instead.
      */
-    function getChildrenArray(children: ReactChild[]): ReactChild[];
+    function getChildrenArray(children: ReactElement | number | string[]): React.ReactElement | number | string[];
 
     /**
      * Given a selector, returns an hpq matcher generating a WPBlockChildren value
@@ -38,7 +38,7 @@ declare namespace children {
      *
      * @deprecated since 11.17.0. Use the html source instead.
      */
-    function matcher(selector: string): (domNode: Node & ParentNode) => ReactChild[];
+    function matcher(selector: string): (domNode: Node & ParentNode) => Array<React.ReactElement | number | string>;
 
     /**
      * Given a block node, returns its HTML string representation.
@@ -47,7 +47,7 @@ declare namespace children {
      *
      * @deprecated since 11.17.0. Use the html source instead.
      */
-    function toHTML(children: ReactChild[]): string;
+    function toHTML(children: React.ReactElement | number | string[]): string;
 }
 
 export default children;

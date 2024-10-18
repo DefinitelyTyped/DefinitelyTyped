@@ -1,19 +1,19 @@
-import { Color, FindColorByMode, Mode, NonEmptyArray } from './common';
-import { Rgb } from './rgb/types';
+import { Color, FindColorByMode, Mode, NonEmptyArray } from "./common";
+import { Rgb } from "./rgb/types";
 
 type BlendTypes =
-    | 'normal'
-    | 'multiply'
-    | 'screen'
-    | 'hard-light'
-    | 'overlay'
-    | 'darken'
-    | 'lighten'
-    | 'color-dodge'
-    | 'color-burn'
-    | 'soft-light'
-    | 'difference'
-    | 'exclusion';
+    | "normal"
+    | "multiply"
+    | "screen"
+    | "hard-light"
+    | "overlay"
+    | "darken"
+    | "lighten"
+    | "color-dodge"
+    | "color-burn"
+    | "soft-light"
+    | "difference"
+    | "exclusion";
 
 type BlendingFunction = (backdrop: number, source: number) => number;
 

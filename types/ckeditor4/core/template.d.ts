@@ -1,6 +1,6 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly template: { new (source: string): template };
+        readonly template: { new(source: string): template };
     }
 
     interface template {

@@ -1,11 +1,3 @@
-// Type definitions for dynogels 9.0
-// Project: https://github.com/clarkie/dynogels#readme
-// Definitions by: Spartan Labs <https://github.com/SpartanLabs>
-//                 Ramon de Klein <https://github.com/ramondeklein>
-//                 Stephen Tuso <https://github.com/stephentuso>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
 export import AWS = require("aws-sdk2-types");
@@ -33,7 +25,10 @@ export function dynamoDriver(dynamoDB: AWS.DynamoDB): AWS.DynamoDB;
 export function reset(): void;
 export function define(modelName: string, config: ModelConfiguration): Model;
 export function createTables(callback: (err: string) => void): void;
-export function createTables(options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions, callback: (err: string) => void): void;
+export function createTables(
+    options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions,
+    callback: (err: string) => void,
+): void;
 export function Set(...args: any[]): any;
 
 export interface DynogelsGlobalOptions {
@@ -75,10 +70,24 @@ export interface Model {
     scan(): Scan;
     parallelScan(totalSegments: number): Scan;
     getItems(items: string[] | Array<{ [key: string]: string }>, callback: (err: Error, items: any[]) => void): void;
-    getItems(items: string[] | Array<{ [key: string]: string }>, options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
-    batchGetItems(items: string[] | Array<{ [key: string]: string }>, callback: (err: Error, items: any[]) => void): void;
-    batchGetItems(items: string[] | Array<{ [key: string]: string }>, options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
-    createTable(options: CreateTablesOptions, callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
+    getItems(
+        items: string[] | Array<{ [key: string]: string }>,
+        options: GetItemOptions,
+        callback: (err: Error, items: any[]) => void,
+    ): void;
+    batchGetItems(
+        items: string[] | Array<{ [key: string]: string }>,
+        callback: (err: Error, items: any[]) => void,
+    ): void;
+    batchGetItems(
+        items: string[] | Array<{ [key: string]: string }>,
+        options: GetItemOptions,
+        callback: (err: Error, items: any[]) => void,
+    ): void;
+    createTable(
+        options: CreateTablesOptions,
+        callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void,
+    ): void;
     createTable(callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
     updateTable(throughput: Throughput, callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;
     updateTable(callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;

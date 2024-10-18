@@ -1,13 +1,6 @@
-// Type definitions for merge2 1.4
-// Project: https://github.com/teambition/merge2
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Chigozirim C. <https://github.com/smac89>
-//                 Winston01 <https://github.com/winston01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { PassThrough } from 'stream';
+import { PassThrough } from "stream";
 
 /**
  * @summary        This function takes an arbitrary number of streams and returns a
@@ -68,10 +61,10 @@ declare namespace merge2 {
          *
          * @return     This stream
          */
-        on(event: 'queueDrain', listener: () => void): this;
+        on(event: "queueDrain", listener: () => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
 
-        once(event: 'queueDrain', listener: () => void): this;
+        once(event: "queueDrain", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
     }
 }

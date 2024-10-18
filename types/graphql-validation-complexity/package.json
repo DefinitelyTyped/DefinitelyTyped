@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/graphql-validation-complexity",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/4Catalyzer/graphql-validation-complexity (Does not have to be to GitHub",
+        "but prefer linking to a source code repository rather than to a project website.)"
+    ],
     "dependencies": {
         "graphql": "15.4.0 || ^16.5.0"
-    }
+    },
+    "devDependencies": {
+        "@types/graphql-validation-complexity": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krunal G",
+            "githubUsername": "krunalg"
+        }
+    ]
 }

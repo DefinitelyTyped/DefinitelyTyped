@@ -1,19 +1,19 @@
-import Jabber = require('jabber');
+import Jabber = require("jabber");
 
 // $ExpectType Jabber
 new Jabber();
 
 // @ts-expect-error
-new Jabber('asd');
+new Jabber("asd");
 
 // @ts-expect-error
-new Jabber([], '1');
+new Jabber([], "1");
 
 // $ExpectType Jabber
-const jabberInstance = new Jabber([], 1, 'asd', 'asd');
+const jabberInstance = new Jabber([], 1, "asd", "asd");
 
 // $ExpectType string
-const email = jabberInstance.createEmail('asd');
+const email = jabberInstance.createEmail("asd");
 
 // $ExpectType string
 const fullName = jabberInstance.createFullName(true);

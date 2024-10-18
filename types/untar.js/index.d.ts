@@ -1,8 +1,3 @@
-// Type definitions for untar.js 0.3
-// Project: https://github.com/antimatter15/untar.js
-// Definitions by: Andrew Branch <https://github.com/andrewbranch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TarLocalFile {
     readonly isValid: true;
     readonly name: string;

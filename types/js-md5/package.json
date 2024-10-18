@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/js-md5",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/emn178/js-md5"
+    ],
+    "devDependencies": {
+        "@types/js-md5": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael McCarthy",
+            "githubUsername": "mwmccarthy"
+        }
+    ]
+}

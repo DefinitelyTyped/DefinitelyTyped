@@ -1,11 +1,9 @@
-// eslint-disable-next-line dt-header
 // Type definitions for inspector
 
 // These definitions are auto-generated.
 // Please see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/19330
 // for more information.
 
-// tslint:disable:max-line-length
 
 /**
  * The `inspector` module provides an API for interacting with the V8 inspector.
@@ -13,7 +11,7 @@
  * It can be accessed using:
  *
  * ```js
- * const inspector = require('inspector');
+ * import inspector from 'node:inspector';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/inspector.js)
  */
@@ -2740,6 +2738,5 @@ declare module 'inspector' {
     function waitForDebugger(): void;
 }
 declare module 'node:inspector' {
-    import EventEmitter = require('inspector');
-    export = EventEmitter;
+    export * from 'inspector';
 }

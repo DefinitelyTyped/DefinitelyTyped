@@ -1,4 +1,0 @@
-element.d.ts
-html.d.ts
-react.d.ts
-string.d.ts

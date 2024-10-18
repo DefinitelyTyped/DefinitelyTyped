@@ -1,6 +1,21 @@
 {
+    "private": true,
+    "name": "@types/metascraper-url",
+    "version": "5.14.9999",
+    "projects": [
+        "https://metascraper.js.org"
+    ],
     "dependencies": {
-        "metascraper": "^5.14.0"
+        "@types/node": "*",
+        "metascraper": "^5.41.0"
     },
-    "private": true
+    "devDependencies": {
+        "@types/metascraper-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

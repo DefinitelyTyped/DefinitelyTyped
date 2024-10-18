@@ -1,7 +1,7 @@
-import { Hash } from 'crypto';
-import { RawSourceMap } from 'source-map';
+import { Hash } from "crypto";
+import { RawSourceMap } from "source-map";
 
-import { MapOptions, SourceAndMapResult } from '.';
+import { MapOptions, SourceAndMapResult } from ".";
 
 /**
  * Base class for all sources.

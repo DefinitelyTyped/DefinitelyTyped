@@ -1,9 +1,3 @@
-// Type definitions for D3JS d3-collection module 1.0
-// Project: https://github.com/d3/d3-collection/, https://d3js.org/d3-collection
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last module patch version validated against: 1.0.7
 
 /**
@@ -50,14 +44,14 @@ export function values(obj: object): any[];
  *
  * @param obj An object.
  */
-export function entries<T>(obj: { [key: string]: T } | ArrayLike<T>): Array<{ key: string, value: T }>;
+export function entries<T>(obj: { [key: string]: T } | ArrayLike<T>): Array<{ key: string; value: T }>;
 /**
  * Returns an array containing the property keys and values of the specified object (an associative array).
  * Each entry is an object with a key and value attribute.The order of the returned array is undefined.
  *
  * @param obj An object.
  */
-export function entries(obj: object): Array<{ key: string, value: any }>;
+export function entries(obj: object): Array<{ key: string; value: any }>;
 
 // ---------------------------------------------------------------------
 // map / Map
@@ -121,7 +115,7 @@ export interface Map<T> {
      * Returns an array of key-value objects for each entry in this map. The order of the returned entries is arbitrary.
      * Each entry’s key is a string, but the value can have arbitrary type.
      */
-    entries(): Array<{ key: string, value: T }>;
+    entries(): Array<{ key: string; value: T }>;
     /**
      * Calls the specified function for each entry in this map and returns undefined.
      * The iteration order is arbitrary.
@@ -290,7 +284,11 @@ export function set<T>(array: T[], key: (value: T, index: number, array: T[]) =>
  * The use of the rollup function, or lack thereof, also determines whether NestedArray has the 'values' property
  * with an array of type Datum at leaf level, or has a rolled-up 'value' property.
  */
-export interface NestedArray<Datum, RollupType> extends Array<{ key: string, values: NestedArray<Datum, RollupType> | Datum[] | undefined, value: RollupType | undefined }> { }
+export interface NestedArray<Datum, RollupType> extends
+    Array<
+        { key: string; values: NestedArray<Datum, RollupType> | Datum[] | undefined; value: RollupType | undefined }
+    >
+{}
 
 /**
  * A more formal definition of the nested array returned by Nest.map(...). This data structure is intended as a reference only.
@@ -299,7 +297,7 @@ export interface NestedArray<Datum, RollupType> extends Array<{ key: string, val
  * of the nesting level (number of key(...) operations) and whether the data were rolled-up, this data structure becomes cumbersome
  * to use in practice.
  */
-export interface NestedMap<Datum, RollupType> extends Map<NestedMap<Datum, RollupType> | Datum[] | RollupType> { }
+export interface NestedMap<Datum, RollupType> extends Map<NestedMap<Datum, RollupType> | Datum[] | RollupType> {}
 
 /**
  * A more formal definition of the nested array returned by Nest.object(...). This data structure is intended as a reference only.

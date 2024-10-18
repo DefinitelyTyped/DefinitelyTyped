@@ -1,4 +1,4 @@
-import parallelProcessing = require('jrf-pip');
+import parallelProcessing = require("jrf-pip");
 
 interface ParallelProcessingParams<T> {
     arrayValues: T[];
@@ -53,7 +53,7 @@ async function sendMesToGroupUsers(): Promise<void> {
     // Skip Male Users
     // i.e. send message only to female
     const nextValueFn = (params: NextValueFnParams<User>) => {
-        return params.value.sex === 'male';
+        return params.value.sex === "male";
     };
 
     // Processing Function
@@ -94,7 +94,7 @@ async function sendMesToGroupUsersSyncStyle(): Promise<void> {
     // Skip Male Users
     // i.e. send message only to female
     const nextValueFn = (params: NextValueFnParams<User>) => {
-        return params.value.sex === 'male';
+        return params.value.sex === "male";
     };
 
     // Processing Function
@@ -127,7 +127,7 @@ function generateUsers(count: number = 10000): User[] {
 
     const even = (n: number): boolean => !(n % 2);
     for (let i = 1; i <= count; i++) {
-        const sex: string = even(i) ? 'male' : 'female';
+        const sex: string = even(i) ? "male" : "female";
         groupUsers.push({
             id: i,
             sex,

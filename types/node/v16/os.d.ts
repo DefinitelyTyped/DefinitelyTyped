@@ -3,11 +3,11 @@
  * properties. It can be accessed using:
  *
  * ```js
- * const os = require('os');
+ * import os from 'node:os';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/os.js)
  */
-declare module 'os' {
+declare module "os" {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -27,17 +27,17 @@ declare module 'os' {
         cidr: string | null;
     }
     interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
-        family: 'IPv4';
+        family: "IPv4";
     }
     interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
-        family: 'IPv6';
+        family: "IPv6";
         scopeid: number;
     }
     interface UserInfo<T> {
         username: T;
         uid: number;
         gid: number;
-        shell: T;
+        shell: T | null;
         homedir: T;
     }
     type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;
@@ -216,7 +216,7 @@ declare module 'os' {
     /**
      * Returns information about the currently effective user. On POSIX platforms,
      * this is typically a subset of the password file. The returned object includes
-     * the `username`, `uid`, `gid`, `shell`, and `homedir`. On Windows, the `uid` and`gid` fields are `-1`, and `shell` is `null`.
+     * the `username`, `uid`, `gid`, `shell`, and `homedir`. On Windows, the `uid` and `gid` fields are `-1`, and `shell` is `null`.
      *
      * The value of `homedir` returned by `os.userInfo()` is provided by the operating
      * system. This differs from the result of `os.homedir()`, which queries
@@ -226,7 +226,7 @@ declare module 'os' {
      * Throws a `SystemError` if a user has no `username` or `homedir`.
      * @since v6.0.0
      */
-    function userInfo(options: { encoding: 'buffer' }): UserInfo<Buffer>;
+    function userInfo(options: { encoding: "buffer" }): UserInfo<Buffer>;
     function userInfo(options?: { encoding: BufferEncoding }): UserInfo<string>;
     type SignalConstants = {
         [key in NodeJS.Signals]: number;
@@ -387,7 +387,7 @@ declare module 'os' {
     const EOL: string;
     /**
      * Returns the operating system CPU architecture for which the Node.js binary was
-     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`, `'ppc64'`, `'s390'`, `'s390x'`, `'x32'`, and `'x64'`.
+     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'s390'`, `'s390x'`, `'x32'`, and `'x64'`.
      *
      * The return value is equivalent to `process.arch`.
      * @since v0.5.0
@@ -403,7 +403,7 @@ declare module 'os' {
     function version(): string;
     /**
      * Returns a string identifying the operating system platform. The value is set
-     * at compile time. Possible values are `'aix'`, `'darwin'`, `'freebsd'`,`'linux'`, `'openbsd'`, `'sunos'`, and `'win32'`.
+     * at compile time. Possible values are `'aix'`, `'darwin'`, `'freebsd'`, `'linux'`, `'openbsd'`, `'sunos'`, and `'win32'`.
      *
      * The return value is equivalent to `process.platform`.
      *
@@ -425,7 +425,7 @@ declare module 'os' {
      * Possible values are `'BE'` for big endian and `'LE'` for little endian.
      * @since v0.9.4
      */
-    function endianness(): 'BE' | 'LE';
+    function endianness(): "BE" | "LE";
     /**
      * Returns the scheduling priority for the process specified by `pid`. If `pid` is
      * not provided or is `0`, the priority of the current process is returned.
@@ -436,7 +436,7 @@ declare module 'os' {
     /**
      * Attempts to set the scheduling priority for the process specified by `pid`. If`pid` is not provided or is `0`, the process ID of the current process is used.
      *
-     * The `priority` input must be an integer between `-20` (high priority) and `19`(low priority). Due to differences between Unix priority levels and Windows
+     * The `priority` input must be an integer between `-20` (high priority) and `19` (low priority). Due to differences between Unix priority levels and Windows
      * priority classes, `priority` is mapped to one of six priority constants in`os.constants.priority`. When retrieving a process priority level, this range
      * mapping may cause the return value to be slightly different on Windows. To avoid
      * confusion, set `priority` to one of the priority constants.
@@ -450,6 +450,6 @@ declare module 'os' {
     function setPriority(priority: number): void;
     function setPriority(pid: number, priority: number): void;
 }
-declare module 'node:os' {
-    export * from 'os';
+declare module "node:os" {
+    export * from "os";
 }

@@ -1,4 +1,4 @@
-import webpack = require('webpack');
+import webpack = require("webpack");
 
 /**
  * This Webpack plugin ensures `npm install <library>` forces a project rebuild.

@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { ReactMic } from 'react-mic';
+import { ReactMic } from "react-mic";
 
 class ReactMicTest extends React.Component {
     render() {

@@ -1,5 +1,11 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
-import { FogBase } from './Fog.js';
+import { Color, ColorRepresentation } from "../math/Color.js";
+
+export interface FogExp2JSON {
+    type: string;
+    name: string;
+    color: number;
+    density: number;
+}
 
 /**
  * This class contains the parameters that define exponential squared fog, which gives a clear view near the camera and a faster than exponentially densening fog farther from the camera.
@@ -12,7 +18,7 @@ import { FogBase } from './Fog.js';
  * @see {@link https://threejs.org/docs/index.html#api/en/scenes/FogExp2 | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/scenes/FogExp2.js | Source}
  */
-export class FogExp2 implements FogBase {
+export class FogExp2 {
     /**
      * The color parameter is passed to the {@link THREE.Color | Color} constructor to set the color property
      * @remarks Color can be a hexadecimal integer or a CSS-style string.
@@ -56,5 +62,5 @@ export class FogExp2 implements FogBase {
     /**
      * Return {@link FogExp2} data in JSON format.
      */
-    toJSON(): any;
+    toJSON(): FogExp2JSON;
 }

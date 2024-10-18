@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/html-to-draftjs",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/jpuri/html-to-draftjs#readme"
+    ],
+    "dependencies": {
+        "@types/draft-js": "*"
+    },
+    "devDependencies": {
+        "@types/html-to-draftjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Zverev",
+            "githubUsername": "1cheese"
+        }
+    ]
+}

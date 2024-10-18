@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/muri",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/aheckmann/muri"
+    ],
+    "devDependencies": {
+        "@types/muri": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jloveridge",
+            "githubUsername": "jloveridge"
+        }
+    ]
+}

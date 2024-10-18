@@ -11,5 +11,5 @@ declare class GlobalActionSet {
     isEmpty(): boolean;
     clone(): GlobalActionSet;
 }
-import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
-import GlobalAction = require('./GlobalAction.js');
+import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
+import GlobalAction = require("./GlobalAction.js");

@@ -1,9 +1,3 @@
-// Type definitions for Amplitude SDK 5.11
-// Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
-//                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
@@ -25,7 +19,7 @@ export interface Config {
     includeReferrer?: boolean | undefined;
     includeUtm?: boolean | undefined;
     language?: string | undefined;
-    logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO' | undefined;
+    logLevel?: "DISABLE" | "ERROR" | "WARN" | "INFO" | undefined;
     optOut?: boolean | undefined;
     onError?: (() => void) | undefined;
     platform?: string | undefined;
@@ -34,7 +28,7 @@ export interface Config {
     saveParamsReferrerOncePerSession?: boolean | undefined;
     secureCookie?: boolean | undefined;
     sessionTimeout?: number | undefined;
-    sameSiteCookie?: 'Lax' | 'Strict' | 'None' | undefined;
+    sameSiteCookie?: "Lax" | "Strict" | "None" | undefined;
     useNativeDeviceInfo?: boolean | undefined;
     trackingOptions?: {
         city?: boolean | undefined;
@@ -122,7 +116,6 @@ export class AmplitudeClient {
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)
 
 /**
- *
  * @deprecated Please use amplitude.getInstance().init(apiKey, opt_userId, opt_config, opt_callback);
  */
 export function init(

@@ -1,9 +1,3 @@
-// Type definitions for loglinecolor 0.2
-// Project: https://github.com/vixerys/loglinecolor
-// Definitions by: Muunatic <https://github.com/Muunatic>
-//                 Harunami <https://github.com/HarunamiYaki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class loglinecolor {
     /**
      * black color

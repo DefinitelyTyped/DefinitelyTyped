@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet-contextmenu",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/aratcliffe/Leaflet.contextmenu"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-contextmenu": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Antonio Vida",
+            "githubUsername": "antoniovlx"
+        }
+    ]
+}

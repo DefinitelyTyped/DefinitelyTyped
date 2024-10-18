@@ -1,5 +1,6 @@
 {
     "rules": {
-        "no-any-union": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-type-only-packages": "off"
     }
 }

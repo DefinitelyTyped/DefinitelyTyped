@@ -16,7 +16,7 @@ browser._manifest;
 const port = browser.runtime.connect();
 // @ts-expect-error
 port.postMessage();
-port.postMessage({ test: 'ok' });
+port.postMessage({ test: "ok" });
 
 port.onDisconnect.addListener(p => {
     if (p.error) {
@@ -25,21 +25,21 @@ port.onDisconnect.addListener(p => {
 });
 
 port.onMessage.addListener(response => {
-    console.log('Received: ' + response);
+    console.log("Received: " + response);
 });
 
-browser.bookmarks.create({ title: 'Mozilla Developer Network (MDN)' });
-browser.bookmarks.get('bookmarkId');
-browser.bookmarks.get(['bookmarkId_1', 'bookmarkId_2']);
-browser.bookmarks.getChildren('bookmarkId');
+browser.bookmarks.create({ title: "Mozilla Developer Network (MDN)" });
+browser.bookmarks.get("bookmarkId");
+browser.bookmarks.get(["bookmarkId_1", "bookmarkId_2"]);
+browser.bookmarks.getChildren("bookmarkId");
 browser.bookmarks.getRecent(2);
-browser.bookmarks.getSubTree('bookmarkId');
+browser.bookmarks.getSubTree("bookmarkId");
 browser.bookmarks.getTree();
-browser.bookmarks.move('bookmarkId', { index: 0 });
-browser.bookmarks.remove('bookmarkId');
-browser.bookmarks.removeTree('bookmarkId');
+browser.bookmarks.move("bookmarkId", { index: 0 });
+browser.bookmarks.remove("bookmarkId");
+browser.bookmarks.removeTree("bookmarkId");
 browser.bookmarks.search({});
-browser.bookmarks.update('bookmarkId', { title: 'Mozilla Developer Network (MDN)' });
+browser.bookmarks.update("bookmarkId", { title: "Mozilla Developer Network (MDN)" });
 
 // Test https://bugzil.la/1707405
 browser.menus.onClicked.addListener(info => {
@@ -56,9 +56,9 @@ browser.proxy.onRequest.addListener(
         console.log(d.requestId);
     },
     {
-        urls: ['test'],
+        urls: ["test"],
     },
-    ['requestHeaders'],
+    ["requestHeaders"],
 );
 
 browser.webNavigation.onBeforeNavigate.addListener(
@@ -66,12 +66,12 @@ browser.webNavigation.onBeforeNavigate.addListener(
         console.log(d.url, d.timeStamp);
     },
     {
-        url: [{ hostContains: 'something' }, { hostPrefix: 'somethineelse' }],
+        url: [{ hostContains: "something" }, { hostPrefix: "somethineelse" }],
     },
 );
 
 browser.runtime.connect().onDisconnect.addListener(() => {
-    console.log('ok');
+    console.log("ok");
 });
 
 browser.storage.onChanged.addListener((changes, area) => {
@@ -84,11 +84,11 @@ browser.storage.onChanged.addListener((changes, area) => {
 /* Test to make sure function optionals work properly */
 
 browser.runtime.connect();
-browser.runtime.connect({ name: 'my-port-name' });
+browser.runtime.connect({ name: "my-port-name" });
 browser.runtime.connect({});
-browser.runtime.connect('extension-id', { name: 'my-port-name' });
-browser.runtime.connect('extension-id', {});
-browser.runtime.connect('extension-id');
+browser.runtime.connect("extension-id", { name: "my-port-name" });
+browser.runtime.connect("extension-id", {});
+browser.runtime.connect("extension-id");
 
 browser.tabs.reload();
 browser.tabs.reload(15);
@@ -101,23 +101,26 @@ browser.tabs.reload({
 
 browser.tabs.captureTab();
 browser.tabs.captureTab(15);
-browser.tabs.captureTab(15, { format: 'png' });
-browser.tabs.captureTab({ format: 'png' });
+browser.tabs.captureTab(15, { format: "png" });
+browser.tabs.captureTab({ format: "png" });
 
 browser.tabs.captureVisibleTab();
 browser.tabs.captureVisibleTab(15);
-browser.tabs.captureVisibleTab(15, { format: 'png' });
-browser.tabs.captureVisibleTab({ format: 'png' });
+browser.tabs.captureVisibleTab(15, { format: "png" });
+browser.tabs.captureVisibleTab({ format: "png" });
 
 /* Test SteamFilter */
-const filter = browser.webRequest.filterResponseData('1234');
+const filter = browser.webRequest.filterResponseData("1234");
 filter.onerror = () => console.log(filter.error);
 filter.ondata = ({ data }) => console.log(data);
-filter.onstart = () => console.log('start');
-filter.onstop = (_event: Event) => console.log('stop');
+filter.onstart = () => console.log("start");
+filter.onstop = (_event: Event) => console.log("stop");
 filter.suspend();
 filter.resume();
 filter.write(new Uint8Array(32));
 filter.close();
 filter.disconnect();
 console.log(filter.status);
+
+browser.storage.session.get("sessionObject");
+browser.storage.session.set({ "sessionObject": "value" });

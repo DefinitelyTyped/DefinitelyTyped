@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Plaid Link 2.0
-// Project: https://cdn.plaid.com/link/v2/stable/link-initialize.js
-// Definitions by: Aaron Holderman <https://github.com/afholderman>
-//                 Brian Howald <https://github.com/bdhowald>
-//                 Hannes Kindströmmer <https://github.com/brolaugh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
-
 declare global {
     interface Window {
         Plaid: {
@@ -99,92 +91,92 @@ export namespace Plaid {
         } | null;
     }
 
-    type AuthTypeSelectFlow = 'flow_type_instant' | 'flow_type_manual';
+    type AuthTypeSelectFlow = "flow_type_instant" | "flow_type_manual";
 
     type Country =
-        | 'CA'
-        | 'DE'
-        | 'DK'
-        | 'EE'
-        | 'ES'
-        | 'FR'
-        | 'GB'
-        | 'IE'
-        | 'IT'
-        | 'LT'
-        | 'LV'
-        | 'NL'
-        | 'NO'
-        | 'PL'
-        | 'SE'
-        | 'US';
+        | "CA"
+        | "DE"
+        | "DK"
+        | "EE"
+        | "ES"
+        | "FR"
+        | "GB"
+        | "IE"
+        | "IT"
+        | "LT"
+        | "LV"
+        | "NL"
+        | "NO"
+        | "PL"
+        | "SE"
+        | "US";
 
-    type Environment = 'development' | 'sandbox' | 'production';
+    type Environment = "development" | "sandbox" | "production";
 
     type EventName =
-        | 'BANK_INCOME_INSIGHTS_COMPLETED'
-        | 'CLOSE_OAUTH'
-        | 'ERROR'
-        | 'EXIT'
-        | 'FAIL_OAUTH'
-        | 'HANDOFF'
-        | 'IDENTITY_VERIFICATION_CLOSE_UI'
-        | 'IDENTITY_VERIFICATION_CREATE_SESSION'
-        | 'IDENTITY_VERIFICATION_FAIL_SESSION'
-        | 'IDENTITY_VERIFICATION_FAIL_STEP'
-        | 'IDENTITY_VERIFICATION_OPEN_UI'
-        | 'IDENTITY_VERIFICATION_PASS_SESSION'
-        | 'IDENTITY_VERIFICATION_PASS_STEP'
-        | 'IDENTITY_VERIFICATION_PENDING_REVIEW_STEP'
-        | 'IDENTITY_VERIFICATION_RESUME_SESSION'
-        | 'IDENTITY_VERIFICATION_RESUME_UI'
-        | 'IDENTITY_VERIFICATION_START_STEP'
-        | 'MATCHED_SELECT_INSTITUTION'
-        | 'MATCHED_SELECT_VERIFY_METHOD'
-        | 'OPEN'
-        | 'OPEN_MY_PLAID'
-        | 'OPEN_OAUTH'
-        | 'SEARCH_INSTITUTION'
-        | 'SELECT_AUTH_TYPE'
-        | 'SELECT_BRAND'
-        | 'SELECT_DEGRADED_INSTITUTION'
-        | 'SELECT_DOWN_INSTITUTION'
-        | 'SELECT_INSTITUTION'
-        | 'SUBMIT_ACCOUNT_NUMBER'
-        | 'SUBMIT_CREDENTIALS'
-        | 'SUBMIT_DOCUMENTS'
-        | 'SUBMIT_DOCUMENTS_ERROR'
-        | 'SUBMIT_DOCUMENTS_SUCCESS'
-        | 'SUBMIT_MFA'
-        | 'SUBMIT_ROUTING_NUMBER'
-        | 'TRANSITION_VIEW'
-        | 'VIEW_DATA_TYPES';
+        | "BANK_INCOME_INSIGHTS_COMPLETED"
+        | "CLOSE_OAUTH"
+        | "ERROR"
+        | "EXIT"
+        | "FAIL_OAUTH"
+        | "HANDOFF"
+        | "IDENTITY_VERIFICATION_CLOSE_UI"
+        | "IDENTITY_VERIFICATION_CREATE_SESSION"
+        | "IDENTITY_VERIFICATION_FAIL_SESSION"
+        | "IDENTITY_VERIFICATION_FAIL_STEP"
+        | "IDENTITY_VERIFICATION_OPEN_UI"
+        | "IDENTITY_VERIFICATION_PASS_SESSION"
+        | "IDENTITY_VERIFICATION_PASS_STEP"
+        | "IDENTITY_VERIFICATION_PENDING_REVIEW_STEP"
+        | "IDENTITY_VERIFICATION_RESUME_SESSION"
+        | "IDENTITY_VERIFICATION_RESUME_UI"
+        | "IDENTITY_VERIFICATION_START_STEP"
+        | "MATCHED_SELECT_INSTITUTION"
+        | "MATCHED_SELECT_VERIFY_METHOD"
+        | "OPEN"
+        | "OPEN_MY_PLAID"
+        | "OPEN_OAUTH"
+        | "SEARCH_INSTITUTION"
+        | "SELECT_AUTH_TYPE"
+        | "SELECT_BRAND"
+        | "SELECT_DEGRADED_INSTITUTION"
+        | "SELECT_DOWN_INSTITUTION"
+        | "SELECT_INSTITUTION"
+        | "SUBMIT_ACCOUNT_NUMBER"
+        | "SUBMIT_CREDENTIALS"
+        | "SUBMIT_DOCUMENTS"
+        | "SUBMIT_DOCUMENTS_ERROR"
+        | "SUBMIT_DOCUMENTS_SUCCESS"
+        | "SUBMIT_MFA"
+        | "SUBMIT_ROUTING_NUMBER"
+        | "TRANSITION_VIEW"
+        | "VIEW_DATA_TYPES";
 
     type ExitStatus =
-        | 'choose_device'
-        | 'institution_not_found'
-        | 'requires_account_selection'
-        | 'requires_code'
-        | 'requires_credentials'
-        | 'requires_oauth'
-        | 'requires_questions'
-        | 'requires_selections';
+        | "choose_device"
+        | "institution_not_found"
+        | "requires_account_selection"
+        | "requires_code"
+        | "requires_credentials"
+        | "requires_oauth"
+        | "requires_questions"
+        | "requires_selections";
 
     type Language =
-        | 'da'
-        | 'de'
-        | 'en'
-        | 'es'
-        | 'et'
-        | 'fr'
-        | 'it'
-        | 'lt'
-        | 'lv'
-        | 'nl'
-        | 'no'
-        | 'po'
-        | 'ro'
-        | 'se';
+        | "da"
+        | "de"
+        | "en"
+        | "es"
+        | "et"
+        | "fr"
+        | "it"
+        | "lt"
+        | "lv"
+        | "nl"
+        | "no"
+        | "po"
+        | "ro"
+        | "se";
 
     type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
     type OnExit = (error: Error | null, metadata: OnExitMetaData) => void;
@@ -192,58 +184,58 @@ export namespace Plaid {
     type OnLoad = () => void;
 
     type Product =
-        | 'assets'
-        | 'auth'
-        | 'employment'
-        | 'identity'
-        | 'identity_verification'
-        | 'income'
-        | 'income_verification'
-        | 'investments'
-        | 'payment_initiation'
-        | 'liabilities'
-        | 'standing_orders'
-        | 'transactions'
-        | 'transfer';
+        | "assets"
+        | "auth"
+        | "employment"
+        | "identity"
+        | "identity_verification"
+        | "income"
+        | "income_verification"
+        | "investments"
+        | "payment_initiation"
+        | "liabilities"
+        | "standing_orders"
+        | "transactions"
+        | "transfer";
 
-    type TransferStatus = 'COMPLETE' | 'INCOMPLETE';
+    type TransferStatus = "COMPLETE" | "INCOMPLETE";
 
-    type VerificationMethod = 'password' | 'phoneotp';
+    type VerificationMethod = "password" | "phoneotp";
 
     type VerificationStatus =
-        | 'automatically_verified'
-        | 'manually_verified'
-        | 'pending_automatic_verification'
-        | 'pending_manual_verification'
-        | 'verification_expired'
-        | 'verification_failed';
+        | "automatically_verified"
+        | "manually_verified"
+        | "pending_automatic_verification"
+        | "pending_manual_verification"
+        | "verification_expired"
+        | "verification_failed";
 
     type ViewName =
-        | 'ACCEPT_TOS'
-        | 'CONNECTED'
-        | 'CONSENT'
-        | 'CREDENTIAL'
-        | 'DATA_TRANSPARENCY'
-        | 'DATA_TRANSPARENCY_CONSENT'
-        | 'DOCUMENTARY_VERIFICATION'
-        | 'ERROR'
-        | 'EXIT'
-        | 'KYC_CHECK'
-        | 'LOADING'
-        | 'MATCHED_CONSENT'
-        | 'MATCHED_CREDENTIAL'
-        | 'MATCHED_MFA'
-        | 'MFA'
-        | 'NUMBERS'
-        | 'OAUTH'
-        | 'RECAPTCHA'
-        | 'RISK_CHECK'
-        | 'SCREENING'
-        | 'SELECT_ACCOUNT'
-        | 'SELECT_AUTH_TYPE'
-        | 'SELECT_BRAND'
-        | 'SELECT_INSTITUTION'
-        | 'SELFIE_CHECK'
-        | 'UPLOAD_DOCUMENTS'
-        | 'VERIFY_SMS';
+        | "ACCEPT_TOS"
+        | "CONNECTED"
+        | "CONSENT"
+        | "CREDENTIAL"
+        | "DATA_TRANSPARENCY"
+        | "DATA_TRANSPARENCY_CONSENT"
+        | "DOCUMENTARY_VERIFICATION"
+        | "ERROR"
+        | "EXIT"
+        | "KYC_CHECK"
+        | "LOADING"
+        | "MATCHED_CONSENT"
+        | "MATCHED_CREDENTIAL"
+        | "MATCHED_MFA"
+        | "MFA"
+        | "NUMBERS"
+        | "OAUTH"
+        | "RECAPTCHA"
+        | "RISK_CHECK"
+        | "SCREENING"
+        | "SELECT_ACCOUNT"
+        | "SELECT_AUTH_TYPE"
+        | "SELECT_BRAND"
+        | "SELECT_INSTITUTION"
+        | "SELFIE_CHECK"
+        | "UPLOAD_DOCUMENTS"
+        | "VERIFY_SMS";
 }

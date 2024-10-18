@@ -1,9 +1,13 @@
-// Type definitions for pico8parse 0.4
-// Project: https://pictelm.github.io/pico8parse/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export type LuaVersion = '5.1' | '5.2' | '5.3' | 'LuaJIT' | 'PICO-8' | 'PICO-8-0.2.1' | 'PICO-8-0.2.2' | 'PICO-8-0.2.3' | 'PICO-8-0.2.4';
+export type LuaVersion =
+    | "5.1"
+    | "5.2"
+    | "5.3"
+    | "LuaJIT"
+    | "PICO-8"
+    | "PICO-8-0.2.1"
+    | "PICO-8-0.2.2"
+    | "PICO-8-0.2.3"
+    | "PICO-8-0.2.4";
 
 export interface Options {
     /** Explicitly tell the parser when the input ends. */
@@ -81,13 +85,31 @@ export namespace ast {
         range?: [number, number];
     }
 
-    type UnaryOperator = 'not' | '-' | '~' | '#' | '@' | '$' | '%';
-    type BinaryOperator =  '+' | '-' | '*' | '%' | '^' | '/' | '//' | '&' | '|' | '~' | '<<' | '>>' | '..' | '>>>' | '<<>' | '>><' | '^^' | '\\';
-    type ComparisonOperator = '~=' | '==' | '<' | '<=' | '>' | '>=' | '!=';
+    type UnaryOperator = "not" | "-" | "~" | "#" | "@" | "$" | "%";
+    type BinaryOperator =
+        | "+"
+        | "-"
+        | "*"
+        | "%"
+        | "^"
+        | "/"
+        | "//"
+        | "&"
+        | "|"
+        | "~"
+        | "<<"
+        | ">>"
+        | ".."
+        | ">>>"
+        | "<<>"
+        | ">><"
+        | "^^"
+        | "\\";
+    type ComparisonOperator = "~=" | "==" | "<" | "<=" | ">" | ">=" | "!=";
 
     type IfStatementClauses = [IfClause, ...Array<ElseifClause | ElseClause>];
 
-//#region node types definitions
+    // #region node types definitions
     interface LabelStatement extends Base<"LabelStatement"> {
         label: Identifier;
     }
@@ -243,13 +265,13 @@ export namespace ast {
     }
 
     interface LogicalExpression extends Base<"LogicalExpression"> {
-        operator: 'or' | 'and';
+        operator: "or" | "and";
         left: Expression;
         right: Expression;
     }
 
     interface MemberExpression extends Base<"MemberExpression"> {
-        indexer: '.' | ':';
+        indexer: "." | ":";
         identifier: Identifier;
         base: Expression;
     }
@@ -279,18 +301,18 @@ export namespace ast {
         raw: string;
         rawInterrupted?: string;
     }
-//#endregion
+    // #endregion
 
-//#region node type aliases
-    type Literal
-        = StringLiteral
+    // #region node type aliases
+    type Literal =
+        | StringLiteral
         | NumericLiteral
         | BooleanLiteral
         | NilLiteral
         | VarargLiteral;
 
-    type Expression
-        = FunctionDeclaration
+    type Expression =
+        | FunctionDeclaration
         | Identifier
         | Literal
         | TableConstructorExpression
@@ -303,8 +325,8 @@ export namespace ast {
         | TableCallExpression
         | StringCallExpression;
 
-    type Statement
-        = LabelStatement
+    type Statement =
+        | LabelStatement
         | BreakStatement
         | GotoStatement
         | ReturnStatement
@@ -320,8 +342,8 @@ export namespace ast {
         | ForNumericStatement
         | ForGenericStatement;
 
-    type Node
-        = Statement
+    type Node =
+        | Statement
         | Expression
         | IfClause
         | ElseifClause
@@ -331,7 +353,7 @@ export namespace ast {
         | TableKeyString
         | TableValue
         | Comment;
-//#endregion
+    // #endregion
 
     interface Token {
         type: tokenTypes;
@@ -341,7 +363,7 @@ export namespace ast {
         range: [number, number];
     }
 
-//#region node sketching
+    // #region node sketching
     function labelStatement(label: Identifier): LabelStatement;
     function breakStatement(): BreakStatement;
     function gotoStatement(label: Identifier): GotoStatement;
@@ -354,33 +376,66 @@ export namespace ast {
     function doStatement(body: Statement[]): DoStatement;
     function repeatStatement(condition: Expression, body: Statement[]): RepeatStatement;
     function localStatement(variables: Identifier[], init: Expression[]): LocalStatement;
-    function assignmentStatement(variables: Array<Identifier | IndexExpression | MemberExpression>, init: Expression[]): AssignmentStatement;
-    function assignmentOperatorStatement(operator: BinaryOperator, variables: Array<Identifier | IndexExpression | MemberExpression>, init: Expression[]): AssignmentOperatorStatement;
+    function assignmentStatement(
+        variables: Array<Identifier | IndexExpression | MemberExpression>,
+        init: Expression[],
+    ): AssignmentStatement;
+    function assignmentOperatorStatement(
+        operator: BinaryOperator,
+        variables: Array<Identifier | IndexExpression | MemberExpression>,
+        init: Expression[],
+    ): AssignmentOperatorStatement;
     function callStatement(expression: CallExpression | StringCallExpression | TableCallExpression): CallStatement;
-    function functionStatement(identifier: Identifier | MemberExpression | null, parameters: Array<Identifier | VarargLiteral>, isLocal: boolean, body: Statement[]): FunctionDeclaration;
-    function forNumericStatement(variable: Identifier, start: Expression, end: Expression, step: Expression | null, body: Statement[]): ForNumericStatement;
-    function forGenericStatement(variables: Identifier[], iterators: Expression[], body: Statement[]): ForGenericStatement;
+    function functionStatement(
+        identifier: Identifier | MemberExpression | null,
+        parameters: Array<Identifier | VarargLiteral>,
+        isLocal: boolean,
+        body: Statement[],
+    ): FunctionDeclaration;
+    function forNumericStatement(
+        variable: Identifier,
+        start: Expression,
+        end: Expression,
+        step: Expression | null,
+        body: Statement[],
+    ): ForNumericStatement;
+    function forGenericStatement(
+        variables: Identifier[],
+        iterators: Expression[],
+        body: Statement[],
+    ): ForGenericStatement;
     function chunk(body: Statement[]): Chunk;
     function identifier(name: string): Identifier;
-    function literal(type: tokenTypes.StringLiteral, value: string, raw: string, rawInterrupted?: string): StringLiteral;
+    function literal(
+        type: tokenTypes.StringLiteral,
+        value: string,
+        raw: string,
+        rawInterrupted?: string,
+    ): StringLiteral;
     function literal(type: tokenTypes.NumericLiteral, value: number, raw: string): NumericLiteral;
-    function literal(type: tokenTypes.BooleanLiteral, value: boolean, raw: 'true' | 'false'): BooleanLiteral;
-    function literal(type: tokenTypes.NilLiteral, value: null, raw: 'nil'): NilLiteral;
-    function literal(type: tokenTypes.VarargLiteral, value: '...', raw: '...'): VarargLiteral;
+    function literal(type: tokenTypes.BooleanLiteral, value: boolean, raw: "true" | "false"): BooleanLiteral;
+    function literal(type: tokenTypes.NilLiteral, value: null, raw: "nil"): NilLiteral;
+    function literal(type: tokenTypes.VarargLiteral, value: "...", raw: "..."): VarargLiteral;
     function tableKey(key: Expression, value: Expression): TableKey;
     function tableKeyString(key: Identifier, value: Expression): TableKeyString;
     function tableValue(value: Expression): TableValue;
-    function tableConstructorExpression(fields: Array<TableKey | TableKeyString | TableValue>): TableConstructorExpression;
-    function binaryExpression(operator: BinaryOperator | ComparisonOperator, left: Expression, right: Expression): BinaryExpression;
-    function binaryExpression(operator: 'and' | 'or', left: Expression, right: Expression): LogicalExpression;
+    function tableConstructorExpression(
+        fields: Array<TableKey | TableKeyString | TableValue>,
+    ): TableConstructorExpression;
+    function binaryExpression(
+        operator: BinaryOperator | ComparisonOperator,
+        left: Expression,
+        right: Expression,
+    ): BinaryExpression;
+    function binaryExpression(operator: "and" | "or", left: Expression, right: Expression): LogicalExpression;
     function unaryExpression(operator: UnaryOperator, argument: Expression): UnaryExpression;
-    function memberExpression(base: Expression, indexer: '.' | ':', identifier: Identifier): MemberExpression;
+    function memberExpression(base: Expression, indexer: "." | ":", identifier: Identifier): MemberExpression;
     function indexExpression(base: Expression, index: Expression): IndexExpression;
     function callExpression(base: Expression, args: Expression[]): CallExpression;
     function tableCallExpression(base: Expression, argument: Expression[]): TableCallExpression;
     function stringCallExpression(base: Expression, argument: Expression): StringCallExpression;
     function comment(value: string, raw: string, rawInterrupted?: string): Comment;
-//#endregion
+    // #endregion
 }
 
 // Keep this lower-case the same as in the pico8parse.js file itself.
@@ -459,9 +514,9 @@ export const errors: Record<string, string>;
 export const defaultOptions: Partial<Options>;
 export const versionFeatures: Record<LuaVersion, boolean>;
 
-export const parse: Parser['parse'];
-export const write: Parser['write'];
-export const end: Parser['end'];
-export const lex: Parser['lex'];
+export const parse: Parser["parse"];
+export const write: Parser["write"];
+export const end: Parser["end"];
+export const lex: Parser["lex"];
 
 export as namespace pico8parse;

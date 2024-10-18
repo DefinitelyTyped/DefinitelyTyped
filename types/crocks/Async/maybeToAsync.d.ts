@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Maybe from '../Maybe';
-import Async from './Async';
+import { UnaryFunction } from "../internal/types";
+import Maybe from "../Maybe";
+import Async from "./Async";
 
 /**
  * maybeToAsync :: e -> Maybe a -> Async e a

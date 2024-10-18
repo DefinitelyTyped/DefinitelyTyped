@@ -88,7 +88,7 @@ const TestHook = track()((props: { foo: string }) => {
     React.useEffect(() =>
         trackEvent({
             action: "useEffect callback",
-        }),
+        })
     );
     return (
         <Track>
@@ -110,7 +110,7 @@ const TestEmptyHook = track()((props: { foo: string }) => {
         trackEvent({
             page: "Home",
             action: "useEffect callback",
-        }),
+        })
     );
     return (
         <Track>

@@ -1,9 +1,10 @@
-import { WebGLRenderer, Vector2 } from '../../../src/Three.js';
+import { Vector2, WebGLRenderer } from "three";
 
 export class SelectionHelper {
     constructor(renderer: WebGLRenderer, cssClassName: string);
     element: HTMLElement;
     isDown: boolean;
+    enabled: boolean;
     pointBottomRight: Vector2;
     pointTopLeft: Vector2;
     renderer: WebGLRenderer;

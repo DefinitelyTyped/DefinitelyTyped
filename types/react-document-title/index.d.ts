@@ -1,17 +1,12 @@
-// Type definitions for react-document-title 2.0
-// Project: https://github.com/gaearon/react-document-title
-// Definitions by: Cleve Littlefield <https://github.com/cleverguy25>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as React from "react";
 
-import * as React from 'react';
-
-interface DocumentTitleProps {
-    title: string;
-    children?: React.ReactChild | null | undefined;
+declare namespace DocumentTitle {
+    interface DocumentTitleProps {
+        title: string;
+        children?: React.ReactElement | number | string | null | undefined;
+    }
 }
 
-declare class DocumentTitle extends React.Component<DocumentTitleProps, any> {
-}
+declare class DocumentTitle extends React.Component<DocumentTitle.DocumentTitleProps> {}
 
-export default DocumentTitle;
+export = DocumentTitle;

@@ -12,6 +12,6 @@ df = Wikifier.wikifyEval(s);
 b = Wikifier.isExternalLink(s);
 
 new Wikifier(output, s);
-new Wikifier(null, s, {profile: s, ignoreTerminatorCase: b});
+new Wikifier(null, s, { profile: s, ignoreTerminatorCase: b });
 
 export {};

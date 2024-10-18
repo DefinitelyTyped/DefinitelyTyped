@@ -1,6 +1,6 @@
-import { Currency } from './currency';
+import { Currency } from "./currency";
 
-export type MerchantStatus = 'active' | 'inactive';
+export type MerchantStatus = "active" | "inactive";
 
 export interface Merchant {
     id: number;

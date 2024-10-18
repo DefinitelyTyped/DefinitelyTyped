@@ -1,4 +1,4 @@
-import { ObservableValue } from './';
+import { ObservableValue } from "./";
 
 type RemoveListener = () => void;
 declare function watch<O extends ObservableValue<any>>(

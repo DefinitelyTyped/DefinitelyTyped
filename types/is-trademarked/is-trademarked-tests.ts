@@ -1,6 +1,6 @@
-import isTrademarked = require('is-trademarked');
+import isTrademarked = require("is-trademarked");
 
 // $ExpectType Promise<false | TrademarkedData[]>
-isTrademarked('unicorns');
+isTrademarked("unicorns");
 // $ExpectType Promise<false | TrademarkedData[]>
-isTrademarked('unicorns', { token: 'foo' });
+isTrademarked("unicorns", { token: "foo" });

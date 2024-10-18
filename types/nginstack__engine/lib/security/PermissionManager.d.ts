@@ -49,5 +49,5 @@ declare namespace PermissionManager {
 }
 import DataSet = require('../dataset/DataSet.js');
 import PermissionAssignment = require('./PermissionAssignment.js');
-type Transaction = import('../dataset/Transaction');
 declare function getInstance(): PermissionManager;
+type Transaction = import('../dataset/Transaction');

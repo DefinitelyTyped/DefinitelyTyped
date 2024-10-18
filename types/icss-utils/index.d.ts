@@ -1,9 +1,3 @@
-// Type definitions for icss-utils 5.1
-// Project: https://github.com/css-modules/icss-utils#readme
-// Definitions by: Bob Matcuk <https://github.com/bmatcuk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import { Container, Rule } from "postcss";
 
 export interface Replacements {

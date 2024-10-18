@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/whois-json",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/mikemaccana/whois-json"
+    ],
+    "devDependencies": {
+        "@types/whois-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hwai-En Ho",
+            "githubUsername": "hwaien"
+        }
+    ]
+}

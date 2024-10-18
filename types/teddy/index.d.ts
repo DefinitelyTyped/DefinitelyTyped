@@ -1,9 +1,3 @@
-// Type definitions for teddy 0.4
-// Project: https://github.com/rooseveltframework/teddy
-// Definitions by: Benjamin Lannon <https://github.com/lannonbr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 // compiles a template
 export function compile(template: string): string;
 
@@ -29,7 +23,7 @@ export function setMaxCaches(template: string, n: number): void;
 export function setCacheWhitelist(o: object): void;
 
 // mutator method to set a blacklist of templates not to cache as an array
-export function setCacheBlacklist(templateArray: ReadonlyArray<string>): void;
+export function setCacheBlacklist(templateArray: readonly string[]): void;
 
 // sets all params to their default values
 export function setDefaultParams(): void;

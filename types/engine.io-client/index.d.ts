@@ -1,16 +1,10 @@
-// Type definitions for engine.io-client 3.1
-// Project: https://github.com/socketio/engine.io-client
-// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import http = require('http');
+import http = require("http");
 
 declare namespace client {
-    type Transport = 'polling'|'websocket';
-    type Message = string|ArrayBuffer|ArrayBufferView|Blob;
+    type Transport = "polling" | "websocket";
+    type Message = string | ArrayBuffer | ArrayBufferView | Blob;
     interface MessageOptions {
         compress?: boolean | undefined;
     }
@@ -18,7 +12,7 @@ declare namespace client {
         /**
          * http.Agent to use, defaults to false (NodeJS only)
          */
-        agent?: http.Agent|false | undefined;
+        agent?: http.Agent | false | undefined;
         /**
          * defaults to true, whether the client should try to upgrade the transport from long-polling to something better.
          */
@@ -67,7 +61,7 @@ declare namespace client {
         /**
          * hash of options, indexed by transport name, overriding the common options for the given transport
          */
-        transportOptions?: {[key: string]: SocketOptions} | undefined;
+        transportOptions?: { [key: string]: SocketOptions } | undefined;
         /**
          * defaults to false. If true and if the previous websocket connection to the server succeeded,
          * the connection attempt will bypass the normal upgrade process and will initially try websocket.
@@ -96,7 +90,7 @@ declare namespace client {
          * An authority certificate or array of authority certificates to check the remote host against.
          * Can be used in Node.js client environment to manually specify certificate information.
          */
-        ca?: string|string[] | undefined;
+        ca?: string | string[] | undefined;
         /**
          * A string describing the ciphers to use or exclude. Consult the cipher format list for details on the format.
          * Can be used in Node.js client environment to manually specify certificate information.
@@ -116,7 +110,7 @@ declare namespace client {
          * Headers that will be passed for each request to the server (via xhr-polling and via websockets).
          * These values then can be used during handshake or for special proxies. Can only be used in Node.js client environment.
          */
-        extraHeaders?: {[header: string]: string} | undefined;
+        extraHeaders?: { [header: string]: string } | undefined;
         /**
          * whether transport upgrades should be restricted to transports supporting binary data (false)
          */
@@ -139,7 +133,7 @@ declare namespace client {
 
     class Socket {
         protocol?: number | undefined;
-        binaryType?: 'arraybuffer'|'blob' | undefined;
+        binaryType?: "arraybuffer" | "blob" | undefined;
 
         /*
          * open: Fired upon successful connection.
@@ -148,27 +142,27 @@ declare namespace client {
          * ping: Fired upon flushing a ping packet (ie: actual packet write out)
          * pong: Fired upon receiving a pong packet.
          */
-        on(ev: 'open'|'flush'|'drain'|'ping'|'pong' , cb: () => void): this;
+        on(ev: "open" | "flush" | "drain" | "ping" | "pong", cb: () => void): this;
         /*
          * Fired when data is received from the server.
          */
-        on(ev: 'message' , cb: (data: string|ArrayBuffer) => void): this;
+        on(ev: "message", cb: (data: string | ArrayBuffer) => void): this;
         /*
          * Fired upon disconnection. In compliance with the WebSocket API spec, this event may be fired even if the open event does not occur (i.e. due to connection error or close()).
          */
-        on(ev: 'close' , cb: (mes: string, detail?: Error) => void): this;
+        on(ev: "close", cb: (mes: string, detail?: Error) => void): this;
         /*
          * Fired when an error occurs.
          */
-        on(ev: 'error' , cb: (err: Error) => void): this;
+        on(ev: "error", cb: (err: Error) => void): this;
         /*
          * Fired if an error occurs with a transport we're trying to upgrade to.
          */
-        on(ev: 'upgradeError' , cb: (err: UpgradeError) => void): this;
+        on(ev: "upgradeError", cb: (err: UpgradeError) => void): this;
         /*
          * Fired upon upgrade success, after the new transport is set
          */
-        on(ev: 'upgrade' , cb: (transport: any) => void): this;
+        on(ev: "upgrade", cb: (transport: any) => void): this;
 
         /**
          * Sends a message to the server

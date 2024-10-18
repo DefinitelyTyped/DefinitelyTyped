@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/proper-url-join",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/moxystudio/js-proper-url-join"
+    ],
     "dependencies": {
         "query-string": "^6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/proper-url-join": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jules Sam. Randolph",
+            "githubUsername": "jsamr"
+        }
+    ]
 }

@@ -1,8 +1,3 @@
-// Type definitions for persistent-cache 1.1
-// Project: https://github.com/LionC/persistent-cache#readme
-// Definitions by: Cesar Daniel Bañuelos Gómez <https://github.com/DanielBGomez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface CacheOptions {
@@ -74,6 +69,7 @@ declare function cache(options?: CacheOptions): {
     /**
      * Remove the provided `key` from the cache.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     deleteSync(name: string): undefined | void;
     /**
      * Finds all available keys in a cache.

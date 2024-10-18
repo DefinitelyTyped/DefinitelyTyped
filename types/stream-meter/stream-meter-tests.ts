@@ -1,6 +1,6 @@
-import meter = require('stream-meter');
+import meter = require("stream-meter");
 
-var m:meter.StreamMeter = meter();
+var m: meter.StreamMeter = meter();
 process.stdin.pipe(m).pipe(process.stdout);
 
 var bytes: number;
@@ -14,5 +14,5 @@ m = meter(129);
 // stream-meter support following constructing
 // but i cannot declare such object in typescript
 
-//m = new meter();
-//m = new meter(123);
+// m = new meter();
+// m = new meter(123);

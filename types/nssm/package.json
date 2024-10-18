@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nssm",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/alykoshin/nssm"
+    ],
+    "devDependencies": {
+        "@types/nssm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joram van den Boezem",
+            "githubUsername": "hongaar"
+        }
+    ]
+}

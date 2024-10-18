@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/carlo",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/GoogleChromeLabs/carlo#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "@types/puppeteer": "^5.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/carlo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Dierkens",
+            "githubUsername": "adierkens"
+        }
+    ]
 }

@@ -1,5 +1,5 @@
-import Client = require('chromecast-api');
-import { MediaResource } from 'chromecast-api/lib/device';
+import Client = require("chromecast-api");
+import { MediaResource } from "chromecast-api/lib/device";
 
 const client = new Client();
 
@@ -11,54 +11,60 @@ client.devices;
 
 client.destroy();
 
-client.on('device', (device) => {
+client.on("device", (device) => {
     const testMedia: MediaResource = {
-        url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4',
+        url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4",
         subtitles: [
             {
-                language: 'en-US',
-                url: 'https://raw.githubusercontent.com/alxhotel/chromecast-api/master/test/captions_styled.vtt',
-                name: 'English',
+                language: "en-US",
+                url: "https://raw.githubusercontent.com/alxhotel/chromecast-api/master/test/captions_styled.vtt",
+                name: "English",
             },
             {
-                language: 'es-ES',
-                url: 'https://raw.githubusercontent.com/alxhotel/chromecast-api/master/test/captions_styled_es.vtt',
-                name: 'Spanish',
-            }
+                language: "es-ES",
+                url: "https://raw.githubusercontent.com/alxhotel/chromecast-api/master/test/captions_styled_es.vtt",
+                name: "Spanish",
+            },
         ],
         cover: {
-            title: 'Big Bug Bunny',
-            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg'
+            title: "Big Bug Bunny",
+            url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
         },
         subtitles_style: {
-            backgroundColor: '#FFFFFF00',
-            foregroundColor: '#FFFFFFFF',
-            edgeType: 'OUTLINE',
-            edgeColor: '#000000FF',
+            backgroundColor: "#FFFFFF00",
+            foregroundColor: "#FFFFFFFF",
+            edgeType: "OUTLINE",
+            edgeColor: "#000000FF",
             fontScale: 1.2,
-            fontStyle: 'BOLD',
-            fontFamily: 'Droid Sans',
-            fontGenericFamily: 'SANS_SERIF',
-        }
+            fontStyle: "BOLD",
+            fontFamily: "Droid Sans",
+            fontGenericFamily: "SANS_SERIF",
+        },
     };
 
     device.name;
     device.friendlyName;
     device.host;
 
-    device.play(testMedia, {startTime: 20}, (err) => {
+    device.play(testMedia, { startTime: 20 }, (err) => {
     });
-    device.play(testMedia, {startTime: 20});
+    device.play(testMedia, { startTime: 20 });
     device.play(testMedia, (err) => {
     });
     device.play(testMedia);
 
-    device.play('http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4', {startTime: 20}, (err) => {
+    device.play(
+        "http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4",
+        { startTime: 20 },
+        (err) => {
+        },
+    );
+    device.play("http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4", {
+        startTime: 20,
     });
-    device.play('http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4', {startTime: 20});
-    device.play('http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4', (err) => {
+    device.play("http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4", (err) => {
     });
-    device.play('http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4');
+    device.play("http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4");
 
     device.getStatus((err, status) => {
     });
@@ -120,9 +126,9 @@ client.on('device', (device) => {
     device.close(() => {
     });
 
-    device.on('connected', () => {});
-    device.on('finished', () => {});
-    device.on('status', (status) => {});
+    device.on("connected", () => {});
+    device.on("finished", () => {});
+    device.on("status", (status) => {});
 
     device._connect(() => {});
     device._tryConnect(() => {});

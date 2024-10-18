@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-native-modal-filter-picker",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/hiddentao/react-native-modal-filter-picker#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-modal-filter-picker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chang Yanwei",
+            "githubUsername": "ywchang"
+        },
+        {
+            "name": "Cheng Gibson",
+            "githubUsername": "nossbigg"
+        },
+        {
+            "name": "Zheng Arnaud",
+            "githubUsername": "arnaud-zg"
+        }
+    ]
+}

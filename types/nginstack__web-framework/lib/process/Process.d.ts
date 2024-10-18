@@ -3,7 +3,7 @@ declare function Process(
     key: number,
     id: string,
     responseObject: any,
-    sourceClass: number | DBKey
+    sourceClass: number | DBKey,
 ): void;
 declare class Process {
     constructor(key: number, id: string, responseObject: any, sourceClass: number | DBKey);
@@ -42,7 +42,7 @@ declare class Process {
     private uploadDialog_;
     private fileLoader_;
     private clearHistoryFlag;
-    getLinks(): Record<string, import('../anchor/Link')>;
+    getLinks(): Record<string, Link>;
     simpleLayoutOutputHandler: any;
     currentInteraction: Interaction;
     lastInteraction: Interaction;
@@ -78,8 +78,10 @@ declare class Process {
     private lastLabelProgress;
     private lastMaxStep;
     private idsvKey;
+    menuPath: string;
     useLayoutManager: boolean;
     help: Record<any, any> | string;
+    private calculateMenuPath_;
     private letFetchProcessInfo;
     lookup(field: GridField): void;
     private _prepareLookupGrid;
@@ -93,7 +95,7 @@ declare class Process {
         name: string,
         nextInteractionNameOrFunction?: string | ((arg0: any) => any),
         processKey?: number,
-        newTab?: boolean
+        newTab?: boolean,
     ): Link;
     dsvLink(name: string, dsvKey: number, opt_newTab?: boolean): any;
     button(
@@ -101,7 +103,7 @@ declare class Process {
         target: string | ((arg0: any) => any),
         order?: number,
         processKey?: number,
-        newTab?: boolean
+        newTab?: boolean,
     ): Button;
     hasButton(name: string): boolean;
     action(
@@ -109,11 +111,11 @@ declare class Process {
         target: any,
         order: any,
         processKey: any,
-        newTab: any
-    ): import('../button/Button');
+        newTab: any,
+    ): import("../button/Button");
     clearButtons(): void;
     clearActions(): void;
-    label(name: string, opt_text?: string): import('../label/Label');
+    label(name: string, opt_text?: string): import("../label/Label");
     interaction(
         name: string,
         func: (this: Process) => any,
@@ -134,7 +136,7 @@ declare class Process {
         opt_params?: any[],
         opt_processKey?: number,
         opt_processId?: number,
-        opt_newTab?: boolean
+        opt_newTab?: boolean,
     ): void;
     private clearNextInteractionInfo;
     private handleGridSynchronize;
@@ -148,7 +150,7 @@ declare class Process {
     private handleGridAction;
     private validateRequiredInputOfLastInteraction;
     private postAllWrittenGridDataSetsInCurrentInteraction_;
-    private interactionWasWritten_;
+    private handleAnchorsSynchronize;
     private ping;
     private handleExecuteAnchor;
     private handleGetLinkFieldNameParamsAndGo;
@@ -182,23 +184,21 @@ declare class Process {
         answers: any[][],
         opt_verticalAlign?: number,
         opt_defaultOptionIndex?: number,
-        opt_escapeIndex?: number
+        opt_escapeIndex?: number,
     ): any;
     authenticateUser(label: string): number | null;
     confirm(msg: string, opt_noAsDefault?: boolean): boolean;
-    upload(options?: import('../file-loader/UploadOptions')): any;
+    upload(options?: import("../file-loader/UploadOptions")): any;
     download(
         files: string | number | DBKey | Array<string | number | DBKey>,
-        options?: DownloadOptions | Record<any, any>
+        options?: DownloadOptions | Record<any, any>,
     ): void;
     status: string;
     clearHistory(): void;
     close(): void;
     closeTab(opt_targetTabId?: number): void;
     private _checkGridsAndConfirmCancel;
-    private _declareDefaultButtons;
-    private _backButton;
-    private _forwardButton;
+    handleHistoryNavigation(args: any): any[];
     private translateButtonList;
     private setButtonsProperty;
     private setVisibleButtonsByButtonsArray;
@@ -228,31 +228,22 @@ declare class Process {
     private act_showHelp_;
 }
 declare namespace Process {
-    export {
-        getProcessTitle,
-        getSourceAndInclude,
-        create,
-        Button,
-        Grid,
-        Link,
-        GridField,
-        UploadedFile,
-    };
+    export { Button, create, getProcessTitle, getSourceAndInclude, Grid, GridField, Link, UploadedFile };
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
-import Environment = require('../environment/Environment.js');
-import LayoutManager = require('./LayoutManager.js');
-import Interaction = require('./Interaction.js');
-type Grid = import('../grid/Grid');
-type GridField = import('../grid/GridField');
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-type Link = import('../anchor/Link');
-type Button = import('../button/Button');
-import SimpleLayout = require('../simple-layout/SimpleLayout.js');
-import File = require('@nginstack/engine/lib/io/File.js');
-import Spool = require('@nginstack/engine/lib/print/Spool.js');
-import DownloadOptions = require('../file-loader/DownloadOptions.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import Environment = require("../environment/Environment.js");
+import LayoutManager = require("./LayoutManager.js");
+import Interaction = require("./Interaction.js");
+type Grid = import("../grid/Grid");
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+import SimpleLayout = require("../simple-layout/SimpleLayout.js");
+import File = require("@nginstack/engine/lib/io/File.js");
+import Spool = require("@nginstack/engine/lib/print/Spool.js");
+import DownloadOptions = require("../file-loader/DownloadOptions.js");
+type Button = import("../button/Button");
 declare function getProcessTitle(key: number, processName: string): string;
 declare function getSourceAndInclude(key: number): any[];
 declare function create(keyOrUrl: any, sourceClassKey: any): Process;
-type UploadedFile = import('../file-loader/UploadedFile');
+type Link = import("../anchor/Link");
+type GridField = import("../grid/GridField");
+type UploadedFile = import("../file-loader/UploadedFile");

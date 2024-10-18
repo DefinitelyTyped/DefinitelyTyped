@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/d20",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/michaelenger/d20.js#readme"
+    ],
+    "devDependencies": {
+        "@types/d20": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asai Masami",
+            "githubUsername": "pipboy3000"
+        }
+    ]
+}

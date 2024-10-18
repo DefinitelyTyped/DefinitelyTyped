@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-weakref",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/inspect-js/is-weakref#readme"
+    ],
+    "devDependencies": {
+        "@types/is-weakref": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

@@ -1,3 +1,3 @@
-import emojiStrip = require('emoji-strip');
+import emojiStrip = require("emoji-strip");
 
-const text: string = emojiStrip('Smile emoji: 😀');
+const text: string = emojiStrip("Smile emoji: 😀");

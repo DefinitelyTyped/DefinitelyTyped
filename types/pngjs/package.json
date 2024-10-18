@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/pngjs",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/lukeapage/pngjs"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pngjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Cheatham",
+            "githubUsername": "jason0x43"
+        },
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -63,7 +63,7 @@ declare namespace dojox {
          * @param m
          */
         interface round{(v: any, p: any, m: any): void}
-        module _base {
+        namespace _base {
         }
 
         namespace curves {

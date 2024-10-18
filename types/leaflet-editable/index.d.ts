@@ -1,12 +1,6 @@
-// Type definitions for Leaflet.Editable 1.2
-// Project: https://github.com/leaflet/leaflet.editable
-// Definitions by: Dominic Alie <https://github.com/dalie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as Leaflet from "leaflet";
 
-import * as Leaflet from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     /*
      * Leaflet.Editable add options and events to the `L.Map` object.
      * See `Editable` events for the list of events fired on the Map.
@@ -81,7 +75,7 @@ declare module 'leaflet' {
      * control editing of geometries. So you can easily build your own UI with your own needs and choices.
      */
     interface EditableStatic {
-        new (map: Map, options: EditableOptions): Editable;
+        new(map: Map, options: EditableOptions): Editable;
     }
 
     /**
@@ -261,7 +255,7 @@ declare module 'leaflet' {
     /**
      * Editor for Marker.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface MarkerEditor extends BaseEditor {}
 
     /**
@@ -347,13 +341,13 @@ declare module 'leaflet' {
     /**
      * Editor for Rectangle.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface RectangleEditor extends PathEditor {}
 
     /**
      * Editor for Circle.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CircleEditor extends PathEditor {}
 
     /**
@@ -441,139 +435,139 @@ declare module 'leaflet' {
         /**
          * Fired when a new feature (Marker, Polyline…) is created.
          */
-        'editable:created'?: LayerEventHandlerFn | undefined;
+        "editable:created"?: LayerEventHandlerFn | undefined;
         /**
          * Fired when an existing feature is ready to be edited.
          */
-        'editable:enable'?: LeafletEventHandlerFn | undefined;
+        "editable:enable"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when an existing feature is not ready anymore to be edited.
          */
-        'editable:disable'?: LeafletEventHandlerFn | undefined;
+        "editable:disable"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired as soon as any change is made to the feature geometry.
          */
-        'editable:editing'?: LeafletEventHandlerFn | undefined;
+        "editable:editing"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired before a path feature is dragged.
          */
-        'editable:dragstart'?: LeafletEventHandlerFn | undefined;
+        "editable:dragstart"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when a path feature is being dragged.
          */
-        'editable:drag'?: LeafletEventHandlerFn | undefined;
+        "editable:drag"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired after a path feature has been dragged.
          */
-        'editable:dragend'?: LeafletEventHandlerFn | undefined;
+        "editable:dragend"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when a feature is to be drawn.
          */
-        'editable:drawing:start'?: LeafletEventHandlerFn | undefined;
+        "editable:drawing:start"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when a feature is not drawn anymore.
          */
-        'editable:drawing:end'?: LeafletEventHandlerFn | undefined;
+        "editable:drawing:end"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when user cancel drawing while a feature is being drawn.
          */
-        'editable:drawing:cancel'?: LeafletEventHandlerFn | undefined;
+        "editable:drawing:cancel"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when user finish drawing a feature.
          */
-        'editable:drawing:commit'?: LeafletEventHandlerFn | undefined;
+        "editable:drawing:commit"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when user mousedown while drawing.
          */
-        'editable:drawing:mousedown'?: LeafletEventHandlerFn | undefined;
+        "editable:drawing:mousedown"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when user mouseup while drawing.
          */
-        'editable:drawing:mouseup'?: LeafletEventHandlerFn | undefined;
+        "editable:drawing:mouseup"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when user click while drawing, before any internal action is being processed.
          */
-        'editable:drawing:click'?: CancelableEventHandlerFn | undefined;
+        "editable:drawing:click"?: CancelableEventHandlerFn | undefined;
         /**
          * Fired when move mouse while drawing, while dragging a marker, and while dragging a vertex.
          */
-        'editable:drawing:move'?: LeafletEventHandlerFn | undefined;
+        "editable:drawing:move"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when user click while drawing, after all internal actions.
          */
-        'editable:drawing:clicked'?: LeafletEventHandlerFn | undefined;
+        "editable:drawing:clicked"?: LeafletEventHandlerFn | undefined;
         /**
          * Fired when a new vertex is created.
          */
-        'editable:vertex:new'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:new"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a click is issued on a vertex, before any internal action is being processed.
          */
-        'editable:vertex:click'?: CancelableVertexEventHandlerFn | undefined;
+        "editable:vertex:click"?: CancelableVertexEventHandlerFn | undefined;
         /**
          * Fired when a click is issued on a vertex, after all internal actions.
          */
-        'editable:vertex:clicked'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:clicked"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a click is issued on a vertex without any special key and without being in drawing mode.
          */
-        'editable:vertex:rawclick'?: CancelableVertexEventHandlerFn | undefined;
+        "editable:vertex:rawclick"?: CancelableVertexEventHandlerFn | undefined;
         /**
          * Fired after a vertex has been deleted by user.
          */
-        'editable:vertex:deleted'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:deleted"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a click with ctrlKey is issued on a vertex.
          */
-        'editable:vertex:ctrlclick'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:ctrlclick"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a click with shiftKey is issued on a vertex.
          */
-        'editable:vertex:shiftclick'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:shiftclick"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a click with metaKey is issued on a vertex.
          */
-        'editable:vertex:metakeyclick'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:metakeyclick"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a click with altKey is issued on a vertex.
          */
-        'editable:vertex:altclick'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:altclick"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a contextmenu is issued on a vertex.
          */
-        'editable:vertex:contextmenu'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:contextmenu"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when user mousedown a vertex.
          */
-        'editable:vertex:mousedown'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:mousedown"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a vertex is dragged by user.
          */
-        'editable:vertex:drag'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:drag"?: VertexEventHandlerFn | undefined;
         /**
          * Fired before a vertex is dragged by user.
          */
-        'editable:vertex:dragstart'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:dragstart"?: VertexEventHandlerFn | undefined;
         /**
          * Fired after a vertex is dragged by user.
          */
-        'editable:vertex:dragend'?: VertexEventHandlerFn | undefined;
+        "editable:vertex:dragend"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when user mousedown a middle marker.
          */
-        'editable:middlemarker:mousedown'?: VertexEventHandlerFn | undefined;
+        "editable:middlemarker:mousedown"?: VertexEventHandlerFn | undefined;
         /**
          * Fired when a new shape is created in a multi (Polygon or Polyline).
          */
-        'editable:shape:new'?: ShapeEventHandlerFn | undefined;
+        "editable:shape:new"?: ShapeEventHandlerFn | undefined;
         /**
          * Fired before a new shape is deleted in a multi (Polygon or Polyline).
          */
-        'editable:shape:delete'?: CancelableShapeEventHandlerFn | undefined;
+        "editable:shape:delete"?: CancelableShapeEventHandlerFn | undefined;
         /**
          * Fired after a new shape is deleted in a multi (Polygon or Polyline).
          */
-        'editable:shape:deleted'?: ShapeEventHandlerFn | undefined;
+        "editable:shape:deleted"?: ShapeEventHandlerFn | undefined;
     }
 
     /*
@@ -582,47 +576,47 @@ declare module 'leaflet' {
     interface Evented {
         on(
             type:
-                | 'editable:disable'
-                | 'editable:drag'
-                | 'editable:dragend'
-                | 'editable:dragstart'
-                | 'editable:drawing:cancel'
-                | 'editable:drawing:clicked'
-                | 'editable:drawing:commit'
-                | 'editable:drawing:end'
-                | 'editable:drawing:mousedown'
-                | 'editable:drawing:mouseup'
-                | 'editable:drawing:move'
-                | 'editable:drawing:start'
-                | 'editable:editing'
-                | 'editable:enable',
+                | "editable:disable"
+                | "editable:drag"
+                | "editable:dragend"
+                | "editable:dragstart"
+                | "editable:drawing:cancel"
+                | "editable:drawing:clicked"
+                | "editable:drawing:commit"
+                | "editable:drawing:end"
+                | "editable:drawing:mousedown"
+                | "editable:drawing:mouseup"
+                | "editable:drawing:move"
+                | "editable:drawing:start"
+                | "editable:editing"
+                | "editable:enable",
             fn: LeafletEventHandlerFn,
             context?: any,
         ): this;
-        on(type: 'editable:drawing:click', fn: CancelableEventHandlerFn, context?: any): this;
-        on(type: 'editable:shape:delete', fn: CancelableShapeEventHandlerFn, context?: any): this;
+        on(type: "editable:drawing:click", fn: CancelableEventHandlerFn, context?: any): this;
+        on(type: "editable:shape:delete", fn: CancelableShapeEventHandlerFn, context?: any): this;
         on(
-            type: 'editable:vertex:rawclick' | 'editable:vertex:click',
+            type: "editable:vertex:rawclick" | "editable:vertex:click",
             fn: CancelableVertexEventHandlerFn,
             context?: any,
         ): this;
-        on(type: 'editable:created', fn: LayerEventHandlerFn, context?: any): this;
-        on(type: 'editable:shape:deleted' | 'editable:shape:new', fn: ShapeEventHandlerFn, context?: any): this;
+        on(type: "editable:created", fn: LayerEventHandlerFn, context?: any): this;
+        on(type: "editable:shape:deleted" | "editable:shape:new", fn: ShapeEventHandlerFn, context?: any): this;
         on(
             type:
-                | 'editable:middlemarker:mousedown'
-                | 'editable:vertex:altclick'
-                | 'editable:vertex:clicked'
-                | 'editable:vertex:contextmenu'
-                | 'editable:vertex:ctrlclick'
-                | 'editable:vertex:deleted'
-                | 'editable:vertex:drag'
-                | 'editable:vertex:dragend'
-                | 'editable:vertex:dragstart'
-                | 'editable:vertex:metakeyclick'
-                | 'editable:vertex:mousedown'
-                | 'editable:vertex:new'
-                | 'editable:vertex:shiftclick',
+                | "editable:middlemarker:mousedown"
+                | "editable:vertex:altclick"
+                | "editable:vertex:clicked"
+                | "editable:vertex:contextmenu"
+                | "editable:vertex:ctrlclick"
+                | "editable:vertex:deleted"
+                | "editable:vertex:drag"
+                | "editable:vertex:dragend"
+                | "editable:vertex:dragstart"
+                | "editable:vertex:metakeyclick"
+                | "editable:vertex:mousedown"
+                | "editable:vertex:new"
+                | "editable:vertex:shiftclick",
             fn: VertexEventHandlerFn,
             context?: any,
         ): this;

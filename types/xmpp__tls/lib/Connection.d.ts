@@ -1,6 +1,6 @@
-import Connection = require('@xmpp/connection');
-import ConnectionTCP = require('@xmpp/connection-tcp');
-import Socket = require('./Socket');
+import Connection = require("@xmpp/connection");
+import ConnectionTCP = require("@xmpp/connection-tcp");
+import Socket = require("./Socket");
 
 export = ConnectionTLS;
 
@@ -16,6 +16,6 @@ declare namespace ConnectionTLS {
     }
 
     interface SocketConstructor extends Connection.SocketConstructor {
-        new (): Socket;
+        new(): Socket;
     }
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vtex.js",
+    "version": "2.11.9999",
+    "projects": [
+        "https://github.com/vtex/vtex.js#readme"
+    ],
+    "devDependencies": {
+        "@types/vtex.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luis Sousa",
+            "githubUsername": "IncognitaDev"
+        }
+    ]
+}

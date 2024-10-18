@@ -27,5 +27,5 @@ declare namespace DataSetManager {
     export { File, MemoryStream };
 }
 import DataSet = require('./DataSet.js');
-type MemoryStream = import('../io/MemoryStream');
 type File = import('../io/File');
+type MemoryStream = import('../io/MemoryStream');

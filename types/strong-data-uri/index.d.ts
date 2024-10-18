@@ -1,8 +1,3 @@
-// Type definitions for strong-data-uri 1.0
-// Project: github.com/strongloop/strong-data-uri
-// Definitions by: Martin Heidegger <https://github.com/martinheidegger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface DataURI extends Buffer {

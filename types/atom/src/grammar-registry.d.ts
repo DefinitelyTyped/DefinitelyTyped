@@ -1,4 +1,4 @@
-import { Disposable, Grammar, GrammarToken, TextBuffer } from '../index';
+import { Disposable, Grammar, GrammarToken, TextBuffer } from "../index";
 
 /** Registry containing one or more grammars. */
 export interface GrammarRegistry {

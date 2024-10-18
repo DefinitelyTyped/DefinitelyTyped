@@ -67,7 +67,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): DropdownInputWidget;
+            new(config?: ConfigOptions): DropdownInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

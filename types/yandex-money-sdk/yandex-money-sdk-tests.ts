@@ -1,4 +1,4 @@
-import * as ymsdk from 'yandex-money-sdk';
+import * as ymsdk from "yandex-money-sdk";
 
 let wallet: ymsdk.Wallet;
 let externalPayment: ymsdk.ExternalPayment;
@@ -41,7 +41,7 @@ let externalPayment: ymsdk.ExternalPayment;
     let params: YandexMoneySDK.Wallet.SendAuthenticatedRequestParams;
     let callback: ymsdk.ResponseCallback<any>;
 
-    wallet.sendAuthenticatedRequest(params, callback)
+    wallet.sendAuthenticatedRequest(params, callback);
 }
 
 {

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { EditText, EditTextarea, onSaveProps } from 'react-edit-text';
+import * as React from "react";
+import { EditText, EditTextarea, onSaveProps } from "react-edit-text";
 
 const onSaveTest = ({ name, value, previousValue }: onSaveProps) => {
     console.log(name + value + previousValue);
@@ -10,7 +10,7 @@ const onChangeTest = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaEl
 };
 
 const formatDisplayTextTest = (value: string) => {
-    return '$' + value;
+    return "$" + value;
 };
 
 const TestEditButton = <div>Edit</div>;
@@ -41,7 +41,7 @@ const handleBlur = () => {
 <EditText showEditButton />;
 <EditText showEditButton editButtonContent="Edit" />;
 <EditText showEditButton editButtonContent={<i className="editIcon" />} />;
-<EditText showEditButton editButtonProps={{ style: { marginTop: 10, padding: 0 }, id: 'test', className: 'test' }} />;
+<EditText showEditButton editButtonProps={{ style: { marginTop: 10, padding: 0 }, id: "test", className: "test" }} />;
 <EditText showEditButton editButtonContent={TestEditButton} editButtonProps={{ autoFocus: true }} />;
 <EditText onEditMode={handleEditMode} />;
 <EditText onBlur={handleBlur} />;

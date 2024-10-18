@@ -1,4 +1,4 @@
-import { decompose, exp, format, frac, sign } from 'double-utils';
+import { decompose, exp, format, frac, sign } from "double-utils";
 
 sign(1.1); // $ExpectType 0 | 1
 exp(1.1); // $ExpectType number

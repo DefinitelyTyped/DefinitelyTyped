@@ -1,6 +1,6 @@
 // http://jsforce.github.io/jsforce/doc/Query.html
-import { Readable } from 'stream';
-import { RecordResult } from './record-result';
+import { Readable } from "stream";
+import { RecordResult } from "./record-result";
 
 export interface ExecuteOptions {
     autoFetch?: boolean | undefined;
@@ -16,9 +16,13 @@ export interface QueryResult<T> {
     records: T[];
 }
 
+// Unfortunately because TypeScript wants you to believe JS has classical inheritance,
+// you can't say that Query "extends Readable" because `filter` and `map` disagree with Readable's own.
+// That can only be fixed by a breaking change in Query's filter and map methods. Your call.
 export class Query<T> extends Readable implements Promise<T> {
     end(): Query<T>;
 
+    // @ts-ignore conflicts with built-in Readable.filter
     filter(filter: Object): Query<T>;
 
     include(include: string): Query<T>;
@@ -33,7 +37,7 @@ export class Query<T> extends Readable implements Promise<T> {
 
     skip(value: number): Query<T>;
 
-    sort(keyOrList: string | Object[] | Object, direction?: 'ASC' | 'DESC' | number): Query<T>;
+    sort(keyOrList: string | Object[] | Object, direction?: "ASC" | "DESC" | number): Query<T>;
 
     run(options?: ExecuteOptions, callback?: (err: Error, records: T[]) => void): Query<T>;
 
@@ -53,6 +57,7 @@ export class Query<T> extends Readable implements Promise<T> {
 
     explain(callback?: (err: Error, info: ExplainInfo) => void): Promise<ExplainInfo>;
 
+    // @ts-ignore conflicts with built-in Readable.map
     map(callback: (currentValue: Object) => void): Promise<any>;
 
     scanAll(value: boolean): Query<T>;
@@ -74,12 +79,14 @@ export class Query<T> extends Readable implements Promise<T> {
 
     finally(): Promise<T>;
 
-    [Symbol.toStringTag]: 'Promise';
+    [Symbol.toStringTag]: "Promise";
 
-    catch<TResult>(onrejected?: ((reason: any) => (PromiseLike<TResult> | TResult))): Promise<T | TResult>;
+    catch<TResult>(onrejected?: (reason: any) => PromiseLike<TResult> | TResult): Promise<T | TResult>;
 
-    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)),
-                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2))): Promise<TResult1 | TResult2>;
+    then<TResult1, TResult2>(
+        onfulfilled?: (value: T) => PromiseLike<TResult1> | TResult1,
+        onrejected?: (reason: any) => PromiseLike<TResult2> | TResult2,
+    ): Promise<TResult1 | TResult2>;
 }
 
 export class ExplainInfo {}

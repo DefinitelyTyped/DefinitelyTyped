@@ -35,10 +35,10 @@ export class Graphics extends DisplayObject {
     fill(isNonZero?: boolean): void;
     createLinearGradient(x: any, y: any, width: any, height: any): GraphicsLinearGradient;
 }
-import { DisplayObject } from './DisplayObject';
-import { CapsStyle } from './CapsStyle';
-import { JointStyle } from './JointStyle';
-import { GraphicsLinearGradient } from './GraphicsLinearGradient';
-import { GraphicsData } from './GraphicsData';
-import { GraphicsGradient } from './GraphicsGradient';
-import { GraphicsPattern } from './GraphicsPattern';
+import { CapsStyle } from "./CapsStyle";
+import { DisplayObject } from "./DisplayObject";
+import { GraphicsData } from "./GraphicsData";
+import { GraphicsGradient } from "./GraphicsGradient";
+import { GraphicsLinearGradient } from "./GraphicsLinearGradient";
+import { GraphicsPattern } from "./GraphicsPattern";
+import { JointStyle } from "./JointStyle";

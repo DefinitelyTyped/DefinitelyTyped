@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ngprogress-lite",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/voronianski/ngprogress-lite"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/ngprogress-lite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luke Forder",
+            "githubUsername": "LukeForder"
+        }
+    ]
+}

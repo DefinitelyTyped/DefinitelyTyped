@@ -1,17 +1,17 @@
-import fsExt = require('fs-ext');
+import fsExt = require("fs-ext");
 
 const fd = 1;
 
-fsExt.flock(fd, 'sh', (err) => {
+fsExt.flock(fd, "sh", (err) => {
     const _err: NodeJS.ErrnoException | null = err;
 });
 fsExt.flock(fd, fsExt.constants.LOCK_SH, (err) => {
     const _err: NodeJS.ErrnoException | null = err;
 });
-fsExt.flockSync(fd, 'ex');
+fsExt.flockSync(fd, "ex");
 fsExt.flockSync(fd, fsExt.constants.LOCK_EX);
 
-fsExt.fcntl(fd, 'setlkw', fsExt.constants.F_WRLCK, (err) => {
+fsExt.fcntl(fd, "setlkw", fsExt.constants.F_WRLCK, (err) => {
     const _err: NodeJS.ErrnoException | null = err;
 });
 fsExt.fcntl(fd, fsExt.constants.F_SETLKW, fsExt.constants.F_WRLCK, (err) => {
@@ -19,7 +19,7 @@ fsExt.fcntl(fd, fsExt.constants.F_SETLKW, fsExt.constants.F_WRLCK, (err) => {
 });
 fsExt.fcntlSync(fd, fsExt.constants.F_SETLKW, fsExt.constants.F_WRLCK);
 
-fsExt.fcntl(fd, 'getfd', (err, flags) => {
+fsExt.fcntl(fd, "getfd", (err, flags) => {
     const _err: NodeJS.ErrnoException | null = err;
     const _flags: number = flags;
 });
@@ -43,7 +43,7 @@ fsExt.statVFS((err, stat) => {
     const _err: NodeJS.ErrnoException | null = err;
     const _stat: fsExt.StatFVS = stat;
 });
-fsExt.statVFS('/some/path', (err, stat) => {
+fsExt.statVFS("/some/path", (err, stat) => {
     const _err: NodeJS.ErrnoException | null = err;
     const _stat: fsExt.StatFVS = stat;
 });
@@ -51,5 +51,5 @@ fsExt.statVFS('/some/path', (err, stat) => {
     const stat: fsExt.StatFVS = fsExt.statVFS();
 }
 {
-    const stat: fsExt.StatFVS = fsExt.statVFS('/some/path');
+    const stat: fsExt.StatFVS = fsExt.statVFS("/some/path");
 }

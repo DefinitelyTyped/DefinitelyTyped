@@ -1,12 +1,9 @@
-// Type definitions for hapi-server-session 5.1
-// Project: https://github.com/btmorex/hapi-server-session
-// Definitions by: Avery Fay <https://github.com/btmorex>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-import { BinaryLike } from 'crypto';
-import { CachePolicyOptions, Plugin, ServerStateCookieOptions } from '@hapi/hapi';
+import { CachePolicyOptions, Plugin, ServerStateCookieOptions } from "@hapi/hapi";
+import { BinaryLike } from "crypto";
 
-declare module '@hapi/hapi' {
+declare module "@hapi/hapi" {
     interface Request {
         session: any;
     }

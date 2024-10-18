@@ -61,6 +61,7 @@ export class Keyboard {
      * @param keysym The keysym of the key being pressed.
      * @return true if the key event should be allowed through to the browser, false otherwise.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onkeydown: null | ((keysym: number) => boolean | void);
 
     /**

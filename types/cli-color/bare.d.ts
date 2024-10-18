@@ -1,4 +1,3 @@
-
 declare namespace bare {
     export interface Format {
         (...text: any[]): string;

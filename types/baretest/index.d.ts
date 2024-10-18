@@ -1,8 +1,3 @@
-// Type definitions for baretest 2.0
-// Project: https://volument.com/baretest
-// Definitions by: Rory O’Kane <https://github.com/roryokane>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = baretest;
 
 declare function baretest(headline: string): TesterFunctionObject;

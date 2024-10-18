@@ -1,2 +1,2 @@
-import DateString = require('../2018/DateString');
+import DateString = require("../2018/DateString");
 export = DateString;

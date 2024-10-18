@@ -80,7 +80,7 @@ declare namespace OO.ui {
     interface MenuLayout extends MenuLayout.Props, MenuLayout.Prototype {}
 
     namespace MenuLayout {
-        type Position = 'top' | 'after' | 'bottom' | 'before';
+        type Position = "top" | "after" | "bottom" | "before";
 
         interface ConfigOptions extends Layout.ConfigOptions {
             /** Menu panel */
@@ -162,7 +162,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MenuLayout;
+            new(config?: ConfigOptions): MenuLayout;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

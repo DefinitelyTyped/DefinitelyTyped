@@ -1,5 +1,5 @@
-import { start, Recoverable } from 'node:repl';
-import { Context } from 'node:vm';
+import { Recoverable, start } from "node:repl";
+import { Context } from "node:vm";
 
 {
     let server = start({
@@ -8,26 +8,26 @@ import { Context } from 'node:vm';
     let _boolean: boolean;
     const _ctx: Context = {};
 
-    server.setupHistory('hurr/durr', (err, repl) => {
+    server.setupHistory("hurr/durr", (err, repl) => {
     });
 
-    server = server.addListener("exit", () => { });
-    server = server.addListener("reset", () => { });
+    server = server.addListener("exit", () => {});
+    server = server.addListener("reset", () => {});
 
-    _boolean = server.emit("exit", () => { });
+    _boolean = server.emit("exit", () => {});
     _boolean = server.emit("reset", _ctx);
 
-    server = server.on("exit", () => { });
-    server = server.on("reset", () => { });
+    server = server.on("exit", () => {});
+    server = server.on("reset", () => {});
 
-    server = server.once("exit", () => { });
-    server = server.once("reset", () => { });
+    server = server.once("exit", () => {});
+    server = server.once("reset", () => {});
 
-    server = server.prependListener("exit", () => { });
-    server = server.prependListener("reset", () => { });
+    server = server.prependListener("exit", () => {});
+    server = server.prependListener("reset", () => {});
 
-    server = server.prependOnceListener("exit", () => { });
-    server = server.prependOnceListener("reset", () => { });
+    server = server.prependOnceListener("exit", () => {});
+    server = server.prependOnceListener("reset", () => {});
 
     server.outputStream.write("test");
     server.output.write("test");
@@ -50,7 +50,7 @@ import { Context } from 'node:vm';
             text;
             // $ExpectType REPLServer
             this;
-        }
+        },
     });
 
     start({
@@ -62,16 +62,16 @@ import { Context } from 'node:vm';
             // $ExpectType REPLServer
             this;
             return "";
-        }
+        },
     });
 
     function test() {
         throw new Recoverable(new Error("test"));
     }
 
-    server.context['key0'] = 1;
-    server.context['key1'] = "";
-    server.context['key2'] = true;
-    server.context['key3'] = [];
-    server.context['key4'] = {};
+    server.context["key0"] = 1;
+    server.context["key1"] = "";
+    server.context["key2"] = true;
+    server.context["key3"] = [];
+    server.context["key4"] = {};
 }

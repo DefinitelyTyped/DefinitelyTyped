@@ -1,39 +1,43 @@
-// Type definitions for @feathersjs/express 1.1
-// Project: https://feathersjs.com
-// Definitions by: Jan Lohage <https://github.com/j2L4e>
-//                 Aleksey Klimenko <https://github.com/DadUndead>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Application as FeathersApplication, ServiceMethods, SetupMethod } from '@feathersjs/feathers';
-import * as express from 'express';
-import * as self from '@feathersjs/express';
-import { IRouterHandler, PathParams, RequestHandler, RequestHandlerParams } from 'express-serve-static-core';
+import { Application as FeathersApplication, ServiceMethods, SetupMethod } from "@feathersjs/feathers";
+import * as express from "express";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import * as self from "@feathersjs/express";
+import { IRouterHandler, PathParams, RequestHandler, RequestHandlerParams } from "express-serve-static-core";
 
 declare const feathersExpress: (<T>(app: FeathersApplication<T>) => Application<T>) & typeof self;
 export default feathersExpress;
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 // TypeScript methods cannot be overloaded with a different signature. Derive two application types without the use methods.
-type ExpressAndFeathersApplicationWithoutUse<T> = Omit<express.Application, 'use'> & Omit<FeathersApplication<T>, 'use'>;
+type ExpressAndFeathersApplicationWithoutUse<T> =
+    & Omit<express.Application, "use">
+    & Omit<FeathersApplication<T>, "use">;
 // Give the "any" type for the feathers options object a more precise name.
 export type FeathersServiceOptions = any;
 
 export interface FeathersRouterMatcher<T> {
-    (path: PathParams, ...handlers: Array<(RequestHandler | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application)>): T;
+    (
+        path: PathParams,
+        ...handlers: Array<
+            (RequestHandler | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application)
+        >
+    ): T;
 }
 
-type FeathersApplicationRequestHandler<T> = express.IRouterHandler<T> & FeathersRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
+type FeathersApplicationRequestHandler<T> =
+    & express.IRouterHandler<T>
+    & FeathersRouterMatcher<T>
+    & ((...handlers: RequestHandlerParams[]) => T);
 
 export interface Application<T = any> extends ExpressAndFeathersApplicationWithoutUse<T> {
     use: FeathersApplicationRequestHandler<T>;
 }
 
 export function errorHandler(options?: {
-    public?: string | undefined,
-    logger?: { error?: ((msg: string) => void) | undefined } | undefined,
-    html?: any,
-    json?: any,
+    public?: string | undefined;
+    logger?: { error?: ((msg: string) => void) | undefined } | undefined;
+    html?: any;
+    json?: any;
 }): express.ErrorRequestHandler;
 
 export function notFound(): express.RequestHandler;
@@ -45,7 +49,7 @@ export const rest: {
 
 /*
  * Re-export of the express package.
- **/
+ */
 
 export {
     CookieOptions,
@@ -68,7 +72,7 @@ export {
     RouterOptions,
     Send,
     static,
-    urlencoded
-} from 'express';
+    urlencoded,
+} from "express";
 
 export const original: typeof express;

@@ -1,12 +1,6 @@
-// Type definitions for Imgur REST API 3.0
-// Project: https://api.imgur.com/
-// Definitions by: Luke William Westby <https://github.com/lukewestby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ImgurRestApi {
-
     interface Response<T> {
-        data: any; //T|Error;
+        data: any; // T|Error;
         status: number;
         success: boolean;
     }
@@ -17,7 +11,7 @@ declare namespace ImgurRestApi {
         bio: string;
         reputation: number;
         created: number;
-        pro_expiration: any; //number|boolean;
+        pro_expiration: any; // number|boolean;
     }
 
     interface AccountSettings {
@@ -25,11 +19,11 @@ declare namespace ImgurRestApi {
         high_quality: boolean;
         public_images: boolean;
         album_privacy: string;
-        pro_expiration: any; //number|boolean;
+        pro_expiration: any; // number|boolean;
         accepted_gallery_terms: boolean;
-        active_emails: Array<string>;
+        active_emails: string[];
         messaging_enabled: boolean;
-        blocked_users: Array<BlockedUser>;
+        blocked_users: BlockedUser[];
     }
 
     interface Album {
@@ -52,7 +46,7 @@ declare namespace ImgurRestApi {
         order: number;
         deletehash?: string | undefined;
         images_count: number;
-        images: Array<Image>;
+        images: Image[];
     }
 
     interface BlockedUser {
@@ -75,7 +69,7 @@ declare namespace ImgurRestApi {
         parent_id: number;
         deleted: boolean;
         vote?: string | undefined;
-        children: Array<Comment>
+        children: Comment[];
     }
 
     interface Conversation {
@@ -85,7 +79,7 @@ declare namespace ImgurRestApi {
         with_account_id: number;
         with_account: string;
         message_count: number;
-        messages?: Array<Message> | undefined;
+        messages?: Message[] | undefined;
         done?: boolean | undefined;
         page?: number | undefined;
     }
@@ -93,9 +87,9 @@ declare namespace ImgurRestApi {
     interface CustomGallery {
         account_url: string;
         link: string;
-        tags: Array<string>
+        tags: string[];
         item_count: number;
-        items: Array<GalleryItem>;
+        items: GalleryItem[];
     }
 
     interface GalleryItem {
@@ -126,7 +120,7 @@ declare namespace ImgurRestApi {
         privacy: string;
         layout: string;
         images_count: number;
-        images: Array<Image>;
+        images: Image[];
     }
 
     interface GalleryImage extends GalleryItem {
@@ -148,7 +142,7 @@ declare namespace ImgurRestApi {
         total_gallery_comments: number;
         total_gallery_favorites: number;
         total_gallery_submissions: number;
-        trophies: Array<Trophy>;
+        trophies: Trophy[];
     }
 
     interface Trophy {
@@ -223,7 +217,7 @@ declare namespace ImgurRestApi {
         followers: number;
         total_items: number;
         following?: boolean | undefined;
-        items: Array<GalleryItem>
+        items: GalleryItem[];
     }
 
     interface TagVote {

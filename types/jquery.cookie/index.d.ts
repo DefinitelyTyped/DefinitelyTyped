@@ -1,11 +1,4 @@
-// Type definitions for jQuery Cookie Plugin 1.4.1
-// Project: https://github.com/carhartl/jquery-cookie
-// Definitions by: Roy Goode <https://github.com/RoyGoode>, Ben Lorantfy <https://github.com/BenLorantfy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="jquery" />
-
+/// <reference types="jquery" />
 
 interface JQueryCookieOptions {
     /**
@@ -28,7 +21,7 @@ interface JQueryCookieOptions {
 //
 // The following jsdoc comments are used to add intellisense to editors that support it. Uses snippets
 // of documentation from the Github repo when possible.
-// 
+//
 // The ordering here matters. For example, the read function with the converter parameter is purposefully after
 // the set function. This is because the intellisense that shows up after you press comma should be the set first,
 // since that is more common, then the conversion function if user starts typing a parameter with a function type
@@ -48,7 +41,7 @@ interface JQueryCookieStatic {
     /**
      * Gets an object of cookies as key-value pairs
      */
-    (): {[key:string]:string};
+    (): { [key: string]: string };
     /**
      * Gets a cookie by name
      * @param name The name of the cookie to get
@@ -88,7 +81,7 @@ interface JQueryCookieStatic {
     (name: string, value: any, options: JQueryCookieOptions): void;
 }
 
-interface JQueryStatic {   
+interface JQueryStatic {
     /**
      * A simple, lightweight jQuery plugin for reading, writing and deleting cookies.
      */

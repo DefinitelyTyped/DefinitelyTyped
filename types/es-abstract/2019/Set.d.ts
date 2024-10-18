@@ -1,2 +1,2 @@
-import Set = require('../2018/Set');
+import Set = require("../2018/Set");
 export = Set;

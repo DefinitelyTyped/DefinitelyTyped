@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * Creates a torus knot, the particular shape of which is defined by a pair of coprime integers, p and q
@@ -39,7 +39,7 @@ export class TorusKnotGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `TorusKnotGeometry`
      */
-    override readonly type: string | 'TorusKnotGeometry';
+    override readonly type: string | "TorusKnotGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

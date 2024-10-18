@@ -504,7 +504,7 @@ export interface ElementDefinitionType extends Element {
   /**
    * If the type is a reference to another resource, how the resource is or can be aggregated - is it a contained resource, or a reference, and if the context is a bundle, is it included in the bundle.
    */
-  aggregation?: ('contained'|'referenced'|'bundled')[] | undefined;
+  aggregation?: Array<'contained'|'referenced'|'bundled'> | undefined;
   _aggregation?: Element[] | undefined;
   /**
    * If the element is a reference to another resource, this element contains "Reference", and the targetProfile element defines what resources can be referenced. The targetProfile may be a reference to the general definition of a resource (e.g. http://hl7.org/fhir/StructureDefinition/Patient). There would be one pair of type/code for each allowed target resource type.
@@ -1469,7 +1469,7 @@ export interface ElementDefinition extends Element {
   /**
    * In resources, this is rarely used except for special cases where the representation deviates from the normal, and can only be done in the base standard (and profiles must reproduce what the base standard does). This element is used quite commonly in Logical models when the logical models represent a specific serialization format (e.g. CDA, v2 etc).
    */
-  representation?: ('xmlAttr'|'xmlText'|'typeAttr'|'cdaText'|'xhtml')[] | undefined;
+  representation?: Array<'xmlAttr'|'xmlText'|'typeAttr'|'cdaText'|'xhtml'> | undefined;
   _representation?: Element[] | undefined;
   /**
    * This element does not describe the usage of the element (that's done in comments), rather it's for traceability of *why* the element is either needed or why the constraints exist as they do.  This may be used to point to source materials or specifications that drove the structure of this data element.
@@ -2054,7 +2054,7 @@ export interface TimingRepeat extends Element {
   /**
    * If no days are specified, the action is assumed to happen every day as otherwise specified. The elements frequency and period cannot be used as well as dayOfWeek.
    */
-  dayOfWeek?: ('mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun')[] | undefined;
+  dayOfWeek?: Array<'mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun'> | undefined;
   _dayOfWeek?: Element[] | undefined;
   /**
    * For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).
@@ -2654,7 +2654,7 @@ export interface AllergyIntolerance extends DomainResource {
   /**
    * This data element has been included because it is currently being captured in some clinical systems. This data can be derived from the substance where coding systems are used, and is effectively redundant in that situation.  When searching on category, consider the implications of AllergyIntolerance resources without a category.  For example, when searching on category = medication, medication allergies that don't have a category valued will not be returned.  Refer to [search](search.html) for more information on how to search category with a :missing modifier to get allergies that don't have a category.  Additionally, category should be used with caution because category can be subjective based on the sender.
    */
-  category?: ('food'|'medication'|'environment'|'biologic')[] | undefined;
+  category?: Array<'food'|'medication'|'environment'|'biologic'> | undefined;
   _category?: Element[] | undefined;
   /**
    * This element is labeled as a modifier because the status contains the codes inactive and resolved that mark the AllergyIntolerance as not currently valid.
@@ -3318,7 +3318,7 @@ export interface Bundle<BundleContentType = FhirResource> extends Resource {
   /**
    * An entry in a bundle resource - will either contain a resource, or information about a resource (transactions and history only).
    */
-  entry?: BundleEntry<BundleContentType>[] | undefined;
+  entry?: Array<BundleEntry<BundleContentType>> | undefined;
   /**
    * Persistent identity generally only matters for batches of type Document, Message, and Collection. It would not normally be populated for search and history results, and servers ignore Bundle.identifier when processing batches and transactions. For Documents  the .identifier SHALL be populated such that the .identifier is globally unique.
    */
@@ -3499,7 +3499,7 @@ export interface CapabilityStatementRestResource extends BackboneElement {
   /**
    * A set of flags that defines how references are supported.
    */
-  referencePolicy?: ('literal'|'logical'|'resolves'|'enforced'|'local')[] | undefined;
+  referencePolicy?: Array<'literal'|'logical'|'resolves'|'enforced'|'local'> | undefined;
   _referencePolicy?: Element[] | undefined;
   /**
    * If this list is empty, the server does not support includes.
@@ -5888,7 +5888,7 @@ export interface CompositionAttester extends BackboneElement {
   /**
    * Use more than one code where a single attester has more than one mode (professional and legal are often paired).
    */
-  mode: ('personal'|'professional'|'legal'|'official')[];
+  mode: Array<'personal'|'professional'|'legal'|'official'>;
   _mode?: Element[] | undefined;
   /**
    * Who attested the composition in the specified way.
@@ -10484,7 +10484,7 @@ export interface HealthcareServiceAvailableTime extends BackboneElement {
   /**
    * Indicates which days of the week are available between the start and end Times.
    */
-  daysOfWeek?: ('mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun')[] | undefined;
+  daysOfWeek?: Array<'mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun'> | undefined;
   _daysOfWeek?: Element[] | undefined;
 }
 /**
@@ -15160,7 +15160,7 @@ export interface PractitionerRoleAvailableTime extends BackboneElement {
   /**
    * Indicates which days of the week are available between the start and end Times.
    */
-  daysOfWeek?: ('mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun')[] | undefined;
+  daysOfWeek?: Array<'mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun'> | undefined;
   _daysOfWeek?: Element[] | undefined;
 }
 /**
@@ -17101,7 +17101,7 @@ export interface SearchParameter extends DomainResource {
   /**
    * If no comparators are listed, clients should not expect servers to support any comparators.
    */
-  comparator?: ('eq'|'ne'|'gt'|'lt'|'ge'|'le'|'sa'|'eb'|'ap')[] | undefined;
+  comparator?: Array<'eq'|'ne'|'gt'|'lt'|'ge'|'le'|'sa'|'eb'|'ap'> | undefined;
   _comparator?: Element[] | undefined;
   /**
    * Used to define the parts of a composite search parameter.
@@ -17143,7 +17143,7 @@ export interface SearchParameter extends DomainResource {
   /**
    * A modifier supported for the search parameter.
    */
-  modifier?: ('missing'|'exact'|'contains'|'not'|'text'|'in'|'not-in'|'below'|'above'|'type')[] | undefined;
+  modifier?: Array<'missing'|'exact'|'contains'|'not'|'text'|'in'|'not-in'|'below'|'above'|'type'> | undefined;
   _modifier?: Element[] | undefined;
   /**
    * The name is not expected to be globally unique. The name should be a simple alpha-numeric type name to ensure that it is computable friendly.
@@ -18261,7 +18261,7 @@ export interface StructureMapGroupRuleTarget extends BackboneElement {
   /**
    * If field is a list, how to manage the list.
    */
-  listMode?: ('first'|'share'|'last'|'collate')[] | undefined;
+  listMode?: Array<'first'|'share'|'last'|'collate'> | undefined;
   _listMode?: Element[] | undefined;
   /**
    * Internal rule reference for shared list items.

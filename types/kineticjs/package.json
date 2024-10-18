@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/kineticjs",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "kineticjs",
+    "projects": [
+        "http://kineticjs.com/"
+    ],
+    "devDependencies": {
+        "@types/kineticjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Basarat Ali Syed",
+            "url": "http://www.github.com/basarat"
+        },
+        {
+            "name": "Ralph de Ruijter",
+            "url": "http://www.superdopey.nl/techblog/"
+        }
+    ]
+}

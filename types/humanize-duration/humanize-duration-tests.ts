@@ -59,6 +59,21 @@ humanizeDuration(3602000, {
     units: ["m"],
 }); // '60 glorioso minutos'
 
+humanizeDuration(1234, {
+    digitReplacements: [
+        "Zero",
+        "One",
+        "Two",
+        "Three",
+        "Four",
+        "Five",
+        "Six",
+        "Seven",
+        "Eight",
+        "Nine",
+    ],
+}); // 'One.TwoThreeFour seconds'
+
 const spanishHumanizer = humanizeDuration.humanizer({
     language: "es",
     units: ["y", "mo", "d"],

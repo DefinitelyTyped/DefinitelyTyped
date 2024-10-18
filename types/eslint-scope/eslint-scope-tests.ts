@@ -1,6 +1,6 @@
 import * as eslint from "eslint";
-import * as estree from "estree";
 import * as eslintScope from "eslint-scope";
+import * as estree from "estree";
 
 declare const program: estree.Program;
 declare const scope: eslintScope.Scope;
@@ -19,8 +19,8 @@ const manager1: eslintScope.ScopeManager = eslintScope.analyze(
         impliedStrict: true,
         nodejsScope: true,
         optimistic: true,
-        sourceType: "module"
-    }
+        sourceType: "module",
+    },
 );
 const manager2: eslintScope.ScopeManager = eslintScope.analyze(
     program,
@@ -30,8 +30,8 @@ const manager2: eslintScope.ScopeManager = eslintScope.analyze(
         impliedStrict: false,
         nodejsScope: false,
         optimistic: false,
-        sourceType: "script"
-    }
+        sourceType: "script",
+    },
 );
 const manager3: eslintScope.ScopeManager = eslintScope.analyze(program);
 

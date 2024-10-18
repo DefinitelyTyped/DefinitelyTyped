@@ -1,7 +1,7 @@
-import * as detect from 'detect-port';
+import * as detect from "detect-port";
 
 const port = 8000;
-const hostname = 'localhost';
+const hostname = "localhost";
 
 /**
  * callback usage

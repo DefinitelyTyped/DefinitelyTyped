@@ -1,38 +1,51 @@
-// Type definitions for react-signature-canvas 1.0
-// Project: https://github.com/agilgur5/react-signature-canvas
-// Definitions by: Kamil Socha <https://github.com/ksocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as React from "react";
+import SignaturePad = require("signature_pad");
 
-import * as React from 'react';
-import SignaturePad = require('signature_pad');
+declare namespace ReactSignatureCanvas {
+    interface ReactSignatureCanvasProps extends SignaturePad.SignaturePadOptions {
+        /** directly passed to the underlying <canvas /> element */
+        canvasProps?: React.CanvasHTMLAttributes<HTMLCanvasElement> | undefined;
 
-export interface ReactSignatureCanvasProps extends SignaturePad.SignaturePadOptions {
-    canvasProps?: React.CanvasHTMLAttributes<HTMLCanvasElement> | undefined;
-    clearOnResize?: boolean | undefined;
+        /**
+         * whether or not the canvas should be cleared when the window resizes
+         * @default true
+         */
+        clearOnResize?: boolean | undefined;
+    }
 }
 
-declare class ReactSignatureCanvas extends React.Component<ReactSignatureCanvasProps> {
-    on: SignaturePad['on'];
+declare class ReactSignatureCanvas extends React.Component<ReactSignatureCanvas.ReactSignatureCanvasProps> {
+    /** rebinds all event handlers */
+    on: SignaturePad["on"];
 
-    off: SignaturePad['off'];
+    /** unbinds all event handlers */
+    off: SignaturePad["off"];
 
-    clear: SignaturePad['clear'];
+    /** clears the canvas using the {@link ReactSignatureCanvas.ReactSignatureCanvasProps.backgroundColor|backgroundColor} prop */
+    clear: SignaturePad["clear"];
 
-    isEmpty: SignaturePad['isEmpty'];
+    isEmpty: SignaturePad["isEmpty"];
 
-    fromDataURL: SignaturePad['fromDataURL'];
+    /** writes a base64 image to canvas */
+    fromDataURL: SignaturePad["fromDataURL"];
 
-    toDataURL: SignaturePad['toDataURL'];
+    /** returns the signature image as a data URL */
+    toDataURL: SignaturePad["toDataURL"];
 
-    fromData: SignaturePad['fromData'];
+    /** draws signature image from an array of point groups */
+    fromData: SignaturePad["fromData"];
 
-    toData: SignaturePad['toData'];
+    /** returns signature image as an array of point groups */
+    toData: SignaturePad["toData"];
 
+    /** returns the underlying canvas ref. Allows you to modify the canvas however you want or call methods such as {@link ReactSignatureCanvas.toDataURL|toDataURL()} */
     getCanvas(): HTMLCanvasElement;
 
+    /** creates a copy of the canvas and returns a {@link https://github.com/agilgur5/trim-canvas|trimmed version} of it, with all whitespace removed. */
     getTrimmedCanvas(): HTMLCanvasElement;
 
+    /** returns the underlying SignaturePad reference */
     getSignaturePad(): SignaturePad;
 }
 
-export default ReactSignatureCanvas;
+export = ReactSignatureCanvas;

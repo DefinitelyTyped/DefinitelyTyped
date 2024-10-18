@@ -1,11 +1,3 @@
-// Type definitions for bcrypt 5.0
-// Project: https://www.npmjs.org/package/bcrypt
-// Definitions by:  Peter Harris <https://github.com/codeanimal>
-//                  Ayman Nedjmeddine <https://github.com/IOAyman>
-//                  David Stapleton <https://github.com/dstapleton92>
-//                  BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

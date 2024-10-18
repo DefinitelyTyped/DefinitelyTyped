@@ -1,5 +1,5 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@definitelytyped/no-duplicate-imports": "off"
     }
 }

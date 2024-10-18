@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/joi-phone-number",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/Salesflare/joi-phone-number"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "joi": "^17.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/joi-phone-number": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marvin Witt",
+            "githubUsername": "NurMarvin"
+        },
+        {
+            "name": "James Lismore",
+            "githubUsername": "jlismore"
+        }
+    ]
 }

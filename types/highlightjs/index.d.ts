@@ -1,21 +1,17 @@
-// Type definitions for highlight.js 9.12
-// Project: https://github.com/isagalaev/highlight.js
-// Definitions by: Andrew Branch <https://github.com/andrewbranch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace hljs {
-    // tslint:disable-next-line:no-empty-interface
-    interface Node { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Node {}
 
     export function highlight(
         name: string,
         value: string,
         ignore_illegals?: boolean,
-        continuation?: ICompiledMode): IHighlightResult;
+        continuation?: ICompiledMode,
+    ): IHighlightResult;
     export function highlightAuto(
         value: string,
-        languageSubset?: string[]): IAutoHighlightResult;
+        languageSubset?: string[],
+    ): IAutoHighlightResult;
 
     export function fixMarkup(value: string): string;
 
@@ -28,16 +24,18 @@ declare namespace hljs {
 
     export function registerLanguage(
         name: string,
-        language: (hljs?: HLJSStatic) => IModeBase): void;
+        language: (hljs?: HLJSStatic) => IModeBase,
+    ): void;
     export function listLanguages(): string[];
     export function getLanguage(name: string): IMode;
 
     export function inherit(parent: object, obj: object): object;
 
     export function COMMENT(
-        begin: (string | RegExp),
-        end: (string | RegExp),
-        inherits: IModeBase): IMode;
+        begin: string | RegExp,
+        end: string | RegExp,
+        inherits: IModeBase,
+    ): IMode;
 
     // Common regexps
     export const IDENT_RE: string;

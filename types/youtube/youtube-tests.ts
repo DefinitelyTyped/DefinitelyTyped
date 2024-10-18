@@ -10,7 +10,7 @@ const players: YT.Player[] = [
         videoId: "videoId",
         playerVars: {},
         events: {},
-        host: 'https://www.youtube.com',
+        host: "https://www.youtube.com",
     }),
     new YT.Player("id", {
         playerVars: {
@@ -63,7 +63,7 @@ const players: YT.Player[] = [
             onApiChange(event: YT.PlayerEvent) {
                 const targetPlayer: YT.Player = event.target;
             },
-        }
+        },
     }),
 ];
 
@@ -86,7 +86,7 @@ ensureNumeric<YT.PlaysInline>();
 ensureNumeric<YT.RelatedVideos>();
 ensureNumeric<YT.ShowInfo>();
 
-const ensureString = <TValue extends string>() => {}
+const ensureString = <TValue extends string>() => {};
 
 ensureString<YT.ProgressBarColor>();
 ensureString<YT.ListType>();
@@ -261,7 +261,7 @@ player.setPlaybackQuality("medium");
 const qualities: YT.SuggestedVideoQuality[] = player.getAvailableQualityLevels();
 
 for (const quality of player.getAvailableQualityLevels()) {
-    player.setPlaybackQuality(quality)
+    player.setPlaybackQuality(quality);
 }
 
 const duration: number = player.getDuration();
@@ -281,9 +281,13 @@ player.addEventListener("onPlaybackRateChange", (event: YT.OnPlaybackRateChangeE
 player.addEventListener("onError", (event: YT.OnErrorEvent) => {});
 player.addEventListener("onApiChange", (event: YT.PlayerEvent) => {});
 
+player.addEventListener("onStateChange", (event) => {
+    ensureNumeric<typeof event.data>();
+});
+
 const frame: HTMLIFrameElement = player.getIframe();
 
 const sphericalProperties: YT.SphericalProperties = player.getSphericalProperties();
-player.setSphericalProperties({yaw: 1, pitch: 2, roll: 3, fov: 50, enableOrientationSensor: true});
+player.setSphericalProperties({ yaw: 1, pitch: 2, roll: 3, fov: 50, enableOrientationSensor: true });
 
 player.destroy();

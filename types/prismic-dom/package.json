@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/prismic-dom",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/prismicio/prismic-dom#readme"
+    ],
+    "devDependencies": {
+        "@types/prismic-dom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Whyte",
+            "githubUsername": "nickw444"
+        },
+        {
+            "name": "Siggy Bilstein",
+            "githubUsername": "sbilstein"
+        },
+        {
+            "name": "Douglas Nomizo",
+            "githubUsername": "douglasnomizo"
+        },
+        {
+            "name": "Henry Myers",
+            "githubUsername": "henrymyers"
+        }
+    ]
+}

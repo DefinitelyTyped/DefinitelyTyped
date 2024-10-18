@@ -1,11 +1,5 @@
-// Type definitions for prompt-sync 4.2.0
-// Project: https://github.com/heapwolf/prompt-sync
-// Definitions by: TANAKA Koichi <https://github.com/MugeSo>, Yingbo Qiu <https://github.com/qyb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PromptSync {
     export interface Prompt {
-
         (opts: Option): string;
         (ask: string): string;
         (ask: string, opts: Option): string;

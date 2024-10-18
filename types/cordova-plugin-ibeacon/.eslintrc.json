@@ -1,5 +1,6 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/no-misused-new": "off"
     }
 }

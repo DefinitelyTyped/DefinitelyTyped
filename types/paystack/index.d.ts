@@ -1,8 +1,3 @@
-// Type definitions for paystack 2.0
-// Project: https://github.com/kehers/paystack
-// Definitions by: Oladiran Segun Solomon <https://github.com/sheghun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ Note that ES6 modules cannot directly export callable functions.
  *~ This file should be imported using the CommonJS-style:
  *~   import x = require('someLibrary');
@@ -21,26 +16,30 @@ declare function Paystack(secret_key: string): Paystack.Object;
 declare namespace Paystack {
     interface Object {
         customer: {
-            create: (params: {first_name: string; last_name: string; email: string; phone: string; metadata?: any}) => Promise<Response>;
+            create: (
+                params: { first_name: string; last_name: string; email: string; phone: string; metadata?: any },
+            ) => Promise<Response>;
 
             get: (id: number | string) => Promise<Response>;
 
-            list: () => Promise<Response & {data?: any[] | undefined; meta?: any}>;
+            list: () => Promise<Response & { data?: any[] | undefined; meta?: any }>;
 
             update: (
                 id: number | string,
-                params: {first_name: string; last_name: string; email: string; phone: string},
+                params: { first_name: string; last_name: string; email: string; phone: string },
             ) => Promise<Response>;
         };
 
         misc: {
-            list_banks: (params: {perPage: number; page: number}) => Promise<Response & {data: any[]}>;
+            list_banks: (params: { perPage: number; page: number }) => Promise<Response & { data: any[] }>;
 
             resolve_bin: (bin: string) => Promise<Response>;
         };
 
         page: {
-            create: (params: {name: string; description?: string | undefined; amount: number; [key: string]: any}) => Promise<Response>;
+            create: (
+                params: { name: string; description?: string | undefined; amount: number; [key: string]: any },
+            ) => Promise<Response>;
 
             get: (id_or_slug: number | string) => Promise<Response>;
 
@@ -48,14 +47,21 @@ declare namespace Paystack {
 
             update: (
                 id_or_slug: number,
-                params: {name?: string | undefined; description?: string | undefined; amount?: number | undefined; active?: boolean | undefined},
+                params: {
+                    name?: string | undefined;
+                    description?: string | undefined;
+                    amount?: number | undefined;
+                    active?: boolean | undefined;
+                },
             ) => Promise<Response>;
 
-            slug: (slug: string) => Promise<Response & {data: undefined}>;
+            slug: (slug: string) => Promise<Response & { data: undefined }>;
         };
 
         plan: {
-            create: (params: {name: string; amount: number; interval: string; [key: string]: any}) => Promise<Response>;
+            create: (
+                params: { name: string; amount: number; interval: string; [key: string]: any },
+            ) => Promise<Response>;
 
             get: (id: number | string) => Promise<Response>;
 
@@ -65,15 +71,17 @@ declare namespace Paystack {
         };
 
         subscription: {
-            create: (params: {customer: string; plan: string; authorization: string; start_date?: Date | undefined}) => Promise<Response>;
+            create: (
+                params: { customer: string; plan: string; authorization: string; start_date?: Date | undefined },
+            ) => Promise<Response>;
 
-            disable: (params: {code: string; token: string}) => Promise<Response & {data: undefined}>;
+            disable: (params: { code: string; token: string }) => Promise<Response & { data: undefined }>;
 
-            enable: (params: {code: string; token: string}) => Promise<Response & {data: undefined}>;
+            enable: (params: { code: string; token: string }) => Promise<Response & { data: undefined }>;
 
             get: (id_or_subscription_code: string) => Promise<Response>;
 
-            list: () => Promise<Response & {data: any[]; meta: any}>;
+            list: () => Promise<Response & { data: any[]; meta: any }>;
         };
 
         subaccount: {
@@ -92,13 +100,17 @@ declare namespace Paystack {
         };
 
         transaction: {
-            charge: (params: {reference: string; authorization_code: string; email: string; amount: number}) => Promise<Response>;
+            charge: (
+                params: { reference: string; authorization_code: string; email: string; amount: number },
+            ) => Promise<Response>;
 
             get: (id: number | string) => Promise<Response>;
 
-            initialize: (params: {amount: number; reference: string; name: string; email: string, [key: string]: any}) => Promise<Response>;
+            initialize: (
+                params: { amount: number; reference: string; name: string; email: string; [key: string]: any },
+            ) => Promise<Response>;
 
-            list: () => Promise<Response & {data?: any[] | undefined; meta?: any}>;
+            list: () => Promise<Response & { data?: any[] | undefined; meta?: any }>;
 
             totals: () => Promise<Response>;
 

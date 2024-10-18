@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fast-astar",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sbfkcel/fast-astar"
+    ],
+    "devDependencies": {
+        "@types/fast-astar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Damien Fayol",
+            "githubUsername": "shezard"
+        }
+    ]
+}

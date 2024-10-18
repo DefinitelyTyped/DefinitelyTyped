@@ -1,5 +1,5 @@
-import { PerspectiveCamera } from './../cameras/PerspectiveCamera.js';
-import { LightShadow } from './LightShadow.js';
+import { PerspectiveCamera } from "../cameras/PerspectiveCamera.js";
+import { LightShadow } from "./LightShadow.js";
 
 /**
  * This is used internally by {@link SpotLight | SpotLights} for calculating shadows.

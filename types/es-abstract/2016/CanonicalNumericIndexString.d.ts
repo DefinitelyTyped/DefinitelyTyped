@@ -1,2 +1,2 @@
-import CanonicalNumericIndexString = require('../2015/CanonicalNumericIndexString');
+import CanonicalNumericIndexString = require("../2015/CanonicalNumericIndexString");
 export = CanonicalNumericIndexString;

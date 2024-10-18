@@ -17,7 +17,7 @@ dialog
         message: "Are you sure?",
         title: "Confirmation",
         ok: { text: "Sure" },
-        cancel: { text: "No" }
+        cancel: { text: "No" },
     })
     .then(() => "do it")
     .catch(() => "don't do it");
@@ -35,7 +35,7 @@ dialog
         ok: { text: "Proceed" },
         cancel: { text: "Quit" },
         defaultValue: "Joe",
-        required: true
+        required: true,
     })
     .then(name => `Hello ${name}`)
     .catch(() => "canceled");

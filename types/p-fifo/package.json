@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/p-fifo",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/alanshaw/p-fifo"
+    ],
+    "devDependencies": {
+        "@types/p-fifo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for rest.js v1.3.1
-// Project: https://github.com/cujojs/rest
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="when" />
 
 declare module "rest" {
@@ -38,7 +33,7 @@ declare module "rest" {
         }
 
         export interface Headers {
-            [index: string]: any // string or string[]
+            [index: string]: any; // string or string[]
         }
 
         export interface Response {
@@ -84,10 +79,18 @@ declare module "rest/interceptor" {
     namespace interceptor {
         interface Config<T, U> {
             init?: ((config: T) => U) | undefined;
-            request?: ((request: rest.Request, config: U, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>) | undefined;
-            response?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
-            success?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
-            error?: ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>) | undefined;
+            request?:
+                | ((request: rest.Request, config: U, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>)
+                | undefined;
+            response?:
+                | ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>)
+                | undefined;
+            success?:
+                | ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>)
+                | undefined;
+            error?:
+                | ((response: rest.Response, config: U, meta: rest.Meta) => rest.Response | when.Promise<rest.Response>)
+                | undefined;
         }
     }
 
@@ -302,7 +305,7 @@ declare module "rest/interceptor/jsonp" {
                 param?: string | undefined;
                 prefix?: string | undefined;
                 name?: string | undefined;
-            } | undefined
+            } | undefined;
         }
     }
 

@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Last from '../Last';
-import Async from './Async';
+import { UnaryFunction } from "../internal/types";
+import Last from "../Last";
+import Async from "./Async";
 
 /**
  * lastToAsync :: e -> Last a -> Async e a

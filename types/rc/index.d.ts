@@ -1,12 +1,4 @@
-// Type definitions for rc 1.2
-// Project: https://github.com/dominictarr/rc
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-//                 BendingBender <https://github.com/BendingBender>
-//                 kusyka911 <https://github.com/kusyka911>
-//                 David Gabison <https://github.com/pulsovi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import minimist = require('minimist');
+import minimist = require("minimist");
 
 interface RcResultType extends Record<number | string | symbol, unknown> {
     /**
@@ -50,7 +42,7 @@ declare function rc(
      * This function will be passed the string contents of each
      * discovered configuration file, should return a parsed object dictionary.
      */
-    parse?: (content: string) => object
+    parse?: (content: string) => object,
 ): RcResultType & minimist.ParsedArgs;
 declare function rc<T extends object>(
     /**
@@ -82,7 +74,7 @@ declare function rc<T extends object>(
      * This function will be passed the string contents of each
      * discovered configuration file, should return a parsed object dictionary.
      */
-    parse?: (content: string) => object
+    parse?: (content: string) => object,
 ): T & RcResultType & minimist.ParsedArgs;
 declare function rc<U extends object>(
     /**
@@ -114,11 +106,11 @@ declare function rc<U extends object>(
      * This function will be passed the string contents of each
      * discovered configuration file, should return a parsed object dictionary.
      */
-    parse?: (content: string) => object
+    parse?: (content: string) => object,
 ): U & RcResultType;
 declare function rc<
     T extends object,
-    U extends object
+    U extends object,
 >(
     /**
      * The name of the app to configure, rc will search for this files :
@@ -149,11 +141,11 @@ declare function rc<
      * This function will be passed the string contents of each
      * discovered configuration file, should return a parsed object dictionary.
      */
-    parse?: (content: string) => object
+    parse?: (content: string) => object,
 ): T & U & RcResultType;
 declare function rc<
     T extends object | string | null | undefined,
-    U extends object | null | undefined
+    U extends object | null | undefined,
 >(
     /**
      * The name of the app to configure, rc will search for this files :
@@ -184,9 +176,8 @@ declare function rc<
      * This function will be passed the string contents of each
      * discovered configuration file, should return a parsed object dictionary.
      */
-    parse?: (content: string) => object
-): (T extends string | null | undefined ?
-  (U extends null | undefined ? minimist.ParsedArgs : U) & RcResultType :
-  T & (U extends null | undefined ? minimist.ParsedArgs : U) & RcResultType);
+    parse?: (content: string) => object,
+): T extends string | null | undefined ? (U extends null | undefined ? minimist.ParsedArgs : U) & RcResultType
+    : T & (U extends null | undefined ? minimist.ParsedArgs : U) & RcResultType;
 
 export = rc;

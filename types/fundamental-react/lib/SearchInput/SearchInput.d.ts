@@ -13,13 +13,15 @@ export type SearchInputProps = {
     placeholder?: string | undefined;
     popoverProps?: any;
     searchBtnProps?: any;
-    searchList?: Array<{
-      text: string,
-      callback?: ((...args: any[]) => any) | undefined
-    }> | undefined;
+    searchList?:
+        | Array<{
+            text: string;
+            callback?: ((...args: any[]) => any) | undefined;
+        }>
+        | undefined;
     validationState?: {
-      state?: any,
-      text?: string | undefined
+        state?: any;
+        text?: string | undefined;
     } | undefined;
     onChange?: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
     onEnter?: ((value?: string | number | string[]) => void) | undefined;

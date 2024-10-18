@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jwt-express",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/AustP/jwt-express#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/jsonwebtoken": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/jwt-express": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Paddock",
+            "githubUsername": "nickp10"
+        }
+    ]
+}

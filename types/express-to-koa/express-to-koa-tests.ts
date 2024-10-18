@@ -1,6 +1,6 @@
-import Koa = require('koa');
-import * as connect from 'connect';
-import expressToKoa = require('express-to-koa');
+import Koa = require("koa");
+import * as connect from "connect";
+import expressToKoa = require("express-to-koa");
 
 const app = new Koa();
 const middleware: connect.NextHandleFunction = (req, res, next) => {

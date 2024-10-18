@@ -59,8 +59,9 @@ lookupAttribute.addPreSearch(() => {
 
 const lookupValues = lookupAttribute.getAttribute().getValue();
 
-if (lookupValues !== null)
+if (lookupValues !== null) {
     if (lookupValues[0].id || lookupValues[0].entityType) throw new Error("Invalid value in Lookup control.");
+}
 
 lookupAttribute.getAttribute().setValue(null);
 lookupAttribute.getAttribute().setValue([
@@ -72,10 +73,11 @@ lookupAttribute.getAttribute().setValue([
 
 /// Demonstrate v7.0 BPF API
 
-if (Xrm.Page.data.process != null)
+if (Xrm.Page.data.process != null) {
     Xrm.Page.data.process.moveNext((status) => {
         alert(`Process moved forward with status: ${status}`);
     });
+}
 
 /// Demonstrate v7.1 Quick Create form
 
@@ -112,10 +114,11 @@ Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
     const eventArgs = context.getEventArgs();
 
     if (
-        eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave ||
-        eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose
-    )
+        eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave
+        || eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose
+    ) {
         eventArgs.preventDefault();
+    }
 
     // @ts-expect-error
     eventArgs.disableAsyncTimeout();
@@ -236,6 +239,21 @@ Xrm.WebApi.retrieveMultipleRecords(
     </entity>
     </fetch>`,
 ).then((response) => {
+    console.log("Query Returned : " + response.entities.length);
+});
+
+// Confirm generics on query
+Xrm.WebApi.retrieveMultipleRecords(
+    "contact",
+    `?fetchXml=<fetch version='1.0' mapping='logical' distinct='false'>
+    <entity name='contact'>
+        <attribute name='fullname' />
+        <attribute name='telephone1' />
+        <attribute name='contactid' />
+        <order attribute='fullname' descending='false' />
+    </entity>
+    </fetch>`,
+).then((response: Xrm.RetrieveMultipleResult<{ contactid: string; fullname: string; telephone1: string }>) => {
     console.log("Query Returned : " + response.entities.length);
 });
 
@@ -418,7 +436,8 @@ async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEn
         await Promise.resolve(
             Xrm.Navigation.openAlertDialog({
                 title: `${commandProperties.CommandValueId}`,
-                text: `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
+                text:
+                    `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
             }),
         );
     }
@@ -549,8 +568,9 @@ function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
 }
 
 function booleanAttributeControls(formContext: Xrm.FormContext) {
-    let booleanAttribute: Xrm.Attributes.BooleanAttribute =
-        formContext.getAttribute<Xrm.Attributes.BooleanAttribute>("prefx_myattribute");
+    let booleanAttribute: Xrm.Attributes.BooleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>(
+        "prefx_myattribute",
+    );
     const booleanValue: boolean | null = booleanAttribute.getValue();
 
     // @ts-expect-error
@@ -594,7 +614,7 @@ function onStageChange(context: Xrm.Events.StageChangeEventContext) {
 Xrm.Navigation.navigateTo({
     pageType: "entityrecord",
     entityName: "account",
-    tabName: "tab"
+    tabName: "tab",
 }).then(
     (success) => {
         console.log("Entity opened");
@@ -608,3 +628,44 @@ const multiSelectOptionSetControl = Xrm.Page.getControl<Xrm.Controls.MultiSelect
 
 // $ExpectType MultiSelectOptionSetAttribute
 multiSelectOptionSetControl.getAttribute();
+
+// Demonstrates getWebResourceUrl
+const webResourceUrl = Xrm.Utility.getGlobalContext().getWebResourceUrl("sample_webResource1.js");
+
+const optionSetControl = Xrm.Page.getControl<Xrm.Controls.OptionSetControl>("singlechoice");
+
+// Demonstrates getOptions for Xrm.Controls.OptionSetControl
+// $ExpectType OptionSetValue[]
+optionSetControl.getOptions();
+
+// Demonstrates getOptions for Xrm.Controls.MultiSelectOptionSetControl
+// $ExpectType OptionSetValue[]
+multiSelectOptionSetControl.getOptions();
+
+const openFileSave = Xrm.Navigation.openFile({
+    fileContent: "",
+    fileName: "test.txt",
+    fileSize: 0,
+    mimeType: "text/plain",
+}, {
+    openMode: XrmEnum.OpenFileOptions.Save,
+});
+
+// Demonstrate addOnPostSave/removeOnPostSave methods
+const formContextDataEntityPostSaveMethods = (context: Xrm.Events.EventContext) => {
+    const formContext = context.getFormContext();
+    formContext.data.entity.addOnPostSave(contextHandler);
+    formContext.data.entity.removeOnPostSave(contextHandler);
+};
+
+// Demonstrate usage of Eventargs of postsave
+function ActionOnPostsave(context: Xrm.Events.PostSaveEventContext) {
+    const args = context.getEventArgs();
+
+    if (args.getIsSaveSuccess()) {
+        // if success get id
+        let id = args.getEntityReference().id;
+    } else {
+        console.log(args.getSaveErrorInfo());
+    }
+}

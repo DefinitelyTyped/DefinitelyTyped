@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/vhost",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/expressjs/vhost"
+    ],
+    "dependencies": {
+        "@types/connect": "*"
+    },
+    "devDependencies": {
+        "@types/vhost": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Vincenzo Chianese",
+            "githubUsername": "XVincentX"
+        },
+        {
+            "name": "Paul Grant",
+            "githubUsername": "cssinate"
+        }
+    ]
+}

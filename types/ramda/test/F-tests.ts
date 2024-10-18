@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     // $ExpectType false
     R.F();
 
@@ -9,4 +9,4 @@ import * as R from 'ramda';
 
     // $ExpectType false
     R.F(true);
-};
+});

@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/continuation-local-storage",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/othiym23/node-continuation-local-storage"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/continuation-local-storage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jang-Ho Hwang",
+            "githubUsername": "rath"
+        },
+        {
+            "name": "Kei Son",
+            "githubUsername": "heycalmdown"
+        },
+        {
+            "name": "Dmitry Kudryavtsev",
+            "githubUsername": "skwee357"
+        }
+    ]
+}

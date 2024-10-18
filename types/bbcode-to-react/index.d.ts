@@ -1,10 +1,4 @@
-// Type definitions for bbcode-to-react 0.2
-// Project: https://github.com/JimLiu/bbcode-to-react#readme
-// Definitions by: hkleungai <https://github.com/hkleungai>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 /**
  * A generic building block for Tag class and Parser class.
@@ -99,27 +93,27 @@ declare class Tag<T = { linkify: boolean }> {
      * A "TagType" object (without children attribute)
      * for initializing the class member "params"
      */
-    constructor(renderer: Renderer<T>, settings?: Partial<Omit<TagType, 'children'>>);
+    constructor(renderer: Renderer<T>, settings?: Partial<Omit<TagType, "children">>);
     /**
      * Tag name, with type string
      */
-    protected name: TagType['name'];
+    protected name: TagType["name"];
     /**
      * The parent of a tag object, with type ReactNode
      */
-    protected parent: TagType['parent'];
+    protected parent: TagType["parent"];
     /**
      * The inner text of a tag object, with type string
      */
-    protected text: TagType['text'];
+    protected text: TagType["text"];
     /**
      * A "params" object for inner processing
      */
-    protected params: TagType['params'];
+    protected params: TagType["params"];
     /**
      * The children of a tag object, with type ReactNode array
      */
-    protected children: TagType['children'];
+    protected children: TagType["children"];
     /**
      * Getter method of the "children" member of the Tag instance
      * @returns A ReactNode array representing the "children" member of the Tag instance
@@ -197,5 +191,5 @@ declare class Parser<T = { linkify: boolean }> {
  */
 declare const parser: Parser;
 
-export { Tag, Parser };
+export { Parser, Tag };
 export default parser;

@@ -1,12 +1,3 @@
-// Type definitions for store 2.0
-// Project: https://github.com/marcuswestin/store.js#readme
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-//                 harry0000 <https://github.com/harry0000>
-//                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
-//                 Johnny Edwards (igl00) <https://github.com/igl00>
-//                 Jason Kwok (JasonHK) <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Cross-browser storage for all use cases, used across the web.
 
 interface StoreJsAPI {
@@ -37,70 +28,70 @@ interface StoreJsStorage {
 }
 
 declare const store: StoreJsAPI;
-declare module 'store' {
+declare module "store" {
     export = store;
 }
-declare module 'store/dist/store.legacy' {
+declare module "store/dist/store.legacy" {
     export = store;
 }
-declare module 'store/dist/store.legacy.min' {
+declare module "store/dist/store.legacy.min" {
     export = store;
 }
-declare module 'store/dist/store.modern' {
+declare module "store/dist/store.modern" {
     export = store;
 }
-declare module 'store/dist/store.modern.min' {
+declare module "store/dist/store.modern.min" {
     export = store;
 }
 
 declare const engine: StoreJsEngine;
-declare module 'store/src/store-engine' {
+declare module "store/src/store-engine" {
     export = engine;
 }
-declare module 'store/plugins/all' {
+declare module "store/plugins/all" {
     export = Function;
 }
-declare module 'store/plugins/defaults' {
+declare module "store/plugins/defaults" {
     export = Function;
 }
-declare module 'store/plugins/dump' {
+declare module "store/plugins/dump" {
     export = Function;
 }
-declare module 'store/plugins/events' {
+declare module "store/plugins/events" {
     export = Function;
 }
-declare module 'store/plugins/expire' {
+declare module "store/plugins/expire" {
     export = Function;
 }
-declare module 'store/plugins/observe' {
+declare module "store/plugins/observe" {
     export = Function;
 }
-declare module 'store/plugins/operations' {
+declare module "store/plugins/operations" {
     export = Function;
 }
-declare module 'store/plugins/update' {
+declare module "store/plugins/update" {
     export = Function;
 }
-declare module 'store/plugins/v1-backcompat' {
+declare module "store/plugins/v1-backcompat" {
     export = Function;
 }
 
 declare const storage: StoreJsStorage;
-declare module 'store/storages/cookieStorage' {
+declare module "store/storages/cookieStorage" {
     export = storage;
 }
-declare module 'store/storages/localStorage' {
+declare module "store/storages/localStorage" {
     export = storage;
 }
-declare module 'store/storages/memoryStorage' {
+declare module "store/storages/memoryStorage" {
     export = storage;
 }
-declare module 'store/storages/oldFF-globalStorage' {
+declare module "store/storages/oldFF-globalStorage" {
     export = storage;
 }
-declare module 'store/storages/oldIE-userDataStorage' {
+declare module "store/storages/oldIE-userDataStorage" {
     export = storage;
 }
-declare module 'store/storages/sessionStorage' {
+declare module "store/storages/sessionStorage" {
     export = storage;
 }

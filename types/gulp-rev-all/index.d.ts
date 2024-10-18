@@ -1,8 +1,3 @@
-// Type definitions for gulp-rev-all 3.0
-// Project: https://github.com/smysnk/gulp-rev-all
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface GulpRevAll {

@@ -1,4 +1,4 @@
-import ATNConfigSet from './ATNConfigSet';
+import ATNConfigSet from "./ATNConfigSet";
 
 export default class OrderedATNConfigSet extends ATNConfigSet {
     constructor();

@@ -1,13 +1,13 @@
-import { callStandardApi, setApiKey } from 'deepai';
+import { callStandardApi, setApiKey } from "deepai";
 
 // $ExpectedType void
-setApiKey('');
+setApiKey("");
 
 // $ExpectedType Promise<{id: string, output_url: string}>
-callStandardApi('torch-srgan', {image: 'foo.jpg'});
+callStandardApi("torch-srgan", { image: "foo.jpg" });
 
 // @ts-expect-error
-callStandardApi('torch-srgan', {});
+callStandardApi("torch-srgan", {});
 
 // @ts-expect-error
-callStandardApi('foobar', {});
+callStandardApi("foobar", {});

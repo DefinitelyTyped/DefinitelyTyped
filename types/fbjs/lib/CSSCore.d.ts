@@ -1,4 +1,4 @@
-import { DOMWindow } from 'jsdom';
+import { DOMWindow } from "jsdom";
 
 /**
  * The CSSCore module specifies the API (and implements most of the methods)
@@ -32,5 +32,5 @@ declare namespace CSSCore {
      */
     function matchesSelector(element: HTMLElement | DOMWindow, selector: string): boolean;
 }
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = CSSCore;

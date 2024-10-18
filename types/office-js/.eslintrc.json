@@ -1,6 +1,12 @@
 {
     "rules": {
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/prefer-namespace": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off"
     }
 }

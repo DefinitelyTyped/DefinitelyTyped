@@ -1,9 +1,9 @@
 export namespace NetworkNack {
     enum Reason {
-        NONE       = 0,
+        NONE = 0,
         CONGESTION = 50,
-        DUPLICATE  = 100,
-        NO_ROUTE   = 150,
+        DUPLICATE = 100,
+        NO_ROUTE = 150,
         OTHER_CODE = 0x7fff,
     }
 }

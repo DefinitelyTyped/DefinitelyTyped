@@ -1,18 +1,18 @@
-import * as Clndr from 'clndr';
+import * as Clndr from "clndr";
 
 const options: Clndr.ClndrOptions = {
-    template: '',
+    template: "",
     startWithMonth: "YYYY-MM-DD",
     weekOffset: 0,
-    daysOfTheWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    daysOfTheWeek: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
     targets: {
-        day: 'day',
-        empty: 'empty',
-        nextButton: 'clndr-next-button',
-        todayButton: 'clndr-today-button',
-        previousButton: 'clndr-previous-button',
-        nextYearButton: 'clndr-next-year-button',
-        previousYearButton: 'clndr-previous-year-button',
+        day: "day",
+        empty: "empty",
+        nextButton: "clndr-next-button",
+        todayButton: "clndr-today-button",
+        previousButton: "clndr-previous-button",
+        nextYearButton: "clndr-next-year-button",
+        previousYearButton: "clndr-previous-year-button",
     },
     classes: {
         past: "past",
@@ -25,27 +25,27 @@ const options: Clndr.ClndrOptions = {
         adjacentMonth: "adjacent-month",
     },
     clickEvents: {
-        click(target) { },
-        today(month) { },
-        nextMonth(month) { },
-        previousMonth(month) { },
-        onMonthChange(month) { },
-        nextYear(month) { },
-        previousYear(month) { },
-        onYearChange(month) { },
-        nextInterval(start, end) { },
-        previousInterval(start, end) { },
-        onIntervalChange(start, end) { }
+        click(target) {},
+        today(month) {},
+        nextMonth(month) {},
+        previousMonth(month) {},
+        onMonthChange(month) {},
+        nextYear(month) {},
+        previousYear(month) {},
+        onYearChange(month) {},
+        nextInterval(start, end) {},
+        previousInterval(start, end) {},
+        onIntervalChange(start, end) {},
     },
     useTouchEvents: false,
-    ready() { },
-    doneRendering() { },
+    ready() {},
+    doneRendering() {},
     events: [],
-    dateParameter: 'date',
+    dateParameter: "date",
     multiDayEvents: {
-        endDate: 'endDate',
-        startDate: 'startDate',
-        singleDay: 'date'
+        endDate: "endDate",
+        startDate: "startDate",
+        singleDay: "date",
     },
     showAdjacentMonths: true,
     adjacentDaysChangeMonth: false,
@@ -56,24 +56,24 @@ const options: Clndr.ClndrOptions = {
     lengthOfTime: {
         months: null,
         days: null,
-        interval: 1
+        interval: 1,
     },
-    extras: { },
+    extras: {},
     render(data) {
-        return '<div class="html data as a string"></div>';
+        return "<div class=\"html data as a string\"></div>";
     },
     constraints: {
-        startDate: '2017-12-22',
-        endDate: '2018-01-09'
+        startDate: "2017-12-22",
+        endDate: "2018-01-09",
     },
-    moment: null
+    moment: null,
 };
 
-const myCalendar = $('.parent-element').clndr(options);
+const myCalendar = $(".parent-element").clndr(options);
 
 myCalendar.options.constraints = {
-    startDate: '2017-12-22',
-    endDate: '2018-01-09'
+    startDate: "2017-12-22",
+    endDate: "2018-01-09",
 };
 myCalendar.render();
 
@@ -81,12 +81,12 @@ myCalendar
     .forward()
     .back()
     .setMonth(0)
-    .setMonth('February')
+    .setMonth("February")
     .nextYear()
     .previousYear()
     .setYear(1997)
     .today()
     .setEvents([])
     .addEvents([])
-    .removeEvents(event => event.id === 'idToRemove')
+    .removeEvents(event => event.id === "idToRemove")
     .destroy();

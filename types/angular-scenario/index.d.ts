@@ -1,9 +1,3 @@
-// Type definitions for Angular Scenario Testing (ngScenario module) 1.3
-// Project: http://angularjs.org
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace ng {
@@ -13,7 +7,6 @@ declare namespace ng {
 }
 
 declare namespace angularScenario {
-
     export interface RunFunction {
         (functionToRun: any): any;
     }
@@ -107,7 +100,9 @@ declare namespace angularScenario {
         mouseover(): any;
         mousedown(): any;
         mouseup(): any;
-        query(callback: (selectedDOMElements: JQuery, callbackWhenDone: (objNull: any, futureValue: any) => any) => any): any;
+        query(
+            callback: (selectedDOMElements: JQuery, callbackWhenDone: (objNull: any, futureValue: any) => any) => any,
+        ): any;
         val(): Future;
         text(): Future;
         html(): Future;

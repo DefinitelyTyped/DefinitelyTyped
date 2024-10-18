@@ -1,10 +1,11 @@
-import * as React from 'react';
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+import * as React from "react";
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type ScrollOptions = {
     y?: number | undefined;
     animated?: boolean | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type ScrollableView = {
     scrollToTop(): void;
 } | {
@@ -17,7 +18,7 @@ declare type ScrollableView = {
 } | {
     scrollResponderScrollTo(options: ScrollOptions): void;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type ScrollableWrapper = {
     getScrollResponder(): React.ReactNode;
 } | {

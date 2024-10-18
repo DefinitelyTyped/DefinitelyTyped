@@ -1,7 +1,7 @@
-import { ConnectionStatus, DuplexConnection, Frame } from 'rsocket-types';
+import { ConnectionStatus, DuplexConnection, Frame } from "rsocket-types";
 
-import { Flowable } from 'rsocket-flowable';
-import { Encoders } from 'rsocket-core';
+import { Encoders } from "rsocket-core";
+import { Flowable } from "rsocket-flowable";
 
 export interface ClientOptions {
     url: string;
@@ -14,11 +14,11 @@ export interface ClientOptions {
  * A WebSocket transport client for use in browser environments.
  */
 export default class RSocketWebSocketClient implements DuplexConnection {
-                   constructor(options: ClientOptions, encoders?: Encoders<any>);
-                   close(): void;
-                   connect(): void;
-                   connectionStatus(): Flowable<ConnectionStatus>;
-                   receive(): Flowable<Frame>;
-                   sendOne(frame: Frame): void;
-                   send(frames: Flowable<Frame>): void;
-               }
+    constructor(options: ClientOptions, encoders?: Encoders<any>);
+    close(): void;
+    connect(): void;
+    connectionStatus(): Flowable<ConnectionStatus>;
+    receive(): Flowable<Frame>;
+    sendOne(frame: Frame): void;
+    send(frames: Flowable<Frame>): void;
+}

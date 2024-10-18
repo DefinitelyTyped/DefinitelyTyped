@@ -1,4 +1,4 @@
-import electronSquirrelStartup = require('electron-squirrel-startup');
+import electronSquirrelStartup = require("electron-squirrel-startup");
 
 // $ExpectType boolean
 electronSquirrelStartup;

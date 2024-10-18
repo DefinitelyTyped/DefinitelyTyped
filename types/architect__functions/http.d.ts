@@ -1,7 +1,7 @@
-import { APIGatewayProxyEvent, Context, APIGatewayProxyResult } from 'aws-lambda';
-import * as express from 'express';
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
+import * as express from "express";
 
-export type HttpMethods = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+export type HttpMethods = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
 
 export type SessionData = Record<string, any>;
 export type JsonBody = any;

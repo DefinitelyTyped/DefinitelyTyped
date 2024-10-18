@@ -84,9 +84,10 @@ scServer.on("connection", socket => {
     socket.off("close", closeListener);
     socket.off("close");
 
-    const authStateChangeListener: (stateChangeData: socketClusterServer.SCServerSocket.StateChangeData) => void = data => {
-        console.log(data);
-    };
+    const authStateChangeListener: (stateChangeData: socketClusterServer.SCServerSocket.StateChangeData) => void =
+        data => {
+            console.log(data);
+        };
     socket.on("authStateChange", authStateChangeListener);
     socket.once("authStateChange", authStateChangeListener);
     socket.off("authStateChange", authStateChangeListener);

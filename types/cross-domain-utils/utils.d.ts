@@ -1,4 +1,4 @@
-import { CrossDomainWindowType, SameDomainWindowType, DomainMatcher } from './types';
+import { CrossDomainWindowType, DomainMatcher, SameDomainWindowType } from "./types";
 
 export function isFileProtocol(win: SameDomainWindowType): boolean;
 
@@ -60,7 +60,7 @@ export function assertSameDomain(win: CrossDomainWindowType | SameDomainWindowTy
  *  - Only returns the parents of iframes
  *  - Returns a blank array if the window is the top-level window
  */
-export function getParents(win: CrossDomainWindowType): ReadonlyArray<CrossDomainWindowType>;
+export function getParents(win: CrossDomainWindowType): readonly CrossDomainWindowType[];
 
 /**
  *  Returns true if the `ancestor` is a direct or non-direct parent of the specified window.
@@ -72,14 +72,14 @@ export function isAncestorParent(parent: CrossDomainWindowType, child: CrossDoma
  *
  *  - Only returns direct children
  */
-export function getFrames(win: CrossDomainWindowType): ReadonlyArray<CrossDomainWindowType>;
+export function getFrames(win: CrossDomainWindowType): readonly CrossDomainWindowType[];
 
 /**
  *  Returns an array of all recursive child frames found in a given window, and in the child-frames of that window.
  *
  *  - Recursively searches for all direct and indirect children
  */
-export function getAllChildFrames(win: CrossDomainWindowType): ReadonlyArray<CrossDomainWindowType>;
+export function getAllChildFrames(win: CrossDomainWindowType): readonly CrossDomainWindowType[];
 
 /**
  *  Gets the top-level parent of the specified window.
@@ -95,9 +95,9 @@ export function getUltimateTop(win?: CrossDomainWindowType): CrossDomainWindowTy
  *
  *  - Recursively searches for all direct and indirect children
  */
-export function getAllFramesInWindow(win: CrossDomainWindowType): ReadonlyArray<CrossDomainWindowType>;
+export function getAllFramesInWindow(win: CrossDomainWindowType): readonly CrossDomainWindowType[];
 
-export function getAllWindows(win?: CrossDomainWindowType): ReadonlyArray<CrossDomainWindowType>;
+export function getAllWindows(win?: CrossDomainWindowType): readonly CrossDomainWindowType[];
 
 /**
  *  Returns true if the specified window is the top level window, without any parents.
@@ -163,7 +163,7 @@ export function getAncestor(win?: CrossDomainWindowType): CrossDomainWindowType 
 /**
  *  Recursively gets either the parent or the opener of the specified window, if either is present, and returns an array of the entire ancestor hierarchy.
  */
-export function getAncestors(win: CrossDomainWindowType): ReadonlyArray<CrossDomainWindowType>;
+export function getAncestors(win: CrossDomainWindowType): readonly CrossDomainWindowType[];
 
 /**
  *  Returns true if the specified ancestor window is the parent or the opener of the specified child window.
@@ -227,7 +227,12 @@ export function getDomainFromUrl(url: string): string;
  *
  *  - Returns a listener object with a `.cancel()` method, to stop the loop
  */
-export function onCloseWindow(win: CrossDomainWindowType, callback: (...args: any[]) => any, delay?: number, maxtime?: number): { cancel: () => void };
+export function onCloseWindow(
+    win: CrossDomainWindowType,
+    callback: (...args: any[]) => any,
+    delay?: number,
+    maxtime?: number,
+): { cancel: () => void };
 
 /**
  *  Returns true if the specified object is a window instance

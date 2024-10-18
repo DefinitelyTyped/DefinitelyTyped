@@ -1,4 +1,4 @@
-import { KramedOptions, kramed, KramedParser, KramedStatic, KramedRenderer } from 'kramed';
+import { kramed, KramedOptions, KramedParser, KramedRenderer, KramedStatic } from "kramed";
 
 const options: KramedOptions = {
     gfm: true,
@@ -9,30 +9,30 @@ const options: KramedOptions = {
     smartLists: true,
     silent: false,
     highlight(code: string, lang: string) {
-        return '';
+        return "";
     },
-    langPrefix: 'lang-',
+    langPrefix: "lang-",
     smartypants: false,
-    renderer: new kramed.Renderer()
+    renderer: new kramed.Renderer(),
 };
 
 function callback() {
-    'callback called';
+    "callback called";
 }
 
 kramed.setOptions(options);
 
-kramed('i am using __kramdown__.');
-kramed('i am using __kramdown__.', options);
-kramed('i am using __kramdown__.', callback);
-kramed('i am using __kramdown__.', options, callback);
+kramed("i am using __kramdown__.");
+kramed("i am using __kramdown__.", options);
+kramed("i am using __kramdown__.", callback);
+kramed("i am using __kramdown__.", options, callback);
 
-kramed.parse('i am using __kramdown__.');
-kramed.parse('i am using __kramdown__.', options);
-kramed.parse('i am using __kramdown__.', callback);
-kramed.parse('i am using __kramdown__.', options, callback);
+kramed.parse("i am using __kramdown__.");
+kramed.parse("i am using __kramdown__.", options);
+kramed.parse("i am using __kramdown__.", callback);
+kramed.parse("i am using __kramdown__.", options, callback);
 
-const text = 'something';
+const text = "something";
 const tokens = kramed.lexer(text, options);
 kramed.parser(tokens);
 

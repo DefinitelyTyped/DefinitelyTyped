@@ -16,11 +16,11 @@ function capture(resultContainer: HTMLElement, map: H.Map, ui: H.ui.UI) {
     map.capture(
         (canvas: HTMLCanvasElement) => {
             if (canvas) {
-                resultContainer.innerHTML = '';
+                resultContainer.innerHTML = "";
                 resultContainer.appendChild(canvas);
             } else {
                 // For example when map is in Panorama mode
-                resultContainer.innerHTML = 'Capturing is not supported';
+                resultContainer.innerHTML = "Capturing is not supported";
             }
         },
         [ui],
@@ -36,14 +36,14 @@ function capture(resultContainer: HTMLElement, map: H.Map, ui: H.ui.UI) {
  */
 // Step 1: initialize communication with the platform
 let platform = new H.service.Platform({
-    apikey: '{YOUR_APIKEY}',
+    apikey: "{YOUR_APIKEY}",
     useHTTPS: true,
     useCIT: true,
 });
 
 let defaultLayers = platform.createDefaultLayers();
 
-let mapContainer = document.getElementById('map');
+let mapContainer = document.getElementById("map");
 
 // Step 2: initialize a map
 let map = new H.Map(mapContainer, defaultLayers.vector.normal.map, {
@@ -59,21 +59,21 @@ let map = new H.Map(mapContainer, defaultLayers.vector.normal.map, {
 let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Step 4: Create the default UI
-let ui = H.ui.UI.createDefault(map, defaultLayers, 'en-US');
+let ui = H.ui.UI.createDefault(map, defaultLayers, "en-US");
 
 // Step 6: Create "Capture" button and place for showing the captured area
-let resultContainer = document.getElementById('panel');
+let resultContainer = document.getElementById("panel");
 
 // Create container for the "Capture" button
-let containerNode = document.createElement('div');
-containerNode.setAttribute('style', 'position:absolute;top:0;left:0;background-color:#fff; padding:10px;');
-containerNode.className = 'btn-group';
+let containerNode = document.createElement("div");
+containerNode.setAttribute("style", "position:absolute;top:0;left:0;background-color:#fff; padding:10px;");
+containerNode.className = "btn-group";
 
 // Create the "Capture" button
-let captureBtn = document.createElement('input');
-captureBtn.value = 'Capture';
-captureBtn.type = 'button';
-captureBtn.className = 'btn btn-sm btn-default';
+let captureBtn = document.createElement("input");
+captureBtn.value = "Capture";
+captureBtn.type = "button";
+captureBtn.className = "btn btn-sm btn-default";
 
 // Add both button and container to the DOM
 containerNode.appendChild(captureBtn);
@@ -84,11 +84,11 @@ captureBtn.onclick = () => {
     capture(resultContainer, map, ui);
 };
 
-let icon = new H.map.Icon('svg', { size: 5, crossOrigin: false });
+let icon = new H.map.Icon("svg", { size: 5, crossOrigin: false });
 
 let polyline = new H.map.Polyline(new H.geo.LineString());
 // tslint:disable-next-line:array-type
-let clipArr: Array<Array<number>>;
+let clipArr: number[][];
 clipArr = polyline.clip(new H.geo.Rect(5, 5, 5, 5));
 
 let lineString = new H.geo.LineString();
@@ -108,9 +108,9 @@ let polyline2 = new H.map.Polyline(lineString);
 
 let router = platform.getRoutingService();
 let calculateRouteParams = {
-    waypoint0: 'geo!52.5,13.4',
-    waypoint1: 'geo!52.5,13.45',
-    mode: 'fastest;car;traffic:disabled',
+    waypoint0: "geo!52.5,13.4",
+    waypoint1: "geo!52.5,13.45",
+    mode: "fastest;car;traffic:disabled",
 };
 router.calculateRoute(
     calculateRouteParams,
@@ -127,8 +127,8 @@ let entryPoint = H.service.PlacesService.EntryPoint;
 places.request(
     entryPoint.SEARCH,
     {
-        at: '52.5044,13.3909',
-        q: 'pizza',
+        at: "52.5044,13.3909",
+        q: "pizza",
     },
     response => {
         console.log(response);
@@ -139,18 +139,18 @@ places.request(
                 console.log(resp);
             },
             resp => {
-                console.log('ERROR: ' + resp);
+                console.log("ERROR: " + resp);
             },
         );
     },
     error => {
-        console.log('ERROR: ' + error);
+        console.log("ERROR: " + error);
     },
 );
 
 let geocoder = platform.getGeocodingService();
 let geocodingParams: H.service.ServiceParameters = {
-    searchText: '425 W Randolph Street, Chicago',
+    searchText: "425 W Randolph Street, Chicago",
 };
 geocoder.geocode(
     geocodingParams,
@@ -166,9 +166,9 @@ geocoder.geocode(
 // deprecated but w/e
 let enterprieseRouter = platform.getEnterpriseRoutingService();
 let calculateIsoline: H.service.ServiceParameters = {
-    start: 'geo!52.5,13.4',
-    distance: '1000,2000',
-    mode: 'fastest;car;traffic:disabled',
+    start: "geo!52.5,13.4",
+    distance: "1000,2000",
+    mode: "fastest;car;traffic:disabled",
 };
 enterprieseRouter.calculateIsoline(
     calculateIsoline,
@@ -210,8 +210,8 @@ engine.setAnimationEase(H.util.animation.ease.EASE_IN_QUAD);
 const engineListener = (e: Event) => {
     console.log(e);
 };
-engine.addEventListener('tap', engineListener);
-engine.removeEventListener('tap', engineListener);
+engine.addEventListener("tap", engineListener);
+engine.removeEventListener("tap", engineListener);
 
 // Get group bounds
 const group = new H.map.Group();
@@ -229,22 +229,22 @@ map.setCenter(position).setZoom(18);
 const geoJSON = map.screenToGeo(0, 0).toGeoJSON();
 
 // Test H.data.geojson.Reader https://developer.here.com/documentation/examples/maps-js/data/display-geojson-on-map
-const reader = new H.data.geojson.Reader('data/berlin.json', {
+const reader = new H.data.geojson.Reader("data/berlin.json", {
     style: (mapObject) => {
         if (mapObject instanceof H.map.Polygon) {
             mapObject.setStyle({
-                fillColor: 'rgba(255, 0, 0, 0.5)',
-                strokeColor: 'rgba(0, 0, 255, 0.2)',
-                lineWidth: 3
+                fillColor: "rgba(255, 0, 0, 0.5)",
+                strokeColor: "rgba(0, 0, 255, 0.2)",
+                lineWidth: 3,
             });
         }
-    }
+    },
 });
 
 // Test https://developer.here.com/documentation/maps/3.1.3.0/dev_guide/topics_api/h-map-spatialstyle-linecap.html
 new H.map.Circle(position, 35)
-    .setStyle({ lineCap: 'butt' })
-    .setStyle({ lineCap: 'round' })
-    .setStyle({ lineCap: 'square' })
-    .setStyle({ lineCap: 'arrow-head' })
-    .setStyle({ lineCap: 'arrow-tail' });
+    .setStyle({ lineCap: "butt" })
+    .setStyle({ lineCap: "round" })
+    .setStyle({ lineCap: "square" })
+    .setStyle({ lineCap: "arrow-head" })
+    .setStyle({ lineCap: "arrow-tail" });

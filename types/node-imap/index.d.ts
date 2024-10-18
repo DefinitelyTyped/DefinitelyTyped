@@ -1,12 +1,6 @@
-// Type definitions for node-imap 0.9
-// Project: https://www.npmjs.com/package/node-imap
-// Definitions by: Peter Snider <https://github.com/psnider>
-//                 Alexander Rudolph <https://github.com/drblaui>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import { EventEmitter } from 'events';
-import { ConnectionOptions } from 'tls';
+import { EventEmitter } from "events";
+import { ConnectionOptions } from "tls";
 
 declare namespace Connection {
     // The property names of these interfaces match the documentation (where type names were given).
@@ -114,9 +108,9 @@ declare namespace Connection {
 
     /** Given in a 'message' event from ImapFetch */
     interface ImapMessage extends NodeJS.EventEmitter {
-        on(event: string | 'end', listener: () => void): this;
-        on(event: 'body', listener: (stream: NodeJS.ReadableStream, info: ImapMessageBodyInfo) => void): this;
-        on(event: 'attributes', listener: (attrs: ImapMessageAttributes) => void): this;
+        on(event: string | "end", listener: () => void): this;
+        on(event: "body", listener: (stream: NodeJS.ReadableStream, info: ImapMessageBodyInfo) => void): this;
+        on(event: "attributes", listener: (attrs: ImapMessageAttributes) => void): this;
     }
 
     interface FetchOptions {
@@ -137,10 +131,10 @@ declare namespace Connection {
     /** Returned from fetch() */
     interface ImapFetch extends NodeJS.EventEmitter {
         on(event: string, listener: () => void): this;
-        on(event: 'message', listener: (message: ImapMessage, seqno: number) => void): this;
-        on(event: 'error', listener: (error: Error) => void): this;
+        on(event: "message", listener: (message: ImapMessage, seqno: number) => void): this;
+        on(event: "error", listener: (error: Error) => void): this;
         once(event: string, listener: () => void): this;
-        once(event: 'error', listener: (error: Error) => void): this;
+        once(event: "error", listener: (error: Error) => void): this;
     }
 
     interface Folder {
@@ -168,20 +162,20 @@ declare namespace Connection {
     }
 
     type SortCriteria =
-        | 'ARRIVAL'
-        | '-ARRIVAL'
-        | 'CC'
-        | '-CC'
-        | 'DATE'
-        | '-DATE'
-        | 'FROM'
-        | '-FROM'
-        | 'SIZE'
-        | '-SIZE'
-        | 'SUBJECT'
-        | '-SUBJECT'
-        | 'TO'
-        | '-TO';
+        | "ARRIVAL"
+        | "-ARRIVAL"
+        | "CC"
+        | "-CC"
+        | "DATE"
+        | "-DATE"
+        | "FROM"
+        | "-FROM"
+        | "SIZE"
+        | "-SIZE"
+        | "SUBJECT"
+        | "-SUBJECT"
+        | "TO"
+        | "-TO";
 
     interface MessageFunctions {
         /**
@@ -244,33 +238,33 @@ declare namespace Connection {
          * source can be a single message identifier, a message identifier range (e.g. '2504:2507' or '*' or '2504:*'),
          * an array of message identifiers, or an array of message identifier ranges.
          */
-        fetch(source: any /* MessageSource */, options: FetchOptions): ImapFetch;
+        fetch(source: any, /* MessageSource */ options: FetchOptions): ImapFetch;
         /** Copies message(s) in the currently open mailbox to another mailbox. */
-        copy(source: any /* MessageSource */, mailboxName: string, callback: (error: Error) => void): void;
+        copy(source: any, /* MessageSource */ mailboxName: string, callback: (error: Error) => void): void;
         /** Moves message(s) in the currently open mailbox to another mailbox. Note: The message(s) in the destination mailbox will have a new message UID. */
-        move(source: any /* MessageSource */, mailboxName: string, callback: (error: Error) => void): void;
+        move(source: any, /* MessageSource */ mailboxName: string, callback: (error: Error) => void): void;
         /** Adds flag(s) to message(s). */
-        addFlags(source: any /* MessageSource */, flags: any, callback: (error: Error) => void): void;
+        addFlags(source: any, /* MessageSource */ flags: any, callback: (error: Error) => void): void;
         /** Removes flag(s) from message(s). */
-        delFlags(source: any /* MessageSource */, flags: any, callback: (error: Error) => void): void;
+        delFlags(source: any, /* MessageSource */ flags: any, callback: (error: Error) => void): void;
         /** Sets the flag(s) for message(s). */
-        setFlags(source: any /* MessageSource */, flags: any, callback: (error: Error) => void): void;
+        setFlags(source: any, /* MessageSource */ flags: any, callback: (error: Error) => void): void;
         /** Adds keyword(s) to message(s). keywords is either a single keyword or an array of keywords. */
         addKeywords(
-            source: any /* MessageSource */,
-            keywords: any /* string|string[] */,
+            source: any, /* MessageSource */
+            keywords: any, /* string|string[] */
             callback: (error: Error) => void,
         ): void;
         /** Removes keyword(s) from message(s). keywords is either a single keyword or an array of keywords. */
         delKeywords(
-            source: any /* MessageSource */,
-            keywords: any /* string|string[] */,
+            source: any, /* MessageSource */
+            keywords: any, /* string|string[] */
             callback: (error: Error) => void,
         ): void;
         /** Sets keyword(s) for message(s). keywords is either a single keyword or an array of keywords. */
         setKeywords(
-            source: any /* MessageSource */,
-            keywords: any /* string|string[] */,
+            source: any, /* MessageSource */
+            keywords: any, /* string|string[] */
             callback: (error: Error) => void,
         ): void;
         /** Checks if the server supports the specified capability. */
@@ -312,33 +306,33 @@ declare class Connection extends EventEmitter implements Connection.MessageFunct
         callback: (error: Error, uids: number[]) => void,
     ): void;
     /** Fetches message(s) in the currently open mailbox. */
-    fetch(source: any /* MessageSource */, options: Connection.FetchOptions): Connection.ImapFetch;
+    fetch(source: any, /* MessageSource */ options: Connection.FetchOptions): Connection.ImapFetch;
     /** Copies message(s) in the currently open mailbox to another mailbox. */
-    copy(source: any /* MessageSource */, mailboxName: string, callback: (error: Error) => void): void;
+    copy(source: any, /* MessageSource */ mailboxName: string, callback: (error: Error) => void): void;
     /** Moves message(s) in the currently open mailbox to another mailbox. Note: The message(s) in the destination mailbox will have a new message UID. */
-    move(source: any /* MessageSource */, mailboxName: string, callback: (error: Error) => void): void;
+    move(source: any, /* MessageSource */ mailboxName: string, callback: (error: Error) => void): void;
     /** Adds flag(s) to message(s). */
-    addFlags(source: any /* MessageSource */, flags: any, callback: (error: Error) => void): void;
+    addFlags(source: any, /* MessageSource */ flags: any, callback: (error: Error) => void): void;
     /** Removes flag(s) from message(s). */
-    delFlags(source: any /* MessageSource */, flags: any, callback: (error: Error) => void): void;
+    delFlags(source: any, /* MessageSource */ flags: any, callback: (error: Error) => void): void;
     /** Sets the flag(s) for message(s). */
-    setFlags(source: any /* MessageSource */, flags: any, callback: (error: Error) => void): void;
+    setFlags(source: any, /* MessageSource */ flags: any, callback: (error: Error) => void): void;
     /** Adds keyword(s) to message(s). keywords is either a single keyword or an array of keywords. */
     addKeywords(
-        source: any /* MessageSource */,
-        keywords: any /* string|string[] */,
+        source: any, /* MessageSource */
+        keywords: any, /* string|string[] */
         callback: (error: Error) => void,
     ): void;
     /** Removes keyword(s) from message(s). keywords is either a single keyword or an array of keywords. */
     delKeywords(
-        source: any /* MessageSource */,
-        keywords: any /* string|string[] */,
+        source: any, /* MessageSource */
+        keywords: any, /* string|string[] */
         callback: (error: Error) => void,
     ): void;
     /** Sets keyword(s) for message(s). keywords is either a single keyword or an array of keywords. */
     setKeywords(
-        source: any /* MessageSource */,
-        keywords: any /* string|string[] */,
+        source: any, /* MessageSource */
+        keywords: any, /* string|string[] */
         callback: (error: Error) => void,
     ): void;
     /** Checks if the server supports the specified capability. */
@@ -432,7 +426,7 @@ declare class Connection extends EventEmitter implements Connection.MessageFunct
      * the Spam or Trash mailbox will merely archive any messages marked as Deleted (by moving them to the 'All Mail' mailbox).
      */
     expunge(callback: (error: Error) => void): void;
-    expunge(uids: any /* MessageSource */, callback: (error: Error) => void): void;
+    expunge(uids: any, /* MessageSource */ callback: (error: Error) => void): void;
     /** Appends a message to selected mailbox. msgData is a string or Buffer containing an RFC-822 compatible MIME message. Valid options properties are: */
     append(msgData: any, callback: (error: Error) => void): void;
     append(msgData: any, options: Connection.AppendOptions, callback: (error: Error) => void): void;

@@ -1,9 +1,3 @@
-// Type definitions for jquery-sticky 1.0
-// Project: https://github.com/garand/sticky
-// Definitions by: Matthieu Tabuteau <https://github.com/maixiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQueryStickyOptions {
@@ -73,7 +67,7 @@ interface JQuery {
     /**
      * Recalculates the element's position.
      */
-    sticky(method: 'update'): JQuery;
+    sticky(method: "update"): JQuery;
 
     /**
      * To unstick an object.

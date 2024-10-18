@@ -1,8 +1,3 @@
-// Type definitions for heic-decode 1.1
-// Project: https://github.com/catdad-experiments/heic-decode
-// Definitions by: hieyou1 <https://github.com/hieyou1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface HasBuffer {
     buffer: ArrayBufferLike;
 }

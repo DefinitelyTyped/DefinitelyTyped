@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/sammy",
+    "version": "0.0.9999",
+    "projects": [
+        "http://sammyjs.org/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/sammy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Oisin Grehan",
+            "githubUsername": "oising"
+        }
+    ]
+}

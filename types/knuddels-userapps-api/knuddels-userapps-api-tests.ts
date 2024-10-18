@@ -2,7 +2,7 @@ class Server implements App {
     private readonly usersPlaying = new Map<string, number>();
     private isShuttingDown = false;
 
-    private readonly htmlFile: HTMLFile = new HTMLFile('start.html');
+    private readonly htmlFile: HTMLFile = new HTMLFile("start.html");
     private readonly appContent: AppContent = AppContent.overlayContent(this.htmlFile, 243, 266);
 
     onAppStart() {
@@ -23,7 +23,7 @@ class Server implements App {
     onUserLeft(user: User) {
         if (this.usersPlaying.get(user.getNick()) === 1) {
             KnuddelsServer.getDefaultBotUser().transferKnuddel(user, new KnuddelAmount(1), {
-                displayReasonText: 'Du hast den Channel verlassen.',
+                displayReasonText: "Du hast den Channel verlassen.",
             });
 
             this.usersPlaying.delete(user.getNick());
@@ -39,7 +39,7 @@ class Server implements App {
                 const user = KnuddelsServer.getUserAccess().getUserById(userId);
 
                 KnuddelsServer.getDefaultBotUser().transferKnuddel(user, new KnuddelAmount(1), {
-                    displayReasonText: 'Die App fährt gleich herunter.',
+                    displayReasonText: "Die App fährt gleich herunter.",
                 });
                 user.getAppContentSessions().forEach((session: AppContentSession) => {
                     session.remove();
@@ -54,13 +54,13 @@ class Server implements App {
         const sender = knuddelTransfer.getSender();
 
         if (!sender.canSendAppContent(this.appContent)) {
-            knuddelTransfer.reject('Sorry, mit diesem Gerät kannst du gerade nicht spielen.');
+            knuddelTransfer.reject("Sorry, mit diesem Gerät kannst du gerade nicht spielen.");
         } else if (sender.isChannelOwner() && knuddelTransfer.getKnuddelAmount().asNumber() !== 1) {
             knuddelTransfer.accept();
         } else if (this.isShuttingDown) {
-            knuddelTransfer.reject('Du App nimmt gerade keine neuen Spieler an.');
+            knuddelTransfer.reject("Du App nimmt gerade keine neuen Spieler an.");
         } else if (this.usersPlaying.get(sender.getNick())) {
-            knuddelTransfer.reject('Du spielst bereits.');
+            knuddelTransfer.reject("Du spielst bereits.");
         } else if (knuddelTransfer.getKnuddelAmount().asNumber() !== 1) {
             const botNick = KnuddelsServer.getDefaultBotUser().getNick().escapeKCode();
             knuddelTransfer.reject(`Du musst genau _°BB>_h1 Knuddel senden|/appknuddel ${botNick}<°°°_...`);
@@ -74,21 +74,21 @@ class Server implements App {
             this.usersPlaying.set(user.getNick(), 1);
             user.sendAppContent(this.appContent);
         } else {
-            user.sendPrivateMessage('Vielen Dank für die Einzahlung.');
+            user.sendPrivateMessage("Vielen Dank für die Einzahlung.");
         }
     }
 
     onEventReceived(user: User, key: string, data: string) {
-        if (key === 'selectedEntry' && this.usersPlaying.get(user.getNick()) === 1) {
+        if (key === "selectedEntry" && this.usersPlaying.get(user.getNick()) === 1) {
             this.usersPlaying.set(user.getNick(), 2);
 
             setTimeout(() => {
                 const doorNumber = parseInt(data[data.length - 1], 10);
                 const winningDoorNumber = RandomOperations.nextInt(0, 2) + 1;
                 const hasWon = winningDoorNumber === doorNumber;
-                const text = hasWon ? 'Richtig getippt' : 'Knapp daneben';
+                const text = hasWon ? "Richtig getippt" : "Knapp daneben";
 
-                user.getAppContentSession(AppViewMode.Overlay).getAppContent().sendEvent('openDoor', {
+                user.getAppContentSession(AppViewMode.Overlay).getAppContent().sendEvent("openDoor", {
                     door: doorNumber,
                     winningDoor: winningDoorNumber,
                     text,
@@ -96,7 +96,7 @@ class Server implements App {
 
                 if (hasWon) {
                     KnuddelsServer.getDefaultBotUser().transferKnuddel(user, new KnuddelAmount(2), {
-                        displayReasonText: 'Richtig getippt...',
+                        displayReasonText: "Richtig getippt...",
                     });
                 }
 

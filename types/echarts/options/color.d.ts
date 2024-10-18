@@ -17,7 +17,7 @@ declare namespace echarts {
          * If global is `true`, then the first four parameters are in absolute pixel positions.
          */
         interface LinearGradient {
-            type: 'linear';
+            type: "linear";
             x: number;
             y: number;
             x2: number;
@@ -32,7 +32,7 @@ declare namespace echarts {
          * First three parameters are x and y positions of center, and radius, similar to linear gradient.
          */
         interface RadialGradient {
-            type: 'radial';
+            type: "radial";
             x: number;
             y: number;
             r: number;
@@ -51,7 +51,7 @@ declare namespace echarts {
             /**
              * whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat
              */
-            repeat?: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat' | undefined;
+            repeat?: "repeat" | "repeat-x" | "repeat-y" | "no-repeat" | undefined;
         }
 
         type ColorStops = Array<{

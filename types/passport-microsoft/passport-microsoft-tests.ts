@@ -1,19 +1,19 @@
-import passport = require('passport');
-import { Strategy as MicrosoftStrategy } from 'passport-microsoft';
+import passport = require("passport");
+import { Strategy as MicrosoftStrategy } from "passport-microsoft";
 
 // Just some test model.
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, { username: 'arnold' });
+        callback(null, { username: "arnold" });
     },
 };
 
 passport.use(
     new MicrosoftStrategy(
         {
-            tenant: 'thisIsMyTenant',
-            clientID: 'thisIsMyClientId',
-            clientSecret: 'thisIsMyClientSecret',
+            tenant: "thisIsMyTenant",
+            clientID: "thisIsMyClientId",
+            clientSecret: "thisIsMyClientSecret",
         },
         (
             accessToken: string,

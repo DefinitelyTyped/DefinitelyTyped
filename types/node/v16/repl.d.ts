@@ -4,14 +4,14 @@
  * It can be accessed using:
  *
  * ```js
- * const repl = require('repl');
+ * import repl from 'node:repl';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/repl.js)
  */
-declare module 'repl' {
-    import { Interface, Completer, AsyncCompleter } from 'node:readline';
-    import { Context } from 'node:vm';
-    import { InspectOptions } from 'node:util';
+declare module "repl" {
+    import { AsyncCompleter, Completer, Interface } from "node:readline";
+    import { Context } from "node:vm";
+    import { InspectOptions } from "node:util";
     interface ReplOptions {
         /**
          * The input prompt to display.
@@ -99,7 +99,13 @@ declare module 'repl' {
          */
         breakEvalOnSigint?: boolean | undefined;
     }
-    type REPLEval = (this: REPLServer, evalCmd: string, context: Context, file: string, cb: (err: Error | null, result: any) => void) => void;
+    type REPLEval = (
+        this: REPLServer,
+        evalCmd: string,
+        context: Context,
+        file: string,
+        cb: (err: Error | null, result: any) => void,
+    ) => void;
     type REPLWriter = (this: REPLServer, obj: any) => string;
     /**
      * This is the default "writer" value, if none is passed in the REPL options,
@@ -124,7 +130,7 @@ declare module 'repl' {
      * or directly using the JavaScript `new` keyword.
      *
      * ```js
-     * const repl = require('repl');
+     * import repl from 'node:repl';
      *
      * const options = { useColors: true };
      *
@@ -251,7 +257,7 @@ declare module 'repl' {
          * The following example shows two new commands added to the REPL instance:
          *
          * ```js
-         * const repl = require('repl');
+         * import repl from 'node:repl';
          *
          * const replServer = repl.start({ prompt: '> ' });
          * replServer.defineCommand('sayhello', {
@@ -283,7 +289,7 @@ declare module 'repl' {
         defineCommand(keyword: string, cmd: REPLCommandAction | REPLCommand): void;
         /**
          * The `replServer.displayPrompt()` method readies the REPL instance for input
-         * from the user, printing the configured `prompt` to a new line in the `output`and resuming the `input` to accept new input.
+         * from the user, printing the configured `prompt` to a new line in the `output` and resuming the `input` to accept new input.
          *
          * When multi-line input is being entered, an ellipsis is printed rather than the
          * 'prompt'.
@@ -326,65 +332,65 @@ declare module 'repl' {
          * 9. reset
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'line', listener: (input: string) => void): this;
-        addListener(event: 'pause', listener: () => void): this;
-        addListener(event: 'resume', listener: () => void): this;
-        addListener(event: 'SIGCONT', listener: () => void): this;
-        addListener(event: 'SIGINT', listener: () => void): this;
-        addListener(event: 'SIGTSTP', listener: () => void): this;
-        addListener(event: 'exit', listener: () => void): this;
-        addListener(event: 'reset', listener: (context: Context) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "line", listener: (input: string) => void): this;
+        addListener(event: "pause", listener: () => void): this;
+        addListener(event: "resume", listener: () => void): this;
+        addListener(event: "SIGCONT", listener: () => void): this;
+        addListener(event: "SIGINT", listener: () => void): this;
+        addListener(event: "SIGTSTP", listener: () => void): this;
+        addListener(event: "exit", listener: () => void): this;
+        addListener(event: "reset", listener: (context: Context) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close'): boolean;
-        emit(event: 'line', input: string): boolean;
-        emit(event: 'pause'): boolean;
-        emit(event: 'resume'): boolean;
-        emit(event: 'SIGCONT'): boolean;
-        emit(event: 'SIGINT'): boolean;
-        emit(event: 'SIGTSTP'): boolean;
-        emit(event: 'exit'): boolean;
-        emit(event: 'reset', context: Context): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "line", input: string): boolean;
+        emit(event: "pause"): boolean;
+        emit(event: "resume"): boolean;
+        emit(event: "SIGCONT"): boolean;
+        emit(event: "SIGINT"): boolean;
+        emit(event: "SIGTSTP"): boolean;
+        emit(event: "exit"): boolean;
+        emit(event: "reset", context: Context): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'line', listener: (input: string) => void): this;
-        on(event: 'pause', listener: () => void): this;
-        on(event: 'resume', listener: () => void): this;
-        on(event: 'SIGCONT', listener: () => void): this;
-        on(event: 'SIGINT', listener: () => void): this;
-        on(event: 'SIGTSTP', listener: () => void): this;
-        on(event: 'exit', listener: () => void): this;
-        on(event: 'reset', listener: (context: Context) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "line", listener: (input: string) => void): this;
+        on(event: "pause", listener: () => void): this;
+        on(event: "resume", listener: () => void): this;
+        on(event: "SIGCONT", listener: () => void): this;
+        on(event: "SIGINT", listener: () => void): this;
+        on(event: "SIGTSTP", listener: () => void): this;
+        on(event: "exit", listener: () => void): this;
+        on(event: "reset", listener: (context: Context) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'line', listener: (input: string) => void): this;
-        once(event: 'pause', listener: () => void): this;
-        once(event: 'resume', listener: () => void): this;
-        once(event: 'SIGCONT', listener: () => void): this;
-        once(event: 'SIGINT', listener: () => void): this;
-        once(event: 'SIGTSTP', listener: () => void): this;
-        once(event: 'exit', listener: () => void): this;
-        once(event: 'reset', listener: (context: Context) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "line", listener: (input: string) => void): this;
+        once(event: "pause", listener: () => void): this;
+        once(event: "resume", listener: () => void): this;
+        once(event: "SIGCONT", listener: () => void): this;
+        once(event: "SIGINT", listener: () => void): this;
+        once(event: "SIGTSTP", listener: () => void): this;
+        once(event: "exit", listener: () => void): this;
+        once(event: "reset", listener: (context: Context) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'line', listener: (input: string) => void): this;
-        prependListener(event: 'pause', listener: () => void): this;
-        prependListener(event: 'resume', listener: () => void): this;
-        prependListener(event: 'SIGCONT', listener: () => void): this;
-        prependListener(event: 'SIGINT', listener: () => void): this;
-        prependListener(event: 'SIGTSTP', listener: () => void): this;
-        prependListener(event: 'exit', listener: () => void): this;
-        prependListener(event: 'reset', listener: (context: Context) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "line", listener: (input: string) => void): this;
+        prependListener(event: "pause", listener: () => void): this;
+        prependListener(event: "resume", listener: () => void): this;
+        prependListener(event: "SIGCONT", listener: () => void): this;
+        prependListener(event: "SIGINT", listener: () => void): this;
+        prependListener(event: "SIGTSTP", listener: () => void): this;
+        prependListener(event: "exit", listener: () => void): this;
+        prependListener(event: "reset", listener: (context: Context) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'line', listener: (input: string) => void): this;
-        prependOnceListener(event: 'pause', listener: () => void): this;
-        prependOnceListener(event: 'resume', listener: () => void): this;
-        prependOnceListener(event: 'SIGCONT', listener: () => void): this;
-        prependOnceListener(event: 'SIGINT', listener: () => void): this;
-        prependOnceListener(event: 'SIGTSTP', listener: () => void): this;
-        prependOnceListener(event: 'exit', listener: () => void): this;
-        prependOnceListener(event: 'reset', listener: (context: Context) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "line", listener: (input: string) => void): this;
+        prependOnceListener(event: "pause", listener: () => void): this;
+        prependOnceListener(event: "resume", listener: () => void): this;
+        prependOnceListener(event: "SIGCONT", listener: () => void): this;
+        prependOnceListener(event: "SIGINT", listener: () => void): this;
+        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
+        prependOnceListener(event: "exit", listener: () => void): this;
+        prependOnceListener(event: "reset", listener: (context: Context) => void): this;
     }
     /**
      * A flag passed in the REPL options. Evaluates expressions in sloppy mode.
@@ -401,7 +407,7 @@ declare module 'repl' {
      * If `options` is a string, then it specifies the input prompt:
      *
      * ```js
-     * const repl = require('repl');
+     * import repl from 'node:repl';
      *
      * // a Unix style prompt
      * repl.start('$ ');
@@ -419,6 +425,6 @@ declare module 'repl' {
         constructor(err: Error);
     }
 }
-declare module 'node:repl' {
-    export * from 'repl';
+declare module "node:repl" {
+    export * from "repl";
 }

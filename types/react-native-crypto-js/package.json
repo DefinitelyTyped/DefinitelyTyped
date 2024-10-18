@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/react-native-crypto-js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/imchintan/react-native-crypto-js"
+    ],
+    "devDependencies": {
+        "@types/react-native-crypto-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mufaddal Hamid",
+            "githubUsername": "mufaddalhamidofficial"
+        },
+        {
+            "name": "Michael Zabka",
+            "githubUsername": "misak113"
+        },
+        {
+            "name": "Max Lysenko",
+            "githubUsername": "maximlysenko"
+        },
+        {
+            "name": "Brendan Early",
+            "githubUsername": "mymindstorm"
+        },
+        {
+            "name": "Doma",
+            "githubUsername": "SevenOutman"
+        }
+    ]
+}

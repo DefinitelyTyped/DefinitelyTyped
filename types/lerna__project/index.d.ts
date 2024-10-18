@@ -1,8 +1,3 @@
-// Type definitions for @lerna/project 5.1
-// Project: https://github.com/lerna/lerna/tree/main/core/project
-// Definitions by: DonMahallem <https://github.com/donmahallem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Package } from "@lerna/package";
 
 export interface ProjectConfig {

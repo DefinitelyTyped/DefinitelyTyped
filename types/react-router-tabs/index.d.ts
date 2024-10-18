@@ -1,18 +1,13 @@
-// Type definitions for react-router-tabs 1.3
-// Project: https://github.com/chacestew/react-router-tabs#readme
-// Definitions by: Joakim Unge <https://github.com/joakimunge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { ComponentType, ReactNode } from "react";
+import { Link, LinkProps, NavLinkProps, Route, RouteProps } from "react-router-dom";
 
-import { Route, Link, RouteProps, LinkProps, NavLinkProps } from 'react-router-dom';
-import { ReactNode, ComponentType } from 'react';
-
-export type AriaCurrent = 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
+export type AriaCurrent = "page" | "step" | "location" | "date" | "time" | "true";
 
 export interface NavTabProps extends NavLinkProps {
     style?: React.CSSProperties | undefined;
     disabled?: boolean | undefined;
     allowClickOnActive?: boolean | undefined;
-    'aria-current'?: AriaCurrent | undefined;
+    "aria-current"?: AriaCurrent | undefined;
 }
 export interface RoutedTabsProps {
     startPathWith?: string | undefined;

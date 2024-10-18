@@ -10,6 +10,7 @@ declare namespace GorillaEngine.UI {
         stop(): void;
         pause(): void;
         setFrame(frame: number): void;
+        setTargetFrame(frame: number): void;
         setFrameFromLinearTransform(value: number, min: number, max: number): void;
         setProperties(
             selector: string,
@@ -31,5 +32,6 @@ declare namespace GorillaEngine.UI {
     class LottieAnimation extends Component {
         constructor(options: Partial<LottieAnimationProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface LottieAnimation extends LottieAnimationProps {}
 }

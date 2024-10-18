@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ssdeep",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/pchaigno/node-ssdeep"
+    ],
+    "devDependencies": {
+        "@types/ssdeep": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arne Schubert",
+            "githubUsername": "atd-schubert"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for hifo 1.0
-// Project: https://github.com/derhuerst/hifo
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = hifo;
 
 /**
@@ -44,16 +39,16 @@ declare function hifo<T>(compareFn: hifo.CompareFn<T>, size?: number): hifo.Hifo
 declare namespace hifo {
     function lowest<
         TKeyPrimary extends ObjectKey,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         TObject extends ObjectWithNumericValue<TKeyPrimary | TKeySecondary>,
         TKeySecondary extends ObjectKey = never,
-        // eslint-disable-next-line no-unnecessary-generics
     >(primary: TKeyPrimary, secondary?: TKeySecondary): CompareFn<TObject>;
     function lowest(): CompareFn<number>;
     function highest<
         TKeyPrimary extends ObjectKey,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         TObject extends ObjectWithNumericValue<TKeyPrimary | TKeySecondary>,
         TKeySecondary extends ObjectKey = never,
-        // eslint-disable-next-line no-unnecessary-generics
     >(primary: TKeyPrimary, secondary?: TKeySecondary): CompareFn<TObject>;
     function highest(): CompareFn<number>;
     const Hifo: Hifo<unknown>;

@@ -1,6 +1,7 @@
 {
     "rules": {
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

@@ -13,7 +13,9 @@ declare namespace GorillaEngine.UI {
             width: number;
             height: number;
             cornerRadius: number;
-            border: number;
+            borderSizeX: number;
+            borderSizeY: number;
+            activeColor: string;
             markDefault: boolean;
             incrementHeight: number;
             backgroundColor: string;
@@ -22,6 +24,7 @@ declare namespace GorillaEngine.UI {
         }>;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface StepEditor extends StepEditorProps {}
     class StepEditor extends Component {
         constructor(options: Partial<StepEditorProps>);

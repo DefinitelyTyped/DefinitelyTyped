@@ -1,15 +1,10 @@
-// Type definitions for Plupload 2.0
-// Project: http://www.plupload.com/
-// Definitions by: Patrick Bußmann <https://github.com/patrickbussmann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface plupload_settings {
     /** Required Options */
-    browse_button: any,
-    url: string,
+    browse_button: any;
+    url: string;
 
     /** Filters */
-    filters?: plupload_filters | undefined,
+    filters?: plupload_filters | undefined;
 
     /** Control the request */
     headers?: any;
@@ -138,21 +133,17 @@ interface plupload_error extends plupload_response {
 }
 
 declare namespace plupload {
-
     class Uploader {
-
         constructor(settings: plupload_settings);
 
         /**
          * Unique id for the Uploader instance.
-         *
          */
         id: string;
 
         /**
          * Current state of the total uploading progress. This one can either be plupload.STARTED or plupload.STOPPED.
          * These states are controlled by the stop/start methods. The default value is STOPPED.
-         *
          */
         state: number;
 
@@ -160,13 +151,11 @@ declare namespace plupload {
          * Map of features that are available for the uploader runtime. Features will be filled
          * before the init event is called, these features can then be used to alter the UI for the end user.
          * Some of the current features that might be in this map is: dragdrop, chunks, jpgresize, pngresize.
-         *
          */
         features: any;
 
         /**
          * Current runtime name.
-         *
          */
         runtime: string;
 
@@ -175,17 +164,15 @@ declare namespace plupload {
          *
          * @see plupload.File
          */
-        files: Array<any>;
+        files: any[];
 
         /**
          * Object with name/value settings.
-         *
          */
         settings: any;
 
         /**
          * Total progess information. How many files has been uploaded, total percent etc.
-         *
          */
         total: plupload_queue_progress;
 
@@ -290,11 +277,11 @@ declare namespace plupload {
         /**
          * Dispatches the specified event name and its arguments to all listeners.
          * @method trigger
-          * @param {String} name Event name to fire.
+         * @param {String} name Event name to fire.
          * @param {Object..} Multiple arguments to pass along to the listener functions.
-        */
+         */
         trigger(name: string, Multiple: any): any;
-        
+
         hasEventListener(name: string): any;
         bind(name: string, func: any, scope?: any): any;
         unbind(name: string, func: any): any;
@@ -530,7 +517,7 @@ declare namespace plupload {
      * @param {Object} obj Object with length field.
      * @return {Array} Array object containing all items.
      */
-    function toArray(obj: any): Array<any>;
+    function toArray(obj: any): any[];
 
     /**
      * Find an element in array and return its index if present, otherwise return -1.
@@ -541,7 +528,7 @@ declare namespace plupload {
      * @param {Array} array
      * @return {Int} Index of the element, or -1 if not found
      */
-    function inArray(needle: any, array: Array<any>): number;
+    function inArray(needle: any, array: any[]): number;
 
     /**
     Recieve an array of functions (usually async) to call in sequence, each  function
@@ -554,7 +541,7 @@ declare namespace plupload {
     @param {Array} queue Array of functions to call in sequence
     @param {Function} cb Main callback that is called in the end, or in case of error
     */
-    function inSeries(queue: Array<any>, callback: Function): void;
+    function inSeries(queue: any[], callback: Function): void;
 
     /**
      * Extends the language pack object with new items.
@@ -710,7 +697,6 @@ declare namespace plupload {
      */
     function parseSize(size: number | string): number;
 
-
     /**
      * A way to predict what runtime will be choosen in the current environment with the
      * specified settings.
@@ -738,6 +724,6 @@ declare namespace plupload {
     function addFileFilter(name: string, cb: Function): void;
 }
 
-declare module 'plupload' {
+declare module "plupload" {
     export = plupload;
 }

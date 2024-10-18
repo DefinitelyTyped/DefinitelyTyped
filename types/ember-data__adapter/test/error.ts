@@ -4,17 +4,17 @@
 // we make these the root definitions and expand these as appropriate).
 
 import AdapterError, {
-    InvalidError,
-    TimeoutError,
     AbortError,
-    UnauthorizedError,
-    ForbiddenError,
-    NotFoundError,
     ConflictError,
-    ServerError,
-    errorsHashToArray,
     errorsArrayToHash,
-} from '@ember-data/adapter/error';
+    errorsHashToArray,
+    ForbiddenError,
+    InvalidError,
+    NotFoundError,
+    ServerError,
+    TimeoutError,
+    UnauthorizedError,
+} from "@ember-data/adapter/error";
 
 class MyInvalid extends InvalidError {
     constructor() {
@@ -24,7 +24,7 @@ class MyInvalid extends InvalidError {
 
 const invalid = new MyInvalid();
 
-const isInvalid = invalid instanceof AdapterError; // $ExpectType<boolean>
+const isInvalid = invalid instanceof AdapterError; // $ExpectType boolean
 
-errorsHashToArray({}); // $ExpectType<any[]>
-errorsArrayToHash([]); // $ExpectType<{}>
+errorsHashToArray({}); // $ExpectType any[]
+errorsArrayToHash([]); // $ExpectType {}

@@ -1,12 +1,6 @@
-// Type definitions for tdweb 1.4
-// Project: https://github.com/tdlib/td#readme
-// Definitions by: Alexander Krisko <https://github.com/esindger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface TdObject {
-    '@type': string;
-    '@extra'?: string | undefined;
+    "@type": string;
+    "@extra"?: string | undefined;
     [key: string]: TdObject | TdObject[] | number | number[] | string | string[] | boolean | boolean[] | undefined;
 }
 
@@ -14,8 +8,8 @@ export interface TdObject {
  * An object of this type can be returned on every function call, in case of an error
  */
 export interface TdError {
-    '@type': 'error';
-    '@extra'?: 'string' | undefined;
+    "@type": "error";
+    "@extra"?: "string" | undefined;
     /**
      * Error code; subject to future changes. If the error code is 406, the error message
      * must not be processed in any way and must not be displayed to the user
@@ -47,7 +41,7 @@ export interface TdOptions {
     /**
      * The initial verbosity level of the JavaScript part of the code (one of 'error', 'warning', 'info', 'log', 'debug').
      */
-    jsLogVerbosityLevel?: 'error' | 'warning' | 'info' | 'log' | 'debug' | undefined;
+    jsLogVerbosityLevel?: "error" | "warning" | "info" | "log" | "debug" | undefined;
     /**
      * Pass false to use TDLib without database and secret chats. It will significantly improve loading time, but some functionality will be unavailable.
      */
@@ -62,7 +56,7 @@ export interface TdOptions {
      * For debug only. The type of the TDLib build to use. 'asmjs' for asm.js and 'wasm' for WebAssembly.
      * If mode == 'auto' WebAbassembly will be used if supported by browser, asm.js otherwise.
      */
-    mode?: 'auto' | 'asmjs' | 'wasm' | undefined;
+    mode?: "auto" | "asmjs" | "wasm" | undefined;
 }
 
 /**
@@ -73,7 +67,6 @@ export interface TdOptions {
  * with TDLib and manages a filesystem for persistent TDLib data.
  * TDLib instance is created in a Web Worker to run it in a separate thread.
  * TdClient just sends queries to the Web Worker and receives updates and results from it.
- *
  *
  * Differences from the TDLib JSON API:
  * 1. Added the update `updateFatalError error:string = Update;` which is sent whenever TDLib encounters a fatal error.

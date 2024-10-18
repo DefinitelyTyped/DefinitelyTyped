@@ -1,17 +1,12 @@
-// Type definitions for qr-image 3.2
-// Project: https://github.com/alexeyten/qr-image
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
  * error correction level. One of L, M, Q, H. Default M.
  */
-export type ec_level = 'L' | 'M' | 'Q' | 'H';
+export type ec_level = "L" | "M" | "Q" | "H";
 
 /** @default 'png' */
-export type image_type = 'png' | 'svg' | 'pdf' | 'eps';
+export type image_type = "png" | "svg" | "pdf" | "eps";
 
 export interface Bitmap {
     /**

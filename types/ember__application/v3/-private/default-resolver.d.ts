@@ -1,5 +1,5 @@
-import Resolver from '@ember/engine/-private/resolver';
-import Application from '@ember/application';
+import Application from "@ember/application";
+import Resolver from "@ember/engine/-private/resolver";
 
 /**
  * The DefaultResolver defines the default lookup rules to resolve

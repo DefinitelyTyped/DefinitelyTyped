@@ -4,7 +4,7 @@ declare namespace GorillaEngine.UI {
         size: number;
         cornerRadius: number;
         value: number;
-        'value&': any;
+        "value&": any;
         visible: boolean;
         imagePath: string;
         text: string;
@@ -22,6 +22,7 @@ declare namespace GorillaEngine.UI {
         }>;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface AmpEnv extends AmpEnvProps {}
     class AmpEnv extends Component {
         constructor(options: Partial<AmpEnvProps>);

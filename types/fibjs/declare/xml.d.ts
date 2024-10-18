@@ -202,7 +202,7 @@
 declare module "xml" {
     
 
-    module xml {
+    namespace xml {
         
         /**
          * 

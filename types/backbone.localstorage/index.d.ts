@@ -1,17 +1,11 @@
-// Type definitions for backbone.localStorage 1.0
-// Project: https://github.com/jeromegn/Backbone.localStorage
-// Definitions by: Louis Grignon <https://github.com/lgrignon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as Backbone from 'backbone';
+import * as Backbone from "backbone";
 
 declare global {
     const Store: typeof Backbone.LocalStorage;
     type Store = Backbone.LocalStorage;
 }
 
-declare module 'backbone' {
+declare module "backbone" {
     interface Serializer {
         serialize(item: any): any;
         deserialize(data: any): any;
@@ -52,5 +46,3 @@ declare module 'backbone' {
         _itemName(id: any): string;
     }
 }
-
-

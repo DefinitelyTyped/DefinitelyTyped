@@ -17,7 +17,7 @@ declare class HttpResponse {
      * @param {*} value
      */
     addHeaders(header: string, value: any): void;
-    get headers(): Array<{name: string, value: any}>;
+    get headers(): Array<{ name: string; value: any }>;
     /**
      * Set the STATUS value of the returned HTTP Request
      * @param {*} value
@@ -41,6 +41,4 @@ declare class HttpResponse {
      */
     get method(): string;
 }
-export {
-    HttpResponse
-};
+export { HttpResponse };

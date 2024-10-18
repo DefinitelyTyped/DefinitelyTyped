@@ -22,35 +22,35 @@ i.initiateConnection({
     slot: 0,
     timeout: 0,
     localTSAP: 0x0,
-    remoteTSAP: 0x0
+    remoteTSAP: 0x0,
 }, (err) => {});
 i.initiateConnection({
     // @ts-expect-error
-    host: 0
+    host: 0,
 }, () => {});
 i.initiateConnection({
     // @ts-expect-error
-    port: "0"
+    port: "0",
 }, () => {});
 i.initiateConnection({
     // @ts-expect-error
-    rack: "0"
+    rack: "0",
 }, () => {});
 i.initiateConnection({
     // @ts-expect-error
-    slot: "0"
+    slot: "0",
 }, () => {});
 i.initiateConnection({
     // @ts-expect-error
-    timeout: "0"
+    timeout: "0",
 }, () => {});
 i.initiateConnection({
     // @ts-expect-error
-    localTSAP: "0"
+    localTSAP: "0",
 }, () => {});
 i.initiateConnection({
     // @ts-expect-error
-    remoteTSAP: "0"
+    remoteTSAP: "0",
 }, () => {});
 
 // @ts-expect-error

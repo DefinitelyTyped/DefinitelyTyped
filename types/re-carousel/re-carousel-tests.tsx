@@ -1,5 +1,5 @@
-import Recarousel = require('re-carousel');
-import { CSSProperties } from 'react';
+import Recarousel = require("re-carousel");
+import { CSSProperties } from "react";
 
 // <Recarousel> props
 {
@@ -14,7 +14,7 @@ import { CSSProperties } from 'react';
     const axisZ = <Recarousel axis="z" />;
     const minMove = <Recarousel minMove={5} />;
 
-    const style: CSSProperties = { background: 'red' };
+    const style: CSSProperties = { background: "red" };
     const styled = <Recarousel style={style} />;
 
     const emptyOnTransitionEnd = <Recarousel onTransitionEnd={() => {}} />;
@@ -34,7 +34,7 @@ import { CSSProperties } from 'react';
 // Widget - axis prop
 {
     interface MyWidgetProps {
-        axis: 'y' | 'x';
+        axis: "y" | "x";
     }
     const MyWidget = (props: MyWidgetProps) => <></>;
     const MyOptionalWidget = (props: Partial<MyWidgetProps>) => <></>;

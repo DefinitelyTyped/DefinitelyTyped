@@ -30,12 +30,12 @@ declare class IClauseSelect {
     toSql(): string;
     distinct(): IClauseSelect;
     equals(obj: any): boolean;
-    groupBy(fields: any): IClauseSelect;
+    groupBy(fields: any): this;
     private fetchGroupByArr_;
 }
 declare namespace IClauseSelect {
-    export { IQuery, DataSet };
+    export { DataSet, IQuery };
 }
-type IQuery = import('./IQuery');
-import IColumn = require('./IColumn.js');
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type IQuery = import("./IQuery");
+import IColumn = require("./IColumn.js");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");

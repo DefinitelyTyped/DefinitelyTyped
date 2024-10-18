@@ -58,7 +58,6 @@ declare namespace echarts {
          * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
          * is used to define all levels now.
          *
-         *
          * @see https://echarts.apache.org/en/option.html#series-treemap
          */
         interface SeriesTreemap {
@@ -74,7 +73,6 @@ declare namespace echarts {
              * If specified, it can be used to refer the component in option
              * or API.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.id
              */
             id?: string | undefined;
@@ -85,7 +83,6 @@ declare namespace echarts {
              * and filtering with
              * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-treemap.name
              */
@@ -105,7 +102,6 @@ declare namespace echarts {
              * Canvases with bigger `zlevel` will be placed on Canvases with
              * smaller `zlevel`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.zlevel
              */
             zlevel?: number | undefined;
@@ -118,7 +114,6 @@ declare namespace echarts {
              *
              * `z` has a lower priority to `zlevel`, and will not create new
              * Canvas.
-             *
              *
              * @default
              * 2
@@ -136,7 +131,6 @@ declare namespace echarts {
              * If the `left` value is set to be `'left'`, `'center'`, or `'right'`,
              * then the component will be aligned automatically based on position.
              *
-             *
              * @default
              * "center"
              * @see https://echarts.apache.org/en/option.html#series-treemap.left
@@ -153,7 +147,6 @@ declare namespace echarts {
              * If the `left` value is set to be `'top'`, `'middle'`, or `'bottom'`,
              * then the component will be aligned automatically based on position.
              *
-             *
              * @default
              * "middle"
              * @see https://echarts.apache.org/en/option.html#series-treemap.top
@@ -168,7 +161,6 @@ declare namespace echarts {
              * be percentage value relative to container width like `'20%'`.
              *
              * Adaptive by default.
-             *
              *
              * @default
              * "auto"
@@ -185,7 +177,6 @@ declare namespace echarts {
              *
              * Adaptive by default.
              *
-             *
              * @default
              * "auto"
              * @see https://echarts.apache.org/en/option.html#series-treemap.bottom
@@ -195,7 +186,6 @@ declare namespace echarts {
             /**
              * Width of treemap component.
              *
-             *
              * @default
              * 80%
              * @see https://echarts.apache.org/en/option.html#series-treemap.width
@@ -204,7 +194,6 @@ declare namespace echarts {
 
             /**
              * Height of treemap component.
-             *
              *
              * @default
              * 80%
@@ -218,7 +207,6 @@ declare namespace echarts {
              *
              * It defaults to be the golden ratio: `0.5
              * * (1 + Math.sqrt(5))`.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-treemap.squareRatio
              */
@@ -240,14 +228,12 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.leafDepth
              */
             leafDepth?: number | undefined;
 
             /**
              * Marker when the node is able to be drilled down.
-             *
              *
              * @default
              * '▶'
@@ -264,7 +250,6 @@ declare namespace echarts {
              * + `'move'` or `'pan'`: move (translation) only.
              * + `true`: both zoom and move (translation) are avaliable.
              *
-             *
              * @default
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-treemap.roam
@@ -280,7 +265,6 @@ declare namespace echarts {
              * [link](https://echarts.apache.org/en/option.html#series-treemap.data.link)
              * in node data, do hyperlink jump after clicked.
              *
-             *
              * @default
              * "zoomToNode"
              * @see https://echarts.apache.org/en/option.html#series-treemap.nodeClick
@@ -293,7 +277,6 @@ declare namespace echarts {
              * [nodeClick](https://echarts.apache.org/en/option.html#series-treemap.nodeClick)
              * is set as `'zoomToNode'` and no drill down happens).
              * This configuration item indicates the ratio.
-             *
              *
              * @default
              * 0.32*0.32
@@ -334,8 +317,6 @@ declare namespace echarts {
              *
              * The top level is divided into several parts by colors "red",
              * "green", "blue", and etc
-             *
-             *
              *
              * In each color block, `colorSaturation` is used to distinguish
              * nodes in sublevel.
@@ -392,2118 +373,323 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
-             *
              * @default
              * []
              * @see https://echarts.apache.org/en/option.html#series-treemap.levels
              */
-            levels?: {
-                /**
-                 * `treemap` is able to map any dimensions of data to visual.
-                 *
-                 * The value of
-                 * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * can be an array.
-                 * And each item of the array represents a "dimension".
-                 * `visualDimension` specifies the dimension on which visual
-                 * mapping will be performed.
-                 *
-                 * About visual encoding, see details in
-                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * .
-                 *
-                 * > Tps: In treemap, `visualDimension` attribute could appear
-                 * in more than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualDimension
-                 */
-                visualDimension?: number | undefined;
-
-                /**
-                 * The minimal value of current level.
-                 * Auto-statistics by default.
-                 *
-                 * When
-                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
-                 * is set to `'value'`, you are able to specify extent manually
-                 * for visual mapping by specifying `visualMin` or `visualMax`.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualMin
-                 */
-                visualMin?: number | undefined;
-
-                /**
-                 * The maximal value of current level.
-                 * Auto-statistics by default.
-                 *
-                 * When
-                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
-                 * is set to `'value'`, you are able to specify extent manually
-                 * for visual mapping by specifying `visualMin` or `visualMax`.
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualMax
-                 */
-                visualMax?: number | undefined;
-
-                /**
-                 * A color list for a level.
-                 * Each node in the level will obtain a color from the color
-                 * list (the rule see
-                 * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
-                 * ).
-                 * It is empty by default, which means the global color list
-                 * will be used.
-                 *
-                 * About visual encoding, see details in
-                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * .
-                 *
-                 * > Tps: In treemap, `color` attribute could appear in more
-                 * than one places:
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.color
-                 */
-                color?: any[] | undefined;
-
-                /**
-                 * It indicates the range of tranparent rate (color alpha) for
-                 * nodes in a level . The range of values is 0 ~ 1.
-                 *
-                 * For example, `colorAlpha` can be `[0.3, 1]`.
-                 *
-                 * About visual encoding, see details in
-                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * .
-                 *
-                 * > Tps: In treemap, `colorAlpha` attribute could appear in
-                 * more than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorAlpha
-                 */
-                colorAlpha?: any[] | undefined;
-
-                /**
-                 * It indicates the range of saturation (color alpha) for nodes
-                 * in a level . The range of values is 0 ~ 1.
-                 *
-                 * For example, `colorSaturation` can be `[0.3, 1]`.
-                 *
-                 * About visual encoding, see details in
-                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * .
-                 *
-                 * > Tps: In treemap, `colorSaturation` attribute could appear
-                 * in more than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorSaturation
-                 */
-                colorSaturation?: number | undefined;
-
-                /**
-                 * Specify the rule according to which each node obtain color
-                 * from
-                 * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
-                 * . Optional values:
-                 *
-                 * + `'value'`:
-                 *
-                 * Map
-                 * [series-treemap.data.value](https://echarts.apache.org/en/option.html#series-treemap.data.value)
-                 * to color.
-                 *
-                 * In this way, the color of each node indicate its value.
-                 *
-                 * [visualDimension](https://echarts.apache.org/en/option.html#series-treemap.levels.visualDimension)
-                 * can be used to specify which dimension of
-                 * [data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * is used to perform visual mapping.
-                 *
-                 * + `'index'`:
-                 *
-                 * Map the `index` (ordinal number) of nodes to color.
-                 * Namely, in a level, the first node is mapped to the first
-                 * color of
-                 * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
-                 * , and the second node gets the second color.
-                 *
-                 * In this way, adjacent nodes are distinguished by color.
-                 *
-                 * + `'id'`:
-                 *
-                 * Map
-                 * [series-treemap.data.id](https://echarts.apache.org/en/option.html#series-treemap.data.id)
-                 * to color.
-                 *
-                 * Since `id` is used to identify node, if user call `setOption`
-                 * to modify the tree, each node will remain the original color
-                 * before and after `setOption` called. See this
-                 * [example](https://echarts.apache.org/examples/en/editor.html?c=treemap-obama&edit=1&reset=1)
-                 * .
-                 *
-                 * About visual encoding, see details in
-                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * .
-                 *
-                 * > Tps: In treemap, `colorMappingBy` attribute could appear
-                 * in more than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @default
-                 * "index"
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy
-                 */
-                colorMappingBy?: string | undefined;
-
-                /**
-                 * A node will not be shown when its area size is smaller than
-                 * this value (unit: px square).
-                 *
-                 * In this way, tiny nodes will be hidden, otherwise they will
-                 * huddle together.
-                 * When user zoom the treemap, the area size will increase and
-                 * the rectangle will be shown if the area size is larger than
-                 * this threshold.
-                 *
-                 * About visual encoding, see details in
-                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * .
-                 *
-                 * > Tps: In treemap, `visibleMin` attribute could appear in
-                 * more than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @default
-                 * 10
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visibleMin
-                 */
-                visibleMin?: number | undefined;
-
-                /**
-                 * Children will not be shown when area size of a node is smaller
-                 * than this value (unit: px square).
-                 *
-                 * This can hide the details of nodes when the rectangular area
-                 * is not large enough.
-                 * When users zoom nodes, the child node would show if the area
-                 * is larger than this threshold.
-                 *
-                 * About visual encoding, see details in
-                 * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * .
-                 *
-                 * > Tps: In treemap, `childrenVisibleMin` attribute could appear
-                 * in more than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.childrenVisibleMin
-                 */
-                childrenVisibleMin?: number | undefined;
-
-                /**
-                 * `label` decribes the style of the label in each node.
-                 *
-                 * > Tps: In treemap, `label` attribute could appear in more
-                 * than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label
-                 */
-                label?: {
+            levels?:
+                | Array<{
                     /**
-                     * Whether to show label.
+                     * `treemap` is able to map any dimensions of data to visual.
                      *
+                     * The value of
+                     * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * can be an array.
+                     * And each item of the array represents a "dimension".
+                     * `visualDimension` specifies the dimension on which visual
+                     * mapping will be performed.
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.show
-                     */
-                    show?: boolean | undefined;
-
-                    /**
-                     * Label position.
-                     *
-                     * **Followings are the options:**
-                     *
-                     * + \[x, y\]
-                     *
-                     * Use relative percentage, or absolute pixel values to
-                     * represent position of label relative to top-left corner
-                     * of bounding box. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
-                     *
-                     * + 'top'
-                     *
-                     * + 'left'
-                     * + 'right'
-                     * + 'bottom'
-                     * + 'inside'
-                     * + 'insideLeft'
-                     * + 'insideRight'
-                     * + 'insideTop'
-                     * + 'insideBottom'
-                     * + 'insideTopLeft'
-                     * + 'insideBottomLeft'
-                     * + 'insideTopRight'
-                     * + 'insideBottomRight'
-                     *
-                     * See:
-                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                     * About visual encoding, see details in
+                     * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                      * .
                      *
+                     * > Tps: In treemap, `visualDimension` attribute could appear
+                     * in more than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
                      *
-                     * @default
-                     * "inside"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualDimension
                      */
-                    position?: any[] | string | undefined;
+                    visualDimension?: number | undefined;
 
                     /**
-                     * Distance to the host graphic element.
-                     * Works when position is string value (like `'top'`、`'insideRight'`).
+                     * The minimal value of current level.
+                     * Auto-statistics by default.
                      *
-                     * See:
-                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                     * When
+                     * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
+                     * is set to `'value'`, you are able to specify extent manually
+                     * for visual mapping by specifying `visualMin` or `visualMax`.
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualMin
+                     */
+                    visualMin?: number | undefined;
+
+                    /**
+                     * The maximal value of current level.
+                     * Auto-statistics by default.
+                     *
+                     * When
+                     * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
+                     * is set to `'value'`, you are able to specify extent manually
+                     * for visual mapping by specifying `visualMin` or `visualMax`.
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visualMax
+                     */
+                    visualMax?: number | undefined;
+
+                    /**
+                     * A color list for a level.
+                     * Each node in the level will obtain a color from the color
+                     * list (the rule see
+                     * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
+                     * ).
+                     * It is empty by default, which means the global color list
+                     * will be used.
+                     *
+                     * About visual encoding, see details in
+                     * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                      * .
                      *
+                     * > Tps: In treemap, `color` attribute could appear in more
+                     * than one places:
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
                      *
-                     * @default
-                     * 5
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.color
                      */
-                    distance?: number | undefined;
+                    color?: any[] | undefined;
 
                     /**
-                     * Rotate label, from -90 degree to 90, positive value represents
-                     * rotate anti-clockwise.
+                     * It indicates the range of tranparent rate (color alpha) for
+                     * nodes in a level . The range of values is 0 ~ 1.
                      *
-                     * See:
-                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
+                     * For example, `colorAlpha` can be `[0.3, 1]`.
+                     *
+                     * About visual encoding, see details in
+                     * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                      * .
                      *
+                     * > Tps: In treemap, `colorAlpha` attribute could appear in
+                     * more than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorAlpha
                      */
-                    rotate?: number | undefined;
+                    colorAlpha?: any[] | undefined;
 
                     /**
-                     * Whether to move text slightly.
-                     * For example: `[30, 40]` means move `30` horizontally
-                     * and move `40` vertically.
+                     * It indicates the range of saturation (color alpha) for nodes
+                     * in a level . The range of values is 0 ~ 1.
                      *
+                     * For example, `colorSaturation` can be `[0.3, 1]`.
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.offset
-                     */
-                    offset?: any[] | undefined;
-
-                    /**
-                     * Data label formatter, which supports string template
-                     * and callback function.
-                     * In either form, `\n` is supported to represent a new
-                     * line.
-                     *
-                     * **String template**
-                     *
-                     * Model variation includes:
-                     *
-                     * + `{a}`: series name.
-                     * + `{b}`: the name of a data item.
-                     * + `{c}`: the value of a data item.
-                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
-                     * example,`{@product}`refers the value of`'product'\` dimension。
-                     * + `{@[n]}: the value of a dimension at the index of`n`,
-                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
-                     *
-                     * **example:**
-                     *
-                     * ```
-                     * formatter: '{b}: {@score}'
-                     *
-                     * ```
-                     *
-                     * **Callback function**
-                     *
-                     * Callback function is in form of:
-                     *
-                     * ```
-                     * (params: Object|Array) => string
-                     *
-                     * ```
-                     *
-                     * where `params` is the single dataset needed by formatter,
-                     * which is formed as:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.formatter
-                     */
-                    formatter?: Function | string | undefined;
-
-                    /**
-                     * text color.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * ""#fff""
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.color
-                     */
-                    color?: string | undefined;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontStyle
-                     */
-                    fontStyle?: string | undefined;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontWeight
-                     */
-                    fontWeight?: string | number | undefined;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontFamily
-                     */
-                    fontFamily?: string | undefined;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 12
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontSize
-                     */
-                    fontSize?: number | undefined;
-
-                    /**
-                     * Horizontal alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'left'`
-                     * + `'center'`
-                     * + `'right'`
-                     *
-                     * If `align` is not set in `rich`, `align` in parent level
-                     * will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.align
-                     */
-                    align?: string | undefined;
-
-                    /**
-                     * Vertical alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'top'`
-                     * + `'middle'`
-                     * + `'bottom'`
-                     *
-                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                     * in parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.verticalAlign
-                     */
-                    verticalAlign?: string | undefined;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.lineHeight
-                     */
-                    lineHeight?: number | undefined;
-
-                    /**
-                     * Background color of the text fregment.
-                     *
-                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                     *
-                     * Or image can be used, for example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
-                     *
-                     * `width` or `height` can be specified when using background
-                     * image, or auto adapted by default.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.backgroundColor
-                     */
-                    backgroundColor?: object | string | undefined;
-
-                    /**
-                     * Border color of the text fregment.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderColor
-                     */
-                    borderColor?: string | undefined;
-
-                    /**
-                     * Border width of the text fregment.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderWidth
-                     */
-                    borderWidth?: number | undefined;
-
-                    /**
-                     * Border radius of the text fregment.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderRadius
-                     */
-                    borderRadius?: number | undefined;
-
-                    /**
-                     * Padding of the text fregment, for example:
-                     *
-                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
-                     * right, bottom, left]`.
-                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.padding
-                     */
-                    padding?: any[] | number | undefined;
-
-                    /**
-                     * Shadow color of the text block.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowColor
-                     */
-                    shadowColor?: string | undefined;
-
-                    /**
-                     * Show blur of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowBlur
-                     */
-                    shadowBlur?: number | undefined;
-
-                    /**
-                     * Shadow X offset of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowOffsetX
-                     */
-                    shadowOffsetX?: number | undefined;
-
-                    /**
-                     * Shadow Y offset of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowOffsetY
-                     */
-                    shadowOffsetY?: number | undefined;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.width
-                     */
-                    width?: number | string | undefined;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.height
-                     */
-                    height?: number | string | undefined;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textBorderColor
-                     */
-                    textBorderColor?: string | undefined;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textBorderWidth
-                     */
-                    textBorderWidth?: number | undefined;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowColor
-                     */
-                    textShadowColor?: string | undefined;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowBlur
-                     */
-                    textShadowBlur?: number | undefined;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number | undefined;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number | undefined;
-
-                    /**
-                     * "Rich text styles" can be defined in this `rich` property.
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
-                     *
-                     * For more details, see
-                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                     * please.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich
-                     */
-                    rich?: {
-                        /**
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E
-                         */
-                        [userStyle: string]: {
-                            /**
-                             * text color.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * ""#fff""
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                             */
-                            color?: string | undefined;
-
-                            /**
-                             * font style
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'italic'`
-                             * + `'oblique'`
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                             */
-                            fontStyle?: string | undefined;
-
-                            /**
-                             * font thick weight
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'bold'`
-                             * + `'bolder'`
-                             * + `'lighter'`
-                             * + 100 | 200 | 300 | 400...
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                             */
-                            fontWeight?: string | number | undefined;
-
-                            /**
-                             * font family
-                             *
-                             * Can also be 'serif' , 'monospace', ...
-                             *
-                             *
-                             * @default
-                             * "sans-serif"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                             */
-                            fontFamily?: string | undefined;
-
-                            /**
-                             * font size
-                             *
-                             *
-                             * @default
-                             * 12
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                             */
-                            fontSize?: number | undefined;
-
-                            /**
-                             * Horizontal alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'left'`
-                             * + `'center'`
-                             * + `'right'`
-                             *
-                             * If `align` is not set in `rich`, `align` in parent
-                             * level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                             */
-                            align?: string | undefined;
-
-                            /**
-                             * Vertical alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'top'`
-                             * + `'middle'`
-                             * + `'bottom'`
-                             *
-                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                             */
-                            verticalAlign?: string | undefined;
-
-                            /**
-                             * Line height of the text fregment.
-                             *
-                             * If `lineHeight` is not set in `rich`, `lineHeight`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                             */
-                            lineHeight?: number | undefined;
-
-                            /**
-                             * Background color of the text fregment.
-                             *
-                             * Can be color string, like `'#123234'`, `'red'`,
-                             * `rgba(0,23,11,0.3)'`.
-                             *
-                             * Or image can be used, for example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             * `width` or `height` can be specified when using
-                             * background image, or auto adapted by default.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                             */
-                            backgroundColor?: object | string | undefined;
-
-                            /**
-                             * Border color of the text fregment.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                             */
-                            borderColor?: string | undefined;
-
-                            /**
-                             * Border width of the text fregment.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                             */
-                            borderWidth?: number | undefined;
-
-                            /**
-                             * Border radius of the text fregment.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                             */
-                            borderRadius?: number | undefined;
-
-                            /**
-                             * Padding of the text fregment, for example:
-                             *
-                             * + `padding: [3, 4, 5, 6]`: represents padding
-                             * of `[top, right, bottom, left]`.
-                             * + `padding: 4`: represents `padding: [4, 4, 4,
-                             * 4]`.
-                             * + `padding: [3, 4]`: represents `padding: [3,
-                             * 4, 3, 4]`.
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                             */
-                            padding?: any[] | number | undefined;
-
-                            /**
-                             * Shadow color of the text block.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                             */
-                            shadowColor?: string | undefined;
-
-                            /**
-                             * Show blur of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                             */
-                            shadowBlur?: number | undefined;
-
-                            /**
-                             * Shadow X offset of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                             */
-                            shadowOffsetX?: number | undefined;
-
-                            /**
-                             * Shadow Y offset of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                             */
-                            shadowOffsetY?: number | undefined;
-
-                            /**
-                             * Width of the text block.
-                             * It is the width of the text by default.
-                             * In most cases, there is no need to specify it.
-                             * You may want to use it in some cases like make
-                             * simple table or using background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * `width` can also be percent string, like `'100%'`,
-                             * which represents the percent of `contentWidth`
-                             * (that is, the width without `padding`) of its
-                             * container box.
-                             * It is based on `contentWidth` because that each
-                             * text fregment is layout based on the `content
-                             * box`, where it makes no sense that calculating
-                             * width based on `outerWith` in prectice.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                             */
-                            width?: number | string | undefined;
-
-                            /**
-                             * Height of the text block.
-                             * It is the width of the text by default.
-                             * You may want to use it in some cases like using
-                             * background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                             */
-                            height?: number | string | undefined;
-
-                            /**
-                             * Storke color of the text.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                             */
-                            textBorderColor?: string | undefined;
-
-                            /**
-                             * Storke line width of the text.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                             */
-                            textBorderWidth?: number | undefined;
-
-                            /**
-                             * Shadow color of the text itself.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                             */
-                            textShadowColor?: string | undefined;
-
-                            /**
-                             * Shadow blue of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                             */
-                            textShadowBlur?: number | undefined;
-
-                            /**
-                             * Shadow X offset of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                             */
-                            textShadowOffsetX?: number | undefined;
-
-                            /**
-                             * Shadow Y offset of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                             */
-                            textShadowOffsetY?: number | undefined;
-                        };
-                    } | undefined;
-
-                    /**
-                     * When the text is overflow, whether to replace the excess
-                     * part with apostrophe.
-                     *
-                     *
-                     * @default
-                     * "true"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.ellipsis
-                     */
-                    ellipsis?: boolean | undefined;
-                } | undefined;
-
-                /**
-                 * `upperLabel` is used to specify whether show label when the
-                 * node has children. When
-                 * [upperLabel.show](https://echarts.apache.org/en/option.html#series-treemap.upperLabel.show)
-                 * is set as `true`, the feature that "show parent label" is
-                 * enabled.
-                 *
-                 * The same as
-                 * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
-                 * , the option `upperLabel` can be placed at the root of
-                 * [series-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * directly, or in
-                 * [series-treemap.level](https://echarts.apache.org/en/option.html#series-treemap.level)
-                 * , or in each item of
-                 * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * .
-                 *
-                 * Specifically,
-                 * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
-                 * specifies the style when a node is a leaf, while `upperLabel`
-                 * specifies the style when a node has children, in which case
-                 * the label is displayed in the inner top of the node.
-                 *
-                 * See:
-                 *
-                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels)
-                 *
-                 * > Tps: In treemap, `label` attribute could appear in more
-                 * than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel
-                 */
-                upperLabel?: {
-                    /**
-                     * Whether to show label.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.show
-                     */
-                    show?: boolean | undefined;
-
-                    /**
-                     * Label position.
-                     *
-                     * **Followings are the options:**
-                     *
-                     * + \[x, y\]
-                     *
-                     * Use relative percentage, or absolute pixel values to
-                     * represent position of label relative to top-left corner
-                     * of bounding box. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
-                     *
-                     * + 'top'
-                     *
-                     * + 'left'
-                     * + 'right'
-                     * + 'bottom'
-                     * + 'inside'
-                     * + 'insideLeft'
-                     * + 'insideRight'
-                     * + 'insideTop'
-                     * + 'insideBottom'
-                     * + 'insideTopLeft'
-                     * + 'insideBottomLeft'
-                     * + 'insideTopRight'
-                     * + 'insideBottomRight'
-                     *
-                     * See:
-                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                     * About visual encoding, see details in
+                     * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
                      * .
                      *
-                     *
-                     * @default
-                     * "inside"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.position
-                     */
-                    position?: any[] | string | undefined;
-
-                    /**
-                     * Distance to the host graphic element.
-                     * Works when position is string value (like `'top'`、`'insideRight'`).
-                     *
-                     * See:
-                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
-                     * .
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.distance
-                     */
-                    distance?: number | undefined;
-
-                    /**
-                     * Rotate label, from -90 degree to 90, positive value represents
-                     * rotate anti-clockwise.
-                     *
-                     * See:
-                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
-                     * .
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rotate
-                     */
-                    rotate?: number | undefined;
-
-                    /**
-                     * Whether to move text slightly.
-                     * For example: `[30, 40]` means move `30` horizontally
-                     * and move `40` vertically.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.offset
-                     */
-                    offset?: any[] | undefined;
-
-                    /**
-                     * Data label formatter, which supports string template
-                     * and callback function.
-                     * In either form, `\n` is supported to represent a new
-                     * line.
-                     *
-                     * **String template**
-                     *
-                     * Model variation includes:
-                     *
-                     * + `{a}`: series name.
-                     * + `{b}`: the name of a data item.
-                     * + `{c}`: the value of a data item.
-                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
-                     * example,`{@product}`refers the value of`'product'\` dimension。
-                     * + `{@[n]}: the value of a dimension at the index of`n`,
-                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
-                     *
-                     * **example:**
-                     *
-                     * ```
-                     * formatter: '{b}: {@score}'
-                     *
-                     * ```
-                     *
-                     * **Callback function**
-                     *
-                     * Callback function is in form of:
-                     *
-                     * ```
-                     * (params: Object|Array) => string
-                     *
-                     * ```
-                     *
-                     * where `params` is the single dataset needed by formatter,
-                     * which is formed as:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.formatter
-                     */
-                    formatter?: Function | string | undefined;
-
-                    /**
-                     * text color.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * ""#fff""
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.color
-                     */
-                    color?: string | undefined;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontStyle
-                     */
-                    fontStyle?: string | undefined;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontWeight
-                     */
-                    fontWeight?: string | number | undefined;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontFamily
-                     */
-                    fontFamily?: string | undefined;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 12
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontSize
-                     */
-                    fontSize?: number | undefined;
-
-                    /**
-                     * Horizontal alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'left'`
-                     * + `'center'`
-                     * + `'right'`
-                     *
-                     * If `align` is not set in `rich`, `align` in parent level
-                     * will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.align
-                     */
-                    align?: string | undefined;
-
-                    /**
-                     * Vertical alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'top'`
-                     * + `'middle'`
-                     * + `'bottom'`
-                     *
-                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                     * in parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.verticalAlign
-                     */
-                    verticalAlign?: string | undefined;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.lineHeight
-                     */
-                    lineHeight?: number | undefined;
-
-                    /**
-                     * Background color of the text fregment.
-                     *
-                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                     *
-                     * Or image can be used, for example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
-                     *
-                     * `width` or `height` can be specified when using background
-                     * image, or auto adapted by default.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.backgroundColor
-                     */
-                    backgroundColor?: object | string | undefined;
-
-                    /**
-                     * Border color of the text fregment.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderColor
-                     */
-                    borderColor?: string | undefined;
-
-                    /**
-                     * Border width of the text fregment.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderWidth
-                     */
-                    borderWidth?: number | undefined;
-
-                    /**
-                     * Border radius of the text fregment.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderRadius
-                     */
-                    borderRadius?: number | undefined;
-
-                    /**
-                     * Padding of the text fregment, for example:
-                     *
-                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
-                     * right, bottom, left]`.
-                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.padding
-                     */
-                    padding?: any[] | number | undefined;
-
-                    /**
-                     * Shadow color of the text block.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowColor
-                     */
-                    shadowColor?: string | undefined;
-
-                    /**
-                     * Show blur of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowBlur
-                     */
-                    shadowBlur?: number | undefined;
-
-                    /**
-                     * Shadow X offset of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowOffsetX
-                     */
-                    shadowOffsetX?: number | undefined;
-
-                    /**
-                     * Shadow Y offset of the text block.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowOffsetY
-                     */
-                    shadowOffsetY?: number | undefined;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.width
-                     */
-                    width?: number | string | undefined;
-
-                    /**
-                     * Height of label area.
-                     *
-                     *
-                     * @default
-                     * 20
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.height
-                     */
-                    height?: number | undefined;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textBorderColor
-                     */
-                    textBorderColor?: string | undefined;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textBorderWidth
-                     */
-                    textBorderWidth?: number | undefined;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowColor
-                     */
-                    textShadowColor?: string | undefined;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowBlur
-                     */
-                    textShadowBlur?: number | undefined;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number | undefined;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number | undefined;
-
-                    /**
-                     * "Rich text styles" can be defined in this `rich` property.
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
-                     *
-                     * For more details, see
-                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                     * please.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich
-                     */
-                    rich?: {
-                        /**
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
-                         */
-                        [userStyle: string]: {
-                            /**
-                             * text color.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * ""#fff""
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
-                             */
-                            color?: string | undefined;
-
-                            /**
-                             * font style
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'italic'`
-                             * + `'oblique'`
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                             */
-                            fontStyle?: string | undefined;
-
-                            /**
-                             * font thick weight
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'bold'`
-                             * + `'bolder'`
-                             * + `'lighter'`
-                             * + 100 | 200 | 300 | 400...
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                             */
-                            fontWeight?: string | number | undefined;
-
-                            /**
-                             * font family
-                             *
-                             * Can also be 'serif' , 'monospace', ...
-                             *
-                             *
-                             * @default
-                             * "sans-serif"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                             */
-                            fontFamily?: string | undefined;
-
-                            /**
-                             * font size
-                             *
-                             *
-                             * @default
-                             * 12
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                             */
-                            fontSize?: number | undefined;
-
-                            /**
-                             * Horizontal alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'left'`
-                             * + `'center'`
-                             * + `'right'`
-                             *
-                             * If `align` is not set in `rich`, `align` in parent
-                             * level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
-                             */
-                            align?: string | undefined;
-
-                            /**
-                             * Vertical alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'top'`
-                             * + `'middle'`
-                             * + `'bottom'`
-                             *
-                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                             */
-                            verticalAlign?: string | undefined;
-
-                            /**
-                             * Line height of the text fregment.
-                             *
-                             * If `lineHeight` is not set in `rich`, `lineHeight`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                             */
-                            lineHeight?: number | undefined;
-
-                            /**
-                             * Background color of the text fregment.
-                             *
-                             * Can be color string, like `'#123234'`, `'red'`,
-                             * `rgba(0,23,11,0.3)'`.
-                             *
-                             * Or image can be used, for example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             * `width` or `height` can be specified when using
-                             * background image, or auto adapted by default.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                             */
-                            backgroundColor?: object | string | undefined;
-
-                            /**
-                             * Border color of the text fregment.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                             */
-                            borderColor?: string | undefined;
-
-                            /**
-                             * Border width of the text fregment.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                             */
-                            borderWidth?: number | undefined;
-
-                            /**
-                             * Border radius of the text fregment.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                             */
-                            borderRadius?: number | undefined;
-
-                            /**
-                             * Padding of the text fregment, for example:
-                             *
-                             * + `padding: [3, 4, 5, 6]`: represents padding
-                             * of `[top, right, bottom, left]`.
-                             * + `padding: 4`: represents `padding: [4, 4, 4,
-                             * 4]`.
-                             * + `padding: [3, 4]`: represents `padding: [3,
-                             * 4, 3, 4]`.
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
-                             */
-                            padding?: any[] | number | undefined;
-
-                            /**
-                             * Shadow color of the text block.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                             */
-                            shadowColor?: string | undefined;
-
-                            /**
-                             * Show blur of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                             */
-                            shadowBlur?: number | undefined;
-
-                            /**
-                             * Shadow X offset of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                             */
-                            shadowOffsetX?: number | undefined;
-
-                            /**
-                             * Shadow Y offset of the text block.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                             */
-                            shadowOffsetY?: number | undefined;
-
-                            /**
-                             * Width of the text block.
-                             * It is the width of the text by default.
-                             * In most cases, there is no need to specify it.
-                             * You may want to use it in some cases like make
-                             * simple table or using background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * `width` can also be percent string, like `'100%'`,
-                             * which represents the percent of `contentWidth`
-                             * (that is, the width without `padding`) of its
-                             * container box.
-                             * It is based on `contentWidth` because that each
-                             * text fregment is layout based on the `content
-                             * box`, where it makes no sense that calculating
-                             * width based on `outerWith` in prectice.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
-                             */
-                            width?: number | string | undefined;
-
-                            /**
-                             * Height of the text block.
-                             * It is the width of the text by default.
-                             * You may want to use it in some cases like using
-                             * background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
-                             */
-                            height?: number | string | undefined;
-
-                            /**
-                             * Storke color of the text.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                             */
-                            textBorderColor?: string | undefined;
-
-                            /**
-                             * Storke line width of the text.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                             */
-                            textBorderWidth?: number | undefined;
-
-                            /**
-                             * Shadow color of the text itself.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                             */
-                            textShadowColor?: string | undefined;
-
-                            /**
-                             * Shadow blue of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                             */
-                            textShadowBlur?: number | undefined;
-
-                            /**
-                             * Shadow X offset of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                             */
-                            textShadowOffsetX?: number | undefined;
-
-                            /**
-                             * Shadow Y offset of the text itself.
-                             *
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                             */
-                            textShadowOffsetY?: number | undefined;
-                        };
-                    } | undefined;
-
-                    /**
-                     * When the text is overflow, whether to replace the excess
-                     * part with apostrophe.
-                     *
-                     *
-                     * @default
-                     * "true"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.ellipsis
-                     */
-                    ellipsis?: boolean | undefined;
-                } | undefined;
-
-                /**
-                 *
-                 * > Tps: In treemap, `itemStyle` attribute could appear in
-                 * more than one places:
-                 * >
-                 * > + It could appear in
-                 * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
-                 * > , indicating the unified setting of the series.
-                 * >
-                 * > + It could appear in each array element of
-                 * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
-                 * > , indicating the unified setting of each level of the tree.
-                 * >
-                 * > + It could appear in each node of
-                 * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
-                 * > , indicating the particular setting of each node.
-                 * >
-                 *
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle
-                 */
-                itemStyle?: {
-                    /**
-                     * The color of a node. It use global palette
-                     * [option.color](https://echarts.apache.org/en/option.html#color)
-                     * by default.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.color
-                     */
-                    color?: string | undefined;
-
-                    /**
-                     * The tranparent rate of a node, the range is between 0
-                     * ~ 1.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.colorAlpha
-                     */
-                    colorAlpha?: number | undefined;
-
-                    /**
-                     * The color saturation of a node.
-                     * The range is between 0 ~ 1.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.colorSaturation
+                     * > Tps: In treemap, `colorSaturation` attribute could appear
+                     * in more than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorSaturation
                      */
                     colorSaturation?: number | undefined;
 
                     /**
-                     * The border width of a node.
-                     * There is no border when it is set as `0`.
+                     * Specify the rule according to which each node obtain color
+                     * from
+                     * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
+                     * . Optional values:
                      *
-                     * Tip, gaps between child nodes are specified by
-                     * [gapWidth](https://echarts.apache.org/en/option.html#series-treemap.levels.gapWidth)
+                     * + `'value'`:
                      *
+                     * Map
+                     * [series-treemap.data.value](https://echarts.apache.org/en/option.html#series-treemap.data.value)
+                     * to color.
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderWidth
-                     */
-                    borderWidth?: number | undefined;
-
-                    /**
-                     * Gaps between child nodes.
+                     * In this way, the color of each node indicate its value.
                      *
+                     * [visualDimension](https://echarts.apache.org/en/option.html#series-treemap.levels.visualDimension)
+                     * can be used to specify which dimension of
+                     * [data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * is used to perform visual mapping.
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.gapWidth
-                     */
-                    gapWidth?: number | undefined;
-
-                    /**
-                     * The border color and gap color of a node.
+                     * + `'index'`:
                      *
+                     * Map the `index` (ordinal number) of nodes to color.
+                     * Namely, in a level, the first node is mapped to the first
+                     * color of
+                     * [color list](https://echarts.apache.org/en/option.html#series-treemap.levels.color)
+                     * , and the second node gets the second color.
+                     *
+                     * In this way, adjacent nodes are distinguished by color.
+                     *
+                     * + `'id'`:
+                     *
+                     * Map
+                     * [series-treemap.data.id](https://echarts.apache.org/en/option.html#series-treemap.data.id)
+                     * to color.
+                     *
+                     * Since `id` is used to identify node, if user call `setOption`
+                     * to modify the tree, each node will remain the original color
+                     * before and after `setOption` called. See this
+                     * [example](https://echarts.apache.org/examples/en/editor.html?c=treemap-obama&edit=1&reset=1)
+                     * .
+                     *
+                     * About visual encoding, see details in
+                     * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * .
+                     *
+                     * > Tps: In treemap, `colorMappingBy` attribute could appear
+                     * in more than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
                      *
                      * @default
-                     * "#fff',"
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderColor
+                     * "index"
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy
                      */
-                    borderColor?: string | undefined;
+                    colorMappingBy?: string | undefined;
 
                     /**
-                     * The color saturation of a border or gap.
-                     * The value range is between 0 ~ 1.
+                     * A node will not be shown when its area size is smaller than
+                     * this value (unit: px square).
                      *
-                     * Tips:
+                     * In this way, tiny nodes will be hidden, otherwise they will
+                     * huddle together.
+                     * When user zoom the treemap, the area size will increase and
+                     * the rectangle will be shown if the area size is larger than
+                     * this threshold.
                      *
-                     * When `borderColorSaturation` is set, the `borderColor`
-                     * is disabled, and, instead, the final border color is
-                     * calculated based on the color of this node (this color
-                     * could be sepcified explicitly or inherited from its parent
-                     * node) and mixing with `borderColorSaturation`.
+                     * About visual encoding, see details in
+                     * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * .
                      *
-                     * In this way, a effect can be implemented: different sections
-                     * have different hue of gap color repectively, which makes
-                     * users easy to distinguish both sections and levels.
+                     * > Tps: In treemap, `visibleMin` attribute could appear in
+                     * more than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
                      *
-                     * **How to avoid confusion by setting border/gap of node**
-                     *
-                     * If all of the border/gaps are set with the same color,
-                     * confusion might occur when rectangulars in different
-                     * levels display at the same time.
-                     *
-                     * See the
-                     * [example](https://echarts.apache.org/examples/en/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
-                     *
-                     * Noticed that the child rectangles in the red area are
-                     * in the deeper level than rectangles that are saparated
-                     * by white gap.
-                     * So in the red area, basically we set gap color with red,
-                     * and use `borderColorSaturation` to lift the saturation.
-                     *
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderColorSaturation
+                     * @default
+                     * 10
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.visibleMin
                      */
-                    borderColorSaturation?: string | undefined;
+                    visibleMin?: number | undefined;
 
                     /**
-                     * Stroke color of each rect.
+                     * Children will not be shown when area size of a node is smaller
+                     * than this value (unit: px square).
                      *
+                     * This can hide the details of nodes when the rectangular area
+                     * is not large enough.
+                     * When users zoom nodes, the child node would show if the area
+                     * is larger than this threshold.
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.strokeColor
+                     * About visual encoding, see details in
+                     * [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * .
+                     *
+                     * > Tps: In treemap, `childrenVisibleMin` attribute could appear
+                     * in more than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.childrenVisibleMin
                      */
-                    strokeColor?: string | undefined;
+                    childrenVisibleMin?: number | undefined;
 
                     /**
-                     * Stroke width of each rect.
+                     * `label` decribes the style of the label in each node.
                      *
+                     * > Tps: In treemap, `label` attribute could appear in more
+                     * than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.strokeWidth
-                     */
-                    strokeWidth?: number | undefined;
-                } | undefined;
-
-                /**
-                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis
-                 */
-                emphasis?: {
-                    /**
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label
                      */
                     label?: {
                         /**
                          * Whether to show label.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.show
                          */
                         show?: boolean | undefined;
 
@@ -2514,11 +700,11 @@ declare namespace echarts {
                          *
                          * + \[x, y\]
                          *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
+                         * Use relative percentage, or absolute pixel values to
+                         * represent position of label relative to top-left corner
+                         * of bounding box. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                          *
                          * + 'top'
                          *
@@ -2539,10 +725,9 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.position
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.position
                          */
                         position?: any[] | string | undefined;
 
@@ -2554,23 +739,21 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * 5
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.distance
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.distance
                          */
                         distance?: number | undefined;
 
                         /**
-                         * Rotate label, from -90 degree to 90, positive value
-                         * represents rotate anti-clockwise.
+                         * Rotate label, from -90 degree to 90, positive value represents
+                         * rotate anti-clockwise.
                          *
                          * See:
                          * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rotate
                          */
                         rotate?: number | undefined;
 
@@ -2579,16 +762,15 @@ declare namespace echarts {
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.offset
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.offset
                          */
                         offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
                          * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
+                         * In either form, `\n` is supported to represent a new
+                         * line.
                          *
                          * **String template**
                          *
@@ -2597,12 +779,10 @@ declare namespace echarts {
                          * + `{a}`: series name.
                          * + `{b}`: the name of a data item.
                          * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
+                         * + `{@xxx}: the value of a dimension named`'xxx'`, for
+                         * example,`{@product}`refers the value of`'product'\` dimension。
+                         * + `{@[n]}: the value of a dimension at the index of`n`,
+                         * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
                          *
                          * **example:**
                          *
@@ -2623,10 +803,9 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.formatter
                          */
                         formatter?: Function | string | undefined;
 
@@ -2636,10 +815,9 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * ""#fff""
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.color
                          */
                         color?: string | undefined;
 
@@ -2652,10 +830,9 @@ declare namespace echarts {
                          * + `'italic'`
                          * + `'oblique'`
                          *
-                         *
                          * @default
                          * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontStyle
                          */
                         fontStyle?: string | undefined;
 
@@ -2670,10 +847,9 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontWeight
                          */
                         fontWeight?: string | number | undefined;
 
@@ -2682,20 +858,18 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontFamily
                          */
                         fontFamily?: string | undefined;
 
                         /**
                          * font size
                          *
-                         *
                          * @default
                          * 12
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.fontSize
                          */
                         fontSize?: number | undefined;
 
@@ -2708,13 +882,12 @@ declare namespace echarts {
                          * + `'center'`
                          * + `'right'`
                          *
-                         * If `align` is not set in `rich`, `align` in parent
-                         * level will be used. For example:
+                         * If `align` is not set in `rich`, `align` in parent level
+                         * will be used. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.align
                          */
                         align?: string | undefined;
 
@@ -2730,23 +903,21 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
                          *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
+                         * If `lineHeight` is not set in `rich`, `lineHeight` in
+                         * parent level will be used. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.lineHeight
                          */
                         lineHeight?: number | undefined;
 
@@ -2757,7 +928,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -2765,10 +936,9 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.backgroundColor
                          */
                         backgroundColor?: object | string | undefined;
 
@@ -2778,77 +948,68 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderColor
                          */
                         borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.borderRadius
                          */
                         borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
                          *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
+                         * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
+                         * right, bottom, left]`.
                          * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
                          *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
+                         * Notice, `width` and `height` specifies the width and
+                         * height of the content, without `padding`.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowColor
                          */
                         shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.shadowOffsetY
                          */
                         shadowOffsetY?: number | undefined;
 
@@ -2859,23 +1020,20 @@ declare namespace echarts {
                          * You may want to use it in some cases like make simple
                          * table or using background image (see `backgroundColor`).
                          *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
+                         * Notice, `width` and `height` specifies the width and
+                         * height of the content, without `padding`.
                          *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
+                         * `width` can also be percent string, like `'100%'`, which
+                         * represents the percent of `contentWidth` (that is, the
+                         * width without `padding`) of its container box.
                          * It is based on `contentWidth` because that each text
                          * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
+                         * it makes no sense that calculating width based on `outerWith`
+                         * in prectice.
                          *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
+                         * Notice, `width` and `height` only work when `rich` specified.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.width
                          */
                         width?: number | string | undefined;
 
@@ -2885,14 +1043,12 @@ declare namespace echarts {
                          * You may want to use it in some cases like using background
                          * image (see `backgroundColor`).
                          *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
+                         * Notice, `width` and `height` specifies the width and
+                         * height of the content, without `padding`.
                          *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
+                         * Notice, `width` and `height` only work when `rich` specified.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.height
                          */
                         height?: number | string | undefined;
 
@@ -2902,83 +1058,75 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textBorderColor
                          */
                         textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowColor
                          */
                         textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.textShadowOffsetY
                          */
                         textShadowOffsetY?: number | undefined;
 
                         /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
+                         * "Rich text styles" can be defined in this `rich` property.
+                         * For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label)
                          *
                          * For more details, see
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich
                          */
                         rich?: {
                             /**
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
                                 /**
                                  * text color.
                                  *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string | undefined;
 
@@ -2991,10 +1139,9 @@ declare namespace echarts {
                                  * + `'italic'`
                                  * + `'oblique'`
                                  *
-                                 *
                                  * @default
                                  * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string | undefined;
 
@@ -3009,10 +1156,9 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
                                 fontWeight?: string | number | undefined;
 
@@ -3021,26 +1167,23 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string | undefined;
 
                                 /**
                                  * font size
                                  *
-                                 *
                                  * @default
                                  * 12
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number | undefined;
 
                                 /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
+                                 * Horizontal alignment of text, automatic by default.
                                  *
                                  * Options are:
                                  *
@@ -3048,20 +1191,17 @@ declare namespace echarts {
                                  * + `'center'`
                                  * + `'right'`
                                  *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
+                                 * If `align` is not set in `rich`, `align` in parent
+                                 * level will be used. For example:
                                  *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
 
                                 /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
+                                 * Vertical alignment of text, automatic by default.
                                  *
                                  * Options are:
                                  *
@@ -3069,14 +1209,12 @@ declare namespace echarts {
                                  * + `'middle'`
                                  * + `'bottom'`
                                  *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
+                                 * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                                 * in parent level will be used. For example:
                                  *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
 
@@ -3084,13 +1222,11 @@ declare namespace echarts {
                                  * Line height of the text fregment.
                                  *
                                  * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
+                                 * in parent level will be used. For example:
                                  *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number | undefined;
 
@@ -3102,48 +1238,43 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
+                                 * `width` or `height` can be specified when using
+                                 * background image, or auto adapted by default.
                                  *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
                                  *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number | undefined;
 
@@ -3152,181 +1283,202 @@ declare namespace echarts {
                                  *
                                  * + `padding: [3, 4, 5, 6]`: represents padding
                                  * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
+                                 * + `padding: 4`: represents `padding: [4, 4, 4,
+                                 * 4]`.
+                                 * + `padding: [3, 4]`: represents `padding: [3,
+                                 * 4, 3, 4]`.
                                  *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
                                  * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
+                                 * In most cases, there is no need to specify it.
+                                 * You may want to use it in some cases like make
+                                 * simple table or using background image (see `backgroundColor`).
                                  *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
                                  *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
+                                 * `width` can also be percent string, like `'100%'`,
+                                 * which represents the percent of `contentWidth`
+                                 * (that is, the width without `padding`) of its
+                                 * container box.
+                                 * It is based on `contentWidth` because that each
+                                 * text fregment is layout based on the `content
+                                 * box`, where it makes no sense that calculating
+                                 * width based on `outerWith` in prectice.
                                  *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
+                                 * Notice, `width` and `height` only work when `rich`
+                                 * specified.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
                                  * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
+                                 * You may want to use it in some cases like using
+                                 * background image (see `backgroundColor`).
                                  *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
                                  *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
+                                 * Notice, `width` and `height` only work when `rich`
+                                 * specified.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
                                  *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number | undefined;
                             };
                         } | undefined;
 
                         /**
-                         * When the text is overflow, whether to replace the
-                         * excess part with apostrophe.
-                         *
+                         * When the text is overflow, whether to replace the excess
+                         * part with apostrophe.
                          *
                          * @default
                          * "true"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.ellipsis
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.label.ellipsis
                          */
                         ellipsis?: boolean | undefined;
                     } | undefined;
 
                     /**
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel
+                     * `upperLabel` is used to specify whether show label when the
+                     * node has children. When
+                     * [upperLabel.show](https://echarts.apache.org/en/option.html#series-treemap.upperLabel.show)
+                     * is set as `true`, the feature that "show parent label" is
+                     * enabled.
+                     *
+                     * The same as
+                     * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
+                     * , the option `upperLabel` can be placed at the root of
+                     * [series-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * directly, or in
+                     * [series-treemap.level](https://echarts.apache.org/en/option.html#series-treemap.level)
+                     * , or in each item of
+                     * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * .
+                     *
+                     * Specifically,
+                     * [series-treemap.label](https://echarts.apache.org/en/option.html#series-treemap.label)
+                     * specifies the style when a node is a leaf, while `upperLabel`
+                     * specifies the style when a node has children, in which case
+                     * the label is displayed in the inner top of the node.
+                     *
+                     * See:
+                     *
+                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels)
+                     *
+                     * > Tps: In treemap, `label` attribute could appear in more
+                     * than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel
                      */
                     upperLabel?: {
                         /**
                          * Whether to show label.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.show
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.show
                          */
                         show?: boolean | undefined;
 
@@ -3337,11 +1489,11 @@ declare namespace echarts {
                          *
                          * + \[x, y\]
                          *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
+                         * Use relative percentage, or absolute pixel values to
+                         * represent position of label relative to top-left corner
+                         * of bounding box. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                          *
                          * + 'top'
                          *
@@ -3362,10 +1514,9 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.position
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.position
                          */
                         position?: any[] | string | undefined;
 
@@ -3377,23 +1528,21 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * 5
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.distance
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.distance
                          */
                         distance?: number | undefined;
 
                         /**
-                         * Rotate label, from -90 degree to 90, positive value
-                         * represents rotate anti-clockwise.
+                         * Rotate label, from -90 degree to 90, positive value represents
+                         * rotate anti-clockwise.
                          *
                          * See:
                          * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rotate
                          */
                         rotate?: number | undefined;
 
@@ -3402,16 +1551,15 @@ declare namespace echarts {
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.offset
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.offset
                          */
                         offset?: any[] | undefined;
 
                         /**
                          * Data label formatter, which supports string template
                          * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
+                         * In either form, `\n` is supported to represent a new
+                         * line.
                          *
                          * **String template**
                          *
@@ -3420,12 +1568,10 @@ declare namespace echarts {
                          * + `{a}`: series name.
                          * + `{b}`: the name of a data item.
                          * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
+                         * + `{@xxx}: the value of a dimension named`'xxx'`, for
+                         * example,`{@product}`refers the value of`'product'\` dimension。
+                         * + `{@[n]}: the value of a dimension at the index of`n`,
+                         * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
                          *
                          * **example:**
                          *
@@ -3446,10 +1592,9 @@ declare namespace echarts {
                          * where `params` is the single dataset needed by formatter,
                          * which is formed as:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.formatter
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.formatter
                          */
                         formatter?: Function | string | undefined;
 
@@ -3459,10 +1604,9 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * ""#fff""
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.color
                          */
                         color?: string | undefined;
 
@@ -3475,10 +1619,9 @@ declare namespace echarts {
                          * + `'italic'`
                          * + `'oblique'`
                          *
-                         *
                          * @default
                          * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontStyle
                          */
                         fontStyle?: string | undefined;
 
@@ -3493,10 +1636,9 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontWeight
                          */
                         fontWeight?: string | number | undefined;
 
@@ -3505,20 +1647,18 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontFamily
                          */
                         fontFamily?: string | undefined;
 
                         /**
                          * font size
                          *
-                         *
                          * @default
                          * 12
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.fontSize
                          */
                         fontSize?: number | undefined;
 
@@ -3531,13 +1671,12 @@ declare namespace echarts {
                          * + `'center'`
                          * + `'right'`
                          *
-                         * If `align` is not set in `rich`, `align` in parent
-                         * level will be used. For example:
+                         * If `align` is not set in `rich`, `align` in parent level
+                         * will be used. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.align
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.align
                          */
                         align?: string | undefined;
 
@@ -3553,23 +1692,21 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.verticalAlign
                          */
                         verticalAlign?: string | undefined;
 
                         /**
                          * Line height of the text fregment.
                          *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
+                         * If `lineHeight` is not set in `rich`, `lineHeight` in
+                         * parent level will be used. For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.lineHeight
                          */
                         lineHeight?: number | undefined;
 
@@ -3580,7 +1717,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -3588,10 +1725,9 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.backgroundColor
                          */
                         backgroundColor?: object | string | undefined;
 
@@ -3601,77 +1737,68 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderColor
                          */
                         borderColor?: string | undefined;
 
                         /**
                          * Border width of the text fregment.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.borderRadius
                          */
                         borderRadius?: number | undefined;
 
                         /**
                          * Padding of the text fregment, for example:
                          *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
+                         * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
+                         * right, bottom, left]`.
                          * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
                          *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
+                         * Notice, `width` and `height` specifies the width and
+                         * height of the content, without `padding`.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.padding
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowColor
                          */
                         shadowColor?: string | undefined;
 
                         /**
                          * Show blur of the text block.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.shadowOffsetY
                          */
                         shadowOffsetY?: number | undefined;
 
@@ -3682,42 +1809,31 @@ declare namespace echarts {
                          * You may want to use it in some cases like make simple
                          * table or using background image (see `backgroundColor`).
                          *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
+                         * Notice, `width` and `height` specifies the width and
+                         * height of the content, without `padding`.
                          *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
+                         * `width` can also be percent string, like `'100%'`, which
+                         * represents the percent of `contentWidth` (that is, the
+                         * width without `padding`) of its container box.
                          * It is based on `contentWidth` because that each text
                          * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
+                         * it makes no sense that calculating width based on `outerWith`
+                         * in prectice.
                          *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
+                         * Notice, `width` and `height` only work when `rich` specified.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.width
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.width
                          */
                         width?: number | string | undefined;
 
                         /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
+                         * Height of label area.
                          *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.height
+                         * @default
+                         * 20
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.height
                          */
-                        height?: number | string | undefined;
+                        height?: number | undefined;
 
                         /**
                          * Storke color of the text.
@@ -3725,83 +1841,75 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textBorderColor
                          */
                         textBorderColor?: string | undefined;
 
                         /**
                          * Storke line width of the text.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
                          *
-                         *
                          * @default
                          * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowColor
                          */
                         textShadowColor?: string | undefined;
 
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
 
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.textShadowOffsetY
                          */
                         textShadowOffsetY?: number | undefined;
 
                         /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
+                         * "Rich text styles" can be defined in this `rich` property.
+                         * For example:
                          *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel)
                          *
                          * For more details, see
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich
                          */
                         rich?: {
                             /**
-                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
                                 /**
                                  * text color.
                                  *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string | undefined;
 
@@ -3814,10 +1922,9 @@ declare namespace echarts {
                                  * + `'italic'`
                                  * + `'oblique'`
                                  *
-                                 *
                                  * @default
                                  * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string | undefined;
 
@@ -3832,10 +1939,9 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
                                 fontWeight?: string | number | undefined;
 
@@ -3844,26 +1950,23 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string | undefined;
 
                                 /**
                                  * font size
                                  *
-                                 *
                                  * @default
                                  * 12
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number | undefined;
 
                                 /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
+                                 * Horizontal alignment of text, automatic by default.
                                  *
                                  * Options are:
                                  *
@@ -3871,20 +1974,17 @@ declare namespace echarts {
                                  * + `'center'`
                                  * + `'right'`
                                  *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
+                                 * If `align` is not set in `rich`, `align` in parent
+                                 * level will be used. For example:
                                  *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
 
                                 /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
+                                 * Vertical alignment of text, automatic by default.
                                  *
                                  * Options are:
                                  *
@@ -3892,14 +1992,12 @@ declare namespace echarts {
                                  * + `'middle'`
                                  * + `'bottom'`
                                  *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
+                                 * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                                 * in parent level will be used. For example:
                                  *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
 
@@ -3907,13 +2005,11 @@ declare namespace echarts {
                                  * Line height of the text fregment.
                                  *
                                  * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
+                                 * in parent level will be used. For example:
                                  *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number | undefined;
 
@@ -3925,48 +2021,43 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
+                                 * `width` or `height` can be specified when using
+                                 * background image, or auto adapted by default.
                                  *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string | undefined;
 
                                 /**
                                  * Border color of the text fregment.
                                  *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string | undefined;
 
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number | undefined;
 
@@ -3975,174 +2066,170 @@ declare namespace echarts {
                                  *
                                  * + `padding: [3, 4, 5, 6]`: represents padding
                                  * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
+                                 * + `padding: 4`: represents `padding: [4, 4, 4,
+                                 * 4]`.
+                                 * + `padding: [3, 4]`: represents `padding: [3,
+                                 * 4, 3, 4]`.
                                  *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string | undefined;
 
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number | undefined;
 
                                 /**
                                  * Width of the text block.
                                  * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
+                                 * In most cases, there is no need to specify it.
+                                 * You may want to use it in some cases like make
+                                 * simple table or using background image (see `backgroundColor`).
                                  *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
                                  *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
+                                 * `width` can also be percent string, like `'100%'`,
+                                 * which represents the percent of `contentWidth`
+                                 * (that is, the width without `padding`) of its
+                                 * container box.
+                                 * It is based on `contentWidth` because that each
+                                 * text fregment is layout based on the `content
+                                 * box`, where it makes no sense that calculating
+                                 * width based on `outerWith` in prectice.
                                  *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
+                                 * Notice, `width` and `height` only work when `rich`
+                                 * specified.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
 
                                 /**
                                  * Height of the text block.
                                  * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
+                                 * You may want to use it in some cases like using
+                                 * background image (see `backgroundColor`).
                                  *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
                                  *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
+                                 * Notice, `width` and `height` only work when `rich`
+                                 * specified.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
                                  *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string | undefined;
 
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string | undefined;
 
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
 
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
                                  *
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number | undefined;
                             };
                         } | undefined;
 
                         /**
-                         * When the text is overflow, whether to replace the
-                         * excess part with apostrophe.
-                         *
+                         * When the text is overflow, whether to replace the excess
+                         * part with apostrophe.
                          *
                          * @default
                          * "true"
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.ellipsis
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.upperLabel.ellipsis
                          */
                         ellipsis?: boolean | undefined;
                     } | undefined;
 
                     /**
-                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.itemStyle
+                     * > Tps: In treemap, `itemStyle` attribute could appear in
+                     * more than one places:
+                     * >
+                     * > + It could appear in
+                     * > [sereis-treemap](https://echarts.apache.org/en/option.html#series-treemap)
+                     * > , indicating the unified setting of the series.
+                     * >
+                     * > + It could appear in each array element of
+                     * > [series-treemap.levels](https://echarts.apache.org/en/option.html#series-treemap.levels)
+                     * > , indicating the unified setting of each level of the tree.
+                     * >
+                     * > + It could appear in each node of
+                     * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
+                     * > , indicating the particular setting of each node.
+                     * >
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle
                      */
                     itemStyle?: {
                         /**
@@ -4150,19 +2237,1658 @@ declare namespace echarts {
                          * [option.color](https://echarts.apache.org/en/option.html#color)
                          * by default.
                          *
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.color
                          */
                         color?: string | undefined;
+
+                        /**
+                         * The tranparent rate of a node, the range is between 0
+                         * ~ 1.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.colorAlpha
+                         */
+                        colorAlpha?: number | undefined;
+
+                        /**
+                         * The color saturation of a node.
+                         * The range is between 0 ~ 1.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.colorSaturation
+                         */
+                        colorSaturation?: number | undefined;
+
+                        /**
+                         * The border width of a node.
+                         * There is no border when it is set as `0`.
+                         *
+                         * Tip, gaps between child nodes are specified by
+                         * [gapWidth](https://echarts.apache.org/en/option.html#series-treemap.levels.gapWidth)
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderWidth
+                         */
+                        borderWidth?: number | undefined;
+
+                        /**
+                         * Gaps between child nodes.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.gapWidth
+                         */
+                        gapWidth?: number | undefined;
+
+                        /**
+                         * The border color and gap color of a node.
+                         *
+                         * @default
+                         * "#fff',"
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderColor
+                         */
+                        borderColor?: string | undefined;
+
+                        /**
+                         * The color saturation of a border or gap.
+                         * The value range is between 0 ~ 1.
+                         *
+                         * Tips:
+                         *
+                         * When `borderColorSaturation` is set, the `borderColor`
+                         * is disabled, and, instead, the final border color is
+                         * calculated based on the color of this node (this color
+                         * could be sepcified explicitly or inherited from its parent
+                         * node) and mixing with `borderColorSaturation`.
+                         *
+                         * In this way, a effect can be implemented: different sections
+                         * have different hue of gap color repectively, which makes
+                         * users easy to distinguish both sections and levels.
+                         *
+                         * **How to avoid confusion by setting border/gap of node**
+                         *
+                         * If all of the border/gaps are set with the same color,
+                         * confusion might occur when rectangulars in different
+                         * levels display at the same time.
+                         *
+                         * See the
+                         * [example](https://echarts.apache.org/examples/en/editor.html?c=doc-example/treemap-borderColor&edit=1&reset=1)
+                         *
+                         * Noticed that the child rectangles in the red area are
+                         * in the deeper level than rectangles that are saparated
+                         * by white gap.
+                         * So in the red area, basically we set gap color with red,
+                         * and use `borderColorSaturation` to lift the saturation.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.borderColorSaturation
+                         */
+                        borderColorSaturation?: string | undefined;
+
+                        /**
+                         * Stroke color of each rect.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.strokeColor
+                         */
+                        strokeColor?: string | undefined;
+
+                        /**
+                         * Stroke width of each rect.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.itemStyle.strokeWidth
+                         */
+                        strokeWidth?: number | undefined;
                     } | undefined;
-                } | undefined;
-            }[] | undefined;
+
+                    /**
+                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis
+                     */
+                    emphasis?: {
+                        /**
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label
+                         */
+                        label?: {
+                            /**
+                             * Whether to show label.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.show
+                             */
+                            show?: boolean | undefined;
+
+                            /**
+                             * Label position.
+                             *
+                             * **Followings are the options:**
+                             *
+                             * + \[x, y\]
+                             *
+                             * Use relative percentage, or absolute pixel values
+                             * to represent position of label relative to top-left
+                             * corner of bounding box. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                             *
+                             * + 'top'
+                             *
+                             * + 'left'
+                             * + 'right'
+                             * + 'bottom'
+                             * + 'inside'
+                             * + 'insideLeft'
+                             * + 'insideRight'
+                             * + 'insideTop'
+                             * + 'insideBottom'
+                             * + 'insideTopLeft'
+                             * + 'insideBottomLeft'
+                             * + 'insideTopRight'
+                             * + 'insideBottomRight'
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * "inside"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.position
+                             */
+                            position?: any[] | string | undefined;
+
+                            /**
+                             * Distance to the host graphic element.
+                             * Works when position is string value (like `'top'`、`'insideRight'`).
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * 5
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.distance
+                             */
+                            distance?: number | undefined;
+
+                            /**
+                             * Rotate label, from -90 degree to 90, positive value
+                             * represents rotate anti-clockwise.
+                             *
+                             * See:
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
+                             * .
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rotate
+                             */
+                            rotate?: number | undefined;
+
+                            /**
+                             * Whether to move text slightly.
+                             * For example: `[30, 40]` means move `30` horizontally
+                             * and move `40` vertically.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.offset
+                             */
+                            offset?: any[] | undefined;
+
+                            /**
+                             * Data label formatter, which supports string template
+                             * and callback function.
+                             * In either form, `\n` is supported to represent a
+                             * new line.
+                             *
+                             * **String template**
+                             *
+                             * Model variation includes:
+                             *
+                             * + `{a}`: series name.
+                             * + `{b}`: the name of a data item.
+                             * + `{c}`: the value of a data item.
+                             * + `{@xxx}: the value of a dimension named`'xxx'`,
+                             * for example,`{@product}`refers the value of`'product'\`
+                             * dimension。
+                             * + `{@[n]}: the value of a dimension at the index
+                             * of`n`, for example,`{@\[3\]}\` refers the value at
+                             * dimensions\[3\].
+                             *
+                             * **example:**
+                             *
+                             * ```
+                             * formatter: '{b}: {@score}'
+                             *
+                             * ```
+                             *
+                             * **Callback function**
+                             *
+                             * Callback function is in form of:
+                             *
+                             * ```
+                             * (params: Object|Array) => string
+                             *
+                             * ```
+                             *
+                             * where `params` is the single dataset needed by formatter,
+                             * which is formed as:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.formatter
+                             */
+                            formatter?: Function | string | undefined;
+
+                            /**
+                             * text color.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.color
+                             */
+                            color?: string | undefined;
+
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontStyle
+                             */
+                            fontStyle?: string | undefined;
+
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontWeight
+                             */
+                            fontWeight?: string | number | undefined;
+
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontFamily
+                             */
+                            fontFamily?: string | undefined;
+
+                            /**
+                             * font size
+                             *
+                             * @default
+                             * 12
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.fontSize
+                             */
+                            fontSize?: number | undefined;
+
+                            /**
+                             * Horizontal alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'left'`
+                             * + `'center'`
+                             * + `'right'`
+                             *
+                             * If `align` is not set in `rich`, `align` in parent
+                             * level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.align
+                             */
+                            align?: string | undefined;
+
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.verticalAlign
+                             */
+                            verticalAlign?: string | undefined;
+
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.lineHeight
+                             */
+                            lineHeight?: number | undefined;
+
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                             *
+                             * `width` or `height` can be specified when using background
+                             * image, or auto adapted by default.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.backgroundColor
+                             */
+                            backgroundColor?: object | string | undefined;
+
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderColor
+                             */
+                            borderColor?: string | undefined;
+
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderWidth
+                             */
+                            borderWidth?: number | undefined;
+
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.borderRadius
+                             */
+                            borderRadius?: number | undefined;
+
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding of
+                             * `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3, 4,
+                             * 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.padding
+                             */
+                            padding?: any[] | number | undefined;
+
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowColor
+                             */
+                            shadowColor?: string | undefined;
+
+                            /**
+                             * Show blur of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowBlur
+                             */
+                            shadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowOffsetX
+                             */
+                            shadowOffsetX?: number | undefined;
+
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.shadowOffsetY
+                             */
+                            shadowOffsetY?: number | undefined;
+
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make simple
+                             * table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth` (that
+                             * is, the width without `padding`) of its container
+                             * box.
+                             * It is based on `contentWidth` because that each text
+                             * fregment is layout based on the `content box`, where
+                             * it makes no sense that calculating width based on
+                             * `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.width
+                             */
+                            width?: number | string | undefined;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using background
+                             * image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.height
+                             */
+                            height?: number | string | undefined;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textBorderColor
+                             */
+                            textBorderColor?: string | undefined;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textBorderWidth
+                             */
+                            textBorderWidth?: number | undefined;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowColor
+                             */
+                            textShadowColor?: string | undefined;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowBlur
+                             */
+                            textShadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number | undefined;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number | undefined;
+
+                            /**
+                             * "Rich text styles" can be defined in this `rich`
+                             * property. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label)
+                             *
+                             * For more details, see
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                             * please.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich
+                             */
+                            rich?: {
+                                /**
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                                 */
+                                [userStyle: string]: {
+                                    /**
+                                     * text color.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * ""#fff""
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     */
+                                    color?: string | undefined;
+
+                                    /**
+                                     * font style
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'italic'`
+                                     * + `'oblique'`
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     */
+                                    fontStyle?: string | undefined;
+
+                                    /**
+                                     * font thick weight
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'bold'`
+                                     * + `'bolder'`
+                                     * + `'lighter'`
+                                     * + 100 | 200 | 300 | 400...
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     */
+                                    fontWeight?: string | number | undefined;
+
+                                    /**
+                                     * font family
+                                     *
+                                     * Can also be 'serif' , 'monospace', ...
+                                     *
+                                     * @default
+                                     * "sans-serif"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     */
+                                    fontFamily?: string | undefined;
+
+                                    /**
+                                     * font size
+                                     *
+                                     * @default
+                                     * 12
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     */
+                                    fontSize?: number | undefined;
+
+                                    /**
+                                     * Horizontal alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'left'`
+                                     * + `'center'`
+                                     * + `'right'`
+                                     *
+                                     * If `align` is not set in `rich`, `align`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     */
+                                    align?: string | undefined;
+
+                                    /**
+                                     * Vertical alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'top'`
+                                     * + `'middle'`
+                                     * + `'bottom'`
+                                     *
+                                     * If `verticalAlign` is not set in `rich`,
+                                     * `verticalAlign` in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     */
+                                    verticalAlign?: string | undefined;
+
+                                    /**
+                                     * Line height of the text fregment.
+                                     *
+                                     * If `lineHeight` is not set in `rich`, `lineHeight`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     */
+                                    lineHeight?: number | undefined;
+
+                                    /**
+                                     * Background color of the text fregment.
+                                     *
+                                     * Can be color string, like `'#123234'`, `'red'`,
+                                     * `rgba(0,23,11,0.3)'`.
+                                     *
+                                     * Or image can be used, for example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * `width` or `height` can be specified when
+                                     * using background image, or auto adapted by
+                                     * default.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     */
+                                    backgroundColor?: object | string | undefined;
+
+                                    /**
+                                     * Border color of the text fregment.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     */
+                                    borderColor?: string | undefined;
+
+                                    /**
+                                     * Border width of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     */
+                                    borderWidth?: number | undefined;
+
+                                    /**
+                                     * Border radius of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     */
+                                    borderRadius?: number | undefined;
+
+                                    /**
+                                     * Padding of the text fregment, for example:
+                                     *
+                                     * + `padding: [3, 4, 5, 6]`: represents padding
+                                     * of `[top, right, bottom, left]`.
+                                     * + `padding: 4`: represents `padding: [4,
+                                     * 4, 4, 4]`.
+                                     * + `padding: [3, 4]`: represents `padding:
+                                     * [3, 4, 3, 4]`.
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     */
+                                    padding?: any[] | number | undefined;
+
+                                    /**
+                                     * Shadow color of the text block.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     */
+                                    shadowColor?: string | undefined;
+
+                                    /**
+                                     * Show blur of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     */
+                                    shadowBlur?: number | undefined;
+
+                                    /**
+                                     * Shadow X offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     */
+                                    shadowOffsetX?: number | undefined;
+
+                                    /**
+                                     * Shadow Y offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     */
+                                    shadowOffsetY?: number | undefined;
+
+                                    /**
+                                     * Width of the text block.
+                                     * It is the width of the text by default.
+                                     * In most cases, there is no need to specify
+                                     * it.
+                                     * You may want to use it in some cases like
+                                     * make simple table or using background image
+                                     * (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * `width` can also be percent string, like
+                                     * `'100%'`, which represents the percent of
+                                     * `contentWidth` (that is, the width without
+                                     * `padding`) of its container box.
+                                     * It is based on `contentWidth` because that
+                                     * each text fregment is layout based on the
+                                     * `content box`, where it makes no sense that
+                                     * calculating width based on `outerWith` in
+                                     * prectice.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     */
+                                    width?: number | string | undefined;
+
+                                    /**
+                                     * Height of the text block.
+                                     * It is the width of the text by default.
+                                     * You may want to use it in some cases like
+                                     * using background image (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     */
+                                    height?: number | string | undefined;
+
+                                    /**
+                                     * Storke color of the text.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     */
+                                    textBorderColor?: string | undefined;
+
+                                    /**
+                                     * Storke line width of the text.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     */
+                                    textBorderWidth?: number | undefined;
+
+                                    /**
+                                     * Shadow color of the text itself.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     */
+                                    textShadowColor?: string | undefined;
+
+                                    /**
+                                     * Shadow blue of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     */
+                                    textShadowBlur?: number | undefined;
+
+                                    /**
+                                     * Shadow X offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     */
+                                    textShadowOffsetX?: number | undefined;
+
+                                    /**
+                                     * Shadow Y offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     */
+                                    textShadowOffsetY?: number | undefined;
+                                };
+                            } | undefined;
+
+                            /**
+                             * When the text is overflow, whether to replace the
+                             * excess part with apostrophe.
+                             *
+                             * @default
+                             * "true"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.label.ellipsis
+                             */
+                            ellipsis?: boolean | undefined;
+                        } | undefined;
+
+                        /**
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel
+                         */
+                        upperLabel?: {
+                            /**
+                             * Whether to show label.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.show
+                             */
+                            show?: boolean | undefined;
+
+                            /**
+                             * Label position.
+                             *
+                             * **Followings are the options:**
+                             *
+                             * + \[x, y\]
+                             *
+                             * Use relative percentage, or absolute pixel values
+                             * to represent position of label relative to top-left
+                             * corner of bounding box. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                             *
+                             * + 'top'
+                             *
+                             * + 'left'
+                             * + 'right'
+                             * + 'bottom'
+                             * + 'inside'
+                             * + 'insideLeft'
+                             * + 'insideRight'
+                             * + 'insideTop'
+                             * + 'insideBottom'
+                             * + 'insideTopLeft'
+                             * + 'insideBottomLeft'
+                             * + 'insideTopRight'
+                             * + 'insideBottomRight'
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * "inside"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.position
+                             */
+                            position?: any[] | string | undefined;
+
+                            /**
+                             * Distance to the host graphic element.
+                             * Works when position is string value (like `'top'`、`'insideRight'`).
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * 5
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.distance
+                             */
+                            distance?: number | undefined;
+
+                            /**
+                             * Rotate label, from -90 degree to 90, positive value
+                             * represents rotate anti-clockwise.
+                             *
+                             * See:
+                             * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
+                             * .
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rotate
+                             */
+                            rotate?: number | undefined;
+
+                            /**
+                             * Whether to move text slightly.
+                             * For example: `[30, 40]` means move `30` horizontally
+                             * and move `40` vertically.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.offset
+                             */
+                            offset?: any[] | undefined;
+
+                            /**
+                             * Data label formatter, which supports string template
+                             * and callback function.
+                             * In either form, `\n` is supported to represent a
+                             * new line.
+                             *
+                             * **String template**
+                             *
+                             * Model variation includes:
+                             *
+                             * + `{a}`: series name.
+                             * + `{b}`: the name of a data item.
+                             * + `{c}`: the value of a data item.
+                             * + `{@xxx}: the value of a dimension named`'xxx'`,
+                             * for example,`{@product}`refers the value of`'product'\`
+                             * dimension。
+                             * + `{@[n]}: the value of a dimension at the index
+                             * of`n`, for example,`{@\[3\]}\` refers the value at
+                             * dimensions\[3\].
+                             *
+                             * **example:**
+                             *
+                             * ```
+                             * formatter: '{b}: {@score}'
+                             *
+                             * ```
+                             *
+                             * **Callback function**
+                             *
+                             * Callback function is in form of:
+                             *
+                             * ```
+                             * (params: Object|Array) => string
+                             *
+                             * ```
+                             *
+                             * where `params` is the single dataset needed by formatter,
+                             * which is formed as:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.formatter
+                             */
+                            formatter?: Function | string | undefined;
+
+                            /**
+                             * text color.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.color
+                             */
+                            color?: string | undefined;
+
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontStyle
+                             */
+                            fontStyle?: string | undefined;
+
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontWeight
+                             */
+                            fontWeight?: string | number | undefined;
+
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontFamily
+                             */
+                            fontFamily?: string | undefined;
+
+                            /**
+                             * font size
+                             *
+                             * @default
+                             * 12
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.fontSize
+                             */
+                            fontSize?: number | undefined;
+
+                            /**
+                             * Horizontal alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'left'`
+                             * + `'center'`
+                             * + `'right'`
+                             *
+                             * If `align` is not set in `rich`, `align` in parent
+                             * level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.align
+                             */
+                            align?: string | undefined;
+
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.verticalAlign
+                             */
+                            verticalAlign?: string | undefined;
+
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.lineHeight
+                             */
+                            lineHeight?: number | undefined;
+
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                             *
+                             * `width` or `height` can be specified when using background
+                             * image, or auto adapted by default.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.backgroundColor
+                             */
+                            backgroundColor?: object | string | undefined;
+
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderColor
+                             */
+                            borderColor?: string | undefined;
+
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderWidth
+                             */
+                            borderWidth?: number | undefined;
+
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.borderRadius
+                             */
+                            borderRadius?: number | undefined;
+
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding of
+                             * `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3, 4,
+                             * 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.padding
+                             */
+                            padding?: any[] | number | undefined;
+
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowColor
+                             */
+                            shadowColor?: string | undefined;
+
+                            /**
+                             * Show blur of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowBlur
+                             */
+                            shadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowOffsetX
+                             */
+                            shadowOffsetX?: number | undefined;
+
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.shadowOffsetY
+                             */
+                            shadowOffsetY?: number | undefined;
+
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make simple
+                             * table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth` (that
+                             * is, the width without `padding`) of its container
+                             * box.
+                             * It is based on `contentWidth` because that each text
+                             * fregment is layout based on the `content box`, where
+                             * it makes no sense that calculating width based on
+                             * `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.width
+                             */
+                            width?: number | string | undefined;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using background
+                             * image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.height
+                             */
+                            height?: number | string | undefined;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textBorderColor
+                             */
+                            textBorderColor?: string | undefined;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textBorderWidth
+                             */
+                            textBorderWidth?: number | undefined;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowColor
+                             */
+                            textShadowColor?: string | undefined;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowBlur
+                             */
+                            textShadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number | undefined;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number | undefined;
+
+                            /**
+                             * "Rich text styles" can be defined in this `rich`
+                             * property. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel)
+                             *
+                             * For more details, see
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                             * please.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich
+                             */
+                            rich?: {
+                                /**
+                                 * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
+                                 */
+                                [userStyle: string]: {
+                                    /**
+                                     * text color.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * ""#fff""
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     */
+                                    color?: string | undefined;
+
+                                    /**
+                                     * font style
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'italic'`
+                                     * + `'oblique'`
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     */
+                                    fontStyle?: string | undefined;
+
+                                    /**
+                                     * font thick weight
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'bold'`
+                                     * + `'bolder'`
+                                     * + `'lighter'`
+                                     * + 100 | 200 | 300 | 400...
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     */
+                                    fontWeight?: string | number | undefined;
+
+                                    /**
+                                     * font family
+                                     *
+                                     * Can also be 'serif' , 'monospace', ...
+                                     *
+                                     * @default
+                                     * "sans-serif"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     */
+                                    fontFamily?: string | undefined;
+
+                                    /**
+                                     * font size
+                                     *
+                                     * @default
+                                     * 12
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     */
+                                    fontSize?: number | undefined;
+
+                                    /**
+                                     * Horizontal alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'left'`
+                                     * + `'center'`
+                                     * + `'right'`
+                                     *
+                                     * If `align` is not set in `rich`, `align`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     */
+                                    align?: string | undefined;
+
+                                    /**
+                                     * Vertical alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'top'`
+                                     * + `'middle'`
+                                     * + `'bottom'`
+                                     *
+                                     * If `verticalAlign` is not set in `rich`,
+                                     * `verticalAlign` in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     */
+                                    verticalAlign?: string | undefined;
+
+                                    /**
+                                     * Line height of the text fregment.
+                                     *
+                                     * If `lineHeight` is not set in `rich`, `lineHeight`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     */
+                                    lineHeight?: number | undefined;
+
+                                    /**
+                                     * Background color of the text fregment.
+                                     *
+                                     * Can be color string, like `'#123234'`, `'red'`,
+                                     * `rgba(0,23,11,0.3)'`.
+                                     *
+                                     * Or image can be used, for example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * `width` or `height` can be specified when
+                                     * using background image, or auto adapted by
+                                     * default.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     */
+                                    backgroundColor?: object | string | undefined;
+
+                                    /**
+                                     * Border color of the text fregment.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     */
+                                    borderColor?: string | undefined;
+
+                                    /**
+                                     * Border width of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     */
+                                    borderWidth?: number | undefined;
+
+                                    /**
+                                     * Border radius of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     */
+                                    borderRadius?: number | undefined;
+
+                                    /**
+                                     * Padding of the text fregment, for example:
+                                     *
+                                     * + `padding: [3, 4, 5, 6]`: represents padding
+                                     * of `[top, right, bottom, left]`.
+                                     * + `padding: 4`: represents `padding: [4,
+                                     * 4, 4, 4]`.
+                                     * + `padding: [3, 4]`: represents `padding:
+                                     * [3, 4, 3, 4]`.
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     */
+                                    padding?: any[] | number | undefined;
+
+                                    /**
+                                     * Shadow color of the text block.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     */
+                                    shadowColor?: string | undefined;
+
+                                    /**
+                                     * Show blur of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     */
+                                    shadowBlur?: number | undefined;
+
+                                    /**
+                                     * Shadow X offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     */
+                                    shadowOffsetX?: number | undefined;
+
+                                    /**
+                                     * Shadow Y offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     */
+                                    shadowOffsetY?: number | undefined;
+
+                                    /**
+                                     * Width of the text block.
+                                     * It is the width of the text by default.
+                                     * In most cases, there is no need to specify
+                                     * it.
+                                     * You may want to use it in some cases like
+                                     * make simple table or using background image
+                                     * (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * `width` can also be percent string, like
+                                     * `'100%'`, which represents the percent of
+                                     * `contentWidth` (that is, the width without
+                                     * `padding`) of its container box.
+                                     * It is based on `contentWidth` because that
+                                     * each text fregment is layout based on the
+                                     * `content box`, where it makes no sense that
+                                     * calculating width based on `outerWith` in
+                                     * prectice.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     */
+                                    width?: number | string | undefined;
+
+                                    /**
+                                     * Height of the text block.
+                                     * It is the width of the text by default.
+                                     * You may want to use it in some cases like
+                                     * using background image (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     */
+                                    height?: number | string | undefined;
+
+                                    /**
+                                     * Storke color of the text.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     */
+                                    textBorderColor?: string | undefined;
+
+                                    /**
+                                     * Storke line width of the text.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     */
+                                    textBorderWidth?: number | undefined;
+
+                                    /**
+                                     * Shadow color of the text itself.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     */
+                                    textShadowColor?: string | undefined;
+
+                                    /**
+                                     * Shadow blue of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     */
+                                    textShadowBlur?: number | undefined;
+
+                                    /**
+                                     * Shadow X offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     */
+                                    textShadowOffsetX?: number | undefined;
+
+                                    /**
+                                     * Shadow Y offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     */
+                                    textShadowOffsetY?: number | undefined;
+                                };
+                            } | undefined;
+
+                            /**
+                             * When the text is overflow, whether to replace the
+                             * excess part with apostrophe.
+                             *
+                             * @default
+                             * "true"
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.upperLabel.ellipsis
+                             */
+                            ellipsis?: boolean | undefined;
+                        } | undefined;
+
+                        /**
+                         * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.itemStyle
+                         */
+                        itemStyle?: {
+                            /**
+                             * The color of a node. It use global palette
+                             * [option.color](https://echarts.apache.org/en/option.html#color)
+                             * by default.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-treemap.levels.emphasis.itemStyle.color
+                             */
+                            color?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                }>
+                | undefined;
 
             /**
              * Whether to ignore mouse events.
              * Default value is false, for triggering and responding to mouse
              * events.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-treemap.silent
              */
@@ -4177,7 +3903,6 @@ declare namespace echarts {
                  * [series-treemap.data.target](https://echarts.apache.org/en/option.html#series-treemap.data.target)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.silent.link
                  */
                 link?: string | undefined;
@@ -4186,7 +3911,6 @@ declare namespace echarts {
                  * The same meaning as `target` in `html` `<a>` label, See
                  * [series-treemap.data.link](https://echarts.apache.org/en/option.html#series-treemap.data.link)
                  * . Option values are: `'blank'` or `'self'`.
-                 *
                  *
                  * @default
                  * "blank"
@@ -4200,14 +3924,12 @@ declare namespace echarts {
                  * [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.silent.children
                  */
                 children?: any[] | undefined;
 
                 /**
                  * tooltip settings in this series data.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.silent.tooltip
                  */
@@ -4244,7 +3966,6 @@ declare namespace echarts {
              * > , indicating the particular setting of each node.
              * >
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.visualDimension
              */
             visualDimension?: number | undefined;
@@ -4258,7 +3979,6 @@ declare namespace echarts {
              * is set to `'value'`, you are able to specify extent manually
              * for visual mapping by specifying `visualMin` or `visualMax`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.visualMin
              */
             visualMin?: number | undefined;
@@ -4271,7 +3991,6 @@ declare namespace echarts {
              * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
              * is set to `'value'`, you are able to specify extent manually
              * for visual mapping by specifying `visualMin` or `visualMax`.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-treemap.visualMax
              */
@@ -4303,7 +4022,6 @@ declare namespace echarts {
              * > , indicating the particular setting of each node.
              * >
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.colorAlpha
              */
             colorAlpha?: any[] | undefined;
@@ -4333,7 +4051,6 @@ declare namespace echarts {
              * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
              * > , indicating the particular setting of each node.
              * >
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-treemap.colorSaturation
              */
@@ -4399,7 +4116,6 @@ declare namespace echarts {
              * > , indicating the particular setting of each node.
              * >
              *
-             *
              * @default
              * "index"
              * @see https://echarts.apache.org/en/option.html#series-treemap.colorMappingBy
@@ -4436,7 +4152,6 @@ declare namespace echarts {
              * > , indicating the particular setting of each node.
              * >
              *
-             *
              * @default
              * 10
              * @see https://echarts.apache.org/en/option.html#series-treemap.visibleMin
@@ -4472,7 +4187,6 @@ declare namespace echarts {
              * > , indicating the particular setting of each node.
              * >
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.childrenVisibleMin
              */
             childrenVisibleMin?: number | undefined;
@@ -4496,13 +4210,11 @@ declare namespace echarts {
              * > , indicating the particular setting of each node.
              * >
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.label
              */
             label?: {
                 /**
                  * Whether to show label.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.show
                  */
@@ -4540,7 +4252,6 @@ declare namespace echarts {
                  * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                  * .
                  *
-                 *
                  * @default
                  * "inside"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.position
@@ -4554,7 +4265,6 @@ declare namespace echarts {
                  * See:
                  * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                  * .
-                 *
                  *
                  * @default
                  * 5
@@ -4570,7 +4280,6 @@ declare namespace echarts {
                  * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.rotate
                  */
                 rotate?: number | undefined;
@@ -4579,7 +4288,6 @@ declare namespace echarts {
                  * Whether to move text slightly.
                  * For example: `[30, 40]` means move `30` horizontally and
                  * move `40` vertically.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.offset
                  */
@@ -4623,7 +4331,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.formatter
                  */
                 formatter?: Function | string | undefined;
@@ -4633,7 +4340,6 @@ declare namespace echarts {
                  *
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
-                 *
                  *
                  * @default
                  * ""#fff""
@@ -4649,7 +4355,6 @@ declare namespace echarts {
                  * + `'normal'`
                  * + `'italic'`
                  * + `'oblique'`
-                 *
                  *
                  * @default
                  * "normal"
@@ -4668,7 +4373,6 @@ declare namespace echarts {
                  * + `'lighter'`
                  * + 100 | 200 | 300 | 400...
                  *
-                 *
                  * @default
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.fontWeight
@@ -4680,7 +4384,6 @@ declare namespace echarts {
                  *
                  * Can also be 'serif' , 'monospace', ...
                  *
-                 *
                  * @default
                  * "sans-serif"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.fontFamily
@@ -4689,7 +4392,6 @@ declare namespace echarts {
 
                 /**
                  * font size
-                 *
                  *
                  * @default
                  * 12
@@ -4711,7 +4413,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.align
                  */
                 align?: string | undefined;
@@ -4730,7 +4431,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.verticalAlign
                  */
                 verticalAlign?: string | undefined;
@@ -4742,7 +4442,6 @@ declare namespace echarts {
                  * level will be used. For example:
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label)
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.lineHeight
                  */
@@ -4763,7 +4462,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.backgroundColor
@@ -4776,7 +4474,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.borderColor
@@ -4786,14 +4483,12 @@ declare namespace echarts {
                 /**
                  * Border width of the text fregment.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.borderWidth
                  */
                 borderWidth?: number | undefined;
 
                 /**
                  * Border radius of the text fregment.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.borderRadius
                  */
@@ -4810,14 +4505,12 @@ declare namespace echarts {
                  * Notice, `width` and `height` specifies the width and height
                  * of the content, without `padding`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.padding
                  */
                 padding?: any[] | number | undefined;
 
                 /**
                  * Shadow color of the text block.
-                 *
                  *
                  * @default
                  * "transparent"
@@ -4828,7 +4521,6 @@ declare namespace echarts {
                 /**
                  * Show blur of the text block.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.shadowBlur
                  */
                 shadowBlur?: number | undefined;
@@ -4836,14 +4528,12 @@ declare namespace echarts {
                 /**
                  * Shadow X offset of the text block.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.shadowOffsetX
                  */
                 shadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text block.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.shadowOffsetY
                  */
@@ -4868,7 +4558,6 @@ declare namespace echarts {
                  *
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.width
                  */
                 width?: number | string | undefined;
@@ -4884,7 +4573,6 @@ declare namespace echarts {
                  *
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.height
                  */
                 height?: number | string | undefined;
@@ -4895,7 +4583,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.textBorderColor
@@ -4905,14 +4592,12 @@ declare namespace echarts {
                 /**
                  * Storke line width of the text.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.textBorderWidth
                  */
                 textBorderWidth?: number | undefined;
 
                 /**
                  * Shadow color of the text itself.
-                 *
                  *
                  * @default
                  * "transparent"
@@ -4923,7 +4608,6 @@ declare namespace echarts {
                 /**
                  * Shadow blue of the text itself.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.textShadowBlur
                  */
                 textShadowBlur?: number | undefined;
@@ -4931,14 +4615,12 @@ declare namespace echarts {
                 /**
                  * Shadow X offset of the text itself.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.textShadowOffsetX
                  */
                 textShadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text itself.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.textShadowOffsetY
                  */
@@ -4954,7 +4636,6 @@ declare namespace echarts {
                  * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich
                  */
                 rich?: {
@@ -4967,7 +4648,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -4983,7 +4663,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -5002,7 +4681,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -5014,7 +4692,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -5023,7 +4700,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -5045,7 +4721,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
                         align?: string | undefined;
@@ -5064,7 +4739,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -5076,7 +4750,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.label.rich.%3Cuser%20defined%20style%20name%3E)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
@@ -5097,7 +4770,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -5110,7 +4782,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -5120,14 +4791,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
@@ -5145,14 +4814,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -5163,7 +4830,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -5171,14 +4837,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
@@ -5206,7 +4870,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
                         width?: number | string | undefined;
@@ -5223,7 +4886,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
                         height?: number | string | undefined;
@@ -5234,7 +4896,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -5244,14 +4905,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -5262,7 +4921,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -5270,14 +4928,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
@@ -5288,7 +4944,6 @@ declare namespace echarts {
                 /**
                  * When the text is overflow, whether to replace the excess
                  * part with apostrophe.
-                 *
                  *
                  * @default
                  * "true"
@@ -5339,13 +4994,11 @@ declare namespace echarts {
              * > , indicating the particular setting of each node.
              * >
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel
              */
             upperLabel?: {
                 /**
                  * Whether to show label.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.show
                  */
@@ -5383,7 +5036,6 @@ declare namespace echarts {
                  * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                  * .
                  *
-                 *
                  * @default
                  * "inside"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.position
@@ -5397,7 +5049,6 @@ declare namespace echarts {
                  * See:
                  * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                  * .
-                 *
                  *
                  * @default
                  * 5
@@ -5413,7 +5064,6 @@ declare namespace echarts {
                  * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rotate
                  */
                 rotate?: number | undefined;
@@ -5422,7 +5072,6 @@ declare namespace echarts {
                  * Whether to move text slightly.
                  * For example: `[30, 40]` means move `30` horizontally and
                  * move `40` vertically.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.offset
                  */
@@ -5466,7 +5115,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.formatter
                  */
                 formatter?: Function | string | undefined;
@@ -5476,7 +5124,6 @@ declare namespace echarts {
                  *
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
-                 *
                  *
                  * @default
                  * ""#fff""
@@ -5492,7 +5139,6 @@ declare namespace echarts {
                  * + `'normal'`
                  * + `'italic'`
                  * + `'oblique'`
-                 *
                  *
                  * @default
                  * "normal"
@@ -5511,7 +5157,6 @@ declare namespace echarts {
                  * + `'lighter'`
                  * + 100 | 200 | 300 | 400...
                  *
-                 *
                  * @default
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.fontWeight
@@ -5523,7 +5168,6 @@ declare namespace echarts {
                  *
                  * Can also be 'serif' , 'monospace', ...
                  *
-                 *
                  * @default
                  * "sans-serif"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.fontFamily
@@ -5532,7 +5176,6 @@ declare namespace echarts {
 
                 /**
                  * font size
-                 *
                  *
                  * @default
                  * 12
@@ -5554,7 +5197,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.align
                  */
                 align?: string | undefined;
@@ -5573,7 +5215,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.verticalAlign
                  */
                 verticalAlign?: string | undefined;
@@ -5585,7 +5226,6 @@ declare namespace echarts {
                  * level will be used. For example:
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel)
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.lineHeight
                  */
@@ -5606,7 +5246,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.backgroundColor
@@ -5619,7 +5258,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.borderColor
@@ -5629,14 +5267,12 @@ declare namespace echarts {
                 /**
                  * Border width of the text fregment.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.borderWidth
                  */
                 borderWidth?: number | undefined;
 
                 /**
                  * Border radius of the text fregment.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.borderRadius
                  */
@@ -5653,14 +5289,12 @@ declare namespace echarts {
                  * Notice, `width` and `height` specifies the width and height
                  * of the content, without `padding`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.padding
                  */
                 padding?: any[] | number | undefined;
 
                 /**
                  * Shadow color of the text block.
-                 *
                  *
                  * @default
                  * "transparent"
@@ -5671,7 +5305,6 @@ declare namespace echarts {
                 /**
                  * Show blur of the text block.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.shadowBlur
                  */
                 shadowBlur?: number | undefined;
@@ -5679,14 +5312,12 @@ declare namespace echarts {
                 /**
                  * Shadow X offset of the text block.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.shadowOffsetX
                  */
                 shadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text block.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.shadowOffsetY
                  */
@@ -5711,14 +5342,12 @@ declare namespace echarts {
                  *
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.width
                  */
                 width?: number | string | undefined;
 
                 /**
                  * Height of label area.
-                 *
                  *
                  * @default
                  * 20
@@ -5732,7 +5361,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textBorderColor
@@ -5742,14 +5370,12 @@ declare namespace echarts {
                 /**
                  * Storke line width of the text.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textBorderWidth
                  */
                 textBorderWidth?: number | undefined;
 
                 /**
                  * Shadow color of the text itself.
-                 *
                  *
                  * @default
                  * "transparent"
@@ -5760,7 +5386,6 @@ declare namespace echarts {
                 /**
                  * Shadow blue of the text itself.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textShadowBlur
                  */
                 textShadowBlur?: number | undefined;
@@ -5768,14 +5393,12 @@ declare namespace echarts {
                 /**
                  * Shadow X offset of the text itself.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textShadowOffsetX
                  */
                 textShadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text itself.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.textShadowOffsetY
                  */
@@ -5791,7 +5414,6 @@ declare namespace echarts {
                  * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich
                  */
                 rich?: {
@@ -5804,7 +5426,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -5820,7 +5441,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -5839,7 +5459,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -5851,7 +5470,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -5860,7 +5478,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -5882,7 +5499,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
                         align?: string | undefined;
@@ -5901,7 +5517,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -5913,7 +5528,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
@@ -5934,7 +5548,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -5947,7 +5560,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -5957,14 +5569,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
@@ -5982,14 +5592,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -6000,7 +5608,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -6008,14 +5615,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
@@ -6043,7 +5648,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
                         width?: number | string | undefined;
@@ -6060,7 +5664,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
                         height?: number | string | undefined;
@@ -6071,7 +5674,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -6081,14 +5683,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -6099,7 +5699,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -6107,14 +5706,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
@@ -6126,7 +5723,6 @@ declare namespace echarts {
                  * When the text is overflow, whether to replace the excess
                  * part with apostrophe.
                  *
-                 *
                  * @default
                  * "true"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.upperLabel.ellipsis
@@ -6135,7 +5731,6 @@ declare namespace echarts {
             } | undefined;
 
             /**
-             *
              * > Tps: In treemap, `itemStyle` attribute could appear in more
              * than one places:
              * >
@@ -6152,7 +5747,6 @@ declare namespace echarts {
              * > , indicating the particular setting of each node.
              * >
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle
              */
             itemStyle?: {
@@ -6161,14 +5755,12 @@ declare namespace echarts {
                  * [option.color](https://echarts.apache.org/en/option.html#color)
                  * by default.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.color
                  */
                 color?: string | undefined;
 
                 /**
                  * The tranparent rate of a node, the range is between 0 ~ 1.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.colorAlpha
                  */
@@ -6177,7 +5769,6 @@ declare namespace echarts {
                 /**
                  * The color saturation of a node.
                  * The range is between 0 ~ 1.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.colorSaturation
                  */
@@ -6190,7 +5781,6 @@ declare namespace echarts {
                  * Tip, gaps between child nodes are specified by
                  * [gapWidth](https://echarts.apache.org/en/option.html#series-treemap.levels.gapWidth)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.borderWidth
                  */
                 borderWidth?: number | undefined;
@@ -6198,14 +5788,12 @@ declare namespace echarts {
                 /**
                  * Gaps between child nodes.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.gapWidth
                  */
                 gapWidth?: number | undefined;
 
                 /**
                  * The border color and gap color of a node.
-                 *
                  *
                  * @default
                  * "#fff',"
@@ -6244,7 +5832,6 @@ declare namespace echarts {
                  * So in the red area, basically we set gap color with red,
                  * and use `borderColorSaturation` to lift the saturation.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.borderColorSaturation
                  */
                 borderColorSaturation?: string | undefined;
@@ -6252,14 +5839,12 @@ declare namespace echarts {
                 /**
                  * Stroke color of each rect.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.strokeColor
                  */
                 strokeColor?: string | undefined;
 
                 /**
                  * Stroke width of each rect.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.itemStyle.strokeWidth
                  */
@@ -6276,7 +5861,6 @@ declare namespace echarts {
                 label?: {
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.show
                      */
@@ -6314,7 +5898,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.position
@@ -6328,7 +5911,6 @@ declare namespace echarts {
                      * See:
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
-                     *
                      *
                      * @default
                      * 5
@@ -6344,7 +5926,6 @@ declare namespace echarts {
                      * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rotate
                      */
                     rotate?: number | undefined;
@@ -6353,7 +5934,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.offset
                      */
@@ -6398,7 +5978,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -6408,7 +5987,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -6424,7 +6002,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -6443,7 +6020,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.fontWeight
@@ -6455,7 +6031,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.fontFamily
@@ -6464,7 +6039,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -6486,7 +6060,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.align
                      */
                     align?: string | undefined;
@@ -6505,7 +6078,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -6517,7 +6089,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.lineHeight
                      */
@@ -6538,7 +6109,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.backgroundColor
@@ -6551,7 +6121,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.borderColor
@@ -6561,14 +6130,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.borderRadius
                      */
@@ -6585,14 +6152,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -6603,7 +6168,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -6611,14 +6175,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.shadowOffsetY
                      */
@@ -6644,7 +6206,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.width
                      */
                     width?: number | string | undefined;
@@ -6660,7 +6221,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.height
                      */
                     height?: number | string | undefined;
@@ -6671,7 +6231,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textBorderColor
@@ -6681,14 +6240,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -6699,7 +6256,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -6707,14 +6263,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.textShadowOffsetY
                      */
@@ -6730,7 +6284,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich
                      */
                     rich?: {
@@ -6743,7 +6296,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -6759,7 +6311,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -6778,7 +6329,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -6790,7 +6340,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -6799,7 +6348,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -6821,7 +6369,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -6840,7 +6387,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -6852,7 +6398,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -6874,7 +6419,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -6887,7 +6431,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -6897,14 +6440,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -6923,14 +6464,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -6941,7 +6480,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -6949,14 +6487,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -6984,7 +6520,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -7001,7 +6536,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -7012,7 +6546,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -7022,14 +6555,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -7040,7 +6571,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -7048,14 +6578,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -7066,7 +6594,6 @@ declare namespace echarts {
                     /**
                      * When the text is overflow, whether to replace the excess
                      * part with apostrophe.
-                     *
                      *
                      * @default
                      * "true"
@@ -7081,7 +6608,6 @@ declare namespace echarts {
                 upperLabel?: {
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.show
                      */
@@ -7119,7 +6645,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.position
@@ -7133,7 +6658,6 @@ declare namespace echarts {
                      * See:
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
-                     *
                      *
                      * @default
                      * 5
@@ -7149,7 +6673,6 @@ declare namespace echarts {
                      * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rotate
                      */
                     rotate?: number | undefined;
@@ -7158,7 +6681,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.offset
                      */
@@ -7203,7 +6725,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -7213,7 +6734,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -7229,7 +6749,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -7248,7 +6767,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.fontWeight
@@ -7260,7 +6778,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.fontFamily
@@ -7269,7 +6786,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -7291,7 +6807,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.align
                      */
                     align?: string | undefined;
@@ -7310,7 +6825,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -7322,7 +6836,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.lineHeight
                      */
@@ -7343,7 +6856,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.backgroundColor
@@ -7356,7 +6868,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.borderColor
@@ -7366,14 +6877,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.borderRadius
                      */
@@ -7390,14 +6899,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -7408,7 +6915,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -7416,14 +6922,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.shadowOffsetY
                      */
@@ -7449,7 +6953,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.width
                      */
                     width?: number | string | undefined;
@@ -7465,7 +6968,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.height
                      */
                     height?: number | string | undefined;
@@ -7476,7 +6978,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textBorderColor
@@ -7486,14 +6987,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -7504,7 +7003,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -7512,14 +7010,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.textShadowOffsetY
                      */
@@ -7535,7 +7031,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich
                      */
                     rich?: {
@@ -7548,7 +7043,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -7564,7 +7058,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -7583,7 +7076,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -7595,7 +7087,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -7604,7 +7095,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -7626,7 +7116,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -7645,7 +7134,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -7657,7 +7145,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -7679,7 +7166,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -7692,7 +7178,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -7702,14 +7187,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -7728,14 +7211,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -7746,7 +7227,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -7754,14 +7234,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -7789,7 +7267,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -7806,7 +7283,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -7817,7 +7293,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -7827,14 +7302,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -7845,7 +7318,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -7853,14 +7325,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -7871,7 +7341,6 @@ declare namespace echarts {
                     /**
                      * When the text is overflow, whether to replace the excess
                      * part with apostrophe.
-                     *
                      *
                      * @default
                      * "true"
@@ -7889,7 +7358,6 @@ declare namespace echarts {
                      * [option.color](https://echarts.apache.org/en/option.html#color)
                      * by default.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.emphasis.itemStyle.color
                      */
                     color?: string | undefined;
@@ -7899,13 +7367,11 @@ declare namespace echarts {
             /**
              * breadcrumb, showing the path of the current node.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb
              */
             breadcrumb?: {
                 /**
                  * Whether to show the breadcrumb.
-                 *
                  *
                  * @default
                  * "true"
@@ -7925,7 +7391,6 @@ declare namespace echarts {
                  * `'right'`, then the component will be aligned automatically
                  * based on position.
                  *
-                 *
                  * @default
                  * "center"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.left
@@ -7943,7 +7408,6 @@ declare namespace echarts {
                  * `'bottom'`, then the component will be aligned automatically
                  * based on position.
                  *
-                 *
                  * @default
                  * "auto"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.top
@@ -7959,7 +7423,6 @@ declare namespace echarts {
                  * `'20%'`.
                  *
                  * Adaptive by default.
-                 *
                  *
                  * @default
                  * "auto"
@@ -7977,14 +7440,12 @@ declare namespace echarts {
                  *
                  * Adaptive by default.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.bottom
                  */
                 bottom?: number | string | undefined;
 
                 /**
                  * The height of breadcrumb.
-                 *
                  *
                  * @default
                  * 22
@@ -7996,7 +7457,6 @@ declare namespace echarts {
                  * When is no content in breadcrumb, this minimal width need
                  * to be set up.
                  *
-                 *
                  * @default
                  * 25
                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emptyItemWidth
@@ -8006,7 +7466,6 @@ declare namespace echarts {
                 /**
                  * Graphic style of , `emphasis` is the style when it is highlighted,
                  * like being hovered by mouse, or highlighted via legend connect.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle
                  */
@@ -8024,7 +7483,6 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle)
                      *
-                     *
                      * @default
                      * "rgba(0,0,0,0.7)"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.color
@@ -8034,7 +7492,6 @@ declare namespace echarts {
                     /**
                      * boxplot border color, whose format is similar to that
                      * of `color`.
-                     *
                      *
                      * @default
                      * "rgba(255,255,255,0.7)"
@@ -8046,7 +7503,6 @@ declare namespace echarts {
                      * boxplot border width.
                      * No border when it is set to be 0.
                      *
-                     *
                      * @default
                      * 1
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.borderWidth
@@ -8056,7 +7512,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -8073,7 +7528,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle)
                      *
-                     *
                      * @default
                      * 3
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.shadowBlur
@@ -8082,7 +7536,6 @@ declare namespace echarts {
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @default
                      * "rgba(150,150,150,1)"
@@ -8093,14 +7546,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.shadowOffsetY
                      */
@@ -8110,7 +7561,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.opacity
                      */
@@ -8122,7 +7572,6 @@ declare namespace echarts {
                     textStyle?: {
                         /**
                          * text color.
-                         *
                          *
                          * @default
                          * "#fff"
@@ -8138,7 +7587,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -8157,7 +7605,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontWeight
@@ -8169,7 +7616,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.fontFamily
@@ -8178,7 +7624,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -8200,7 +7645,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.align
                          */
                         align?: string | undefined;
@@ -8219,7 +7663,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -8231,7 +7674,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.lineHeight
                          */
@@ -8249,7 +7691,6 @@ declare namespace echarts {
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.backgroundColor
@@ -8258,7 +7699,6 @@ declare namespace echarts {
 
                         /**
                          * Border color of the text fregment.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -8269,14 +7709,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.borderRadius
                          */
@@ -8294,14 +7732,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -8312,7 +7748,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -8320,14 +7755,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.shadowOffsetY
                          */
@@ -8355,7 +7788,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.width
                          */
                         width?: number | string | undefined;
@@ -8372,14 +7804,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.height
                          */
                         height?: number | string | undefined;
 
                         /**
                          * Storke color of the text.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -8390,14 +7820,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -8408,7 +7836,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -8416,14 +7843,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.textShadowOffsetY
                          */
@@ -8439,7 +7864,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich
                          */
                         rich?: {
@@ -8449,7 +7873,6 @@ declare namespace echarts {
                             [userStyle: string]: {
                                 /**
                                  * text color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -8465,7 +7888,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -8484,7 +7906,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -8496,7 +7917,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -8505,7 +7925,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -8529,7 +7948,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -8550,7 +7968,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -8563,7 +7980,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -8583,7 +7999,6 @@ declare namespace echarts {
                                  * using background image, or auto adapted by
                                  * default.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -8592,7 +8007,6 @@ declare namespace echarts {
 
                                 /**
                                  * Border color of the text fregment.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -8603,14 +8017,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -8630,14 +8042,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -8648,7 +8058,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -8656,14 +8065,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -8695,7 +8102,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -8713,14 +8119,12 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
 
                                 /**
                                  * Storke color of the text.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -8731,14 +8135,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -8749,7 +8151,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -8757,14 +8158,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -8796,7 +8195,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle)
                          *
-                         *
                          * @default
                          * "rgba(0,0,0,0.7)"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.color
@@ -8806,7 +8204,6 @@ declare namespace echarts {
                         /**
                          * boxplot border color, whose format is similar to
                          * that of `color`.
-                         *
                          *
                          * @default
                          * "rgba(255,255,255,0.7)"
@@ -8818,7 +8215,6 @@ declare namespace echarts {
                          * boxplot border width.
                          * No border when it is set to be 0.
                          *
-                         *
                          * @default
                          * 1
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.borderWidth
@@ -8828,7 +8224,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -8845,7 +8240,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle)
                          *
-                         *
                          * @default
                          * 3
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowBlur
@@ -8854,7 +8248,6 @@ declare namespace echarts {
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @default
                          * "rgba(150,150,150,1)"
@@ -8865,14 +8258,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.shadowOffsetY
                          */
@@ -8882,7 +8273,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.opacity
                          */
@@ -8894,7 +8284,6 @@ declare namespace echarts {
                         textStyle?: {
                             /**
                              * text color.
-                             *
                              *
                              * @default
                              * "#fff"
@@ -8910,7 +8299,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -8929,7 +8317,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontWeight
@@ -8941,7 +8328,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.fontFamily
@@ -8950,7 +8336,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -8972,7 +8357,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.align
                              */
                             align?: string | undefined;
@@ -8991,7 +8375,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -9003,7 +8386,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.lineHeight
                              */
@@ -9022,7 +8404,6 @@ declare namespace echarts {
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.backgroundColor
@@ -9031,7 +8412,6 @@ declare namespace echarts {
 
                             /**
                              * Border color of the text fregment.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -9042,14 +8422,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.borderRadius
                              */
@@ -9068,14 +8446,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -9086,7 +8462,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -9094,14 +8469,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.shadowOffsetY
                              */
@@ -9129,7 +8502,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.width
                              */
                             width?: number | string | undefined;
@@ -9146,14 +8518,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.height
                              */
                             height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -9164,14 +8534,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -9182,7 +8550,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -9190,14 +8557,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.textShadowOffsetY
                              */
@@ -9213,7 +8578,6 @@ declare namespace echarts {
                              * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                              * please.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich
                              */
                             rich?: {
@@ -9223,7 +8587,6 @@ declare namespace echarts {
                                 [userStyle: string]: {
                                     /**
                                      * text color.
-                                     *
                                      *
                                      * @default
                                      * ""#fff""
@@ -9239,7 +8602,6 @@ declare namespace echarts {
                                      * + `'normal'`
                                      * + `'italic'`
                                      * + `'oblique'`
-                                     *
                                      *
                                      * @default
                                      * "normal"
@@ -9258,7 +8620,6 @@ declare namespace echarts {
                                      * + `'lighter'`
                                      * + 100 | 200 | 300 | 400...
                                      *
-                                     *
                                      * @default
                                      * "normal"
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -9271,7 +8632,6 @@ declare namespace echarts {
                                      * Can also be 'serif' , 'monospace',
                                      * ...
                                      *
-                                     *
                                      * @default
                                      * "sans-serif"
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -9280,7 +8640,6 @@ declare namespace echarts {
 
                                     /**
                                      * font size
-                                     *
                                      *
                                      * @default
                                      * 12
@@ -9304,7 +8663,6 @@ declare namespace echarts {
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.align
                                      */
                                     align?: string | undefined;
@@ -9325,7 +8683,6 @@ declare namespace echarts {
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                      */
                                     verticalAlign?: string | undefined;
@@ -9338,7 +8695,6 @@ declare namespace echarts {
                                      * used. For example:
                                      *
                                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E)
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                      */
@@ -9358,7 +8714,6 @@ declare namespace echarts {
                                      * when using background image, or auto
                                      * adapted by default.
                                      *
-                                     *
                                      * @default
                                      * "transparent"
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -9367,7 +8722,6 @@ declare namespace echarts {
 
                                     /**
                                      * Border color of the text fregment.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -9378,14 +8732,12 @@ declare namespace echarts {
                                     /**
                                      * Border width of the text fregment.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                      */
                                     borderWidth?: number | undefined;
 
                                     /**
                                      * Border radius of the text fregment.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                      */
@@ -9405,14 +8757,12 @@ declare namespace echarts {
                                      * the width and height of the content,
                                      * without `padding`.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.padding
                                      */
                                     padding?: any[] | number | undefined;
 
                                     /**
                                      * Shadow color of the text block.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -9423,7 +8773,6 @@ declare namespace echarts {
                                     /**
                                      * Show blur of the text block.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                      */
                                     shadowBlur?: number | undefined;
@@ -9431,14 +8780,12 @@ declare namespace echarts {
                                     /**
                                      * Shadow X offset of the text block.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                      */
                                     shadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text block.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                      */
@@ -9470,7 +8817,6 @@ declare namespace echarts {
                                      * Notice, `width` and `height` only work
                                      * when `rich` specified.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.width
                                      */
                                     width?: number | string | undefined;
@@ -9488,14 +8834,12 @@ declare namespace echarts {
                                      * Notice, `width` and `height` only work
                                      * when `rich` specified.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.height
                                      */
                                     height?: number | string | undefined;
 
                                     /**
                                      * Storke color of the text.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -9506,14 +8850,12 @@ declare namespace echarts {
                                     /**
                                      * Storke line width of the text.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                      */
                                     textBorderWidth?: number | undefined;
 
                                     /**
                                      * Shadow color of the text itself.
-                                     *
                                      *
                                      * @default
                                      * "transparent"
@@ -9524,7 +8866,6 @@ declare namespace echarts {
                                     /**
                                      * Shadow blue of the text itself.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                      */
                                     textShadowBlur?: number | undefined;
@@ -9532,14 +8873,12 @@ declare namespace echarts {
                                     /**
                                      * Shadow X offset of the text itself.
                                      *
-                                     *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                      */
                                     textShadowOffsetX?: number | undefined;
 
                                     /**
                                      * Shadow Y offset of the text itself.
-                                     *
                                      *
                                      * @see https://echarts.apache.org/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                      */
@@ -9558,7 +8897,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.data
              */
             data?: SeriesTreemap.DataObject[] | undefined;
@@ -9568,7 +8906,6 @@ declare namespace echarts {
              * for different data to have different animation effect:
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap)
-             *
              *
              * @default
              * 1500
@@ -9581,7 +8918,6 @@ declare namespace echarts {
              * Varied easing effects can be found at
              * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
-             *
              *
              * @default
              * "quinticInOut"
@@ -9601,14 +8937,12 @@ declare namespace echarts {
              * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-treemap.animationDelay
              */
             animationDelay?: Function | number | undefined;
 
             /**
              * tooltip settings in this series.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-treemap.tooltip
              */
@@ -9628,7 +8962,6 @@ declare namespace echarts {
                  * The other items of the array can be used for extra visual
                  * mapping. See details in series-treemp.levels.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.value
                  */
                 value?: any[] | number | undefined;
@@ -9637,14 +8970,12 @@ declare namespace echarts {
                  * `id` is not mandatory.
                  * But if using API, id is used to locate node.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.id
                  */
                 id?: string | undefined;
 
                 /**
                  * Show the description text in rectangle.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.name
                  */
@@ -9680,7 +9011,6 @@ declare namespace echarts {
                  * > , indicating the particular setting of each node.
                  * >
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.visualDimension
                  */
                 visualDimension?: number | undefined;
@@ -9694,7 +9024,6 @@ declare namespace echarts {
                  * is set to `'value'`, you are able to specify extent manually
                  * for visual mapping by specifying `visualMin` or `visualMax`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.visualMin
                  */
                 visualMin?: number | undefined;
@@ -9707,7 +9036,6 @@ declare namespace echarts {
                  * [colorMappingBy](https://echarts.apache.org/en/option.html#series-treemap.levels.colorMappingBy)
                  * is set to `'value'`, you are able to specify extent manually
                  * for visual mapping by specifying `visualMin` or `visualMax`.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.visualMax
                  */
@@ -9737,7 +9065,6 @@ declare namespace echarts {
                  * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.color
                  */
@@ -9769,7 +9096,6 @@ declare namespace echarts {
                  * > , indicating the particular setting of each node.
                  * >
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.colorAlpha
                  */
                 colorAlpha?: any[] | undefined;
@@ -9799,7 +9125,6 @@ declare namespace echarts {
                  * > [series-treemap.data](https://echarts.apache.org/en/option.html#series-treemap.data)
                  * > , indicating the particular setting of each node.
                  * >
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.colorSaturation
                  */
@@ -9866,7 +9191,6 @@ declare namespace echarts {
                  * > , indicating the particular setting of each node.
                  * >
                  *
-                 *
                  * @default
                  * "index"
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.colorMappingBy
@@ -9903,7 +9227,6 @@ declare namespace echarts {
                  * > , indicating the particular setting of each node.
                  * >
                  *
-                 *
                  * @default
                  * 10
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.visibleMin
@@ -9939,7 +9262,6 @@ declare namespace echarts {
                  * > , indicating the particular setting of each node.
                  * >
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.childrenVisibleMin
                  */
                 childrenVisibleMin?: number | undefined;
@@ -9963,13 +9285,11 @@ declare namespace echarts {
                  * > , indicating the particular setting of each node.
                  * >
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.label
                  */
                 label?: {
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.show
                      */
@@ -10007,7 +9327,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.position
@@ -10021,7 +9340,6 @@ declare namespace echarts {
                      * See:
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
-                     *
                      *
                      * @default
                      * 5
@@ -10037,7 +9355,6 @@ declare namespace echarts {
                      * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rotate
                      */
                     rotate?: number | undefined;
@@ -10046,7 +9363,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.offset
                      */
@@ -10091,7 +9407,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -10101,7 +9416,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -10117,7 +9431,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -10136,7 +9449,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.fontWeight
@@ -10148,7 +9460,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.fontFamily
@@ -10157,7 +9468,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -10179,7 +9489,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.align
                      */
                     align?: string | undefined;
@@ -10198,7 +9507,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -10210,7 +9518,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.lineHeight
                      */
@@ -10231,7 +9538,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.backgroundColor
@@ -10244,7 +9550,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.borderColor
@@ -10254,14 +9559,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.borderRadius
                      */
@@ -10278,14 +9581,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -10296,7 +9597,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -10304,14 +9604,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.shadowOffsetY
                      */
@@ -10337,7 +9635,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.width
                      */
                     width?: number | string | undefined;
@@ -10353,7 +9650,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.height
                      */
                     height?: number | string | undefined;
@@ -10364,7 +9660,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textBorderColor
@@ -10374,14 +9669,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -10392,7 +9685,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -10400,14 +9692,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.textShadowOffsetY
                      */
@@ -10423,7 +9713,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich
                      */
                     rich?: {
@@ -10436,7 +9725,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -10452,7 +9740,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -10471,7 +9758,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -10483,7 +9769,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -10492,7 +9777,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -10514,7 +9798,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -10533,7 +9816,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -10545,7 +9827,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -10567,7 +9848,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -10580,7 +9860,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -10590,14 +9869,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -10616,14 +9893,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -10634,7 +9909,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -10642,14 +9916,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -10677,7 +9949,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -10694,7 +9965,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -10705,7 +9975,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -10715,14 +9984,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -10733,7 +10000,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -10741,14 +10007,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -10759,7 +10023,6 @@ declare namespace echarts {
                     /**
                      * When the text is overflow, whether to replace the excess
                      * part with apostrophe.
-                     *
                      *
                      * @default
                      * "true"
@@ -10811,13 +10074,11 @@ declare namespace echarts {
                  * > , indicating the particular setting of each node.
                  * >
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel
                  */
                 upperLabel?: {
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.show
                      */
@@ -10855,7 +10116,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.position
@@ -10869,7 +10129,6 @@ declare namespace echarts {
                      * See:
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
-                     *
                      *
                      * @default
                      * 5
@@ -10885,7 +10144,6 @@ declare namespace echarts {
                      * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rotate
                      */
                     rotate?: number | undefined;
@@ -10894,7 +10152,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.offset
                      */
@@ -10939,7 +10196,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -10949,7 +10205,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -10965,7 +10220,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -10984,7 +10238,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.fontWeight
@@ -10996,7 +10249,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.fontFamily
@@ -11005,7 +10257,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -11027,7 +10278,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.align
                      */
                     align?: string | undefined;
@@ -11046,7 +10296,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -11058,7 +10307,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.lineHeight
                      */
@@ -11079,7 +10327,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.backgroundColor
@@ -11092,7 +10339,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.borderColor
@@ -11102,14 +10348,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.borderRadius
                      */
@@ -11126,14 +10370,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -11144,7 +10386,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -11152,14 +10393,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.shadowOffsetY
                      */
@@ -11185,14 +10424,12 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.width
                      */
                     width?: number | string | undefined;
 
                     /**
                      * Height of label area.
-                     *
                      *
                      * @default
                      * 20
@@ -11206,7 +10443,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textBorderColor
@@ -11216,14 +10452,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -11234,7 +10468,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -11242,14 +10475,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.textShadowOffsetY
                      */
@@ -11265,7 +10496,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich
                      */
                     rich?: {
@@ -11278,7 +10508,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -11294,7 +10523,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -11313,7 +10541,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -11325,7 +10552,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -11334,7 +10560,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -11356,7 +10581,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -11375,7 +10599,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -11387,7 +10610,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -11409,7 +10631,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -11422,7 +10643,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -11432,14 +10652,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -11458,14 +10676,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -11476,7 +10692,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -11484,14 +10699,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -11519,7 +10732,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -11536,7 +10748,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -11547,7 +10758,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -11557,14 +10767,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -11575,7 +10783,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -11583,14 +10790,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -11602,7 +10807,6 @@ declare namespace echarts {
                      * When the text is overflow, whether to replace the excess
                      * part with apostrophe.
                      *
-                     *
                      * @default
                      * "true"
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.upperLabel.ellipsis
@@ -11611,7 +10815,6 @@ declare namespace echarts {
                 } | undefined;
 
                 /**
-                 *
                  * > Tps: In treemap, `itemStyle` attribute could appear in
                  * more than one places:
                  * >
@@ -11628,7 +10831,6 @@ declare namespace echarts {
                  * > , indicating the particular setting of each node.
                  * >
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle
                  */
                 itemStyle?: {
@@ -11636,7 +10838,6 @@ declare namespace echarts {
                      * The color of a node. It use global palette
                      * [option.color](https://echarts.apache.org/en/option.html#color)
                      * by default.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.color
                      */
@@ -11646,7 +10847,6 @@ declare namespace echarts {
                      * The tranparent rate of a node, the range is between 0
                      * ~ 1.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.colorAlpha
                      */
                     colorAlpha?: number | undefined;
@@ -11654,7 +10854,6 @@ declare namespace echarts {
                     /**
                      * The color saturation of a node.
                      * The range is between 0 ~ 1.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.colorSaturation
                      */
@@ -11667,7 +10866,6 @@ declare namespace echarts {
                      * Tip, gaps between child nodes are specified by
                      * [gapWidth](https://echarts.apache.org/en/option.html#series-treemap.levels.gapWidth)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.borderWidth
                      */
                     borderWidth?: number | undefined;
@@ -11675,14 +10873,12 @@ declare namespace echarts {
                     /**
                      * Gaps between child nodes.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.gapWidth
                      */
                     gapWidth?: number | undefined;
 
                     /**
                      * The border color and gap color of a node.
-                     *
                      *
                      * @default
                      * "#fff',"
@@ -11721,7 +10917,6 @@ declare namespace echarts {
                      * So in the red area, basically we set gap color with red,
                      * and use `borderColorSaturation` to lift the saturation.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.borderColorSaturation
                      */
                     borderColorSaturation?: string | undefined;
@@ -11729,14 +10924,12 @@ declare namespace echarts {
                     /**
                      * Stroke color of each rect.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.strokeColor
                      */
                     strokeColor?: string | undefined;
 
                     /**
                      * Stroke width of each rect.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-treemap.data.itemStyle.strokeWidth
                      */
@@ -11753,7 +10946,6 @@ declare namespace echarts {
                     label?: {
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.show
                          */
@@ -11791,7 +10983,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.position
@@ -11805,7 +10996,6 @@ declare namespace echarts {
                          * See:
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
-                         *
                          *
                          * @default
                          * 5
@@ -11821,7 +11011,6 @@ declare namespace echarts {
                          * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rotate
                          */
                         rotate?: number | undefined;
@@ -11830,7 +11019,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.offset
                          */
@@ -11877,7 +11065,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -11887,7 +11074,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -11903,7 +11089,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -11922,7 +11107,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.fontWeight
@@ -11934,7 +11118,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.fontFamily
@@ -11943,7 +11126,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -11965,7 +11147,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.align
                          */
                         align?: string | undefined;
@@ -11984,7 +11165,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -11996,7 +11176,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.lineHeight
                          */
@@ -12017,7 +11196,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.backgroundColor
@@ -12030,7 +11208,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.borderColor
@@ -12040,14 +11217,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.borderRadius
                          */
@@ -12065,14 +11240,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -12083,7 +11256,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -12091,14 +11263,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.shadowOffsetY
                          */
@@ -12126,7 +11296,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.width
                          */
                         width?: number | string | undefined;
@@ -12143,7 +11312,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.height
                          */
                         height?: number | string | undefined;
@@ -12154,7 +11322,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textBorderColor
@@ -12164,14 +11331,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -12182,7 +11347,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -12190,14 +11354,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.textShadowOffsetY
                          */
@@ -12213,7 +11375,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich
                          */
                         rich?: {
@@ -12226,7 +11387,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -12242,7 +11402,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -12261,7 +11420,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -12273,7 +11431,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -12282,7 +11439,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -12306,7 +11462,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -12327,7 +11482,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -12340,7 +11494,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -12363,7 +11516,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -12376,7 +11528,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -12386,14 +11537,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -12413,14 +11562,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -12431,7 +11578,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -12439,14 +11585,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -12478,7 +11622,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -12496,7 +11639,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -12507,7 +11649,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -12517,14 +11658,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -12535,7 +11674,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -12543,14 +11681,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -12561,7 +11697,6 @@ declare namespace echarts {
                         /**
                          * When the text is overflow, whether to replace the
                          * excess part with apostrophe.
-                         *
                          *
                          * @default
                          * "true"
@@ -12576,7 +11711,6 @@ declare namespace echarts {
                     upperLabel?: {
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.show
                          */
@@ -12614,7 +11748,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.position
@@ -12628,7 +11761,6 @@ declare namespace echarts {
                          * See:
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
-                         *
                          *
                          * @default
                          * 5
@@ -12644,7 +11776,6 @@ declare namespace echarts {
                          * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rotate
                          */
                         rotate?: number | undefined;
@@ -12653,7 +11784,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.offset
                          */
@@ -12700,7 +11830,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -12710,7 +11839,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -12726,7 +11854,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -12745,7 +11872,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.fontWeight
@@ -12757,7 +11883,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.fontFamily
@@ -12766,7 +11891,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -12788,7 +11912,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.align
                          */
                         align?: string | undefined;
@@ -12807,7 +11930,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -12819,7 +11941,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.lineHeight
                          */
@@ -12840,7 +11961,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.backgroundColor
@@ -12853,7 +11973,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.borderColor
@@ -12863,14 +11982,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.borderRadius
                          */
@@ -12888,14 +12005,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -12906,7 +12021,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -12914,14 +12028,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.shadowOffsetY
                          */
@@ -12949,7 +12061,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.width
                          */
                         width?: number | string | undefined;
@@ -12966,7 +12077,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.height
                          */
                         height?: number | string | undefined;
@@ -12977,7 +12087,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textBorderColor
@@ -12987,14 +12096,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -13005,7 +12112,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -13013,14 +12119,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.textShadowOffsetY
                          */
@@ -13036,7 +12140,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich
                          */
                         rich?: {
@@ -13049,7 +12152,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -13065,7 +12167,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -13084,7 +12185,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -13096,7 +12196,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -13105,7 +12204,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -13129,7 +12227,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -13150,7 +12247,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -13163,7 +12259,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-treemap.treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -13186,7 +12281,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -13199,7 +12293,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -13209,14 +12302,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -13236,14 +12327,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -13254,7 +12343,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -13262,14 +12350,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -13301,7 +12387,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -13319,7 +12404,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -13330,7 +12414,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -13340,14 +12423,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -13358,7 +12439,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -13366,14 +12446,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -13384,7 +12462,6 @@ declare namespace echarts {
                         /**
                          * When the text is overflow, whether to replace the
                          * excess part with apostrophe.
-                         *
                          *
                          * @default
                          * "true"
@@ -13401,7 +12478,6 @@ declare namespace echarts {
                          * The color of a node. It use global palette
                          * [option.color](https://echarts.apache.org/en/option.html#color)
                          * by default.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-treemap.data.emphasis.itemStyle.color
                          */

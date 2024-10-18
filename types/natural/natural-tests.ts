@@ -1,15 +1,15 @@
-import natural = require('natural');
+import natural = require("natural");
 
 // Tokenizers
 var tokenizer = new natural.WordTokenizer();
-console.log(tokenizer.tokenize('your dog has fleas.'));
+console.log(tokenizer.tokenize("your dog has fleas."));
 
 tokenizer = new natural.TreebankWordTokenizer();
 console.log(tokenizer.tokenize("my dog hasn't any fleas."));
 // [ 'my', 'dog', 'has', 'n\'t', 'any', 'fleas', '.' ]
 
 tokenizer = new natural.RegexpTokenizer({ pattern: /\-/ });
-console.log(tokenizer.tokenize('flea-dog'));
+console.log(tokenizer.tokenize("flea-dog"));
 // [ 'flea', 'dog' ]
 
 tokenizer = new natural.WordPunctTokenizer();
@@ -17,188 +17,188 @@ console.log(tokenizer.tokenize("my dog hasn't any fleas."));
 // [ 'my',  'dog',  'hasn',  '\'',  't',  'any',  'fleas',  '.' ]
 
 tokenizer = new natural.SentenceTokenizer();
-console.log(tokenizer.tokenize('One sentence. Another sentence.'));
+console.log(tokenizer.tokenize("One sentence. Another sentence."));
 
 // String Distance
-console.log(natural.JaroWinklerDistance('dixon', 'dicksonx'));
-console.log(natural.JaroWinklerDistance('not', 'same'));
+console.log(natural.JaroWinklerDistance("dixon", "dicksonx"));
+console.log(natural.JaroWinklerDistance("not", "same"));
 
-console.log(natural.LevenshteinDistance('ones', 'onez'));
-console.log(natural.LevenshteinDistance('one', 'one'));
+console.log(natural.LevenshteinDistance("ones", "onez"));
+console.log(natural.LevenshteinDistance("one", "one"));
 
 console.log(
-    natural.LevenshteinDistance('ones', 'onez', {
+    natural.LevenshteinDistance("ones", "onez", {
         insertion_cost: 1,
         deletion_cost: 1,
         substitution_cost: 1,
     }),
 );
 // $ExpectType SubstringDistanceResult
-natural.DamerauLevenshteinDistance('ones', 'onez', { search: true });
+natural.DamerauLevenshteinDistance("ones", "onez", { search: true });
 // $ExpectType number
-natural.DamerauLevenshteinDistance('ones', 'onez', { search: false });
+natural.DamerauLevenshteinDistance("ones", "onez", { search: false });
 // $ExpectType number
-natural.DamerauLevenshteinDistance('ones', 'onez');
+natural.DamerauLevenshteinDistance("ones", "onez");
 // $ExpectType number | SubstringDistanceResult
-natural.DamerauLevenshteinDistance('ones', 'onez', { search: Math.random() > 0.5 });
+natural.DamerauLevenshteinDistance("ones", "onez", { search: Math.random() > 0.5 });
 
-console.log(natural.DiceCoefficient('thing', 'thing'));
-console.log(natural.DiceCoefficient('not', 'same'));
+console.log(natural.DiceCoefficient("thing", "thing"));
+console.log(natural.DiceCoefficient("not", "same"));
 
 // Stemmers
 // Carry stemmers
-console.log(natural.CarryStemmerFr.stem('jugaría'));
+console.log(natural.CarryStemmerFr.stem("jugaría"));
 
 // Lancaster stemmers
-console.log(natural.LancasterStemmer.stem('words'));
+console.log(natural.LancasterStemmer.stem("words"));
 
 // Porter stemmers
-console.log(natural.PorterStemmer.stem('words')); // stem a single word
-console.log(natural.PorterStemmerEs.stem('jugaría'));
-console.log(natural.PorterStemmerFa.stem('jugaría'));
-console.log(natural.PorterStemmerFr.stem('jugaría'));
-console.log(natural.PorterStemmerIt.stem('jugaría'));
-console.log(natural.PorterStemmerNl.stem('tulp'));
-console.log(natural.PorterStemmerNo.stem('jugaría'));
-console.log(natural.PorterStemmerPt.stem('jugaría'));
-console.log(natural.PorterStemmerRu.stem('падший'));
-console.log(natural.PorterStemmerSv.stem('Riksdag'));
+console.log(natural.PorterStemmer.stem("words")); // stem a single word
+console.log(natural.PorterStemmerEs.stem("jugaría"));
+console.log(natural.PorterStemmerFa.stem("jugaría"));
+console.log(natural.PorterStemmerFr.stem("jugaría"));
+console.log(natural.PorterStemmerIt.stem("jugaría"));
+console.log(natural.PorterStemmerNl.stem("tulp"));
+console.log(natural.PorterStemmerNo.stem("jugaría"));
+console.log(natural.PorterStemmerPt.stem("jugaría"));
+console.log(natural.PorterStemmerRu.stem("падший"));
+console.log(natural.PorterStemmerSv.stem("Riksdag"));
 
 // Remove stopwords test
-natural.PorterStemmer.removeStopWords(['me']);
-console.log(natural.PorterStemmer.stem('me'));
+natural.PorterStemmer.removeStopWords(["me"]);
+console.log(natural.PorterStemmer.stem("me"));
 
 // Other stemmers
-console.log(natural.StemmerId.stem('mie'));
-console.log(natural.StemmerJa.stem('言葉'));
+console.log(natural.StemmerId.stem("mie"));
+console.log(natural.StemmerJa.stem("言葉"));
 
 // Classifiers
 var classifier = new natural.BayesClassifier();
 
-classifier.addDocument('i am long qqqq', 'buy');
-classifier.addDocument("buy the q's", 'buy');
-classifier.addDocument('short gold', 'sell');
-classifier.addDocument('sell gold', 'sell');
+classifier.addDocument("i am long qqqq", "buy");
+classifier.addDocument("buy the q's", "buy");
+classifier.addDocument("short gold", "sell");
+classifier.addDocument("sell gold", "sell");
 
 classifier.train();
-console.log(classifier.classify('i am short silver'));
-console.log(classifier.classify('i am long copper'));
-var classifications = classifier.getClassifications('i am long copper');
-classifications.forEach(function (classification) {
+console.log(classifier.classify("i am short silver"));
+console.log(classifier.classify("i am long copper"));
+var classifications = classifier.getClassifications("i am long copper");
+classifications.forEach(function(classification) {
     var label = classification.label;
     var value = classification.value;
-    console.log('label: ' + label + ', value: ' + value);
+    console.log("label: " + label + ", value: " + value);
 });
-classifier.addDocument(['sell', 'gold'], 'sell');
-classifier.events.on('trainedWithDocument', function (obj: any) {
+classifier.addDocument(["sell", "gold"], "sell");
+classifier.events.on("trainedWithDocument", function(obj: any) {
     console.log(obj);
 });
-classifier.save('classifier.json', function (err, classifier) {
+classifier.save("classifier.json", function(err, classifier) {
     // the classifier is saved to the classifier.json file!
 });
-natural.BayesClassifier.load('classifier.json', null, function (err, classifier) {
-    console.log(classifier.classify('long SUNW'));
-    console.log(classifier.classify('short SUNW'));
+natural.BayesClassifier.load("classifier.json", null, function(err, classifier) {
+    console.log(classifier.classify("long SUNW"));
+    console.log(classifier.classify("short SUNW"));
 });
 var classifier = new natural.BayesClassifier();
-classifier.addDocument(['sell', 'gold'], 'sell');
-classifier.addDocument(['buy', 'silver'], 'buy');
+classifier.addDocument(["sell", "gold"], "sell");
+classifier.addDocument(["buy", "silver"], "buy");
 var raw = JSON.stringify(classifier);
 var restoredClassifier = natural.BayesClassifier.restore(JSON.parse(raw));
-console.log(restoredClassifier.classify('i should sell that'));
+console.log(restoredClassifier.classify("i should sell that"));
 
 // Sentiment Analysis
 var Analyzer = natural.SentimentAnalyzer;
 var stemmer = natural.PorterStemmer;
-var analyzer = new Analyzer('English', stemmer, 'afinn');
-console.log(analyzer.getSentiment(['I', 'like', 'cherries']));
+var analyzer = new Analyzer("English", stemmer, "afinn");
+console.log(analyzer.getSentiment(["I", "like", "cherries"]));
 // 0.6666666666666666
 
 // Phonetics
 var metaphone = natural.Metaphone,
     soundEx = natural.SoundEx;
 
-var wordA = 'phonetics';
-var wordB = 'fonetix';
-if (metaphone.compare(wordA, wordB)) console.log('they sound alike!');
-console.log(metaphone.process('phonetics'));
-console.log(metaphone.process('phonetics', 3));
+var wordA = "phonetics";
+var wordB = "fonetix";
+if (metaphone.compare(wordA, wordB)) console.log("they sound alike!");
+console.log(metaphone.process("phonetics"));
+console.log(metaphone.process("phonetics", 3));
 var dm = natural.DoubleMetaphone;
 
-var encodings = dm.process('Matrix');
+var encodings = dm.process("Matrix");
 console.log(encodings[0]);
 console.log(encodings[1]);
-if (soundEx.compare(wordA, wordB)) console.log('they sound alike!');
+if (soundEx.compare(wordA, wordB)) console.log("they sound alike!");
 
 // Inflectors
 var nounInflector = new natural.NounInflector();
-console.log(nounInflector.pluralize('radius'));
-console.log(nounInflector.singularize('beers'));
+console.log(nounInflector.pluralize("radius"));
+console.log(nounInflector.singularize("beers"));
 var countInflector = natural.CountInflector;
 console.log(countInflector.nth(1));
 console.log(countInflector.nth(111));
 var verbInflector = new natural.PresentVerbInflector();
-console.log(verbInflector.singularize('become'));
-console.log(verbInflector.pluralize('becomes'));
+console.log(verbInflector.singularize("become"));
+console.log(verbInflector.pluralize("becomes"));
 var NGrams = natural.NGrams;
-console.log(NGrams.bigrams('some words here'));
-console.log(NGrams.bigrams(['some', 'words', 'here']));
-console.log(NGrams.trigrams('some other words here'));
-console.log(NGrams.trigrams(['some', 'other', 'words', 'here']));
-console.log(NGrams.ngrams('some other words here for you', 4));
-console.log(NGrams.ngrams(['some', 'other', 'words', 'here', 'for', 'you'], 4));
-console.log(NGrams.ngrams('some other words here for you', 4, '[start]', '[end]'));
-console.log(NGrams.ngrams('some other words here for you', 4, null, '[end]'));
+console.log(NGrams.bigrams("some words here"));
+console.log(NGrams.bigrams(["some", "words", "here"]));
+console.log(NGrams.trigrams("some other words here"));
+console.log(NGrams.trigrams(["some", "other", "words", "here"]));
+console.log(NGrams.ngrams("some other words here for you", 4));
+console.log(NGrams.ngrams(["some", "other", "words", "here", "for", "you"], 4));
+console.log(NGrams.ngrams("some other words here for you", 4, "[start]", "[end]"));
+console.log(NGrams.ngrams("some other words here for you", 4, null, "[end]"));
 var NGramsZH = natural.NGramsZH;
-console.log(NGramsZH.bigrams('中文测试'));
-console.log(NGramsZH.bigrams(['中', '文', '测', '试']));
-console.log(NGramsZH.trigrams('中文测试'));
-console.log(NGramsZH.trigrams(['中', '文', '测', '试']));
-console.log(NGramsZH.ngrams('一个中文测试', 4));
-console.log(NGramsZH.ngrams(['一', '个', '中', '文', '测', '试'], 4));
+console.log(NGramsZH.bigrams("中文测试"));
+console.log(NGramsZH.bigrams(["中", "文", "测", "试"]));
+console.log(NGramsZH.trigrams("中文测试"));
+console.log(NGramsZH.trigrams(["中", "文", "测", "试"]));
+console.log(NGramsZH.ngrams("一个中文测试", 4));
+console.log(NGramsZH.ngrams(["一", "个", "中", "文", "测", "试"], 4));
 var TfIdf = natural.TfIdf,
     tfidf = new TfIdf();
 
-tfidf.addDocument('this document is about node.');
-tfidf.addDocument('this document is about ruby.');
-tfidf.addDocument('this document is about ruby and node.');
-tfidf.addDocument('this document is about node. it has node examples');
+tfidf.addDocument("this document is about node.");
+tfidf.addDocument("this document is about ruby.");
+tfidf.addDocument("this document is about ruby and node.");
+tfidf.addDocument("this document is about node. it has node examples");
 
-console.log('node --------------------------------');
-tfidf.tfidfs('node', function (i, measure) {
-    console.log('document #' + i + ' is ' + measure);
+console.log("node --------------------------------");
+tfidf.tfidfs("node", function(i, measure) {
+    console.log("document #" + i + " is " + measure);
 });
 
-console.log('ruby --------------------------------');
-tfidf.tfidfs('ruby', function (i, measure) {
-    console.log('document #' + i + ' is ' + measure);
+console.log("ruby --------------------------------");
+tfidf.tfidfs("ruby", function(i, measure) {
+    console.log("document #" + i + " is " + measure);
 });
-console.log(tfidf.tfidf('node', 0));
-console.log(tfidf.tfidf('node', 1));
+console.log(tfidf.tfidf("node", 0));
+console.log(tfidf.tfidf("node", 1));
 var tfidf = new TfIdf();
-tfidf.addFileSync('data_files/one.txt');
-tfidf.addFileSync('data_files/two.txt');
-tfidf.addDocument('this document is about node.');
-tfidf.addDocument('this document is about ruby.');
-tfidf.addDocument('this document is about ruby and node.');
+tfidf.addFileSync("data_files/one.txt");
+tfidf.addFileSync("data_files/two.txt");
+tfidf.addDocument("this document is about node.");
+tfidf.addDocument("this document is about ruby.");
+tfidf.addDocument("this document is about ruby and node.");
 
-tfidf.tfidfs('node ruby', function (i, measure) {
-    console.log('document #' + i + ' is ' + measure);
+tfidf.tfidfs("node ruby", function(i, measure) {
+    console.log("document #" + i + " is " + measure);
 });
-tfidf.addDocument(['document', 'about', 'node']);
-tfidf.addDocument(['document', 'about', 'ruby']);
-tfidf.addDocument(['document', 'about', 'ruby', 'node']);
-tfidf.addDocument(['document', 'about', 'node', 'node', 'examples']);
+tfidf.addDocument(["document", "about", "node"]);
+tfidf.addDocument(["document", "about", "ruby"]);
+tfidf.addDocument(["document", "about", "ruby", "node"]);
+tfidf.addDocument(["document", "about", "node", "node", "examples"]);
 
-tfidf.tfidfs(['node', 'ruby'], function (i, measure) {
-    console.log('document #' + i + ' is ' + measure);
+tfidf.tfidfs(["node", "ruby"], function(i, measure) {
+    console.log("document #" + i + " is " + measure);
 });
-tfidf.listTerms(0 /*document index*/).forEach(function (item) {
-    console.log(item.term + ': ' + item.tfidf);
+tfidf.listTerms(0 /*document index*/).forEach(function(item) {
+    console.log(item.term + ": " + item.tfidf);
 });
 var tfidf = new TfIdf();
-tfidf.addDocument('document one', 'un');
-tfidf.addDocument('document Two', 'deux');
+tfidf.addDocument("document one", "un");
+tfidf.addDocument("document Two", "deux");
 var s = JSON.stringify(tfidf);
 // save "s" to disk, database or otherwise
 
@@ -211,24 +211,24 @@ var Trie = natural.Trie;
 var trie = new Trie();
 
 // Add one string at a time
-trie.addString('test');
+trie.addString("test");
 
 // Or add many strings
-trie.addStrings(['string1', 'string2', 'string3']);
-console.log(trie.contains('test')); // true
-console.log(trie.contains('asdf')); // false
-console.log(trie.findPrefix('tester')); // ['test', 'er']
-console.log(trie.findPrefix('string4')); // [null, '4']
-console.log(trie.findPrefix('string3')); // ['string3', '']
-trie.addString('tes');
-trie.addString('est');
-console.log(trie.findMatchesOnPath('tester')); // ['tes', 'test'];
-console.log(trie.keysWithPrefix('string')); // ["string1", "string2", "string3"]
-trie.contains('TEST'); // false
+trie.addStrings(["string1", "string2", "string3"]);
+console.log(trie.contains("test")); // true
+console.log(trie.contains("asdf")); // false
+console.log(trie.findPrefix("tester")); // ['test', 'er']
+console.log(trie.findPrefix("string4")); // [null, '4']
+console.log(trie.findPrefix("string3")); // ['string3', '']
+trie.addString("tes");
+trie.addString("est");
+console.log(trie.findMatchesOnPath("tester")); // ['tes', 'test'];
+console.log(trie.keysWithPrefix("string")); // ["string1", "string2", "string3"]
+trie.contains("TEST"); // false
 
 var ciTrie = new Trie(false);
-ciTrie.addString('test');
-ciTrie.contains('TEsT'); // true
+ciTrie.addString("test");
+ciTrie.contains("TEsT"); // true
 
 // Digraph
 
@@ -263,9 +263,9 @@ console.log(spt.pathTo(4));
 
 var wordnet = new natural.WordNet();
 
-wordnet.lookup('node', function (results) {
-    results.forEach(function (result) {
-        console.log('------------------------------------');
+wordnet.lookup("node", function(results) {
+    results.forEach(function(result) {
+        console.log("------------------------------------");
         console.log(result.synsetOffset);
         console.log(result.pos);
         console.log(result.lemma);
@@ -276,33 +276,33 @@ wordnet.lookup('node', function (results) {
 });
 var wordnet = new natural.WordNet();
 
-wordnet.get(4424418, 'n', function (result) {
-    console.log('------------------------------------');
+wordnet.get(4424418, "n", function(result) {
+    console.log("------------------------------------");
     console.log(result.lemma);
     console.log(result.pos);
     console.log(result.gloss);
     console.log(result.synonyms);
 });
-var wordnet = new natural.WordNet('/my/wordnet/dict');
+var wordnet = new natural.WordNet("/my/wordnet/dict");
 
 // Spellcheck
 
-var corpus = ['something', 'soothing'];
+var corpus = ["something", "soothing"];
 var spellcheck = new natural.Spellcheck(corpus);
-spellcheck.isCorrect('cat'); // false
-spellcheck.getCorrections('soemthing', 1); // ['something']
-spellcheck.getCorrections('soemthing', 2); // ['something', 'soothing']
+spellcheck.isCorrect("cat"); // false
+spellcheck.getCorrections("soemthing", 1); // ['something']
+spellcheck.getCorrections("soemthing", 2); // ['something', 'soothing']
 
 // POS Tagger
 
-var rulesFilename = 'fileName';
-var lexiconFilename = 'fileName';
-var defaultCategory = 'N';
+var rulesFilename = "fileName";
+var lexiconFilename = "fileName";
+var defaultCategory = "N";
 
 var lexicon = new natural.Lexicon(lexiconFilename, defaultCategory);
 var rules = new natural.RuleSet(rulesFilename);
 var tagger = new natural.BrillPOSTagger(lexicon, rules);
 
-var sentence = ['I', 'see', 'the', 'man', 'with', 'the', 'telescope'];
+var sentence = ["I", "see", "the", "man", "with", "the", "telescope"];
 var taggedSentence = tagger.tag(sentence);
 console.log(taggedSentence.taggedWords);

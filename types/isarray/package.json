@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/isarray",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/juliangruber/isarray"
+    ],
+    "devDependencies": {
+        "@types/isarray": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Claas Ahlrichs",
+            "githubUsername": "claasahl"
+        }
+    ]
+}

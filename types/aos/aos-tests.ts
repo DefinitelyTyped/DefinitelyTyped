@@ -16,7 +16,7 @@ const options: Aos.AosOptions = {
     easing: "ease-in-out-back",
     once: false,
     mirror: false,
-    anchorPlacement: "center-bottom"
+    anchorPlacement: "center-bottom",
 };
 
 Aos.init();

@@ -1,9 +1,3 @@
-// Type definitions for route-parser 0.1
-// Project: https://github.com/rcs/route-parser
-// Definitions by: Ian Ker-Seymer <https://github.com/ianks>, Bob Buehler <https://github.com/bobbuehler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare class Route<TParams extends {} = { [i: string]: any }> {
     /**
      * Represents a route
@@ -24,7 +18,7 @@ declare class Route<TParams extends {} = { [i: string]: any }> {
      * var route = new Route('/:one/:two')
      * route.match('/foo/bar/') // -> {one: 'foo', two: 'bar'}
      */
-    match(pathname: string): {[k in keyof TParams]: string} | false;
+    match(pathname: string): { [k in keyof TParams]: string } | false;
 
     /**
      * Reverse a route specification to a path, returning false if it can't be

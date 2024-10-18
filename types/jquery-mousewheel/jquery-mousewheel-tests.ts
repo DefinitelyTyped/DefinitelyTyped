@@ -1,18 +1,18 @@
-$('#my_elem').on('mousewheel', (event: JQueryMousewheel.JQueryMousewheelEventObject) => {
+$("#my_elem").on("mousewheel", (event: JQueryMousewheel.JQueryMousewheelEventObject) => {
     console.log(event.deltaX, event.deltaY, event.deltaFactor, event.deltaMode, event.absDelta);
 });
 
-$('#my_elem').mousewheel(event => {
+$("#my_elem").mousewheel(event => {
     console.log(event.deltaX, event.deltaY, event.deltaFactor, event.deltaMode, event.absDelta);
 });
 
-$('#my_elem').unmousewheel();
+$("#my_elem").unmousewheel();
 
 // $ExpectType number
-const lineHeight = $.event.special.mousewheel.getLineHeight($('#my_elem'));
+const lineHeight = $.event.special.mousewheel.getLineHeight($("#my_elem"));
 
 // $ExpectType number
-const pageHeight = $.event.special.mousewheel.getPageHeight($('#my_elem'));
+const pageHeight = $.event.special.mousewheel.getPageHeight($("#my_elem"));
 
 // $ExpectType boolean
 const adjustOldDeltas = $.event.special.mousewheel.settings.adjustOldDeltas;

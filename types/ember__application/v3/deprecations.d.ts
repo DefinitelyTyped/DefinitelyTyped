@@ -1,8 +1,8 @@
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface DeprecationOptions {
-  id: string;
-  until: string;
-  url?: string | undefined;
+    id: string;
+    until: string;
+    url?: string | undefined;
 }
 
 /**
@@ -12,7 +12,7 @@ interface DeprecationOptions {
 export function deprecate(
     message: string,
     test: boolean,
-    options: DeprecationOptions
+    options: DeprecationOptions,
 ): any;
 
 /**
@@ -21,5 +21,5 @@ export function deprecate(
 export function deprecateFunc<Func extends ((...args: any[]) => any)>(
     message: string,
     options: DeprecationOptions,
-    func: Func
+    func: Func,
 ): Func;

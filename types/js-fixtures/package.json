@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/js-fixtures",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/badunk/js-fixtures"
+    ],
+    "devDependencies": {
+        "@types/js-fixtures": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kazi Manzur Rashid",
+            "githubUsername": "kazimanzurrashid"
+        }
+    ]
+}

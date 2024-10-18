@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/apostrophe",
+    "version": "2.67.9999",
+    "projects": [
+        "https://github.com/apostrophecms/apostrophe#readme"
+    ],
+    "devDependencies": {
+        "@types/apostrophe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aaron Holderman",
+            "githubUsername": "afholderman"
+        }
+    ]
+}

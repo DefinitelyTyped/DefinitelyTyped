@@ -4,7 +4,7 @@ declare namespace _default {
     interface ParsingOptions {
         in?: {
             crs?: string;
-            dataType: 'float' | 'double';
+            dataType: "float" | "double";
         };
         out?: {};
     }

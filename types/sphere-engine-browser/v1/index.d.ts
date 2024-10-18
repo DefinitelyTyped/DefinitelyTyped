@@ -1,9 +1,3 @@
-// Type definitions for the non-npm package sphere-engine-browser/v1 1.5
-// Project: https://github.com/fatcerberus/miniSphere
-// Definitions by: Eggbertx <https://github.com/Eggbertx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 /*
  * Deprecated Sphere 1.x objects necessary for some functions
  * Most of the JSDoc comments have been copied/adapted from the old Sphere documentation

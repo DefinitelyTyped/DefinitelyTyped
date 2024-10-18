@@ -1,9 +1,4 @@
-// Type definitions for simple-react-lightbox 3.6
-// Project: https://github.com/michelecocuccio/simple-react-lightbox#readme
-// Definitions by: Guilherme Samuel <https://github.com/guilhermefront>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ReactNode } from 'react';
+import { JSX, ReactNode } from "react";
 
 /**
  * The object that lightbox uses for the elements array
@@ -212,7 +207,6 @@ export default function SimpleReactLightbox({ children }: { children: ReactNode 
  * `openLightbox` opens the lightbox and you can pass an argument which is the index of the slide you want to open (starting from 0).
  * If you don't provide any argument to the function, the lightbox will just open it from the first image. The second one is closeLightbox and you can use it to close the lightbox.
  * @see https://github.com/michelecocuccio/simple-react-lightbox#hooks
- *
  */
 
 export function useLightbox(): { openLightbox(index?: number): void; closeLightbox(): void };

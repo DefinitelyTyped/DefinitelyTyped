@@ -1,9 +1,3 @@
-// Type definitions for ranjs 1.22
-// Project: https://synesenom.github.io/ran/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 declare namespace core {
     function seed(value: number | string): void;
 
@@ -16,14 +10,14 @@ declare namespace core {
     function int(min: number, max: number, n: number): number[];
 
     function choice(): undefined;
-    function choice<T>(values: ReadonlyArray<T>): T;
-    function choice<T>(values: ReadonlyArray<T>, n: number): T[];
+    function choice<T>(values: readonly T[]): T;
+    function choice<T>(values: readonly T[], n: number): T[];
 
     function char(): undefined;
     function char(values: string): string;
     function char(values: string, n: number): string[];
 
-    function shuffle<T>(values: ReadonlyArray<T>): T[];
+    function shuffle<T>(values: readonly T[]): T[];
 
     function coin<T, U>(head: T, tail: U, p?: number): T | U;
     function coin<T, U>(head: T, tail: U, p: number, n: number): Array<T | U>;
@@ -36,7 +30,7 @@ declare namespace _dist {
     }
 
     interface Distribution<T> {
-        type(): 'discrete' | 'continuous';
+        type(): "discrete" | "continuous";
         support(): Array<{
             value: number;
             closed: boolean;
@@ -75,388 +69,388 @@ declare namespace dist {
     type State<T> = _dist.State<T>;
     type Distribution<T = any> = _dist.Distribution<T>;
 
-    class Alpha extends _dist.Distribution<'Alpha'> {
+    class Alpha extends _dist.Distribution<"Alpha"> {
         constructor(alpha?: number);
     }
-    class Anglit extends _dist.Distribution<'Anglit'> {}
-    class Arcsine extends _dist.Distribution<'Arcsine'> {
+    class Anglit extends _dist.Distribution<"Anglit"> {}
+    class Arcsine extends _dist.Distribution<"Arcsine"> {
         constructor(a?: number, b?: number);
     }
-    class BaldingNichols extends _dist.Distribution<'BaldingNichols'> {
+    class BaldingNichols extends _dist.Distribution<"BaldingNichols"> {
         constructor(F?: number, p?: number);
     }
-    class Bates extends _dist.Distribution<'Bates'> {
+    class Bates extends _dist.Distribution<"Bates"> {
         constructor(n?: number, a?: number, b?: number);
     }
-    class Benini extends _dist.Distribution<'Benini'> {
+    class Benini extends _dist.Distribution<"Benini"> {
         constructor(alpha?: number, beta?: number, sigma?: number);
     }
-    class BenktanderII extends _dist.Distribution<'BenktanderII'> {
+    class BenktanderII extends _dist.Distribution<"BenktanderII"> {
         constructor(a?: number, b?: number);
     }
-    class Bernoulli extends _dist.Distribution<'Bernoulli'> {
+    class Bernoulli extends _dist.Distribution<"Bernoulli"> {
         constructor(p?: number);
     }
-    class BetaBinomial extends _dist.Distribution<'BetaBinomial'> {
+    class BetaBinomial extends _dist.Distribution<"BetaBinomial"> {
         constructor(n?: number, alpha?: number, beta?: number);
     }
-    class BetaPrime extends _dist.Distribution<'BetaPrime'> {
+    class BetaPrime extends _dist.Distribution<"BetaPrime"> {
         constructor(alpha?: number, beta?: number);
     }
-    class BetaRectangular extends _dist.Distribution<'BetaRectangular'> {
+    class BetaRectangular extends _dist.Distribution<"BetaRectangular"> {
         constructor(alpha?: number, beta?: number, theta?: number, a?: number, b?: number);
     }
-    class Beta extends _dist.Distribution<'Beta'> {
+    class Beta extends _dist.Distribution<"Beta"> {
         constructor(alpha?: number, beta?: number);
     }
-    class Binomial extends _dist.Distribution<'Binomial'> {
+    class Binomial extends _dist.Distribution<"Binomial"> {
         constructor(n?: number, p?: number);
     }
-    class BirnbaumSaunders extends _dist.Distribution<'BirnbaumSaunders'> {
+    class BirnbaumSaunders extends _dist.Distribution<"BirnbaumSaunders"> {
         constructor(mu?: number, beta?: number, gamma?: number);
     }
-    class BorelTanner extends _dist.Distribution<'BorelTanner'> {
+    class BorelTanner extends _dist.Distribution<"BorelTanner"> {
         constructor(mu?: number, n?: number);
     }
-    class Borel extends _dist.Distribution<'Borel'> {
+    class Borel extends _dist.Distribution<"Borel"> {
         constructor(mu?: number);
     }
-    class BoundedPareto extends _dist.Distribution<'BoundedPareto'> {
+    class BoundedPareto extends _dist.Distribution<"BoundedPareto"> {
         constructor(L?: number, H?: number, alpha?: number);
     }
-    class Bradford extends _dist.Distribution<'Bradford'> {
+    class Bradford extends _dist.Distribution<"Bradford"> {
         constructor(c?: number);
     }
-    class Burr extends _dist.Distribution<'Burr'> {
+    class Burr extends _dist.Distribution<"Burr"> {
         constructor(c?: number, k?: number);
     }
-    class Categorical extends _dist.Distribution<'Categorical'> {
+    class Categorical extends _dist.Distribution<"Categorical"> {
         constructor(weights?: readonly number[], min?: number);
     }
-    class Cauchy extends _dist.Distribution<'Cauchy'> {
+    class Cauchy extends _dist.Distribution<"Cauchy"> {
         constructor(x0?: number, gamma?: number);
     }
-    class Chi extends _dist.Distribution<'Chi'> {
+    class Chi extends _dist.Distribution<"Chi"> {
         constructor(k?: number);
     }
-    class Chi2 extends _dist.Distribution<'Chi2'> {
+    class Chi2 extends _dist.Distribution<"Chi2"> {
         constructor(k?: number);
     }
-    class Dagum extends _dist.Distribution<'Dagum'> {
+    class Dagum extends _dist.Distribution<"Dagum"> {
         constructor(p?: number, a?: number, b?: number);
     }
-    class Degenerate extends _dist.Distribution<'Degenerate'> {
+    class Degenerate extends _dist.Distribution<"Degenerate"> {
         constructor(x0?: number);
     }
-    class Delaporte extends _dist.Distribution<'Delaporte'> {
+    class Delaporte extends _dist.Distribution<"Delaporte"> {
         constructor(alpha?: number, beta?: number, lambda?: number);
     }
-    class DiscreteUniform extends _dist.Distribution<'DiscreteUniform'> {
+    class DiscreteUniform extends _dist.Distribution<"DiscreteUniform"> {
         constructor(xmin?: number, xmax?: number);
     }
-    class DiscreteWeibull extends _dist.Distribution<'DiscreteWeibull'> {
+    class DiscreteWeibull extends _dist.Distribution<"DiscreteWeibull"> {
         constructor(q?: number, beta?: number);
     }
-    class DoubleGamma extends _dist.Distribution<'DoubleGamma'> {
+    class DoubleGamma extends _dist.Distribution<"DoubleGamma"> {
         constructor(alpha?: number, beta?: number);
     }
-    class DoubleWeibull extends _dist.Distribution<'DoubleWeibull'> {
+    class DoubleWeibull extends _dist.Distribution<"DoubleWeibull"> {
         constructor(lambda?: number, k?: number);
     }
-    class DoublyNoncentralBeta extends _dist.Distribution<'DoublyNoncentralBeta'> {
+    class DoublyNoncentralBeta extends _dist.Distribution<"DoublyNoncentralBeta"> {
         constructor(alpha?: number, meta?: number, lambda1?: number, lambda2?: number);
     }
-    class DoublyNoncentralF extends _dist.Distribution<'DoublyNoncentralF'> {
+    class DoublyNoncentralF extends _dist.Distribution<"DoublyNoncentralF"> {
         constructor(d1?: number, d2?: number, lambda1?: number, lambda2?: number);
     }
-    class DoublyNoncentralT extends _dist.Distribution<'DoublyNoncentralT'> {
+    class DoublyNoncentralT extends _dist.Distribution<"DoublyNoncentralT"> {
         constructor(nu?: number, mu?: number, theta?: number);
     }
-    class Erlang extends _dist.Distribution<'Erlang'> {
+    class Erlang extends _dist.Distribution<"Erlang"> {
         constructor(k?: number, lambda?: number);
     }
-    class ExponentialLogarithmic extends _dist.Distribution<'ExponentialLogarithmic'> {
+    class ExponentialLogarithmic extends _dist.Distribution<"ExponentialLogarithmic"> {
         constructor(p?: number, beta?: number);
     }
-    class Exponential extends _dist.Distribution<'Exponential'> {
+    class Exponential extends _dist.Distribution<"Exponential"> {
         constructor(lambda?: number);
     }
-    class F extends _dist.Distribution<'F'> {
+    class F extends _dist.Distribution<"F"> {
         constructor(d1?: number, d2?: number);
     }
-    class FlorySchulz extends _dist.Distribution<'FlorySchulz'> {
+    class FlorySchulz extends _dist.Distribution<"FlorySchulz"> {
         constructor(a?: number);
     }
-    class Frechet extends _dist.Distribution<'Frechet'> {
+    class Frechet extends _dist.Distribution<"Frechet"> {
         constructor(alpha?: number, s?: number, m?: number);
     }
-    class FisherZ extends _dist.Distribution<'FisherZ'> {
+    class FisherZ extends _dist.Distribution<"FisherZ"> {
         constructor(d1?: number, d2?: number);
     }
-    class Gamma extends _dist.Distribution<'Gamma'> {
+    class Gamma extends _dist.Distribution<"Gamma"> {
         constructor(alpha?: number, beta?: number);
     }
-    class GammaGompertz extends _dist.Distribution<'GammaGompertz'> {
+    class GammaGompertz extends _dist.Distribution<"GammaGompertz"> {
         constructor(b?: number, s?: number, beta?: number);
     }
-    class GeneralizedExponential extends _dist.Distribution<'GeneralizedExponential'> {
+    class GeneralizedExponential extends _dist.Distribution<"GeneralizedExponential"> {
         constructor(a?: number, b?: number, c?: number);
     }
-    class GeneralizedExtremeValue extends _dist.Distribution<'GeneralizedExtremeValue'> {
+    class GeneralizedExtremeValue extends _dist.Distribution<"GeneralizedExtremeValue"> {
         constructor(c?: number);
     }
-    class GeneralizedGamma extends _dist.Distribution<'GeneralizedGamma'> {
+    class GeneralizedGamma extends _dist.Distribution<"GeneralizedGamma"> {
         constructor(a?: number, d?: number, p?: number);
     }
-    class GeneralizedHermite extends _dist.Distribution<'GeneralizedHermite'> {
+    class GeneralizedHermite extends _dist.Distribution<"GeneralizedHermite"> {
         constructor(a1?: number, am?: number, m?: number);
     }
-    class GeneralizedLogistic extends _dist.Distribution<'GeneralizedLogistic'> {
+    class GeneralizedLogistic extends _dist.Distribution<"GeneralizedLogistic"> {
         constructor(mu?: number, s?: number, c?: number);
     }
-    class GeneralizedNormal extends _dist.Distribution<'GeneralizedNormal'> {
+    class GeneralizedNormal extends _dist.Distribution<"GeneralizedNormal"> {
         constructor(mu?: number, alpha?: number, beta?: number);
     }
-    class GeneralizedPareto extends _dist.Distribution<'GeneralizedPareto'> {
+    class GeneralizedPareto extends _dist.Distribution<"GeneralizedPareto"> {
         constructor(mu?: number, sigma?: number, xi?: number);
     }
-    class Geometric extends _dist.Distribution<'Geometric'> {
+    class Geometric extends _dist.Distribution<"Geometric"> {
         constructor(p?: number);
     }
-    class Gilbrat extends _dist.Distribution<'Gilbrat'> {
+    class Gilbrat extends _dist.Distribution<"Gilbrat"> {
         constructor();
     }
-    class Gompertz extends _dist.Distribution<'Gompertz'> {
+    class Gompertz extends _dist.Distribution<"Gompertz"> {
         constructor(eta?: number, beta?: number);
     }
-    class Gumbel extends _dist.Distribution<'Gumbel'> {
+    class Gumbel extends _dist.Distribution<"Gumbel"> {
         constructor(mu?: number, beta?: number);
     }
-    class HalfGeneralizedNormal extends _dist.Distribution<'HalfGeneralizedNormal'> {
+    class HalfGeneralizedNormal extends _dist.Distribution<"HalfGeneralizedNormal"> {
         constructor(alpha?: number, beta?: number);
     }
-    class HalfLogistic extends _dist.Distribution<'HalfLogistic'> {
+    class HalfLogistic extends _dist.Distribution<"HalfLogistic"> {
         constructor();
     }
-    class HalfNormal extends _dist.Distribution<'HalfNormal'> {
+    class HalfNormal extends _dist.Distribution<"HalfNormal"> {
         constructor(sigma?: number);
     }
-    class HeadsMinusTails extends _dist.Distribution<'HeadsMinusTails'> {
+    class HeadsMinusTails extends _dist.Distribution<"HeadsMinusTails"> {
         constructor(n?: number);
     }
-    class Hoyt extends _dist.Distribution<'Hoyt'> {
+    class Hoyt extends _dist.Distribution<"Hoyt"> {
         constructor(q?: number, omega?: number);
     }
-    class HyperbolicSecant extends _dist.Distribution<'HyperbolicSecant'> {
+    class HyperbolicSecant extends _dist.Distribution<"HyperbolicSecant"> {
         constructor();
     }
-    class Hyperexponential extends _dist.Distribution<'Hyperexponential'> {
+    class Hyperexponential extends _dist.Distribution<"Hyperexponential"> {
         constructor(parameters?: Array<{ weight: number; rate: number }>);
     }
-    class Hypergeometric extends _dist.Distribution<'Hypergeometric'> {
+    class Hypergeometric extends _dist.Distribution<"Hypergeometric"> {
         constructor(N?: number, K?: number, n?: number);
     }
-    class InverseChi2 extends _dist.Distribution<'InverseChi'> {
+    class InverseChi2 extends _dist.Distribution<"InverseChi"> {
         constructor(nu?: number);
     }
-    class InverseGamma extends _dist.Distribution<'InverseGamma'> {
+    class InverseGamma extends _dist.Distribution<"InverseGamma"> {
         constructor(alpha?: number, beta?: number);
     }
-    class InverseGaussian extends _dist.Distribution<'InverseGaussian'> {
+    class InverseGaussian extends _dist.Distribution<"InverseGaussian"> {
         constructor(mu?: number, lambda?: number);
     }
-    class InvertedWeibull extends _dist.Distribution<'InvertedWeibull'> {
+    class InvertedWeibull extends _dist.Distribution<"InvertedWeibull"> {
         constructor(c?: number);
     }
-    class IrwinHall extends _dist.Distribution<'IrwinHall'> {
+    class IrwinHall extends _dist.Distribution<"IrwinHall"> {
         constructor(n?: number);
     }
-    class JohnsonSB extends _dist.Distribution<'JohnsonSB'> {
+    class JohnsonSB extends _dist.Distribution<"JohnsonSB"> {
         constructor(gamma?: number, delta?: number, lambda?: number, xi?: number);
     }
-    class JohnsonSU extends _dist.Distribution<'JohnsonSU'> {
+    class JohnsonSU extends _dist.Distribution<"JohnsonSU"> {
         constructor(gamma?: number, delta?: number, lambda?: number, xi?: number);
     }
-    class Kumaraswamy extends _dist.Distribution<'Kumaraswamy'> {
+    class Kumaraswamy extends _dist.Distribution<"Kumaraswamy"> {
         constructor(alpha?: number, beta?: number);
     }
-    class Laplace extends _dist.Distribution<'Laplace'> {
+    class Laplace extends _dist.Distribution<"Laplace"> {
         constructor(mu?: number, b?: number);
     }
-    class Levy extends _dist.Distribution<'Levy'> {
+    class Levy extends _dist.Distribution<"Levy"> {
         constructor(mu?: number, c?: number);
     }
-    class Lindley extends _dist.Distribution<'Lindley'> {
+    class Lindley extends _dist.Distribution<"Lindley"> {
         constructor(theta?: number);
     }
-    class Logarithmic extends _dist.Distribution<'Logarithmic'> {
+    class Logarithmic extends _dist.Distribution<"Logarithmic"> {
         constructor(a?: number, b?: number);
     }
-    class LogCauchy extends _dist.Distribution<'LogCauchy'> {
+    class LogCauchy extends _dist.Distribution<"LogCauchy"> {
         constructor(mu?: number, sigma?: number);
     }
-    class LogGamma extends _dist.Distribution<'LogGamma'> {
+    class LogGamma extends _dist.Distribution<"LogGamma"> {
         constructor(alpha?: number, beta?: number, mu?: number);
     }
-    class Logistic extends _dist.Distribution<'Logistic'> {
+    class Logistic extends _dist.Distribution<"Logistic"> {
         constructor(mu?: number, s?: number);
     }
-    class LogisticExponential extends _dist.Distribution<'LogisticExponential'> {
+    class LogisticExponential extends _dist.Distribution<"LogisticExponential"> {
         constructor(lambda?: number, kappa?: number);
     }
-    class LogitNormal extends _dist.Distribution<'LogitNormal'> {
+    class LogitNormal extends _dist.Distribution<"LogitNormal"> {
         constructor(mu?: number, sigma?: number);
     }
-    class LogLaplace extends _dist.Distribution<'LogLaplace'> {
+    class LogLaplace extends _dist.Distribution<"LogLaplace"> {
         constructor(mu?: number, b?: number);
     }
-    class LogLogistic extends _dist.Distribution<'LogLogistic'> {
+    class LogLogistic extends _dist.Distribution<"LogLogistic"> {
         constructor(alpha?: number, beta?: number);
     }
-    class LogNormal extends _dist.Distribution<'LogNormal'> {
+    class LogNormal extends _dist.Distribution<"LogNormal"> {
         constructor(mu?: number, sigma?: number);
     }
-    class LogSeries extends _dist.Distribution<'LogSeries'> {
+    class LogSeries extends _dist.Distribution<"LogSeries"> {
         constructor(p?: number);
     }
-    class Lomax extends _dist.Distribution<'Lomax'> {
+    class Lomax extends _dist.Distribution<"Lomax"> {
         constructor(lambda?: number, alpha?: number);
     }
-    class Makeham extends _dist.Distribution<'Makeham'> {
+    class Makeham extends _dist.Distribution<"Makeham"> {
         constructor(alpha?: number, beta?: number, lambda?: number);
     }
-    class MaxwellBoltzmann extends _dist.Distribution<'MaxwellBoltzmann'> {
+    class MaxwellBoltzmann extends _dist.Distribution<"MaxwellBoltzmann"> {
         constructor(a?: number);
     }
-    class Mielke extends _dist.Distribution<'Mielke'> {
+    class Mielke extends _dist.Distribution<"Mielke"> {
         constructor(k?: number, s?: number);
     }
-    class Moyal extends _dist.Distribution<'Moyal'> {
+    class Moyal extends _dist.Distribution<"Moyal"> {
         constructor(mu?: number, sigma?: number);
     }
-    class Nakagami extends _dist.Distribution<'Nakagami'> {
+    class Nakagami extends _dist.Distribution<"Nakagami"> {
         constructor(m?: number, omega?: number);
     }
-    class NegativeBinomial extends _dist.Distribution<'NegativeBinomial'> {
+    class NegativeBinomial extends _dist.Distribution<"NegativeBinomial"> {
         constructor(r?: number, p?: number);
     }
-    class NegativeHypergeometric extends _dist.Distribution<'NegativeHypergeometric'> {
+    class NegativeHypergeometric extends _dist.Distribution<"NegativeHypergeometric"> {
         constructor(N?: number, K?: number, r?: number);
     }
-    class NeymanA extends _dist.Distribution<'NeymanA'> {
+    class NeymanA extends _dist.Distribution<"NeymanA"> {
         constructor(lambda?: number, theta?: number);
     }
-    class NoncentralBeta extends _dist.Distribution<'NoncentralBeta'> {
+    class NoncentralBeta extends _dist.Distribution<"NoncentralBeta"> {
         constructor(alpha?: number, beta?: number, lambda?: number);
     }
-    class NoncentralChi extends _dist.Distribution<'NoncentralChi'> {
+    class NoncentralChi extends _dist.Distribution<"NoncentralChi"> {
         constructor(k?: number, lambda?: number);
     }
-    class NoncentralChi2 extends _dist.Distribution<'NoncentralChi'> {
+    class NoncentralChi2 extends _dist.Distribution<"NoncentralChi"> {
         constructor(k?: number, lambda?: number);
     }
-    class NoncentralF extends _dist.Distribution<'NoncentralF'> {
+    class NoncentralF extends _dist.Distribution<"NoncentralF"> {
         constructor(d1?: number, d2?: number, lambda?: number);
     }
-    class NoncentralT extends _dist.Distribution<'NoncentralT'> {
+    class NoncentralT extends _dist.Distribution<"NoncentralT"> {
         constructor(nu?: number, mu?: number);
 
         static fnm(nu: number, mu: number, x: number): number;
     }
-    class Normal extends _dist.Distribution<'Normal'> {
+    class Normal extends _dist.Distribution<"Normal"> {
         constructor(mu?: number, sigma?: number);
     }
-    class Pareto extends _dist.Distribution<'Pareto'> {
+    class Pareto extends _dist.Distribution<"Pareto"> {
         constructor(xmin?: number, alpha?: number);
     }
-    class PERT extends _dist.Distribution<'PERT'> {
+    class PERT extends _dist.Distribution<"PERT"> {
         constructor(a?: number, b?: number, c?: number);
     }
-    class Poisson extends _dist.Distribution<'Poisson'> {
+    class Poisson extends _dist.Distribution<"Poisson"> {
         constructor(lambda?: number);
     }
-    class PolyaAeppli extends _dist.Distribution<'PolyaAeppli'> {
+    class PolyaAeppli extends _dist.Distribution<"PolyaAeppli"> {
         constructor(lambda?: number, theta?: number);
     }
-    class Power extends _dist.Distribution<'Power'> {
+    class Power extends _dist.Distribution<"Power"> {
         constructor(a?: number);
     }
-    class QExponential extends _dist.Distribution<'QExponential'> {
+    class QExponential extends _dist.Distribution<"QExponential"> {
         constructor(q?: number, lambda?: number);
     }
-    class R extends _dist.Distribution<'R'> {
+    class R extends _dist.Distribution<"R"> {
         constructor(c?: number);
     }
-    class Rademacher extends _dist.Distribution<'Rademacher'> {
+    class Rademacher extends _dist.Distribution<"Rademacher"> {
         constructor();
     }
-    class RaisedCosine extends _dist.Distribution<'RaisedCosine'> {
+    class RaisedCosine extends _dist.Distribution<"RaisedCosine"> {
         constructor(mu?: number, s?: number);
     }
-    class Rayleigh extends _dist.Distribution<'Rayleigh'> {
+    class Rayleigh extends _dist.Distribution<"Rayleigh"> {
         constructor(sigma?: number);
     }
-    class Reciprocal extends _dist.Distribution<'Reciprocal'> {
+    class Reciprocal extends _dist.Distribution<"Reciprocal"> {
         constructor(a?: number, b?: number);
     }
-    class ReciprocalInverseGaussian extends _dist.Distribution<'ReciprocalInverseGaussian'> {
+    class ReciprocalInverseGaussian extends _dist.Distribution<"ReciprocalInverseGaussian"> {
         constructor(mu?: number, lambda?: number);
     }
-    class Rice extends _dist.Distribution<'Rice'> {
+    class Rice extends _dist.Distribution<"Rice"> {
         constructor(nu?: number, sigma?: number);
     }
-    class ShiftedLogLogistic extends _dist.Distribution<'ShiftedLogLogistic'> {
+    class ShiftedLogLogistic extends _dist.Distribution<"ShiftedLogLogistic"> {
         constructor(mu?: number, sigma?: number, xi?: number);
     }
-    class Skellam extends _dist.Distribution<'Skellam'> {
+    class Skellam extends _dist.Distribution<"Skellam"> {
         constructor(mu1?: number, mu2?: number);
     }
-    class SkewNormal extends _dist.Distribution<'SkewNormal'> {
+    class SkewNormal extends _dist.Distribution<"SkewNormal"> {
         constructor(xi?: number, omega?: number, alpha?: number);
     }
-    class Slash extends _dist.Distribution<'Slash'> {
+    class Slash extends _dist.Distribution<"Slash"> {
         constructor();
     }
-    class Soliton extends _dist.Distribution<'Soliton'> {
+    class Soliton extends _dist.Distribution<"Soliton"> {
         constructor(N?: number);
     }
-    class StudentT extends _dist.Distribution<'StudentT'> {
+    class StudentT extends _dist.Distribution<"StudentT"> {
         constructor(nu?: number);
     }
-    class StudentZ extends _dist.Distribution<'StudentZ'> {
+    class StudentZ extends _dist.Distribution<"StudentZ"> {
         constructor(n?: number);
     }
-    class Trapezoidal extends _dist.Distribution<'Trapezoidal'> {
+    class Trapezoidal extends _dist.Distribution<"Trapezoidal"> {
         constructor(a?: number, b?: number, c?: number, d?: number);
     }
-    class Triangular extends _dist.Distribution<'Triangular'> {
+    class Triangular extends _dist.Distribution<"Triangular"> {
         constructor(a?: number, b?: number, c?: number);
     }
-    class TukeyLambda extends _dist.Distribution<'TukeyLambda'> {
+    class TukeyLambda extends _dist.Distribution<"TukeyLambda"> {
         constructor(lambda?: number);
     }
-    class Uniform extends _dist.Distribution<'Uniform'> {
+    class Uniform extends _dist.Distribution<"Uniform"> {
         constructor(xmin?: number, xmax?: number);
     }
-    class UQuadratic extends _dist.Distribution<'UQuadratic'> {
+    class UQuadratic extends _dist.Distribution<"UQuadratic"> {
         constructor(a?: number, b?: number);
     }
-    class VonMises extends _dist.Distribution<'VonMises'> {
+    class VonMises extends _dist.Distribution<"VonMises"> {
         constructor(kappa?: number);
     }
-    class Weibull extends _dist.Distribution<'Weibull'> {
+    class Weibull extends _dist.Distribution<"Weibull"> {
         constructor(lambda?: number, k?: number);
     }
-    class Wigner extends _dist.Distribution<'Wigner'> {
+    class Wigner extends _dist.Distribution<"Wigner"> {
         constructor(R?: number);
     }
-    class YuleSimon extends _dist.Distribution<'YuleSimon'> {
+    class YuleSimon extends _dist.Distribution<"YuleSimon"> {
         constructor(rho?: number);
     }
-    class Zeta extends _dist.Distribution<'Zeta'> {
+    class Zeta extends _dist.Distribution<"Zeta"> {
         constructor(s?: number);
     }
-    class Zipf extends _dist.Distribution<'Zipf'> {
+    class Zipf extends _dist.Distribution<"Zipf"> {
         constructor(s?: number, N?: number);
     }
 }
@@ -478,7 +472,7 @@ declare namespace la {
     }
 
     class Matrix {
-        constructor(arg?: number | ReadonlyArray<ReadonlyArray<number>> | Matrix);
+        constructor(arg?: number | ReadonlyArray<readonly number[]> | Matrix);
 
         m(): number[][];
 
@@ -525,7 +519,7 @@ declare namespace mc {
     type State = _mc.State;
     type MCMC = _mc.MCMC;
 
-    function gr(samples: ReadonlyArray<ReadonlyArray<ReadonlyArray<number>>>, maxLength?: number): number[][];
+    function gr(samples: ReadonlyArray<ReadonlyArray<readonly number[]>>, maxLength?: number): number[][];
 
     class RWM extends _mc.MCMC {
         constructor(
@@ -540,8 +534,8 @@ declare namespace mc {
 }
 
 declare namespace test {
-    function bartlett(dataSets: ReadonlyArray<ReadonlyArray<number>>, alpha: number): { chi2: number; passed: boolean };
-    function mannWhitney(dataSets: ReadonlyArray<ReadonlyArray<number>>, alpha: number): { U: number; passed: boolean };
+    function bartlett(dataSets: ReadonlyArray<readonly number[]>, alpha: number): { chi2: number; passed: boolean };
+    function mannWhitney(dataSets: ReadonlyArray<readonly number[]>, alpha: number): { U: number; passed: boolean };
 }
 
 declare namespace _ts {

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package webos-service 0.4
-// Project: https://github.com/webosose/nodejs-module-webos-service
-// Definitions by: Alexandre Macabies <https://github.com/zopieux>
-//                 Piotr Dobrowolski <https://github.com/informatic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace WebosService;
 
 import { ActivityManager } from "./activity-manager";

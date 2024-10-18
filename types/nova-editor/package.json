@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/nova-editor",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "nova-editor",
+    "projects": [
+        "https://novadocs.panic.com"
+    ],
+    "dependencies": {
+        "@types/nova-editor-node": "*"
+    },
+    "devDependencies": {
+        "@types/nova-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cameron Little",
+            "githubUsername": "apexskier"
+        }
+    ]
+}

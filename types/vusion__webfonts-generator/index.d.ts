@@ -1,31 +1,29 @@
-// Type definitions for webfonts-generator 0.8
-// Project: https://github.com/vusion/webfonts-generator
-// Definitions by: atlowChemi <https://github.com/atlowChemi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as Handlebars from 'handlebars';
+import * as Handlebars from "handlebars";
 
-declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontTypes = 'woff2' | 'woff' | 'eot'>(
+declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontTypes = "woff2" | "woff" | "eot">(
     options: WebfontsGenerator.WebfontsGeneratorOptions<T>,
-    done: (err: Error | undefined, res: Pick<WebfontsGenerator.WebfontsGeneratorResult<T>, T | 'generateCss' | 'generateHtml'>) => void,
+    done: (
+        err: Error | undefined,
+        res: Pick<WebfontsGenerator.WebfontsGeneratorResult<T>, T | "generateCss" | "generateHtml">,
+    ) => void,
 ): void;
 
 declare namespace WebfontsGenerator {
-    type GeneratedFontTypes = 'eot' | 'svg' | 'ttf' | 'woff' | 'woff2';
+    type GeneratedFontTypes = "eot" | "svg" | "ttf" | "woff" | "woff2";
 
-    type CSSTemplateContext = WebfontsGeneratorOptions<any>['templateOptions'] & {
+    type CSSTemplateContext = WebfontsGeneratorOptions<any>["templateOptions"] & {
         fontName: string;
         src: string;
-        codepoints: { [name: string]: string; };
+        codepoints: { [name: string]: string };
     };
 
-    type HTMLTemplateContext = WebfontsGeneratorOptions<any>['templateOptions'] & {
+    type HTMLTemplateContext = WebfontsGeneratorOptions<any>["templateOptions"] & {
         names?: string[];
         fontName: string;
         styles: string;
-        codepoints: WebfontsGeneratorOptions<any>['codepoints'];
+        codepoints: WebfontsGeneratorOptions<any>["codepoints"];
     };
 
     interface TemplateOptions {
@@ -79,7 +77,11 @@ declare namespace WebfontsGenerator {
          */
         cssTemplate?: string;
         /** Add parameters or helper to your template. */
-        cssContext?(context: CSSTemplateContext, options: WebfontsGeneratorOptions<T>, handlebars: typeof Handlebars): void;
+        cssContext?(
+            context: CSSTemplateContext,
+            options: WebfontsGeneratorOptions<T>,
+            handlebars: typeof Handlebars,
+        ): void;
         /**
          * Fonts path used in CSS file.
          * @default options.destCss
@@ -110,7 +112,11 @@ declare namespace WebfontsGenerator {
          */
         htmlTemplate?: string;
         /** Add parameters or helper to your template. */
-        htmlContext?(context: HTMLTemplateContext, options: WebfontsGeneratorOptions<T>, handlebars: typeof Handlebars): void;
+        htmlContext?(
+            context: HTMLTemplateContext,
+            options: WebfontsGeneratorOptions<T>,
+            handlebars: typeof Handlebars,
+        ): void;
         /** Additional options for CSS & HTML templates, that extends default options. */
         templateOptions?: TemplateOptions;
         /**

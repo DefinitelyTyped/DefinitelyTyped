@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-uri",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Kikobeats/parse-uri"
+    ],
+    "devDependencies": {
+        "@types/parse-uri": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

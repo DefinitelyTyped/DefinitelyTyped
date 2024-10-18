@@ -1,4 +1,4 @@
-import * as disposable from 'disposable-email';
+import * as disposable from "disposable-email";
 
-disposable.validate('');
-disposable.validate('', (error, isValid) => {});
+disposable.validate("");
+disposable.validate("", (error, isValid) => {});

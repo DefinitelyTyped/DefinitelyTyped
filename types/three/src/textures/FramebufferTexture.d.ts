@@ -1,5 +1,5 @@
-import { Texture } from './Texture.js';
-import { MagnificationTextureFilter, MinificationTextureFilter } from '../constants.js';
+import { MagnificationTextureFilter, MinificationTextureFilter } from "../constants.js";
+import { Texture } from "./Texture.js";
 
 /**
  * This class can only be used in combination with {@link THREE.WebGLRenderer.copyFramebufferToTexture | WebGLRenderer.copyFramebufferToTexture()}.
@@ -21,7 +21,7 @@ import { MagnificationTextureFilter, MinificationTextureFilter } from '../consta
  * renderer.render( scene, camera );
  *
  * // copy part of the rendered frame into the framebuffer texture
- * renderer.copyFramebufferToTexture( vector, frameTexture );
+ * renderer.copyFramebufferToTexture( frameTexture, vector );
  * ```
  * @see Example: {@link https://threejs.org/examples/#webgl_framebuffer_texture | webgl_framebuffer_texture}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/FramebufferTexture | Official Documentation}

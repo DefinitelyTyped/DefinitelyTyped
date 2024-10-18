@@ -1,6 +1,6 @@
-import duplexTo = require('duplex-to');
-import { Readable, Stream, Writable } from 'stream';
-import * as readableStream from 'readable-stream';
+import duplexTo = require("duplex-to");
+import * as readableStream from "readable-stream";
+import { Readable, Stream, Writable } from "stream";
 
 function testBuiltIn() {
     const duplex: Stream = <any> {};

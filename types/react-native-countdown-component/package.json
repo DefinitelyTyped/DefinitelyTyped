@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-countdown-component",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/talalmajali/react-native-countdown-component"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-countdown-component": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tamir Kfir",
+            "githubUsername": "ktamir"
+        }
+    ]
+}

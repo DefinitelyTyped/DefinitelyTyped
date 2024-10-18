@@ -1,21 +1,10 @@
-// Type definitions for ssh2 1.11
-// Project: https://github.com/mscdex/ssh2
-// Definitions by: Qubo <https://github.com/tkQubo>
-//                 Ron Buckton <https://github.com/rbuckton>
-//                 Will Boyce <https://github.com/wrboyce>
-//                 Tom Xu <https://github.com/hengkx>
-//                 Leo Toneff <https://github.com/bragle>
-//                 Lucian Buzzo <https://github.com/LucianBuzzo>
-//                 Dan Hensby <https://github.com/dhensby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Duplex, Writable, Readable, ReadableOptions, WritableOptions } from 'stream';
-import { EventEmitter } from 'events';
-import { Socket, Server as NetServer } from 'net';
-import { Agent as BaseHTTPAgent, AgentOptions } from 'http';
-import { Agent as BaseHTTPSAgent } from 'https';
+import { EventEmitter } from "events";
+import { Agent as BaseHTTPAgent, AgentOptions } from "http";
+import { Agent as BaseHTTPSAgent } from "https";
+import { Server as NetServer, Socket } from "net";
+import { Duplex, Readable, ReadableOptions, Writable, WritableOptions } from "stream";
 
 export interface Prompt {
     prompt: string;
@@ -26,71 +15,71 @@ export interface Prompt {
  * Possible Key Exchange Algorithms
  */
 export type KexAlgorithm =
-    | 'curve25519-sha256'
-    | 'curve25519-sha256@libssh.org'
-    | 'ecdh-sha2-nistp256'
-    | 'ecdh-sha2-nistp384'
-    | 'ecdh-sha2-nistp521'
-    | 'diffie-hellman-group-exchange-sha256'
-    | 'diffie-hellman-group14-sha256'
-    | 'diffie-hellman-group15-sha512'
-    | 'diffie-hellman-group16-sha512'
-    | 'diffie-hellman-group17-sha512'
-    | 'diffie-hellman-group18-sha512'
-    | 'diffie-hellman-group-exchange-sha1'
-    | 'diffie-hellman-group14-sha1'
-    | 'diffie-hellman-group1-sha1';
+    | "curve25519-sha256"
+    | "curve25519-sha256@libssh.org"
+    | "ecdh-sha2-nistp256"
+    | "ecdh-sha2-nistp384"
+    | "ecdh-sha2-nistp521"
+    | "diffie-hellman-group-exchange-sha256"
+    | "diffie-hellman-group14-sha256"
+    | "diffie-hellman-group15-sha512"
+    | "diffie-hellman-group16-sha512"
+    | "diffie-hellman-group17-sha512"
+    | "diffie-hellman-group18-sha512"
+    | "diffie-hellman-group-exchange-sha1"
+    | "diffie-hellman-group14-sha1"
+    | "diffie-hellman-group1-sha1";
 
 export type ServerHostKeyAlgorithm =
-    | 'ssh-ed25519'
-    | 'ecdsa-sha2-nistp256'
-    | 'ecdsa-sha2-nistp384'
-    | 'ecdsa-sha2-nistp521'
-    | 'rsa-sha2-512'
-    | 'rsa-sha2-256'
-    | 'ssh-rsa'
-    | 'ssh-dss';
+    | "ssh-ed25519"
+    | "ecdsa-sha2-nistp256"
+    | "ecdsa-sha2-nistp384"
+    | "ecdsa-sha2-nistp521"
+    | "rsa-sha2-512"
+    | "rsa-sha2-256"
+    | "ssh-rsa"
+    | "ssh-dss";
 
-export type CompressionAlgorithm = 'none' | 'zlib' | 'zlib@openssh.com';
+export type CompressionAlgorithm = "none" | "zlib" | "zlib@openssh.com";
 
 export type CipherAlgorithm =
-    | 'chacha20-poly1305@openssh.com'
-    | 'aes128-gcm'
-    | 'aes128-gcm@openssh.com'
-    | 'aes256-gcm'
-    | 'aes256-gcm@openssh.com'
-    | 'aes128-ctr'
-    | 'aes192-ctr'
-    | 'aes256-ctr'
-    | 'aes256-cbc'
-    | 'aes192-cbc'
-    | 'aes128-cbc'
-    | 'blowfish-cbc'
-    | '3des-cbc'
-    | 'arcfour256'
-    | 'arcfour128'
-    | 'cast128-cbc'
-    | 'arcfour';
+    | "chacha20-poly1305@openssh.com"
+    | "aes128-gcm"
+    | "aes128-gcm@openssh.com"
+    | "aes256-gcm"
+    | "aes256-gcm@openssh.com"
+    | "aes128-ctr"
+    | "aes192-ctr"
+    | "aes256-ctr"
+    | "aes256-cbc"
+    | "aes192-cbc"
+    | "aes128-cbc"
+    | "blowfish-cbc"
+    | "3des-cbc"
+    | "arcfour256"
+    | "arcfour128"
+    | "cast128-cbc"
+    | "arcfour";
 
 export type MacAlgorithm =
-    | 'hmac-sha2-256-etm@openssh.com'
-    | 'hmac-sha2-512-etm@openssh.com'
-    | 'hmac-sha1-etm@openssh.com'
-    | 'hmac-sha2-256'
-    | 'hmac-sha2-512'
-    | 'hmac-sha1'
-    | 'hmac-md5'
-    | 'hmac-sha2-256-96'
-    | 'hmac-sha2-512-96'
-    | 'hmac-ripemd160'
-    | 'hmac-sha1-96'
-    | 'hmac-md5-96';
+    | "hmac-sha2-256-etm@openssh.com"
+    | "hmac-sha2-512-etm@openssh.com"
+    | "hmac-sha1-etm@openssh.com"
+    | "hmac-sha2-256"
+    | "hmac-sha2-512"
+    | "hmac-sha1"
+    | "hmac-md5"
+    | "hmac-sha2-256-96"
+    | "hmac-sha2-512-96"
+    | "hmac-ripemd160"
+    | "hmac-sha1-96"
+    | "hmac-md5-96";
 
 /**
  * Lists of supported algorithms can either be an ordered array of all supported algorithms,
  * OR a map of algorithms to manipulate the default list
  */
-export type AlgorithmList<T> = T[] | Record<'append' | 'prepend' | 'remove', T | T[]>;
+export type AlgorithmList<T> = T[] | Record<"append" | "prepend" | "remove", T | T[]>;
 
 /**
  * Overrides for the default transport layer algorithms used for the connection.
@@ -106,12 +95,12 @@ export interface Algorithms {
 }
 
 export type KeyType =
-    | 'ssh-rsa'
-    | 'ssh-dss'
-    | 'ssh-ed25519'
-    | 'ecdsa-sha2-nistp256'
-    | 'ecdsa-sha2-nistp384'
-    | 'ecdsa-sha2-nistp521';
+    | "ssh-rsa"
+    | "ssh-dss"
+    | "ssh-ed25519"
+    | "ecdsa-sha2-nistp256"
+    | "ecdsa-sha2-nistp384"
+    | "ecdsa-sha2-nistp521";
 
 export interface ParsedKey {
     type: KeyType;
@@ -159,10 +148,66 @@ export interface Header {
     greeting?: string;
 }
 
-export type OpenMode = 'r' | 'r+' | 'w' | 'wx' | 'xw' | 'w+' | 'xw+' | 'a' | 'ax' | 'xa' | 'a+' | 'ax+' | 'xa+';
+export type OpenMode = "r" | "r+" | "w" | "wx" | "xw" | "w+" | "xw+" | "a" | "ax" | "xa" | "a+" | "ax+" | "xa+";
 
 export namespace utils {
+    interface KeySettings {
+        rsa: {
+            bits: number;
+        };
+        ecdsa: {
+            bits: 256 | 384 | 521;
+        };
+        ed25519: {};
+    }
+
+    type KeyPairOptions =
+        & {
+            comment?: string;
+            /**
+             * As of now, ssh2 only supports the "new" format;
+             * Specifying this won't have any effect,
+             * as it's already the default behavior.
+             */
+            format?: "new";
+        }
+        & ({
+            passphrase: string | Buffer;
+            cipher: string;
+            rounds: number;
+        } | {});
+
+    type KeyType = keyof KeySettings;
+
+    /** All optional key types where their settings are optional */
+    type OptionalKeyType = {
+        [K in keyof KeySettings]: {} extends KeySettings[K] ? K : never;
+    }[keyof KeySettings];
+
+    interface KeyPairReturn {
+        private: string;
+        public: string;
+    }
+
     function parseKey(data: Buffer | string | ParsedKey, passphrase?: Buffer | string): ParsedKey | Error;
+
+    function generateKeyPair<K extends KeyType>(
+        keyType: K,
+        opts: KeySettings[K] & KeyPairOptions,
+        cb?: (err: Error | null, keyPair: KeyPairReturn) => void,
+    ): void;
+    function generateKeyPair<K extends OptionalKeyType>(
+        keyType: K,
+        opts?: KeySettings[K] & KeyPairOptions,
+        cb?: (err: Error | null, keyPair: KeyPairReturn) => void,
+    ): void;
+    function generateKeyPair(keyType: KeyType, cb: (err: Error | null, keyPair: KeyPairReturn) => void): void;
+
+    function generateKeyPairSync<K extends KeyType>(keyType: K, opts: KeySettings[K] & KeyPairOptions): KeyPairReturn;
+    function generateKeyPairSync<K extends OptionalKeyType>(
+        keyType: K,
+        opts?: KeySettings[K] & KeyPairOptions,
+    ): KeyPairReturn;
     namespace sftp {
         enum OPEN_MODE {
             READ = 0x00000001,
@@ -190,9 +235,9 @@ export namespace utils {
     }
 }
 
-export type ChannelType = 'session' | 'sftp' | 'direct-tcpip' | 'direct-streamlocal@openssh.com';
+export type ChannelType = "session" | "sftp" | "direct-tcpip" | "direct-streamlocal@openssh.com";
 
-export type ChannelSubType = 'exec' | 'shell';
+export type ChannelSubType = "exec" | "shell";
 
 export interface Channel extends Duplex {
     /** Standard input for the Channel. */
@@ -236,10 +281,14 @@ export interface Channel extends Duplex {
     /**
      * Emitted once the channel is completely closed on both the client and the server.
      */
-    on(event: 'close', listener: () => void): this;
-    on(event: 'eof', listener: () => void): this;
-    on(event: 'end', listener: () => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "eof", listener: () => void): this;
+    on(event: "end", listener: () => void): this;
     on(event: string | symbol, listener: Function): this;
+    once(event: "close", listener: () => void): this;
+    once(event: "eof", listener: () => void): this;
+    once(event: "end", listener: () => void): this;
+    once(event: string | symbol, listener: Function): this;
 }
 
 export interface ClientChannel extends Channel {
@@ -253,9 +302,12 @@ export interface ClientChannel extends Channel {
      * finishes. If the process finished normally, the process's return value is passed to
      * the `exit` callback.
      */
-    on(event: 'exit', listener: (code: number) => void): this;
-    on(event: 'exit', listener: (code: null, signal: string, dump: string, desc: string) => void): this;
+    on(event: "exit", listener: (code: number) => void): this;
+    on(event: "exit", listener: (code: null, signal: string, dump: string, desc: string) => void): this;
     on(event: string | symbol, listener: Function): this;
+    once(event: "exit", listener: (code: number) => void): this;
+    once(event: "exit", listener: (code: null, signal: string, dump: string, desc: string) => void): this;
+    once(event: string | symbol, listener: Function): this;
 }
 
 export interface ServerChannel extends Channel {
@@ -275,12 +327,12 @@ export class Client extends EventEmitter {
     /**
      * Emitted when a notice was sent by the server upon connection.
      */
-    on(event: 'banner', listener: (message: string) => void): this;
+    on(event: "banner", listener: (message: string) => void): this;
 
     /**
      * Emitted when authentication was successful.
      */
-    on(event: 'ready', listener: () => void): this;
+    on(event: "ready", listener: () => void): this;
 
     /**
      * Emitted when an incoming forwarded TCP connection is being requested.
@@ -289,7 +341,7 @@ export class Client extends EventEmitter {
      * Calling `reject()` rejects the connection and no further action is needed.
      */
     on(
-        event: 'tcp connection',
+        event: "tcp connection",
         listener: (
             details: TcpConnectionDetails,
             accept: AcceptConnection<ClientChannel>,
@@ -304,7 +356,7 @@ export class Client extends EventEmitter {
      * Calling `reject()` rejects the connection and no further action is needed.
      */
     on(
-        event: 'x11',
+        event: "x11",
         listener: (details: X11Details, accept: AcceptConnection<ClientChannel>, reject: RejectConnection) => void,
     ): this;
 
@@ -321,7 +373,7 @@ export class Client extends EventEmitter {
      * NOTE: It's possible for the server to come back and ask more questions.
      */
     on(
-        event: 'keyboard-interactive',
+        event: "keyboard-interactive",
         listener: (
             name: string,
             instructions: string,
@@ -337,53 +389,168 @@ export class Client extends EventEmitter {
      *
      * Call `done` with the new password.
      */
-    on(event: 'change password', listener: (message: string, done: ChangePasswordCallback) => void): this;
+    on(event: "change password", listener: (message: string, done: ChangePasswordCallback) => void): this;
 
     /**
      * Emitted when an error occurred.
      */
-    on(event: 'error', listener: (err: Error & ClientErrorExtensions) => void): this;
+    on(event: "error", listener: (err: Error & ClientErrorExtensions) => void): this;
 
     /**
      * Emitted when the socket was disconnected.
      */
-    on(event: 'end', listener: () => void): this;
+    on(event: "end", listener: () => void): this;
 
     /**
      * Emitted when the socket was closed.
      */
-    on(event: 'close', listener: () => void): this;
+    on(event: "close", listener: () => void): this;
 
     /**
      * Emitted when the socket has timed out.
      */
-    on(event: 'timeout', listener: () => void): this;
+    on(event: "timeout", listener: () => void): this;
 
     /**
      * Emitted when the socket has connected.
      */
-    on(event: 'connect', listener: () => void): this;
+    on(event: "connect", listener: () => void): this;
 
     /**
      * Emitted when the server responds with a greeting message.
      */
-    on(event: 'greeting', listener: (greeting: string) => void): this;
+    on(event: "greeting", listener: (greeting: string) => void): this;
 
     /**
      * Emitted when a handshake has completed (either initial or rekey).
      */
-    on(event: 'handshake', listener: (negotiated: NegotiatedAlgorithms) => void): this;
+    on(event: "handshake", listener: (negotiated: NegotiatedAlgorithms) => void): this;
 
     /**
      * Emitted when the server announces its available host keys.
      */
-    on(event: 'hostkeys', listener: (keys: ParsedKey[]) => void): this;
+    on(event: "hostkeys", listener: (keys: ParsedKey[]) => void): this;
 
     /**
      * An incoming forwarded UNIX socket connection is being requested.
      */
     on(
-        event: 'unix connection',
+        event: "unix connection",
+        listener: (info: UNIXConnectionDetails, accept: AcceptConnection, reject: RejectConnection) => void,
+    ): this;
+
+    /**
+     * Emitted when a notice was sent by the server upon connection.
+     */
+    once(event: "banner", listener: (message: string) => void): this;
+
+    /**
+     * Emitted when authentication was successful.
+     */
+    once(event: "ready", listener: () => void): this;
+
+    /**
+     * Emitted when an incoming forwarded TCP connection is being requested.
+     *
+     * Calling `accept()` accepts the connection and returns a `Channel` object.
+     * Calling `reject()` rejects the connection and no further action is needed.
+     */
+    once(
+        event: "tcp connection",
+        listener: (
+            details: TcpConnectionDetails,
+            accept: AcceptConnection<ClientChannel>,
+            reject: RejectConnection,
+        ) => void,
+    ): this;
+
+    /**
+     * Emitted when an incoming X11 connection is being requested.
+     *
+     * Calling `accept()` accepts the connection and returns a `Channel` object.
+     * Calling `reject()` rejects the connection and no further action is needed.
+     */
+    once(
+        event: "x11",
+        listener: (details: X11Details, accept: AcceptConnection<ClientChannel>, reject: RejectConnection) => void,
+    ): this;
+
+    /**
+     * Emitted when the server is asking for replies to the given `prompts` for keyboard-
+     * interactive user authentication.
+     *
+     * * `name` is generally what you'd use as a window title (for GUI apps).
+     * * `prompts` is an array of `Prompt` objects.
+     *
+     * The answers for all prompts must be provided as an array of strings and passed to
+     * `finish` when you are ready to continue.
+     *
+     * NOTE: It's possible for the server to come back and ask more questions.
+     */
+    once(
+        event: "keyboard-interactive",
+        listener: (
+            name: string,
+            instructions: string,
+            lang: string,
+            prompts: Prompt[],
+            finish: KeyboardInteractiveCallback,
+        ) => void,
+    ): this;
+
+    /**
+     * Emitted when the server has requested that the user's password be changed, if using
+     * password-based user authentication.
+     *
+     * Call `done` with the new password.
+     */
+    once(event: "change password", listener: (message: string, done: ChangePasswordCallback) => void): this;
+
+    /**
+     * Emitted when an error occurred.
+     */
+    once(event: "error", listener: (err: Error & ClientErrorExtensions) => void): this;
+
+    /**
+     * Emitted when the socket was disconnected.
+     */
+    once(event: "end", listener: () => void): this;
+
+    /**
+     * Emitted when the socket was closed.
+     */
+    once(event: "close", listener: () => void): this;
+
+    /**
+     * Emitted when the socket has timed out.
+     */
+    once(event: "timeout", listener: () => void): this;
+
+    /**
+     * Emitted when the socket has connected.
+     */
+    once(event: "connect", listener: () => void): this;
+
+    /**
+     * Emitted when the server responds with a greeting message.
+     */
+    once(event: "greeting", listener: (greeting: string) => void): this;
+
+    /**
+     * Emitted when a handshake has completed (either initial or rekey).
+     */
+    once(event: "handshake", listener: (negotiated: NegotiatedAlgorithms) => void): this;
+
+    /**
+     * Emitted when the server announces its available host keys.
+     */
+    once(event: "hostkeys", listener: (keys: ParsedKey[]) => void): this;
+
+    /**
+     * An incoming forwarded UNIX socket connection is being requested.
+     */
+    once(
+        event: "unix connection",
         listener: (info: UNIXConnectionDetails, accept: AcceptConnection, reject: RejectConnection) => void,
     ): this;
 
@@ -537,7 +704,7 @@ export type SyncHostVerifier = (key: Buffer) => boolean;
 export type HostFingerprintVerifier = (fingerprint: string, verify: VerifyCallback) => boolean;
 export type SyncHostFingerprintVerifier = (fingerprint: string) => boolean;
 export type DebugFunction = (message: string) => void;
-export type AuthenticationType = 'password' | 'publickey' | 'hostbased' | 'agent' | 'keyboard-interactive' | 'none';
+export type AuthenticationType = "password" | "publickey" | "hostbased" | "agent" | "keyboard-interactive" | "none";
 
 export interface ConnectConfig {
     /** Hostname or IP address of the server. */
@@ -605,14 +772,14 @@ export interface AuthMethod {
  * Strategy returned from the {@link ConnectConfig.authHandler} to connect without authentication.
  */
 export interface NoAuthMethod extends AuthMethod {
-    type: 'none';
+    type: "none";
 }
 
 /**
  * Strategy returned from the {@link ConnectConfig.authHandler} to connect with a password.
  */
 export interface PasswordAuthMethod extends AuthMethod {
-    type: 'password';
+    type: "password";
     password: string;
 }
 
@@ -620,7 +787,7 @@ export interface PasswordAuthMethod extends AuthMethod {
  * Strategy returned from the {@link ConnectConfig.authHandler} to connect with a public key.
  */
 export interface PublicKeyAuthMethod extends AuthMethod {
-    type: 'publickey';
+    type: "publickey";
     key: ParsedKey | Buffer | string;
     passphrase?: Buffer | string;
 }
@@ -629,7 +796,7 @@ export interface PublicKeyAuthMethod extends AuthMethod {
  * Strategy returned from the {@link ConnectConfig.authHandler} to connect with host-based authentication.
  */
 export interface HostBasedAuthMethod extends AuthMethod {
-    type: 'hostbased';
+    type: "hostbased";
     localHostname: string;
     localUsername: string;
     /**
@@ -646,7 +813,7 @@ export interface HostBasedAuthMethod extends AuthMethod {
  * Strategy returned from the {@link ConnectConfig.authHandler} to connect with an agent.
  */
 export interface AgentAuthMethod extends AuthMethod {
-    type: 'agent';
+    type: "agent";
     /**
      * Can be a string that is interpreted exactly like the `agent` connection config
      * option or can be a custom agent object/instance that extends and implements `BaseAgent`
@@ -658,7 +825,7 @@ export interface AgentAuthMethod extends AuthMethod {
  * Strategy returned from the {@link ConnectConfig.authHandler} to connect with an agent.
  */
 export interface KeyboardInteractiveAuthMethod extends AuthMethod {
-    type: 'keyboard-interactive';
+    type: "keyboard-interactive";
     /**
      * This works exactly the same way as a 'keyboard-interactive' client event handler
      */
@@ -762,8 +929,10 @@ export class Server extends NetServer {
     static KEEPALIVE_CLIENT_COUNT_MAX: number;
     constructor(cfg: ServerConfig, listener?: ServerConnectionListener);
     injectSocket(socket: Socket): void;
-    on(event: 'connection', listener: ServerConnectionListener): this;
+    on(event: "connection", listener: ServerConnectionListener): this;
     on(event: string | symbol, listener: Function): this;
+    once(event: "connection", listener: ServerConnectionListener): this;
+    once(event: string | symbol, listener: Function): this;
 }
 
 export interface ServerConfig {
@@ -809,24 +978,24 @@ export interface Connection extends EventEmitter {
     /**
      * Emitted when the client has requested authentication.
      */
-    on(event: 'authentication', listener: (context: AuthContext) => void): this;
+    on(event: "authentication", listener: (context: AuthContext) => void): this;
 
     /**
      * Emitted when the client has been successfully authenticated.
      */
-    on(event: 'ready', listener: () => void): this;
+    on(event: "ready", listener: () => void): this;
 
     /**
      * Emitted when the client has requested a new session.
      * Sessions are used to start interactive shells, execute commands, request X11 forwarding, etc.
      */
-    on(event: 'session', listener: (accept: AcceptConnection<Session>, reject: RejectConnection) => void): this;
+    on(event: "session", listener: (accept: AcceptConnection<Session>, reject: RejectConnection) => void): this;
 
     /**
      * Emitted when the client has requested an outbound (TCP) connection.
      */
     on(
-        event: 'tcpip',
+        event: "tcpip",
         listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: TcpipRequestInfo) => void,
     ): this;
 
@@ -834,7 +1003,7 @@ export interface Connection extends EventEmitter {
      * Emitted when the client has requested a connection to a UNIX domain socket.
      */
     on(
-        event: 'openssh.streamlocal',
+        event: "openssh.streamlocal",
         listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: SocketRequestInfo) => void,
     ): this;
 
@@ -843,11 +1012,11 @@ export interface Connection extends EventEmitter {
      * If info.bindPort === 0, you should pass the chosen port to accept so that the client will know what port was bound.
      */
     on(
-        event: 'request',
+        event: "request",
         listener: (
             accept: ((chosenPort?: number) => void) | undefined,
             reject: (() => void) | undefined,
-            name: 'tcpip-forward' | 'cancel-tcpip-forward',
+            name: "tcpip-forward" | "cancel-tcpip-forward",
             info: TcpipBindInfo,
         ) => void,
     ): this;
@@ -856,11 +1025,11 @@ export interface Connection extends EventEmitter {
      * Emitted when the client has sent a global request for name.
      */
     on(
-        event: 'request',
+        event: "request",
         listener: (
             accept: (() => void) | undefined,
             reject: () => void,
-            name: 'streamlocal-forward@openssh.com' | 'cancel-streamlocal-forward@openssh.com',
+            name: "streamlocal-forward@openssh.com" | "cancel-streamlocal-forward@openssh.com",
             info: SocketBindInfo,
         ) => void,
     ): this;
@@ -868,32 +1037,121 @@ export interface Connection extends EventEmitter {
     /**
      * Emitted when the client has finished rekeying (either client or server initiated).
      */
-    on(event: 'rekey', listener: () => void): this;
+    on(event: "rekey", listener: () => void): this;
 
     /**
      * Emitted when an error occurrs.
      */
-    on(event: 'error', listener: ErrorCallback): this;
+    on(event: "error", listener: ErrorCallback): this;
 
     /**
      * Emitted when the socket has disconnected.
      */
-    on(event: 'end', listener: () => void): this;
+    on(event: "end", listener: () => void): this;
 
     /**
      * Emitted when the client socket was closed.
      */
-    on(event: 'close', listener: () => void): this;
+    on(event: "close", listener: () => void): this;
 
     /**
      * Emitted when the Alogrithms have been negotiated; emitted every time there is a rekey
      */
-    on(event: 'handshake', listener: (negotiated: NegotiatedAlgorithms) => void): this;
+    on(event: "handshake", listener: (negotiated: NegotiatedAlgorithms) => void): this;
 
     /**
      * Emitted if the server sends a greeting header
      */
-    on(event: 'greeting', listener: (greeting: string) => void): this;
+    on(event: "greeting", listener: (greeting: string) => void): this;
+
+    /**
+     * Emitted when the client has requested authentication.
+     */
+    once(event: "authentication", listener: (context: AuthContext) => void): this;
+
+    /**
+     * Emitted when the client has been successfully authenticated.
+     */
+    once(event: "ready", listener: () => void): this;
+
+    /**
+     * Emitted when the client has requested a new session.
+     * Sessions are used to start interactive shells, execute commands, request X11 forwarding, etc.
+     */
+    once(event: "session", listener: (accept: AcceptConnection<Session>, reject: RejectConnection) => void): this;
+
+    /**
+     * Emitted when the client has requested an outbound (TCP) connection.
+     */
+    once(
+        event: "tcpip",
+        listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: TcpipRequestInfo) => void,
+    ): this;
+
+    /**
+     * Emitted when the client has requested a connection to a UNIX domain socket.
+     */
+    once(
+        event: "openssh.streamlocal",
+        listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: SocketRequestInfo) => void,
+    ): this;
+
+    /**
+     * Emitted when the client has sent a global request for name.
+     * If info.bindPort === 0, you should pass the chosen port to accept so that the client will know what port was bound.
+     */
+    once(
+        event: "request",
+        listener: (
+            accept: ((chosenPort?: number) => void) | undefined,
+            reject: (() => void) | undefined,
+            name: "tcpip-forward" | "cancel-tcpip-forward",
+            info: TcpipBindInfo,
+        ) => void,
+    ): this;
+
+    /**
+     * Emitted when the client has sent a global request for name.
+     */
+    once(
+        event: "request",
+        listener: (
+            accept: (() => void) | undefined,
+            reject: () => void,
+            name: "streamlocal-forward@openssh.com" | "cancel-streamlocal-forward@openssh.com",
+            info: SocketBindInfo,
+        ) => void,
+    ): this;
+
+    /**
+     * Emitted when the client has finished rekeying (either client or server initiated).
+     */
+    once(event: "rekey", listener: () => void): this;
+
+    /**
+     * Emitted when an error occurrs.
+     */
+    once(event: "error", listener: ErrorCallback): this;
+
+    /**
+     * Emitted when the socket has disconnected.
+     */
+    once(event: "end", listener: () => void): this;
+
+    /**
+     * Emitted when the client socket was closed.
+     */
+    once(event: "close", listener: () => void): this;
+
+    /**
+     * Emitted when the Alogrithms have been negotiated; emitted every time there is a rekey
+     */
+    once(event: "handshake", listener: (negotiated: NegotiatedAlgorithms) => void): this;
+
+    /**
+     * Emitted if the server sends a greeting header
+     */
+    once(event: "greeting", listener: (greeting: string) => void): this;
 
     noMoreSessions: boolean;
     authenticated: boolean;
@@ -960,12 +1218,17 @@ export interface AuthContextBase extends EventEmitter {
     /**
      * Emitted when the client aborts the authentication request.
      */
-    on(event: 'abort', listener: () => void): this;
+    on(event: "abort", listener: () => void): this;
+
+    /**
+     * Emitted when the client aborts the authentication request.
+     */
+    once(event: "abort", listener: () => void): this;
 }
 
 export interface KeyboardAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: 'keyboard-interactive';
+    method: "keyboard-interactive";
 
     /** A list of preferred authentication "sub-methods" sent by the client. */
     submethods: string[];
@@ -975,7 +1238,7 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param prompts The prompts to send to the client.
      * @param callback A callback to call with the responses from the client.
      */
-    prompt(prompts: string | Prompt | (string | Prompt)[], callback: KeyboardInteractiveCallback): void;
+    prompt(prompts: string | Prompt | Array<string | Prompt>, callback: KeyboardInteractiveCallback): void;
 
     /**
      * Send prompts to the client.
@@ -983,7 +1246,11 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param title The title for the prompt.
      * @param callback A callback to call with the responses from the client.
      */
-    prompt(prompts: string | Prompt | (string | Prompt)[], title: string, callback: KeyboardInteractiveCallback): void;
+    prompt(
+        prompts: string | Prompt | Array<string | Prompt>,
+        title: string,
+        callback: KeyboardInteractiveCallback,
+    ): void;
 
     /**
      * Send prompts to the client.
@@ -993,7 +1260,7 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param callback A callback to call with the responses from the client.
      */
     prompt(
-        prompts: string | Prompt | (string | Prompt)[],
+        prompts: string | Prompt | Array<string | Prompt>,
         title: string,
         instructions: string,
         callback: KeyboardInteractiveCallback,
@@ -1002,7 +1269,7 @@ export interface KeyboardAuthContext extends AuthContextBase {
 
 export interface PublicKeyAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: 'publickey';
+    method: "publickey";
     /** The public key sent by the client. */
     key: PublicKey;
     /** The signature to verify, or `undefined` if the client is only checking the validity of the key. */
@@ -1020,7 +1287,7 @@ export interface PublicKey {
 
 export interface HostbasedAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: 'hostbased';
+    method: "hostbased";
     /** The public key sent by the client. */
     key: PublicKey;
     /** The signature to verify, or `undefined` if the client is only checking the validity of the key. */
@@ -1035,7 +1302,7 @@ export interface HostbasedAuthContext extends AuthContextBase {
 
 export interface PasswordAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: 'password';
+    method: "password";
     /** The password sent by the client. */
     password: string;
     requestChange(prompt: string, cb: ChangePasswordCallback): void;
@@ -1043,7 +1310,7 @@ export interface PasswordAuthContext extends AuthContextBase {
 
 export interface NoneAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: 'none';
+    method: "none";
 }
 
 export type AuthContext =
@@ -1092,63 +1359,124 @@ export interface Session extends ServerChannel {
     /**
      * Emitted when the client requested allocation of a pseudo-TTY for this session.
      */
-    on(event: 'pty', listener: (accept: SessionAccept, reject: RejectConnection, info: PseudoTtyInfo) => void): this;
+    on(event: "pty", listener: (accept: SessionAccept, reject: RejectConnection, info: PseudoTtyInfo) => void): this;
 
     /**
      * Emitted when the client reported a change in window dimensions during this session.
      */
     on(
-        event: 'window-change',
+        event: "window-change",
         listener: (accept: SessionAccept, reject: RejectConnection, info: WindowChangeInfo) => void,
     ): this;
 
     /**
      * Emitted when the client requested X11 forwarding.
      */
-    on(event: 'x11', listener: (accept: SessionAccept, reject: RejectConnection, info: X11Info) => void): this;
+    on(event: "x11", listener: (accept: SessionAccept, reject: RejectConnection, info: X11Info) => void): this;
 
     /**
      * Emitted when the client requested an environment variable to be set for this session.
      */
-    on(event: 'env', listener: (accept: SessionAccept, reject: RejectConnection, info: SetEnvInfo) => void): this;
+    on(event: "env", listener: (accept: SessionAccept, reject: RejectConnection, info: SetEnvInfo) => void): this;
 
     /**
      * Emitted when the client has sent a POSIX signal.
      */
-    on(event: 'signal', listener: (accept: SessionAccept, reject: RejectConnection, info: SignalInfo) => void): this;
+    on(event: "signal", listener: (accept: SessionAccept, reject: RejectConnection, info: SignalInfo) => void): this;
 
     /**
      * Emitted when the client has requested incoming ssh-agent requests be forwarded to them.
      */
-    on(event: 'auth-agent', listener: (accept: SessionAccept, reject: RejectConnection) => void): this;
+    on(event: "auth-agent", listener: (accept: SessionAccept, reject: RejectConnection) => void): this;
 
     /**
      * Emitted when the client has requested an interactive shell.
      */
-    on(event: 'shell', listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection) => void): this;
+    on(event: "shell", listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection) => void): this;
 
     /**
      * Emitted when the client has requested execution of a command string.
      */
     on(
-        event: 'exec',
+        event: "exec",
         listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: ExecInfo) => void,
     ): this;
 
     /**
      * Emitted when the client has requested the SFTP subsystem.
      */
-    on(event: 'sftp', listener: (accept: AcceptSftpConnection, reject: RejectConnection) => void): this;
+    on(event: "sftp", listener: (accept: AcceptSftpConnection, reject: RejectConnection) => void): this;
 
     /**
      * Emitted when the client has requested an arbitrary subsystem.
      */
     on(
-        event: 'subsystem',
+        event: "subsystem",
         listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: SubsystemInfo) => void,
     ): this;
 
     on(event: string | symbol, listener: Function): this;
+
+    /**
+     * Emitted when the client requested allocation of a pseudo-TTY for this session.
+     */
+    once(event: "pty", listener: (accept: SessionAccept, reject: RejectConnection, info: PseudoTtyInfo) => void): this;
+
+    /**
+     * Emitted when the client reported a change in window dimensions during this session.
+     */
+    once(
+        event: "window-change",
+        listener: (accept: SessionAccept, reject: RejectConnection, info: WindowChangeInfo) => void,
+    ): this;
+
+    /**
+     * Emitted when the client requested X11 forwarding.
+     */
+    once(event: "x11", listener: (accept: SessionAccept, reject: RejectConnection, info: X11Info) => void): this;
+
+    /**
+     * Emitted when the client requested an environment variable to be set for this session.
+     */
+    once(event: "env", listener: (accept: SessionAccept, reject: RejectConnection, info: SetEnvInfo) => void): this;
+
+    /**
+     * Emitted when the client has sent a POSIX signal.
+     */
+    once(event: "signal", listener: (accept: SessionAccept, reject: RejectConnection, info: SignalInfo) => void): this;
+
+    /**
+     * Emitted when the client has requested incoming ssh-agent requests be forwarded to them.
+     */
+    once(event: "auth-agent", listener: (accept: SessionAccept, reject: RejectConnection) => void): this;
+
+    /**
+     * Emitted when the client has requested an interactive shell.
+     */
+    once(event: "shell", listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection) => void): this;
+
+    /**
+     * Emitted when the client has requested execution of a command string.
+     */
+    once(
+        event: "exec",
+        listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: ExecInfo) => void,
+    ): this;
+
+    /**
+     * Emitted when the client has requested the SFTP subsystem.
+     */
+    once(event: "sftp", listener: (accept: AcceptSftpConnection, reject: RejectConnection) => void): this;
+
+    /**
+     * Emitted when the client has requested an arbitrary subsystem.
+     */
+    once(
+        event: "subsystem",
+        listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: SubsystemInfo) => void,
+    ): this;
+
+    once(event: string | symbol, listener: Function): this;
 }
 
 export interface PseudoTtyInfo {
@@ -1374,6 +1702,10 @@ export interface FileEntry {
     attrs: Attributes;
 }
 
+export interface FileEntryWithStats extends Omit<FileEntry, "attrs"> {
+    attrs: Stats;
+}
+
 export interface SFTPWrapper extends EventEmitter {
     /**
      * (Client-only)
@@ -1555,7 +1887,7 @@ export interface SFTPWrapper extends EventEmitter {
      * (Client-only)
      * Retrieves a directory listing.
      */
-    readdir(location: string | Buffer, callback: (err: Error | undefined, list: FileEntry[]) => void): void;
+    readdir(location: string | Buffer, callback: (err: Error | undefined, list: FileEntryWithStats[]) => void): void;
 
     /**
      * (Client-only)
@@ -1707,27 +2039,52 @@ export interface SFTPWrapper extends EventEmitter {
     /**
      * Emitted after initial protocol version check has passed
      */
-    on(event: 'ready', listener: () => void): this;
-    on(event: 'OPEN', listener: (reqId: number, filename: string, flags: number, attrs: Attributes) => void): this;
-    on(event: 'READ', listener: (reqId: number, handle: Buffer, offset: number, len: number) => void): this;
-    on(event: 'WRITE', listener: (reqId: number, handle: Buffer, offset: number, data: Buffer) => void): this;
-    on(event: 'FSTAT', listener: (reqId: number, handle: Buffer) => void): this;
-    on(event: 'FSETSTAT', listener: (reqId: number, handle: Buffer, attrs: Attributes) => void): this;
-    on(event: 'CLOSE', listener: (reqId: number, handle: Buffer) => void): this;
-    on(event: 'OPENDIR', listener: (reqId: number, path: string) => void): this;
-    on(event: 'READDIR', listener: (reqId: number, handle: Buffer) => void): this;
-    on(event: 'LSTAT', listener: (reqId: number, path: string) => void): this;
-    on(event: 'STAT', listener: (reqId: number, path: string) => void): this;
-    on(event: 'REMOVE', listener: (reqId: number, path: string) => void): this;
-    on(event: 'RMDIR', listener: (reqId: number, path: string) => void): this;
-    on(event: 'REALPATH', listener: (reqId: number, path: string) => void): this;
-    on(event: 'READLINK', listener: (reqId: number, path: string) => void): this;
-    on(event: 'SETSTAT', listener: (reqId: number, path: string, attrs: Attributes) => void): this;
-    on(event: 'MKDIR', listener: (reqId: number, path: string, attrs: Attributes) => void): this;
-    on(event: 'RENAME', listener: (reqId: number, oldPath: string, newPath: string) => void): this;
-    on(event: 'SYMLINK', listener: (reqId: number, targetPath: string, linkPath: string) => void): this;
-    on(event: 'EXTENDED', listener: (reqId: number, extName: string, extData: Buffer) => void): this;
+    on(event: "ready", listener: () => void): this;
+    on(event: "OPEN", listener: (reqId: number, filename: string, flags: number, attrs: Attributes) => void): this;
+    on(event: "READ", listener: (reqId: number, handle: Buffer, offset: number, len: number) => void): this;
+    on(event: "WRITE", listener: (reqId: number, handle: Buffer, offset: number, data: Buffer) => void): this;
+    on(event: "FSTAT", listener: (reqId: number, handle: Buffer) => void): this;
+    on(event: "FSETSTAT", listener: (reqId: number, handle: Buffer, attrs: Attributes) => void): this;
+    on(event: "CLOSE", listener: (reqId: number, handle: Buffer) => void): this;
+    on(event: "OPENDIR", listener: (reqId: number, path: string) => void): this;
+    on(event: "READDIR", listener: (reqId: number, handle: Buffer) => void): this;
+    on(event: "LSTAT", listener: (reqId: number, path: string) => void): this;
+    on(event: "STAT", listener: (reqId: number, path: string) => void): this;
+    on(event: "REMOVE", listener: (reqId: number, path: string) => void): this;
+    on(event: "RMDIR", listener: (reqId: number, path: string) => void): this;
+    on(event: "REALPATH", listener: (reqId: number, path: string) => void): this;
+    on(event: "READLINK", listener: (reqId: number, path: string) => void): this;
+    on(event: "SETSTAT", listener: (reqId: number, path: string, attrs: Attributes) => void): this;
+    on(event: "MKDIR", listener: (reqId: number, path: string, attrs: Attributes) => void): this;
+    on(event: "RENAME", listener: (reqId: number, oldPath: string, newPath: string) => void): this;
+    on(event: "SYMLINK", listener: (reqId: number, targetPath: string, linkPath: string) => void): this;
+    on(event: "EXTENDED", listener: (reqId: number, extName: string, extData: Buffer) => void): this;
     on(event: string | symbol, listener: Function): this;
+
+    /**
+     * Emitted after initial protocol version check has passed
+     */
+    once(event: "ready", listener: () => void): this;
+    once(event: "OPEN", listener: (reqId: number, filename: string, flags: number, attrs: Attributes) => void): this;
+    once(event: "READ", listener: (reqId: number, handle: Buffer, offset: number, len: number) => void): this;
+    once(event: "WRITE", listener: (reqId: number, handle: Buffer, offset: number, data: Buffer) => void): this;
+    once(event: "FSTAT", listener: (reqId: number, handle: Buffer) => void): this;
+    once(event: "FSETSTAT", listener: (reqId: number, handle: Buffer, attrs: Attributes) => void): this;
+    once(event: "CLOSE", listener: (reqId: number, handle: Buffer) => void): this;
+    once(event: "OPENDIR", listener: (reqId: number, path: string) => void): this;
+    once(event: "READDIR", listener: (reqId: number, handle: Buffer) => void): this;
+    once(event: "LSTAT", listener: (reqId: number, path: string) => void): this;
+    once(event: "STAT", listener: (reqId: number, path: string) => void): this;
+    once(event: "REMOVE", listener: (reqId: number, path: string) => void): this;
+    once(event: "RMDIR", listener: (reqId: number, path: string) => void): this;
+    once(event: "REALPATH", listener: (reqId: number, path: string) => void): this;
+    once(event: "READLINK", listener: (reqId: number, path: string) => void): this;
+    once(event: "SETSTAT", listener: (reqId: number, path: string, attrs: Attributes) => void): this;
+    once(event: "MKDIR", listener: (reqId: number, path: string, attrs: Attributes) => void): this;
+    once(event: "RENAME", listener: (reqId: number, oldPath: string, newPath: string) => void): this;
+    once(event: "SYMLINK", listener: (reqId: number, targetPath: string, linkPath: string) => void): this;
+    once(event: "EXTENDED", listener: (reqId: number, extName: string, extData: Buffer) => void): this;
+    once(event: string | symbol, listener: Function): this;
 
     /**
      * Sends a status response for the request identified by id.
@@ -1772,17 +2129,17 @@ export interface PublicKeyEntry {
     pubKey:
         | ParsedKey
         | {
-              pubKey: ParsedKey | Buffer | string;
-              comment?: string;
-          };
+            pubKey: ParsedKey | Buffer | string;
+            comment?: string;
+        };
 }
 
-export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = (
+export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = Array<
     | T
     | PublicKeyEntry
-)[];
+>;
 
-export type PrivateKeys = (Buffer | ParsedKey | EncryptedPrivateKey | string)[];
+export type PrivateKeys = Array<Buffer | ParsedKey | EncryptedPrivateKey | string>;
 
 export type Callback = (err?: Error | null) => void;
 
@@ -1807,7 +2164,7 @@ export interface AgentInboundRequest {
 }
 
 export interface SigningRequestOptions {
-    hash?: 'sha1' | 'sha256' | 'sha512';
+    hash?: "sha1" | "sha256" | "sha512";
 }
 
 export class AgentProtocol extends Duplex {
@@ -1860,7 +2217,7 @@ export class AgentProtocol extends Duplex {
      * The client has requested a list of public keys stored in the agent.
      * Use `failureReply()` or `getIdentitiesReply()` to reply appropriately.
      */
-    on(event: 'identities', listener: (req: AgentInboundRequest) => void): this;
+    on(event: "identities", listener: (req: AgentInboundRequest) => void): this;
 
     /**
      * (Server mode only)
@@ -1868,11 +2225,30 @@ export class AgentProtocol extends Duplex {
      * by `pubKey`. Use `failureReply()` or `signReply()` to reply appropriately.
      */
     on(
-        event: 'sign',
+        event: "sign",
         listener: (req: AgentInboundRequest, pubKey: ParsedKey, data: Buffer, options: SigningRequestOptions) => void,
     ): this;
 
     on(event: string | symbol, listener: Function): this;
+
+    /**
+     * (Server mode only)
+     * The client has requested a list of public keys stored in the agent.
+     * Use `failureReply()` or `getIdentitiesReply()` to reply appropriately.
+     */
+    once(event: "identities", listener: (req: AgentInboundRequest) => void): this;
+
+    /**
+     * (Server mode only)
+     * The client has requested `data` to be signed using the key identified
+     * by `pubKey`. Use `failureReply()` or `signReply()` to reply appropriately.
+     */
+    once(
+        event: "sign",
+        listener: (req: AgentInboundRequest, pubKey: ParsedKey, data: Buffer, options: SigningRequestOptions) => void,
+    ): this;
+
+    once(event: string | symbol, listener: Function): this;
 }
 
 /**
@@ -1882,7 +2258,7 @@ export class AgentProtocol extends Duplex {
  * a path to a Windows pipe it creates a `CygwinAgent`. In all other cases,
  * it creates an `OpenSSHAgent`.
  */
-export function createAgent(socketPath: string | 'pageant'): BaseAgent;
+export function createAgent(socketPath: string | "pageant"): BaseAgent;
 
 export abstract class BaseAgent<TPublicKey extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> {
     /**
@@ -1945,13 +2321,13 @@ export interface NegotiatedAlgorithms {
     serverHostKey: ServerHostKeyAlgorithm;
     cs: {
         cipher: CipherAlgorithm;
-        mac: MacAlgorithm | '';
+        mac: MacAlgorithm | "";
         compress: CompressionAlgorithm;
         lang: string;
     };
     sc: {
         cipher: CipherAlgorithm;
-        mac: MacAlgorithm | '';
+        mac: MacAlgorithm | "";
         compress: CompressionAlgorithm;
         lang: string;
     };
@@ -1981,9 +2357,12 @@ export interface ReadStream extends Readable {
     pending: boolean;
     open(): void;
     close(cb: Callback): void;
-    on(eventName: 'ready', listener: () => void): this;
-    on(eventName: 'open', listener: (handle: Buffer) => void): this;
+    on(eventName: "ready", listener: () => void): this;
+    on(eventName: "open", listener: (handle: Buffer) => void): this;
     on(event: string | symbol, listener: Function): this;
+    once(eventName: "ready", listener: () => void): this;
+    once(eventName: "open", listener: (handle: Buffer) => void): this;
+    once(event: string | symbol, listener: Function): this;
 }
 
 export interface WriteStream extends Writable {
@@ -1991,9 +2370,12 @@ export interface WriteStream extends Writable {
     open(): void;
     destroy(): this;
     close(cb: Callback): void;
-    on(eventName: 'ready', listener: () => void): this;
-    on(eventName: 'open', listener: (handle: Buffer) => void): this;
+    on(eventName: "ready", listener: () => void): this;
+    on(eventName: "open", listener: (handle: Buffer) => void): this;
     on(event: string | symbol, listener: Function): this;
+    once(eventName: "ready", listener: () => void): this;
+    once(eventName: "open", listener: (handle: Buffer) => void): this;
+    once(event: string | symbol, listener: Function): this;
 }
 
 export type ClientCallback = (err: Error | undefined, channel: ClientChannel) => void;

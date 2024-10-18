@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/ethereumjs-abi",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/ethereumjs/ethereumjs-abi",
+        "https://github.com/axic/ethereumjs-abi"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ethereumjs-abi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonid Logvinov",
+            "githubUsername": "LogvinovLeon"
+        },
+        {
+            "name": "Artur Kozak",
+            "githubUsername": "quezak"
+        }
+    ]
+}

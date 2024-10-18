@@ -1,22 +1,18 @@
 import * as React from "react";
-import AvatarEditor, {
-    ImageState,
-    CroppedRect,
-    Position
-} from "react-avatar-editor";
+import AvatarEditor, { CroppedRect, ImageState, Position } from "react-avatar-editor";
 
 const file: File = new File(["str"], "image.jpg");
 const image: ImageData = new ImageData(1, 2);
 const position: Position = {
     x: 1,
-    y: 1
+    y: 1,
 };
 const imageState: ImageState = {
     height: 1,
     width: 1,
     x: 1,
     y: 1,
-    resource: image
+    resource: image,
 };
 
 class AvatarEditorTest extends React.Component {

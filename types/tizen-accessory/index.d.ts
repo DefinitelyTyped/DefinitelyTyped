@@ -1,21 +1,16 @@
-// Type definitions for non-npm package tizen-accessory-browser 1.0
-// Project: https://developer.samsung.com/galaxy-accessory/overview.html
-// Definitions by: Egor Shulga <https://github.com/egorshulga>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace webapis {
     const sa: SAManager;
 }
 
 interface SAManager {
     requestSAAgent(success: (agents: SAAgent[]) => void, error?: (err: Error) => void): void;
-    setDeviceStatusListener(callback: (type: SATransport, status: 'DETACHED' | 'ATTACHED') => void): void;
+    setDeviceStatusListener(callback: (type: SATransport, status: "DETACHED" | "ATTACHED") => void): void;
 }
 
 interface SAAgent {
     readonly id: string;
     readonly name: string;
-    readonly role: 'consumer' | 'provider';
+    readonly role: "consumer" | "provider";
     readonly channelIds: number[];
 
     requestServiceConnection(peerAgent: SAPeerAgent): void;
@@ -34,7 +29,7 @@ interface SAAgent {
     findPeerAgents(): void;
     setPeerAgentFindListener(callback: {
         onpeeragentfound: (peerAgent: SAPeerAgent) => void;
-        onpeeragentupdated?: ((peerAgent: SAPeerAgent, status: 'AVAILABLE' | 'UNAVAILABLE') => void) | undefined;
+        onpeeragentupdated?: ((peerAgent: SAPeerAgent, status: "AVAILABLE" | "UNAVAILABLE") => void) | undefined;
         onerror?: ((errorCode: string) => void) | undefined;
     }): void;
     getSAFileTransfer(): SAFileTransfer;
@@ -116,9 +111,9 @@ interface SAMessage {
 }
 
 declare enum SATransport {
-    TRANSPORT_WIFI = 'TRANSPORT_WIFI',
-    TRANSPORT_BT = 'TRANSPORT_BT',
-    TRANSPORT_BLE = 'TRANSPORT_BLE',
-    TRANSPORT_USB = 'TRANSPORT_USB',
-    TRANSPORT_MOBILE = 'TRANSPORT_MOBILE',
+    TRANSPORT_WIFI = "TRANSPORT_WIFI",
+    TRANSPORT_BT = "TRANSPORT_BT",
+    TRANSPORT_BLE = "TRANSPORT_BLE",
+    TRANSPORT_USB = "TRANSPORT_USB",
+    TRANSPORT_MOBILE = "TRANSPORT_MOBILE",
 }

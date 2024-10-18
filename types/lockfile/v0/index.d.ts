@@ -1,8 +1,3 @@
-// Type definitions for lockfile 0.4
-// Project: https://github.com/isaacs/lockfile
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     wait?: number | undefined;
     stale?: number | undefined;

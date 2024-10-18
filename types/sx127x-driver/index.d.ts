@@ -1,8 +1,3 @@
-// Type definitions for sx127x-driver 0.0
-// Project: https://github.com/xtrinch/sx127x-node-driver#readme
-// Definitions by: mariusbackes <https://github.com/mariusbackes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class SX127x {
     constructor(options?: SX127xOptions);
 
@@ -35,7 +30,7 @@ declare class SX127x {
      * frequency in Hz (433E6, 866E6, 915E6)
      * @param frequency
      */
-    setFrequency(frequency: '433E6' | '866E6' | '915E6'): Promise<void>;
+    setFrequency(frequency: "433E6" | "866E6" | "915E6"): Promise<void>;
 
     /**
      * Supported values are between 6 and 12. If a spreading factor of 6 is set, implicit header mode must be used to transmit and receive packets
@@ -49,23 +44,23 @@ declare class SX127x {
      */
     setSignalBandwidth(
         signalBandwidth:
-            | '7.8E3'
-            | '10.4E3'
-            | '15.6E3'
-            | '20.8E3'
-            | '31.25E3'
-            | '41.7E3'
-            | '62.5E3'
-            | '125E3'
-            | '250E3'
-            | '500E3',
+            | "7.8E3"
+            | "10.4E3"
+            | "15.6E3"
+            | "20.8E3"
+            | "31.25E3"
+            | "41.7E3"
+            | "62.5E3"
+            | "125E3"
+            | "250E3"
+            | "500E3",
     ): Promise<void>;
 
     /**
      * Supported values are 4/5, 4/6, 4/7 and 4/8
      * @param codingRate
      */
-    setCodingRate(codingRate: '4/5' | '4/6' | '4/7' | '4/8'): Promise<void>;
+    setCodingRate(codingRate: "4/5" | "4/6" | "4/7" | "4/8"): Promise<void>;
 
     /**
      * Supported values are between 6 and 65535.
@@ -115,7 +110,7 @@ interface SX127xOptions {
      * Frequency of radio in Hz (make sure your chip supports the frequency you chose)
      * Default: 915E6
      */
-    frequency?: '433E6' | '866E6' | '915E6';
+    frequency?: "433E6" | "866E6" | "915E6";
 
     /**
      * Spreading factor of radio (spreading factors are orthogonal, so make sure they match when trying to communicate from one chip to another)
@@ -129,22 +124,22 @@ interface SX127xOptions {
      * Default: 125E3
      */
     signalBandwidth?:
-        | '7.8E3'
-        | '10.4E3'
-        | '15.6E3'
-        | '20.8E3'
-        | '31.25E3'
-        | '41.7E3'
-        | '62.5E3'
-        | '125E3'
-        | '250E3'
-        | '500E3';
+        | "7.8E3"
+        | "10.4E3"
+        | "15.6E3"
+        | "20.8E3"
+        | "31.25E3"
+        | "41.7E3"
+        | "62.5E3"
+        | "125E3"
+        | "250E3"
+        | "500E3";
 
     /**
      * Coding rate of radio
      * Default: 4/5
      */
-    codingRate?: '4/5' | '4/6' | '4/7' | '4/8';
+    codingRate?: "4/5" | "4/6" | "4/7" | "4/8";
 
     /**
      * Preamble length of radio

@@ -1,7 +1,7 @@
-import { RawSourceMap } from 'source-map';
+import { RawSourceMap } from "source-map";
 
-import { CachedData, MapOptions } from '.';
-import Source = require('./Source');
+import { CachedData, MapOptions } from ".";
+import Source = require("./Source");
 
 /**
  * Decorates a Source and caches returned results of map, source, size and sourceAndMap in memory.

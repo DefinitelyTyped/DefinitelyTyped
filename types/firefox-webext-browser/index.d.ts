@@ -1,10 +1,3 @@
-// Type definitions for non-npm package WebExtension Development in FireFox 111.0
-// Project: https://developer.mozilla.org/en-US/Add-ons/WebExtensions
-// Definitions by: Jasmin Bom <https://github.com/jsmnbom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-// Generated using script at github.com/jsmnbom/definitelytyped-firefox-webext-browser
-
 interface WebExtEvent<TCallback extends (...args: any[]) => any> {
     addListener(cb: TCallback): void;
     removeListener(cb: TCallback): void;
@@ -22,6 +15,7 @@ declare namespace browser._manifest {
         /** Specifies icons to use for dark and light themes */
         theme_icons?: ThemeIcons[] | undefined;
         default_popup?: string | undefined;
+        /** Deprecated in Manifest V3. */
         browser_style?: boolean | undefined;
         /** Defines the location the browserAction will appear by default. The default location is navbar. */
         default_area?: _ActionManifestDefaultArea | undefined;
@@ -33,7 +27,6 @@ declare namespace browser._manifest {
         action?: ActionManifest | undefined;
         /** Not supported on manifest versions above 2. */
         browser_action?: ActionManifest | undefined;
-        /** Needs at least manifest version 3. */
         declarative_net_request?: _WebExtensionManifestDeclarativeNetRequest | undefined;
         experiment_apis?: { [key: string]: experiments.ExperimentAPI } | undefined;
         /** A list of protocol handler definitions. */
@@ -44,30 +37,24 @@ declare namespace browser._manifest {
         minimum_opera_version?: string | undefined;
         icons?: _WebExtensionManifestIcons | undefined;
         incognito?: _WebExtensionManifestIncognito | undefined;
-        background?:
-            | {
-                  page: ExtensionURL;
-                  /** Not supported on manifest versions above 2. */
-                  persistent?: boolean | undefined;
-              }
-            | {
-                  scripts: ExtensionURL[];
-                  /** Not supported on manifest versions above 2. */
-                  persistent?: boolean | undefined;
-              }
-            | {
-                  service_worker: ExtensionURL;
-              }
-            | undefined;
+        background?: {
+            page: ExtensionURL;
+            /** Not supported on manifest versions above 2. */
+            persistent?: boolean | undefined;
+        } | {
+            scripts: ExtensionURL[];
+            type?: _UndefinedType | undefined;
+            /** Not supported on manifest versions above 2. */
+            persistent?: boolean | undefined;
+        } | {
+            service_worker: ExtensionURL;
+        } | undefined;
         options_ui?: _WebExtensionManifestOptionsUi | undefined;
         content_scripts?: ContentScript[] | undefined;
-        content_security_policy?:
-            | string
-            | {
-                  /** The Content Security Policy used for extension pages. */
-                  extension_pages?: string | undefined;
-              }
-            | undefined;
+        content_security_policy?: string | {
+            /** The Content Security Policy used for extension pages. */
+            extension_pages?: string | undefined;
+        } | undefined;
         permissions?: PermissionOrOrigin[] | Permission[] | undefined;
         granted_host_permissions?: boolean | undefined;
         /** Needs at least manifest version 3. */
@@ -76,10 +63,10 @@ declare namespace browser._manifest {
         web_accessible_resources?:
             | string[]
             | Array<{
-                  resources: string[];
-                  matches?: MatchPattern[] | undefined;
-                  extension_ids?: Array<ExtensionID | '*'> | undefined;
-              }>
+                resources: string[];
+                matches?: MatchPattern[] | undefined;
+                extension_ids?: Array<ExtensionID | "*"> | undefined;
+            }>
             | undefined;
         hidden?: boolean | undefined;
         page_action?: _WebExtensionManifestPageAction | undefined;
@@ -98,7 +85,7 @@ declare namespace browser._manifest {
          * The applications property is deprecated, please use 'browser_specific_settings'
          * Not supported on manifest versions above 2.
          */
-        applications?: BrowserSpecificSettings | undefined;
+        applications?: DeprecatedApplications | undefined;
         browser_specific_settings?: BrowserSpecificSettings | undefined;
         name: string;
         short_name?: string | undefined;
@@ -116,7 +103,7 @@ declare namespace browser._manifest {
 
     type OptionalPermissionNoPrompt = _OptionalPermissionNoPrompt;
 
-    type Permission = string | PermissionNoPrompt | OptionalPermission | 'declarativeNetRequest';
+    type Permission = string | PermissionNoPrompt | OptionalPermission | "declarativeNetRequest";
 
     /** Represents a protocol handler definition. */
     interface ProtocolHandler {
@@ -141,7 +128,7 @@ declare namespace browser._manifest {
          * The applications property is deprecated, please use 'browser_specific_settings'
          * Not supported on manifest versions above 2.
          */
-        applications?: BrowserSpecificSettings | undefined;
+        applications?: DeprecatedApplications | undefined;
         browser_specific_settings?: BrowserSpecificSettings | undefined;
         name: string;
         short_name?: string | undefined;
@@ -163,7 +150,7 @@ declare namespace browser._manifest {
          * The applications property is deprecated, please use 'browser_specific_settings'
          * Not supported on manifest versions above 2.
          */
-        applications?: BrowserSpecificSettings | undefined;
+        applications?: DeprecatedApplications | undefined;
         browser_specific_settings?: BrowserSpecificSettings | undefined;
         name: string;
         short_name?: string | undefined;
@@ -183,7 +170,7 @@ declare namespace browser._manifest {
          * The applications property is deprecated, please use 'browser_specific_settings'
          * Not supported on manifest versions above 2.
          */
-        applications?: BrowserSpecificSettings | undefined;
+        applications?: DeprecatedApplications | undefined;
         browser_specific_settings?: BrowserSpecificSettings | undefined;
         name: string;
         short_name?: string | undefined;
@@ -204,7 +191,7 @@ declare namespace browser._manifest {
          * The applications property is deprecated, please use 'browser_specific_settings'
          * Not supported on manifest versions above 2.
          */
-        applications?: BrowserSpecificSettings | undefined;
+        applications?: DeprecatedApplications | undefined;
         browser_specific_settings?: BrowserSpecificSettings | undefined;
         name: string;
         short_name?: string | undefined;
@@ -247,11 +234,23 @@ declare namespace browser._manifest {
         strict_max_version?: string | undefined;
     }
 
-    interface BrowserSpecificSettings {
-        gecko?: FirefoxSpecificProperties | undefined;
+    interface GeckoAndroidSpecificProperties {
+        strict_min_version?: string | undefined;
+        strict_max_version?: string | undefined;
     }
 
-    type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | '<all_urls>';
+    interface DeprecatedApplications {
+        gecko?: FirefoxSpecificProperties | undefined;
+        /** @deprecated Unsupported on Firefox at this time. */
+        gecko_android?: GeckoAndroidSpecificProperties | undefined;
+    }
+
+    interface BrowserSpecificSettings {
+        gecko?: FirefoxSpecificProperties | undefined;
+        gecko_android?: GeckoAndroidSpecificProperties | undefined;
+    }
+
+    type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | "<all_urls>";
 
     /** Same as MatchPattern above, but excludes<all_urls></all_urls> */
     type MatchPatternRestricted = string;
@@ -285,17 +284,13 @@ declare namespace browser._manifest {
         run_at?: extensionTypes.RunAt | undefined;
     }
 
-    type IconPath =
-        | {
-              [key: number]: ExtensionFileUrl;
-          }
-        | ExtensionFileUrl;
+    type IconPath = {
+        [key: number]: ExtensionFileUrl;
+    } | ExtensionFileUrl;
 
-    type IconImageData =
-        | {
-              [key: number]: ImageData;
-          }
-        | ImageData;
+    type IconImageData = {
+        [key: number]: ImageData;
+    } | ImageData;
 
     type ImageData = any;
 
@@ -303,20 +298,18 @@ declare namespace browser._manifest {
     type UnrecognizedProperty = any;
 
     /** Represents a native manifest file */
-    type NativeManifest =
-        | {
-              name: string;
-              description: string;
-              path: string;
-              type: 'pkcs11' | 'stdio';
-              allowed_extensions: ExtensionID[];
-          }
-        | {
-              name: ExtensionID;
-              description: string;
-              data: { [key: string]: any };
-              type: 'storage';
-          };
+    type NativeManifest = {
+        name: string;
+        description: string;
+        path: string;
+        type: "pkcs11" | "stdio";
+        allowed_extensions: ExtensionID[];
+    } | {
+        name: ExtensionID;
+        description: string;
+        data: { [key: string]: any };
+        type: "storage";
+    };
 
     type ThemeColor = string | [number, number, number] | [number, number, number, number];
 
@@ -345,15 +338,19 @@ declare namespace browser._manifest {
     type KeyName = string;
 
     type _PermissionPrivileged =
-        | 'activityLog'
-        | 'mozillaAddons'
-        | 'networkStatus'
-        | 'telemetry'
-        | 'normandyAddonStudy'
-        | 'urlbar';
+        | "activityLog"
+        | "mozillaAddons"
+        | "networkStatus"
+        | "telemetry"
+        | "normandyAddonStudy"
+        | "urlbar";
 
     /** Defines the location the browserAction will appear by default. The default location is navbar. */
-    type _ActionManifestDefaultArea = 'navbar' | 'menupanel' | 'tabstrip' | 'personaltoolbar';
+    type _ActionManifestDefaultArea =
+        | "navbar"
+        | "menupanel"
+        | "tabstrip"
+        | "personaltoolbar";
 
     interface _WebExtensionManifestDeclarativeNetRequestRuleResources {
         /**
@@ -366,7 +363,6 @@ declare namespace browser._manifest {
         path: ExtensionURL;
     }
 
-    /** Needs at least manifest version 3. */
     interface _WebExtensionManifestDeclarativeNetRequest {
         rule_resources: _WebExtensionManifestDeclarativeNetRequestRuleResources[];
     }
@@ -375,11 +371,18 @@ declare namespace browser._manifest {
         [key: number]: ExtensionFileUrl;
     }
 
-    type _WebExtensionManifestIncognito = 'not_allowed' | 'spanning';
+    type _WebExtensionManifestIncognito = "not_allowed" | "spanning";
+
+    type _UndefinedType = "module" | "classic";
 
     interface _WebExtensionManifestOptionsUi {
         page: ExtensionURL;
+        /** Defaults to true in Manifest V2; Deprecated in Manifest V3. */
         browser_style?: boolean | undefined;
+        /**
+         * chrome_style is ignored in Firefox. Its replacement (browser_style) has been deprecated.
+         * Not supported on manifest versions above 2.
+         */
         chrome_style?: boolean | undefined;
         open_in_tab?: boolean | undefined;
     }
@@ -388,6 +391,7 @@ declare namespace browser._manifest {
         default_title?: string | undefined;
         default_icon?: IconPath | undefined;
         default_popup?: string | undefined;
+        /** Deprecated in Manifest V3. */
         browser_style?: boolean | undefined;
         show_matches?: MatchPattern[] | undefined;
         hide_matches?: MatchPatternRestricted[] | undefined;
@@ -420,15 +424,15 @@ declare namespace browser._manifest {
     }
 
     /** The type of param can be either "purpose" or "pref". */
-    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = 'purpose' | 'pref';
+    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = "purpose" | "pref";
 
     /** The context that initiates a search, required if condition is "purpose". */
     type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose =
-        | 'contextmenu'
-        | 'searchbar'
-        | 'homepage'
-        | 'keyword'
-        | 'newtab';
+        | "contextmenu"
+        | "searchbar"
+        | "homepage"
+        | "keyword"
+        | "newtab";
 
     interface _WebExtensionManifestChromeSettingsOverridesSearchProviderParams {
         /** A url parameter name */
@@ -509,6 +513,7 @@ declare namespace browser._manifest {
     interface _WebExtensionManifestSidebarAction {
         default_title?: string | undefined;
         default_icon?: IconPath | undefined;
+        /** Defaults to true in Manifest V2; Deprecated in Manifest V3. */
         browser_style?: boolean | undefined;
         default_panel: string;
         /** Whether or not the sidebar is opened at install. Default is `true`. */
@@ -529,84 +534,84 @@ declare namespace browser._manifest {
     }
 
     type _OptionalPermission =
-        | 'browserSettings'
-        | 'browsingData'
-        | 'downloads'
-        | 'downloads.open'
-        | 'management'
-        | 'clipboardRead'
-        | 'clipboardWrite'
-        | 'geolocation'
-        | 'notifications'
-        | 'privacy'
-        | 'proxy'
-        | 'nativeMessaging'
-        | 'webNavigation'
-        | 'bookmarks'
-        | 'devtools'
-        | 'find'
-        | 'history'
-        | 'pkcs11'
-        | 'sessions'
-        | 'tabs'
-        | 'tabHide'
-        | 'topSites';
+        | "browserSettings"
+        | "browsingData"
+        | "declarativeNetRequestFeedback"
+        | "downloads"
+        | "downloads.open"
+        | "management"
+        | "clipboardRead"
+        | "clipboardWrite"
+        | "geolocation"
+        | "notifications"
+        | "privacy"
+        | "proxy"
+        | "nativeMessaging"
+        | "webNavigation"
+        | "bookmarks"
+        | "devtools"
+        | "find"
+        | "history"
+        | "pkcs11"
+        | "sessions"
+        | "tabs"
+        | "tabHide"
+        | "topSites";
 
     type _PermissionNoPrompt =
-        | 'captivePortal'
-        | 'contextualIdentities'
-        | 'declarativeNetRequestFeedback'
-        | 'declarativeNetRequestWithHostAccess'
-        | 'dns'
-        | 'geckoProfiler'
-        | 'identity'
-        | 'alarms'
-        | 'storage'
-        | 'unlimitedStorage'
-        | 'theme'
-        | 'menus'
-        | 'contextMenus';
+        | "captivePortal"
+        | "contextualIdentities"
+        | "declarativeNetRequestWithHostAccess"
+        | "dns"
+        | "geckoProfiler"
+        | "identity"
+        | "alarms"
+        | "storage"
+        | "unlimitedStorage"
+        | "theme"
+        | "menus"
+        | "contextMenus";
 
     type _OptionalPermissionNoPrompt =
-        | 'cookies'
-        | 'idle'
-        | 'scripting'
-        | 'webRequest'
-        | 'webRequestBlocking'
-        | 'webRequestFilterResponse'
-        | 'webRequestFilterResponse.serviceWorkerScript'
-        | 'menus.overrideContext'
-        | 'search'
-        | 'activeTab';
+        | "cookies"
+        | "idle"
+        | "scripting"
+        | "webRequest"
+        | "webRequestBlocking"
+        | "webRequestFilterResponse"
+        | "webRequestFilterResponse.serviceWorkerScript"
+        | "menus.overrideContext"
+        | "search"
+        | "activeTab";
 
     type _ProtocolHandlerProtocol =
-        | 'bitcoin'
-        | 'dat'
-        | 'dweb'
-        | 'ftp'
-        | 'geo'
-        | 'gopher'
-        | 'im'
-        | 'ipfs'
-        | 'ipns'
-        | 'irc'
-        | 'ircs'
-        | 'magnet'
-        | 'mailto'
-        | 'matrix'
-        | 'mms'
-        | 'news'
-        | 'nntp'
-        | 'sip'
-        | 'sms'
-        | 'smsto'
-        | 'ssb'
-        | 'ssh'
-        | 'tel'
-        | 'urn'
-        | 'webcal'
-        | 'wtai'
-        | 'xmpp';
+        | "bitcoin"
+        | "dat"
+        | "dweb"
+        | "ftp"
+        | "geo"
+        | "gopher"
+        | "im"
+        | "ipfs"
+        | "ipns"
+        | "irc"
+        | "ircs"
+        | "magnet"
+        | "mailto"
+        | "matrix"
+        | "mms"
+        | "news"
+        | "nntp"
+        | "sip"
+        | "sms"
+        | "smsto"
+        | "ssb"
+        | "ssh"
+        | "tel"
+        | "urn"
+        | "webcal"
+        | "wtai"
+        | "xmpp";
 
     interface _ManifestBaseDeveloper {
         name?: string | undefined;
@@ -614,11 +619,9 @@ declare namespace browser._manifest {
     }
 
     interface _UndefinedChromeResources {
-        [key: string]:
-            | ExtensionURL
-            | {
-                  [key: string]: ExtensionURL;
-              };
+        [key: string]: ExtensionURL | {
+            [key: string]: ExtensionURL;
+        };
     }
 
     interface _WebExtensionLangpackManifestLanguages {
@@ -654,7 +657,7 @@ declare namespace browser._manifest {
         url?: string | undefined;
     }
 
-    type _SitePermission = 'midi' | 'midi-sysex';
+    type _SitePermission = "midi" | "midi-sysex";
 
     interface _ThemeTypeImages {
         additional_backgrounds?: ImageDataOrExtensionURL[] | undefined;
@@ -719,26 +722,38 @@ declare namespace browser._manifest {
     }
 
     type _ThemeTypeAdditionalBackgroundsAlignment =
-        | 'bottom'
-        | 'center'
-        | 'left'
-        | 'right'
-        | 'top'
-        | 'center bottom'
-        | 'center center'
-        | 'center top'
-        | 'left bottom'
-        | 'left center'
-        | 'left top'
-        | 'right bottom'
-        | 'right center'
-        | 'right top';
+        | "bottom"
+        | "center"
+        | "left"
+        | "right"
+        | "top"
+        | "center bottom"
+        | "center center"
+        | "center top"
+        | "left bottom"
+        | "left center"
+        | "left top"
+        | "right bottom"
+        | "right center"
+        | "right top";
 
-    type _ThemeTypeAdditionalBackgroundsTiling = 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y';
+    type _ThemeTypeAdditionalBackgroundsTiling =
+        | "no-repeat"
+        | "repeat"
+        | "repeat-x"
+        | "repeat-y";
 
-    type _ThemeTypeColorScheme = 'auto' | 'light' | 'dark' | 'system';
+    type _ThemeTypeColorScheme =
+        | "auto"
+        | "light"
+        | "dark"
+        | "system";
 
-    type _ThemeTypeContentColorScheme = 'auto' | 'light' | 'dark' | 'system';
+    type _ThemeTypeContentColorScheme =
+        | "auto"
+        | "light"
+        | "dark"
+        | "system";
 
     interface _ThemeType {
         additional_backgrounds_alignment?: _ThemeTypeAdditionalBackgroundsAlignment[] | undefined;
@@ -763,16 +778,20 @@ declare namespace browser.activityLog {
     /**
      * The type of log entry. api_call is a function call made by the extension and api_event is an event callback to the extension. content_script is logged when a content script is injected.
      */
-    type _OnExtensionActivityDetailsType = 'api_call' | 'api_event' | 'content_script' | 'user_script';
+    type _OnExtensionActivityDetailsType =
+        | "api_call"
+        | "api_event"
+        | "content_script"
+        | "user_script";
 
     /** The type of view where the activity occurred. Content scripts will not have a viewType. */
     type _OnExtensionActivityDetailsViewType =
-        | 'background'
-        | 'popup'
-        | 'sidebar'
-        | 'tab'
-        | 'devtools_page'
-        | 'devtools_panel';
+        | "background"
+        | "popup"
+        | "sidebar"
+        | "tab"
+        | "devtools_page"
+        | "devtools_panel";
 
     interface _OnExtensionActivityDetailsData {
         /** A list of arguments passed to the call. */
@@ -920,7 +939,12 @@ declare namespace browser.action {
         button?: number | undefined;
     }
 
-    type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+    type _OnClickDataModifiers =
+        | "Shift"
+        | "Alt"
+        | "Command"
+        | "Ctrl"
+        | "MacCtrl";
 
     /**
      * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
@@ -938,6 +962,14 @@ declare namespace browser.action {
         windowId?: number | undefined;
     }
 
+    /** The collection of user-specified settings relating to an extension's action. */
+    interface _GetUserSettingsReturnUserSettings {
+        /**
+         * Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user).
+         */
+        isOnToolbar?: boolean | undefined;
+    }
+
     /**
      * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
      */
@@ -945,21 +977,15 @@ declare namespace browser.action {
         /**
          * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        imageData?:
-            | ImageDataType
-            | {
-                  [key: number]: ImageDataType;
-              }
-            | undefined;
+        imageData?: ImageDataType | {
+            [key: number]: ImageDataType;
+        } | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?:
-            | string
-            | {
-                  [key: number]: string;
-              }
-            | undefined;
+        path?: string | {
+            [key: number]: string;
+        } | undefined;
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
@@ -1047,6 +1073,9 @@ declare namespace browser.action {
 
     /** Gets the title of the browser action. */
     function getTitle(details: Details): Promise<string>;
+
+    /** Returns the user-specified settings relating to an extension's action. */
+    function getUserSettings(): Promise<_GetUserSettingsReturnUserSettings>;
 
     /**
      * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the **path** or the **imageData** property must be specified.
@@ -1161,7 +1190,12 @@ declare namespace browser.browserAction {
         button?: number | undefined;
     }
 
-    type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+    type _OnClickDataModifiers =
+        | "Shift"
+        | "Alt"
+        | "Command"
+        | "Ctrl"
+        | "MacCtrl";
 
     /**
      * Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
@@ -1186,21 +1220,15 @@ declare namespace browser.browserAction {
         /**
          * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        imageData?:
-            | ImageDataType
-            | {
-                  [key: number]: ImageDataType;
-              }
-            | undefined;
+        imageData?: ImageDataType | {
+            [key: number]: ImageDataType;
+        } | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?:
-            | string
-            | {
-                  [key: number]: string;
-              }
-            | undefined;
+        path?: string | {
+            [key: number]: string;
+        } | undefined;
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.
          */
@@ -1289,6 +1317,9 @@ declare namespace browser.browserAction {
     /** Gets the title of the browser action. */
     function getTitle(details: Details): Promise<string>;
 
+    /** Returns the user-specified settings relating to an extension's action. */
+    function getUserSettings(): Promise<browser.action._GetUserSettingsReturnUserSettings>;
+
     /**
      * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the **path** or the **imageData** property must be specified.
      * @param details Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.
@@ -1371,13 +1402,19 @@ declare namespace browser.browserAction {
 declare namespace browser.browserSettings {
     /* browserSettings types */
     /** How images should be animated in the browser. */
-    type ImageAnimationBehavior = 'normal' | 'none' | 'once';
+    type ImageAnimationBehavior =
+        | "normal"
+        | "none"
+        | "once";
 
     /** After which mouse event context menus should popup. */
-    type ContextMenuMouseEvent = 'mouseup' | 'mousedown';
+    type ContextMenuMouseEvent = "mouseup" | "mousedown";
 
     /** Color management mode. */
-    type ColorManagementMode = 'off' | 'full' | 'tagged_only';
+    type ColorManagementMode =
+        | "off"
+        | "full"
+        | "tagged_only";
 
     /* browserSettings properties */
     /** Allows or disallows pop-up windows from opening in response to user events. */
@@ -1616,14 +1653,18 @@ declare namespace browser.browsingData {
  */
 declare namespace browser.captivePortal {
     /** The current captive portal state. */
-    type _OnStateChangedDetailsState = 'unknown' | 'not_captive' | 'unlocked_portal' | 'locked_portal';
+    type _OnStateChangedDetailsState =
+        | "unknown"
+        | "not_captive"
+        | "unlocked_portal"
+        | "locked_portal";
 
     interface _OnStateChangedDetails {
         /** The current captive portal state. */
         state: _OnStateChangedDetailsState;
     }
 
-    type _OnConnectivityAvailableStatus = 'captive' | 'clear';
+    type _OnConnectivityAvailableStatus = "captive" | "clear";
 
     /* captivePortal properties */
     /** Return the canonical captive-portal detection URL. Read-only. */
@@ -1657,7 +1698,7 @@ declare namespace browser.captivePortal {
  */
 declare namespace browser.clipboard {
     /** The type of imageData. */
-    type _SetImageDataImageType = 'jpeg' | 'png';
+    type _SetImageDataImageType = "jpeg" | "png";
 
     /* clipboard functions */
     /**
@@ -1831,7 +1872,10 @@ declare namespace browser.cookies {
     /**
      * A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set without a 'SameSite' attribute, 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'.
      */
-    type SameSiteStatus = 'no_restriction' | 'lax' | 'strict';
+    type SameSiteStatus =
+        | "no_restriction"
+        | "lax"
+        | "strict";
 
     /**
      * The description of the storage partition of a cookie. This object may be omitted (null) if a cookie is not partitioned.
@@ -1892,7 +1936,12 @@ declare namespace browser.cookies {
     /**
      * The underlying reason behind the cookie's change. If a cookie was inserted, or removed via an explicit call to `cookies.remove`, "cause" will be "explicit". If a cookie was automatically removed due to expiry, "cause" will be "expired". If a cookie was removed due to being overwritten with an already-expired expiration date, "cause" will be set to "expired_overwrite". If a cookie was automatically removed due to garbage collection, "cause" will be "evicted". If a cookie was automatically removed due to a "set" call that overwrote it, "cause" will be "overwrite". Plan your response accordingly.
      */
-    type OnChangedCause = 'evicted' | 'expired' | 'explicit' | 'expired_overwrite' | 'overwrite';
+    type OnChangedCause =
+        | "evicted"
+        | "expired"
+        | "explicit"
+        | "expired_overwrite"
+        | "overwrite";
 
     /** Details to identify the cookie being retrieved. */
     interface _GetDetails {
@@ -2075,26 +2124,29 @@ declare namespace browser.declarativeNetRequest {
     /* declarativeNetRequest types */
     /** How the requested resource will be used. Comparable to the webRequest.ResourceType type. */
     type ResourceType =
-        | 'main_frame'
-        | 'sub_frame'
-        | 'stylesheet'
-        | 'script'
-        | 'image'
-        | 'object'
-        | 'object_subrequest'
-        | 'xmlhttprequest'
-        | 'xslt'
-        | 'ping'
-        | 'beacon'
-        | 'xml_dtd'
-        | 'font'
-        | 'media'
-        | 'websocket'
-        | 'csp_report'
-        | 'imageset'
-        | 'web_manifest'
-        | 'speculative'
-        | 'other';
+        | "main_frame"
+        | "sub_frame"
+        | "stylesheet"
+        | "script"
+        | "image"
+        | "object"
+        | "object_subrequest"
+        | "xmlhttprequest"
+        | "xslt"
+        | "ping"
+        | "beacon"
+        | "xml_dtd"
+        | "font"
+        | "media"
+        | "websocket"
+        | "csp_report"
+        | "imageset"
+        | "web_manifest"
+        | "speculative"
+        | "other";
+
+    /** Describes the reason why a given regular expression isn't supported. */
+    type UnsupportedRegexReason = "syntaxError" | "memoryLimitExceeded";
 
     interface MatchedRule {
         /** A matching rule's ID. */
@@ -2143,7 +2195,10 @@ declare namespace browser.declarativeNetRequest {
     }
 
     /** The new scheme for the request. */
-    type _URLTransformScheme = 'http' | 'https' | 'moz-extension';
+    type _URLTransformScheme =
+        | "http"
+        | "https"
+        | "moz-extension";
 
     interface _URLTransformQueryTransformAddOrReplaceParams {
         key: string;
@@ -2165,7 +2220,7 @@ declare namespace browser.declarativeNetRequest {
     /**
      * Specifies whether the network request is first-party or third-party to the domain from which it originated. If omitted, all requests are matched.
      */
-    type _RuleConditionDomainType = 'firstParty' | 'thirdParty';
+    type _RuleConditionDomainType = "firstParty" | "thirdParty";
 
     /** The condition under which this rule is triggered. */
     interface _RuleCondition {
@@ -2225,7 +2280,13 @@ declare namespace browser.declarativeNetRequest {
         excludedTabIds?: number[] | undefined;
     }
 
-    type _RuleActionType = 'block' | 'redirect' | 'allow' | 'upgradeScheme' | 'modifyHeaders' | 'allowAllRequests';
+    type _RuleActionType =
+        | "block"
+        | "redirect"
+        | "allow"
+        | "upgradeScheme"
+        | "modifyHeaders"
+        | "allowAllRequests";
 
     /** Describes how the redirect should be performed. Only valid when type is 'redirect'. */
     interface _RuleActionRedirect {
@@ -2235,12 +2296,17 @@ declare namespace browser.declarativeNetRequest {
         transform?: URLTransform | undefined;
         /** The redirect url. Redirects to JavaScript urls are not allowed. */
         url?: string | undefined;
-        /** TODO with regexFilter + Substitution pattern for rules which specify a 'regexFilter'. */
+        /**
+         * Substitution pattern for rules which specify a 'regexFilter'. The first match of regexFilter within the url will be replaced with this pattern. Within regexSubstitution, backslash-escaped digits (\1 to \9) can be used to insert the corresponding capture groups. \0 refers to the entire matching text.
+         */
         regexSubstitution?: string | undefined;
     }
 
     /** The operation to be performed on a header. */
-    type _RuleActionRequestHeadersOperation = 'append' | 'set' | 'remove';
+    type _RuleActionRequestHeadersOperation =
+        | "append"
+        | "set"
+        | "remove";
 
     interface _RuleActionRequestHeaders {
         /** The name of the request header to be modified. */
@@ -2252,7 +2318,10 @@ declare namespace browser.declarativeNetRequest {
     }
 
     /** The operation to be performed on a header. */
-    type _RuleActionResponseHeadersOperation = 'append' | 'set' | 'remove';
+    type _RuleActionResponseHeadersOperation =
+        | "append"
+        | "set"
+        | "remove";
 
     interface _RuleActionResponseHeaders {
         /** The name of the response header to be modified. */
@@ -2291,6 +2360,26 @@ declare namespace browser.declarativeNetRequest {
     interface _UpdateEnabledRulesetsUpdateRulesetOptions {
         disableRulesetIds?: string[] | undefined;
         enableRulesetIds?: string[] | undefined;
+    }
+
+    interface _IsRegexSupportedReturnResult {
+        /** Whether the given regex is supported */
+        isSupported: boolean;
+        /**
+         * Specifies the reason why the regular expression is not supported. Only provided if 'isSupported' is false.
+         */
+        reason?: UnsupportedRegexReason | undefined;
+    }
+
+    interface _IsRegexSupportedRegexOptions {
+        /** The regular expresson to check. */
+        regex: string;
+        /** Whether the 'regex' specified is case sensitive. */
+        isCaseSensitive?: boolean | undefined;
+        /**
+         * Whether the 'regex' specified requires capturing. Capturing is only required for redirect rules which specify a 'regexSubstition' action.
+         */
+        requireCapturing?: boolean | undefined;
     }
 
     interface _TestMatchOutcomeReturnResult {
@@ -2341,6 +2430,11 @@ declare namespace browser.declarativeNetRequest {
      */
     const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: number;
 
+    /**
+     * The maximum number of regular expression rules that an extension can add. This limit is evaluated separately for the set of session rules, dynamic rules and those specified in the rule_resources file.
+     */
+    const MAX_NUMBER_OF_REGEX_RULES: number;
+
     /** Ruleset ID for the session-scoped rules added by the extension. */
     const SESSION_RULESET_ID: string;
 
@@ -2369,6 +2463,9 @@ declare namespace browser.declarativeNetRequest {
 
     /** Returns the current set of session scoped rules for the extension. */
     function getSessionRules(): Promise<Rule[]>;
+
+    /** Checks if the given regular expression will be supported as a 'regexFilter' rule condition. */
+    function isRegexSupported(regexOptions: _IsRegexSupportedRegexOptions): Promise<_IsRegexSupportedReturnResult>;
 
     /**
      * Checks if any of the extension's declarativeNetRequest rules would match a hypothetical request.
@@ -2403,16 +2500,16 @@ declare namespace browser.dns {
     type ResolveFlags = _ResolveFlags[];
 
     type _ResolveFlags =
-        | 'allow_name_collisions'
-        | 'bypass_cache'
-        | 'canonical_name'
-        | 'disable_ipv4'
-        | 'disable_ipv6'
-        | 'disable_trr'
-        | 'offline'
-        | 'priority_low'
-        | 'priority_medium'
-        | 'speculate';
+        | "allow_name_collisions"
+        | "bypass_cache"
+        | "canonical_name"
+        | "disable_ipv4"
+        | "disable_ipv6"
+        | "disable_trr"
+        | "offline"
+        | "priority_low"
+        | "priority_medium"
+        | "speculate";
 
     /* dns functions */
     /** Resolves a hostname to a DNS record. */
@@ -2426,33 +2523,36 @@ declare namespace browser.dns {
  */
 declare namespace browser.downloads {
     /* downloads types */
-    type FilenameConflictAction = 'uniquify' | 'overwrite' | 'prompt';
+    type FilenameConflictAction =
+        | "uniquify"
+        | "overwrite"
+        | "prompt";
 
     type InterruptReason =
-        | 'FILE_FAILED'
-        | 'FILE_ACCESS_DENIED'
-        | 'FILE_NO_SPACE'
-        | 'FILE_NAME_TOO_LONG'
-        | 'FILE_TOO_LARGE'
-        | 'FILE_VIRUS_INFECTED'
-        | 'FILE_TRANSIENT_ERROR'
-        | 'FILE_BLOCKED'
-        | 'FILE_SECURITY_CHECK_FAILED'
-        | 'FILE_TOO_SHORT'
-        | 'NETWORK_FAILED'
-        | 'NETWORK_TIMEOUT'
-        | 'NETWORK_DISCONNECTED'
-        | 'NETWORK_SERVER_DOWN'
-        | 'NETWORK_INVALID_REQUEST'
-        | 'SERVER_FAILED'
-        | 'SERVER_NO_RANGE'
-        | 'SERVER_BAD_CONTENT'
-        | 'SERVER_UNAUTHORIZED'
-        | 'SERVER_CERT_PROBLEM'
-        | 'SERVER_FORBIDDEN'
-        | 'USER_CANCELED'
-        | 'USER_SHUTDOWN'
-        | 'CRASH';
+        | "FILE_FAILED"
+        | "FILE_ACCESS_DENIED"
+        | "FILE_NO_SPACE"
+        | "FILE_NAME_TOO_LONG"
+        | "FILE_TOO_LARGE"
+        | "FILE_VIRUS_INFECTED"
+        | "FILE_TRANSIENT_ERROR"
+        | "FILE_BLOCKED"
+        | "FILE_SECURITY_CHECK_FAILED"
+        | "FILE_TOO_SHORT"
+        | "NETWORK_FAILED"
+        | "NETWORK_TIMEOUT"
+        | "NETWORK_DISCONNECTED"
+        | "NETWORK_SERVER_DOWN"
+        | "NETWORK_INVALID_REQUEST"
+        | "SERVER_FAILED"
+        | "SERVER_NO_RANGE"
+        | "SERVER_BAD_CONTENT"
+        | "SERVER_UNAUTHORIZED"
+        | "SERVER_CERT_PROBLEM"
+        | "SERVER_FORBIDDEN"
+        | "USER_CANCELED"
+        | "USER_SHUTDOWN"
+        | "CRASH";
 
     /**
      * *file*:
@@ -2468,7 +2568,15 @@ declare namespace browser.downloads {
      *
      * These string constants will never change, however the set of DangerTypes may change.
      */
-    type DangerType = 'file' | 'url' | 'content' | 'uncommon' | 'host' | 'unwanted' | 'safe' | 'accepted';
+    type DangerType =
+        | "file"
+        | "url"
+        | "content"
+        | "uncommon"
+        | "host"
+        | "unwanted"
+        | "safe"
+        | "accepted";
 
     /**
      * *in_progress*:
@@ -2480,7 +2588,10 @@ declare namespace browser.downloads {
      *
      * These string constants will never change, however the set of States may change.
      */
-    type State = 'in_progress' | 'interrupted' | 'complete';
+    type State =
+        | "in_progress"
+        | "interrupted"
+        | "complete";
 
     interface DownloadItem {
         /** An identifier that is persistent across browser sessions. */
@@ -2602,7 +2713,7 @@ declare namespace browser.downloads {
     }
 
     /** The HTTP method to use if the URL uses the HTTP[S] protocol. */
-    type _DownloadOptionsMethod = 'GET' | 'POST';
+    type _DownloadOptionsMethod = "GET" | "POST";
 
     interface _DownloadOptionsHeaders {
         /** Name of the HTTP header. */
@@ -2900,11 +3011,17 @@ declare namespace browser.experiments {
 
     type APIEvents = APIEvent[];
 
-    type APIEvent = 'startup';
+    type APIEvent = "startup";
 
-    type APIParentScope = 'addon_parent' | 'content_parent' | 'devtools_parent';
+    type APIParentScope =
+        | "addon_parent"
+        | "content_parent"
+        | "devtools_parent";
 
-    type APIChildScope = 'addon_child' | 'content_child' | 'devtools_child';
+    type APIChildScope =
+        | "addon_child"
+        | "content_child"
+        | "devtools_child";
 
     interface _ExperimentAPIParent {
         events?: APIEvents | undefined;
@@ -2926,7 +3043,10 @@ declare namespace browser.experiments {
 declare namespace browser.extension {
     /* extension types */
     /** The type of extension view. */
-    type ViewType = 'tab' | 'popup' | 'sidebar';
+    type ViewType =
+        | "tab"
+        | "popup"
+        | "sidebar";
 
     /**
      * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be `undefined`.
@@ -2981,6 +3101,7 @@ declare namespace browser.extension {
     /**
      * Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getBackgroundPage(): Window | void;
 
     /**
@@ -3029,7 +3150,7 @@ declare namespace browser.extension {
 declare namespace browser.extensionTypes {
     /* extensionTypes types */
     /** The format of an image. */
-    type ImageFormat = 'jpeg' | 'png';
+    type ImageFormat = "jpeg" | "png";
 
     /** Details about the format, quality, area and scale of the capture. */
     interface ImageDetails {
@@ -3052,10 +3173,13 @@ declare namespace browser.extensionTypes {
     }
 
     /** The soonest that the JavaScript or CSS will be injected into the tab. */
-    type RunAt = 'document_start' | 'document_end' | 'document_idle';
+    type RunAt =
+        | "document_start"
+        | "document_end"
+        | "document_idle";
 
     /** The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet. */
-    type CSSOrigin = 'user' | 'author';
+    type CSSOrigin = "user" | "author";
 
     /**
      * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
@@ -3088,13 +3212,11 @@ declare namespace browser.extensionTypes {
 
     type Date = string | number | globalThis.Date;
 
-    type ExtensionFileOrCode =
-        | {
-              file: _manifest.ExtensionURL;
-          }
-        | {
-              code: string;
-          };
+    type ExtensionFileOrCode = {
+        file: _manifest.ExtensionURL;
+    } | {
+        code: string;
+    };
 
     /** A plain JSON value */
     type PlainJSONValue = null | string | number | boolean | _PlainJSONArray | _PlainJSONObject;
@@ -3126,31 +3248,32 @@ declare namespace browser.extensionTypes {
 declare namespace browser.geckoProfiler {
     /* geckoProfiler types */
     type ProfilerFeature =
-        | 'java'
-        | 'js'
-        | 'mainthreadio'
-        | 'fileio'
-        | 'fileioall'
-        | 'noiostacks'
-        | 'screenshots'
-        | 'seqstyle'
-        | 'stackwalk'
-        | 'jsallocations'
-        | 'nostacksampling'
-        | 'nativeallocations'
-        | 'ipcmessages'
-        | 'audiocallbacktracing'
-        | 'cpu'
-        | 'notimerresolutionchange'
-        | 'cpuallthreads'
-        | 'samplingallthreads'
-        | 'markersallthreads'
-        | 'unregisteredthreads'
-        | 'processcpu'
-        | 'power'
-        | 'responsiveness';
+        | "java"
+        | "js"
+        | "mainthreadio"
+        | "fileio"
+        | "fileioall"
+        | "nomarkerstacks"
+        | "screenshots"
+        | "seqstyle"
+        | "stackwalk"
+        | "jsallocations"
+        | "nostacksampling"
+        | "nativeallocations"
+        | "ipcmessages"
+        | "audiocallbacktracing"
+        | "cpu"
+        | "notimerresolutionchange"
+        | "cpuallthreads"
+        | "samplingallthreads"
+        | "markersallthreads"
+        | "unregisteredthreads"
+        | "processcpu"
+        | "power"
+        | "responsiveness"
+        | "cpufreq";
 
-    type Supports = 'windowLength';
+    type Supports = "windowLength";
 
     interface _StartSettings {
         /**
@@ -3365,7 +3488,7 @@ declare namespace browser.identity {
  */
 declare namespace browser.idle {
     /* idle types */
-    type IdleState = 'active' | 'idle';
+    type IdleState = "active" | "idle";
 
     /* idle functions */
     /**
@@ -3407,10 +3530,10 @@ declare namespace browser.management {
     }
 
     /** A reason the item is disabled. */
-    type ExtensionDisabledReason = 'unknown' | 'permissions_increase';
+    type ExtensionDisabledReason = "unknown" | "permissions_increase";
 
     /** The type of this extension, 'extension' or 'theme'. */
-    type ExtensionType = 'extension' | 'theme';
+    type ExtensionType = "extension" | "theme";
 
     /**
      * How the extension was installed. One of
@@ -3419,7 +3542,11 @@ declare namespace browser.management {
      * `sideload`: The extension was installed by other software on the machine,
      * `other`: The extension was installed by other means.
      */
-    type ExtensionInstallType = 'development' | 'normal' | 'sideload' | 'other';
+    type ExtensionInstallType =
+        | "development"
+        | "normal"
+        | "sideload"
+        | "other";
 
     /** Information about an installed extension. */
     interface ExtensionInfo {
@@ -3542,10 +3669,19 @@ declare namespace browser.networkStatus {
     }
 
     /** Status of the network link, if "unknown" then link is usually assumed to be "up" */
-    type _NetworkLinkInfoStatus = 'unknown' | 'up' | 'down';
+    type _NetworkLinkInfoStatus =
+        | "unknown"
+        | "up"
+        | "down";
 
     /** If known, the type of network connection that is avialable. */
-    type _NetworkLinkInfoType = 'unknown' | 'ethernet' | 'usb' | 'wifi' | 'wimax' | 'mobile';
+    type _NetworkLinkInfoType =
+        | "unknown"
+        | "ethernet"
+        | "usb"
+        | "wifi"
+        | "wimax"
+        | "mobile";
 
     /* networkStatus functions */
     /** Returns the $(ref:NetworkLinkInfo} of the current network connection. */
@@ -3563,9 +3699,13 @@ declare namespace browser.networkStatus {
  */
 declare namespace browser.notifications {
     /* notifications types */
-    type TemplateType = 'basic' | 'image' | 'list' | 'progress';
+    type TemplateType =
+        | "basic"
+        | "image"
+        | "list"
+        | "progress";
 
-    type PermissionLevel = 'granted' | 'denied';
+    type PermissionLevel = "granted" | "denied";
 
     interface NotificationItem {
         /** Title of one item of a list notification. */
@@ -3749,7 +3889,12 @@ declare namespace browser.pageAction {
         button?: number | undefined;
     }
 
-    type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+    type _OnClickDataModifiers =
+        | "Shift"
+        | "Alt"
+        | "Command"
+        | "Ctrl"
+        | "MacCtrl";
 
     interface _IsShownDetails {
         /** Specify the tab to get the shownness from. */
@@ -3774,21 +3919,15 @@ declare namespace browser.pageAction {
         /**
          * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        imageData?:
-            | ImageDataType
-            | {
-                  [key: number]: ImageDataType;
-              }
-            | undefined;
+        imageData?: ImageDataType | {
+            [key: number]: ImageDataType;
+        } | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?:
-            | string
-            | {
-                  [key: number]: string;
-              }
-            | undefined;
+        path?: string | {
+            [key: number]: string;
+        } | undefined;
     }
 
     interface _SetPopupDetails {
@@ -3900,11 +4039,11 @@ declare namespace browser.privacy.network {
     /* privacy.network types */
     /** The IP handling policy of WebRTC. */
     type IPHandlingPolicy =
-        | 'default'
-        | 'default_public_and_private_interfaces'
-        | 'default_public_interface_only'
-        | 'disable_non_proxied_udp'
-        | 'proxy_only';
+        | "default"
+        | "default_public_and_private_interfaces"
+        | "default_public_interface_only"
+        | "disable_non_proxied_udp"
+        | "proxy_only";
 
     /** An object which describes TLS minimum and maximum versions. */
     interface tlsVersionRestrictionConfig {
@@ -3915,13 +4054,26 @@ declare namespace browser.privacy.network {
     }
 
     /** The mode for https-only mode. */
-    type HTTPSOnlyModeOption = 'always' | 'private_browsing' | 'never';
+    type HTTPSOnlyModeOption =
+        | "always"
+        | "private_browsing"
+        | "never";
 
     /** The minimum TLS version supported. */
-    type _TlsVersionRestrictionConfigMinimum = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+    type _TlsVersionRestrictionConfigMinimum =
+        | "TLSv1"
+        | "TLSv1.1"
+        | "TLSv1.2"
+        | "TLSv1.3"
+        | "unknown";
 
     /** The maximum TLS version supported. */
-    type _TlsVersionRestrictionConfigMaximum = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+    type _TlsVersionRestrictionConfigMaximum =
+        | "TLSv1"
+        | "TLSv1.1"
+        | "TLSv1.2"
+        | "TLSv1.3"
+        | "unknown";
 
     /* privacy.network properties */
     /**
@@ -3978,7 +4130,10 @@ declare namespace browser.privacy.services {
 declare namespace browser.privacy.websites {
     /* privacy.websites types */
     /** The mode for tracking protection. */
-    type TrackingProtectionModeOption = 'always' | 'never' | 'private_browsing';
+    type TrackingProtectionModeOption =
+        | "always"
+        | "never"
+        | "private_browsing";
 
     /** The settings for cookies. */
     interface CookieConfig {
@@ -3993,12 +4148,12 @@ declare namespace browser.privacy.websites {
 
     /** The type of cookies to allow. */
     type _CookieConfigBehavior =
-        | 'allow_all'
-        | 'reject_all'
-        | 'reject_third_party'
-        | 'allow_visited'
-        | 'reject_trackers'
-        | 'reject_trackers_and_partition_foreign';
+        | "allow_all"
+        | "reject_all"
+        | "reject_third_party"
+        | "allow_visited"
+        | "reject_trackers"
+        | "reject_trackers_and_partition_foreign";
 
     /* privacy.websites properties */
     /**
@@ -4087,7 +4242,12 @@ declare namespace browser.proxy {
     }
 
     /** The type of proxy to use. */
-    type _ProxyConfigProxyType = 'none' | 'autoDetect' | 'system' | 'manual' | 'autoConfig';
+    type _ProxyConfigProxyType =
+        | "none"
+        | "autoDetect"
+        | "system"
+        | "manual"
+        | "autoConfig";
 
     interface _OnRequestDetails {
         /**
@@ -4128,7 +4288,7 @@ declare namespace browser.proxy {
     }
 
     interface _ProxyOnRequestEvent<TCallback = (details: _OnRequestDetails) => void> {
-        addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<'requestHeaders'>): void;
+        addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
     }
@@ -4154,7 +4314,7 @@ declare namespace browser.runtime {
     interface Port {
         name: string;
         disconnect: () => void;
-        postMessage: (message: object) => void;
+        postMessage: (message: any) => void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender | undefined;
         error?: Error | undefined;
@@ -4186,10 +4346,24 @@ declare namespace browser.runtime {
     }
 
     /** The operating system the browser is running on. */
-    type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
+    type PlatformOs =
+        | "mac"
+        | "win"
+        | "android"
+        | "cros"
+        | "linux"
+        | "openbsd";
 
     /** The machine's processor architecture. */
-    type PlatformArch = 'aarch64' | 'arm' | 'ppc64' | 's390x' | 'sparc64' | 'x86-32' | 'x86-64' | 'noarch';
+    type PlatformArch =
+        | "aarch64"
+        | "arm"
+        | "ppc64"
+        | "s390x"
+        | "sparc64"
+        | "x86-32"
+        | "x86-64"
+        | "noarch";
 
     /** An object containing information about the current platform. */
     interface PlatformInfo {
@@ -4217,17 +4391,29 @@ declare namespace browser.runtime {
     }
 
     /** Result of the update check. */
-    type RequestUpdateCheckStatus = 'throttled' | 'no_update' | 'update_available';
+    type RequestUpdateCheckStatus =
+        | "throttled"
+        | "no_update"
+        | "update_available";
 
     /** The reason that this event is being dispatched. */
-    type OnInstalledReason = 'install' | 'update' | 'browser_update';
+    type OnInstalledReason =
+        | "install"
+        | "update"
+        | "browser_update";
 
     /**
      * The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the application is updated to a newer version. 'os_update' is used when the restart is needed because the browser/OS is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in the enterprise policy.
      */
-    type OnRestartRequiredReason = 'app_update' | 'os_update' | 'periodic';
+    type OnRestartRequiredReason =
+        | "app_update"
+        | "os_update"
+        | "periodic";
 
-    type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64';
+    type PlatformNaclArch =
+        | "arm"
+        | "x86-32"
+        | "x86-64";
 
     /** This will be defined during an API method callback if there was an error */
     interface _LastError {
@@ -4324,7 +4510,7 @@ declare namespace browser.runtime {
     function getFrameId(target: any): number;
 
     /**
-     * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
+     * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 1023 characters.
      * @param [url] URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme. Set an empty string to not open a new tab upon uninstallation.
      */
     function setUninstallURL(url?: string): Promise<void>;
@@ -4445,6 +4631,7 @@ declare namespace browser.runtime {
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
     const onMessage: WebExtEvent<
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | Promise<any> | void
     >;
 
@@ -4455,6 +4642,7 @@ declare namespace browser.runtime {
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
     const onMessageExternal: WebExtEvent<
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | Promise<any> | void
     >;
 
@@ -4488,6 +4676,7 @@ declare namespace browser.scripting {
         /**
          * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` and `func` must be specified.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         func?: () => void | undefined;
         /** Details specifying the target into which to inject the script. */
         target: InjectionTarget;
@@ -4544,7 +4733,7 @@ declare namespace browser.scripting {
     /**
      * The JavaScript world for a script to execute within. We currently only support the `'ISOLATED'` world.
      */
-    type ExecutionWorld = 'ISOLATED';
+    type ExecutionWorld = "ISOLATED";
 
     interface RegisteredContentScript {
         /**
@@ -4576,7 +4765,7 @@ declare namespace browser.scripting {
     }
 
     /** The style origin for the injection. Defaults to `'AUTHOR'`. */
-    type _CSSInjectionOrigin = 'USER' | 'AUTHOR';
+    type _CSSInjectionOrigin = "USER" | "AUTHOR";
 
     interface _UpdateContentScriptsScripts {
         /** Specifies if this content script will persist into future sessions. */
@@ -4670,13 +4859,13 @@ declare namespace browser.storage {
          * Gets one or more items from storage.
          * @param [keys] A single key to get, list of keys to get, or a dictionary specifying default values (see description of the object). An empty list or object will return an empty result object. Pass in `null` to get the entire contents of storage.
          */
-        get(keys?: string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
+        get(keys?: null | string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param [keys] A single key or list of keys to get the total usage for. An empty list will return 0\. Pass in `null` to get the total usage of all of storage.
          * @deprecated Unsupported on Firefox at this time.
          */
-        getBytesInUse?(keys?: string | string[]): Promise<number>;
+        getBytesInUse?(keys?: null | string | string[]): Promise<number>;
         /**
          * Sets multiple items.
          * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
@@ -4703,12 +4892,12 @@ declare namespace browser.storage {
          * Gets one or more items from storage.
          * @param [keys] A single key to get, list of keys to get, or a dictionary specifying default values (see description of the object). An empty list or object will return an empty result object. Pass in `null` to get the entire contents of storage.
          */
-        get(keys?: string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
+        get(keys?: null | string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param [keys] A single key or list of keys to get the total usage for. An empty list will return 0\. Pass in `null` to get the total usage of all of storage.
          */
-        getBytesInUse(keys?: string | string[]): Promise<number>;
+        getBytesInUse(keys?: null | string | string[]): Promise<number>;
         /**
          * Sets multiple items.
          * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
@@ -4742,6 +4931,13 @@ declare namespace browser.storage {
      */
     const managed: StorageArea;
 
+    /**
+     * Items in the `session` storage area are kept in memory, and only until the either browser or extension is closed or reloaded.
+     *
+     * Not allowed in: Content scripts
+     */
+    const session: StorageArea;
+
     /* storage events */
     /**
      * Fired when one or more items change.
@@ -4763,7 +4959,10 @@ declare namespace browser.telemetry {
     /**
      * Type of scalar: 'count' for numeric values, 'string' for string values, 'boolean' for boolean values. Maps to `nsITelemetry.SCALAR_TYPE_*`.
      */
-    type ScalarType = 'count' | 'string' | 'boolean';
+    type ScalarType =
+        | "count"
+        | "string"
+        | "boolean";
 
     /** Represents registration data for a Telemetry scalar. */
     interface ScalarData {
@@ -4985,7 +5184,11 @@ declare namespace browser.types {
      *
      * Only `regular` is supported by Firefox at this time.
      */
-    type SettingScope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
+    type SettingScope =
+        | "regular"
+        | "regular_only"
+        | "incognito_persistent"
+        | "incognito_session_only";
 
     /**
      * One of
@@ -4996,10 +5199,10 @@ declare namespace browser.types {
      * *   `controlled_by_this_extension`: controlled by this extension
      */
     type LevelOfControl =
-        | 'not_controllable'
-        | 'controlled_by_other_extensions'
-        | 'controllable_by_this_extension'
-        | 'controlled_by_this_extension';
+        | "not_controllable"
+        | "controlled_by_other_extensions"
+        | "controllable_by_this_extension"
+        | "controlled_by_this_extension";
 
     interface Setting {
         /**
@@ -5154,19 +5357,23 @@ declare namespace browser.webNavigation {
      * Cause of the navigation. The same transition types as defined in the history API are used. These are the same transition types as defined in the history API except with `"start_page"` in place of `"auto_toplevel"` (for backwards compatibility).
      */
     type TransitionType =
-        | 'link'
-        | 'typed'
-        | 'auto_bookmark'
-        | 'auto_subframe'
-        | 'manual_subframe'
-        | 'generated'
-        | 'start_page'
-        | 'form_submit'
-        | 'reload'
-        | 'keyword'
-        | 'keyword_generated';
+        | "link"
+        | "typed"
+        | "auto_bookmark"
+        | "auto_subframe"
+        | "manual_subframe"
+        | "generated"
+        | "start_page"
+        | "form_submit"
+        | "reload"
+        | "keyword"
+        | "keyword_generated";
 
-    type TransitionQualifier = 'client_redirect' | 'server_redirect' | 'forward_back' | 'from_address_bar';
+    type TransitionQualifier =
+        | "client_redirect"
+        | "server_redirect"
+        | "forward_back"
+        | "from_address_bar";
 
     interface EventUrlFilters {
         url: events.UrlFilter[];
@@ -5268,16 +5475,10 @@ declare namespace browser.webNavigation {
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
         frameId: number;
-        /**
-         * Cause of the navigation.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionType?: TransitionType | undefined;
-        /**
-         * A list of transition qualifiers.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionQualifiers?: TransitionQualifier[] | undefined;
+        /** Cause of the navigation. */
+        transitionType: TransitionType;
+        /** A list of transition qualifiers. */
+        transitionQualifiers: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
     }
@@ -5400,16 +5601,10 @@ declare namespace browser.webNavigation {
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
         frameId: number;
-        /**
-         * Cause of the navigation.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionType?: TransitionType | undefined;
-        /**
-         * A list of transition qualifiers.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionQualifiers?: TransitionQualifier[] | undefined;
+        /** Cause of the navigation. */
+        transitionType: TransitionType;
+        /** A list of transition qualifiers. */
+        transitionQualifiers: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
     }
@@ -5444,16 +5639,10 @@ declare namespace browser.webNavigation {
          * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
          */
         frameId: number;
-        /**
-         * Cause of the navigation.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionType?: TransitionType | undefined;
-        /**
-         * A list of transition qualifiers.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionQualifiers?: TransitionQualifier[] | undefined;
+        /** Cause of the navigation. */
+        transitionType: TransitionType;
+        /** A list of transition qualifiers. */
+        transitionQualifiers: TransitionQualifier[];
         /** The time when the navigation was committed, in milliseconds since the epoch. */
         timeStamp: number;
     }
@@ -5524,42 +5713,45 @@ declare namespace browser.webNavigation {
 declare namespace browser.webRequest {
     /* webRequest types */
     type ResourceType =
-        | 'main_frame'
-        | 'sub_frame'
-        | 'stylesheet'
-        | 'script'
-        | 'image'
-        | 'object'
-        | 'object_subrequest'
-        | 'xmlhttprequest'
-        | 'xslt'
-        | 'ping'
-        | 'beacon'
-        | 'xml_dtd'
-        | 'font'
-        | 'media'
-        | 'websocket'
-        | 'csp_report'
-        | 'imageset'
-        | 'web_manifest'
-        | 'speculative'
-        | 'other';
+        | "main_frame"
+        | "sub_frame"
+        | "stylesheet"
+        | "script"
+        | "image"
+        | "object"
+        | "object_subrequest"
+        | "xmlhttprequest"
+        | "xslt"
+        | "ping"
+        | "beacon"
+        | "xml_dtd"
+        | "font"
+        | "media"
+        | "websocket"
+        | "csp_report"
+        | "imageset"
+        | "web_manifest"
+        | "speculative"
+        | "other";
 
-    type OnBeforeRequestOptions = 'blocking' | 'requestBody';
+    type OnBeforeRequestOptions = "blocking" | "requestBody";
 
-    type OnBeforeSendHeadersOptions = 'requestHeaders' | 'blocking';
+    type OnBeforeSendHeadersOptions = "requestHeaders" | "blocking";
 
-    type OnSendHeadersOptions = 'requestHeaders';
+    type OnSendHeadersOptions = "requestHeaders";
 
-    type OnHeadersReceivedOptions = 'blocking' | 'responseHeaders';
+    type OnHeadersReceivedOptions = "blocking" | "responseHeaders";
 
-    type OnAuthRequiredOptions = 'responseHeaders' | 'blocking' | 'asyncBlocking';
+    type OnAuthRequiredOptions =
+        | "responseHeaders"
+        | "blocking"
+        | "asyncBlocking";
 
-    type OnResponseStartedOptions = 'responseHeaders';
+    type OnResponseStartedOptions = "responseHeaders";
 
-    type OnBeforeRedirectOptions = 'responseHeaders';
+    type OnBeforeRedirectOptions = "responseHeaders";
 
-    type OnCompletedOptions = 'responseHeaders';
+    type OnCompletedOptions = "responseHeaders";
 
     /** An object describing filters to apply to webRequest events. */
     interface RequestFilter {
@@ -5622,12 +5814,12 @@ declare namespace browser.webRequest {
     }
 
     type CertificateTransparencyStatus =
-        | 'not_applicable'
-        | 'policy_compliant'
-        | 'policy_not_enough_scts'
-        | 'policy_not_diverse_scts';
+        | "not_applicable"
+        | "policy_compliant"
+        | "policy_not_enough_scts"
+        | "policy_not_diverse_scts";
 
-    type TransportWeaknessReasons = 'cipher';
+    type TransportWeaknessReasons = "cipher";
 
     /** Contains the security properties of the request (ie. SSL/TLS information). */
     interface SecurityInfo {
@@ -5673,6 +5865,14 @@ declare namespace browser.webRequest {
         hpkp?: string | undefined;
         /** list of reasons that cause the request to be considered weak, if state is "weak" */
         weaknessReasons?: TransportWeaknessReasons[] | undefined;
+        /** True if the TLS connection used Encrypted Client Hello. */
+        usedEch?: boolean | undefined;
+        /** True if the TLS connection used Delegated Credentials. */
+        usedDelegatedCredentials?: boolean | undefined;
+        /** True if the TLS connection made OCSP requests. */
+        usedOcsp?: boolean | undefined;
+        /** True if the TLS connection used a privacy-preserving DNS transport like DNS-over-HTTPS. */
+        usedPrivateDns?: boolean | undefined;
     }
 
     /** Contains data uploaded in a URL request. */
@@ -5685,20 +5885,20 @@ declare namespace browser.webRequest {
 
     /** Tracking flags that match our internal tracking classification */
     type UrlClassificationFlags =
-        | 'fingerprinting'
-        | 'fingerprinting_content'
-        | 'cryptomining'
-        | 'cryptomining_content'
-        | 'emailtracking'
-        | 'emailtracking_content'
-        | 'tracking'
-        | 'tracking_ad'
-        | 'tracking_analytics'
-        | 'tracking_social'
-        | 'tracking_content'
-        | 'any_basic_tracking'
-        | 'any_strict_tracking'
-        | 'any_social_tracking';
+        | "fingerprinting"
+        | "fingerprinting_content"
+        | "cryptomining"
+        | "cryptomining_content"
+        | "emailtracking"
+        | "emailtracking_content"
+        | "tracking"
+        | "tracking_ad"
+        | "tracking_analytics"
+        | "tracking_social"
+        | "tracking_content"
+        | "any_basic_tracking"
+        | "any_strict_tracking"
+        | "any_social_tracking";
 
     /** If the request has been classified this is an array of `UrlClassificationFlags`. */
     type UrlClassificationParty = UrlClassificationFlags[];
@@ -5772,23 +5972,35 @@ declare namespace browser.webRequest {
         sha256: string;
     }
 
-    type _SecurityInfoState = 'insecure' | 'weak' | 'broken' | 'secure';
+    type _SecurityInfoState =
+        | "insecure"
+        | "weak"
+        | "broken"
+        | "secure";
 
     /** Protocol version if state is "secure" */
-    type _SecurityInfoProtocolVersion = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+    type _SecurityInfoProtocolVersion =
+        | "TLSv1"
+        | "TLSv1.1"
+        | "TLSv1.2"
+        | "TLSv1.3"
+        | "unknown";
 
     /** The type of certificate error that was overridden for this connection, if any. */
-    type _SecurityInfoOverridableErrorCategory = 'trust_error' | 'domain_mismatch' | 'expired_or_not_yet_valid';
+    type _SecurityInfoOverridableErrorCategory =
+        | "trust_error"
+        | "domain_mismatch"
+        | "expired_or_not_yet_valid";
 
     /** Describes the current status of the stream. */
     type _StreamFilterStatus =
-        | 'uninitialized'
-        | 'transferringdata'
-        | 'finishedtransferringdata'
-        | 'suspended'
-        | 'closed'
-        | 'disconnected'
-        | 'failed';
+        | "uninitialized"
+        | "transferringdata"
+        | "finishedtransferringdata"
+        | "suspended"
+        | "closed"
+        | "disconnected"
+        | "failed";
 
     interface _StreamFilterOndataEvent extends Event {
         data: ArrayBuffer;
@@ -5852,6 +6064,7 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnBeforeRequestEvent<
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         TCallback = (details: _OnBeforeRequestDetails) => BlockingResponse | Promise<BlockingResponse> | void,
     > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
@@ -5896,6 +6109,7 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnBeforeSendHeadersEvent<
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         TCallback = (details: _OnBeforeSendHeadersDetails) => BlockingResponse | Promise<BlockingResponse> | void,
     > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
@@ -5988,6 +6202,7 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnHeadersReceivedEvent<
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         TCallback = (details: _OnHeadersReceivedDetails) => BlockingResponse | Promise<BlockingResponse> | void,
     > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
@@ -6052,6 +6267,7 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnAuthRequiredEvent<
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         TCallback = (details: _OnAuthRequiredDetails) => BlockingResponse | Promise<BlockingResponse> | void,
     > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;
@@ -6354,10 +6570,13 @@ declare namespace browser.bookmarks {
     /**
      * Indicates the reason why this node is unmodifiable. The `managed` value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).
      */
-    type BookmarkTreeNodeUnmodifiable = 'managed';
+    type BookmarkTreeNodeUnmodifiable = "managed";
 
     /** Indicates the type of a BookmarkTreeNode, which can be one of bookmark, folder or separator. */
-    type BookmarkTreeNodeType = 'bookmark' | 'folder' | 'separator';
+    type BookmarkTreeNodeType =
+        | "bookmark"
+        | "folder"
+        | "separator";
 
     /**
      * A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder.
@@ -6462,16 +6681,14 @@ declare namespace browser.bookmarks {
      * @param query Either a string of words that are matched against bookmark URLs and titles, or an object. If an object, the properties `query`, `url`, and `title` may be specified and bookmarks matching all specified properties will be produced.
      */
     function search(
-        query:
-            | string
-            | {
-                  /** A string of words that are matched against bookmark URLs and titles. */
-                  query?: string | undefined;
-                  /** The URL of the bookmark; matches verbatim. Note that folders have no URL. */
-                  url?: string | undefined;
-                  /** The title of the bookmark; matches verbatim. */
-                  title?: string | undefined;
-              },
+        query: string | {
+            /** A string of words that are matched against bookmark URLs and titles. */
+            query?: string | undefined;
+            /** The URL of the bookmark; matches verbatim. Note that folders have no URL. */
+            url?: string | undefined;
+            /** The title of the bookmark; matches verbatim. */
+            title?: string | undefined;
+        },
     ): Promise<BookmarkTreeNode[]>;
 
     /**
@@ -6546,6 +6763,17 @@ declare namespace browser.commands {
         shortcut?: string | undefined;
     }
 
+    interface _OnChangedChangeInfo {
+        /** The name of the shortcut. */
+        name: string;
+        /** The new shortcut active for this command, or blank if not active. */
+        newShortcut: string;
+        /**
+         * The old shortcut which is no longer active for this command, or blank if the shortcut was previously inactive.
+         */
+        oldShortcut: string;
+    }
+
     /* commands functions */
     /**
      * Update the details of an already defined command.
@@ -6565,6 +6793,9 @@ declare namespace browser.commands {
     /* commands events */
     /** Fired when a registered command is activated using a keyboard shortcut. */
     const onCommand: WebExtEvent<(command: string) => void>;
+
+    /** Fired when a registered command's shortcut is changed. */
+    const onChanged: WebExtEvent<(changeInfo: _OnChangedChangeInfo) => void>;
 }
 
 /**
@@ -6876,7 +7107,7 @@ declare namespace browser.devtools.panels {
      */
     function create(
         title: string,
-        iconPath: _manifest.ExtensionURL | '',
+        iconPath: _manifest.ExtensionURL | "",
         pagePath: _manifest.ExtensionURL,
     ): Promise<ExtensionPanel>;
 
@@ -6942,10 +7173,7 @@ declare namespace browser.find {
      * @param queryphrase The string to search for.
      * @param [params] Search parameters.
      */
-    function find(
-        queryphrase: string,
-        params?: _FindParams,
-    ): Promise<{
+    function find(queryphrase: string, params?: _FindParams): Promise<{
         count: number;
         rangeData?: Array<{
             framePos: number;
@@ -6992,17 +7220,17 @@ declare namespace browser.history {
     /* history types */
     /** The transition type for this visit from its referrer. */
     type TransitionType =
-        | 'link'
-        | 'typed'
-        | 'auto_bookmark'
-        | 'auto_subframe'
-        | 'manual_subframe'
-        | 'generated'
-        | 'auto_toplevel'
-        | 'form_submit'
-        | 'reload'
-        | 'keyword'
-        | 'keyword_generated';
+        | "link"
+        | "typed"
+        | "auto_bookmark"
+        | "auto_subframe"
+        | "manual_subframe"
+        | "generated"
+        | "auto_toplevel"
+        | "form_submit"
+        | "reload"
+        | "keyword"
+        | "keyword_generated";
 
     /** An object encapsulating one result of a history query. */
     interface HistoryItem {
@@ -7141,7 +7369,11 @@ declare namespace browser.contextMenus {
     type ContextType = _ContextType;
 
     /** The type of menu item. */
-    type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
+    type ItemType =
+        | "normal"
+        | "checkbox"
+        | "radio"
+        | "separator";
 
     /** Information sent when a context menu item is clicked. */
     interface OnClickData {
@@ -7190,37 +7422,42 @@ declare namespace browser.contextMenus {
     }
 
     type _ContextType =
-        | 'all'
-        | 'page'
-        | 'frame'
-        | 'selection'
-        | 'link'
-        | 'editable'
-        | 'password'
-        | 'image'
-        | 'video'
-        | 'audio'
-        | 'launcher'
-        | 'bookmark'
-        | 'tab'
-        | 'tools_menu'
-        | 'browser_action'
-        | 'page_action'
-        | 'action';
+        | "all"
+        | "page"
+        | "frame"
+        | "selection"
+        | "link"
+        | "editable"
+        | "password"
+        | "image"
+        | "video"
+        | "audio"
+        | "launcher"
+        | "bookmark"
+        | "tab"
+        | "tools_menu"
+        | "browser_action"
+        | "page_action"
+        | "action";
 
-    type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+    type _OnClickDataModifiers =
+        | "Shift"
+        | "Alt"
+        | "Command"
+        | "Ctrl"
+        | "MacCtrl";
 
     interface _CreateCreatePropertiesIcons {
         [key: number]: string;
     }
 
     type _CreateCreatePropertiesCommand =
-        | '_execute_browser_action'
-        | '_execute_page_action'
-        | '_execute_sidebar_action'
-        | '_execute_action'
-        | '_execute_page_action'
-        | '_execute_sidebar_action';
+        | "_execute_browser_action"
+        | "_execute_page_action"
+        | "_execute_sidebar_action"
+        | "_execute_action"
+        | "_execute_page_action"
+        | "_execute_sidebar_action";
 
     interface _CreateCreateProperties {
         /** The type of menu item. Defaults to 'normal' if not specified. */
@@ -7252,6 +7489,7 @@ declare namespace browser.contextMenus {
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          * Not supported on manifest versions above 2.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** The ID of a parent menu item; this makes the item a child of a previously added item. */
         parentId?: number | string | undefined;
@@ -7287,6 +7525,7 @@ declare namespace browser.contextMenus {
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          * Not supported on manifest versions above 2.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** Note: You cannot change an item to be a child of one of its own descendants. */
         parentId?: number | string | undefined;
@@ -7298,7 +7537,7 @@ declare namespace browser.contextMenus {
     /**
      * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark' and 'tab' are supported. showDefaults cannot be used with this option.
      */
-    type _OverrideContextContextOptionsContext = 'bookmark' | 'tab';
+    type _OverrideContextContextOptionsContext = "bookmark" | "tab";
 
     interface _OverrideContextContextOptions {
         /** Whether to also include default menu items in the menu. */
@@ -7374,6 +7613,7 @@ declare namespace browser.contextMenus {
      * Retrieve the element that was associated with a recent contextmenu event.
      * @param targetElementId The identifier of the clicked element, available as info.targetElementId in the menus.onShown, onClicked or onclick event.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getTargetElement(targetElementId: number): Element | void;
 
     /* contextMenus events */
@@ -7408,7 +7648,11 @@ declare namespace browser.menus {
     type ContextType = _ContextType;
 
     /** The type of menu item. */
-    type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
+    type ItemType =
+        | "normal"
+        | "checkbox"
+        | "radio"
+        | "separator";
 
     /** Information sent when a context menu item is clicked. */
     interface OnClickData {
@@ -7457,37 +7701,42 @@ declare namespace browser.menus {
     }
 
     type _ContextType =
-        | 'all'
-        | 'page'
-        | 'frame'
-        | 'selection'
-        | 'link'
-        | 'editable'
-        | 'password'
-        | 'image'
-        | 'video'
-        | 'audio'
-        | 'launcher'
-        | 'bookmark'
-        | 'tab'
-        | 'tools_menu'
-        | 'browser_action'
-        | 'page_action'
-        | 'action';
+        | "all"
+        | "page"
+        | "frame"
+        | "selection"
+        | "link"
+        | "editable"
+        | "password"
+        | "image"
+        | "video"
+        | "audio"
+        | "launcher"
+        | "bookmark"
+        | "tab"
+        | "tools_menu"
+        | "browser_action"
+        | "page_action"
+        | "action";
 
-    type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+    type _OnClickDataModifiers =
+        | "Shift"
+        | "Alt"
+        | "Command"
+        | "Ctrl"
+        | "MacCtrl";
 
     interface _CreateCreatePropertiesIcons {
         [key: number]: string;
     }
 
     type _CreateCreatePropertiesCommand =
-        | '_execute_browser_action'
-        | '_execute_page_action'
-        | '_execute_sidebar_action'
-        | '_execute_action'
-        | '_execute_page_action'
-        | '_execute_sidebar_action';
+        | "_execute_browser_action"
+        | "_execute_page_action"
+        | "_execute_sidebar_action"
+        | "_execute_action"
+        | "_execute_page_action"
+        | "_execute_sidebar_action";
 
     interface _CreateCreateProperties {
         /** The type of menu item. Defaults to 'normal' if not specified. */
@@ -7519,6 +7768,7 @@ declare namespace browser.menus {
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          * Not supported on manifest versions above 2.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** The ID of a parent menu item; this makes the item a child of a previously added item. */
         parentId?: number | string | undefined;
@@ -7554,6 +7804,7 @@ declare namespace browser.menus {
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          * Not supported on manifest versions above 2.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** Note: You cannot change an item to be a child of one of its own descendants. */
         parentId?: number | string | undefined;
@@ -7565,7 +7816,7 @@ declare namespace browser.menus {
     /**
      * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark' and 'tab' are supported. showDefaults cannot be used with this option.
      */
-    type _OverrideContextContextOptionsContext = 'bookmark' | 'tab';
+    type _OverrideContextContextOptionsContext = "bookmark" | "tab";
 
     interface _OverrideContextContextOptions {
         /** Whether to also include default menu items in the menu. */
@@ -7644,6 +7895,7 @@ declare namespace browser.menus {
      * Retrieve the element that was associated with a recent contextmenu event.
      * @param targetElementId The identifier of the clicked element, available as info.targetElementId in the menus.onShown, onClicked or onclick event.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getTargetElement(targetElementId: number): Element | void;
 
     /* menus events */
@@ -7734,12 +7986,18 @@ declare namespace browser.normandyAddonStudy {
 declare namespace browser.omnibox {
     /* omnibox types */
     /** The style type. */
-    type DescriptionStyleType = 'url' | 'match' | 'dim';
+    type DescriptionStyleType =
+        | "url"
+        | "match"
+        | "dim";
 
     /**
      * The window disposition for the omnibox query. This is the recommended context to display results. For example, if the omnibox command is to navigate to a certain URL, a disposition of 'newForegroundTab' means the navigation should take place in a new selected tab.
      */
-    type OnInputEnteredDisposition = 'currentTab' | 'newForegroundTab' | 'newBackgroundTab';
+    type OnInputEnteredDisposition =
+        | "currentTab"
+        | "newForegroundTab"
+        | "newBackgroundTab";
 
     /** A suggest result. */
     interface SuggestResult {
@@ -7888,7 +8146,10 @@ declare namespace browser.search {
     }
 
     /** Location where search results should be displayed. */
-    type Disposition = 'CURRENT_TAB' | 'NEW_TAB' | 'NEW_WINDOW';
+    type Disposition =
+        | "CURRENT_TAB"
+        | "NEW_TAB"
+        | "NEW_WINDOW";
 
     interface _SearchSearchProperties {
         /** Terms to search for. */
@@ -8080,12 +8341,9 @@ declare namespace browser.sidebarAction {
         /**
          * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        imageData?:
-            | ImageDataType
-            | {
-                  [key: number]: ImageDataType;
-              }
-            | undefined;
+        imageData?: ImageDataType | {
+            [key: number]: ImageDataType;
+        } | undefined;
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
@@ -8164,11 +8422,11 @@ declare namespace browser.tabs {
     /** An event that caused a muted state change. */
     type MutedInfoReason =
         /** A user input action has set/overridden the muted state. */
-        | 'user'
+        | "user"
         /** Tab capture started, forcing a muted state change. */
-        | 'capture'
+        | "capture"
         /** An extension, identified by the extensionId field, set the muted state. */
-        | 'extension';
+        | "extension";
 
     /** Tab muted state and the reason for the last state change. */
     interface MutedInfo {
@@ -8221,6 +8479,8 @@ declare namespace browser.tabs {
          * Whether the tab has produced sound over the past couple of seconds (but it might not be heard if also muted). Equivalent to whether the speaker audio indicator is showing.
          */
         audible?: boolean | undefined;
+        /** Whether the tab can be discarded automatically by the browser when resources are low. */
+        autoDiscardable?: boolean | undefined;
         /** Current tab muted state and the reason for the last state change. */
         mutedInfo?: MutedInfo | undefined;
         /**
@@ -8268,15 +8528,15 @@ declare namespace browser.tabs {
      */
     type ZoomSettingsMode =
         /** Zoom changes are handled automatically by the browser. */
-        | 'automatic'
+        | "automatic"
         /**
          * Overrides the automatic handling of zoom changes. The `onZoomChange` event will still be dispatched, and it is the responsibility of the extension to listen for this event and manually scale the page. This mode does not support `per-origin` zooming, and will thus ignore the `scope` zoom setting and assume `per-tab`.
          */
-        | 'manual'
+        | "manual"
         /**
          * Disables all zooming in the tab. The tab will revert to the default zoom level, and all attempted zoom changes will be ignored.
          */
-        | 'disabled';
+        | "disabled";
 
     /**
      * Defines whether zoom changes will persist for the page's origin, or only take effect in this tab; defaults to `per-origin` when in `automatic` mode, and `per-tab` otherwise.
@@ -8285,11 +8545,11 @@ declare namespace browser.tabs {
         /**
          * Zoom changes will persist in the zoomed page's origin, i.e. all other tabs navigated to that same origin will be zoomed as well. Moreover, `per-origin` zoom changes are saved with the origin, meaning that when navigating to other pages in the same origin, they will all be zoomed to the same zoom factor. The `per-origin` scope is only available in the `automatic` mode.
          */
-        | 'per-origin'
+        | "per-origin"
         /**
          * Zoom changes only take effect in this tab, and zoom changes in other tabs will not affect the zooming of this tab. Also, `per-tab` zoom changes are reset on navigation; navigating a tab will always load pages with their `per-origin` zoom factors.
          */
-        | 'per-tab';
+        | "per-tab";
 
     /** Defines how zoom changes in a tab are handled and at what scope. */
     interface ZoomSettings {
@@ -8356,25 +8616,31 @@ declare namespace browser.tabs {
     }
 
     /** Whether the tabs have completed loading. */
-    type TabStatus = 'loading' | 'complete';
+    type TabStatus = "loading" | "complete";
 
     /** The type of window. */
-    type WindowType = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
+    type WindowType =
+        | "normal"
+        | "popup"
+        | "panel"
+        | "app"
+        | "devtools";
 
     /** Event names supported in onUpdated. */
     type UpdatePropertyName =
-        | 'attention'
-        | 'audible'
-        | 'discarded'
-        | 'favIconUrl'
-        | 'hidden'
-        | 'isArticle'
-        | 'mutedInfo'
-        | 'pinned'
-        | 'sharingState'
-        | 'status'
-        | 'title'
-        | 'url';
+        | "attention"
+        | "audible"
+        | "autoDiscardable"
+        | "discarded"
+        | "favIconUrl"
+        | "hidden"
+        | "isArticle"
+        | "mutedInfo"
+        | "pinned"
+        | "sharingState"
+        | "status"
+        | "title"
+        | "url";
 
     /** An object describing filters to apply to tabs.onUpdated events. */
     interface UpdateFilter {
@@ -8444,7 +8710,10 @@ declare namespace browser.tabs {
         active?: boolean | undefined;
     }
 
-    type _QueryQueryInfoScreen = 'Screen' | 'Window' | 'Application';
+    type _QueryQueryInfoScreen =
+        | "Screen"
+        | "Window"
+        | "Application";
 
     interface _QueryQueryInfo {
         /** Whether the tabs are active in their windows. */
@@ -8455,6 +8724,8 @@ declare namespace browser.tabs {
         pinned?: boolean | undefined;
         /** Whether the tabs are audible. */
         audible?: boolean | undefined;
+        /** Whether the tab can be discarded automatically by the browser when resources are low. */
+        autoDiscardable?: boolean | undefined;
         /** Whether the tabs are muted. */
         muted?: boolean | undefined;
         /** Whether the tabs are highlighted. Works as an alias of active. */
@@ -8511,6 +8782,8 @@ declare namespace browser.tabs {
          * Whether the tab should be active. Does not affect whether the window is focused (see `windows.update`).
          */
         active?: boolean | undefined;
+        /** Whether the tab can be discarded automatically by the browser when resources are low. */
+        autoDiscardable?: boolean | undefined;
         /** Adds or removes the tab from the current selection. */
         highlighted?: boolean | undefined;
         /** Whether the tab should be pinned. */
@@ -8556,6 +8829,8 @@ declare namespace browser.tabs {
         attention?: boolean | undefined;
         /** The tab's new audible state. */
         audible?: boolean | undefined;
+        /** The tab's new autoDiscardable state. */
+        autoDiscardable?: boolean | undefined;
         /** True while the tab is not loaded with content. */
         discarded?: boolean | undefined;
         /**
@@ -8941,7 +9216,7 @@ declare namespace browser.topSites {
     }
 
     /** The entry type, either `url` for a normal page link, or `search` for a search shortcut. */
-    type _MostVisitedURLType = 'url' | 'search';
+    type _MostVisitedURLType = "url" | "search";
 
     interface _GetOptions {
         /** @deprecated Please use the other options to tune the results received from topSites. */
@@ -8981,7 +9256,11 @@ declare namespace browser.urlbar {
     /**
      * The state of an engagement made with the urlbar by the user. `start`: The user has started an engagement. `engagement`: The user has completed an engagement by picking a result. `abandonment`: The user has abandoned their engagement, for example by blurring the urlbar. `discard`: The engagement ended in a way that should be ignored by listeners.
      */
-    type EngagementState = 'start' | 'engagement' | 'abandonment' | 'discard';
+    type EngagementState =
+        | "start"
+        | "engagement"
+        | "abandonment"
+        | "discard";
 
     /** A query performed in the urlbar. */
     interface Query {
@@ -9010,7 +9289,13 @@ declare namespace browser.urlbar {
     /**
      * Possible types of results. `dynamic`: A result whose view and payload are specified by the extension. `remote_tab`: A synced tab from another device. `search`: A search suggestion from a search engine. `tab`: An open tab in the browser. `tip`: An actionable message to help the user with their query. `url`: A URL that's not one of the other types.
      */
-    type ResultType = 'dynamic' | 'remote_tab' | 'search' | 'tab' | 'tip' | 'url';
+    type ResultType =
+        | "dynamic"
+        | "remote_tab"
+        | "search"
+        | "tab"
+        | "tip"
+        | "url";
 
     /** Options to the `search` function. */
     interface SearchOptions {
@@ -9021,9 +9306,15 @@ declare namespace browser.urlbar {
     /**
      * Possible sources of results. `bookmarks`: The result comes from the user's bookmarks. `history`: The result comes from the user's history. `local`: The result comes from some local source not covered by another source type. `network`: The result comes from some network source not covered by another source type. `search`: The result comes from a search engine. `tabs`: The result is an open tab in the browser or a synced tab from another device.
      */
-    type SourceType = 'bookmarks' | 'history' | 'local' | 'network' | 'search' | 'tabs';
+    type SourceType =
+        | "bookmarks"
+        | "history"
+        | "local"
+        | "network"
+        | "search"
+        | "tabs";
 
-    interface _UrlbarOnBehaviorRequestedEvent<TCallback = (query: Query) => 'active' | 'inactive' | 'restricting'> {
+    interface _UrlbarOnBehaviorRequestedEvent<TCallback = (query: Query) => "active" | "inactive" | "restricting"> {
         addListener(cb: TCallback, providerName: string): void;
         removeListener(cb: TCallback): void;
         hasListener(cb: TCallback): boolean;
@@ -9119,12 +9410,22 @@ declare namespace browser.windows {
     /**
      * The type of browser window this is. Under some circumstances a Window may not be assigned type property, for example when querying closed windows from the `sessions` API.
      */
-    type WindowType = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
+    type WindowType =
+        | "normal"
+        | "popup"
+        | "panel"
+        | "app"
+        | "devtools";
 
     /**
      * The state of this browser window. Under some circumstances a Window may not be assigned state property, for example when querying closed windows from the `sessions` API.
      */
-    type WindowState = 'normal' | 'minimized' | 'maximized' | 'fullscreen' | 'docked';
+    type WindowState =
+        | "normal"
+        | "minimized"
+        | "maximized"
+        | "fullscreen"
+        | "docked";
 
     interface Window {
         /**
@@ -9168,7 +9469,11 @@ declare namespace browser.windows {
     /**
      * Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.
      */
-    type CreateType = 'normal' | 'popup' | 'panel' | 'detached_panel';
+    type CreateType =
+        | "normal"
+        | "popup"
+        | "panel"
+        | "detached_panel";
 
     /** Specifies whether the `windows.Window` returned should contain a list of the `tabs.Tab` objects. */
     interface GetInfo {

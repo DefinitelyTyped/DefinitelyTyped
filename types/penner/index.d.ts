@@ -1,8 +1,3 @@
-// Type definitions for penner 0.1
-// Project: https://github.com/bcherny/penner#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace penner;
 
 export function linear(currentTime: number, initialValue: number, changeInValue: number, duration: number): number;

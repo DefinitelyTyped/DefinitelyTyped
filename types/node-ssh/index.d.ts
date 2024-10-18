@@ -1,8 +1,3 @@
-// Type definitions for node-ssh 7.0
-// Project: https://github.com/steelbrain/node-ssh
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ClientChannel, ExecOptions as ssh2ExecOptions, SFTPWrapper } from "ssh2";
@@ -18,6 +13,7 @@ declare namespace SSH {
         username: string;
         password?: string | undefined;
         privateKey?: string | undefined;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onKeyboardInteractive?: (() => void | boolean) | undefined;
     }
 
@@ -65,11 +61,17 @@ declare class SSH {
 
     mkdir(path: string, type?: "sftp", givenSftp?: SSH.SFTP): Promise<void>;
 
-    exec(command: string, parameters?: ReadonlyArray<string>,
-        options?: SSH.ExecOptions & { stream?: "stdout"|"stderr" | undefined }): Promise<string>;
+    exec(
+        command: string,
+        parameters?: readonly string[],
+        options?: SSH.ExecOptions & { stream?: "stdout" | "stderr" | undefined },
+    ): Promise<string>;
 
-    exec(command: string, parameters?: ReadonlyArray<string>,
-        options?: SSH.ExecOptions & { stream: "both" }): Promise<SSH.ExecResult>;
+    exec(
+        command: string,
+        parameters?: readonly string[],
+        options?: SSH.ExecOptions & { stream: "both" },
+    ): Promise<SSH.ExecResult>;
 
     execCommand(givenCommand: string, options?: SSH.ExecOptions): Promise<SSH.ExecResult>;
 
@@ -77,9 +79,13 @@ declare class SSH {
 
     putFile(localFile: string, remoteFile: string, givenSftp?: SSH.SFTP, givenOpts?: TransferOptions): Promise<void>;
 
-    putFiles(files: ReadonlyArray<{ local: string, remote: string }>, givenConfig?: SSH.PutFilesOptions): Promise<void>;
+    putFiles(files: ReadonlyArray<{ local: string; remote: string }>, givenConfig?: SSH.PutFilesOptions): Promise<void>;
 
-    putDirectory(localDirectory: string, remoteDirectory: string, givenConfig?: SSH.PutDirectoryOptions): Promise<boolean>;
+    putDirectory(
+        localDirectory: string,
+        remoteDirectory: string,
+        givenConfig?: SSH.PutDirectoryOptions,
+    ): Promise<boolean>;
 
     dispose(): void;
 }

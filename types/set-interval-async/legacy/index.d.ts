@@ -12,9 +12,9 @@
  * @param args - Any number of arguments to pass on to the handler.
  */
 export function setIntervalAsync(
-  handler: (...args: any[]) => any,
-  interval: number,
-  ...args: any[]
+    handler: (...args: any[]) => any,
+    interval: number,
+    ...args: any[]
 ): SetIntervalAsyncTimer;
 
 /**
@@ -29,10 +29,14 @@ export function clearIntervalAsync(timer: SetIntervalAsyncTimer): Promise<void>;
 /**
  * Error thrown by setIntervalAsync when invalid arguments are provided.
  */
-export class SetIntervalAsyncError extends Error { constructor(); }
+export class SetIntervalAsyncError extends Error {
+    constructor();
+}
 
 /**
  * Timer object returned by setIntervalAsync.
  * Can be used together with clearIntervalAsync to stop execution.
  */
-export interface SetIntervalAsyncTimer { id: number; }
+export interface SetIntervalAsyncTimer {
+    id: number;
+}

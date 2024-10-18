@@ -1,9 +1,3 @@
-// Type definitions for koa-session-minimal v3.x
-// Project: https://github.com/longztian/koa-session-minimal
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import * as Koa from "koa";
@@ -14,8 +8,8 @@
 
  =============================================== */
 
-import * as Koa from "koa";
 import * as cookies from "cookies";
+import * as Koa from "koa";
 
 declare module "koa" {
     interface Context {
@@ -33,7 +27,7 @@ declare function session(opts?: {
     /**
      * cookie options
      */
-    cookie?:  cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions } | undefined;
+    cookie?: cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions } | undefined;
 
     /**
      * session store

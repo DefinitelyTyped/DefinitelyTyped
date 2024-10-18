@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dashify",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/dashify"
+    ],
+    "devDependencies": {
+        "@types/dashify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junyoung Choi",
+            "githubUsername": "rokt33r"
+        }
+    ]
+}

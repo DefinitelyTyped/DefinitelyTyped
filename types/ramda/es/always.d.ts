@@ -1,2 +1,2 @@
-import { always } from '../index';
+import { always } from "../index.js";
 export default always;

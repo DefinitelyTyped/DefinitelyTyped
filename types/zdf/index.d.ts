@@ -1,8 +1,3 @@
-// Type definitions for zdf 1.2
-// Project: https://github.com/MauriceConrad/zdf-mediathek#readme
-// Definitions by: Christian Koop <https://github.com/SpraxDev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ZdfInfoMeta {
     readonly title: string;
     readonly teasertext: string;
@@ -12,7 +7,7 @@ export interface ZdfInfoMeta {
 export interface ZdfInfo {
     readonly info: ZdfInfoMeta;
 
-    readonly files: Array<{ uri: string, quality: string }>;
+    readonly files: Array<{ uri: string; quality: string }>;
     readonly stream: string[];
 }
 
@@ -34,7 +29,7 @@ export interface ZdfProgress {
 export function getSources(
     url: string,
     handle: (result: ZdfInfo) => void,
-    handleInfo?: (result: ZdfInfoMeta) => void
+    handleInfo?: (result: ZdfInfoMeta) => void,
 ): void;
 
 /**
@@ -50,5 +45,5 @@ export function downloadStream(
     url: string | undefined,
     output: string | undefined,
     handle: (progress: ZdfProgress) => void,
-    streamInfo?: ZdfInfo
+    streamInfo?: ZdfInfo,
 ): void;

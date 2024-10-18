@@ -1,15 +1,15 @@
-import * as React from 'react';
+import * as React from "react";
 
 import {
     AlertOptions,
-    Provider as AlertProvider,
     AlertTemplateProps,
     InjectedAlertProps,
     positions,
+    Provider as AlertProvider,
     transitions,
     useAlert,
     withAlert,
-} from 'react-alert';
+} from "react-alert";
 
 // the style contains only the margin given as offset
 // options contains all alert given options
@@ -17,9 +17,9 @@ import {
 // close is a function that closes the alert
 const AlertTemplate: React.FC<AlertTemplateProps> = ({ style, options, message, close }) => (
     <div style={style}>
-        {options.type === 'info' && '!'}
-        {options.type === 'success' && ':)'}
-        {options.type === 'error' && ':('}
+        {options.type === "info" && "!"}
+        {options.type === "success" && ":)"}
+        {options.type === "error" && ":("}
         {message}
         <button onClick={close}>X</button>
     </div>
@@ -30,13 +30,13 @@ const options: AlertOptions = {
     // you can also just use 'bottom center'
     position: positions.BOTTOM_CENTER,
     timeout: 5000,
-    offset: '30px',
+    offset: "30px",
     // you can also just use 'scale'
     transition: transitions.SCALE,
 };
 
 // @ts-expect-error
-options.position = 'top';
+options.position = "top";
 
 const App = () => {
     const alert = useAlert();
@@ -44,7 +44,7 @@ const App = () => {
     return (
         <button
             onClick={() => {
-                alert.show('Oh look, an alert!');
+                alert.show("Oh look, an alert!");
             }}
         >
             Show Alert
@@ -61,7 +61,7 @@ const Root = () => (
 const AppWithInjectedAlert: React.FC<{} & InjectedAlertProps> = ({ alert }) => (
     <button
         onClick={() => {
-            alert.show('Oh look, an alert!');
+            alert.show("Oh look, an alert!");
         }}
     >
         Show Alert

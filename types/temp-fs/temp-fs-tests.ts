@@ -2,15 +2,14 @@
 // and slightly modified.
 import tempfs = require("temp-fs");
 
-
 // Create a tempfile in the system-provided tempdir.
-tempfs.open(function (err:any, file:tempfs.file) {
-    if (err) { throw err; }
+tempfs.open(function(err: any, file: tempfs.file) {
+    if (err) throw err;
 
     console.log(file.path, file.fd);
     // async
-    file.unlink(function () {
-        console.log('File delected');
+    file.unlink(function() {
+        console.log("File delected");
     });
     // sync
     // No problem even if unlink() is called twice.
@@ -19,13 +18,13 @@ tempfs.open(function (err:any, file:tempfs.file) {
 
 // Create a tempdir in current directory.
 tempfs.mkdir({
-    dir: '.',
-    recursive: true,  // It and its content will be remove recursively.
-    track: true  // Track this directory.
-}, function (err:any, dir:tempfs.dir) {
-    if (err) { throw err; }
+    dir: ".",
+    recursive: true, // It and its content will be remove recursively.
+    track: true, // Track this directory.
+}, function(err: any, dir: tempfs.dir) {
+    if (err) throw err;
 
     console.log(dir.path, dir.recursive);
     dir.unlink();
-    throw new Error('Since it is tracked, tempfs will remove it for you.');
+    throw new Error("Since it is tracked, tempfs will remove it for you.");
 });

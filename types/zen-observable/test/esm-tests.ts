@@ -1,4 +1,4 @@
-import Observable, { zip, combineLatest, merge } from 'zen-observable/esm';
+import Observable, { combineLatest, merge, zip } from "zen-observable/esm";
 
 // $ExpectType Subscription
 new Observable<number>(
@@ -17,7 +17,7 @@ new Observable<number>(
 );
 
 // zip
-zip(Observable.of(1, 2, 3), Observable.of('a', 'b', 'c')).subscribe(
+zip(Observable.of(1, 2, 3), Observable.of("a", "b", "c")).subscribe(
     (
         // $ExpectType [number, string]
         val,
@@ -39,7 +39,7 @@ zip(...[Observable.of(1)]).subscribe(
 );
 
 // merge
-merge(Observable.of(1, 2, 3), Observable.of('a', 'b', 'c')).subscribe(
+merge(Observable.of(1, 2, 3), Observable.of("a", "b", "c")).subscribe(
     (
         // $ExpectType string | number
         val,
@@ -61,7 +61,7 @@ merge(...[Observable.of(1)]).subscribe(
 );
 
 // combineLatest
-combineLatest(Observable.of(1, 2, 3), Observable.of('a', 'b', 'c')).subscribe(
+combineLatest(Observable.of(1, 2, 3), Observable.of("a", "b", "c")).subscribe(
     (
         // $ExpectType [number, string]
         val,

@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    interface ToggleProps extends Common, Bounds {
+    interface ToggleProps extends Common, Bounds, Font, Clickable, Background, Highlight, MIDILearn, Margin {
         text: string;
         onColor: string;
         offColor: string;
@@ -23,6 +23,7 @@ declare namespace GorillaEngine.UI {
         value: boolean;
         animation: LottieAnimation;
     }
+    // tslint:disable-next-line:no-empty-interface
     interface Toggle extends ToggleProps {}
     class Toggle extends Component {
         constructor(options: Partial<ToggleProps>);

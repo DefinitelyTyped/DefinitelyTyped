@@ -1,9 +1,6 @@
-// Type definitions for @edx/new-relic-source-map-webpack-plugin 1.0
-// Project: https://github.com/edx/new-relic-source-map-webpack-plugin#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-import webpack = require('webpack');
+import webpack = require("webpack");
 
 declare class NewRelicPlugin {
     constructor(options?: NewRelicPlugin.Options);
@@ -61,7 +58,7 @@ declare namespace NewRelicPlugin {
     }
 
     interface StaticAssetUrlBuilder {
-        (url: string, publicPath: 'auto' | string, file: string): string;
+        (url: string, publicPath: "auto" | string, file: string): string;
     }
 
     interface ErrorCallback {

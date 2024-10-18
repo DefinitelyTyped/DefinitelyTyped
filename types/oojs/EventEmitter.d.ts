@@ -98,7 +98,7 @@ declare namespace OO {
     }
 
     interface EventEmitterConstructor {
-        new (): EventEmitter;
+        new(): EventEmitter;
         prototype: EventEmitter;
         static: {};
     }

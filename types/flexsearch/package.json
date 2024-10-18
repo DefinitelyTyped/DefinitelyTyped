@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/flexsearch",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/nextapps-de/flexsearch/"
+    ],
+    "devDependencies": {
+        "@types/flexsearch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "LOSSES Don",
+            "githubUsername": "Losses"
+        }
+    ]
+}

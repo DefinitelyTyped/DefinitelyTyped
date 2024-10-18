@@ -2,7 +2,19 @@
 
 import * as React from "react";
 import * as ReactDOMServer from "react-dom/server";
-import { Grid, Cell, findMatch, setBreakpoints, findBreakpoints, getCurrentBreakpoints, optimizedResize, palm, lap, portable, desk } from "react-flexr";
+import {
+    Cell,
+    desk,
+    findBreakpoints,
+    findMatch,
+    getCurrentBreakpoints,
+    Grid,
+    lap,
+    optimizedResize,
+    palm,
+    portable,
+    setBreakpoints,
+} from "react-flexr";
 
 class Example extends React.Component {
     render() {
@@ -56,19 +68,19 @@ class App1 extends React.Component {
     render() {
         const isPalm = findMatch("palm");
 
-        if (isPalm) console.log( "only logged in palm" );
+        if (isPalm) console.log("only logged in palm");
 
         return (
             <div>
                 <h1>Only visible in palm:</h1>
-                { isPalm
+                {isPalm
                     ? <h2>Palm</h2>
-                    : null }
+                    : null}
 
                 <h1>Allows Multiple Matches</h1>
-                { findMatch("desk", "lap")
+                {findMatch("desk", "lap")
                     ? <h2>Lap or Desk</h2>
-                    : null }
+                    : null}
             </div>
         );
     }
@@ -76,23 +88,22 @@ class App1 extends React.Component {
 
 const isMobile = /iP(hone|od)|Mobile/;
 function textFxn(req: any, res: any): void {
-    if ( isMobile.test( req.headers["user-agent"] ) ) {
-        setBreakpoints(["palm", "portable"])
+    if (isMobile.test(req.headers["user-agent"])) {
+        setBreakpoints(["palm", "portable"]);
+    } else {
+        setBreakpoints(["desk"]);
     }
-    else {
-        setBreakpoints(["desk"])
-    }
-    const html = ReactDOMServer.renderToString( <App1 />);
+    const html = ReactDOMServer.renderToString(<App1 />);
 
-    res.send( "<!doctype html>" + html );
+    res.send("<!doctype html>" + html);
 }
 
 const breakpoints: string[] | boolean = findBreakpoints();
 
 class App2 extends React.Component {
     componentDidMount() {
-        optimizedResize.init( () => {
-            if ( findBreakpoints() ) {
+        optimizedResize.init(() => {
+            if (findBreakpoints()) {
                 console.log("New Breakpoints");
                 this.forceUpdate();
             }

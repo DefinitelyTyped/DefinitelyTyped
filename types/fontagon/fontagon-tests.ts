@@ -1,30 +1,30 @@
-import Fontagon = require('fontagon');
+import Fontagon = require("fontagon");
 
 // $ExpectType Promise<Options>
 Fontagon({
-    files: ['path/**/*.svg'],
+    files: ["path/**/*.svg"],
 });
 
 Fontagon({
-    files: ['path/**/*.svg'],
-    dist: 'dist/',
-    fontName: 'fontagon-icons',
-    style: 'all',
+    files: ["path/**/*.svg"],
+    dist: "dist/",
+    fontName: "fontagon-icons",
+    style: "all",
     classOptions: {
-        baseClass: 'fontagon-icons',
-        classPrefix: 'ft',
+        baseClass: "fontagon-icons",
+        classPrefix: "ft",
     },
     writeFiles: true,
     styleTemplate: {
-        css: 'css.hbs',
-        sass: 'sass.hbs',
-        less: 'less.hbs',
-        stylus: 'styl.hbs',
+        css: "css.hbs",
+        sass: "sass.hbs",
+        less: "less.hbs",
+        stylus: "styl.hbs",
     },
     html: false,
-    htmlTemplate: '<p>Hello world!</p>',
-    types: ['eot', 'woff', 'woff2'],
-    order: ['eot', 'woff2', 'woff', 'ttf', 'svg'],
+    htmlTemplate: "<p>Hello world!</p>",
+    types: ["eot", "woff", "woff2"],
+    order: ["eot", "woff2", "woff", "ttf", "svg"],
     rename: file => file,
     logs: true,
     formatOptions: {

@@ -1,9 +1,4 @@
-// Type definitions for html5-to-pdf 4.0
-// Project: https://github.com/peterdemartini/html5-to-pdf
-// Definitions by: Sam Alexander <https://github.com/samalexander>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { LaunchOptions, PDFOptions, Page } from 'puppeteer';
+import { LaunchOptions, Page, PDFOptions } from "puppeteer";
 
 declare class HTML5ToPDF {
     constructor(options: HTML5ToPDF.Options);
@@ -24,7 +19,7 @@ declare namespace HTML5ToPDF {
         /**
          * File type
          */
-        type: 'css' | 'js';
+        type: "css" | "js";
         /**
          * File path
          */
@@ -46,7 +41,7 @@ declare namespace HTML5ToPDF {
          * [COMPATIBLE]\
          * Page size
          */
-        pageSize?: 'A3' | 'A4' | 'Legal' | 'Tabloid' | undefined;
+        pageSize?: "A3" | "A4" | "Legal" | "Tabloid" | undefined;
         /**
          * [COMPATIBLE]\
          * True for landscape, false for portrait.

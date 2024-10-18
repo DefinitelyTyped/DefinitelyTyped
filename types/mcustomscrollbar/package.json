@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/mcustomscrollbar",
+    "version": "2.8.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "mcustomscrollbar",
+    "projects": [
+        "https://github.com/malihu/malihu-custom-scrollbar-plugin"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/mcustomscrollbar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sarah Williams",
+            "githubUsername": "flurg"
+        }
+    ]
+}

@@ -1,2 +1,2 @@
-import ToInteger = require('../2015/ToInteger');
+import ToInteger = require("../2015/ToInteger");
 export = ToInteger;

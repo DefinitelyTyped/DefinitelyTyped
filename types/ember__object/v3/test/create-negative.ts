@@ -1,5 +1,5 @@
-import { assertType } from './lib/assert';
-import { PersonWithNumberName, Person } from './create';
+import { Person, PersonWithNumberName } from "./create";
+import { assertType } from "./lib/assert";
 
 // @ts-expect-error
 Person.create({ firstName: 99 });

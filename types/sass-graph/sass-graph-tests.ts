@@ -1,4 +1,4 @@
-import { parseFile, parseDir, Graph } from "sass-graph";
+import { Graph, parseDir, parseFile } from "sass-graph";
 
 // Example copied from readme:
 // https://github.com/xzyfer/sass-graph/blob/master/readme.md

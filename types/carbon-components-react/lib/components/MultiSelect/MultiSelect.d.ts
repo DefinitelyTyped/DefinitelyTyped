@@ -1,25 +1,27 @@
-import * as React from 'react';
+import * as React from "react";
 import {
+    FCReturn,
+    ForwardRefProps,
     InternationalProps,
     ListBoxBaseItemType,
     VerticalDirection,
-    ForwardRefProps,
-    FCReturn,
-} from '../../../typings/shared';
-import { ListBoxProps } from '../ListBox';
-import { ListBoxMenuIconTranslationKey } from '../ListBox/ListBoxMenuIcon';
-import FilterableMultiSelect from './FilterableMultiSelect';
-import { MultiSelectSortingProps } from './MultiSelectPropTypes';
-import { ListBoxSize } from '../ListBox/ListBoxPropTypes';
-import { ListBoxSelectionTranslationKey } from '../ListBox/ListBoxSelection';
+} from "../../../typings/shared";
+import { ListBoxProps } from "../ListBox";
+import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
+import { ListBoxSize } from "../ListBox/ListBoxPropTypes";
+import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";
+import FilterableMultiSelect from "./FilterableMultiSelect";
+import { MultiSelectSortingProps } from "./MultiSelectPropTypes";
 
 export interface MultiSelectProps<T extends ListBoxBaseItemType = string>
-    extends MultiSelectSortingProps<T>,
-        InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey> {
+    extends
+        MultiSelectSortingProps<T>,
+        InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>
+{
     clearSelectionDescription?: string | undefined;
     clearSelectionText?: string | undefined;
     direction?: VerticalDirection | undefined;
-    disabled?: ListBoxProps['disabled'] | undefined;
+    disabled?: ListBoxProps["disabled"] | undefined;
     downshiftProps?: any; // TODO
     helperText?: React.ReactNode | undefined;
     hideLabel?: boolean | undefined;
@@ -38,10 +40,10 @@ export interface MultiSelectProps<T extends ListBoxBaseItemType = string>
     onMenuChange?(open: boolean): void;
     open?: boolean | undefined;
     selectedItems?: T[] | undefined;
-    selectionFeedback?: 'fixed' | 'top' | 'top-after-reopen' | undefined;
+    selectionFeedback?: "fixed" | "top" | "top-after-reopen" | undefined;
     size?: ListBoxSize | undefined;
     titleText?: React.ReactNode | undefined;
-    type?: ListBoxProps['type'] | undefined;
+    type?: ListBoxProps["type"] | undefined;
     useTitleInItem?: boolean | undefined;
     warn?: boolean | undefined;
     warnText?: React.ReactNode | undefined;

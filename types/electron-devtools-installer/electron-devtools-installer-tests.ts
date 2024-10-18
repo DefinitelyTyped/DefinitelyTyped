@@ -1,11 +1,16 @@
 import installExtension, {
-    EMBER_INSPECTOR, REACT_DEVELOPER_TOOLS,
-    BACKBONE_DEBUGGER, JQUERY_DEBUGGER,
-    ANGULARJS_BATARANG, VUEJS_DEVTOOLS,
-    REDUX_DEVTOOLS, REACT_PERF,
-    CYCLEJS_DEVTOOL, APOLLO_DEVELOPER_TOOLS,
-    MOBX_DEVTOOLS
-} from 'electron-devtools-installer';
+    ANGULARJS_BATARANG,
+    APOLLO_DEVELOPER_TOOLS,
+    BACKBONE_DEBUGGER,
+    CYCLEJS_DEVTOOL,
+    EMBER_INSPECTOR,
+    JQUERY_DEBUGGER,
+    MOBX_DEVTOOLS,
+    REACT_DEVELOPER_TOOLS,
+    REACT_PERF,
+    REDUX_DEVTOOLS,
+    VUEJS_DEVTOOLS,
+} from "electron-devtools-installer";
 
 installExtension(EMBER_INSPECTOR);
 installExtension(REACT_DEVELOPER_TOOLS);
@@ -18,7 +23,7 @@ installExtension(REACT_PERF);
 installExtension(CYCLEJS_DEVTOOL);
 installExtension(APOLLO_DEVELOPER_TOOLS);
 installExtension(MOBX_DEVTOOLS);
-installExtension('abcdefghijkl');
+installExtension("abcdefghijkl");
 installExtension([EMBER_INSPECTOR, JQUERY_DEBUGGER]);
-installExtension(['extension', 'another-extension']);
-installExtension([REACT_DEVELOPER_TOOLS, 'MOBX_DEVTOOLS']);
+installExtension(["extension", "another-extension"]);
+installExtension([REACT_DEVELOPER_TOOLS, "MOBX_DEVTOOLS"]);

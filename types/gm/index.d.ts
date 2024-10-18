@@ -1,14 +1,6 @@
-// Type definitions for gm 1.25
-// Project: https://github.com/aheckmann/gm
-// Definitions by: Maarten van Vliet <https://github.com/maartenvanvliet>
-//                 Vaclav Mlejnsky <https://github.com/mlejva>
-//                 Dimitry Kooijmans <https://github.com/mrcageman>
-//                 Dmitry Semigradsky <https://github.com/Semigradsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-import stream = require('stream');
+import stream = require("stream");
 
 declare function m(stream: NodeJS.ReadableStream | Buffer | string, image?: string): m.State;
 declare function m(width: number, height: number, color?: string): m.State;
@@ -38,7 +30,7 @@ declare namespace m {
         Minimum: string;
         Maximum: string;
         Mean: string;
-        'Standard Deviation': string;
+        "Standard Deviation": string;
     }
 
     interface Dimensions {
@@ -47,14 +39,14 @@ declare namespace m {
     }
 
     interface GetterOptions {
-       bufferStream?: boolean | undefined;
+        bufferStream?: boolean | undefined;
     }
 
     interface ImageInfo {
-        'Background Color': string;
-        'Border Color': string;
-        'Channel Depths': ChannelInfo<string>;
-        'Channel Statistics': ChannelInfo<ColorStatistics>;
+        "Background Color": string;
+        "Border Color": string;
+        "Channel Depths": ChannelInfo<string>;
+        "Channel Statistics": ChannelInfo<ColorStatistics>;
         Class: string;
         color: number;
         Compose: string;
@@ -68,23 +60,23 @@ declare namespace m {
         Geometry: string;
         Interlace: string;
         Iterations: string;
-        'JPEG-Quality'?: string | undefined;
-        'JPEG-Colorspace'?: string | undefined;
-        'JPEG-Colorspace-Name'?: string | undefined;
-        'JPEG-Sampling-factors'?: string | undefined;
-        'Matte Color': string;
+        "JPEG-Quality"?: string | undefined;
+        "JPEG-Colorspace"?: string | undefined;
+        "JPEG-Colorspace-Name"?: string | undefined;
+        "JPEG-Sampling-factors"?: string | undefined;
+        "Matte Color": string;
         Orientation: string;
-        'Page geometry': string;
+        "Page geometry": string;
         path: string;
 
-        'Profile-color'?: string | undefined;
-        'Profile-iptc'?: {
+        "Profile-color"?: string | undefined;
+        "Profile-iptc"?: {
             [key: string]: string;
         } | undefined;
-        'Profile-EXIF'?: {
+        "Profile-EXIF"?: {
             [key: string]: string;
         } | undefined;
-        'Profile-XMP'?: string | undefined;
+        "Profile-XMP"?: string | undefined;
         Resolution?: string | undefined;
         size: Dimensions;
         Signature: string;
@@ -119,7 +111,7 @@ declare namespace m {
         clip(): State;
         coalesce(): State;
         colorize(red: number, green: number, blue: number): State;
-        colorMap(type: 'shared' | 'private' | string): State;
+        colorMap(type: "shared" | "private" | string): State;
         colors(colors: number): State;
         colorspace(space: ColorSpace | string): State;
         command(customCommand: string): State;
@@ -203,7 +195,7 @@ declare namespace m {
         orderedDither(channelType: ChannelType | string, NxN: string): State;
         out(...customArguments: string[]): State;
         outputDirectory(directory: string): State;
-        page(width: number, height: number, arg?: '%' | '!' | '<' | '>' |string): State;
+        page(width: number, height: number, arg?: "%" | "!" | "<" | ">" | string): State;
         pause(seconds: number): State;
         pen(color: string): State;
         ping(): State;
@@ -222,7 +214,7 @@ declare namespace m {
         region(width: number, height: number, x?: number, y?: number): State;
         remote(): State;
         render(): State;
-        repage(reset: '+' | string): State;
+        repage(reset: "+" | string): State;
         repage(width: number, height: number, xoff: number, yoff: number, arg?: string): State;
         sample(geometry: string): State;
         samplingFactor(horizontalFactor: number, verticalFactor: number): State;
@@ -261,7 +253,14 @@ declare namespace m {
         threshold(value: number, percent?: boolean): State;
         thumb(width: number, height: number, outName: string, callback: WriteCallback): State;
         thumb(width: number, height: number, outName: string, quality: number, callback: WriteCallback): State;
-        thumb(width: number, height: number, outName: string, quality: number, align: 'topleft' | 'center' | string, callback: WriteCallback): State;
+        thumb(
+            width: number,
+            height: number,
+            outName: string,
+            quality: number,
+            align: "topleft" | "center" | string,
+            callback: WriteCallback,
+        ): State;
         thumbnail(width: number, height: number, options?: ResizeOption): State;
         tile(filename: string): State;
         title(title: string): State;
@@ -312,8 +311,18 @@ declare namespace m {
         drawEllipse(x0: number, y0: number, rx: number, ry: number, a0: number, a1: number): State;
         drawLine(x0: number, y0: number, x1: number, y1: number): State;
         drawPoint(x: number, y: number): State;
-        drawPolygon(coord0: [number, number], coord1: [number, number], coord2: [number, number], ...coords: Array<[number, number]>): State;
-        drawPolyline(coord0: [number, number], coord1: [number, number], coord2: [number, number], ...coords: Array<[number, number]>): State;
+        drawPolygon(
+            coord0: [number, number],
+            coord1: [number, number],
+            coord2: [number, number],
+            ...coords: Array<[number, number]>
+        ): State;
+        drawPolyline(
+            coord0: [number, number],
+            coord1: [number, number],
+            coord2: [number, number],
+            ...coords: Array<[number, number]>
+        ): State;
         drawRectangle(x0: number, y0: number, x1: number, y1: number, wc?: number, hc?: number): State;
         drawText(x: number, y: number, text: string, gravity?: GravityDirection | string): State;
         fill(color: string): State;
@@ -326,8 +335,8 @@ declare namespace m {
         // Commands
         stream(callback?: WriteCallback): stream.PassThrough;
         stream(format: string, callback?: WriteCallback): stream.PassThrough;
-        toBuffer(callback: (err: Error|null, buffer: Buffer) => any): stream.PassThrough;
-        toBuffer(format: string, callback: (err: Error|null, buffer: Buffer) => any): stream.PassThrough;
+        toBuffer(callback: (err: Error | null, buffer: Buffer) => any): stream.PassThrough;
+        toBuffer(format: string, callback: (err: Error | null, buffer: Buffer) => any): stream.PassThrough;
         write(filename: string, callback: WriteCallback): void;
     }
 
@@ -338,280 +347,310 @@ declare namespace m {
     }
 
     function compare(filename1: string, filename2: string, callback: CompareCallback): void;
-    function compare(filename1: string, filename2: string, options: CompareOptions | number, callback: CompareCallback): void;
+    function compare(
+        filename1: string,
+        filename2: string,
+        options: CompareOptions | number,
+        callback: CompareCallback,
+    ): void;
 
     function subClass(options: ClassOptions): SubClass;
 
-    type ChannelOperator = 'Add'
-        | 'And'
-        | 'Assign'
-        | 'Depth'
-        | 'Divide'
-        | 'Gamma'
-        | 'Negate'
-        | 'LShift'
-        | 'Log'
-        | 'Max'
-        | 'Min'
-        | 'Multiply'
-        | 'Or'
-        | 'Pow'
-        | 'RShift'
-        | 'Subtract'
-        | 'Threshold'
-        | 'Threshold-White'
-        | 'Threshold-White-Negate'
-        | 'Threshold-Black'
-        | 'Threshold-Black-Negate'
-        | 'Xor'
-        | 'Noise-Gaussian'
-        | 'Noise-Impulse'
-        | 'Noise-Laplacian'
-        | 'Noise-Multiplicative'
-        | 'Noise-Poisson'
-        | 'Noise-Random'
-        | 'Noise-Uniform';
+    type ChannelOperator =
+        | "Add"
+        | "And"
+        | "Assign"
+        | "Depth"
+        | "Divide"
+        | "Gamma"
+        | "Negate"
+        | "LShift"
+        | "Log"
+        | "Max"
+        | "Min"
+        | "Multiply"
+        | "Or"
+        | "Pow"
+        | "RShift"
+        | "Subtract"
+        | "Threshold"
+        | "Threshold-White"
+        | "Threshold-White-Negate"
+        | "Threshold-Black"
+        | "Threshold-Black-Negate"
+        | "Xor"
+        | "Noise-Gaussian"
+        | "Noise-Impulse"
+        | "Noise-Laplacian"
+        | "Noise-Multiplicative"
+        | "Noise-Poisson"
+        | "Noise-Random"
+        | "Noise-Uniform";
 
-    type ChannelType = 'All'
-        | 'Intensity'
-        | 'Red'
-        | 'Green'
-        | 'Blue'
-        | 'Cyan'
-        | 'Magenta'
-        | 'Yellow'
-        | 'Black'
-        | 'Opacity';
+    type ChannelType =
+        | "All"
+        | "Intensity"
+        | "Red"
+        | "Green"
+        | "Blue"
+        | "Cyan"
+        | "Magenta"
+        | "Yellow"
+        | "Black"
+        | "Opacity";
 
-    type ColorSpace = 'CineonLog'
-        | 'CMYK'
-        | 'GRAY'
-        | 'HSL'
-        | 'HSB'
-        | 'OHTA'
-        | 'RGB'
-        | 'Rec601Luma'
-        | 'Rec709Luma'
-        | 'Rec601YCbCr'
-        | 'Rec709YCbCr'
-        | 'Transparent'
-        | 'XYZ'
-        | 'YCbCr'
-        | 'YIQ'
-        | 'YPbPr'
-        | 'YUV';
+    type ColorSpace =
+        | "CineonLog"
+        | "CMYK"
+        | "GRAY"
+        | "HSL"
+        | "HSB"
+        | "OHTA"
+        | "RGB"
+        | "Rec601Luma"
+        | "Rec709Luma"
+        | "Rec601YCbCr"
+        | "Rec709YCbCr"
+        | "Transparent"
+        | "XYZ"
+        | "YCbCr"
+        | "YIQ"
+        | "YPbPr"
+        | "YUV";
 
-    type CompareCallback = (err: Error|null, isEqual: boolean, equality: number, raw: number) => any;
+    type CompareCallback = (err: Error | null, isEqual: boolean, equality: number, raw: number) => any;
 
-    type ComposeOperator = 'Over'
-        | 'In'
-        | 'Out'
-        | 'Atop'
-        | 'Xor'
-        | 'Plus'
-        | 'Minus'
-        | 'Add'
-        | 'Subtract'
-        | 'Difference'
-        | 'Divide'
-        | 'Multiply'
-        | 'Bumpmap'
-        | 'Copy'
-        | 'CopyRed'
-        | 'CopyGreen'
-        | 'CopyBlue'
-        | 'CopyOpacity'
-        | 'CopyCyan'
-        | 'CopyMagenta'
-        | 'CopyYellow'
-        | 'CopyBlack';
+    type ComposeOperator =
+        | "Over"
+        | "In"
+        | "Out"
+        | "Atop"
+        | "Xor"
+        | "Plus"
+        | "Minus"
+        | "Add"
+        | "Subtract"
+        | "Difference"
+        | "Divide"
+        | "Multiply"
+        | "Bumpmap"
+        | "Copy"
+        | "CopyRed"
+        | "CopyGreen"
+        | "CopyBlue"
+        | "CopyOpacity"
+        | "CopyCyan"
+        | "CopyMagenta"
+        | "CopyYellow"
+        | "CopyBlack";
 
-    type CompressionType = 'None'
-        | 'BZip'
-        | 'Fax'
-        | 'Group4'
-        | 'JPEG'
-        | 'Lossless'
-        | 'LZW'
-        | 'RLE'
-        | 'Zip'
-        | 'LZMA';
+    type CompressionType =
+        | "None"
+        | "BZip"
+        | "Fax"
+        | "Group4"
+        | "JPEG"
+        | "Lossless"
+        | "LZW"
+        | "RLE"
+        | "Zip"
+        | "LZMA";
 
-    type DisposeMethod = 'Undefined'
-        | 'None'
-        | 'Background'
-        | 'Previous';
+    type DisposeMethod =
+        | "Undefined"
+        | "None"
+        | "Background"
+        | "Previous";
 
-    type Encoding = 'AdobeCustom'
-        | 'AdobeExpert'
-        | 'AdobeStandard'
-        | 'AppleRoman'
-        | 'BIG5'
-        | 'GB2312'
-        | 'Latin 2'
-        | 'None'
-        | 'SJIScode'
-        | 'Symbol'
-        | 'Unicode'
-        | 'Wansung';
+    type Encoding =
+        | "AdobeCustom"
+        | "AdobeExpert"
+        | "AdobeStandard"
+        | "AppleRoman"
+        | "BIG5"
+        | "GB2312"
+        | "Latin 2"
+        | "None"
+        | "SJIScode"
+        | "Symbol"
+        | "Unicode"
+        | "Wansung";
 
-    type EndianType = 'MSB'
-        | 'LSB'
-        | 'Native';
+    type EndianType =
+        | "MSB"
+        | "LSB"
+        | "Native";
 
-    type FilterType = 'Point'
-        | 'Box'
-        | 'Triangle'
-        | 'Hermite'
-        | 'Hanning'
-        | 'Hamming'
-        | 'Blackman'
-        | 'Gaussian'
-        | 'Quadratic'
-        | 'Cubic'
-        | 'Catrom'
-        | 'Mitchell'
-        | 'Lanczos'
-        | 'Bessel'
-        | 'Sinc';
+    type FilterType =
+        | "Point"
+        | "Box"
+        | "Triangle"
+        | "Hermite"
+        | "Hanning"
+        | "Hamming"
+        | "Blackman"
+        | "Gaussian"
+        | "Quadratic"
+        | "Cubic"
+        | "Catrom"
+        | "Mitchell"
+        | "Lanczos"
+        | "Bessel"
+        | "Sinc";
 
-    type GetterCallback<T> = (err: Error|null, value: T) => any;
+    type GetterCallback<T> = (err: Error | null, value: T) => any;
 
-    type GravityDirection = 'NorthWest'
-        | 'North'
-        | 'NorthEast'
-        | 'West'
-        | 'Center'
-        | 'East'
-        | 'SouthWest'
-        | 'South'
-        | 'SouthEast';
+    type GravityDirection =
+        | "NorthWest"
+        | "North"
+        | "NorthEast"
+        | "West"
+        | "Center"
+        | "East"
+        | "SouthWest"
+        | "South"
+        | "SouthEast";
 
-    type HighlightStyle = 'Assign'
-        | 'Threshold'
-        | 'Tint'
-        | 'XOR';
+    type HighlightStyle =
+        | "Assign"
+        | "Threshold"
+        | "Tint"
+        | "XOR";
 
-    type ImageType = 'Bilevel'
-        | 'Grayscale'
-        | 'Palette'
-        | 'PaletteMatte'
-        | 'TrueColor'
-        | 'TrueColorMatte'
-        | 'ColorSeparation'
-        | 'ColorSeparationMatte'
-        | 'Optimize';
+    type ImageType =
+        | "Bilevel"
+        | "Grayscale"
+        | "Palette"
+        | "PaletteMatte"
+        | "TrueColor"
+        | "TrueColorMatte"
+        | "ColorSeparation"
+        | "ColorSeparationMatte"
+        | "Optimize";
 
-    type IntentType = 'Absolute'
-        | 'Perceptual'
-        | 'Relative'
-        | 'Saturation';
+    type IntentType =
+        | "Absolute"
+        | "Perceptual"
+        | "Relative"
+        | "Saturation";
 
-    type InterlaceType = 'None'
-        | 'Line'
-        | 'Plane'
-        | 'Partition';
+    type InterlaceType =
+        | "None"
+        | "Line"
+        | "Plane"
+        | "Partition";
 
-    type LimitType = 'disk'
-        | 'file'
-        | 'map'
-        | 'memory'
-        | 'pixels'
-        | 'threads';
+    type LimitType =
+        | "disk"
+        | "file"
+        | "map"
+        | "memory"
+        | "pixels"
+        | "threads";
 
-    type ListType = 'Color'
-        | 'Delegate'
-        | 'Format'
-        | 'Magic'
-        | 'Module'
-        | 'Resource'
-        | 'Type';
+    type ListType =
+        | "Color"
+        | "Delegate"
+        | "Format"
+        | "Magic"
+        | "Module"
+        | "Resource"
+        | "Type";
 
-    type NamedColor = 'Red'
-        | 'Green'
-        | 'Blue'
-        | 'Opacity'
-        | 'Matte'
-        | 'Cyan'
-        | 'Magenta'
-        | 'Yellow'
-        | 'Black'
-        | 'Gray';
+    type NamedColor =
+        | "Red"
+        | "Green"
+        | "Blue"
+        | "Opacity"
+        | "Matte"
+        | "Cyan"
+        | "Magenta"
+        | "Yellow"
+        | "Black"
+        | "Gray";
 
-    type NoiseType = 'uniform'
-        | 'gaussian'
-        | 'multiplicative'
-        | 'impulse'
-        | 'laplacian'
-        | 'poisson';
+    type NoiseType =
+        | "uniform"
+        | "gaussian"
+        | "multiplicative"
+        | "impulse"
+        | "laplacian"
+        | "poisson";
 
-    type OperationMode = 'frame'
-        | 'unframe'
-        | 'concatenate';
+    type OperationMode =
+        | "frame"
+        | "unframe"
+        | "concatenate";
 
-    type PreviewType = 'Rotate'
-        | 'Shear'
-        | 'Roll'
-        | 'Hue'
-        | 'Saturation'
-        | 'Brightness'
-        | 'Gamma'
-        | 'Spiff'
-        | 'Dull'
-        | 'Grayscale'
-        | 'Quantize'
-        | 'Despeckle'
-        | 'ReduceNoise'
-        | 'AddNoise'
-        | 'Sharpen'
-        | 'Blur'
-        | 'Threshold'
-        | 'EdgeDetect'
-        | 'Spread'
-        | 'Shade'
-        | 'Raise'
-        | 'Segment'
-        | 'Solarize'
-        | 'Swirl'
-        | 'Implode'
-        | 'Wave'
-        | 'OilPaint'
-        | 'CharcoalDrawing'
-        | 'JPEG';
+    type PreviewType =
+        | "Rotate"
+        | "Shear"
+        | "Roll"
+        | "Hue"
+        | "Saturation"
+        | "Brightness"
+        | "Gamma"
+        | "Spiff"
+        | "Dull"
+        | "Grayscale"
+        | "Quantize"
+        | "Despeckle"
+        | "ReduceNoise"
+        | "AddNoise"
+        | "Sharpen"
+        | "Blur"
+        | "Threshold"
+        | "EdgeDetect"
+        | "Spread"
+        | "Shade"
+        | "Raise"
+        | "Segment"
+        | "Solarize"
+        | "Swirl"
+        | "Implode"
+        | "Wave"
+        | "OilPaint"
+        | "CharcoalDrawing"
+        | "JPEG";
 
-    type ResizeOption = '%' /** Width and height are specified in percents */
-        | '@' /** Specify maximum area in pixels */
-        | '!' /** Ignore aspect ratio */
-        | '^' /** Width and height are minimum values */
-        | '<' /** Change dimensions only if image is smaller than width or height */
-        | '>'; /** Change dimensions only if image is larger than width or height */
+    type ResizeOption =
+        | "%" /** Width and height are specified in percents */
+        | "@" /** Specify maximum area in pixels */
+        | "!" /** Ignore aspect ratio */
+        | "^" /** Width and height are minimum values */
+        | "<" /** Change dimensions only if image is smaller than width or height */
+        | ">"; /** Change dimensions only if image is larger than width or height */
 
-    type SetDrawMethod = 'point'
-        | 'replace'
-        | 'floodfill'
-        | 'filltoborder'
-        | 'reset';
+    type SetDrawMethod =
+        | "point"
+        | "replace"
+        | "floodfill"
+        | "filltoborder"
+        | "reset";
 
-    type SetDrawProperty = 'color' | 'matte';
+    type SetDrawProperty = "color" | "matte";
 
-    type UnitType = 'Undefined'
-        | 'PixelsPerInch'
-        | 'PixelsPerCentimeter';
+    type UnitType =
+        | "Undefined"
+        | "PixelsPerInch"
+        | "PixelsPerCentimeter";
 
-    type VirtualPixelMethod = 'Constant'
-        | 'Edge'
-        | 'Mirror'
-        | 'Tile';
+    type VirtualPixelMethod =
+        | "Constant"
+        | "Edge"
+        | "Mirror"
+        | "Tile";
 
-    type VisualType = 'StaticGray'
-        | 'GrayScale'
-        | 'StaticColor'
-        | 'PseudoColor'
-        | 'TrueColor'
-        | 'DirectColor'
-        | 'default';
+    type VisualType =
+        | "StaticGray"
+        | "GrayScale"
+        | "StaticColor"
+        | "PseudoColor"
+        | "TrueColor"
+        | "DirectColor"
+        | "default";
 
-    type WriteCallback = (err: Error|null, stdout: stream.Readable, stderr: stream.Readable, cmd: string) => any;
+    type WriteCallback = (err: Error | null, stdout: stream.Readable, stderr: stream.Readable, cmd: string) => any;
 }
 
 export = m;

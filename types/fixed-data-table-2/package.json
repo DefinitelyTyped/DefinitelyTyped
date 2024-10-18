@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/fixed-data-table-2",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/schrodinger/fixed-data-table-2",
+        "http://schrodinger.github.io/fixed-data-table-2"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/fixed-data-table-2": "workspace:."
+    },
+    "owners": []
+}

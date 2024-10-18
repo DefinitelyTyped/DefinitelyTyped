@@ -1,8 +1,23 @@
 {
     "private": true,
+    "name": "@types/avocat",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/hapipal/avocat#readme"
+    ],
     "dependencies": {
         "@hapi/boom": "^9.1.1",
         "@hapi/hapi": "^21.1.0",
+        "@types/node": "*",
         "joi": "^17.7.0"
-    }
+    },
+    "devDependencies": {
+        "@types/avocat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim Costa",
+            "githubUsername": "timcosta"
+        }
+    ]
 }

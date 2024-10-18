@@ -1,6 +1,6 @@
-import Choices from '../objects/choices.js';
+import Choices from "../objects/choices.js";
 
-type Direction = 'up' | 'down';
+type Direction = "up" | "down";
 interface Options {
     choices: Choices;
     loop?: boolean;

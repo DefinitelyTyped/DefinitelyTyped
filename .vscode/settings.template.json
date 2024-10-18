@@ -1,0 +1,6 @@
+{
+    "[typescript][typescriptreact][javascript][javascriptreact][json][jsonc][markdown]": {
+        "editor.defaultFormatter": "dprint.dprint",
+        "editor.formatOnSave": true
+    }
+}

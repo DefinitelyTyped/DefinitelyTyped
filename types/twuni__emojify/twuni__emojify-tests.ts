@@ -1,5 +1,5 @@
 // Tests
-import { emojify } from '@twuni/emojify';
+import { emojify } from "@twuni/emojify";
 
 // Use it.
-emojify('I love :pizza:'); // Returns "I love 🍕"
+emojify("I love :pizza:"); // Returns "I love 🍕"

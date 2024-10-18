@@ -1,8 +1,3 @@
-// Type definitions for whois-json 2.0
-// Project: https://github.com/mikemaccana/whois-json
-// Definitions by: Hwai-En Ho <https://github.com/hwaien>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Whois {
     /**
      * The result of a WHOIS lookup. This can be either a single object of registration data,

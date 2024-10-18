@@ -1,6 +1,6 @@
-import Service from '@ember/service';
-import { UAParserInstance, IBrowser, ICPU, IDevice, IEngine, IOS } from 'ua-parser-js';
-import FastBoot from 'ember-cli-fastboot/services/fastboot';
+import Service from "@ember/service";
+import FastBoot from "ember-cli-fastboot/services/fastboot";
+import { IBrowser, ICPU, IDevice, IEngine, IOS, UAParserInstance } from "ua-parser-js";
 
 export interface BrowserInfo {
     info: IBrowser;

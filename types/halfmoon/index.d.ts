@@ -1,13 +1,8 @@
-// Type definitions for halfmoon 1.0
-// Project: https://github.com/halfmoonui/halfmoon#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const pageWrapper: Element;
 export const stickyAlerts: Element;
 
 /** The value of the `darkModeOn` cookie. */
-export let darkModeOn: 'yes' | 'no';
+export let darkModeOn: "yes" | "no";
 
 /**
  * Create a cookie.

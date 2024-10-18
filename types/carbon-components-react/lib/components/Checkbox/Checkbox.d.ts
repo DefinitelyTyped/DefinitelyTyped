@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { ForwardRefReturn, ReactInputAttr } from '../../../typings/shared';
+import * as React from "react";
+import { ForwardRefReturn, ReactInputAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = 'id' | 'onChange' | 'onClick' | 'type';
+type ExcludedAttributes = "id" | "onChange" | "onClick" | "type";
 
 // variant when "enable-2021-release" feature flag is enabled
 export type CheckboxOnChangeDataVariant = (

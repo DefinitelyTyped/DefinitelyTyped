@@ -1,11 +1,5 @@
-// Type definitions for the JSF 2.0 Ajax request API
-// Project: https://docs.oracle.com/cd/E17802_01/j2ee/javaee/javaserverfaces/2.0/docs/js-api/symbols/jsf.ajax.html
-// Definitions by: Lars Michaelis and Stephan Zerhusen <https://github.com/ButterFaces/ButterFaces>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace jsf {
     namespace ajax {
-
         interface RequestData {
             status: string;
             description: string;
@@ -26,13 +20,13 @@ declare namespace jsf {
              * function to callback for event
              * @param callback the callback function
              */
-            onevent?(callback:(data:RequestData) => void): void;
+            onevent?(callback: (data: RequestData) => void): void;
 
             /**
              * function to callback for error
              * @param callback the callback function
              */
-            onerror?(callback:(data:RequestData) => void): void;
+            onerror?(callback: (data: RequestData) => void): void;
 
             /**
              * object containing parameters to include in the request
@@ -42,20 +36,20 @@ declare namespace jsf {
             /**
              * client behavior event name from the request parameter
              */
-            'javax.faces.behavior.event'?: any;
+            "javax.faces.behavior.event"?: any;
         }
 
         /**
          * Register a callback for event handling.
          * @param callback a reference to a function to call on an event
          */
-        function addOnEvent(callback:(data:RequestData) => void):void;
+        function addOnEvent(callback: (data: RequestData) => void): void;
 
         /**
          * Register a callback for error handling.
          * @param callback a reference to a function to call on an error
          */
-        function addOnError(callback:(data:RequestData) => void):void;
+        function addOnError(callback: (data: RequestData) => void): void;
 
         /**
          * Send an asynchronous Ajax request to the server.
@@ -63,7 +57,7 @@ declare namespace jsf {
          * @param event The DOM event that triggered this Ajax request. The event argument is optional.
          * @param options The set of available options that can be sent as request parameters to control client and/or server side request processing.
          */
-        function request(source:any, event?:String, options?:RequestOptions):void;
+        function request(source: any, event?: String, options?: RequestOptions): void;
 
         /**
          * Receive an Ajax response from the server.
@@ -71,7 +65,6 @@ declare namespace jsf {
          * @param context An object containing the request context, including the following properties: the source element, per call onerror callback function, and per call onevent callback function.
          * @throws EmptyResponse error if request contains no data
          */
-        function response(request:any, context:any):void;
-
+        function response(request: any, context: any): void;
     }
 }

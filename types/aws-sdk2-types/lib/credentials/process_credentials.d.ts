@@ -1,5 +1,5 @@
-import {Credentials} from '../credentials';
-import {HTTPOptions} from '../config-base';
+import { HTTPOptions } from "../config-base";
+import { Credentials } from "../credentials";
 export class ProcessCredentials extends Credentials {
     /**
      * Creates a new ProcessCredentials object.
@@ -8,7 +8,7 @@ export class ProcessCredentials extends Credentials {
 }
 
 interface ProcessCredentialsOptions {
-    profile?: string
-    filename?: string
-    httpOptions?: HTTPOptions
+    profile?: string;
+    filename?: string;
+    httpOptions?: HTTPOptions;
 }

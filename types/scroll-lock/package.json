@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/scroll-lock",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/FL3NKEY/scroll-lock#readme"
+    ],
+    "devDependencies": {
+        "@types/scroll-lock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

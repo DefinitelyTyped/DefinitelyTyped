@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/nulogy__components",
+    "version": "3.1.9999",
+    "projects": [
+        "http://nulogy.design"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/nulogy__components": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Evan Brodie",
+            "githubUsername": "ecbrodie"
+        },
+        {
+            "name": "Marianne Borowiak",
+            "githubUsername": "marboro92"
+        },
+        {
+            "name": "Matt Dunn",
+            "githubUsername": "matthewlyle"
+        }
+    ]
+}

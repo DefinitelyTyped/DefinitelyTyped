@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/mongoose-aggregate-paginate-v2",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/webgangster/mongoose-aggregate-paginate-v2"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": ">=6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/mongoose-aggregate-paginate-v2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexandre Croteau",
+            "githubUsername": "acrilex1"
+        }
+    ]
 }

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/loadable__webpack-plugin",
+    "version": "5.7.9999",
+    "projects": [
+        "https://github.com/smooth-code/loadable-components"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/loadable__webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Spencer Miskoviak",
+            "githubUsername": "skovy"
+        }
+    ]
+}

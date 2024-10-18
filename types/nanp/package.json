@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nanp",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/weisjohn/nanp"
+    ],
+    "devDependencies": {
+        "@types/nanp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karn Saheb",
+            "githubUsername": "karn"
+        }
+    ]
+}

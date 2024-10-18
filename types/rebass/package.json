@@ -1,0 +1,55 @@
+{
+    "private": true,
+    "name": "@types/rebass",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/rebassjs/rebass"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/styled-components": "*",
+        "@types/styled-system": "*",
+        "@types/styled-system__css": "*"
+    },
+    "devDependencies": {
+        "@types/rebass": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rhysd",
+            "githubUsername": "rhysd"
+        },
+        {
+            "name": "ryee-dev",
+            "githubUsername": "ryee-dev"
+        },
+        {
+            "name": "jamesmckenzie",
+            "githubUsername": "jamesmckenzie"
+        },
+        {
+            "name": "sara f-p",
+            "githubUsername": "gretzky"
+        },
+        {
+            "name": "angusfretwell",
+            "githubUsername": "angusfretwell"
+        },
+        {
+            "name": "orzarchi",
+            "githubUsername": "orzarchi"
+        },
+        {
+            "name": "ilaiwi",
+            "githubUsername": "ilaiwi"
+        },
+        {
+            "name": "mrkosima",
+            "githubUsername": "mrkosima"
+        },
+        {
+            "name": "rafaelalmeidatk",
+            "githubUsername": "rafaelalmeidatk"
+        }
+    ]
+}

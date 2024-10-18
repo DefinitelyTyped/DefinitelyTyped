@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/timed-cache",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/HQarroum/timed-cache#readme"
+    ],
+    "devDependencies": {
+        "@types/timed-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dillon Sellars",
+            "githubUsername": "dsellarsnr"
+        }
+    ]
+}

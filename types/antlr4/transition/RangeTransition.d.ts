@@ -1,6 +1,6 @@
-import Transition from './Transition';
-import IntervalSet from '../misc/IntervalSet';
-import ATNState from '../state/ATNState';
+import IntervalSet from "../misc/IntervalSet";
+import ATNState from "../state/ATNState";
+import Transition from "./Transition";
 
 export default class RangeTransition extends Transition {
     readonly serializationType: number;

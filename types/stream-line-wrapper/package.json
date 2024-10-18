@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/stream-line-wrapper",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/gregberge/stream-line-wrapper"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/stream-line-wrapper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

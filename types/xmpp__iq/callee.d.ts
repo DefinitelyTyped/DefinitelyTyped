@@ -1,5 +1,5 @@
-import { Entity, IncomingContext, Middleware } from '@xmpp/middleware';
-import * as koaCompose from 'koa-compose';
+import { Entity, IncomingContext, Middleware } from "@xmpp/middleware";
+import * as koaCompose from "koa-compose";
 
 export = iqCallee;
 
@@ -19,7 +19,7 @@ declare namespace iqCallee {
      * and you would pass a namespace and a tag name instead of an url. The return value of
      * the handler will be the child element of the response sent to the caller.
      */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IQCallee<TEntity extends Entity> {
         /**
          * Add a `get` handler.

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/babel__helper-validator-identifier",
+    "version": "7.15.9999",
+    "projects": [
+        "https://github.com/babel/babel/tree/main/packages/babel-helper-validator-identifier"
+    ],
+    "devDependencies": {
+        "@types/babel__helper-validator-identifier": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "fnknzzz",
+            "githubUsername": "fnknzzz"
+        }
+    ]
+}

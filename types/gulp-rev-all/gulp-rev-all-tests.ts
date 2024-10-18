@@ -1,18 +1,18 @@
-import gulp = require('gulp');
-import path = require('path');
-import RevAll = require('gulp-rev-all');
+import gulp = require("gulp");
+import path = require("path");
+import RevAll = require("gulp-rev-all");
 
-gulp.task('default', () => {
+gulp.task("default", () => {
     return gulp
-        .src(['assets/**'])
+        .src(["assets/**"])
         .pipe(RevAll.revision())
         .pipe(
             RevAll.revision({
                 dontRenameFile: [/^\/favicon.ico$/g, /^\/index.html/g],
                 hashLength: 4,
-                prefix: 'http://1234.cloudfront.net/',
+                prefix: "http://1234.cloudfront.net/",
                 transformPath(rev, source, path) {
-                    return rev.replace('/img', '/images');
+                    return rev.replace("/img", "/images");
                 },
                 transformFilename(file, hash) {
                     const ext = path.extname(file.path);
@@ -22,5 +22,5 @@ gulp.task('default', () => {
         )
         .pipe(RevAll.manifestFile())
         .pipe(RevAll.versionFile())
-        .pipe(gulp.dest('build/assets'));
+        .pipe(gulp.dest("build/assets"));
 });

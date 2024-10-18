@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    interface ListBoxProps extends Common, Bounds, Font, Clickable, Background, Scrollable {
+    interface ListBoxProps extends Common, Bounds, Font, Clickable, Background, Scrollable, Highlight, MIDILearn {
         items?: string[];
         horizontalMargin?: number;
         cellColor?: string;
@@ -10,6 +10,7 @@ declare namespace GorillaEngine.UI {
         rowClickedAction?: string;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface ListBox extends ListBoxProps {}
     class ListBox extends Component {
         constructor(options: Partial<ListBoxProps>);

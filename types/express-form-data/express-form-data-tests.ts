@@ -1,11 +1,6 @@
-import express = require('express');
-import os = require('os');
-import {
-    parse,
-    format,
-    stream,
-    union,
-} from 'express-form-data';
+import express = require("express");
+import os = require("os");
+import { format, parse, stream, union } from "express-form-data";
 
 const app = express();
 
@@ -19,7 +14,7 @@ app.use(format());
 app.use(stream());
 app.use(union());
 
-app.all('/', (req, res, next) => {
+app.all("/", (req, res, next) => {
     console.log(req.body);
     res.json(req.body);
 });

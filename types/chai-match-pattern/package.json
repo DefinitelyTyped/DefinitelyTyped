@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chai-match-pattern",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/mjhm/chai-match-pattern#readme"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/lodash-match-pattern": "*"
+    },
+    "devDependencies": {
+        "@types/chai-match-pattern": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Kneip",
+            "githubUsername": "daedal-knickerbockers"
+        }
+    ]
+}

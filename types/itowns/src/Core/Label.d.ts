@@ -2,14 +2,15 @@ import * as THREE from "three";
 import Coordinates from "./Geographic/Coordinates";
 import Style from "./Style";
 
-declare class Label extends THREE.Object3D<THREE.Event> {
+// TODO: Define public API
+declare class Label extends THREE.Object3D {
     constructor(
         content: string | Element,
         coordinates: Coordinates,
         style?: Style,
-        sprites?: any);
+    );
 
-    readonly isLabel: boolean;
+    readonly isLabel: true;
 
     // content: Element;
     // // TODO positon: THREE.Vector3

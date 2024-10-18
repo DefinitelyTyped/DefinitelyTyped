@@ -1,9 +1,3 @@
-// Type definitions for justified-layout 4.1
-// Project: https://github.com/flickr/justified-layout
-// Definitions by: Alex Walter <https://github.com/ArgonAlex/>
-//                 Liau Jian Jie <https://github.com/liaujianjie/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * An item to be layout.
  */
@@ -74,7 +68,7 @@ interface JustifiedLayoutOptions {
      * If widows are visible, how should they be laid out?
      * @default "left"
      */
-    widowLayoutStyle?: 'left' | 'justify' | 'center' | undefined;
+    widowLayoutStyle?: "left" | "justify" | "center" | undefined;
 }
 
 /**
@@ -126,7 +120,7 @@ interface JustifiedLayoutResult {
 }
 
 declare function createJustifiedLayout(
-    items: ReadonlyArray<JustifiedLayoutItem>,
+    items: readonly JustifiedLayoutItem[],
     options?: JustifiedLayoutOptions,
 ): JustifiedLayoutResult;
 

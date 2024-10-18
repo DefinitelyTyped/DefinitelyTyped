@@ -1,4 +1,4 @@
-import { ServiceAccount, app, auth } from 'firebase-admin';
+import { app, auth, ServiceAccount } from "firebase-admin";
 
 export interface FirebaseAdminOpts {
     serviceAccount: string | ServiceAccount;

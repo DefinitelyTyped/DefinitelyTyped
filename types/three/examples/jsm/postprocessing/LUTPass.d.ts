@@ -1,5 +1,5 @@
-import { DataTexture, Data3DTexture } from '../../../src/Three.js';
-import { ShaderPass } from './ShaderPass.js';
+import { Data3DTexture, DataTexture } from "three";
+import { ShaderPass } from "./ShaderPass.js";
 
 export interface LUTPassParameters {
     lut?: DataTexture | Data3DTexture;

@@ -1,4 +1,4 @@
-import { createResponse } from 'create-response';
+import { createResponse, Headers } from "create-response";
 export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.setHeader()
     request.setHeader("from-set-header-1", ["value-1", "trailer-1"]);
@@ -9,15 +9,18 @@ export function onClientRequest(request: EW.IngressClientRequest) {
     // Exercise EW.ClientRequest.removeHeader()
     request.removeHeader("to-remove-1");
 
+    // EW.IngressClientRequest.getHeaders()
+    testHeaders(request.getHeaders());
+
     // Exercise EW.ClientRequest.getVariable()
     request.respondWith(505, [], "Missing get-variable-present");
 
-    request.respondWith(505, { no: 'bad' }, 'Expected var to be missing');
+    request.respondWith(505, { no: "bad" }, "Expected var to be missing");
 
     // Exercise respondWith
     const target = request.getHeader("target");
-    if (target != null && target[0] === 'onClientRequest-respondWith') {
-        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    if (target != null && target[0] === "onClientRequest-respondWith") {
+        request.respondWith(418, { "from-respond-with": "frw value" }, "frw body");
     }
 }
 
@@ -39,14 +42,17 @@ export function onOriginRequest(request: EW.IngressOriginRequest) {
     request.getHeader("onOriginRequest-removeHeader-bye");
     request.removeHeader("onOriginRequest-removeHeader-bye");
 
+    // EW.IngressOriginRequest.getHeaders()
+    testHeaders(request.getHeaders());
+
     // getVariable
     const v = request.getVariable("var") || [];
     request.setHeader("variable", v);
 
     // respondWith
     const target = request.getHeader("target");
-    if (target != null && target[0] === 'onOriginRequest-respondWith') {
-        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    if (target != null && target[0] === "onOriginRequest-respondWith") {
+        request.respondWith(418, { "from-respond-with": "frw value" }, "frw body");
     }
 }
 
@@ -85,12 +91,20 @@ export function onOriginResponse(request: EW.EgressOriginRequest, response: EW.E
     }
     response.removeHeader("onOriginResponse-removeHeader-resp-bye");
 
+    // EW.EgressOriginRequest.getHeaders()
+    testHeaders(request.getHeaders());
+
     // Verify we set status
     response.status = 189;
     // respondWith
     const target = request.getHeader("target");
-    if (target != null && target[0] === 'onOriginResponse-respondWith') {
-        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    if (target != null && target[0] === "onOriginResponse-respondWith") {
+        request.respondWith(418, { "from-respond-with": "frw value" }, "frw body");
+    }
+
+    // verify wasTerminated() returns a boolean
+    if (request.wasTerminated()) {
+        request.respondWith(419, {}, "overwritten!");
     }
 }
 
@@ -129,24 +143,21 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
     }
     response.removeHeader("onClientResponse-removeHeader-resp-bye");
 
+    // EW.EgressClientRequest.getHeaders()
+    testHeaders(request.getHeaders());
+
     // Verify we set status
     response.status = 123;
     // respondWith
     const target = request.getHeader("target");
-    if (target != null && target[0] === 'onClientResponse-respondWith') {
-        request.respondWith(418, { 'from-respond-with': "frw value" }, "frw body");
+    if (target != null && target[0] === "onClientResponse-respondWith") {
+        request.respondWith(418, { "from-respond-with": "frw value" }, "frw body");
     }
 }
 
 export function responseProvider(request: EW.ResponseProviderRequest) {
-    const headers = request.getHeaders();
-    Object.keys(headers).forEach(key => {
-        key.toUpperCase();
-    });
-
-    // get a specific header and do string operations
-    const acceptHeader = headers["accept-encoding"];
-    acceptHeader.forEach(val => val.toUpperCase());
+    // EW.ResponseProviderRequest.getHeaders()
+    testHeaders(request.getHeaders());
 
     // EW.ResponseProviderRequest.text()
     const stringBody = request.text();
@@ -159,4 +170,16 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
 
     // EW.ResponseProviderRequest.arrayBuffer()
     const arrayBufferBody = request.arrayBuffer();
+}
+
+function testHeaders(headers: EW.Headers) {
+    Object.keys(headers).forEach(key => {
+        key.toUpperCase();
+        headers[key].length;
+        headers[key][0].toUpperCase();
+    });
+
+    // get a specific header and do string operations
+    const acceptHeader = headers["accept-encoding"];
+    acceptHeader.forEach(val => val.toUpperCase());
 }

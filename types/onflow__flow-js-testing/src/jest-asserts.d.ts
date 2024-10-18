@@ -1,4 +1,4 @@
-import { Interaction, TransactionStatus } from './interaction';
+import { Interaction, TransactionStatus } from "./interaction";
 
 export function shallPass(ix: Interaction): Promise<[TransactionStatus, null]>;
 

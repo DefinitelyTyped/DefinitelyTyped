@@ -1,6 +1,32 @@
 {
     "private": true,
+    "name": "@types/redux-api-middleware",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/agraboso/redux-api-middleware"
+    ],
     "dependencies": {
         "redux": "^4.0.1"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-api-middleware": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Andrew Luca",
+            "githubUsername": "iamandrewluca"
+        },
+        {
+            "name": "Craig S",
+            "githubUsername": "Mrman"
+        },
+        {
+            "name": "Arturs Vonda",
+            "githubUsername": "artursvonda"
+        },
+        {
+            "name": "Matthew M",
+            "githubUsername": "magoogli"
+        }
+    ]
 }

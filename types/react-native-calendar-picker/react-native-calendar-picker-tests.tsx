@@ -1,30 +1,32 @@
-import * as React from 'react';
-import { View, TextInput } from 'react-native';
+import * as React from "react";
+import { TextInput, View } from "react-native";
 
 import CalendarPicker, {
-    DateChangedCallback,
-    CustomDateStyle,
-    DisabledDatesFunc,
+    ChangedDate,
     CustomDatesStylesFunc,
+    CustomDateStyle,
     CustomDayHeaderStylesFunc,
-} from 'react-native-calendar-picker';
+    DateChangedCallback,
+    DisabledDatesFunc,
+    MonthChangedCallback,
+} from "react-native-calendar-picker";
 
 const TestSimpleProps = () => (
     <CalendarPicker
-        weekdays={['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']}
+        weekdays={["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]}
         months={[
-            'Janeiro',
-            'Fevereiro',
-            'Março',
-            'Abril',
-            'Maio',
-            'Junho',
-            'Julho',
-            'Agosto',
-            'Setembro',
-            'Outubro',
-            'Novembro',
-            'Dezembro',
+            "Janeiro",
+            "Fevereiro",
+            "Março",
+            "Abril",
+            "Maio",
+            "Junho",
+            "Julho",
+            "Agosto",
+            "Setembro",
+            "Outubro",
+            "Novembro",
+            "Dezembro",
         ]}
         startFromMonday
         showDayStragglers
@@ -35,13 +37,13 @@ const TestSimpleProps = () => (
         selectedDayColor="string"
         selectedDayStyle={{ flex: 1 }}
         selectedDayTextColor="string"
-        selectedDayTextStyle={{ color: '#000' }}
+        selectedDayTextStyle={{ color: "#000" }}
         selectedRangeStartTextStyle={{ fontSize: 12 }}
-        selectedRangeEndTextStyle={{ color: '#8dafee'}}
+        selectedRangeEndTextStyle={{ color: "#8dafee" }}
         selectedRangeStartStyle={{ flex: 1 }}
         selectedRangeEndStyle={{ flex: 1 }}
         selectedRangeStyle={{ flex: 1 }}
-        selectedDisabledDatesTextStyle={{ color: '#efefef'}}
+        selectedDisabledDatesTextStyle={{ color: "#efefef" }}
         disabledDates={[new Date(), new Date()]}
         disabledDatesTextStyle={{ fontSize: 10 }}
         selectedStartDate={new Date()}
@@ -67,8 +69,8 @@ const TestSimpleProps = () => (
         selectYearTitle="Choose year"
         previousTitleStyle={{ fontSize: 10 }}
         headerWrapperStyle={{ flex: 1 }}
-        monthTitleStyle={{ textTransform: 'uppercase'}}
-        yearTitleStyle={{ color: '#f04'}}
+        monthTitleStyle={{ textTransform: "uppercase" }}
+        yearTitleStyle={{ color: "#f04" }}
         nextTitleStyle={{ fontSize: 10 }}
         dayLabelsWrapper={{ flex: 1 }}
         monthYearHeaderWrapperStyle={{ flex: 1 }}
@@ -91,7 +93,7 @@ const TestRangeDurations = () => {
 };
 
 const TestDisabledDates = () => {
-    const isDateDisabled: DisabledDatesFunc = date => date.day() % 2 === 1;
+    const isDateDisabled: DisabledDatesFunc = (date: Date) => date.getDate() % 2 === 1;
     return <CalendarPicker disabledDates={isDateDisabled} />;
 };
 
@@ -104,7 +106,7 @@ const TestCustomDateStyle = () => {
             textStyle: { fontSize: 10 },
         },
         {
-            date: '2020-10-10',
+            date: "2020-10-10",
             style: { flex: 1 },
         },
     ];
@@ -113,26 +115,26 @@ const TestCustomDateStyle = () => {
 };
 
 const TestCustomDateFuncs = () => {
-    const customDatesStylesFn: CustomDatesStylesFunc = date => {
-        if (date.weekday() === 0) {
+    const customDatesStylesFn: CustomDatesStylesFunc = (date: Date) => {
+        if (date.getDay() === 0) {
             return {
                 containerStyle: {
-                    backgroundColor: 'red',
+                    backgroundColor: "red",
                 },
                 textStyle: {
-                    color: 'black',
+                    color: "black",
                 },
             };
         } else {
             return {
                 containerStyle: {
-                    backgroundColor: 'white',
+                    backgroundColor: "white",
                 },
                 style: {
-                    alignContent: 'center',
+                    alignContent: "center",
                 },
                 textStyle: {
-                    color: 'black',
+                    color: "black",
                 },
             };
         }
@@ -145,10 +147,10 @@ const TestCustomDateFuncs = () => {
     }) => {
         return {
             textStyle: {
-                color: date.year === 2020 ? 'red' : 'blue',
+                color: date.year === new Date().getFullYear() ? "red" : "blue",
             },
             style: {
-                backgroundColor: 'yellow',
+                backgroundColor: "yellow",
             },
         };
     };
@@ -156,19 +158,23 @@ const TestCustomDateFuncs = () => {
 };
 
 const TestCallbacks = () => {
-    const onDateChange: DateChangedCallback = date => console.log(date.day());
+    const onDateChange: DateChangedCallback = (date: Date, changedDate: ChangedDate) =>
+        `Updated ${changedDate} to ${date.toDateString()}`;
 
-    return <CalendarPicker onDateChange={onDateChange} onMonthChange={onDateChange} />;
+    const onMonthChange: MonthChangedCallback = (date: Date) => `Updated month to ${date.getMonth()}`;
+
+    return <CalendarPicker onDateChange={onDateChange} onMonthChange={onMonthChange} />;
 };
 
 const TestRef = () => {
     const ref = React.useRef<CalendarPicker>();
+    const today = new Date();
     ref.current!.handleOnPressNext();
     ref.current!.handleOnPressPrevious();
     ref.current!.handleOnPressDay({
-        day: 5,
-        month: 6,
-        year: 2020
+        day: today.getDate(),
+        month: today.getMonth(),
+        year: today.getFullYear(),
     });
     ref.current!.resetSelections();
 };
@@ -178,9 +184,9 @@ const TestDayOfWeekStyles = () => {
         <CalendarPicker
             allowRangeSelection
             previousTitle="<"
-            previousTitleStyle={{ color: '#fff' }}
+            previousTitleStyle={{ color: "#fff" }}
             nextTitle=">"
-            nextTitleStyle={{ color: '#f00' }}
+            nextTitleStyle={{ color: "#f00" }}
             dayLabelsWrapper={{
                 borderBottomWidth: 0,
                 borderTopWidth: 0,
@@ -200,6 +206,18 @@ const TestInitialViewValues = () => {
             <CalendarPicker initialView={"months"} />
             <CalendarPicker initialView={"years"} />
             <CalendarPicker initialView={undefined} />
+        </>
+    );
+};
+
+const TestParsableDateValues = () => {
+    const today = new Date();
+    const inTwoWeeks = new Date(today.setDate(today.getDate() + 14));
+    return (
+        <>
+            <CalendarPicker minDate={today} maxDate={inTwoWeeks} />
+            <CalendarPicker minDate={today.valueOf()} maxDate={inTwoWeeks.valueOf()} />
+            <CalendarPicker minDate={today.toISOString()} maxDate={inTwoWeeks.toISOString()} />
         </>
     );
 };

@@ -1,4 +1,4 @@
-import { Representation } from '../';
+import { Representation } from "../";
 
 export default class QualityLevel {
     readonly id: string;

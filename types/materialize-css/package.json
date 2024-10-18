@@ -1,6 +1,37 @@
 {
     "private": true,
+    "name": "@types/materialize-css",
+    "version": "1.0.9999",
+    "projects": [
+        "http://materializecss.com/"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
         "cash-dom": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/materialize-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " 胡玮文",
+            "githubUsername": "huww98"
+        },
+        {
+            "name": "Maxim Balaganskiy",
+            "githubUsername": "MaximBalaganskiy"
+        },
+        {
+            "name": "David Moniz",
+            "githubUsername": "MonizDave"
+        },
+        {
+            "name": "Daniel Hoenes",
+            "githubUsername": "broccoliarchy"
+        },
+        {
+            "name": "Rick Lucassen",
+            "githubUsername": "SnowyLeopard"
+        }
+    ]
 }

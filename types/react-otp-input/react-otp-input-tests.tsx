@@ -11,12 +11,12 @@ interface OtpInputState {
 
 class OtpInputPage extends React.Component<InputOtpProps, OtpInputState> {
     state = {
-        otp: 123456
+        otp: 123456,
     };
 
     handleChange = (otp: number) => {
         this.setState({ otp });
-    }
+    };
 
     render() {
         const { otp } = this.state;

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet.locatecontrol",
+    "version": "0.74.9999",
+    "projects": [
+        "https://github.com/domoritz/leaflet-locatecontrol"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet.locatecontrol": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Carriere",
+            "githubUsername": "DenisCarriere"
+        }
+    ]
+}

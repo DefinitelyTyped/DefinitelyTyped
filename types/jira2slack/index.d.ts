@@ -1,8 +1,3 @@
-// Type definitions for jira2slack 1.2
-// Project: https://github.com/shaunburdick/jira2slack#readme
-// Definitions by: Rob Anderson <https://github.com/McTalian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert JIRA markdown to Slack markdown
  */

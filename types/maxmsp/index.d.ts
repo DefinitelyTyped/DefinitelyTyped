@@ -1,17 +1,8 @@
-// Type definitions for non-npm package maxmsp 1.0
-// Project: https://docs.cycling74.com/max8/vignettes/javascript_usage_topic
-// Definitions by: TomW <https://github.com/twhiston>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions originally created by: ErnstHot <https://github.com/ErnstHot>
-// Documentation is property of Cycling '74 and published with permission.
-// These are type definitions for max msp's [js]/[jsui] API 1.0.0
-// API Reference: http://max-javascript-reference.tim-schenk.de/
-// For npm use @types/max-api instead
-
 /*
  * Max globals
- * https://docs.cycling74.com/max7/vignettes/jsglobal
+ * https://docs.cycling74.com/max8/vignettes/jsglobal
  */
+declare var inspector: number;
 declare var inlets: number;
 declare var outlets: number;
 declare var autowatch: number;
@@ -24,10 +15,16 @@ declare var max: Max;
 declare var maxclass: string;
 declare var messagename: string;
 declare var patcher: Patcher;
-declare function error(message: any): void;
-declare function cpost(message?: any): void;
-declare function post(message?: any): void;
-declare function messnamed(object_name: string, message_name: string, message_arguments?: string): void;
+declare function error(...messages: any[]): void;
+declare function cpost(...message: any[]): void;
+declare function post(...message: any[]): void;
+/**
+ * Sends a message to the named Max object.
+ * A named Max object is an object associated with a global symbol (not an object with a patcher-specific name).
+ * For example, Max receive objects are bound to global symbols.
+ * The following code would send the message bang to the named object flower.
+ */
+declare function messnamed(object_name: string, message_name: string, ...message_arguments: any[]): void;
 declare function arrayfromargs(arguments: IArguments): any[];
 declare function assist(arguments: any): void;
 declare function declareattribute(
@@ -42,87 +39,93 @@ declare function outlet(outlet_number: number, ...arguments: any[]): void;
 declare function setinletassist(inlet_number: number, object: any): void;
 declare function setoutletassist(outlet_number: number, object: any): void;
 
+type Range = [number, number];
+type Color = [number, number, number, number];
+type Rect = [number, number, number, number];
+type Position = [number, number];
+type Size = [number, number];
+
 type MaxMessage =
-    | 'buildcollective'
-    | 'checkpreempt'
-    | 'clean'
-    | 'clearmaxwindow'
-    | 'closefile'
-    | 'crash'
-    | 'db.exportmetadata'
-    | 'db.importmetadata'
-    | 'db.reset'
-    | 'debug'
-    | 'disablevirtualmididestinations'
-    | 'disablevirtualmidisources'
-    | 'enablepathcache'
-    | 'externaleditor'
-    | 'externs'
-    | 'fileformat'
-    | 'fixwidthratio'
-    | 'getarch'
-    | 'getdefaultpatcherheight'
-    | 'getdefaultpatcherwidth'
-    | 'getenablepathcache'
-    | 'geteventinterval'
-    | 'getfixwidthratio'
-    | 'getpollthrottle'
-    | 'getqueuethrottle'
-    | 'getrefreshrate'
-    | 'getruntime'
-    | 'getslop'
-    | 'getsysqelemthrottle'
-    | 'getsystem'
-    | 'getversion'
-    | 'hidecursor'
-    | 'hidemenubar'
-    | 'htmlref'
-    | 'interval'
-    | 'launchbrowser'
-    | 'maxcharheightforsubpixelantialiasing'
-    | 'maxinwmenu'
-    | 'maxwindow'
-    | 'midilist'
-    | 'nativetextrendering'
-    | 'notypeinfo'
-    | 'objectfile'
-    | 'openfile'
-    | 'paths'
-    | 'preempt'
-    | 'pupdate'
-    | 'purgemididevices'
-    | 'quit'
-    | 'refresh'
-    | 'refreshrate'
-    | 'relaunchmax'
-    | 'runtime'
-    | 'sendinterval'
-    | 'sendapppath'
-    | 'setdefaultpatcherheight'
-    | 'setdefaultpatcherwidth'
-    | 'seteventinterval'
-    | 'setmixergbitmode'
-    | 'setmixerlatency'
-    | 'setmixerparallel'
-    | 'setmixerramptime'
-    | 'setmirrortoconsole'
-    | 'setsleep'
-    | 'setpollthrottle'
-    | 'setqueuethrottle'
-    | 'setslop'
-    | 'setsysqelemthrottle'
-    | 'showcursor'
-    | 'showmenubar'
-    | 'size'
-    | 'system'
-    | 'useexternaleditor'
-    | 'useslowbutcompletesearching'
+    | "buildcollective"
+    | "checkpreempt"
+    | "clean"
+    | "clearmaxwindow"
+    | "closefile"
+    | "crash"
+    | "db.exportmetadata"
+    | "db.importmetadata"
+    | "db.reset"
+    | "debug"
+    | "disablevirtualmididestinations"
+    | "disablevirtualmidisources"
+    | "enablepathcache"
+    | "externaleditor"
+    | "externs"
+    | "fileformat"
+    | "fixwidthratio"
+    | "getarch"
+    | "getdefaultpatcherheight"
+    | "getdefaultpatcherwidth"
+    | "getenablepathcache"
+    | "geteventinterval"
+    | "getfixwidthratio"
+    | "getpollthrottle"
+    | "getqueuethrottle"
+    | "getrefreshrate"
+    | "getruntime"
+    | "getslop"
+    | "getsysqelemthrottle"
+    | "getsystem"
+    | "getversion"
+    | "hidecursor"
+    | "hidemenubar"
+    | "htmlref"
+    | "interval"
+    | "launchbrowser"
+    | "maxcharheightforsubpixelantialiasing"
+    | "maxinwmenu"
+    | "maxwindow"
+    | "midilist"
+    | "nativetextrendering"
+    | "notypeinfo"
+    | "objectfile"
+    | "openfile"
+    | "paths"
+    | "preempt"
+    | "pupdate"
+    | "purgemididevices"
+    | "quit"
+    | "refresh"
+    | "refreshrate"
+    | "relaunchmax"
+    | "runtime"
+    | "sendinterval"
+    | "sendapppath"
+    | "setdefaultpatcherheight"
+    | "setdefaultpatcherwidth"
+    | "seteventinterval"
+    | "setmixergbitmode"
+    | "setmixerlatency"
+    | "setmixerparallel"
+    | "setmixerramptime"
+    | "setmirrortoconsole"
+    | "setsleep"
+    | "setpollthrottle"
+    | "setqueuethrottle"
+    | "setslop"
+    | "setsysqelemthrottle"
+    | "showcursor"
+    | "showmenubar"
+    | "size"
+    | "system"
+    | "useexternaleditor"
+    | "useslowbutcompletesearching"
     | string;
 
 /**
  * The Buffer object in JavaScript is a companion to the buffer~ object you instantiate in Max patchers,
  * and provides the ability to access samples and metadata for the buffer~ object with the associated name.
- * https://docs.cycling74.com/max7/vignettes/jsbuffer
+ * https://docs.cycling74.com/max8/vignettes/jsbuffer
  */
 declare class Buffer {
     /**
@@ -167,14 +170,14 @@ declare class Buffer {
 /**
  * The Dict object in JS is a companion to the dict object you create in a Max patcher. It provides the ability to access structured data (a dictionary) associated with a name.
  * Example code can be found in the "js" tab of the dict help patcher.
- * https://docs.cycling74.com/max7/vignettes/jsdict
+ * https://docs.cycling74.com/max8/vignettes/jsdict
  */
 declare class Dict {
     /**
      * If no name is provided as an argument then a unique name will be generated for the dictionary.
      * The following properties mirror the attributes of the same name from the Max dict object. See the dict reference for more details.
      */
-    constructor(name: string);
+    constructor(name?: string);
 
     /**
      * Access or set the name of a dict object as a property of the dict object
@@ -207,6 +210,13 @@ declare class Dict {
     contains(key: string): number;
 
     /**
+     * Frees the dictionary data from the native c peer, which is not considered by the JavaScript garbage collector,
+     * and may consume lots of memory until the garbage collector decides to run based on JS allocated memory.
+     * Once called, the dict object is not available for any other use.
+     */
+    freepeer(): void;
+
+    /**
      * Return the value associated with a key.
      */
     get(key: string): any;
@@ -214,7 +224,7 @@ declare class Dict {
     /**
      * Return a list of all the keys in a dictionary.
      */
-    getkeys(): any[];
+    getkeys(): string[];
 
     /**
      * Return a list of all the dictionaries that currently exist.
@@ -224,7 +234,7 @@ declare class Dict {
     /**
      * Return the number of values associated with a key.
      */
-    getsize(): number;
+    getsize(key: string): number;
 
     /**
      * Return the type of the values associated with a key.
@@ -232,9 +242,9 @@ declare class Dict {
     gettype(): string;
 
     /**
-     * Replace the content of a dictionary.
+     * Replace the content of a dictionary with a JSON string.
      */
-    parse(key: string, value: string): void;
+    parse(value: string): void;
 
     /**
      * Pull the content of a named coll object into the dictionary.
@@ -257,19 +267,28 @@ declare class Dict {
     remove(key: string): void;
 
     /**
-     * Set the value for a key to a specified value, creating heirarchy.
+     * Set the value for a key to a specified value creating hierarchy if needed.
+     * Hierarchy is specified using double-colons
+     *
+     * d.replace("salami", "6.99");
+     * d.replace("drink::hot::coffee::type", "espresso");
      */
-    replace(key: string, value: any[]): void;
+    replace(key: string, ...values: any[]): void;
 
     /**
-     * Set the value for a key to a specified value.
+     * Set the value for a key to a specified value creating a hierarchy if needed.
+     * Hierarchy is specified using double-colons
+     *
+     * d.set("salami", "7.99");
+     * d.set("bologna", 1.99);
+     * d.set("drink::hot::coffee::sizes", "small", "medium", "large");
      */
-    set(key: string, value: any[]): void;
+    set(key: string, ...values: any[]): void;
 
     /**
-     * Set the value for a key to dictionary content defined using JSON.
+     * Set the value for a key to dictionary content defined using JSON as a string.
      */
-    setparse(key: string, value: any[]): void;
+    setparse(key: string, value: string): void;
 
     /**
      * Open a save dialog to write the dictionary contents to a file.
@@ -304,7 +323,7 @@ declare class Dict {
 
 /**
  * The File object provides a means of reading and writing files from Javascript.
- * https://docs.cycling74.com/max7/vignettes/jsfileobject
+ * https://docs.cycling74.com/max8/vignettes/jsfileobject
  */
 declare class File {
     /**
@@ -313,7 +332,7 @@ declare class File {
      * which is located at /Library/Application Support/Cycling ’74 on Macintosh and C:\Program Files\Common Files\Cycling ’74 on Windows. By default, typelist is empty.
      * If able to, the File constructor opens the file specified by filename, provided it is one of the types in typelist.
      */
-    constructor(filename: string, access?: 'read' | 'write' | 'readwrite', typelist?: string);
+    constructor(filename: string, access?: "read" | "write" | "readwrite", typelist?: string);
 
     /**
      * File access permissions: "read", "write", or "readwrite". By default, this value is "read".
@@ -475,7 +494,7 @@ declare class File {
 
 /**
  * The Folder object is a js “external object” defined in the Max object called jsfolder. It is used to iterate through files in a folder.
- * https://docs.cycling74.com/max7/vignettes/jsfolderobject
+ * https://docs.cycling74.com/max8/vignettes/jsfolderobject
  */
 declare class Folder {
     /**
@@ -553,7 +572,7 @@ declare class Folder {
  * messages completely outside of js. Executing methods stored in Global objects from Max is not supported. However, methods are certainly among the kinds of things you can store within a Global
  * object. A Global is basically a reference to a Javascript object that you can't access directly. The object is connected to the Max symbol with the name you supplied as an argument (this allows it
  * to be accessed from Max). Every time you access a Global, it hands off the access to the secret hidden Javascript object. This means you can create any number of Global objects in your code, in any
- * number of js instances, and if they all have the same name, they will all share the same data. In this way, a Global resembles a namespace. https://docs.cycling74.com/max7/vignettes/jsglobalobject
+ * number of js instances, and if they all have the same name, they will all share the same data. In this way, a Global resembles a namespace. https://docs.cycling74.com/max8/vignettes/jsglobalobject
  */
 declare class Global {
     /**
@@ -566,12 +585,20 @@ declare class Global {
      * TODO: Can have any property assigned to it
      */
     sendnamed(receive_name: string, property_name: string): void;
+
+    /*
+     * Global is used to set user defined properties that can't be known beforehand, casting
+     * a Globals instance as any to work with it defeats the whole purpose of using TS.
+     * This indexed access type will make sure you put the right checks in place before
+     * things go sideways, one can always cast to any if this becomes too annoying.
+     */
+    [index: string | number | symbol]: unknown;
 }
 
 /**
  * The LiveAPI object provides a means of communicating with the Live API functions from JavaScript. For background information on this functionality, please see the Live API Overview and Live Object
  * Model documents, as well as the Reference pages for live.path, live.object and live.observer objects, which provide the same basic functionality as the LiveAPI object, but from the Max patcher.
- * https://docs.cycling74.com/max7/vignettes/jsliveapi
+ * https://docs.cycling74.com/max8/vignettes/jsliveapi
  */
 declare class LiveAPI {
     /**
@@ -581,7 +608,7 @@ declare class LiveAPI {
      * (the object sends a bang from its left outlet when the Device is fully initialized, including the Live API). Legacy note: previous versions of the LiveAPI object required the jsthis object's
      * this.patcher property as the first argument. For backward-compatibility, this first argument is still supported, but is no longer necessary.
      */
-    constructor(callback: any, name: string);
+    constructor(callback?: any, name?: string);
 
     /**
      * The id of the Live object referred to by the LiveAPI object. These ids are dynamic and awarded in realtime from the Live application, so should not be stored and used over multiple runs of Max
@@ -803,6 +830,11 @@ declare class Max {
      * value of 1.1 would make boxes wider than they needed to be, and a value of 0.9 would make boxes narrower than they need to be.
      */
     fixwidthratio(ratio: number): void;
+
+    /**
+     * The word getcolor followed by string color name returns a Color type.
+     */
+    getcolor(name: string): Color;
 
     /**
      * The word getdefaultpatcherheight followed by a symbol used as the name of a receive object, causes Max to report the current default patcher height in pixels to the named receive object (See
@@ -1110,7 +1142,7 @@ declare class Max {
     /**
      * The word system, followed by the name of an Operating System (windows or macintosh) and a message, will execute the message if Max is running on the named OS.
      */
-    system(os: 'windows' | 'macintosh', message: string): void;
+    system(os: "windows" | "macintosh", message: string): void;
 
     /**
      * The word useslowbutcompletesearching, followed by a one (on) or zero (off), toggles complete file searching. When enabled, it causes files not found in Max's cache of the search path to be
@@ -1121,10 +1153,17 @@ declare class Max {
     useslowbutcompletesearching(enable: 0 | 1): void;
 }
 
+declare class MaxobjConnection {
+    srcobject: object;
+    dstobject: object;
+    srcoutlet: number;
+    dstinlet: number;
+}
+
 /**
  * A Maxobj is a Javascript representation of a Max object in a patcher. It is returned by various methods of a Javascript Patcher object, such as newobject().One important thing to keep in mind about
  * a Maxobj is that it could eventually refer to an object that no longer exists if the underlying Max object is freed. The valid property can be used to test for this condition.
- * https://docs.cycling74.com/max7/vignettes/jsmaxobj
+ * https://docs.cycling74.com/max8/vignettes/jsmaxobj
  */
 declare class Maxobj {
     constructor();
@@ -1192,6 +1231,15 @@ declare class Maxobj {
     js: any;
 
     /**
+     * Whether patchcords are connected to the object's inlets and outlets and, if so,
+     * the connected objects. Returns a generic object with two arrays,
+     * 'inputs' and 'outputs', of MaxobjConnection objects.
+     * These have the properties 'srcobject', 'dstobject', 'srcoutlet' and 'dstinlet'
+     * which can be used to walk the graph from JS.
+     */
+    patchcords: { inputs: MaxobjConnection[]; outputs: MaxobjConnection[] };
+
+    /**
      * Returns whether the Maxobj refers to a valid Max object
      */
     valid: boolean;
@@ -1208,10 +1256,11 @@ declare class Maxobj {
     help(): void;
 
     /**
-     * If the object contains a patcher, this function returns a (Javascript) Patcher object. The optional index is used for specifying an instance number, which only applies to poly~ objects. If the
-     * object does not contain a subpatcher, a nil value is returned.
+     * If the object contains a patcher, this function returns a (Javascript) Patcher object.
+     * The optional index is used for specifying an instance number, which only applies to poly~ objects.
+     * If the object does not contain a subpatcher, a nil value is returned.
      */
-    subpatcher(index: number): Patcher;
+    subpatcher(index?: number): Patcher;
 
     /**
      * Returns a Boolean value if the object has an entry in its message list for the message specified by the string. If the entry is not a message that can be sent by a user within Max (i.e., it's a
@@ -1219,11 +1268,106 @@ declare class Maxobj {
      * others.
      */
     understands(message: string): boolean;
+
+    /**
+     * Returns an Array value containing the names of available attributes for the object.
+     */
+    getattrnames(): string[];
+
+    /**
+     * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     */
+    getattr(attribute_name: string): unknown;
+
+    /**
+     * Sets the value of the attribute specified by attribute_name.
+     */
+    setattr(attribute_name: string, anything: unknown): void;
+
+    /**
+     * Returns an Array value containing the names of available attributes for the object's box.
+     */
+    getboxattrnames(): string[];
+
+    /**
+     * Returns the value of the object's box attribute specified by box_attribute_name. Lists are returned as JS Array objects.
+     */
+    getboxattr(box_attribute_name: string): unknown;
+
+    /**
+     * Sets the value of the object's box attribute specified by box_attribute_name.
+     */
+    setboxattr(box_attribute_name: string, ...anything: unknown[]): void;
+}
+
+/**
+ * The MaxobjListener object listens for changes to a Maxobj object's value,
+ * or changes to a specified attribute of a Maxobj object.
+ * When a change occurs, a user-specified function will be called.
+ * The object also provides methods for getting and setting the value of the observed value or attribute.
+ */
+declare class MaxobjListener {
+    constructor(object: Maxobj, attribute_name: string, callback: (data: MaxobjListenerData<any>) => void);
+
+    /**
+     * The Maxobj to observe.
+     */
+    maxobject: Maxobj;
+
+    /**
+     * An attribute to observe for changes, if desired.
+     */
+    attrname: string;
+
+    /**
+     * Never execute the callback function in response to calling setvalue from this MaxobjListener.
+     */
+    silent: number;
+
+    /**
+     * Report the value of the Maxobj or its specified attribute. List values are reported in a JS Array object.
+     */
+    getvalue(): void;
+
+    /**
+     * Set the value of the Maxobj or its specified attribute.
+     */
+    setvalue(): void;
+
+    /**
+     * Set the value of the Maxobj or its specified attribute, without executing the callback function (also see the silent property).
+     */
+    setvalue_silent(): void;
+}
+
+/**
+ * The MaxobjListenerData object is the argument to your MaxobjListener's function
+ */
+declare class MaxobjListenerData<Tvalue> {
+    /**
+     * The MaxobjListener which called the function.
+     */
+    listener: MaxobjListener;
+
+    /**
+     * The Maxobj being observed.
+     */
+    maxobject: Maxobj;
+
+    /**
+     * If the MaxobjListener is observing an attribute, the attribute's name, otherwise undefined.
+     */
+    attrname: string;
+
+    /**
+     * The current value of the observed object or attribute. List values are represented by a JS Array object.
+     */
+    value: Tvalue;
 }
 
 /**
  * The Patcher object is a Javascript representation of a Max patcher. You can find, create, modify, and iterate through objects within a patcher, send messages to a patcher that you would use with
- * the thispatcher object, etc. https://docs.cycling74.com/max7/vignettes/jspatcherobject
+ * the thispatcher object, etc. https://docs.cycling74.com/max8/vignettes/jspatcherobject
  */
 declare class Patcher {
     /**
@@ -1295,6 +1439,18 @@ declare class Patcher {
      * A Javascript representation of the window associated with the patcher. For more information, see the Wind Object.
      */
     wind: Wind;
+
+    /**
+     * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     */
+    getattr(attribute_name: string): unknown;
+
+    /**
+     * Sends message to the patcher followed by any additional arguments (..anything) provided.
+     * This is useful for manupulating patchers which dynamically can do things like: creating new buttons,
+     * resizing it's window, switching to presentation mode, ...
+     */
+    message(message: string, ...anything: any[]): void;
 
     /**
      * Creates a new object of Max class classname in a patcher using the specified parameters and returns a Maxobj (see below) that represents it.
@@ -1377,7 +1533,7 @@ declare class Patcher {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PolyBuffer                                                                                                         //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// https://docs.cycling74.com/max7/vignettes/jspolybuffer
+// https://docs.cycling74.com/max8/vignettes/jspolybuffer
 
 /**
  * The PolyBuffer object in JS is a companion to the polybuffer~ object you create in a Max patcher. It provides the ability to access a group of buffer~ objects associated with a name.
@@ -1419,7 +1575,7 @@ declare class PolyBuffer {
 
 /**
  * A task is a function that can be scheduled or repeated. You can set the arguments to the function as well as the object that will be this when the function is called.
- * https://docs.cycling74.com/max7/vignettes/jstaskobject
+ * https://docs.cycling74.com/max8/vignettes/jstaskobject
  */
 declare class Task {
     /**
@@ -1486,7 +1642,7 @@ declare class Task {
 
 /**
  * The Wind object is a property of a Patcher that represents its window. You cannot create a new Wind or access other types of windows such as that of a Max table object.
- * https://docs.cycling74.com/max7/vignettes/jswindobj
+ * https://docs.cycling74.com/max8/vignettes/jswindobj
  */
 declare class Wind {
     /**
@@ -1578,7 +1734,7 @@ declare class Wind {
 
 /**
  * The SQLite object provides access to the SQLite database system (see http://www.sqlite.org for more information). A companion object, SQLResult, is required for most database operations.
- * https://docs.cycling74.com/max7/vignettes/jssqliteobject
+ * https://docs.cycling74.com/max8/vignettes/jssqliteobject
  */
 declare class SQLite {
     /**
@@ -1619,11 +1775,11 @@ declare class SQLite {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SQLResult                                                                                                          //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// https://docs.cycling74.com/max7/vignettes/jssqlresultobject
+// https://docs.cycling74.com/max8/vignettes/jssqlresultobject
 
 /**
  * An SQLResult object is a container for results obtained in an SQLite.exec call. Not every exec() call will produce results, but any database query (SELECT in particular) will generate an SQLResult
- * object even if the result is empty. https://docs.cycling74.com/max7/vignettes/jssqlresultobject
+ * object even if the result is empty. https://docs.cycling74.com/max8/vignettes/jssqlresultobject
  */
 declare class SQLResult {
     constructor();
@@ -1651,7 +1807,7 @@ declare class SQLResult {
 }
 
 /*
- * JSUI: https://docs.cycling74.com/max7/vignettes/jsuiobject
+ * JSUI: https://docs.cycling74.com/max8/vignettes/jsuiobject
  */
 
 declare var mgraphics: MGraphics;
@@ -1659,7 +1815,7 @@ declare var sketch: Sketch;
 declare function refresh(): void;
 
 /**
- * https://docs.cycling74.com/max7/vignettes/jsmgraphics
+ * https://docs.cycling74.com/max8/vignettes/jsmgraphics
  */
 declare class MGraphics {
     constructor();
@@ -1681,6 +1837,11 @@ declare class MGraphics {
      * to 0.
      */
     autofill: number;
+
+    /**
+     * Array of two values width and height of the jsui object in the maxpat
+     */
+    size: [number, number];
 
     /**
      * The init routine is the first thing that an mgraphics-based Javascript program needs to call. It initializes the library, sets up the internal mgraphics variables and prepares the jsui object
@@ -2018,22 +2179,22 @@ declare class MGraphics {
     /**
      * Set the appearance of the end-point of a drawn line. The options are butt, round, or square.
      */
-    set_line_cap(line_cap: 'butt' | 'round' | 'square'): void;
+    set_line_cap(line_cap: "butt" | "round" | "square"): void;
 
     /**
      * Retrieve the appearance attribute of the current line_cap setting. The returned value is the same as the values used by set_line_cap.
      */
-    get_line_cap(): 'butt' | 'round' | 'square';
+    get_line_cap(): "butt" | "round" | "square";
 
     /**
      * Set the appearance of the connection point between lines. The options are miter, round, or bevel.
      */
-    set_line_join(line_join: 'miter' | 'round' | 'bevel'): void;
+    set_line_join(line_join: "miter" | "round" | "bevel"): void;
 
     /**
      * Retrieve the appearance attribute of the current line_join setting. The returned value is the same as the values used by set_line_join.
      */
-    get_line_join(): 'miter' | 'round' | 'bevel';
+    get_line_join(): "miter" | "round" | "bevel";
 
     /**
      * Set the width of path lines drawn using the stroke() function. The width value is dependent on the coordinate system in use.
@@ -2175,7 +2336,7 @@ declare class Pattern {
 /**
  * Sketch Every instance of jsui has an instance of Sketch bound to the variable "sketch". This is often the only instance of Sketch you will need to use. However, if you want to do things like render
  * sprites, have multiple layers of images, or use drawing commands to create alpha channels for images, then you can create additional instances to render in. By default, when any function in your
- * jsui object has been called the context is already set for the instance of Sketch bound to the variable "sketch". https://docs.cycling74.com/max7/vignettes/jssketchobject
+ * jsui object has been called the context is already set for the instance of Sketch bound to the variable "sketch". https://docs.cycling74.com/max8/vignettes/jssketchobject
  */
 declare class Sketch {
     /**
@@ -2467,7 +2628,7 @@ declare class Sketch {
     /**
      * Begin definition of a stroked path of the style specified by the stroke_style argument. Currently supported stroke styles are "basic2d" and "line".
      */
-    beginstroke(stroke_style: 'basic2d' | 'line'): void;
+    beginstroke(stroke_style: "basic2d" | "line"): void;
 
     /**
      * End definition of a stroked path, and render the path.
@@ -2507,10 +2668,13 @@ declare class Sketch {
     glbindtexture(image_object: string): void;
     glblendfunc(src_function: string, dst_function: string): void;
     glclear(): void;
+    glclearcolor(color: Color): void;
     glclearcolor(red: number, green: number, blue: number, alpha: number): void;
     glcleardepth(depth: number): void;
     glclipplane(plane: number, coeff1: number, coeff2: number, coeff3: number, coeff4: number): void;
+    glcolor(color: Color): void;
     glcolor(red: number, green: number, blue: number, alpha: number): void;
+    glcolormask(color: Color): void;
     glcolormask(red: number, green: number, blue: number, alpha: number): void;
     glcolormaterial(face: number, mode: any[]): void;
     glcullface(face: number): void;
@@ -2576,14 +2740,14 @@ declare class Sketch {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Image                                                                                                              //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// https://docs.cycling74.com/max7/vignettes/jsimageobject
+// https://docs.cycling74.com/max8/vignettes/jsimageobject
 
 /**
  * Image The Image object can be used to draw images in an instance of the Sketch. It is possible to load image files from disk, create images from instances of Sketch, or generate them manually. The
  * Image object has several methods to assist in manipulating images once generated. Note that alphablending is on by default in sketch. Certain file formats which contain alpha channels such as PICT
  * or TIFF may have their alpha channel set all off. File formats which do not contain an alpha channel such as JPEG, by default have an alpha channel of all on. If you are having trouble seeing an
  * image when attempting to draw in an instance of Sketch, you may want to either turn off blending with gldisable("blend"), or set the alpha channel to be all on with clearchannel("alpha",1.).
- * https://docs.cycling74.com/max7/vignettes/jsimageobject
+ * https://docs.cycling74.com/max8/vignettes/jsimageobject
  */
 declare class Image {
     /**
@@ -2609,7 +2773,7 @@ declare class Image {
      * Adjusts all channel values in the image channel specified by the channel argument, by multiplying the channel value by the value specified by the scale argument and then adding the value
      * specified by the bias argument. The resulting channel is clipped to the range 0.-1. Acceptable values for the channel argument are the strings: "red", "green", "blue", or "alpha".
      */
-    adjustchannel(channel: 'red' | 'green' | 'blue' | 'alpha', scale: number, bias: number): void;
+    adjustchannel(channel: "red" | "green" | "blue" | "alpha", scale: number, bias: number): void;
 
     /**
      * Generates an alpha channel based on the chromatic distance from the specified RGB target color. If no tolerance, fade or minkey arguments are specified they are assumed to be 0. If no maxkey
@@ -2633,8 +2797,8 @@ declare class Image {
     blendchannel(
         source_object: any,
         alpha: number,
-        source_channel: 'red' | 'green' | 'blue' | 'alpha',
-        destination_channel: 'red' | 'green' | 'blue' | 'alpha',
+        source_channel: "red" | "green" | "blue" | "alpha",
+        destination_channel: "red" | "green" | "blue" | "alpha",
     ): void;
 
     /**
@@ -2666,7 +2830,7 @@ declare class Image {
      * Sets all channel values in the image channel specified by the channel argument to be the value specified by the value argument. If no value argument is specified, it is assumed to be 0.
      * Acceptable values for the channel argument are the strings: "red", "green", "blue", or "alpha".
      */
-    clearchannel(channel: 'red' | 'green' | 'blue' | 'alpha', value: number): void;
+    clearchannel(channel: "red" | "green" | "blue" | "alpha", value: number): void;
 
     /**
      * Copies the channel values from the source object's channel specified by the source_channel argument to the destination object's channel specified by the destination_channel argument. The source
@@ -2675,8 +2839,8 @@ declare class Image {
      */
     copychannel(
         source_object: string,
-        source_channel: 'red' | 'green' | 'blue' | 'alpha',
-        destination_channel: 'red' | 'green' | 'blue' | 'alpha',
+        source_channel: "red" | "green" | "blue" | "alpha",
+        destination_channel: "red" | "green" | "blue" | "alpha",
     ): void;
 
     /**
@@ -2774,7 +2938,7 @@ declare class MaxCanvas {
     //      return;
     // }
     constructor(jsui: object);
-    getContext(type: 'max-2d'): CanvasRenderingContext2D;
+    getContext(type: "max-2d"): CanvasRenderingContext2D;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2792,7 +2956,7 @@ declare class CanvasRenderingContext2D {
     setTransform(m11: number, m12: number, m21: number, m22: number, dx: number, dy: number): void;
     createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
     createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
-    createPattern(image: Image, repetition: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat'): CanvasPattern;
+    createPattern(image: Image, repetition: "repeat" | "repeat-x" | "repeat-y" | "no-repeat"): CanvasPattern;
     clearRect(x: number, y: number, w: number, h: number): void;
     fillRect(x: number, y: number, w: number, h: number): void;
     strokeRect(x: number, y: number, w: number, h: number): void;

@@ -202,7 +202,7 @@
 declare module "db" {
     
 
-    module db {
+    namespace db {
         
         
         

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Web Serial API based on spec and Chromium implementation 1.0
-// Project: https://wicg.github.io/serial/
-// Definitions by: Maciej Mroziński <https://github.com/maciejmrozinski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type EventHandler = (event: Event) => void;
 
 interface SerialPortInfoBase {
@@ -22,9 +17,9 @@ interface SerialPortFilter {
 
 interface SerialPortInfo extends SerialPortInfoBase, SerialPortFilter {} // mix spec and Chromium implementation
 
-type ParityType = 'none' | 'even' | 'odd' | 'mark' | 'space';
+type ParityType = "none" | "even" | "odd" | "mark" | "space";
 
-type FlowControlType = 'none' | 'hardware';
+type FlowControlType = "none" | "hardware";
 
 interface SerialOptions {
     baudRate: number;

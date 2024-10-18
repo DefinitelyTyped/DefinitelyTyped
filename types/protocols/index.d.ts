@@ -1,11 +1,6 @@
-// Type definitions for protocols 2.0
-// Project: https://github.com/IonicaBizau/protocols
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { URL } from 'url';
+import { URL } from "url";
 
 /**
  * @param input The input url.

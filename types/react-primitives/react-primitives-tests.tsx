@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     Animated,
     Dimensions,
@@ -6,32 +6,32 @@ import {
     Image,
     PixelRatio,
     Platform,
+    StyleSheet,
     Text,
     Touchable,
     View,
-    StyleSheet
-} from 'react-primitives';
+} from "react-primitives";
 
 const { Image: AnimatedImage } = Animated;
 
-const { width, height } = Dimensions.get('window');
-const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
+const { width, height } = Dimensions.get("window");
+const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
 const styles = StyleSheet.create({
     container: {
-        height: screenHeight
+        height: screenHeight,
     },
     nav: {
         width: screenWidth,
-        height: 20
+        height: 20,
     },
     image: {
         width,
-        height: 100
+        height: 100,
     },
     text: {
-        fontSize: 14 * PixelRatio.get()
-    }
+        fontSize: 14 * PixelRatio.get(),
+    },
 });
 
 interface State {
@@ -40,7 +40,7 @@ interface State {
 
 export default class Component extends React.Component<{}, State> {
     state: State = {
-        opacity: new Animated.Value(0)
+        opacity: new Animated.Value(0),
     };
 
     componentDidMount() {
@@ -50,14 +50,14 @@ export default class Component extends React.Component<{}, State> {
             easing: Easing.cubic,
             useNativeDriver: false,
         }).start();
-        if (Platform.OS === 'sketch') {
-            console.log('The Platform is sketch');
+        if (Platform.OS === "sketch") {
+            console.log("The Platform is sketch");
         }
     }
 
     render() {
         const {
-            state: { opacity }
+            state: { opacity },
         } = this;
 
         return (
@@ -67,11 +67,11 @@ export default class Component extends React.Component<{}, State> {
                 </View>
                 <AnimatedImage
                     style={[styles.image, { opacity }]}
-                    source={{ uri: 'source' }}
+                    source={{ uri: "source" }}
                 />
-                <Image style={styles.image} source={{ uri: 'source' }} />
+                <Image style={styles.image} source={{ uri: "source" }} />
                 <Text style={styles.text}>Hii</Text>
-                {Platform.OS === 'ios' && (
+                {Platform.OS === "ios" && (
                     <View>
                         <Text>IOS Specific Text!</Text>
                     </View>

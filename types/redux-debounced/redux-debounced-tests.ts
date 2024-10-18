@@ -1,4 +1,4 @@
-import { applyMiddleware } from 'redux';
-import createDebounce from 'redux-debounced';
+import { applyMiddleware } from "redux";
+import createDebounce from "redux-debounced";
 
 applyMiddleware(createDebounce());

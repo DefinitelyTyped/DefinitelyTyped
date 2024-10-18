@@ -1,4 +1,4 @@
-import simpleheat = require('simpleheat');
+import simpleheat = require("simpleheat");
 
 const canvasElement = new HTMLCanvasElement();
 
@@ -20,11 +20,11 @@ for (const instance of instances) {
     instance.resize(); // $ExpectType Instance
     // $ExpectType Instance
     instance.gradient({
-        0.6: 'blue',
-        0.7: 'cyan',
-        0.8: 'lime',
-        0.9: 'yellow',
-        1.0: 'red',
+        0.6: "blue",
+        0.7: "cyan",
+        0.8: "lime",
+        0.9: "yellow",
+        1.0: "red",
     });
     instance.draw(); // $ExpectType Instance
     instance.draw(0.1); // $ExpectType Instance

@@ -1,8 +1,3 @@
-// Type definitions for videojs-vtt.js 0.15
-// Project: https://github.com/videojs/vtt.js
-// Definitions by: David Ko <https://github.com/davidholyko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type TimeInSeconds = number;
 type VttText = string;
 type DecoderFn = (data: string) => string;
@@ -17,7 +12,7 @@ interface VttParser {
     buffer: string;
     decoder: Decoder;
     regionList: string[];
-    state: 'INITIAL' | 'BADCUE' | 'HEADER' | 'NOTE' | 'ID' | 'CUETEXT' | null;
+    state: "INITIAL" | "BADCUE" | "HEADER" | "NOTE" | "ID" | "CUETEXT" | null;
     vttjs: {};
     window: Window;
 
@@ -30,7 +25,7 @@ interface VttParser {
 }
 
 interface VttParserConstructor {
-    new (window: Window, stringDecoder?: ReturnType<typeof WebVTT.StringDecoder>): VttParser;
+    new(window: Window, stringDecoder?: ReturnType<typeof WebVTT.StringDecoder>): VttParser;
 }
 
 export namespace WebVTT {
@@ -42,7 +37,7 @@ export namespace WebVTT {
 
 export const VTTCue: {
     prototype: VTTCue;
-    new (startTime: TimeInSeconds, endTime: TimeInSeconds, text: string): VTTCue;
+    new(startTime: TimeInSeconds, endTime: TimeInSeconds, text: string): VTTCue;
 
     // http://www.whatwg.org/specs/web-apps/current-work/multipage/the-video-element.html#text-track-cue-display-state
     displayState?: any;
@@ -51,7 +46,7 @@ export const VTTCue: {
 
 export const VTTRegion: {
     prototype: VTTRegion;
-    new (): VTTRegion;
+    new(): VTTRegion;
 
     fromJSON(json: any): VTTRegion;
     create(options: any): VTTRegion;

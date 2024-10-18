@@ -1,4 +1,4 @@
-import HoneywellScanner from 'react-native-honeywell-scanner';
+import HoneywellScanner from "react-native-honeywell-scanner";
 
 class Example {
     async test() {
@@ -12,13 +12,13 @@ class Example {
             return;
         }
 
-        HoneywellScanner.on('barcodeReadSuccess', event => {
-            if (event && typeof event === 'object') {
+        HoneywellScanner.on("barcodeReadSuccess", event => {
+            if (event && typeof event === "object") {
                 const data = event.data;
             }
         });
 
-        HoneywellScanner.on('barcodeReadFail', () => {
+        HoneywellScanner.on("barcodeReadFail", () => {
             // TODO
         });
 

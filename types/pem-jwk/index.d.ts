@@ -1,8 +1,3 @@
-// Type definitions for pem-jwk 2.0
-// Project: https://github.com/dannycoates/pem-jwk
-// Definitions by: Alessio Paccoia <https://github.com/alessiopcc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface RSA_JWK {
     kty: string;
     n: string;

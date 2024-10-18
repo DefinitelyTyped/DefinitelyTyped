@@ -5,23 +5,23 @@ const server = new Server({
     port: 8000,
 });
 const handler: Lifecycle.Method = (request, h) => {
-    return h.context.message;    // Or h.context.message
+    return h.context.message; // Or h.context.message
 };
 
 const plugin: Plugin<any> = {
-    name: 'example',
+    name: "example",
     register: async (server, options) => {
         const bind = {
-            message: 'hello'
+            message: "hello",
         };
         server.bind(bind);
-        server.route({ method: 'GET', path: '/', handler });
-    }
+        server.route({ method: "GET", path: "/", handler });
+    },
 };
 
 server.start();
 server.register(plugin);
 
-server.events.on('start', () => {
-    console.log('Server started at: ' + server.info.uri);
+server.events.on("start", () => {
+    console.log("Server started at: " + server.info.uri);
 });

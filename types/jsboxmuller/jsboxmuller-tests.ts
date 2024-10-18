@@ -1,4 +1,4 @@
-import jsBoxMuller = require('jsboxmuller');
+import jsBoxMuller = require("jsboxmuller");
 
 jsBoxMuller(); // $ExpectType number
 jsBoxMuller(10); // $ExpectType number

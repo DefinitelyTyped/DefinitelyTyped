@@ -33,14 +33,14 @@ interface GlideSystem {
         gr: ScopedGlideRecord,
         optionalParam1: string,
         optionalParam2: string,
-        eventQueue?: string
+        eventQueue?: string,
     ): void;
     eventQueueScheduled(
         name: string,
         instance: ScopedGlideRecord,
         parm1: string,
         parm2: string,
-        expiration: object
+        expiration: object,
     ): void;
     executeNow(job: ScopedGlideRecord): string;
     generateGUID(): string;

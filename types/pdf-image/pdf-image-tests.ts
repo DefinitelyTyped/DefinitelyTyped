@@ -1,21 +1,21 @@
-import { PDFImage } from 'pdf-image';
+import { PDFImage } from "pdf-image";
 
 // $ExpectType PDFImage<false>
-new PDFImage('path');
+new PDFImage("path");
 
 // $ExpectType Promise<string[]>
-new PDFImage('path').convertFile();
+new PDFImage("path").convertFile();
 
 // $ExpectType Promise<string>
-new PDFImage('path', { combinedImage: true }).convertFile();
+new PDFImage("path", { combinedImage: true }).convertFile();
 
 // $ExpectType Promise<string | string[]>
-new PDFImage<boolean>('path', { combinedImage: true }).convertFile();
+new PDFImage<boolean>("path", { combinedImage: true }).convertFile();
 
 // @ts-expect-error
-new PDFImage<false>('path', { combinedImage: true });
+new PDFImage<false>("path", { combinedImage: true });
 
-new PDFImage('path', { convertOptions: { "-adaptive-blur": '' } });
+new PDFImage("path", { convertOptions: { "-adaptive-blur": "" } });
 
 // @ts-expect-error
-new PDFImage('path', { convertOptions: { invalidOptionKey: '' } });
+new PDFImage("path", { convertOptions: { invalidOptionKey: "" } });

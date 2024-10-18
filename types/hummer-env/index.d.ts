@@ -1,7 +1,3 @@
-// Type definitions for non-npm package didi/Hummer 1.0
-// Project: https://github.com/didi/Hummer
-// Definitions by: Mi <https://github.com/iammvp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="./components/Index.d.ts" />
 /// <reference path="./interface/style.d.ts" />
 declare const Hummer: {
@@ -98,7 +94,6 @@ declare function setTimeout(cb: () => void, timeout: number): number;
 declare function clearTimeout(timer: number): void;
 declare const Navigator: {
     /**
-     *
      * @param pageInfo 页面信息
      * @param pageInfo.url 跳转页面url
      * @param pageInfo.params 页面间传递的参数
@@ -107,29 +102,29 @@ declare const Navigator: {
      * @param pageInfo.closeSelf 打开页面时是否关闭自身 (默认是false)
      * @param cb 回调函数
      */
-    openPage(pageInfo: import('./interface/info').JumpPageInfo, cb?: (obj: unknown) => void): void;
+    openPage(pageInfo: import("./interface/info").JumpPageInfo, cb?: (obj: unknown) => void): void;
     /**
      * @summary 关闭当前页面
      * @param pageInfo.animated 是否需要转场动画（默认是true）
      */
-    popPage(pageInfo?: Partial<import('./interface/info').JumpPageInfo>): void;
+    popPage(pageInfo?: Partial<import("./interface/info").JumpPageInfo>): void;
     /**
      * 回退到指定页面
      * @param pageInfo 页面信息
      * @param pageInfo.id 指定页面的id, 通过openPage打开页面时设置的id
      */
-    popToPage(pageInfo?: Partial<import('./interface/info').JumpPageInfo>): void;
+    popToPage(pageInfo?: Partial<import("./interface/info").JumpPageInfo>): void;
     /**
      * @summary 回退到首页
      * @param pageInfo.animated 是否需要转场动画（默认是true）
      */
-    popToRootPage(pageInfo?: Partial<import('./interface/info').JumpPageInfo>): void;
+    popToRootPage(pageInfo?: Partial<import("./interface/info").JumpPageInfo>): void;
     /**
      * @summary 回退指定数量的页面
      * @param count 回退的页面数量
      * @param pageInfo.animated 是否需要转场动画（默认是true）
      */
-    popBack(count: number, pageInfo?: Partial<import('./interface/info').JumpPageInfo>): void;
+    popBack(count: number, pageInfo?: Partial<import("./interface/info").JumpPageInfo>): void;
 };
 
 interface BasicAnimation<V = unknown> {
@@ -152,14 +147,14 @@ interface BasicAnimation<V = unknown> {
     /**
      * @summary 动画运动速率曲线
      */
-    easing: import('./interface/info').animationEasing;
+    easing: import("./interface/info").animationEasing;
     /**
      * 动画执行开始或结束时的回调
      *
      * @param event 事件类型（'start' 或 'end'）
      * @param callback 事件回调
      */
-    on(event: 'start' | 'end', cb: () => void): void;
+    on(event: "start" | "end", cb: () => void): void;
 }
 
 declare const BasicAnimation: {
@@ -178,8 +173,8 @@ declare const BasicAnimation: {
      * @param animationType = width - 宽度动画
      * @param animationType = height - 高度动画
      */
-    new <T extends keyof import('./interface/info').animationTypeMap>(animationType: T): BasicAnimation<
-        import('./interface/info').animationTypeMap[T]
+    new<T extends keyof import("./interface/info").animationTypeMap>(animationType: T): BasicAnimation<
+        import("./interface/info").animationTypeMap[T]
     >;
 };
 
@@ -190,7 +185,7 @@ interface KeyframeAnimation<V = unknown> {
     keyframes: Array<{
         percent: number;
         value: V;
-        easing?: import('./interface/info').animationEasing;
+        easing?: import("./interface/info").animationEasing;
     }>;
     /**
      * @summary 动画持续时间（单位：秒）
@@ -207,14 +202,14 @@ interface KeyframeAnimation<V = unknown> {
     /**
      * @summary 动画运动速率曲线
      */
-    easing: import('./interface/info').animationEasing;
+    easing: import("./interface/info").animationEasing;
     /**
      * 动画执行开始或结束时的回调
      *
      * @param event 事件类型（'start' 或 'end'）
      * @param callback 事件回调
      */
-    on(event: 'start' | 'end', cb: () => void): void;
+    on(event: "start" | "end", cb: () => void): void;
 }
 
 declare const KeyframeAnimation: {
@@ -233,8 +228,8 @@ declare const KeyframeAnimation: {
      * @param animationType = width - 宽度动画
      * @param animationType = height - 高度动画
      */
-    new <T extends keyof import('./interface/info').animationTypeMap>(animationType: T): KeyframeAnimation<
-        import('./interface/info').animationTypeMap[T]
+    new<T extends keyof import("./interface/info").animationTypeMap>(animationType: T): KeyframeAnimation<
+        import("./interface/info").animationTypeMap[T]
     >;
 };
 
@@ -306,7 +301,7 @@ interface Dialog {
 }
 declare const Dialog: {
     prototype: Dialog;
-    new (): Dialog;
+    new(): Dialog;
 };
 
 interface Request {
@@ -338,12 +333,12 @@ interface Request {
      * 发起网络请求
      * @param cb 请求返回触发的回调
      */
-    send(cb: (response: import('./interface/info').RequestResponse) => void): void;
+    send(cb: (response: import("./interface/info").RequestResponse) => void): void;
 }
 
 declare const Request: {
     prototype: Request;
-    new (): Request;
+    new(): Request;
 };
 
 interface WebSocket {
@@ -356,12 +351,12 @@ interface WebSocket {
      * @summary 接收消息的回调
      * @param cb 回调函数 , 回调参数 event : {data: 消息文本(string)}
      */
-    onmessage(cb: (ev: import('./interface/info').WebSocketMessageEvent) => void): void;
+    onmessage(cb: (ev: import("./interface/info").WebSocketMessageEvent) => void): void;
     /**
      * @summary 链接关闭时的回调
      * @param cb 回调函数, 回调参数 event: {code:错误码(number), reason: 错误原因(string)}
      */
-    onclose(cb: (ev: import('./interface/info').WebSocketCloseEvent) => void): void;
+    onclose(cb: (ev: import("./interface/info").WebSocketCloseEvent) => void): void;
     /**
      * @summary 链接出错时的回调
      * @param cb 回调函数
@@ -375,7 +370,7 @@ interface WebSocket {
  */
 declare const WebSocket: {
     prototype: WebSocket;
-    new (url: string): WebSocket;
+    new(url: string): WebSocket;
 };
 
 declare const Storage: {
@@ -449,7 +444,7 @@ interface Location {
      * 获取上一次缓存的位置信息
      * @param cb 位置信息回调, (locationInfo : LocationInfo) => void
      */
-    getLastLocation(cb: (locationInfo: import('./interface/info').LocationInfo) => void): void;
+    getLastLocation(cb: (locationInfo: import("./interface/info").LocationInfo) => void): void;
     /**
      * 开启位置定位
      * @param cb 位置信息回调, (locationInfo : LocationInfo) => void
@@ -457,7 +452,7 @@ interface Location {
      * @param intervalDistance 位置变化的距离改变范围（单位：米），默认0米
      */
     startLocation(
-        cb: (locationInfo: import('./interface/info').LocationInfo) => void,
+        cb: (locationInfo: import("./interface/info").LocationInfo) => void,
         intervalTime?: number,
         intervalDistance?: number,
     ): void;
@@ -474,5 +469,5 @@ interface Location {
 
 declare const Location: {
     prototype: Location;
-    new (): Location;
+    new(): Location;
 };

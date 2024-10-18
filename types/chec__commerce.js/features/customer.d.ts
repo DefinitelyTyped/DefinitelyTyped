@@ -1,8 +1,8 @@
-import Commerce = require('@chec/commerce.js');
-import { Customer as CustomerType } from '../types/customer';
-import { Order as OrderType } from '../types/order';
-import { PaginationMeta } from '../types/pagination';
-import { RequestMethod } from './cart';
+import Commerce = require("../");
+import { Customer as CustomerType } from "../types/customer";
+import { Order as OrderType } from "../types/order";
+import { PaginationMeta } from "../types/pagination";
+import { RequestMethod } from "./cart";
 
 export interface CustomerUpdate {
     email?: string | undefined;

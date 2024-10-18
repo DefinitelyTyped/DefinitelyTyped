@@ -1,8 +1,3 @@
-// Type definitions for non-npm package ArcGIS REST API 10.4
-// Project: http://resources.arcgis.com/en/help/arcgis-rest-api/
-// Definitions by: Jeff Jacobson <https://github.com/JeffJacobson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Feature {
     geometry: Geometry;
     attributes: any;
@@ -40,7 +35,7 @@ export interface Arc {
         number, // clockwise
         number, // rotation
         number, // axis
-        number // ratio
+        number, // ratio
     ];
 }
 
@@ -51,7 +46,7 @@ export interface OldCircularArc {
         Position, // End point: x, y, <z>, <m>
         Position2D, // Center point: center_x, center_y
         number, // minor
-        number // clockwise
+        number, // clockwise
     ];
 }
 
@@ -59,7 +54,7 @@ export interface BezierCurve {
     "b": [
         Position,
         Position2D,
-        Position2D
+        Position2D,
     ];
 }
 
@@ -128,13 +123,37 @@ export interface Envelope extends Geometry {
     mmax?: number | undefined;
 }
 
-export type esriGeometryType = "esriGeometryPoint" | "esriGeometryMultipoint" | "esriGeometryPolyline" | "esriGeometryPolygon" | "esriGeometryEnvelope";
+export type esriGeometryType =
+    | "esriGeometryPoint"
+    | "esriGeometryMultipoint"
+    | "esriGeometryPolyline"
+    | "esriGeometryPolygon"
+    | "esriGeometryEnvelope";
 
 export type Color = [number, number, number, number];
-export type SimpleMarkerSymbolStyle = "esriSMSCircle" | "esriSMSCross" | "esriSMSDiamond" | "esriSMSSquare" | "esriSMSX" | "esriSMSTriangle";
-export type SimpleLineSymbolStyle = "esriSLSDash" | "esriSLSDashDot" | "esriSLSDashDotDot" | "esriSLSDot" | "esriSLSNull" | "esriSLSSolid";
+export type SimpleMarkerSymbolStyle =
+    | "esriSMSCircle"
+    | "esriSMSCross"
+    | "esriSMSDiamond"
+    | "esriSMSSquare"
+    | "esriSMSX"
+    | "esriSMSTriangle";
+export type SimpleLineSymbolStyle =
+    | "esriSLSDash"
+    | "esriSLSDashDot"
+    | "esriSLSDashDotDot"
+    | "esriSLSDot"
+    | "esriSLSNull"
+    | "esriSLSSolid";
 export type SimpleFillSymbolStyle =
-    "esriSFSBackwardDiagonal" | "esriSFSCross" | "esriSFSDiagonalCross" | "esriSFSForwardDiagonal" | "esriSFSHorizontal" | "esriSFSNull" | "esriSFSSolid" | "esriSFSVertical";
+    | "esriSFSBackwardDiagonal"
+    | "esriSFSCross"
+    | "esriSFSDiagonalCross"
+    | "esriSFSForwardDiagonal"
+    | "esriSFSHorizontal"
+    | "esriSFSNull"
+    | "esriSFSSolid"
+    | "esriSFSVertical";
 export type SymbolType = "esriSLS" | "esriSMS" | "esriSFS" | "esriPMS" | "esriPFS" | "esriTS";
 
 export interface Symbol {

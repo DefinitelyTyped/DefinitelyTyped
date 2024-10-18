@@ -1,12 +1,7 @@
-// Type definitions for ffi-napi 4.0
-// Project: https://github.com/node-ffi-napi/node-ffi-napi
-// Definitions by: Keerthi Niranjan <https://github.com/keerthi16>, Kiran Niranjan <https://github.com/KiranNiranjan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import ref = require('ref-napi');
-import ref_struct = require('ref-struct-di');
+import ref = require("ref-napi");
+import ref_struct = require("ref-struct-di");
 import StructType = ref_struct.StructType;
 
 /**
@@ -23,38 +18,47 @@ export interface LibraryFunctionOptions {
 /**
  * Base constraint for an object-based library type definition.
  */
-export type LibraryObjectDefinitionBase = Record<string, [retType: ref.TypeLike, argTypes: ref.TypeLike[], opts?: LibraryFunctionOptions]>;
+export type LibraryObjectDefinitionBase = Record<
+    string,
+    [retType: ref.TypeLike, argTypes: ref.TypeLike[], opts?: LibraryFunctionOptions]
+>;
 
 /**
  * This is a marker type that causes TypeScript to use string literal inference when inferring a generic from {@link LibraryObjectDefinitionBase}.
  * If it is not used, `new Library(..., { x: ["int", ["int"]] })` will be inferred as `new Library<{ x: [string, string[]] }>(...)` instead of `new UnionType<{ x: ["int", ["int"]] }>(...)`.
  */
-export type LibraryObjectDefinitionInferenceMarker = Record<string, [retType: "void", argTypes: ArgTypesInferenceMarker]>;
+export type LibraryObjectDefinitionInferenceMarker = Record<
+    string,
+    [retType: "void", argTypes: ArgTypesInferenceMarker]
+>;
 
 /**
  * Converts a {@link LibraryObjectDefinitionBase} into a consistent subtype of {@link LibraryDefinitionBase}. If `any` is used, it is passed along
  * to be interpreted to use a fallback definition for a union.
  */
-export type LibraryObjectDefinitionToLibraryDefinition<T extends LibraryObjectDefinitionBase> =
-    [T] extends [never] | [0] ? any : // catches T extends never/any (since `0` doesn't overlap with our constraint)
-    { [P in keyof T]: [retType: ref.CoerceType<T[P][0]>, argTypes: ref.CoerceTypes<T[P][1]>, opts: T[P][2]] };
+export type LibraryObjectDefinitionToLibraryDefinition<T extends LibraryObjectDefinitionBase> = [T] extends
+    [never] | [0] ? any // catches T extends never/any (since `0` doesn't overlap with our constraint)
+    : { [P in keyof T]: [retType: ref.CoerceType<T[P][0]>, argTypes: ref.CoerceTypes<T[P][1]>, opts: T[P][2]] };
 
 /**
  * Base constraint for a consistent library type definition.
  */
-export type LibraryDefinitionBase = Record<string, [retType: ref.Type, argTypes: ref.Type[], opts: LibraryFunctionOptions | undefined]>;
+export type LibraryDefinitionBase = Record<
+    string,
+    [retType: ref.Type, argTypes: ref.Type[], opts: LibraryFunctionOptions | undefined]
+>;
 
 /**
  * Represents a {@link Library} instance created from a {@link LibraryDefinitionBase}.
  */
-export type LibraryObject<T extends LibraryDefinitionBase> =
-    [T] extends [never] | [0] ? any : // catches T extends never/any (since `0` doesn't overlap with our constraint)
-    {
-        [P in keyof T]:
-            T[P][2] extends undefined ? ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>> :
-            T[P][2] extends { varargs: true } ? VariadicForeignFunction<T[P][0], T[P][1]> :
-            T[P][2] extends { async: true } ? ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>>["async"] :
-            ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>>;
+export type LibraryObject<T extends LibraryDefinitionBase> = [T] extends [never] | [0] ? any // catches T extends never/any (since `0` doesn't overlap with our constraint)
+    : {
+        [P in keyof T]: T[P][2] extends undefined
+            ? ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>>
+            : T[P][2] extends { varargs: true } ? VariadicForeignFunction<T[P][0], T[P][1]>
+            : T[P][2] extends { async: true }
+                ? ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>>["async"]
+            : ForeignFunction<ref.UnderlyingType<T[P][0]>, ref.UnderlyingTypes<T[P][1]>>;
     };
 
 /** Provides a friendly API on-top of `DynamicLibrary` and `ForeignFunction`. */
@@ -67,10 +71,10 @@ export interface Library {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    new <TDefinition extends LibraryObjectDefinitionBase | LibraryObjectDefinitionInferenceMarker, T>(
+    new<TDefinition extends LibraryObjectDefinitionBase | LibraryObjectDefinitionInferenceMarker, T>(
         libFile: string | null,
         funcs: TDefinition,
-        lib: T
+        lib: T,
     ): T & LibraryObject<LibraryObjectDefinitionToLibraryDefinition<TDefinition>>;
 
     /**
@@ -78,10 +82,10 @@ export interface Library {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    new <TDefinition extends LibraryObjectDefinitionBase | LibraryObjectDefinitionInferenceMarker>(
+    new<TDefinition extends LibraryObjectDefinitionBase | LibraryObjectDefinitionInferenceMarker>(
         libFile: string | null,
         funcs: TDefinition,
-        lib?: object
+        lib?: object,
     ): LibraryObject<LibraryObjectDefinitionToLibraryDefinition<TDefinition>>;
 
     /**
@@ -89,7 +93,11 @@ export interface Library {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    new (libFile: string | null, funcs?: Record<string, [retType: ref.TypeLike, argTypes: ref.TypeLike[], opts?: LibraryFunctionOptions]>, lib?: object): any;
+    new(
+        libFile: string | null,
+        funcs?: Record<string, [retType: ref.TypeLike, argTypes: ref.TypeLike[], opts?: LibraryFunctionOptions]>,
+        lib?: object,
+    ): any;
 
     /**
      * @param libFile name of library
@@ -99,7 +107,7 @@ export interface Library {
     <TDefinition extends LibraryObjectDefinitionBase | LibraryObjectDefinitionInferenceMarker, T>(
         libFile: string | null,
         funcs: TDefinition,
-        lib: T
+        lib: T,
     ): T & LibraryObject<LibraryObjectDefinitionToLibraryDefinition<TDefinition>>;
 
     /**
@@ -110,7 +118,7 @@ export interface Library {
     <TDefinition extends LibraryObjectDefinitionBase | LibraryObjectDefinitionInferenceMarker>(
         libFile: string | null,
         funcs: TDefinition,
-        lib?: object
+        lib?: object,
     ): LibraryObject<LibraryObjectDefinitionToLibraryDefinition<TDefinition>>;
 
     /**
@@ -118,7 +126,11 @@ export interface Library {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-     (libFile: string | null, funcs?: Record<string, [retType: ref.TypeLike, argTypes: ref.TypeLike[], opts?: LibraryFunctionOptions]>, lib?: object): any;
+    (
+        libFile: string | null,
+        funcs?: Record<string, [retType: ref.TypeLike, argTypes: ref.TypeLike[], opts?: LibraryFunctionOptions]>,
+        lib?: object,
+    ): any;
 }
 export const Library: Library;
 
@@ -127,7 +139,7 @@ export function errno(): number;
 
 export interface Function<
     TReturnType extends ref.Type = ref.Type,
-    TArgTypes extends ref.Type[] = ref.Type[]
+    TArgTypes extends ref.Type[] = ref.Type[],
 > extends ref.Type<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>> {
     /** The type of return value. */
     retType: TReturnType;
@@ -138,7 +150,9 @@ export interface Function<
     abi: number;
 
     /** Get a `Callback` pointer of this function type. */
-    toPointer(fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
+    toPointer(
+        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
+    ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
     /** Get a `ForeignFunction` of this function type. */
     toFunction(buf: Buffer): ForeignFunction<ref.UnderlyingType<TReturnType>, ref.UnderlyingTypes<TArgTypes>>;
 }
@@ -146,29 +160,29 @@ export interface Function<
 /** Creates and returns a type for a C function pointer. */
 export const Function: {
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
-    new <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[] | ArgTypesInferenceMarker>(
+    new<TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[] | ArgTypesInferenceMarker>(
         retType: TReturnType,
         argTypes: TArgTypes,
-        abi?: number
-        ): Function<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
-    new <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
+        abi?: number,
+    ): Function<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
+    new<TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
         retType: TReturnType,
         argTypes: TArgTypes,
-        abi?: number
+        abi?: number,
     ): Function<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
 
-    new (retType: ref.TypeLike, argTypes: ref.TypeLike[], abi?: number): Function;
+    new(retType: ref.TypeLike, argTypes: ref.TypeLike[], abi?: number): Function;
 
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
     <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[] | ArgTypesInferenceMarker>(
         retType: TReturnType,
         argTypes: TArgTypes,
-        abi?: number
+        abi?: number,
     ): Function<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
     <TReturnType extends ref.TypeLike, TArgTypes extends ref.Type[] | ArgTypesInferenceMarker>(
         retType: TReturnType,
         argTypes: TArgTypes,
-        abi?: number
+        abi?: number,
     ): Function<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
 
     (retType: ref.TypeLike, argTypes: ref.TypeLike[], abi?: number): Function;
@@ -187,50 +201,57 @@ export interface ForeignFunction<TReturn = any, TArgs extends any[] = any[]> {
  */
 export const ForeignFunction: {
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
-    new <TReturnType extends ref.NamedType, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
+    new<TReturnType extends ref.NamedType, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
         ptr: Buffer,
         retType: TReturnType,
         argTypes: TArgTypes,
-        abi?: number
+        abi?: number,
     ): ForeignFunction<ref.UnderlyingType<TReturnType>, ref.UnderlyingTypes<TArgTypes>>;
-    new <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
+    new<TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
         ptr: Buffer,
         retType: TReturnType,
         argTypes: TArgTypes,
-        abi?: number
+        abi?: number,
     ): ForeignFunction<ref.UnderlyingType<TReturnType>, ref.UnderlyingTypes<TArgTypes>>;
 
-    new (ptr: Buffer, retType: ref.TypeLike, argTypes: ref.TypeLike[], abi?: number): ForeignFunction;
+    new(ptr: Buffer, retType: ref.TypeLike, argTypes: ref.TypeLike[], abi?: number): ForeignFunction;
 
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
     <TReturnType extends ref.NamedType, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
         ptr: Buffer,
         retType: TReturnType,
         argTypes: TArgTypes,
-        abi?: number
+        abi?: number,
     ): ForeignFunction<ref.UnderlyingType<TReturnType>, ref.UnderlyingTypes<TArgTypes>>;
     <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
         ptr: Buffer,
         retType: TReturnType,
         argTypes: TArgTypes,
-        abi?: number
+        abi?: number,
     ): ForeignFunction<ref.UnderlyingType<TReturnType>, ref.UnderlyingTypes<TArgTypes>>;
 
     (ptr: Buffer, retType: ref.TypeLike, argTypes: ref.TypeLike[], abi?: number): ForeignFunction;
 };
 
-export interface VariadicForeignFunction<TReturnType extends ref.Type = ref.Type, TArgTypes extends ref.Type[] = ref.Type[]> {
+export interface VariadicForeignFunction<
+    TReturnType extends ref.Type = ref.Type,
+    TArgTypes extends ref.Type[] = ref.Type[],
+> {
     /**
      * What gets returned is another function that needs to be invoked with the rest
      * of the variadic types that are being invoked from the function.
      */
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
-    <A extends ref.NamedTypeLike[]>(...args: A): ForeignFunction<ref.UnderlyingType<TReturnType>, [...ref.UnderlyingTypes<TArgTypes>, ...ref.UnderlyingTypes<A>]>;
+    <A extends ref.NamedTypeLike[]>(
+        ...args: A
+    ): ForeignFunction<ref.UnderlyingType<TReturnType>, [...ref.UnderlyingTypes<TArgTypes>, ...ref.UnderlyingTypes<A>]>;
     /**
      * What gets returned is another function that needs to be invoked with the rest
      * of the variadic types that are being invoked from the function.
      */
-    <A extends ref.TypeLike[]>(...args: A): ForeignFunction<ref.UnderlyingType<TReturnType>, [...ref.UnderlyingTypes<TArgTypes>, ...ref.UnderlyingTypes<A>]>;
+    <A extends ref.TypeLike[]>(
+        ...args: A
+    ): ForeignFunction<ref.UnderlyingType<TReturnType>, [...ref.UnderlyingTypes<TArgTypes>, ...ref.UnderlyingTypes<A>]>;
 
     /**
      * Return type as a property of the function generator to
@@ -249,33 +270,33 @@ export interface VariadicForeignFunction<TReturnType extends ref.Type = ref.Type
  */
 export const VariadicForeignFunction: {
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
-    new <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[] | ArgTypesInferenceMarker>(
+    new<TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[] | ArgTypesInferenceMarker>(
         ptr: Buffer,
         ret: TReturnType,
         fixedArgs: TArgTypes,
-        abi?: number
+        abi?: number,
     ): VariadicForeignFunction<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
-    new <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
+    new<TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
         ptr: Buffer,
         ret: TReturnType,
         fixedArgs: TArgTypes,
-        abi?: number
+        abi?: number,
     ): VariadicForeignFunction<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
 
-    new (ptr: Buffer, ret: ref.TypeLike, fixedArgs: ref.TypeLike[], abi?: number): VariadicForeignFunction;
+    new(ptr: Buffer, ret: ref.TypeLike, fixedArgs: ref.TypeLike[], abi?: number): VariadicForeignFunction;
 
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
     <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[] | ArgTypesInferenceMarker>(
         ptr: Buffer,
         ret: TReturnType,
         fixedArgs: TArgTypes,
-        abi?: number
+        abi?: number,
     ): VariadicForeignFunction<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
     <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[] | ArgTypesInferenceMarker>(
         ptr: Buffer,
         ret: TReturnType,
         fixedArgs: TArgTypes,
-        abi?: number
+        abi?: number,
     ): VariadicForeignFunction<ref.CoerceType<TReturnType>, ref.CoerceTypes<TArgTypes>>;
 
     (ptr: Buffer, ret: ref.TypeLike, fixedArgs: ref.TypeLike[], abi?: number): VariadicForeignFunction;
@@ -354,58 +375,58 @@ export namespace DynamicLibrary {
  */
 export interface Callback {
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
-    new <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[]>(
+    new<TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[]>(
         retType: TReturnType,
         argTypes: TArgTypes,
         abi: number,
-        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>
+        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
     ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
-    new <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[]>(
+    new<TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[]>(
         retType: TReturnType,
         argTypes: TArgTypes,
         abi: number,
-        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>
+        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
     ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
 
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
-    new <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[]>(
+    new<TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[]>(
         retType: TReturnType,
         argTypes: TArgTypes,
-        fn: (...ags: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>
+        fn: (...ags: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
     ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
-    new <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[]>(
+    new<TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[]>(
         retType: TReturnType,
         argTypes: TArgTypes,
-        fn: (...ags: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>
+        fn: (...ags: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
     ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
 
-    new (retType: ref.TypeLike, argTypes: ref.TypeLike[], abi: number, fn: (...args: any[]) => any): Buffer;
-    new (retType: ref.TypeLike, argTypes: ref.TypeLike[], fn: (...args: any[]) => any): Buffer;
-
-    // NOTE: This overload is a subtype of the next overload, but provides better completions.
-    <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[]>(
-        retType: TReturnType,
-        argTypes: TArgTypes,
-        abi: number,
-        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>
-    ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
-    <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[]>(
-        retType: TReturnType,
-        argTypes: TArgTypes,
-        abi: number,
-        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>
-    ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
+    new(retType: ref.TypeLike, argTypes: ref.TypeLike[], abi: number, fn: (...args: any[]) => any): Buffer;
+    new(retType: ref.TypeLike, argTypes: ref.TypeLike[], fn: (...args: any[]) => any): Buffer;
 
     // NOTE: This overload is a subtype of the next overload, but provides better completions.
     <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[]>(
         retType: TReturnType,
         argTypes: TArgTypes,
-        fn: (...ags: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>
+        abi: number,
+        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
     ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
     <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[]>(
         retType: TReturnType,
         argTypes: TArgTypes,
-        fn: (...ags: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>
+        abi: number,
+        fn: (...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
+    ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
+
+    // NOTE: This overload is a subtype of the next overload, but provides better completions.
+    <TReturnType extends ref.NamedTypeLike, TArgTypes extends ref.NamedTypeLike[]>(
+        retType: TReturnType,
+        argTypes: TArgTypes,
+        fn: (...ags: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
+    ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
+    <TReturnType extends ref.TypeLike, TArgTypes extends ref.TypeLike[]>(
+        retType: TReturnType,
+        argTypes: TArgTypes,
+        fn: (...ags: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>,
     ): ref.Pointer<(...args: ref.UnderlyingTypes<TArgTypes>) => ref.UnderlyingType<TReturnType>>;
 
     (retType: ref.TypeLike, argTypes: ref.TypeLike[], abi: number, fn: (...args: any[]) => any): Buffer;
@@ -421,10 +442,10 @@ export namespace ffiType {
      * This struct type is used internally to define custom struct ret/arg types.
      */
     const FFI_TYPE: StructType<{
-        size: typeof ref.types.size_t,
-        alignment: typeof ref.types.ushort,
-        type: typeof ref.types.ushort,
-        elements: ref.Type<ref.Pointer<PFFI_TYPE>>,
+        size: typeof ref.types.size_t;
+        alignment: typeof ref.types.ushort;
+        type: typeof ref.types.ushort;
+        elements: ref.Type<ref.Pointer<PFFI_TYPE>>;
     }>;
 
     type FFI_TYPE = ReturnType<typeof FFI_TYPE>;

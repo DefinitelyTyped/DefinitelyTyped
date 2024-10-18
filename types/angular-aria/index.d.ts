@@ -1,17 +1,21 @@
-// Type definitions for angular-aria 1.7
-// Project: http://angularjs.org, https://docs.angularjs.org/api/ngAria
-// Definitions by: Chives <https://github.com/chivesrs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     namespace aria {
-        type IAriaAttribute = 'ariaHidden'|'ariaChecked'|'ariaReadonly'|'ariaDisabled'|'ariaRequired'|'ariaInvalid'|'ariaValue'|'tabindex'|'bindKeydown'|'bindRoleForClick';
+        type IAriaAttribute =
+            | "ariaHidden"
+            | "ariaChecked"
+            | "ariaReadonly"
+            | "ariaDisabled"
+            | "ariaRequired"
+            | "ariaInvalid"
+            | "ariaValue"
+            | "tabindex"
+            | "bindKeydown"
+            | "bindRoleForClick";
 
         type IAriaProviderOptions = {
             [key in IAriaAttribute]?: boolean;

@@ -1,5 +1,5 @@
 export interface Hwb {
-    mode: 'hwb';
+    mode: "hwb";
     h?: number;
     w: number;
     b: number;

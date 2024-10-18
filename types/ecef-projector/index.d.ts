@@ -1,8 +1,3 @@
-// Type definitions for ecef-projector 1.0
-// Project: https://github.com/lakowske/ecef-projector
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert [geodetic coordinates](https://en.wikipedia.org/wiki/World_Geodetic_System) ([lat,lon, alt])
  * to [ECEF coordinates](http://en.wikipedia.org/wiki/ECEF) (cartesian [x,y,z]).

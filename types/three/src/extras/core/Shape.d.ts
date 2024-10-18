@@ -1,5 +1,10 @@
-import { Vector2 } from './../../math/Vector2.js';
-import { Path } from './Path.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { Path, PathJSON } from "./Path.js";
+
+export interface ShapeJSON extends PathJSON {
+    uuid: string;
+    holes: PathJSON[];
+}
 
 /**
  * Defines an arbitrary 2d {@link Shape} plane using paths with optional holes
@@ -47,7 +52,7 @@ export class Shape extends Path {
      * @remarks Sub-classes will update this value.
      * @defaultValue `Shape`
      */
-    override readonly type: string | 'Shape';
+    override readonly type: string | "Shape";
 
     /**
      * {@link http://en.wikipedia.org/wiki/Universally_unique_identifier | UUID} of this object instance.
@@ -75,4 +80,7 @@ export class Shape extends Path {
      * @param divisions The fineness of the result. Expects a `Integer`
      */
     getPointsHoles(divisions: number): Vector2[][];
+
+    toJSON(): ShapeJSON;
+    fromJSON(json: ShapeJSON): this;
 }

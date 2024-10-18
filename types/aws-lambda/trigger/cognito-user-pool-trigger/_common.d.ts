@@ -3,12 +3,12 @@ export interface StringMap {
 }
 
 export type ChallengeName =
-    | 'PASSWORD_VERIFIER'
-    | 'SMS_MFA'
-    | 'DEVICE_SRP_AUTH'
-    | 'DEVICE_PASSWORD_VERIFIER'
-    | 'ADMIN_NO_SRP_AUTH'
-    | 'SRP_A';
+    | "PASSWORD_VERIFIER"
+    | "SMS_MFA"
+    | "DEVICE_SRP_AUTH"
+    | "DEVICE_PASSWORD_VERIFIER"
+    | "ADMIN_NO_SRP_AUTH"
+    | "SRP_A";
 
 export interface ChallengeResult {
     challengeName: ChallengeName;
@@ -17,7 +17,7 @@ export interface ChallengeResult {
 }
 
 export interface CustomChallengeResult {
-    challengeName: 'CUSTOM_CHALLENGE';
+    challengeName: "CUSTOM_CHALLENGE";
     challengeResult: boolean;
     challengeMetadata?: string | undefined;
 }

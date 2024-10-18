@@ -80,7 +80,7 @@ export const BASE_INTRINSICS: { [intrinsic: string]: unknown } = {
     '%encodeURIComponent%': encodeURIComponent,
     '%Error%': Error,
     '%ErrorPrototype%': Error.prototype,
-    '%eval%': eval, // eslint-disable-line no-eval
+    '%eval%': eval, // eslint-disable-line @definitelytyped/no-eval
     '%EvalError%': EvalError,
     '%EvalErrorPrototype%': EvalError.prototype,
     '%Float32Array%': typeof Float32Array === 'undefined' ? undefined : Float32Array,

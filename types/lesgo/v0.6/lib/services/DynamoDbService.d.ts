@@ -1,16 +1,16 @@
 import {
     DocumentClient,
-    TableName,
-    KeyExpression,
     ExpressionAttributeValueMap,
-    ProjectionExpression,
-    ItemList,
     Integer,
+    ItemList,
+    Key,
+    KeyExpression,
+    ProjectionExpression,
     PutItemInputAttributeMap,
     RegionName,
+    TableName,
     UpdateExpression,
-    Key,
-} from 'aws-sdk2-types/clients/dynamodb';
+} from "aws-sdk2-types/clients/dynamodb";
 
 export interface DynamoDbParams {
     region: RegionName;
@@ -65,7 +65,7 @@ export default class DynamoDb {
         TableName: TableName;
         KeyConditionExpression: KeyExpression;
         ExpressionAttributeValues: ExpressionAttributeValueMap;
-        Select: 'COUNT';
+        Select: "COUNT";
     };
 
     protected preparePutPayload(

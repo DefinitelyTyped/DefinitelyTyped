@@ -18,8 +18,8 @@ interface Tasks {
 }
 
 interface PluginEvents {
-    (action: 'after:screenshot', fn: (details: {path: string}) => void): void;
-    (action: 'task', tasks: Tasks): void;
+    (action: "after:screenshot", fn: (details: { path: string }) => void): void;
+    (action: "task", tasks: Tasks): void;
 }
 /* Cypress definitions - end */
 

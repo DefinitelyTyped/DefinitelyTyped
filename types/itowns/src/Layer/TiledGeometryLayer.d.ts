@@ -1,20 +1,24 @@
-import Layer from "./Layer";
+import * as THREE from "three";
 import GeometryLayer from "./GeometryLayer";
+import Layer from "./Layer";
 // import { InfoTiledGeometryLayer } from "./InfoLayer";
 
 export type TiledGeometryLayerOptions = any;
 
+// TODO: Define public API
 declare class TiledGeometryLayer extends GeometryLayer {
     static hasEnoughTexturesToSubdivide(
-            context: any,
-            node: /* TileMesh */ any): boolean;
+        context: any,
+        node: /* TileMesh */ any,
+    ): boolean;
 
     constructor(
         id: string,
         object3d: THREE.Object3D,
         schemeTile: any[],
         builder: any,
-        config?: TiledGeometryLayerOptions);
+        config?: TiledGeometryLayerOptions,
+    );
 
     readonly isTiledGeometryLayer: boolean;
     readonly protocol: "tile";
@@ -28,7 +32,8 @@ declare class TiledGeometryLayer extends GeometryLayer {
 
     preUpdate(
         context: object,
-        sources: Set</* GeometryLayer | TileMesh */ any>): /* TileMesh */ any[];
+        sources: Set</* GeometryLayer | TileMesh */ any>,
+    ): /* TileMesh */ any[];
 
     update(context: object, layer: Layer, node: /* TileMesh */ any): object;
 
@@ -43,6 +48,7 @@ declare class TiledGeometryLayer extends GeometryLayer {
     subdivision(
         context: object,
         layer: /* PlanarLayer */ any,
-        node: /* TileMesh */ any): boolean;
+        node: /* TileMesh */ any,
+    ): boolean;
 }
 export default TiledGeometryLayer;

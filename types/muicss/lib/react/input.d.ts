@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as P from '../../react';
+import * as React from "react";
+import * as P from "../../react";
 
 export default class Input extends React.Component<P.InputProps> {
     controlEl?: HTMLInputElement | undefined;

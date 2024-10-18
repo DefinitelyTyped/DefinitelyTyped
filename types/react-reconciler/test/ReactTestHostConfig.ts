@@ -5,10 +5,9 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
  */
 
-import ReactReconcilerConstants = require('react-reconciler/constants');
+import ReactReconcilerConstants = require("react-reconciler/constants");
 
 export const REACT_OPAQUE_ID_TYPE: number | symbol = 0xeae0;
 
@@ -21,7 +20,7 @@ export interface Props {
 export interface Container {
     children: Array<Instance | TextInstance>;
     createNodeMock: (...args: any[]) => any;
-    tag: 'CONTAINER';
+    tag: "CONTAINER";
 }
 export interface Instance {
     type: string;
@@ -34,15 +33,15 @@ export interface Instance {
         [key: string]: any;
     };
     rootContainerInstance: Container;
-    tag: 'INSTANCE';
+    tag: "INSTANCE";
 }
 export interface TextInstance {
     text: string;
     isHidden: boolean;
-    tag: 'TEXT';
+    tag: "TEXT";
 }
 export type HydratableInstance = Instance | TextInstance;
-export type PublicInstance = (Instance | TextInstance) & { kind: 'PublicInstance' };
+export type PublicInstance = (Instance | TextInstance) & { kind: "PublicInstance" };
 export interface HostContext {
     [key: string]: any;
 }
@@ -56,17 +55,19 @@ export type EventResponder = any;
 export type OpaqueIDType =
     | string
     | {
-          $$typeof: number | symbol;
-          toString: () => string | void;
-          valueOf: () => string | void;
-      };
+        $$typeof: number | symbol;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        toString: () => string | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        valueOf: () => string | void;
+    };
 
 export type RendererInspectionConfig = Readonly<{}>;
 
-export * from './ReactFiberHostConfigWithNoPersistence';
-export * from './ReactFiberHostConfigWithNoMicrotasks';
-export * from './ReactFiberHostConfigWithNoHydration';
-export * from './ReactFiberHostConfigWithNoTestSelectors';
+export * from "./ReactFiberHostConfigWithNoHydration";
+export * from "./ReactFiberHostConfigWithNoMicrotasks";
+export * from "./ReactFiberHostConfigWithNoPersistence";
+export * from "./ReactFiberHostConfigWithNoTestSelectors";
 
 const NO_CONTEXT = {};
 const UPDATE_SIGNAL = {};
@@ -74,14 +75,14 @@ const nodeToInstanceMap = new WeakMap();
 
 export function getPublicInstance(inst: Instance | TextInstance): any {
     switch (inst.tag) {
-        case 'INSTANCE':
+        case "INSTANCE":
             const createNodeMock = inst.rootContainerInstance.createNodeMock;
             const mockNode = createNodeMock({
                 type: inst.type,
                 props: inst.props,
             });
 
-            if (typeof mockNode === 'object' && mockNode !== null) {
+            if (typeof mockNode === "object" && mockNode !== null) {
                 nodeToInstanceMap.set(mockNode, inst);
             }
 
@@ -162,7 +163,7 @@ export function createInstance(
         children: [],
         internalInstanceHandle,
         rootContainerInstance,
-        tag: 'INSTANCE',
+        tag: "INSTANCE",
     };
 }
 
@@ -216,7 +217,7 @@ export function createTextInstance(
     return {
         text,
         isHidden: false,
-        tag: 'TEXT',
+        tag: "TEXT",
     };
 }
 

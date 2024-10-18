@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pusher__chatkit-client",
+    "version": "1.13.9999",
+    "projects": [
+        "https://www.npmjs.com/package/@pusher/chatkit-client"
+    ],
+    "devDependencies": {
+        "@types/pusher__chatkit-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Hayton",
+            "githubUsername": "alexhayton"
+        }
+    ]
+}

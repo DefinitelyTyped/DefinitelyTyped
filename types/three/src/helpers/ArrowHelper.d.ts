@@ -1,8 +1,8 @@
-import { Vector3 } from './../math/Vector3.js';
-import { Line } from './../objects/Line.js';
-import { Mesh } from './../objects/Mesh.js';
-import { Object3D } from './../core/Object3D.js';
-import { ColorRepresentation } from '../math/Color.js';
+import { Object3D } from "../core/Object3D.js";
+import { ColorRepresentation } from "../math/Color.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Line } from "../objects/Line.js";
+import { Mesh } from "../objects/Mesh.js";
 
 /**
  * An 3D arrow object for visualizing directions.
@@ -46,7 +46,7 @@ export class ArrowHelper extends Object3D {
      * @override
      * @defaultValue `ArrowHelper`
      */
-    override readonly type: string | 'ArrowHelper';
+    override readonly type: string | "ArrowHelper";
 
     /**
      * Contains the line part of the arrowHelper.

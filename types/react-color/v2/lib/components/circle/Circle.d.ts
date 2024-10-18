@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
 import { Classes } from "reactcss";
+import { ColorState, CustomPickerProps } from "../../..";
 
 export interface CirclePickerStylesProps {
     card: CSSProperties;
@@ -15,4 +15,4 @@ export interface CirclePickerProps extends CustomPickerProps {
     styles?: Partial<Classes<CirclePickerStylesProps>> | undefined;
 }
 
-export default class CirclePicker extends Component<CirclePickerProps> { }
+export default class CirclePicker extends Component<CirclePickerProps> {}

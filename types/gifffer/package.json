@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/gifffer",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/krasimir/gifffer#readme"
+    ],
+    "devDependencies": {
+        "@types/gifffer": "workspace:."
+    },
+    "owners": []
+}

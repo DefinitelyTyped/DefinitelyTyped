@@ -1,4 +1,4 @@
-import { Color, formatRgb, Rgb, Hsl } from 'culori/fn';
+import { Color, formatRgb, Hsl, Rgb } from "culori/fn";
 
 declare const color: unknown;
 

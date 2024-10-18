@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/waypoints",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/imakewebthings/waypoints"
+    ],
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/waypoints": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dominik Bułaj",
+            "githubUsername": "dominikbulaj"
+        },
+        {
+            "name": "Alexey Kolotovchenkov",
+            "githubUsername": "Koloto"
+        },
+        {
+            "name": "Sergei Dorogin",
+            "githubUsername": "evil-shrike"
+        }
+    ]
+}

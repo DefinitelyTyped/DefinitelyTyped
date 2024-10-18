@@ -1,6 +1,28 @@
 {
     "private": true,
+    "name": "@types/koa-pino-logger",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/pinojs/koa-pino-logger",
+        "https://github.com/davidmarkclements/koa-pino-logger"
+    ],
     "dependencies": {
-        "@types/pino": "6.3"
-    }
+        "@types/koa": "*",
+        "@types/pino": "6.3",
+        "@types/pino-http": "*"
+    },
+    "devDependencies": {
+        "@types/koa-pino-logger": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Cameron Yan",
+            "githubUsername": "khell"
+        },
+        {
+            "name": "Jeremy Hull",
+            "githubUsername": "sourrust"
+        }
+    ]
 }

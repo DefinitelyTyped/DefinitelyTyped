@@ -1,2 +1,2 @@
-import { dropLast } from '../index';
+import { dropLast } from "../index";
 export default dropLast;

@@ -1,4 +1,4 @@
-import { RateLimitOptions } from '..';
+import { RateLimitOptions } from "..";
 
 declare abstract class Store {
     abstract incr(

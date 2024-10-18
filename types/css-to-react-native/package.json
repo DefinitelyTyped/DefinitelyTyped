@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/css-to-react-native",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/styled-components/css-to-react-native"
+    ],
+    "devDependencies": {
+        "@types/css-to-react-native": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luiz F. Jacção",
+            "githubUsername": "jaccao"
+        },
+        {
+            "name": "Jacob Parker",
+            "githubUsername": "jacobp100"
+        }
+    ]
+}

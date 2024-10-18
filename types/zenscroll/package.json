@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/zenscroll",
+    "version": "4.0.9999",
+    "projects": [
+        "https://zengabor.github.io/zenscroll/"
+    ],
+    "devDependencies": {
+        "@types/zenscroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hamed Fathi",
+            "githubUsername": "HamedFathi"
+        }
+    ]
+}

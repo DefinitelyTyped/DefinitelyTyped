@@ -16,9 +16,9 @@ export interface OutputFormat {
     /**
      * Represents "application/vnd.openxmlformats-officedocument.wordprocessingml.document" media type
      */
-    DOCX: 'docx';
+    DOCX: "docx";
     /**
      * Represents "application/pdf" media type
      */
-    PDF: 'pdf';
+    PDF: "pdf";
 }

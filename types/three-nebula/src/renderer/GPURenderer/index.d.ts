@@ -1,6 +1,7 @@
-import { Three } from '../../core/three';
-import BaseRenderer from '../BaseRenderer';
-import { DEFAULT_RENDERER_OPTIONS } from './common/constants';
+import * as THREE from "three";
+import { Three } from "../../core/three";
+import BaseRenderer from "../BaseRenderer";
+import { DEFAULT_RENDERER_OPTIONS } from "./common/constants";
 /**
  * Performant particle renderer that uses THREE.Points to propagate particle (postiion, rgba etc.,) properties to
  * vertices in a ParticleBufferGeometry.
@@ -19,5 +20,5 @@ export default class GPURenderer extends BaseRenderer {
 
 export type Container = THREE.Scene;
 
-export * from './Desktop';
-export * from './Mobile';
+export * from "./Desktop";
+export * from "./Mobile";

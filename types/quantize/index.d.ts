@@ -1,8 +1,3 @@
-// Type definitions for quantize 1.0
-// Project: https://github.com/olivierlesnicki/quantize
-// Definitions by: matiand <https://github.com/matiand>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace quantize {
     type RgbPixel = [number, number, number];
 

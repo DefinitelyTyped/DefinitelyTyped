@@ -1,11 +1,6 @@
-// Type definitions for passport-fido2-webauthn 0.1
-// Project: https://github.com/jaredhanson/passport-webauthn#readme
-// Definitions by: Benjamin Choi <https://github.com/benhchoi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { X509Certificate } from 'crypto';
-import express = require('express');
-import { Strategy as PassportStrategy } from 'passport-strategy';
+import { X509Certificate } from "crypto";
+import express = require("express");
+import { Strategy as PassportStrategy } from "passport-strategy";
 
 declare class WebAuthnStrategy extends PassportStrategy {
     name: string;
@@ -69,12 +64,12 @@ declare namespace WebAuthnStrategy {
 
     type VerifyFunction =
         | ((
-              req: express.Request,
-              id: string,
-              userHandle: Buffer,
-              flags: AuthenticatorFlags,
-              verified: VerifiedFunction,
-          ) => void)
+            req: express.Request,
+            id: string,
+            userHandle: Buffer,
+            flags: AuthenticatorFlags,
+            verified: VerifiedFunction,
+        ) => void)
         | ((req: express.Request, id: string, userHandle: Buffer, verified: VerifiedFunction) => void)
         | ((id: string, userHandle: Buffer, flags: AuthenticatorFlags, verified: VerifiedFunction) => void)
         | ((id: string, userHandle: Buffer, verified: VerifiedFunction) => void);
@@ -93,39 +88,39 @@ declare namespace WebAuthnStrategy {
 
     type RegisterFunction =
         | ((
-              user: any,
-              id: string,
-              publicKey: string,
-              flags: AuthenticatorFlags,
-              signCount: number,
-              transports: any,
-              attestation: VerifiedAttestation,
-              registered: RegisteredFunction,
-          ) => void)
+            user: any,
+            id: string,
+            publicKey: string,
+            flags: AuthenticatorFlags,
+            signCount: number,
+            transports: any,
+            attestation: VerifiedAttestation,
+            registered: RegisteredFunction,
+        ) => void)
         | ((
-              user: any,
-              id: string,
-              publicKey: string,
-              flags: AuthenticatorFlags,
-              signCount: number,
-              transports: any,
-              registered: RegisteredFunction,
-          ) => void)
+            user: any,
+            id: string,
+            publicKey: string,
+            flags: AuthenticatorFlags,
+            signCount: number,
+            transports: any,
+            registered: RegisteredFunction,
+        ) => void)
         | ((
-              user: any,
-              id: string,
-              publicKey: string,
-              flags: AuthenticatorFlags,
-              signCount: number,
-              registered: RegisteredFunction,
-          ) => void)
+            user: any,
+            id: string,
+            publicKey: string,
+            flags: AuthenticatorFlags,
+            signCount: number,
+            registered: RegisteredFunction,
+        ) => void)
         | ((
-              user: any,
-              id: string,
-              publicKey: string,
-              flags: AuthenticatorFlags,
-              registered: RegisteredFunction,
-          ) => void)
+            user: any,
+            id: string,
+            publicKey: string,
+            flags: AuthenticatorFlags,
+            registered: RegisteredFunction,
+        ) => void)
         | ((user: any, id: string, publicKey: string, registered: RegisteredFunction) => void);
     type RegisteredFunction = (err: any, user?: any, info?: any) => void;
 

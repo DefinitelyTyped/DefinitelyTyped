@@ -1,8 +1,3 @@
-// Type definitions for decomment 0.9
-// Project: https://github.com/vitaly-t/decomment
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * This method first checks if the code starts with <,
  * as an HTML, and if so, all <!-- comment --> entries are removed, according to the options

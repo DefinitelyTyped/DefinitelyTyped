@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-misused-new": "off",
+        "@typescript-eslint/ban-types": "off"
+    }
+}

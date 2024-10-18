@@ -1,4 +1,4 @@
-import { URI } from 'uri-template-lite';
+import { URI } from "uri-template-lite";
 
 // Call `expand` directly
 const dataSet = { domain: "example.com", user: "fred", query: "mycelium" };

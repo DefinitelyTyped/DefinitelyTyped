@@ -81,7 +81,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): LookupElement;
+            new(config?: ConfigOptions): LookupElement;
             prototype: LookupElement;
             static: {};
         }

@@ -1,26 +1,26 @@
-import convertHsiToRgb from './convertHsiToRgb';
-import convertRgbToHsi from './convertRgbToHsi';
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import { differenceHueSaturation } from '../difference';
-import { averageAngle } from '../average';
+import { averageAngle } from "../average";
+import { differenceHueSaturation } from "../difference";
+import { fixupAlpha } from "../fixup/alpha";
+import { fixupHueShorter } from "../fixup/hue";
+import { interpolatorLinear } from "../interpolate/linear";
+import convertHsiToRgb from "./convertHsiToRgb";
+import convertRgbToHsi from "./convertRgbToHsi";
 
 declare const definition: {
-    mode: 'hsi';
+    mode: "hsi";
 
     toMode: {
         rgb: typeof convertHsiToRgb;
     };
 
-    parse: ['--hsi'];
-    serialize: '--hsi';
+    parse: ["--hsi"];
+    serialize: "--hsi";
 
     fromMode: {
         rgb: typeof convertRgbToHsi;
     };
 
-    channels: ['h', 's', 'i', 'alpha'];
+    channels: ["h", "s", "i", "alpha"];
 
     ranges: {
         h: [0, 360];

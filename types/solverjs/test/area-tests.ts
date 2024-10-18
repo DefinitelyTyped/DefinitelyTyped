@@ -1,4 +1,4 @@
-import solverjs = require('solverjs');
+import solverjs = require("solverjs");
 
 solverjs.sqKmToSqMe(1);
 solverjs.sqKmToSqYd(1);

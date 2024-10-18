@@ -1,7 +1,7 @@
-import { Price } from './price';
-import { ProductVariantGroup } from './product-variant-group';
-import { Asset } from './asset';
-import { ProductAttribute } from './product-attribute';
+import { Asset } from "./asset";
+import { Price } from "./price";
+import { ProductAttribute } from "./product-attribute";
+import { ProductVariantGroup } from "./product-variant-group";
 
 export interface Product {
     id: string;

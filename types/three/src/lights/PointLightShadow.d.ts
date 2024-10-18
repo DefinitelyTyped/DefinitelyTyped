@@ -1,6 +1,6 @@
-import { PerspectiveCamera } from './../cameras/PerspectiveCamera.js';
-import { Light } from './Light.js';
-import { LightShadow } from './LightShadow.js';
+import { PerspectiveCamera } from "../cameras/PerspectiveCamera.js";
+import { Light } from "./Light.js";
+import { LightShadow } from "./LightShadow.js";
 
 /**
  * Shadow for {@link THREE.PointLight | PointLight}

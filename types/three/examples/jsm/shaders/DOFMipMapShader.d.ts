@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "three";
 
 export const DOFMipMapShader: {
+    name: string;
     uniforms: {
         tColor: IUniform;
         tDepth: IUniform;

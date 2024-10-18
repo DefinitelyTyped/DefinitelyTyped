@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/java",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/joeferner/node-java"
+    ],
+    "devDependencies": {
+        "@types/java": "workspace:.",
+        "@types/pify": "*"
+    },
+    "owners": [
+        {
+            "name": "Jim Lloyd",
+            "githubUsername": "jimlloyd"
+        },
+        {
+            "name": "Kentaro Teramoto",
+            "githubUsername": "hrl7"
+        },
+        {
+            "name": "Matthieu Dartiguenave",
+            "githubUsername": "darti"
+        }
+    ]
+}

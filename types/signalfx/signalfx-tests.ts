@@ -1,10 +1,10 @@
-import * as signalfx from 'signalfx';
+import * as signalfx from "signalfx";
 
-const sgnlfx = new signalfx.Ingest('1');
+const sgnlfx = new signalfx.Ingest("1");
 sgnlfx.send({
     gauges: [
         {
-            metric: 'metric',
+            metric: "metric",
             value: 1,
             dimensions: {},
         },
@@ -12,5 +12,5 @@ sgnlfx.send({
 });
 
 sgnlfx.sendEvent({
-    eventType: 'my-custom-event',
+    eventType: "my-custom-event",
 });

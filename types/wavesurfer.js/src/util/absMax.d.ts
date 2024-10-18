@@ -1,1 +1,1 @@
-export default function absMax(values: ReadonlyArray<number>): number;
+export default function absMax(values: readonly number[]): number;

@@ -1,8 +1,3 @@
-// Type definitions for @coinify/currency 1.3
-// Project: https://github.com/CoinifySoftware/node-currency
-// Definitions by: James McGlinn <https://github.com/jamesmcglinn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns the number of decimals after the floating point, with which
  * the amount should be formatted, depending on the currency.

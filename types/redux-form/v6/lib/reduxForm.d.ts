@@ -1,24 +1,17 @@
-import {
-    Component,
-    ComponentClass,
-    ReactElement,
-    SyntheticEvent,
-    ReactEventHandler,
-    FunctionComponent
-} from "react";
+import { Component, ComponentClass, FunctionComponent, ReactElement, ReactEventHandler, SyntheticEvent } from "react";
 import { Dispatch } from "redux";
-import { DataShape, FieldValue, FormErrors, FormWarnings, RegisteredFieldState, ComponentConstructor } from "../index";
+import { ComponentConstructor, DataShape, FieldValue, FormErrors, FormWarnings, RegisteredFieldState } from "../index";
 
 export function reduxForm<FormData extends DataShape, P, S>(
-    config: Config<FormData, P, S>
+    config: Config<FormData, P, S>,
 ): FormDecorator<FormData, P, S>;
 
 export function reduxForm<FormData extends DataShape, P>(
-    config: Config<FormData, P, any>
+    config: Config<FormData, P, any>,
 ): FormDecorator<FormData, P, any>;
 
 export function reduxForm(
-    config: Config<any, any, any>
+    config: Config<any, any, any>,
 ): FormDecorator<any, any, any>;
 
 /**
@@ -204,7 +197,12 @@ export interface Config<FormData extends DataShape, P, S> {
  * and it will be given as the error prop.
  */
 export interface SubmitHandler<FormData extends DataShape, P, S> {
-    (values: FormData, dispatch: Dispatch<S>, props: FormProps<FormData, P, S> & P): void | FormErrors<FormData> | Promise<any>;
+    (
+        values: FormData,
+        dispatch: Dispatch<S>,
+        props: FormProps<FormData, P, S> & P,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ): void | FormErrors<FormData> | Promise<any>;
 }
 
 interface ValidateCallback<FormData extends DataShape> {

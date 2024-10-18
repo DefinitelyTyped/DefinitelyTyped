@@ -1,19 +1,3 @@
-// Type definitions for ECharts 4.9.0
-// Project: http://echarts.apache.org
-// Definitions by: Xie Jingyang <https://github.com/xieisabug>
-//                 AntiMoron <https://github.com/AntiMoron>
-//                 Liveangela <https://github.com/liveangela>
-//                 Ovilia <https://github.com/Ovilia>
-//                 Roman <https://github.com/iRON5>
-//                 Bilal <https://github.com/bilalucar>
-//                 TMTron <https://github.com/tmtron>
-//                 dwhitney <https://github.com/dwhitney>
-//                 Ruixuel <https://github.com/ruixuel>
-//                 trajnisz <https://github.com/trajnisz>
-//                 Godfery <https://github.com/hiyangguo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="zrender" />
 /// <reference path="./options/index.d.ts" />
 
@@ -152,8 +136,8 @@ declare namespace echarts {
          *
          * @param {number[][]} opt
          * @return {zrender.graphic.Path}
-        */
-        extendShape(opt: zrender.graphic.Path): zrender.graphic.Path
+         */
+        extendShape(opt: zrender.graphic.Path): zrender.graphic.Path;
 
         /**
          * Register a user defined shape.
@@ -161,7 +145,7 @@ declare namespace echarts {
          * @param {string} name
          * @param {zrender.graphic.Path} ShapeClass
          */
-        registerShape(name: string, ShapeClass: zrender.graphic.Path): void
+        registerShape(name: string, ShapeClass: zrender.graphic.Path): void;
 
         /**
          * Get the registered shape class.
@@ -169,7 +153,7 @@ declare namespace echarts {
          * @param {string} name
          * @return {zrender.graphic.Path}
          */
-        getShapeClass(name: string): zrender.graphic.Path
+        getShapeClass(name: string): zrender.graphic.Path;
 
         /**
          * Clip the given points by the given rectangular.
@@ -573,28 +557,28 @@ declare namespace echarts {
     }
 
     type EChartsSeriesType =
-        | 'line'
-        | 'bar'
-        | 'pie'
-        | 'scatter'
-        | 'effectScatter'
-        | 'radar'
-        | 'tree'
-        | 'treemap'
-        | 'sunburst'
-        | 'boxplot'
-        | 'candlestick'
-        | 'heatmap'
-        | 'map'
-        | 'parallel'
-        | 'lines'
-        | 'graph'
-        | 'sankey'
-        | 'funnel'
-        | 'gauge'
-        | 'pictorialBar'
-        | 'themeRiver'
-        | 'custom';
+        | "line"
+        | "bar"
+        | "pie"
+        | "scatter"
+        | "effectScatter"
+        | "radar"
+        | "tree"
+        | "treemap"
+        | "sunburst"
+        | "boxplot"
+        | "candlestick"
+        | "heatmap"
+        | "map"
+        | "parallel"
+        | "lines"
+        | "graph"
+        | "sankey"
+        | "funnel"
+        | "gauge"
+        | "pictorialBar"
+        | "themeRiver"
+        | "custom";
 
     interface EChartOption<TSeries = EChartOption.Series> {
         /**
@@ -1024,7 +1008,6 @@ declare namespace echarts {
          * Equal to CanvasRenderingContext2D.globalCompositeOperation
          *
          * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
-         *
          */
         blendMode?: string | undefined;
 
@@ -1286,7 +1269,7 @@ declare namespace echarts {
                  *
                  * @default 'start'
                  */
-                nameLocation?: 'start' | 'middle' | 'center' | 'end' | undefined;
+                nameLocation?: "start" | "middle" | "center" | "end" | undefined;
 
                 /**
                  * Text style of axis name.
@@ -1334,7 +1317,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.boundaryGap
                  */
-                boundaryGap?: boolean | (string | number)[] | undefined;
+                boundaryGap?: boolean | Array<string | number> | undefined;
 
                 /**
                  * The minimun value of axis.
@@ -1541,7 +1524,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.data
                  */
-                data?: (string | number | CartesianAxis.DataObject)[] | undefined;
+                data?: Array<string | number | CartesianAxis.DataObject> | undefined;
 
                 /**
                  * axisPointer settings on the axis.
@@ -1580,7 +1563,7 @@ declare namespace echarts {
             }
 
             namespace CartesianAxis {
-                type Type = 'value' | 'category' | 'time' | 'log';
+                type Type = "value" | "category" | "time" | "log";
 
                 /**
                  * @todo describe
@@ -1607,8 +1590,8 @@ declare namespace echarts {
                 /**
                  * @todo describe
                  */
-                interface Label extends Omit<TextStyleWithRich,'color'> {
-                    color?: string | ((val:string) => EChartOption.Color) | undefined;
+                interface Label extends Omit<TextStyleWithRich, "color"> {
+                    color?: string | ((val: string) => EChartOption.Color) | undefined;
                     show?: boolean | undefined;
                     interval?: number | Function | undefined;
                     inside?: boolean | undefined;
@@ -1665,7 +1648,7 @@ declare namespace echarts {
                  */
                 interface Pointer {
                     show?: boolean | undefined;
-                    type?: 'line' | 'shadow' | 'none' | undefined;
+                    type?: "line" | "shadow" | "none" | undefined;
                     snap?: boolean | undefined;
                     z?: number | undefined;
                     label?: PointerLabel | undefined;
@@ -1701,12 +1684,12 @@ declare namespace echarts {
                     formatter?: string | Function | undefined;
                     margin?: number | undefined;
                     color?: string | undefined;
-                    fontStyle?: 'normal' | 'italic' | 'oblique' | undefined;
+                    fontStyle?: "normal" | "italic" | "oblique" | undefined;
                     fontWeight?:
-                        | 'normal'
-                        | 'bold'
-                        | 'bolder'
-                        | 'lighter'
+                        | "normal"
+                        | "bold"
+                        | "bolder"
+                        | "lighter"
                         | 100
                         | 200
                         | 300
@@ -1715,7 +1698,8 @@ declare namespace echarts {
                         | 600
                         | 700
                         | 800
-                        | 900 | undefined;
+                        | 900
+                        | undefined;
                     fontFamily?: string | undefined;
                     fontSize?: number | undefined;
                     lineHeight?: number | undefined;
@@ -1742,10 +1726,10 @@ declare namespace echarts {
     }
 }
 
-declare module 'echarts' {
+declare module "echarts" {
     export = echarts;
 }
 
-declare module 'echarts/lib/echarts' {
+declare module "echarts/lib/echarts" {
     export = echarts;
 }

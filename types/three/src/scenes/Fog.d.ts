@@ -1,28 +1,11 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
+import { Color, ColorRepresentation } from "../math/Color.js";
 
-export interface FogBase {
-    /**
-     * Optional name of the `Fog` object
-     * @remarks _(doesn't need to be unique)_.
-     * @defaultValue `""`
-     */
+export interface FogJSON {
+    type: string;
     name: string;
-
-    /**
-     * Fog color.
-     * @remarks If set to black, far away objects will be rendered black.
-     */
-    color: Color;
-
-    /**
-     * Returns a new Fog instance with the same parameters as this one.
-     */
-    clone(): FogBase;
-
-    /**
-     * Return Fog data in JSON format.
-     */
-    toJSON(): any;
+    color: number;
+    near: number;
+    far: number;
 }
 
 /**
@@ -35,7 +18,7 @@ export interface FogBase {
  * @see {@link https://threejs.org/docs/index.html#api/en/scenes/Fog | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/scenes/Fog.js | Source}
  */
-export class Fog implements FogBase {
+export class Fog {
     /**
      * The color parameter is passed to the {@link THREE.Color | Color} constructor to set the color property
      * @remarks
@@ -90,5 +73,5 @@ export class Fog implements FogBase {
     /**
      * Return {@link Fog} data in JSON format.
      */
-    toJSON(): any;
+    toJSON(): FogJSON;
 }

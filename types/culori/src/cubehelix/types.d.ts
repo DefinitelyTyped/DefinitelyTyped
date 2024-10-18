@@ -1,5 +1,5 @@
 export interface Cubehelix {
-    mode: 'cubehelix';
+    mode: "cubehelix";
     h?: number;
     s: number | undefined;
     l: number;

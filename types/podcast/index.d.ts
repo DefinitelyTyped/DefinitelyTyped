@@ -1,14 +1,7 @@
-// Type definitions for podcast 1.3
-// Project: https://github.com/maxnowack/node-podcast
-// Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-//                 Malo Bourgon <https://github.com/malob>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 export = Podcast;
 
 declare class Podcast {
-    constructor(options?: Podcast.FeedOptions, items?: ReadonlyArray<Podcast.Item>);
+    constructor(options?: Podcast.FeedOptions, items?: readonly Podcast.Item[]);
 
     addItem(item: Podcast.Item): void;
     buildXml(indent?: boolean | string): string;
@@ -50,10 +43,11 @@ declare namespace Podcast {
         subcats?: FeedItunesCategory[] | undefined;
     }
 
-    type FeedOptions = BaseFeedOptions &
-        ({ feedUrl: string } | { feed_url: string }) &
-        ({ siteUrl: string } | { site_url: string }) &
-        ({ imageUrl?: string | undefined } | { image_url?: string | undefined });
+    type FeedOptions =
+        & BaseFeedOptions
+        & ({ feedUrl: string } | { feed_url: string })
+        & ({ siteUrl: string } | { site_url: string })
+        & ({ imageUrl?: string | undefined } | { image_url?: string | undefined });
 
     interface Item {
         title?: string | undefined;
@@ -76,7 +70,7 @@ declare namespace Podcast {
         itunesSeason?: number | undefined;
         itunesEpisode?: number | undefined;
         itunesTitle?: string | undefined;
-        itunesEpisodeType?: 'full' | 'trailer' | 'bonus' | undefined;
+        itunesEpisodeType?: "full" | "trailer" | "bonus" | undefined;
         customElements?: object[] | undefined;
     }
 

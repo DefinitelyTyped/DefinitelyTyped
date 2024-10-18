@@ -1,5 +1,5 @@
-import * as React from "react";
 import PrettyProps, { CommonProps, Inter, Obj } from "pretty-proptypes";
+import * as React from "react";
 
 interface PropsProps {
     readonly overrides?: {
@@ -16,7 +16,7 @@ const Props = (props: PropsProps) => (
         components={{
             Button: ({ isCollapsed, ...rest }) => (
                 <button {...rest}>
-                {isCollapsed ? 'Hide Prop Shape' : 'Show Prop Shape'}
+                    {isCollapsed ? "Hide Prop Shape" : "Show Prop Shape"}
                 </button>
             ),
         }}

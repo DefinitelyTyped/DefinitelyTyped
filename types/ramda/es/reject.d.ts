@@ -1,2 +1,2 @@
-import { reject } from '../index';
+import { reject } from "../index.js";
 export default reject;

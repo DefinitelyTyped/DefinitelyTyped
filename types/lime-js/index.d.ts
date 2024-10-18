@@ -1,8 +1,3 @@
-// Type definitions for lime-js 0.0.4
-// Project: https://github.com/takenet/lime-js
-// Definitions by: Arthur Xavier <https://github.com/arthur-xavier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Support for painless dependency injection
 export as namespace Lime;
 
@@ -10,7 +5,6 @@ export as namespace Lime;
 export = Lime;
 
 declare namespace Lime {
-
     interface Envelope {
         id?: string | undefined;
         from?: string | undefined;
@@ -142,7 +136,15 @@ declare namespace Lime {
     }
 
     class ClientChannelExtensions {
-        static establishSession(clientChannel: ClientChannel, compression: string, encryption: string, identity: string, authentication: Authentication, instance: string, callback: (error: Error, session: Session) => any): void;
+        static establishSession(
+            clientChannel: ClientChannel,
+            compression: string,
+            encryption: string,
+            identity: string,
+            authentication: Authentication,
+            instance: string,
+            callback: (error: Error, session: Session) => any,
+        ): void;
     }
 
     interface IMessageChannel {

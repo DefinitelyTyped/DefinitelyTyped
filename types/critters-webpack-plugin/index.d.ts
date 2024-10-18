@@ -1,15 +1,13 @@
-// Type definitions for critters-webpack-plugin 2.5
-// Project: https://github.com/GoogleChromeLabs/critters
-// Definitions by: Juan José González Giraldo <https://github.com/JuanJoseGonGi>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Plugin } from 'webpack';
+import { Compiler, WebpackPluginInstance } from "webpack";
 
 export default Critters;
-declare class Critters extends Plugin {
+declare class Critters implements WebpackPluginInstance {
     constructor(options?: Critters.CrittersOptions);
+    apply: (compiler: Compiler) => void;
+    getCssAsset(href: any, style: any): Promise<any>;
+    checkInlineThreshold(link: any, style: any, sheet: any): boolean;
+    embedAdditionalStylesheet(document: any): Promise<void>;
+    pruneSource(style: any, before: any, sheetInverse: any): boolean;
 }
 
 declare namespace Critters {
@@ -45,9 +43,8 @@ declare namespace Critters {
         additionalStylesheets?: string[] | undefined;
         /**
          * The mechanism to use for lazy-loading stylesheets.
-         *
          */
-        preload?: 'body' | 'media' | 'swap' | 'js' | 'js-lazy' | undefined;
+        preload?: "body" | "media" | "swap" | "js" | "js-lazy" | undefined;
         /**
          * Add <noscript> fallback to JS-based strategies
          */
@@ -96,7 +93,7 @@ declare namespace Critters {
      * - **"js":** Inject an asynchronous CSS loader similar to [LoadCSS](https://github.com/filamentgroup/loadCSS) and use it to load stylesheets. _[JS]_
      * - **"js-lazy":** Like `"js"`, but the stylesheet is disabled until fully loaded.
      */
-    type PreloadStrategy = 'body' | 'media' | 'swap' | 'js' | 'js-lazy';
+    type PreloadStrategy = "body" | "media" | "swap" | "js" | "js-lazy";
 
     /**
      * Controls which keyframes rules are inlined
@@ -104,7 +101,7 @@ declare namespace Critters {
      * - "all" Inline all keyframes rules.
      * - "none" Remove all keyframes rules
      */
-    type KeyframeStrategy = 'critical' | 'all' | 'none';
+    type KeyframeStrategy = "critical" | "all" | "none";
 
     /**
      * Controls log level of the plugin.
@@ -118,5 +115,5 @@ declare namespace Critters {
      * - **"debug"**
      * - **"silent"**
      */
-    type LogLevel = 'info' | 'warn' | 'error' | 'trace' | 'debug' | 'silent';
+    type LogLevel = "info" | "warn" | "error" | "trace" | "debug" | "silent";
 }

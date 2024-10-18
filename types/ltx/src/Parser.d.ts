@@ -1,5 +1,5 @@
-import { EventEmitter } from 'events';
-import Element from './Element';
+import { EventEmitter } from "events";
+import Element from "./Element";
 
 export default class Parser extends EventEmitter {
     static DefaultParser: typeof Parser;

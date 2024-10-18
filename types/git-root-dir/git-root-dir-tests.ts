@@ -1,5 +1,5 @@
-import gitRootDir = require('git-root-dir');
+import gitRootDir = require("git-root-dir");
 
-gitRootDir('../').then(rootDir => {
-  // do something
+gitRootDir("../").then(rootDir => {
+    // do something
 });

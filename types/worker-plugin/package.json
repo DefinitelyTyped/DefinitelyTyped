@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/worker-plugin",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/GoogleChromeLabs/worker-plugin"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/worker-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artur Androsovych",
+            "githubUsername": "arturovt"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

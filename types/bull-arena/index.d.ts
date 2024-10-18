@@ -1,17 +1,10 @@
-// Type definitions for bull-arena 3.0
-// Project: https://github.com/bee-queue/arena/
-// Definitions by: Levi Bostian <https://github.com/levibostian>
-//                 Gaurav Sharma <https://github.com/gtpan77>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 import { RequestHandler } from "express";
-import { ClientOpts } from "redis";
 import { Redis } from "ioredis";
+import { ClientOpts } from "redis";
 
 declare function Arena(
     options: BullArena.MiddlewareOptions,
-    listenOptions?: BullArena.MiddlewareListenOptions
+    listenOptions?: BullArena.MiddlewareListenOptions,
 ): RequestHandler;
 
 declare namespace BullArena {
@@ -23,7 +16,7 @@ declare namespace BullArena {
     }
 
     interface QueueConstructor {
-        new (queueName: string, opts?: QueueOptions): Queue;
+        new(queueName: string, opts?: QueueOptions): Queue;
     }
 
     interface Queue {

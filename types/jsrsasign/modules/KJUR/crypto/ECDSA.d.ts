@@ -58,7 +58,7 @@ declare namespace jsrsasign.KJUR.crypto {
          * var pubhex = ec.generatePublicKeyHex(); // hexadecimal string of EC public key
          * var pub ec.getPublicKeyXYHex() → { x: '01bacf...', y: 'c3bc22...' }
          */
-         generatePublicKeyHex(): string;
+        generatePublicKeyHex(): string;
 
         /**
          * signing to message hash

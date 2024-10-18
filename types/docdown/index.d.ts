@@ -1,8 +1,3 @@
-// Type definitions for docdown 0.7
-// Project: https://github.com/jdalton/docdown#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A simple JSDoc to Markdown documentation generator.
  * Generates Markdown documentation based on JSDoc comments.

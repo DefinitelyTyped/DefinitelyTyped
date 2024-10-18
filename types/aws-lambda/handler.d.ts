@@ -85,6 +85,7 @@ export type Handler<TEvent = any, TResult = any> = (
     event: TEvent,
     context: Context,
     callback: Callback<TResult>,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => void | Promise<TResult>;
 
 /**

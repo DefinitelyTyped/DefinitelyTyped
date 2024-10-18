@@ -1,8 +1,3 @@
-// Type definitions for jsboxmuller 1.1
-// Project: https://github.com/kcwiakala/jsboxmuller
-// Definitions by: Ethan Brown <https://github.com/EthanRBrown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = jsBoxMuller;
 
 /**

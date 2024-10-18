@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/file-fetch",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/bergos/file-fetch"
+    ],
+    "dependencies": {
+        "@types/node-fetch": "*"
+    },
+    "devDependencies": {
+        "@types/file-fetch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

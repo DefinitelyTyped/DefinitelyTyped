@@ -1,8 +1,8 @@
 "use strict";
-import { AppRegistry, StyleSheet, Text, Image, View } from "react-native";
+import { AppRegistry, Image, StyleSheet, Text, View } from "react-native";
 
-import SettingsList from "react-native-settings-list";
 import { Component } from "react";
+import SettingsList from "react-native-settings-list";
 
 class SettingsListExample extends Component {
     render() {
@@ -12,7 +12,7 @@ class SettingsListExample extends Component {
                     style={{
                         borderBottomWidth: 1,
                         backgroundColor: "#263238",
-                        borderColor: "#c8c7cc"
+                        borderColor: "#c8c7cc",
                     }}
                 >
                     <Text
@@ -22,7 +22,7 @@ class SettingsListExample extends Component {
                             marginBottom: 15,
                             marginLeft: 15,
                             fontWeight: "bold",
-                            fontSize: 20
+                            fontSize: 20,
                         }}
                     >
                         Settings
@@ -36,7 +36,7 @@ class SettingsListExample extends Component {
                             titleStyle={{
                                 color: "#009688",
                                 marginBottom: 10,
-                                fontWeight: "500"
+                                fontWeight: "500",
                             }}
                             itemWidth={50}
                             borderHide={"Both"}
@@ -48,7 +48,7 @@ class SettingsListExample extends Component {
                                         style={{
                                             alignSelf: "center",
                                             height: 22,
-                                            width: 22
+                                            width: 22,
                                         }}
                                         source={require("./images/data.png")}
                                     />
@@ -66,7 +66,7 @@ class SettingsListExample extends Component {
                                         style={{
                                             alignSelf: "center",
                                             height: 4,
-                                            width: 18
+                                            width: 18,
                                         }}
                                         source={require("./images/more.png")}
                                     />
@@ -84,7 +84,7 @@ class SettingsListExample extends Component {
                             titleStyle={{
                                 color: "#009688",
                                 marginBottom: 10,
-                                fontWeight: "bold"
+                                fontWeight: "bold",
                             }}
                             itemWidth={70}
                             borderHide={"Both"}
@@ -96,7 +96,7 @@ class SettingsListExample extends Component {
                                         style={{
                                             alignSelf: "center",
                                             height: 22,
-                                            width: 22
+                                            width: 22,
                                         }}
                                         source={require("./images/display2.png")}
                                     />
@@ -114,7 +114,7 @@ class SettingsListExample extends Component {
                                         style={{
                                             alignSelf: "center",
                                             height: 20,
-                                            width: 18
+                                            width: 18,
                                         }}
                                         source={require("./images/sound.png")}
                                     />
@@ -132,7 +132,7 @@ class SettingsListExample extends Component {
                                         style={{
                                             alignSelf: "center",
                                             height: 22,
-                                            width: 14
+                                            width: 14,
                                         }}
                                         source={require("./images/apps.png")}
                                     />
@@ -150,7 +150,7 @@ class SettingsListExample extends Component {
                                         style={{
                                             alignSelf: "center",
                                             height: 14,
-                                            width: 20
+                                            width: 20,
                                         }}
                                         source={require("./images/storage.png")}
                                     />
@@ -168,7 +168,7 @@ class SettingsListExample extends Component {
                                         style={{
                                             alignSelf: "center",
                                             height: 22,
-                                            width: 14
+                                            width: 14,
                                         }}
                                         source={require("./images/battery.png")}
                                     />
@@ -186,7 +186,7 @@ class SettingsListExample extends Component {
                                         style={{
                                             alignSelf: "center",
                                             height: 18,
-                                            width: 20
+                                            width: 20,
                                         }}
                                         source={require("./images/memory.png")}
                                     />
@@ -212,8 +212,8 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         width: 20,
         height: 24,
-        justifyContent: "center"
-    }
+        justifyContent: "center",
+    },
 });
 
 AppRegistry.registerComponent("SettingsListExample", () => SettingsListExample);

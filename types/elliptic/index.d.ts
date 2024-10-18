@@ -1,17 +1,11 @@
-// Type definitions for elliptic 6.4
-// Project: https://github.com/indutny/elliptic
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-//                 Gaylor Bosson <https://github.com/Gilthoniel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import BN = require("bn.js");
 
 // incomplete typings
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | Uint8Array | ReadonlyArray<number>;
-export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | ReadonlyArray<number> | string;
+export type BNInput = string | BN | number | Buffer | Uint8Array | readonly number[];
+export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | readonly number[] | string;
 
 export const version: number;
 
@@ -90,7 +84,7 @@ export namespace curve {
             x: BNInput,
             y: BNInput,
             z?: BNInput,
-            t?: BNInput
+            t?: BNInput,
         ): edwards.EdwardsPoint;
         pointFromX(x: BNInput, odd?: boolean): edwards.EdwardsPoint;
         pointFromY(y: BNInput, odd?: boolean): edwards.EdwardsPoint;
@@ -185,41 +179,41 @@ export class ec {
     keyPair(options: ec.KeyPairOptions): ec.KeyPair;
     keyFromPrivate(
         priv: Uint8Array | Buffer | string | number[] | ec.KeyPair,
-        enc?: string
+        enc?: string,
     ): ec.KeyPair;
     keyFromPublic(
         pub: Uint8Array | Buffer | string | number[] | { x: string; y: string } | ec.KeyPair,
-        enc?: string
+        enc?: string,
     ): ec.KeyPair;
     genKeyPair(options?: ec.GenKeyPairOptions): ec.KeyPair;
     sign(
         msg: BNInput,
         key: Buffer | ec.KeyPair,
         enc: string,
-        options?: ec.SignOptions
+        options?: ec.SignOptions,
     ): ec.Signature;
     sign(
         msg: BNInput,
         key: Buffer | ec.KeyPair,
-        options?: ec.SignOptions
+        options?: ec.SignOptions,
     ): ec.Signature;
     verify(
         msg: BNInput,
         signature: SignatureInput,
         key: Buffer | ec.KeyPair,
-        enc?: string
+        enc?: string,
     ): boolean;
     recoverPubKey(
         msg: BNInput,
         signature: SignatureInput,
         j: number,
-        enc?: string
+        enc?: string,
     ): any;
     getKeyRecoveryParam(
         e: Error | undefined,
         signature: SignatureInput,
         Q: BN,
-        enc?: string
+        enc?: string,
     ): number;
 }
 
@@ -242,12 +236,12 @@ export namespace ec {
         static fromPublic(
             ec: ec,
             pub: Buffer | string | { x: string; y: string } | KeyPair,
-            enc?: string
+            enc?: string,
         ): KeyPair;
         static fromPrivate(
             ec: ec,
             priv: Buffer | string | KeyPair,
-            enc?: string
+            enc?: string,
         ): KeyPair;
 
         ec: ec;
@@ -267,7 +261,7 @@ export namespace ec {
         sign(msg: BNInput, options?: SignOptions): Signature;
         verify(
             msg: BNInput,
-            signature: SignatureInput
+            signature: SignatureInput,
         ): boolean;
         inspect(): string;
     }
@@ -304,7 +298,7 @@ export class eddsa {
     verify(
         message: eddsa.Bytes,
         sig: eddsa.Bytes | eddsa.Signature,
-        pub: eddsa.Bytes | eddsa.Point | eddsa.KeyPair
+        pub: eddsa.Bytes | eddsa.Point | eddsa.KeyPair,
     ): boolean;
     hashInt(): BN;
     keyFromPublic(pub: eddsa.Bytes | eddsa.KeyPair | eddsa.Point): eddsa.KeyPair;

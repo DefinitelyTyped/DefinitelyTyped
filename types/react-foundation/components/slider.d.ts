@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { Component } from 'react';
+import * as React from "react";
+import { Component } from "react";
 /**
  * Slider component.
  * http://foundation.zurb.com/sites/docs/slider.html
@@ -8,7 +8,7 @@ import { Component } from 'react';
 export declare class Slider extends Component<SliderProps, SliderState> {
     constructor();
     componentWillMount(): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
 export interface SliderProps extends React.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
     initialStart?: number | undefined;
@@ -25,7 +25,7 @@ export interface SliderState {
 export declare class TwoHandleSlider extends Component<TwoHandleSliderProps, TwoHandleSliderState> {
     constructor();
     componentWillMount(): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
 export interface TwoHandleSliderProps extends React.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
     initialStart?: number | undefined;

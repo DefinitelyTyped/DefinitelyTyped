@@ -1,9 +1,4 @@
-// Type definitions for @happyguestmx/web-utilities 3.17
-// Project: https://github.com/HappyGuest/happyguestmx-web-utilities
-// Definitions by: HappyGuest <https://github.com/HappyGuest>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 // shared
 export interface QueryOutput {
     Items: any[];
@@ -142,7 +137,7 @@ export interface FspPaginationOutput {
 export interface FspQuery {
     queryString: string;
     orderBy: string;
-    sortType: 'asc' | 'desc';
+    sortType: "asc" | "desc";
     size: number;
     page: number;
 }
@@ -152,7 +147,7 @@ export interface FSP {
     data: any[];
     filterColums: any[];
     Filter: (term: string | string[]) => boolean;
-    Sort: (orderBy: string, sortType: 'asc' | 'desc') => any[];
+    Sort: (orderBy: string, sortType: "asc" | "desc") => any[];
     Pagin: (page: number, size: number) => FspPaginOutput;
     FSP: (query: FspQuery) => FspPaginationOutput;
 }
@@ -162,19 +157,19 @@ export interface FSPConstructor {
 
 // ddbHelper
 export type ComparisonOperator =
-    | 'EQ'
-    | 'NE'
-    | 'IN'
-    | 'LE'
-    | 'LT'
-    | 'GE'
-    | 'GT'
-    | 'BETWEEN'
-    | 'NOT_NULL'
-    | 'NULL'
-    | 'CONTAINS'
-    | 'NOT_CONTAINS'
-    | 'BEGINS_WITH'
+    | "EQ"
+    | "NE"
+    | "IN"
+    | "LE"
+    | "LT"
+    | "GE"
+    | "GT"
+    | "BETWEEN"
+    | "NOT_NULL"
+    | "NULL"
+    | "CONTAINS"
+    | "NOT_CONTAINS"
+    | "BEGINS_WITH"
     | string;
 export interface QueryInput {
     TableName: string;
@@ -195,10 +190,10 @@ export interface QueryInput {
             ComparisonOperator: ComparisonOperator;
         };
     };
-    ConditionalOperator?: 'AND' | 'OR' | string;
+    ConditionalOperator?: "AND" | "OR" | string;
     ScanIndexForward?: boolean;
     ExclusiveStartKey?: { [key: string]: any };
-    ReturnConsumedCapacity?: 'INDEXES' | 'TOTAL' | 'NONE' | string;
+    ReturnConsumedCapacity?: "INDEXES" | "TOTAL" | "NONE" | string;
     ProjectionExpression?: string;
     FilterExpression?: string;
     KeyConditionExpression?: string;
@@ -241,7 +236,7 @@ export interface ScanInput {
 export interface DdbHelper {
     recursiveQuery: (
         params: QueryInput | ScanInput,
-        method: 'query' | 'scan',
+        method: "query" | "scan",
         xray?: boolean,
     ) => Promise<QueryOutput>;
 }
@@ -307,5 +302,5 @@ export const paramsHandler: ParamsHandler;
 export const response: Response;
 export const fsp: { FSP: FSPConstructor };
 export const ddbHelper: DdbHelper;
-export class WithDataError extends Error { }
+export class WithDataError extends Error {}
 export const userHandler: UserHandler;

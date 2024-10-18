@@ -1,56 +1,89 @@
-// Type definitions for gulp-help-doc
-// Project: https://github.com/Mikhus/gulp-help-doc
-// Definitions by: Mikhus <https://github.com/Mikhus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import gulp = require("gulp");
 
-/// <reference types="node" />
-/// <reference types="gulp" />
+declare namespace usage {
+    interface UsageOptions {
+        /**
+         * Defines max line width for the printed output lines.
+         *
+         * @default 80
+         */
+        lineWidth?: number | undefined;
 
-declare module "gulp-help-doc" {
+        /**
+         * Defines max width of the column width tasks or args names.
+         *
+         * @default 20
+         */
+        keysColumnWidth?: number | undefined;
 
-    import gulp = require('gulp');
+        /**
+         * Defines number of empty characters for left-padding of the output.
+         * @default 4
+         */
+        padding?: number | undefined;
 
-    namespace usage {
+        /**
+         * Defines number of empty characters before group name output.
+         *
+         * @default 1
+         */
+        groupPadding?: number | undefined;
 
-        interface UsageOptions {
-            /**
-             * Defines  max line width for the printed output lines
-             * (by default is 80 characters long)
-             */
-            lineWidth?: number | undefined,
+        /**
+         * Undocumented option.
+         *
+         * @default "magenta"
+         */
+        groupColor?: string | undefined;
 
-            /**
-             * Defines max width of the column width tasks or args names
-             * (by default is 20 characters long)
-             */
-            keysColumnWidth?: number | undefined,
+        /**
+         * Printing engine. Accepted any device which has log() function defined to do output.
+         *
+         * @default console
+         */
+        logger?: { log: (message: string) => void } | undefined;
 
-            /**
-             * Defines number of empty characters for left-padding of the output
-             */
-            padding?: number | undefined,
+        /**
+         * Undocumented option.
+         *
+         * @default fs.existsSync('gulpfile.ts')
+         */
+        isTypescript?: boolean | undefined;
 
-            /**
-             * Printing engine (by default is console). Accepted any device
-             * which has log() function defined to do output.
-             */
-            logger?: { log: Function } | undefined,
+        /**
+         * Path to a gulpfile.
+         * Normally, there is no need to change this option. It may be used
+         * for some special cases, like mocking gulpfile for testing.
+         */
+        gulpfile?: string | undefined;
 
-            /**
-             * Path to a gulpfile (default is gulpfile.js)
-             * Normally, there is no need to change this option. It may be used
-             * for some special cases, like mocking gulpfile for testing.
-             */
-            gulpfile?: string | undefined
-        }
+        /**
+         * if set to true, prints the task dependencies below its help description.
+         *
+         * @default true
+         */
+        displayDependencies?: boolean | undefined;
 
-        interface Usage {
-            (gulp: gulp.Gulp, options?: UsageOptions): Promise<any>
-        }
+        /**
+         * if set to true, prints an empty line between tasks help descriptions.
+         *
+         * @default true
+         */
+        emptyLineBetweenTasks?: boolean | undefined;
 
+        /**
+         * if group tag is not specified it will use specified group name.
+         *
+         * @default "Common tasks"
+         */
+        defaultGroupName?: string | undefined;
     }
 
-    var usage: usage.Usage;
-
-    export = usage;
+    interface Usage {
+        (gulp: gulp.Gulp, options?: UsageOptions): Promise<any>;
+    }
 }
+
+declare const usage: usage.Usage;
+
+export = usage;

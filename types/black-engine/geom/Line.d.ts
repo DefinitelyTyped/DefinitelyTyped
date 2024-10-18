@@ -28,5 +28,5 @@ export class Line {
 export namespace Line {
     const __cache: Line;
 }
-import { Circle } from './Circle';
-import { Vector } from './Vector';
+import { Circle } from "./Circle";
+import { Vector } from "./Vector";

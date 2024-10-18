@@ -1,6 +1,6 @@
-import ncp = require('ncp');
-import { ncp as ncpCB } from 'ncp';
-import * as util from 'util';
+import ncp = require("ncp");
+import { ncp as ncpCB } from "ncp";
+import * as util from "util";
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
@@ -30,13 +30,13 @@ opts = { limit: 512 };
 // $ExpectType Options
 opts;
 
-ncp('foo', 'bar', err => {
+ncp("foo", "bar", err => {
     err; // $ExpectType Error[] | null
 });
 
 ncp(
-    'foo',
-    'bar',
+    "foo",
+    "bar",
     {
         stopOnErr: true,
     },
@@ -46,8 +46,8 @@ ncp(
 );
 
 ncp(
-    'foo',
-    'bar',
+    "foo",
+    "bar",
     {
         errs,
         stopOnErr: true,
@@ -57,15 +57,15 @@ ncp(
     },
 );
 
-ncp('foo', 'bar', opts$StreamErr, err => {
+ncp("foo", "bar", opts$StreamErr, err => {
     err; // $ExpectType WriteStream | null
 });
 
-ncp.ncp('foo', 'bar', err => {
+ncp.ncp("foo", "bar", err => {
     err; // $ExpectType Error[] | null
 });
 
-ncp.ncp('foo', 'bar', opts, err => {
+ncp.ncp("foo", "bar", opts, err => {
     err; // $ExpectType Error | Error[] | WriteStream | null || Error | WriteStream | Error[] | null
 });
 

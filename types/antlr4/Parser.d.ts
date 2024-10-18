@@ -1,12 +1,12 @@
-import ATN from './atn/ATN';
-import CommonTokenFactory from './CommonTokenFactory';
-import CommonTokenStream from './CommonTokenStream';
-import Recognizer from './Recognizer';
-import Token from './Token';
-import ParseTreeListener from './tree/ParseTreeListener';
-import ParserRuleContext from './context/ParserRuleContext';
-import ErrorStrategy from './error/ErrorStrategy';
-import RecognitionException from './error/RecognitionException';
+import ATN from "./atn/ATN";
+import CommonTokenFactory from "./CommonTokenFactory";
+import CommonTokenStream from "./CommonTokenStream";
+import ParserRuleContext from "./context/ParserRuleContext";
+import ErrorStrategy from "./error/ErrorStrategy";
+import RecognitionException from "./error/RecognitionException";
+import Recognizer from "./Recognizer";
+import Token from "./Token";
+import ParseTreeListener from "./tree/ParseTreeListener";
 
 export default class Parser extends Recognizer {
     /**
@@ -141,7 +141,7 @@ export default class Parser extends Recognizer {
      * Match needs to return the current input symbol, which gets put
      * into the label for the associated token ref; e.g., x=ID.
      */
-    getCurrentToken(): ReturnType<CommonTokenStream['LT']>;
+    getCurrentToken(): ReturnType<CommonTokenStream["LT"]>;
 
     notifyErrorListeners(msg: string, offendingToken: Token, err?: RecognitionException): void;
 

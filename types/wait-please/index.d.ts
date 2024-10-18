@@ -1,8 +1,3 @@
-// Type definitions for wait-please 3.1
-// Project: https://github.com/dy/wait-please#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Wait for `n` microtask ticks.
  * Uses `queueMicrotask` or `Promise.resolve` ~ same as `process.nextTick` under the hood.

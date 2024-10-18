@@ -1,5 +1,5 @@
-import { FieldInterface } from './field.interface';
-import { SchemaInterface } from './schema.interface';
+import { FieldInterface } from "./field.interface";
+import { SchemaInterface } from "./schema.interface";
 
 export class ParquetSchema {
     schema: SchemaInterface;

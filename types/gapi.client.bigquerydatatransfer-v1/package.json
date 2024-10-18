@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.bigquerydatatransfer-v1": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.bigquerydatatransfer-v1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "BigQuery Data Transfer API v1",
+    "projects": [
+        "https://cloud.google.com/bigquery-transfer/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.bigquerydatatransfer-v1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.bigquerydatatransfer-v1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

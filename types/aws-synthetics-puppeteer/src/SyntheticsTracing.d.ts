@@ -1,5 +1,6 @@
-// tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'SyntheticsTracing' {
+// js installs to root of node_modules
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
+declare module "SyntheticsTracing" {
     const _exports: SyntheticsTracing;
     export = _exports;
     /**
@@ -8,7 +9,6 @@ declare module 'SyntheticsTracing' {
      * The primary behavior of this library is to facilitate the creation of traces
      * to aid in the debugging of canary run failures.
      * Traces can be seen in the CloudWatch ServiceLens ServiceMap.
-     *
      */
     class SyntheticsTracing {
         _activeTracing: boolean;
@@ -125,7 +125,6 @@ declare module 'SyntheticsTracing' {
          * canaryName: "canary-name",
          * canaryArn: "arn:aws:accountId:region:synthetics:canary:canary-name",
          * canaryRunId: "98203495-6546-2343-230203020102",
-         *
          */
         configureTracing(canaryName: string, canaryArn: string, canaryRunId: string): void;
         /**
@@ -143,7 +142,6 @@ declare module 'SyntheticsTracing' {
          *     (e.g. "https://xray.us-east-1.amazonaws.com/")
          *     If endpoint is not specified, the default endpoint for the region
          *     will be used
-         *
          */
         setXRayClientConfiguration(roleArn?: string, region?: string, endpoint?: string): Promise<void>;
         /**
@@ -184,6 +182,6 @@ declare module 'SyntheticsTracing' {
         getSegmentById(id: string): AWSXRaySDKClient.Segment;
         resetSegments(): void;
     }
-    import * as AWSXRaySDKClient from 'aws-xray-sdk-core';
-    import * as http from 'http';
+    import * as AWSXRaySDKClient from "aws-xray-sdk-core";
+    import * as http from "http";
 }

@@ -1,31 +1,47 @@
-// Type definitions for https://github.com/digiaonline/react-foundation 0.9
-// Project: https://github.com/digiaonline/react-foundation, https://github.com/nordsoftware/react-foundation
-// Definitions by: Daniel Earwicker <https://github.com/danielearwicker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-export { Accordion, AccordionItem, AccordionTitle, AccordionContent } from './components/accordion';
-export { Badge } from './components/badge';
-export { Breadcrumbs, BreadcrumbItem } from './components/breadcrumbs';
-export { Button, Link } from './components/button';
-export { ButtonGroup } from './components/button-group';
-export { Callout } from './components/callout';
-export { CloseButton } from './components/close-button';
-export { Reveal } from './components/reveal';
-export { FlexVideo } from './components/flex-video';
-export { Row, Column } from './components/grid';
-export { Block, Inline } from './components/element';
-export { Icon } from './components/icon';
-export { Label } from './components/label';
-export { MediaObject, MediaObjectSection } from './components/media-object';
-export { Menu, MenuItem, MenuText } from './components/menu';
-export { Pagination, PaginationItem, PaginationPrevious, PaginationNext, PaginationEllipsis } from './components/pagination';
-export { Progress, ProgressMeter, ProgressMeterWithText, ProgressMeterText, NativeProgress } from './components/progress-bar';
-export { ResponsiveNavigation, TitleBar, MenuIcon, TitleBarTitle } from './components/responsive';
-export { Switch, SwitchInput, SwitchPaddle, SwitchActive, SwitchInactive } from './components/switch';
-export { Thumbnail, ThumbnailLink } from './components/thumbnail';
-export { Tabs, TabItem, TabsContent, TabPanel } from './components/tabs';
-export { TopBar, TopBarTitle, TopBarLeft, TopBarRight } from './components/top-bar';
-export { GridContainer, Grid, Cell } from './components/xy-grid';
-export { Breakpoints, Colors, Sizes, Alignments, FloatTypes, InputTypes, GutterTypes, ExtendedBreakpoints, SpaceControls } from './enums';
-export { Slider, TwoHandleSlider, SliderHandle, SliderFill } from './components/slider';
+export { Accordion, AccordionContent, AccordionItem, AccordionTitle } from "./components/accordion";
+export { Badge } from "./components/badge";
+export { BreadcrumbItem, Breadcrumbs } from "./components/breadcrumbs";
+export { Button, Link } from "./components/button";
+export { ButtonGroup } from "./components/button-group";
+export { Callout } from "./components/callout";
+export { CloseButton } from "./components/close-button";
+export { Block, Inline } from "./components/element";
+export { FlexVideo } from "./components/flex-video";
+export { Column, Row } from "./components/grid";
+export { Icon } from "./components/icon";
+export { Label } from "./components/label";
+export { MediaObject, MediaObjectSection } from "./components/media-object";
+export { Menu, MenuItem, MenuText } from "./components/menu";
+export {
+    Pagination,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationNext,
+    PaginationPrevious,
+} from "./components/pagination";
+export {
+    NativeProgress,
+    Progress,
+    ProgressMeter,
+    ProgressMeterText,
+    ProgressMeterWithText,
+} from "./components/progress-bar";
+export { MenuIcon, ResponsiveNavigation, TitleBar, TitleBarTitle } from "./components/responsive";
+export { Reveal } from "./components/reveal";
+export { Slider, SliderFill, SliderHandle, TwoHandleSlider } from "./components/slider";
+export { Switch, SwitchActive, SwitchInactive, SwitchInput, SwitchPaddle } from "./components/switch";
+export { TabItem, TabPanel, Tabs, TabsContent } from "./components/tabs";
+export { Thumbnail, ThumbnailLink } from "./components/thumbnail";
+export { TopBar, TopBarLeft, TopBarRight, TopBarTitle } from "./components/top-bar";
+export { Cell, Grid, GridContainer } from "./components/xy-grid";
+export {
+    Alignments,
+    Breakpoints,
+    Colors,
+    ExtendedBreakpoints,
+    FloatTypes,
+    GutterTypes,
+    InputTypes,
+    Sizes,
+    SpaceControls,
+} from "./enums";

@@ -1,8 +1,17 @@
-import { Euler } from './Euler.js';
-import { Vector3 } from './Vector3.js';
-import { Matrix4 } from './Matrix4.js';
-import { BufferAttribute } from '../core/BufferAttribute.js';
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { InterleavedBufferAttribute } from "../core/InterleavedBufferAttribute.js";
+import { Euler } from "./Euler.js";
+import { Matrix4 } from "./Matrix4.js";
+import { Vector3, Vector3Like } from "./Vector3.js";
+
+export interface QuaternionLike {
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+    readonly w: number;
+}
+
+export type QuaternionTuple = [x: number, y: number, z: number, w: number];
 
 /**
  * Implementation of a quaternion. This is used for rotating things without incurring in the dreaded gimbal lock issue, amongst other advantages.
@@ -46,7 +55,7 @@ export class Quaternion {
     /**
      * Sets values of this quaternion.
      */
-    set(x: number, y: number, z: number, w: number): Quaternion;
+    set(x: number, y: number, z: number, w: number): this;
 
     /**
      * Clones this quaternion.
@@ -56,36 +65,36 @@ export class Quaternion {
     /**
      * Copies values of q to this quaternion.
      */
-    copy(q: Quaternion): this;
+    copy(q: QuaternionLike): this;
 
     /**
      * Sets this quaternion from rotation specified by Euler angles.
      */
-    setFromEuler(euler: Euler, update?: boolean): Quaternion;
+    setFromEuler(euler: Euler, update?: boolean): this;
 
     /**
      * Sets this quaternion from rotation specified by axis and angle.
      * Adapted from http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm.
      * Axis have to be normalized, angle is in radians.
      */
-    setFromAxisAngle(axis: Vector3, angle: number): Quaternion;
+    setFromAxisAngle(axis: Vector3Like, angle: number): this;
 
     /**
      * Sets this quaternion from rotation component of m. Adapted from http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm.
      */
-    setFromRotationMatrix(m: Matrix4): Quaternion;
-    setFromUnitVectors(vFrom: Vector3, vTo: Vector3): Quaternion;
+    setFromRotationMatrix(m: Matrix4): this;
+    setFromUnitVectors(vFrom: Vector3, vTo: Vector3Like): this;
     angleTo(q: Quaternion): number;
-    rotateTowards(q: Quaternion, step: number): Quaternion;
+    rotateTowards(q: Quaternion, step: number): this;
 
-    identity(): Quaternion;
+    identity(): this;
 
     /**
      * Inverts this quaternion.
      */
-    invert(): Quaternion;
+    invert(): this;
 
-    conjugate(): Quaternion;
+    conjugate(): this;
     dot(v: Quaternion): number;
     lengthSq(): number;
 
@@ -97,22 +106,22 @@ export class Quaternion {
     /**
      * Normalizes this quaternion.
      */
-    normalize(): Quaternion;
+    normalize(): this;
 
     /**
      * Multiplies this quaternion by b.
      */
-    multiply(q: Quaternion): Quaternion;
-    premultiply(q: Quaternion): Quaternion;
+    multiply(q: Quaternion): this;
+    premultiply(q: Quaternion): this;
 
     /**
      * Sets this quaternion to a x b
      * Adapted from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm.
      */
-    multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
+    multiplyQuaternions(a: Quaternion, b: Quaternion): this;
 
-    slerp(qb: Quaternion, t: number): Quaternion;
-    slerpQuaternions(qa: Quaternion, qb: Quaternion, t: number): Quaternion;
+    slerp(qb: Quaternion, t: number): this;
+    slerpQuaternions(qa: Quaternion, qb: Quaternion, t: number): this;
     equals(v: Quaternion): boolean;
 
     /**
@@ -129,6 +138,7 @@ export class Quaternion {
      * @return The created or provided array.
      */
     toArray(array?: number[], offset?: number): number[];
+    toArray(array?: QuaternionTuple, offset?: 0): QuaternionTuple;
 
     /**
      * Copies x, y, z and w into the provided array-like.
@@ -149,9 +159,9 @@ export class Quaternion {
      * @param attribute the source attribute.
      * @param index index in the attribute.
      */
-    fromBufferAttribute(attribute: BufferAttribute | InterleavedBufferAttribute, index: number): Quaternion;
+    fromBufferAttribute(attribute: BufferAttribute | InterleavedBufferAttribute, index: number): this;
 
-    _onChange(callback: () => void): Quaternion;
+    _onChange(callback: () => void): this;
     _onChangeCallback: () => void;
 
     static slerpFlat(
@@ -173,17 +183,7 @@ export class Quaternion {
         stcOffset1: number,
     ): number[];
 
-    /**
-     * @deprecated Use qm.slerpQuaternions( qa, qb, t ) instead..
-     */
-    static slerp(qa: Quaternion, qb: Quaternion, qm: Quaternion, t: number): number;
-
-    /**
-     * @deprecated Use {@link Vector#applyQuaternion vector.applyQuaternion( quaternion )} instead.
-     */
-    multiplyVector3(v: any): any;
-
-    random(): Quaternion;
+    random(): this;
 
     [Symbol.iterator](): Generator<number, void>;
 }

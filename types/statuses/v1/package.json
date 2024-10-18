@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/statuses",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/jshttp/statuses"
+    ],
+    "devDependencies": {
+        "@types/statuses": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

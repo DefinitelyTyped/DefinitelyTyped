@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/torrent-stream",
+    "version": "0.0.9999",
+    "projects": [
+        "https://npmjs.com/package/torrent-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/torrent-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xavier Stouder",
+            "githubUsername": "xstoudi"
+        }
+    ]
+}

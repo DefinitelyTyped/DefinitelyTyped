@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/get-package-type",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/cfware/get-package-type#readme"
+    ],
+    "devDependencies": {
+        "@types/get-package-type": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Corey Farrell",
+            "githubUsername": "coreyfarrell"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

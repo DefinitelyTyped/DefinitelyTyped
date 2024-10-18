@@ -1,11 +1,11 @@
-import { DefaultContext, DefaultState, Middleware } from 'koa';
+import { ParameterizedContext } from "koa";
+import { ProcessRequestFunction, ProcessRequestOptions } from "./processRequest.mjs";
 
-export interface UploadOptions {
-    maxFieldSize?: number | undefined;
-    maxFileSize?: number | undefined;
-    maxFiles?: number | undefined;
-}
+// We are keeping this type just to avoid breaking changes, but it should be removed on the next major release.
+export type UploadOptions = ProcessRequestOptions;
 
-export default function graphqlUploadKoa<StateT = DefaultState, ContextT = DefaultContext>(
-    uploadOptions?: UploadOptions,
-): Middleware<StateT, ContextT>; // eslint-disable-line no-unnecessary-generics
+export default function graphqlUploadKoa(
+    { processRequest, ...processRequestOptions }?: ProcessRequestOptions & {
+        processRequest?: ProcessRequestFunction;
+    },
+): (ctx: ParameterizedContext, next: () => Promise<unknown>) => Promise<unknown>;

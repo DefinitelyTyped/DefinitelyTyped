@@ -1,14 +1,9 @@
-// Type definitions for react-component-benchmark 1.0
-// Project: https://github.com/paularmstrong/react-component-benchmark
-// Definitions by: Yi Fan <https://github.com/yifanwww>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ComponentType, ForwardRefExoticComponent, RefAttributes } from 'react';
+import { ComponentType, ForwardRefExoticComponent, RefAttributes } from "react";
 
 export const BenchmarkType: {
-    MOUNT: 'mount';
-    UPDATE: 'update';
-    UNMOUNT: 'unmount';
+    MOUNT: "mount";
+    UPDATE: "update";
+    UNMOUNT: "unmount";
 };
 
 export interface Sample {

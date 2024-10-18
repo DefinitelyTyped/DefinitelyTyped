@@ -1,6 +1,73 @@
 {
     "private": true,
+    "name": "@types/draft-js",
+    "version": "0.11.9999",
+    "projects": [
+        "https://facebook.github.io/draft-js/"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "immutable": "~3.7.4"
-    }
+    },
+    "devDependencies": {
+        "@types/draft-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitry Rogozhny",
+            "githubUsername": "dmitryrogozhny"
+        },
+        {
+            "name": "Eelco Lempsink",
+            "githubUsername": "eelco"
+        },
+        {
+            "name": "Yale Cason",
+            "githubUsername": "ghotiphud"
+        },
+        {
+            "name": "Ryan Schwers",
+            "githubUsername": "schwers"
+        },
+        {
+            "name": "Michael Wu",
+            "githubUsername": "michael-yx-wu"
+        },
+        {
+            "name": "Willis Plummer",
+            "githubUsername": "willisplummer"
+        },
+        {
+            "name": "Santiago Vilar",
+            "githubUsername": "smvilar"
+        },
+        {
+            "name": "Ulf Schwekendiek",
+            "githubUsername": "sulf"
+        },
+        {
+            "name": "Pablo Varela",
+            "githubUsername": "pablopunk"
+        },
+        {
+            "name": "Claudio Procida",
+            "githubUsername": "claudiopro"
+        },
+        {
+            "name": "Kevin Hawkinson",
+            "githubUsername": "khawkinson"
+        },
+        {
+            "name": "Munif Tanjim",
+            "githubUsername": "MunifTanjim"
+        },
+        {
+            "name": "Peter Dekkers",
+            "githubUsername": "PeterDekkers"
+        },
+        {
+            "name": "Ankit Ranjan",
+            "githubUsername": "ankitr"
+        }
+    ]
 }

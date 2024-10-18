@@ -1,10 +1,10 @@
-import * as bunyan from 'bunyan';
-import { DynamoDB } from './DynamoDB';
+import * as bunyan from "bunyan";
+import { DynamoDB } from "./DynamoDB";
 
-import { Callback } from './Callback';
-import { Query } from './Query';
-import { Scan, ParallelScan } from './Scan';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { Callback } from "./Callback";
+import { Query } from "./Query";
+import { ParallelScan, Scan } from "./Scan";
 
 export class Item<T> extends EventEmitter {
     constructor(attrs: T, table: any);
@@ -52,7 +52,11 @@ export interface Model<T> {
     destroy(hashKey: string, rangeKey?: string, options?: DestroyOptions<T>): Promise<any>;
     destroy(hashKeyOrAttributes: string | Partial<T>, options?: DestroyOptions<T>): Promise<any>;
 
-    getItems(keys: ReadonlyArray<Partial<T> | string>, options: GetOptions<T>, callback: Callback<Array<Item<T>>>): void;
+    getItems(
+        keys: ReadonlyArray<Partial<T> | string>,
+        options: GetOptions<T>,
+        callback: Callback<Array<Item<T>>>,
+    ): void;
     getItems(keys: ReadonlyArray<Partial<T> | string>, callback: Callback<Array<Item<T>>>): void;
     getItems(keys: ReadonlyArray<Partial<T> | string>, options?: GetOptions<T>): Promise<Array<Item<T>>>;
 
@@ -65,8 +69,8 @@ export interface Model<T> {
     deleteTable(callback: Callback<any>): void;
     deleteTable(): Promise<any>;
 
-    before: (event: 'create' | 'update', hook: (data: Partial<T>, next: Callback<Partial<T>>) => void) => void;
-    after: (event: 'create' | 'update' | 'destroy', hook: (data: Item<T>, next: Callback<void>) => void) => void;
+    before: (event: "create" | "update", hook: (data: Partial<T>, next: Callback<Partial<T>>) => void) => void;
+    after: (event: "create" | "update" | "destroy", hook: (data: Item<T>, next: Callback<void>) => void) => void;
 
     config(config: { dynamodb?: DynamoDB; tableName?: string }): any;
 }

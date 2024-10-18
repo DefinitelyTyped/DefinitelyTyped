@@ -1,8 +1,8 @@
-import { StartAppOptions } from './tools/apk-utils';
-import systemCallMethods from './tools/system-calls';
+import { StartAppOptions } from "./tools/apk-utils";
+import systemCallMethods from "./tools/system-calls";
 
-export const APKS_EXTENSION: '.apks';
-export const APK_EXTENSION: '.apk';
+export const APKS_EXTENSION: ".apks";
+export const APK_EXTENSION: ".apk";
 export const APK_INSTALL_TIMEOUT: 60000;
 export const APKS_INSTALL_TIMEOUT: 120000;
 /** in milliseconds */
@@ -73,7 +73,7 @@ export function getOpenSslForOs(): Promise<string>;
  * @returns An absolute path to apksigner tool.
  * @throws If the tool is not present on the local file system.
  */
-export function getApksignerForOs(sysHelpers: Pick<typeof systemCallMethods, 'getBinaryFromSdkRoot'>): Promise<string>;
+export function getApksignerForOs(sysHelpers: Pick<typeof systemCallMethods, "getBinaryFromSdkRoot">): Promise<string>;
 
 /**
  * Get the absolute path to apkanalyzer tool.
@@ -84,7 +84,7 @@ export function getApksignerForOs(sysHelpers: Pick<typeof systemCallMethods, 'ge
  * @throws If the tool is not present on the local file system.
  */
 export function getApkanalyzerForOs(
-    sysHelpers: Pick<typeof systemCallMethods, 'getBinaryFromSdkRoot'>,
+    sysHelpers: Pick<typeof systemCallMethods, "getBinaryFromSdkRoot">,
 ): Promise<string>;
 
 /**
@@ -154,7 +154,7 @@ export function getBuildToolsDirs(sdkRoot: string): Promise<string[]>;
  */
 export function extractMatchingPermissions(
     dumpsysOutput: string,
-    groupNames: ReadonlyArray<string>,
+    groupNames: readonly string[],
     grantedState?: boolean | null,
 ): string[];
 
@@ -264,7 +264,7 @@ export function parseAapt2Strings(rawOutput: string, configMarker: string): Reco
  * @return The formatted config marker
  */
 export function formatConfigMarker(
-    configsGetter: () => ReadonlyArray<string> | Promise<ReadonlyArray<string>>,
+    configsGetter: () => readonly string[] | Promise<readonly string[]>,
     desiredMarker: string,
     defaultMarker: string,
 ): Promise<string>;

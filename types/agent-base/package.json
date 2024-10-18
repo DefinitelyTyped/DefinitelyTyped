@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/agent-base",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/TooTallNate/node-agent-base#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/agent-base": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Quadflieg",
+            "githubUsername": "Shinigami92"
+        }
+    ]
+}

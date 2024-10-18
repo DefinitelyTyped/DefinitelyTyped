@@ -1,2 +1,2 @@
-import OrdinaryHasProperty = require('../2017/OrdinaryHasProperty');
+import OrdinaryHasProperty = require("../2017/OrdinaryHasProperty");
 export = OrdinaryHasProperty;

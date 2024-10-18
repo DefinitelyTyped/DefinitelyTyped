@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-redundant-jsdoc-2": false,
-        "no-trailing-whitespace": false,
-        "npm-naming": false,
-        "typedef-whitespace": false
-    }
-}

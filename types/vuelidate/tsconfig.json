@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "DOM",
             "ES6",
@@ -15,10 +15,6 @@
         "esModuleInterop": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "experimentalDecorators": true
     },

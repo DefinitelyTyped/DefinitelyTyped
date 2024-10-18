@@ -1,6 +1,6 @@
 // This is necessary to disallow import of `call-bind/callBound.js`:
-declare module 'call-bind/callBound' {
-    import type { Intrinsics } from 'get-intrinsic';
+declare module "call-bind/callBound" {
+    import type { Intrinsics } from "get-intrinsic";
 
     type PrependThisParameter<T> = T extends (...args: infer A) => infer R
         ? (thisArg: ThisParameterType<T>, ...args: A) => R

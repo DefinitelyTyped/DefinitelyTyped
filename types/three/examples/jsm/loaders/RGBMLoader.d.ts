@@ -1,4 +1,4 @@
-import { CubeTexture, LoadingManager, DataTextureLoader, PixelFormat, TextureDataType } from '../../../src/Three.js';
+import { CubeTexture, DataTextureLoader, LoadingManager, PixelFormat, TextureDataType } from "three";
 
 export interface RGBM {
     width: number;
@@ -23,6 +23,11 @@ export class RGBMLoader extends DataTextureLoader {
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
     ): CubeTexture;
+
+    loadCubemapAsync(
+        urls: string[],
+        onProgress?: (event: ProgressEvent) => void,
+    ): Promise<CubeTexture>;
 
     parse(buffer: ArrayBuffer): RGBM;
 

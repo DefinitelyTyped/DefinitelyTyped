@@ -1,4 +1,4 @@
-import { Random } from 'something-random-on-discord';
+import { Random } from "something-random-on-discord";
 
 const random = new Random();
 
@@ -6,4 +6,4 @@ const random = new Random();
 random.getAdvice();
 
 // $ExpectType Promise<string>
-random.getAnimeImgURL('pat');
+random.getAnimeImgURL("pat");

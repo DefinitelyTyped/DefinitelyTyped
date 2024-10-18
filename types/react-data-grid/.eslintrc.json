@@ -1,5 +1,9 @@
 {
     "rules": {
-        "no-declare-current-package": "off"
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/consistent-type-definitions": "off"
     }
 }

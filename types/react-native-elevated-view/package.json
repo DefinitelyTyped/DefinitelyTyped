@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-elevated-view",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/alekhurst/react-native-elevated-view"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-elevated-view": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "fhelwanger",
+            "githubUsername": "fhelwanger"
+        }
+    ]
+}

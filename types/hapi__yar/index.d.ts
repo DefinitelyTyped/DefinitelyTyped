@@ -1,13 +1,5 @@
-// Type definitions for @hapi/yar 10.1
-// Project: https://github.com/hapijs/yar#readme
-// Definitions by: Simon Schick <https://github.com/SimonSchick>
-//                 Silas Rech <https://github.com/lenovouser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-// From https://github.com/hapijs/yar/blob/master/API.md
-
-import { Server, ServerOptionsCache, Request, Plugin, CachePolicyOptions, ResponseToolkit } from '@hapi/hapi';
-import { PolicyOptions, Id } from '@hapi/catbox';
+import { Id, PolicyOptions } from "@hapi/catbox";
+import { CachePolicyOptions, Plugin, Request, ResponseToolkit, Server, ServerOptionsCache } from "@hapi/hapi";
 declare namespace yar {
     interface YarOptions {
         /**
@@ -78,7 +70,7 @@ declare namespace yar {
              * enables the same-site cookie parameter.
              * Default to 'Lax'.
              */
-            isSameSite?: 'Lax' | 'Strict' | 'None' | false | undefined;
+            isSameSite?: "Lax" | "Strict" | "None" | false | undefined;
             /**
              * determines whether or not to transfer using TLS/SSL.
              * Defaults to true.
@@ -170,7 +162,7 @@ declare namespace yar {
 declare const yar: Plugin<yar.YarOptions>;
 export = yar;
 
-declare module '@hapi/hapi' {
+declare module "@hapi/hapi" {
     interface Request {
         yar: yar.Yar;
     }

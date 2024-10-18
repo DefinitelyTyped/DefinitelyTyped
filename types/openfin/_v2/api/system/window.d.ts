@@ -1,5 +1,5 @@
 export interface WindowInfo {
-    childWindows: Array<WindowDetail>;
+    childWindows: WindowDetail[];
     mainWindow: WindowDetail;
     uuid: string;
 }

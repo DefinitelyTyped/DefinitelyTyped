@@ -1,15 +1,15 @@
 /**
  * Created by jcabresos on 4/19/2014.
  */
-import passport = require('passport');
-import github = require('passport-github');
-import express = require('express');
+import passport = require("passport");
+import github = require("passport-github");
+import express = require("express");
 
 // just some test model
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, { username: 'james' });
-    }
+        callback(null, { username: "james" });
+    },
 };
 
 const callbackURL = process.env.PASSPORT_GITHUB_CALLBACK_URL;
@@ -28,31 +28,52 @@ if (typeof clientSecret === "undefined") {
     throw new Error("clientSecret is undefined");
 }
 
-passport.use(new github.Strategy(
-    {
-        callbackURL,
-        clientID,
-        clientSecret
-    },
-    (accessToken: string, refreshToken: string, profile: github.Profile, done: (error: any, user?: any) => void) => {
-        User.findOrCreate(profile.id, profile.provider, (err, user) => {
-            if (err) { done(err); return; }
-            done(null, user);
-        });
-    })
+passport.use(
+    new github.Strategy(
+        {
+            callbackURL,
+            clientID,
+            clientSecret,
+        },
+        (
+            accessToken: string,
+            refreshToken: string,
+            profile: github.Profile,
+            done: (error: any, user?: any) => void,
+        ) => {
+            User.findOrCreate(profile.id, profile.provider, (err, user) => {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                done(null, user);
+            });
+        },
+    ),
 );
 
-passport.use(new github.Strategy(
-    {
-        callbackURL,
-        clientID,
-        clientSecret,
-        passReqToCallback: true
-    },
-    (request: express.Request, accessToken: string, refreshToken: string, profile: github.Profile, done: (error: any, user?: any) => void) => {
-        User.findOrCreate(profile.id, profile.provider, (err, user) => {
-            if (err) { done(err); return; }
-            done(null, user);
-        });
-    })
+passport.use(
+    new github.Strategy(
+        {
+            callbackURL,
+            clientID,
+            clientSecret,
+            passReqToCallback: true,
+        },
+        (
+            request: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: github.Profile,
+            done: (error: any, user?: any) => void,
+        ) => {
+            User.findOrCreate(profile.id, profile.provider, (err, user) => {
+                if (err) {
+                    done(err);
+                    return;
+                }
+                done(null, user);
+            });
+        },
+    ),
 );

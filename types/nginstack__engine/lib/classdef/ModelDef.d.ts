@@ -24,7 +24,6 @@ declare class ModelDef {
     classFieldName: string;
     dataDictionary: string;
     dbIndexSpace: string;
-    dbPrimaryKey: string;
     dbTableSpace: string;
     fieldClass: (...args: any[]) => any;
     findOrder: number;
@@ -129,7 +128,6 @@ import ClassDefCache = require('./ClassDefCache.js');
 import Field = require('./Field.js');
 import FieldGroupSet = require('./FieldGroupSet.js');
 import FieldList = require('./FieldList.js');
-type AdapterDescriptor = import('../event/AdapterDescriptor');
 type Event = import('../event/Event');
 import DataEvent = require('./DataEvent.js');
 import ClassDef = require('./ClassDef.js');
@@ -147,4 +145,5 @@ declare function declareGetterOfObjectProperty(
 ): void;
 declare function declareObject(obj: ModelDef, name: string): void;
 declare function declareEvent(obj: ModelDef, name: string): void;
+type AdapterDescriptor = import('../event/AdapterDescriptor');
 type ViewDef = any;

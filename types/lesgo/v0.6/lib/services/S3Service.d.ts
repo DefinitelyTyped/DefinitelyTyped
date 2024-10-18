@@ -1,11 +1,11 @@
-import S3 = require('aws-sdk2-types/clients/s3');
+import S3 = require("aws-sdk2-types/clients/s3");
 
 // { ClientConfiguration, BucketName, ObjectKey, GetObjectOutput }
 
 export interface S3ServiceParams {
-    accessKeyId: S3.ClientConfiguration['accessKeyId'];
-    secretAccessKey: S3.ClientConfiguration['secretAccessKey'];
-    region: S3.ClientConfiguration['region'];
+    accessKeyId: S3.ClientConfiguration["accessKeyId"];
+    secretAccessKey: S3.ClientConfiguration["secretAccessKey"];
+    region: S3.ClientConfiguration["region"];
 }
 
 export default class S3Service {

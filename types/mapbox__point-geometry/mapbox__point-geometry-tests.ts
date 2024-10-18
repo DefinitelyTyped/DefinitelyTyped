@@ -1,4 +1,4 @@
-import Point = require('@mapbox/point-geometry');
+import Point = require("@mapbox/point-geometry");
 
 const point = new Point(9, 25);
 

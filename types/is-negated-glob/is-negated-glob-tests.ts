@@ -1,6 +1,6 @@
-import isNegatedGlob = require('is-negated-glob');
+import isNegatedGlob = require("is-negated-glob");
 
-const result = isNegatedGlob('!foo.*');
+const result = isNegatedGlob("!foo.*");
 const negated: boolean = result.negated;
 const original: string = result.original;
 const pattern: string = result.pattern;

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.filtertable",
+    "version": "1.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.filtertable",
+    "projects": [
+        "https://github.com/sunnywalker/jQuery.FilterTable"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.filtertable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TotPeRo",
+            "githubUsername": "totpero"
+        }
+    ]
+}

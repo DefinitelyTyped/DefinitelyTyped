@@ -1,76 +1,48 @@
-
-
 interface SomeModule {
     someMethod(): void;
 }
 
-let someModule = require<SomeModule>('./someModule');
+let someModule = require<SomeModule>("./someModule");
 someModule.someMethod();
 
-let otherModule = require('./otherModule');
+let otherModule = require("./otherModule");
 otherModule.otherMethod();
 
-// check if HMR is enabled
-if(module.hot) {
-    // accept update of dependency
-    module.hot.accept("./handler.js", function() {
-        //...
-    });
-}
-
 module.exports = null;
-
-// check if HMR is enabled
-if(module.hot) {
-
-    // accept itself
-    module.hot.accept();
-
-    // dispose handler
-    module.hot.dispose(function() {
-        // revoke the side effect
-        //...
-    });
-}
 
 class ModuleData {
     updated: boolean;
 }
 
+// check if HMR is enabled
 if (module.hot) {
-    module.hot.accept((err: Error) => {
-       //...
+    // dispose handler
+    module.hot.dispose(() => {
+        // revoke the side effect
+        // ...
     });
-
-    module.hot.decline("./someModule");
-
+    module.hot.dispose((data) => {
+        data.foo = true;
+        // ...
+    });
     module.hot.dispose((data: ModuleData) => {
         data.updated = true;
         // ...
     });
 
-    let disposeHandler: ((data: ModuleData) => void) = data => {
+    // accept itself
+    module.hot.accept(() => {});
+    // accept itself and all dependents
+    module.hot.accept((getParents) => {
         // ...
-    };
-    module.hot.addDisposeHandler(disposeHandler);
-    module.hot.removeDisposeHandler(disposeHandler);
-
-    module.hot.check(true, (err: Error, outdatedModules: (string|number)[]) => {
-       // ...
+        return getParents();
+    });
+    // accept itself and specific dependents
+    module.hot.accept((getParents) => {
+        // ...
+        return getParents().filter((parent) => parent[1] === "someModuleId");
     });
 
-    module.hot.apply({ ignoreUnaccepted: true }, (err: Error, outdatedModules: (string|number)[]) => {
-        // ...
-    });
-
-    var status: string = module.hot.status();
-    let statusHandler: ((status: string) => void) = status => {
-        // ...
-    };
-    module.hot.status(statusHandler);
-    module.hot.addStatusHandler(statusHandler);
-    module.hot.removeStatusHandler(statusHandler);
+    // data stored in previous dispose handler
+    module.hot.data;
 }
-
-
-

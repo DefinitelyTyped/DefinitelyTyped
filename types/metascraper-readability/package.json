@@ -1,6 +1,21 @@
 {
+    "private": true,
+    "name": "@types/metascraper-readability",
+    "version": "5.14.9999",
+    "projects": [
+        "https://nicedoc.io/microlinkhq/metascraper/packages/metascraper-readability"
+    ],
     "dependencies": {
-        "metascraper": "^5.14.0"
+        "@types/node": "*",
+        "metascraper": "^5.41.0"
     },
-    "private": true
+    "devDependencies": {
+        "@types/metascraper-readability": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

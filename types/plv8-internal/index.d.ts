@@ -1,8 +1,3 @@
-// Type definitions for non-npm package plv8 3.1
-// Project: https://github.com/plv8/plv8
-// Definitions by: Constantine Peresypkin <https://github.com/pkit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var DEBUG1: LoggingLevel.DEBUG1;
 declare var DEBUG2: LoggingLevel.DEBUG2;
 declare var DEBUG3: LoggingLevel.DEBUG3;

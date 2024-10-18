@@ -1,8 +1,3 @@
-// Type definitions for configstore 6.0
-// Project: https://github.com/yeoman/configstore
-// Definitions by: ArcticLight <https://github.com/ArcticLight>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export default class Configstore {
     constructor(packageName: string, defaults?: any, options?: ConfigstoreOptions);
 

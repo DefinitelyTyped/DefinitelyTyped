@@ -1,10 +1,10 @@
-import { Config } from 'karma';
+import { Config } from "karma";
 
 module.exports = (config: Config) => {
     config.set({
-        plugins: ['karma-notify-reporter'],
+        plugins: ["karma-notify-reporter"],
 
-        reporters: ['notify'],
+        reporters: ["notify"],
 
         notifyReporter: {
             reportEachFailure: true,

@@ -1,4 +1,4 @@
-import type { defer, resolve, reject, Promise } from 'rsvp';
+import type { defer, Promise, reject, resolve } from "rsvp";
 
 // using any since complicated interfaces fail the type check with error "is not assignable to type 'never'"
 export default class ModalModel<T = Record<string, any>> {
@@ -6,9 +6,9 @@ export default class ModalModel<T = Record<string, any>> {
     declare fullname: string;
     declare options: T;
     declare isPending: boolean;
-	declare isSettled: boolean;
-	declare isFulfilled: boolean;
-	declare isRejected: boolean;
+    declare isSettled: boolean;
+    declare isFulfilled: boolean;
+    declare isRejected: boolean;
     declare resolve: typeof resolve;
     declare reject: typeof reject;
     declare promise: Promise<unknown>;

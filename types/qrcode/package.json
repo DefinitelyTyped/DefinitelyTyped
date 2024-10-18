@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/qrcode",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/soldair/node-qrcode"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/qrcode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        },
+        {
+            "name": "Michael Nahkies",
+            "githubUsername": "mnahkies"
+        },
+        {
+            "name": "Rémi Sormain",
+            "githubUsername": "Marchelune"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

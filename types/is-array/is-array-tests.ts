@@ -1,4 +1,4 @@
-import isArray = require('is-array');
+import isArray = require("is-array");
 
 isArray();
 isArray(null);

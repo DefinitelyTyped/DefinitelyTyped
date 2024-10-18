@@ -1,8 +1,3 @@
-// Type definitions for sodium-uuid 2.0
-// Project: https://github.com/emilbayes/sodium-uuid
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = uuid;

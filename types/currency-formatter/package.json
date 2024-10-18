@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/currency-formatter",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/smirzaei/currency-formatter#readme"
+    ],
+    "devDependencies": {
+        "@types/currency-formatter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        },
+        {
+            "name": "David Paz",
+            "githubUsername": "davidmpaz"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

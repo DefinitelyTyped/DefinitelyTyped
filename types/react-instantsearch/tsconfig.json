@@ -6,12 +6,8 @@
             "es6",
             "dom"
         ],
-        "module": "commonjs",
+        "module": "node16",
         "noEmit": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,

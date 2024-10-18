@@ -1,2 +1,2 @@
-import { range } from '../index';
+import { range } from "../index";
 export default range;

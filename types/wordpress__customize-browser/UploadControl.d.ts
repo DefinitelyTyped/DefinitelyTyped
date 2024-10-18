@@ -1,4 +1,4 @@
-import { MediaControl } from './MediaControl';
+import { MediaControl } from "./MediaControl";
 
 export class UploadControl extends MediaControl {
     success(): void;

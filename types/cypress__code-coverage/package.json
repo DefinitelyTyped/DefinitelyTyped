@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/cypress__code-coverage",
+    "version": "3.10.9999",
+    "projects": [
+        "https://github.com/cypress-io/code-coverage"
+    ],
     "dependencies": {
         "cypress": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/cypress__code-coverage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
 }

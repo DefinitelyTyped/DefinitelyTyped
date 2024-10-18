@@ -1,12 +1,12 @@
-import { Paint } from 'athenajs';
+import { Paint } from "athenajs";
 
-const paint: Paint = new Paint('brush', {
+const paint: Paint = new Paint("brush", {
     width: 300,
     height: 200,
-    color: 'red'
+    color: "red",
 });
 
-paint.color = 'red';
+paint.color = "red";
 paint.circle(0, 0, 150);
-paint.circle(0, 0, 100, 'green');
-paint.circle(0, 0, 50, 'green', 2, 'blue');
+paint.circle(0, 0, 100, "green");
+paint.circle(0, 0, 50, "green", 2, "blue");

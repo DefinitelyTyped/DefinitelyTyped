@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/survicate__react-native-survicate",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/Survicate/react-native-survicate#readme"
+    ],
+    "devDependencies": {
+        "@types/survicate__react-native-survicate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ian Mobley",
+            "githubUsername": "iMobs"
+        },
+        {
+            "name": "Pawel",
+            "githubUsername": "SurvicatePawelGodlewski"
+        }
+    ]
+}

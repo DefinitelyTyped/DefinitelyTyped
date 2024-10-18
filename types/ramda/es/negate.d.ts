@@ -1,2 +1,2 @@
-import { negate } from '../index';
+import { negate } from "../index.js";
 export default negate;

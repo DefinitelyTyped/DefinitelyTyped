@@ -1,10 +1,3 @@
-// Type definitions for Globalize 1.5
-// Project: https://github.com/jquery/globalize
-// Definitions by: Grégoire Castre <https://github.com/gcastre>
-//                 Aram Taieb <https://github.com/afromogli>
-//                 Bryan Forbes <https://github.com/bryanforbes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as Cldr from "cldrjs";
 import * as Globalize from "./dist/globalize";
 

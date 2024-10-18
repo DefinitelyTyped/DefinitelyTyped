@@ -1,8 +1,3 @@
-// Type definitions for piwik-react-router 0.12
-// Project: https://github.com/joernroeder/piwik-react-router
-// Definitions by: Can Serkan UREN <https://github.com/canserkanuren>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface PiwikReactRouterHistory {
     location: string;
     listen?: (location: string) => void;

@@ -1,29 +1,29 @@
-import concat from 'ffmpeg-concat';
+import concat from "ffmpeg-concat";
 
 concat({
-    audio: '',
+    audio: "",
     cleanupFrames: true,
     concurrency: 4,
-    frameFormat: 'raw',
+    frameFormat: "raw",
     log: () => {},
-    output: '',
-    tempDir: '',
+    output: "",
+    tempDir: "",
     transition: {
         duration: 100,
-        name: '',
+        name: "",
         params: { direction: [1, -1] },
     },
     transitions: [
         {
             duration: 100,
-            name: '',
+            name: "",
             params: { direction: [1, -1] },
         },
         {
             duration: 100,
-            name: '',
+            name: "",
             params: { direction: [1, -1] },
         },
     ],
-    videos: ['', ''],
+    videos: ["", ""],
 });

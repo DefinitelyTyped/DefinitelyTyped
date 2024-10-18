@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface TreeProps {
     /** React nodes to render within. Nest TreeNodes to create multiple levels in the Tree. */
@@ -18,14 +18,14 @@ export interface TreeProps {
      * <br>
      * Set to single to enable selecting only one of the TreeNodes at a time, with radio buttons.
      */
-    selection?: 'multi' | 'single';
+    selection?: "multi" | "single";
     /**
      * Set to left to show selection control before node contents.
      * <br>
      * Set to right to show selection control after node contents.
      * default is "left"
      */
-    selectionPosition?: 'left' | 'right';
+    selectionPosition?: "left" | "right";
 }
 
 export interface TreeNodeProps extends React.HTMLAttributes<HTMLLIElement> {
@@ -38,7 +38,7 @@ export interface TreeNodeProps extends React.HTMLAttributes<HTMLLIElement> {
     /** An Array of string values to representing icon names to display before after contents. */
     glyphsBefore?: string[];
     /** Set to one of the valid values to highlight the row with the corresponding semantic color. */
-    highlight?: 'default' | 'error' | 'success' | 'warning';
+    highlight?: "default" | "error" | "success" | "warning";
     /** Set to a String value to use as id for this node which is a <li>. If unset, a generate value will be used. */
     id?: string;
     /** Set to true to show styles representing that the node has been navigate to. */

@@ -1,9 +1,3 @@
-// Type definitions for jQuery.qrcode v0.12.0
-// Project: https://github.com/lrsjng/jquery-qrcode
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace JQueryQRCode {
@@ -15,7 +9,7 @@ declare namespace JQueryQRCode {
         LABEL_STRIP,
         LABEL_BOX,
         IMAGE_STRIP,
-        IMAGE_BOX
+        IMAGE_BOX,
     }
 
     interface Options {
@@ -23,101 +17,96 @@ declare namespace JQueryQRCode {
          * Render method: 'canvas', 'image' or 'div'
          * @default 'canvas'
          */
-        render?: string | undefined,
+        render?: string | undefined;
 
         /**
          * Start of version range, somewhere in 1 .. 40
          * @default 1
          */
-        minVersion?: number | undefined,
+        minVersion?: number | undefined;
         /**
          * End of version range, somewhere in 1 .. 40
          * @default 40
          */
-        maxVersion?: number | undefined,
+        maxVersion?: number | undefined;
 
         /**
          * Error correction level: 'L', 'M', 'Q' or 'H'
          * @default 'L'
          */
-        ecLevel?: string | undefined,
+        ecLevel?: string | undefined;
 
         /**
          * Left offset in pixels, if drawn onto existing canvas
          * @default 0
          */
-        left?: number | undefined,
+        left?: number | undefined;
         /**
          * Top offset in pixels, if drawn onto existing canvas
          * @default 0
          */
-        top?: number | undefined,
+        top?: number | undefined;
 
         /**
          * Size in pixel
          * @default 200
          */
-        size?: number | undefined,
+        size?: number | undefined;
 
         /**
          * Code color or image element
          * @default '#000'
          */
-        fill?: string | undefined,
+        fill?: string | undefined;
 
         /**
          * Background color or image element, null for transparent background
          * @default null
          */
-        background?: string | undefined,
+        background?: string | undefined;
 
         /**
          * The text content of the QR code.
          * @default 'no text'
          */
-        text?: string | undefined,
+        text?: string | undefined;
 
         /**
          * Corner radius relative to module width: 0.0 .. 0.5
          * @default 0
          */
-        radius?: number | undefined,
+        radius?: number | undefined;
 
         /**
          * Quiet zone in modules
          * @default 0
          */
-        quiet?: number | undefined,
+        quiet?: number | undefined;
 
         /**
          * Mode
          * @default Mode.NORMAL
          */
-        mode?: Mode | undefined,
-
+        mode?: Mode | undefined;
 
         /** @default 0.1 */
-        mSize?: number | undefined,
+        mSize?: number | undefined;
         /** @default 0.5 */
-        mPosX?: number | undefined,
+        mPosX?: number | undefined;
         /** @default 0.5 */
-        mPosY?: number | undefined,
+        mPosY?: number | undefined;
 
         /** @default 'no label' */
-        label?: string | undefined,
+        label?: string | undefined;
         /** @default 'sans' */
-        fontname?: string | undefined,
+        fontname?: string | undefined;
         /** @default '#000' */
-        fontcolor?: string | undefined,
+        fontcolor?: string | undefined;
 
         /** @default null */
-        image?: string | undefined
+        image?: string | undefined;
     }
-
-
 }
-
-
 
 interface JQuery {
     /**

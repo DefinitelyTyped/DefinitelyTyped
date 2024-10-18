@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import Extent from "../Core/Geographic/Extent";
 import Source, { SourceOptions } from "./Source";
 
@@ -17,9 +18,9 @@ declare class PotreeSource extends Source {
 
     file: string;
     extensionOctree: string;
-    pointAttributes: 'LAS' | 'LAZ' | string[];
+    pointAttributes: "LAS" | "LAZ" | string[];
     baseurl: string;
-    extension: 'cin' | 'bin';
+    extension: "cin" | "bin";
 
     // TODO: Maybe templating on Source
     fetcher: (url: string, options?: RequestInit) => Promise<ArrayBuffer>;

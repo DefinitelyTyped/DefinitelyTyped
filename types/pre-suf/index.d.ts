@@ -1,8 +1,3 @@
-// Type definitions for pre-suf 1.1
-// Project: https://github.com/kaelzhang/node-pre-suf#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Manipulate strings with prefixes and suffixes.
  */

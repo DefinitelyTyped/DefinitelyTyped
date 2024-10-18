@@ -1,5 +1,5 @@
-import type { JSResourceReference } from './JSResourceReference';
-import type { NormalizationSplitOperation } from './NormalizationNode';
+import type { JSResourceReference } from "./JSResourceReference";
+import type { NormalizationSplitOperation } from "./NormalizationNode";
 
 export type Local3DPayload<DocumentName extends string, Response extends {}> = Response;
 

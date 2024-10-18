@@ -1,34 +1,28 @@
-// Type definitions for @hig/button 1.4
-// Project: https://github.com/Autodesk/hig/tree/development/packages/button
-// Definitions by: Matthew Bryant <https://github.com/matthewbryant95>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Turn off automatic exporting
 export {};
 
-import * as React from 'react';
+import * as React from "react";
 
 type Callback = () => void;
 
 export interface Targets {
-    SELF: '_self';
-    BLANK: '_blank';
-    PARENT: '_parent';
-    TOP: '_top';
+    SELF: "_self";
+    BLANK: "_blank";
+    PARENT: "_parent";
+    TOP: "_top";
 }
 export interface Types {
-    FLAT: 'flat';
-    OUTLINE: 'outline';
-    SOLID: 'solid';
+    FLAT: "flat";
+    OUTLINE: "outline";
+    SOLID: "solid";
     /** @deprecated */
-    PRIMARY: 'primary';
+    PRIMARY: "primary";
     /** @deprecated */
-    SECONDARY: 'secondary';
+    SECONDARY: "secondary";
 }
 export interface Widths {
-    SHRINK: 'shrink';
-    GROW: 'grow';
+    SHRINK: "shrink";
+    GROW: "grow";
 }
 export type AvailableTargets = Targets[keyof Targets];
 export type AvailableTypes = Types[keyof Types];
@@ -38,7 +32,7 @@ export interface Props {
     /** Prevents user interaction with the button */
     disabled?: boolean | undefined;
     /** A @hig/icon element */
-    icon?: JSX.Element | undefined;
+    icon?: React.JSX.Element | undefined;
     /** Sets the link of a button */
     link?: string | undefined;
     /** Triggers when you click the button */

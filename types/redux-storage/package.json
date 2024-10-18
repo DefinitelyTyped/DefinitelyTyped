@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/redux-storage",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/react-stack/redux-storage"
+    ],
     "dependencies": {
         "redux": "^3.6.0 || ^4.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-storage": "workspace:.",
+        "@types/redux-storage-engine-localstorage": "*"
+    },
+    "owners": [
+        {
+            "name": "Alexey Svetliakov",
+            "githubUsername": "asvetliakov"
+        },
+        {
+            "name": "Alexey Pelykh",
+            "githubUsername": "alexey-pelykh"
+        }
+    ]
 }

@@ -1,9 +1,3 @@
-// Type definitions for cookie-session 2.0
-// Project: https://github.com/expressjs/cookie-session
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="express" />
 /// <reference types="keygrip" />
 
@@ -21,7 +15,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * The list of keys to use to sign & verify cookie values. Set cookies are always signed with keys[0], while the other keys are valid for verification, allowing for key rotation.
          */
-        keys?: Array<string> | import('keygrip') | undefined;
+        keys?: string[] | import("keygrip") | undefined;
 
         /**
          * A string which will be used as single key if keys is not provided.
@@ -78,6 +72,12 @@ declare namespace CookieSessionInterfaces {
          * a boolean indicating whether to overwrite previously set cookies of the same name (true by default). If this is true, all cookies set during the same request with the same name (regardless of path or domain) are filtered out of the Set-Cookie header when setting this cookie.
          */
         overwrite?: boolean | undefined;
+
+        /**
+         * a boolean indicating whether to partition the cookie in Chrome for the [CHIPS Update](https://developers.google.com/privacy-sandbox/3pcd/chips) (`false` by default). If this is true, Cookies from embedded sites will be partitioned and only readable from the same top
+         * level site from which it was created.
+         */
+        partitioned?: boolean | undefined;
     }
 
     interface CookieSessionObject {
@@ -113,7 +113,7 @@ declare namespace CookieSessionInterfaces {
 }
 
 declare module "cookie-session" {
-    import express = require('express');
+    import express = require("express");
 
     function cookieSession(options?: CookieSessionInterfaces.CookieSessionOptions): express.RequestHandler;
     export = cookieSession;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chrome-webstore-upload",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/fregante/chrome-webstore-upload"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/chrome-webstore-upload": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Granga",
+            "githubUsername": "Granga"
+        }
+    ]
+}

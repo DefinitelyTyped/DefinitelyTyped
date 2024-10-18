@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/columnify",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/timoxley/columnify"
+    ],
+    "devDependencies": {
+        "@types/columnify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gary King",
+            "githubUsername": "garyking"
+        }
+    ]
+}

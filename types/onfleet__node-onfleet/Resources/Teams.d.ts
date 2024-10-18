@@ -1,4 +1,4 @@
-import { Location } from './Destinations';
+import { Location } from "./Destinations";
 
 declare class Team {
     autoDispatch(id: string, obj?: Team.AutoDispatchTeamProps): Promise<Team.AutoDispatchTeamResult>;
@@ -107,7 +107,7 @@ declare namespace Team {
         /**
          * Vehicle types to ignore in the query. Valid vehicle types are CAR, MOTORCYCLE, BICYCLE, TRUCK
          */
-        restrictedVehicleTypes?: 'BICYCLE' | 'CAR' | 'MOTORCYCLE' | 'TRUCK' | undefined;
+        restrictedVehicleTypes?: "BICYCLE" | "CAR" | "MOTORCYCLE" | "TRUCK" | undefined;
         /**
          * The expected time a worker will take at the pickupLocation, dropoffLocation,
          * or both (as applicable)
@@ -128,7 +128,7 @@ declare namespace Team {
 
     interface GetWorkerEtaResult {
         workerId: string;
-        vehicle: 'BICYCLE' | 'CAR' | 'MOTORCYCLE' | 'TRUCK';
+        vehicle: "BICYCLE" | "CAR" | "MOTORCYCLE" | "TRUCK";
         steps: NavigationStep[];
     }
 }

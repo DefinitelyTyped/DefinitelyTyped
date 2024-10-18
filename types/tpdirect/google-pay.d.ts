@@ -9,7 +9,7 @@ interface GooglePay {
         merchantName: string;
         billingAddressFormat: "FULL" | "MIN";
         allowPrepaidCards: boolean;
-        allowedCountryCodes: string[]
+        allowedCountryCodes: string[];
         emailRequired?: boolean | undefined;
         shippingAddressRequired?: boolean | undefined;
         billingAddressRequired?: boolean | undefined;
@@ -29,17 +29,19 @@ interface GooglePay {
         /**
          * @description Use either TPDirect.googlePay.getPrime(callback) or TPDirect.googlePay.setupGooglePayButton({getPrimeCallback})
          */
-        getPrimeCallback?: ((
-            err: {
-                status: number;
-                msg: string;
-                originalError: string | Error;
-            },
-            prime: Pick<BaseResult, "prime">,
-            result: Pick<BaseResult, "client_ip"> & MerchantReferenceInfo & {
-                card_info: CardInfoV1;
-            }
-        ) => void) | undefined;
+        getPrimeCallback?:
+            | ((
+                err: {
+                    status: number;
+                    msg: string;
+                    originalError: string | Error;
+                },
+                prime: Pick<BaseResult, "prime">,
+                result: Pick<BaseResult, "client_ip"> & MerchantReferenceInfo & {
+                    card_info: CardInfoV1;
+                },
+            ) => void)
+            | undefined;
     }): void;
 
     setupTransactionPrice(transactionPrice: {
@@ -50,7 +52,8 @@ interface GooglePay {
     /**
      * @description Use either TPDirect.googlePay.getPrime(callback) or TPDirect.googlePay.setupGooglePayButton({getPrimeCallback})
      */
-    getPrime(callback: (
+    getPrime(
+        callback: (
             err: {
                 status: number;
                 msg: string;
@@ -62,6 +65,7 @@ interface GooglePay {
                 merchant_reference_info: {
                     affiliate_codes: string[];
                 };
-            }
-        ) => void): void;
+            },
+        ) => void,
+    ): void;
 }

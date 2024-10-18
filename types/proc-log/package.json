@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/proc-log",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/npm/proc-log#readme"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/proc-log": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JDB",
+            "githubUsername": "legodude17"
+        }
+    ]
+}

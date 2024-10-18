@@ -1,5 +1,5 @@
-import type { PredicateFunction } from '../internal/types';
-import Pred from '../Pred';
+import type { PredicateFunction } from "../internal/types";
+import Pred from "../Pred";
 
 /**
  * not :: ((a -> Boolean) | Pred) -> a -> Boolean

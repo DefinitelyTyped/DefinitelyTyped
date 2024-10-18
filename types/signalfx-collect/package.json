@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/signalfx-collect",
+    "version": "2.0.9999",
+    "projects": [
+        "https://signalfx.com"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/koa": "*",
+        "@types/signalfx": "*"
+    },
+    "devDependencies": {
+        "@types/signalfx-collect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Valentin VĂLCIU",
+            "githubUsername": "axiac"
+        }
+    ]
+}

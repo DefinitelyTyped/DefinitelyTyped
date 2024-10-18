@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/travis-fold",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/macbre/travis-fold"
+    ],
+    "devDependencies": {
+        "@types/travis-fold": "workspace:."
+    },
+    "owners": []
+}

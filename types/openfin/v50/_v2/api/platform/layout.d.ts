@@ -1,5 +1,5 @@
-import { Identity } from '../../identity';
-import { LayoutPresetTypes } from './utils';
+import { Identity } from "../../identity";
+import { LayoutPresetTypes } from "./utils";
 import "./golden-layout";
 export interface InitLayoutOptions {
     containerId?: string | undefined;

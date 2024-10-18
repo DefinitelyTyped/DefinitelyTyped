@@ -1,11 +1,6 @@
-// Type definitions for Leaflet.Sync 0.2
-// Project: https://github.com/jieter/Leaflet.Sync
-// Definitions by: Gabriel O. Martins <https://github.com/OliverBiel/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface SyncMapOptions {
         noInitialSync?: boolean;
         syncCursor?: boolean;

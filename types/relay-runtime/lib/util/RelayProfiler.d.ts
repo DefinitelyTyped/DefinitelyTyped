@@ -48,6 +48,7 @@ export const RelayProfiler: {
      * As a result, the methods will be replaced by wrappers that provide the
      * `attachHandler` and `detachHandler` methods.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     instrumentMethods(object: () => void | object, names: { [key: string]: string }): void;
 
     /**
@@ -78,7 +79,6 @@ export const RelayProfiler: {
      *
      *   // Profiles both `renderA` and `renderB`.
      *   RelayProfiler.attachAggregateHandler('render', ...);
-     *
      */
     attachAggregateHandler(name: string, handler: Handler): void;
 

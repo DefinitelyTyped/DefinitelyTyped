@@ -8,6 +8,6 @@ export class Modifier {
     protected postUpdate(dt: number): void;
     get isInitializer(): boolean;
 }
-import { Scatter } from '../scatters/Scatter';
-import { Emitter } from './Emitter';
-import { Particle } from './Particle';
+import { Scatter } from "../scatters/Scatter";
+import { Emitter } from "./Emitter";
+import { Particle } from "./Particle";

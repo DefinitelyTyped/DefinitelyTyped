@@ -1,2 +1,2 @@
-import { modify } from '../index';
+import { modify } from "../index";
 export default modify;

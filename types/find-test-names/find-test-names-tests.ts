@@ -11,14 +11,14 @@ import {
     Suite,
     visitEachNode,
     visitEachTest,
-} from 'find-test-names';
+} from "find-test-names";
 
 declare const structure: Structure;
 declare const suite: Suite;
 
-getTestNames('specSourceCode'); // $ExpectType Results
-getTestNames('specSourceCode', false); // $ExpectType Results
-const result = getTestNames('specSourceCode', true); // $ExpectType ResultsWithStructure
+getTestNames("specSourceCode"); // $ExpectType Results
+getTestNames("specSourceCode", false); // $ExpectType Results
+const result = getTestNames("specSourceCode", true); // $ExpectType ResultsWithStructure
 setEffectiveTags(result.structure);
 visitEachTest(structure, test => {}); // $ExpectType void
 countTags(structure); // $ExpectType Record<string, number>
@@ -29,7 +29,7 @@ formatTestList(structure); // $ExpectType string
 formatTestList(structure, 4); // $ExpectType string
 
 // $ExpectType Test[]
-const filtered = filterByEffectiveTags(result.structure, ['@one']);
+const filtered = filterByEffectiveTags(result.structure, ["@one"]);
 
 const source = `
     describe('parent', {tags: '@user'}, () => {
@@ -43,6 +43,6 @@ const source = `
   `;
 findEffectiveTestTags(source); // $ExpectType Record<string, Tags>
 
-findEffectiveTestTagsIn('specFilename'); // $ExpectType Record<string, Tags>
+findEffectiveTestTagsIn("specFilename"); // $ExpectType Record<string, Tags>
 
 structure[0].requiredTags; // $ExpectType string[] | undefined

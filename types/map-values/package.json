@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/map-values",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/parshap/js-map-values#readme"
+    ],
+    "devDependencies": {
+        "@types/map-values": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajas Paranjpe",
+            "githubUsername": "ChocolateLoverRaj"
+        }
+    ]
+}

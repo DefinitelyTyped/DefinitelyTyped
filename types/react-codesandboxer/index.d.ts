@@ -1,15 +1,10 @@
-// Type definitions for react-codesandboxer 3.1
-// Project: https://github.com/codesandbox/codesandboxer#readme
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface GitInfo {
     account: string;
     repository: string;
     branch?: string | undefined;
-    host: 'bitbucket' | 'github';
+    host: "bitbucket" | "github";
 }
 
 export interface Files {
@@ -62,9 +57,11 @@ export interface Props {
     ignoreInternalImports?: boolean | undefined;
     preload?: boolean | undefined;
     autoDeploy?: boolean | undefined;
-    onLoadComplete?: ((
-        arg: { parameters: string; files: Files } | { error: any }
-    ) => unknown) | undefined;
+    onLoadComplete?:
+        | ((
+            arg: { parameters: string; files: Files } | { error: any },
+        ) => unknown)
+        | undefined;
     afterDeploy?: ((sandboxUrl: string, sandboxId: string) => unknown) | undefined;
     afterDeployError?: ((error: Error) => unknown) | undefined;
     providedFiles?: Files | undefined;
@@ -76,7 +73,7 @@ export interface Props {
     }) => React.ReactNode;
     style?: object | undefined;
     extensions?: string[] | undefined;
-    template?: 'create-react-app' | 'create-react-app-typescript' | 'vue-cli' | undefined;
+    template?: "create-react-app" | "create-react-app-typescript" | "vue-cli" | undefined;
 }
 
 export default class CodeSandboxDeployer extends React.Component<Props, State> {}

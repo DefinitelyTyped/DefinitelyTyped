@@ -1,11 +1,7 @@
-// Type definitions for simply-blackjack 1.0
-// Project: https://github.com/Townsy45/simply-blackjack#readme
-// Definitions by: melosh101 <https://github.com/melosh101>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import Deck = require('./cards');
-import { EventEmitter } from 'events';
+import Deck = require("./cards");
+import { EventEmitter } from "events";
 
 export = Blackjack;
 

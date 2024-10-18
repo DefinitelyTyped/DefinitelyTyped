@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/yodasws__gulp-pattern-replace",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/YodasWs/gulp-pattern-replace"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/replacestream": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/yodasws__gulp-pattern-replace": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christophe Coevoet",
+            "githubUsername": "stof"
+        }
+    ]
+}

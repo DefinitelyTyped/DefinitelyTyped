@@ -1,5 +1,5 @@
-import Polygon = require('polygon');
-import Vec2 = require('vec2');
+import Polygon = require("polygon");
+import Vec2 = require("vec2");
 
 // $ExpectType Polygon
 const p = new Polygon([

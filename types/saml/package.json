@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/saml",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/auth0/node-saml#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/saml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Heikes",
+            "githubUsername": "eheikes"
+        },
+        {
+            "name": "Eva Sarafianou",
+            "githubUsername": "esarafianou"
+        }
+    ]
+}

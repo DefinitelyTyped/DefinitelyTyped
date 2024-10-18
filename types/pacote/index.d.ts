@@ -1,15 +1,9 @@
-// Type definitions for pacote 11.1
-// Project: https://github.com/npm/pacote#readme
-// Definitions by: Jack Bates <https://github.com/jablko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import npmFetch = require('npm-registry-fetch');
-import { Logger } from 'npmlog';
-import { Integrity } from 'ssri';
-import { Transform } from 'stream';
+import npmFetch = require("npm-registry-fetch");
+import { Logger } from "npmlog";
+import { Integrity } from "ssri";
+import { Transform } from "stream";
 
 export interface PackageDist {
     /**
@@ -43,7 +37,7 @@ export interface PackageDist {
      * (Obviously only present for packages published to
      * https://registry.npmjs.org.)
      */
-    'npm-signature'?: string | undefined;
+    "npm-signature"?: string | undefined;
 }
 
 export interface Person {
@@ -121,18 +115,18 @@ export interface Manifest extends CommonMetadata {
 
 export type AbbreviatedManifest = Pick<
     Manifest,
-    | 'name'
-    | 'version'
-    | 'bin'
-    | 'directories'
-    | 'dependencies'
-    | 'devDependencies'
-    | 'peerDependencies'
-    | 'bundledDependencies'
-    | 'optionalDependencies'
-    | 'engines'
-    | 'dist'
-    | 'deprecated'
+    | "name"
+    | "version"
+    | "bin"
+    | "directories"
+    | "dependencies"
+    | "devDependencies"
+    | "peerDependencies"
+    | "bundledDependencies"
+    | "optionalDependencies"
+    | "engines"
+    | "dist"
+    | "deprecated"
 >;
 
 /**
@@ -154,7 +148,7 @@ export interface Packument extends CommonMetadata {
      * An object mapping dist-tags to version numbers. This is how `foo@latest`
      * gets turned into `foo@1.2.3`.
      */
-    'dist-tags': { latest: string; } & Record<string, string>;
+    "dist-tags": { latest: string } & Record<string, string>;
     /**
      * In the full packument, an object mapping version numbers to publication
      * times, for the `opts.before` functionality.
@@ -167,7 +161,7 @@ export interface Packument extends CommonMetadata {
 
 export type AbbreviatedPackument = {
     versions: Record<string, AbbreviatedManifest>;
-} & Pick<Packument, 'name' | 'dist-tags'>;
+} & Pick<Packument, "name" | "dist-tags">;
 
 export interface FetchResult {
     /**
@@ -309,7 +303,7 @@ export function extract(spec: string, dest?: string, opts?: Options): Promise<Fe
  */
 export function manifest(
     spec: string,
-    opts: Options & ({ before: Date } | { fullMetadata: true })
+    opts: Options & ({ before: Date } | { fullMetadata: true }),
 ): Promise<Manifest & ManifestResult>;
 export function manifest(spec: string, opts?: Options): Promise<AbbreviatedManifest & ManifestResult>;
 

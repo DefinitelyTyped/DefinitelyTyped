@@ -1,4 +1,4 @@
-import { Object3D } from '../../../src/Three.js';
+import { Object3D } from "three";
 
 export interface STLExporterOptionsBinary {
     binary: true;

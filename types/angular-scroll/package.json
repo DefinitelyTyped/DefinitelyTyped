@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/angular-scroll",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/oblador/angular-scroll"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-scroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Herrmann",
+            "githubUsername": "samherrmann"
+        },
+        {
+            "name": "xemlock",
+            "githubUsername": "xemlock"
+        }
+    ]
+}

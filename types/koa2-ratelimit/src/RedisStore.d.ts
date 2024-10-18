@@ -1,7 +1,7 @@
-import { ClientOpts, RedisClient } from 'redis';
+import { ClientOpts, RedisClient } from "redis";
 
-import { RateLimitOptions } from '..';
-import Store = require('./Store');
+import { RateLimitOptions } from "..";
+import Store = require("./Store");
 
 export = RedisStore;
 

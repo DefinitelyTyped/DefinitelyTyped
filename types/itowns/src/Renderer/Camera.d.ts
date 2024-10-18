@@ -2,8 +2,8 @@ import * as THREE from "three";
 import Coordinates from "../Core/Geographic/Coordinates";
 
 export type CameraOptions =
-    { cameraThree: THREE.Camera } |
-    { type: CAMERA_TYPE };
+    | { cameraThree: THREE.Camera }
+    | { type: CAMERA_TYPE };
 
 export enum CAMERA_TYPE {
     PERSPECTIVE = 0,
@@ -21,7 +21,7 @@ declare class Camera {
         crs: string,
         width: number,
         height: number,
-        options?: CameraOptions
+        options?: CameraOptions,
     );
 
     crs: string;

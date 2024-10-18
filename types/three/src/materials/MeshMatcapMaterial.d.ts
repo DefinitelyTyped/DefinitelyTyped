@@ -1,8 +1,8 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
-import { Texture } from './../textures/Texture.js';
-import { Vector2 } from './../math/Vector2.js';
-import { MaterialParameters, Material } from './Material.js';
-import { NormalMapTypes } from '../constants.js';
+import { NormalMapTypes } from "../constants.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshMatcapMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -23,6 +23,13 @@ export interface MeshMatcapMaterialParameters extends MaterialParameters {
 
 export class MeshMatcapMaterial extends Material {
     constructor(parameters?: MeshMatcapMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshMatcapMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshMatcapMaterial: true;
 
     /**
      * @default 'MeshMatcapMaterial'

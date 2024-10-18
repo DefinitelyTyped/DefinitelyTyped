@@ -1,24 +1,24 @@
 const TYPES = {
-    DOCUMENT: 'DOCUMENT',
-    PAGE: 'PAGE',
-    SCREEN: 'SCREEN',
-    IMAGE: 'IMAGE',
-    RECTANGLE: 'RECT',
-    ELLIPSE: 'ELLIPSE',
-    DIAMOND: 'DIAMOND',
-    HOTSPOT: 'HOTSPOT',
-    LAYER: 'LAYER',
+    DOCUMENT: "DOCUMENT",
+    PAGE: "PAGE",
+    SCREEN: "SCREEN",
+    IMAGE: "IMAGE",
+    RECTANGLE: "RECT",
+    ELLIPSE: "ELLIPSE",
+    DIAMOND: "DIAMOND",
+    HOTSPOT: "HOTSPOT",
+    LAYER: "LAYER",
 } as Flow.Types;
 
 const flowFile: Flow.File = {
     document: {
-        id: 'cjo45613k00002a5p9gj6nr3b',
-        name: 'Basic Document',
+        id: "cjo45613k00002a5p9gj6nr3b",
+        name: "Basic Document",
         type: TYPES.DOCUMENT,
         children: [
             {
-                id: 'cjo456d2700002a5p80zudiut',
-                name: 'Page 1',
+                id: "cjo456d2700002a5p80zudiut",
+                name: "Page 1",
                 type: TYPES.PAGE,
                 backgroundColor: {
                     r: 0,
@@ -28,12 +28,12 @@ const flowFile: Flow.File = {
                 },
                 children: [
                     {
-                        id: 'cjo45mq7500002a5p8n8u1bfz',
-                        name: 'Sign in',
+                        id: "cjo45mq7500002a5p8n8u1bfz",
+                        name: "Sign in",
                         type: TYPES.SCREEN,
                         source: {
-                            fileName: 'sign-in.png',
-                            dirPath: './assets',
+                            fileName: "sign-in.png",
+                            dirPath: "./assets",
                         },
                         children: [],
                         size: {
@@ -46,12 +46,12 @@ const flowFile: Flow.File = {
                         },
                     },
                     {
-                        id: 'cjo45oi8700002a5pmpnxhfny',
-                        name: 'Sign up',
+                        id: "cjo45oi8700002a5pmpnxhfny",
+                        name: "Sign up",
                         type: TYPES.SCREEN,
                         source: {
-                            fileName: 'sign-up.png',
-                            dirPath: './assets',
+                            fileName: "sign-up.png",
+                            dirPath: "./assets",
                         },
                         children: [],
                         size: {
@@ -85,12 +85,12 @@ page.backgroundColor = {
     r: 255,
     g: 255,
     b: 255,
-    a: 1
+    a: 1,
 };
 
 const hotspot: Flow.Layer = {
-    id: 'cjo5mezgg00003g5winhxc8o0',
-    name: 'Layer',
+    id: "cjo5mezgg00003g5winhxc8o0",
+    name: "Layer",
     type: TYPES.HOTSPOT,
     position: {
         x: 390,
@@ -101,7 +101,7 @@ const hotspot: Flow.Layer = {
         w: 370,
     },
     connections: [{
-        nodeID: 'cjo45mq7500002a5p8n8u1bfz',
+        nodeID: "cjo45mq7500002a5p8n8u1bfz",
     }],
 };
 hotspot.type = TYPES.HOTSPOT;
@@ -111,5 +111,5 @@ screen.type = TYPES.SCREEN;
 screen.children.push(hotspot);
 screen.position = {
     x: 0,
-    y: 0
+    y: 0,
 };

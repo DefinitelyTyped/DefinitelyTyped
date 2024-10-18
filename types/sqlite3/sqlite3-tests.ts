@@ -1,11 +1,11 @@
-import * as sqlite from 'sqlite3';
+import * as sqlite from "sqlite3";
 const sqlite3 = sqlite.verbose();
 
-let db: sqlite.Database = new sqlite3.Database('chain.sqlite3', () => {});
+let db: sqlite.Database = new sqlite3.Database("chain.sqlite3", () => {});
 
 function createDb() {
     console.log("createDb chain");
-    db = new sqlite3.Database('chain.sqlite3', createTable);
+    db = new sqlite3.Database("chain.sqlite3", createTable);
     db.configure("busyTimeout", 1000);
 }
 
@@ -56,61 +56,60 @@ runChainExample();
 function runMemoryChainExample() {
     console.log(`createDb chain - in-memory database`);
     db = new sqlite3.Database(
-        ':memory:',
-        sqlite3. OPEN_CREATE | sqlite3.OPEN_READWRITE | sqlite3.OPEN_SHAREDCACHE,
-        createTable);
+        ":memory:",
+        sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE | sqlite3.OPEN_SHAREDCACHE,
+        createTable,
+    );
     db.configure("busyTimeout", 1000);
 }
 
 runMemoryChainExample();
 
 db.serialize(() => {
-  db.run("CREATE TABLE lorem (info TEXT)");
+    db.run("CREATE TABLE lorem (info TEXT)");
 
-  const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (let i = 0; i < 10; i++) {
-      stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
+    const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+    for (let i = 0; i < 10; i++) {
+        stmt.run("Ipsum " + i);
+    }
+    stmt.finalize();
 
-  db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
-      console.log(`${row.id}: ${row.info}`);
-  });
+    db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
+        console.log(`${row.id}: ${row.info}`);
+    });
 });
 
 db.serialize(() => {
-  // These two queries will run sequentially.
-  db.run("CREATE TABLE foo (num)");
-  db.run("INSERT INTO foo VALUES (?)", 1, err => {
-    // These queries will run in parallel and the second query will probably
-    // fail because the table might not exist yet.
-    db.run("CREATE TABLE bar (num)");
-    db.run("INSERT INTO bar VALUES (?)", 1);
-  });
+    // These two queries will run sequentially.
+    db.run("CREATE TABLE foo (num)");
+    db.run("INSERT INTO foo VALUES (?)", 1, err => {
+        // These queries will run in parallel and the second query will probably
+        // fail because the table might not exist yet.
+        db.run("CREATE TABLE bar (num)");
+        db.run("INSERT INTO bar VALUES (?)", 1);
+    });
 });
 
 // Directly in the function arguments.
 db.run("UPDATE tbl SET name = ? WHERE id = ?", "bar", 2);
 
 // As an array.
-db.run("UPDATE tbl SET name = ? WHERE id = ?", [ "bar", 2 ]);
+db.run("UPDATE tbl SET name = ? WHERE id = ?", ["bar", 2]);
 
 // As an object with named parameters.
 db.run("UPDATE tbl SET name = $name WHERE id = $id", {
-  $id: 2,
-  $name: "bar"
+    $id: 2,
+    $name: "bar",
 });
-db.run("UPDATE tbl SET name = $name WHERE id = $id", { $id: 2, $name: "bar" },
-  err => { }
-);
+db.run("UPDATE tbl SET name = $name WHERE id = $id", { $id: 2, $name: "bar" }, err => {});
 
 db.run("UPDATE tbl SET name = ?5 WHERE id = ?", {
-  1: 2,
-  5: "bar"
+    1: 2,
+    5: "bar",
 });
 
 db.each("select 1", err => {
-  db.interrupt();
+    db.interrupt();
 });
 
 db.close();

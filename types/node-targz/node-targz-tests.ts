@@ -1,9 +1,9 @@
-import nodeTargz = require('node-targz');
+import nodeTargz = require("node-targz");
 
 nodeTargz.compress(
     {
-        source: './foo/bar',
-        destination: './foo/output.tar.gz',
+        source: "./foo/bar",
+        destination: "./foo/output.tar.gz",
         level: 6,
         memLevel: 6,
     },
@@ -12,8 +12,8 @@ nodeTargz.compress(
 
 nodeTargz.decompress(
     {
-        source: 'my-tar.gz',
-        destination: './foo/unpacked',
+        source: "my-tar.gz",
+        destination: "./foo/unpacked",
     },
     err => {},
 );
@@ -21,23 +21,23 @@ nodeTargz.decompress(
 // Code from project README https://github.com/lafin/node-targz/tree/master
 nodeTargz.compress(
     {
-        source: '../example',
-        destination: '../example.tar.gz',
+        source: "../example",
+        destination: "../example.tar.gz",
         level: 6, // optional
         memLevel: 6, // optional
         options: {
             // options from https://github.com/mafintosh/tar-fs
-            entries: ['test.txt'],
+            entries: ["test.txt"],
         },
     },
     () => {
         nodeTargz.decompress(
             {
-                source: '../example.tar.gz',
-                destination: './unpack-example',
+                source: "../example.tar.gz",
+                destination: "./unpack-example",
             },
             () => {
-                console.log('done');
+                console.log("done");
             },
         );
     },

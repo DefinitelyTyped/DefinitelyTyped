@@ -9,14 +9,14 @@ import {
     Preferences,
     removeConsoleHandler,
     Type,
-} from 'selenium-webdriver/lib/logging';
+} from "selenium-webdriver/lib/logging";
 
 function TestLogging() {
     let preferences: Preferences = new Preferences();
     preferences.setLevel(Type.BROWSER, Level.ALL);
     let prefs: any = preferences.toJSON();
 
-    let level: Level = getLevel('OFF');
+    let level: Level = getLevel("OFF");
     level = getLevel(1);
 
     level = Level.ALL;
@@ -47,12 +47,12 @@ function TestLogging() {
 function TestLoggingEntry() {
     let entry: Entry;
 
-    entry = new Entry(Level.ALL, 'ABC');
-    entry = new Entry('ALL', 'ABC');
-    entry = new Entry(Level.ALL, 'ABC', 123);
-    entry = new Entry('ALL', 'ABC', 123);
-    entry = new Entry(Level.ALL, 'ABC', 123, Type.BROWSER);
-    entry = new Entry('ALL', 'ABC', 123, Type.BROWSER);
+    entry = new Entry(Level.ALL, "ABC");
+    entry = new Entry("ALL", "ABC");
+    entry = new Entry(Level.ALL, "ABC", 123);
+    entry = new Entry("ALL", "ABC", 123);
+    entry = new Entry(Level.ALL, "ABC", 123, Type.BROWSER);
+    entry = new Entry("ALL", "ABC", 123, Type.BROWSER);
 
     let entryObj: any = entry.toJSON();
 

@@ -1,13 +1,7 @@
-// Type definitions for HTMLHint 1.1
-// Project: https://github.com/yaniswang/HTMLHint
-// Definitions by: Alan Agius <https://github.com/alan-agius4/>
-//                 Martin Badin <https://github.com/martin-badin/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import HTMLParser from './htmlparser';
-import Reporter from './reporter';
-import * as HTMLRules from './rules';
-import { Hint, Rule, Ruleset } from './types';
+import HTMLParser from "./htmlparser";
+import Reporter from "./reporter";
+import * as HTMLRules from "./rules";
+import { Hint, Rule, Ruleset } from "./types";
 
 export as namespace HTMLHint;
 
@@ -27,4 +21,4 @@ declare class HTMLHintCore {
 
 export const HTMLHint: HTMLHintCore;
 
-export { HTMLRules, Reporter, HTMLParser };
+export { HTMLParser, HTMLRules, Reporter };

@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/bs58",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/cryptocoinjs/bs58"
+    ],
     "dependencies": {
         "@types/base-x": "^1.0.30"
-    }
+    },
+    "devDependencies": {
+        "@types/bs58": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ilya Mochalov",
+            "githubUsername": "chrootsu"
+        }
+    ]
 }

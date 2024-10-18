@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.clientsidelogging",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.clientsidelogging",
+    "projects": [
+        "https://github.com/remybach/jQuery.clientSideLogging"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.clientsidelogging": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Diullei Gomes",
+            "githubUsername": "diullei"
+        }
+    ]
+}

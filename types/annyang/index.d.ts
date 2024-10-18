@@ -1,9 +1,3 @@
-// Type definitions for annyang 2.6
-// Project: https://www.talater.com/annyang/
-// Definitions by: Hisham Al-Shurafa <https://github.com/hisham>
-//                 Lukas Klinzing <https://github.com/theluk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Options for function `start`
  */
@@ -59,16 +53,16 @@ export interface CommandOption {
  *     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
  */
 export type Events =
-    'start' |
-    'soundstart' |
-    'error' |
-    'end' |
-    'result' |
-    'resultMatch' |
-    'resultNoMatch' |
-    'errorNetwork' |
-    'errorPermissionBlocked' |
-    'errorPermissionDenied';
+    | "start"
+    | "soundstart"
+    | "error"
+    | "end"
+    | "result"
+    | "resultMatch"
+    | "resultNoMatch"
+    | "errorNetwork"
+    | "errorPermissionBlocked"
+    | "errorPermissionDenied";
 
 export interface Annyang {
     /**
@@ -79,20 +73,17 @@ export interface Annyang {
 
     /**
      * Stop listening, and turn off mic.
-     *
      */
     abort(): void;
 
     /**
      * Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
-     *
      */
     pause(): void;
 
     /**
      * Resumes listening and restores command callback execution when a result matches.
      * If SpeechRecognition was aborted (stopped), start it.
-     *
      */
     resume(): void;
 
@@ -153,7 +144,11 @@ export interface Annyang {
      */
     removeCommands(command: string[]): void;
 
-    addCallback(event: Events, callback: (userSaid?: string, commandText?: string, results?: string[]) => void, context?: any): void;
+    addCallback(
+        event: Events,
+        callback: (userSaid?: string, commandText?: string, results?: string[]) => void,
+        context?: any,
+    ): void;
 
     removeCallback(event?: Events, callback?: (userSaid: string, commandText: string, results: string[]) => void): void;
 

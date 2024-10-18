@@ -1,3 +1,3 @@
 export type exports = string;
-declare const PATH: string;
+declare let PATH: string;
 export {};

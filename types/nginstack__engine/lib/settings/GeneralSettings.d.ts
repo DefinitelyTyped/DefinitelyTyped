@@ -21,7 +21,8 @@ declare class GeneralSettings {
 declare namespace GeneralSettings {
     export { getInstance, SettingOptions, DataSet };
 }
-type DataSet = import('../dataset/DataSet');
+import DBKey = require('../dbkey/DBKey.js');
+declare function getInstance(): GeneralSettings;
 interface SettingOptions {
     type: SettingType;
     multiple?: boolean;
@@ -33,6 +34,5 @@ interface SettingOptions {
         FILE: number;
     };
 }
-import DBKey = require('../dbkey/DBKey.js');
-declare function getInstance(): GeneralSettings;
+type DataSet = import('../dataset/DataSet');
 import SettingType = require('./SettingType.js');

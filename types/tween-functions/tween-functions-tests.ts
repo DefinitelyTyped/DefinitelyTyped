@@ -1,4 +1,4 @@
-import tweenFunctions = require('tween-functions');
+import tweenFunctions = require("tween-functions");
 
 tweenFunctions.easeInQuad(1, 0, 50, 5); // $ExpectType number
 tweenFunctions.easeOutQuad(1, 0, 50, 5); // $ExpectType number

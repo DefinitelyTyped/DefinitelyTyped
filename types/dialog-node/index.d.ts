@@ -1,8 +1,3 @@
-// Type definitions for dialog-node 0.2
-// Project: https://github.com/bat-tomr/dialog-node
-// Definitions by: Ian MacLeod <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Information dialog with text and title and an OK button.
  *
@@ -15,7 +10,7 @@ export function info(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<'OK' | 'CANCEL'>
+    callback?: DialogCallback<"OK" | "CANCEL">,
 ): void;
 
 /**
@@ -30,7 +25,7 @@ export function warn(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<'OK' | 'CANCEL'>
+    callback?: DialogCallback<"OK" | "CANCEL">,
 ): void;
 
 /**
@@ -45,7 +40,7 @@ export function error(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<'OK' | 'CANCEL'>
+    callback?: DialogCallback<"OK" | "CANCEL">,
 ): void;
 
 /**
@@ -66,7 +61,7 @@ export function question(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<'OK' | 'CANCEL' | ''>
+    callback?: DialogCallback<"OK" | "CANCEL" | "">,
 ): void;
 
 /**
@@ -86,7 +81,7 @@ export function entry(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<string>
+    callback?: DialogCallback<string>,
 ): void;
 
 /**
@@ -106,7 +101,7 @@ export function calendar(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<string>
+    callback?: DialogCallback<string>,
 ): void;
 
 /**
@@ -121,7 +116,7 @@ export function fileselect(
     msg: string,
     title: string,
     timeout: number,
-    callback?: DialogCallback<string>
+    callback?: DialogCallback<string>,
 ): void;
 
 export interface DialogCallback<TRetVal> {

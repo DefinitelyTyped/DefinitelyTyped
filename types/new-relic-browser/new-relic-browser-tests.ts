@@ -4,22 +4,22 @@
 // --- NewRelic.Browser methods ----------------------------------------------
 
 // addRelease()
-newrelic.addRelease('checkout page', 'a818994');
+newrelic.addRelease("checkout page", "a818994");
 
 // addPageAction()
-newrelic.addPageAction('copy-text-button', { result: 'success' });
-newrelic.addPageAction('async-action', { duration: 3000 });
+newrelic.addPageAction("copy-text-button", { result: "success" });
+newrelic.addPageAction("async-action", { duration: 3000 });
 
 // addToTrace()
 newrelic.addToTrace({
-    name: 'Event Name',
+    name: "Event Name",
     start: 1417044274239,
     end: 1417044274252,
-    origin: 'Origin of event',
-    type: 'What type of event was this',
+    origin: "Origin of event",
+    type: "What type of event was this",
 });
 newrelic.addToTrace({
-    name: 'Event Name',
+    name: "Event Name",
     start: 1417044274239,
 });
 
@@ -28,21 +28,26 @@ newrelic.finished();
 
 // noticeError()
 try {
-    JSON.parse('{ "bar"');
+    JSON.parse("{ \"bar\"");
 } catch (err) {
     newrelic.noticeError(err);
 }
-newrelic.noticeError(new Error('bar'));
-newrelic.noticeError('bar');
-newrelic.noticeError('bar', { foo: 'bar', baz: 1 });
+newrelic.noticeError(new Error("bar"));
+newrelic.noticeError("bar");
+newrelic.noticeError("bar", { foo: "bar", baz: 1 });
+
+// setApplicationVersion()
+newrelic.setApplicationVersion("1.0.0");
+newrelic.setApplicationVersion(null);
 
 // setCustomAttribute()
-newrelic.setCustomAttribute('nodeId', '123');
-newrelic.setCustomAttribute('nodeId', 123);
+newrelic.setCustomAttribute("nodeId", "123");
+newrelic.setCustomAttribute("nodeId", 123);
+newrelic.setCustomAttribute("nodeId", 123, true);
 
 // setErrorHandler()
 newrelic.setErrorHandler(err => {
-    if (err.message !== 'foo') {
+    if (err.message !== "foo") {
         return true;
     } else {
         return false;
@@ -50,19 +55,23 @@ newrelic.setErrorHandler(err => {
 });
 
 // setPageViewName()
-newrelic.setPageViewName('/login', 'https://www.myapp.com');
+newrelic.setPageViewName("/login", "https://www.myapp.com");
 
 // setCurrentRouteName()
-newrelic.setCurrentRouteName('/users/:id');
+newrelic.setCurrentRouteName("/users/:id");
 newrelic.setCurrentRouteName(null);
+
+// setUserId()
+newrelic.setUserId("123");
+newrelic.setUserId(null);
 
 // --- NewRelic.BrowserInteraction methods -----------------------------------
 
 // actionText()
-newrelic.interaction().actionText('Create Subscription');
+newrelic.interaction().actionText("Create Subscription");
 
 // createTracer()
-newrelic.interaction().createTracer('customSegment', () => {})();
+newrelic.interaction().createTracer("customSegment", () => {})();
 
 // end()
 newrelic.interaction().end();
@@ -74,18 +83,18 @@ interface ProductContext {
 const interaction = newrelic.interaction();
 interaction.getContext<ProductContext>(ctx => {
     if (ctx.productId) {
-        interaction.setAttribute('productId', ctx.productId);
+        interaction.setAttribute("productId", ctx.productId);
     }
 });
 interaction.getContext((ctx: ProductContext) => {
     if (ctx.productId) {
-        interaction.setAttribute('productId', ctx.productId);
+        interaction.setAttribute("productId", ctx.productId);
     }
 });
 
 interaction.getContext(ctx => {
     if (ctx.productId) {
-        interaction.setAttribute('productId', ctx.productId);
+        interaction.setAttribute("productId", ctx.productId);
     }
 });
 
@@ -99,13 +108,13 @@ newrelic.interaction().ignore();
 
 // onEnd(), setAttribute()
 newrelic.interaction().onEnd((ctx: MyAppContext) => {
-    interaction.setAttribute('averageChartLoadTime', ctx.totalChartLoadTime / ctx.chartLoadCount);
+    interaction.setAttribute("averageChartLoadTime", ctx.totalChartLoadTime / ctx.chartLoadCount);
 });
 
 newrelic.interaction().onEnd<MyAppContext>(ctx => {
-    interaction.setAttribute('averageChartLoadTime', ctx.totalChartLoadTime / ctx.chartLoadCount);
+    interaction.setAttribute("averageChartLoadTime", ctx.totalChartLoadTime / ctx.chartLoadCount);
 });
 
 // setName(), setAttribute(), save()
-newrelic.interaction().setName('loadNextPage').setAttribute('username', 'userName').setAttribute('userId', 123).save();
-newrelic.interaction().setName('createSubscription');
+newrelic.interaction().setName("loadNextPage").setAttribute("username", "userName").setAttribute("userId", 123).save();
+newrelic.interaction().setName("createSubscription");

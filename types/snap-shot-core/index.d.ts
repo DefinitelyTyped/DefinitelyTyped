@@ -1,9 +1,3 @@
-// Type definitions for snap-shot-core 10.2
-// Project: https://github.com/bahmutov/snap-shot-core
-// Definitions by: SPGoding <https://github.com/SPGoding>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 export type CompareFunction<T extends {} | null> = (options: { value: T; expected: unknown }) => Result;
 
 // https://github.com/bahmutov/snap-shot-core/blob/4d238b869c78b21ae77e2a7e1fc83038c1be810d/src/file-system.js#L221-L223

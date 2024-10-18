@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/googletag",
+    "version": "3.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Publisher Tag (DoubleClick GPT 2024-01-23)",
+    "projects": [
+        "https://developers.google.com/publisher-tag/reference"
+    ],
+    "devDependencies": {
+        "@types/googletag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wei Wang",
+            "githubUsername": "atwwei"
+        }
+    ]
+}

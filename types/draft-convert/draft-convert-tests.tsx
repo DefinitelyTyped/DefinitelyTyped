@@ -1,6 +1,6 @@
-import * as draftConvert from 'draft-convert';
+import * as draftConvert from "draft-convert";
 
-const html = '<div>this is a test</div>';
+const html = "<div>this is a test</div>";
 const configFromHtml = {};
 const configToHtml = {};
 

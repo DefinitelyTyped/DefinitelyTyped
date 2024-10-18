@@ -1,13 +1,13 @@
-import { Socket } from 'phoenix';
-import { LiveSocket, SocketOptions, ViewHook, UploadEntry } from 'phoenix_live_view';
+import { Socket } from "phoenix";
+import { LiveSocket, SocketOptions, UploadEntry, ViewHook } from "phoenix_live_view";
 
 function test_socket() {
     // Hooks
     const testHook = {
         mounted() {
             const hook = this as unknown as ViewHook;
-            console.log('TestHook mounted');
-            hook.pushEvent('hook-mounted', { name: 'testHook' }, (reply, ref) => {
+            console.log("TestHook mounted");
+            hook.pushEvent("hook-mounted", { name: "testHook" }, (reply, ref) => {
                 console.log(`Got hook-mounted reply ${JSON.stringify(reply)} ref ${ref}`);
             });
         },
@@ -31,19 +31,19 @@ function test_socket() {
 
     const opts: SocketOptions = {
         params: {
-            _csrf_token: '1234',
+            _csrf_token: "1234",
         },
         hooks: MyHooks,
         uploaders: MyUploaders,
     };
 
-    const liveSocket = new LiveSocket('/live', Socket, opts);
+    const liveSocket = new LiveSocket("/live", Socket, opts);
     liveSocket.enableDebug();
     liveSocket.enableProfiling();
     liveSocket.connect();
 
-    const element = 'dummyElement' as unknown as HTMLElement;
+    const element = "dummyElement" as unknown as HTMLElement;
     // $ExpectType void
-    liveSocket.execJS(element, '[["patch",{"href":"/","replace":false}]]');
-    liveSocket.execJS(element, '[["navigate",{"href":"/","replace":false}]]', 'submit');
+    liveSocket.execJS(element, "[[\"patch\",{\"href\":\"/\",\"replace\":false}]]");
+    liveSocket.execJS(element, "[[\"navigate\",{\"href\":\"/\",\"replace\":false}]]", "submit");
 }

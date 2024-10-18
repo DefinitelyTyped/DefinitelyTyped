@@ -1,15 +1,9 @@
-// Type definitions for non-npm package @blazor/javascript-interop 3.1
-// Project: https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interop?view=aspnetcore-3.1
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 // Here be dragons!
 // This is community-maintained definition file intended to ease the process of developing
 // high quality JavaScript interop code to be used in Blazor application from your C# .Net code.
 // Could be removed without a notice in case official definition types ships with Blazor itself.
 
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 
 declare namespace DotNet {
     /**
@@ -32,6 +26,34 @@ declare namespace DotNet {
      */
     function invokeMethodAsync<T>(assemblyName: string, methodIdentifier: string, ...args: any[]): Promise<T>;
     /**
+     * Creates a JavaScript object reference that can be passed to .NET via interop calls.
+     * @param jsObject The JavaScript Object used to create the JavaScript object reference.
+     * @returns The JavaScript object reference (this will be the same instance as the given object).
+     * @throws Error if the given value is not an Object.
+     */
+    function createJSObjectReference(jsObject: any): JsObjectReference;
+    /**
+     * Creates a JavaScript data reference that can be passed to .NET via interop calls.
+     * @param streamReference The ArrayBufferView or Blob used to create the JavaScript stream reference.
+     * @returns The JavaScript data reference (this will be the same instance as the given object).
+     * @throws Error if the given value is not an Object or doesn't have a valid byteLength.
+     */
+    function createJSStreamReference(streamReference: ArrayBuffer | ArrayBufferView | Blob): JsObjectReference;
+    /**
+     * Disposes the given JavaScript object reference.
+     *
+     * @param jsObjectReference The JavaScript Object reference.
+     */
+    function disposeJSObjectReference(jsObjectReference: JsObjectReference): void;
+
+    /**
+     * Represents the Javascript Object reference.
+     */
+    interface JsObjectReference {
+        __jsObjectId: number;
+    }
+
+    /**
      * Represents the .NET instance passed by reference to JavaScript.
      */
     interface DotNetObject {
@@ -52,5 +74,9 @@ declare namespace DotNet {
          * @returns A promise representing the result of the operation.
          */
         invokeMethodAsync<T>(methodIdentifier: string, ...args: any[]): Promise<T>;
+        /**
+         * Dispose the specified .NET instance.
+         */
+        dispose(): void;
     }
 }

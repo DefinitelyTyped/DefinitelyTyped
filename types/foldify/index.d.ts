@@ -1,8 +1,3 @@
-// Type definitions for foldify 0.5
-// Project: https://github.com/cellvia/foldify
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = fold;
 
 /**
@@ -33,12 +28,12 @@ declare function fold(
     toBeFolded: fold.ToBeFolded,
     options?: fold.Options,
 ): { (...args: unknown[]): unknown; [key: string]: unknown };
-declare function fold(toBeFolded: fold.ToBeFolded, options: fold.Options<'array'>): string[];
-declare function fold(toBeFolded: fold.ToBeFolded, options: fold.Options<'string'>): string;
+declare function fold(toBeFolded: fold.ToBeFolded, options: fold.Options<"array">): string[];
+declare function fold(toBeFolded: fold.ToBeFolded, options: fold.Options<"string">): string;
 
 declare namespace fold {
     type ToBeFolded = string | readonly string[] | { [key: string]: ToBeFolded };
-    interface Options<TOutput extends 'string' | 'array' | 'object' = 'object'> {
+    interface Options<TOutput extends "string" | "array" | "object" = "object"> {
         /**
          * If string or array, all files will be `fs.readFileSync()`'d.
          *

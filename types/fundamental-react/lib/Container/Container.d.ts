@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface ContainerProps {
     children: React.ReactNode;
@@ -8,7 +8,7 @@ export interface ContainerProps {
 }
 
 declare const Container: React.FunctionComponent<ContainerProps> & {
-    displayName: 'Container';
+    displayName: "Container";
 };
 
 export default Container;

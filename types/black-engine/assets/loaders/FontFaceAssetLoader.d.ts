@@ -14,4 +14,4 @@ export class FontFaceAssetLoader extends AssetLoader {
     private __getTestingElement;
     private __checkLoadingStatus;
 }
-import { AssetLoader } from './AssetLoader';
+import { AssetLoader } from "./AssetLoader";

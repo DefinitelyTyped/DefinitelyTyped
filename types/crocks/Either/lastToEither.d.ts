@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Last from '../Last';
-import Either from './Either';
+import { UnaryFunction } from "../internal/types";
+import Last from "../Last";
+import Either from "./Either";
 
 /**
  * lastToEither :: c -> Last a -> Either c a

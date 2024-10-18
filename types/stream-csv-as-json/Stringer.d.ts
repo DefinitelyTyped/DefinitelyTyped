@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { Transform, TransformOptions } from 'stream';
+import { Transform, TransformOptions } from "stream";
 
 export = Stringer;
 

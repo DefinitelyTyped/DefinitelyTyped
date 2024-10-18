@@ -1,16 +1,11 @@
-// Type definitions for data-api-client 1.2
-// Project: https://github.com/jeremydaly/data-api-client
-// Definitions by: Idan Lottan <https://github.com/idanlo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 3.8
 
 // This is added because aws-sdk depends on @types/node
 /// <reference types="node" />
 
-import type { ClientConfiguration, Types } from 'aws-sdk2-types/clients/rdsdataservice';
+import type { ClientConfiguration, Types } from "aws-sdk2-types/clients/rdsdataservice";
 declare namespace Client {
-    type OmittedValues = 'database' | 'resourceArn' | 'secretArn' | 'schema';
+    type OmittedValues = "database" | "resourceArn" | "secretArn" | "schema";
 
     interface iParams {
         secretArn: string;
@@ -21,12 +16,12 @@ declare namespace Client {
         sslEnabled?: boolean | undefined;
         options?: ClientConfiguration | undefined;
         region?: string | undefined;
-        engine?: 'mysql' | 'pg' | undefined;
+        engine?: "mysql" | "pg" | undefined;
         formatOptions?:
             | {
-                  deserializeDate?: boolean | undefined;
-                  treatAsLocalDate?: boolean | undefined;
-              }
+                deserializeDate?: boolean | undefined;
+                treatAsLocalDate?: boolean | undefined;
+            }
             | undefined;
     }
 
@@ -35,20 +30,20 @@ declare namespace Client {
         query(
             obj:
                 | {
-                      sql: string;
-                      parameters: [] | unknown;
-                      database?: string | undefined;
-                      hydrateColumnNames?: boolean | undefined;
-                  }
+                    sql: string;
+                    parameters: [] | unknown;
+                    database?: string | undefined;
+                    hydrateColumnNames?: boolean | undefined;
+                }
                 | ((prevResult: { insertId?: any }) => any),
         ): Transaction;
 
-        rollback(cb: ((error: Error, status: any) => void)): Transaction;
+        rollback(cb: (error: Error, status: any) => void): Transaction;
         commit: () => Promise<void>;
     }
 
     interface iDataAPIClient {
-        /* eslint-disable no-unnecessary-generics */
+        /* eslint-disable @definitelytyped/no-unnecessary-generics */
         query<T = any>(sql: string, params?: [] | unknown): Promise<iDataAPIQueryResult<T>>; // params can be [] or {};
         query<T = any>(obj: {
             sql: string;

@@ -1,4 +1,4 @@
-import Parser from './Parser';
+import Parser from "./Parser";
 
 declare const parsers: Array<typeof Parser>;
 

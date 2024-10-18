@@ -1,4 +1,4 @@
-import TRTCCalling, { InvitedInfo, UserAudioInfo, UserInfo, UserVideoInfo } from 'trtc-calling-js';
+import TRTCCalling, { InvitedInfo, UserAudioInfo, UserInfo, UserVideoInfo } from "trtc-calling-js";
 
 // 创建 TRTCCalling 组件实例
 const options = {
@@ -10,37 +10,37 @@ const trtcCalling = new TRTCCalling(options);
 trtcCalling.setLogLevel(0);
 
 // 登录
-trtcCalling.login({ userID: '1', userSig: '2' });
+trtcCalling.login({ userID: "1", userSig: "2" });
 
 // 登出
 trtcCalling.logout();
 
 // 视频通话
-trtcCalling.call({ userID: '1', type: TRTCCalling.CALL_TYPE.VIDEO_CALL, timeout: 30 });
+trtcCalling.call({ userID: "1", type: TRTCCalling.CALL_TYPE.VIDEO_CALL, timeout: 30 });
 
 // 群组视频通话
-trtcCalling.groupCall({ userIDList: ['1', '2'], type: TRTCCalling.CALL_TYPE.VIDEO_CALL });
+trtcCalling.groupCall({ userIDList: ["1", "2"], type: TRTCCalling.CALL_TYPE.VIDEO_CALL });
 
 // 接受视频通话
-trtcCalling.accept({ inviteID: '1', roomID: 2, callType: TRTCCalling.CALL_TYPE.VIDEO_CALL });
+trtcCalling.accept({ inviteID: "1", roomID: 2, callType: TRTCCalling.CALL_TYPE.VIDEO_CALL });
 
 // 拒绝视频通话
-trtcCalling.reject({ inviteID: '1', isBusy: true, callType: TRTCCalling.CALL_TYPE.VIDEO_CALL });
+trtcCalling.reject({ inviteID: "1", isBusy: true, callType: TRTCCalling.CALL_TYPE.VIDEO_CALL });
 
 // 结束/取消通话
 trtcCalling.hangup();
 
 // 将远端用户的摄像头数据渲染到指定的 DOM ID 节点里
-trtcCalling.startRemoteView({ userID: '1', videoViewDomID: 'video' });
+trtcCalling.startRemoteView({ userID: "1", videoViewDomID: "video" });
 
 // 将远端用户的摄像头数据渲染的 DOM 节点删除
-trtcCalling.stopRemoteView({ userID: '1', videoViewDomID: 'video' });
+trtcCalling.stopRemoteView({ userID: "1", videoViewDomID: "video" });
 
 // 将本地用户的摄像头数据渲染到指定的 DOM ID 节点里
-trtcCalling.startLocalView({ userID: '2', videoViewDomID: 'video' });
+trtcCalling.startLocalView({ userID: "2", videoViewDomID: "video" });
 
 // 将本地用户的摄像头数据渲染的 DOM 节点删除
-trtcCalling.stopLocalView({ userID: '2', videoViewDomID: 'video' });
+trtcCalling.stopLocalView({ userID: "2", videoViewDomID: "video" });
 
 // 开启本地摄像头
 trtcCalling.openCamera();

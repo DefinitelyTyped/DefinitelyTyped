@@ -1,4 +1,4 @@
-import * as JSONB from 'json-buffer';
+import * as JSONB from "json-buffer";
 
-JSONB.parse('{ foo: true }');
+JSONB.parse("{ foo: true }");
 JSONB.stringify({ foo: true });

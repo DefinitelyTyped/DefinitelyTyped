@@ -1,13 +1,6 @@
-// Type definitions for expect-puppeteer 5.0
-// Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/expect-puppeteer
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Jason Mong <https://github.com/jfm710>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 /// <reference types="jest" />
 
-import { ElementHandle, Page, Dialog } from "puppeteer";
+import { Dialog, ElementHandle, Page } from "puppeteer";
 
 /**
  * Interval at which pageFunctions may be executed.
@@ -18,7 +11,7 @@ interface MatchSelector {
     /**
      * A selector type
      */
-    type: 'css' | 'xpath';
+    type: "css" | "xpath";
 
     /**
      * The selector string
@@ -84,7 +77,11 @@ interface ExpectPuppeteer {
     toClick(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<void>;
     toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
     toFill(selector: string | MatchSelector, value: string, options?: ExpectTimingActions): Promise<void>;
-    toFillForm(selector: string | MatchSelector, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
+    toFillForm(
+        selector: string | MatchSelector,
+        value: { [key: string]: any },
+        options?: ExpectTimingActions,
+    ): Promise<void>;
     toMatch(selector: string | MatchSelector, options?: ExpectTimingActions): Promise<void>;
     toMatchElement(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<void>;
     toSelect(selector: string | MatchSelector, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
@@ -99,11 +96,23 @@ declare global {
             toClick(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<void>;
             toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
             toFill(selector: string | MatchSelector, value: string, options?: ExpectTimingActions): Promise<void>;
-            toFillForm(selector: string | MatchSelector, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
+            toFillForm(
+                selector: string | MatchSelector,
+                value: { [key: string]: any },
+                options?: ExpectTimingActions,
+            ): Promise<void>;
             toMatch(matcher: string | RegExp, options?: ExpectTimingActions): Promise<void>;
             toMatchElement(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<ElementHandle>;
-            toSelect(selector: string | MatchSelector, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
-            toUploadFile(selector: string | MatchSelector, filePath: string, options?: ExpectTimingActions): Promise<void>;
+            toSelect(
+                selector: string | MatchSelector,
+                valueOrText: string,
+                options?: ExpectTimingActions,
+            ): Promise<void>;
+            toUploadFile(
+                selector: string | MatchSelector,
+                filePath: string,
+                options?: ExpectTimingActions,
+            ): Promise<void>;
         }
     }
 }

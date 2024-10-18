@@ -1,7 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-trailing-whitespace": false,
-        "semicolon": false
-    }
-}

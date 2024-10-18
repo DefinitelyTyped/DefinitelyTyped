@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/swagger-express-validator",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gargol/swagger-express-validator"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/swagger-express-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pinguet62",
+            "githubUsername": "pinguet62"
+        }
+    ]
+}

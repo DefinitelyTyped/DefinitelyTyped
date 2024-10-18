@@ -1,8 +1,8 @@
 // 2.0 examples from https://github.com/apigee-127/swagger-tools/blob/master/examples/2.0/index.js
 
-import connect = require('connect');
-import { createServer } from 'http';
-import * as swaggerTools from 'swagger-tools';
+import connect = require("connect");
+import { createServer } from "http";
+import * as swaggerTools from "swagger-tools";
 
 const app = connect();
 
@@ -10,18 +10,18 @@ const serverPort = 3000;
 
 // swaggerRouter configuration
 const options = {
-    controllers: './controllers',
-    useStubs: process.env.NODE_ENV === 'development' ? true : false // Conditionally turn on stubs (mock mode)
+    controllers: "./controllers",
+    useStubs: process.env.NODE_ENV === "development" ? true : false, // Conditionally turn on stubs (mock mode)
 };
 
 const swaggerUiOptions = {
-    apiDocs: 'apiDocs',
-    swaggerUi: 'swaggerUi',
+    apiDocs: "apiDocs",
+    swaggerUi: "swaggerUi",
 };
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 // tslint:disable-next-line no-var-requires
-const swaggerDoc20 = require('./api/swagger.json');
+const swaggerDoc20 = require("./api/swagger.json");
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
@@ -41,103 +41,103 @@ swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
             // https://github.com/apigee-127/swagger-tools/blob/0cea535b122265c6d01546e199e2e8fda4c0f5da/test/2.0/test-middleware-swagger-metadata.js#L102-L138
 
             foo_bar: (req, res, next) => {
-                req.swagger.swaggerVersion = '2.0';
-                req.swagger.apiPath = '/pets/{id}';
+                req.swagger.swaggerVersion = "2.0";
+                req.swagger.apiPath = "/pets/{id}";
                 req.swagger.operation = {
                     security: [
                         {
-                        oauth2: ["read"]
-                    }
+                            oauth2: ["read"],
+                        },
                     ],
-                    tags: [ "Pet Operations" ],
+                    tags: ["Pet Operations"],
                     operationId: "getPetById",
                     summary: "Finds the pet by id",
                     responses: {
                         200: {
                             description: "Pet response",
                             schema: {
-                                $ref: "#/definitions/Pet"
-                            }
+                                $ref: "#/definitions/Pet",
+                            },
                         },
-                    default: {
-                        description: "Unexpected error",
-                        schema: {
-                            $ref: "#/definitions/Error"
-                        }
-                    }
+                        default: {
+                            description: "Unexpected error",
+                            schema: {
+                                $ref: "#/definitions/Error",
+                            },
+                        },
                     },
                     parameters: [
                         {
-                        in: 'query',
-                        name: 'mock',
-                        description: 'Mock mode',
-                        required: false,
-                        type: 'boolean'
-                    }
-                    ]
+                            in: "query",
+                            name: "mock",
+                            description: "Mock mode",
+                            required: false,
+                            type: "boolean",
+                        },
+                    ],
                 };
 
                 req.swagger.operationParameters = [
                     {
-                    path: ['paths', '/pets/{id}', 'get', 'parameters', '0'],
-                    schema: {
-                        in: 'query',
-                        name: 'mock',
-                        description: 'Mock mode',
-                        required: false,
-                        type: 'boolean'
+                        path: ["paths", "/pets/{id}", "get", "parameters", "0"],
+                        schema: {
+                            in: "query",
+                            name: "mock",
+                            description: "Mock mode",
+                            required: false,
+                            type: "boolean",
+                        },
                     },
-                },
                     {
-                    path: ['paths', '/pets/{id}', 'parameters', '0'],
-                    schema: {
-                        name: "id",
-                        in: "path",
-                        description: "ID of pet",
-                        required: true,
-                        type: "integer",
-                        format: "int64"
-                    }
-                }
-                ];
-                req.swagger.operationPath = ['paths', '/pets/{id}', 'get'];
-                req.swagger.security = [
-                    {
-                    oauth2: [ 'read' ]
-                }
-                ];
-                req.swagger.params = {
-                    id: {
-                        path: ['paths', '/pets/{id}', 'parameters', '0'],
+                        path: ["paths", "/pets/{id}", "parameters", "0"],
                         schema: {
                             name: "id",
                             in: "path",
                             description: "ID of pet",
                             required: true,
                             type: "integer",
-                            format: "int64"
+                            format: "int64",
                         },
-                        originalValue: '1',
-                        value: 1
+                    },
+                ];
+                req.swagger.operationPath = ["paths", "/pets/{id}", "get"];
+                req.swagger.security = [
+                    {
+                        oauth2: ["read"],
+                    },
+                ];
+                req.swagger.params = {
+                    id: {
+                        path: ["paths", "/pets/{id}", "parameters", "0"],
+                        schema: {
+                            name: "id",
+                            in: "path",
+                            description: "ID of pet",
+                            required: true,
+                            type: "integer",
+                            format: "int64",
+                        },
+                        originalValue: "1",
+                        value: 1,
                     },
                     mock: {
-                        path: ['paths', '/pets/{id}', 'get', 'parameters', '0'],
+                        path: ["paths", "/pets/{id}", "get", "parameters", "0"],
                         schema: {
-                            in: 'query',
-                            name: 'mock',
-                            description: 'Mock mode',
+                            in: "query",
+                            name: "mock",
+                            description: "Mock mode",
                             required: false,
-                            type: 'boolean'
+                            type: "boolean",
                         },
-                        originalValue: 'false',
-                        value: false
-                    }
+                        originalValue: "false",
+                        value: false,
+                    },
                 };
 
-                res.setHeader('Content-Type', 'application/json');
-                res.end([ 'foo', 0 ]);
+                res.setHeader("Content-Type", "application/json");
+                res.end(["foo", 0]);
             },
-        }
+        },
     }));
 
     // Serve the Swagger documents and Swagger UI
@@ -146,7 +146,7 @@ swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
 
     // Start the server
     createServer(app).listen(serverPort, () => {
-        console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+        console.log("Your server is listening on port %d (http://localhost:%d)", serverPort, serverPort);
     });
 });
 
@@ -154,11 +154,11 @@ swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
 
 // The Swagger Resource Listing Document (require it, build it programmatically, fetch it from a URL, ...)
 // tslint:disable-next-line no-var-requires
-const apiDoc12 = require('./api/api-doc.json');
+const apiDoc12 = require("./api/api-doc.json");
 // The Swagger API Declaration Documents (require them, build them programmatically, fetch them from a URL, ...)
 const apiDeclarations = [
     // tslint:disable-next-line no-var-requires
-    require('./api/weather.json')
+    require("./api/weather.json"),
 ];
 
 // Initialize the Swagger middleware
@@ -179,7 +179,7 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
             // https://github.com/apigee-127/swagger-tools/blob/0cea535b122265c6d01546e199e2e8fda4c0f5da/test/1.2/test-middleware-swagger-metadata.js#L72-L89
 
             foo_bar: (req, res, next) => {
-                req.swagger.swaggerVersion = '1.2';
+                req.swagger.swaggerVersion = "1.2";
                 req.swagger.api = {
                     operations: [
                         {
@@ -197,30 +197,30 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
                                     name: "petId",
                                     paramType: "path",
                                     required: true,
-                                    type: "integer"
-                                }
+                                    type: "integer",
+                                },
                             ],
                             responseMessages: [
                                 {
                                     code: 400,
-                                    message: "Invalid ID supplied"
+                                    message: "Invalid ID supplied",
                                 },
                                 {
                                     code: 404,
-                                    message: "Pet not found"
-                                }
+                                    message: "Pet not found",
+                                },
                             ],
                             summary: "Find pet by ID",
-                            type: "Pet"
+                            type: "Pet",
                         },
                         {
                             authorizations: {
                                 oauth2: [
                                     {
                                         description: "modify pets in your account",
-                                        scope: "write:pets"
-                                    }
-                                ]
+                                        scope: "write:pets",
+                                    },
+                                ],
                             },
                             method: "DELETE",
                             nickname: "deletePet",
@@ -232,20 +232,20 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
                                     name: "petId",
                                     paramType: "path",
                                     required: true,
-                                    type: "string"
-                                }
+                                    type: "string",
+                                },
                             ],
                             responseMessages: [
                                 {
                                     code: 400,
-                                    message: "Invalid pet value"
-                                }
+                                    message: "Invalid pet value",
+                                },
                             ],
                             summary: "Deletes a pet",
-                            type: "void"
+                            type: "void",
                         },
                     ],
-                    path: "/pet/{petId}"
+                    path: "/pet/{petId}",
                 };
 
                 req.swagger.apiDeclaration = {};
@@ -254,9 +254,9 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
                     oauth2: [
                         {
                             description: "modify pets in your account",
-                            scope: "write:pets"
-                        }
-                    ]
+                            scope: "write:pets",
+                        },
+                    ],
                 };
                 req.swagger.operation = {
                     authorizations: {},
@@ -273,26 +273,26 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
                             name: "petId",
                             paramType: "path",
                             required: true,
-                            type: "integer"
-                        }
+                            type: "integer",
+                        },
                     ],
                     responseMessages: [
                         {
                             code: 400,
-                            message: "Invalid ID supplied"
+                            message: "Invalid ID supplied",
                         },
                         {
                             code: 404,
-                            message: "Pet not found"
-                        }
+                            message: "Pet not found",
+                        },
                     ],
                     summary: "Find pet by ID",
-                    type: "Pet"
+                    type: "Pet",
                 };
-                req.swagger.operationPath = ['apis', '0', 'operations', '0'];
+                req.swagger.operationPath = ["apis", "0", "operations", "0"];
                 req.swagger.params = {
                     petId: {
-                        path: ['apis', '0', 'operations', '0', 'parameters', '0'],
+                        path: ["apis", "0", "operations", "0", "parameters", "0"],
                         schema: {
                             allowMultiple: false,
                             description: "ID of pet that needs to be fetched",
@@ -302,27 +302,27 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
                             name: "petId",
                             paramType: "path",
                             required: true,
-                            type: "integer"
+                            type: "integer",
                         },
-                        originalValue: '1',
-                        value: 1
-                    }
+                        originalValue: "1",
+                        value: 1,
+                    },
                 };
 
-                res.setHeader('Content-Type', 'application/json');
-                res.end([ 'foo', 0 ]);
+                res.setHeader("Content-Type", "application/json");
+                res.end(["foo", 0]);
             },
-        }
+        },
     }));
 
     // Serve the Swagger documents and Swagger UI
     app.use(middleware.swaggerUi({
-        '/weather': apiDeclarations[0]
+        "/weather": apiDeclarations[0],
     }));
 
     // Start the server
     createServer(app).listen(serverPort, () => {
-        console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+        console.log("Your server is listening on port %d (http://localhost:%d)", serverPort, serverPort);
     });
 });
 
@@ -337,8 +337,8 @@ swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
         controllers: {
             foo_bar: (req: TypedRequest, res, next) => {
                 req.swagger.params.foo.value + 2;
-                req.swagger.params.bar && req.swagger.params.bar.value.replace('a', 'b');
+                req.swagger.params.bar && req.swagger.params.bar.value.replace("a", "b");
             },
-        }
+        },
     }));
 });

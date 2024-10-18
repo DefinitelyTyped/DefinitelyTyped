@@ -1,29 +1,24 @@
-// Type definitions for electron-positioner 4.1
-// Project: https://github.com/jenslind/electron-positioner
-// Definitions by: ktmouk <https://github.com/ktmouk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { BrowserWindow, Rectangle } from 'electron';
+import { BrowserWindow, Rectangle } from "electron";
 
 declare namespace ElectronPositioner {
     type Position =
-        | 'topLeft'
-        | 'topRight'
-        | 'bottomLeft'
-        | 'bottomRight'
-        | 'topCenter'
-        | 'bottomCenter'
-        | 'leftCenter'
-        | 'rightCenter'
-        | 'center';
+        | "topLeft"
+        | "topRight"
+        | "bottomLeft"
+        | "bottomRight"
+        | "topCenter"
+        | "bottomCenter"
+        | "leftCenter"
+        | "rightCenter"
+        | "center";
 
     type TrayPosition =
-        | 'trayLeft'
-        | 'trayBottomLeft'
-        | 'trayRight'
-        | 'trayBottomRight'
-        | 'trayCenter'
-        | 'trayBottomCenter';
+        | "trayLeft"
+        | "trayBottomLeft"
+        | "trayRight"
+        | "trayBottomRight"
+        | "trayCenter"
+        | "trayBottomCenter";
 }
 
 declare class ElectronPositioner {

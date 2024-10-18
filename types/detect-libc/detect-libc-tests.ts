@@ -1,4 +1,4 @@
-import * as detectLibc from 'detect-libc';
+import * as detectLibc from "detect-libc";
 
 detectLibc.GLIBC; // $ExpectType "glibc"
 detectLibc.MUSL; // $ExpectType "musl"

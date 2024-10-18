@@ -1,4 +1,0 @@
-lib/formatMemoToVarCharCast.d.ts
-lib/formatResultForDefaultOperatorToSql.d.ts
-lib/IClauseWhereFactory.d.ts
-lib/PermissionClauseGenerator.d.ts

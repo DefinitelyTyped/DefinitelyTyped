@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/busboy",
+    "version": "0.3.9999",
+    "projects": [
+        "https://www.npmjs.com/package/busboy"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/busboy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacob Baskin",
+            "githubUsername": "jacobbaskin"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

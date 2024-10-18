@@ -1,4 +1,4 @@
-import { dn, filter } from 'ldap-escape';
+import { dn, filter } from "ldap-escape";
 
 declare const tpl: TemplateStringsArray;
 

@@ -4,7 +4,7 @@
         "moonjs-tests.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "target": "es6",
         "lib": [
             "es5",
@@ -14,10 +14,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noImplicitThis": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

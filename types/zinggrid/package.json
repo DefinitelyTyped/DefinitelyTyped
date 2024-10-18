@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/zinggrid",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/ZingGrid/zinggrid"
+    ],
+    "devDependencies": {
+        "@types/zinggrid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeanette Phung",
+            "githubUsername": "jeanettephung"
+        }
+    ]
+}

@@ -4,7 +4,7 @@ declare class GlobalAction {
     constructor(name: string);
     private name_;
     onShow: LegacyEvent;
-    params: Record<string, any>;
+    params: Record<string, string | number | boolean | Date | null>;
     activity: string | null;
     caption: string;
     enabled: boolean;
@@ -23,4 +23,4 @@ declare class GlobalAction {
     getParameters(): any;
     clone(): GlobalAction;
 }
-import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
+import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");

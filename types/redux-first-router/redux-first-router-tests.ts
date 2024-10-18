@@ -1,32 +1,32 @@
+import { History } from "history";
 import {
+    AnyAction,
+    applyMiddleware,
+    combineReducers,
+    compose,
+    createStore,
+    Dispatch,
+    Middleware,
+    Store,
+    StoreEnhancerStoreCreator,
+} from "redux";
+import {
+    Action as ReduxFirstRouterAction,
+    actionToPath,
+    Bag,
     connectRoutes,
     LocationState,
-    RoutesMap,
-    actionToPath,
+    NavigationAction,
+    Navigators,
+    Nullable,
+    pathToAction,
+    QuerySerializer,
     ReceivedAction,
     redirect,
-    Action as ReduxFirstRouterAction,
-    QuerySerializer,
-    pathToAction,
-    StateGetter,
-    Bag,
-    Navigators,
-    NavigationAction,
-    Nullable,
     Route,
-} from 'redux-first-router';
-import {
-    createStore,
-    applyMiddleware,
-    Middleware,
-    Dispatch,
-    compose,
-    StoreEnhancerStoreCreator,
-    combineReducers,
-    AnyAction,
-    Store,
-} from 'redux';
-import { History } from 'history';
+    RoutesMap,
+    StateGetter,
+} from "redux-first-router";
 
 declare const console: any;
 declare const history: History;
@@ -40,14 +40,14 @@ interface State {
 type StoreCreator = StoreEnhancerStoreCreator<State>;
 
 const routesMap: RoutesMap<Keys, State> = {
-    HOME: '/',
+    HOME: "/",
     ADMIN: {
-        path: '/admin',
-        role: 'admin',
+        path: "/admin",
+        role: "admin",
     },
     STATUS: {
-        path: '/status',
-        role: 'user',
+        path: "/status",
+        role: "user",
         thunk: (dispatch, getState) => {
             dispatch; // $ExpectType Dispatch<any>
             getState; // $ExpectType StateGetter<State>
@@ -56,7 +56,7 @@ const routesMap: RoutesMap<Keys, State> = {
 };
 
 const { reducer, middleware, enhancer, initialDispatch, thunk } = connectRoutes(routesMap, {
-    basename: '/base',
+    basename: "/base",
     strict: false,
     location: state => {
         const locationState = state.location; // $ExpectType LocationState<Keys, State>
@@ -71,14 +71,14 @@ const { reducer, middleware, enhancer, initialDispatch, thunk } = connectRoutes(
     querySerializer: {
         stringify: queryString => {
             queryString; // $ExpectType Params
-            return '';
+            return "";
         },
         parse: params => {
             params; // $ExpectType string
             return {};
         },
     },
-    notFoundPath: 'not-found',
+    notFoundPath: "not-found",
     scrollTop: true,
     restoreScroll: (history: History) => {
         return {};
@@ -106,27 +106,27 @@ thunk(store).then(t => {
 });
 
 const receivedAction: ReceivedAction = {
-    type: 'HOME',
+    type: "HOME",
     payload: {},
 };
 actionToPath(receivedAction, routesMap); // $ExpectType string
-pathToAction('/', routesMap); // $ExpectType ReceivedAction
+pathToAction("/", routesMap); // $ExpectType ReceivedAction
 
 const querySerializer: QuerySerializer = {
-    stringify: params => '',
+    stringify: params => "",
     parse: queryString => ({}),
 };
 actionToPath(receivedAction, routesMap, querySerializer); // $ExpectType string
-pathToAction('/', routesMap, querySerializer); // $ExpectType ReceivedAction
+pathToAction("/", routesMap, querySerializer); // $ExpectType ReceivedAction
 
 const action: ReduxFirstRouterAction = {
-    type: 'HOME',
+    type: "HOME",
 };
 redirect(action); // $ExpectType Action
 
 const secondAction: ReduxFirstRouterAction = {
-    type: 'PAGE',
-    query: { foo: 'bar' },
+    type: "PAGE",
+    query: { foo: "bar" },
 };
 redirect(action); // $ExpectType Action
 

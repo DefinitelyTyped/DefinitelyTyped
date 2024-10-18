@@ -1,11 +1,6 @@
-// Type definitions for http-headers 3.0
-// Project: https://github.com/watson/http-headers
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { ServerResponse } from 'http';
+import { ServerResponse } from "http";
 
 export = httpHeaders;
 
@@ -48,10 +43,10 @@ export = httpHeaders;
  *   console.log(httpHeaders(res))
  * }).listen(8080)
  */
-declare function httpHeaders(
+declare function httpHeaders<T extends boolean>(
     data: string | Buffer | ServerResponse,
-    onlyHeaders?: boolean,
-): httpHeaders.RequestData | httpHeaders.ResponseData | httpHeaders.Headers;
+    onlyHeaders?: T,
+): T extends true ? httpHeaders.Headers : (httpHeaders.RequestData | httpHeaders.ResponseData | httpHeaders.Headers);
 
 declare namespace httpHeaders {
     interface RequestData {
@@ -74,6 +69,6 @@ declare namespace httpHeaders {
     }
 
     type Headers = {
-        'set-cookie'?: string[] | undefined;
+        "set-cookie"?: string[] | undefined;
     } & { [key in string]?: string | undefined };
 }

@@ -1,4 +1,4 @@
-import notifier = require('../');
+import notifier = require("../");
 
 declare class WindowsBalloon {
     constructor(option?: notifier.Option);
@@ -15,7 +15,7 @@ declare namespace WindowsBalloon {
         /** Wait with callback until user action is taken on notification */
         wait?: boolean | undefined;
         /** The notification type */
-        type?: 'info' | 'warn' | 'error' | undefined;
+        type?: "info" | "warn" | "error" | undefined;
     }
 }
 

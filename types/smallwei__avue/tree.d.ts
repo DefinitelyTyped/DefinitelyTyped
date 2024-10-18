@@ -1,4 +1,4 @@
-import { AvueFormOption } from './form';
+import { AvueFormOption } from "./form";
 
 export interface AvueTreeOption<T = any> {
     // 是否展开节点
@@ -50,7 +50,7 @@ export interface AvueTreeSlots<T = any> {
     default: (scoped: { node: { data: T }; data: T }) => VNode[];
 }
 
-export const AvueTree: new () => {
+export const AvueTree: new() => {
     $props: AvueTreeProps;
     $slots: AvueTreeSlots;
 };

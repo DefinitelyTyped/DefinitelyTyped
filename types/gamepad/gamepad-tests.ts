@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import gamepad = require('gamepad');
+import gamepad = require("gamepad");
 
 // Initialize the library
 gamepad.init();
@@ -15,8 +15,8 @@ setInterval(gamepad.processEvents, 16);
 setInterval(gamepad.detectDevices, 500);
 
 // Listen for new gamepads being attached
-gamepad.on('attach', (deviceID, device) => {
-    console.log('attach', {
+gamepad.on("attach", (deviceID, device) => {
+    console.log("attach", {
         deviceID,
         device: {
             deviceID: device.deviceID,
@@ -25,43 +25,43 @@ gamepad.on('attach', (deviceID, device) => {
             productID: device.productID,
             axisStates: device.axisStates,
             buttonStates: device.buttonStates,
-        }
+        },
     });
 });
 
 // Listen for new gamepads being removed
-gamepad.on('remove', deviceID => {
-    console.log('remove', {
-        deviceID
+gamepad.on("remove", deviceID => {
+    console.log("remove", {
+        deviceID,
     });
 });
 
 // Listen for button down events on all gamepads
-gamepad.on('up', (deviceID, buttonID, timestamp) => {
-    console.log('up', {
+gamepad.on("up", (deviceID, buttonID, timestamp) => {
+    console.log("up", {
         deviceID,
         buttonID,
-        timestamp
+        timestamp,
     });
 });
 
 // Listen for button down events on all gamepads
-gamepad.on('down', (deviceID, buttonID, timestamp) => {
-    console.log('down', {
+gamepad.on("down", (deviceID, buttonID, timestamp) => {
+    console.log("down", {
         deviceID,
         buttonID,
-        timestamp
+        timestamp,
     });
 });
 
 // Listen for move events on all gamepads
-gamepad.on('move', (deviceID, axisID, value, lastValue, timestamp) => {
-    console.log('move', {
+gamepad.on("move", (deviceID, axisID, value, lastValue, timestamp) => {
+    console.log("move", {
         deviceID,
         axisID,
         value,
         lastValue,
-        timestamp
+        timestamp,
     });
 });
 

@@ -10,5 +10,5 @@ declare class CompositeVisualizationSlot {
 declare namespace CompositeVisualizationSlot {
     export { DataExporter, Visualization };
 }
-type Visualization = import('./Visualization');
-type DataExporter = import('../export/DataExporter');
+type Visualization = import("./Visualization");
+type DataExporter = import("../export/DataExporter");

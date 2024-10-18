@@ -1,13 +1,9 @@
-// Type definitions for @npmcli/arborist 5.6
-// Project: https://github.com/npm/cli/tree/latest/workspaces/arborist#readme
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
+/// <reference types="node"/>
 
-import { EventEmitter } from 'events';
-import { Options as PacoteOptions, Packument } from 'pacote';
-import { PackageJson } from '@npmcli/package-json';
-import { PackageLock as _PackageLock, LockDependency } from '@npm/types';
+import { LockDependency, PackageLock as _PackageLock } from "@npm/types";
+import { PackageJson } from "@npmcli/package-json";
+import { EventEmitter } from "events";
+import { Options as PacoteOptions, Packument } from "pacote";
 
 declare class Arborist extends EventEmitter {
     constructor(options?: Arborist.Options);
@@ -31,7 +27,7 @@ declare class Arborist extends EventEmitter {
     audit(options?: Arborist.BuildIdealTreeOptions & { fix?: false }): Promise<Arborist.AuditReport>;
     audit(options: Arborist.BuildIdealTreeOptions & { fix?: boolean }): Promise<Arborist.Node | Arborist.AuditReport>;
     buildIdealTree(options?: Arborist.BuildIdealTreeOptions): Promise<Arborist.Node>;
-    dedupe(options?: Omit<Arborist.ReifyOptions, 'preferDedupe' | 'names'>): Promise<Arborist.Node>;
+    dedupe(options?: Omit<Arborist.ReifyOptions, "preferDedupe" | "names">): Promise<Arborist.Node>;
     loadActual(options?: Arborist.Options): Promise<Arborist.Node>;
     loadVirtual(options?: Arborist.Options): Promise<Arborist.Node>;
     reify(options?: Arborist.ReifyOptions): Promise<Arborist.Node>;
@@ -39,7 +35,7 @@ declare class Arborist extends EventEmitter {
 
 declare namespace Arborist {
     const Arborist: Arborist;
-    interface Options extends PacoteOptions, Partial<Pick<import('cacache').get.Options, 'memoize'>> {
+    interface Options extends PacoteOptions, Partial<Pick<import("cacache").get.Options, "memoize">> {
         path?: string;
         nodeVersion?: string;
         lockfileVersion?: number | null;
@@ -82,16 +78,16 @@ declare namespace Arborist {
         formatPackageLock?: boolean;
     }
     interface NormalizedOptions extends Options {
-        nodeVersion: NonNullable<Options['nodeVersion']>;
-        registry: NonNullable<Options['registry']>;
-        path: NonNullable<Options['path']>;
-        cache: NonNullable<Options['cache']>;
-        packumentCache: NonNullable<Options['packumentCache']>;
-        workspacesEnabled: NonNullable<Options['workspacesEnabled']>;
-        replaceRegistryHost: NonNullable<Options['replaceRegistryHost']>;
+        nodeVersion: NonNullable<Options["nodeVersion"]>;
+        registry: NonNullable<Options["registry"]>;
+        path: NonNullable<Options["path"]>;
+        cache: NonNullable<Options["cache"]>;
+        packumentCache: NonNullable<Options["packumentCache"]>;
+        workspacesEnabled: NonNullable<Options["workspacesEnabled"]>;
+        replaceRegistryHost: NonNullable<Options["replaceRegistryHost"]>;
         lockfileVersion: number | null;
     }
-    type SaveType = 'dev' | 'optional' | 'prod' | 'peerOptional' | 'peer';
+    type SaveType = "dev" | "optional" | "prod" | "peerOptional" | "peer";
     interface BuildIdealTreeOptions {
         rm?: string[];
         add?: string[];
@@ -206,9 +202,9 @@ declare namespace Arborist {
          * Edges in the dependency graph indicating nodes that this node depends
          * on, which resolve its dependencies.
          */
-        edgesOut: Edge[];
+        edgesOut: Map<string, Edge>;
         /** Edges in the dependency graph indicating nodes that depend on this node. */
-        edgesIn: Edge[];
+        edgesIn: Set<Edge>;
 
         /** True if this package is not required by any other for any reason.  False for top of tree. */
         extraneous: boolean;
@@ -220,11 +216,18 @@ declare namespace Arborist {
 
         get inBundle(): boolean;
 
+        get isWorkspace(): boolean;
+
         /** Errors encountered while parsing package.json or version specifiers. */
         errors: Error[];
 
-        /** If this is a Link, this is the node it  */
+        /** If this is a Link, this is the node it links to */
         target: Node;
+
+        overridden?: boolean;
+
+        /** When overrides are used, this is the virtual root */
+        sourceReference?: Node;
 
         /** Identify the node that will be returned when code in this package runs `require(name)` */
         resolve(name: string): Node;
@@ -234,11 +237,15 @@ declare namespace Arborist {
         querySelectorAll(query: string): Promise<Node[]>;
 
         toJSON(): Node;
+
+        explain(seen?: Node[]): Explanation;
     }
 
     class Link extends Node {
         isLink: true;
     }
+
+    type DependencyProblem = "DETACHED" | "MISSING" | "PEER LOCAL" | "INVALID";
 
     /**
      * Edge objects represent a dependency relationship a package node to the
@@ -251,11 +258,11 @@ declare namespace Arborist {
          * Creates a new edge with the specified fields.  After instantiation,
          * none of the fields can be changed directly.
          */
-        constructor(fields: Pick<Edge, 'from' | 'type' | 'name' | 'spec'>);
+        constructor(fields: Pick<Edge, "from" | "type" | "name" | "spec">);
         /** The node that has the dependency. */
-        from: Node;
+        from: Node | null;
         /** The type of dependency. */
-        type: Exclude<SaveType, 'peerOptional'>;
+        type: SaveType;
         /** The name of the dependency.  Ie, the key in the relevant `package.json` dependencies object. */
         name: string;
         /**
@@ -265,9 +272,11 @@ declare namespace Arborist {
          */
         spec: string;
         /** Automatically set to the node in the tree that matches the `name` field. */
-        to: Node;
+        to: Node | null;
         /** True if `edge.to` satisfies the specifier. */
         valid: boolean;
+        invalid: boolean;
+        missing: boolean;
         /**
          * A string indicating the type of error if there is a problem, or `null`
          * if it's valid.  Values, in order of precedence:
@@ -282,8 +291,10 @@ declare namespace Arborist {
          *   means that the dependency is not a peer.
          * * `INVALID` Indicates that the dependency does not satisfy `edge.spec`.
          */
-        error: 'DETACHED' | 'MISSING' | 'PEER LOCAL' | 'INVALID' | null;
+        error: DependencyProblem | null;
         reload(hard?: boolean): void;
+
+        explain(seen?: Node[]): Explanation;
     }
 
     interface AuditReport extends Map<string, Vuln> {
@@ -346,7 +357,7 @@ declare namespace Arborist {
         name: string;
         id: string;
         dependency: string;
-        type: 'advisory' | 'metavuln';
+        type: "advisory" | "metavuln";
         url: string;
         title: string;
         severity: string;
@@ -367,18 +378,18 @@ declare namespace Arborist {
     }
     interface PackageLockV1 extends PackageLockBase {
         lockfileVersion: 1;
-        dependencies: NonNullable<PackageLockBase['dependencies']>;
+        dependencies: NonNullable<PackageLockBase["dependencies"]>;
         packages?: never;
     }
     interface PackageLockV2 extends PackageLockBase {
         lockfileVersion: 2;
-        dependencies: NonNullable<PackageLockBase['dependencies']>;
-        packages: NonNullable<PackageLockBase['packages']>;
+        dependencies: NonNullable<PackageLockBase["dependencies"]>;
+        packages: NonNullable<PackageLockBase["packages"]>;
     }
     interface PackageLockV3 extends PackageLockBase {
         lockfileVersion: 3;
         dependencies?: never;
-        packages: NonNullable<PackageLockBase['packages']>;
+        packages: NonNullable<PackageLockBase["packages"]>;
     }
     type PackageLock = PackageLockV1 | PackageLockV2 | PackageLockV3;
 
@@ -398,16 +409,16 @@ declare namespace Arborist {
     interface ExplicitRequest {
         from: Node;
         name: string;
-        action?: 'DELETE';
+        action?: "DELETE";
     }
-    interface Inventory extends Omit<Map<string, Node>, 'delete' | 'set' | 'has'> {
+    interface Inventory extends Omit<Map<string, Node>, "delete" | "set" | "has"> {
         get primaryKey(): string;
         get indexes(): string[];
         filter(fn: (node: Node) => boolean): Generator<Node, void>;
         add(node: Node): void;
         delete(node: Node): void;
-        query(key: string, val: Node): Set<string>;
-        query(key: string, val?: never): Set<Node>;
+        query(key: string, val: string | undefined): Set<Node>;
+        query(key: string): IterableIterator<Node>;
         has(node: Node): boolean;
         set?(k: never, v: never): never;
     }
@@ -417,9 +428,9 @@ declare namespace Arborist {
         children: Diff[];
         actual: Node;
         ideal: Node;
-        resolved: Node['resolved'];
-        integrity: Node['integrity'];
-        action: 'REMOVE' | 'ADD' | 'CHANGE' | null;
+        resolved: Node["resolved"];
+        integrity: Node["integrity"];
+        action: "REMOVE" | "ADD" | "CHANGE" | null;
         parent: Diff | null;
         leaves: Node[];
         unchanged: Node[];
@@ -427,7 +438,7 @@ declare namespace Arborist {
     }
     interface ScriptRun {
         pkg: PackageJson;
-        path: Node['path'];
+        path: Node["path"];
         event: string;
         cmd: string;
         env: NodeJS.ProcessEnv;
@@ -435,6 +446,27 @@ declare namespace Arborist {
         signal: NodeJS.Signals;
         stdout: string;
         stderr: string;
+    }
+    interface DependencyExplanation {
+        type: string | null;
+        name: string;
+        spec: string;
+        rawSpec?: string;
+        overridden?: boolean;
+        bundled?: boolean;
+        error?: DependencyProblem;
+        from?: Node;
+    }
+    interface Explanation {
+        name: string;
+        version: string;
+        errors?: Error[];
+        package?: PackageJson;
+        whileInstalling?: { name: string; version: string; path: string };
+        location?: string;
+        isWorkspace?: boolean;
+        dependents?: DependencyExplanation[];
+        linksIn?: DependencyExplanation[];
     }
 }
 

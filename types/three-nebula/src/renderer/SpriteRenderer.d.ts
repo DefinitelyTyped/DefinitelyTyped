@@ -1,6 +1,7 @@
-import { Particle } from '../core';
-import { Three } from '../core/three';
-import MeshRenderer from './MeshRenderer';
+import * as THREE from "three";
+import { Particle } from "../core";
+import { Three } from "../core/three";
+import MeshRenderer from "./MeshRenderer";
 
 export default class SpriteRenderer extends MeshRenderer {
     constructor(container: THREE.Scene, THREE: Three);

@@ -1,10 +1,4 @@
-// Type definitions for staticmaps 1.12
-// Project: https://github.com/StephanGeorg/staticmaps#readme
-// Definitions by: Olivier Kamers <https://github.com/olivierkamers>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { FitEnum, JpegOptions, OutputOptions, PngOptions, WebpOptions } from 'sharp';
+import { FitEnum, JpegOptions, OutputOptions, PngOptions, WebpOptions } from "sharp";
 
 declare class StaticMaps {
     constructor(options: StaticMaps.StaticMapsOptions);
@@ -15,7 +9,7 @@ declare class StaticMaps {
     addMarker: (options: StaticMaps.AddMarkerOptions) => void;
     addText: (options: StaticMaps.AddTextOptions) => void;
     addCircle: (options: StaticMaps.AddCircleOptions) => void;
-    render: (center?: ReadonlyArray<number>, zoom?: number) => Promise<void>;
+    render: (center?: readonly number[], zoom?: number) => Promise<void>;
     image: StaticMapsImage;
 }
 
@@ -76,9 +70,9 @@ declare namespace StaticMaps {
          */
         zoomRange?:
             | {
-                  min?: ZoomLevel | undefined;
-                  max?: ZoomLevel | undefined;
-              }
+                min?: ZoomLevel | undefined;
+                max?: ZoomLevel | undefined;
+            }
             | undefined;
         /** @deprecated Use zoomRange.max instead: */
         maxZoom?: number | undefined;
@@ -133,7 +127,7 @@ declare namespace StaticMaps {
         offsetY?: number | undefined;
     }
 
-    type TextAnchor = 'start' | 'middle' | 'end';
+    type TextAnchor = "start" | "middle" | "end";
 
     interface AddCircleOptions {
         coord: [number, number];

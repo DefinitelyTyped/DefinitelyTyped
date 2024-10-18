@@ -1,6 +1,6 @@
 import { IITC } from "./iitctypes";
 
-export { };
+export {};
 
 declare global {
     interface Hightligher {

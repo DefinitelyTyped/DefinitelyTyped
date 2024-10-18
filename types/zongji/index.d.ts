@@ -1,9 +1,4 @@
-// Type definitions for zongji 0.5
-// Project: https://github.com/nevill/zongji
-// Definitions by: Eric Hayes <https://github.com/ejhayes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import mysql = require('mysql');
+import mysql = require("mysql");
 declare namespace ZongJi {
     interface StartOptions {
         /**
@@ -49,16 +44,16 @@ declare namespace ZongJi {
     }
 
     type EventTypes =
-        | 'unknown'
-        | 'query'
-        | 'intvar'
-        | 'rotate'
-        | 'format'
-        | 'xid'
-        | 'tablemap'
-        | 'writerows'
-        | 'updaterows'
-        | 'deleterows';
+        | "unknown"
+        | "query"
+        | "intvar"
+        | "rotate"
+        | "format"
+        | "xid"
+        | "tablemap"
+        | "writerows"
+        | "updaterows"
+        | "deleterows";
 
     interface Event {
         /**
@@ -80,15 +75,15 @@ declare namespace ZongJi {
          * 'ready': This event occurred right after ZongJi successfully established a connection, setup slave status, and set binlog position.
          * 'stopped': Emitted when ZongJi connection is stopped (ZongJi#stop is called).
          */
-        on(event: 'ready' | 'stopped', handler: () => void): void;
+        on(event: "ready" | "stopped", handler: () => void): void;
         /**
          * Once a binlog is received and passes the filter, it will bubble up with this event.
          */
-        on(event: 'binlog', handler: (event: Event) => void): void;
+        on(event: "binlog", handler: (event: Event) => void): void;
         /**
          * Every error will be caught by this event.
          */
-        on(event: 'error', handler: (err: mysql.MysqlError) => void): void;
+        on(event: "error", handler: (err: mysql.MysqlError) => void): void;
         /**
          * Start receiving replication events.
          */

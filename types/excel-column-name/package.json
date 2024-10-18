@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/excel-column-name",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/avilaton/excel-column-names#readme"
+    ],
+    "devDependencies": {
+        "@types/excel-column-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jekto_vatimeliju",
+            "githubUsername": "sozysozbot"
+        }
+    ]
+}

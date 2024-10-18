@@ -1,6 +1,6 @@
-import constantsImport = require('./constants');
-import parseImport = require('./parse');
-import scanImport = require('./scan');
+import constantsImport = require("./constants");
+import parseImport = require("./parse");
+import scanImport = require("./scan");
 
 /**
  * Creates a matcher function from one or more glob patterns. The
@@ -45,8 +45,8 @@ declare namespace picomatch {
         posix: boolean;
         input: string;
         output: string;
-        match: ReturnType<typeof test>['match'];
-        isMatch: ReturnType<typeof test>['isMatch'];
+        match: ReturnType<typeof test>["match"];
+        isMatch: ReturnType<typeof test>["isMatch"];
     }
 
     interface PicomatchOptions {
@@ -84,7 +84,8 @@ declare namespace picomatch {
          * The function receives the range values as two arguments, and it must return a string to be used in the generated regex.
          * It's recommended that returned strings be wrapped in parentheses.
          */
-        expandRange?: ((a: string, b: string) => string) | undefined;
+        expandRange?(from: string, to: string, options: PicomatchOptions): string;
+        expandRange?(from: string, to: string, step: string, options: PicomatchOptions): string;
         /**
          * Throws an error if no matches are found. Based on the bash option of the same name.
          */
@@ -204,9 +205,9 @@ declare namespace picomatch {
          */
         unescape?: boolean | undefined;
         /**
-         * Alias for `posixSlashes`, for backwards compatibility.
+         * Also accept backslashes as the path separator.
          */
-        unixify?: boolean | undefined;
+        windows?: boolean | undefined;
     }
 
     function test(
@@ -243,7 +244,7 @@ declare namespace picomatch {
         returnState?: boolean,
     ): ReturnType<typeof compileRe>;
 
-    type ToRegexOptions = Pick<PicomatchOptions, 'flags' | 'nocase' | 'debug'>;
+    type ToRegexOptions = Pick<PicomatchOptions, "flags" | "nocase" | "debug">;
 
     function toRegex(source: string | RegExp, options?: ToRegexOptions): RegExp;
 

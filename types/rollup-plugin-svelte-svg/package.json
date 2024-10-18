@@ -1,8 +1,22 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-svelte-svg",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/codefeathers/rollup-plugin-svelte-svg#readme"
+    ],
     "dependencies": {
         "@types/svgo": "2",
         "rollup": "^2",
         "svelte": "^3"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-svelte-svg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gautier Ben Aim",
+            "githubUsername": "GauBen"
+        }
+    ]
 }

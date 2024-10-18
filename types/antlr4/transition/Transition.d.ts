@@ -1,5 +1,5 @@
-import IntervalSet from '../misc/IntervalSet';
-import ATNState from '../state/ATNState';
+import IntervalSet from "../misc/IntervalSet";
+import ATNState from "../state/ATNState";
 
 /**
  * An ATN transition between any two ATN states.  Subclasses define
@@ -26,17 +26,17 @@ export default class Transition {
     static readonly WILDCARD: 9;
     static readonly PRECEDENCE: 10;
     static readonly serializationNames: [
-        'INVALID',
-        'EPSILON',
-        'RANGE',
-        'RULE',
-        'PREDICATE',
-        'ATOM',
-        'ACTION',
-        'SET',
-        'NOT_SET',
-        'WILDCARD',
-        'PRECEDENCE',
+        "INVALID",
+        "EPSILON",
+        "RANGE",
+        "RULE",
+        "PREDICATE",
+        "ATOM",
+        "ACTION",
+        "SET",
+        "NOT_SET",
+        "WILDCARD",
+        "PRECEDENCE",
     ];
     static readonly serializationTypes: {
         EpsilonTransition: typeof Transition.EPSILON;

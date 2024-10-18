@@ -1,8 +1,9 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
-import { Texture } from './../textures/Texture.js';
-import { MaterialParameters, Material } from './Material.js';
-import { Combine, NormalMapTypes } from '../constants.js';
-import { Vector2 } from '../Three.js';
+import { Combine, NormalMapTypes } from "../constants.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Euler } from "../math/Euler.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
     bumpMap?: Texture | undefined;
@@ -25,6 +26,7 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
     specularMap?: Texture | null | undefined;
     alphaMap?: Texture | null | undefined;
     envMap?: Texture | null | undefined;
+    envMapRotation?: Euler | undefined;
     combine?: Combine | undefined;
     reflectivity?: number | undefined;
     refractionRatio?: number | undefined;
@@ -37,6 +39,13 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
 
 export class MeshLambertMaterial extends Material {
     constructor(parameters?: MeshLambertMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshLambertMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshLambertMaterial: true;
 
     /**
      * @default 'MeshLambertMaterial'
@@ -144,6 +153,11 @@ export class MeshLambertMaterial extends Material {
      * @default null
      */
     envMap: Texture | null;
+
+    /**
+     * The rotation of the environment map in radians. Default is `(0,0,0)`.
+     */
+    envMapRotation: Euler;
 
     /**
      * @default THREE.MultiplyOperation

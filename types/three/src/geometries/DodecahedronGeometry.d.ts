@@ -1,4 +1,4 @@
-import { PolyhedronGeometry } from './PolyhedronGeometry.js';
+import { PolyhedronGeometry } from "./PolyhedronGeometry.js";
 
 /**
  * A class for generating a dodecahedron geometries.
@@ -18,7 +18,7 @@ export class DodecahedronGeometry extends PolyhedronGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `DodecahedronGeometry`
      */
-    override readonly type: string | 'DodecahedronGeometry';
+    override readonly type: string | "DodecahedronGeometry";
 
     /** @internal */
     static fromJSON(data: {}): DodecahedronGeometry;

@@ -1,8 +1,3 @@
-// Type definitions for git-clone 0.2
-// Project: https://github.com/jaz303/git-clone
-// Definitions by: Christoph Thiede <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Clone `repo` to `targetPath`, calling `cb` on completion.
  */
@@ -23,6 +18,10 @@ declare namespace clone {
          * Revision/branch/tag to check out.
          */
         checkout?: string;
+        /**
+         * Additional array of arguments to pass to `git clone`.
+         */
+        args?: string[];
     }
 }
 

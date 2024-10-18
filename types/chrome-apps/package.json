@@ -1,0 +1,54 @@
+{
+    "private": true,
+    "name": "@types/chrome-apps",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "chrome-apps",
+    "projects": [
+        "http://developer.chrome.com/apps/"
+    ],
+    "dependencies": {
+        "@types/filesystem": "*"
+    },
+    "devDependencies": {
+        "@types/chrome-apps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nikolai Ommundsen",
+            "githubUsername": "niikoo"
+        },
+        {
+            "name": "Adam Lay",
+            "githubUsername": "AdamLay"
+        },
+        {
+            "name": "MIZUSHIMA Junki",
+            "githubUsername": "mzsm"
+        },
+        {
+            "name": "Ingconst Stepanyan",
+            "githubUsername": "RReverser"
+        },
+        {
+            "name": "Adam Pyle",
+            "githubUsername": "pyle"
+        },
+        {
+            "name": "Matthew Kimber",
+            "githubUsername": "matthewkimber"
+        },
+        {
+            "name": "otiai10",
+            "githubUsername": "otiai10"
+        },
+        {
+            "name": "RReverser",
+            "githubUsername": "rreverser"
+        },
+        {
+            "name": "sreimer15",
+            "githubUsername": "sreimer15"
+        }
+    ]
+}

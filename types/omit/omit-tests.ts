@@ -1,35 +1,35 @@
-import omit = require('omit');
+import omit = require("omit");
 
 interface Person {
-  name: string;
-  password: string;
-  email: string;
+    name: string;
+    password: string;
+    email: string;
 }
 const bob: Person = {
-  name: 'Bob',
-  email: 'bob@mail.com',
-  password: '111111'
+    name: "Bob",
+    email: "bob@mail.com",
+    password: "111111",
 };
 
 // Single key
-omit('password')(bob);
+omit("password")(bob);
 // $ExpectType string
-omit('password')(bob).name;
+omit("password")(bob).name;
 // $ExpectType string
-omit('password')(bob).email;
+omit("password")(bob).email;
 // @ts-expect-error
-omit('password')(bob).password;
+omit("password")(bob).password;
 
 // Multiple keys
 // $ExpectType string
-omit(['password', 'email'] as const)(bob).name;
+omit(["password", "email"] as const)(bob).name;
 // @ts-expect-error
-omit(['password', 'email'] as const)(bob).email;
+omit(["password", "email"] as const)(bob).email;
 // @ts-expect-error
-omit(['password', 'email'] as const)(bob).password;
+omit(["password", "email"] as const)(bob).password;
 
 // Maps array
-const [result0] = omit('password')([bob]);
+const [result0] = omit("password")([bob]);
 // $ExpectType string
 result0.email;
 // $ExpectType string
@@ -38,7 +38,7 @@ result0.name;
 result0.password;
 
 // Calls itself if given 2nd parameter
-const result1 = omit('password', bob);
+const result1 = omit("password", bob);
 // $ExpectType string
 result1.email;
 // $ExpectType string

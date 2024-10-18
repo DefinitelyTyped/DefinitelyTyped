@@ -1,9 +1,9 @@
-import PQClean = require('pqclean');
+import PQClean = require("pqclean");
 
 // New KEM API.
 {
     // $ExpectType Promise<GenerateKeyPairResult>
-    const keyPairPromise = PQClean.kem.generateKeyPair('mceliece8192128');
+    const keyPairPromise = PQClean.kem.generateKeyPair("mceliece8192128");
     keyPairPromise.then(result => {
         // $ExpectType PublicKey
         const publicKey = result.publicKey;
@@ -69,7 +69,7 @@ import PQClean = require('pqclean');
 // New sign API.
 {
     // $ExpectType Promise<GenerateKeyPairResult>
-    const keyPairPromise = PQClean.sign.generateKeyPair('falcon-1024');
+    const keyPairPromise = PQClean.sign.generateKeyPair("falcon-1024");
     keyPairPromise.then(result => {
         // $ExpectType PublicKey
         const publicKey = result.publicKey;
@@ -130,7 +130,7 @@ import PQClean = require('pqclean');
 // Classic KEM API.
 {
     // $ExpectType KEM
-    const mceliece = new PQClean.KEM('mceliece8192128');
+    const mceliece = new PQClean.KEM("mceliece8192128");
 
     // $ExpectType number
     mceliece.keySize;
@@ -145,19 +145,19 @@ import PQClean = require('pqclean');
     {
         // $ExpectType ClassicGenerateKeyPairResult
         const { publicKey, privateKey } = mceliece.keypair();
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         publicKey;
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         privateKey;
 
         // $ExpectType ClassicGenerateKeyResult
         const { key, encryptedKey } = mceliece.generateKey(publicKey);
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         key;
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         encryptedKey;
 
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         const receivedKey = mceliece.decryptKey(privateKey, encryptedKey);
     }
 
@@ -181,7 +181,7 @@ import PQClean = require('pqclean');
                 mceliece.decryptKey(privateKey, encryptedKey, (err, receivedKey) => {
                     // $ExpectType Error | null
                     err;
-                    // $ExpectType Buffer
+                    // $ExpectType Buffer || Buffer<ArrayBufferLike>
                     receivedKey;
                 });
             });
@@ -195,7 +195,7 @@ import PQClean = require('pqclean');
 // Classic Sign API.
 {
     // $ExpectType Sign
-    const falcon = new PQClean.Sign('falcon-1024');
+    const falcon = new PQClean.Sign("falcon-1024");
 
     // $ExpectType number
     falcon.signatureSize;
@@ -210,12 +210,12 @@ import PQClean = require('pqclean');
     {
         // $ExpectType ClassicGenerateKeyPairResult
         const { publicKey, privateKey } = falcon.keypair();
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         publicKey;
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         privateKey;
 
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         const signature = falcon.sign(privateKey, message);
 
         // $ExpectType boolean
@@ -235,7 +235,7 @@ import PQClean = require('pqclean');
             falcon.sign(privateKey, message, (err, signature) => {
                 // $ExpectType Error | null
                 err;
-                // $ExpectType Buffer
+                // $ExpectType Buffer || Buffer<ArrayBufferLike>
                 signature;
 
                 // $ExpectType void

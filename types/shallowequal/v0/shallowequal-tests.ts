@@ -1,5 +1,5 @@
-import shallowEqual_require = require('shallowequal');
-import * as shallowEqual_splat from 'shallowequal';
+import shallowEqual_require = require("shallowequal");
+import * as shallowEqual_splat from "shallowequal";
 
 const a = {};
 const b = {};

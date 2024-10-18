@@ -1,17 +1,18 @@
-import { assert, expect, use, should } from 'chai';
-import Chaifs = require('chai-fs');
+import Chaifs = require("chai-fs");
 
-use(Chaifs);
-should();
+declare const assert: Chai.AssertStatic;
+declare const expect: Chai.ExpectStatic;
 
-const name = 'name';
-const path = 'tmp/';
-const otherPath = 'otherPath/';
-const msg = 'message';
+import("chai").then(({ use }) => use(Chaifs));
+
+const name = "name";
+const path = "tmp/";
+const otherPath = "otherPath/";
+const msg = "message";
 const array: any[] = [1, 2, 3, 4];
 const data: ArrayBuffer = new ArrayBuffer(512);
-const obj: object = { key: 'value' };
-const schema = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
+const obj: object = { key: "value" };
+const schema = JSON.parse("{ \"name\":\"John\", \"age\":30, \"city\":\"New York\"}");
 
 // basename()
 expect(path).to.have.basename(name);

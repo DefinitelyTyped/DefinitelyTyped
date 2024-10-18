@@ -1,38 +1,38 @@
-import Watchpack = require('watchpack');
+import Watchpack = require("watchpack");
 
 const watch = new Watchpack({
-    ignored: '**/.git',
+    ignored: "**/.git",
 });
 
 watch.watch({
-    files: ['test.js'],
-    directories: ['lib/'],
-    missing: ['dist/'],
+    files: ["test.js"],
+    directories: ["lib/"],
+    missing: ["dist/"],
     startTime: 1000,
 });
 watch.watch({
-    files: ['test.js'],
-    directories: ['lib/'],
+    files: ["test.js"],
+    directories: ["lib/"],
 });
 watch.watch({
-    files: ['test.js'],
+    files: ["test.js"],
 });
 watch.watch({
-    directories: ['lib/'],
+    directories: ["lib/"],
 });
 
 let time: number;
-time = watch.getTimes()['test.js'];
+time = watch.getTimes()["test.js"];
 
-watch.on('change', (filePath, modifiedTime, explanation) => {
+watch.on("change", (filePath, modifiedTime, explanation) => {
     console.log(`${filePath} got changed at ${new Date(modifiedTime)}, noticed by ${explanation}`);
 });
 
-watch.on('remove', (filePath, explanation) => {
+watch.on("remove", (filePath, explanation) => {
     console.log(`${filePath} got removed, noticed by ${explanation}`);
 });
 
-watch.on('aggregated', (changes, removals) => {
+watch.on("aggregated", (changes, removals) => {
     console.log(`watchpack: aggregated ${changes.size} changes and ${removals.size} removals`);
 });
 

@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import Obsolete = require('obsolete-web');
+import Obsolete = require("obsolete-web");
 
 const {
     template, // $ExpectType string
@@ -10,7 +10,7 @@ const {
 
 new Obsolete();
 new Obsolete(Obsolete.defaultOptions);
-new Obsolete().test(['ie 10', 'chrome 23']);
-new Obsolete().test(['ie 10', 'chrome 23'], () => {
-    console.log('done');
+new Obsolete().test(["ie 10", "chrome 23"]);
+new Obsolete().test(["ie 10", "chrome 23"], () => {
+    console.log("done");
 });

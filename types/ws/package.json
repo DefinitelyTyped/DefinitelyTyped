@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/ws",
+    "version": "8.5.9999",
+    "projects": [
+        "https://github.com/websockets/ws"
+    ],
     "exports": {
         ".": {
             "types": {
@@ -7,5 +12,45 @@
                 "default": "./index.d.ts"
             }
         }
-    }
+    },
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ws": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Loyd",
+            "githubUsername": "loyd"
+        },
+        {
+            "name": "Margus Lamp",
+            "githubUsername": "mlamp"
+        },
+        {
+            "name": "Philippe D'Alva",
+            "githubUsername": "TitaneBoy"
+        },
+        {
+            "name": "reduckted",
+            "githubUsername": "reduckted"
+        },
+        {
+            "name": "teidesu",
+            "githubUsername": "teidesu"
+        },
+        {
+            "name": "Bartosz Wojtkowiak",
+            "githubUsername": "wojtkowiak"
+        },
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        },
+        {
+            "name": "Samuel Skeen",
+            "githubUsername": "cwadrupldijjit"
+        }
+    ]
 }

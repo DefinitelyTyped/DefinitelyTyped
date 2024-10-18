@@ -156,5 +156,5 @@ export default class TransformationEvent extends Event {
      */
     getOutputQuantityList(): TransformationEvent;
 }
-import Event from "./Event";
 import QuantityElement from "../model/QuantityElement";
+import Event from "./Event";

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "dom",
             "es6"
@@ -11,10 +11,6 @@
         "strictFunctionTypes": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": []
     },
     "files": [

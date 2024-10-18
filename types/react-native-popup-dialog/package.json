@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-native-popup-dialog",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/jacklam718/react-native-popup-dialog/blob/master/README.md"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-popup-dialog": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paito Anderson",
+            "githubUsername": "PaitoAnderson"
+        },
+        {
+            "name": "connectdotz",
+            "githubUsername": "connectdotz"
+        },
+        {
+            "name": "Michele Bombardi",
+            "githubUsername": "bm-software"
+        }
+    ]
+}

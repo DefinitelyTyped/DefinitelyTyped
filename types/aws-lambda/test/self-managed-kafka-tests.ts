@@ -3,7 +3,7 @@ import {
     SelfManagedKafkaHandler,
     SelfManagedKafkaRecord,
     SelfManagedKafkaRecordHeader,
-} from 'aws-lambda';
+} from "aws-lambda";
 
 declare let headers: SelfManagedKafkaRecordHeader[];
 declare let header: SelfManagedKafkaRecordHeader;

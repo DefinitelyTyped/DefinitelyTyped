@@ -1,15 +1,3 @@
-// Type definitions for @koa/router 12.x
-// Project: https://github.com/koajs/koa-router#readme
-// Definitions by: Jerry Chin <https://github.com/hellopao>
-//                 Pavel Ivanov <https://github.com/schfkt>
-//                 JounQin <https://github.com/JounQin>
-//                 Romain Faust <https://github.com/romain-faust>
-//                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
-//                 Andrea Gueugnaut <https://github.com/falinor>
-//                 Jeremy Forsythe <https://github.com/jdforsythe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /* =================== USAGE ===================
 
     import * as Router from "@koa/router";
@@ -17,9 +5,9 @@
 
  =============================================== */
 
- import * as Koa from "koa";
+import * as Koa from "koa";
 
- declare namespace Router {
+declare namespace Router {
     interface RouterOptions {
         /**
          * Prefix for all routes.
@@ -67,9 +55,14 @@
         _matchedRouteName: string | undefined;
     }
 
-    type RouterContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, BodyT = unknown> = Koa.ParameterizedContext<StateT, ContextT & RouterParamContext<StateT, ContextT>, BodyT>;
+    type RouterContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, BodyT = unknown> =
+        Koa.ParameterizedContext<StateT, ContextT & RouterParamContext<StateT, ContextT>, BodyT>;
 
-    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, BodyT = unknown> = Koa.Middleware<StateT, ContextT & RouterParamContext<StateT, ContextT>, BodyT>;
+    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, BodyT = unknown> = Koa.Middleware<
+        StateT,
+        ContextT & RouterParamContext<StateT, ContextT>,
+        BodyT
+    >;
 
     interface ParamMiddleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, BodyT = unknown> {
         (param: string, ctx: RouterContext<StateT, ContextT, BodyT>, next: Koa.Next): any;
@@ -142,9 +135,14 @@
         paramNames: ParamName[];
         stack: Middleware[];
         regexp: RegExp;
-        path: string;
+        path: string | RegExp;
 
-        constructor(path: string | RegExp, methods: string[], middleware: Middleware | Middleware[], opts?: LayerOptions);
+        constructor(
+            path: string | RegExp,
+            methods: string[],
+            middleware: Middleware | Middleware[],
+            opts?: LayerOptions,
+        );
 
         /**
          * Returns whether request `path` matches route.
@@ -154,7 +152,11 @@
         /**
          * Returns map of URL parameters for given `path` and `paramNames`.
          */
-        params<ParamT extends string = string>(path: string | RegExp, captures: ParamT[], params?: Record<string, any>): { [key in ParamT]?: string };
+        params<ParamT extends string = string>(
+            path: string | RegExp,
+            captures: ParamT[],
+            params?: Record<string, any>,
+        ): { [key in ParamT]?: string };
 
         /**
          * Returns array of regexp url path captures.
@@ -465,7 +467,7 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
      * ```
      */
     allowedMethods(
-        options?: Router.RouterAllowedMethodsOptions
+        options?: Router.RouterAllowedMethodsOptions,
     ): Router.Middleware<StateT, ContextT>;
 
     /**
@@ -520,7 +522,6 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
      *
      * router.url('user', { id: 3 }, { query: "limit=1" });
      * // => "/users/3?limit=1"
-     *
      */
     url(name: string, params?: any, options?: Router.UrlOptionsQuery): Error | string;
 
@@ -555,7 +556,10 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
      * ```
      */
 
-    param<BodyT = unknown>(param: string, middleware: Router.ParamMiddleware<StateT, ContextT, BodyT>): Router<StateT, ContextT>;
+    param<BodyT = unknown>(
+        param: string,
+        middleware: Router.ParamMiddleware<StateT, ContextT, BodyT>,
+    ): Router<StateT, ContextT>;
 
     /**
      * Generate URL for route. Takes a route name and map of named `params`.
@@ -586,6 +590,6 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
      * ```
      */
     static url(path: string | RegExp, params: object): string;
- }
+}
 
- export = Router;
+export = Router;

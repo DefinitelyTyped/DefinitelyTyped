@@ -20,11 +20,11 @@ file.clone();
 // importing `vinyl` using a `import * as File from "vinyl"` causes an error.
 // @ts-expect-error
 interface TestStarFile extends StarFile {
-    clone(opts?: { contents?: boolean | undefined, deep?: boolean | undefined } | boolean): this;
+    clone(opts?: { contents?: boolean | undefined; deep?: boolean | undefined } | boolean): this;
 }
 
 interface TestFile extends File {
-    clone(opts?: { contents?: boolean | undefined, deep?: boolean | undefined } | boolean): this;
+    clone(opts?: { contents?: boolean | undefined; deep?: boolean | undefined } | boolean): this;
 }
 
 const testFile: TestFile = {} as any;

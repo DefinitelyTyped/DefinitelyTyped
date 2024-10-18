@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/iframe-resizer",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/davidjbradshaw/iframe-resizer"
+    ],
+    "devDependencies": {
+        "@types/iframe-resizer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Armin Baljic",
+            "githubUsername": "arminbaljic"
+        }
+    ]
+}

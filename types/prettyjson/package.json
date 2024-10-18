@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/prettyjson",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/rafeca/prettyjson"
+    ],
+    "devDependencies": {
+        "@types/prettyjson": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wael BEN ZID EL GUEBSI",
+            "githubUsername": "benzid-wael"
+        }
+    ]
+}

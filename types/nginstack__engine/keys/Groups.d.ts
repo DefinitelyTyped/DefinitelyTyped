@@ -1,3 +1,3 @@
-export const ADMINISTRATORS: number;
-export const DEVELOPERS: number;
-export const EVERYONE: number;
+export let ADMINISTRATORS: number;
+export let DEVELOPERS: number;
+export let EVERYONE: number;

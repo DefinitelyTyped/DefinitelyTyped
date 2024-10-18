@@ -1,0 +1,84 @@
+{
+    "private": true,
+    "name": "@types/node-forge",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/digitalbazaar/forge"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-forge": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Seth Westphal      ",
+            "githubUsername": "westy92"
+        },
+        {
+            "name": "Kay Schecker       ",
+            "githubUsername": "flynetworks"
+        },
+        {
+            "name": "Aakash Goenka      ",
+            "githubUsername": "a-k-g"
+        },
+        {
+            "name": "Rafal2228          ",
+            "githubUsername": "rafal2228"
+        },
+        {
+            "name": "Beeno Tung         ",
+            "githubUsername": "beenotung"
+        },
+        {
+            "name": "Joe Flateau        ",
+            "githubUsername": "joeflateau"
+        },
+        {
+            "name": "timhwang21         ",
+            "githubUsername": "timhwang21"
+        },
+        {
+            "name": "Anders Kaseorg     ",
+            "githubUsername": "andersk"
+        },
+        {
+            "name": "Sascha Zarhuber    ",
+            "githubUsername": "saschazar21"
+        },
+        {
+            "name": "Rogier Schouten    ",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "Ivan Aseev         ",
+            "githubUsername": "aseevia"
+        },
+        {
+            "name": "Wiktor Kwapisiewicz",
+            "githubUsername": "wiktor-k"
+        },
+        {
+            "name": "Ligia Frangello    ",
+            "githubUsername": "frangello"
+        },
+        {
+            "name": "Dmitry Avezov      ",
+            "githubUsername": "avezov"
+        },
+        {
+            "name": "Jose Fuentes       ",
+            "githubUsername": "j-fuentes"
+        },
+        {
+            "name": "Anya Reyes         ",
+            "githubUsername": "darkade"
+        },
+        {
+            "name": "BendingBender      ",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

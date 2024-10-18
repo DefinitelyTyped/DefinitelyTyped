@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/intercept-stdout",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/sfarthin/intercept-stdout"
+    ],
+    "devDependencies": {
+        "@types/intercept-stdout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paulo Castro",
+            "githubUsername": "pdcastro"
+        }
+    ]
+}

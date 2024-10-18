@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/better-queue",
+    "version": "3.8.9999",
+    "projects": [
+        "https://github.com/diamondio/better-queue"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/better-queue": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ostap Nagovitsyn",
+            "githubUsername": "maozedong"
+        }
+    ]
+}

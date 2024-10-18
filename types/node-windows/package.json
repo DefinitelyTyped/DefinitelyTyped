@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-windows",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/coreybutler/node-windows"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-windows": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ken Human",
+            "githubUsername": "kenhuman"
+        }
+    ]
+}

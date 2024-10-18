@@ -1,9 +1,3 @@
-// Type definitions for nise 1.4
-// Project: https://github.com/sinonjs/nise#readme
-// Definitions by: Alexander T. <https://github.com/a-tarasyuk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export interface FakeUploadProgress {
     eventListeners: {
         progress: any[];
@@ -61,6 +55,10 @@ export interface FakeXMLHttpRequest {
      * When using respond, this property is populated with a parsed document if response headers indicate as much (see the spec)
      */
     responseXML: Document;
+    /**
+     * `true` when the request has been aborted, `false` or undefined otherwise
+     */
+    aborted: boolean;
     /**
      * The value of the given response header, if the request has been responded to (see respond).
      * @param header
@@ -259,7 +257,9 @@ export interface FakeXMLHttpRequestStatic {
      * If the filter returns true, the request will not be faked.
      * @param filter
      */
-    addFilter(filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean): void;
+    addFilter(
+        filter: (method: string, url: string, async: boolean, username: string, password: string) => boolean,
+    ): void;
     /**
      * By assigning a function to the onCreate property of the returned object from useFakeXMLHttpRequest()
      * you can subscribe to newly created FakeXMLHttpRequest objects. See below for the fake xhr object API.

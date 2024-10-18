@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/webvr-api",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "webvr-api",
+    "projects": [
+        "https://w3c.github.io/webvr/"
+    ],
+    "devDependencies": {
+        "@types/webvr-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "efokschaner",
+            "githubUsername": "efokschaner"
+        }
+    ]
+}

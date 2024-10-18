@@ -1,7 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@hapi/hapi": "^21.1.0",
-    "joi": "^17.7.0"
-  }
+    "private": true,
+    "name": "@types/hapi__inert",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/hapijs/inert/"
+    ],
+    "dependencies": {
+        "@hapi/hapi": "^21.1.0",
+        "joi": "^17.7.0"
+    },
+    "devDependencies": {
+        "@types/hapi__inert": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Steve Ognibene",
+            "githubUsername": "nycdotnet"
+        },
+        {
+            "name": "Alexander James Phillips",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        }
+    ]
 }

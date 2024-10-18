@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/pleasanter-web-script",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/Implem/Implem.Pleasanter"
+    ],
+    "devDependencies": {
+        "@types/pleasanter-web-script": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "yamada28go",
+            "githubUsername": "yamada28go"
+        }
+    ],
+    "nonNpm": true,
+    "nonNpmDescription": "このパッケージはPleasanterのWebスクリプト用であり、npmパッケージではありません。"
+}

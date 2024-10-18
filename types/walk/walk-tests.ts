@@ -2,45 +2,45 @@ import * as walk from "walk";
 
 const options: walk.WalkOptions = {
     followLinks: true,
-    filters: ['.gitignore'],
+    filters: [".gitignore"],
     listeners: {
-        directories: () => { },
-        directory: () => { },
-        directoryError: () => { },
-        end: () => { },
-        errors: () => { },
-        file: () => { },
-        files: () => { },
-        names: () => { },
-        nodeError: () => { }
-    }
+        directories: () => {},
+        directory: () => {},
+        directoryError: () => {},
+        end: () => {},
+        errors: () => {},
+        file: () => {},
+        files: () => {},
+        names: () => {},
+        nodeError: () => {},
+    },
 };
 
 // $ExpectType Walker
-const walker = walk.walk('.', options);
-walker.on('directories', (
+const walker = walk.walk(".", options);
+walker.on("directories", (
     // $ExpectType string
     root,
     // $ExpectType WalkStats[]
     statsArray,
     // $ExpectType WalkNext
-    next
+    next,
 ) => {
     root.trim();
     statsArray.forEach((stats) => `${stats.name} (${stats.type})`);
     next();
 });
 
-walker.on('file', (
+walker.on("file", (
     // $ExpectType string
     root,
     // $ExpectType WalkStats
     stats,
     // $ExpectType WalkNext
-    next
+    next,
 ) => {
     // @ts-expect-error
-    if (stats.type === 'foo') {
+    if (stats.type === "foo") {
         //
     }
 
@@ -57,6 +57,6 @@ walker.on('file', (
     }
 });
 // @ts-expect-error
-walker.on('foo', () => { });
+walker.on("foo", () => {});
 walker.pause();
 walker.resume();

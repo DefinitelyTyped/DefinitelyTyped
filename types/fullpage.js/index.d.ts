@@ -1,9 +1,3 @@
-// Type definitions for fullpage.js v2.9.5
-// Project: http://alvarotrigo.com/fullPage/
-// Definitions by: Andrew Roberts <http://www.atroberts.org>, Jodi Warren <https://github.com/jodiwarren>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 import htmlString = JQuery.htmlString;
@@ -126,13 +120,13 @@ interface FullPageJsOptions {
      */
     scrollHorizontally?: boolean | undefined;
 
-    /** 
-     * (default false) Extension of fullpage.js. Determines whether moving one horizontal slider will force the sliding of sliders in other section in the same direction. Possible values are true, false or an array with the interlocked sections. For example [1,3,5] starting by 1. Requires fullpage.js >= 2.8.3. 
+    /**
+     * (default false) Extension of fullpage.js. Determines whether moving one horizontal slider will force the sliding of sliders in other section in the same direction. Possible values are true, false or an array with the interlocked sections. For example [1,3,5] starting by 1. Requires fullpage.js >= 2.8.3.
      */
     interlockedSlides?: boolean | number[] | undefined;
 
     /**
-     * Enables or disables the dragging and flicking of sections and slides by using mouse or fingers. Requires fullpage.js >= 2.8.9. Possible values are: 
+     * Enables or disables the dragging and flicking of sections and slides by using mouse or fingers. Requires fullpage.js >= 2.8.9. Possible values are:
      * true: enables the feature.
      * false: disables the feature.
      * vertical: enables the feature only vertically.
@@ -140,14 +134,14 @@ interface FullPageJsOptions {
      * fingersonly: enables the feature for touch devices only.
      * mouseonly: enables the feature for desktop devices only (mouse and trackpad).
      */
-    dragAndMove?: boolean | 'vertical' | 'horizontal' | 'fingersonly' | 'mouseonly' | undefined;
+    dragAndMove?: boolean | "vertical" | "horizontal" | "fingersonly" | "mouseonly" | undefined;
 
     /**
      * (default false)Extension of fullpage.js. Provides a way to use non full screen sections based on percentage. Ideal to show visitors there's more content in the site by showing part of the next or previous section. Requires fullPage.js >= 2.8.8 To define the percentage of each section the attribute data-percentage must be used. The centering of the section in the viewport can be determined by using a boolean value in the attribute data-centered (default to true if not specified). For example:
      */
     offsetSections?: boolean | undefined;
 
-    /** 
+    /**
      * (default false). Extension of fullpage.js. Defines whether or not to reset every slider after leaving its section. Requires fullpage.js >= 2.8.3.
      */
     resetSliders?: boolean | undefined;
@@ -155,7 +149,7 @@ interface FullPageJsOptions {
     /**
      * Defines whether to use a fading effect or not instead of the default scrolling one. Possible values are true, false, sections, slides. It can therefore be applied just vertically or horizontally, or to both at the time. Requires fullpage.js >= 2.8.6.
      */
-    fadingEffect?: boolean | 'sections' | 'slides' | undefined;
+    fadingEffect?: boolean | "sections" | "slides" | undefined;
 
     /**
      *  (default null) If you want to avoid the auto scroll when scrolling over some elements, this is the option you need to use. (useful for maps, scrolling divs etc.) It requires a string with the jQuery selectors for those elements. (For example: normalScrollElements: '#element1, .element2')
@@ -190,7 +184,7 @@ interface FullPageJsOptions {
     /**
      * Defines how to scroll to a section which size is bigger than the viewport. By default fullPage.js scrolls to the top if you come from a section above the destination one and to the bottom if you come from a section below the destination one.
      */
-    bigSectionsDestination?: 'top' | 'bottom' | null | undefined;
+    bigSectionsDestination?: "top" | "bottom" | null | undefined;
 
     // Accessibility
 
@@ -220,13 +214,12 @@ interface FullPageJsOptions {
      */
     verticalCentered?: boolean | undefined;
 
-
-    resize ?: boolean | undefined;
+    resize?: boolean | undefined;
 
     /**
      * (default none) Define the CSS background-color property for each section
      */
-    sectionsColor ?: string[] | undefined;
+    sectionsColor?: string[] | undefined;
 
     /**
      * (default 0) Defines the top padding for each section with a numerical value and its measure (paddingTop: '10px', paddingTop: '10em'...) Useful in case of using a fixed header.
@@ -253,9 +246,9 @@ interface FullPageJsOptions {
      */
     responsiveHeight?: number | undefined;
 
-    /** 
+    /**
      * When set to true slides will be turned into vertical sections when responsive mode is fired. (by using the responsiveWidth or responsiveHeight options detailed above). Requires fullpage.js >= 2.8.5.
-     */ 
+     */
     responsiveSlides?: boolean | undefined;
 
     /**
@@ -265,11 +258,11 @@ interface FullPageJsOptions {
 
     /**
      * Allows to configure the parameters for the parallax backgrounds effect when using the option parallax:true.
-     */ 
+     */
     parallaxOptions?: {
-        type?: 'cover' | 'reveal' | undefined,
-        percentage?: number | undefined,
-        property?: string | undefined,
+        type?: "cover" | "reveal" | undefined;
+        percentage?: number | undefined;
+        property?: string | undefined;
     } | undefined;
 
     /**
@@ -294,11 +287,11 @@ interface FullPageJsOptions {
          * @default true
          */
         fadeBackground?: boolean | undefined;
-    } | undefined
+    } | undefined;
 
     /**
      * Lazy loading is active by default which means it will lazy load any media element containing the attribute data-src as detailed in the Lazy Loading docs . If you want to use any other lazy loading library you can disable this fullpage.js feature.
-     */ 
+     */
     lazyLoading?: boolean | undefined;
 
     // Custom selectors
@@ -367,7 +360,9 @@ interface FullPageJsOptions {
      * @param direction takes the values right or left depending on the scrolling direction.
      * @param nextSlideIndex index of the destination slide. Starting from 0.
      */
-    onSlideLeave?: ((anchorLink: string, index: number, slideIndex: number, direction: string, nextSlideIndex: number) => void) | undefined;
+    onSlideLeave?:
+        | ((anchorLink: string, index: number, slideIndex: number, direction: string, nextSlideIndex: number) => void)
+        | undefined;
 }
 
 interface FullPageJSGlobalOptions {
@@ -508,7 +503,7 @@ interface FullPageJsMethods {
      *
      * @param {"all" | undefined} type
      */
-    destroy(type?: 'all'): void;
+    destroy(type?: "all"): void;
 
     responsiveSlides: {
         /**
@@ -523,7 +518,7 @@ interface FullPageJsMethods {
          * vertical sections) into horizontal slides again.
          */
         toSlides(): void;
-    }
+    };
 }
 
 interface FullPageJs extends FullPageJSGlobalOptions, FullPageJsMethods {}

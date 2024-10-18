@@ -1,4 +1,18 @@
 {
     "private": true,
-    "type": "module"
+    "name": "@types/taskkill",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/taskkill#readme"
+    ],
+    "type": "module",
+    "devDependencies": {
+        "@types/taskkill": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

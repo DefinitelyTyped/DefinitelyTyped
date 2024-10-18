@@ -5,7 +5,7 @@ export interface UrlParam {
 }
 
 export interface PageConstructor {
-    new (): page;
+    new(): page;
 }
 
 export interface PageConfig {
@@ -26,7 +26,7 @@ export default class page extends component {
     $route(
         type: "redirectTo" | "navigateTo",
         url: string | UrlParam,
-        params?: { [name: string]: any }
+        params?: { [name: string]: any },
     ): any;
     $preload(key: string | { [key: string]: any }, data: any): any;
     $switch(url: string | UrlParam): any;

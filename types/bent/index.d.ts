@@ -1,15 +1,9 @@
-// Type definitions for bent 7.3
-// Project: https://github.com/mikeal/bent#readme
-// Definitions by: Ovyerus <https://github.com/Ovyerus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 /// <reference lib="dom" />
 
-import { PassThrough, Stream } from 'stream';
+import { PassThrough, Stream } from "stream";
 
-type HttpMethod = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH' | 'HEAD' | 'OPTIONS' | 'CONNECT' | 'TRACE';
+type HttpMethod = "GET" | "POST" | "DELETE" | "PUT" | "PATCH" | "HEAD" | "OPTIONS" | "CONNECT" | "TRACE";
 type StatusCode = number;
 type BaseUrl = string;
 interface Headers {
@@ -17,27 +11,27 @@ interface Headers {
 }
 
 // Type first
-declare function bent(type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
-declare function bent(type: 'buffer', ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
-// eslint-disable-next-line no-unnecessary-generics
-declare function bent<T extends bent.Json = any>(type: 'json', ...args: bent.Options[]): bent.RequestFunction<T>;
+declare function bent(type: "string", ...args: bent.Options[]): bent.RequestFunction<string>;
+declare function bent(type: "buffer", ...args: bent.Options[]): bent.RequestFunction<Buffer | ArrayBuffer>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function bent<T extends bent.Json = any>(type: "json", ...args: bent.Options[]): bent.RequestFunction<T>;
 
 // Method or url first
-declare function bent(baseUrl: string, type: 'string', ...args: bent.Options[]): bent.RequestFunction<string>;
+declare function bent(baseUrl: string, type: "string", ...args: bent.Options[]): bent.RequestFunction<string>;
 declare function bent(
     baseUrl: string,
-    type: 'buffer',
+    type: "buffer",
     ...args: bent.Options[]
 ): bent.RequestFunction<Buffer | ArrayBuffer>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function bent<T extends bent.Json = any>(
     baseUrl: string,
-    type: 'json',
+    type: "json",
     ...args: bent.Options[]
-): // eslint-disable-next-line no-unnecessary-generics
-bent.RequestFunction<T>;
+): bent.RequestFunction<T>;
 declare function bent(baseUrl: string, ...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function bent<T extends bent.ValidResponse>(...args: bent.Options[]): bent.RequestFunction<T>;
 
 // If we get some sort of custom nominal types, or regex literals, we might be able to simplify to something similar to

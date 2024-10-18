@@ -8,9 +8,9 @@ const n1: graphviz.Node = g.addNode("Hello", { color: "blue" });
 n1.set("style", "filled");
 
 // @ts-expect-error
-const getAttributeError: graphviz.PossibleValue = n1.get('foo');
+const getAttributeError: graphviz.PossibleValue = n1.get("foo");
 
-const attribute: graphviz.PossibleValue | undefined = n1.get('foo');
+const attribute: graphviz.PossibleValue | undefined = n1.get("foo");
 
 // Add node (ID: World)
 g.addNode("World");

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/js-sha1",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/emn178/js-sha1"
+    ],
+    "devDependencies": {
+        "@types/js-sha1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Igor N. Dultsev",
+            "githubUsername": "yhaskell"
+        }
+    ]
+}

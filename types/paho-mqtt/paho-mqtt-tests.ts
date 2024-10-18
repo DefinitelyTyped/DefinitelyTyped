@@ -1,15 +1,15 @@
-let client = new Paho.MQTT.Client('ws://localhost/mqtt', 'client-1');
-client = new Paho.MQTT.Client('localhost', 80, 'client-2');
-client = new Paho.MQTT.Client('localhost', 80, '/mqtt', 'client-3');
+let client = new Paho.MQTT.Client("ws://localhost/mqtt", "client-1");
+client = new Paho.MQTT.Client("localhost", 80, "client-2");
+client = new Paho.MQTT.Client("localhost", 80, "/mqtt", "client-3");
 
-const willMsg = new Paho.MQTT.Message('');
+const willMsg = new Paho.MQTT.Message("");
 
 declare var console: any;
 
 client.connect({
     timeout: 10,
-    userName: 'username',
-    password: 'pa$$word',
+    userName: "username",
+    password: "pa$$word",
     willMessage: willMsg,
     keepAliveInterval: 10,
     cleanSession: true,
@@ -18,15 +18,15 @@ client.connect({
         asdf: true,
     },
     onSuccess: o => {
-        console.log('connected: ', o.invocationContext.asdf);
+        console.log("connected: ", o.invocationContext.asdf);
     },
     mqttVersion: 3,
     onFailure: e => {
-        console.error('could not connect: ', e.errorMessage);
+        console.error("could not connect: ", e.errorMessage);
     },
-    hosts: ['localhost', '8.8.8.8'],
+    hosts: ["localhost", "8.8.8.8"],
     ports: [80, 443],
-    uris: ['ws://mqtt.eclipseprojects.io:80/mqtt'],
+    uris: ["ws://mqtt.eclipseprojects.io:80/mqtt"],
     mqttVersionExplicit: true,
     reconnect: true,
 });
@@ -61,38 +61,38 @@ client.onMessageDelivered = msg => {
     );
 };
 
-client.subscribe('test/topic', {
+client.subscribe("test/topic", {
     qos: 2,
     invocationContext: { asdf: true },
     onSuccess: o => {
         console.log(`subscribed: ${o.invocationContext.asdf}`);
     },
     onFailure: e => {
-        console.error('error subscribing: ', e.errorMessage);
+        console.error("error subscribing: ", e.errorMessage);
     },
     timeout: 10,
 });
 
-client.unsubscribe('test/topic', {
+client.unsubscribe("test/topic", {
     invocationContext: { asdf: true },
     onSuccess: o => {
         console.log(`subscribed: ${o.invocationContext.asdf}`);
     },
     onFailure: e => {
-        console.error('error subscribing: ', e.errorMessage);
+        console.error("error subscribing: ", e.errorMessage);
     },
     timeout: 10,
 });
 
-client.send('test/topic2', 'hello world!', 0, true);
-client.send('test/topic3', 'hello world 2!', 1);
-client.send('test/topic4', new ArrayBuffer(3));
+client.send("test/topic2", "hello world!", 0, true);
+client.send("test/topic3", "hello world 2!", 1);
+client.send("test/topic4", new ArrayBuffer(3));
 const msg = new Paho.MQTT.Message(new ArrayBuffer(4));
-msg.destinationName = 'test/topic5';
+msg.destinationName = "test/topic5";
 msg.qos = 2;
 
 client.disconnect();
 
-import { Message, Client, Qos } from 'paho-mqtt';
-new Message('some string').destinationName = 'test/topic6';
+import { Client, Message, Qos } from "paho-mqtt";
+new Message("some string").destinationName = "test/topic6";
 const qos: Qos = (new Message(new Uint8Array(4)).qos = 0);

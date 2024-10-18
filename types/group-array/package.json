@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/group-array",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/doowb/group-array"
+    ],
+    "devDependencies": {
+        "@types/group-array": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
-import { extractColors, Options } from 'extract-colors';
+import { extractColors, Options } from "extract-colors";
 
-const src = 'my-image.jpg';
+const src = "my-image.jpg";
 
 const options: Options = {
     pixels: 50,

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/accessibility",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/ranbuch/accessibility#readme"
+    ],
+    "devDependencies": {
+        "@types/accessibility": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

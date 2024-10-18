@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/country-data",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/OpenBookPrices/country-data"
+    ],
+    "devDependencies": {
+        "@types/country-data": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Logan Dam",
+            "githubUsername": "biltongza"
+        },
+        {
+            "name": "Mike MacCana",
+            "githubUsername": "mikemaccana"
+        }
+    ]
+}

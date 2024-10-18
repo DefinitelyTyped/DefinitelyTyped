@@ -1,5 +1,5 @@
-import { Vector2 } from './../../math/Vector2.js';
-import { Curve } from './../core/Curve.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { Curve } from "../core/Curve.js";
 
 /**
  * Create a smooth **2D** {@link http://en.wikipedia.org/wiki/B%C3%A9zier_curve#mediaviewer/File:B%C3%A9zier_2_big.gif | quadratic bezier curve},
@@ -42,7 +42,7 @@ export class QuadraticBezierCurve extends Curve<Vector2> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `QuadraticBezierCurve`
      */
-    override readonly type: string | 'QuadraticBezierCurve';
+    override readonly type: string | "QuadraticBezierCurve";
 
     /**
      * The start point.

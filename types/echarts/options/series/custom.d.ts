@@ -130,7 +130,6 @@ declare namespace echarts {
          *
          * [see doc](https://echarts.apache.org/en/option.html#series-custom)
          *
-         *
          * @see https://echarts.apache.org/en/option.html#series-custom
          */
         interface SeriesCustom {
@@ -146,7 +145,6 @@ declare namespace echarts {
              * If specified, it can be used to refer the component in option
              * or API.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.id
              */
             id?: string | undefined;
@@ -158,7 +156,6 @@ declare namespace echarts {
              * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.name
              */
             name?: string | undefined;
@@ -167,7 +164,6 @@ declare namespace echarts {
              * Whether to enable highlighting chart when
              * [legend](https://echarts.apache.org/en/option.html#legend)
              * is being hovered.
-             *
              *
              * @default
              * "true"
@@ -207,7 +203,6 @@ declare namespace echarts {
              *
              * Do not use coordinate system.
              *
-             *
              * @default
              * "cartesian2d"
              * @see https://echarts.apache.org/en/option.html#series-custom.coordinateSystem
@@ -219,7 +214,6 @@ declare namespace echarts {
              * [x axis](https://echarts.apache.org/en/option.html#xAxis)
              * to combine with, which is useful for multiple x axes in one chart.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.xAxisIndex
              */
             xAxisIndex?: number | undefined;
@@ -228,7 +222,6 @@ declare namespace echarts {
              * Index of
              * [y axis](https://echarts.apache.org/en/option.html#yAxis)
              * to combine with, which is useful for multiple y axes in one chart.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.yAxisIndex
              */
@@ -240,7 +233,6 @@ declare namespace echarts {
              * to combine with, which is useful for multiple polar axes in one
              * chart.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.polarIndex
              */
             polarIndex?: number | undefined;
@@ -251,7 +243,6 @@ declare namespace echarts {
              * to combine with, which is useful for multiple geographic axes
              * in one chart.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.geoIndex
              */
             geoIndex?: number | undefined;
@@ -261,7 +252,6 @@ declare namespace echarts {
              * [calendar coordinates](https://echarts.apache.org/en/option.html#calendar)
              * to combine with, which is useful for multiple calendar coordinates
              * in one chart.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.calendarIndex
              */
@@ -326,7 +316,6 @@ declare namespace echarts {
              * This method can also be called like `api.style({fill:
              * 'green', stroke: 'yellow'})` to override those style settings.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem
              *
              * @returns
@@ -344,7 +333,6 @@ declare namespace echarts {
              * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem)
              * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem)
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return
              */
             renderItem?: SeriesCustom.RenderItem | undefined;
@@ -352,7 +340,6 @@ declare namespace echarts {
             /**
              * Graphic style of , `emphasis` is the style when it is highlighted,
              * like being hovered by mouse, or highlighted via legend connect.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle
              */
@@ -372,14 +359,12 @@ declare namespace echarts {
                  * >
                  * > [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.itemStyle)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.color
                  */
                 color?: EChartOption.Color | undefined;
 
                 /**
                  * border color, whose format is similar to that of `color`.
-                 *
                  *
                  * @default
                  * "#000"
@@ -390,7 +375,6 @@ declare namespace echarts {
                 /**
                  * border width. No border when it is set to be 0.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.borderWidth
                  */
                 borderWidth?: number | undefined;
@@ -398,7 +382,6 @@ declare namespace echarts {
                 /**
                  * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                  * `'solid'` by default.
-                 *
                  *
                  * @default
                  * "solid"
@@ -415,14 +398,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.itemStyle)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowBlur
                  */
                 shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowColor
                  */
@@ -431,14 +412,12 @@ declare namespace echarts {
                 /**
                  * Offset distance on the horizontal direction of shadow.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.shadowOffsetY
                  */
@@ -448,7 +427,6 @@ declare namespace echarts {
                  * Opacity of the component.
                  * Supports value from 0 to 1, and the component will not be
                  * drawn when set to 0.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.itemStyle.opacity
                  */
@@ -476,14 +454,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.emphasis.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "#000"
@@ -494,7 +470,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.borderWidth
                      */
                     borderWidth?: number | undefined;
@@ -502,7 +477,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -519,14 +493,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.emphasis.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowColor
                      */
@@ -535,14 +507,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.shadowOffsetY
                      */
@@ -552,7 +522,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.emphasis.itemStyle.opacity
                      */
@@ -604,7 +573,6 @@ declare namespace echarts {
              * displayed vertically, which is better to show diemsion names.
              * Otherwise, `tooltip` will displayed only value horizontally.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.dimensions
              */
             dimensions?: any[] | undefined;
@@ -642,7 +610,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.encode
              */
             encode?: object | undefined;
@@ -663,7 +630,6 @@ declare namespace echarts {
              * [example](https://echarts.apache.org/examples/en/editor.html?c=dataset-series-layout-by)
              * .
              *
-             *
              * @default
              * "column"
              * @see https://echarts.apache.org/en/option.html#series-custom.seriesLayoutBy
@@ -677,7 +643,6 @@ declare namespace echarts {
              * [dataset](https://echarts.apache.org/en/option.html#dataset)
              * exists, the series will use `dataset`.
              * `datasetIndex` specifies which dataset will be used.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.datasetIndex
              */
@@ -812,12 +777,12 @@ declare namespace echarts {
              * For example, line chart can break when encounter an empty value,
              * and scatter chart do not display graphic elements for empty values.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.data
              */
             data?:
-            | (void | string | number | SeriesCustom.DataObject)[]
-            | (void | string | number | SeriesCustom.DataObject)[][] | undefined;
+                | Array<void | string | number | SeriesCustom.DataObject>
+                | Array<Array<void | string | number | SeriesCustom.DataObject>>
+                | undefined;
 
             /**
              * `zlevel` value of all graghical elements in custom series.
@@ -833,7 +798,6 @@ declare namespace echarts {
              * Canvases with bigger `zlevel` will be placed on Canvases with
              * smaller `zlevel`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.zlevel
              */
             zlevel?: number | undefined;
@@ -847,7 +811,6 @@ declare namespace echarts {
              * `z` has a lower priority to `zlevel`, and will not create new
              * Canvas.
              *
-             *
              * @default
              * 2
              * @see https://echarts.apache.org/en/option.html#series-custom.z
@@ -859,14 +822,12 @@ declare namespace echarts {
              * Default value is false, for triggering and responding to mouse
              * events.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.silent
              */
             silent?: boolean | undefined;
 
             /**
              * Whether to enable animation.
-             *
              *
              * @default
              * "true"
@@ -878,7 +839,6 @@ declare namespace echarts {
              * Whether to set graphic number threshold to animation.
              * Animation will be disabled when graphic number is larger than
              * threshold.
-             *
              *
              * @default
              * 2000
@@ -892,7 +852,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
-             *
              * @default
              * 1000
              * @see https://echarts.apache.org/en/option.html#series-custom.animationDuration
@@ -904,7 +863,6 @@ declare namespace echarts {
              * Varied easing effects can be found at
              * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
-             *
              *
              * @default
              * "cubicOut"
@@ -924,7 +882,6 @@ declare namespace echarts {
              * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.animationDelay
              */
             animationDelay?: Function | number | undefined;
@@ -935,7 +892,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom)
              *
-             *
              * @default
              * 300
              * @see https://echarts.apache.org/en/option.html#series-custom.animationDurationUpdate
@@ -944,7 +900,6 @@ declare namespace echarts {
 
             /**
              * Easing method used for animation.
-             *
              *
              * @default
              * "cubicOut"
@@ -964,14 +919,12 @@ declare namespace echarts {
              * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number | undefined;
 
             /**
              * tooltip settings in this series.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.tooltip
              */
@@ -983,14 +936,12 @@ declare namespace echarts {
                 /**
                  * Name of data item.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.data.name
                  */
                 name?: string | undefined;
 
                 /**
                  * Value of data item.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.data.value
                  */
@@ -1013,14 +964,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "#000"
@@ -1031,7 +980,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.borderWidth
                      */
                     borderWidth?: number | undefined;
@@ -1039,7 +987,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -1056,14 +1003,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowColor
                      */
@@ -1072,14 +1017,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.shadowOffsetY
                      */
@@ -1089,7 +1032,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.data.itemStyle.opacity
                      */
@@ -1118,7 +1060,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.emphasis.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -1126,7 +1067,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "#000"
@@ -1137,7 +1077,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.borderWidth
                          */
                         borderWidth?: number | undefined;
@@ -1145,7 +1084,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -1162,14 +1100,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.data.emphasis.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowColor
                          */
@@ -1178,14 +1114,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.shadowOffsetY
                          */
@@ -1196,7 +1130,6 @@ declare namespace echarts {
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-custom.data.emphasis.itemStyle.opacity
                          */
                         opacity?: number | undefined;
@@ -1205,7 +1138,6 @@ declare namespace echarts {
 
                 /**
                  * tooltip settings in this series data.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.data.tooltip
                  */
@@ -1271,12 +1203,11 @@ declare namespace echarts {
              * This method can also be called like `api.style({fill:
              * 'green', stroke: 'yellow'})` to override those style settings.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem
              */
             interface RenderItem {
                 (params: RenderItemParams, api: RenderItemApi):
-                    RenderItemReturnGroup
+                    | RenderItemReturnGroup
                     | RenderItemReturnPath
                     | RenderItemReturnImage
                     | RenderItemReturnText
@@ -1309,7 +1240,6 @@ declare namespace echarts {
              * uses `dataIndexInside` as the input parameter but not
              * `dataIndex`, because conversion from `dataIndex` to `dataIndexInside`
              * is time-consuming.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.params
              */
@@ -1363,7 +1293,6 @@ declare namespace echarts {
             /**
              * The second parameter of `renderItem`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api
              */
             interface RenderItemApi {
@@ -1371,7 +1300,6 @@ declare namespace echarts {
                  * Get value on the given dimension.
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.value
                  */
@@ -1381,7 +1309,6 @@ declare namespace echarts {
                  * Convert data to coordinate.
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.coord
                  */
@@ -1406,7 +1333,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.size
                  */
                 size?: Function | undefined;
@@ -1423,7 +1349,6 @@ declare namespace echarts {
                  * 'green', stroke: 'yellow'})`.
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.style
                  */
@@ -1442,7 +1367,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.styleEmphasis
                  */
                 styleEmphasis?: Function | undefined;
@@ -1451,7 +1375,6 @@ declare namespace echarts {
                  * Get the visual info. It is rarely be used.
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.visual
                  */
@@ -1468,7 +1391,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.barLayout
                  */
                 barLayout?: Function | undefined;
@@ -1484,7 +1406,6 @@ declare namespace echarts {
                  *
                  * ```
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.currentSeriesIndices
                  */
                 currentSeriesIndices?: Function | undefined;
@@ -1494,7 +1415,6 @@ declare namespace echarts {
                  * directly.
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.arguments.api)
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.font
                  */
@@ -1506,7 +1426,6 @@ declare namespace echarts {
                  *
                  * ```
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getWidth
                  */
                 getWidth?: Function | undefined;
@@ -1516,7 +1435,6 @@ declare namespace echarts {
                  * @return {number} Height of echarts container.
                  *
                  * ```
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getHeight
                  */
@@ -1528,7 +1446,6 @@ declare namespace echarts {
                  *
                  * ```
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getZr
                  */
                 getZr?: Function | undefined;
@@ -1539,7 +1456,6 @@ declare namespace echarts {
                  *
                  * ```
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.arguments.api.getDevicePixelRatio
                  */
                 getDevicePixelRatio?: Function | undefined;
@@ -1549,7 +1465,7 @@ declare namespace echarts {
              * coordSys is variable by different types of coordinate systems.
              */
             interface CoordSys {
-                type?: 'cartesian2d' | 'calendar' | 'geo' | 'polar' | 'singleAxis' | undefined;
+                type?: "cartesian2d" | "calendar" | "geo" | "polar" | "singleAxis" | undefined;
 
                 /**
                  * x of grid rect, calendar rect, geo rect or singleAxis rect
@@ -1667,7 +1583,6 @@ declare namespace echarts {
              * `group` is the only type that can contain children, so that
              * a group of elements can be positioned and transformed together.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group
              */
             interface RenderItemReturnGroup {
@@ -1702,7 +1617,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "group"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.type
@@ -1712,7 +1626,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -1753,7 +1666,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.position
@@ -1793,7 +1705,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.rotation
                  */
                 rotation?: number | undefined;
@@ -1830,7 +1741,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -1871,7 +1781,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.origin
@@ -1880,7 +1789,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -1893,7 +1801,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.name
@@ -1905,14 +1812,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_group)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.silent
                  */
@@ -1921,7 +1826,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.invisible
                  */
                 invisible?: boolean | undefined;
@@ -1929,7 +1833,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.ignore
                  */
@@ -1943,7 +1846,6 @@ declare namespace echarts {
                  * When width is `0`, children can also be positioned according
                  * to its parent using `left: 'center'`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.width
                  */
                 width?: number | undefined;
@@ -1955,7 +1857,6 @@ declare namespace echarts {
                  *
                  * When height is `0`, children can also be positioned according
                  * to its parent using `top: 'middle'`.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.height
                  */
@@ -1981,7 +1882,6 @@ declare namespace echarts {
                  * But notice that the operation is performance consuming,
                  * do not use it for large data amount.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.diffChildrenByName
                  */
                 diffChildrenByName?: boolean | undefined;
@@ -1989,7 +1889,6 @@ declare namespace echarts {
                 /**
                  * A list of children, each item is a declaration of an
                  * element.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.children
                  */
@@ -2000,7 +1899,6 @@ declare namespace echarts {
                  * is the same as
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group.styleEmphasis
                  */
@@ -2019,7 +1917,6 @@ declare namespace echarts {
              * and
              * [shapes](https://echarts.apache.org/examples/en/editor.html?c=custom-gantt-flight)
              * .
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path
              */
@@ -2055,7 +1952,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "path"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.type
@@ -2065,7 +1961,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -2106,7 +2001,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.position
@@ -2146,7 +2040,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.rotation
                  */
                 rotation?: number | undefined;
@@ -2183,7 +2076,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -2224,7 +2116,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.origin
@@ -2233,7 +2124,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -2246,7 +2136,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.name
@@ -2258,14 +2147,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_path)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.silent
                  */
@@ -2274,7 +2161,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.invisible
                  */
                 invisible?: boolean | undefined;
@@ -2282,7 +2168,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.ignore
                  */
@@ -2314,7 +2199,6 @@ declare namespace echarts {
                      * [layout](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.layout)
                      * can be used to specify the transform strategy.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.pathData
                      */
                     pathData?: string | undefined;
@@ -2323,7 +2207,6 @@ declare namespace echarts {
                      * Alias of
                      * [pathData](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.pathData)
                      * .
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.d
                      */
@@ -2352,7 +2235,6 @@ declare namespace echarts {
                      * aspect ratio of the rect, fill the rect and do not
                      * overflow.
                      *
-                     *
                      * @default
                      * "center"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.layout
@@ -2363,7 +2245,6 @@ declare namespace echarts {
                      * The x value of the left-top corner of the element
                      * in the coordinate system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.x
                      */
                     x?: number | undefined;
@@ -2372,7 +2253,6 @@ declare namespace echarts {
                      * The y value of the left-top corner of the element
                      * in the coordinate system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.y
                      */
                     y?: number | undefined;
@@ -2380,14 +2260,12 @@ declare namespace echarts {
                     /**
                      * The width of the shape of the element.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.width
                      */
                     width?: number | undefined;
 
                     /**
                      * The height of the shape of the element.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.shape.height
                      */
@@ -2417,13 +2295,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -2434,7 +2310,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.stroke
                      */
                     stroke?: string | undefined;
@@ -2442,14 +2317,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -2460,7 +2333,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetX
@@ -2470,7 +2342,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.style.shadowOffsetY
@@ -2479,7 +2350,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -2493,7 +2363,6 @@ declare namespace echarts {
                  * is the same as
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_path.styleEmphasis
                  */
@@ -2535,7 +2404,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "image"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.type
@@ -2545,7 +2413,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -2586,7 +2453,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.position
@@ -2626,7 +2492,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.rotation
                  */
                 rotation?: number | undefined;
@@ -2663,7 +2528,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -2704,7 +2568,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.origin
@@ -2713,7 +2576,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -2726,7 +2588,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.name
@@ -2738,14 +2599,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_image)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.silent
                  */
@@ -2754,7 +2613,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.invisible
                  */
                 invisible?: boolean | undefined;
@@ -2762,7 +2620,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.ignore
                  */
@@ -2777,7 +2634,6 @@ declare namespace echarts {
                      * [dataURI](https://tools.ietf.org/html/rfc2397)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.image
                      */
                     image?: string | undefined;
@@ -2785,7 +2641,6 @@ declare namespace echarts {
                     /**
                      * The x value of the left-top corner of the element
                      * in the coordinate system of its parent.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.x
                      */
@@ -2795,14 +2650,12 @@ declare namespace echarts {
                      * The y value of the left-top corner of the element
                      * in the coordinate system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.y
                      */
                     y?: number | undefined;
 
                     /**
                      * The width of the shape of the element.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.width
                      */
@@ -2833,14 +2686,12 @@ declare namespace echarts {
                      * => `style.textStroke`
                      * + ...
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.height
                      */
                     height?: number | undefined;
 
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -2851,7 +2702,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.stroke
                      */
                     stroke?: string | undefined;
@@ -2859,14 +2709,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -2877,7 +2725,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetX
@@ -2887,7 +2734,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.style.shadowOffsetY
@@ -2896,7 +2742,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -2911,7 +2756,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_image.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -2919,7 +2763,6 @@ declare namespace echarts {
 
             /**
              * Text block.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text
              */
@@ -2955,7 +2798,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "text"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.type
@@ -2965,7 +2807,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -3006,7 +2847,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.position
@@ -3046,7 +2886,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.rotation
                  */
                 rotation?: number | undefined;
@@ -3083,7 +2922,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -3124,7 +2962,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.origin
@@ -3133,7 +2970,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -3146,7 +2982,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.name
@@ -3158,14 +2993,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_text)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.silent
                  */
@@ -3174,7 +3007,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.invisible
                  */
                 invisible?: boolean | undefined;
@@ -3182,7 +3014,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.ignore
                  */
@@ -3195,7 +3026,6 @@ declare namespace echarts {
                     /**
                      * Text content. `\n` can be used as a line break.
                      *
-                     *
                      * @default
                      * ''
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.text
@@ -3206,7 +3036,6 @@ declare namespace echarts {
                      * The x value of the left-top corner of the element
                      * in the coordinate system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.x
                      */
                     x?: number | undefined;
@@ -3214,7 +3043,6 @@ declare namespace echarts {
                     /**
                      * The y value of the left-top corner of the element
                      * in the coordinate system of its parent.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.y
                      */
@@ -3229,7 +3057,6 @@ declare namespace echarts {
                      * For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_text.style)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.font
                      */
@@ -3246,7 +3073,6 @@ declare namespace echarts {
                      * block is specified by
                      * [style.y](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.y)
                      * .
-                     *
                      *
                      * @default
                      * "left"
@@ -3280,14 +3106,12 @@ declare namespace echarts {
                      * => `style.textStroke`
                      * + ...
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.textVerticalAlign
                      */
                     textVerticalAlign?: string | undefined;
 
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -3298,7 +3122,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.stroke
                      */
                     stroke?: string | undefined;
@@ -3306,14 +3129,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -3324,7 +3145,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetX
@@ -3334,7 +3154,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.style.shadowOffsetY
@@ -3343,7 +3162,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -3358,7 +3176,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_text.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -3366,7 +3183,6 @@ declare namespace echarts {
 
             /**
              * Rectangle element.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect
              */
@@ -3402,7 +3218,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "rect"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.type
@@ -3412,7 +3227,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -3453,7 +3267,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.position
@@ -3493,7 +3306,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.rotation
                  */
                 rotation?: number | undefined;
@@ -3530,7 +3342,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -3571,7 +3382,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.origin
@@ -3580,7 +3390,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -3593,7 +3402,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.name
@@ -3605,14 +3413,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_rect)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.silent
                  */
@@ -3621,7 +3427,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.invisible
                  */
                 invisible?: boolean | undefined;
@@ -3629,7 +3434,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.ignore
                  */
@@ -3643,7 +3447,6 @@ declare namespace echarts {
                      * The x value of the left-top corner of the element
                      * in the coordinate system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.x
                      */
                     x?: number | undefined;
@@ -3652,7 +3455,6 @@ declare namespace echarts {
                      * The y value of the left-top corner of the element
                      * in the coordinate system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.y
                      */
                     y?: number | undefined;
@@ -3660,14 +3462,12 @@ declare namespace echarts {
                     /**
                      * The width of the shape of the element.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.width
                      */
                     width?: number | undefined;
 
                     /**
                      * The height of the shape of the element.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.height
                      */
@@ -3685,7 +3485,6 @@ declare namespace echarts {
                      * + `r`: `[1]` means `[1, 1, 1, 1]`
                      * + `r`: `[1, 2]` means `[1, 2, 1, 2]`
                      * + `r`: `[1, 2, 3]` means `[1, 2, 3, 2]`
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.shape.r
                      */
@@ -3715,13 +3514,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -3732,7 +3529,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.stroke
                      */
                     stroke?: string | undefined;
@@ -3740,14 +3536,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -3758,7 +3552,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetX
@@ -3768,7 +3561,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.style.shadowOffsetY
@@ -3777,7 +3569,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -3792,7 +3583,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_rect.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -3800,7 +3590,6 @@ declare namespace echarts {
 
             /**
              * Circle element.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle
              */
@@ -3836,7 +3625,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "circle"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.type
@@ -3846,7 +3634,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -3887,7 +3674,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.position
@@ -3927,7 +3713,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.rotation
                  */
                 rotation?: number | undefined;
@@ -3964,7 +3749,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -4005,7 +3789,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.origin
@@ -4014,7 +3797,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -4027,7 +3809,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.name
@@ -4039,14 +3820,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_circle)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.silent
                  */
@@ -4055,7 +3834,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.invisible
                  */
                 invisible?: boolean | undefined;
@@ -4063,7 +3841,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.ignore
                  */
@@ -4077,7 +3854,6 @@ declare namespace echarts {
                      * The x value of the center of the element in the coordinate
                      * system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.cx
                      */
                     cx?: number | undefined;
@@ -4086,14 +3862,12 @@ declare namespace echarts {
                      * The y value of the center of the element in the coordinate
                      * system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.cy
                      */
                     cy?: number | undefined;
 
                     /**
                      * Outside radius.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.shape.r
                      */
@@ -4123,13 +3897,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -4140,7 +3912,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.stroke
                      */
                     stroke?: string | undefined;
@@ -4148,14 +3919,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -4166,7 +3935,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetX
@@ -4176,7 +3944,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.style.shadowOffsetY
@@ -4185,7 +3952,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -4200,7 +3966,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_circle.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -4208,7 +3973,6 @@ declare namespace echarts {
 
             /**
              * Ring element.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring
              */
@@ -4244,7 +4008,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "ring"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.type
@@ -4254,7 +4017,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -4295,7 +4057,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.position
@@ -4335,7 +4096,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.rotation
                  */
                 rotation?: number | undefined;
@@ -4372,7 +4132,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -4413,7 +4172,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.origin
@@ -4422,7 +4180,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -4435,7 +4192,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.name
@@ -4447,14 +4203,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_ring)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.silent
                  */
@@ -4463,7 +4217,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.invisible
                  */
                 invisible?: boolean | undefined;
@@ -4471,7 +4224,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.ignore
                  */
@@ -4485,7 +4237,6 @@ declare namespace echarts {
                      * The x value of the center of the element in the coordinate
                      * system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.cx
                      */
                     cx?: number | undefined;
@@ -4494,7 +4245,6 @@ declare namespace echarts {
                      * The y value of the center of the element in the coordinate
                      * system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.cy
                      */
                     cy?: number | undefined;
@@ -4502,14 +4252,12 @@ declare namespace echarts {
                     /**
                      * Outside radius.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.r
                      */
                     r?: number | undefined;
 
                     /**
                      * Inside radius.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.shape.r0
                      */
@@ -4539,13 +4287,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -4556,7 +4302,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.stroke
                      */
                     stroke?: string | undefined;
@@ -4564,14 +4309,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -4582,7 +4325,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetX
@@ -4592,7 +4334,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.style.shadowOffsetY
@@ -4601,7 +4342,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -4616,7 +4356,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_ring.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -4624,7 +4363,6 @@ declare namespace echarts {
 
             /**
              * Sector element.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector
              */
@@ -4660,7 +4398,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "sector"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.type
@@ -4670,7 +4407,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -4711,7 +4447,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.position
@@ -4751,7 +4486,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.rotation
                  */
                 rotation?: number | undefined;
@@ -4788,7 +4522,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -4829,7 +4562,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.origin
@@ -4838,7 +4570,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -4851,7 +4582,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.name
@@ -4863,14 +4593,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_sector)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.silent
                  */
@@ -4879,7 +4607,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.invisible
                  */
                 invisible?: boolean | undefined;
@@ -4887,7 +4614,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.ignore
                  */
@@ -4901,7 +4627,6 @@ declare namespace echarts {
                      * The x value of the center of the element in the coordinate
                      * system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.cx
                      */
                     cx?: number | undefined;
@@ -4910,14 +4635,12 @@ declare namespace echarts {
                      * The y value of the center of the element in the coordinate
                      * system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.cy
                      */
                     cy?: number | undefined;
 
                     /**
                      * Outside radius.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.r
                      */
@@ -4926,7 +4649,6 @@ declare namespace echarts {
                     /**
                      * Inside radius.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.r0
                      */
                     r0?: number | undefined;
@@ -4934,14 +4656,12 @@ declare namespace echarts {
                     /**
                      * start angle, in radian.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.shape.startAngle
                      */
                     startAngle?: number | undefined;
 
                     /**
                      * end anble, in radian.
-                     *
                      *
                      * @default
                      * "Math.PI * 2"
@@ -4951,7 +4671,6 @@ declare namespace echarts {
 
                     /**
                      * Whether draw clockwise.
-                     *
                      *
                      * @default
                      * "true"
@@ -4983,13 +4702,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -5000,7 +4717,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.stroke
                      */
                     stroke?: string | undefined;
@@ -5008,14 +4724,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -5026,7 +4740,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetX
@@ -5036,7 +4749,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.style.shadowOffsetY
@@ -5045,7 +4757,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -5060,7 +4771,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_sector.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -5068,7 +4778,6 @@ declare namespace echarts {
 
             /**
              * Arc element.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc
              */
@@ -5104,7 +4813,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "arc"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.type
@@ -5114,7 +4822,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -5155,7 +4862,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.position
@@ -5195,7 +4901,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.rotation
                  */
                 rotation?: number | undefined;
@@ -5232,7 +4937,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -5273,7 +4977,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.origin
@@ -5282,7 +4985,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -5295,7 +4997,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.name
@@ -5307,14 +5008,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_arc)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.silent
                  */
@@ -5323,7 +5022,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.invisible
                  */
                 invisible?: boolean | undefined;
@@ -5331,7 +5029,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.ignore
                  */
@@ -5345,7 +5042,6 @@ declare namespace echarts {
                      * The x value of the center of the element in the coordinate
                      * system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.cx
                      */
                     cx?: number | undefined;
@@ -5354,14 +5050,12 @@ declare namespace echarts {
                      * The y value of the center of the element in the coordinate
                      * system of its parent.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.cy
                      */
                     cy?: number | undefined;
 
                     /**
                      * Outside radius.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.r
                      */
@@ -5370,7 +5064,6 @@ declare namespace echarts {
                     /**
                      * Inside radius.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.r0
                      */
                     r0?: number | undefined;
@@ -5378,14 +5071,12 @@ declare namespace echarts {
                     /**
                      * start angle, in radian.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.shape.startAngle
                      */
                     startAngle?: number | undefined;
 
                     /**
                      * end anble, in radian.
-                     *
                      *
                      * @default
                      * "Math.PI * 2"
@@ -5395,7 +5086,6 @@ declare namespace echarts {
 
                     /**
                      * Whether draw clockwise.
-                     *
                      *
                      * @default
                      * "true"
@@ -5427,13 +5117,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.fill
                      */
@@ -5441,7 +5129,6 @@ declare namespace echarts {
 
                     /**
                      * Color of stroke.
-                     *
                      *
                      * @default
                      * "#000"
@@ -5452,7 +5139,6 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @default
                      * 1
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.lineWidth
@@ -5461,7 +5147,6 @@ declare namespace echarts {
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -5472,7 +5157,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetX
@@ -5482,7 +5166,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.style.shadowOffsetY
@@ -5491,7 +5174,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -5506,7 +5188,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_arc.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -5514,7 +5195,6 @@ declare namespace echarts {
 
             /**
              * Polygon element.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon
              */
@@ -5550,7 +5230,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "polygon"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.type
@@ -5560,7 +5239,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -5601,7 +5279,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.position
@@ -5641,7 +5318,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.rotation
                  */
                 rotation?: number | undefined;
@@ -5678,7 +5354,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -5719,7 +5394,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.origin
@@ -5728,7 +5402,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -5741,7 +5414,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.name
@@ -5753,14 +5425,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_polygon)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.silent
                  */
@@ -5769,7 +5439,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.invisible
                  */
                 invisible?: boolean | undefined;
@@ -5777,7 +5446,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.ignore
                  */
@@ -5790,7 +5458,6 @@ declare namespace echarts {
                     /**
                      * A list of points, which defines the shape, like `[[22,
                      * 44], [44, 55], [11, 44], ...]`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.points
                      */
@@ -5805,7 +5472,6 @@ declare namespace echarts {
                      * + If the value is `'spline'`, Catmull-Rom spline
                      * interpolation is used.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.smooth
@@ -5817,7 +5483,6 @@ declare namespace echarts {
                      * out of the bounding box.
                      *
                      * Only works when `smooth` is `number` (bezier smooth).
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.shape.smoothConstraint
                      */
@@ -5847,13 +5512,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -5864,7 +5527,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.stroke
                      */
                     stroke?: string | undefined;
@@ -5872,14 +5534,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -5890,7 +5550,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetX
@@ -5900,7 +5559,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style.shadowOffsetY
@@ -5909,7 +5567,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -5924,7 +5581,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -5932,7 +5588,6 @@ declare namespace echarts {
 
             /**
              * Polyline element.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline
              */
@@ -5968,7 +5623,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "polyline"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.type
@@ -5978,7 +5632,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -6019,7 +5672,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.position
@@ -6059,7 +5711,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.rotation
                  */
                 rotation?: number | undefined;
@@ -6096,7 +5747,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -6137,7 +5787,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.origin
@@ -6146,7 +5795,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -6159,7 +5807,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.name
@@ -6171,14 +5818,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_polyline)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.silent
                  */
@@ -6187,7 +5832,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.invisible
                  */
                 invisible?: boolean | undefined;
@@ -6195,7 +5839,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.ignore
                  */
@@ -6208,7 +5851,6 @@ declare namespace echarts {
                     /**
                      * A list of points, which defines the shape, like `[[22,
                      * 44], [44, 55], [11, 44], ...]`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.points
                      */
@@ -6223,7 +5865,6 @@ declare namespace echarts {
                      * + If the value is `'spline'`, Catmull-Rom spline
                      * interpolation is used.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.smooth
@@ -6235,7 +5876,6 @@ declare namespace echarts {
                      * out of the bounding box.
                      *
                      * Only works when `smooth` is `number` (bezier smooth).
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.shape.smoothConstraint
                      */
@@ -6265,13 +5905,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.fill
                      */
@@ -6279,7 +5917,6 @@ declare namespace echarts {
 
                     /**
                      * Color of stroke.
-                     *
                      *
                      * @default
                      * "#000"
@@ -6290,7 +5927,6 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @default
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.lineWidth
@@ -6299,7 +5935,6 @@ declare namespace echarts {
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -6310,7 +5945,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetX
@@ -6320,7 +5954,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.style.shadowOffsetY
@@ -6329,7 +5962,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -6344,7 +5976,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polyline.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -6352,7 +5983,6 @@ declare namespace echarts {
 
             /**
              * Line element.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line
              */
@@ -6388,7 +6018,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "line"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.type
@@ -6398,7 +6027,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -6439,7 +6067,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.position
@@ -6479,7 +6106,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.rotation
                  */
                 rotation?: number | undefined;
@@ -6516,7 +6142,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -6557,7 +6182,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.origin
@@ -6566,7 +6190,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -6579,7 +6202,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.name
@@ -6591,14 +6213,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_line)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.silent
                  */
@@ -6607,7 +6227,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.invisible
                  */
                 invisible?: boolean | undefined;
@@ -6615,7 +6234,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.ignore
                  */
@@ -6628,14 +6246,12 @@ declare namespace echarts {
                     /**
                      * x value of the start point.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.x1
                      */
                     x1?: number | undefined;
 
                     /**
                      * y value of the start point.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.y1
                      */
@@ -6644,14 +6260,12 @@ declare namespace echarts {
                     /**
                      * x value of the end point.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.x2
                      */
                     x2?: number | undefined;
 
                     /**
                      * y value of the end point.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.shape.y2
                      */
@@ -6661,7 +6275,6 @@ declare namespace echarts {
                      * Specify the percentage of drawing, useful in animation.
                      *
                      * Value range: \[0, 1\].
-                     *
                      *
                      * @default
                      * 1
@@ -6693,13 +6306,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.fill
                      */
@@ -6707,7 +6318,6 @@ declare namespace echarts {
 
                     /**
                      * Color of stroke.
-                     *
                      *
                      * @default
                      * "#000"
@@ -6718,7 +6328,6 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @default
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.lineWidth
@@ -6727,7 +6336,6 @@ declare namespace echarts {
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -6738,7 +6346,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetX
@@ -6748,7 +6355,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.style.shadowOffsetY
@@ -6757,7 +6363,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -6772,7 +6377,6 @@ declare namespace echarts {
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_line.styleEmphasis
                  */
                 styleEmphasis?: object | undefined;
@@ -6780,7 +6384,6 @@ declare namespace echarts {
 
             /**
              * Quadratic bezier curve or cubic bezier curve.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve
              */
@@ -6816,7 +6419,6 @@ declare namespace echarts {
                  * [group](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_group)
                  * ,
                  *
-                 *
                  * @default
                  * "bezierCurve"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.type
@@ -6826,7 +6428,6 @@ declare namespace echarts {
                 /**
                  * id is used to specifying element when willing to update
                  * it. id can be ignored if you do not need it.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -6867,7 +6468,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.position
@@ -6907,7 +6507,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.rotation
                  */
                 rotation?: number | undefined;
@@ -6944,7 +6543,6 @@ declare namespace echarts {
                  * + The order that the transform attributes are applied
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
-                 *
                  *
                  * @default
                  * [1, 1]
@@ -6985,7 +6583,6 @@ declare namespace echarts {
                  * to a single graphic element is: Firstly, `rotation`,
                  * then, `scale`, finally, `position`.
                  *
-                 *
                  * @default
                  * [0, 0]
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.origin
@@ -6994,7 +6591,6 @@ declare namespace echarts {
 
                 /**
                  * Define the overlap relationship between graphic elements.
-                 *
                  *
                  * @default
                  * "undefined"
@@ -7007,7 +6603,6 @@ declare namespace echarts {
                  * [diffChildrenByName](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.diffChildrenByName)
                  * 。
                  *
-                 *
                  * @default
                  * "undefined"
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.name
@@ -7019,14 +6614,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-custom.custom.renderItem.return_bezierCurve)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.info
                  */
                 info?: any;
 
                 /**
                  * Whether response to mouse events / touch events.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.silent
                  */
@@ -7035,7 +6628,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is visible.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.invisible
                  */
                 invisible?: boolean | undefined;
@@ -7043,7 +6635,6 @@ declare namespace echarts {
                 /**
                  * Whether the element is totally ignored (neither render
                  * nor listen events).
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.ignore
                  */
@@ -7056,14 +6647,12 @@ declare namespace echarts {
                     /**
                      * x value of the start point.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x1
                      */
                     x1?: number | undefined;
 
                     /**
                      * y value of the start point.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y1
                      */
@@ -7072,14 +6661,12 @@ declare namespace echarts {
                     /**
                      * x value of the end point.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.x2
                      */
                     x2?: number | undefined;
 
                     /**
                      * y value of the end point.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.y2
                      */
@@ -7088,14 +6675,12 @@ declare namespace echarts {
                     /**
                      * x of control point.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx1
                      */
                     cpx1?: number | undefined;
 
                     /**
                      * y of control point.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy1
                      */
@@ -7108,7 +6693,6 @@ declare namespace echarts {
                      * If both `cpx2` and `cpy2` are not set, quatratic
                      * bezier is used.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpx2
                      */
                     cpx2?: number | undefined;
@@ -7120,7 +6704,6 @@ declare namespace echarts {
                      * If both `cpx2` and `cpy2` are not set, quatratic
                      * bezier is used.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.shape.cpy2
                      */
                     cpy2?: number | undefined;
@@ -7129,7 +6712,6 @@ declare namespace echarts {
                      * Specify the percentage of drawing, useful in animation.
                      *
                      * Value range: \[0, 1\].
-                     *
                      *
                      * @default
                      * 1
@@ -7161,13 +6743,11 @@ declare namespace echarts {
                  * => `style.textStroke`
                  * + ...
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style
                  */
                 style?: {
                     /**
                      * Color filled in this element.
-                     *
                      *
                      * @default
                      * '#000'
@@ -7178,7 +6758,6 @@ declare namespace echarts {
                     /**
                      * Color of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.stroke
                      */
                     stroke?: string | undefined;
@@ -7186,14 +6765,12 @@ declare namespace echarts {
                     /**
                      * Width of stroke.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.lineWidth
                      */
                     lineWidth?: number | undefined;
 
                     /**
                      * Width of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -7204,7 +6781,6 @@ declare namespace echarts {
                     /**
                      * X offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetX
@@ -7214,7 +6790,6 @@ declare namespace echarts {
                     /**
                      * Y offset of shadow.
                      *
-                     *
                      * @default
                      * "undefined"
                      * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.style.shadowOffsetY
@@ -7223,7 +6798,6 @@ declare namespace echarts {
 
                     /**
                      * color of shadow.
-                     *
                      *
                      * @default
                      * "undefined"
@@ -7237,7 +6811,6 @@ declare namespace echarts {
                  * is the same as
                  * [style](https://echarts.apache.org/en/option.html#series-custom.renderItem.return_polygon.style)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-custom.renderItem.return_bezierCurve.styleEmphasis
                  */

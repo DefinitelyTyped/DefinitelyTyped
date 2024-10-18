@@ -18,7 +18,7 @@ const credentials: oauth2lib.ModuleOptions = {
 const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode(credentials);
 const oauth2ClientCredentials = new oauth2lib.ClientCredentials(credentials);
 const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
-  credentials
+    credentials,
 );
 
 // Test custom `idParamName`
@@ -96,10 +96,10 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
 
 // #Access Token object
 async function TestFnAccessTokenObject(
-  oauthSubject:
-    | oauth2lib.AuthorizationCode
-    | oauth2lib.ClientCredentials
-    | oauth2lib.ResourceOwnerPassword
+    oauthSubject:
+        | oauth2lib.AuthorizationCode
+        | oauth2lib.ClientCredentials
+        | oauth2lib.ResourceOwnerPassword,
 ) {
     // Sample of a JSON access token (you got it through previous steps)
     const tokenObject = {

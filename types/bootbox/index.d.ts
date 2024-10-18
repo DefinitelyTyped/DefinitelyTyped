@@ -1,9 +1,3 @@
-// Type definitions for Bootbox 5.2.0
-// Project: https://github.com/makeusabrew/bootbox
-// Definitions by: Vincent Bortone <https://github.com/vbortone>, Kon Pik <https://github.com/konpikwastaken>, Anup Kattel <https://github.com/kanup>, Dominik Schroeter <https://github.com/icereed>, Troy McKinnon <https://github.com/trodi>, Stanny Nuytkens <https://github.com/stannynuytkens>, Soner Köksal <https://github.com/renjfk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 /** Bootbox options shared by all modal types */
@@ -17,7 +11,7 @@ interface BootboxBaseOptions<T = any> {
     animate?: boolean | undefined;
     className?: string | undefined;
     /** All other values result in medium */
-    size?: "small" | "sm" |  "large" | "lg" | "extra-large" | "xl" | undefined;
+    size?: "small" | "sm" | "large" | "lg" | "extra-large" | "xl" | undefined;
     locale?: string | undefined;
     buttons?: BootboxButtonMap | undefined; // complex object where each key is of type BootboxButton
     scrollable?: boolean | undefined;
@@ -25,7 +19,14 @@ interface BootboxBaseOptions<T = any> {
 
 /** Bootbox options available for custom modals */
 interface BootboxDialogOptions<T = any> extends BootboxBaseOptions<T> {
-    message: JQuery|any[]|Element|DocumentFragment|Text|string|((index: number, html: string) => string|Element|JQuery);
+    message:
+        | JQuery
+        | any[]
+        | Element
+        | DocumentFragment
+        | Text
+        | string
+        | ((index: number, html: string) => string | Element | JQuery);
     swapButtonOrder?: boolean | undefined;
     centerVertical?: boolean | undefined;
 }
@@ -42,17 +43,35 @@ interface BootboxConfirmOptions extends BootboxDialogOptions<boolean> {
     buttons?: BootboxConfirmPromptButtonMap | undefined;
 }
 
-type BootboxInputType = "text" | "textarea" | "email" | "select" | "checkbox" | "date" | "time" | "number" | "password" | "radio" | "range";
+type BootboxInputType =
+    | "text"
+    | "textarea"
+    | "email"
+    | "select"
+    | "checkbox"
+    | "date"
+    | "time"
+    | "number"
+    | "password"
+    | "radio"
+    | "range";
 
 /** Bootbox options available for prompt modals */
 interface BootboxPromptOptions extends BootboxBaseOptions<string> {
     title: string;
-    message?: JQuery|any[]|Element|DocumentFragment|Text|string|((index: number, html: string) => string|Element|JQuery);
+    message?:
+        | JQuery
+        | any[]
+        | Element
+        | DocumentFragment
+        | Text
+        | string
+        | ((index: number, html: string) => string | Element | JQuery);
     value?: string | undefined;
     inputType?: BootboxInputType | undefined;
     callback: (result: string) => any;
     buttons?: BootboxConfirmPromptButtonMap | undefined;
-    inputOptions?: { text: string, value: string, group?: string | undefined }[] | undefined;
+    inputOptions?: Array<{ text: string; value: string; group?: string | undefined }> | undefined;
 }
 
 /** Bootbox options available when setting defaults for modals */
@@ -63,14 +82,14 @@ interface BootboxDefaultOptions {
     closeButton?: boolean | undefined;
     animate?: boolean | undefined;
     className?: string | undefined;
-	container?: string | Element | JQuery | undefined;
-	value?: string | number | Array<string> | undefined;
-	inputType?: BootboxInputType | undefined;
-	swapButtonOrder?: boolean | undefined;
-	centerVertical?: boolean | undefined;
-	multiple?: boolean | undefined;
-	scrollable?: boolean | undefined;
-	reusable?: boolean | undefined;
+    container?: string | Element | JQuery | undefined;
+    value?: string | number | string[] | undefined;
+    inputType?: BootboxInputType | undefined;
+    swapButtonOrder?: boolean | undefined;
+    centerVertical?: boolean | undefined;
+    multiple?: boolean | undefined;
+    scrollable?: boolean | undefined;
+    reusable?: boolean | undefined;
 }
 
 interface BootboxButton {
@@ -80,7 +99,7 @@ interface BootboxButton {
 }
 
 interface BootboxButtonMap {
-  [key: string]: BootboxButton | Function;
+    [key: string]: BootboxButton | Function;
 }
 
 /** ButtonMap options for alerts modals */

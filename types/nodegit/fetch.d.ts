@@ -1,4 +1,4 @@
-import { FetchOptions } from './fetch-options';
+import { FetchOptions } from "./fetch-options";
 
 export namespace Fetch {
     const enum PRUNE {

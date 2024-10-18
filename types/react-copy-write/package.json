@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-copy-write",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/aweary/react-copy-write"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-copy-write": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam A. Horvath-Hunt",
+            "githubUsername": "samhh"
+        },
+        {
+            "name": "Dave Jeffery       ",
+            "githubUsername": "davej"
+        }
+    ]
+}

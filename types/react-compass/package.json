@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-compass",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/virtyaluk/react-compass"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-compass": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rick Wilson",
+            "githubUsername": "rwilson504"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import {AWSError} from './error';
+import { AWSError } from "./error";
 /**
  * Represents a metadata service available on EC2 instances. Using the request() method, you can receieve metadata about any available resource on the metadata service.
  */
@@ -13,13 +13,13 @@ export class MetadataService {
     request(path: string, callback: (err: AWSError, data: string) => void): void;
     request(
         path: string,
-        options: {method?: string, headers?: {[key: string]: String} },
-        callback: (err: AWSError, data: string) => void
+        options: { method?: string; headers?: { [key: string]: String } },
+        callback: (err: AWSError, data: string) => void,
     ): void;
     /**
      * 169.254.169.254
      */
-    static host: string
+    static host: string;
     /**
      * A map of options to pass to the underlying HTTP request.
      */
@@ -28,7 +28,7 @@ export class MetadataService {
          * a timeout value in milliseconds to wait before aborting the connection. Set to 0 for no timeout.
          */
         timeout: number;
-    }
+    };
 }
 
 interface MetadataServiceOptions {
@@ -44,7 +44,7 @@ interface MetadataServiceOptions {
          * a timeout value in milliseconds to wait before aborting the connection. Set to 0 for no timeout.
          */
         timeout?: number;
-    }
+    };
     /**
      * the maximum number of retries to perform for timeout errors.
      */
@@ -52,5 +52,5 @@ interface MetadataServiceOptions {
     /**
      * A set of options to configure the retry delay on retryable errors. See AWS.Config for details.
      */
-    retryDelayOptions?: any
+    retryDelayOptions?: any;
 }

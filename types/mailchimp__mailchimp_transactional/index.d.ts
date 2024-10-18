@@ -1,10 +1,4 @@
-// Type definitions for @mailchimp/mailchimp_transactional 1.0
-// Project: https://github.com/mailchimp/mailchimp-transactional-node
-// Definitions by: Pieter Scheffers <https://github.com/PieterScheffers>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { AxiosError } from 'axios';
+import { AxiosError } from "axios";
 
 export = Mailchimp;
 declare function Mailchimp(apiKey: string): Mailchimp.ApiClient;
@@ -34,7 +28,7 @@ declare namespace Mailchimp {
         setDefaultTimeoutMs(timeoutMs: number): void;
     }
 
-    type OutputFormat = 'json' | 'xml' | 'php' | 'yaml';
+    type OutputFormat = "json" | "xml" | "php" | "yaml";
 
     interface BaseRequest {
         outputFormat?: OutputFormat;
@@ -188,9 +182,9 @@ declare namespace Mailchimp {
         api_keys?: string[];
     }
 
-    type ExportsJobType = 'activity' | 'reject' | 'allowlist';
-    type ExportsJobState = 'waiting' | 'working' | 'complete' | 'error' | 'expired';
-    type ExportsMessageState = 'sent' | 'rejected' | 'bounced' | 'soft-bounced' | 'spam' | 'unsub';
+    type ExportsJobType = "activity" | "reject" | "allowlist";
+    type ExportsJobState = "waiting" | "working" | "complete" | "error" | "expired";
+    type ExportsMessageState = "sent" | "rejected" | "bounced" | "soft-bounced" | "spam" | "unsub";
 
     interface InboundApi {
         /**
@@ -739,7 +733,7 @@ declare namespace Mailchimp {
         /** list of individual clicks for the message */
         clicks_detail: MessagesClickDetail[];
         /** sending status of this message */
-        state: 'sent' | 'bounced' | 'rejected';
+        state: "sent" | "bounced" | "rejected";
         /** any custom metadata provided when the message was sent */
         metadata?: any;
     }
@@ -855,7 +849,7 @@ declare namespace Mailchimp {
          */
         merge?: boolean;
         /** The merge tag language to use when evaluating merge tags. */
-        merge_language?: 'mailchimp' | 'handlebars';
+        merge_language?: "mailchimp" | "handlebars";
         /** Global merge variables to use for all recipients. You can override these per recipient. */
         global_merge_vars?: MergeVar[];
         /** Per-recipient merge variables, which override global merge variables with the same name. */
@@ -909,26 +903,26 @@ declare namespace Mailchimp {
     }
     interface MessagesSendSuccessResponse extends MessagesSendResponseBase {
         /** The sending status of the recipient. */
-        status: Exclude<SendingStatus, 'rejected'>;
+        status: Exclude<SendingStatus, "rejected">;
     }
     interface MessagesSendRejectResponse extends MessagesSendResponseBase {
         /** The sending status of the recipient. */
-        status: 'rejected';
+        status: "rejected";
         /** The reason for the rejection if the recipient status is "rejected". */
         reject_reason: RejectReason;
     }
-    type SendingStatus = 'sent' | 'queued' | 'scheduled' | 'rejected' | 'invalid';
+    type SendingStatus = "sent" | "queued" | "scheduled" | "rejected" | "invalid";
     type RejectReason =
-        | 'hard-bounce'
-        | 'soft-bounce'
-        | 'spam'
-        | 'unsub'
-        | 'custom'
-        | 'invalid-sender'
-        | 'invalid'
-        | 'test-mode-limit'
-        | 'unsigned'
-        | 'rule';
+        | "hard-bounce"
+        | "soft-bounce"
+        | "spam"
+        | "unsub"
+        | "custom"
+        | "invalid-sender"
+        | "invalid"
+        | "test-mode-limit"
+        | "unsigned"
+        | "rule";
     interface MessagesSendRawRequest extends BaseRequest {
         /** the full MIME document of an email message */
         raw_message: string;
@@ -1040,7 +1034,7 @@ declare namespace Mailchimp {
         /** the SMTP response from the recipient's server */
         diag: string;
     }
-    type MessageRecipientType = 'to' | 'cc' | 'bcc';
+    type MessageRecipientType = "to" | "cc" | "bcc";
     interface MessageRecipient {
         /** The email address of the recipient. */
         email: string;
@@ -1133,7 +1127,7 @@ declare namespace Mailchimp {
         /** Mustache template to control how the metadata is rendered in your activity log */
         view_template: string;
     }
-    type MetadataState = 'active' | 'delete' | 'index';
+    type MetadataState = "active" | "delete" | "index";
 
     interface RejectsApi {
         /**
@@ -1219,7 +1213,7 @@ declare namespace Mailchimp {
         /** the subaccount that this denylist entry applies to, or null if none. */
         subaccount?: string | null;
     }
-    type RejectsRejectReason = 'hard-bounce' | 'soft-bounce' | 'spam' | 'unsub' | 'custom';
+    type RejectsRejectReason = "hard-bounce" | "soft-bounce" | "spam" | "unsub" | "custom";
 
     interface RejectsRejectedSender {
         /** the sender's email address */
@@ -1428,7 +1422,7 @@ declare namespace Mailchimp {
          * "sent" indicates that the verification has been sent, "already_verified" indicates that the domain
          * has already been verified with your account
          */
-        status: 'sent' | 'already_verified';
+        status: "sent" | "already_verified";
         /** the domain name you provided */
         domain: string;
         /** the email address the verification email was sent to */
@@ -1646,7 +1640,7 @@ declare namespace Mailchimp {
          */
         custom_quota?: number;
     }
-    type SubaccountsStatus = 'active' | 'paused';
+    type SubaccountsStatus = "active" | "paused";
     interface SubaccountStats {
         /** the number of emails sent for this subaccount in the last 30 days */
         sent: number;
@@ -2096,11 +2090,11 @@ declare namespace Mailchimp {
         stats: UserInfoAggregatedStats;
     }
     type UsersPingRequest = BaseRequest;
-    type UsersPingResponse = 'PONG!';
+    type UsersPingResponse = "PONG!";
     type UsersPing2Request = BaseRequest;
     interface UsersPing2Response {
         /** a simple pong response */
-        PING: 'PONG!';
+        PING: "PONG!";
     }
     type UsersSendersRequest = BaseRequest;
     interface UsersSenderResponse {
@@ -2251,16 +2245,16 @@ declare namespace Mailchimp {
         events?: WebhookEvent[];
     }
     type WebhookEvent =
-        | 'send'
-        | 'hard_bounce'
-        | 'soft_bounce'
-        | 'open'
-        | 'click'
-        | 'spam'
-        | 'unsub'
-        | 'reject'
-        | 'blacklist'
-        | 'whitelist';
+        | "send"
+        | "hard_bounce"
+        | "soft_bounce"
+        | "open"
+        | "click"
+        | "spam"
+        | "unsub"
+        | "reject"
+        | "blacklist"
+        | "whitelist";
 
     interface WhitelistsApi {
         /**

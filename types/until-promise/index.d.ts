@@ -1,8 +1,3 @@
-// Type definitions for until-promise 0.3
-// Project: https://github.com/saadtazi/until-promise#readme
-// Definitions by: Oliver Conzen <https://github.com/Miladiir>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The type of the execution function. The function can be synchronous or asynchronous.
  */

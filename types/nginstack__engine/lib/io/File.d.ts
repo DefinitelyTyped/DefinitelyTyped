@@ -10,6 +10,7 @@ declare class File {
     flush(): void;
     close(): void;
     position: number;
+    eof: boolean;
     size: number;
     modified: Date;
 }
@@ -59,7 +60,7 @@ declare function createTempDirName(): string;
 declare function fileFromString(fileName: string, content: string, opt_encoding?: string): void;
 declare function stringFromFile(fileName: string, opt_encoding?: string): string;
 declare function pathAppend(path: string, append: Array<string[] | string>): string;
-declare var pathSeparator: string;
+declare let pathSeparator: string;
 declare function changeFileExtension(fileName: string, extension: string): string;
 declare function extractFileName(fileName: string): string;
 declare function extractFilePath(fileName: string): string;

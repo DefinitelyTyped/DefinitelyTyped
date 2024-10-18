@@ -1,10 +1,3 @@
-// Type definitions for notifyjs 3.0.0
-// Project: https://github.com/alexgibson/notify.js
-// Definitions by: soundTricker <https://github.com/soundTricker>
-//                 NateScarlet <https://github.com/NateScarlet>
-//                 eikendev <https://github.com/eikendev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Notify {
     constructor(title: string, options?: Notify.NotifyOption);
 

@@ -1,113 +1,126 @@
 const options = {
     style: {
-        basic:  {
-            fontColor: '#aaccdd',
-            fontSize: '12pt',
-            fontFamily: 'Arial',
-            letterSpacing: '2px',
-            fontWeight: 'bold' as const
+        basic: {
+            fontColor: "#aaccdd",
+            fontSize: "12pt",
+            fontFamily: "Arial",
+            letterSpacing: "2px",
+            fontWeight: "bold" as const,
         },
-        invalid:  {
-            fontColor: '#aaccdd',
-            fontWeight: 'bold' as const
+        invalid: {
+            fontColor: "#aaccdd",
+            fontWeight: "bold" as const,
         },
-        focus:  {
-            fontColor: '#aaccdd',
-            fontWeight: 'bold' as const
+        focus: {
+            fontColor: "#aaccdd",
+            fontWeight: "bold" as const,
         },
-        placeholder:  {
-            fontColor: '#aaccdd',
-            fontWeight: 'bold' as const
+        placeholder: {
+            fontColor: "#aaccdd",
+            fontWeight: "bold" as const,
         },
-        disabled:  {
-            fontColor: '#aaccdd',
-            fontWeight: 'bold' as const
-        }
+        disabled: {
+            fontColor: "#aaccdd",
+            fontWeight: "bold" as const,
+        },
+    },
+    label: {
+        number: "LABEL CARD NUMBER",
+        date: "LABEL EXP DATE",
+        cvv: "LABEL CVV",
     },
     placeholder: {
-        number: 'CARD NUMBER',
-        date: 'EXP DATE',
-        cvv: 'CVV',
+        number: "CARD NUMBER",
+        date: "EXP DATE",
+        cvv: "CVV",
     },
-    lang: 'en' as const,
+    lang: "en" as const,
+    frameTitle: "TITLE",
     disabled: false,
-    cardIcon: false
+    cardIcon: false,
 };
 
 const optionsWithError = {
-    lang: 'xx'
+    lang: "xx",
 };
 
 const secureFormsOptions = {
     fonts: [
         {
-            family: 'Family 1',
-            src: 'url(http://family1) type("woff2")'
+            family: "Family 1",
+            src: "url(http://family1) type(\"woff2\")",
         },
         {
-            family: 'Family 2',
-            src: 'url(http://family2) type("woff2")'
-        }
-    ]
+            family: "Family 2",
+            src: "url(http://family2) type(\"woff2\")",
+        },
+    ],
+    lang: "pl" as const,
 };
 
-const secureFormsOptionsError = {
+const secureFormsFontOptionsError = {
     fonts: [
         {
-            family: 'Family 1'
-        }
-    ]
+            family: "Family 1",
+        },
+    ],
+};
+
+const secureFormsLangOptionsError = {
+    lang: "XX" as const,
 };
 
 // Init SDK
-const payu = PayU('POS_ID');
-PayU('POS_ID', {dev: true});
+const payu = PayU("POS_ID");
+PayU("POS_ID", { dev: true });
 // @ts-expect-error
 PayU();
 // @ts-expect-error
 PayU(123);
 // @ts-expect-error
-PayU('POS_ID', {dev: 'on'});
+PayU("POS_ID", { dev: "on" });
 
 // SDK functions
-payu.extractRefReqId('URL_WITH_REF_REQ_ID');
+payu.extractRefReqId("URL_WITH_REF_REQ_ID");
 // @ts-expect-error
 payu.extractRefReqId();
 
-payu.sendCvv('REF_REQ_ID');
+payu.sendCvv("REF_REQ_ID");
 // @ts-expect-error
 payu.sendCvv();
 
 payu.tokenize();
-payu.tokenize('SINGLE');
+payu.tokenize("SINGLE");
 // @ts-expect-error
-payu.tokenize('UNKNOWN');
+payu.tokenize("UNKNOWN");
 
 // Init Secure Forms
 const secureForms = payu.secureForms();
 payu.secureForms(secureFormsOptions);
 // @ts-expect-error
-payu.secureForms('options');
+payu.secureForms("options");
 // @ts-expect-error
-payu.secureForms(secureFormsOptionsError);
+payu.secureForms(secureFormsFontOptionsError);
+// @ts-expect-error
+payu.secureForms(secureFormsLangOptionsError);
 
 // Add Secure Forms
 const secureForm = secureForms.add();
-secureForms.add('number');
+secureForms.add("number");
 // @ts-expect-error
-secureForms.add('UNKNOWN');
-secureForms.add('cvv', options);
+secureForms.add("UNKNOWN");
+secureForms.add("cvv", options);
 // @ts-expect-error
-secureForms.add('cvv', optionsWithError);
+secureForms.add("cvv", optionsWithError);
 
 // Secure Form Functions
 secureForm
-    .render('#id')
+    .render("#id")
     .focus()
     .clear()
     .remove()
     .update(options)
-    .on('ready', () => {});
+    .on("ready", () => {});
 
 // @ts-expect-error
 secureForm.render();
@@ -116,6 +129,6 @@ secureForm.update(optionsWithError);
 // @ts-expect-error
 secureForm.on();
 // @ts-expect-error
-secureForm.on('xxxx');
+secureForm.on("xxxx");
 // @ts-expect-error
-secureForm.on('ready');
+secureForm.on("ready");

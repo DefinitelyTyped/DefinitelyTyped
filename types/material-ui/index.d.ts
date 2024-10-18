@@ -1,21 +1,3 @@
-// Type definitions for material-ui 0.21
-// Project: https://github.com/callemall/material-ui, http://material-ui.com
-// Definitions by: Nathan Brown <https://github.com/ngbrown>
-//                 Igor Beagorudsky <https://github.com/theigor>
-//                 Ali Taheri Moghaddar <https://github.com/alitaheri>
-//                 Oliver Herrmann <https://github.com/herrmanno>
-//                 Daniel Roth <https://github.com/DaIgeb>
-//                 Aurelién Allienne <https://github.com/allienna>
-//                 Matthias Schlesinger <https://github.com/schlesingermatthias>
-//                 Jonathon Kelly <https://github.com/InsidersByte>
-//                 Artyom Stukans <https://github.com/artyomsv>
-//                 Dan Jones <https://github.com/dan-j>
-//                 Daisuke Mino <https://github.com/minodisk>
-//                 Sam Walsh <https://github.com/samwalshnz>
-//                 Tim de Koning <https://github.com/reggino>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
 
@@ -1047,8 +1029,7 @@ declare namespace __MaterialUI {
         ref?: string | undefined;
         text: string;
     }
-    export interface DialogProps extends React.DOMAttributes<{}> {
-        ref?: React.LegacyRef<Dialog> | undefined;
+    export interface DialogProps extends React.DOMAttributes<{}>, React.RefAttributes<Dialog> {
         actions?: Array<DialogAction | React.ReactElement> | undefined;
         /** @deprecated use a custom `actions` property instead */
         actionFocus?: string | undefined;
@@ -1136,8 +1117,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    export interface FontIconProps extends React.HTMLAttributes<{}> {
-        ref?: React.LegacyRef<FontIcon> | undefined;
+    export interface FontIconProps extends React.HTMLAttributes<{}>, React.RefAttributes<FontIcon> {
         // <span/> is the element that get the 'other' properties
         color?: string | undefined;
         hoverColor?: string | undefined;
@@ -1148,8 +1128,7 @@ declare namespace __MaterialUI {
     export class FontIcon extends React.Component<FontIconProps> {
     }
 
-    export interface SvgIconProps extends React.SVGAttributes<{}> {
-        ref?: React.LegacyRef<SvgIcon> | undefined;
+    export interface SvgIconProps extends React.SVGAttributes<{}>, React.RefAttributes<SvgIcon> {
         // <svg/> is the element that get the 'other' properties
         color?: string | undefined;
         hoverColor?: string | undefined;
@@ -1325,9 +1304,8 @@ declare namespace __MaterialUI {
         }
     }
 
-    export interface OverlayProps {
+    export interface OverlayProps extends React.RefAttributes<Overlay> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<Overlay> | undefined;
         autoLockScrolling?: boolean | undefined;
         show?: boolean | undefined;
         transitionEnabled?: boolean | undefined;
@@ -1336,8 +1314,7 @@ declare namespace __MaterialUI {
     export class Overlay extends React.Component<OverlayProps> {
     }
 
-    export interface PaperProps extends React.HTMLAttributes<{}> {
-        ref?: React.LegacyRef<Paper> | undefined;
+    export interface PaperProps extends React.HTMLAttributes<{}>, React.RefAttributes<Paper> {
         circle?: boolean | undefined;
         rounded?: boolean | undefined;
         style?: React.CSSProperties | undefined;
@@ -1497,8 +1474,7 @@ declare namespace __MaterialUI {
 
     namespace Switches {
         // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-        export interface CommonEnhancedSwitchProps<T> extends React.InputHTMLAttributes<{}> {
-            ref?: React.LegacyRef<T> | undefined;
+        export interface CommonEnhancedSwitchProps<T> extends React.InputHTMLAttributes<{}>, React.RefAttributes<T> {
             label?: React.ReactNode | undefined;
         }
 
@@ -1689,14 +1665,13 @@ declare namespace __MaterialUI {
         export class StepLabel extends React.Component<StepLabelProps> {
         }
 
-        export interface SnackbarProps {
-            ref?: React.LegacyRef<Snackbar> | undefined;
+        export interface SnackbarProps extends React.RefAttributes<Snackbar> {
             action?: string | undefined;
             autoHideDuration?: number | undefined;
             bodyStyle?: React.CSSProperties | undefined;
             children?: React.ReactNode;
             className?: string | undefined;
-            message: string | JSX.Element;
+            message: string | React.JSX.Element;
             onActionClick?: React.MouseEventHandler<{}> | undefined;
             /** @deprecated Use the open property to control the component instead */
             onDismiss?(): void; // DEPRECATED
@@ -2049,8 +2024,7 @@ declare namespace __MaterialUI {
         export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps> {
         }
 
-        export interface ToolbarTitleProps extends React.HTMLAttributes<{}> {
-            ref?: React.LegacyRef<ToolbarTitle> | undefined;
+        export interface ToolbarTitleProps extends React.HTMLAttributes<{}>, React.RefAttributes<ToolbarTitle> {
             className?: string | undefined;
             style?: React.CSSProperties | undefined;
             text?: string | undefined;
@@ -8944,25 +8918,22 @@ declare module 'material-ui/svg-icons' {
 }
 
 declare module 'material-ui/internal/AppCanvas' {
-    export interface AppCanvasProps {
-        ref?: React.LegacyRef<AppCanvas> | undefined;
+    export interface AppCanvasProps extends React.RefAttributes<AppCanvas> {
     }
     class AppCanvas extends React.Component<AppCanvasProps> { }
     export default AppCanvas;
 }
 declare module 'material-ui/internal/AutoLockScrolling' {
-    export interface AutoLockScrollingProps {
+    export interface AutoLockScrollingProps extends React.RefAttributes<AutoLockScrolling> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<AutoLockScrolling> | undefined;
         lock: boolean;
     }
     class AutoLockScrolling extends React.Component<AutoLockScrollingProps> { }
     export default AutoLockScrolling;
 }
 declare module 'material-ui/internal/BeforeAfterWrapper' {
-    export interface BeforeAfterWrapperProps {
+    export interface BeforeAfterWrapperProps extends React.RefAttributes<BeforeAfterWrapper> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<BeforeAfterWrapper> | undefined;
         afterElementType?: string | undefined;
         afterStyle?: React.CSSProperties | undefined;
         beforeElementType?: string | undefined;
@@ -8974,9 +8945,8 @@ declare module 'material-ui/internal/BeforeAfterWrapper' {
     export default BeforeAfterWrapper;
 }
 declare module 'material-ui/internal/CircleRipple' {
-    export interface CircleRippleProps {
+    export interface CircleRippleProps extends React.RefAttributes<CircleRipple> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<CircleRipple> | undefined;
         aborted?: boolean | undefined;
         color?: string | undefined;
         opacity?: number | undefined;
@@ -8986,18 +8956,16 @@ declare module 'material-ui/internal/CircleRipple' {
     export default CircleRipple;
 }
 declare module 'material-ui/internal/ClearFix' {
-    export interface ClearFixProps {
+    export interface ClearFixProps extends React.RefAttributes<ClearFix>  {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ClearFix> | undefined;
         style?: React.CSSProperties | undefined;
     }
     class ClearFix extends React.Component<ClearFixProps> { }
     export default ClearFix;
 }
 declare module 'material-ui/internal/ClickAwayListener' {
-    export interface ClickAwayListenerProps {
+    export interface ClickAwayListenerProps extends React.RefAttributes<ClickAwayListener> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ClickAwayListener> | undefined;
         onClickAway?: any;
     }
     class ClickAwayListener extends React.Component<ClickAwayListenerProps> { }
@@ -9016,9 +8984,8 @@ declare module 'material-ui/internal/EnhancedSwitch' {
     export default EnhancedSwitch;
 }
 declare module 'material-ui/internal/ExpandTransition' {
-    export interface ExpandTransitionProps {
+    export interface ExpandTransitionProps extends React.RefAttributes<ExpandTransition> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ExpandTransition> | undefined;
         enterDelay?: number | undefined;
         loading?: boolean | undefined;
         open?: boolean | undefined;
@@ -9030,9 +8997,8 @@ declare module 'material-ui/internal/ExpandTransition' {
     export default ExpandTransition;
 }
 declare module 'material-ui/internal/ExpandTransitionChild' {
-    export interface ExpandTransitionChildProps {
+    export interface ExpandTransitionChildProps extends React.RefAttributes<ExpandTransitionChild> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ExpandTransitionChild> | undefined;
         enterDelay?: number | undefined;
         style?: React.CSSProperties | undefined;
         transitionDelay?: number | undefined;
@@ -9042,9 +9008,8 @@ declare module 'material-ui/internal/ExpandTransitionChild' {
     export default ExpandTransitionChild;
 }
 declare module 'material-ui/internal/FocusRipple' {
-    export interface FocusRippleProps {
+    export interface FocusRippleProps extends React.RefAttributes<FocusRipple> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<FocusRipple> | undefined;
         color?: string | undefined;
         innerStyle?: React.CSSProperties | undefined;
         opacity?: number | undefined;
@@ -9055,9 +9020,8 @@ declare module 'material-ui/internal/FocusRipple' {
     export default FocusRipple;
 }
 declare module 'material-ui/internal/Overlay' {
-    export interface OverlayProps {
+    export interface OverlayProps extends React.RefAttributes<Overlay> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<Overlay> | undefined;
         autoLockScrolling?: boolean | undefined;
         show: boolean;
         style?: React.CSSProperties | undefined;
@@ -9068,9 +9032,8 @@ declare module 'material-ui/internal/Overlay' {
     export default Overlay;
 }
 declare module 'material-ui/internal/RenderToLayer' {
-    export interface RenderToLayerProps {
+    export interface RenderToLayerProps extends React.RefAttributes<RenderToLayer> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<RenderToLayer> | undefined;
         componentClickAway?: Function | undefined;
         open: boolean;
         render: Function;
@@ -9080,9 +9043,8 @@ declare module 'material-ui/internal/RenderToLayer' {
     export default RenderToLayer;
 }
 declare module 'material-ui/internal/ScaleIn' {
-    export interface ScaleInProps {
+    export interface ScaleInProps extends React.RefAttributes<ScaleIn> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ScaleIn> | undefined;
         childStyle?: React.CSSProperties | undefined;
         enterDelay?: number | undefined;
         maxScale?: number | undefined;
@@ -9092,9 +9054,8 @@ declare module 'material-ui/internal/ScaleIn' {
     export default ScaleIn;
 }
 declare module 'material-ui/internal/ScaleInChild' {
-    export interface ScaleInChildProps {
+    export interface ScaleInChildProps extends React.RefAttributes<ScaleInChild> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ScaleInChild> | undefined;
         enterDelay?: number | undefined;
         maxScale?: number | undefined;
         minScale?: number | undefined;
@@ -9104,9 +9065,8 @@ declare module 'material-ui/internal/ScaleInChild' {
     export default ScaleInChild;
 }
 declare module 'material-ui/internal/SlideIn' {
-    export interface SlideInProps {
+    export interface SlideInProps extends React.RefAttributes<SlideIn> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<SlideIn> | undefined;
         childStyle?: React.CSSProperties | undefined;
         direction?: __MaterialUI.propTypes.direction | undefined;
         enterDelay?: number | undefined;
@@ -9116,9 +9076,8 @@ declare module 'material-ui/internal/SlideIn' {
     export default SlideIn;
 }
 declare module 'material-ui/internal/SlideInChild' {
-    export interface SlideInChildProps {
+    export interface SlideInChildProps extends React.RefAttributes<SlideInChild> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<SlideInChild> | undefined;
         direction?: string | undefined;
         enterDelay?: number | undefined;
         getLeaveDirection: Function;
@@ -9128,9 +9087,8 @@ declare module 'material-ui/internal/SlideInChild' {
     export default SlideInChild;
 }
 declare module 'material-ui/internal/Tooltip' {
-    export interface TooltipProps {
+    export interface TooltipProps extends React.RefAttributes<Tooltip> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<Tooltip> | undefined;
         className?: string | undefined;
         horizontalPosition?: __MaterialUI.propTypes.tooltipHorizontal | undefined;
         label: any;
@@ -9143,9 +9101,8 @@ declare module 'material-ui/internal/Tooltip' {
     export default Tooltip;
 }
 declare module 'material-ui/internal/TouchRipple' {
-    export interface TouchRippleProps {
+    export interface TouchRippleProps extends React.RefAttributes<TouchRipple> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<TouchRipple> | undefined;
         abortOnScroll?: boolean | undefined;
         centerRipple?: boolean | undefined;
         color?: string | undefined;

@@ -1,16 +1,10 @@
-// Type definitions for non-npm package amap-js-api-line-search 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/search#m_AMap.LineSearch
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace LineSearch {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
@@ -34,7 +28,7 @@ declare namespace AMap {
             /**
              * 此项仅公交路线查询时有效，默认值：base，返回公交路线基本信息，当取值为：all，返回公交路线基本信息+详细信息
              */
-            extensions?: 'base' | 'all' | undefined;
+            extensions?: "base" | "all" | undefined;
         }
         interface LineInfoBase {
             /**
@@ -125,7 +119,7 @@ declare namespace AMap {
              */
             cityList?: any[] | undefined;
         }
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     class LineSearch extends EventEmitter {
         /**
@@ -140,7 +134,7 @@ declare namespace AMap {
          */
         searchById(
             id: string,
-            callback: (status: LineSearch.SearchStatus, result: string | LineSearch.SearchResult) => void
+            callback: (status: LineSearch.SearchStatus, result: string | LineSearch.SearchResult) => void,
         ): void;
         /**
          * 根据给定公交线路名称进行公交线路详情查询
@@ -149,7 +143,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: LineSearch.SearchStatus, result: string | LineSearch.SearchResult) => void
+            callback: (status: LineSearch.SearchStatus, result: string | LineSearch.SearchResult) => void,
         ): void;
         /**
          * 设置查询结果页码

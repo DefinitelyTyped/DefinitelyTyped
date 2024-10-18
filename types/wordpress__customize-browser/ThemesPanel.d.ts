@@ -1,4 +1,4 @@
-import { Panel } from './Panel';
+import { Panel } from "./Panel";
 
 export class ThemesPanel extends Panel {
     installingThemes: string[];

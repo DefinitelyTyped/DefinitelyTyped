@@ -1,8 +1,8 @@
 import * as React from "react";
 import { View } from "react-native";
-import { TabStack, renderSubView } from "react-router-navigation-core";
-import { TabBarProps, TabProps } from "react-router-navigation";
 import { TabView } from "react-native-tab-view";
+import { TabBarProps, TabProps } from "react-router-navigation";
+import { renderSubView, TabStack } from "react-router-navigation-core";
 
 type Props = TabBarProps & {
     children?: Array<React.ReactElement<TabProps>> | undefined;
@@ -30,16 +30,16 @@ class BottomNavigation extends React.Component<Props, State> {
                             animationEnabled={false}
                             renderPager={renderSubView(
                                 sceneProps => <View />,
-                                ownProps
+                                ownProps,
                             )}
                             renderTabBar={renderSubView(
                                 sceneProps => <View />,
-                                ownProps
+                                ownProps,
                             )}
                             tabBarPosition="bottom"
                             renderScene={renderSubView(
                                 sceneProps => <View />,
-                                ownProps
+                                ownProps,
                             )}
                         />
                     );

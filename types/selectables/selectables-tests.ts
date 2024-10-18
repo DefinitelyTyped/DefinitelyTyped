@@ -1,8 +1,8 @@
 import Selectables = require("selectables");
 
 const dr = new Selectables({
-    zone: '#div',
-    elements: 'li'
+    zone: "#div",
+    elements: "li",
 });
 
 // later
@@ -12,4 +12,4 @@ dr.disable();
 dr.enable();
 
 // set options
-dr.options.key = 'altKey';
+dr.options.key = "altKey";

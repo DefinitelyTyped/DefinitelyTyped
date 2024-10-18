@@ -1,8 +1,3 @@
-// Type definitions for regex-not 1.0
-// Project: https://github.com/jonschlinkert/regex-not
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = regexNot;
 
 /**

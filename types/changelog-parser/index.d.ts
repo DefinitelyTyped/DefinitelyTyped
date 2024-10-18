@@ -1,9 +1,3 @@
-// Type definitions for changelog-parser 2.8
-// Project: https://github.com/hypermodules/changelog-parser
-// Definitions by: Oliver Steele <https://github.com/osteele>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
-
 // Options must contain exactly one of filePath or text. This can be expressed
 // with a type, but not an interface. (See
 // <https://github.com/osteele/vscode-p5server/blob/fee241c06f/scripts/types/changelog-parser.d.ts>,
@@ -49,8 +43,10 @@ declare namespace parseChangelog {
 // This type declaration reflects this.
 declare function parseChangelog(
     options:
-        | (Partial<Exclude<parseChangelog.Options, 'filePath' | 'text'>> &
-              (Pick<parseChangelog.Options, 'filePath'> | Pick<parseChangelog.Options, 'text'>))
+        | (
+            & Partial<Exclude<parseChangelog.Options, "filePath" | "text">>
+            & (Pick<parseChangelog.Options, "filePath"> | Pick<parseChangelog.Options, "text">)
+        )
         | string,
     callback?: (error: string | null, result: parseChangelog.Changelog) => void,
 ): Promise<parseChangelog.Changelog>;

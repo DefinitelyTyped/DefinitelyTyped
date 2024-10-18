@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "esModuleInterop" : true,
-        "module": "commonjs",
+        "esModuleInterop": true,
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -9,10 +9,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -1,2 +1,2 @@
-import Get = require('../2018/Get');
+import Get = require("../2018/Get");
 export = Get;

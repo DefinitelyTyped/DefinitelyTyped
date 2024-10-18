@@ -1,13 +1,13 @@
 import * as materialize from "materialize-css";
 
-const elem = document.querySelector('.whatever')!;
+const elem = document.querySelector(".whatever")!;
 
 // $ExpectType Materialbox
 const _materialbox = new M.Materialbox(elem);
 // $ExpectType Materialbox
 const el = M.Materialbox.init(elem);
 // $ExpectType Materialbox[]
-const els = M.Materialbox.init(document.querySelectorAll('.whatever'));
+const els = M.Materialbox.init(document.querySelectorAll(".whatever"));
 
 // $ExpectType Materialbox
 const materialbox = new materialize.Materialbox(elem, {
@@ -28,7 +28,7 @@ const materialbox = new materialize.Materialbox(elem, {
     onOpenStart(el) {
         // $ExpectType Element
         el;
-    }
+    },
 });
 
 // $ExpectType void

@@ -1,11 +1,3 @@
-// Type definitions for headroom.js 0.12
-// Project: https://github.com/WickyNilliams/headroom.js
-// Definitions by: Jakub Olek <https://github.com/hakubo>
-//                 Juninho Cruz <https://github.com/juninhocruzg3>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Manol Donev <https://github.com/manoldonev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Headroom;
 
 /**

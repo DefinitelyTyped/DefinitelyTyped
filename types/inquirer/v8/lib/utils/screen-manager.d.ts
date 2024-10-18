@@ -1,4 +1,4 @@
-import { Interface as ReadLineInterface } from 'readline';
+import { Interface as ReadLineInterface } from "readline";
 
 /**
  * Provides the functionality to manage the content of a console-screen.

@@ -1,8 +1,3 @@
-// Type definitions for searchjs 1.0
-// Project: https://github.com/deitch/searchjs
-// Definitions by: Melvin Mupondori <https://github.com/iammerus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function setDefaults(options: {
     negator: boolean;
     joinAnd: string;

@@ -1,4 +1,4 @@
-import * as Hapi from '@hapi/hapi';
+import * as Hapi from "@hapi/hapi";
 
 export namespace plugin {
     const pkg: Record<string, any>;

@@ -1,4 +1,4 @@
-import * as m from '..';
+import * as m from "..";
 
 declare class ReloadExtension implements m.Extension {
     constructor();

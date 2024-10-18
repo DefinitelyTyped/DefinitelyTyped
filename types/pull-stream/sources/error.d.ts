@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 /**
  * Create a stream with no contents (it just ends immediately).

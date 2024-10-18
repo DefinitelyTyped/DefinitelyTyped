@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/parse5-serializer-stream",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/inikulin/parse5"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "@types/parse5": "^6.0.3"
-    }
+    },
+    "devDependencies": {
+        "@types/parse5-serializer-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Nikulin",
+            "githubUsername": "inikulin"
+        }
+    ]
 }

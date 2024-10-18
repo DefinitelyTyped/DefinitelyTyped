@@ -1,15 +1,15 @@
-import { createClient } from '@google/maps';
+import { createClient } from "@google/maps";
 
 // Client without Promise support; the asPromise function is not available on requests
 const client = createClient({
-    key: 'my-google-maps-api-key',
-    language: 'ja',
+    key: "my-google-maps-api-key",
+    language: "ja",
 });
 
 // @ts-expect-error
-client.geocode({ address: 'Leaning Tower of Pisa' }).asPromise();
+client.geocode({ address: "Leaning Tower of Pisa" }).asPromise();
 client
-    .geocode({ address: 'Leaning Tower of Pisa' }, (response) => {
+    .geocode({ address: "Leaning Tower of Pisa" }, (response) => {
         if (response === "timeout") {
             return;
         }
@@ -20,8 +20,8 @@ client
         });
     });
 client
-    .geocode({ components: { postal_code: '94043' } }, (response) => {
-        if (response === 'timeout') {
+    .geocode({ components: { postal_code: "94043" } }, (response) => {
+        if (response === "timeout") {
             return;
         }
         console.log(`Geocode Component Results: ${response.json.results.length} ${response.json.status}`);
@@ -33,14 +33,14 @@ client
 
 // Client with promise support will have access to the asPromise method
 const promisableClient = createClient({
-    key: 'my-google-maps-api-key',
-    language: 'ja',
+    key: "my-google-maps-api-key",
+    language: "ja",
     // tslint:disable-next-line:object-literal-shorthand
     Promise: Promise,
 });
 
 promisableClient
-    .geocode({ address: 'Leaning Tower of Pisa' })
+    .geocode({ address: "Leaning Tower of Pisa" })
     .asPromise()
     .then(response => {
         console.log(`Geocode Address Results: ${response.json.results.length} ${response.json.status}`);
@@ -51,7 +51,7 @@ promisableClient
     });
 
 promisableClient
-    .geocode({ components: { postal_code: '94043' } })
+    .geocode({ components: { postal_code: "94043" } })
     .asPromise()
     .then(response => {
         console.log(`Geocode Component Results: ${response.json.results.length} ${response.json.status}`);

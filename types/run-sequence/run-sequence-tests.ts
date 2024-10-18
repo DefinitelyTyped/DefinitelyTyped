@@ -3,10 +3,7 @@ import tmp = require("run-sequence");
 var runSequence = tmp.use(gulp);
 
 gulp.task("run-sequence", (callback: any) => {
-    runSequence("task1",
-        ["task2", "task3"],
-        "taks4",
-        callback);
+    runSequence("task1", ["task2", "task3"], "taks4", callback);
 });
 
 gulp.task("task1", () => {

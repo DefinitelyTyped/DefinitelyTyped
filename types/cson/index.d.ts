@@ -1,8 +1,3 @@
-// Type definitions for cson 7.20
-// Project: https://github.com/bevry/cson
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class CSON {
     // Create Strings
     stringify(data: any, opts?: object, indent?: any): string;

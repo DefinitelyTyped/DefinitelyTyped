@@ -1,11 +1,6 @@
-// Type definitions for jsonp-promise 0.1
-// Project: https://github.com/alexbardas/jsonp-promise
-// Definitions by: Phi <https://github.com/cdpark0530>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = jsonp;
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function jsonp<R = unknown>(url: string, options?: JsonpOptions): JsonpResult<R>;
 
 interface JsonpResult<R> {

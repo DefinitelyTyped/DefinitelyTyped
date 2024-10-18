@@ -1,4 +1,4 @@
-import euclideanRhythms = require('euclidean-rhythms');
+import euclideanRhythms = require("euclidean-rhythms");
 
 // $ExpectType number[]
 euclideanRhythms.getPattern(2, 3);

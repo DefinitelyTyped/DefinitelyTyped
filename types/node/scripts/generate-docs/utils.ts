@@ -1,10 +1,10 @@
 export function replaceLineBreaks(input: string): string {
-    return input.replaceAll('\n', ' ');
+    return input.replaceAll("\n", " ");
 }
 
-const newline = '\n';
+const newline = "\n";
 export function wordWrap(str: string, width: number): string {
-    const words = str.split(' ');
+    const words = str.split(" ");
 
     let curLineLength = 0;
     const out = [];
@@ -23,14 +23,14 @@ export function wordWrap(str: string, width: number): string {
             }
         }
         out.push(word);
-        out.push(' ');
+        out.push(" ");
         curLineLength += word.length + 1;
     }
-    return out.join('');
+    return out.join("");
 }
 
-// eslint-disable-next-line no-unnecessary-generics
-export function contextDeduper<C, I>(): ((context: C, item: I) => boolean) {
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function contextDeduper<C, I>(): (context: C, item: I) => boolean {
     const dedupe = new Map<C, Set<I>>();
     return (context: C, item: I): boolean => {
         if (dedupe.get(context)?.has(item)) {

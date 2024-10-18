@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
-import fs = require('fs');
-import { HtmlDiffer } from '@markedjs/html-differ';
-import logger = require('@markedjs/html-differ/lib/logger');
+import fs = require("fs");
+import { HtmlDiffer } from "@markedjs/html-differ";
+import logger = require("@markedjs/html-differ/lib/logger");
 
-const html1 = fs.readFileSync('1.html', 'utf-8');
-const html2 = fs.readFileSync('2.html', 'utf-8');
+const html1 = fs.readFileSync("1.html", "utf-8");
+const html2 = fs.readFileSync("2.html", "utf-8");
 
 const options = {
     ignoreAttributes: [],

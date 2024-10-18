@@ -2,8 +2,8 @@
 // https://www.npmjs.com/package/react-facebook-login#facebook-button-without-styling
 // Definitions by: Hafiz Temuri <https://github.com/temurih>
 
-import * as React from 'react';
-import { ReactFacebookLoginProps, ReactFacebookLoginState } from '..';
+import * as React from "react";
+import { ReactFacebookLoginProps, ReactFacebookLoginState } from "..";
 
 export interface RenderProps {
     onClick: () => void;
@@ -13,7 +13,7 @@ export interface RenderProps {
 }
 
 export interface ReactFacebookLoginRenderProps extends ReactFacebookLoginProps {
-    render?: (renderProps: RenderProps) => React.ReactChild;
+    render?: (renderProps: RenderProps) => React.ReactElement | number | string;
 }
 
 export default class FacebookLoginRender extends React.Component<

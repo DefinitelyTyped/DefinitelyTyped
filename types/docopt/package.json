@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/docopt",
+    "version": "0.6.9999",
+    "projects": [
+        "http://docopt.org/"
+    ],
+    "devDependencies": {
+        "@types/docopt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Giovanni Bassi",
+            "githubUsername": "giggio"
+        }
+    ]
+}

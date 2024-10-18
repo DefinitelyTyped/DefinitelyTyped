@@ -1,7 +1,3 @@
-// Type definitions for assertrc 1.0
-// Project: https://github.com/Soldy/assertrc
-// Definitions by: Soldy <https://github.com/Soldy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export class base {
     constructor();
     check(value: any, rule: string, sample: any): boolean;

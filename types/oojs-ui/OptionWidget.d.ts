@@ -15,18 +15,22 @@ declare namespace OO.ui {
         interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
                 mixin.FlaggedElement.ConfigOptions,
                 mixin.AccessKeyedElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {}
+                mixin.TitledElement.ConfigOptions
+        {}
 
         interface Static
-            extends Widget.Static,
+            extends
+                Widget.Static,
                 mixin.LabelElement.Static,
                 mixin.FlaggedElement.Static,
                 mixin.AccessKeyedElement.Static,
-                mixin.TitledElement.Static {
+                mixin.TitledElement.Static
+        {
             /** Whether this option can be selected. See {@link Prototype.setSelected setSelected}. */
             selectable: boolean;
 
@@ -41,18 +45,22 @@ declare namespace OO.ui {
         }
 
         interface Props
-            extends Widget.Props,
+            extends
+                Widget.Props,
                 mixin.LabelElement.Props,
                 mixin.FlaggedElement.Props,
                 mixin.AccessKeyedElement.Props,
-                mixin.TitledElement.Props {}
+                mixin.TitledElement.Props
+        {}
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.LabelElement.Prototype,
                 mixin.FlaggedElement.Prototype,
                 mixin.AccessKeyedElement.Prototype,
-                mixin.TitledElement.Prototype {
+                mixin.TitledElement.Prototype
+        {
             /**
              * Check if the option can be selected.
              *
@@ -180,21 +188,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): OptionWidget;
+            new(config?: ConfigOptions): OptionWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

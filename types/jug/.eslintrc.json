@@ -1,6 +1,6 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off"
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

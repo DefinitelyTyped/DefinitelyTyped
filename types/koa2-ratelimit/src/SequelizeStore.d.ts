@@ -1,7 +1,7 @@
-import { Model, Sequelize } from 'sequelize';
+import { Model, Sequelize } from "sequelize";
 
-import { RateLimitOptions } from '..';
-import Store = require('./Store');
+import { RateLimitOptions } from "..";
+import Store = require("./Store");
 
 export = SequelizeStore;
 

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/common-ancestor-path",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/isaacs/common-ancestor-path"
+    ],
+    "devDependencies": {
+        "@types/common-ancestor-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

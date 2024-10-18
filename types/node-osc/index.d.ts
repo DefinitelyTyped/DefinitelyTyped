@@ -1,8 +1,4 @@
-// Type definitions for node-osc 6.0
-// Project: https://github.com/MylesBorins/node-osc#readme
-// Definitions by: Mattia Panzeri <https://github.com/panz3r>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+/// <reference types="node" />
 
 import type { EventEmitter } from "events";
 

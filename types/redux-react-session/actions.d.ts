@@ -4,7 +4,7 @@ import {
     GET_USER_SESSION_ERROR,
     GET_USER_SESSION_SUCCESS,
     INVALID_SESSION,
-} from './actionTypes';
+} from "./actionTypes";
 
 export interface GetSessionSuccessAction {
     type: typeof GET_SESSION_SUCCESS;

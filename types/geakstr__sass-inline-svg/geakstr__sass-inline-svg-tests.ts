@@ -1,10 +1,10 @@
-import inliner = require('@geakstr/sass-inline-svg');
+import inliner = require("@geakstr/sass-inline-svg");
 
-inliner('my-path', {
+inliner("my-path", {
     optimize: true,
-    encodingFormat: 'uri',
+    encodingFormat: "uri",
 });
 
-inliner('my-path', {
-    encodingFormat: 'base64',
+inliner("my-path", {
+    encodingFormat: "base64",
 });

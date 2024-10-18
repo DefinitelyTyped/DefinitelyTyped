@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/no-empty-interface": "off"
+    }
+}

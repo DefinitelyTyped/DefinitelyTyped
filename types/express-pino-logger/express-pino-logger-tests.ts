@@ -1,7 +1,7 @@
-import express = require('express');
-import pino = require('pino');
-import { Options as PinoHttpOptions } from 'pino-http';
-import expressPinoLogger = require('express-pino-logger');
+import express = require("express");
+import pino = require("pino");
+import { Options as PinoHttpOptions } from "pino-http";
+import expressPinoLogger = require("express-pino-logger");
 
 const server = express();
 
@@ -18,14 +18,14 @@ server.use(middleware);
 
 // pino destination only
 
-const pinoDestination: pino.DestinationStream = pino.destination('/log/path');
+const pinoDestination: pino.DestinationStream = pino.destination("/log/path");
 middleware = expressPinoLogger(pinoDestination);
 server.use(middleware);
 
 // pino options and destination
 
 const pinoOpts: PinoHttpOptions = {};
-const pinoDest: pino.DestinationStream = pino.destination('/log/path');
+const pinoDest: pino.DestinationStream = pino.destination("/log/path");
 middleware = expressPinoLogger(pinoOpts, pinoDest);
 server.use(middleware);
 
@@ -37,19 +37,19 @@ middleware = expressPinoLogger(optionsWithLogger);
 server.use(middleware);
 
 server.use((req, res, next) => {
-    req.log.info('');
+    req.log.info("");
     next();
 });
 
 // additional options
 const optionsWithGenReqId: expressPinoLogger.Options = {
     logger,
-    genReqId: (req) => 'foo',
+    genReqId: (req) => "foo",
 };
 middleware = expressPinoLogger(optionsWithGenReqId);
 server.use(middleware);
 
 server.use((req, res, next) => {
-    req.log.info('%s', req.id);
+    req.log.info("%s", req.id);
     next();
 });

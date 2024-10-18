@@ -1,4 +1,4 @@
-import Quotes = require('anime-quotes-api');
+import Quotes = require("anime-quotes-api");
 
 const quote = new Quotes();
 

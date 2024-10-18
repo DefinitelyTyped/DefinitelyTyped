@@ -1,13 +1,3 @@
-// Type definitions for js-cookie 3.0
-// Project: https://github.com/js-cookie/js-cookie
-// Definitions by: Theodore Brown <https://github.com/theodorejb>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Antoine Lépée <https://github.com/alepee>
-//                 Yuto Doi <https://github.com/yutod>
-//                 Nicolas Reynis <https://github.com/nreynis>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Cookies {
     interface CookieAttributes {
         /**
@@ -39,7 +29,7 @@ declare namespace Cookies {
          * providing some protection against cross-site request forgery
          * attacks (CSRF)
          */
-        sameSite?: 'strict' | 'Strict' | 'lax' | 'Lax' | 'none' | 'None' | undefined;
+        sameSite?: "strict" | "Strict" | "lax" | "Lax" | "none" | "None" | undefined;
 
         /**
          * An attribute which will be serialized, conformably to RFC 6265

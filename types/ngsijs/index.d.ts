@@ -1,8 +1,3 @@
-// Type definitions for ngsijs 1.0
-// Project: https://github.com/conwetlab/ngsijs
-// Definitions by: Guillermofr <https://github.com/guillermofr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class Connection {
     constructor(url: any);
     v2: Connection.V2;
@@ -16,17 +11,52 @@ export namespace Connection {
         cancelAvailabilitySubscription(subId: any, callbacks: any): void;
         cancelRegistration(regId: any, callbacks: any): void;
         cancelSubscription(subId: any, options: any): void;
-        createAvailabilitySubscription(entities: any, attributeNames: any, duration: any, restriction: any, options: any, ...args: any[]): void;
-        createRegistration(entities: any, attributes: any, duration: any, providingApplication: any, callbacks: any): void;
-        createSubscription(entities: any, attributeNames: any, duration: any, throttling: any, cond: any, options: any, ...args: any[]): void;
+        createAvailabilitySubscription(
+            entities: any,
+            attributeNames: any,
+            duration: any,
+            restriction: any,
+            options: any,
+            ...args: any[]
+        ): void;
+        createRegistration(
+            entities: any,
+            attributes: any,
+            duration: any,
+            providingApplication: any,
+            callbacks: any,
+        ): void;
+        createSubscription(
+            entities: any,
+            attributeNames: any,
+            duration: any,
+            throttling: any,
+            cond: any,
+            options: any,
+            ...args: any[]
+        ): void;
         deleteAttributes(toDelete: any, callbacks: any): void;
         discoverAvailability(entities: any, attributeNames: any, callbacks: any): void;
         getAvailableTypes(options: any): void;
         getTypeInfo(type: any, options: any): void;
         query(entities: any, attributesName: any, options: any): void;
         updateAttributes(update: any, callbacks: any): void;
-        updateAvailabilitySubscription(subId: any, entities: any, attributeNames: any, duration: any, restriction: any, callbacks: any): void;
-        updateRegistration(regId: any, entities: any, attributes: any, duration: any, providingApplication: any, callbacks: any): any;
+        updateAvailabilitySubscription(
+            subId: any,
+            entities: any,
+            attributeNames: any,
+            duration: any,
+            restriction: any,
+            callbacks: any,
+        ): void;
+        updateRegistration(
+            regId: any,
+            entities: any,
+            attributes: any,
+            duration: any,
+            providingApplication: any,
+            callbacks: any,
+        ): any;
         updateSubscription(subId: any, duration: any, throttling: any, cond: any, options: any): void;
     }
 

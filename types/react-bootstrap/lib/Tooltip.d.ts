@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace Tooltip {
     export interface TooltipProps extends React.HTMLProps<Tooltip> {
@@ -14,5 +14,5 @@ declare namespace Tooltip {
         positionTop?: number | undefined;
     }
 }
-declare class Tooltip extends React.Component<Tooltip.TooltipProps> { }
+declare class Tooltip extends React.Component<Tooltip.TooltipProps> {}
 export = Tooltip;

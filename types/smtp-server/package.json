@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/smtp-server",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/nodemailer/smtp-server",
+        "https://github.com/andris9/smtp-server"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/nodemailer": "*"
+    },
+    "devDependencies": {
+        "@types/smtp-server": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "markisme",
+            "githubUsername": "markisme"
+        },
+        {
+            "name": "taisiias",
+            "githubUsername": "Taisiias"
+        },
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        },
+        {
+            "name": "Paul Oms",
+            "githubUsername": "paul-oms"
+        }
+    ]
+}

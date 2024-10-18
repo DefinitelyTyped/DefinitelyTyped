@@ -49,9 +49,30 @@ interface elementObject {
     placeholder: string;
 }
 
-type cssKeyName =  "color" | "font" | "font-family" | "font-size" | "font-size-adjust" | "font-stretch" | "font-style"
-| "font-variant" | "font-variant-alternates" | "font-variant-caps" | "font-variant-east-asian" | "font-variant-ligatures" | "font-variant-numeric"
-| "font-weight" | "line-height" | "outline" | "opacity" | "text-shadow" | "transition" | "-moz-osx-font-smoothing" | "-moz-transition" | "-webkit-font-smoothing" | "-webkit-transitio";
+type cssKeyName =
+    | "color"
+    | "font"
+    | "font-family"
+    | "font-size"
+    | "font-size-adjust"
+    | "font-stretch"
+    | "font-style"
+    | "font-variant"
+    | "font-variant-alternates"
+    | "font-variant-caps"
+    | "font-variant-east-asian"
+    | "font-variant-ligatures"
+    | "font-variant-numeric"
+    | "font-weight"
+    | "line-height"
+    | "outline"
+    | "opacity"
+    | "text-shadow"
+    | "transition"
+    | "-moz-osx-font-smoothing"
+    | "-moz-transition"
+    | "-webkit-font-smoothing"
+    | "-webkit-transitio";
 
 interface DirectPay {
     setup(fields: {
@@ -64,17 +85,21 @@ interface DirectPay {
         };
     }): void;
 
-    onUpdate(callback: (
-        update: UpdateResult
-    ) => void): void;
+    onUpdate(
+        callback: (
+            update: UpdateResult,
+        ) => void,
+    ): void;
 
     getTappayFieldsStatus(): UpdateResult;
 
-    getPrime(callback: (
-        result: Pick<BaseResult, "status" | "msg"> & {
-            clientip: Pick<BaseResult, "client_ip">;
-            card_identifier: string;
-            card: CardInfoV1 & Pick<BaseResult, "prime">;
-        } & MerchantReferenceInfo
-    ) => void): void;
+    getPrime(
+        callback: (
+            result: Pick<BaseResult, "status" | "msg"> & {
+                clientip: Pick<BaseResult, "client_ip">;
+                card_identifier: string;
+                card: CardInfoV1 & Pick<BaseResult, "prime">;
+            } & MerchantReferenceInfo,
+        ) => void,
+    ): void;
 }

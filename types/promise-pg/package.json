@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/promise-pg",
+    "version": "0.0.9999",
+    "projects": [
+        "https://bitbucket.org/lplabs/promise-pg"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/pg": "*",
+        "@types/q": "^0"
+    },
+    "devDependencies": {
+        "@types/promise-pg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Charabaruk",
+            "githubUsername": "coldacid"
+        }
+    ]
+}

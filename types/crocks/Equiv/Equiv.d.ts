@@ -1,4 +1,4 @@
-import { BinaryFunction, UnaryFunction } from '../internal/types';
+import { BinaryFunction, UnaryFunction } from "../internal/types";
 
 declare function Equiv(fn: (val1: unknown, val2: unknown) => boolean): Equiv;
 

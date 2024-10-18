@@ -1,4 +1,4 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
 (() => {
     function multiply(a: number, b: number): number {
@@ -12,7 +12,7 @@ import * as R from 'ramda';
         return `${salutation}, ${title} ${firstName} ${lastName}!`;
     }
 
-    const sayHello = R.partial(greet, ['Hello']);
-    const sayHelloToMs = R.partial(sayHello, ['Ms.']);
-    sayHelloToMs('Jane', 'Jones'); // => 'Hello, Ms. Jane Jones!'
+    const sayHello = R.partial(greet, ["Hello"]);
+    const sayHelloToMs = R.partial(sayHello, ["Ms."]);
+    sayHelloToMs("Jane", "Jones"); // => 'Hello, Ms. Jane Jones!'
 })();

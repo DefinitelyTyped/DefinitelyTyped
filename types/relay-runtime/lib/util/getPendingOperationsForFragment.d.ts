@@ -1,5 +1,5 @@
-import type { Environment, RequestDescriptor } from '../store/RelayStoreTypes';
-import type { ReaderFragment } from './ReaderNode';
+import type { Environment, RequestDescriptor } from "../store/RelayStoreTypes";
+import type { ReaderFragment } from "./ReaderNode";
 
 export default function getPendingOperationsForFragment(
     environment: Environment,
@@ -7,5 +7,5 @@ export default function getPendingOperationsForFragment(
     fragmentOwner: RequestDescriptor,
 ): {
     promise: Promise<void>;
-    pendingOperations: ReadonlyArray<RequestDescriptor>;
+    pendingOperations: readonly RequestDescriptor[];
 } | null;

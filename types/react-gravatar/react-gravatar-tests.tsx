@@ -11,7 +11,7 @@ class GravatarEmailTest extends React.Component {
                 default="retro"
                 protocol="https://"
                 className="image"
-                style={{borderWidth: "1px"}}
+                style={{ borderWidth: "1px" }}
             />
         );
     }
@@ -27,7 +27,7 @@ class GravatarHashTest extends React.Component {
                 default="retro"
                 protocol="https://"
                 className="image"
-                style={{borderWidth: "1px"}}
+                style={{ borderWidth: "1px" }}
             />
         );
     }

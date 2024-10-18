@@ -1,9 +1,3 @@
-// Type definitions for openapi-sampler 1.0
-// Project: https://github.com/APIs-guru/openapi-sampler/
-// Definitions by: Marcell Toth <https://github.com/marcelltoth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 export type OpenApiSchema = any;
 
 export type OpenApiSpec = any;

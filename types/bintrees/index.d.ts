@@ -1,10 +1,4 @@
-// Type definitions for bintrees 1.0.2
-// Project: https://github.com/vadimg/js_bintrees
-// Definitions by: Cayle Sharrock <https://github.com/CjS77>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare module 'bintrees' {
-
+declare module "bintrees" {
     type Callback<T> = (item: T) => void;
     type Comparator<T> = (a: T, b: T) => number;
 
@@ -41,7 +35,6 @@ declare module 'bintrees' {
 
         reach(cb: Callback<T>): void;
     }
-
 
     export class RBTree<T> extends TreeBase<T> {
         constructor(comparator: Comparator<T>);

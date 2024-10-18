@@ -1,8 +1,3 @@
-// Type definitions for jconv 0.1
-// Project: https://github.com/narirou/jconv
-// Definitions by: Martijn Saly <https://github.com/thany>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare function jconv(buf: Buffer, from: string, to: string): Buffer;

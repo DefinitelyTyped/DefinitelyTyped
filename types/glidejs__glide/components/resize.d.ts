@@ -1,4 +1,4 @@
-export type ResizeEvents = 'resize';
+export type ResizeEvents = "resize";
 
 export interface ResizeEventsBus {
     on(event: ResizeEvents, handler: () => void): { remove(): void };

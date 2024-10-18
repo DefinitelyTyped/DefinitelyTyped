@@ -2,7 +2,7 @@ import { Component, ReactNode } from "react";
 
 export interface ScrollFollowRenderProps {
     onScroll: (
-        args: { scrollTop: number; scrollHeight: number; clientHeight: number }
+        args: { scrollTop: number; scrollHeight: number; clientHeight: number },
     ) => void;
     follow: boolean;
     startFollowing: () => void;

@@ -41,9 +41,11 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface SharedExcludedPlacementSelector
-            extends Base.Selector<SharedExcludedPlacementIterator>,
+            extends
+                Base.Selector<SharedExcludedPlacementIterator>,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

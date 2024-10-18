@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-native-safari-view",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/naoufal/react-native-safari-view"
+    ],
+    "dependencies": {
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-safari-view": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Randolph",
+            "githubUsername": "mrand01"
+        }
+    ]
+}

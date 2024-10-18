@@ -1,4 +1,4 @@
-import { CSSStyleDeclaration } from 'cssstyle';
+import { CSSStyleDeclaration } from "cssstyle";
 
 // $ExpectType CSSStyleDeclaration
 const style = new CSSStyleDeclaration(text => {

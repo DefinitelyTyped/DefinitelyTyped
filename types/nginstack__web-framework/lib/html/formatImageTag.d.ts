@@ -6,9 +6,9 @@ declare function formatImageTag(
         id?: string;
         cssClass?: string;
         mailObject?: Email;
-    }
+    },
 ): string;
 declare namespace formatImageTag {
     export { Email };
 }
-type Email = import('@nginstack/engine/lib/email/Email');
+type Email = import("@nginstack/engine/lib/email/Email");

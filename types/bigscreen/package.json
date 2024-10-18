@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bigscreen",
+    "version": "2.0.9999",
+    "projects": [
+        "http://brad.is/coding/BigScreen/"
+    ],
+    "devDependencies": {
+        "@types/bigscreen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Douglas Eichelberger",
+            "githubUsername": "dduugg"
+        }
+    ]
+}

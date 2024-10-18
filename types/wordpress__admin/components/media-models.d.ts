@@ -1,5 +1,5 @@
-import * as Backbone from 'backbone';
-import { MemoizedFunction } from 'lodash';
+import * as Backbone from "backbone";
+import { MemoizedFunction } from "lodash";
 
 export interface AttachmentOptions {
     context: Record<string, unknown>;

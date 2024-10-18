@@ -1,9 +1,3 @@
-// Type definitions for GeoPattern 1.2
-// Project: https://github.com/btmills/geopattern, http://btmills.github.io/geopattern/geopattern.html
-// Definitions by: Gaelan <https://github.com/Gaelan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <references types="jquery" />
 
 export as namespace GeoPattern;
@@ -39,10 +33,23 @@ export interface PatternOptions {
     generator?: GeneratorType | undefined;
 }
 
-export type GeneratorType = 'chevrons' | 'octogons' | 'overlappingCircles' |
-    'plusSigns' | 'xes' | 'sineWaves' | 'hexagons' | 'overlappingRings' |
-    'plaid' |'triangles' | 'squares' | 'nestedSquares' | 'mosaicSquares' |
-    'concentricCircles' | 'diamonds' | 'tessellation';
+export type GeneratorType =
+    | "chevrons"
+    | "octogons"
+    | "overlappingCircles"
+    | "plusSigns"
+    | "xes"
+    | "sineWaves"
+    | "hexagons"
+    | "overlappingRings"
+    | "plaid"
+    | "triangles"
+    | "squares"
+    | "nestedSquares"
+    | "mosaicSquares"
+    | "concentricCircles"
+    | "diamonds"
+    | "tessellation";
 
 export interface Pattern {
     /** Gets the pattern's background color as a hexadecimal string. */

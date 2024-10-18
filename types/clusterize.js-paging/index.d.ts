@@ -1,8 +1,3 @@
-// Type definitions for clusterize.js-paging 1.0
-// Project: https://github.com/zazukoians/clusterize.js-paging
-// Definitions by: Goran Jovanovic <https://github.com/gjovanovicst>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class ClusterizePaging {
     constructor(options: ClusterizePaging.Options);
 

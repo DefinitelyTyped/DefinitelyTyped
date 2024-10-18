@@ -1,11 +1,6 @@
-// Type definitions for event-stream v4.0
-// Project: https://github.com/dominictarr/event-stream
-// Definitions by: David Gardiner <https://github.com/flcdrg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as stream from 'stream';
+import * as stream from "stream";
 
 export interface MapStream extends stream.Stream {
     writable: boolean;
@@ -21,64 +16,64 @@ export interface MapStream extends stream.Stream {
 /**
  * Create a stream from a series of MapStreams
  */
-export declare function pipeline(...streams: MapStream[]):  MapStream;
+export declare function pipeline(...streams: MapStream[]): MapStream;
 
 /**
  * Create a through stream from an asynchronous function
- * 
+ *
  * @param asyncFunction
  */
-export declare function map(asyncFunction: Function):  MapStream;
+export declare function map(asyncFunction: Function): MapStream;
 
 /**
  * Same as map, but the callback is called synchronously. Based on es.through
  * @param syncFunction
  */
-export declare function mapSync(syncFunction: Function):  MapStream;
+export declare function mapSync(syncFunction: Function): MapStream;
 
 /**
  * Filter elements of the stream.
  * @param syncFunction
  */
-export declare function filterSync(syncFunction: (value: any) => boolean):  MapStream;
+export declare function filterSync(syncFunction: (value: any) => boolean): MapStream;
 
 /**
  * Break up a stream and reassemble it so that each line is a chunk. matcher may be a String, or a RegExp
- * 
+ *
  * @param matcher
  */
-export declare function split(matcher?: string | RegExp):  MapStream;
+export declare function split(matcher?: string | RegExp): MapStream;
 
 /**
  * Create a through stream that emits separator between each chunk, just like Array#join
- * 
+ *
  * @param separator
  */
-export declare function join(separator: string):  MapStream;
+export declare function join(separator: string): MapStream;
 
 /**
  * Merges streams into one and returns it. Incoming data will be emitted as soon it comes into - no ordering will be applied
  * (for example: data1 data1 data2 data1 data2 - where data1 and data2 is data from two streams).
  * Counts how many streams were passed to it and emits end only when all streams emitted end.
- * 
+ *
  * @param stream
  */
-export declare function concat(...stream: MapStream[]):  MapStream;
+export declare function concat(...stream: MapStream[]): MapStream;
 
 /**
  * Merges streams into one and returns it. Incoming data will be emitted as soon it comes into - no ordering will be applied
  * (for example: data1 data1 data2 data1 data2 - where data1 and data2 is data from two streams).
  * Counts how many streams were passed to it and emits end only when all streams emitted end.
- * 
+ *
  * @param stream
  */
-export declare function concat(streamArray: MapStream[]):  MapStream;
+export declare function concat(streamArray: MapStream[]): MapStream;
 
 /**
  * Merges streams into one and returns it. Incoming data will be emitted as soon it comes into - no ordering will be applied
  * (for example: data1 data1 data2 data1 data2 - where data1 and data2 is data from two streams).
  * Counts how many streams were passed to it and emits end only when all streams emitted end.
- * 
+ *
  * @param stream
  */
 export declare function merge(...stream: MapStream[]): MapStream;
@@ -87,7 +82,7 @@ export declare function merge(...stream: MapStream[]): MapStream;
  * Merges streams into one and returns it. Incoming data will be emitted as soon it comes into - no ordering will be applied
  * (for example: data1 data1 data2 data1 data2 - where data1 and data2 is data from two streams).
  * Counts how many streams were passed to it and emits end only when all streams emitted end.
- * 
+ *
  * @param stream
  */
 export declare function merge(streamArray: MapStream[]): MapStream;
@@ -113,21 +108,21 @@ export declare function stringify(): MapStream;
 
 /**
  * create a readable stream (that respects pause) from an async function.
- * 
+ *
  * @param asyncFunction
  */
 export declare function readable(asyncFunction: Function): MapStream;
 
 /**
  * Create a readable stream from an Array.
- * 
+ *
  * @param array
  */
 export declare function readArray(array: any[]): MapStream;
 
 /**
  * create a writeable stream from a callback
- * 
+ *
  * @param callback
  */
 export declare function writeArray(callback: Function): MapStream;
@@ -135,11 +130,12 @@ export declare function writeArray(callback: Function): MapStream;
 /**
  * A stream that buffers all chunks when paused
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export declare function pause(): MapStream | void;
 
 /**
  * Takes a writable stream and a readable stream and makes them appear as a readable writable stream.
- * 
+ *
  * @param writeStream
  * @param readStream
  */
@@ -147,7 +143,7 @@ export declare function duplex(writeStream: stream.Writable, readStream: stream.
 
 /**
  * Create a through stream from a child process
- * 
+ *
  * @param child_process
  */
 export declare function child(child_process: any): MapStream;
@@ -155,7 +151,7 @@ export declare function child(child_process: any): MapStream;
 /**
  * waits for stream to emit 'end'. joins chunks of a stream into a single string or buffer.
  * Takes an optional callback, which will be passed the complete string/buffer when it receives the 'end' event.
- * 
+ *
  * @param callback
  */
 export declare function wait(callback: Function): MapStream;
