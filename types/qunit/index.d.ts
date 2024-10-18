@@ -559,6 +559,12 @@ declare global {
             assert: Assert;
         }
 
+        interface TestFunction {
+            (name: string, callback: (assert: Assert) => void | Promise<void>): void;
+            skip: (name: string, callback: (assert: Assert) => void | Promise<void>) => void;
+            each:  <T>(name: string, dataset: T[] | { [key: string]: T}, callback: (assert: Assert, data: T) => void) => void;
+        }
+
         type Test = AssertionTest | SkipTest | TodoTest;
     }
 
@@ -812,7 +818,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        test(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        test: QUnit.TestFunction,
 
         /**
          * Register a callback to fire whenever a test ends.
