@@ -385,7 +385,8 @@ interface FederatedCredentialRequestOptions {
 }
 
 interface OTPCredentialRequestOptions {
-    transport: ['sms'];
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    transport: ["sms"];
 }
 
 // Type definitions for webauthn
