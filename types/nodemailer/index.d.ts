@@ -3,6 +3,7 @@
 import JSONTransport = require("./lib/json-transport");
 import Mail = require("./lib/mailer");
 import MailMessage = require("./lib/mailer/mail-message");
+import MimeNode = require("./lib/mime-node");
 import SendmailTransport = require("./lib/sendmail-transport");
 import SESTransport = require("./lib/ses-transport");
 import SMTPPool = require("./lib/smtp-pool");
@@ -13,7 +14,18 @@ export type SendMailOptions = Mail.Options;
 
 export type Transporter<T = any, D extends TransportOptions = TransportOptions> = Mail<T, D>;
 
-export type SentMessageInfo = any;
+export interface SentMessageInfo {
+    envelope: MimeNode.Envelope;
+    messageId: string;
+    accepted: Array<string | Mail.Address>;
+    rejected: Array<string | Mail.Address>;
+    pending?: Array<string | Mail.Address>;
+    response: string;
+    ehlo?: string[];
+    envelopeTime?: number;
+    messageTime?: number;
+    messageSize?: number;
+}
 
 export interface Transport<T = any, D extends TransportOptions = TransportOptions> {
     mailer?: Transporter<T, D> | undefined;
