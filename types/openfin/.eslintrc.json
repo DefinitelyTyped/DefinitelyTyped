@@ -5,7 +5,8 @@
         "@definitelytyped/prefer-declare-function": "off",
         "@definitelytyped/no-single-element-tuple-type": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off",
         "@typescript-eslint/no-invalid-void-type": "off"
     }
 }
