@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/oidc-token-hash",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/panva/oidc-token-hash"
+    ],
+    "devDependencies": {
+        "@types/oidc-token-hash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Filip Skokan",
+            "githubUsername": "panva"
+        }
+    ]
+}
