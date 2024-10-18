@@ -244,6 +244,14 @@ staticMapService.getStaticImage({
     layer_id: "building",
 });
 
+staticMapService.getStaticImage({
+    ownerId: "owner-id",
+    styleId: "some-style",
+    width: 16,
+    height: 16,
+    position: { bbox: [-7.66571044921875, 49.882247460433376, 1.7633056640625, 58.67051177185283] },
+});
+
 const geocodeService: GeocodeService = Geocoding(config);
 geocodeService
     .forwardGeocode({
