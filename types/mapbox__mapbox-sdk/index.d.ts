@@ -1841,7 +1841,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
          * Get a static map image..
          * @param request
          */
-        getStaticImage(request: StaticMapRequest): MapiRequest;
+        getStaticImage(request: StaticMapRequest): MapiRequest<string>;
     }
 
     interface StaticMapRequest {
@@ -1856,6 +1856,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
                 bearing?: number | undefined;
                 pitch?: number | undefined;
             }
+            | { bbox: [number, number, number, number] }
             | "auto";
         padding?: string | undefined;
         overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay> | undefined;
