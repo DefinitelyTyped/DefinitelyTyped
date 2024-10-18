@@ -3948,6 +3948,48 @@ declare namespace _ {
          */
         isUndefined(object: any): object is undefined;
 
+        /**
+         * Returns true if `object` is a Set.
+         * @param object The object to check.
+         * @returns True if `object` is a Set, otherwise false.
+         */
+        isSet(object: any): object is Set<any>;
+
+        /**
+         * Returns true if `object` is a WeakSet.
+         * @param object The object to check.
+         * @returns True if `object` is a WeakSet, otherwise false.
+         */
+        isWeakSet(object: any): object is WeakSet<any>;
+
+        /**
+         * Returns true if `object` is a Map.
+         * @param object The object to check.
+         * @returns True if `object` is a Map, otherwise false.
+         */
+        isMap(object: any): object is Map<any, any>;
+
+        /**
+         * Returns true if `object` is a WeakMap.
+         * @param object The object to check.
+         * @returns True if `object` is a WeakMap, otherwise false.
+         */
+        isWeakMap(object: any): object is WeakMap<any, any>;
+
+        /**
+         * Ensures that path is an array.
+         * @param path
+         *  1. If path is a string, it is wrapped in a single-element array;
+         *  2. if it is an array already, it is returned unmodified.
+         */
+        toPath<P>(path: P): (
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+            P extends ReadonlyArray<string | number> ? P
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                : P extends string | number ? [P]
+                : never
+        );
+
         /***********
          * Utility *
          ***********/
@@ -5216,6 +5258,44 @@ declare namespace _ {
          * @returns True if the wrapped object is undefined, otherwise false.
          */
         isUndefined(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a Set.
+         * @returns True if the wrapped object is a Set, otherwise false.
+         */
+        isSet(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a WeakSet.
+         * @returns True if the wrapped object is a WeakSet, otherwise false.
+         */
+        isWeakSet(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a Map.
+         * @returns True if the wrapped object is a Map, otherwise false.
+         */
+        isMap(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a WeakMap.
+         * @returns True if the wrapped object is a WeakMap, otherwise false.
+         */
+        isWeakMap(): boolean;
+
+        /**
+         * Ensures that path is an array.
+         * @param path
+         *  1. If path is a string, it is wrapped in a single-element array;
+         *  2. if it is an array already, it is returned unmodified.
+         */
+        toPath(): (
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+            V extends ReadonlyArray<string | number> ? V
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                : V extends string | number ? [V]
+                : never
+        );
 
         /***********
          * Utility *
@@ -6497,6 +6577,48 @@ declare namespace _ {
          * The result will be wrapped in a chain wrapper.
          */
         isUndefined(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a Set.
+         * @returns True if the wrapped object is a Set, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         */
+        isSet(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a WeakSet.
+         * @returns True if the wrapped object is a WeakSet, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         */
+        isWeakSet(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a Map.
+         * @returns True if the wrapped object is a Map, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         */
+        isMap(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a WeakMap.
+         * @returns True if the wrapped object is a WeakMap, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         */
+        isWeakMap(): _ChainSingle<boolean>;
+
+        /**
+         * Ensures that path is an array.
+         * @param path
+         *  1. If path is a string, it is wrapped in a single-element array;
+         *  2. if it is an array already, it is returned unmodified.
+         */
+        toPath(): _ChainSingle<
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+            V extends ReadonlyArray<string | number> ? V
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                : V extends string | number ? [V]
+                : never
+        >;
 
         /***********
          * Utility *
