@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-google-maps-loader",
-    "version": "4.2.9999",
+    "version": "4.3.9999",
     "projects": [
         "https://github.com/xuopled/react-google-maps-loader"
     ],
