@@ -17,6 +17,30 @@ QUnit.test("a basic test example 4", function(assert) {
     assert.ok(true, "this test is fine");
 });
 
+QUnit.test.skip("skip test example", function(assert) {
+    assert.ok(true, "this is skiped");
+});
+
+QUnit.test.each("each with string array example", ['foo', 'bar'],function(assert, data) {
+    assert.expect(3);
+    assert.strictEqual(data, 'string value');
+});
+
+QUnit.test.each("each with string object example", { case1: 'foo', case2: 'bar' },function(assert, data) {
+    assert.expect(3);
+    assert.strictEqual(data, 'string value');
+});
+
+QUnit.test.each("each with number array example", [1, 2],function(assert, data) {
+    assert.expect(3);
+    assert.strictEqual(data, 3);
+});
+
+QUnit.test.each("each with number object example", { case1: 1, case2: 2 },function(assert, data) {
+    assert.expect(3);
+    assert.strictEqual(data, 3);
+});
+
 QUnit.module("module a", function() {
     QUnit.test("a basic test example", function(assert) {
         assert.ok(true, "this test is fine");
