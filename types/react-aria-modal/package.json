@@ -1,11 +1,12 @@
 {
     "private": true,
     "name": "@types/react-aria-modal",
-    "version": "4.0.9999",
+    "version": "5.0.9999",
     "projects": [
         "https://github.com/davidtheclark/react-aria-modal#readme"
     ],
     "dependencies": {
+        "focus-trap": "^7.4.3",
         "@types/react": "*"
     },
     "devDependencies": {
