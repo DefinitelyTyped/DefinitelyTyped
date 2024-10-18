@@ -17,7 +17,6 @@ evilDns.add(invalidValue, validIP);
 // @ts-expect-error
 evilDns.add(validDomain, invalidValue);
 
-
 // $ExpectType void
 evilDns.remove(validDomain, validIP);
 
@@ -34,15 +33,13 @@ evilDns.remove(validRegExp);
 evilDns.remove(invalidValue, validIP);
 
 // @ts-expect-error
-evilDns.remove(validRegExp, invalidValue)
+evilDns.remove(validRegExp, invalidValue);
 
 // @ts-expect-error
 evilDns.remove(invalidValue);
 
-
 // $ExpectType void
 evilDns.clear();
-
 
 // $ExpectType domainList
 evilDns.domains;
