@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 type StubFunction = (...params: any[]) => any;
 type Stub = object | StubFunction;
 
@@ -10,6 +8,6 @@ interface Mock {
     reRequire(path: string): any;
 }
 
-declare var mock: Mock;
+declare const mock: Mock;
 
 export = mock;
