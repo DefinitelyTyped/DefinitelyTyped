@@ -652,9 +652,15 @@ declare namespace mapkit {
 
     // Map Interaction Events
     interface MapInteractionEvents<T> {
-        "single-tap": EventBase<T>;
-        "double-tap": EventBase<T>;
-        "long-press": EventBase<T>;
+        "single-tap": EventBase<T> & RespondsMapInteractionEvents;
+        "double-tap": EventBase<T> & RespondsMapInteractionEvents;
+        "long-press": EventBase<T> & RespondsMapInteractionEvents;
+    }
+
+    // type Respond to map interaction events
+    interface RespondsMapInteractionEvents {
+        pointOnPage: DOMPoint;
+        domEvents: PointerEvent[];
     }
 
     // All map events
