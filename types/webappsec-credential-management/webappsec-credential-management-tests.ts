@@ -365,7 +365,7 @@ function webauthnAuthenticate() {
         }
 
         const pubKeyCred = cred as PublicKeyCredential;
-        const response = <AuthenticatorAssertionResponse>pubKeyCred.response;
+        const response = <AuthenticatorAssertionResponse> pubKeyCred.response;
         const authData = new Uint8Array(response.authenticatorData);
     }, (e) => {
         console.log(e.message);
@@ -387,17 +387,17 @@ function mockAuthenticatorAssertionResponse() {
 }
 
 function webOTPAutofill() {
-    if ('OTPCredential' in window) {
+    if ("OTPCredential" in window) {
         const ac = new AbortController();
         const reqOpt = {
-            otp: { transport: ['sms'] },
+            otp: { transport: ["sms"] },
             signal: ac.signal,
         } satisfies CredentialRequestOptions;
-        window.navigator['credentials'].get(reqOpt).then((credential) => {
+        window.navigator["credentials"].get(reqOpt).then((credential) => {
             if (!credential) {
                 return;
             }
-            if (credential.type === 'otp') {
+            if (credential.type === "otp") {
                 console.log("Received code is " + credential.code);
             } else {
                 console.log("Incorrect type");
