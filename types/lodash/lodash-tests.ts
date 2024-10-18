@@ -2785,6 +2785,21 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.map(list, { a: 42 });  // $ExpectType boolean[]
     _.map(dictionary, { a: 42 });  // $ExpectType boolean[]
     _.map(numericDictionary, { a: 42 });  // $ExpectType boolean[]
+    _.map([-1, -2, -3] as [number, number, number], (value) => value.toString());  // $ExpectType [string, string, string]
+    _.map([-1, -2, -3] as [number, number, number], (value) => value || "a");  // $ExpectType [number | "a", number | "a", number | "a"]
+    _.map([-1, -2, -3] as [number, number, number], (value, index, collection) => {
+        value; // $ExpectType number
+        index; // $ExpectType 0 | 1 | 2
+        collection; // $ExpectType [number, number, number]
+        return 0;
+    });
+    _.map([-1, -2, -3] as const, (value) => value.toString()) // $ExpectType readonly [string, string, string];
+    _.map([-1, -2, -3] as const, (value, index, collection) => {
+        value; // $ExpectType -1 | -2 | -3
+        index; // $ExpectType 0 | 1 | 2
+        collection; // $ExpectType readonly [-1, -2, -3]
+        return 0;
+    });
 
     _(list).map(); // $ExpectType Collection<AbcObject>
     // $ExpectType Collection<number>
