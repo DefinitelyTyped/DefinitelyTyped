@@ -2491,7 +2491,7 @@ export interface MapOptions {
     wheelPxPerZoomLevel?: number | undefined;
 
     // Touch interaction options
-    tap?: boolean | undefined;
+    tapHold?: boolean | undefined;
     tapTolerance?: number | undefined;
     touchZoom?: Zoom | undefined;
     bounceAtZoomLimits?: boolean | undefined;

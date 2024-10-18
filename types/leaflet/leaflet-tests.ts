@@ -137,7 +137,7 @@ mapOptions = {
     keyboardPanDelta: 100,
     wheelDebounceTime: 30,
     wheelPxPerZoomLevel: 25,
-    tap: false,
+    tapHold: false,
     tapTolerance: 10,
     bounceAtZoomLimits: false,
 };
