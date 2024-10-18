@@ -412,6 +412,10 @@
             "libraryName": "bitcoinjs-lib",
             "asOfVersion": "5.0.0"
         },
+        "bittorrent-protocol": {
+            "libraryName": "bittorrent-protocol",
+            "asOfVersion": "3.5.4"
+        },
         "bitwise": {
             "libraryName": "bitwise",
             "asOfVersion": "2.0.0"
@@ -1135,6 +1139,10 @@
         "create-html-element": {
             "libraryName": "create-html-element",
             "asOfVersion": "2.1.0"
+        },
+        "create-torrent": {
+            "libraryName": "create-torrent",
+            "asOfVersion": "6.0.0"
         },
         "credit-card-type": {
             "libraryName": "credit-card-type",
@@ -4141,6 +4149,10 @@
             "libraryName": "parse-ms",
             "asOfVersion": "2.1.0"
         },
+        "parse-torrent": {
+            "libraryName": "parse-torrent",
+            "asOfVersion": "11.0.0"
+        },
         "parse5": {
             "libraryName": "parse5",
             "asOfVersion": "7.0.0"
@@ -6530,6 +6542,10 @@
         "webpack-virtual-modules": {
             "libraryName": "webpack-virtual-modules",
             "asOfVersion": "0.4.2"
+        },
+        "webtorrent": {
+            "libraryName": "webtorrent",
+            "asOfVersion": "2.0.0"
         },
         "whatwg-streams": {
             "libraryName": "typescript",
