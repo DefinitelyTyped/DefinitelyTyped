@@ -209,6 +209,8 @@ import * as url from "node:url";
     res.setHeader("Content-Type", "text/plain")
         .setHeader("Return-Type", "this")
         .appendHeader("Content-Type", "text/html");
+    res.setHeaders(new Headers({ foo: "bar" }));
+    res.setHeaders(new Map([["foo", "bar"]]));
     const bool: boolean = res.hasHeader("Content-Type");
     const headers: string[] = res.getHeaderNames();
     const headerValue: string[] | undefined = incoming.headersDistinct["content-type"];
