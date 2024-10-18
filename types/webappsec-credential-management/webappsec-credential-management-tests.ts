@@ -381,9 +381,9 @@ function webOTPAutofill() {
     if ('OTPCredential' in window) {
         const ac = new AbortController();
         const reqOpt = {
-            otp: [`sms`],
+            otp: { transport: ['sms'] },
             signal: ac.signal,
-        };
+        } satisfies CredentialRequestOptions;
         window.navigator['credentials'].get(reqOpt).then((credential) => {
             if (!credential) {
                 return;

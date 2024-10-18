@@ -71,7 +71,7 @@ interface CredentialsContainer {
      *     return.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get}
      */
-    get(options?: CredentialRequestOptions | OTPCredentialRequestOptions): Promise<CredentialType | null>;
+    get(options?: CredentialRequestOptions): Promise<CredentialType | null>;
 
     /**
      * Ask the credential manager to store a {@link Credential} for the user.
@@ -167,7 +167,7 @@ interface SiteBoundCredentialData extends CredentialData {
  * store.
  */
 // tslint:disable-next-line no-empty-interface
-interface SiteBoundCredential extends Credential {}
+interface SiteBoundCredential extends Credential { }
 declare abstract class SiteBoundCredential {
     /**
      * A name associated with the credential, intended as a human-understandable
@@ -393,11 +393,7 @@ interface FederatedCredentialRequestOptions {
 }
 
 interface OTPCredentialRequestOptions {
-    /**
-     * An array of OTP identifiers.
-     * @see {@link https://wicg.github.io/web-otp}
-     */
-    otp: string[];
+    transport: ['sms'];
 }
 
 // Type definitions for webauthn
