@@ -7,9 +7,16 @@ declare module "stream/promises" {
         PipelineSource,
         PipelineTransform,
     } from "node:stream";
+    interface PromisifiedFinishedOptions extends FinishedOptions {
+        /**
+         * If true, removes the listeners registered by this function before the promise is fulfilled.
+         * @default false
+         */
+        cleanup?: boolean | undefined;
+    }
     function finished(
         stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream,
-        options?: FinishedOptions,
+        options?: PromisifiedFinishedOptions,
     ): Promise<void>;
     function pipeline<A extends PipelineSource<any>, B extends PipelineDestination<A, any>>(
         source: A,
