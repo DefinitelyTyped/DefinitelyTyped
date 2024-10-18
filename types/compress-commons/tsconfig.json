@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "archivers/archive-entry.d.ts",
+        "archivers/archive-output-stream.d.ts",
+        "archivers/zip/general-purpose-bit.d.ts",
+        "archivers/zip/zip-archive-entry.d.ts",
+        "archivers/zip/zip-archive-output-stream.d.ts",
+        "compress-commons-tests.ts"
+    ]
+}
