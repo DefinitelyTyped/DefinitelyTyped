@@ -2969,7 +2969,7 @@ export class Map extends Evented {
     dragging: Handler;
     keyboard: Handler;
     scrollWheelZoom: Handler;
-    tap?: Handler | undefined;
+    tapHold?: Handler | undefined;
     touchZoom: Handler;
     zoomControl: Control.Zoom;
 
