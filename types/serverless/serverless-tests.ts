@@ -20,8 +20,10 @@ class CustomPlugin implements Plugin {
             options: {
                 option: {
                     usage: `description`,
-                    required: true,
+                    required: false,
                     shortcut: "o",
+                    type: "multiple" as "multiple",
+                    default: ["value1", "value2"],
                 },
             },
         },
