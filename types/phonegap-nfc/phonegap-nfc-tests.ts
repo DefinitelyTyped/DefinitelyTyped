@@ -3,6 +3,7 @@ import ndef = require("ndef");
 import NdefRecord = PhoneGapNfc.NdefRecord;
 import NdefTag = PhoneGapNfc.NdefTag;
 import NdefTagEvent = PhoneGapNfc.NdefTagEvent;
+import Tag = PhoneGapNfc.Tag;
 
 nfc.addTagDiscoveredListener(() => {});
 nfc.addTagDiscoveredListener(() => {}, () => {}, () => {});
@@ -52,6 +53,34 @@ nfc.removeNdefListener(() => {}, () => {}, () => {});
 
 nfc.showSettings();
 nfc.showSettings(() => {}, () => {});
+
+let scannedNdefTag: Promise<NdefTag> = nfc.scanNdef([]);
+
+let scannedTag: Promise<Tag> = nfc.scanTag([]);
+
+nfc.cancelScan();
+
+nfc.beginSession();
+nfc.beginSession(() => {});
+nfc.beginSession(() => {}, () => {});
+
+nfc.invalidateSession();
+nfc.invalidateSession(() => {});
+nfc.invalidateSession(() => {}, () => {});
+
+nfc.connect("android.nfc.tech.IsoDep");
+nfc.connect("android.nfc.tech.IsoDep", 100);
+
+nfc.close();
+
+nfc.transceive("90 5A 00 00 03 AA AA AA 00");
+nfc.transceive(new ArrayBuffer(1024));
+
+nfc.readerMode(0x1, () => {}, () => {});
+nfc.readerMode(0x2, () => {}, () => {});
+nfc.readerMode(0x100, () => {}, () => {});
+
+nfc.disableReaderMode(() => {}, () => {});
 
 let record: NdefRecord = ndef.record(0x01, [0x0F], [0x0C], [0xFF]);
 
