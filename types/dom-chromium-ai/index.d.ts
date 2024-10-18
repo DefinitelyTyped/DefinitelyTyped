@@ -67,40 +67,40 @@ interface AILanguageModelCreateOptions {
 
 interface AILanguageModelCreateOptionsWithSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: string;
-    initialPrompts?: Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>;
+    initialPrompts?: AILanguageModelPrompt[];
 }
 
 interface AILanguageModelCreateOptionsWithoutSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: never;
     initialPrompts?:
-        | [AILanguageModelSystemPrompt, ...Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>]
-        | Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>;
+        | [AILanguageModelSystemPrompt, ...AILanguageModelPrompt[]]
+        | AILanguageModelPrompt[];
 }
 
-type AILanguageModelPromptRole = "system" | "user" | "assistant";
+type AILanguageModelPromptRole = "user" | "assistant";
+type AILanguageModelInitialPromptRole = "system" | AILanguageModelPromptRole;
 
 interface AILanguageModelPrompt {
-    role?: AILanguageModelPromptRole;
-    content?: string;
+    role: AILanguageModelPromptRole;
+    content: string;
 }
 
-interface AILanguageModelSystemPrompt extends AILanguageModelPrompt {
+interface AILanguageModelInitialPrompt {
+    role: AILanguageModelInitialPromptRole;
+    content: string;
+}
+
+interface AILanguageModelSystemPrompt extends AILanguageModelInitialPrompt {
     role: "system";
 }
 
-interface AILanguageModelUserPrompt extends AILanguageModelPrompt {
-    role: "user";
-}
-
-interface AILanguageModelAssistantPrompt extends AILanguageModelPrompt {
-    role: "assistant";
-}
+type AILanguageModelPromptInput = string | AILanguageModelPrompt | AILanguageModelPrompt[];
 
 interface AILanguageModel extends EventTarget {
-    prompt(input: string, options?: AILanguageModelPromptOptions): Promise<string>;
-    promptStreaming(input: string, options?: AILanguageModelPromptOptions): ReadableStream<string>;
+    prompt(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<string>;
+    promptStreaming(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): ReadableStream<string>;
 
-    countPromptTokens(input: string, options?: AILanguageModelPromptOptions): Promise<number>;
+    countPromptTokens(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<number>;
     readonly maxTokens: number;
     readonly tokensSoFar: number;
     readonly tokensLeft: number;
@@ -149,12 +149,11 @@ interface AILanguageModelCloneOptions {
 
 interface AILanguageModelCapabilities {
     readonly available: AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 
     readonly defaultTopK: number | null;
     readonly maxTopK: number | null;
     readonly defaultTemperature: number | null;
-
-    supportsLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Summarizer
@@ -165,14 +164,17 @@ interface AISummarizerFactory {
     capabilities(): Promise<AISummarizerCapabilities>;
 }
 
-interface AISummarizerCreateOptions {
+interface AISummarizerCreateCoreOptions {
+    type?: AISummarizerType;
+    format?: AISummarizerFormat;
+    length?: AISummarizerLength;
+}
+
+interface AISummarizerCreateOptions extends AISummarizerCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    type?: AISummarizerType;
-    format?: AISummarizerFormat;
-    length?: AISummarizerLength;
 }
 
 type AISummarizerType = "tl;dr" | "key-points" | "teaser" | "headline";
@@ -199,11 +201,8 @@ interface AISummarizerSummarizeOptions {
 interface AISummarizerCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsType(type: AISummarizerType): AICapabilityAvailability;
-    supportsFormat(format: AISummarizerFormat): AICapabilityAvailability;
-    supportsLength(length: AISummarizerLength): AICapabilityAvailability;
-
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    createOptionsAvailable(options: AISummarizerCreateCoreOptions): AICapabilityAvailability;
+    languageAvailable(languageTag: string): AICapabilityAvailability;
 }
 
 // Writer
@@ -214,14 +213,17 @@ interface AIWriterFactory {
     capabilities(): Promise<AIWriterCapabilities>;
 }
 
-interface AIWriterCreateOptions {
+interface AIWriterCreateCoreOptions {
+    tone?: AIWriterTone;
+    format?: AIWriterFormat;
+    length?: AIWriterLength;
+}
+
+interface AIWriterCreateOptions extends AIWriterCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    tone?: AIWriterTone;
-    format?: AIWriterFormat;
-    length?: AIWriterLength;
 }
 
 type AIWriterTone = "formal" | "neutral" | "casual";
@@ -248,11 +250,8 @@ interface AIWriterWriteOptions {
 interface AIWriterCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsTone(tone: AIWriterTone): AICapabilityAvailability;
-    supportsFormat(format: AIWriterFormat): AICapabilityAvailability;
-    supportsLength(length: AIWriterLength): AICapabilityAvailability;
-
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    createOptionsAvailable(options: AIWriterCreateCoreOptions): AICapabilityAvailability;
+    languageAvailable(languageTag: string): AICapabilityAvailability;
 }
 
 // Rewriter
@@ -263,14 +262,17 @@ interface AIRewriterFactory {
     capabilities(): Promise<AIRewriterCapabilities>;
 }
 
-interface AIRewriterCreateOptions {
+interface AIRewriterCreateCoreOptions {
+    tone?: AIRewriterTone;
+    format?: AIRewriterFormat;
+    length?: AIRewriterLength;
+}
+
+interface AIRewriterCreateOptions extends AIRewriterCreateCoreOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
     sharedContext?: string;
-    tone?: AIRewriterTone;
-    format?: AIRewriterFormat;
-    length?: AIRewriterLength;
 }
 
 type AIRewriterTone = "as-is" | "more-formal" | "more-casual";
@@ -297,9 +299,6 @@ interface AIRewriterRewriteOptions {
 interface AIRewriterCapabilities {
     readonly available: AICapabilityAvailability;
 
-    supportsTone(tone: AIRewriterTone): AICapabilityAvailability;
-    supportsFormat(format: AIRewriterFormat): AICapabilityAvailability;
-    supportsLength(length: AIRewriterLength): AICapabilityAvailability;
-
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    createOptionsAvailable(options: AIRewriterCreateCoreOptions): AICapabilityAvailability;
+    languageAvailable(languageTag: string): AICapabilityAvailability;
 }
