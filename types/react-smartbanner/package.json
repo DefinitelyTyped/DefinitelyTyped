@@ -6,7 +6,7 @@
         "https://github.com/patw0929/react-smartbanner#readme"
     ],
     "dependencies": {
-        "@types/react": "^18.3.9999"
+        "@types/react": "^18.3.11"
     },
     "devDependencies": {
         "@types/react-smartbanner": "workspace:."
