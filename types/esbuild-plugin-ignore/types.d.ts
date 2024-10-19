@@ -1,4 +1,4 @@
-import { Plugin } from 'esbuild';
+import { Plugin } from "esbuild";
 
 export interface IgnoreOption {
     /**
@@ -15,6 +15,6 @@ export interface IgnoreOption {
 }
 
 export interface IgnorePluginInstance {
-    name: 'ignore';
-    setup: Plugin['setup'];
+    name: "ignore";
+    setup: Plugin["setup"];
 }

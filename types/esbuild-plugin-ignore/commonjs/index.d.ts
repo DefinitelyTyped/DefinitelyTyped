@@ -1,4 +1,4 @@
-import {IgnoreOption, IgnorePluginInstance} from '../types'
+import { IgnoreOption, IgnorePluginInstance } from "../types";
 
 declare function ignore(options: IgnoreOption[]): IgnorePluginInstance;
 

@@ -1,4 +1,4 @@
-import ignore from 'esbuild-plugin-ignore';
+import ignore from "esbuild-plugin-ignore";
 
 // ✅ Correct usage — should pass without errors
 
@@ -9,7 +9,7 @@ ignore([{ resourceRegExp: /pg-native$/, contextRegExp: /node_modules/ }]);
 ignore([{ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ }]);
 
 // $ExpectType IgnorePluginInstance
-ignore([{resourceRegExp: /prisma/, contextRegExp: /.*/}])
+ignore([{ resourceRegExp: /prisma/, contextRegExp: /.*/ }]);
 
 // ❌ Errors that TypeScript should catch:
 
@@ -17,10 +17,10 @@ ignore([{resourceRegExp: /prisma/, contextRegExp: /.*/}])
 ignore([{ resourceRegExp: /pg-native$/ }]);
 
 // @ts-expect-error: resourceRegExp must be a RegExp, not a string
-ignore([{ resourceRegExp: 'pg-native', contextRegExp: /node_modules/ }]);
+ignore([{ resourceRegExp: "pg-native", contextRegExp: /node_modules/ }]);
 
 // @ts-expect-error: contextRegExp must be a RegExp, not a string
-ignore([{ resourceRegExp: /pg-native$/, contextRegExp: 'node_modules' }]);
+ignore([{ resourceRegExp: /pg-native$/, contextRegExp: "node_modules" }]);
 
 // @ts-expect-error: Incorrect property name in the object
 ignore([{ resource: /pg-native$/, contextRegExp: /node_modules/ }]);
