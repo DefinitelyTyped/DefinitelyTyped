@@ -24,8 +24,6 @@ function testRemoteValues() {
 
     const nodeRemoteValue: NodeRemoteValue = {
         type: "node",
-        nodeType: 1,
-        childNodeCount: 2,
         value: nodeProperties,
     };
 
