@@ -31,6 +31,6 @@
         "test/virtual_authenticator.ts",
         "test/util.ts",
         "test/error.ts",
-        "test/urlPattern.ts"
+        "test/bidi/urlPattern.ts"
     ]
 }
