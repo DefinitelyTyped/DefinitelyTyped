@@ -1,5 +1,5 @@
 import { RemoteValue } from "selenium-webdriver/bidi/remoteValue";
-import { Message, Source } from "selenium-webdriver/bidi/scriptTypes";
+import { Message, Source, source as SourceClass } from "selenium-webdriver/bidi/scriptTypes";
 
 function testMessageClass() {
     const source: Source = {
@@ -39,7 +39,7 @@ function testSourceClass() {
         context: "testContext",
     };
 
-    const sourceObj = new Source(sourceInstance);
+    const sourceObj = new SourceClass(sourceInstance);
 
     if (sourceObj.browsingContextId !== null) {
         console.error("Failed: browsingContextId should be null");
