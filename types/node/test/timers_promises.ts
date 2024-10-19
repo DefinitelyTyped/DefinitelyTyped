@@ -17,7 +17,7 @@ setInterval(); // $ExpectType AsyncIterable<void>
 const res4: Promise<void> = scheduler.yield();
 scheduler.yield(); // $ExpectType Promise<void>
 
-const res5: Promise<void> = scheduler.wait(123);
+const res5: Promise<void> = scheduler.wait(123, opts);
 scheduler.wait(); // $ExpectType Promise<void>
 
 (async () => {
