@@ -1,4 +1,10 @@
-import { ArrayRemoteValue, DateRemoteValue, NodeRemoteValue, RemoteValue } from "selenium-webdriver/bidi/remoteValue";
+import {
+    ArrayRemoteValue,
+    DateRemoteValue,
+    NodeProperties,
+    NodeRemoteValue,
+    RemoteValue,
+} from "selenium-webdriver/bidi/remoteValue";
 
 function testRemoteValues() {
     const arrayRemoteValue: ArrayRemoteValue = {
@@ -11,11 +17,17 @@ function testRemoteValues() {
         value: "2023-01-01T00:00:00Z",
     };
 
+    const nodeProperties: NodeProperties = {
+        nodeType: 1,
+        childNodeCount: 2,
+    };
+
     const nodeRemoteValue: NodeRemoteValue = {
         type: "node",
         nodeValue: "exampleNode",
         nodeType: 1,
         childNodeCount: 2,
+        value: nodeProperties,
     };
 
     const remoteValue1: RemoteValue = arrayRemoteValue;
@@ -24,5 +36,4 @@ function testRemoteValues() {
 
     console.log("Passed: RemoteValue types are correctly assigned");
 }
-
 testRemoteValues();

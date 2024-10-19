@@ -39,7 +39,7 @@ function testSourceClass() {
         context: "testContext",
     };
 
-    const sourceObj = new source(sourceInstance);
+    const sourceObj = new SourceClass(sourceInstance);
 
     if (sourceObj.browsingContextId !== null) {
         console.error("Failed: browsingContextId should be null");
