@@ -30,6 +30,7 @@
         "test/session.ts",
         "test/virtual_authenticator.ts",
         "test/util.ts",
-        "test/error.ts"
+        "test/error.ts",
+        "test/urlPattern.ts"
     ]
 }
