@@ -15,12 +15,12 @@ export const Mention: React.FC<MentionProps>;
 /**
  * The properties for the @see MentionsInput component.
  */
-interface MentionsInputStyleDefinition extends React.CSSProperties {
+export interface MentionsInputStyleDefinition extends React.CSSProperties {
     control: React.CSSProperties;
     highlighter: React.CSSProperties;
     input: React.CSSProperties;
 }
-interface MentionsInputStyle extends React.CSSProperties, MentionsInputStyleDefinition {
+export interface MentionsInputStyle extends React.CSSProperties, MentionsInputStyleDefinition {
     '&multiLine': MentionsInputStyleDefinition;
     '&singleLine': MentionsInputStyleDefinition;
     suggestions: {
