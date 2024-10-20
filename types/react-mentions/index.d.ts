@@ -15,9 +15,21 @@ export const Mention: React.FC<MentionProps>;
 /**
  * The properties for the @see MentionsInput component.
  */
+interface MentionsInputStyleDefinition extends React.CSSProperties {
+    control: React.CSSProperties;
+    highlighter: React.CSSProperties;
+    input: React.CSSProperties;
+}
+interface MentionsInputStyle extends React.CSSProperties, MentionsInputStyleDefinition {
+    '&multiLine': MentionsInputStyleDefinition;
+    '&singleLine': MentionsInputStyleDefinition;
+    suggestions: {
+        list: React.CSSProperties;
+        item: React.CSSProperties;
+    }
+}
 export interface MentionsInputProps
-    extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "onBlur" | "onKeyDown" | "onSelect">
-{
+    extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "onBlur" | "onKeyDown" | "onSelect"> {
     /**
      * If set to `true` a regular text input element will be rendered
      * instead of a textarea
@@ -46,21 +58,21 @@ export interface MentionsInputProps
 
     /** Passes true as second argument if the blur was caused by a mousedown on a suggestion */
     onBlur?:
-        | ((
-            event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>,
-            clickedSuggestion: boolean,
-        ) => void)
-        | undefined;
+    | ((
+        event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>,
+        clickedSuggestion: boolean,
+    ) => void)
+    | undefined;
     onSelect?: ((event: React.UIEvent) => void) | undefined;
     onKeyDown?:
-        | ((
-            event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>,
-        ) => void)
-        | undefined;
+    | ((
+        event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>,
+    ) => void)
+    | undefined;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string | undefined;
-    classNames?: any;
-    style?: any;
+    classNames?: Record<string, string>;
+    style?: MentionsInputStyle;
 
     /** Allows customizing the container of the suggestions */
     customSuggestionsContainer?: ((children: React.ReactNode) => React.ReactNode) | undefined;
@@ -91,7 +103,7 @@ export interface MentionsInputComponentUnwrapped extends React.Component<Mention
 /**
  * @deprecated Use {MentionsInputComponentUnwrapped}
  */
-export interface MentionsInputComponentUnrwapped extends MentionsInputComponentUnwrapped {}
+export interface MentionsInputComponentUnrwapped extends MentionsInputComponentUnwrapped { }
 
 /**
  * Used with @see React.RefObject<MentionsInputComponent>.
@@ -141,7 +153,7 @@ export interface MentionProps {
      * @default null
      */
     data: SuggestionDataItem[] | DataFunc | null;
-    style?: any;
+    style?: React.CSSProperties;
 
     /** Append a space when a suggestion has been added */
     appendSpaceOnAdd?: boolean | undefined;
