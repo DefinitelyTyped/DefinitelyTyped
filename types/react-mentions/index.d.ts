@@ -21,7 +21,7 @@ export interface MentionsInputStyleDefinition extends React.CSSProperties {
     input?: React.CSSProperties;
 }
 
-interface MentionsSuggestionItemStyle extends React.CSSProperties {
+export interface MentionsSuggestionItemStyle extends React.CSSProperties {
     "&focused"?: React.CSSProperties;
 }
 export interface MentionsInputStyle extends React.CSSProperties, MentionsInputStyleDefinition {
