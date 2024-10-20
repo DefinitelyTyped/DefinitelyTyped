@@ -16,16 +16,20 @@ export const Mention: React.FC<MentionProps>;
  * The properties for the @see MentionsInput component.
  */
 export interface MentionsInputStyleDefinition extends React.CSSProperties {
-    control: React.CSSProperties;
-    highlighter: React.CSSProperties;
-    input: React.CSSProperties;
+    control?: React.CSSProperties;
+    highlighter?: React.CSSProperties;
+    input?: React.CSSProperties;
+}
+
+interface MentionsSuggestionItemStyle extends React.CSSProperties {
+    '&focused'?: React.CSSProperties
 }
 export interface MentionsInputStyle extends React.CSSProperties, MentionsInputStyleDefinition {
-    '&multiLine': MentionsInputStyleDefinition;
-    '&singleLine': MentionsInputStyleDefinition;
-    suggestions: {
-        list: React.CSSProperties;
-        item: React.CSSProperties;
+    '&multiLine'?: MentionsInputStyleDefinition;
+    '&singleLine'?: MentionsInputStyleDefinition;
+    suggestions?: {
+        list?: React.CSSProperties;
+        item?: MentionsSuggestionItemStyle;
     }
 }
 export interface MentionsInputProps
@@ -71,7 +75,7 @@ export interface MentionsInputProps
     | undefined;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string | undefined;
-    classNames?: Record<string, string>;
+    classNames?: any;
     style?: MentionsInputStyle;
 
     /** Allows customizing the container of the suggestions */
