@@ -22,18 +22,19 @@ export interface MentionsInputStyleDefinition extends React.CSSProperties {
 }
 
 interface MentionsSuggestionItemStyle extends React.CSSProperties {
-    '&focused'?: React.CSSProperties
+    "&focused"?: React.CSSProperties;
 }
 export interface MentionsInputStyle extends React.CSSProperties, MentionsInputStyleDefinition {
-    '&multiLine'?: MentionsInputStyleDefinition;
-    '&singleLine'?: MentionsInputStyleDefinition;
+    "&multiLine"?: MentionsInputStyleDefinition;
+    "&singleLine"?: MentionsInputStyleDefinition;
     suggestions?: {
         list?: React.CSSProperties;
         item?: MentionsSuggestionItemStyle;
-    }
+    };
 }
 export interface MentionsInputProps
-    extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "onBlur" | "onKeyDown" | "onSelect"> {
+    extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "onBlur" | "onKeyDown" | "onSelect">
+{
     /**
      * If set to `true` a regular text input element will be rendered
      * instead of a textarea
@@ -62,17 +63,17 @@ export interface MentionsInputProps
 
     /** Passes true as second argument if the blur was caused by a mousedown on a suggestion */
     onBlur?:
-    | ((
-        event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>,
-        clickedSuggestion: boolean,
-    ) => void)
-    | undefined;
+        | ((
+            event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>,
+            clickedSuggestion: boolean,
+        ) => void)
+        | undefined;
     onSelect?: ((event: React.UIEvent) => void) | undefined;
     onKeyDown?:
-    | ((
-        event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>,
-    ) => void)
-    | undefined;
+        | ((
+            event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>,
+        ) => void)
+        | undefined;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string | undefined;
     classNames?: any;
@@ -107,7 +108,7 @@ export interface MentionsInputComponentUnwrapped extends React.Component<Mention
 /**
  * @deprecated Use {MentionsInputComponentUnwrapped}
  */
-export interface MentionsInputComponentUnrwapped extends MentionsInputComponentUnwrapped { }
+export interface MentionsInputComponentUnrwapped extends MentionsInputComponentUnwrapped {}
 
 /**
  * Used with @see React.RefObject<MentionsInputComponent>.
