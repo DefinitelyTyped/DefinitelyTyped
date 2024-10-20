@@ -62,4 +62,4 @@ const useCounterState = createPersistedState<number>("count");
 const initialCount = 1;
 const [count, setCount] = useCounterState(initialCount);
 count; // $ExpectType number
-setCount; // $ExpectType Dispatch<SetStateAction<number>>
+setCount; // $ExpectType Dispatch<number | ((prevState: number) => number)>
