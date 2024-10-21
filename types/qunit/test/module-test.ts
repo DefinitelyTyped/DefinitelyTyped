@@ -17,22 +17,22 @@ QUnit.module("basic tests for importing QUnit", function(hooks) {
         assert.expect(3);
     });
 
-    QUnit.test.each("each with string array", ['foo', 'bar'],function(assert, data) {
+    QUnit.test.each("each with string array", ["foo", "bar"], function(assert, data) {
         assert.expect(3);
-        assert.strictEqual(data, 'string value');
+        assert.strictEqual(data, "string value");
     });
 
-    QUnit.test.each("each with string object example", { case1: 'foo', case2: 'bar' },function(assert, data) {
+    QUnit.test.each("each with string object example", { case1: "foo", case2: "bar" }, function(assert, data) {
         assert.expect(3);
-        assert.strictEqual(data, 'string value');
+        assert.strictEqual(data, "string value");
     });
 
-    QUnit.test.each("each with number array", [1, 2],function(assert, data) {
+    QUnit.test.each("each with number array", [1, 2], function(assert, data) {
         assert.expect(3);
         assert.strictEqual(data, 3);
     });
 
-    QUnit.test.each("each with number object example", { case1: 1, case2: 2 },function(assert, data) {
+    QUnit.test.each("each with number object example", { case1: 1, case2: 2 }, function(assert, data) {
         assert.expect(3);
         assert.strictEqual(data, 3);
     });
