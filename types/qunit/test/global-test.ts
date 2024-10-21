@@ -54,22 +54,22 @@ QUnit.module("skip", function() {
         assert.strictEqual(data, 3);
     });
 
-    QUnit.test.if.each("if.each with strng array example", true, ["foo", "bar"], function(assert, data) {
+    QUnit.test.if.each("if.each with string array example", true, ["foo", "bar"], function(assert, data) {
         assert.expect(3);
         assert.strictEqual(data, "foo");
     });
 
-    QUnit.test.skip.each("if.each with strng array example", ["foo", "bar"], function(assert, data) {
+    QUnit.test.skip.each("skip.each with string array example", ["foo", "bar"], function(assert, data) {
         assert.expect(3);
         assert.strictEqual(data, "foo");
     });
 
-    QUnit.test.todo.each("if.each with strng array example", ["foo", "bar"], function(assert, data) {
+    QUnit.test.todo.each("todo.each with string array example", ["foo", "bar"], function(assert, data) {
         assert.expect(3);
         assert.strictEqual(data, "foo");
     });
 
-    QUnit.test.only.each("if.each with strng array example", ["foo", "bar"], function(assert, data) {
+    QUnit.test.only.each("only.each with string array example", ["foo", "bar"], function(assert, data) {
         assert.expect(3);
         assert.strictEqual(data, "foo");
     });
