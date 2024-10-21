@@ -22,21 +22,21 @@ export type MockGetState<S = {}> = (actions: Redux.AnyAction[]) => S;
  *
  * You can test the entire combination of action creators, reducers, and selectors in a single test, for example:
  * ```js
-* it("should add a todo", () => {
-*   const store = makeStore(); // a user defined reusable store factory
-*
-*   store.dispatch(addTodo("Use Redux"));
-*
-*   expect(selectTodos(store.getState())).toEqual([{ text: "Use Redux", completed: false }]);
-* });
-* ```
-*
-* This avoids common pitfalls of testing each of these in isolation, such as mocked state shape becoming out of sync with the actual application.
-*
-* If you want to use `configureStore` without this visual deprecation warning, use the `legacy_configureStore` export instead.
-*
-* `import { legacy_configureStore as configureStore } from 'redux-mock-store';`
-*/
+ * it("should add a todo", () => {
+ *   const store = makeStore(); // a user defined reusable store factory
+ *
+ *   store.dispatch(addTodo("Use Redux"));
+ *
+ *   expect(selectTodos(store.getState())).toEqual([{ text: "Use Redux", completed: false }]);
+ * });
+ * ```
+ *
+ * This avoids common pitfalls of testing each of these in isolation, such as mocked state shape becoming out of sync with the actual application.
+ *
+ * If you want to use `configureStore` without this visual deprecation warning, use the `legacy_configureStore` export instead.
+ *
+ * `import { legacy_configureStore as configureStore } from 'redux-mock-store';`
+ */
 export function configureStore<S, DispatchExts = {}>(
     middlewares?: Redux.Middleware[],
 ): MockStoreCreator<S, DispatchExts>;

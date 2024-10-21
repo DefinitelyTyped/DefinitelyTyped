@@ -1,5 +1,5 @@
 import * as Redux from "redux";
-import defaultExport, { MockStore, MockStoreCreator, configureStore, legacy_configureStore } from "redux-mock-store";
+import defaultExport, { configureStore, legacy_configureStore, MockStore, MockStoreCreator } from "redux-mock-store";
 
 // check that all exports are the same
 const expectType = <T>(value: T) => value;
