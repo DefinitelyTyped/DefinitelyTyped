@@ -849,7 +849,9 @@ export function transpose<T>(matrix: ArrayLike<ArrayLike<T>>): T[][];
  * The returned array is truncated in length to the shortest array in arrays. If arrays contains only a single array, the returned array
  * contains one-element arrays. With no arguments, the returned array is empty.
  */
-export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
+export function zip<T extends any[]>(
+    ...arrays: T
+): Array<{ [K in keyof T]: T[K] extends Array<infer U> ? U : never }>;
 
 // --------------------------------------------------------------------------------------
 // Iterables
