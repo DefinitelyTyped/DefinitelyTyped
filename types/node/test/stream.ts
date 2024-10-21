@@ -495,7 +495,7 @@ async function testConsumers() {
     await text(r);
     // $ExpectType unknown
     await json(r);
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     await buffer(r);
     // $ExpectType ArrayBuffer
     await arrayBuffer(r);

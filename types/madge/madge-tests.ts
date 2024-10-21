@@ -95,7 +95,7 @@ madge("", { unexpectedConfig: 1 });
     // @ts-expect-error
     (await madge("")).image("", 0);
 
-    (await madge("")).svg(); // $ExpectType Promise<Buffer>
+    (await madge("")).svg(); // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
     // @ts-expect-error
     (await madge("")).svg(0);
 })();

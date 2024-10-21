@@ -11,4 +11,4 @@ const geojson: GeoJSON = {
         coordinates: [-127, 19],
     },
 };
-geobuf.encode(geojson, new Pbf()); // $ExpectType Uint8Array
+geobuf.encode(geojson, new Pbf()); // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>

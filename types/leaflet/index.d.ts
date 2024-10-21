@@ -2491,7 +2491,7 @@ export interface MapOptions {
     wheelPxPerZoomLevel?: number | undefined;
 
     // Touch interaction options
-    tap?: boolean | undefined;
+    tapHold?: boolean | undefined;
     tapTolerance?: number | undefined;
     touchZoom?: Zoom | undefined;
     bounceAtZoomLimits?: boolean | undefined;
@@ -2969,7 +2969,7 @@ export class Map extends Evented {
     dragging: Handler;
     keyboard: Handler;
     scrollWheelZoom: Handler;
-    tap?: Handler | undefined;
+    tapHold?: Handler | undefined;
     touchZoom: Handler;
     zoomControl: Control.Zoom;
 

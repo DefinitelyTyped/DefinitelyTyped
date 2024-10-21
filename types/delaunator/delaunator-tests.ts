@@ -43,10 +43,10 @@ Delaunator.from(
 Delaunator.from(customPoints, getX, getY);
 
 // To get the coordinates of all triangles, use:
-const triangles = d.triangles; // $ExpectType Uint32Array
-const halfedges = d.halfedges; // $ExpectType Int32Array
-const hull = d.hull; // $ExpectType Uint32Array
-const coords = d.coords; // $ExpectType Float64Array
+const triangles = d.triangles; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
+const halfedges = d.halfedges; // $ExpectType Int32Array || Int32Array<ArrayBuffer>
+const hull = d.hull; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
+const coords = d.coords; // $ExpectType Float64Array || Float64Array<ArrayBuffer>
 const coordinates: number[][][] = [];
 for (let i = 0; i < triangles.length; i += 3) {
     coordinates.push([defaultPoints[triangles[i]], defaultPoints[triangles[i + 1]], defaultPoints[triangles[i + 2]]]);

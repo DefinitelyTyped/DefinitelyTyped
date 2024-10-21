@@ -76,6 +76,14 @@ board
 
         escs.forEach(item => item.brake());
 
+        // Expander + virtual board
+        const expander = new five.Expander("MCP23017");
+        const virtual = new five.Board.Virtual(expander);
+        new five.Led({
+            board: virtual,
+            pin: 2,
+        });
+
         new five.Motion(7);
 
         // Options object with pin property

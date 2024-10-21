@@ -5,6 +5,10 @@
     "projects": [
         "https://github.com/nickjj/esbuild-copy-static-files"
     ],
+    "dependencies": {
+        "esbuild": "*",
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/esbuild-copy-static-files": "workspace:."
     },

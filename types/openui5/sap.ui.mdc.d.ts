@@ -1,4 +1,4 @@
-// For Library Version: 1.128.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -875,6 +875,8 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
     ): undefined | object;
     /**
      * Provides the possibility to customize / replace the internal content of a field
+     * By default, this method returns suitable controls for the given {@link sap.ui.mdc.enums.BaseType BaseType},
+     * {@link sap.ui.mdc.field.FieldBase#setMaxConditions maxConditions} and {@link sap.ui.mdc.enums.ContentMode ContentMode}.
      *
      * @since 1.124.0
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -907,7 +909,7 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
      *
      * The returned text will be shown as selected after the user input ends.
      *
-     * By Default this method uses the {@link sap.ui.mdc.field.FieldBase#getDisplay display} property of the
+     * By default this method uses the {@link sap.ui.mdc.field.FieldBase#getDisplay display} property of the
      * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField}, or {@link sap.ui.mdc.MultiValueField MultiValueField }
      * control to determine what text (key or description) is used as autocomplete-text. A text is only used
      * if it matches the user input. If set to `Value`, the key is used. If set to `Description`, the description
@@ -3013,6 +3015,17 @@ declare module "sap/ui/mdc/library" {
 
   import BaseType from "sap/ui/mdc/enums/BaseType";
 
+  import Control from "sap/ui/core/Control";
+
+  import {
+    ItemForValueConfiguration,
+    ValueHelpItem,
+  } from "sap/ui/mdc/ValueHelp";
+
+  import FormatException from "sap/ui/model/FormatException";
+
+  import ParseException from "sap/ui/model/ParseException";
+
   /**
    * Interface for controls or entities which can serve as filters in the `sap.ui.mdc.Table` & `sap.ui.mdc.Chart`.
    *
@@ -3234,6 +3247,291 @@ declare module "sap/ui/mdc/library" {
        */
       baseType?: BaseType | keyof typeof BaseType;
     };
+  }
+
+  export namespace valuehelp {
+    namespace base {
+      /**
+       * Interface for valuehelp containers shown on a dialog
+       *
+       * @since 1.95
+       */
+      interface IDialogContainer {
+        __implements__sap_ui_mdc_valuehelp_base_IDialogContainer: boolean;
+
+        /**
+         * Closes the container
+         */
+        close(): void;
+        /**
+         * Opens the container
+         *
+         *
+         * @returns This promise resolves after the container completely opened.
+         */
+        open(
+          /**
+           * Promise for content request
+           */
+          oValueHelpContentPromise: Promise<any>,
+          /**
+           * Flag indicating whether the container is opened as type-ahead or dialog-like help
+           */
+          bTypeahead: boolean
+        ): Promise<any>;
+      }
+
+      /**
+       * Interface for valuehelp containers / contents supporting dialog functionality
+       *
+       * @since 1.95
+       */
+      interface IDialogContent {
+        __implements__sap_ui_mdc_valuehelp_base_IDialogContent: boolean;
+
+        /**
+         * Returns number of relevant conditions for this content
+         *
+         *
+         * @returns Number of relevant conditions
+         */
+        getCount(
+          /**
+           * Array of conditions
+           */
+          aConditions: ConditionObject[]
+        ): number;
+        /**
+         * Loads additional dependencies, creates and returns displayed content.
+         *
+         *
+         * @returns Promise resolving in displayed content
+         */
+        getContent(): Promise<Control>;
+        /**
+         * Returns a title for the given Content
+         *
+         *
+         * @returns Content title as string
+         */
+        getTitle(): string;
+        /**
+         * Returns info if the given content is in multi select mode
+         *
+         *
+         * @returns `true` if multi-selection is active.
+         */
+        isMultiSelect(): boolean;
+      }
+
+      /**
+       * Interface for valuehelp {@link sap.ui.mdc.valuehelp.base.Container Containers} supporting typeahead functionality
+       *
+       * @since 1.95
+       */
+      interface ITypeaheadContainer {
+        __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContainer: boolean;
+
+        /**
+         * Closes the container
+         */
+        close(): void;
+        /**
+         * Determines the item (key and description) for a given value.
+         *
+         * The value help checks if there is an item with a key or description that fits this value.
+         *
+         * **Note:** This function must only be called by the control the `ValuedHelp` element belongs to, not by
+         * the application.
+         *
+         *
+         * @returns Promise returning object containing description, key and payload.
+         */
+        getItemForValue(
+          /**
+           * Configuration
+           */
+          oConfig: ItemForValueConfiguration
+        ): Promise<ValueHelpItem>;
+        /**
+         * If the container is used for type-ahead it might be wanted that the same content should also be shown
+         * as valuehelp. If not, the field should not show a valuehelp icon.
+         *
+         *
+         * @returns `true` if the typeahead content can be used as value help
+         */
+        getUseAsValueHelp(): boolean;
+        /**
+         * Defines if the typeahead can be used for input validation.
+         *
+         *
+         * @returns True if the typeahead container can be used for input validation
+         */
+        isValidationSupported(): boolean;
+        /**
+         * Navigates the typeaheads values (optional)
+         *
+         * As this could be asyncronous as data might be loaded a promise is returned.
+         *
+         *
+         * @returns Promise fulfilled after navigation is evecuted
+         */
+        navigate(
+          /**
+           * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+           */
+          iStep: int
+        ): Promise<object>;
+        /**
+         * Opens the container
+         *
+         *
+         * @returns This promise resolves after the container completely opened.
+         */
+        open(
+          /**
+           * Promise for content request
+           */
+          oValueHelpContentPromise: Promise<any>,
+          /**
+           * Flag indicating whether the container is opened as type-ahead or dialog-like help
+           */
+          bTypeahead: boolean
+        ): Promise<any>;
+        /**
+         * The focus visualization of the field help needs to be removed as the user starts typing into the source
+         * control.
+         */
+        removeVisualFocus(): void;
+        /**
+         * The focus visualization of the field help needs to be set as the user starts naigation into the value
+         * help items.
+         *
+         * @since 1.127.0
+         */
+        setVisualFocus(): void;
+        /**
+         * Defines if the typeahead container desires to be opened whenever a user clicks on a connected control
+         *
+         *
+         * @returns If `true`, the value help should open when user clicks into the connected field control
+         */
+        shouldOpenOnClick(): Promise<boolean>;
+        /**
+         * Defines if the typeahead container desires to be opened whenever a user focuses a connected control
+         *
+         *
+         * @returns If `true`, the value help should open when user focuses the connected field control
+         */
+        shouldOpenOnFocus(): Promise<boolean>;
+        /**
+         * Defines if the typeahead containers values can be navigated without visibly opening the help
+         *
+         *
+         * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
+         */
+        shouldOpenOnNavigate(): boolean;
+      }
+
+      /**
+       * Interface for valuehelp {@link sap.ui.mdc.valuehelp.base.Container Containers} / {@link sap.ui.mdc.valuehelp.base.Content Contents }
+       * supporting typeahead functionality
+       *
+       * @since 1.95
+       */
+      interface ITypeaheadContent {
+        __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContent: boolean;
+
+        /**
+         * Loads additional dependencies, creates and returns displayed content.
+         *
+         *
+         * @returns Promise resolving in displayed content
+         */
+        getContent(): Promise<Control>;
+        /**
+         * Determines the item (key and description) for a given value.
+         *
+         * The content checks if there is an item with a key or description that fits this value.
+         *
+         * **Note:** This function must only be called by the `Container` element.
+         *
+         *
+         * @returns Promise returning object containing description, key and payload.
+         */
+        getItemForValue(
+          /**
+           * Configuration
+           */
+          oConfig: ItemForValueConfiguration
+        ): Promise<ValueHelpItem>;
+        /**
+         * Returns a title for the given Content
+         *
+         *
+         * @returns Content title as string
+         */
+        getTitle(): string;
+        /**
+         * If the container is used for typeahead it might be wanted that the same content should also be shown
+         * as valuehelp. If not, the field should not show a valuehelp icon.
+         *
+         *
+         * @returns `true` if the typeahead content can be used as value help
+         */
+        getUseAsValueHelp(): boolean;
+        /**
+         * Returns info if the given content is in multi select mode
+         *
+         *
+         * @returns `true` if multi-selection is active.
+         */
+        isMultiSelect(): boolean;
+        /**
+         * Defines if the typeahead can be used for input validation.
+         *
+         *
+         * @returns True if the typeahead container can be used for input validation
+         */
+        isValidationSupported(): boolean;
+        /**
+         * Navigates the typeaheads values (optional)
+         */
+        navigate(
+          /**
+           * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+           */
+          iStep: int
+        ): void;
+        /**
+         * The focus visualization of the field help needs to be removed as the user starts typing into the source
+         * control.
+         */
+        removeVisualFocus(): void;
+        /**
+         * The focus visualization of the field help needs to be set as the user starts naigation into the value
+         * help items.
+         *
+         * @since 1.127.0
+         */
+        setVisualFocus(): void;
+        /**
+         * Defines if the typeahead content desires opening the typeahead whenever a user clicks on a connected
+         * control
+         *
+         *
+         * @returns If `true`, the value help should open when user clicks into the connected field control
+         */
+        shouldOpenOnClick(): boolean;
+        /**
+         * Defines if the typeahead containers values can be navigated without visibly opening the help
+         *
+         *
+         * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
+         */
+        shouldOpenOnNavigate(): boolean;
+      }
+    }
   }
 }
 
@@ -4290,7 +4588,7 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * The aggregation method used if the property is aggregatable
      */
-    aggregationMethod: string;
+    aggregationMethod?: string;
     /**
      * Defines the role that the property visualizes inside the chart
      */
@@ -9643,14 +9941,6 @@ declare module "sap/ui/mdc/field/FieldBase" {
      * @since 1.61.0
      */
     getContentEdit(): Control1;
-    /**
-     * Returns the `ContentFactory` used to manage the internal content control.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns oContentFactory the ContentFactory of the Field
-     */
-    getContentFactory(): /* was: sap.ui.mdc.field.content.ContentFactory */ any;
     /**
      * Gets the currently used content controls.
      *
@@ -19983,6 +20273,8 @@ declare module "sap/ui/mdc/ValueHelp" {
 
   import Event from "sap/ui/base/Event";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Context from "sap/ui/model/Context";
@@ -20341,13 +20633,13 @@ declare module "sap/ui/mdc/ValueHelp" {
      *
      * Container that is used and opened if the value help icon of the input field is pressed.
      */
-    getDialog(): /* was: sap.ui.mdc.valuehelp.IDialogContainer */ any;
+    getDialog(): valuehelp.base.IDialogContainer;
     /**
      * Gets content of aggregation {@link #getTypeahead typeahead}.
      *
      * Container that is used and opened in typeahead
      */
-    getTypeahead(): /* was: sap.ui.mdc.valuehelp.ITypeaheadContainer */ any;
+    getTypeahead(): valuehelp.base.ITypeaheadContainer;
     /**
      * Gets current value of property {@link #getValidateInput validateInput}.
      *
@@ -20408,7 +20700,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       /**
        * The dialog to set
        */
-      oDialog: /* was: sap.ui.mdc.valuehelp.IDialogContainer */ any
+      oDialog: valuehelp.base.IDialogContainer
     ): this;
     /**
      * Sets the aggregated {@link #getTypeahead typeahead}.
@@ -20420,7 +20712,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       /**
        * The typeahead to set
        */
-      oTypeahead: /* was: sap.ui.mdc.valuehelp.ITypeaheadContainer */ any
+      oTypeahead: valuehelp.base.ITypeaheadContainer
     ): this;
     /**
      * Sets a new value for property {@link #getValidateInput validateInput}.
@@ -20571,12 +20863,12 @@ declare module "sap/ui/mdc/ValueHelp" {
     /**
      * Container that is used and opened if the value help icon of the input field is pressed.
      */
-    dialog?: /* was: sap.ui.mdc.valuehelp.IDialogContainer */ any;
+    dialog?: valuehelp.base.IDialogContainer;
 
     /**
      * Container that is used and opened in typeahead
      */
-    typeahead?: /* was: sap.ui.mdc.valuehelp.ITypeaheadContainer */ any;
+    typeahead?: valuehelp.base.ITypeaheadContainer;
 
     /**
      * This event is fired after the value help has been closed.
@@ -20801,6 +21093,15 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
 
   import Control from "sap/ui/core/Control";
 
+  import {
+    ItemForValueConfiguration,
+    ValueHelpItem,
+  } from "sap/ui/mdc/ValueHelp";
+
+  import FormatException from "sap/ui/model/FormatException";
+
+  import ParseException from "sap/ui/model/ParseException";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import UIArea from "sap/ui/core/UIArea";
@@ -20910,6 +21211,10 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oContent: Content
     ): void;
     /**
+     * Closes the container
+     */
+    close(): void;
+    /**
      * Closes the container control or element.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -20957,6 +21262,23 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     getControl(): Control;
     /**
+     * Determines the item (key and description) for a given value.
+     *
+     * The value help checks if there is an item with a key or description that fits this value.
+     *
+     * **Note:** This function must only be called by the control the `ValuedHelp` element belongs to, not by
+     * the application.
+     *
+     *
+     * @returns Promise returning object containing description, key and payload.
+     */
+    getItemForValue(
+      /**
+       * Configuration
+       */
+      oConfig: ItemForValueConfiguration
+    ): Promise<ValueHelpItem>;
+    /**
      * Returns the maximum allowed number of conditions, -1 if no limit is set.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -20999,6 +21321,14 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      * @returns The UI area of the content or `null`
      */
     getUIAreaForContent(): UIArea | null;
+    /**
+     * If the container is used for type-ahead it might be wanted that the same content should also be shown
+     * as valuehelp. If not, the field should not show a valuehelp icon.
+     *
+     *
+     * @returns `true` if the typeahead content can be used as value help
+     */
+    getUseAsValueHelp(): boolean;
     /**
      * Handles the `cancelled` event of the content.
      *
@@ -21144,6 +21474,27 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     isSingleSelect(): boolean;
     /**
+     * Defines if the typeahead can be used for input validation.
+     *
+     *
+     * @returns True if the typeahead container can be used for input validation
+     */
+    isValidationSupported(): boolean;
+    /**
+     * Navigates the typeaheads values (optional)
+     *
+     * As this could be asyncronous as data might be loaded a promise is returned.
+     *
+     *
+     * @returns Promise fulfilled after navigation is evecuted
+     */
+    navigate(
+      /**
+       * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+       */
+      iStep: int
+    ): Promise<object>;
+    /**
      * Triggers navigation in the content of the container.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21165,6 +21516,22 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
        */
       oChanges: object
     ): void;
+    /**
+     * Opens the container
+     *
+     *
+     * @returns This promise resolves after the container completely opened.
+     */
+    open(
+      /**
+       * Promise for content request
+       */
+      oValueHelpContentPromise: Promise<any>,
+      /**
+       * Flag indicating whether the container is opened as type-ahead or dialog-like help
+       */
+      bTypeahead: boolean
+    ): Promise<any>;
     /**
      * Opens the container control or element.
      *
@@ -21215,6 +21582,11 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       vContent: int | string | Content
     ): Content | null;
     /**
+     * The focus visualization of the field help needs to be removed as the user starts typing into the source
+     * control.
+     */
+    removeVisualFocus(): void;
+    /**
      * Sets a new value for property {@link #getTitle title}.
      *
      * Title text that appears in the dialog or tab header.
@@ -21232,6 +21604,34 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
        */
       sTitle?: string
     ): this;
+    /**
+     * The focus visualization of the field help needs to be set as the user starts naigation into the value
+     * help items.
+     *
+     * @since 1.127.0
+     */
+    setVisualFocus(): void;
+    /**
+     * Defines if the typeahead container desires to be opened whenever a user clicks on a connected control
+     *
+     *
+     * @returns If `true`, the value help should open when user clicks into the connected field control
+     */
+    shouldOpenOnClick(): Promise<boolean>;
+    /**
+     * Defines if the typeahead container desires to be opened whenever a user focuses a connected control
+     *
+     *
+     * @returns If `true`, the value help should open when user focuses the connected field control
+     */
+    shouldOpenOnFocus(): Promise<boolean>;
+    /**
+     * Defines if the typeahead containers values can be navigated without visibly opening the help
+     *
+     *
+     * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
+     */
+    shouldOpenOnNavigate(): boolean;
     /**
      * Unbinds the content from the container.
      *
@@ -21474,11 +21874,19 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
 
   import Control from "sap/ui/core/Control";
 
+  import {
+    ItemForValueConfiguration,
+    ValueHelpItem,
+    default as ValueHelp,
+  } from "sap/ui/mdc/ValueHelp";
+
+  import FormatException from "sap/ui/model/FormatException";
+
+  import ParseException from "sap/ui/model/ParseException";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
-
-  import ValueHelp from "sap/ui/mdc/ValueHelp";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -21589,6 +21997,13 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       oPayload?: object
     ): ConditionObject;
     /**
+     * Loads additional dependencies, creates and returns displayed content.
+     *
+     *
+     * @returns Promise resolving in displayed content
+     */
+    getContent(): Promise<Control>;
+    /**
      * Returns control connected to value help.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21596,6 +22011,34 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @returns Connected control
      */
     getControl(): Control;
+    /**
+     * Returns number of relevant conditions for this content
+     *
+     *
+     * @returns Number of relevant conditions
+     */
+    getCount(
+      /**
+       * Array of conditions
+       */
+      aConditions: ConditionObject[]
+    ): number;
+    /**
+     * Determines the item (key and description) for a given value.
+     *
+     * The content checks if there is an item with a key or description that fits this value.
+     *
+     * **Note:** This function must only be called by the `Container` element.
+     *
+     *
+     * @returns Promise returning object containing description, key and payload.
+     */
+    getItemForValue(
+      /**
+       * Configuration
+       */
+      oConfig: ItemForValueConfiguration
+    ): Promise<ValueHelpItem>;
     /**
      * Returns the maximum allowed number of conditions, -1 if no limit is set.
      *
@@ -21637,6 +22080,14 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @returns Value of property `tokenizerTitle`
      */
     getTokenizerTitle(): string;
+    /**
+     * If the container is used for typeahead it might be wanted that the same content should also be shown
+     * as valuehelp. If not, the field should not show a valuehelp icon.
+     *
+     *
+     * @returns `true` if the typeahead content can be used as value help
+     */
+    getUseAsValueHelp(): boolean;
     /**
      * Returns the used `ValueHelpDelegate`.
      *
@@ -21703,6 +22154,13 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isContainerOpening(): boolean;
     /**
+     * Returns info if the given content is in multi select mode
+     *
+     *
+     * @returns `true` if multi-selection is active.
+     */
+    isMultiSelect(): boolean;
+    /**
      * Returns if the value help is used for single selection.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21721,6 +22179,13 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isTypeahead(): boolean;
     /**
+     * Defines if the typeahead can be used for input validation.
+     *
+     *
+     * @returns True if the typeahead container can be used for input validation
+     */
+    isValidationSupported(): boolean;
+    /**
      * Determines if delegate of the value help has been initialized.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21728,6 +22193,15 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @returns `true` if delegate has been initialized
      */
     isValueHelpDelegateInitialized(): boolean;
+    /**
+     * Navigates the typeaheads values (optional)
+     */
+    navigate(
+      /**
+       * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+       */
+      iStep: int
+    ): void;
     /**
      * Observes property and aggregation changes.
      *
@@ -21767,6 +22241,11 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @returns `true` if a scrolling mechanism is needed
      */
     provideScrolling(): boolean;
+    /**
+     * The focus visualization of the field help needs to be removed as the user starts typing into the source
+     * control.
+     */
+    removeVisualFocus(): void;
     /**
      * Sets a new value for property {@link #getShortTitle shortTitle}.
      *
@@ -21839,6 +22318,28 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
        */
       bVisible?: boolean
     ): this;
+    /**
+     * The focus visualization of the field help needs to be set as the user starts naigation into the value
+     * help items.
+     *
+     * @since 1.127.0
+     */
+    setVisualFocus(): void;
+    /**
+     * Defines if the typeahead content desires opening the typeahead whenever a user clicks on a connected
+     * control
+     *
+     *
+     * @returns If `true`, the value help should open when user clicks into the connected field control
+     */
+    shouldOpenOnClick(): boolean;
+    /**
+     * Defines if the typeahead containers values can be navigated without visibly opening the help
+     *
+     *
+     * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
+     */
+    shouldOpenOnNavigate(): boolean;
   }
   /**
    * Describes the settings that can be provided to the Content constructor.
@@ -22492,7 +22993,8 @@ declare module "sap/ui/mdc/valuehelp/base/ListContent" {
      */
     getCaseSensitive(): boolean;
     /**
-     * Gets current descriptionPath of the content. **Note:** Every listcontent must implement this method.
+     * Gets current descriptionPath of the content.
+     * **Note:** Every listcontent must implement this method.
      *
      *
      * @returns Content description path
@@ -22516,14 +23018,16 @@ declare module "sap/ui/mdc/valuehelp/base/ListContent" {
       oOptions?: object
     ): object;
     /**
-     * Gets current keyPath of the content. **Note:** Every listcontent must implement this method.
+     * Gets current keyPath of the content.
+     * **Note:** Every listcontent must implement this method.
      *
      *
      * @returns Content key path
      */
     getKeyPath(): string;
     /**
-     * Gets the `ListBinding` of the content. **Note:** Every listcontent must implement this method.
+     * Gets the `ListBinding` of the content.
+     * **Note:** Every listcontent must implement this method.
      *
      *
      * @returns `ListBinding`
@@ -22659,6 +23163,8 @@ declare module "sap/ui/mdc/valuehelp/content/Conditions" {
     $ContentSettings,
   } from "sap/ui/mdc/valuehelp/base/Content";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import { ID } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -22672,7 +23178,12 @@ declare module "sap/ui/mdc/valuehelp/content/Conditions" {
    *
    * @since 1.95.0
    */
-  export default class Conditions extends Content {
+  export default class Conditions
+    extends Content
+    implements valuehelp.base.ITypeaheadContent, valuehelp.base.IDialogContent
+  {
+    __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContent: boolean;
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContent: boolean;
     /**
      * Constructor for a new `Conditions` content.
      *
@@ -22849,6 +23360,8 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
     $ListContentSettings,
   } from "sap/ui/mdc/valuehelp/base/ListContent";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import FixedListItem from "sap/ui/mdc/valuehelp/content/FixedListItem";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -22864,7 +23377,12 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
    *
    * @since 1.95.0
    */
-  export default class FixedList extends ListContent {
+  export default class FixedList
+    extends ListContent
+    implements valuehelp.base.ITypeaheadContent, valuehelp.base.IDialogContent
+  {
+    __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContent: boolean;
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContent: boolean;
     /**
      * Constructor for a new `FixedList` content.
      *
@@ -23266,6 +23784,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
     $ContainerSettings,
   } from "sap/ui/mdc/valuehelp/base/Container";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import { PopupInterface } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -23291,7 +23811,11 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
    *
    * @since 1.95.0
    */
-  export default class Dialog extends Container implements PopupInterface {
+  export default class Dialog
+    extends Container
+    implements valuehelp.base.IDialogContainer, PopupInterface
+  {
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContainer: boolean;
     __implements__sap_ui_core_PopupInterface: boolean;
     /**
      * Constructor for a new `Dialog` container.
@@ -23454,7 +23978,11 @@ declare module "sap/ui/mdc/valuehelp/content/MDCTable" {
    *
    * @since 1.95.0
    */
-  export default class MDCTable extends FilterableListContent {
+  export default class MDCTable
+    extends FilterableListContent
+    implements /* was: sap.ui.mdc.valuehelp.IDialogContent */ Object
+  {
+    __implements__sap_ui_mdc_valuehelp_IDialogContent: boolean;
     /**
      * Constructor for a new `MDCTable` content.
      *
@@ -23611,6 +24139,8 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
     $FilterableListContentSettings,
   } from "sap/ui/mdc/valuehelp/base/FilterableListContent";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -23622,7 +24152,12 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
    *
    * @since 1.95.0
    */
-  export default class MTable extends FilterableListContent {
+  export default class MTable
+    extends FilterableListContent
+    implements valuehelp.base.ITypeaheadContent, valuehelp.base.IDialogContent
+  {
+    __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContent: boolean;
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContent: boolean;
     /**
      * Constructor for a new `MTable` content.
      *
@@ -24090,6 +24625,8 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
     $ContainerSettings,
   } from "sap/ui/mdc/valuehelp/base/Container";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import { PopupInterface } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -24101,7 +24638,15 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
    *
    * @since 1.95.0
    */
-  export default class Popover extends Container implements PopupInterface {
+  export default class Popover
+    extends Container
+    implements
+      valuehelp.base.ITypeaheadContainer,
+      valuehelp.base.IDialogContainer,
+      PopupInterface
+  {
+    __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContainer: boolean;
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContainer: boolean;
     __implements__sap_ui_core_PopupInterface: boolean;
     /**
      * Constructor for a new `Popover` container.
@@ -24534,6 +25079,8 @@ declare namespace sap {
     "sap/ui/mdc/TableDelegate": undefined;
 
     "sap/ui/mdc/util/DateUtil": undefined;
+
+    "sap/ui/mdc/util/DensityHelper": undefined;
 
     "sap/ui/mdc/util/FilterUtil": undefined;
 

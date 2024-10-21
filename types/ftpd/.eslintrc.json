@@ -1,7 +1,6 @@
 {
     "rules": {
         "@definitelytyped/no-const-enum": "off",
-        "@definitelytyped/dt-header": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
         "@typescript-eslint/explicit-member-accessibility": "off"
     }

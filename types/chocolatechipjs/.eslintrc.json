@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/dt-header": "off",
         "@definitelytyped/no-any-union": "off",
         "@typescript-eslint/adjacent-overload-signatures": "off",
         "@typescript-eslint/ban-types": "off"

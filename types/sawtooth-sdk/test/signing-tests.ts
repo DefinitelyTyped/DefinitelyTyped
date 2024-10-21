@@ -57,13 +57,13 @@ const newSigner = cryptoFactory.newSigner(privateKey);
  *  signing/secp256k1.d.ts
  */
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 const privKeyBytes = privateKey.privateKeyBytes;
 
 // $ExpectType string
 const privAlgoName = privateKey.getAlgorithmName();
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 const privAsBytes = privateKey.asBytes();
 
 // $ExpectType Secp256k1PrivateKey
@@ -72,13 +72,13 @@ const privFromHex = Secp256k1PrivateKey.fromHex('test');
 // $ExpectType Secp256k1PrivateKey
 const privNewRandom = Secp256k1PrivateKey.newRandom();
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 const pubKeyBytes = publicKey.publicKeyBytes;
 
 // $ExpectType string
 const pubAlgoName = publicKey.getAlgorithmName();
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 const pubAsBytes = publicKey.asBytes();
 
 // $ExpectType Secp256k1PublicKey

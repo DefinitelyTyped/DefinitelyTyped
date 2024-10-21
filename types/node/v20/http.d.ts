@@ -1,5 +1,5 @@
 /**
- * To use the HTTP server and client one must `require('node:http')`.
+ * To use the HTTP server and client one must import the `node:http` module.
  *
  * The HTTP interfaces in Node.js are designed to support many features
  * of the protocol which have been traditionally difficult to use.
@@ -588,6 +588,42 @@ declare module "http" {
          * @param value Header value
          */
         setHeader(name: string, value: number | string | readonly string[]): this;
+        /**
+         * Sets multiple header values for implicit headers. headers must be an instance of
+         * `Headers` or `Map`, if a header already exists in the to-be-sent headers, its
+         * value will be replaced.
+         *
+         * ```js
+         * const headers = new Headers({ foo: 'bar' });
+         * outgoingMessage.setHeaders(headers);
+         * ```
+         *
+         * or
+         *
+         * ```js
+         * const headers = new Map([['foo', 'bar']]);
+         * outgoingMessage.setHeaders(headers);
+         * ```
+         *
+         * When headers have been set with `outgoingMessage.setHeaders()`, they will be
+         * merged with any headers passed to `response.writeHead()`, with the headers passed
+         * to `response.writeHead()` given precedence.
+         *
+         * ```js
+         * // Returns content-type = text/plain
+         * const server = http.createServer((req, res) => {
+         *   const headers = new Headers({ 'Content-Type': 'text/html' });
+         *   res.setHeaders(headers);
+         *   res.writeHead(200, { 'Content-Type': 'text/plain' });
+         *   res.end('ok');
+         * });
+         * ```
+         *
+         * @since v19.6.0, v18.15.0
+         * @param name Header name
+         * @param value Header value
+         */
+        setHeaders(headers: Headers | Map<string, number | string | readonly string[]>): this;
         /**
          * Append a single header value to the header object.
          *
@@ -1447,7 +1483,7 @@ declare module "http" {
      * To configure any of them, a custom {@link Agent} instance must be created.
      *
      * ```js
-     * const http = require('node:http');
+     * import http from 'node:http';
      * const keepAliveAgent = new http.Agent({ keepAlive: true });
      * options.agent = keepAliveAgent;
      * http.request(options, onResponseCallback)

@@ -1,4 +1,4 @@
-import arraySort from "array-sort";
+import arraySort, { Comparator, ComparisonArg, ComparisonArgs, Options } from "array-sort";
 
 const numberArr = [1, 2, 3];
 const objArr = [{ foo: "asd" }, { foo: "fas" }];

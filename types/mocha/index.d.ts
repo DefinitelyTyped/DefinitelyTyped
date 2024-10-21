@@ -772,7 +772,7 @@ declare namespace Mocha {
 
             done?(failures: number, fn?: (failures: number) => void): void;
 
-            static consoleLog: typeof console.log;
+            static consoleLog: (...data: any[]) => void;
         }
 
         namespace Base {

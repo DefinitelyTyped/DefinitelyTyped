@@ -39,6 +39,13 @@ interface SceneData {
     environment?: Texture | undefined;
     environmentNode?: Node | undefined;
 }
+declare module "../../../scenes/Scene.js" {
+    interface Scene {
+        environmentNode?: Node | null | undefined;
+        backgroundNode?: Node | null | undefined;
+        fogNode?: Node | null | undefined;
+    }
+}
 declare class Nodes extends DataMap<{
     nodeUniformsGroup: {
         key: NodeUniformsGroup;
@@ -101,6 +108,7 @@ declare class Nodes extends DataMap<{
     updateAfter(renderObject: RenderObject): void;
     updateForCompute(computeNode: ComputeNode): void;
     updateForRender(renderObject: RenderObject): void;
+    needsRefresh(renderObject: RenderObject): boolean;
     dispose(): void;
 }
 export default Nodes;

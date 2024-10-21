@@ -128,10 +128,10 @@ const msgWriter = new MessageWriter([
     },
 ]);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 msgWriter.writer("msg", Buffer.from("abc"));
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 msgWriter.writeMessage("msg", Buffer.from("abc"));
 
 // $ExpectType number
@@ -143,7 +143,7 @@ msgWriter.calculateBufferSize("msg");
 // $ExpectType RosMsgDefinition[]
 parseMessageDefinition("msg-def");
 
-// $ExpectType { [key: string]: Buffer; }
+// $ExpectType { [key: string]: Buffer; } || { [key: string]: Buffer<ArrayBufferLike>; }
 extractFields(Buffer.from("abc"));
 
 // $ExpectType Time
@@ -226,10 +226,10 @@ const msgWriter2 = new rosbag.MessageWriter([
     },
 ]);
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 msgWriter2.writer("msg", Buffer.from("abc"));
 
-// $ExpectType Buffer
+// $ExpectType Buffer || Buffer<ArrayBufferLike>
 msgWriter2.writeMessage("msg", Buffer.from("abc"));
 
 // $ExpectType number
@@ -241,7 +241,7 @@ msgWriter2.calculateBufferSize("msg");
 // $ExpectType RosMsgDefinition[]
 rosbag.parseMessageDefinition("msg-def");
 
-// $ExpectType { [key: string]: Buffer; }
+// $ExpectType { [key: string]: Buffer; } || { [key: string]: Buffer<ArrayBufferLike>; }
 rosbag.extractFields(Buffer.from("abc"));
 
 // $ExpectType Time

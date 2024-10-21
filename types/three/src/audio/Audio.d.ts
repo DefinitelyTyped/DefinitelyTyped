@@ -173,14 +173,17 @@ export class Audio<NodeType extends AudioNode = GainNode> extends Object3D {
      * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is true, starts playback.
      */
     play(delay?: number): this;
+
     /**
      * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is true, pauses playback.
      */
     pause(): this;
+
     /**
      * If {@link Audio.hasPlaybackControl | hasPlaybackControl} is enabled, stops playback.
+     * @param delay (optional) - The delay, in seconds, at which the audio should start playing.
      */
-    stop(): this;
+    stop(delay?: number): this;
 
     /**
      * Called automatically when playback finished.

@@ -17,5 +17,5 @@ if (urlRecord !== null) {
 
 if (dataUrl != null) {
     dataUrl.mimeType; // $ExpectType MIMEType
-    dataUrl.body; // $ExpectType Uint8Array
+    dataUrl.body; // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 }
