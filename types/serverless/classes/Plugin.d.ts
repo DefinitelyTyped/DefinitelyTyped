@@ -56,7 +56,7 @@ declare namespace Plugin {
             };
     }
 
-    type ConfigurationVariablesSource = (variableSource: any) => Promise<any>;
+    type ConfigurationVariablesSource = (variableSource: any) => any;
 
     interface ConfigurationVariablesSources {
         [variablePrefix: string]:
