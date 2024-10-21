@@ -4959,6 +4959,10 @@
             "libraryName": "react-loader-spinner",
             "asOfVersion": "4.0.0"
         },
+        "react-map-gl": {
+            "libraryName": "react-map-gl",
+            "asOfVersion": "6.1.5"
+        },
         "react-mathquill": {
             "libraryName": "react-mathquill",
             "asOfVersion": "0.2.3"
