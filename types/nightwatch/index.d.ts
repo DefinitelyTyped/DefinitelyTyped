@@ -707,10 +707,6 @@ export interface NightwatchGlobals {
     retryAssertionTimeout?: number | undefined;
 
     reporter: (results: any, cb: any) => void;
-    beforeTestSuite(browser: any): Promise<void>;
-    afterTestSuite(browser: any): Promise<void>;
-    beforeTestCase(browser: any): Promise<void>;
-    afterTestCase(browser: any): Promise<void>;
     onBrowserNavigate(browser: any): Promise<void>;
     onBrowserQuit(browser: any): Promise<void>;
 }
