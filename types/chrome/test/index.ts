@@ -848,6 +848,12 @@ function testStorage() {
         var myNewValue: { x: number } = changes["myKey"].newValue;
         var myOldValue: { x: number } = changes["myKey"].oldValue;
     });
+
+    function getKeysCallback(keys: string[]) {
+        console.log(keys);
+    }
+    chrome.storage.sync.getKeys();
+    chrome.storage.sync.getKeys(getKeysCallback);
 }
 
 // https://developer.chrome.com/apps/tts#type-TtsVoice
