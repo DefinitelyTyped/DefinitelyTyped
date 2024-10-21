@@ -74,7 +74,7 @@ export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
     /**
      * Can be "high-performance", "low-power" or "default"
      */
-    powerPreference?: string | undefined;
+    powerPreference?: WebGLPowerPreference | undefined;
 
     /**
      * default is true.
