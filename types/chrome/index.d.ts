@@ -12107,6 +12107,14 @@ declare namespace chrome.webRequest {
     export interface WebRequestDetails extends ResourceRequest {
         /** Standard HTTP method. */
         method: string;
+        /** @since Chrome 106 */
+        documentId?: string;
+        /** @since Chrome 106 */
+        documentLifecycle?: DocumentLifecycle;
+        /** @since Chrome 106 */
+        frameType?: FrameType;
+        parentDocumentId?: string | undefined;
+        requestId: string;
     }
 
     export interface WebRequestHeadersDetails extends WebRequestDetails {
@@ -12115,15 +12123,6 @@ declare namespace chrome.webRequest {
         documentId: string;
         documentLifecycle: DocumentLifecycle;
         frameType: FrameType;
-        frameId: number;
-        initiator?: string | undefined;
-        parentDocumentId?: string | undefined;
-        parentFrameId: number;
-        requestId: string;
-        tabId: number;
-        timeStamp: number;
-        type: ResourceType;
-        url: string;
     }
 
     export interface WebRequestBodyDetails extends WebRequestDetails {
@@ -12131,7 +12130,7 @@ declare namespace chrome.webRequest {
          * Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'.
          * @since Chrome 23
          */
-        requestBody: WebRequestBody | null;
+        requestBody?: WebRequestBody;
     }
 
     export interface WebRequestFullDetails extends WebRequestHeadersDetails, WebRequestBodyDetails {}
