@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/android-emulator-webrtc",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/google/android-emulator-webrtc"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/android-emulator-webrtc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Erwin Jansen",
+            "githubUsername": "pokowaka"
+        },
+        {
+            "name": "Erzhan Torokulov",
+            "githubUsername": "erzhtor"
+        }
+    ]
+}
