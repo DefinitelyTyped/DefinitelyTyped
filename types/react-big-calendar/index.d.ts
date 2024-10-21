@@ -188,6 +188,15 @@ export interface DateCellWrapperProps {
     children: React.JSX.Element;
 }
 
+export interface ShowMoreProps<TEvent extends object = Event> {
+    localizer: DateLocalizer;
+    slot: number;
+    slotDate: Date;
+    count: number;
+    events: TEvent[];
+    remainingEvents: TEvent[];
+}
+
 export interface Components<TEvent extends object = Event, TResource extends object = object> {
     event?: React.ComponentType<EventProps<TEvent>> | undefined;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>> | undefined;
@@ -235,6 +244,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
      */
     header?: React.ComponentType<HeaderProps> | undefined;
     resourceHeader?: React.ComponentType<ResourceHeaderProps<TResource>> | undefined;
+    showMore?: React.ComponentType<ShowMoreProps<TEvent>>;
 }
 
 export interface ToolbarProps<TEvent extends object = Event, TResource extends object = object> {
