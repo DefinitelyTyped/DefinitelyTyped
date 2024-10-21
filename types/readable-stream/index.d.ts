@@ -209,10 +209,8 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    rawListeners(eventName: string | symbol): Function[];
+    listeners(eventName: string | symbol): Array<(...args: any[]) => void>;
+    rawListeners(eventName: string | symbol): Array<(...args: any[]) => void>;
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
 
