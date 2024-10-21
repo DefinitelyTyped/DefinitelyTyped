@@ -1,0 +1,17 @@
+{
+    "name": "@types/eval-estree-expression",
+    "version": "1.0.9999",
+    "owners": [
+        {
+            "name": "NITFALL",
+            "url": "https://github.com/NITFALL"
+        }
+    ],
+    "private": true,
+    "devDependencies": {
+        "@types/eval-estree-expression": "workspace:."
+    },
+    "projects": [
+        "https://github.com/jonschlinkert/eval-estree-expression"
+    ]
+}
