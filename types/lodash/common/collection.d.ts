@@ -1177,7 +1177,7 @@ declare module "../index" {
         /**
          * @see _.map
          */
-        map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: string): any[];
+        map<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee?: string | ((...args: any[]) => any)): any[];
         /**
          * @see _.map
          */
@@ -1206,7 +1206,7 @@ declare module "../index" {
         /**
          * @see _.map
          */
-        map(iteratee: PropertyName): Collection<any>;
+        map(iteratee: PropertyName | ((...args: any[]) => any)): Collection<any>;
         /**
          * @see _.map
          */
@@ -1228,7 +1228,7 @@ declare module "../index" {
         /**
          * @see _.map
          */
-        map(iteratee: PropertyName): Collection<any>;
+        map(iteratee: PropertyName | ((...args: any[]) => any)): Collection<any>;
         /**
          * @see _.map
          */
@@ -1270,7 +1270,7 @@ declare module "../index" {
         /**
          * @see _.map
          */
-        map(iteratee: PropertyName): CollectionChain<any>;
+        map(iteratee: PropertyName | ((...args: any[]) => any)): CollectionChain<any>;
         /**
          * @see _.map
          */
@@ -1292,7 +1292,7 @@ declare module "../index" {
         /**
          * @see _.map
          */
-        map(iteratee: PropertyName): CollectionChain<any>;
+        map(iteratee: PropertyName | ((...args: any[]) => any)): CollectionChain<any>;
         /**
          * @see _.map
          */
