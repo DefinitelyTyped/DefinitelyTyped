@@ -37,7 +37,7 @@ export type MockGetState<S = {}> = (actions: Redux.AnyAction[]) => S;
 *
 * `import { legacy_configureStore as configureStore } from 'redux-mock-store';`
 */
-export declare function configureStore<S, DispatchExts = {}>(
+export function configureStore<S, DispatchExts = {}>(
     middlewares?: Redux.Middleware[],
 ): MockStoreCreator<S, DispatchExts>;
 
@@ -49,6 +49,6 @@ export declare function configureStore<S, DispatchExts = {}>(
  * @template S The type of state to be held by the store.
  * @template DispatchExts The additional Dispatch signatures for the middlewares applied.
  */
-export declare const legacy_configureStore: typeof configureStore;
+export const legacy_configureStore: typeof configureStore;
 
 export default configureStore;
