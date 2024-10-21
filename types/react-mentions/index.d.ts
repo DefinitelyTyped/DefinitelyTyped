@@ -12,9 +12,6 @@ export const MentionsInput: MentionsInputClass;
  */
 export const Mention: React.FC<MentionProps>;
 
-/**
- * The properties for the @see MentionsInput component.
- */
 export interface MentionsInputStyleDefinition extends React.CSSProperties {
     control?: React.CSSProperties;
     highlighter?: React.CSSProperties;
@@ -32,6 +29,10 @@ export interface MentionsInputStyle extends React.CSSProperties, MentionsInputSt
         item?: MentionsSuggestionItemStyle;
     };
 }
+
+/**
+ * The properties for the @see MentionsInput component.
+ */
 export interface MentionsInputProps
     extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "onBlur" | "onKeyDown" | "onSelect">
 {
