@@ -142,6 +142,101 @@ export const TestPartialOnAdd: React.FC<TestProps> = props => {
     );
 };
 
+export const TestCustomMentionsInputStyle: React.FC<TestProps> = props => {
+    const onAdd: OnAddHandlerFunc = (id: string | number, display: string) => {};
+    return (
+        <MentionsInput
+            value={props.value}
+            onChange={props.onChange}
+            placeholder={"Mention people using '@'"}
+            customSuggestionsContainer={children => <div className="suggestions">{children}</div>}
+            style={{
+                control: {
+                    backgroundColor: '#fff',
+                    fontSize: 14,
+                    fontWeight: 'normal',
+                  },
+                
+                  '&multiLine': {
+                    control: {
+                      fontFamily: 'monospace',
+                      minHeight: 63,
+                    },
+                    highlighter: {
+                      padding: 9,
+                      border: '1px solid transparent',
+                    },
+                    input: {
+                      padding: 9,
+                      border: '1px solid silver',
+                    },
+                  },
+                
+                  '&singleLine': {
+                    display: 'inline-block',
+                    width: 180,
+                
+                    highlighter: {
+                      padding: 1,
+                      border: '2px inset transparent',
+                    },
+                    input: {
+                      padding: 1,
+                      border: '2px inset',
+                    },
+                  },
+                
+                  suggestions: {
+                    backgroundColor: 'red',
+                    list: {
+                      backgroundColor: 'white',
+                      border: '1px solid rgba(0,0,0,0.15)',
+                      fontSize: 14,
+                    },
+                    item: {
+                      padding: '5px 15px',
+                      borderBottom: '1px solid rgba(0,0,0,0.15)',
+                      '&focused': {
+                        backgroundColor: '#cee4e5',
+                      },
+                    },
+                  },
+            }}
+        >
+            <Mention
+                trigger={props.regex}
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
+                data={search => [{ id: search, display: search }]}
+                onAdd={onAdd}
+            />
+        </MentionsInput>
+    );
+}
+
+
+export const TestCustomMentionstyle: React.FC<TestProps> = props => {
+    const onAdd: OnAddHandlerFunc = (id: string | number, display: string) => {};
+    return (
+        <MentionsInput
+            value={props.value}
+            onChange={props.onChange}
+            placeholder={"Mention people using '@'"}
+            customSuggestionsContainer={children => <div className="suggestions">{children}</div>}            
+        >
+            <Mention
+                trigger={props.regex}
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
+                data={search => [{ id: search, display: search }]}
+                onAdd={onAdd}
+                style={{
+                    backgroundColor: '#cee4e5',
+                    fontWeight: 500
+                }}
+            />
+        </MentionsInput>
+    );
+}
+
 /**
  * Utils
  */
