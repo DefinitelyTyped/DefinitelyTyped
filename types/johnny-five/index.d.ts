@@ -332,6 +332,9 @@ export class Board {
     wait(ms: number, cb: () => void): void;
     loop(ms: number, cb: () => void): void;
     samplingInterval(ms: number): void;
+    i2cConfig(options?: number | { delay: number }): this;
+    sysexCommand(message: number[]): this;
+    sysexResponse(commandByte: number, handler: (this: Board, data: number[]) => void): this;
 }
 
 export namespace Board {
