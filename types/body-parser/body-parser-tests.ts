@@ -32,7 +32,7 @@ const jsonParser = app.use(
 app.post("/api/users", jsonParser, (req, res) => {});
 app.use(jsonParser);
 
-const urlencodedParser = urlencoded({ extended: false });
+const urlencodedParser = urlencoded({ extended: false, depth: 32 });
 app.post("/login", urlencodedParser, (req, res) => {
     res.send("welcome, " + req.body.username);
 });
