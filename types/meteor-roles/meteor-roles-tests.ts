@@ -129,3 +129,29 @@ Meteor.methods({
         Roles.setUserRoles(targetUserId, roles, group);
     },
 });
+
+// $ExpectType void
+Roles.addRolesToParent("editor", "admin");
+// $ExpectType void
+Roles.addRolesToParent(["moderator", "contributor"], "editor");
+
+// $ExpectType void
+Roles.removeRolesFromParent("editor", "admin");
+// $ExpectType void
+Roles.removeRolesFromParent(["moderator", "contributor"], "editor");
+
+// Test with invalid inputs to ensure type safety
+// @ts-expect-error
+Roles.addRolesToParent(42, "admin");
+
+// @ts-expect-error
+Roles.removeRolesFromParent("editor", ["admin"]);
+
+// Test with correct types but as variables
+const rolesToAdd: string[] = ["reviewer", "proofreader"];
+const parentRole = "senior-editor";
+
+// $ExpectType void
+Roles.addRolesToParent(rolesToAdd, parentRole);
+// $ExpectType void
+Roles.removeRolesFromParent(rolesToAdd, parentRole);
