@@ -21,13 +21,15 @@ export interface MentionsInputStyleDefinition extends React.CSSProperties {
 export interface MentionsSuggestionItemStyle extends React.CSSProperties {
     "&focused"?: React.CSSProperties;
 }
+
+export interface MentionsSuggestionsStyle extends React.CSSProperties {
+    list?: React.CSSProperties;
+    item?: MentionsSuggestionItemStyle;
+}
 export interface MentionsInputStyle extends React.CSSProperties, MentionsInputStyleDefinition {
     "&multiLine"?: MentionsInputStyleDefinition;
     "&singleLine"?: MentionsInputStyleDefinition;
-    suggestions?: {
-        list?: React.CSSProperties;
-        item?: MentionsSuggestionItemStyle;
-    };
+    suggestions?: MentionsSuggestionsStyle;
 }
 
 /**

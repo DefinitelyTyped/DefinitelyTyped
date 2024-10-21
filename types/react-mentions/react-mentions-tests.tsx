@@ -187,6 +187,7 @@ export const TestCustomMentionsInputStyle: React.FC<TestProps> = props => {
                   },
                 
                   suggestions: {
+                    backgroundColor: 'red',
                     list: {
                       backgroundColor: 'white',
                       border: '1px solid rgba(0,0,0,0.15)',
