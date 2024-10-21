@@ -4,6 +4,6 @@ declare namespace bigRat {
     type Rat = [BN, BN];
 }
 
-declare function bigRat(number: number, denom?: number): bigRat.Rat;
+declare function bigRat(number: number | bigRat.Rat, denom?: number | bigRat.Rat): bigRat.Rat;
 
 export = bigRat;
