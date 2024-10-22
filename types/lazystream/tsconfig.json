@@ -1,14 +1,17 @@
 {
     "compilerOptions": {
-        "module": "CommonJS",
+        "module": "node16",
         "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "req-real-ip-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "lazystream-tests.ts"
+    ]
 }
