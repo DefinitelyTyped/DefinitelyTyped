@@ -21,4 +21,9 @@ const mask = [firstLetter, digit, letter, " ", digit, letter, digit];
             ref = node;
         }}
     />
+    <ReactInputMask
+        mask="+5\5 (99) 99999-9999"
+    >
+        {(inputProps: any) => <input {...inputProps} type="tel" />}
+    </ReactInputMask>
 </div>;

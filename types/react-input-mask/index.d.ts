@@ -52,7 +52,7 @@ export type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'children'
     beforeMaskedStateChange?(states: BeforeMaskedStateChangeStates): InputState;
 
 
-    children: (inputProps: any) => React.ReactNode;
+    children?: (inputProps: any) => React.ReactNode;
 }
 
 export class ReactInputMask extends React.Component<Props> {
