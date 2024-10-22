@@ -8887,7 +8887,7 @@ declare namespace chrome.storage {
          * Parameter keys: Array of keys in storage.
          * @since Chrome 130
          */
-        getKeys(callback: (keys:string[]) => void): void;
+        getKeys(callback: (keys: string[]) => void): void;
     }
 
     export interface StorageChange {
