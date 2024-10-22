@@ -852,6 +852,7 @@ function testStorage() {
     function getKeysCallback(keys: string[]) {
         console.log(keys);
     }
+
     chrome.storage.sync.getKeys();
     chrome.storage.sync.getKeys(getKeysCallback);
 }
