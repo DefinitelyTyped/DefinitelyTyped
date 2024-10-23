@@ -11,14 +11,14 @@ const test = Transport.open("test").then(transport => {
     // $ExpectType void
     transport.setScrambleKey("test");
 
-    // $ExpectType Promise<Buffer>
+    // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
     transport.exchange(Buffer.from("test", "hex"));
 
-    // $ExpectType Promise<Buffer>
+    // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
     transport.send(0, 1, 2, 3);
-    // $ExpectType Promise<Buffer>
+    // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
     transport.send(0, 1, 2, 3, Buffer.from("abcd", "hex"));
-    // $ExpectType Promise<Buffer>
+    // $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
     transport.send(0, 1, 2, 3, Buffer.from("abcd", "hex"), [0x1111, 0x9000]);
 
     // $ExpectType Promise<void>

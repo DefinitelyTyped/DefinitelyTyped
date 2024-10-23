@@ -75,6 +75,7 @@ interface NotificationHandler extends Array<any> {
         skipDialog?: boolean,
         askAgainTimeInSeconds?: number,
     ): 0;
+    enable(options?: { swPath: string }): void;
 }
 interface User {
     getTotalVisits(): number | undefined;

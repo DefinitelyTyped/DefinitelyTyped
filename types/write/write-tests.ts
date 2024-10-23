@@ -12,7 +12,7 @@ write("1.txt", text).then(({ path, data }) => {
 });
 
 write("1.txt", buf, { mode: 0o777 }).then(({ data }) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBuffer>
     data;
 });
 
@@ -25,7 +25,7 @@ write("1.txt", arr, (err, result) => {
         const { path, data } = result;
         // $ExpectType string
         path;
-        // $ExpectType Uint8Array
+        // $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
         data;
     }
 });
@@ -36,7 +36,7 @@ write("1.txt", text, { newline: true, overwrite: true, increment: true }, () => 
 let { path, data } = write.sync("1.txt", arr);
 // $ExpectType string
 path;
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 data;
 
 ({ path, data } = write.sync("1.txt", arr, { mode: 0o777, newline: true }));

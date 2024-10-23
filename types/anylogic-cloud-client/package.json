@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/anylogic-cloud-client",
+    "version": "8.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "AnyLogic Cloud and Private Cloud Client",
+    "projects": [
+        "https://anylogic.help/cloud/api/js.html"
+    ],
+    "devDependencies": {
+        "@types/anylogic-cloud-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Erik van Velzen",
+            "githubUsername": "Erikvv"
+        }
+    ]
+}

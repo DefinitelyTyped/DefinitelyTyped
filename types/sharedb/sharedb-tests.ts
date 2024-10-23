@@ -290,6 +290,8 @@ doc.fetch((err) => {
 
 doc.create({ foo: true }, "http://sharejs.org/types/JSONv0");
 
+doc.ingestSnapshot(doc.toSnapshot());
+
 function startServer() {
     const server = http.createServer();
 

@@ -3,7 +3,7 @@ import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
 /**
  * Radios component
  */
-export class Radios extends GOVUKFrontendComponent {
+export class Radios extends GOVUKFrontendComponent<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -21,7 +21,7 @@ export class Radios extends GOVUKFrontendComponent {
      * (for example if the user has navigated back), and set up event handlers to
      * keep the reveal in sync with the radio state.
      *
-     * @param {Element | null} $module - HTML element to use for radios
+     * @param {Element | null} $root - HTML element to use for radios
      */
-    constructor($module: Element | null);
+    constructor($root: Element | null);
 }

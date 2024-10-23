@@ -421,6 +421,11 @@ deck.initialize({
     },
 });
 
+// $ExpectType Promise<void>
+deck.initialize({
+    showNotes: "separate-page",
+}).then(() => {});
+
 // Alternate representations
 
 // $ExpectType Promise<void>

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/sleep",
-    "version": "0.0.9999",
+    "version": "6.3.9999",
     "projects": [
         "https://github.com/ErikDubbelboer/node-sleep"
     ],

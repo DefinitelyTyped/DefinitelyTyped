@@ -1,4 +1,4 @@
-// For Library Version: 1.128.0
+// For Library Version: 1.129.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -1754,8 +1754,8 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
      *
      *
      * @returns Value of property `filterProperty`
@@ -1942,7 +1942,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets current value of property {@link #getShowFilterMenuEntry showFilterMenuEntry}.
      *
-     * Defines if the filter menu entry is displayed
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * Default value is `true`.
      *
@@ -1954,7 +1955,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets current value of property {@link #getShowSortMenuEntry showSortMenuEntry}.
      *
-     * Defines if the sort menu entries are displayed
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * Default value is `true`.
      *
@@ -2000,7 +2002,8 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
      *
      *
      * @returns Value of property `sortProperty`
@@ -2200,8 +2203,8 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2446,7 +2449,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Sets a new value for property {@link #getShowFilterMenuEntry showFilterMenuEntry}.
      *
-     * Defines if the filter menu entry is displayed
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2465,7 +2469,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Sets a new value for property {@link #getShowSortMenuEntry showSortMenuEntry}.
      *
-     * Defines if the sort menu entries are displayed
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2532,7 +2537,8 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2699,7 +2705,8 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
      */
     sortProperty?: string | PropertyBindingInfo;
 
@@ -2715,8 +2722,8 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
      */
     filterProperty?: string | PropertyBindingInfo;
 
@@ -2790,14 +2797,16 @@ declare module "sap/ui/table/Column" {
     name?: string | PropertyBindingInfo;
 
     /**
-     * Defines if the filter menu entry is displayed
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * @since 1.13.0
      */
     showFilterMenuEntry?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines if the sort menu entries are displayed
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * @since 1.13.0
      */
@@ -5074,6 +5083,18 @@ declare module "sap/ui/table/rowmodes/Interactive" {
      */
     getFixedTopRowCount(): int;
     /**
+     * Gets current value of property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Value of property `maxRowCount`
+     */
+    getMaxRowCount(): int;
+    /**
      * Gets current value of property {@link #getMinRowCount minRowCount}.
      *
      * The minimum number of displayed rows.
@@ -5149,6 +5170,25 @@ declare module "sap/ui/table/rowmodes/Interactive" {
       iFixedTopRowCount?: int
     ): this;
     /**
+     * Sets a new value for property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxRowCount(
+      /**
+       * New value for property `maxRowCount`
+       */
+      iMaxRowCount?: int
+    ): this;
+    /**
      * Sets a new value for property {@link #getMinRowCount minRowCount}.
      *
      * The minimum number of displayed rows.
@@ -5220,6 +5260,12 @@ declare module "sap/ui/table/rowmodes/Interactive" {
      * The minimum number of displayed rows.
      */
     minRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     */
+    maxRowCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
@@ -7940,7 +7986,9 @@ declare module "sap/ui/table/Table" {
      * rows minus number of fixed rows), this number is used as the `scrollThreshold`. If the value is 0, no
      * threshold is applied during scrolling. The value -1 applies the same value as the `threshold` property.
      *
-     * **Note:** This property only takes effect if it is set to a positive integer value.
+     *  **Note:** This property only takes effect if it is set to a positive integer value.
+     *
+     * The value of the `scrollThreshold` should be higher than the `threshold` value to avoid unnecessary requests.
      *
      * For `AnalyticalTable` and `TreeTable`, the `scrollThreshold` property must be higher than the `threshold`
      * property to take effect.
@@ -9361,7 +9409,9 @@ declare module "sap/ui/table/Table" {
      * rows minus number of fixed rows), this number is used as the `scrollThreshold`. If the value is 0, no
      * threshold is applied during scrolling. The value -1 applies the same value as the `threshold` property.
      *
-     * **Note:** This property only takes effect if it is set to a positive integer value.
+     *  **Note:** This property only takes effect if it is set to a positive integer value.
+     *
+     * The value of the `scrollThreshold` should be higher than the `threshold` value to avoid unnecessary requests.
      *
      * For `AnalyticalTable` and `TreeTable`, the `scrollThreshold` property must be higher than the `threshold`
      * property to take effect.

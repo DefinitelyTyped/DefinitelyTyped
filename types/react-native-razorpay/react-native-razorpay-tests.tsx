@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Button } from "react-native";
 import RazorpayCheckout, { ErrorResponse } from "react-native-razorpay";
 

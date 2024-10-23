@@ -15,7 +15,7 @@ import { Scene } from "../scenes/Scene.js";
 import { Data3DTexture } from "../textures/Data3DTexture.js";
 import { DataArrayTexture } from "../textures/DataArrayTexture.js";
 import { OffscreenCanvas, Texture } from "../textures/Texture.js";
-import { WebGLCapabilities } from "./webgl/WebGLCapabilities.js";
+import { WebGLCapabilities, WebGLCapabilitiesParameters } from "./webgl/WebGLCapabilities.js";
 import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
 import { WebGLInfo } from "./webgl/WebGLInfo.js";
 import { WebGLProgram } from "./webgl/WebGLProgram.js";
@@ -33,7 +33,7 @@ export interface Renderer {
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
 
-export interface WebGLRendererParameters {
+export interface WebGLRendererParameters extends WebGLCapabilitiesParameters {
     /**
      * A Canvas where the renderer draws its output.
      */
@@ -45,11 +45,6 @@ export interface WebGLRendererParameters {
      * Default is null
      */
     context?: WebGLRenderingContext | undefined;
-
-    /**
-     * shader precision. Can be "highp", "mediump" or "lowp".
-     */
-    precision?: string | undefined;
 
     /**
      * default is false.
@@ -85,11 +80,6 @@ export interface WebGLRendererParameters {
      * default is true.
      */
     depth?: boolean | undefined;
-
-    /**
-     * default is false.
-     */
-    logarithmicDepthBuffer?: boolean | undefined;
 
     /**
      * default is false.

@@ -13,6 +13,10 @@ zeroconf.on("resolved", (service: Service) => console.log(`[Resolved]\n${JSON.st
 // $ExpectType Zeroconf
 zeroconf.on("remove", (name: string) => console.log(`[Remove] '${name}'`));
 // $ExpectType Zeroconf
+zeroconf.on("published", (service: Service) => {});
+// $ExpectType Zeroconf
+zeroconf.on("unpublished", (service: Service) => {});
+// $ExpectType Zeroconf
 zeroconf.on("update", () => console.log("[Update]"));
 // $ExpectType Zeroconf
 zeroconf.on("error", (error: Error) => console.log(`[Error] ${error}`));

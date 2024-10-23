@@ -127,6 +127,20 @@ function formActionsTest() {
             Delete
         </button>
     </form>;
+
+    <form
+        action={async (formData) => {
+            // $ExpectType FormData
+            formData;
+        }}
+    />;
+
+    <form
+        // @ts-expect-error -- Type 'Promise<number>' is not assignable to type 'Promise<void>'
+        action={async () => {
+            return 1;
+        }}
+    />;
 }
 
 const useOptimistic = React.useOptimistic;

@@ -23,3 +23,11 @@ const notNeededPackages = JSON.parse(fs.readFileSync("notNeededPackages.json", "
 notNeededPackages.packages[typingsPackageName] = { libraryName, asOfVersion };
 notNeededPackages.packages = Object.fromEntries(Object.entries(notNeededPackages.packages).sort());
 fs.writeFileSync("notNeededPackages.json", JSON.stringify(notNeededPackages, undefined, 4) + "\n", "utf-8");
+
+/**  @type  {{ failingPackages: string[] }} */
+const attw = JSON.parse(fs.readFileSync("attw.json", "utf-8"));
+const packageWithOptionalVersionRegex = new RegExp(`^${typingsPackageName}(/v\\d+)?$`);
+attw.failingPackages = attw.failingPackages.filter((failingPackage) => (
+    !packageWithOptionalVersionRegex.test(failingPackage)
+));
+fs.writeFileSync("attw.json", JSON.stringify(attw, undefined, 4) + "\n", "utf-8");

@@ -10,7 +10,7 @@ generatePdf(
         printBackground: true,
     },
     (err, buffer) => {
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         buffer;
     },
 );
@@ -30,7 +30,7 @@ generatePdfs(
         printBackground: true,
     },
     (err, buffer) => {
-        // $ExpectType Buffer
+        // $ExpectType Buffer || Buffer<ArrayBufferLike>
         buffer;
     },
 );
