@@ -20,7 +20,7 @@
         "preinstall": "npx only-allow pnpm",
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
-        "test-all": "node --enable-source-maps node_modules/@definitelytyped/dtslint-runner/ --path .",
+        "test-all": "node --enable-source-maps node_modules/@definitelytyped/dtslint-runner/ --path . --childRestartTaskInterval 10",
         "clean": "node scripts/remove-empty.js",
         "clean-node-modules": "node scripts/clean-node-modules.js",
         "test": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types",
