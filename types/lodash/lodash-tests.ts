@@ -2752,6 +2752,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.map
 {
+    _.map([] as AbcObject[]); // $ExpectType AbcObject[]
+    _.map([] as AbcObject[], (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return 0;
+    });
     _.map(list);  // $ExpectType AbcObject[]
     // $ExpectType number[]
     _.map(list, (value, index, collection) => {

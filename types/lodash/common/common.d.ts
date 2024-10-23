@@ -210,6 +210,7 @@ declare module "../index" {
     }
     interface PrimitiveChain<T> extends LoDashExplicitWrapper<T> {
     }
+    type IsTuple<T> = T extends readonly [unknown, ...unknown[]] ? T : never;
     type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialShallow<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
