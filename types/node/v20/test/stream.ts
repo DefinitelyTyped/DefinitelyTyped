@@ -2,6 +2,7 @@ import { createReadStream, createWriteStream } from "node:fs";
 import {
     addAbortSignal,
     Duplex,
+    duplexPair,
     finished,
     isErrored,
     isReadable,
@@ -627,6 +628,14 @@ addAbortSignal(new AbortSignal(), new Readable());
     const duplex = new Duplex();
     // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
     Duplex.toWeb(duplex);
+}
+
+{
+    const [duplexLeft, duplexRight] = duplexPair();
+    // $ExpectType Duplex
+    duplexLeft;
+    // $ExpectType Duplex
+    duplexRight;
 }
 
 {
