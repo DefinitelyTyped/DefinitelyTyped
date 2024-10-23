@@ -21,6 +21,8 @@ declare namespace WebTorrent {
         dht?: boolean | {} | undefined;
         webSeeds?: boolean | undefined;
         utp?: boolean | undefined;
+        downloadLimit?: number, 
+        uploadLimit?: number,
     }
 
     interface ServerAddress {
