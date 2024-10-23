@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 type AnyFunction = Function;
 
 declare function loadware<F extends AnyFunction>(...loadable: Array<loadware.Loadable<F>>): readonly F[];

@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/no-declare-current-package": "off",
-        "@typescript-eslint/ban-types": "off"
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off"
     }
 }
