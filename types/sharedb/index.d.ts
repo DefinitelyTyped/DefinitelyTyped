@@ -109,6 +109,7 @@ declare namespace sharedb {
         suppressPublish?: boolean;
         maxSubmitRetries?: number;
         doNotForwardSendPresenceErrorsToClient?: boolean;
+        doNotCommitNoOps?: boolean;
         errorHandler?: ErrorHandler;
 
         presence?: boolean;
