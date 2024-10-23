@@ -190,7 +190,7 @@ export class ODBCStatement {
     close(cb: (err: Error, res: any[]) => void): void
     close(): Promise<void>
 
-    closeSync(): void
+    closeSync(): true
 
     prepare(sql: string, cb: (err: Error, result: any[]) => void): void;
 
