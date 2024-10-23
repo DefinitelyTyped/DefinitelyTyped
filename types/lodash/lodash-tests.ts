@@ -5064,7 +5064,7 @@ fp.now(); // $ExpectType number
     fp.random(1, 2); // $ExpectType number
     fp.random(1)(2); // $ExpectType number
 
-    _.map([5, 5], _.random); // $ExpectType number[]
+    _.map([5, 5], _.random); // $ExpectType [number, number]
 }
 
 /**********
@@ -6831,7 +6831,7 @@ fp.now(); // $ExpectType number
     fp.split("-")(null); // $ExpectType string[]
     fp.split("-")("a-b-c"); // $ExpectType string[]
 
-    _.map(["abc", "def"], _.split); // $ExpectType string[][]
+    _.map(["abc", "def"], _.split); // $ExpectType [string[], string[]]
 }
 
 // _.startCase
@@ -6910,7 +6910,7 @@ fp.now(); // $ExpectType number
     fp.trimChars(" ", "  abc  "); // $ExpectType string
     fp.trimChars(" ")("  abc  "); // $ExpectType string
 
-    _.map(["  foo  ", "  bar  "], _.trim); // $ExpectType string[]
+    _.map(["  foo  ", "  bar  "], _.trim); // $ExpectType [string, string]
 }
 
 // _.trimEnd
@@ -6998,7 +6998,7 @@ fp.now(); // $ExpectType number
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]
 
-    _.map(["fred, barney", "pebbles"], _.words); // $ExpectType string[][]
+    _.map(["fred, barney", "pebbles"], _.words); // $ExpectType [string[], string[]]
 }
 
 /********
@@ -7364,8 +7364,8 @@ fp.now(); // $ExpectType number
     fp.rangeRight(1, 11); // $ExpectType number[]
     fp.rangeRight(1)(11); // $ExpectType number[]
 
-    _.map([5, 5], _.range); // $ExpectType number[][]
-    _.map([5, 5], _.rangeRight); // $ExpectType number[][]
+    _.map([5, 5], _.range); // $ExpectType [number[], number[]]
+    _.map([5, 5], _.rangeRight); // $ExpectType [number[], number[]]
 }
 
 // _.runInContext
