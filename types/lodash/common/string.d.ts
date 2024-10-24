@@ -29,19 +29,19 @@ declare module "../index" {
          * @param string The string to capitalize.
          * @return Returns the capitalized string.
          */
-        capitalize<T extends string>(string?: T): Capitalize<T>;
+        capitalize<T extends string>(string?: T): Capitalize<Lowercase<T>>;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.capitalize
          */
-        capitalize(): Capitalize<TValue extends string ? TValue : never>;
+        capitalize(): Capitalize<Lowercase<TValue extends string ? TValue : never>>;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.capitalize
          */
-        capitalize(): StringChain<Capitalize<TValue extends string ? TValue : never>>;
+        capitalize(): StringChain<Capitalize<Lowercase<TValue extends string ? TValue : never>>>;
     }
 
     interface LoDashStatic {
