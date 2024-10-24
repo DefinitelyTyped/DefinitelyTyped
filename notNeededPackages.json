@@ -6419,6 +6419,10 @@
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
         },
+        "vimeo": {
+            "libraryName": "vimeo",
+            "asOfVersion": "2.3.1"
+        },
         "vso-node-api": {
             "libraryName": "vso-node-api",
             "asOfVersion": "4.0.0"
