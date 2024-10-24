@@ -1,38 +1,38 @@
 import { type Component } from "react";
 
 export interface EmulatorProps {
-  /** The authentication service to use, or null for no authentication. */
-  auth?: object | null;
-  gps?: GeolocationCoordinates;
-  height?: number;
-  /** True if the audio should be disabled. This is only relevant when using the webrtc engine. */
-  muted?: boolean;
-  onAudioStateChange?: (state: boolean) => void;
-  onError?: (error: Error) => void;
-  /** Called upon state change, one of ["connecting", "connected", "disconnected"] */
-  onStateChange?: (
-    state: "connecting" | "connected" | "disconnected"
-  ) => void;
-  poll?: boolean;
-  /** gRPC Endpoint where we can reach the emulator. */
-  uri: string;
-  view: "webrtc" | "png";
-  /** Volume between [0, 1] when audio is enabled. 0 is muted, 1.0 is 100% */
-  volume?: number;
-  width?: number;
+    /** The authentication service to use, or null for no authentication. */
+    auth?: object | null;
+    gps?: GeolocationCoordinates;
+    height?: number;
+    /** True if the audio should be disabled. This is only relevant when using the webrtc engine. */
+    muted?: boolean;
+    onAudioStateChange?: (state: boolean) => void;
+    onError?: (error: Error) => void;
+    /** Called upon state change, one of ["connecting", "connected", "disconnected"] */
+    onStateChange?: (
+        state: "connecting" | "connected" | "disconnected",
+    ) => void;
+    poll?: boolean;
+    /** gRPC Endpoint where we can reach the emulator. */
+    uri: string;
+    view: "webrtc" | "png";
+    /** Volume between [0, 1] when audio is enabled. 0 is muted, 1.0 is 100% */
+    volume?: number;
+    width?: number;
 }
 
 export type EmulatorKey =
-  | "AudioVolumeDown"
-  | "AudioVolumeUp"
-  | "Power"
-  | "AppSwitch"
-  | "GoHome"
-  | "GoBack"
-  | KeyboardEvent["key"];
+    | "AudioVolumeDown"
+    | "AudioVolumeUp"
+    | "Power"
+    | "AppSwitch"
+    | "GoHome"
+    | "GoBack"
+    | KeyboardEvent["key"];
 
 export interface EmulatorState {
-  audio: boolean;
+    audio: boolean;
 }
 
 /**
@@ -69,26 +69,24 @@ export interface EmulatorState {
  * "AppSwitch"       -  Should bring up the application switcher dialog.
  * "GoHome"          -  Go to the home screen.
  * "GoBack"          -  Open the previous screen you were looking at.
- *
  */
 export class Emulator extends Component<EmulatorProps, EmulatorState> {
-  static defaultProps: Partial<EmulatorProps>;
+    static defaultProps: Partial<EmulatorProps>;
 
-  /**
- * Sends the given key to the emulator.
- *
- * You can use this to send physical hardware events to the emulator for example:
- *
- * "AudioVolumeDown" - 	Decreases the audio volume.
- * "AudioVolumeUp"   -	Increases the audio volume.
- * "Power"	         -  The Power button or key, turn off the device.
- * "AppSwitch"       -  Should bring up the application switcher dialog.
- * "GoHome"          -  Go to the home screen.
- * "GoBack"          -  Open the previous screen you were looking at.
- *
- * See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values for
- * a list of valid values you can send as well.
- */
-  sendKey(key: EmulatorKey): void;
+    /**
+     * Sends the given key to the emulator.
+     *
+     * You can use this to send physical hardware events to the emulator for example:
+     *
+     * "AudioVolumeDown" - 	Decreases the audio volume.
+     * "AudioVolumeUp"   -	Increases the audio volume.
+     * "Power"	         -  The Power button or key, turn off the device.
+     * "AppSwitch"       -  Should bring up the application switcher dialog.
+     * "GoHome"          -  Go to the home screen.
+     * "GoBack"          -  Open the previous screen you were looking at.
+     *
+     * See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values for
+     * a list of valid values you can send as well.
+     */
+    sendKey(key: EmulatorKey): void;
 }
-

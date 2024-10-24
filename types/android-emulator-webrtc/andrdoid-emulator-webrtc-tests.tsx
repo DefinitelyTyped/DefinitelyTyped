@@ -1,6 +1,6 @@
-import * as React from "react";
 import { Emulator } from "android-emulator-webrtc/emulator";
-import { useRef, useEffect } from "react";
+import * as React from "react";
+import { useEffect, useRef } from "react";
 
 export const EmulatorText = () => {
     const emulatorRef = useRef<Emulator>(null);
@@ -19,4 +19,4 @@ export const EmulatorText = () => {
             uri="https://example.com"
         />
     );
-}
+};
