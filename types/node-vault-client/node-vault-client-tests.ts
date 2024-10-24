@@ -1,4 +1,14 @@
-import VaultClient, { Lease } from "node-vault-client";
+import VaultClient, { AuthToken, Lease } from "node-vault-client";
+
+const authToken = new AuthToken(
+    "test-id",
+    "test-accessor",
+    Date.now(),
+    Date.now() + 3600 * 1000,
+    3600,
+    1,
+    true,
+);
 
 const vaultClient = VaultClient.boot("main", {
     api: {
@@ -17,6 +27,10 @@ const vaultClient = VaultClient.boot("main", {
         mount: "secret",
     },
 });
+
+const headers = vaultClient.getHeaders(authToken);
+const xVaultToken: string = headers["X-Vault-Token"];
+const xVaultNamespace = headers["X-Vault-Namespace"];
 
 vaultClient.read("secret/data/test").then((lease: Lease | null) => {
     if (lease) {

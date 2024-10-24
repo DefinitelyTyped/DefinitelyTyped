@@ -3,7 +3,7 @@ import { GOVUKFrontendComponent } from "../../govuk-frontend-component.js";
 /**
  * Password input component
  */
-export class PasswordInput extends GOVUKFrontendComponent {
+export class PasswordInput extends GOVUKFrontendComponent<HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -30,10 +30,10 @@ export class PasswordInput extends GOVUKFrontendComponent {
     }>;
 
     /**
-     * @param {Element | null} $module - HTML element to use for password input
+     * @param {Element | null} $root - HTML element to use for password input
      * @param {PasswordInputConfig} [config] - Password input config
      */
-    constructor($module: Element | null, config?: PasswordInputConfig);
+    constructor($root: Element | null, config?: PasswordInputConfig);
 }
 
 /**

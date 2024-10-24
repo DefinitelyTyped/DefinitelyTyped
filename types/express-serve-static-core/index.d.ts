@@ -619,12 +619,12 @@ export interface Request<
     readonly path: string;
 
     /**
-     * Parse the "Host" header field hostname.
+     * Contains the hostname derived from the `Host` HTTP header.
      */
     readonly hostname: string;
 
     /**
-     * @deprecated Use hostname instead.
+     * Contains the host derived from the `Host` HTTP header.
      */
     readonly host: string;
 

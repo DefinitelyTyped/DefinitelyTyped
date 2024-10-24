@@ -434,6 +434,95 @@ declare namespace PhoneGapNfc {
          * @param fail Error callback function, invoked when error occurs.
          */
         showSettings(win?: () => void, fail?: () => void): void;
+
+        /**
+         * Function scanNdef starts the NFCNDEFReaderSession allowing iOS to scan NFC tags.
+         * Calling scanNdef will begin an iOS NFC scanning session. The NFC tag will be returned in a Promise.
+         * @param options
+         */
+        scanNdef(options: any[]): Promise<NdefTag>;
+
+        /**
+         * Calling scanTag will begin an iOS NFC scanning session. The NFC tag will be returned in a Promise.
+         * Function scanTag starts the NFCTagReaderSession allowing iOS to scan NFC tags.
+         * The Tag reader will attempt to get the UID from the NFC Tag. If can also read the UID from some non-NDEF tags.
+         * Use scanNdef for reading NFC tags on iOS unless you need to get the tag UID.
+         * @param options
+         */
+        scanTag(options: any[]): Promise<Tag>;
+
+        /**
+         * Invalidate the NFC session started by scanNdef or scanTag.
+         * Function cancelScan stops the NFCReaderSession returning control to your app.
+         */
+        cancelScan(): Promise<void>;
+
+        /**
+         * @deprecated beginSession is deprecated. Use scanNdef or scanTag
+         *
+         * iOS requires you to begin a session before scanning a NFC tag.
+         * Function beginSession starts the NFCNDEFReaderSession allowing iOS to scan NFC tags. Use nfc.addNdefListener to receive the results of the scan.
+         * @param win Success callback function called when the session begins (optional)
+         * @param fail Error callback function, invoked when error occurs. (optional)
+         */
+        beginSession(win?: () => void, fail?: () => void): void;
+
+        /**
+         * @deprecated invalidateSession is deprecated. Use cancelScan
+         *
+         * Invalidate the NFC session.
+         * Function invalidateSession stops the NFCNDEFReaderSession returning control to your app.
+         * @param win Success callback function called when the session begins (optional)
+         * @param fail Error callback function, invoked when error occurs. (optional)
+         */
+        invalidateSession(win?: () => void, fail?: () => void): void;
+
+        /**
+         * Connect to the tag and enable I/O operations to the tag from this TagTechnology object.
+         * Function connect enables I/O operations to the tag from this TagTechnology object.
+         * nfc.connect should be called after receiving a nfcEvent from the addTagDiscoveredListener or the readerMode callback.
+         * Only one TagTechnology object can be connected to a Tag at a time.
+         * See Android's TagTechnology.connect() for more info.
+         * @param tech The tag technology e.g. "android.nfc.tech.IsoDep"
+         * @param timeout The transceive(byte[]) timeout in milliseconds (optional)
+         * @returns Promise when the connection is successful, optionally with a maxTransceiveLength attribute in case the tag technology supports it
+         */
+        connect(tech: string, timeout?: number): Promise<void>;
+
+        /**
+         * Close TagTechnology connection.
+         * Function close disabled I/O operations to the tag from this TagTechnology object, and releases resources.
+         * See Android's TagTechnology.close() for more info.
+         * @returns Promise when the connection is successfully closed
+         */
+        close(): Promise<void>;
+
+        /**
+         * Send raw command to the tag and receive the response.
+         * Function transceive sends raw commands to the tag and receives the response.
+         * nfc.connect must be called before calling transceive. Data passed to transceive can be a hex string representation of bytes or an ArrayBuffer.
+         * The response is returned as an ArrayBuffer in the promise.
+         * See Android's documentation IsoDep.transceive(), NfcV.transceive(), MifareUltralight.transceive() for more info.
+         * @param data a string of hex data or an ArrayBuffer
+         */
+        transceive(data: string | ArrayBuffer): Promise<ArrayBuffer>;
+
+        /**
+         * Read NFC tags sending the tag data to the success callback.
+         * In reader mode, when a NFC tags is read, the results are returned to read callback as a tag object.
+         * Note that the normal event listeners are not used in reader mode. The callback receives the tag object without the event wrapper.
+         * @param flags Flags indicating poll technologies and other optional parameters
+         * @param readCallback The callback that is called when a NFC tag is scanned.
+         * @param errorCallback The callback that is called when NFC is disabled or missing.
+         */
+        readerMode(flags: number, readCallback: () => void, errorCallback: () => void): void;
+
+        /**
+         * Disable NFC reader mode.
+         * @param successCallback The callback that is called when a NFC reader mode is disabled.
+         * @param errorCallback The callback that is called when NFC reader mode can not be disabled.
+         */
+        disableReaderMode(successCallback: () => void, errorCallback: () => void): void;
     }
 }
 

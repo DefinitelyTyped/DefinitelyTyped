@@ -6927,6 +6927,289 @@ declare namespace chrome.printerProvider {
 }
 
 ////////////////////
+// Printing
+////////////////////
+/**
+ * Use the chrome.printing API to send print jobs to printers installed on Chromebook.
+
+ * Permissions: "printing"
+ * @platform ChromeOS only
+ * @since Chrome 81
+ */
+declare namespace chrome.printing {
+    export interface GetPrinterInfoResponse {
+        /** Printer capabilities in [CDD format](https://developers.google.com/cloud-print/docs/cdd#cdd-example). The property may be missing. */
+        capabilities?: { [key: string]: unknown };
+        /** The status of the printer. */
+        status: PrinterStatus;
+    }
+
+    /** Status of the print job. */
+    export enum JobStatus {
+        /** Print job is received on Chrome side but was not processed yet. */
+        PENDING = "PENDING",
+        /** Print job is sent for printing. */
+        IN_PROGRESS = "IN_PROGRESS",
+        /** Print job was interrupted due to some error. */
+        FAILED = "FAILED",
+        /** Print job was canceled by the user or via API. */
+        CANCELED = "CANCELED",
+        /** Print job was printed without any errors. */
+        PRINTED = "PRINTED",
+    }
+
+    export interface Printer {
+        /** The human-readable description of the printer. */
+        description: string;
+        /** The printer's identifier; guaranteed to be unique among printers on the device. */
+        id: string;
+        /** The flag which shows whether the printer fits DefaultPrinterSelection rules. Note that several printers could be flagged. */
+        isDefault: boolean;
+        /** The name of the printer. */
+        name: string;
+        /**
+         * The value showing how recent the printer was used for printing from Chrome.
+         * The lower the value is the more recent the printer was used.
+         * The minimum value is 0.
+         * Missing value indicates that the printer wasn't used recently.
+         * This value is guaranteed to be unique amongst printers.
+         */
+        recentlyUsedRank?: number;
+        /** The source of the printer (user or policy configured). */
+        source: PrinterSource;
+        /** The printer URI. This can be used by extensions to choose the printer for the user. */
+        uri: string;
+    }
+
+    /** The source of the printer. */
+    export enum PrinterSource {
+        /** Printer was added by user. */
+        USER = "USER",
+        /** Printer was added via policy. */
+        POLICY = "POLICY",
+    }
+
+    /** The status of the printer. */
+    export enum PrinterStatus {
+        /** The door of the printer is open. Printer still accepts print jobs. */
+        DOOR_OPEN = "DOOR_OPEN",
+        /** The tray of the printer is missing. Printer still accepts print jobs. */
+        TRAY_MISSING = "TRAY_MISSING",
+        /** The printer is out of ink. Printer still accepts print jobs. */
+        OUT_OF_INK = "OUT_OF_INK",
+        /** The printer is out of paper. Printer still accepts print jobs. */
+        OUT_OF_PAPER = "OUT_OF_PAPER",
+        /** The output area of the printer (e.g. tray) is full. Printer still accepts print jobs. */
+        OUTPUT_FULL = "OUTPUT_FULL",
+        /** The printer has a paper jam. Printer still accepts print jobs. */
+        PAPER_JAM = "PAPER_JAM",
+        /** Some generic issue. Printer still accepts print jobs. */
+        GENERIC_ISSUE = "GENERIC_ISSUE",
+        /** The printer is stopped and doesn't print but still accepts print jobs. */
+        STOPPED = "STOPPED",
+        /** The printer is unreachable and doesn't accept print jobs. */
+        UNREACHABLE = "UNREACHABLE",
+        /** The SSL certificate is expired. Printer accepts jobs but they fail. */
+        EXPIRED_CERTIFICATE = "EXPIRED_CERTIFICATE",
+        /** The printer is available. */
+        AVAILABLE = "AVAILABLE",
+    }
+
+    export interface SubmitJobRequest {
+        /**
+         * The print job to be submitted.
+         * The only supported content type is "application/pdf", and the Cloud Job Ticket shouldn't include FitToPageTicketItem, PageRangeTicketItem, ReverseOrderTicketItem and VendorTicketItem fields since they are irrelevant for native printing.
+         * All other fields must be present.
+         */
+        job: chrome.printerProvider.PrintJob;
+    }
+
+    export interface SubmitJobResponse {
+        /** The id of created print job. This is a unique identifier among all print jobs on the device. If status is not OK, jobId will be null. */
+        jobId: string | null;
+        /** The status of the request. */
+        status: SubmitJobStatus;
+    }
+
+    /** The status of submitJob request. */
+    export enum SubmitJobStatus {
+        /** Sent print job request is accepted. */
+        OK = "OK",
+        /** Sent print job request is rejected by the user. */
+        USER_REJECTED = "USER_REJECTED",
+    }
+
+    /** The maximum number of times that getPrinterInfo can be called per minute. */
+    export const MAX_GET_PRINTER_INFO_CALLS_PER_MINUTE: 20;
+
+    /** The maximum number of times that submitJob can be called per minute. */
+    export const MAX_SUBMIT_JOB_CALLS_PER_MINUTE: 40;
+
+    /**
+     * Cancels previously submitted job.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 100.
+     */
+    export function cancelJob(jobId: string): Promise<void>;
+    export function cancelJob(jobId: string, callback: () => void): void;
+
+    /**
+     * Returns the status and capabilities of the printer in CDD format. This call will fail with a runtime error if no printers with given id are installed.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 100.
+     */
+    export function getPrinterInfo(printerId: string): Promise<GetPrinterInfoResponse>;
+    export function getPrinterInfo(printerId: string, callback: (response: GetPrinterInfoResponse) => void): void;
+
+    /**
+     * Returns the list of available printers on the device. This includes manually added, enterprise and discovered printers.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 100.
+     */
+    export function getPrinters(): Promise<Printer[]>;
+    export function getPrinters(callback: (printers: Printer[]) => void): void;
+
+    /**
+     * Submits the job for printing. If the extension is not listed in the PrintingAPIExtensionsAllowlist policy, the user is prompted to accept the print job.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 120.
+     */
+    export function submitJob(request: SubmitJobRequest): Promise<SubmitJobResponse>;
+    export function submitJob(request: SubmitJobRequest, callback: (response: SubmitJobResponse) => void): void;
+
+    /**
+     * Event fired when the status of the job is changed. This is only fired for the jobs created by this extension.
+     */
+    export const onJobStatusChanged: chrome.events.Event<(jobId: string, status: JobStatus) => void>;
+}
+
+////////////////////
+// Printing Metrics
+////////////////////
+/**
+ * Use the chrome.printingMetrics API to fetch data about printing usage.
+ *
+ * Permissions: "printingMetrics"
+ *
+ * Note: This API is only for extensions pre-installed by policy.
+ * @platform ChromeOS only
+ * @since Chrome 79
+ */
+declare namespace chrome.printingMetrics {
+    export enum ColorMode {
+        /** Specifies that black and white mode was used. */
+        BLACK_AND_WHITE = "BLACK_AND_WHITE",
+        /** Specifies that color mode was used. */
+        COLOR = "COLOR",
+    }
+
+    export enum DuplexMode {
+        /** Specifies that one-sided printing was used. */
+        ONE_SIDED = "ONE_SIDED",
+        /** Specifies that two-sided printing was used, flipping on long edge. */
+        TWO_SIDED_LONG_EDGE = "TWO_SIDED_LONG_EDGE",
+        /** Specifies that two-sided printing was used, flipping on short edge. */
+        TWO_SIDED_SHORT_EDGE = "TWO_SIDED_SHORT_EDGE",
+    }
+
+    export interface MediaSize {
+        /** Height (in micrometers) of the media used for printing. */
+        height: number;
+        /**
+         * Vendor-provided ID, e.g. "iso_a3_297x420mm" or "na_index-3x5_3x5in".
+         * Possible values are values of "media" IPP attribute and can be found on [IANA page](https://www.iana.org/assignments/ipp-registrations/ipp-registrations.xhtml).
+         */
+        vendorId: string;
+        /** Width (in micrometers) of the media used for printing. */
+        width: number;
+    }
+
+    export interface Printer {
+        /** Displayed name of the printer. */
+        name: string;
+        /** The source of the printer. */
+        source: PrinterSource;
+        /** The full path for the printer. Contains protocol, hostname, port, and queue. */
+        uri: string;
+    }
+
+    /** The source of the printer. */
+    export enum PrinterSource {
+        /** Specifies that the printer was added by user. */
+        USER = "USER",
+        /** Specifies that the printer was added via policy. */
+        POLICY = "POLICY",
+    }
+
+    export interface PrintJobInfo {
+        /** The job completion time (in milliseconds past the Unix epoch). */
+        completionTime: number;
+        /** The job creation time (in milliseconds past the Unix epoch). */
+        creationTime: number;
+        /** The ID of the job. */
+        id: string;
+        /** The number of pages in the document. */
+        numberOfPages: number;
+        /** The info about the printer which printed the document. */
+        printer: Printer;
+        /**
+         * The status of the printer.
+         * @since Chrome 85
+         */
+        printer_status: chrome.printing.PrinterStatus;
+        /** The settings of the print job. */
+        settings: PrintSettings;
+        /** Source showing who initiated the print job. */
+        source: PrintJobSource;
+        /** ID of source. Null if source is PRINT_PREVIEW or ANDROID_APP. */
+        sourceId: string | null;
+        /** The final status of the job. */
+        status: PrintJobStatus;
+        /** The title of the document which was printed. */
+        title: string;
+    }
+
+    /** The source of the print job. */
+    export enum PrintJobSource {
+        /** Specifies that the job was created from the Print Preview page initiated by the user. */
+        PRINT_PREVIEW = "PRINT_PREVIEW",
+        /** Specifies that the job was created from an Android App. */
+        ANDROID_APP = "ANDROID_APP",
+        /** Specifies that the job was created by extension via Chrome API. */
+        EXTENSION = "EXTENSION",
+        /** Specifies that the job was created by an Isolated Web App via API. */
+        ISOLATED_WEB_APP = "ISOLATED_WEB_APP",
+    }
+
+    /** Specifies the final status of the print job. */
+    export enum PrintJobStatus {
+        /** Specifies that the print job was interrupted due to some error. */
+        FAILED = "FAILED",
+        /** Specifies that the print job was canceled by the user or via API. */
+        CANCELED = "CANCELED",
+        /** Specifies that the print job was printed without any errors. */
+        PRINTED = "PRINTED",
+    }
+
+    export interface PrintSettings {
+        /** The requested color mode. */
+        color: ColorMode;
+        /** The requested number of copies. */
+        copies: number;
+        /** The requested duplex mode. */
+        duplex: DuplexMode;
+        /** The requested media size. */
+        mediaSize: MediaSize;
+    }
+
+    /**
+     * Returns the list of the finished print jobs.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+     */
+    export function getPrintJobs(): Promise<PrintJobInfo[]>;
+    export function getPrintJobs(callback: (jobs: PrintJobInfo[]) => void): void;
+
+    /** Event fired when the print job is finished. This includes any of termination statuses: FAILED, CANCELED and PRINTED. */
+    export const onPrintJobFinished: chrome.events.Event<(jobInfo: PrintJobInfo) => void>;
+}
+
+////////////////////
 // Privacy
 ////////////////////
 /**

@@ -1,5 +1,5 @@
 import convert = require("convert-units");
-import { Unit } from "convert-units";
+import { Digital, Unit } from "convert-units";
 
 const convertedMass = convert(25).from("mcg").to("t");
 const convertedMassBack = convert(convertedMass).from("t").to("mcg");
@@ -23,3 +23,5 @@ const kgSingular: string = kgDescription.singular;
 const kgPlural: string = kgDescription.plural;
 
 const min: Unit = "min";
+
+const byte: Digital = "B";

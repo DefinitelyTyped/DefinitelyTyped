@@ -10,11 +10,11 @@
         "@types/react": "*",
         "@types/wordpress__block-editor": "*",
         "@types/wordpress__blocks": "*",
-        "@types/wordpress__media-utils": "*",
         "@wordpress/core-data": "^7.3.0",
         "@wordpress/components": "^28.3.0",
         "@wordpress/data": "^10.3.0",
-        "@wordpress/element": "^6.3.0"
+        "@wordpress/element": "^6.3.0",
+        "@wordpress/media-utils": "^5.8.0"
     },
     "devDependencies": {
         "@types/wordpress__editor": "workspace:."
