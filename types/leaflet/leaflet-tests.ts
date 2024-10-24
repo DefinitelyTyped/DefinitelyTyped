@@ -137,7 +137,7 @@ mapOptions = {
     keyboardPanDelta: 100,
     wheelDebounceTime: 30,
     wheelPxPerZoomLevel: 25,
-    tap: false,
+    tapHold: false,
     tapTolerance: 10,
     bounceAtZoomLimits: false,
 };
@@ -1002,3 +1002,48 @@ let circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle({});
 circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle({ radius: 10 });
 // @ts-expect-error
 circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle();
+
+// region Control typed custom options
+
+type CustomControlOptions = L.ControlOptions & {
+    foo?: string;
+    bar?: string;
+};
+const CustomControl = L.Control.extend<
+    // required because it's first type (kept for backwards compatibility - if moved second would be optional/inferred)
+    Pick<L.Control<CustomControlOptions>, "options" | "onAdd">,
+    CustomControlOptions
+>({
+    options: {
+        position: "topleft",
+        foo: "ok",
+        // @ts-expect-error
+        bar: 1,
+    },
+    onAdd: function(map: L.Map) {
+        this.options.foo;
+        this.options.bar;
+        // @ts-expect-error
+        this.options.baz;
+
+        return L.DomUtil.create("div");
+    },
+});
+new CustomControl({
+    foo: "foo",
+    // @ts-expect-error
+    bar: 1,
+    // @ts-expect-error
+    position: "center",
+});
+
+L.Control.extend({ options: {}, onAdd: (map: L.Map) => L.DomUtil.create("div") });
+
+new L.Control();
+// @ts-expect-error
+new L.Control<number>();
+// @ts-expect-error
+new L.Control<{ foo: string }>();
+new L.Control<{ foo: string } & L.ControlOptions>();
+
+// endregion

@@ -422,7 +422,7 @@ declare module "stream" {
          * or exiting a `for await...of` iteration using a `break`, `return`, or `throw` will not destroy the stream.
          * **Default: `true`**.
          */
-        iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
+        iterator(options?: { destroyOnReturn?: boolean }): NodeJS.AsyncIterator<any>;
         /**
          * This method allows mapping over the stream. The *fn* function will be called for every chunk in the stream.
          * If the *fn* function returns a promise - that promise will be `await`ed before being passed to the result stream.
@@ -651,7 +651,7 @@ declare module "stream" {
         removeListener(event: "readable", listener: () => void): this;
         removeListener(event: "resume", listener: () => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
         /**
          * Calls `readable.destroy()` with an `AbortError` and returns a promise that fulfills when the stream is finished.
          * @since v20.4.0
@@ -1250,6 +1250,25 @@ declare module "stream" {
             removeListener(event: "unpipe", listener: (src: Readable) => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
+        /**
+         * The utility function `duplexPair` returns an Array with two items,
+         * each being a `Duplex` stream connected to the other side:
+         *
+         * ```js
+         * const [ sideA, sideB ] = duplexPair();
+         * ```
+         *
+         * Whatever is written to one stream is made readable on the other. It provides
+         * behavior analogous to a network connection, where the data written by the client
+         * becomes readable by the server, and vice-versa.
+         *
+         * The Duplex streams are symmetrical; one or the other may be used without any
+         * difference in behavior.
+         * @param options A value to pass to both {@link Duplex} constructors,
+         * to set options such as buffering.
+         * @since v20.17.0
+         */
+        function duplexPair(options?: DuplexOptions): [Duplex, Duplex];
         type TransformCallback = (error?: Error | null, data?: any) => void;
         interface TransformOptions extends DuplexOptions {
             construct?(this: Transform, callback: (error?: Error | null) => void): void;

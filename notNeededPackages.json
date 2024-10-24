@@ -6679,6 +6679,10 @@
             "libraryName": "@wordpress/keycodes",
             "asOfVersion": "2.18.0"
         },
+        "wordpress__media-utils": {
+            "libraryName": "@wordpress/media-utils",
+            "asOfVersion": "5.8.0"
+        },
         "wordpress__notices": {
             "libraryName": "@wordpress/notices",
             "asOfVersion": "4.0.0"

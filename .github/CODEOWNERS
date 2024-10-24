@@ -259,6 +259,7 @@
 /types/any-base/                                          @yutak23
 /types/any-db/                                            @rogierschouten
 /types/any-db-transaction/                                @rogierschouten
+/types/anylogic-cloud-client/                             @Erikvv
 /types/anyproxy/                                          @SomaticIT @roland-reed
 /types/aos/                                               @shermendev @matheusgrieger
 /types/apca-w3/                                           @daneden
@@ -689,6 +690,7 @@
 /types/browser-update/                                    @bendingbender
 /types/browser-util-inspect/                              @polyipseity
 /types/browserify/                                        @AndrewGaspar @jvilk @leonard-thieu @LinusU
+/types/browserify-cipher/                                 @aseyfpour
 /types/browserslist-useragent/                            @nju33
 /types/bs58/                                              @chrootsu @BendingBender
 /types/bs58/v3/                                           @chrootsu
@@ -1010,6 +1012,7 @@
 /types/cometd/                                            @derekcicerone @unindented @alxHenry @hagl @swese44
 /types/comma-number/                                      @coreyar
 /types/command-exists/                                    @BendingBender
+/types/command-exists-promise/                            @Cellv2
 /types/command-line-args/                                 @75lb
 /types/command-line-args/v4/                              @CzBuCHi @75lb
 /types/command-line-commands/                             @CzBuCHi
@@ -1037,6 +1040,7 @@
 /types/complexviewer/                                     @EliotRagueneau
 /types/component-emitter/                                 @psnider
 /types/compose-function/                                  @denis-sokolov
+/types/compress-commons/                                  @MysteryBlokHed
 /types/compress.js/                                       @yurist38
 /types/compressible/                                      @BendingBender
 /types/compression/                                       @santialbo @rburgt @neilbryson @peterblazejewicz
@@ -1111,7 +1115,7 @@
 /types/convert-layout/                                    @xeningem
 /types/convert-source-map/                                @AndrewGaspar @mgroenhoff @TeamworkGuy2
 /types/convert-string/                                    @hmajid2301
-/types/convert-units/                                     @vladkampov @ben-ng @tobybell
+/types/convert-units/                                     @ben-ng @tobybell
 /types/convict/                                           @Nemo157 @vesse @elyscape @msuntharesan @xamgore @petermetz
 /types/convict-format-with-validator/                     @louis79719
 /types/cookie/                                            @pine @peterblazejewicz
@@ -1896,8 +1900,6 @@
 /types/escodegen/                                         @simondel
 /types/escpos/                                            @rayosu
 /types/eseb__request-state/                               @inglec-arista
-/types/eslint/                                            @pmdartus @j-f1 @saadq @JasonHK @bradzacher @JounQin @bmish
-/types/eslint/v8/                                         @pmdartus @j-f1 @saadq @JasonHK @bradzacher @JounQin @bmish
 /types/eslint-ast-utils/                                  @marksmccann
 /types/eslint-config-prettier/                            @JoshuaKGoldberg
 /types/eslint-plugin-jsx-a11y/                            @eagerestwolf @ljharb
@@ -1939,13 +1941,13 @@
 /types/eureka-js-client/                                  @karl-run @tombarton @jpsullivan
 /types/evaluatex/                                         @forabi-cosuno
 /types/evaporate/                                         @kookster
-/types/event-calendar__core/                              @syncsynchalt
-/types/event-calendar__day-grid/                          @syncsynchalt
-/types/event-calendar__interaction/                       @syncsynchalt
-/types/event-calendar__list/                              @syncsynchalt
-/types/event-calendar__resource-time-grid/                @syncsynchalt
-/types/event-calendar__resource-timeline/                 @syncsynchalt
-/types/event-calendar__time-grid/                         @syncsynchalt
+/types/event-calendar__core/                              @syncsynchalt @vkurko
+/types/event-calendar__day-grid/                          @syncsynchalt @vkurko
+/types/event-calendar__interaction/                       @syncsynchalt @vkurko
+/types/event-calendar__list/                              @syncsynchalt @vkurko
+/types/event-calendar__resource-time-grid/                @syncsynchalt @vkurko
+/types/event-calendar__resource-timeline/                 @syncsynchalt @vkurko
+/types/event-calendar__time-grid/                         @syncsynchalt @vkurko
 /types/event-emitter/                                     @LKay
 /types/event-emitter-es6/                                 @ahstro
 /types/event-hooks-webpack-plugin/                        @pine @peterblazejewicz
@@ -1966,6 +1968,7 @@
 /types/exchange-rates-api/                                @martonlederer
 /types/exenv/                                             @christianchown
 /types/exif/                                              @ffflorian
+/types/exif-js/                                           @darkoutx @security2431
 /types/exit/                                              @Bartvds
 /types/exorcist/                                          @TeamworkGuy2 @BendingBender
 /types/expand-tilde/                                      @carnesen
@@ -2986,7 +2989,7 @@
 /types/google.fonts/                                      @danmarshall
 /types/google.geolocation/                                @vbortone
 /types/google.maps/                                       @kwnevarez @wangela
-/types/google.picker/                                     @grapswiz @chivesrs
+/types/google.picker/                                     @jpoehnelt @sqrrrl @PierrickVoulet @vinay-google
 /types/google.script.client-side/                         @clomie
 /types/google.visualization/                              @danludwig @gmoore-sjcorg @danmana @mlcheng @IvanBisultanov @glebm @shrujalshah28 @dckorben @martin-badin
 /types/google__maps/                                      @indrimuska
@@ -4255,6 +4258,7 @@
 /types/lazy-property/                                     @jank1310
 /types/lazy.js/                                           @Bartvds @gablorquet @fan-tom
 /types/lazypipe/                                          @tomc974
+/types/lazystream/                                        @MysteryBlokHed
 /types/lcm/                                               @remcohaszing
 /types/lcov-parse/                                        @roccivic
 /types/ldap-authentication/                               @simonecorsi
@@ -5568,6 +5572,7 @@
 /types/offscreencanvas/                                   @kayahr @ova2 @capnmidnight
 /types/oibackoff/                                         @geoffreak
 /types/oidc-provider/                                     @panva
+/types/oidc-token-hash/                                   @panva
 /types/oidc-token-manager/                                @rosieks
 /types/oja/                                               @buffcode
 /types/ola/                                               @adrgautier
@@ -5809,6 +5814,7 @@
 /types/paypal__payouts-sdk/                               @msrumon
 /types/paypal__paypalhttp/                                @martin-badin
 /types/paystack/                                          @sheghun
+/types/paystack__inline-js/                               @3m1n3nc3
 /types/paytmchecksum/                                     @adarshsingh87
 /types/payu-emea-sdk/                                     @regdos
 /types/pbf/                                               @cschwarz
@@ -7063,7 +7069,6 @@
 /types/repeating/                                         @claasahl
 /types/replace-ext/                                       @DeividasBakanas @peterblazejewicz
 /types/replacestream/                                     @dex4er
-/types/req-real-ip/                                       @lacherogwu
 /types/request/                                           @soywiz @bonnici @Bartvds @joeskeen @ccurrens @lookfirst @mastermatt @josecolella @murbanowicz
 /types/request-as-curl/                                   @atd-schubert
 /types/request-debug/                                     @marcellourbani

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/paystack__inline-js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/@paystack/inline-js"
+    ],
+    "devDependencies": {
+        "@types/paystack__inline-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Legacy",
+            "githubUsername": "3m1n3nc3"
+        }
+    ]
+}

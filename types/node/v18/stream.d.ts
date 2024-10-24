@@ -445,7 +445,7 @@ declare module "stream" {
              * or exiting a `for await...of` iteration using a `break`, `return`, or `throw` will not destroy the stream.
              * **Default: `true`**.
              */
-            iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
+            iterator(options?: { destroyOnReturn?: boolean }): NodeJS.AsyncIterator<any>;
             /**
              * This method allows mapping over the stream. The *fn* function will be called for every chunk in the stream.
              * If the *fn* function returns a promise - that promise will be `await`ed before being passed to the result stream.
@@ -674,7 +674,7 @@ declare module "stream" {
             removeListener(event: "readable", listener: () => void): this;
             removeListener(event: "resume", listener: () => void): this;
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-            [Symbol.asyncIterator](): AsyncIterableIterator<any>;
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
             /**
              * Calls `readable.destroy()` with an `AbortError` and returns a promise that fulfills when the stream is finished.
              * @since v18.18.0

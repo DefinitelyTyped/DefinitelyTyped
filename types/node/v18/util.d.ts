@@ -1544,7 +1544,7 @@ declare module "util" {
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
          */
-        entries(): IterableIterator<[name: string, value: string]>;
+        entries(): NodeJS.Iterator<[name: string, value: string]>;
         /**
          * Returns the value of the first name-value pair whose name is `name`.
          * If there are no such pairs, `null` is returned.
@@ -1557,7 +1557,7 @@ declare module "util" {
         /**
          * Returns an iterator over the names of each name-value pair.
          */
-        keys(): IterableIterator<string>;
+        keys(): NodeJS.Iterator<string>;
         /**
          * Sets the value in the `MIMEParams` object associated with `name` to `value`.
          * If there are any pre-existing name-value pairs whose names are `name`,
@@ -1567,11 +1567,11 @@ declare module "util" {
         /**
          * Returns an iterator over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
+        values(): NodeJS.Iterator<string>;
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
          */
-        [Symbol.iterator]: typeof MIMEParams.prototype.entries;
+        [Symbol.iterator](): NodeJS.Iterator<[name: string, value: string]>;
     }
 }
 declare module "util/types" {
