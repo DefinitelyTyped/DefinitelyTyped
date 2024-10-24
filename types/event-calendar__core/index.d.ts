@@ -59,6 +59,7 @@ declare namespace Calendar {
         title?: Content;
         eventBackgroundColor?: string;
         eventTextColor?: string;
+        extendedProps?: Record<string, unknown>;
     }
 
     interface Resource {
@@ -66,6 +67,7 @@ declare namespace Calendar {
         title: Content;
         eventBackgroundColor: string | undefined;
         eventTextColor: string | undefined;
+        extendedProps: Record<string, unknown>;
     }
 
     type durationHMS = string;
@@ -312,6 +314,7 @@ declare namespace Calendar {
         eventStartEditable?: boolean;
         eventTimeFormat?: Intl.DateTimeFormatOptions | ((start: Date, end: Date) => Content);
         eventTextColor?: string;
+        filterEventsWithResources?: boolean;
         filterResourcesWithEvents?: boolean;
         firstDay?: dayOfWeek;
         flexibleSlotTimeLimits?: boolean | { eventFilter: (e: Event) => boolean };
