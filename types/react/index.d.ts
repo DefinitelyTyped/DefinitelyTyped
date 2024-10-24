@@ -477,6 +477,7 @@ declare namespace React {
     // non-thenables need to be kept in sync with AwaitedReactNode
     type ReactNode =
         | ReactElement
+        | TrustedScript
         | string
         | number
         | Iterable<ReactNode>
@@ -3071,7 +3072,7 @@ declare namespace React {
         sizes?: string | undefined;
         span?: number | undefined;
         src?: string | undefined;
-        srcDoc?: string | undefined;
+        srcDoc?: string | TrustedHTML | undefined;
         srcLang?: string | undefined;
         srcSet?: string | undefined;
         start?: number | undefined;
@@ -3243,7 +3244,7 @@ declare namespace React {
         scrolling?: string | undefined;
         seamless?: boolean | undefined;
         src?: string | undefined;
-        srcDoc?: string | undefined;
+        srcDoc?: string | TrustedHTML | undefined;
         width?: number | string | undefined;
     }
 
@@ -3530,7 +3531,7 @@ declare namespace React {
         integrity?: string | undefined;
         noModule?: boolean | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
-        src?: string | undefined;
+        src?: string | TrustedScriptURL | undefined;
         type?: string | undefined;
     }
 
@@ -3768,7 +3769,7 @@ declare namespace React {
         hanging?: number | string | undefined;
         horizAdvX?: number | string | undefined;
         horizOriginX?: number | string | undefined;
-        href?: string | undefined;
+        href?: string | TrustedScriptURL | undefined;
         ideographic?: number | string | undefined;
         imageRendering?: number | string | undefined;
         in2?: number | string | undefined;
@@ -3910,7 +3911,7 @@ declare namespace React {
         xHeight?: number | string | undefined;
         xlinkActuate?: string | undefined;
         xlinkArcrole?: string | undefined;
-        xlinkHref?: string | undefined;
+        xlinkHref?: string | TrustedScriptURL | undefined;
         xlinkRole?: string | undefined;
         xlinkShow?: string | undefined;
         xlinkTitle?: string | undefined;
