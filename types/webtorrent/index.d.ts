@@ -77,6 +77,7 @@ declare namespace WebTorrent {
         skipVerify?: boolean | undefined;
         preloadedStore?(): void;
         strategy?: string | undefined;
+        createdBy?: string | undefined;
     }
 
     interface TorrentDestroyOptions {
