@@ -290,16 +290,16 @@ export type PropertyPath = NegatedPropertySet | {
     items: Array<IriTerm | PropertyPath>;
 };
 
-export interface InversePathInPropertySet {
-    type: "path";
-    pathType: "^";
-    items: [IriTerm];
-}
-
 export interface NegatedPropertySet {
     type: "path";
     pathType: "!";
-    items: Array<IriTerm | InversePathInPropertySet>;
+    items: Array<
+        IriTerm | {
+            type: "path";
+            pathType: "^";
+            items: [IriTerm];
+        }
+    >;
 }
 
 export type Expression =
