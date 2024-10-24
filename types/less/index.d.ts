@@ -220,8 +220,6 @@ interface LessStatic {
     PluginManager: typeof PluginManager;
 }
 
-
-
 declare class PluginManager {
     constructor(less: LessStatic);
 

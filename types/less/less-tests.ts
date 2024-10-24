@@ -109,4 +109,4 @@ if (less.importManager) {
     }
 }
 
-type Options = import('less').Options
+type Options = import("less").Options;
