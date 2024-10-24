@@ -6,7 +6,7 @@
     "exports": {
         ".": {
             "import": "./index.d.ts",
-            "require": "./commonjs/index.d.ts"
+            "require": "./commonjs/index.d.cts"
         }
     },
     "projects": [
