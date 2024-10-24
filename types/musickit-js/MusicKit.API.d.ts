@@ -511,35 +511,35 @@ declare namespace MusicKit {
 
     interface SearchResponse<T> {
         data: {
-          results: {
-            [key: string]: SearchResult<T>; // This allows multiple dynamic keys
-          };
+            results: {
+                [key: string]: SearchResult<T>; // This allows multiple dynamic keys
+            };
         };
         href?: string;
         next?: string;
         meta?: {
-          results: {
-            order: string[];
-            rawOrder: string[];
-          };
+            results: {
+                order: string[];
+                rawOrder: string[];
+            };
         };
-      }
+    }
 
     interface SongSearchResponse {
         data: {
-          results: {
-            songs: SearchResult<Songs> 
-          };
+            results: {
+                songs: SearchResult<Songs>;
+            };
         };
         href?: string;
         next?: string;
         meta?: {
-          results: {
-            order: string[];
-            rawOrder: string[];
-          };
+            results: {
+                order: string[];
+                rawOrder: string[];
+            };
         };
-      }
+    }
 
     interface SearchResult<T> {
         data: T[];
@@ -647,22 +647,20 @@ declare namespace MusicKit {
          */
         charts(
             types: MusicCatalogChartRequestable[],
-            parameters?: QueryParameters
-        ): Promise<{
-            [key in MusicCatalogChartRequestable]: Array<
-                SearchChartResult<
-                    key extends "albums"
-                        ? Albums
-                        : key extends "music-videos"
-                        ? MusicVideos
-                        : key extends "playlists"
-                        ? Playlists
-                        : key extends "songs"
-                        ? Songs
-                        : never
-                >
-            >;
-        }>;
+            parameters?: QueryParameters,
+        ): Promise<
+            {
+                [key in MusicCatalogChartRequestable]: Array<
+                    SearchChartResult<
+                        key extends "albums" ? Albums
+                            : key extends "music-videos" ? MusicVideos
+                            : key extends "playlists" ? Playlists
+                            : key extends "songs" ? Songs
+                            : never
+                    >
+                >;
+            }
+        >;
         /**
          * Fetch a curator using its identifier.
          *
@@ -724,7 +722,7 @@ declare namespace MusicKit {
          * @see https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-api--page
          *
          * To avoid redundant property lookups (e.g. response.data.data), use this pattern:
-         * 
+         *
          * ```ts
          * const queryParameters = { limit: 100 };
          * const {data: {data: playlists = []}} = (await music.api.music("/v1/me/library/playlists",
@@ -800,7 +798,7 @@ declare namespace MusicKit {
          */
         search(
             term: string,
-            parameters?: QueryParameters
+            parameters?: QueryParameters,
         ): Promise<{
             activities?: SearchResult<Activities>;
             albums?: SearchResult<Albums>;
@@ -837,7 +835,7 @@ declare namespace MusicKit {
          */
         searchHints(
             term: string,
-            parameters?: QueryParameters
+            parameters?: QueryParameters,
         ): Promise<{
             terms: string[];
         }>;
