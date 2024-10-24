@@ -70,6 +70,10 @@ export interface Config {
     test: boolean;
     verbose: boolean;
     img: boolean;
+    /**
+     * @default false
+     * @see https://github.com/mixpanel/mixpanel-js/blob/master/doc/readme.io/javascript-full-api-reference.md#mixpanelset_config
+     */
     debug: boolean;
     track_links_timeout: number;
     track_pageview:
