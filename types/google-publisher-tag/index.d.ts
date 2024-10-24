@@ -1810,7 +1810,7 @@ declare namespace googletag {
              * rendering creatives.
              *
              * GPT will yield only for browsers that support the Scheduler.postTask
-             * API.
+             * or Scheduler.yield API.
              *
              * Supported values:
              *  - `null` (default): GPT will yield the JS thread for slots outside of
@@ -1829,7 +1829,7 @@ declare namespace googletag {
              *   // Enable yielding only for slots outside of the viewport (default).
              *   googletag.setConfig({threadYield: null});
              *
-             * @see [Scheduler: postTask() method](https://developer.mozilla.org/docs/Web/API/Scheduler/postTask)
+             * @see [Scheduler](https://developer.mozilla.org/docs/Web/API/Scheduler)
              */
             threadYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
 
