@@ -907,13 +907,12 @@ declare module "vm" {
      */
     namespace constants {
         /**
-         * Stability: 1.1 - Active development
-         *
          * A constant that can be used as the `importModuleDynamically` option to `vm.Script`
          * and `vm.compileFunction()` so that Node.js uses the default ESM loader from the main
          * context to load the requested module.
          *
          * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * @since v20.12.0
          */
         const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;
     }
