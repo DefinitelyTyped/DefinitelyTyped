@@ -433,6 +433,7 @@ declare module "node:test" {
         addListener(event: "test:start", listener: (data: TestStart) => void): this;
         addListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         addListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        addListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         addListener(event: "test:watch:drained", listener: () => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
         emit(event: "test:coverage", data: TestCoverage): boolean;
@@ -446,6 +447,7 @@ declare module "node:test" {
         emit(event: "test:start", data: TestStart): boolean;
         emit(event: "test:stderr", data: TestStderr): boolean;
         emit(event: "test:stdout", data: TestStdout): boolean;
+        emit(event: "test:summary", data: TestSummary): boolean;
         emit(event: "test:watch:drained"): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: "test:coverage", listener: (data: TestCoverage) => void): this;
@@ -459,6 +461,7 @@ declare module "node:test" {
         on(event: "test:start", listener: (data: TestStart) => void): this;
         on(event: "test:stderr", listener: (data: TestStderr) => void): this;
         on(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        on(event: "test:summary", listener: (data: TestSummary) => void): this;
         on(event: "test:watch:drained", listener: () => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: "test:coverage", listener: (data: TestCoverage) => void): this;
@@ -472,6 +475,7 @@ declare module "node:test" {
         once(event: "test:start", listener: (data: TestStart) => void): this;
         once(event: "test:stderr", listener: (data: TestStderr) => void): this;
         once(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        once(event: "test:summary", listener: (data: TestSummary) => void): this;
         once(event: "test:watch:drained", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
@@ -485,6 +489,7 @@ declare module "node:test" {
         prependListener(event: "test:start", listener: (data: TestStart) => void): this;
         prependListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        prependListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         prependListener(event: "test:watch:drained", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
@@ -498,6 +503,7 @@ declare module "node:test" {
         prependOnceListener(event: "test:start", listener: (data: TestStart) => void): this;
         prependOnceListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependOnceListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        prependOnceListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         prependOnceListener(event: "test:watch:drained", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     }
@@ -2061,6 +2067,57 @@ interface TestStdout {
      */
     message: string;
 }
+interface TestSummary {
+    /**
+     * An object containing the counts of various test results.
+     */
+    counts: {
+        /**
+         * The total number of cancelled tests.
+         */
+        cancelled: number;
+        /**
+         * The total number of passed tests.
+         */
+        passed: number;
+        /**
+         * The total number of skipped tests.
+         */
+        skipped: number;
+        /**
+         * The total number of suites run.
+         */
+        suites: number;
+        /**
+         * The total number of tests run, excluding suites.
+         */
+        tests: number;
+        /**
+         * The total number of TODO tests.
+         */
+        todo: number;
+        /**
+         * The total number of top level tests and suites.
+         */
+        topLevel: number;
+    };
+    /**
+     * The duration of the test run in milliseconds.
+     */
+    duration_ms: number;
+    /**
+     * The path of the test file that generated the
+     * summary. If the summary corresponds to multiple files, this value is
+     * `undefined`.
+     */
+    file: string | undefined;
+    /**
+     * Indicates whether or not the test run is considered
+     * successful or not. If any error condition occurs, such as a failing test or
+     * unmet coverage threshold, this value will be set to `false`.
+     */
+    success: boolean;
+}
 
 /**
  * The `node:test/reporters` module exposes the builtin-reporters for `node:test`.
@@ -2094,6 +2151,7 @@ declare module "node:test/reporters" {
         | { type: "test:start"; data: TestStart }
         | { type: "test:stderr"; data: TestStderr }
         | { type: "test:stdout"; data: TestStdout }
+        | { type: "test:summary"; data: TestSummary }
         | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 

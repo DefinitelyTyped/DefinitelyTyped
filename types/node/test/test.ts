@@ -938,6 +938,15 @@ class TestReporter extends Transform {
                 callback(null, `${message}/${file}`);
                 break;
             }
+            case "test:summary": {
+                const { counts, duration_ms, file, success } = event.data;
+                callback(
+                    null,
+                    `${file ?? "<multiple>"}/${success}/${duration_ms}/
+                    ${counts.topLevel}/${counts.tests}/${counts.passed}`,
+                );
+                break;
+            }
             case "test:watch:drained":
                 // event doesn't have any data
                 callback(null);
