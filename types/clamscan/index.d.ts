@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import { Socket } from "net";
 import { Readable, Transform } from "stream";
 
 declare namespace NodeClam {
@@ -128,6 +129,18 @@ declare class NodeClam {
      * @see {@link https://github.com/kylefarris/clamscan#passthrough}
      */
     passthrough(): Transform;
+
+    /**
+     * This method checks to see if the remote/local socket is working.
+     * It supports a callback and Promise API. If no callback is supplied,
+     * a Promise will be returned.
+     * This method can be used for healthcheck purposes and is already
+     * implicitly used during scan.
+     *
+     * @see {@link https://github.com/kylefarris/clamscan#ping}
+     */
+    ping(): Promise<Socket>;
+    ping(cb: (err: NodeClam.NodeClamError | null, clam: Socket) => void): void;
 
     /**
      * Just an alias to `isInfected`. See docs for that for usage examples.
