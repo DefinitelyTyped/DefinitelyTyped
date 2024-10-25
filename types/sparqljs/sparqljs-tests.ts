@@ -196,3 +196,47 @@ function sparqlStarAst() {
         ],
     };
 }
+
+function negatedPropertySets() {
+    const negatedIri: SparqlJs.PropertyPath = {
+        type: "path",
+        pathType: "!",
+        items: [
+            DataFactory.namedNode("http://example.com/p1"),
+        ],
+    };
+    const negatedInverse: SparqlJs.PropertyPath = {
+        type: "path",
+        pathType: "!",
+        items: [{
+            type: "path",
+            pathType: "^",
+            items: [DataFactory.namedNode("http://example.com/p2")],
+        }],
+    };
+
+    const negatedInverseMustBeSingleIri: SparqlJs.NegatedPropertySet = {
+        type: "path",
+        pathType: "!",
+        items: [{
+            type: "path",
+            pathType: "^",
+            // @ts-expect-error
+            items: [
+                DataFactory.namedNode("http://example.com/p1"),
+                DataFactory.namedNode("http://example.com/p2"),
+            ],
+        }],
+    };
+
+    const OnyIriAndSimpleInverseCanBeNegated: SparqlJs.NegatedPropertySet = {
+        type: "path",
+        pathType: "!",
+        items: [{
+            type: "path",
+            // @ts-expect-error
+            pathType: "?",
+            items: [DataFactory.namedNode("http://example.com/p2")],
+        }],
+    };
+}
