@@ -414,6 +414,53 @@ declare module "node:test" {
          * @default undefined
          */
         shard?: TestShard | undefined;
+        /**
+         * enable [code coverage](https://nodejs.org/docs/latest-v22.x/api/test.html#collecting-code-coverage) collection.
+         * @since v22.10.0
+         * @default false
+         */
+        coverage?: boolean | undefined;
+        /**
+         * Excludes specific files from code coverage
+         * using a glob pattern, which can match both absolute and relative file paths.
+         * This property is only applicable when `coverage` was set to `true`.
+         * If both `coverageExcludeGlobs` and `coverageIncludeGlobs` are provided,
+         * files must meet **both** criteria to be included in the coverage report.
+         * @since v22.10.0
+         * @default undefined
+         */
+        coverageExcludeGlobs?: string | readonly string[] | undefined;
+        /**
+         * Includes specific files in code coverage
+         * using a glob pattern, which can match both absolute and relative file paths.
+         * This property is only applicable when `coverage` was set to `true`.
+         * If both `coverageExcludeGlobs` and `coverageIncludeGlobs` are provided,
+         * files must meet **both** criteria to be included in the coverage report.
+         * @since v22.10.0
+         * @default undefined
+         */
+        coverageIncludeGlobs?: string | readonly string[] | undefined;
+        /**
+         * Require a minimum percent of covered lines. If code
+         * coverage does not reach the threshold specified, the process will exit with code `1`.
+         * @since v22.10.0
+         * @default 0
+         */
+        lineCoverage?: number | undefined;
+        /**
+         * Require a minimum percent of covered branches. If code
+         * coverage does not reach the threshold specified, the process will exit with code `1`.
+         * @since v22.10.0
+         * @default 0
+         */
+        branchCoverage?: number | undefined;
+        /**
+         * Require a minimum percent of covered functions. If code
+         * coverage does not reach the threshold specified, the process will exit with code `1`.
+         * @since v22.10.0
+         * @default 0
+         */
+        functionCoverage?: number | undefined;
     }
     /**
      * A successful call to `run()` will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.

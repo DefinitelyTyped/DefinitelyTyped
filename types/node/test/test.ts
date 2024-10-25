@@ -54,6 +54,12 @@ run({
         index: 1,
         total: 3,
     },
+    coverage: true,
+    coverageExcludeGlobs: "*.no-coverage.*",
+    coverageIncludeGlobs: ["test-*", "benchmark-*"],
+    lineCoverage: 70,
+    branchCoverage: 50,
+    functionCoverage: 80,
 });
 
 // TestsStream should be a NodeJS.ReadableStream
