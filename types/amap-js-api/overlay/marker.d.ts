@@ -22,8 +22,17 @@ declare namespace AMap {
 
         type LabelDirection = "top" | "right" | "bottom" | "left" | "center";
         interface Label {
+          /**
+           * 文本标注的内容
+           */
             content?: string | undefined;
-            offset?: Pixel | undefined;
+            /**
+             * offset为偏移量。如设置了 direction，以 direction 方位为基准点进行偏移。
+             */
+            offset?: Pixel | Array<number>|  undefined;
+            /**
+             * 文本标注方位 可选值：'top'|'right'|'bottom'|'left'|'center'，默认值: 'right'。
+             */
             direction?: LabelDirection | undefined;
         }
 
@@ -42,33 +51,45 @@ declare namespace AMap {
             /**
              * 点标记在地图上显示的位置
              */
-            position?: LocationValue | undefined;
+            position?: LocationValue | undefined
             /**
-             * 标记锚点
+             * 设置点标记锚点, 可选值：
+             * - 'top-left'
+             * - 'top-center'
+             * - 'top-right'
+             * - 'middle-left'
+             * - 'center'
+             * - 'middle-right'
+             * - 'bottom-left'
+             * - 'bottom-center'
+             * - 'bottom-right'
+             * @link https://lbs.amap.com/demo/javascript-api-v2/example/marker/marker-anchor
              */
             anchor?: Anchor | undefined;
             /**
-             * 点标记显示位置偏移量
+             * - 点标记显示位置偏移量，默认值为 [0,0] 。
+             * - Marker指定position后，默认以marker左上角位置为基准点（若设置了anchor，则以anchor设置位置为基准点），对准所给定的position位置，若需使marker指定位置对准在position处，需根据marker的尺寸设置一定的偏移量。
              */
             offset?: Pixel | undefined;
             /**
-             * 需在点标记中显示的图标
+             * 在点标记中显示的图标。可以传一个图标地址，也可以传Icon对象。有合法的content内容设置时，此属性无效。
              */
             icon?: string | Icon | undefined;
             /**
-             * 点标记显示内容
+             * 点标记显示内容。可以是HTML要素字符串或者HTML DOM对象。content有效时，icon属性将被覆盖。
              */
             content?: string | HTMLElement | undefined;
             /**
-             * 鼠标点击时marker是否置顶
+             * 鼠标点击时marker是否置顶,默认false ，不置顶
              */
             topWhenClick?: boolean | undefined;
             /**
+             * 事件是否冒泡，默认为 false
              * 是否将覆盖物的鼠标或touch等事件冒泡到地图上
              */
             bubble?: boolean | undefined;
             /**
-             * 点标记是否可拖拽移动
+             * 点标记是否可拖拽移动, 默认值：false
              */
             draggable?: boolean | undefined;
             /**
@@ -76,19 +97,20 @@ declare namespace AMap {
              */
             raiseOnDrag?: boolean | undefined;
             /**
-             * 鼠标悬停时的鼠标样式
+             * 鼠标悬停时的鼠标样式; 默认值：'pointer'
              */
             cursor?: string | undefined;
             /**
-             * 点标记是否可见
+             * 点标记是否可见，默认值：true
              */
             visible?: boolean | undefined;
             /**
              * 点标记的叠加顺序
+             * 地图上存在多个点标记叠加时，通过该属性使级别较高的点标记在上层显示，默认zIndex：12
              */
             zIndex?: number | undefined;
             /**
-             * 点标记的旋转角度
+             * 点标记的旋转角度； 广泛用于改变车辆行驶方向。默认值：0
              */
             angle?: number | undefined;
             /**
@@ -104,7 +126,7 @@ declare namespace AMap {
              */
             shadow?: Icon | string | undefined;
             /**
-             * 鼠标滑过点标记时的文字提示
+             * 鼠标滑过点标记时的文字提示。不设置则鼠标滑过点标无文字提示。
              */
             title?: string | undefined;
             /**
@@ -116,13 +138,32 @@ declare namespace AMap {
              */
             label?: Label | undefined;
 
-            // internal
+            /**
+             * 类型：Vector2	点标记显示的层级范围，超过范围不显示。默认值：zooms: [2, 20]
+             */
             zooms?: [number, number] | undefined;
             topWhenMouseOver?: boolean | undefined;
+            /**
+             * 设置Marker点是否离地绘制，默认值为0，等于0时贴地绘制。大于0时离地绘制，此时Marker点高度等于height值加Marker点高程值（JSAPI v2.1新增属性目前只适用于v2.1版本）。
+             */
             height?: number | undefined;
+
+            /**
+             * 点标记是否可点击，默认值: true
+             */
+            clickable: boolean
         }
     }
 
+    /**
+     * @example
+     * var marker = new AMap.Marker({
+            position: new AMap.LngLat(116.397428, 39.90923),
+            icon: 'https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+            anchor: 'bottom-center',
+        });
+        map.add(marker);
+     */
     class Marker<ExtraData = any> extends Overlay<ExtraData> {
         /**
          * 点标记
@@ -189,7 +230,7 @@ declare namespace AMap {
          */
         setLabel(label?: Marker.Label): void;
         /**
-         *     获取点标记文本标签内容
+         * 获取点标记文本标签内容
          */
         getLabel(): Marker.Label | undefined;
         /**
@@ -211,7 +252,7 @@ declare namespace AMap {
          */
         setIcon(content: string | Icon): void;
         /**
-         * 获取Icon内容
+         * 当点标记未自定义图标时，获取Icon内容
          */
         getIcon(): string | Icon | undefined;
         /**

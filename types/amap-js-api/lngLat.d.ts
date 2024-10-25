@@ -1,5 +1,9 @@
 declare namespace AMap {
     class LngLat {
+        lng: number;
+        lat: number;
+        noAutofix?: boolean;
+
         /**
          * 构造一个地理坐标对象
          * @param lng 经度

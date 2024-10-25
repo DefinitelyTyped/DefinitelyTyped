@@ -70,6 +70,9 @@ declare namespace AMap {
 
         // internal
         setHeight(height?: number | string): void;
+        /**
+         * 获取 Marker 离地高度 （此方法适用于 JSAPI v2.1Beta 及以上版本）
+         */
         getHeight(): number | string;
     }
 }
