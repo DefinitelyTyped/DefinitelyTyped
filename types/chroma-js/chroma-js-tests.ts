@@ -6,13 +6,11 @@ function test_chroma() {
     chroma("#ff3399");
     chroma("F39");
     chroma(chroma("#ff3399"));
-    chroma.hex("#fff");
     chroma.valid(0);
     chroma.valid("");
     chroma.valid({});
     chroma.valid(null);
     chroma.valid(undefined);
-    chroma.valid("000", "hex");
 
     chroma(0xff3399);
     chroma(0xff, 0x33, 0x99);
@@ -130,6 +128,11 @@ function test_color() {
     chroma("teal").css();
     chroma("teal").alpha(0.5).css();
     chroma("teal").css("hsl");
+    chroma("teal").css("lab");
+    chroma("teal").css("lch");
+    chroma("teal").css("oklab");
+    chroma("teal").css("oklch");
+    chroma("teal").css("rgb");
     chroma("orange").rgb();
     chroma("orange").hsl();
     chroma("white").hsl();
