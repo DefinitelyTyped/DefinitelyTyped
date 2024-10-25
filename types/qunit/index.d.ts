@@ -582,12 +582,12 @@ declare global {
         }
 
         interface TodoFunction {
-            (name: string, callback: TestFunctionCallback): void;
+            (name: string, callback?: TestFunctionCallback): void;
             each: EachFunction;
         }
 
         interface SkipFunction {
-            (name: string, callback: TestFunctionCallback): void;
+            (name: string, callback?: TestFunctionCallback): void;
             each: EachFunction;
         }
 
@@ -768,7 +768,7 @@ declare global {
          * @param {string} name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        only: QUnit.OnlyFunction;
 
         /**
          * Handle a global error that should result in a failed test run.
@@ -807,7 +807,7 @@ declare global {
          *
          * @param {string} Title of unit being tested
          */
-        skip(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        skip: QUnit.SkipFunction;
 
         /**
          * Returns a single line string representing the stacktrace (call stack).
@@ -891,7 +891,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        todo(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        todo: QUnit.TodoFunction;
 
         /**
          * Compares two values. Returns true if they are equivalent.
