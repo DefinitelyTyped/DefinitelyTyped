@@ -44,15 +44,15 @@ var options: Less.Options = {
     plugins: [myPlugin],
     /** Tells less to generate a sourcemap. */
     sourceMap: {},
-    /* Inline Javascript - @plugin still allowed */
+    /** Inline Javascript - @plugin still allowed */
     javascriptEnabled: false,
     /* Outputs a makefile import dependency list to stdout. */
     depends: false,
-    /** (DEPRECATED) This does not utilise all the tricks of css compression. */
+    /** @deprecated (DEPRECATED) This does not utilise all the tricks of css compression. */
     compress: false,
     /* Runs the less parser and just reports errors without any output. */
     lint: false,
-    /** Less will look for the file in @import rules through locations here. */
+    /** Less will look  for the file in @import rules through locations here. */
     paths: [],
     /* color output in the terminal */
     color: true,
@@ -78,6 +78,10 @@ var options: Less.Options = {
     globalVars: null,
     /** Put the declaration at the end of base file. */
     modifyVars: null,
+    /* This option allows you to specify a argument to go on to every URL.  */
+    urlArgs: "",
+
+    disablePluginRule: true,
 };
 
 less.render("h1 { background: red; }", options);
@@ -104,3 +108,5 @@ if (less.importManager) {
         let fileContents = less.importManager.contents[fileName];
     }
 }
+
+type Options = import("less").Options;
