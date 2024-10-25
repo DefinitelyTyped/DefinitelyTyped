@@ -3663,10 +3663,20 @@ declare module "crypto" {
          */
         readonly validFrom: string;
         /**
+         * The date/time from which this certificate is valid, encapsulated in a `Date` object.
+         * @since v22.10.0
+         */
+        readonly validFromDate: Date;
+        /**
          * The date/time until which this certificate is considered valid.
          * @since v15.6.0
          */
         readonly validTo: string;
+        /**
+         * The date/time until which this certificate is valid, encapsulated in a `Date` object.
+         * @since v22.10.0
+         */
+        readonly validToDate: Date;
         constructor(buffer: BinaryLike);
         /**
          * Checks whether the certificate matches the given email address.

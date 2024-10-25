@@ -1262,7 +1262,9 @@ import { promisify } from "node:util";
     cert.subject; // $ExpectType string
     cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
+    cert.validFromDate; // $ExpectType Date
     cert.validTo; // $ExpectType string
+    cert.validToDate; // $ExpectType Date
 
     const checkOpts: crypto.X509CheckOptions = {
         multiLabelWildcards: true,
