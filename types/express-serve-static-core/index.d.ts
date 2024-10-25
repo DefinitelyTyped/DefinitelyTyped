@@ -61,7 +61,8 @@ export interface RequestHandler<
         req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
         res: Response<ResBody, LocalsObj>,
         next: NextFunction,
-    ): void | Promise<void>;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ): void | Response<ResBody, Locals> | Promise<void | Response<ResBody, Locals>>;
 }
 
 export type ErrorRequestHandler<
@@ -75,7 +76,8 @@ export type ErrorRequestHandler<
     req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
     res: Response<ResBody, LocalsObj>,
     next: NextFunction,
-) => void | Promise<void>;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+) => void | Response<ResBody, Locals> | Promise<void | Response<ResBody, Locals>>;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
