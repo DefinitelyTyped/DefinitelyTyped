@@ -32,6 +32,13 @@ export type AdyenAlternativePaymentMethodOptions = {
   componentConfig?: { [key: string]: any }
 };
 
+export type CustomerOptions = {
+  /**
+   * The customer's billing address.
+   */
+  billingAddress?: Address;
+};
+
 export type AlternativePaymentMethodStartOptions = {
   /**
    * List of payment methods to be presented to the customer.
@@ -77,7 +84,12 @@ export type AlternativePaymentMethodStartOptions = {
   /**
    * Adyen options.
    */
-  adyen?: AdyenAlternativePaymentMethodOptions
+  adyen?: AdyenAlternativePaymentMethodOptions,
+
+  /**
+   * Sets additional customer fields on the generated token.
+   */
+  customer?: CustomerOptions
 };
 
 export type AlternativePaymentMethodSubmitOptions = {
