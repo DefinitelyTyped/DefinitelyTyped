@@ -14,11 +14,11 @@ declare namespace AMap {
       /**
        * 新创建的对象样式
        */
-      createOptions?: Object
+      createOptions?: any
       /**
        * 	编辑样式
        */
-      editOptions?: Object
+      editOptions?: any
       /**
        * 西南点样式 MarkerOptions
        */

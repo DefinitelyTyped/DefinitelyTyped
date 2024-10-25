@@ -2853,7 +2853,7 @@ testMarker.setLabel({
         // $ExpectType string | undefined
         testMarkerLabel.content;
 
-        // $ExpectType Pixel | undefined
+        // $ExpectType number[] | Pixel |  undefined
         testMarkerLabel.offset;
 
         type TempLabelDirection = "top" | "right" | "bottom" | "left" | "center" | undefined;

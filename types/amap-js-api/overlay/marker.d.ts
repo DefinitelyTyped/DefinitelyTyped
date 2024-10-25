@@ -29,7 +29,7 @@ declare namespace AMap {
             /**
              * offset为偏移量。如设置了 direction，以 direction 方位为基准点进行偏移。
              */
-            offset?: Pixel | Array<number>|  undefined;
+            offset?: Pixel | number[] |  undefined;
             /**
              * 文本标注方位 可选值：'top'|'right'|'bottom'|'left'|'center'，默认值: 'right'。
              */
@@ -70,7 +70,7 @@ declare namespace AMap {
              * - 点标记显示位置偏移量，默认值为 [0,0] 。
              * - Marker指定position后，默认以marker左上角位置为基准点（若设置了anchor，则以anchor设置位置为基准点），对准所给定的position位置，若需使marker指定位置对准在position处，需根据marker的尺寸设置一定的偏移量。
              */
-            offset?: Pixel | undefined;
+            offset?: Pixel | number[] | undefined;
             /**
              * 在点标记中显示的图标。可以传一个图标地址，也可以传Icon对象。有合法的content内容设置时，此属性无效。
              */
@@ -151,7 +151,7 @@ declare namespace AMap {
             /**
              * 点标记是否可点击，默认值: true
              */
-            clickable: boolean
+            clickable?: boolean
         }
     }
 
