@@ -476,3 +476,15 @@ declare module "ws" {
         client;
     });
 }
+
+{
+    const ws = new WebSocket("ws://www.host.com/path", {
+        finishRequest: (req, socket) => {
+            // $ExpectType IncomingMessage
+            req;
+
+            // $ExpectType WebSocket
+            socket;
+        },
+    });
+}

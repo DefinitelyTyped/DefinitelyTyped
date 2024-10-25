@@ -8,6 +8,7 @@ export {
     ErrorEvent,
     Event,
     EventListenerOptions,
+    FinishRequestCallback,
     MessageEvent,
     PerMessageDeflateOptions,
     RawData,
