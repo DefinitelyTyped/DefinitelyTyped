@@ -6187,6 +6187,10 @@
             "libraryName": "tokenizr",
             "asOfVersion": "1.6.0"
         },
+        "tough-cookie": {
+            "libraryName": "tough-cookie",
+            "asOfVersion": "5.0.0"
+        },
         "transliteration": {
             "libraryName": "transliteration",
             "asOfVersion": "1.6.6"
