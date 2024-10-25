@@ -1517,18 +1517,23 @@ declare module "util" {
         string | boolean
     >;
 
+    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = (
+        & { -readonly [LongOption in keyof O]?: V[LongOption] }
+        & { [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption] }
+    ) extends infer P ? { [K in keyof P]: P[K] } : never; // resolve intersection to object
+
     type ParsedValues<T extends ParseArgsConfig> =
         & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
-        & (T["options"] extends ParseArgsOptionsConfig ? {
-                -readonly [LongOption in keyof T["options"]]:
-                    // when "default" is not undefined, the value will be present
-                    | (T["options"][LongOption]["default"] extends {} ? never : undefined)
-                    | IfDefaultsFalse<
+        & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
+                T["options"],
+                {
+                    [LongOption in keyof T["options"]]: IfDefaultsFalse<
                         T["options"][LongOption]["multiple"],
                         Array<ExtractOptionValue<T, T["options"][LongOption]>>,
                         ExtractOptionValue<T, T["options"][LongOption]>
                     >;
-            }
+                }
+            >
             : {});
 
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
