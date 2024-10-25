@@ -160,4 +160,6 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
     Module.getCompileCacheDir();
 
     const { ENABLED, ALREADY_ENABLED, FAILED, DISABLED } = Module.constants.compileCacheStatus;
+
+    Module.flushCompileCache();
 }
