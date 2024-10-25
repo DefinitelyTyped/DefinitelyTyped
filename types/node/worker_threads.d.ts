@@ -267,7 +267,7 @@ declare module "worker_threads" {
         trackUnmanagedFds?: boolean | undefined;
         /**
          * An optional `name` to be appended to the worker title
-         * for debuggin/identification purposes, making the final title as
+         * for debugging/identification purposes, making the final title as
          * `[worker ${id}] ${name}`.
          */
         name?: string | undefined;
