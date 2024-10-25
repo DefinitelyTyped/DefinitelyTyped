@@ -6623,10 +6623,27 @@ fp.now(); // $ExpectType number
 
 // _.capitalize
 {
-    _.capitalize("fred"); // $ExpectType string
-    _("fred").capitalize(); // $ExpectType string
-    _.chain("fred").capitalize(); // $ExpectType StringChain<string>
-    fp.capitalize("fred"); // $ExpectType string
+    _.capitalize("fred"); // $ExpectType "Fred"
+    _.capitalize("FRED"); // $ExpectType "Fred"
+    _.capitalize("fred" as string); // $ExpectType Capitalize<Lowercase<string>>
+    // @ts-expect-error cannot assign non string type
+    _.capitalize(123);
+
+    _("fred").capitalize(); // $ExpectType "Fred"
+    _("FRED").capitalize(); // $ExpectType "Fred"
+    _("fred" as string).capitalize(); // $ExpectType Capitalize<Lowercase<string>>
+    _(123).capitalize(); // $ExpectType never
+
+    _.chain("fred").capitalize(); // $ExpectType StringChain<"Fred">
+    _.chain("FRED").capitalize(); // $ExpectType StringChain<"Fred">
+    _.chain("fred" as string).capitalize(); // $ExpectType StringChain<Capitalize<Lowercase<string>>>
+    _.chain(123).capitalize(); // $ExpectType StringChain<never>
+
+    fp.capitalize("fred"); // $ExpectType "Fred"
+    fp.capitalize("FRED"); // $ExpectType "Fred"
+    fp.capitalize("fred" as string); // $ExpectType Capitalize<Lowercase<string>>
+    // @ts-expect-error cannot assign non string type
+    fp.capitalize(123);
 }
 
 // _.deburr
