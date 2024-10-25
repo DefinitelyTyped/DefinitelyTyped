@@ -1011,6 +1011,12 @@ import { promisify } from "node:util";
 
     const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
     const decp: Buffer = crypto.privateDecrypt(key, bufP);
+
+    const bufS: Buffer = crypto.publicEncrypt(key, "hello");
+    const decS: Buffer = crypto.publicDecrypt(key, bufS);
+
+    const bufPS: Buffer = crypto.privateEncrypt(key, "hello");
+    const decpS: Buffer = crypto.privateDecrypt(key, bufPS);
 }
 
 // crypto.randomInt
