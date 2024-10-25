@@ -125,7 +125,7 @@ declare module "module" {
         interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
-        type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
+        type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "module-typescript" | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
         interface GlobalPreloadContext {
             port: MessagePort;
