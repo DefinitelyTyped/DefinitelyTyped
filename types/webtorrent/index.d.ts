@@ -13,7 +13,7 @@ declare namespace WebTorrent {
         (config?: Options): Instance;
         WEBRTC_SUPPORT: boolean;
     }
-
+  
     interface Options {
         maxConns?: number | undefined;
         nodeId?: string | Buffer | undefined;
@@ -130,7 +130,7 @@ declare namespace WebTorrent {
         ): void;
 
         destroy(callback?: (err: Error | string) => void): void;
-
+        
         createServer(
             opts?: BrowserServerOptions | NodeServerOptions,
             force?: "browser" | "node",
@@ -140,6 +140,10 @@ declare namespace WebTorrent {
 
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(torrentId: Torrent | string | Buffer): Torrent | void;
+
+        throttleDownload(rate: number): boolean | undefined;
+
+        throttleUpload(rate: number): boolean | undefined;
 
         readonly downloadSpeed: number;
 
