@@ -1,9 +1,10 @@
 /// <reference lib="es5" />
 /// <reference lib="dom" />
+import { SvelteComponent } from "svelte";
 
 export default Calendar;
 
-declare class Calendar {
+declare class Calendar extends SvelteComponent<Calendar.ComponentProps> {
     constructor(options: Calendar.ConstructorOptions);
     getOption<K extends keyof Calendar.Options>(option: K): Calendar.Options[K];
     setOption<K extends keyof Calendar.Options>(option: K, value: Calendar.Options[K]): Calendar;
@@ -26,12 +27,14 @@ declare namespace Calendar {
 
     type DomEvent = GlobalEventHandlersEventMap[keyof GlobalEventHandlersEventMap];
 
+    interface ComponentProps {
+        plugins: Plugin[];
+        options: Options;
+    }
+
     interface ConstructorOptions {
         target: HTMLElement;
-        props: {
-            plugins: Plugin[];
-            options: Options;
-        };
+        props?: ComponentProps;
     }
 
     type Content = string | { html: string } | { domNodes: Node[] };
