@@ -47,6 +47,8 @@ run({
         // $ExpectType TestsStream
         reporter;
     },
+    execArgv: ["--jitless"],
+    argv: ["--arbitrary-argument"],
     watch: true,
     shard: {
         index: 1,

@@ -366,6 +366,20 @@ declare module "node:test" {
          */
         setup?: ((reporter: TestsStream) => void | Promise<void>) | undefined;
         /**
+         * An array of CLI flags to pass to the `node` executable when
+         * spawning the subprocesses. This option has no effect when `isolation` is `'none`'.
+         * @since v22.10.0
+         * @default []
+         */
+        execArgv?: readonly string[] | undefined;
+        /**
+         * An array of CLI flags to pass to each test file when spawning the
+         * subprocesses. This option has no effect when `isolation` is `'none'`.
+         * @since v22.10.0
+         * @default []
+         */
+        argv?: readonly string[] | undefined;
+        /**
          * Allows aborting an in-progress test execution.
          */
         signal?: AbortSignal | undefined;
