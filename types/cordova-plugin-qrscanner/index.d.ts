@@ -166,7 +166,7 @@ interface QRScannerStatus {
 
     /**
      * A boolean value which is true when the preview layer is visible (and on all
-     * platforms but browser, the native webview background is transparent).
+     * platforms but `browser`, the native webview background is transparent).
      */
     showing: boolean;
 
