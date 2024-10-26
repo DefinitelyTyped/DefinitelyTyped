@@ -1981,7 +1981,7 @@ declare namespace mapboxgl {
 
         /** Space-separated CSS class names to add to marker element. */
         className?: string | undefined;
-        
+
         /** A boolean indicating whether or not a marker is able to be dragged to a new position on the map. The default value is false */
         draggable?: boolean | undefined;
 
