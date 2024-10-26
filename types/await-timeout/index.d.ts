@@ -7,6 +7,6 @@ declare class Timeout {
     static wrap(promise: Promise<any>, delay: number, error?: string): Promise<any>;
 
     set(delay: number): Promise<undefined>;
-    set(delay: number, message: string): Promise<never>;
+    set(delay: number, message: string | (() => Error) | Error): Promise<never>;
     clear(): void;
 }
