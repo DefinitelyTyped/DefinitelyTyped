@@ -25,5 +25,15 @@
             "name": "Justin Trenary",
             "githubUsername": "trenaryja"
         }
-    ]
+    ],
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        },
+        "./light": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        }
+    }
 }

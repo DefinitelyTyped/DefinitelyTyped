@@ -1,2 +1,2 @@
 import chroma = require('./index');
-export = chroma;
+export default chroma;

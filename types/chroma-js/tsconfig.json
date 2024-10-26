@@ -14,7 +14,7 @@
     },
     "files": [
         "index.d.ts",
-        "chroma-js-tests.ts",
-        "light.d.ts"
+        "index.d.mts",
+        "chroma-js-tests.ts"
     ]
 }
