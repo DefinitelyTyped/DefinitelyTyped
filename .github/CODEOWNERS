@@ -170,6 +170,7 @@
 /types/analytics-node/                                    @fongandrew @thomasthiebaud
 /types/anchor-js/                                         @xt0rted
 /types/android-device-list/                               @peterblazejewicz
+/types/android-emulator-webrtc/                           @pokowaka @erzhtor
 /types/android-versions/                                  @peterblazejewicz
 /types/angular/                                           @diegovilar @thorn0 @leonard-thieu @scipper @peterblazejewicz
 /types/angular-agility/                                   @rolandzwaga
@@ -988,6 +989,7 @@
 /types/color/v0/                                          @LKay
 /types/color/v1/                                          @LKay
 /types/color/v2/                                          @Airlun
+/types/color/v3/                                          @Airlun @jameswlane @BeeeQueue
 /types/color-check/                                       @ecraig12345
 /types/color-convert/                                     @Airlun @peterblazejewicz
 /types/color-diff/                                        @katsanva
@@ -1891,6 +1893,7 @@
 /types/es6-weak-map/                                      @pine
 /types/es6template/                                       @Methuselah96
 /types/esbuild-copy-static-files/                         @davidenke
+/types/esbuild-plugin-ignore/                             @ashkuc @fend25
 /types/esbuild-plugin-import-map/                         @Euberdeveloper
 /types/esbuild-vue/                                       @iam-medvedev
 /types/esc-pos-encoder/                                   @dlimkin @dberri
@@ -1961,6 +1964,7 @@
 /types/events.once/                                       @0x326
 /types/eventsource/                                       @scottleedavis @afroozeh @snakedrak @Akuukis
 /types/evernote/                                          @corps @fcastilloec
+/types/evil-dns/                                          @GeekCornerGH
 /types/ewma/                                              @LeoDog896
 /types/exaroton/                                          @maxiicodes
 /types/excel-column-name/                                 @sozysozbot
@@ -8757,7 +8761,6 @@
 /types/wordpress__edit-post/                              @dsifford
 /types/wordpress__editor/                                 @dsifford
 /types/wordpress__library-export-default-webpack-plugin/  @dsifford
-/types/wordpress__media-utils/                            @dsifford
 /types/wordpress__shortcode/                              @dsifford
 /types/wordpress__viewport/                               @dsifford
 /types/wordpress__wordcount/                              @dsifford
@@ -8935,6 +8938,7 @@
 /types/zfont/                                             @demensky
 /types/zingchart/                                         @jeanettephung
 /types/zinggrid/                                          @jeanettephung
+/types/zip-stream/                                        @MysteryBlokHed
 /types/zip-webpack-plugin/                                @blaise-io @shian15810
 /types/zip.js/                                            @lgrignon
 /types/zipcelx/                                           @aleburato
