@@ -14,6 +14,12 @@ cal = new Calendar({
         options: {},
     },
 });
+cal.destroy();
+// exercise at least one other SvelteComponent constructor option
+cal = new Calendar({
+    target: target,
+    hydrate: true,
+});
 
 // exercise each member function
 cal.getOption("date");
