@@ -244,13 +244,6 @@ export interface IRouter extends RequestHandler {
     param(name: string, handler: RequestParamHandler): this;
 
     /**
-     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
-     *
-     * @deprecated since version 4.11
-     */
-    param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
-
-    /**
      * Special-cased "all" method, applying the given route `path`,
      * middleware, and callback to _every_ HTTP method.
      */
@@ -526,21 +519,6 @@ export interface Request<
     accepted: MediaType[];
 
     /**
-     * @deprecated since 4.11 Use either req.params, req.body or req.query, as applicable.
-     *
-     * Return the value of param `name` when present or `defaultValue`.
-     *
-     *  - Checks route placeholders, ex: _/user/:id_
-     *  - Checks body params, ex: id=12, {"id":12}
-     *  - Checks query string params, ex: ?id=12
-     *
-     * To utilize request bodies, `req.body`
-     * should be an object. This can be done by using
-     * the `connect.bodyParser()` middleware.
-     */
-    param(name: string, defaultValue?: any): string;
-
-    /**
      * Check if the incoming request contains the "Content-Type"
      * header field, and it contains the give mime `type`.
      *
@@ -813,23 +791,6 @@ export interface Response<
     sendFile(path: string, options: SendFileOptions, fn?: Errback): void;
 
     /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, options: SendFileOptions): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, fn: Errback): void;
-    /**
-     * @deprecated Use sendFile instead.
-     */
-    sendfile(path: string, options: SendFileOptions, fn: Errback): void;
-
-    /**
      * Transfer the file at the given `path` as an attachment.
      *
      * Optionally providing an alternate attachment `filename`,
@@ -840,7 +801,7 @@ export interface Response<
      * The optional options argument passes through to the underlying
      * res.sendFile() call, and takes the exact same parameters.
      *
-     * This method uses `res.sendfile()`.
+     * This method uses `res.sendFile()`.
      */
     download(path: string, fn?: Errback): void;
     download(path: string, filename: string, fn?: Errback): void;
@@ -984,10 +945,6 @@ export interface Response<
     /**
      * Set the location header to `url`.
      *
-     * The given `url` can also be the name of a mapped url, for
-     * example by default express supports "back" which redirects
-     * to the _Referrer_ or _Referer_ headers or "/".
-     *
      * Examples:
      *
      *    res.location('/foo/bar').;
@@ -1014,22 +971,17 @@ export interface Response<
      * defaulting to 302.
      *
      * The resulting `url` is determined by `res.location()`, so
-     * it will play nicely with mounted apps, relative paths,
-     * `"back"` etc.
+     * it will play nicely with mounted apps, relative paths, etc.
      *
      * Examples:
      *
-     *    res.redirect('back');
      *    res.redirect('/foo/bar');
      *    res.redirect('http://example.com');
      *    res.redirect(301, 'http://example.com');
-     *    res.redirect('http://example.com', 301);
      *    res.redirect('../login'); // /blog/post/1 -> /blog/login
      */
     redirect(url: string): void;
     redirect(status: number, url: string): void;
-    /** @deprecated use res.redirect(status, url) instead */
-    redirect(url: string, status: number): void;
 
     /**
      * Render `view` with the given `options` and optional callback `fn`.
@@ -1157,13 +1109,6 @@ export interface Application<
     get: ((name: string) => any) & IRouterMatcher<this>;
 
     param(name: string | string[], handler: RequestParamHandler): this;
-
-    /**
-     * Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param()
-     *
-     * @deprecated since version 4.11
-     */
-    param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
     /**
      * Return the app's absolute pathname
