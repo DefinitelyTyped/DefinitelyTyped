@@ -12,4 +12,3 @@ declare class Timeout {
     set(delay: number, message: toErrorArgument): Promise<never>;
     clear(): void;
 }
-
