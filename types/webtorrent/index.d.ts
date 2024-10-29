@@ -128,7 +128,6 @@ declare namespace WebTorrent {
         ): void;
 
         destroy(callback?: (err: Error | string) => void): void;
-        
         createServer(
             opts?: BrowserServerOptions | NodeServerOptions,
             force?: "browser" | "node",
