@@ -3531,7 +3531,7 @@ declare module "crypto" {
      * ```js
      * const { X509Certificate } = await import('node:crypto');
      *
-     * const x509 = new X509Certificate('{... pem encoded cert ...}');
+     * const x509 = new X509Certificate('{... pem/der encoded cert ...}');
      *
      * console.log(x509.subject);
      * ```
@@ -3654,6 +3654,10 @@ declare module "crypto" {
          * @since v15.6.0
          */
         readonly validTo: string;
+        /**
+         * @param buffer A PEM or DER encoded X509 Certificate.
+         * @since v15.6.0
+         */
         constructor(buffer: BinaryLike);
         /**
          * Checks whether the certificate matches the given email address.
