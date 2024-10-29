@@ -141,6 +141,7 @@ declare module "http" {
         "content-range"?: string | undefined;
         "content-security-policy"?: string | undefined;
         "content-security-policy-report-only"?: string | undefined;
+        "content-type"?: string | undefined;
         cookie?: string | string[] | undefined;
         dav?: string | string[] | undefined;
         dnt?: string | undefined;
