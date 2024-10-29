@@ -1008,6 +1008,10 @@
             "libraryName": "convert-hrtime",
             "asOfVersion": "3.0.0"
         },
+        "cookie": {
+            "libraryName": "cookie",
+            "asOfVersion": "1.0.0"
+        },
         "copy-text-to-clipboard": {
             "libraryName": "copy-text-to-clipboard",
             "asOfVersion": "2.0.1"
