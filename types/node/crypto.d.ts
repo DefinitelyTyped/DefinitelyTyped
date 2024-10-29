@@ -2139,7 +2139,10 @@ declare module "crypto" {
      * be passed instead of a public key.
      * @since v0.11.14
      */
-    function publicEncrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function publicEncrypt(
+        key: RsaPublicKey | RsaPrivateKey | KeyLike,
+        buffer: NodeJS.ArrayBufferView | string,
+    ): Buffer;
     /**
      * Decrypts `buffer` with `key`.`buffer` was previously encrypted using
      * the corresponding private key, for example using {@link privateEncrypt}.
@@ -2151,7 +2154,10 @@ declare module "crypto" {
      * be passed instead of a public key.
      * @since v1.1.0
      */
-    function publicDecrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function publicDecrypt(
+        key: RsaPublicKey | RsaPrivateKey | KeyLike,
+        buffer: NodeJS.ArrayBufferView | string,
+    ): Buffer;
     /**
      * Decrypts `buffer` with `privateKey`. `buffer` was previously encrypted using
      * the corresponding public key, for example using {@link publicEncrypt}.
@@ -2160,7 +2166,7 @@ declare module "crypto" {
      * object, the `padding` property can be passed. Otherwise, this function uses `RSA_PKCS1_OAEP_PADDING`.
      * @since v0.11.14
      */
-    function privateDecrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateDecrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView | string): Buffer;
     /**
      * Encrypts `buffer` with `privateKey`. The returned data can be decrypted using
      * the corresponding public key, for example using {@link publicDecrypt}.
@@ -2169,7 +2175,7 @@ declare module "crypto" {
      * object, the `padding` property can be passed. Otherwise, this function uses `RSA_PKCS1_PADDING`.
      * @since v1.1.0
      */
-    function privateEncrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateEncrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView | string): Buffer;
     /**
      * ```js
      * const {
