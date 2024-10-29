@@ -284,9 +284,60 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    /**
+     * This class allows you to create custom overlay objects on the map.
+     * To use this class, set your overlay's class to extend from `OverlayView`.
+     * You'll need to implement three methods: `onAdd()`, `draw()`, and `onRemove()`.
+     */
     class OverlayView {
+        /**
+         * This class allows you to create custom overlay objects on the map.
+         * To use this class, set your overlay's class to extend from `OverlayView`.
+         * You'll need to implement three methods: `onAdd()`, `draw()`, and `onRemove()`.
+         */
         constructor();
 
+        /**
+         * This method should be implemented to draw or update the overlay.
+         * Use the position from `projection.fromLatLngToDivPixel()` to correctly position the overlay relative to the `MapPanes`.
+         * This method is called after `onAdd()`, and whenever the zoom or center of the map changes.
+         * Avoid performing computationally expensive operations in this method.
+         */
+        draw(): void;
+
+        /**
+         * Retrieves the map associated with this overlay.
+         */
+        getMap(): woosmap.map.Map | null;
+
+        /**
+         * Retrieves the panes in which this `OverlayView` can be rendered.
+         * The panes are not initialized until onAdd is called by the API.
+         */
+        getPanes(): woosmap.map.MapPanes | null;
+
+        /**
+         * Retrieves the map canvas `Projection` object associated with this `OverlayView`.
+         * The projection is not initialized until `onAdd` is called by the API.
+         */
+        getProjection(): woosmap.map.Projection | null;
+
+        /**
+         * This method should be implemented to initialize the overlay DOM elements.
+         * It is called once after `setMap()` is called with a valid map.
+         * At this point, panes and projection will have been initialized.
+         */
+        onAdd(): void;
+
+        /**
+         * This method should be implemented to remove your elements from the DOM.
+         * It is called once following a call to `setMap(null)`.
+         */
+        onRemove(): void;
+
+        /**
+         * Adds or removes the overlay from the map.
+         */
         setMap(map: woosmap.map.Map | null): void;
     }
 }
@@ -1338,6 +1389,32 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    /**
+     * This object is made available to the OverlayView from within the draw method.
+     */
+    interface Projection {
+        /**
+         * Converts a geographical location to pixel coordinates within the map's container element.
+         */
+        fromLatLngToContainerPixel(latlng: woosmap.map.LatLng): woosmap.map.Point;
+
+        /**
+         * Converts pixel coordinates within the map's container element to a geographical location.
+         */
+        fromContainerPixelToLatLng(point: woosmap.map.Point): woosmap.map.LatLng;
+
+        /**
+         * Converts a geographical location to pixel coordinates within the DOM element that holds the draggable map.
+         */
+        fromLatLngToDivPixel(latlng: woosmap.map.LatLng): woosmap.map.Point;
+
+        /**
+         * Converts pixel coordinates within the DOM element that holds the draggable map to a geographical location.
+         */
+        fromDivPixelToLatLng(point: woosmap.map.Point): woosmap.map.LatLng;
+    }
+}
+declare namespace woosmap.map {
     interface Padding {
         bottom?: number;
         left?: number;
@@ -1698,6 +1775,11 @@ declare namespace woosmap.map {
         bounds: woosmap.map.DirectionsBounds;
         legs: woosmap.map.DirectionLeg[];
         /**
+         * The main route name, determined by the longest step length, used to differentiate routes when alternatives are provided.
+         * Note: This is not returned when computing routes with traffic.
+         */
+        main_route_name?: string;
+        /**
          * additional information of the route.
          */
         notice: string;
@@ -1709,6 +1791,10 @@ declare namespace woosmap.map {
          * The encoded overview polyline.
          */
         overview_polyline: woosmap.map.DirectionsOverviewPolyline;
+        /**
+         * Indicates if the route is the recommended one. Present and set to true only for the recommended route.
+         */
+        recommended?: boolean;
     }
 }
 declare namespace woosmap.map {
@@ -2682,7 +2768,7 @@ declare namespace woosmap.map.stores {
      */
     interface StoreOpen {
         current_slice: woosmap.map.stores.StoreOpeningHoursPeriod;
-        nextOpening?: woosmap.map.stores.StoreOpenNextOpening;
+        next_opening?: woosmap.map.stores.StoreOpenNextOpening;
         open_hours: woosmap.map.stores.StoreOpeningHoursPeriod[];
         /**
          * Defines if the store is currently opened.
@@ -2865,10 +2951,10 @@ declare namespace woosmap.map.localities {
          */
         data?: woosmap.map.localities.LocalitiesRequestData;
         /**
-         * Used to limit the returning fields when `type=address`.
-         * by default, and for other types localities, all fields are return. Only one field is available: geometry.
+         * If set, it will limit the content of responses to the specified fields.
+         * This parameter can be any combination of geometry, address_components or shape (defaults to geometry|address_components).
          */
-        fields?: "geometry";
+        fields?: string | string[];
         /**
          * The language code, using ISO 3166-1 Alpha-2 country codes,
          * indicating in which language the results should be returned, if possible.
@@ -2884,6 +2970,13 @@ declare namespace woosmap.map.localities {
          * When latlng parameter is used for reverse geocoding, setting list_sub_building=true allows to retrieve all addresses at the same location for a common street number or building.
          */
         list_sub_buildings?: boolean;
+        /**
+         * The types of geocoding responses to be returned.
+         * By default, suggestions return types `locality`, `postal_code` and `address`
+         * can be either a single type or a list of `LocalitiesTypes`
+         * see [https://developers.woosmap.com/products/localities/geocode/#types](https://developers.woosmap.com/products/localities/geocode/#types)
+         */
+        types?: string | string[];
     }
 }
 declare namespace woosmap.map.localities {
@@ -2897,10 +2990,10 @@ declare namespace woosmap.map.localities {
          */
         countryCodeFormat?: "alpha2" | "alpha3";
         /**
-         * Used to limit the returning fields when `type=address`.
-         * by default, and for other types localities, all fields are return. Only one field is available: geometry.
+         * If set, it will limit the content of responses to the specified fields.
+         * This parameter can be any combination of geometry, address_components or shape (defaults to geometry|address_components).
          */
-        fields?: "geometry";
+        fields?: string | string[];
         /**
          * The language code, using ISO 3166-1 Alpha-2 country codes,
          * indicating in which language the results should be returned, if possible.
@@ -3049,7 +3142,8 @@ declare namespace woosmap.map.localities {
     interface LocalitiesDetailsGeometry {
         accuracy: woosmap.map.localities.LocalitiesDetailsAccuracy;
         location: woosmap.map.LatLngLiteral;
-        viewport: woosmap.map.localities.LocalitiesBounds;
+        shape?: woosmap.map.GeoJSONFeature;
+        viewport?: woosmap.map.localities.LocalitiesBounds;
     }
 }
 declare namespace woosmap.map.localities {
@@ -3087,6 +3181,10 @@ declare namespace woosmap.map.localities {
          * Contains a unique ID for locality. This ID is required to perform `LocalitiesService.getDetails` request.
          */
         public_id: string;
+        /**
+         * Contains the related information for the prediction.
+         */
+        related?: woosmap.map.localities.LocalitiesRelated;
         /**
          * Contains the type of the Localities prediction.
          */
@@ -3184,6 +3282,7 @@ declare namespace woosmap.map.localities {
     interface LocalitiesGeocodeGeometry {
         location: woosmap.map.LatLngLiteral;
         location_type: woosmap.map.localities.LocalitiesGeocodeLocationType;
+        shape?: woosmap.map.GeoJSONFeature;
         viewport: woosmap.map.localities.LocalitiesBounds;
     }
 }
@@ -3194,6 +3293,32 @@ declare namespace woosmap.map.localities {
     interface LocalitiesBounds {
         northeast: woosmap.map.LatLngLiteral;
         southwest: woosmap.map.LatLngLiteral;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Represents related components information for a prediction.
+     */
+    interface LocalitiesRelated {
+        /**
+         * Contains related Postal Codes information.
+         */
+        postal_codes?: woosmap.map.localities.LocalitiesRelatedPostalCode[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Represents a related postal code information for a prediction.
+     */
+    interface LocalitiesRelatedPostalCode {
+        /**
+         * Contains the related Postal Code formatted description string.
+         */
+        description: string;
+        /**
+         * Contains the related Postal Code public ID.
+         */
+        public_id: string;
     }
 }
 declare namespace woosmap.map.localities {
