@@ -5150,7 +5150,7 @@ declare namespace chrome.identity {
     export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
 
     /** @since Chrome 84 */
-    export function getProfileUserInfo(details: ProfileDetails): Promise<UserInfo>;
+    export function getProfileUserInfo(details?: ProfileDetails): Promise<UserInfo>;
 
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
