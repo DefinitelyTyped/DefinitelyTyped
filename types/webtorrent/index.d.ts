@@ -13,7 +13,6 @@ declare namespace WebTorrent {
         (config?: Options): Instance;
         WEBRTC_SUPPORT: boolean;
     }
-  
     interface Options {
         maxConns?: number | undefined;
         nodeId?: string | Buffer | undefined;
