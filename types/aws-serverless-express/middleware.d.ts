@@ -13,7 +13,7 @@ declare module "http" {
     }
 }
 
-export type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
+export type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
 export type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
 export interface Options {

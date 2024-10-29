@@ -7,7 +7,7 @@ declare class SparkMD5 {
     static hash(str: string, raw?: boolean): string;
     static hashBinary(content: string, raw?: boolean): string;
 
-    append(str: string): SparkMD5;
+    append(str: string | JsArrayBuffer): SparkMD5;
     appendBinary(contents: string): SparkMD5;
     destroy(): void;
     end(raw?: boolean): string;

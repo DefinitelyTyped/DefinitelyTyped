@@ -6,6 +6,9 @@
     "projects": [
         "http://chaijs.com/"
     ],
+    "dependencies": {
+        "@types/deep-eql": "*"
+    },
     "devDependencies": {
         "@types/chai": "workspace:.",
         "@types/node": "*"

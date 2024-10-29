@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/no-const-enum": "off",
         "@definitelytyped/no-single-element-tuple-type": "off",
-        "@typescript-eslint/ban-types": "off"
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off"
     }
 }

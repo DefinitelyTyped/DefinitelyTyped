@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/sharedb",
-    "version": "3.3.9999",
+    "version": "5.1.9999",
     "projects": [
         "https://github.com/share/sharedb"
     ],
