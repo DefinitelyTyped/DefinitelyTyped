@@ -62,7 +62,7 @@ declare namespace DotenvWebpackPlugin {
          */
         ignoreStub?: boolean | undefined;
 
-       /**
+        /**
          * The prefix to use before the name of your env variables.
          * @default 'process.env.'
          */
