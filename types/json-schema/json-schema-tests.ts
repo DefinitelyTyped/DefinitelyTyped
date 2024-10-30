@@ -253,7 +253,9 @@ mustBeValid(result);
 result = checkPropertyChange({ foo: "bar" }, { $id: "schema-id" }, "foo");
 
 type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
-interface JSONObject { [key: string]: JSONValue; }
+interface JSONObject {
+    [key: string]: JSONValue;
+}
 interface JSONArray extends Array<JSONValue> {}
 
 // JSONSchema4 should be assignable to JSON

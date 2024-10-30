@@ -229,7 +229,7 @@ export type JSONSchema4 = {
     [k: string]: any;
 
     format?: string | undefined;
-}
+};
 
 // ==================================================================================================
 // JSON Schema Draft 06
@@ -545,7 +545,7 @@ export type JSONSchema6 = {
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-8
      */
     format?: string | undefined;
-}
+};
 
 // ==================================================================================================
 // JSON Schema Draft 07
@@ -712,7 +712,7 @@ export type JSONSchema7 = {
     readOnly?: boolean | undefined;
     writeOnly?: boolean | undefined;
     examples?: JSONSchema7Type | undefined;
-}
+};
 
 export interface ValidationResult {
     valid: boolean;
