@@ -54,7 +54,7 @@ export type JSONSchema4Version = string;
  * JSON Schema V4
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04
  */
-export interface JSONSchema4 {
+export type JSONSchema4 = {
     id?: string | undefined;
     $ref?: string | undefined;
     $schema?: JSONSchema4Version | undefined;
@@ -280,7 +280,7 @@ export type JSONSchema6Version = string;
  * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01
  */
 export type JSONSchema6Definition = JSONSchema6 | boolean;
-export interface JSONSchema6 {
+export type JSONSchema6 = {
     $id?: string | undefined;
     $ref?: string | undefined;
     $schema?: JSONSchema6Version | undefined;
@@ -605,7 +605,7 @@ export type JSONSchema7Version = string;
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
  */
 export type JSONSchema7Definition = JSONSchema7 | boolean;
-export interface JSONSchema7 {
+export type JSONSchema7 = {
     $id?: string | undefined;
     $ref?: string | undefined;
     $schema?: JSONSchema7Version | undefined;
