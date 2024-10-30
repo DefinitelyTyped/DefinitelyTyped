@@ -1153,7 +1153,7 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the new mapped array.
          */
-        map<T extends readonly unknown[], TResult>(collection: T, iteratee: TupleIterator<T, TResult>): { [K in keyof T]: TResult };
+        map<T extends readonly [unknown, ...unknown[]], TResult>(collection: T, iteratee: TupleIterator<T, TResult>): { [K in keyof T]: TResult };
         /**
          * @see _.map
          */
