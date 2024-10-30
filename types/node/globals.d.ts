@@ -504,7 +504,9 @@ declare global {
         }
     }
 
-    interface RequestInit extends _RequestInit {}
+    interface RequestInit extends _RequestInit {
+      dispatcher?: import('undici-types').Dispatcher
+    }
 
     function fetch(
         input: string | URL | globalThis.Request,
