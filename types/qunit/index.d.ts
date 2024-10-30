@@ -560,11 +560,14 @@ declare global {
         }
 
         type TestFunctionCallback = (assert: Assert) => void | Promise<void>;
-        type EachFunction = <T>(
-            name: string,
-            dataset: T[] | { [key: string]: T },
-            callback: (assert: Assert, data: T) => void,
-        ) => void;
+
+        interface EachFunction {
+            <T>(
+                name: string,
+                dataset: T[] | { [key: string]: T },
+                callback: (assert: Assert, data: T) => void,
+            ): void;
+        }
 
         interface IfFunction {
             (name: string, condition: boolean, callback: TestFunctionCallback): void;
