@@ -432,7 +432,7 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     ): UpdatableFragmentData<TKey>;
 }
 
-export type LogEvent = 
+export type LogEvent =
     | Readonly<{
         name: "suspense.fragment";
         data: unknown;
@@ -482,7 +482,7 @@ export type LogEvent =
         cached: boolean;
     }>
     | Readonly<{
-        /** 
+        /**
          * Indicates getPendingOperationForFragment identified a pending operation.
          * Useful for measuring how frequently RelayOperationTracker identifies a related operation on which to suspend.
          */
@@ -566,7 +566,7 @@ export type LogEvent =
     | Readonly<{
         name: "store.datachecker.start";
         selector: NormalizationSelector;
-    }> 
+    }>
     | Readonly<{
         name: "store.datachecker.end";
         selector: NormalizationSelector;
@@ -609,8 +609,8 @@ export type LogEvent =
         sourceOperation?: OperationDescriptor | undefined;
         updatedRecordIDs: DataIDSet;
         invalidatedRecordIDs: DataIDSet;
-        subscriptionsSize: number,
-        updatedOwners: Array<RequestDescriptor>,
+        subscriptionsSize: number;
+        updatedOwners: Array<RequestDescriptor>;
     }>
     | Readonly<{
         name: "store.notify.subscription";
@@ -632,7 +632,7 @@ export type LogEvent =
     | Readonly<{
         name: "useFragment.subscription.missedUpdates";
         hasDataChanges: boolean;
-    }>
+    }>;
 
 export type LogFunction = (logEvent: LogEvent) => void;
 

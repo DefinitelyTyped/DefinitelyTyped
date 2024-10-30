@@ -55,9 +55,9 @@ const storeWithOptions = new Store(source, {
     queryCacheExpirationTime: 1000,
     resolverContext: {
         customStore: {
-            nickName: "Lorem"
-        }
-    }
+            nickName: "Lorem",
+        },
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -133,7 +133,7 @@ const environment = new Environment({
         },
     ],
     log: logEvent => {
-        switch(logEvent.name){
+        switch (logEvent.name) {
             case "suspense.fragment":
             case "suspense.query":
             case "queryresource.fetch":
