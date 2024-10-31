@@ -2580,17 +2580,154 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.includes
 {
+    const unknownValue: unknown = anything;
+    const numberValue: number = anything;
+    const unionValue: 1 | "a" = anything;
+    const stringValue: string = anything;
+    const numberArray: number[] = anything;
+
+    _.includes(numberArray, numberValue); // $ExpectType boolean
+    _.includes(numberArray, numberValue, 42); // $ExpectType boolean
+    if (_.includes(numberArray, numberValue)) {
+        const x: number = numberValue;
+    } else {
+        numberValue; // $ExpectType number
+    }
+    if (_.includes(numberArray, unknownValue)) {
+        const x: number = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+
     _.includes(list, abcObject); // $ExpectType boolean
     _.includes(list, abcObject, 42); // $ExpectType boolean
+    if (_.includes(list, abcObject)) {
+        const x: AbcObject = abcObject;
+    } else {
+        abcObject; // $ExpectType AbcObject
+    }
+    if (_.includes(list, unknownValue)) {
+        const x: AbcObject = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+
     _.includes(dictionary, abcObject); // $ExpectType boolean
     _.includes(dictionary, abcObject, 42); // $ExpectType boolean
+    if (_.includes(dictionary, abcObject)) {
+        const x: AbcObject = abcObject;
+    } else {
+        abcObject; // $ExpectType AbcObject
+    }
+    if (_.includes(dictionary, unknownValue)) {
+        const x: AbcObject = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+
+    _.includes(anything as [1, "a"], unionValue); // $ExpectType boolean
+    _.includes(anything as [1, "a"], unionValue, 42); // $ExpectType boolean
+    if (_.includes(anything as [1, "a"], unionValue)) {
+        const x: 1 | "a" = unionValue;
+    } else {
+        unionValue; // $ExpectType 1 | "a"
+    }
+    if (_.includes(anything as [1, "a"], unknownValue)) {
+        const x: 1 | "a" = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+
+    _.includes([1, "a"] as const, unionValue); // $ExpectType boolean
+    _.includes([1, "a"] as const, unionValue, 42); // $ExpectType boolean
+    if (_.includes([1, "a"] as const, unionValue)) {
+        const x: 1 | "a" = unionValue;
+    } else {
+        unionValue; // $ExpectType 1 | "a"
+    }
+    if (_.includes([1, "a"] as const, unknownValue)) {
+        const x: 1 | "a" = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+
+    _(numberArray).includes(numberValue); // $ExpectType boolean
+    _(numberArray).includes(numberValue, 42); // $ExpectType boolean
+    if (_(numberArray).includes(numberValue)) {
+        const x: number = numberValue;
+    } else {
+        numberValue; // $ExpectType number
+    }
+    if (_(numberArray).includes(unknownValue)) {
+        const x: number = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
 
     _(list).includes(abcObject); // $ExpectType boolean
     _(list).includes(abcObject, 42); // $ExpectType boolean
+    if (_(list).includes(abcObject)) {
+        const x: AbcObject = abcObject;
+    } else {
+        abcObject; // $ExpectType AbcObject
+    }
+    if (_(list).includes(unknownValue)) {
+        const x: AbcObject = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+
     _(dictionary).includes(abcObject); // $ExpectType boolean
     _(dictionary).includes(abcObject, 42); // $ExpectType boolean
+    if (_(dictionary).includes(abcObject)) {
+        const x: AbcObject = abcObject;
+    } else {
+        abcObject; // $ExpectType AbcObject
+    }
+    if (_(dictionary).includes(unknownValue)) {
+        const x: AbcObject = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+
     _('hi').includes('h'); // $ExpectType boolean
     _('hi').includes('h', 0); // $ExpectType boolean
+    if (_('hi').includes(stringValue)) {
+        const x: string = stringValue;
+    } else {
+        stringValue; // $ExpectType string
+    }
+    if (_('hi').includes(unknownValue)) {
+        const x: string = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+    
+    _(anything as [1, "a"]).includes(unionValue); // $ExpectType boolean
+    _(anything as [1, "a"]).includes(unionValue, 42); // $ExpectType boolean
+    if (_(anything as [1, "a"]).includes(unionValue)) {
+        const x: 1 | "a" = unionValue;
+    } else {
+        unionValue; // $ExpectType 1 | "a"
+    }
+    if (_(anything as [1, "a"]).includes(unknownValue)) {
+        const x: 1 | "a" = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
+
+    _([1, "a"] as const).includes(unionValue); // $ExpectType boolean
+    _([1, "a"] as const).includes(unionValue, 42); // $ExpectType boolean
+    if (_([1, "a"] as const).includes(unionValue)) {
+        const x: 1 | "a" = unionValue;
+    } else {
+        unionValue; // $ExpectType 1 | "a"
+    }
+    if (_([1, "a"] as const).includes(unknownValue)) {
+        const x: 1 | "a" = unknownValue;
+    } else {
+        unknownValue; // $ExpectType unknown
+    }
 
     _.chain(list).includes(abcObject); // $ExpectType PrimitiveChain<boolean>
     _.chain(list).includes(abcObject, 42); // $ExpectType PrimitiveChain<boolean>

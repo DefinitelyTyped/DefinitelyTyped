@@ -1,4 +1,5 @@
 import _ = require("../index");
+import { uniqueSymbol } from "./common";
 declare module "../index" {
     interface LoDashStatic {
         /**
@@ -1004,25 +1005,25 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: T, fromIndex?: number): boolean;
+        includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: unknown, fromIndex?: number): target is T & { [uniqueSymbol]?: unknown };
     }
     interface Object<T> {
         /**
          * @see _.includes
          */
-        includes(target: T[keyof T], fromIndex?: number): boolean;
+        includes(target: unknown, fromIndex?: number): target is T[keyof T] & { [uniqueSymbol]?: unknown };
     }
     interface Collection<T> {
         /**
          * @see _.includes
          */
-        includes(target: T, fromIndex?: number): boolean;
+        includes(target: unknown, fromIndex?: number): target is T & { [uniqueSymbol]?: unknown };
     }
     interface String {
         /**
          * @see _.includes
          */
-        includes(target: string, fromIndex?: number): boolean;
+        includes(target: unknown, fromIndex?: number): target is string & { [uniqueSymbol]?: unknown };
     }
     interface ObjectChain<T> {
         /**
