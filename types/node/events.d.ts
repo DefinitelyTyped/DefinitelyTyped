@@ -34,6 +34,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/events.js)
  */
+
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
     // NOTE: This class is in the docs but is **not actually exported** by Node.
@@ -99,23 +100,27 @@ declare module "events" {
          */
         lowWaterMark?: number | undefined;
     }
-    interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
-    type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
-    type DefaultEventMap = [never];
-    type AnyRest = [...args: any[]];
-    type Args<K, T> = T extends DefaultEventMap ? AnyRest : (
-        K extends keyof T ? T[K] : never
-    );
-    type Key<K, T> = T extends DefaultEventMap ? string | symbol : K | keyof T;
-    type Key2<K, T> = T extends DefaultEventMap ? string | symbol : K & keyof T;
-    type Listener<K, T, F> = T extends DefaultEventMap ? F : (
-        K extends keyof T ? (
-                T[K] extends unknown[] ? (...args: T[K]) => void : never
-            )
-            : never
-    );
-    type Listener1<K, T> = Listener<K, T, (...args: any[]) => void>;
-    type Listener2<K, T> = Listener<K, T, Function>;
+    interface EventEmitter<Events extends EventMap<Events> = {}> extends NodeJS.EventEmitter<Events> {}
+    type EventMap<Events> = Record<keyof Events, unknown[]>;
+    type Args<Events extends EventMap<Events>, EventName> = EventName extends keyof Events ? (
+            | Events[EventName]
+            | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+                ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
+                : never)
+        )
+        : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+            ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
+            : any[]);
+    type EventNames<Events extends EventMap<Events>> = {} extends Events ? (string | symbol)
+        : (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap);
+    type Listener<Events extends EventMap<Events>, EventName> = EventName extends keyof Events ?
+            | ((...args: Events[EventName]) => void)
+            | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+                ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
+                : never)
+        : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+            ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
+            : (...args: any[]) => void);
 
     /**
      * The `EventEmitter` class is defined and exposed by the `node:events` module:
@@ -130,10 +135,20 @@ declare module "events" {
      * It supports the following option:
      * @since v0.1.26
      */
-    class EventEmitter<T extends EventMap<T> = DefaultEventMap> {
+    class EventEmitter<Events extends EventMap<Events> = {}> {
         constructor(options?: EventEmitterOptions);
 
-        [EventEmitter.captureRejectionSymbol]?<K>(error: Error, event: Key<K, T>, ...args: Args<K, T>): void;
+        // This "property" is used to brand a specific instance of the EventEmitter class with its Event map, which is needed
+        // in order to infer the map if we have a chain like `class A extends EventEmitter<{}>` (or many levels deep)
+        // It is also marked as possibly undefined in order to allow something like `const t: NodeJS.EventEmitter<{}> = { <insert implementation here> };`
+        readonly #internalTypeOnlyBrand?: Events;
+
+        [EventEmitter.captureRejectionSymbol]?<EventName extends EventNames<Events>>(
+            error: Error,
+            event: EventName,
+            ...args: Args<Events, EventName>
+        ): void;
+        [EventEmitter.captureRejectionSymbol]?(error: Error, event: string | symbol, ...args: any[]): void;
 
         /**
          * Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
@@ -214,6 +229,11 @@ declare module "events" {
          * ```
          * @since v11.13.0, v10.16.0
          */
+        static once<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
+            emitter: EventEmitter<Events>,
+            eventName: EventName,
+            options?: StaticEventEmitterOptions,
+        ): Promise<Args<Events, EventName>>;
         static once(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
@@ -300,6 +320,11 @@ declare module "events" {
          * @since v13.6.0, v12.16.0
          * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
          */
+        static on<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
+            emitter: EventEmitter<Events>,
+            eventName: EventName,
+            options?: StaticEventEmitterIteratorOptions,
+        ): NodeJS.AsyncIterator<Args<Events, EventName>>;
         static on(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
@@ -310,6 +335,27 @@ declare module "events" {
             eventName: string,
             options?: StaticEventEmitterIteratorOptions,
         ): NodeJS.AsyncIterator<any[]>;
+        /**
+         * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
+         *
+         * ```js
+         * import { EventEmitter, listenerCount } from 'node:events';
+         *
+         * const myEmitter = new EventEmitter();
+         * myEmitter.on('event', () => {});
+         * myEmitter.on('event', () => {});
+         * console.log(listenerCount(myEmitter, 'event'));
+         * // Prints: 2
+         * ```
+         * @since v0.9.12
+         * @deprecated Since v3.2.0 - Use `listenerCount` instead.
+         * @param emitter The emitter to query
+         * @param eventName The event name
+         */
+        static listenerCount<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
+            emitter: EventEmitter<Events>,
+            eventName: EventName,
+        ): number;
         /**
          * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
          *
@@ -355,7 +401,14 @@ declare module "events" {
          * ```
          * @since v15.2.0, v14.17.0
          */
-        static getEventListeners(emitter: EventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
+        static getEventListeners<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
+            emitter: EventEmitter<Events>,
+            name: EventName,
+        ): Array<Listener<Events, EventName>>;
+        static getEventListeners(
+            emitter: EventTarget | NodeJS.EventEmitter,
+            name: string | symbol,
+        ): Function[];
         /**
          * Returns the currently set max amount of listeners.
          *
@@ -585,16 +638,37 @@ declare module "events" {
              */
             readonly asyncResource: EventEmitterReferencingAsyncResource;
         }
+
+        export interface EventEmitterBuiltInEventMap {
+            newListener: [eventName: string | symbol, listener: Function];
+            removeListener: [eventName: string | symbol, listener: Function];
+        }
     }
     global {
         namespace NodeJS {
-            interface EventEmitter<T extends EventMap<T> = DefaultEventMap> {
-                [EventEmitter.captureRejectionSymbol]?<K>(error: Error, event: Key<K, T>, ...args: Args<K, T>): void;
+            interface EventEmitter<Events extends EventMap<Events> = {}> {
+                [EventEmitter.captureRejectionSymbol]?<EventName extends EventNames<Events>>(
+                    error: Error,
+                    event: EventName,
+                    ...args: Args<Events, EventName>
+                ): void;
+                [EventEmitter.captureRejectionSymbol]?<EventName extends string | symbol>(
+                    error: Error,
+                    event: EventName,
+                    ...args: Args<Events, EventName>
+                ): void;
                 /**
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
                  */
-                addListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                addListener<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
+                addListener<EventName extends string | symbol>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
                 /**
                  * Adds the `listener` function to the end of the listeners array for the event
                  * named `eventName`. No checks are made to see if the `listener` has already
@@ -626,7 +700,14 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                on<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                on<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
+                on<EventName extends string | symbol>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
                 /**
                  * Adds a **one-time** `listener` function for the event named `eventName`. The
                  * next time `eventName` is triggered, this listener is removed and then invoked.
@@ -656,7 +737,14 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                once<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                once<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
+                once<EventName extends string | symbol>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
                 /**
                  * Removes the specified `listener` from the listener array for the event named `eventName`.
                  *
@@ -739,12 +827,26 @@ declare module "events" {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                removeListener<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
+                removeListener<EventName extends string | symbol>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
                 /**
                  * Alias for `emitter.removeListener()`.
                  * @since v10.0.0
                  */
-                off<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                off<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
+                off<EventName extends string | symbol>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
                 /**
                  * Removes all listeners, or those of the specified `eventName`.
                  *
@@ -755,7 +857,10 @@ declare module "events" {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeAllListeners(eventName?: Key<unknown, T>): this;
+                /* eslint-disable @definitelytyped/no-unnecessary-generics */
+                removeAllListeners<EventName extends EventNames<Events>>(eventName: EventName): this;
+                removeAllListeners<EventName extends string | symbol>(eventName?: EventName): this;
+                /* eslint-enable @definitelytyped/no-unnecessary-generics */
                 /**
                  * By default `EventEmitter`s will print a warning if more than `10` listeners are
                  * added for a particular event. This is a useful default that helps finding
@@ -784,7 +889,12 @@ declare module "events" {
                  * ```
                  * @since v0.1.26
                  */
-                listeners<K>(eventName: Key<K, T>): Array<Listener2<K, T>>;
+                listeners<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                ): Array<Listener<Events, EventName>>;
+                listeners<EventName extends string | symbol>(
+                    eventName: EventName,
+                ): Array<Listener<Events, EventName>>;
                 /**
                  * Returns a copy of the array of listeners for the event named `eventName`,
                  * including any wrappers (such as those created by `.once()`).
@@ -815,7 +925,12 @@ declare module "events" {
                  * ```
                  * @since v9.4.0
                  */
-                rawListeners<K>(eventName: Key<K, T>): Array<Listener2<K, T>>;
+                rawListeners<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                ): Array<Listener<Events, EventName>>;
+                rawListeners<EventName extends string | symbol>(
+                    eventName: EventName,
+                ): Array<Listener<Events, EventName>>;
                 /**
                  * Synchronously calls each of the listeners registered for the event named `eventName`, in the order they were registered, passing the supplied arguments
                  * to each.
@@ -856,7 +971,14 @@ declare module "events" {
                  * ```
                  * @since v0.1.26
                  */
-                emit<K>(eventName: Key<K, T>, ...args: Args<K, T>): boolean;
+                emit<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    ...args: Args<Events, EventName>
+                ): boolean;
+                emit<EventName extends string | symbol>(
+                    eventName: EventName,
+                    ...args: Args<Events, EventName>
+                ): boolean;
                 /**
                  * Returns the number of listeners listening for the event named `eventName`.
                  * If `listener` is provided, it will return how many times the listener is found
@@ -865,7 +987,14 @@ declare module "events" {
                  * @param eventName The name of the event being listened for
                  * @param listener The event handler function
                  */
-                listenerCount<K>(eventName: Key<K, T>, listener?: Listener2<K, T>): number;
+                listenerCount<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    listener?: Listener<Events, EventName>,
+                ): number;
+                listenerCount<EventName extends string | symbol>(
+                    eventName: EventName,
+                    listener?: Listener<Events, EventName>,
+                ): number;
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
@@ -883,7 +1012,14 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                prependListener<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
+                prependListener<EventName extends string | symbol>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName` to the _beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
@@ -899,7 +1035,14 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependOnceListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                prependOnceListener<EventName extends EventNames<Events>>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
+                prependOnceListener<EventName extends string | symbol>(
+                    eventName: EventName,
+                    listener: Listener<Events, EventName>,
+                ): this;
                 /**
                  * Returns an array listing the events for which the emitter has registered
                  * listeners. The values in the array are strings or `Symbol`s.
@@ -919,7 +1062,7 @@ declare module "events" {
                  * ```
                  * @since v6.0.0
                  */
-                eventNames(): Array<(string | symbol) & Key2<unknown, T>>;
+                eventNames(): Array<(string | symbol)> & Array<EventNames<Events>>;
             }
         }
     }
