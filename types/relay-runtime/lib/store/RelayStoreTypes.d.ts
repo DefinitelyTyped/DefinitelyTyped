@@ -1176,9 +1176,9 @@ export function suspenseSentinel(): never;
 /**
  * A placeholder type for the context that will be provided to resolvers.
  * The actual type used will be determined by the `resolverContextType` type specified in your Relay project config.
- * 
+ *
  * When set on the Relay Store, this context will be passed as the third argument to all resolvers (live and non-live).
- * 
+ *
  * @see {@link https://relay.dev/docs/next/guides/relay-resolvers/context/#type-checking} for documentation on configuring resolverContextType
  */
 export type ResolverContext = unknown;
