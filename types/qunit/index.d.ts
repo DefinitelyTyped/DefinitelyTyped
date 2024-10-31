@@ -560,11 +560,14 @@ declare global {
         }
 
         type TestFunctionCallback = (assert: Assert) => void | Promise<void>;
-        type EachFunction = <T>(
-            name: string,
-            dataset: T[] | { [key: string]: T },
-            callback: (assert: Assert, data: T) => void,
-        ) => void;
+
+        interface EachFunction {
+            <T>(
+                name: string,
+                dataset: T[] | { [key: string]: T },
+                callback: (assert: Assert, data: T) => void,
+            ): void;
+        }
 
         interface IfFunction {
             (name: string, condition: boolean, callback: TestFunctionCallback): void;
@@ -582,12 +585,12 @@ declare global {
         }
 
         interface TodoFunction {
-            (name: string, callback: TestFunctionCallback): void;
+            (name: string, callback?: TestFunctionCallback): void;
             each: EachFunction;
         }
 
         interface SkipFunction {
-            (name: string, callback: TestFunctionCallback): void;
+            (name: string, callback?: TestFunctionCallback): void;
             each: EachFunction;
         }
 
@@ -768,7 +771,7 @@ declare global {
          * @param {string} name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        only(name: string, callback: QUnit.TestFunctionCallback): void;
 
         /**
          * Handle a global error that should result in a failed test run.
@@ -807,7 +810,7 @@ declare global {
          *
          * @param {string} Title of unit being tested
          */
-        skip(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        skip(name: string, callback?: QUnit.TestFunctionCallback): void;
 
         /**
          * Returns a single line string representing the stacktrace (call stack).
@@ -891,7 +894,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        todo(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        todo(name: string, callback?: QUnit.TestFunctionCallback): void;
 
         /**
          * Compares two values. Returns true if they are equivalent.
