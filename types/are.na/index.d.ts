@@ -67,7 +67,7 @@ declare class Arena {
      * @param params - Additional parameters
      */
     group(
-        indentifier: string,
+        indentifier?: string,
         params?: Params,
     ): {
         /**
@@ -92,7 +92,7 @@ declare class Arena {
      * @param params - Additional parameters
      */
     channel(
-        indentifier: string | number,
+        indentifier?: string | number,
         params?: Params,
     ): {
         /**
