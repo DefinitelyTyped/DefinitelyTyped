@@ -154,4 +154,4 @@ export function sprintf(format: string, ...args: any[]): string;
  *     * `j` — yields a JavaScript object or array as a JSON encoded string
  * @param args: the arguments for the format string
  */
-export function vsprintf(format: string, args: any[]): string;
+export function vsprintf(format: string, args: any): string;

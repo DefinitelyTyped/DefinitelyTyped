@@ -10,3 +10,4 @@ sprintf.sprintf(str, num, str);
 sprintf.vsprintf(str, [str]); // $ExpectType string
 sprintf.vsprintf(str, [str, num]);
 sprintf.vsprintf(str, [num, str]);
+sprintf.vsprintf(str, { x: num });
