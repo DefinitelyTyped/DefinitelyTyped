@@ -1174,8 +1174,11 @@ export interface LiveState<T> {
 export function suspenseSentinel(): never;
 
 /**
- * Context that will be provided to live resolvers if
- * `resolverContext` is set on the Relay Store.
- * This context will be passed as the third argument to the live resolver
+ * A placeholder type for the context that will be provided to resolvers.
+ * The actual type used will be determined by the `resolverContextType` type specified in your Relay project config.
+ * 
+ * When set on the Relay Store, this context will be passed as the third argument to all resolvers (live and non-live).
+ * 
+ * @see {@link https://relay.dev/docs/next/guides/relay-resolvers/context/#type-checking} for documentation on configuring resolverContextType
  */
 export type ResolverContext = unknown;
