@@ -849,12 +849,12 @@ function testStorage() {
         var myOldValue: { x: number } = changes["myKey"].oldValue;
     });
 
-    function getKeysCallback(keys: string[]) {
-        console.log(keys);
-    }
-
-    chrome.storage.sync.getKeys();
-    chrome.storage.sync.getKeys(getKeysCallback);
+    chrome.storage.sync.getKeys(); // $ExpectType Promise<string[]>
+    chrome.storage.sync.getKeys((keys) => { // $ExpectType void
+      keys;  // $ExpectType string[]
+    });
+    // @ts-expect-error
+    chrome.storage.sync.getKeys(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/apps/tts#type-TtsVoice
