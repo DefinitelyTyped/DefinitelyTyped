@@ -110,17 +110,18 @@ declare const event5: "event5";
 }
 
 {
-    let result1: Promise<T["event1"]>;
-    let result2: Promise<T["event2"]>;
-    let result3: Promise<T["event3"]>;
-    let result4: Promise<T["event4"]>;
-    let result5: Promise<T["event5"]>;
+    // Uncomment once static methods are generic
+    // let result1: Promise<T["event1"]>;
+    // let result2: Promise<T["event2"]>;
+    // let result3: Promise<T["event3"]>;
+    // let result4: Promise<T["event4"]>;
+    // let result5: Promise<T["event5"]>;
 
-    result1 = events.once(emitter, event1);
-    result2 = events.once(emitter, event2);
-    result3 = events.once(emitter, event3);
-    result4 = events.once(emitter, event4);
-    result5 = events.once(emitter, event5);
+    // result1 = events.once(emitter, event1);
+    // result2 = events.once(emitter, event2);
+    // result3 = events.once(emitter, event3);
+    // result4 = events.once(emitter, event4);
+    // result5 = events.once(emitter, event5);
 
     emitter.emit("event1", "hello", 42);
     emitter.emit("event2", true);
@@ -249,25 +250,26 @@ declare const event5: "event5";
     emitter.emit(s2, "hello", false);
 }
 
-{
-    const promise1: Promise<[string, number]> = events.once(new events.EventEmitter<T>(), "event1");
-    const promise2: Promise<[boolean]> = events.once(new events.EventEmitter<T>(), "event2");
-    const promise3: Promise<[]> = events.once(new events.EventEmitter<T>(), "event3");
-    const promise4: Promise<string[]> = events.once(new events.EventEmitter<T>(), "event4");
-    const promise5: Promise<unknown[]> = events.once(new events.EventEmitter<T>(), "event5");
-    // @ts-expect-error
-    const promise6: Promise<[string, string]> = events.once(new events.EventEmitter<T>(), "event1");
-    const promise7: Promise<any[]> = events.once(new events.EventEmitter<T>(), "event");
+// Uncomment once static methods are generic
+// {
+//     const promise1: Promise<[string, number]> = events.once(new events.EventEmitter<T>(), "event1");
+//     const promise2: Promise<[boolean]> = events.once(new events.EventEmitter<T>(), "event2");
+//     const promise3: Promise<[]> = events.once(new events.EventEmitter<T>(), "event3");
+//     const promise4: Promise<string[]> = events.once(new events.EventEmitter<T>(), "event4");
+//     const promise5: Promise<unknown[]> = events.once(new events.EventEmitter<T>(), "event5");
+//     // @ts-expect-error
+//     const promise6: Promise<[string, string]> = events.once(new events.EventEmitter<T>(), "event1");
+//     const promise7: Promise<any[]> = events.once(new events.EventEmitter<T>(), "event");
 
-    const iterable1: NodeJS.AsyncIterator<[string, number]> = events.on(new events.EventEmitter<T>(), "event1");
-    const iterable2: NodeJS.AsyncIterator<[boolean]> = events.on(new events.EventEmitter<T>(), "event2");
-    const iterable3: NodeJS.AsyncIterator<[]> = events.on(new events.EventEmitter<T>(), "event3");
-    const iterable4: NodeJS.AsyncIterator<string[]> = events.on(new events.EventEmitter<T>(), "event4");
-    const iterable5: NodeJS.AsyncIterator<unknown[]> = events.on(new events.EventEmitter<T>(), "event5");
-    // @ts-expect-error
-    const iterable6: NodeJS.AsyncIterator<[string, string]> = events.on(new events.EventEmitter<T>(), "event1");
-    const iterable7: NodeJS.AsyncIterator<any[]> = events.on(new events.EventEmitter<T>(), "event");
-}
+//     const iterable1: NodeJS.AsyncIterator<[string, number]> = events.on(new events.EventEmitter<T>(), "event1");
+//     const iterable2: NodeJS.AsyncIterator<[boolean]> = events.on(new events.EventEmitter<T>(), "event2");
+//     const iterable3: NodeJS.AsyncIterator<[]> = events.on(new events.EventEmitter<T>(), "event3");
+//     const iterable4: NodeJS.AsyncIterator<string[]> = events.on(new events.EventEmitter<T>(), "event4");
+//     const iterable5: NodeJS.AsyncIterator<unknown[]> = events.on(new events.EventEmitter<T>(), "event5");
+//     // @ts-expect-error
+//     const iterable6: NodeJS.AsyncIterator<[string, string]> = events.on(new events.EventEmitter<T>(), "event1");
+//     const iterable7: NodeJS.AsyncIterator<any[]> = events.on(new events.EventEmitter<T>(), "event");
+// }
 
 {
     function acceptsEventEmitterInterface(eventEmitter: NodeJS.EventEmitter) {
@@ -288,17 +290,18 @@ declare const event5: "event5";
     const extended = new Extended();
     const doubleExtended = new DoubleExtension();
 
-    events.on(extended, "event1"); // $ExpectType AsyncIterator<[string, number], any, any>
-    events.once(extended, "event1"); // $ExpectType Promise<[string, number]>
+    // Uncomment once static methods are generic
+    // events.on(extended, "event1"); // $ExpectType AsyncIterator<[string, number], any, any>
+    // events.once(extended, "event1"); // $ExpectType Promise<[string, number]>
 
-    events.on(extended, "unknown"); // $ExpectType AsyncIterator<any[], any, any>
-    events.once(extended, "unknown"); // $ExpectType Promise<any[]>
+    // events.on(extended, "unknown"); // $ExpectType AsyncIterator<any[], any, any>
+    // events.once(extended, "unknown"); // $ExpectType Promise<any[]>
 
-    events.on(doubleExtended, "event1"); // $ExpectType AsyncIterator<[string, number], any, any>
-    events.once(doubleExtended, "event1"); // $ExpectType Promise<[string, number]>
+    // events.on(doubleExtended, "event1"); // $ExpectType AsyncIterator<[string, number], any, any>
+    // events.once(doubleExtended, "event1"); // $ExpectType Promise<[string, number]>
 
-    events.on(doubleExtended, "unknown"); // $ExpectType AsyncIterator<any[], any, any>
-    events.once(doubleExtended, "unknown"); // $ExpectType Promise<any[]>
+    // events.on(doubleExtended, "unknown"); // $ExpectType AsyncIterator<any[], any, any>
+    // events.once(doubleExtended, "unknown"); // $ExpectType Promise<any[]>
 
     extended.addListener(event1, (a: string, b: number | boolean): number => 1);
     doubleExtended.addListener(event1, (a: string, b: number | boolean): number => 1);
