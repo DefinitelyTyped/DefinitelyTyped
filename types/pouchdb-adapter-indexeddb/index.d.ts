@@ -47,6 +47,5 @@ declare namespace PouchDB {
 
 // eslint-disable-next-line @definitelytyped/no-single-declare-module, @definitelytyped/no-declare-current-package
 declare module "pouchdb-adapter-indexeddb" {
-    const plugin: PouchDB.Plugin;
-    export = plugin;
+    export default function (PouchDB: PouchDB.Static): void;
 }
