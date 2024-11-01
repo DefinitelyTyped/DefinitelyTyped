@@ -56,6 +56,7 @@ declare namespace Plugin {
             };
     }
 
+    // eslint-disable-next-line @definitelytyped/no-any-union
     type ConfigurationVariablesSource = (variableSource: any) => Promise<any> | any;
 
     interface ConfigurationVariablesSources {
