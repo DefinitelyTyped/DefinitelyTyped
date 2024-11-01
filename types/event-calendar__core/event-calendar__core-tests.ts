@@ -1,13 +1,24 @@
 import Calendar from "@event-calendar/core";
 
-// ensure all options are optional
 const target = document.createElement("div");
+// ensure props is optional
 let cal = new Calendar({
+    target: target,
+});
+cal.destroy();
+// ensure all options are marked as optional
+cal = new Calendar({
     target: target,
     props: {
         plugins: [],
         options: {},
     },
+});
+cal.destroy();
+// exercise at least one other SvelteComponent constructor option
+cal = new Calendar({
+    target: target,
+    hydrate: true,
 });
 
 // exercise each member function

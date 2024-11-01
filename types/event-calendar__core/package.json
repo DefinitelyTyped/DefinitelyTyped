@@ -18,5 +18,8 @@
             "name": "Vladimir",
             "githubUsername": "vkurko"
         }
-    ]
+    ],
+    "dependencies": {
+        "svelte": "^4"
+    }
 }
