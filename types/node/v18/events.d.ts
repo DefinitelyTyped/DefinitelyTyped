@@ -134,11 +134,6 @@ declare module "events" {
     class EventEmitter<Events extends EventMap<Events> = {}> {
         constructor(options?: EventEmitterOptions);
 
-        // This "property" is used to brand a specific instance of the EventEmitter class with its Event map, which is needed
-        // in order to infer the map if we have a chain like `class A extends EventEmitter<{}>` (or many levels deep)
-        // It is also marked as possibly undefined in order to allow something like `const t: NodeJS.EventEmitter<{}> = { <insert implementation here> };`
-        readonly #internalTypeOnlyBrand?: Events;
-
         [EventEmitter.captureRejectionSymbol]?<EventName extends EventNames<Events>>(
             error: Error,
             event: EventName,
@@ -228,11 +223,6 @@ declare module "events" {
          * ```
          * @since v11.13.0, v10.16.0
          */
-        static once<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
-            emitter: EventEmitter<Events>,
-            eventName: EventName,
-            options?: StaticEventEmitterOptions,
-        ): Promise<Args<Events, EventName>>;
         static once(
             emitter: _NodeEventTarget,
             eventName: string | symbol,
@@ -296,36 +286,11 @@ declare module "events" {
          * @since v13.6.0, v12.16.0
          * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
          */
-        static on<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
-            emitter: EventEmitter<Events>,
-            eventName: EventName,
-            options?: StaticEventEmitterOptions,
-        ): NodeJS.AsyncIterator<Args<Events, EventName>>;
         static on(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
             options?: StaticEventEmitterOptions,
         ): NodeJS.AsyncIterator<any[]>;
-        /**
-         * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
-         *
-         * ```js
-         * import { EventEmitter, listenerCount } from 'node:events';
-         * const myEmitter = new EventEmitter();
-         * myEmitter.on('event', () => {});
-         * myEmitter.on('event', () => {});
-         * console.log(listenerCount(myEmitter, 'event'));
-         * // Prints: 2
-         * ```
-         * @since v0.9.12
-         * @deprecated Since v3.2.0 - Use `listenerCount` instead.
-         * @param emitter The emitter to query
-         * @param eventName The event name
-         */
-        static listenerCount<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
-            emitter: EventEmitter<Events>,
-            eventName: EventName,
-        ): number;
         /**
          * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
          *
@@ -371,10 +336,6 @@ declare module "events" {
          * ```
          * @since v15.2.0, v14.17.0
          */
-        static getEventListeners<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
-            emitter: EventEmitter<Events>,
-            name: EventName,
-        ): Array<Listener<Events, EventName>>;
         static getEventListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
          * Returns the currently set max amount of listeners.
