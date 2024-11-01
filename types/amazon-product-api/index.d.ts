@@ -35,7 +35,7 @@ interface IBrowseNodeLookupOptions {
     responseGroup?: string | undefined;
 }
 
-interface ISimilarityLookupOptions{
+interface ISimilarityLookupOptions {
     similarityType?: string | undefined;
     responseGroup?: string | undefined;
 }
@@ -43,8 +43,14 @@ interface ISimilarityLookupOptions{
 interface IAmazonProductClient {
     itemSearch(query: IItemSearchOptions, callback?: IAmazonProductQueryCallback): Promise<Object[]> | undefined;
     itemLookup(query: IItemLookupOptions, callback?: IAmazonProductQueryCallback): Promise<Object[]> | undefined;
-    browseNodeLookup(query: IBrowseNodeLookupOptions, callback?: IAmazonProductQueryCallback): Promise<Object[]> | undefined;
-    similarityLookup(query: ISimilarityLookupOptions, callback?: IAmazonProductQueryCallback): Promise<Object[]> | undefined;
+    browseNodeLookup(
+        query: IBrowseNodeLookupOptions,
+        callback?: IAmazonProductQueryCallback,
+    ): Promise<Object[]> | undefined;
+    similarityLookup(
+        query: ISimilarityLookupOptions,
+        callback?: IAmazonProductQueryCallback,
+    ): Promise<Object[]> | undefined;
 }
 
 export declare function createClient(credentials: ICredentials): IAmazonProductClient;
