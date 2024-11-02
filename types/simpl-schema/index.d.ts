@@ -138,12 +138,15 @@ interface SimpleSchemaValidationError {
     [key: string]: number | string;
 }
 
-interface Class { new(...args: any[]): any; }
+interface Class {
+    new(...args: any[]): any;
+}
 
 type IntegerSchemaType = "SimpleSchema.Integer";
 type AnySchemaType = "___Any___";
 
-export type SchemaDefinitionType = SchemaDefinition
+export type SchemaDefinitionType =
+    | SchemaDefinition
     | ObjectConstructor
     | BooleanConstructor
     | StringConstructor
