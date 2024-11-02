@@ -731,6 +731,7 @@ const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once("load");
  * Marker
  */
 let marker = new mapboxgl.Marker(undefined, {
+    className: "test",
     element: undefined,
     offset: [10, 0],
     anchor: "bottom-right",
