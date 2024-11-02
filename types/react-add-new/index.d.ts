@@ -9,7 +9,7 @@ export function createComponent(
     componentName: string,
     componentPath: string,
     noStyles: boolean,
-    noTypes: boolean
+    noTypes: boolean,
 ): Promise<CreateStatus>;
 
 export function validateName(name: string): true | string;

@@ -1,4 +1,4 @@
-import { validateName, createComponent, createContext } from "react-add-new";
+import { createComponent, createContext, validateName } from "react-add-new";
 
 // $ExpectType true | string
 const result = validateName("foo");
