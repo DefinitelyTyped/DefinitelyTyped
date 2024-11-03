@@ -1538,7 +1538,6 @@
         "redux-form/v7",
         "redux-localstorage-debounce",
         "redux-localstorage",
-        "redux-mock-store/v0",
         "redux-persist-transform-encrypt",
         "redux-storage",
         "remotedev-serialize",
