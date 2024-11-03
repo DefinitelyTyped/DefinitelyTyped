@@ -1287,7 +1287,6 @@
         "mojang-minecraft-ui",
         "mojang-minecraft",
         "mojang-net",
-        "moment-precise-range-plugin",
         "mongoose-deep-populate",
         "mongoose-promise",
         "motor-hat",

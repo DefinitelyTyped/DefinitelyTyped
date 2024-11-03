@@ -1,14 +1,25 @@
-import moment = require("moment");
-import * as momentPreciseRange from "moment-precise-range-plugin";
+import moment from "moment";
+import "moment-precise-range-plugin";
+
+declare const m1: moment.Moment;
+declare const m2: moment.Moment;
 
 // Static methods
-const m1 = moment.utc();
-const m2 = moment.utc();
-moment.preciseDiff(m1, m2);
-moment.preciseDiff(m1, m2, true);
-moment.preciseDiff(m1, m2, false);
+{
+    // $ExpectType string
+    moment.preciseDiff(m1, m2);
+    // $ExpectType PreciseRangeValueObject
+    moment.preciseDiff(m1, m2, true);
+    // $ExpectType string
+    moment.preciseDiff(m1, m2, false);
+}
 
 // Instance methods
-m1.preciseDiff(m2);
-m1.preciseDiff(m2, true);
-m1.preciseDiff(m2, false);
+{
+    // $ExpectType string
+    m1.preciseDiff(m2);
+    // $ExpectType PreciseRangeValueObject
+    m1.preciseDiff(m2, true);
+    // $ExpectType string
+    m1.preciseDiff(m2, false);
+}
