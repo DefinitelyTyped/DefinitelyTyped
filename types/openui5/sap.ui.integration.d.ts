@@ -1,4 +1,4 @@
-// For Library Version: 1.129.0
+// For Library Version: 1.130.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1486,6 +1486,17 @@ declare module "sap/ui/integration/widgets/Card" {
       sPath: string
     ): any;
     /**
+     * Gets current value of property {@link #getParameters parameters}.
+     *
+     * Overrides the default values of the parameters, which are defined in the manifest. The value is an object
+     * containing parameters in format `{parameterKey: parameterValue}`.
+     *
+     * @experimental (since 1.65) - This property might be changed in future.
+     *
+     * @returns Value of property `parameters`
+     */
+    getParameters(): object;
+    /**
      * Gets current value of property {@link #getPreviewMode previewMode}.
      *
      * Preview mode of the `Card`. Helpful in scenarios when the end user is choosing or configuring a card.
@@ -1700,9 +1711,12 @@ declare module "sap/ui/integration/widgets/Card" {
         method?: string;
         /**
          * The request parameters. If the HTTP method is "POST", "PUT", "PATCH", or "DELETE" the parameters will
-         * be put as key/value pairs into the body of the request.
+         * be put into the body of the request.
+         *
+         * **Note:** If parameters are of type "FormData", the "FormData" will not be resolved for bindings, destinations
+         * and others. It will be sent as it is.
          */
-        parameters?: object;
+        parameters?: object | FormData;
         /**
          * Deprecated. Use the correct Accept headers and correct Content-Type header in the response.
          */
@@ -2269,9 +2283,12 @@ declare module "sap/ui/integration/widgets/Card" {
         method?: string;
         /**
          * The request parameters. If the HTTP method is "POST", "PUT", "PATCH", or "DELETE" the parameters will
-         * be put as key/value pairs into the body of the request.
+         * be put into the body of the request.
+         *
+         * **Note:** If parameters are of type "FormData", the "FormData" will not be resolved for bindings, destinations
+         * and others. It will be sent as it is.
          */
-        parameters?: object;
+        parameters?: object | FormData;
         /**
          * Deprecated. Use the correct Accept headers and correct Content-Type header in the response.
          */

@@ -1,4 +1,4 @@
-// For Library Version: 1.129.0
+// For Library Version: 1.130.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -12,7 +12,8 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
    */
   interface ControlVariantApplyAPI {
     /**
-     * Activates the passed variant applicable to the passed control/component.
+     * Activates the passed variant applicable to the passed control/component. If the Variant is not available
+     * and the backend supports lazy loading, a backend request is made to fetch the variant.
      *
      *
      * @returns Resolves after the variant is activated or rejects if an error occurs
@@ -1589,6 +1590,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/flexState/changes/ExtensionPointState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/changes/UIChangesState": undefined;
+
+    "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantManagementState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantMerger": undefined;
 

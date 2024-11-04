@@ -1,4 +1,4 @@
-// For Library Version: 1.129.0
+// For Library Version: 1.130.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -5007,14 +5007,9 @@ declare module "sap/ui/table/rowmodes/Interactive" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * The user can change the number of displayed rows by dragging a resizer.
-   *
-   * The following restrictions apply:
-   * 	 - The functionality targets only the mouse interaction (drag and drop). There is no keyboard alternative
-   *     available. An accessible alternative must be provided by applications, for example, by giving the user
-   *     the possibility to enter the number of required rows in an input field.
-   * 	 - The resize interaction is not optimized for touch devices from a design and interaction perspective.
-   *     We do not recommend to use this mode in such scenarios.
+   * The user can change the number of displayed rows by dragging a resizer. The resizer is focusable and
+   * allows resizing via keyboard shortcuts and context menu. Double clicking the bar performs a quick resize
+   * that toggles between the minimum, the default, and the maximum row count.
    *
    * @since 1.119
    */
@@ -6741,9 +6736,9 @@ declare module "sap/ui/table/Table" {
     /**
      * Triggers automatic resizing of a column to the widest content.
      *
+     * See {@link sap.ui.table.Column#autoResize} for details about the auto-resize feature.
+     *
      * @deprecated (since 1.125) - replaced by {@link sap.ui.table.Column#autoResize}
-     * @experimental - Experimental! Presently implemented to only work with a very limited set of controls
-     * (e.g. sap.m.Text).
      */
     autoResizeColumn(
       /**
