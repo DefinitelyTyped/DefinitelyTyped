@@ -1014,6 +1014,13 @@ declare namespace _ {
         ): number[];
 
         /**
+         * Internal wrapper for `_.toPath` to enable minification.
+         * @param path Incoming Path.
+         * @returns an array containing the names of each property on the path from the root object to the target property.
+         */
+        toPath(path: number | string | Array<number | string>): Array<number | string>;
+
+        /**
          * Chunks `list` into multiple arrays, each containing `length` or
          * fewer items.
          * @param list The list to chunk.
@@ -3498,6 +3505,14 @@ declare namespace _ {
          */
         compose(...functions: Function[]): Function;
 
+        /**
+         * Used to retrieve all parameters of a function when called, except for the first parameter, and return them as an array.
+         * @param func The function to wrap.
+         * @param startIndex Where to start extracting parameters from.
+         * @return (...args: any[]) => any
+         */
+        restArguments(func:Function, startIndex:number): (...args: any[]) => any;
+
         /***********
          * Objects *
          ***********/
@@ -3854,6 +3869,34 @@ declare namespace _ {
         isSymbol(object: any): object is symbol;
 
         /**
+         * Returns true if `object` is a Map.
+         * @param object The object to check.
+         * @returns True if `object` is a Map, otherwise false.
+         */
+        isMap(object: any): object is Map<any, any>;
+
+        /**
+         * Returns true if `object` is a WeakMap.
+         * @param object The object to check.
+         * @returns True if `object` is a WeakMap, otherwise false.
+         */
+        isWeakMap(object: any): object is WeakMap<object, any>;
+
+        /**
+         * Returns true if `object` is a Set.
+         * @param object The object to check.
+         * @returns True if `object` is a Set, otherwise false.
+         */
+        isSet(object: any): object is Set<any>;
+
+        /**
+         * Returns true if `object` is a WeakSet.
+         * @param object The object to check.
+         * @returns True if `object` is a WeakSet, otherwise false.
+         */
+        isWeakSet(object: any): object is WeakSet<any>;
+
+        /**
          * Returns true if `object` is an Object. Note that JavaScript arrays
          * and functions are objects,
          * while (normal) strings and numbers are not.
@@ -3947,48 +3990,6 @@ declare namespace _ {
          * @returns True if `object` is undefined, otherwise false.
          */
         isUndefined(object: any): object is undefined;
-
-        /**
-         * Returns true if `object` is a Set.
-         * @param object The object to check.
-         * @returns True if `object` is a Set, otherwise false.
-         */
-        isSet(object: any): object is Set<any>;
-
-        /**
-         * Returns true if `object` is a WeakSet.
-         * @param object The object to check.
-         * @returns True if `object` is a WeakSet, otherwise false.
-         */
-        isWeakSet(object: any): object is WeakSet<any>;
-
-        /**
-         * Returns true if `object` is a Map.
-         * @param object The object to check.
-         * @returns True if `object` is a Map, otherwise false.
-         */
-        isMap(object: any): object is Map<any, any>;
-
-        /**
-         * Returns true if `object` is a WeakMap.
-         * @param object The object to check.
-         * @returns True if `object` is a WeakMap, otherwise false.
-         */
-        isWeakMap(object: any): object is WeakMap<any, any>;
-
-        /**
-         * Ensures that path is an array.
-         * @param path
-         *  1. If path is a string, it is wrapped in a single-element array;
-         *  2. if it is an array already, it is returned unmodified.
-         */
-        toPath<P>(path: P): (
-            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-            P extends ReadonlyArray<string | number> ? P
-                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-                : P extends string | number ? [P]
-                : never
-        );
 
         /***********
          * Utility *
@@ -4923,6 +4924,18 @@ declare namespace _ {
          */
         compose(...functions: Function[]): Function;
 
+        /**
+         * Wrapped type `(...args: any[]) => any`.
+         * @see _.restArguments
+         */
+        restArguments(startIndex:number): (...args: any[]) => any;
+
+        /**
+         * Wrapped type `number | string | Array<number | string>`.
+         * @see _.toPath
+         */
+        toPath(): Array<number | string>;
+
         /***********
          * Objects *
          ***********/
@@ -5177,6 +5190,30 @@ declare namespace _ {
         isSymbol(): boolean;
 
         /**
+         * Returns true if the wrapped object is a Map.
+         * @returns True if the wrapped object is a Map, otherwise false.
+         */
+        isMap(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a WeakMap.
+         * @returns True if the wrapped object is a WeakMap, otherwise false.
+         */
+        isWeakMap(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a Set.
+         * @returns True if the wrapped object is a Set, otherwise false.
+         */
+        isSet(): boolean;
+
+        /**
+         * Returns true if the wrapped object is a WeakSet.
+         * @returns True if the wrapped object is a WeakSet, otherwise false.
+         */
+        isWeakSet(): boolean;
+
+        /**
          * Returns true if the wrapped object is an Object. Note that
          * JavaScript arrays and functions are objects, while (normal) strings
          * and numbers are not.
@@ -5258,44 +5295,6 @@ declare namespace _ {
          * @returns True if the wrapped object is undefined, otherwise false.
          */
         isUndefined(): boolean;
-
-        /**
-         * Returns true if the wrapped object is a Set.
-         * @returns True if the wrapped object is a Set, otherwise false.
-         */
-        isSet(): boolean;
-
-        /**
-         * Returns true if the wrapped object is a WeakSet.
-         * @returns True if the wrapped object is a WeakSet, otherwise false.
-         */
-        isWeakSet(): boolean;
-
-        /**
-         * Returns true if the wrapped object is a Map.
-         * @returns True if the wrapped object is a Map, otherwise false.
-         */
-        isMap(): boolean;
-
-        /**
-         * Returns true if the wrapped object is a WeakMap.
-         * @returns True if the wrapped object is a WeakMap, otherwise false.
-         */
-        isWeakMap(): boolean;
-
-        /**
-         * Ensures that path is an array.
-         * @param path
-         *  1. If path is a string, it is wrapped in a single-element array;
-         *  2. if it is an array already, it is returned unmodified.
-         */
-        toPath(): (
-            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-            V extends ReadonlyArray<string | number> ? V
-                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-                : V extends string | number ? [V]
-                : never
-        );
 
         /***********
          * Utility *
@@ -6218,6 +6217,18 @@ declare namespace _ {
          */
         compose(...functions: Function[]): _Chain<T>;
 
+        /**
+         * Wrapped type `(...args: any[]) => any`.
+         * @see _.restArguments
+         */
+        restArguments(startIndex:number): _Chain<T>;
+
+        /**
+         * Wrapped type `number | string | Array<number | string>`.
+         * @see _.toPath
+         */
+        toPath(): _Chain<T>;
+
         /***********
          * Objects *
          ***********/
@@ -6483,6 +6494,34 @@ declare namespace _ {
         isSymbol(): _ChainSingle<boolean>;
 
         /**
+         * Returns true if the wrapped object is a Map.
+         * @returns True if the wrapped object is a Map, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         */
+        isMap(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a WeakMap.
+         * @returns True if the wrapped object is a WeakMap, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         */
+        isWeakMap(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a Set.
+         * @returns True if the wrapped object is a Set, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         */
+        isSet(): _ChainSingle<boolean>;
+
+        /**
+         * Returns true if the wrapped object is a WeakSet.
+         * @returns True if the wrapped object is a WeakSet, otherwise false.
+         * The result will be wrapped in a chain wrapper.
+         */
+        isWeakSet(): _ChainSingle<boolean>;
+
+        /**
          * Returns true if the wrapped object is an Object. Note that
          * JavaScript arrays and functions are objects, while (normal) strings
          * and numbers are not.
@@ -6577,48 +6616,6 @@ declare namespace _ {
          * The result will be wrapped in a chain wrapper.
          */
         isUndefined(): _ChainSingle<boolean>;
-
-        /**
-         * Returns true if the wrapped object is a Set.
-         * @returns True if the wrapped object is a Set, otherwise false.
-         * The result will be wrapped in a chain wrapper.
-         */
-        isSet(): _ChainSingle<boolean>;
-
-        /**
-         * Returns true if the wrapped object is a WeakSet.
-         * @returns True if the wrapped object is a WeakSet, otherwise false.
-         * The result will be wrapped in a chain wrapper.
-         */
-        isWeakSet(): _ChainSingle<boolean>;
-
-        /**
-         * Returns true if the wrapped object is a Map.
-         * @returns True if the wrapped object is a Map, otherwise false.
-         * The result will be wrapped in a chain wrapper.
-         */
-        isMap(): _ChainSingle<boolean>;
-
-        /**
-         * Returns true if the wrapped object is a WeakMap.
-         * @returns True if the wrapped object is a WeakMap, otherwise false.
-         * The result will be wrapped in a chain wrapper.
-         */
-        isWeakMap(): _ChainSingle<boolean>;
-
-        /**
-         * Ensures that path is an array.
-         * @param path
-         *  1. If path is a string, it is wrapped in a single-element array;
-         *  2. if it is an array already, it is returned unmodified.
-         */
-        toPath(): _ChainSingle<
-            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-            V extends ReadonlyArray<string | number> ? V
-                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-                : V extends string | number ? [V]
-                : never
-        >;
 
         /***********
          * Utility *
