@@ -293,6 +293,12 @@ describe("ApplePaySession", () => {
             console.log(`Can make payments with active card: ${status}.`);
         });
 
+        ApplePaySession.applePayCapabilities(merchantIdentifier).then(({
+            paymentCredentialStatus
+        }) => {
+            console.log(`Payment credential status is: ${paymentCredentialStatus}.`)
+        });
+
         ApplePaySession.openPaymentSetup(merchantIdentifier).then(success => {
             console.log(`Apple Pay setup: ${success}.`);
         });

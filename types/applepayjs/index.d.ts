@@ -51,9 +51,17 @@ declare class ApplePaySession extends EventTarget {
     static canMakePayments(): boolean;
 
     /**
+     * Indicates whether the device supports Apple Pay and whether the person has an active card in Wallet that qualifies for web payments.
+     * @param merchantIdentifier - The merchant ID created when the merchant enrolled in Apple Pay.
+     * @returns the PaymentCredentialStatusResponse object.
+     */
+    static applePayCapabilities(merchantIdentifier: string): Promise<ApplePayJS.PaymentCredentialStatusResponse>;
+
+    /**
      * Indicates whether the device supports Apple Pay and whether the user has an active card in Wallet.
      * @param merchantIdentifier - The merchant ID created when the merchant enrolled in Apple Pay.
      * @returns true if the device supports Apple Pay and there is at least one active card in Wallet that is qualified for payments on the web; otherwise, false.
+     * @deprecated Use applePayCapabilities instead.
      */
     static canMakePaymentsWithActiveCard(merchantIdentifier: string): Promise<boolean>;
 
@@ -964,6 +972,37 @@ declare namespace ApplePayJS {
          */
         tokenNotificationURL?: string | undefined;
     }
+
+    /**
+     * The response for information about the device’s support for Apple Pay and the payment credential status.
+     */
+    interface PaymentCredentialStatusResponse {
+        /**
+         * The status of the possible payment credentials that a person has provisioned in Wallet.
+         */
+        paymentCredentialStatus: PaymentCredentialStatus,
+    }
+
+    /**
+     * Information about whether the device supports Apple Pay and the possible payment credentials the person has provisioned in Wallet.
+     */
+    type PaymentCredentialStatus =
+        /**
+         * Confirms that the device supports Apple Pay and there’s at least one active payment credential in Wallet that qualifies for payments on the web. Show an Apple Pay button and offer Apple Pay as the primary, but not necessarily sole, payment option.
+         */
+        | "paymentCredentialsAvailable"
+        /**
+         * Confirms that the device supports Apple Pay, but the Wallet information is unknown. Show an Apple Pay button and offer Apple Pay as a possible payment option.
+         */
+        | "paymentCredentialStatusUnknown"
+        /**
+         * Confirms that the device supports Apple Pay and that the device doesn’t have any active payment credentials in Wallet. Offer Apple Pay as a payment option, but don’t make it the sole or default payment option. This gives people the option to set up Apple Pay as part of their purchase.
+         */
+        | "paymentCredentialsUnavailable"
+        /**
+         * Indicates that the device doesn’t support Apple Pay. Don’t display an Apple Pay button or offer Apple Pay as a payment option.
+         */
+        | "applePayUnsupported";
 
     /**
      * Values you use to enable or disable Apple Pay Later for a specific transaction.
