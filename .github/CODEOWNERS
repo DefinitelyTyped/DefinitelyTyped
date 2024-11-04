@@ -1120,7 +1120,6 @@
 /types/convert-units/                                     @ben-ng @tobybell
 /types/convict/                                           @Nemo157 @vesse @elyscape @msuntharesan @xamgore @petermetz
 /types/convict-format-with-validator/                     @louis79719
-/types/cookie/                                            @pine @peterblazejewicz
 /types/cookie-parser/                                     @santialbo @BendingBender
 /types/cookie-session/                                    @borislavjivkov
 /types/cookie-signature/                                  @Rokt33r
@@ -1542,6 +1541,7 @@
 /types/digibyte/                                          @lautarodragan @werewolfe @nyancodeid
 /types/digital-goods-browser/                             @vantezzen
 /types/digital-link.js/                                   @eoin-obrien
+/types/digitalbazaar__bitstring/                          @toteto
 /types/dinero.js/                                         @BendingBender @juandaco @peterblazejewicz
 /types/dingtalk-robot-sender/                             @bangbang93
 /types/dir-glob/                                          @BendingBender
@@ -4933,7 +4933,6 @@
 /types/memorystream/                                      @bangbang93 @geniou
 /types/memwatch-next/                                     @cyrilschumacher
 /types/mercadopago/                                       @danieldspx
-/types/mercadopago-sdk-js/                                @mercadopago
 /types/merge-deep/                                        @forivall
 /types/merge-descriptors/                                 @danny8002
 /types/merge-env/                                         @BendingBender
@@ -6935,7 +6934,7 @@
 /types/readline-transform/v0/                             @dex4er
 /types/readme-filename/                                   @manuth
 /types/readmore-js/                                       @AntonDemarczyk
-/types/rebass/                                            @rhysd @ryee-dev @jamesmckenzie @gretzky @angusfretwell @orzarchi @ilaiwi @mrkosima @rafaelalmeidatk
+/types/rebass/                                            @rhysd @ryee-dev @jamesmckenzie @angusfretwell @orzarchi @ilaiwi @mrkosima @rafaelalmeidatk
 /types/rebass__forms/                                     @zinozzino @trumanshuck
 /types/rebass__grid/                                      @antonvasin @vittorio @akameco
 /types/rebass__layout/                                    @rafaelalmeidatk
@@ -7321,7 +7320,7 @@
 /types/scratch-env/                                       @Richienb
 /types/screenshot-desktop/                                @usama8800
 /types/screeps/                                           @NhanHo @bryanbecker @resir014 @Arcath @dmarcuse @pyrodogg @kotarou @DiamondMofeng
-/types/screeps-arena/                                     @thmsndk @pyrodogg @AutumnSaury
+/types/screeps-arena/                                     @thmsndk @pyrodogg
 /types/screeps-profiler/                                  @ramblurr
 /types/script-ext-html-webpack-plugin/                    @davecardwell
 /types/scriptable-ios/                                    @schl3ck @FuJuntao @FifiTheBulldog
@@ -7376,7 +7375,7 @@
 /types/selectize/                                         @adidahiya @naBausch
 /types/selectn/                                           @bendaly818
 /types/selenium-standalone/                               @SanderDeWaal1992 @mgrybyk
-/types/selenium-webdriver/                                @BillArmstrong @Kuniwak @cnishina @SupernaviX @bendxn @oddui @beta-vulgaris @Dzenly @AutomatedTester @1pete @SinghHrmn @shubhsheth
+/types/selenium-webdriver/                                @BillArmstrong @Kuniwak @cnishina @SupernaviX @bendxn @oddui @beta-vulgaris @Dzenly @AutomatedTester @1pete @SinghHrmn @shubhsheth @harsha509
 /types/selenium-webdriver/v2/                             @BillArmstrong @Kuniwak @cnishina
 /types/selenium-webdriver/v3/                             @BillArmstrong @Kuniwak @cnishina @SupernaviX @bendxn @oddui
 /types/selfsigned/                                        @chimurai
@@ -7867,7 +7866,7 @@
 /types/styled-components/v3/                              @Igorbek @Igmat
 /types/styled-components-react-native/                    @Methuselah96
 /types/styled-react-modal/                                @gperl27
-/types/styled-system/                                     @phobon @zephraph @damassi @alloy @maoueh @jschuler @adam187 @gretzky @chrislopresto @peduarte @Dhalton @elliotbonneville @jackcaldwell @eliseumds @craga89 @HipsterBrown @maddhruv @cherewaty
+/types/styled-system/                                     @phobon @zephraph @damassi @alloy @maoueh @jschuler @adam187 @chrislopresto @peduarte @Dhalton @elliotbonneville @jackcaldwell @eliseumds @craga89 @HipsterBrown @maddhruv @cherewaty
 /types/styled-system__core/                               @bragle
 /types/styled-system__css/                                @sebald @sztobar @RyanTheAllmighty
 /types/styled-system__props/                              @kadoshms
@@ -8909,6 +8908,7 @@
 /types/yog2-kernel/                                       @ssddi456 @devinux
 /types/yoga-layout/                                       @tnobody
 /types/youtube/                                           @eliotfallon213 @terrymun @paulhobbel
+/types/youtube-captions-scraper/                          @oof2win2
 /types/youtube-dl/                                        @bsurai @moshfeu @NotWoods
 /types/youtube-player/                                    @jurca
 /types/ysdk/                                              @koteelok
