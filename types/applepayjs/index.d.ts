@@ -980,7 +980,7 @@ declare namespace ApplePayJS {
         /**
          * The status of the possible payment credentials that a person has provisioned in Wallet.
          */
-        paymentCredentialStatus: PaymentCredentialStatus,
+        paymentCredentialStatus: PaymentCredentialStatus;
     }
 
     /**

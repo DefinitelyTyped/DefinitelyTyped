@@ -294,9 +294,9 @@ describe("ApplePaySession", () => {
         });
 
         ApplePaySession.applePayCapabilities(merchantIdentifier).then(({
-            paymentCredentialStatus
+            paymentCredentialStatus,
         }) => {
-            console.log(`Payment credential status is: ${paymentCredentialStatus}.`)
+            console.log(`Payment credential status is: ${paymentCredentialStatus}.`);
         });
 
         ApplePaySession.openPaymentSetup(merchantIdentifier).then(success => {
