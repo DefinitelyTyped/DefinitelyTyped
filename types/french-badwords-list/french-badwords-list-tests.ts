@@ -3,8 +3,8 @@ import { array, object, regex } from 'french-badwords-list';
 // $ExpectType string[]
 array;
 
-// $ExpectType object
+// $ExpectType { [key: string]: number; }
 object;
 
-// $ExpectType Regex
+// $ExpectType RegExp
 regex;
