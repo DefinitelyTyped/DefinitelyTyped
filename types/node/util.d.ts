@@ -108,6 +108,25 @@ declare module "util" {
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
+    export interface StacktraceObject {
+        /**
+         * Returns the name of the function associated with this stack frame.
+         */
+        functionName: string;
+        /**
+         * Returns the name of the resource that contains the script for the
+         * function for this StackFrame.
+         */
+        scriptName: string;
+        /**
+         * Returns the number, 1-based, of the line for the associate function call.
+         */
+        lineNumber: number;
+        /**
+         * Returns the 1-based column offset on the line for the associated function call.
+         */
+        column: number;
+    }
     /**
      * The `util.format()` method returns a formatted string using the first argument
      * as a `printf`-like format string which can contain zero or more format
@@ -166,6 +185,52 @@ declare module "util" {
      * @since v10.0.0
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    /**
+     * Returns an array of stacktrace objects containing the stack of
+     * the caller function.
+     *
+     * ```js
+     * const util = require('node:util');
+     *
+     * function exampleFunction() {
+     *   const callSites = util.getCallSite();
+     *
+     *   console.log('Call Sites:');
+     *   callSites.forEach((callSite, index) => {
+     *     console.log(`CallSite ${index + 1}:`);
+     *     console.log(`Function Name: ${callSite.functionName}`);
+     *     console.log(`Script Name: ${callSite.scriptName}`);
+     *     console.log(`Line Number: ${callSite.lineNumber}`);
+     *     console.log(`Column Number: ${callSite.column}`);
+     *   });
+     *   // CallSite 1:
+     *   // Function Name: exampleFunction
+     *   // Script Name: /home/example.js
+     *   // Line Number: 5
+     *   // Column Number: 26
+     *
+     *   // CallSite 2:
+     *   // Function Name: anotherFunction
+     *   // Script Name: /home/example.js
+     *   // Line Number: 22
+     *   // Column Number: 3
+     *
+     *   // ...
+     * }
+     *
+     * // A function to simulate another stack layer
+     * function anotherFunction() {
+     *   exampleFunction();
+     * }
+     *
+     * anotherFunction();
+     * ```
+     * @param frames Number of frames returned in the stacktrace.
+     * **Default:** `10`. Allowable range is between 1 and 200.
+     * @return An array of stacktrace objects
+     * @since v22.9.0
+     */
+    export function getCallSite(frames?: number): StacktraceObject[];
     /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.

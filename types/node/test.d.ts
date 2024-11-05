@@ -1797,6 +1797,25 @@ interface TestCoverage {
             }>;
         }>;
         /**
+         * An object containing whether or not the coverage for
+         * each coverage type.
+         * @since v22.9.0
+         */
+        thresholds: {
+            /**
+             * The function coverage threshold.
+             */
+            function: number;
+            /**
+             * The branch coverage threshold.
+             */
+            branch: number;
+            /**
+             * The line coverage threshold.
+             */
+            line: number;
+        };
+        /**
          * An object containing a summary of coverage for all files.
          */
         totals: {

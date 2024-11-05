@@ -435,3 +435,21 @@ access("file/that/does/not/exist", (err) => {
         console.log(name, value);
     }
 }
+
+{
+    // $ExpectType StacktraceObject[]
+    util.getCallSite();
+    // $ExpectType StacktraceObject[]
+    util.getCallSite(100);
+
+    const callSites = util.getCallSite();
+
+    console.log("Call Sites:");
+    callSites.forEach((callSite, index) => {
+        console.log(`CallSite ${index + 1}:`);
+        console.log(`Function Name: ${callSite.functionName}`);
+        console.log(`Script Name: ${callSite.scriptName}`);
+        console.log(`Line Number: ${callSite.lineNumber}`);
+        console.log(`Column Number: ${callSite.column}`);
+    });
+}
