@@ -1168,6 +1168,7 @@ declare namespace Dockerode {
                     Name: string;
                     Options: { [option: string]: string };
                 };
+                Subpath?: string;
             }
             | undefined;
         TmpfsOptions?:
