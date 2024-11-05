@@ -17,10 +17,10 @@ new whatwgUrl.URL("http://example.com");
 new whatwgUrl.URL("foo", "http://example.com");
 
 // $ExpectType boolean
-whatwgUrl.URL.canParse("http://example.com")
+whatwgUrl.URL.canParse("http://example.com");
 
 // $ExpectType boolean
-whatwgUrl.URL.canParse("foo", "http://example.com")
+whatwgUrl.URL.canParse("foo", "http://example.com");
 
 // $ExpectType URLRecord | null
 const urlRecord = whatwgUrl.parseURL("http://example.com");
