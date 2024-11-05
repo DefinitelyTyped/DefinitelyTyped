@@ -1,4 +1,4 @@
-import { array, object, regex } from 'french-badwords-list';
+import { array, object, regex } from "french-badwords-list";
 
 // $ExpectType string[]
 array;
