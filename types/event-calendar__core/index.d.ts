@@ -204,6 +204,7 @@ declare namespace Calendar {
         end: Date;
         startStr: string;
         endStr: string;
+        allDay: boolean;
         resource: Resource;
     }
 
