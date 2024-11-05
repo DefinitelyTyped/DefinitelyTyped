@@ -3,6 +3,8 @@ import * as jsonLogic from "json-logic-js";
 jsonLogic.apply({ var: ["a"] }, { a: 1, b: 2 }); // $ExpectType any
 jsonLogic.apply({ var: "a" }, { a: 1, b: 2 }); // $ExpectType any
 jsonLogic.apply({ var: ["z", 26] }, { a: 1, b: 2 }); // $ExpectType any
+jsonLogic.apply({ var: "" }, null); // $ExpectType any
+
 // $ExpectType any
 jsonLogic.apply(
     { var: "champ.name" },
@@ -210,6 +212,9 @@ jsonLogic.apply(
 );
 // $ExpectType any
 jsonLogic.apply({ in: ["Ringo", ["John", "Paul", "George", "Ringo"]] });
+
+// $ExpectType any
+jsonLogic.apply({"in":[ {"var": "foo.bar"},["a", null] ]}, {"foo":{"bar":null}}); // foo.bar == null, checks if null is in the array.
 
 // $ExpectType any
 jsonLogic.apply({ in: ["Spring", "Springfield"] });
