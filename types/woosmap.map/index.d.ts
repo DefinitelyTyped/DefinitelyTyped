@@ -1229,6 +1229,48 @@ declare namespace woosmap.map {
         ): Promise<woosmap.map.localities.LocalitiesNearbyResponse>;
     }
 }
+declare namespace woosmap.map {
+    class DatasetsService {
+        constructor(datasetId: string);
+
+        /**
+         * Returns features intersecting with the geometry, buffer is applied if defined.
+         */
+        intersects(
+            request: woosmap.map.DatasetsSearchWithInputGeometryRequest,
+            pagination?: woosmap.map.DatasetsPaginationRequest,
+        ): Promise<woosmap.map.DatasetsSearchResponse>;
+
+        /**
+         * Returns features within by the geometry, buffer is applied if defined.
+         */
+        within(
+            request: woosmap.map.DatasetsSearchWithPolygonGeometryRequest,
+            pagination?: woosmap.map.DatasetsPaginationRequest,
+        ): Promise<woosmap.map.DatasetsSearchResponse>;
+
+        /**
+         * Returns feature containing the geometry.
+         */
+        contains(
+            request: woosmap.map.DatasetsSearchWithInputGeometryRequest,
+            pagination?: woosmap.map.DatasetsPaginationRequest,
+        ): Promise<woosmap.map.DatasetsSearchResponse>;
+
+        /**
+         * Searches for features matching the query.
+         */
+        search(
+            request: woosmap.map.DatasetsSearchRequest,
+            pagination?: woosmap.map.DatasetsPaginationRequest,
+        ): Promise<woosmap.map.DatasetsSearchResponse>;
+
+        /**
+         * Get the full feature, with its geometry.
+         */
+        getFeature(featureId: string): Promise<woosmap.map.DatasetsFeature>;
+    }
+}
 declare namespace woosmap.map.query {
     class Field {
         /**
@@ -1334,6 +1376,16 @@ declare namespace woosmap.map {
          * Sets the transit routes to display.
          */
         setRoutes(routes: woosmap.map.transit.TransitRoute[]): any;
+    }
+}
+declare namespace woosmap.map {
+    class DatasetsOverlay {
+        constructor(datasetId: string);
+
+        /**
+         * Adds or remove the overlay from the map.
+         */
+        setMap(map: woosmap.map.Map | null): void;
     }
 }
 declare namespace woosmap.map {
@@ -2547,7 +2599,7 @@ declare namespace woosmap.map.stores {
         /**
          * Find stores nearby an encoded polyline and inside a defined radius.
          */
-        polyline?: string;
+        polyline?: string | woosmap.map.LatLng[];
         /**
          * Example: `query=name:'My cool store'|type:'click_and_collect'`
          * Search query combining one or more search clauses.
@@ -3381,6 +3433,128 @@ declare namespace woosmap.map.localities {
          */
         previous_page?: number;
     }
+}
+declare namespace woosmap.map {
+    /**
+     * Summary feature response, part of DatasetsSearchResponse.
+     */
+    interface DatasetsFeatureSummary {
+        /**
+         * attributes table
+         */
+        attributes: {};
+        /**
+         * the feature extent can be a point geometry if the geometry has no area.
+         */
+        geometry: woosmap.map.GeoJSONPoint | woosmap.map.GeoJSONPolygon;
+        /**
+         * The feature identifier
+         */
+        id: string;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Pagination information for DatasetsSearchResponse
+     */
+    interface DatasetsPagination {
+        /**
+         * next page number if any.
+         */
+        next: number | null;
+        /**
+         * Current page number, starts at 1
+         */
+        page: number;
+        /**
+         * previous page number if any.
+         */
+        prev: number | null;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Full feature response, returned by Datasets get feature endpoint.
+     */
+    interface DatasetsFeature {
+        /**
+         * attributes of the feature.
+         */
+        attributes: {};
+        /**
+         * The feature geometry, as geojson.
+         */
+        geometry:
+            | woosmap.map.GeoJSONPoint
+            | woosmap.map.GeoJSONMultiPoint
+            | woosmap.map.GeoJSONLineString
+            | woosmap.map.GeoJSONMultiLineString
+            | woosmap.map.GeoJSONPolygon
+            | woosmap.map.GeoJSONMultiPolygon;
+        /**
+         * id of the feature (UUID).
+         */
+        id: string;
+    }
+}
+declare namespace woosmap.map {
+    interface DatasetsSearchResponse {
+        /**
+         * Matching features.
+         */
+        features: woosmap.map.DatasetsFeatureSummary[];
+        /**
+         * Pagination information.
+         */
+        pagination: woosmap.map.DatasetsPagination;
+    }
+}
+declare namespace woosmap.map {
+    interface DatasetsSearchRequest {
+        /**
+         * Filter abiding the Woosmap query format. Applies to feature attributes.
+         */
+        where?: string;
+    }
+}
+declare namespace woosmap.map {
+    interface DatasetsPaginationRequest {
+        /**
+         * request a specific page.
+         */
+        page?: number;
+        /**
+         * maximum feature count in the response.
+         */
+        per_page?: number;
+    }
+}
+declare namespace woosmap.map {
+    interface DatasetsSearchWithGeometryRequest<T> {
+        /**
+         * Applies a buffer operation on the request geometry.
+         * The value is the radius in meters.
+         */
+        buffer?: number;
+        /**
+         * Geometry used in the search operation.
+         */
+        geometry: T;
+        /**
+         * Filter abiding the Woosmap query format. Applies to feature attributes.
+         */
+        where?: string;
+    }
+}
+declare namespace woosmap.map {
+    type DatasetsSearchWithPolygonGeometryRequest = woosmap.map.DatasetsSearchWithGeometryRequest<
+        woosmap.map.GeoJSONPolygon
+    >;
+}
+declare namespace woosmap.map {
+    type DatasetsSearchWithInputGeometryRequest = woosmap.map.DatasetsSearchWithGeometryRequest<
+        woosmap.map.GeoJSONPolygon | woosmap.map.GeoJSONLineString | woosmap.map.GeoJSONPoint
+    >;
 }
 declare namespace woosmap.map {
     interface TransitRendererOptions {

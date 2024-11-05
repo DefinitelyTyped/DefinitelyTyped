@@ -640,6 +640,28 @@ imageMapType;
 map.overlayMapTypes.insertAt(0, imageMapType);
 
 /**
+ * DatasetsService Tests
+ */
+
+const datasetsService = new woosmap.map.DatasetsService("DEAD-BEEF");
+// $ExpectType DatasetsService
+datasetsService;
+
+const containsPromise = datasetsService.contains({ geometry: { type: "Point", coordinates: [0, 0] } });
+containsPromise.then((result) => {
+    // $ExpectType DatasetsSearchResponse
+    result;
+});
+
+// @ts-expect-error
+datasetsService.within({ geometry: { type: "Point", coordinates: [0, 0] } });
+
+datasetsService.intersects(
+    { geometry: { type: "Point", coordinates: [0, 0] }, where: "population:>10", buffer: 1000 },
+    { page: 10 },
+);
+
+/**
  * helper functions for testing purpose
  */
 function expectType(value: any) {
