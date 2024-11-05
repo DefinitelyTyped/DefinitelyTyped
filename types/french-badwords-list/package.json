@@ -10,8 +10,12 @@
     },
     "owners": [
         {
-            "name": "Adrien Etienne",
+            "name": "Esports Virtual Arenas",
             "githubUsername": "eva-gg"
+        },
+        {
+            "name": "Adrien Etienne",
+            "githubUsername": "AdrienEtienne"
         }
     ]
 }
