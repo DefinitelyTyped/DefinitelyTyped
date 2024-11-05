@@ -205,6 +205,8 @@ declare namespace Calendar {
         startStr: string;
         endStr: string;
         allDay: boolean;
+        jsEvent: DomEvent;
+        view: View;
         resource: Resource;
     }
 
