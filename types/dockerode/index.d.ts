@@ -1167,6 +1167,7 @@ declare namespace Dockerode {
                 DriverConfig: {
                     Name: string;
                     Options: { [option: string]: string };
+                    Subpath?: string;
                 };
             }
             | undefined;
