@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/french-badwords-list",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/darwiin/french-badwords-list#readme"
+    ],
+    "devDependencies": {
+        "@types/french-badwords-list": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adrien Etienne",
+            "githubUsername": "eva-gg"
+        }
+    ]
+}
