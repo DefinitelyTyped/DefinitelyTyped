@@ -283,7 +283,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
             | "plotly_redraw"
             | "plotly_transitioning"
             | "plotly_transitioninterrupted",
-        callback: () => void
+        callback: () => void,
     ): void;
     removeAllListeners: (handler: string) => void;
     data: Data[];
@@ -355,7 +355,7 @@ export function newPlot(
     root: Root,
     data: Data[],
     layout?: Partial<Layout>,
-    config?: Partial<Config>
+    config?: Partial<Config>,
 ): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
@@ -365,29 +365,29 @@ export function update(
     root: Root,
     traceUpdate: Data,
     layoutUpdate: Partial<Layout>,
-    traces?: number[] | number
+    traces?: number[] | number,
 ): Promise<PlotlyHTMLElement>;
 export function addTraces(
     root: Root,
     traces: Data | Data[],
-    newIndices?: number[] | number
+    newIndices?: number[] | number,
 ): Promise<PlotlyHTMLElement>;
 export function deleteTraces(root: Root, indices: number[] | number): Promise<PlotlyHTMLElement>;
 export function moveTraces(
     root: Root,
     currentIndices: number[] | number,
-    newIndices?: number[] | number
+    newIndices?: number[] | number,
 ): Promise<PlotlyHTMLElement>;
 export function extendTraces(
     root: Root,
     update: Data | Data[],
     indices: number | number[],
-    maxPoints?: number
+    maxPoints?: number,
 ): Promise<PlotlyHTMLElement>;
 export function prependTraces(
     root: Root,
     update: Data | Data[],
-    indices: number | number[]
+    indices: number | number[],
 ): Promise<PlotlyHTMLElement>;
 export function toImage(root: RootOrData, opts?: ToImgopts): Promise<string>;
 export function downloadImage(root: RootOrData, opts: DownloadImgopts): Promise<string>;
@@ -395,7 +395,7 @@ export function react(
     root: Root,
     data: Data[],
     layout?: Partial<Layout>,
-    config?: Partial<Config>
+    config?: Partial<Config>,
 ): Promise<PlotlyHTMLElement>;
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
@@ -403,7 +403,7 @@ export function register(modules: PlotlyModule | PlotlyModule[]): void;
 export function animate(
     root: Root,
     frameOrGroupNameOrFrameList?: string | string[] | Partial<Frame> | Array<Partial<Frame>>,
-    opts?: Partial<AnimationOpts>
+    opts?: Partial<AnimationOpts>,
 ): Promise<void>;
 
 // Layout
@@ -412,16 +412,16 @@ export interface Layout {
     title:
         | string
         | Partial<{
-              text: string;
-              font: Partial<Font>;
-              xref: "container" | "paper";
-              yref: "container" | "paper";
-              x: number;
-              y: number;
-              xanchor: "auto" | "left" | "center" | "right";
-              yanchor: "auto" | "top" | "middle" | "bottom";
-              pad: Partial<Padding>;
-          }>;
+            text: string;
+            font: Partial<Font>;
+            xref: "container" | "paper";
+            yref: "container" | "paper";
+            x: number;
+            y: number;
+            xanchor: "auto" | "left" | "center" | "right";
+            yanchor: "auto" | "top" | "middle" | "bottom";
+            pad: Partial<Padding>;
+        }>;
     titlefont: Partial<Font>;
     autosize: boolean;
     showlegend: boolean;
@@ -1231,18 +1231,19 @@ export interface ErrorOptions {
     opacity: number;
 }
 
-export type ErrorBar = Partial<ErrorOptions> &
-    (
+export type ErrorBar =
+    & Partial<ErrorOptions>
+    & (
         | {
-              type: "constant" | "percent";
-              value: number;
-              valueminus?: number | undefined;
-          }
+            type: "constant" | "percent";
+            value: number;
+            valueminus?: number | undefined;
+        }
         | {
-              type: "data";
-              array: Datum[];
-              arrayminus?: Datum[] | undefined;
-          }
+            type: "data";
+            array: Datum[];
+            arrayminus?: Datum[] | undefined;
+        }
     );
 
 export type Dash = "solid" | "dot" | "dash" | "longdash" | "dashdot" | "longdashdot";
@@ -1661,11 +1662,11 @@ export interface PlotMarker {
     colorbar?: Partial<ColorBar> | undefined;
     gradient?:
         | {
-              type: "radial" | "horizontal" | "vertical" | "none";
-              color: Color;
-              typesrc: any;
-              colorsrc: any;
-          }
+            type: "radial" | "horizontal" | "vertical" | "none";
+            color: Color;
+            typesrc: any;
+            colorsrc: any;
+        }
         | undefined;
     pattern?: Partial<Pattern>;
 }
