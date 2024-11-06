@@ -214,7 +214,7 @@ jsonLogic.apply(
 jsonLogic.apply({ in: ["Ringo", ["John", "Paul", "George", "Ringo"]] });
 
 // $ExpectType any
-jsonLogic.apply({"in":[ {"var": "foo.bar"},["a", null] ]}, {"foo":{"bar":null}}); // foo.bar == null, checks if null is in the array.
+jsonLogic.apply({ "in": [{ "var": "foo.bar" }, ["a", null]] }, { "foo": { "bar": null } }); // foo.bar == null, checks if null is in the array.
 
 // $ExpectType any
 jsonLogic.apply({ in: ["Spring", "Springfield"] });
