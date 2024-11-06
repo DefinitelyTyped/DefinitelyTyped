@@ -1,4 +1,4 @@
-// For Library Version: 1.129.0
+// For Library Version: 1.130.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -2281,6 +2281,8 @@ declare module "sap/f/cards/Header" {
 
   import AvatarShape from "sap/m/AvatarShape";
 
+  import AvatarImageFitType from "sap/m/AvatarImageFitType";
+
   import AvatarSize from "sap/m/AvatarSize";
 
   import { URI } from "sap/ui/core/library";
@@ -2498,6 +2500,18 @@ declare module "sap/f/cards/Header" {
      */
     getIconDisplayShape(): AvatarShape | keyof typeof AvatarShape;
     /**
+     * Gets current value of property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Value of property `iconFitType`
+     */
+    getIconFitType(): AvatarImageFitType | keyof typeof AvatarImageFitType;
+    /**
      * Gets current value of property {@link #getIconInitials iconInitials}.
      *
      * Defines the initials of the icon.
@@ -2655,6 +2669,25 @@ declare module "sap/f/cards/Header" {
        * New value for property `iconDisplayShape`
        */
       sIconDisplayShape?: AvatarShape | keyof typeof AvatarShape
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconFitType(
+      /**
+       * New value for property `iconFitType`
+       */
+      sIconFitType?: AvatarImageFitType | keyof typeof AvatarImageFitType
     ): this;
     /**
      * Sets a new value for property {@link #getIconInitials iconInitials}.
@@ -2915,6 +2948,16 @@ declare module "sap/f/cards/Header" {
       | `{${string}}`;
 
     /**
+     * Defines how the image fits in the icon area.
+     *
+     * @since 1.130
+     */
+    iconFitType?:
+      | (AvatarImageFitType | keyof typeof AvatarImageFitType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * Fires when the user presses the control.
      */
     press?: (oEvent: Event) => void;
@@ -2994,6 +3037,8 @@ declare module "sap/f/cards/NumericHeader" {
   import AvatarColor from "sap/m/AvatarColor";
 
   import AvatarShape from "sap/m/AvatarShape";
+
+  import AvatarImageFitType from "sap/m/AvatarImageFitType";
 
   import AvatarSize from "sap/m/AvatarSize";
 
@@ -3285,6 +3330,18 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Value of property `iconDisplayShape`
      */
     getIconDisplayShape(): AvatarShape | keyof typeof AvatarShape;
+    /**
+     * Gets current value of property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Value of property `iconFitType`
+     */
+    getIconFitType(): AvatarImageFitType | keyof typeof AvatarImageFitType;
     /**
      * Gets current value of property {@link #getIconInitials iconInitials}.
      *
@@ -3660,6 +3717,25 @@ declare module "sap/f/cards/NumericHeader" {
        * New value for property `iconDisplayShape`
        */
       sIconDisplayShape?: AvatarShape | keyof typeof AvatarShape
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconFitType iconFitType}.
+     *
+     * Defines how the image fits in the icon area.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Cover`.
+     *
+     * @since 1.130
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconFitType(
+      /**
+       * New value for property `iconFitType`
+       */
+      sIconFitType?: AvatarImageFitType | keyof typeof AvatarImageFitType
     ): this;
     /**
      * Sets a new value for property {@link #getIconInitials iconInitials}.
@@ -4088,6 +4164,16 @@ declare module "sap/f/cards/NumericHeader" {
      */
     iconSize?:
       | (AvatarSize | keyof typeof AvatarSize)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines how the image fits in the icon area.
+     *
+     * @since 1.130
+     */
+    iconFitType?:
+      | (AvatarImageFitType | keyof typeof AvatarImageFitType)
       | PropertyBindingInfo
       | `{${string}}`;
 

@@ -239,3 +239,6 @@ link.getEndIcon();
 
 // 1.129
 MessageBox.alert("Hello World", { contentWidth: "100px" });
+
+// 1.130
+link.hasLabelableHTMLElement();
