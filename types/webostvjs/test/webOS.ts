@@ -14,7 +14,7 @@ function test_deviceInfo() {
         deviceInfo.versionMinor; // $ExpectType number
         deviceInfo.uhd8K; // $ExpectType boolean
         deviceInfo.oled; // $ExpectType boolean | undefined
-        deviceInfo.ddrSize // $ExpectType string | undefined
+        deviceInfo.ddrSize; // $ExpectType string | undefined
         deviceInfo.hdr10; // $ExpectType boolean
         deviceInfo.dolbyVision; // $ExpectType boolean
         deviceInfo.dolbyAtmos; // $ExpectType boolean
