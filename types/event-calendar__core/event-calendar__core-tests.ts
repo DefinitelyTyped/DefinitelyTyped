@@ -218,7 +218,9 @@ cal = new Calendar({
             resources: [{ id: "foo" }, { id: "bar", extendedProps: { fred: "barney" } }],
             resourceLabelContent: "content",
             resourceLabelDidMount: (_info: Calendar.ResourceDidMountInfo) => {},
-            select: (_info: Calendar.SelectInfo) => {},
+            select: (info) => {
+                return (info.allDay || (info.jsEvent.target === document.body) || !!info.view.title);
+            },
             selectable: true,
             selectBackgroundColor: "red",
             selectLongPressDelay: 100,
