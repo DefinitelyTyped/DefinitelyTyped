@@ -56,12 +56,16 @@ function forEachOfIterator(item: string, key: string, forEachOfIteratorCallback:
     console.log(`ForEach: item=${item}, key=${key}`);
     forEachOfIteratorCallback();
 }
+async function forEachOfIteratorPromise(item: string, key: string) {
+    console.log(`ForEach: item=${item}, key=${key}`);
+}
 async.forEachOf(openFiles, forEachOfIterator, err => {});
 async.forEachOf(openFilesObj, forEachOfIterator, err => {});
 async.forEachOfSeries(openFiles, forEachOfIterator, err => {});
 async.forEachOfSeries(openFilesObj, forEachOfIterator, err => {});
 async.forEachOfLimit(openFiles, 2, forEachOfIterator, err => {});
 async.forEachOfLimit(openFilesObj, 2, forEachOfIterator, err => {});
+async.forEachOfLimit<string>(openFiles, 2, forEachOfIteratorPromise); // $ExpectType Promise<void>
 
 const numArray = [1, 2, 3];
 function reducer(memo: any, item: any, callback: any) {
@@ -935,6 +939,14 @@ async.filter<number>(
     },
 );
 
+async.filter<number>(
+    { a: 1, b: 2, c: 3 },
+    async (val: number) => {
+        console.log(`async.filter/select: ${val}`);
+        return true;
+    }
+);
+
 async.reject<number>(
     { a: 1, b: 2, c: 3 },
     (val: number, next: AsyncBooleanResultCallback) => {
@@ -949,6 +961,14 @@ async.reject<number>(
     (err: Error, results: number[]) => {
         console.log("async.reject: done with results", results);
     },
+);
+
+async.reject<number>(
+    { a: 1, b: 2, c: 3 },
+    async (val: number) => {
+        console.log(`async.reject: ${val}`);
+        return true;
+    }
 );
 
 // concat
