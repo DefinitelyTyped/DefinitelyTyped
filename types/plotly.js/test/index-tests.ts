@@ -324,9 +324,9 @@ const graphDiv = "#test";
                         width: 857.1,
                         height: 1000,
                         path:
-                            "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 "
-                            + "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 "
-                            + "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
+                            "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 " +
+                            "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 " +
+                            "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
                         ascent: 850,
                         transform: "matrix(1 0 0 -1 0 850)",
                     },
@@ -351,9 +351,9 @@ const graphDiv = "#test";
                     width: 857.1,
                     height: 1000,
                     path:
-                        "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 "
-                        + "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 "
-                        + "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
+                        "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 " +
+                        "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 " +
+                        "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
                     ascent: 850,
                     transform: "matrix(1 0 0 -1 0 850)",
                 },
@@ -407,7 +407,7 @@ const graphDiv = "#test";
             name: "group A",
         },
         {
-            y: y.map(e => e + 1),
+            y: y.map((e) => e + 1),
             x,
             type: "box",
             name: "group B",
@@ -567,7 +567,7 @@ const graphDiv = "#test";
         {
             "line.color": ["red", null, undefined],
         },
-        [0, 1, 2],
+        [0, 1, 2]
     );
 })();
 //////////////////////////////////////////////////////////////////////
@@ -710,7 +710,7 @@ function rand() {
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600 }).then(dataUrl => {
+    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600 }).then((dataUrl) => {
         // use the dataUrl
     });
 })();
@@ -765,7 +765,7 @@ function rand() {
             type: "scatter",
         },
     ]);
-    myPlot.on("plotly_click", data => {
+    myPlot.on("plotly_click", (data) => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -780,7 +780,7 @@ function rand() {
         Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on("plotly_hover", data => {
+    myPlot.on("plotly_hover", (data) => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -795,7 +795,7 @@ function rand() {
         Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on("plotly_unhover", data => {
+    myPlot.on("plotly_unhover", (data) => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -810,7 +810,7 @@ function rand() {
         Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on("plotly_selected", data => {
+    myPlot.on("plotly_selected", (data) => {
         const x = [] as Datum[];
         const y = [] as Datum[];
         const N = 1000;
@@ -820,7 +820,7 @@ function rand() {
         const colors = [] as string[];
         for (let i = 0; i < N; i++) colors.push(color1Light);
 
-        data.points.forEach(pt => {
+        data.points.forEach((pt) => {
             x.push(pt.x);
             y.push(pt.y);
             colors[pt.pointNumber] = color1;
@@ -831,7 +831,7 @@ function rand() {
             {
                 x: [x, y],
             },
-            [1, 2],
+            [1, 2]
         );
 
         Plotly.restyle(
@@ -839,11 +839,11 @@ function rand() {
             {
                 "marker.color": [colors],
             },
-            [0],
+            [0]
         );
     });
 
-    myPlot.on("plotly_relayout", eventdata => {
+    myPlot.on("plotly_relayout", (eventdata) => {
         eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
         eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
         eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
@@ -852,7 +852,7 @@ function rand() {
         eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
     });
 
-    myPlot.on("plotly_relayouting", eventdata => {
+    myPlot.on("plotly_relayouting", (eventdata) => {
         eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
         eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
         eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
@@ -861,7 +861,7 @@ function rand() {
         eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
     });
 
-    myPlot.on("plotly_restyle", data => {
+    myPlot.on("plotly_restyle", (data) => {
         console.log("restyling");
     });
 
@@ -871,7 +871,7 @@ function rand() {
         Plotly.restyle("myDiv", update);
     });
 
-    myPlot.on("plotly_beforeplot", event => {
+    myPlot.on("plotly_beforeplot", (event) => {
         console.log("plotting");
         const okToPlot = true;
         return okToPlot;
@@ -881,31 +881,31 @@ function rand() {
         console.log("done plotting");
     });
 
-    myPlot.on("plotly_animatingframe", event => {
+    myPlot.on("plotly_animatingframe", (event) => {
         console.log(`animating ${event.frame.name} with ${event.animation.transition.easing}`);
     });
 
-    myPlot.on("plotly_legendclick", event => {
+    myPlot.on("plotly_legendclick", (event) => {
         console.log("clicked on legend");
         const clickVal = true;
         return clickVal;
     });
 
-    myPlot.on("plotly_legenddoubleclick", event => {
+    myPlot.on("plotly_legenddoubleclick", (event) => {
         console.log("dbl clicked on legend");
         const dblClickVal = true;
         return dblClickVal;
     });
 
-    myPlot.on("plotly_sliderchange", event => {
+    myPlot.on("plotly_sliderchange", (event) => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 
-    myPlot.on("plotly_sliderstart", event => {
+    myPlot.on("plotly_sliderstart", (event) => {
         console.log(`Slider at [${event.slider.x},${event.slider.y}`);
     });
 
-    myPlot.on("plotly_sliderend", event => {
+    myPlot.on("plotly_sliderend", (event) => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 
@@ -958,7 +958,7 @@ function rand() {
         },
     ]);
 
-    sunburst.on("plotly_sunburstclick", event => {
+    sunburst.on("plotly_sunburstclick", (event) => {
         console.log(`Clicked button ${event.event.button} to navigate to ${event.nextLevel}`);
 
         const point = event.points[0];
@@ -967,7 +967,7 @@ function rand() {
         console.log(`Click happened while at level *labelled* ${point.entry}, and root *labelled* ${point.root}`);
         console.log(`Point has value ${point.value}`);
         console.log(
-            `Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`,
+            `Point takes up proportions of (previous level, parent, root): (${point.percentEntry}, ${point.percentParent}, ${point.percentRoot})`
         );
         console.log(`Colored ${point.color} and hover ${point.hovertext}`);
         console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
@@ -1077,10 +1077,10 @@ function rand() {
 
 //////////////////////////////////////////////////////////////////////
 // PlotlyIcons
-(() => {
+() => {
     const icon = Plotly.Icons.home;
     const icon2 = Plotly.Icons.undo;
-});
+};
 
 //////////////////////////////////////////////////////////////////////
 // Mapbox plot
@@ -1110,40 +1110,45 @@ function rand() {
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.animate as per https://plot.ly/javascript/animations/
-(() => {
-    Plotly.animate("myDiv", {
-        data: [{ y: [Math.random(), Math.random(), Math.random()] }],
-        traces: [0],
-        layout: {},
-    }, {
-        transition: {
-            duration: 500,
-            easing: "cubic-in-out",
+() => {
+    Plotly.animate(
+        "myDiv",
+        {
+            data: [{ y: [Math.random(), Math.random(), Math.random()] }],
+            traces: [0],
+            layout: {},
         },
-        frame: {
-            duration: 500,
-        },
-    });
+        {
+            transition: {
+                duration: 500,
+                easing: "cubic-in-out",
+            },
+            frame: {
+                duration: 500,
+            },
+        }
+    );
 
     var min = 0.45 * Math.random();
     var max = 0.55 + 0.45 * Math.random();
-    Plotly.animate("myDiv", {
-        layout: {
-            xaxis: { range: [min, max] },
-            yaxis: { range: [min, max] },
+    Plotly.animate(
+        "myDiv",
+        {
+            layout: {
+                xaxis: { range: [min, max] },
+                yaxis: { range: [min, max] },
+            },
         },
-    }, {
-        transition: {
-            duration: 500,
-            easing: "cubic-in-out",
-        },
-    });
+        {
+            transition: {
+                duration: 500,
+                easing: "cubic-in-out",
+            },
+        }
+    );
 
     Plotly.animate("myDiv", ["frame1", "frame2"], {
-        frame: [
-            { duration: 1500 },
-            { duration: 500 },
-        ],
+        frame: [{ duration: 1500 }, { duration: 500 }],
         transition: [
             { duration: 800, easing: "elastic-in" },
             { duration: 100, easing: "cubic-in" },
@@ -1151,24 +1156,30 @@ function rand() {
         mode: "afterall",
     });
 
-    Plotly.animate("myDiv", {
-        data: [{ x: [], y: [] }],
-    }, {
-        transition: {
-            duration: 0,
+    Plotly.animate(
+        "myDiv",
+        {
+            data: [{ x: [], y: [] }],
         },
-        frame: {
-            duration: 0,
-            redraw: false,
-        },
-    });
+        {
+            transition: {
+                duration: 0,
+            },
+            frame: {
+                duration: 0,
+                redraw: false,
+            },
+        }
+    );
 
     var ids = ["1", "2", "3", "4", "5", "6"];
 
-    Plotly.animate("myDiv", [{
-        data: [{ ids: ids }],
-    }]);
-});
+    Plotly.animate("myDiv", [
+        {
+            data: [{ ids: ids }],
+        },
+    ]);
+};
 
 //////////////////////////////////////////////////////////////////////
 // x and y axis names
@@ -1194,23 +1205,15 @@ function rand() {
     // taken from https://plotly.com/python/reference/layout/yaxis/
     const regexXAxis = /^x([2-9]|[1-9][0-9]+)?( domain)?$/;
 
-    if (
-        !validXAxes.every(str => (
-            regexXAxis.test(str)
-        ))
-    ) {
+    if (!validXAxes.every((str) => regexXAxis.test(str))) {
         throw new Error(
-            "Values accepted by ts definition as valid are not matching according to plotly documentation regex.",
+            "Values accepted by ts definition as valid are not matching according to plotly documentation regex."
         );
     }
 
-    if (
-        !invalidXAxes.every(str => (
-            !regexXAxis.test(str)
-        ))
-    ) {
+    if (!invalidXAxes.every((str) => !regexXAxis.test(str))) {
         throw new Error(
-            "Values not accepted by ts definition as valid are matching according to plotly documentation regex.",
+            "Values not accepted by ts definition as valid are matching according to plotly documentation regex."
         );
     }
 
@@ -1235,23 +1238,102 @@ function rand() {
     // taken from https://plotly.com/python/reference/layout/yaxis/
     const regexYAxis = /^y([2-9]|[1-9][0-9]+)?( domain)?$/;
 
-    if (
-        !validYAxes.every(str => (
-            regexYAxis.test(str)
-        ))
-    ) {
+    if (!validYAxes.every((str) => regexYAxis.test(str))) {
         throw new Error(
-            "Values accepted by ts definition as valid are not matching according to plotly documentation regex.",
+            "Values accepted by ts definition as valid are not matching according to plotly documentation regex."
         );
     }
 
-    if (
-        !invalidYAxes.every(str => (
-            !regexXAxis.test(str)
-        ))
-    ) {
+    if (!invalidYAxes.every((str) => !regexXAxis.test(str))) {
         throw new Error(
-            "Values not accepted by ts definition as valid are matching according to plotly documentation regex.",
+            "Values not accepted by ts definition as valid are matching according to plotly documentation regex."
         );
     }
+})();
+
+//////////////////////////////////////////////////////////////////////
+// Layout.dragmode
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawclosedpath",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawopenpath",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawline",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawrect",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: [1, 2, 3, 4],
+            y: [5, 6, 7, 8],
+            mode: "markers",
+            type: "scatter",
+        },
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "drawcircle",
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
 })();
