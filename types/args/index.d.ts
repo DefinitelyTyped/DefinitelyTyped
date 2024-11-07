@@ -23,8 +23,8 @@ interface args {
     showHelp(): void;
     showVersion(): void;
     // new
-    details: {options: {defaultValue: any, usage: any, description: any}[], commands: Command[], examples: Example[]}; // TODO: un-any this
-    config: any;
+    details: {options: {defaultValue: any, usage: string[], description: string, init?: any}[], commands: Command[], examples: Example[]}; // TODO: wtf is init
+    config: {exit: {help: boolean, version: boolean}, help: boolean, version: boolean, usageFilter: any, value: string, name: string, mainColor: string | string[], subColor: string | string[]}; // TODO: wtf is usagefilter
     printMainColor: any;
     printSubColor: any;
     Args: any;
@@ -104,4 +104,3 @@ interface Command {
     init?: any;
     aliases?: any;
 }
-
