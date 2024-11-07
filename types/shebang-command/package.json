@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/shebang-command",
-    "version": "1.2.9999",
+    "version": "2.0.9999",
     "projects": [
         "https://github.com/kevva/shebang-command#readme"
     ],
