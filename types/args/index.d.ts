@@ -25,19 +25,19 @@ interface args {
     // new
     details: {options: {defaultValue: any, usage: string[], description: string, init?: any}[], commands: Command[], examples: Example[]}; // TODO: wtf is init
     config: {exit: {help: boolean, version: boolean}, help: boolean, version: boolean, usageFilter: any, value: string, name: string, mainColor: string | string[], subColor: string | string[]}; // TODO: wtf is usagefilter
-    printMainColor: any;
-    printSubColor: any;
-    Args: any;
-    handleType: any;
-    readOption: any;
-    getOptions: any;
-    generateExamples: any;
-    generateDetails: any;
-    runCommand: any;
-    checkHelp: any;
-    checkVersion: any;
-    isDefined: any;
-    optionWasProvided: any;
+    printMainColor: any; // depends on chalk
+    printSubColor: any; // depends on chalk
+    Args(): any; // not sure what this is supposed to be
+    handleType(value: any): any;
+    readOption(option: any): any;
+    getOptions(definedSubcommand: any): any;
+    generateExamples(): any;
+    generateDetails(kind: any): any;
+    runCommand(details: any, options: any): any;
+    checkHelp(): any;
+    checkVersion(): any;
+    isDefined(name: any, list: any): any;
+    optionWasProvided(name: any): any;
     raw?: any;
     binary?: any;
     sub?: string[];
@@ -104,3 +104,4 @@ interface Command {
     init?: any;
     aliases?: any;
 }
+
