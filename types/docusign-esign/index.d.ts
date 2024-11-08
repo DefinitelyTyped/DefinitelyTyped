@@ -20759,7 +20759,7 @@ export interface EnvelopeCustomFields {
 /**
  * Envelope object definition.
  */
-export interface EnvelopeDefinition {
+export class EnvelopeDefinition {
     /**
      * Reserved for DocuSign.
      */
