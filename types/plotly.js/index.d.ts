@@ -1948,7 +1948,7 @@ export interface Label {
 
 export interface LegendTitle {
     font: Partial<Font>;
-    side: "top" | "left" | "top left";
+    side: "top" | "left" | "top left" | "top center" | "top right";
     text: string;
 }
 
