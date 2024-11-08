@@ -1871,7 +1871,7 @@ declare namespace googletag {
          *     taxonomies: {
          *       'IAB_AUDIENCE_1_1':
          *           {values: ['6', '626']},
-         *           // '6' = 'Demographic | Age Range | 18-20'
+         *           // '6' = 'Demographic | Age Range | 30-34'
          *           // '626' = 'Interest | Sports | Darts'
          *       'IAB_CONTENT_2_2':
          *           {values: ['48', '127']},
@@ -2331,7 +2331,6 @@ declare namespace googletag {
          *         console.log('Creative Template ID:', event.creativeTemplateId);
          *         console.log('Is backfill?:', event.isBackfill);
          *         console.log('Is empty?:', event.isEmpty);
-         *         console.log('Label IDs:', event.labelIds);
          *         console.log('Line Item ID:', event.lineItemId);
          *         console.log('Size:', event.size);
          *         console.log('Slot content changed?', event.slotContentChanged);
@@ -2391,9 +2390,7 @@ declare namespace googletag {
              */
             creativeTemplateId: number | null;
             /**
-             * Label IDs of the rendered ad. Value is `null` for empty slots,
-             * backfill ads, and creatives rendered by services other than {@link
-             * PubAdsService}.
+             * @deprecated This field is no longer populated.
              */
             labelIds: number[] | null;
             /**
