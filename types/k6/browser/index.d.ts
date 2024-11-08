@@ -3016,6 +3016,31 @@ export interface Page {
     on(event: "console", listener: (consoleMessage: ConsoleMessage) => void): void;
 
     /**
+     * page.on('metric') will register a background handler that will listen out
+     * for metrics that are measured and emitted for the page.
+     * 
+     * When a {@link MetricMessage} is received by the handler, it can be used to
+     * group seemingly disparate metrics tagged with url and name so that a
+     * correlation can be found.
+     *
+     * **Usage**
+     *
+     * ```js
+     * // Listen for all metric messages in the page and call its tag method to
+     * // tag matching urls with the new tag name.
+     * page.on('metric', (metric) => {
+     *   metric.tag({
+     *     name: 'test',
+     *     matches: [
+     *       {url: /^https:\/\/test\.k6\.io\/\?q=[0-9a-z]+$/, method: 'GET'},
+     *     ]
+     *   });
+     * });
+     * ```
+     */
+    on(event: "metric", listener: (metricMessage: MetricMessage) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
