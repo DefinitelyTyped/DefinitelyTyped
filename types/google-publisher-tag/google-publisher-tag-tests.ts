@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20241021
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/c6dc88ce60192f3641021b17f05533748f3b6bca
+// Tests for Google Publisher Tag 1.20241104
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/7084b874d5d66266f06a161a0f124283f7e071e0
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -672,7 +672,7 @@ function test_googletag_config_publisherProvidedSignalsConfig() {
         pps: {
             taxonomies: {
                 "IAB_AUDIENCE_1_1": { values: ["6", "626"] },
-                // '6' = 'Demographic | Age Range | 18-20'
+                // '6' = 'Demographic | Age Range | 30-34'
                 // '626' = 'Interest | Sports | Darts'
                 "IAB_CONTENT_2_2": { values: ["48", "127"] },
                 // '48' = 'Books and Literature | Fiction'
@@ -801,7 +801,6 @@ function test_googletag_events_slotRenderEndedEvent() {
         console.log("Creative Template ID:", event.creativeTemplateId);
         console.log("Is backfill?:", event.isBackfill);
         console.log("Is empty?:", event.isEmpty);
-        console.log("Label IDs:", event.labelIds);
         console.log("Line Item ID:", event.lineItemId);
         console.log("Size:", event.size);
         console.log("Slot content changed?", event.slotContentChanged);
