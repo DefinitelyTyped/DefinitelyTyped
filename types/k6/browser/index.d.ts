@@ -937,6 +937,69 @@ export interface ConsoleMessage {
 }
 
 /**
+ * {@link MetricMessage} objects are dispatched by page via the
+ * `page.on('metric')` event. For each metric that it measured and emitted for
+ * the page, k6 browser delivers it to the registered handlers.
+ *
+ * ```js
+ * // Listen for all metric messages in the page and call its tag method to
+ * // tag matching urls with the new tag name.
+ * page.on('metric', (metric) => {
+ *   metric.tag({
+ *     name: 'test',
+ *     matches: [
+ *       {url: /^https:\/\/test\.k6\.io\/\?q=[0-9a-z]+$/, method: 'GET'},
+ *     ]
+ *   });
+ * });
+ * ```
+ */
+export interface MetricMessage {
+    /**
+     * tag will match the given `tagMatch.matches` with the current metric's url
+     * and name tags. When a match is found it will use `tagMatch.name` to replace
+     * the existing url and name tag values.
+     * 
+     * Doing this will help group metrics with disparate url and name tags, which
+     * are in fact referencing the same resource, so that a correlation can be found
+     * over time and preventing high cardinality issues in the backend database that
+     * is storing the metrics.
+     * @param tagMatch
+     */
+    tag(tagMatch: {
+            /**
+             * name is a required field. It will replace the current metric's
+             * url and name tag values when a match is found.
+             */
+            name: string;
+
+            /**
+             * matches is a required field. It is an array of objects containing
+             * the regular expression and optional method to match against the
+             * current metric's url and name tags.
+             * 
+             * It will iterate over all the objects in `matches` until a match
+             * is found, or to the end of the array if no match is found.
+             */
+            matches: {
+                /**
+                 * url is a required field. It is used to match against the
+                 * current metric url and name tags.
+                 */
+                url: RegExp;
+
+                /**
+                 * method is optional. When it is not set, a match will occur
+                 * on all method types. When it is set, it will match on the
+                 * one method that is set.
+                 */
+                method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD' | 'TRACE' | 'CONNECT';
+            }[];
+        },
+    ): void;
+}
+
+/**
  * {@link Cookie} represents a cookie in a {@link BrowserContext}.
  *
  * @see
