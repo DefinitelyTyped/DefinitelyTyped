@@ -482,6 +482,9 @@ declare namespace google {
              * Show folders in the view items.  Do not combine with
              * `setOwnedByMe`. When `setIncludeFolders(true)` is
              * set, `setOwnedByMe` is ignored.
+             *
+             * If you don't set this option, folders aren't displayed in the
+             * view.
              */
             setIncludeFolders(included: boolean): DocsView;
 
@@ -505,11 +508,17 @@ declare namespace google {
              * shared with the user. Do not combine this setting with
              * `setIncludeFolders`. When `setIncludeFolders(true)`
              * is set, `setOwnedByMe` is ignored.
+             *
+             * If you don't set this option, all documents, including shared
+             * documents, are displayed in the view.
              */
-            setOwnedByMe(me?: boolean): DocsView;
+            setOwnedByMe(me: boolean): DocsView;
 
             /**
              * Filters the documents based on whether they are starred by the user.
+             *
+             * If `true`, only starred documents are displayed in the view. If
+             * `false`, all documents are displayed in the view.
              */
             setStarred(starred: boolean): DocsView;
 
