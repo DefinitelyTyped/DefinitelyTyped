@@ -6,6 +6,7 @@
         "https://github.com/Alex-Werner/mongo-objectid"
     ],
     "devDependencies": {
+        "@types/node": "^16.0.0",
         "@types/mongo-objectid": "workspace:."
     },
     "owners": [
