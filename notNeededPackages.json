@@ -376,6 +376,10 @@
             "libraryName": "bem-cn",
             "asOfVersion": "3.0.0"
         },
+        "better-scroll": {
+            "libraryName": "better-scroll",
+            "asOfVersion": "2.0.0"
+        },
         "bezier-easing": {
             "libraryName": "bezier-easing",
             "asOfVersion": "2.1.0"
