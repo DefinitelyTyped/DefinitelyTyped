@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mongo-objectid",
-    "version": "1.2.2",
+    "version": "1.2.2.9999",
     "projects": [
         "https://github.com/Alex-Werner/mongo-objectid"
     ],
