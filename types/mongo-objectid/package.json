@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mongo-objectid",
+    "version": "1.2.2",
+    "projects": [
+        "https://github.com/Alex-Werner/mongo-objectid"
+    ],
+    "devDependencies": {
+        "@types/mongo-objectid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "yiays",
+            "githubUsername": "yiays"
+        }
+    ]
+}
