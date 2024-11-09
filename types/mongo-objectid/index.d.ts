@@ -1,4 +1,4 @@
-declare default class ObjectId {
+declare class ObjectId {
   static UNIQUE_VALUE: Buffer;
 
   constructor(prop?: string|number);
@@ -13,3 +13,5 @@ declare default class ObjectId {
   getMachineId(): Buffer;
   isValid(hex: string): boolean;
 }
+
+export = ObjectId
