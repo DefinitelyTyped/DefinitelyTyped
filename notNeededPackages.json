@@ -2497,6 +2497,10 @@
             "libraryName": "interactjs",
             "asOfVersion": "1.3.0"
         },
+        "intercom-client": {
+            "libraryName": "intercom-client",
+            "asOfVersion": "3.0.0"
+        },
         "interface-datastore": {
             "libraryName": "interface-datastore",
             "asOfVersion": "3.0.0"
