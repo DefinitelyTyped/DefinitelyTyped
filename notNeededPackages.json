@@ -3565,6 +3565,10 @@
             "libraryName": "mkdirp",
             "asOfVersion": "2.0.0"
         },
+        "ml-levenberg-marquardt": {
+            "libraryName": "ml-levenberg-marquardt",
+            "asOfVersion": "4.0.0"
+        },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
             "asOfVersion": "1.1.0"
