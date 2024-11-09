@@ -4955,6 +4955,10 @@
             "libraryName": "react-icons",
             "asOfVersion": "3.0.0"
         },
+        "react-image-crop": {
+            "libraryName": "react-image-crop",
+            "asOfVersion": "9.0.2"
+        },
         "react-images": {
             "libraryName": "react-images",
             "asOfVersion": "1.1.0"
