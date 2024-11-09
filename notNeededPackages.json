@@ -2025,6 +2025,10 @@
             "libraryName": "fullname",
             "asOfVersion": "4.0.0"
         },
+        "fundamental-react": {
+            "libraryName": "fundamental-react",
+            "asOfVersion": "0.14.5"
+        },
         "fuse": {
             "libraryName": "fuse",
             "asOfVersion": "2.6.0"
