@@ -5131,6 +5131,10 @@
             "libraryName": "react-native-safe-area",
             "asOfVersion": "0.5.1"
         },
+        "react-native-share": {
+            "libraryName": "react-native-share",
+            "asOfVersion": "6.0.0"
+        },
         "react-native-status-bar-height": {
             "libraryName": "react-native-status-bar-height",
             "asOfVersion": "2.3.0"
