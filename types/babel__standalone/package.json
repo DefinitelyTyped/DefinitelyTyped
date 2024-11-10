@@ -6,7 +6,12 @@
         "https://github.com/babel/babel/tree/master/packages/babel-standalone"
     ],
     "dependencies": {
-        "@types/babel__core": "^7.1.0"
+        "@babel/parser": "^7.25.6",
+        "@babel/types": "^7.25.6",
+        "@types/babel__core": "^7.20.5",
+        "@types/babel__generator": "^7.6.8",
+        "@types/babel__template": "^7.4.9999",
+        "@types/babel__traverse": "^7.20.6"
     },
     "devDependencies": {
         "@types/babel__standalone": "workspace:."
