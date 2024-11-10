@@ -5223,6 +5223,10 @@
             "libraryName": "react-resize-detector",
             "asOfVersion": "6.1.0"
         },
+        "react-responsive": {
+            "libraryName": "react-responsive",
+            "asOfVersion": "9.0.0"
+        },
         "react-rnd": {
             "libraryName": "react-rnd",
             "asOfVersion": "8.0.0"
