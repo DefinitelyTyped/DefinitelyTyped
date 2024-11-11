@@ -943,7 +943,7 @@ export interface ConsoleMessage {
  *
  * ```js
  * // Listen for all metric messages in the page and call its tag method to
- * // tag matching urls with the new tag name.
+ * // tag matching URLs with the new tag name.
  * page.on('metric', (metric) => {
  *   metric.tag({
  *     name: 'test',
@@ -956,41 +956,39 @@ export interface ConsoleMessage {
  */
 export interface MetricMessage {
     /**
-     * tag will match the given `tagMatch.matches` with the current metric's url
+     * tag will match the given `tagMatch.matches` with the current metric's URL
      * and name tags. When a match is found it will use `tagMatch.name` to replace
-     * the existing url and name tag values.
+     * the existing URL and name tag values.
      * 
-     * Doing this helps to group metrics with disparate url and name tags, which
-     * are, in fact, referencing the same resource so that a correlation can be
-     * found over time and to reduce the cardinality of the metrics.
+     * Doing this helps group metrics with different URL and name tags that, in
+     * fact, reference the same resource, allowing for correlation over time and
+     * reducing the cardinality of the metrics.
      * @param tagMatch
      */
     tag(tagMatch: {
             /**
-             * name is a required field. It will replace the current metric's
-             * url and name tag values when a match is found.
+             * The name value that replaces the current metric's URL and name
+             * tag values, if a match is found. Required, and must not be an
+             * empty string.
              */
             name: string;
 
             /**
-             * matches is a required field. It is an array of objects containing
-             * the regular expression and optional method to match against the
-             * current metric's url and name tags.
-             * 
-             * It will iterate over all the objects in `matches` until a match
-             * is found, or to the end of the array if no match is found.
+             * An array of objects containing the matchers which will be used
+             * to match against the current metric's URL and name tags.
+             * Required.
              */
             matches: {
                 /**
-                 * url is a required field. It is used to match against the
-                 * current metric url and name tags.
+                 * The regular expression used to find matches in the current
+                 * metric's URL and name tags. Required.
                  */
                 url: RegExp;
 
                 /**
-                 * method is optional. When it is not set, a match will occur
-                 * on all method types. When it is set, it will match on the
-                 * one method that is set.
+                 * Used to match the metric's method tag. It's optional, and when
+                 * it's not set it will group all metrics regardless of the method
+                 * tag.
                  */
                 method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD' | 'TRACE' | 'CONNECT';
             }[];
