@@ -2300,6 +2300,7 @@
 /types/frecency/                                          @sw-yx
 /types/freedom/                                           @jpevarnek
 /types/freeport/                                          @atd-schubert
+/types/french-badwords-list/                              @eva-gg @AdrienEtienne @NicolasTarbouriech
 /types/fresh/                                             @BendingBender
 /types/fresh-tabula-js/                                   @NotWoods
 /types/freshy/                                            @qlonik
@@ -2970,7 +2971,7 @@
 /types/good-storage/                                      @wkl007
 /types/google-ads-scripts/                                @JJPell
 /types/google-adwords-scripts/                            @jafaircl
-/types/google-apps-script/                                @PopGoesTheWza @motemen @pierluigi-montagna @mtgto
+/types/google-apps-script/                                @jpoehnelt @sqrrrl @PierrickVoulet @vinay-google
 /types/google-apps-script-oauth2/                         @dhayab @blacksmoke16
 /types/google-closure-compiler/                           @evmar @dmchurch
 /types/google-cloud__datastore/                           @beaulac @ogawa0071 @ThomasdenH
@@ -5102,7 +5103,6 @@
 /types/mongodb-uri/                                       @mernxl
 /types/mongoose-aggregate-paginate-v2/                    @acrilex1
 /types/mongoose-auto-increment/                           @AyaMorisawa
-/types/mongoose-autopopulate/                             @rann91
 /types/mongoose-deep-populate/                            @AyaMorisawa
 /types/mongoose-delete/                                   @ndunks @alexbrazier
 /types/mongoose-geojson-schema/                           @bondz
@@ -6024,6 +6024,7 @@
 /types/pouchdb-adapter-fruitdown/                         @spaulg @geppy @fredgalvao
 /types/pouchdb-adapter-http/                              @spaulg @geppy @fredgalvao
 /types/pouchdb-adapter-idb/                               @spaulg @geppy @fredgalvao
+/types/pouchdb-adapter-indexeddb/                         @cstrickland-WE
 /types/pouchdb-adapter-leveldb/                           @spaulg @geppy @fredgalvao
 /types/pouchdb-adapter-localstorage/                      @spaulg @geppy @fredgalvao
 /types/pouchdb-adapter-memory/                            @spaulg @geppy @fredgalvao
@@ -6328,6 +6329,7 @@
 /types/react/v17/                                         @johnnyreilly @bbenezech @pzavolinsky @ericanderson @DovydasNavickas @theruther4d @guilhermehubner @ferdaber @jrakotoharisoa @pascaloliv @hotell @franklixuefei @Jessidhia @saranshkataria @lukyth @eps1lon @zieka @dancerphil @dimitropoulos @disjukr @vhfmag @hellatan @priyanshurav @konsalex
 /types/react-adal/                                        @dkorolov1
 /types/react-adaptive-hooks/                              @stramel
+/types/react-add-new/                                     @antoniom
 /types/react-add-to-calendar/                             @koss-lebedev
 /types/react-albus/                                       @sseppola @conradreuter @kuirak
 /types/react-alert/                                       @g1eny0ung
@@ -8177,8 +8179,6 @@
 /types/totp-generator/                                    @haykam821
 /types/touch/                                             @mizunashi-mana @BendingBender
 /types/touch-events/                                      @kevinb7
-/types/tough-cookie/                                      @leonard-thieu @LiJinyao @no2chem
-/types/tough-cookie/v2/                                   @leonard-thieu @LiJinyao @no2chem
 /types/tough-cookie-file-store/                           @forivall
 /types/tough-cookie-filestore/                            @friedow
 /types/tpdirect/                                          @Yu-Jack
