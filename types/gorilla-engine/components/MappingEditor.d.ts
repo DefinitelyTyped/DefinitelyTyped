@@ -1,5 +1,4 @@
 declare namespace GorillaEngine.UI {
-
     interface MappingEditorProps extends Common, Bounds, Background {
         parentPath: string;
         refreshView(index?: number): void;
