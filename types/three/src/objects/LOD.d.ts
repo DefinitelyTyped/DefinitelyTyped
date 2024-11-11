@@ -82,6 +82,13 @@ export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends 
     addLevel(object: Object3D, distance?: number, hysteresis?: number): this;
 
     /**
+     * Removes an existing level, based on the distance from the camera. Returns `true` when the level has been removed.
+     * Otherwise `false`.
+     * @param distance Distance of the level to delete.
+     */
+    removeLabel(distance: number): boolean;
+
+    /**
      * Get the currently active {@link LOD} level
      * @remarks
      * As index of the levels array.

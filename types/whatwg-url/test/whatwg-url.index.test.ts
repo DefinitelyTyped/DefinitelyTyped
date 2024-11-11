@@ -78,10 +78,10 @@ whatwgUrl.serializeHost([0, 0, 0, 0, 0, 0, 0, 0]);
 // $ExpectType string
 whatwgUrl.serializeInteger(42);
 
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 whatwgUrl.percentDecodeBytes(new Uint8Array([]));
 
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
 whatwgUrl.percentDecodeString("foo");
 
 [
@@ -95,7 +95,7 @@ whatwgUrl.percentDecodeString("foo");
     Float32Array,
     Float64Array,
 ].forEach(ctor => {
-    // $ExpectType Uint8Array
+    // $ExpectType Uint8Array || Uint8Array<ArrayBufferLike>
     whatwgUrl.percentDecodeBytes(new ctor());
 });
 

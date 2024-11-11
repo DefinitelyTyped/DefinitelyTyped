@@ -1,4 +1,4 @@
-// For Library Version: 1.128.0
+// For Library Version: 1.130.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -717,7 +717,9 @@ declare module "sap/ui/mdc/DefaultTypeMap" {
   /**
    * Generic {@link module:sap/ui/mdc/util/TypeMap TypeMap} configuration for simple use cases.
    *
-   * **Note:** This {@link module:sap/ui/mdc/util/TypeMap TypeMap} implementation contains the following types:
+   * **Note:** The modules of all data types registered in a `TypeMap` must be loaded in advance.
+   *  **Note:** This {@link module:sap/ui/mdc/util/TypeMap TypeMap} implementation contains the following
+   * types:
    *
    *
    * 	 - {@link sap.ui.model.type.Boolean} (alias `Boolean`)
@@ -875,6 +877,18 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
     ): undefined | object;
     /**
      * Provides the possibility to customize / replace the internal content of a field
+     * By default, this method returns suitable controls for the given {@link sap.ui.mdc.enums.BaseType BaseType},
+     * {@link sap.ui.mdc.field.FieldBase#setMaxConditions maxConditions} and {@link sap.ui.mdc.enums.ContentMode ContentMode}.
+     *
+     * **Note:** Bind the value-holding property of the control to `'$field>/conditions'` using {@link sap.ui.mdc.field.ConditionsType ConditionsType }
+     * as type.
+     *
+     * If the control needs to show multiple conditions, bind its aggregation to '$field>/conditions'.
+     * Bind the item controls value-holding property using {@link sap.ui.mdc.field.ConditionType ConditionType }
+     * as type.
+     *
+     * **Warning:** The returned controls must implement {@link sap.ui.core.IFormContent IFormContent}. Other
+     * controls might lead to layouting or usabillity issues.
      *
      * @since 1.124.0
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -907,7 +921,7 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
      *
      * The returned text will be shown as selected after the user input ends.
      *
-     * By Default this method uses the {@link sap.ui.mdc.field.FieldBase#getDisplay display} property of the
+     * By default this method uses the {@link sap.ui.mdc.field.FieldBase#getDisplay display} property of the
      * {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField}, or {@link sap.ui.mdc.MultiValueField MultiValueField }
      * control to determine what text (key or description) is used as autocomplete-text. A text is only used
      * if it matches the user input. If set to `Value`, the key is used. If set to `Description`, the description
@@ -1730,7 +1744,8 @@ declare module "sap/ui/mdc/odata/TypeMap" {
   /**
    * OData-specific {@link module:sap/ui/mdc/util/TypeMap TypeMap} configuration.
    *
-   * **Note:** This `TypeMap` implementation contains the following types:
+   * **Note:** The modules of all data types registered in a `TypeMap` must be loaded in advance.
+   *  **Note:** This `TypeMap` implementation contains the following types:
    *
    *
    * 	 - {@link sap.ui.model.type.Boolean} (alias `Boolean`)
@@ -1907,7 +1922,8 @@ declare module "sap/ui/mdc/odata/v4/TypeMap" {
   /**
    * ODataV4-specific {@link module:sap/ui/mdc/util/TypeMap TypeMap} configuration.
    *
-   * **Note:** This `TypeMap` implementation contains the following types including ODataV4-specific configuration:
+   * **Note:** The modules of all data types registered in a `TypeMap` must be loaded in advance.
+   *  **Note:** This `TypeMap` implementation contains the following types including ODataV4-specific configuration:
    *
    *
    * 	 - {@link sap.ui.model.type.Boolean} (alias `Boolean`)
@@ -2239,6 +2255,8 @@ declare module "sap/ui/mdc/util/TypeMap" {
    * Configuration class for type handling in delegates. Allows mapping of model types to {@link sap.ui.mdc.enums.BaseType }
    * and enables model-specific type configuration.
    *
+   * **Note:** The modules of all data types registered in a `TypeMap` must be loaded in advance.
+   *
    * @since 1.114.0
    */
   interface TypeMap {
@@ -2321,8 +2339,6 @@ declare module "sap/ui/mdc/util/TypeMap" {
     ): BaseType | keyof typeof BaseType;
     /**
      * Gets a data type class based on a given name.
-     *
-     * **Note:** The module of the data type needs to be loaded before.
      *
      *
      * @returns Corresponding data type class
@@ -2741,7 +2757,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
      * This might be extended with payload-dependent filters.
      *
      * @since 1.101.0
-     * @deprecated - (since 1.118.0) - replaced by {@link module:sap/ui/mdc/ValueHelpDelegate.findConditionsForContext findConditionsForContext}
+     * @deprecated (since 1.118) - replaced by {@link module:sap/ui/mdc/ValueHelpDelegate.findConditionsForContext findConditionsForContext}.
      *
      * @returns `true` if item is selected
      */
@@ -3013,6 +3029,17 @@ declare module "sap/ui/mdc/library" {
 
   import BaseType from "sap/ui/mdc/enums/BaseType";
 
+  import Control from "sap/ui/core/Control";
+
+  import {
+    ItemForValueConfiguration,
+    ValueHelpItem,
+  } from "sap/ui/mdc/ValueHelp";
+
+  import FormatException from "sap/ui/model/FormatException";
+
+  import ParseException from "sap/ui/model/ParseException";
+
   /**
    * Interface for controls or entities which can serve as filters in the `sap.ui.mdc.Table` & `sap.ui.mdc.Chart`.
    *
@@ -3235,172 +3262,290 @@ declare module "sap/ui/mdc/library" {
       baseType?: BaseType | keyof typeof BaseType;
     };
   }
-}
 
-declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+  export namespace valuehelp {
+    namespace base {
+      /**
+       * Interface for valuehelp containers shown on a dialog
+       *
+       * @since 1.95
+       */
+      interface IDialogContainer {
+        __implements__sap_ui_mdc_valuehelp_base_IDialogContainer: boolean;
 
-  import { IOverflowToolbarContent } from "sap/m/library";
+        /**
+         * Closes the container
+         */
+        close(): void;
+        /**
+         * Opens the container
+         *
+         *
+         * @returns This promise resolves after the container completely opened.
+         */
+        open(
+          /**
+           * Promise for content request
+           */
+          oValueHelpContentPromise: Promise<any>,
+          /**
+           * Flag indicating whether the container is opened as type-ahead or dialog-like help
+           */
+          bTypeahead: boolean
+        ): Promise<any>;
+      }
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+      /**
+       * Interface for valuehelp containers / contents supporting dialog functionality
+       *
+       * @since 1.95
+       */
+      interface IDialogContent {
+        __implements__sap_ui_mdc_valuehelp_base_IDialogContent: boolean;
 
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+        /**
+         * Returns number of relevant conditions for this content
+         *
+         *
+         * @returns Number of relevant conditions
+         */
+        getCount(
+          /**
+           * Array of conditions
+           */
+          aConditions: ConditionObject[]
+        ): number;
+        /**
+         * Loads additional dependencies, creates and returns displayed content.
+         *
+         *
+         * @returns Promise resolving in displayed content
+         */
+        getContent(): Promise<Control>;
+        /**
+         * Returns a title for the given Content
+         *
+         *
+         * @returns Content title as string
+         */
+        getTitle(): string;
+        /**
+         * Returns info if the given content is in multi select mode
+         *
+         *
+         * @returns `true` if multi-selection is active.
+         */
+        isMultiSelect(): boolean;
+      }
 
-  /**
-   * The action for an {@link sap.ui.mdc.ActionToolbar ActionToolbar} control with given layout information
-   * that determines where the wrapped control is displayed on the `ActionToolbar`.
-   *
-   * @since 1.58
-   * @experimental
-   */
-  export default class ActionToolbarAction
-    extends Control
-    implements IOverflowToolbarContent
-  {
-    __implements__sap_m_IOverflowToolbarContent: boolean;
-    /**
-     * Constructor for a new ActionToolbarAction.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
       /**
-       * Initial settings for the new control
+       * Interface for valuehelp {@link sap.ui.mdc.valuehelp.base.Container Containers} supporting typeahead functionality
+       *
+       * @since 1.95
        */
-      mSettings?: $ActionToolbarActionSettings
-    );
-    /**
-     * Constructor for a new ActionToolbarAction.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * ID for the new control, generated automatically if no ID is given
-       */
-      sId?: string,
-      /**
-       * Initial settings for the new control
-       */
-      mSettings?: $ActionToolbarActionSettings
-    );
+      interface ITypeaheadContainer {
+        __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContainer: boolean;
 
-    /**
-     * Creates a new subclass of class sap.ui.mdc.actiontoolbar.ActionToolbarAction with name `sClassName` and
-     * enriches it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ActionToolbarAction>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.mdc.actiontoolbar.ActionToolbarAction.
-     *
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): ElementMetadata;
-    /**
-     * Destroys the action in the aggregation {@link #getAction action}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyAction(): this;
-    /**
-     * Gets content of aggregation {@link #getAction action}.
-     *
-     * The control that is displayed on the `ActionToolbar`.
-     */
-    getAction(): Control;
-    /**
-     * Gets current value of property {@link #getLayoutInformation layoutInformation}.
-     *
-     * Contains the information where the action is displayed on the `ActionToolbar`.
-     *
-     * Default value is `...see text or source`.
-     *
-     *
-     * @returns Value of property `layoutInformation`
-     */
-    getLayoutInformation(): object;
-    /**
-     * Observes changes in `Action` aggregation.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    observeChanges(
-      /**
-       * Changes
-       */
-      oChanges: object
-    ): void;
-    /**
-     * Sets the aggregated {@link #getAction action}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setAction(
-      /**
-       * The action to set
-       */
-      oAction: Control
-    ): this;
-    /**
-     * Sets a new value for property {@link #getLayoutInformation layoutInformation}.
-     *
-     * Contains the information where the action is displayed on the `ActionToolbar`.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `...see text or source`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setLayoutInformation(
-      /**
-       * New value for property `layoutInformation`
-       */
-      oLayoutInformation?: object
-    ): this;
-  }
-  /**
-   * Describes the settings that can be provided to the ActionToolbarAction constructor.
-   *
-   * @experimental
-   */
-  export interface $ActionToolbarActionSettings extends $ControlSettings {
-    /**
-     * Contains the information where the action is displayed on the `ActionToolbar`.
-     */
-    layoutInformation?: object | PropertyBindingInfo | `{${string}}`;
+        /**
+         * Closes the container
+         */
+        close(): void;
+        /**
+         * Determines the item (key and description) for a given value.
+         *
+         * The value help checks if there is an item with a key or description that fits this value.
+         *
+         * **Note:** This function must only be called by the control the `ValuedHelp` element belongs to, not by
+         * the application.
+         *
+         *
+         * @returns Promise returning object containing description, key and payload.
+         */
+        getItemForValue(
+          /**
+           * Configuration
+           */
+          oConfig: ItemForValueConfiguration
+        ): Promise<ValueHelpItem>;
+        /**
+         * If the container is used for type-ahead it might be wanted that the same content should also be shown
+         * as valuehelp. If not, the field should not show a valuehelp icon.
+         *
+         *
+         * @returns `true` if the typeahead content can be used as value help
+         */
+        getUseAsValueHelp(): boolean;
+        /**
+         * Defines if the typeahead can be used for input validation.
+         *
+         *
+         * @returns True if the typeahead container can be used for input validation
+         */
+        isValidationSupported(): boolean;
+        /**
+         * Navigates the typeaheads values (optional)
+         *
+         * As this could be asyncronous as data might be loaded a promise is returned.
+         *
+         *
+         * @returns Promise fulfilled after navigation is evecuted
+         */
+        navigate(
+          /**
+           * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+           */
+          iStep: int
+        ): Promise<object>;
+        /**
+         * Opens the container
+         *
+         *
+         * @returns This promise resolves after the container completely opened.
+         */
+        open(
+          /**
+           * Promise for content request
+           */
+          oValueHelpContentPromise: Promise<any>,
+          /**
+           * Flag indicating whether the container is opened as type-ahead or dialog-like help
+           */
+          bTypeahead: boolean
+        ): Promise<any>;
+        /**
+         * The focus visualization of the field help needs to be removed as the user starts typing into the source
+         * control.
+         */
+        removeVisualFocus(): void;
+        /**
+         * The focus visualization of the field help needs to be set as the user starts naigation into the value
+         * help items.
+         *
+         * @since 1.127.0
+         */
+        setVisualFocus(): void;
+        /**
+         * Defines if the typeahead container desires to be opened whenever a user clicks on a connected control
+         *
+         *
+         * @returns If `true`, the value help should open when user clicks into the connected field control
+         */
+        shouldOpenOnClick(): Promise<boolean>;
+        /**
+         * Defines if the typeahead container desires to be opened whenever a user focuses a connected control
+         *
+         *
+         * @returns If `true`, the value help should open when user focuses the connected field control
+         */
+        shouldOpenOnFocus(): Promise<boolean>;
+        /**
+         * Defines if the typeahead containers values can be navigated without visibly opening the help
+         *
+         *
+         * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
+         */
+        shouldOpenOnNavigate(): boolean;
+      }
 
-    /**
-     * The control that is displayed on the `ActionToolbar`.
-     */
-    action?: Control;
+      /**
+       * Interface for valuehelp {@link sap.ui.mdc.valuehelp.base.Container Containers} / {@link sap.ui.mdc.valuehelp.base.Content Contents }
+       * supporting typeahead functionality
+       *
+       * @since 1.95
+       */
+      interface ITypeaheadContent {
+        __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContent: boolean;
+
+        /**
+         * Loads additional dependencies, creates and returns displayed content.
+         *
+         *
+         * @returns Promise resolving in displayed content
+         */
+        getContent(): Promise<Control>;
+        /**
+         * Determines the item (key and description) for a given value.
+         *
+         * The content checks if there is an item with a key or description that fits this value.
+         *
+         * **Note:** This function must only be called by the `Container` element.
+         *
+         *
+         * @returns Promise returning object containing description, key and payload.
+         */
+        getItemForValue(
+          /**
+           * Configuration
+           */
+          oConfig: ItemForValueConfiguration
+        ): Promise<ValueHelpItem>;
+        /**
+         * Returns a title for the given Content
+         *
+         *
+         * @returns Content title as string
+         */
+        getTitle(): string;
+        /**
+         * If the container is used for typeahead it might be wanted that the same content should also be shown
+         * as valuehelp. If not, the field should not show a valuehelp icon.
+         *
+         *
+         * @returns `true` if the typeahead content can be used as value help
+         */
+        getUseAsValueHelp(): boolean;
+        /**
+         * Returns info if the given content is in multi select mode
+         *
+         *
+         * @returns `true` if multi-selection is active.
+         */
+        isMultiSelect(): boolean;
+        /**
+         * Defines if the typeahead can be used for input validation.
+         *
+         *
+         * @returns True if the typeahead container can be used for input validation
+         */
+        isValidationSupported(): boolean;
+        /**
+         * Navigates the typeaheads values (optional)
+         */
+        navigate(
+          /**
+           * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+           */
+          iStep: int
+        ): void;
+        /**
+         * The focus visualization of the field help needs to be removed as the user starts typing into the source
+         * control.
+         */
+        removeVisualFocus(): void;
+        /**
+         * The focus visualization of the field help needs to be set as the user starts naigation into the value
+         * help items.
+         *
+         * @since 1.127.0
+         */
+        setVisualFocus(): void;
+        /**
+         * Defines if the typeahead content desires opening the typeahead whenever a user clicks on a connected
+         * control
+         *
+         *
+         * @returns If `true`, the value help should open when user clicks into the connected field control
+         */
+        shouldOpenOnClick(): boolean;
+        /**
+         * Defines if the typeahead containers values can be navigated without visibly opening the help
+         *
+         *
+         * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
+         */
+        shouldOpenOnNavigate(): boolean;
+      }
+    }
   }
 }
 
@@ -3456,6 +3601,9 @@ declare module "sap/ui/mdc/Chart" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/52d065ab8bb740c58c834a0c985e3b9e Chart Building Block (OData V4)}
      */
     constructor(
       /**
@@ -3469,6 +3617,9 @@ declare module "sap/ui/mdc/Chart" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/52d065ab8bb740c58c834a0c985e3b9e Chart Building Block (OData V4)}
      */
     constructor(
       /**
@@ -4290,7 +4441,7 @@ declare module "sap/ui/mdc/Chart" {
     /**
      * The aggregation method used if the property is aggregatable
      */
-    aggregationMethod: string;
+    aggregationMethod?: string;
     /**
      * Defines the role that the property visualizes inside the chart
      */
@@ -7736,6 +7887,12 @@ declare module "sap/ui/mdc/enums/TableRowCountMode" {
      * A fixed number of rows is shown
      */
     Fixed = "Fixed",
+    /**
+     * The user can change the number of displayed rows by dragging a resizer
+     *
+     * @since 1.130
+     */
+    Interactive = "Interactive",
   }
   export default TableRowCountMode;
 }
@@ -7884,6 +8041,9 @@ declare module "sap/ui/mdc/Field" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/5260b9ca249f465ab33769b9edb442aa Field Building Block (OData V4)}
      */
     constructor(
       /**
@@ -7897,6 +8057,9 @@ declare module "sap/ui/mdc/Field" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/5260b9ca249f465ab33769b9edb442aa Field Building Block (OData V4)}
      */
     constructor(
       /**
@@ -8014,7 +8177,8 @@ declare module "sap/ui/mdc/Field" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. Use the `value` property and
+     * `additionalValue` property to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8087,7 +8251,8 @@ declare module "sap/ui/mdc/Field" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. Use the `value` property and
+     * `additionalValue` property to bind the control.
      *
      * @returns Conditions of the field
      */
@@ -8100,7 +8265,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * value of the `dataType` property is ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `value` property is used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The type in the binding to
+     * the `value` property is used.
      *
      * @returns Value of property `dataType`
      */
@@ -8113,8 +8279,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * values of the `dataType` property and the `dataTypeConstraints` property are ignored.
      *
-     * @deprecated - Not supported, the `Constraints` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The `Constraints` of the type
+     * in the binding to the `value` property is used.
      *
      * @returns Value of property `dataTypeConstraints`
      */
@@ -8127,8 +8293,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * values of the `dataType` property and the `dataTypeFormatOptions` property are ignored.
      *
-     * @deprecated - Not supported, the `FormatOptions` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The `FormatOptions` of the
+     * type in the binding to the `value` property is used.
      *
      * @returns Value of property `dataTypeFormatOptions`
      */
@@ -8168,7 +8334,8 @@ declare module "sap/ui/mdc/Field" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. Use the `value` property and
+     * `additionalValue` property to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8186,7 +8353,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * value of the `dataType` property is ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `value` property is used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The type in the binding to
+     * the `value` property is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8204,8 +8372,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * values of the `dataType` property and the `dataTypeConstraints` property are ignored.
      *
-     * @deprecated - Not supported, the `Constraints` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The `Constraints` of the type
+     * in the binding to the `value` property is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8223,8 +8391,8 @@ declare module "sap/ui/mdc/Field" {
      * **Note:** If the `value` property is bound to a model using a type, this type is used. In this case the
      * values of the `dataType` property and the `dataTypeFormatOptions` property are ignored.
      *
-     * @deprecated - Not supported, the `FormatOptions` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. The `FormatOptions` of the
+     * type in the binding to the `value` property is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -8237,7 +8405,7 @@ declare module "sap/ui/mdc/Field" {
     /**
      * This property must not be set for the `Field`
      *
-     * @deprecated - Not supported, this property is not supported for the `Field`.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`.
      *
      * @returns `this` to allow method chaining.
      */
@@ -8277,7 +8445,8 @@ declare module "sap/ui/mdc/Field" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `Field`. Use the `value` property and
+     * `additionalValue` property to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -9015,6 +9184,7 @@ declare module "sap/ui/mdc/field/FieldBase" {
   import {
     IFormContent,
     ISemanticFormContent,
+    ILabelable,
     ID,
     Label,
     TextAlign,
@@ -9057,11 +9227,16 @@ declare module "sap/ui/mdc/field/FieldBase" {
    */
   export default abstract class FieldBase
     extends Control
-    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent
+    implements
+      IFormContent,
+      ISemanticFormContent,
+      IOverflowToolbarContent,
+      ILabelable
   {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_core_ISemanticFormContent: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
+    __implements__sap_ui_core_ILabelable: boolean;
     /**
      * Constructor for a new `FieldBase`.
      *
@@ -9644,14 +9819,6 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     getContentEdit(): Control1;
     /**
-     * Returns the `ContentFactory` used to manage the internal content control.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns oContentFactory the ContentFactory of the Field
-     */
-    getContentFactory(): /* was: sap.ui.mdc.field.content.ContentFactory */ any;
-    /**
      * Gets the currently used content controls.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -9978,6 +10145,14 @@ declare module "sap/ui/mdc/field/FieldBase" {
        */
       oEvent: object
     ): void;
+    /**
+     * Returns if the control can be bound to a label
+     *
+     * @since 1.121.0
+     *
+     * @returns `true` if the control can be bound to a label
+     */
+    hasLabelableHTMLElement(): boolean;
     /**
      * Returns the user interaction state of the control.
      *
@@ -11474,6 +11649,9 @@ declare module "sap/ui/mdc/FilterBar" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/78386110817d43978ffd6988d1704e38 FilterBar Building Block (OData V4)}
      */
     constructor(
       /**
@@ -11487,6 +11665,9 @@ declare module "sap/ui/mdc/FilterBar" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/78386110817d43978ffd6988d1704e38 FilterBar Building Block (OData V4)}
      */
     constructor(
       /**
@@ -12663,6 +12844,9 @@ declare module "sap/ui/mdc/FilterField" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/2df783760a8e4540ad19ce5ec3ed91c8 FilterField Building Block (OData V4)}
      */
     constructor(
       /**
@@ -12676,6 +12860,9 @@ declare module "sap/ui/mdc/FilterField" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/2df783760a8e4540ad19ce5ec3ed91c8 FilterField Building Block (OData V4)}
      */
     constructor(
       /**
@@ -13944,7 +14131,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. Use the `items`
+     * aggregation to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14012,7 +14200,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      *
      * Do not use the `conditions` property, use the `items` aggregation instead.
      *
-     * @deprecated - Not supported, use the `items` aggregation to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `MultiValueField`. Use the `items`
+     * aggregation to bind the control.
      *
      * @returns conditions of the field
      */
@@ -14025,7 +14214,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the value of the `dataType` property is ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `value` property is used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Value of property `dataType`
      */
@@ -14038,8 +14228,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the values of the `dataType` property and the `dataTypeConstraints` property are ignored.
      *
-     * @deprecated - Not supported, the `Constraints` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Value of property `dataTypeConstraints`
      */
@@ -14052,8 +14242,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the values of the `dataType` property and the `dataTypeFormatOptions` property are ignored.
      *
-     * @deprecated - Not supported, the `FormatOptions` of the type in the binding to the `value` property is
-     * used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Value of property `dataTypeFormatOptions`
      */
@@ -14096,7 +14286,7 @@ declare module "sap/ui/mdc/MultiValueField" {
     /**
      * Gets current value of property {@link #getMultipleLines multipleLines}.
      *
-     * @deprecated - This property is not supported for multi-value fields.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`.
      *
      * @returns Value for property `multipleLines`
      */
@@ -14158,7 +14348,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      *
      * Do not use the `conditions` property, use the `items` aggregation instead.
      *
-     * @deprecated - Not supported, use the `items` aggregation to bind the control.
+     * @deprecated (since 1.54) - this property is not supported for the `MultiValueField`. Use the `items`
+     * aggregation to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14175,7 +14366,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the value of the `dataType` property is ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `items` aggregation is used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14193,7 +14385,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the values of the `dataType` property and the `dataTypeConstraints` property are ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `items` aggregation is used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14211,7 +14404,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      * **Note:** If the `items` aggregation is bound to a model using a type, this type is used. In this case
      * the values of the `dataType` property and the `dataTypeFormatOptions` property are ignored.
      *
-     * @deprecated - Not supported, the type in the binding to the `items` aggregation is used.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. The type in the
+     * binding to the `items` aggregation is used.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14256,7 +14450,7 @@ declare module "sap/ui/mdc/MultiValueField" {
     /**
      * This property must not be set for the `MultiValueField` control.
      *
-     * @deprecated - Not supported, this property is not supported for the `MultiValueField` control.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField` control.
      *
      * @returns `this` to allow method chaining.
      */
@@ -14269,7 +14463,7 @@ declare module "sap/ui/mdc/MultiValueField" {
     /**
      * Sets a new value for property {@link #getMultipleLines multipleLines}.
      *
-     * @deprecated - This property is not supported for multi-value fields.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14284,7 +14478,8 @@ declare module "sap/ui/mdc/MultiValueField" {
      *
      * Do not use the `conditions` property, use the `value` and `additionalValue` properties instead.
      *
-     * @deprecated - Not supported, use the `value` property and `additionalValue` property to bind the control.
+     * @deprecated (since 1.93) - this property is not supported for the `MultiValueField`. Use the `items`
+     * aggregation to bind the control.
      *
      * @returns Reference to `this` to allow method chaining
      */
@@ -14444,8 +14639,7 @@ declare module "sap/ui/mdc/Table" {
    * 	 - `aggregatable`
    * 	 - `extension.technicallyGroupable`
    * 	 - `extension.technicallyAggregatable`
-   * 	 - `extension.customAggregate`
-   * 	 - `extension.customAggregate.contextDefiningProperties`
+   * 	 - `extension.additionalProperties`
    *
    * If the property is complex, the following attributes need to be specified:
    * 	 - `key`
@@ -14454,7 +14648,8 @@ declare module "sap/ui/mdc/Table" {
    */
   export type TablePropertyInfo = PropertyInfo & {
     /**
-     * Defines whether a property is aggregatable.
+     * Defines whether the property is aggregatable. A property can only be declared aggregatable if there is
+     * a `CustomAggregate` whose `Qualifier` is equal to the property key.
      */
     aggregatable?: boolean;
     /**
@@ -14463,24 +14658,36 @@ declare module "sap/ui/mdc/Table" {
     extension?: {
       /**
        * If `groupable` is set to `false` to exclude it from group personalization on the UI, the UI still needs
-       * to know that this property is groupable for data requests.
+       * to know that this property is groupable for data requests. If this attribute is not set, the default
+       * value is the same as the value of `groupable`.
        */
       technicallyGroupable?: boolean;
       /**
        * If `aggregatable` is set to `false` to exclude it from aggregate personalization on the UI, the UI still
-       * needs to know that this property is aggregatable for data requests.
+       * needs to know that this property is aggregatable for data requests. If this attribute is not set, the
+       * default value is the same as the value of `aggregatable`.
        */
       technicallyAggregatable?: boolean;
       /**
-       * Provide an object, it can be empty, if there is a `CustomAggregate` whose `Qualifier` is equal to the
-       * name of this property. This enables the option to show totals if `aggregatable` is `true`.
+       * Properties that are loaded in addition if this property is loaded. These properties must be technically
+       * groupable, otherwise they can't be loaded. This attribute is only taken into account if the `Aggregate`
+       * or `Group` `p13nMode` is enabled and the table type is {@link sap.ui.mdc.table.GridTableType GridTable}.
+       * These properties are not considered for any other functionality, such as export or column width calculation,
+       * for example.
+       *
+       * The following restrictions apply:
+       * 	 - If the property is neither technically groupable nor technically aggregatable, it must not reference
+       *     additional properties.
+       * 	 - If the property is technically groupable but not technically aggregatable, not more than one additional
+       *     property must be referenced. The additional property must be the property that is referencing this property
+       *     in its `text` attribute (bidirectional reference). Regardless of the `groupable` attribute, the property
+       *     cannot be grouped via the UI. This might change. If this change is not desired, set `groupable` to `false`
+       *     explicitly. Do not group this property via API, for example, with the `StateUtil`.
+       * 	 - If the property is both technically groupable and technically aggregatable, it must reference only
+       *     properties that are related to the `CustomAggregate`.
+       * 	 - Properties that are referenced via `text` or `unit` must not be repeated here.
        */
-      customAggregate?: {
-        /**
-         * A list of related properties (by name) that are the context-defining properties of the `CustomAggregate`.
-         */
-        contextDefiningProperties?: string[];
-      };
+      additionalProperties?: string[];
     };
   };
 
@@ -14504,6 +14711,9 @@ declare module "sap/ui/mdc/Table" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/3801656db27b4b7a9099b6ed5fa1d769 Table Building Block (OData V4)}
      */
     constructor(
       /**
@@ -14517,6 +14727,9 @@ declare module "sap/ui/mdc/Table" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
+     * See:
+     * 	{@link https://ui5.sap.com/#/topic/1dd2aa91115d43409452a271d11be95b sap.ui.mdc}
+     * 	{@link https://ui5.sap.com/#/topic/3801656db27b4b7a9099b6ed5fa1d769 Table Building Block (OData V4)}
      */
     constructor(
       /**
@@ -16175,11 +16388,11 @@ declare module "sap/ui/mdc/Table" {
      */
     isKey?: boolean;
     /**
-     * Name of the unit property that is related to this property.
+     * Key of the unit property that is related to this property.
      */
     unit?: string;
     /**
-     * Name of the text property that is related to this property in a 1:1 relation.
+     * Key of the text property that is related to this property in a 1:1 relation.
      */
     text?: string;
     /**
@@ -16234,14 +16447,14 @@ declare module "sap/ui/mdc/Table" {
          */
         verticalArrangement?: boolean;
         /**
-         * A list of invisible referenced property names
+         * A list of invisible referenced property keys
          */
         excludeProperties?: string[];
       };
     };
     /**
      * The availability of this property makes the `PropertyInfo` a complex `PropertyInfo`. Provides a list
-     * of related properties (by name). These related properties must not themselves be complex.
+     * of related properties (by key). These related properties must not themselves be complex.
      */
     propertyInfos?: string[];
   };
@@ -18463,7 +18676,9 @@ declare module "sap/ui/mdc/table/GridTableType" {
      *
      * Row count of the inner table.
      *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
+     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
+     * is used.
+     *
      *
      * Default value is `10`.
      *
@@ -18556,7 +18771,9 @@ declare module "sap/ui/mdc/table/GridTableType" {
      *
      * Row count of the inner table.
      *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
+     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
+     * is used.
+     *
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -18677,7 +18894,8 @@ declare module "sap/ui/mdc/table/GridTableType" {
     /**
      * Row count of the inner table.
      *  This property specifies the minimum row count if `sap.ui.mdc.enums.TableRowCountMode.Auto` is used.
-     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Fixed` is used.
+     *  This property specifies the row count if `sap.ui.mdc.enums.TableRowCountMode.Interactive` or `sap.ui.mdc.enums.TableRowCountMode.Fixed`
+     * is used.
      */
     rowCount?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -19251,6 +19469,96 @@ declare module "sap/ui/mdc/table/RowActionItem" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.mdc.table.RowActionItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.RowActionItem` itself.
+     *
+     * Fired when the row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, the `press` event is fired when
+     * a row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the `press` event
+     * and the table's `rowPress` event are fired when a row with a row action item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: RowActionItem$PressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.RowActionItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:press press} event of this `sap.ui.mdc.table.RowActionItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.RowActionItem` itself.
+     *
+     * Fired when the row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, the `press` event is fired when
+     * a row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the `press` event
+     * and the table's `rowPress` event are fired when a row with a row action item is pressed.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachPress(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: RowActionItem$PressEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.RowActionItem` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.mdc.table.RowActionItem`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachPress(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: RowActionItem$PressEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    firePress(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: RowActionItem$PressEventParameters
+    ): this;
+    /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * Icon for the row action item.
@@ -19402,6 +19710,17 @@ declare module "sap/ui/mdc/table/RowActionItem" {
      * Whether the item should be visible on the screen.
      */
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Fired when the row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, the `press` event is fired when
+     * a row action item is pressed.
+     *
+     * If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the `press` event
+     * and the table's `rowPress` event are fired when a row with a row action item is pressed.
+     */
+    press?: (oEvent: RowActionItem$PressEvent) => void;
   }
 
   /**
@@ -19983,6 +20302,8 @@ declare module "sap/ui/mdc/ValueHelp" {
 
   import Event from "sap/ui/base/Event";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Context from "sap/ui/model/Context";
@@ -20341,13 +20662,13 @@ declare module "sap/ui/mdc/ValueHelp" {
      *
      * Container that is used and opened if the value help icon of the input field is pressed.
      */
-    getDialog(): /* was: sap.ui.mdc.valuehelp.IDialogContainer */ any;
+    getDialog(): valuehelp.base.IDialogContainer;
     /**
      * Gets content of aggregation {@link #getTypeahead typeahead}.
      *
      * Container that is used and opened in typeahead
      */
-    getTypeahead(): /* was: sap.ui.mdc.valuehelp.ITypeaheadContainer */ any;
+    getTypeahead(): valuehelp.base.ITypeaheadContainer;
     /**
      * Gets current value of property {@link #getValidateInput validateInput}.
      *
@@ -20408,7 +20729,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       /**
        * The dialog to set
        */
-      oDialog: /* was: sap.ui.mdc.valuehelp.IDialogContainer */ any
+      oDialog: valuehelp.base.IDialogContainer
     ): this;
     /**
      * Sets the aggregated {@link #getTypeahead typeahead}.
@@ -20420,7 +20741,7 @@ declare module "sap/ui/mdc/ValueHelp" {
       /**
        * The typeahead to set
        */
-      oTypeahead: /* was: sap.ui.mdc.valuehelp.ITypeaheadContainer */ any
+      oTypeahead: valuehelp.base.ITypeaheadContainer
     ): this;
     /**
      * Sets a new value for property {@link #getValidateInput validateInput}.
@@ -20571,12 +20892,12 @@ declare module "sap/ui/mdc/ValueHelp" {
     /**
      * Container that is used and opened if the value help icon of the input field is pressed.
      */
-    dialog?: /* was: sap.ui.mdc.valuehelp.IDialogContainer */ any;
+    dialog?: valuehelp.base.IDialogContainer;
 
     /**
      * Container that is used and opened in typeahead
      */
-    typeahead?: /* was: sap.ui.mdc.valuehelp.ITypeaheadContainer */ any;
+    typeahead?: valuehelp.base.ITypeaheadContainer;
 
     /**
      * This event is fired after the value help has been closed.
@@ -20686,6 +21007,11 @@ declare module "sap/ui/mdc/ValueHelp" {
      * ID of the initially selected item
      */
     itemId?: string;
+
+    /**
+     * Number of found items
+     */
+    items?: int;
   }
 
   /**
@@ -20801,6 +21127,15 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
 
   import Control from "sap/ui/core/Control";
 
+  import {
+    ItemForValueConfiguration,
+    ValueHelpItem,
+  } from "sap/ui/mdc/ValueHelp";
+
+  import FormatException from "sap/ui/model/FormatException";
+
+  import ParseException from "sap/ui/model/ParseException";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import UIArea from "sap/ui/core/UIArea";
@@ -20910,6 +21245,10 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oContent: Content
     ): void;
     /**
+     * Closes the container
+     */
+    close(): void;
+    /**
      * Closes the container control or element.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -20957,6 +21296,23 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     getControl(): Control;
     /**
+     * Determines the item (key and description) for a given value.
+     *
+     * The value help checks if there is an item with a key or description that fits this value.
+     *
+     * **Note:** This function must only be called by the control the `ValuedHelp` element belongs to, not by
+     * the application.
+     *
+     *
+     * @returns Promise returning object containing description, key and payload.
+     */
+    getItemForValue(
+      /**
+       * Configuration
+       */
+      oConfig: ItemForValueConfiguration
+    ): Promise<ValueHelpItem>;
+    /**
      * Returns the maximum allowed number of conditions, -1 if no limit is set.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -20999,6 +21355,14 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      * @returns The UI area of the content or `null`
      */
     getUIAreaForContent(): UIArea | null;
+    /**
+     * If the container is used for type-ahead it might be wanted that the same content should also be shown
+     * as valuehelp. If not, the field should not show a valuehelp icon.
+     *
+     *
+     * @returns `true` if the typeahead content can be used as value help
+     */
+    getUseAsValueHelp(): boolean;
     /**
      * Handles the `cancelled` event of the content.
      *
@@ -21144,6 +21508,27 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      */
     isSingleSelect(): boolean;
     /**
+     * Defines if the typeahead can be used for input validation.
+     *
+     *
+     * @returns True if the typeahead container can be used for input validation
+     */
+    isValidationSupported(): boolean;
+    /**
+     * Navigates the typeaheads values (optional)
+     *
+     * As this could be asyncronous as data might be loaded a promise is returned.
+     *
+     *
+     * @returns Promise fulfilled after navigation is evecuted
+     */
+    navigate(
+      /**
+       * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+       */
+      iStep: int
+    ): Promise<object>;
+    /**
      * Triggers navigation in the content of the container.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21165,6 +21550,22 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
        */
       oChanges: object
     ): void;
+    /**
+     * Opens the container
+     *
+     *
+     * @returns This promise resolves after the container completely opened.
+     */
+    open(
+      /**
+       * Promise for content request
+       */
+      oValueHelpContentPromise: Promise<any>,
+      /**
+       * Flag indicating whether the container is opened as type-ahead or dialog-like help
+       */
+      bTypeahead: boolean
+    ): Promise<any>;
     /**
      * Opens the container control or element.
      *
@@ -21215,6 +21616,11 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       vContent: int | string | Content
     ): Content | null;
     /**
+     * The focus visualization of the field help needs to be removed as the user starts typing into the source
+     * control.
+     */
+    removeVisualFocus(): void;
+    /**
      * Sets a new value for property {@link #getTitle title}.
      *
      * Title text that appears in the dialog or tab header.
@@ -21232,6 +21638,34 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
        */
       sTitle?: string
     ): this;
+    /**
+     * The focus visualization of the field help needs to be set as the user starts naigation into the value
+     * help items.
+     *
+     * @since 1.127.0
+     */
+    setVisualFocus(): void;
+    /**
+     * Defines if the typeahead container desires to be opened whenever a user clicks on a connected control
+     *
+     *
+     * @returns If `true`, the value help should open when user clicks into the connected field control
+     */
+    shouldOpenOnClick(): Promise<boolean>;
+    /**
+     * Defines if the typeahead container desires to be opened whenever a user focuses a connected control
+     *
+     *
+     * @returns If `true`, the value help should open when user focuses the connected field control
+     */
+    shouldOpenOnFocus(): Promise<boolean>;
+    /**
+     * Defines if the typeahead containers values can be navigated without visibly opening the help
+     *
+     *
+     * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
+     */
+    shouldOpenOnNavigate(): boolean;
     /**
      * Unbinds the content from the container.
      *
@@ -21347,6 +21781,11 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      * ID of the initially selected item
      */
     itemId?: string;
+
+    /**
+     * Number of found items
+     */
+    items?: int;
   }
 
   /**
@@ -21474,11 +21913,19 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
 
   import Control from "sap/ui/core/Control";
 
+  import {
+    ItemForValueConfiguration,
+    ValueHelpItem,
+    default as ValueHelp,
+  } from "sap/ui/mdc/ValueHelp";
+
+  import FormatException from "sap/ui/model/FormatException";
+
+  import ParseException from "sap/ui/model/ParseException";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
-
-  import ValueHelp from "sap/ui/mdc/ValueHelp";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -21589,6 +22036,13 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       oPayload?: object
     ): ConditionObject;
     /**
+     * Loads additional dependencies, creates and returns displayed content.
+     *
+     *
+     * @returns Promise resolving in displayed content
+     */
+    getContent(): Promise<Control>;
+    /**
      * Returns control connected to value help.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21596,6 +22050,34 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @returns Connected control
      */
     getControl(): Control;
+    /**
+     * Returns number of relevant conditions for this content
+     *
+     *
+     * @returns Number of relevant conditions
+     */
+    getCount(
+      /**
+       * Array of conditions
+       */
+      aConditions: ConditionObject[]
+    ): number;
+    /**
+     * Determines the item (key and description) for a given value.
+     *
+     * The content checks if there is an item with a key or description that fits this value.
+     *
+     * **Note:** This function must only be called by the `Container` element.
+     *
+     *
+     * @returns Promise returning object containing description, key and payload.
+     */
+    getItemForValue(
+      /**
+       * Configuration
+       */
+      oConfig: ItemForValueConfiguration
+    ): Promise<ValueHelpItem>;
     /**
      * Returns the maximum allowed number of conditions, -1 if no limit is set.
      *
@@ -21637,6 +22119,14 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @returns Value of property `tokenizerTitle`
      */
     getTokenizerTitle(): string;
+    /**
+     * If the container is used for typeahead it might be wanted that the same content should also be shown
+     * as valuehelp. If not, the field should not show a valuehelp icon.
+     *
+     *
+     * @returns `true` if the typeahead content can be used as value help
+     */
+    getUseAsValueHelp(): boolean;
     /**
      * Returns the used `ValueHelpDelegate`.
      *
@@ -21703,6 +22193,13 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isContainerOpening(): boolean;
     /**
+     * Returns info if the given content is in multi select mode
+     *
+     *
+     * @returns `true` if multi-selection is active.
+     */
+    isMultiSelect(): boolean;
+    /**
      * Returns if the value help is used for single selection.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21721,6 +22218,13 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      */
     isTypeahead(): boolean;
     /**
+     * Defines if the typeahead can be used for input validation.
+     *
+     *
+     * @returns True if the typeahead container can be used for input validation
+     */
+    isValidationSupported(): boolean;
+    /**
      * Determines if delegate of the value help has been initialized.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -21728,6 +22232,15 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @returns `true` if delegate has been initialized
      */
     isValueHelpDelegateInitialized(): boolean;
+    /**
+     * Navigates the typeaheads values (optional)
+     */
+    navigate(
+      /**
+       * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+       */
+      iStep: int
+    ): void;
     /**
      * Observes property and aggregation changes.
      *
@@ -21767,6 +22280,11 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * @returns `true` if a scrolling mechanism is needed
      */
     provideScrolling(): boolean;
+    /**
+     * The focus visualization of the field help needs to be removed as the user starts typing into the source
+     * control.
+     */
+    removeVisualFocus(): void;
     /**
      * Sets a new value for property {@link #getShortTitle shortTitle}.
      *
@@ -21839,6 +22357,28 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
        */
       bVisible?: boolean
     ): this;
+    /**
+     * The focus visualization of the field help needs to be set as the user starts naigation into the value
+     * help items.
+     *
+     * @since 1.127.0
+     */
+    setVisualFocus(): void;
+    /**
+     * Defines if the typeahead content desires opening the typeahead whenever a user clicks on a connected
+     * control
+     *
+     *
+     * @returns If `true`, the value help should open when user clicks into the connected field control
+     */
+    shouldOpenOnClick(): boolean;
+    /**
+     * Defines if the typeahead containers values can be navigated without visibly opening the help
+     *
+     *
+     * @returns If `true`, the value help should open when user used the arrow keys in the connected field control
+     */
+    shouldOpenOnNavigate(): boolean;
   }
   /**
    * Describes the settings that can be provided to the Content constructor.
@@ -22492,7 +23032,8 @@ declare module "sap/ui/mdc/valuehelp/base/ListContent" {
      */
     getCaseSensitive(): boolean;
     /**
-     * Gets current descriptionPath of the content. **Note:** Every listcontent must implement this method.
+     * Gets current descriptionPath of the content.
+     * **Note:** Every listcontent must implement this method.
      *
      *
      * @returns Content description path
@@ -22516,14 +23057,16 @@ declare module "sap/ui/mdc/valuehelp/base/ListContent" {
       oOptions?: object
     ): object;
     /**
-     * Gets current keyPath of the content. **Note:** Every listcontent must implement this method.
+     * Gets current keyPath of the content.
+     * **Note:** Every listcontent must implement this method.
      *
      *
      * @returns Content key path
      */
     getKeyPath(): string;
     /**
-     * Gets the `ListBinding` of the content. **Note:** Every listcontent must implement this method.
+     * Gets the `ListBinding` of the content.
+     * **Note:** Every listcontent must implement this method.
      *
      *
      * @returns `ListBinding`
@@ -22659,6 +23202,8 @@ declare module "sap/ui/mdc/valuehelp/content/Conditions" {
     $ContentSettings,
   } from "sap/ui/mdc/valuehelp/base/Content";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import { ID } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -22672,7 +23217,12 @@ declare module "sap/ui/mdc/valuehelp/content/Conditions" {
    *
    * @since 1.95.0
    */
-  export default class Conditions extends Content {
+  export default class Conditions
+    extends Content
+    implements valuehelp.base.ITypeaheadContent, valuehelp.base.IDialogContent
+  {
+    __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContent: boolean;
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContent: boolean;
     /**
      * Constructor for a new `Conditions` content.
      *
@@ -22849,6 +23399,8 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
     $ListContentSettings,
   } from "sap/ui/mdc/valuehelp/base/ListContent";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import FixedListItem from "sap/ui/mdc/valuehelp/content/FixedListItem";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -22864,7 +23416,12 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
    *
    * @since 1.95.0
    */
-  export default class FixedList extends ListContent {
+  export default class FixedList
+    extends ListContent
+    implements valuehelp.base.ITypeaheadContent, valuehelp.base.IDialogContent
+  {
+    __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContent: boolean;
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContent: boolean;
     /**
      * Constructor for a new `FixedList` content.
      *
@@ -23266,6 +23823,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
     $ContainerSettings,
   } from "sap/ui/mdc/valuehelp/base/Container";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import { PopupInterface } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -23274,6 +23833,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
 
   /**
    * Object to label groups in the value help dialog.
+   *
+   * @since 1.101
    */
   export type GroupLabel = {
     /**
@@ -23291,7 +23852,11 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
    *
    * @since 1.95.0
    */
-  export default class Dialog extends Container implements PopupInterface {
+  export default class Dialog
+    extends Container
+    implements valuehelp.base.IDialogContainer, PopupInterface
+  {
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContainer: boolean;
     __implements__sap_ui_core_PopupInterface: boolean;
     /**
      * Constructor for a new `Dialog` container.
@@ -23368,8 +23933,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
      * ```javascript
      *
      * {
-     * group1: {label: "Label 1", nnLabel: "Label 1 ({0})"},
-     * group2: {label: "Label 2", nnLabel: "Label 2 ({0})"}
+     * group1: {label: "Label 1 ({0})", nnLabel: "Label 1"},
+     * group2: {label: "Label 2 ({0})", nnLabel: "Label 2"}
      * }
      * ```
      *
@@ -23393,8 +23958,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
      * ```javascript
      *
      * {
-     * group1: {label: "Label 1", nnLabel: "Label 1 ({0})"},
-     * group2: {label: "Label 2", nnLabel: "Label 2 ({0})"}
+     * group1: {label: "Label 1 ({0})", nnLabel: "Label 1"},
+     * group2: {label: "Label 2 ({0})", nnLabel: "Label 2"}
      * }
      * ```
      *
@@ -23428,8 +23993,8 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
      * ```javascript
      *
      * {
-     * group1: {label: "Label 1", nnLabel: "Label 1 ({0})"},
-     * group2: {label: "Label 2", nnLabel: "Label 2 ({0})"}
+     * group1: {label: "Label 1 ({0})", nnLabel: "Label 1"},
+     * group2: {label: "Label 2 ({0})", nnLabel: "Label 2"}
      * }
      * ```
      */
@@ -23454,7 +24019,11 @@ declare module "sap/ui/mdc/valuehelp/content/MDCTable" {
    *
    * @since 1.95.0
    */
-  export default class MDCTable extends FilterableListContent {
+  export default class MDCTable
+    extends FilterableListContent
+    implements /* was: sap.ui.mdc.valuehelp.IDialogContent */ Object
+  {
+    __implements__sap_ui_mdc_valuehelp_IDialogContent: boolean;
     /**
      * Constructor for a new `MDCTable` content.
      *
@@ -23611,6 +24180,8 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
     $FilterableListContentSettings,
   } from "sap/ui/mdc/valuehelp/base/FilterableListContent";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -23622,7 +24193,12 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
    *
    * @since 1.95.0
    */
-  export default class MTable extends FilterableListContent {
+  export default class MTable
+    extends FilterableListContent
+    implements valuehelp.base.ITypeaheadContent, valuehelp.base.IDialogContent
+  {
+    __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContent: boolean;
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContent: boolean;
     /**
      * Constructor for a new `MTable` content.
      *
@@ -24090,6 +24666,8 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
     $ContainerSettings,
   } from "sap/ui/mdc/valuehelp/base/Container";
 
+  import { valuehelp } from "sap/ui/mdc/library";
+
   import { PopupInterface } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -24101,7 +24679,15 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
    *
    * @since 1.95.0
    */
-  export default class Popover extends Container implements PopupInterface {
+  export default class Popover
+    extends Container
+    implements
+      valuehelp.base.ITypeaheadContainer,
+      valuehelp.base.IDialogContainer,
+      PopupInterface
+  {
+    __implements__sap_ui_mdc_valuehelp_base_ITypeaheadContainer: boolean;
+    __implements__sap_ui_mdc_valuehelp_base_IDialogContainer: boolean;
     __implements__sap_ui_core_PopupInterface: boolean;
     /**
      * Constructor for a new `Popover` container.
@@ -24283,8 +24869,6 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
-    "sap/ui/mdc/actiontoolbar/ActionToolbarAction": undefined;
-
     "sap/ui/mdc/AggregationBaseDelegate": undefined;
 
     "sap/ui/mdc/BaseDelegate": undefined;
@@ -24534,6 +25118,8 @@ declare namespace sap {
     "sap/ui/mdc/TableDelegate": undefined;
 
     "sap/ui/mdc/util/DateUtil": undefined;
+
+    "sap/ui/mdc/util/DensityHelper": undefined;
 
     "sap/ui/mdc/util/FilterUtil": undefined;
 

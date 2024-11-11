@@ -5,6 +5,7 @@ import { InterleavedBufferAttribute } from "../../core/InterleavedBufferAttribut
 import InputNode from "../core/InputNode.js";
 import NodeBuilder from "../core/NodeBuilder.js";
 declare class BufferAttributeNode extends InputNode<TypedArray | InterleavedBuffer | BufferAttribute> {
+    static get type(): string;
     readonly isBufferNode: true;
     bufferType: string | null;
     bufferStride: number;

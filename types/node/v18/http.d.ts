@@ -1,5 +1,5 @@
 /**
- * To use the HTTP server and client one must `require('http')`.
+ * To use the HTTP server and client one must import the `node:http` module.
  *
  * The HTTP interfaces in Node.js are designed to support many features
  * of the protocol which have been traditionally difficult to use.
@@ -588,6 +588,42 @@ declare module "http" {
          */
         setHeader(name: string, value: number | string | readonly string[]): this;
         /**
+         * Sets multiple header values for implicit headers. headers must be an instance of
+         * `Headers` or `Map`, if a header already exists in the to-be-sent headers, its
+         * value will be replaced.
+         *
+         * ```js
+         * const headers = new Headers({ foo: 'bar' });
+         * outgoingMessage.setHeaders(headers);
+         * ```
+         *
+         * or
+         *
+         * ```js
+         * const headers = new Map([['foo', 'bar']]);
+         * outgoingMessage.setHeaders(headers);
+         * ```
+         *
+         * When headers have been set with `outgoingMessage.setHeaders()`, they will be
+         * merged with any headers passed to `response.writeHead()`, with the headers passed
+         * to `response.writeHead()` given precedence.
+         *
+         * ```js
+         * // Returns content-type = text/plain
+         * const server = http.createServer((req, res) => {
+         *   const headers = new Headers({ 'Content-Type': 'text/html' });
+         *   res.setHeaders(headers);
+         *   res.writeHead(200, { 'Content-Type': 'text/plain' });
+         *   res.end('ok');
+         * });
+         * ```
+         *
+         * @since v19.6.0, v18.15.0
+         * @param name Header name
+         * @param value Header value
+         */
+        setHeaders(headers: Headers | Map<string, number | string | readonly string[]>): this;
+        /**
          * Append a single header value for the header object.
          *
          * If the value is an array, this is equivalent of calling this method multiple times.
@@ -910,7 +946,7 @@ declare module "http" {
          * may run into a 'ECONNRESET' error.
          *
          * ```js
-         * const http = require('http');
+         * import http from 'node:http';
          *
          * // Server has a 5 seconds keep-alive timeout by default
          * http
@@ -934,7 +970,7 @@ declare module "http" {
          * automatic error retry base on it.
          *
          * ```js
-         * const http = require('http');
+         * import http from 'node:http';
          * const agent = new http.Agent({ keepAlive: true });
          *
          * function retriableRequest() {
@@ -1529,7 +1565,7 @@ declare module "http" {
      * upload a file with a POST request, then write to the `ClientRequest` object.
      *
      * ```js
-     * const http = require('http');
+     * import http from 'node:http';
      *
      * const postData = JSON.stringify({
      *   'msg': 'Hello World!'

@@ -39,6 +39,7 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
+    isolation: "process",
     testNamePatterns: ["executed", /^core-/],
     testSkipPatterns: ["excluded", /^lib-/],
     only: true,

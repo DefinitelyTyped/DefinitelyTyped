@@ -129,7 +129,7 @@ export class Quaternion {
      * @param array the source array or array-like.
      * @param offset (optional) offset into the array. Default is 0.
      */
-    fromArray(array: QuaternionTuple, offset?: number): this;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): this;
 
     /**
      * Returns an array [x, y, z, w], or copies x, y, z and w into the provided array.
@@ -137,7 +137,8 @@ export class Quaternion {
      * @param offset (optional) optional offset into the array.
      * @return The created or provided array.
      */
-    toArray(array?: number[], offset?: number): QuaternionTuple;
+    toArray(array?: number[], offset?: number): number[];
+    toArray(array?: QuaternionTuple, offset?: 0): QuaternionTuple;
 
     /**
      * Copies x, y, z and w into the provided array-like.
@@ -145,7 +146,7 @@ export class Quaternion {
      * @param offset (optional) optional offset into the array.
      * @return The provided array-like.
      */
-    toArray(array: ArrayLike<number>, offset?: number): QuaternionTuple;
+    toArray(array: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
     /**
      * This method defines the serialization result of Quaternion.

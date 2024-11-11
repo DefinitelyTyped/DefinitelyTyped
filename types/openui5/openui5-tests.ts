@@ -236,3 +236,9 @@ nextUIUpdate();
 // 1.128
 const link = new Link();
 link.getEndIcon();
+
+// 1.129
+MessageBox.alert("Hello World", { contentWidth: "100px" });
+
+// 1.130
+link.hasLabelableHTMLElement();

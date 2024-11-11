@@ -597,5 +597,6 @@ declare namespace GorillaEngine {
          * @param y  the y position to place the settings button
          */
         function setSettingsButtonPosition(x: number, y: number): void;  
+
     }
 }

@@ -608,7 +608,7 @@ declare class LiveAPI {
      * (the object sends a bang from its left outlet when the Device is fully initialized, including the Live API). Legacy note: previous versions of the LiveAPI object required the jsthis object's
      * this.patcher property as the first argument. For backward-compatibility, this first argument is still supported, but is no longer necessary.
      */
-    constructor(callback: any, name: string);
+    constructor(callback?: any, name?: string);
 
     /**
      * The id of the Live object referred to by the LiveAPI object. These ids are dynamic and awarded in realtime from the Live application, so should not be stored and used over multiple runs of Max

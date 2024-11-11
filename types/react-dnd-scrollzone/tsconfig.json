@@ -4,6 +4,7 @@
         "lib": [
             "es6"
         ],
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -14,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-dnd-scrollzone-tests.ts"
+        "react-dnd-scrollzone-tests.tsx"
     ]
 }

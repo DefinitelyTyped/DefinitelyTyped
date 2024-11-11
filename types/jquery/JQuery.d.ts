@@ -1850,7 +1850,8 @@ $( "div" ).children( ".selected" ).css( "color", "blue" );
      */
     children<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
     children<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
-    children(selector?: JQuery.Selector): JQuery;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    children<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Remove from the queue all items that have not yet been run.
      * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
@@ -2032,7 +2033,10 @@ $( "b" ).clone().prependTo( "p" );
      * @see \`{@link https://api.jquery.com/closest/ }\`
      * @since 1.4
      */
-    closest(selector: JQuery.Selector, context: Element): this;
+    closest<K extends keyof HTMLElementTagNameMap>(selector: K, context: Element): JQuery<HTMLElementTagNameMap[K]>;
+    closest<K extends keyof SVGElementTagNameMap>(selector: K, context: Element): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    closest<E extends Element = HTMLElement>(selector: JQuery.Selector, context: Element): JQuery<E>;
     /**
      * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
      * @param selector_selection_element _&#x40;param_ `selector_selection_element`
@@ -2115,7 +2119,15 @@ $( document ).on( "click", function( event ) {
 </html>
 ```
      */
-    closest(selector_selection_element: JQuery.Selector | Element | JQuery): this;
+    closest<K extends keyof HTMLElementTagNameMap>(
+        selector_selection_element: K | JQuery<K>,
+    ): JQuery<HTMLElementTagNameMap[K]>;
+    closest<K extends keyof SVGElementTagNameMap>(
+        selector_selection_element: K | JQuery<K>,
+    ): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    closest<E extends Element = HTMLElement>(selector_selection_element: JQuery.Selector): JQuery<E>;
+    closest<E extends Element = HTMLElement>(selector_selection_element: E | JQuery<E>): JQuery<E>;
     /**
      * Get the children of each element in the set of matched elements, including text and comment nodes.
      * @see \`{@link https://api.jquery.com/contents/ }\`
@@ -4249,7 +4261,9 @@ $( "p" )
      */
     find<K extends keyof HTMLElementTagNameMap>(selector_element: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
     find<K extends keyof SVGElementTagNameMap>(selector_element: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
-    find<E extends HTMLElement>(selector_element: JQuery.Selector | Element | E | JQuery<E>): JQuery<E>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    find<E extends Element = HTMLElement>(selector_element: JQuery.Selector): JQuery<E>;
+    find<E extends Element = HTMLElement>(selector_element: E | JQuery<E>): JQuery<E>;
     /**
      * Stop the currently-running animation, remove all queued animations, and complete all animations for the matched elements.
      * @param queue The name of the queue in which to stop animations.
@@ -7333,7 +7347,10 @@ $( "p" ).next( ".selected" ).css( "background", "yellow" );
 </html>
 ```
      */
-    next(selector?: JQuery.Selector): this;
+    next<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    next<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    next<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match elements against.
@@ -7414,7 +7431,10 @@ $( ":nth-child(1)" ).nextAll( "p" ).addClass( "after" );
 </html>
 ```
      */
-    nextAll(selector?: string): this;
+    nextAll<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    nextAll<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    nextAll<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
      * @param selector_element _&#x40;param_ `selector_element`
@@ -7465,7 +7485,19 @@ $( "#term-1" )
 </html>
 ```
      */
-    nextUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    nextUntil<K extends keyof HTMLElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<HTMLElementTagNameMap[K]>;
+    nextUntil<K extends keyof SVGElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    nextUntil<E extends Element = HTMLElement>(
+        selector_element?: JQuery.Selector | Element | JQuery,
+        filter?: JQuery.Selector,
+    ): JQuery<E>;
     /**
      * Remove elements from the set of matched elements.
      * @param selector_function_selection _&#x40;param_ `selector_function_selection`
@@ -7839,7 +7871,7 @@ $( "*", document.body ).click(function( event ) {
 </html>
 ```
      */
-    offsetParent(): this;
+    offsetParent(): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
@@ -8819,7 +8851,10 @@ $( "p" ).parent( ".selected" ).css( "background", "yellow" );
 </html>
 ```
      */
-    parent(selector?: JQuery.Selector): this;
+    parent<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    parent<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    parent<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match elements against.
@@ -8934,7 +8969,7 @@ $( "span" ).click(function() {
     parents<K extends keyof HTMLElementTagNameMap>(selector: K | JQuery<K>): JQuery<HTMLElementTagNameMap[K]>;
     parents<K extends keyof SVGElementTagNameMap>(selector: K | JQuery<K>): JQuery<SVGElementTagNameMap[K]>;
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    parents<E extends HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
+    parents<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
      * @param selector_element _&#x40;param_ `selector_element`
@@ -8988,7 +9023,19 @@ $( "li.item-2" )
 </html>
 ```
      */
-    parentsUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    parentsUntil<K extends keyof HTMLElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<HTMLElementTagNameMap[K]>;
+    parentsUntil<K extends keyof SVGElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    parentsUntil<E extends Element = HTMLElement>(
+        selector_element?: JQuery.Selector | Element | JQuery,
+        filter?: JQuery.Selector,
+    ): JQuery<E>;
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
      * @see \`{@link https://api.jquery.com/position/ }\`
@@ -9244,7 +9291,10 @@ $( "p" ).prev( ".selected" ).css( "background", "yellow" );
 </html>
 ```
      */
-    prev(selector?: JQuery.Selector): this;
+    prev<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    prev<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    prev<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match elements against.
@@ -9287,7 +9337,10 @@ $( "div:last" ).prevAll().addClass( "before" );
 </html>
 ```
      */
-    prevAll(selector?: JQuery.Selector): this;
+    prevAll<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    prevAll<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    prevAll<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
      * @param selector_element _&#x40;param_ `selector_element`
@@ -9339,7 +9392,19 @@ $( "#term-3" ).prevUntil( term1, "dd" )
 </html>
 ```
      */
-    prevUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    prevUntil<K extends keyof HTMLElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<HTMLElementTagNameMap[K]>;
+    prevUntil<K extends keyof SVGElementTagNameMap>(
+        selector_element: JQuery.Selector | Element | JQuery,
+        filter: K,
+    ): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    prevUntil<E extends Element = HTMLElement>(
+        selector_element?: JQuery.Selector | Element | JQuery,
+        filter?: JQuery.Selector,
+    ): JQuery<E>;
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
      * @param type The type of queue that needs to be observed.
@@ -11068,7 +11133,10 @@ $( "p" ).siblings( ".selected" ).css( "background", "yellow" );
 </html>
 ```
      */
-    siblings(selector?: JQuery.Selector): this;
+    siblings<K extends keyof HTMLElementTagNameMap>(selector: K): JQuery<HTMLElementTagNameMap[K]>;
+    siblings<K extends keyof SVGElementTagNameMap>(selector: K): JQuery<SVGElementTagNameMap[K]>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    siblings<E extends Element = HTMLElement>(selector?: JQuery.Selector): JQuery<E>;
     /**
      * Reduce the set of matched elements to a subset specified by a range of indices.
      * @param start An integer indicating the 0-based position at which the elements begin to be selected. If negative,

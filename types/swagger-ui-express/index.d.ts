@@ -13,7 +13,7 @@ export interface SwaggerUiOptions {
     customCss?: string | undefined;
     customCssUrl?: string | undefined;
     customfavIcon?: string | undefined;
-    customJs?: string | undefined;
+    customJs?: string | string[] | undefined;
     customSiteTitle?: string | undefined;
     explorer?: boolean | undefined;
     isExplorer?: boolean | undefined;

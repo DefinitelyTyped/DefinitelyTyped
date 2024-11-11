@@ -319,6 +319,60 @@ directionsService = new woosmap.map.DirectionsService();
 directionsService.route(directionsRequest, (result, status) => {
 });
 
+const directionResult = expectType({
+    status: "OK",
+    routes: [
+        {
+            overview_polyline: {
+                points: "_ofiHkuiM??",
+            },
+            bounds: {
+                northeast: {
+                    lat: 48.862722,
+                    lng: 2.348541,
+                },
+                southwest: {
+                    lat: 48.862722,
+                    lng: 2.348541,
+                },
+            },
+            notice: "Has Tolls",
+            main_route_name: "Main Route",
+            recommended: true,
+            legs: [{
+                distance: {
+                    text: "1 m",
+                    value: 0,
+                },
+                duration: {
+                    text: "1 minute",
+                    value: 0,
+                },
+                start_location: {
+                    lat: 48.86288,
+                    lng: 2.34946,
+                },
+                end_location: {
+                    lat: 48.86289,
+                    lng: 2.34947,
+                },
+                start_waypoint: 0,
+                end_waypoint: 1,
+            }],
+            overview_path: [
+                {
+                    lat: 48.86272,
+                    lng: 2.34854,
+                },
+                {
+                    lat: 48.86272,
+                    lng: 2.34854,
+                },
+            ],
+        },
+    ],
+}) as woosmap.map.DirectionResult;
+
 /**
  * InfoWindow
  */
@@ -584,6 +638,28 @@ const imageMapType = new woosmap.map.ImageMapType(imageMapTypeOptions);
 imageMapType;
 
 map.overlayMapTypes.insertAt(0, imageMapType);
+
+/**
+ * DatasetsService Tests
+ */
+
+const datasetsService = new woosmap.map.DatasetsService("DEAD-BEEF");
+// $ExpectType DatasetsService
+datasetsService;
+
+const containsPromise = datasetsService.contains({ geometry: { type: "Point", coordinates: [0, 0] } });
+containsPromise.then((result) => {
+    // $ExpectType DatasetsSearchResponse
+    result;
+});
+
+// @ts-expect-error
+datasetsService.within({ geometry: { type: "Point", coordinates: [0, 0] } });
+
+datasetsService.intersects(
+    { geometry: { type: "Point", coordinates: [0, 0] }, where: "population:>10", buffer: 1000 },
+    { page: 10 },
+);
 
 /**
  * helper functions for testing purpose

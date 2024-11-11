@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/esbuild-plugin-ignore",
+    "version": "1.1.9999",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./commonjs/index.d.cts"
+        }
+    },
+    "projects": [
+        "https://github.com/Knowre-Dev/esbuild-plugin-ignore#readme"
+    ],
+    "dependencies": {
+        "esbuild": "*"
+    },
+    "devDependencies": {
+        "@types/esbuild-plugin-ignore": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arseny Medoev",
+            "githubUsername": "ashkuc"
+        },
+        {
+            "name": "Alexander Saft",
+            "githubUsername": "fend25"
+        }
+    ]
+}

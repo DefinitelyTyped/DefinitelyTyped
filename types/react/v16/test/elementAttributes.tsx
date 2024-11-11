@@ -23,6 +23,7 @@ const testCases = [
     <span autoCapitalize="on" />,
     <span autoCapitalize="words" />,
     <span autoCapitalize="sentences" />,
+    <span autoCapitalize="characters" />,
     <span autoCorrect="off" />,
     <span autoCorrect="on" />,
     <span translate="no" />,

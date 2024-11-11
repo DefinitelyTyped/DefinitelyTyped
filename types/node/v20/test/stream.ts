@@ -2,6 +2,7 @@ import { createReadStream, createWriteStream } from "node:fs";
 import {
     addAbortSignal,
     Duplex,
+    duplexPair,
     finished,
     isErrored,
     isReadable,
@@ -18,7 +19,7 @@ import { Http2ServerResponse } from "node:http2";
 import { performance } from "node:perf_hooks";
 import { stdout } from "node:process";
 import { arrayBuffer, blob, buffer, json, text } from "node:stream/consumers";
-import { pipeline as pipelinePromise } from "node:stream/promises";
+import { finished as finishedPromise, pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every, setTimeout as wait } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
@@ -220,7 +221,19 @@ function streamPipelineFinished() {
 async function asyncStreamPipelineFinished() {
     const fin = promisify(finished);
     await fin(process.stdin);
+    await fin(process.stdin, { error: false });
     await fin(process.stdin, { readable: false });
+    await fin(process.stdin, { writable: false });
+    await fin(process.stdin, { signal: new AbortSignal() });
+    // @ts-expect-error -- callback version does not allow `options.cleanup`
+    await fin(process.stdin, { cleanup: false });
+
+    await finishedPromise(process.stdin);
+    await finishedPromise(process.stdin, { error: false });
+    await finishedPromise(process.stdin, { readable: false });
+    await finishedPromise(process.stdin, { writable: false });
+    await finishedPromise(process.stdin, { signal: new AbortSignal() });
+    await finishedPromise(process.stdin, { cleanup: false });
 
     const pipe = promisify(pipeline);
     await pipe(process.stdin, process.stdout);
@@ -494,7 +507,7 @@ async function testConsumers() {
     await text(r);
     // $ExpectType unknown
     await json(r);
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     await buffer(r);
     // $ExpectType ArrayBuffer
     await arrayBuffer(r);
@@ -615,6 +628,14 @@ addAbortSignal(new AbortSignal(), new Readable());
     const duplex = new Duplex();
     // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
     Duplex.toWeb(duplex);
+}
+
+{
+    const [duplexLeft, duplexRight] = duplexPair();
+    // $ExpectType Duplex
+    duplexLeft;
+    // $ExpectType Duplex
+    duplexRight;
 }
 
 {

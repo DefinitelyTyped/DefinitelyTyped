@@ -1370,11 +1370,12 @@ declare namespace mapkit {
          * @param options An object literal of options with which to initialize the
          * polygon.
          */
-        constructor(points: Coordinate[], options?: StylesOverlayOptions);
+        constructor(points: Coordinate[] | Coordinate[][], options?: StylesOverlayOptions);
         /**
          * One or more arrays of coordinates that define the polygon overlay shape.
          */
-        points: Coordinate[];
+        get points(): Coordinate[][];
+        set points(points: Coordinate[] | Coordinate[][]);
     }
 
     interface OverlayOptions {

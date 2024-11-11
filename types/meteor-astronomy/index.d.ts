@@ -2,9 +2,9 @@
 
 declare namespace MeteorAstronomy {
     type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
+    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
     type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
-    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
     type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
 
     type TypeOptionsPrimitives = typeof String | typeof Date | typeof Boolean | typeof Object | typeof Number;

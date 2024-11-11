@@ -315,6 +315,8 @@ declare namespace MusicKit {
      * https://developer.apple.com/documentation/applemusicapi/libraryplaylists/
      */
     interface LibraryPlaylists extends Resource {
+        id: string;
+        href: string;
         type: "library-playlists";
         attributes?: {
             artwork?: Artwork;
@@ -324,10 +326,25 @@ declare namespace MusicKit {
             hasCatalog: boolean;
             name: string;
             playParams?: PlayParameters;
+            isPublic: boolean;
         };
         relationships: {
             catalog: Relationship<Playlists>;
             tracks: Relationship<MusicVideos | Songs>;
+        };
+    }
+
+    /**
+     * The response to a library playlists request
+     * https://developer.apple.com/documentation/applemusicapi/libraryplaylistsresponse
+     */
+    interface LibraryPlaylistsResponse {
+        data: {
+            next: string | null;
+            data: LibraryPlaylists[];
+            meta: {
+                total: number;
+            };
         };
     }
 
@@ -442,6 +459,8 @@ declare namespace MusicKit {
     interface PlayParameters {
         id: string;
         kind: string;
+        globalId?: string;
+        catalogId?: string;
     }
 
     /**
@@ -488,6 +507,38 @@ declare namespace MusicKit {
     interface DescriptionAttribute {
         short: string;
         standard: string;
+    }
+
+    interface SearchResponse<T> {
+        data: {
+            results: {
+                [key: string]: SearchResult<T>; // This allows multiple dynamic keys
+            };
+        };
+        href?: string;
+        next?: string;
+        meta?: {
+            results: {
+                order: string[];
+                rawOrder: string[];
+            };
+        };
+    }
+
+    interface SongSearchResponse {
+        data: {
+            results: {
+                songs: SearchResult<Songs>;
+            };
+        };
+        href?: string;
+        next?: string;
+        meta?: {
+            results: {
+                order: string[];
+                rawOrder: string[];
+            };
+        };
     }
 
     interface SearchResult<T> {
@@ -653,6 +704,34 @@ declare namespace MusicKit {
             next?: string;
             data: Resource[];
         }>;
+        /**
+         * Sends a pass-through request to the Apple Music API.
+         *
+         * @param path - The endpoint path of the Apple Music API.
+         * @param parameters - (Optional) An object containing query parameters to be serialized and passed to the API.
+         * @returns {Promise<unknown>} A promise that resolves with the response from the Apple Music API.
+         *
+         * The structure of the response depends on the endpoint used. As such, you must add a type assertion to the response.
+         *
+         * ```ts
+         * const queryParameters = { limit: 100 };
+         * const resp = (await music.api.music("/v1/me/library/playlists",
+         * queryParameters)) as MusicKit.LibraryPlaylistsResponse;
+         * ```
+         *
+         * @see https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-api--page
+         *
+         * To avoid redundant property lookups (e.g. response.data.data), use this pattern:
+         *
+         * ```ts
+         * const queryParameters = { limit: 100 };
+         * const {data: {data: playlists = []}} = (await music.api.music("/v1/me/library/playlists",
+         * queryParameters)) as MusicKit.LibraryPlaylistsResponse;
+         * ```
+         *
+         * @see https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-api--page#passthrough-api-method-signature
+         */
+        music(path: string, parameters?: QueryParameters): Promise<unknown>;
         /**
          * Fetch a music video using its identifier.
          *

@@ -59,7 +59,7 @@ async function test() {
     entry.compressionMethod; // $ExpectType number;
     entry.crc32; // $ExpectType number;
     entry.externalFileAttributes; // $ExpectType number;
-    entry.extraFields; // $ExpectType { id: number; data: Buffer }[];
+    entry.extraFields; // $ExpectType { id: number; data: Buffer }[] || { id: number; data: Buffer<ArrayBufferLike> }[];
     entry.fileDataOffset; // $ExpectType null | number;
     entry.fileHeaderOffset; // $ExpectType number;
     entry.filename; // $ExpectType string;

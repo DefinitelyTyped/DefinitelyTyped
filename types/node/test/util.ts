@@ -270,7 +270,7 @@ access("file/that/does/not/exist", (err) => {
 
     util.parseArgs();
 
-    // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
+    // $ExpectType { values: { foo?: string | undefined; bar?: boolean[] | undefined; }; positionals: string[]; }
     util.parseArgs(config);
 }
 
@@ -322,6 +322,7 @@ access("file/that/does/not/exist", (err) => {
             x: { type: "string", multiple: true },
         },
     });
+
     // $ExpectType (string | boolean)[] | undefined
     result.values.x;
     // $ExpectType string | boolean | undefined
@@ -345,6 +346,10 @@ access("file/that/does/not/exist", (err) => {
         },
         allowNegative: true,
     });
+
+    // $ExpectType { alpha?: boolean | undefined; }
+    result.values;
+
     // $ExpectType boolean | undefined
     result.values.alpha; // false
 }
@@ -360,6 +365,10 @@ access("file/that/does/not/exist", (err) => {
         },
         allowNegative: true,
     });
+
+    // $ExpectType { alpha: boolean; beta?: boolean | undefined; gamma?: boolean | undefined; }
+    result.values;
+
     // $ExpectType boolean
     result.values.alpha; // false
     // $ExpectType boolean | undefined
@@ -377,6 +386,10 @@ access("file/that/does/not/exist", (err) => {
         },
         allowNegative: true,
     });
+
+    // $ExpectType { alpha?: boolean[] | undefined; }
+    result.values;
+
     // $ExpectType boolean[] | undefined
     result.values.alpha; // [false, true, false]
 }
@@ -390,6 +403,10 @@ access("file/that/does/not/exist", (err) => {
         },
         allowNegative: true,
     });
+
+    // $ExpectType { alpha?: boolean | undefined; }
+    result.values;
+
     // $ExpectType boolean | undefined
     result.values.alpha; // true
 }
@@ -417,4 +434,22 @@ access("file/that/does/not/exist", (err) => {
     for (const [name, value] of params) {
         console.log(name, value);
     }
+}
+
+{
+    // $ExpectType StacktraceObject[]
+    util.getCallSite();
+    // $ExpectType StacktraceObject[]
+    util.getCallSite(100);
+
+    const callSites = util.getCallSite();
+
+    console.log("Call Sites:");
+    callSites.forEach((callSite, index) => {
+        console.log(`CallSite ${index + 1}:`);
+        console.log(`Function Name: ${callSite.functionName}`);
+        console.log(`Script Name: ${callSite.scriptName}`);
+        console.log(`Line Number: ${callSite.lineNumber}`);
+        console.log(`Column Number: ${callSite.column}`);
+    });
 }

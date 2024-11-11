@@ -48,6 +48,11 @@ http.createServer(function(req: http.IncomingMessage, res: http.ServerResponse) 
             console.log("Field Name: " + name + ", Field Value: " + value);
         });
 
+        form.on("file", function(name: string, value: multiparty.File) {
+            // decide what to do
+            console.log("File Name: " + name + ", File Path: " + value.path);
+        });
+
         // Close emitted after form parsed
         form.on("close", function() {
             console.log("Upload completed!");
@@ -63,7 +68,7 @@ http.createServer(function(req: http.IncomingMessage, res: http.ServerResponse) 
             } else {
                 error; // $ExpectType null
                 fields; // $ExpectType Record<string, string[] | undefined>
-                files; // $ExpectType Record<string, string[] | undefined>
+                files; // $ExpectType Record<string, File[] | undefined>
             }
         });
     }

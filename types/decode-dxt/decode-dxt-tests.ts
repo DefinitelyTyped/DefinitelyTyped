@@ -1,9 +1,9 @@
 import decodeDXT = require("decode-dxt");
 
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 decodeDXT(new DataView(new ArrayBuffer(0)), 0, 0);
 
-// $ExpectType Uint8Array
+// $ExpectType Uint8Array || Uint8Array<ArrayBuffer>
 decodeDXT(new DataView(new ArrayBuffer(0)), 0, 0, decodeDXT.dxt3);
 
 // $ExpectType "dxt1"

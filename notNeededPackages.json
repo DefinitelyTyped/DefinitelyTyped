@@ -104,6 +104,10 @@
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
         },
+        "allure-js-commons": {
+            "libraryName": "allure-js-commons",
+            "asOfVersion": "2.0.0"
+        },
         "amazon-connect-streams": {
             "libraryName": "amazon-connect-streams",
             "asOfVersion": "1.4.8"
@@ -1003,6 +1007,10 @@
         "convert-hrtime": {
             "libraryName": "convert-hrtime",
             "asOfVersion": "3.0.0"
+        },
+        "cookie": {
+            "libraryName": "cookie",
+            "asOfVersion": "1.0.0"
         },
         "copy-text-to-clipboard": {
             "libraryName": "copy-text-to-clipboard",
@@ -3600,6 +3608,10 @@
         "mongoose": {
             "libraryName": "mongoose",
             "asOfVersion": "5.11.0"
+        },
+        "mongoose-autopopulate": {
+            "libraryName": "mongoose-autopopulate",
+            "asOfVersion": "0.16.0"
         },
         "mongoose-paginate-v2": {
             "libraryName": "mongoose-paginate-v2",
@@ -6407,6 +6419,10 @@
             "libraryName": "victory",
             "asOfVersion": "35.0.0"
         },
+        "videojs-hotkeys": {
+            "libraryName": "videojs-hotkeys",
+            "asOfVersion": "0.2.29"
+        },
         "viewerjs": {
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
@@ -6670,6 +6686,10 @@
         "wordpress__keycodes": {
             "libraryName": "@wordpress/keycodes",
             "asOfVersion": "2.18.0"
+        },
+        "wordpress__media-utils": {
+            "libraryName": "@wordpress/media-utils",
+            "asOfVersion": "5.8.0"
         },
         "wordpress__notices": {
             "libraryName": "@wordpress/notices",

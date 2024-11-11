@@ -1,10 +1,11 @@
 /// <reference lib="es5" />
 /// <reference lib="dom" />
+import { ComponentConstructorOptions, SvelteComponent } from "svelte";
 
 export default Calendar;
 
-declare class Calendar {
-    constructor(options: Calendar.ConstructorOptions);
+declare class Calendar extends SvelteComponent<Calendar.ComponentProps> {
+    constructor(options: ComponentConstructorOptions<Calendar.ComponentProps>);
     getOption<K extends keyof Calendar.Options>(option: K): Calendar.Options[K];
     setOption<K extends keyof Calendar.Options>(option: K, value: Calendar.Options[K]): Calendar;
     addEvent(event: Calendar.Event | Calendar.EventInput): Calendar.Event | null;
@@ -26,12 +27,9 @@ declare namespace Calendar {
 
     type DomEvent = GlobalEventHandlersEventMap[keyof GlobalEventHandlersEventMap];
 
-    interface ConstructorOptions {
-        target: HTMLElement;
-        props: {
-            plugins: Plugin[];
-            options: Options;
-        };
+    interface ComponentProps {
+        plugins: Plugin[];
+        options: Options;
     }
 
     type Content = string | { html: string } | { domNodes: Node[] };
@@ -59,6 +57,7 @@ declare namespace Calendar {
         title?: Content;
         eventBackgroundColor?: string;
         eventTextColor?: string;
+        extendedProps?: Record<string, unknown>;
     }
 
     interface Resource {
@@ -66,6 +65,7 @@ declare namespace Calendar {
         title: Content;
         eventBackgroundColor: string | undefined;
         eventTextColor: string | undefined;
+        extendedProps: Record<string, unknown>;
     }
 
     type durationHMS = string;
@@ -204,6 +204,9 @@ declare namespace Calendar {
         end: Date;
         startStr: string;
         endStr: string;
+        allDay: boolean;
+        jsEvent: DomEvent;
+        view: View;
         resource: Resource;
     }
 
@@ -312,6 +315,7 @@ declare namespace Calendar {
         eventStartEditable?: boolean;
         eventTimeFormat?: Intl.DateTimeFormatOptions | ((start: Date, end: Date) => Content);
         eventTextColor?: string;
+        filterEventsWithResources?: boolean;
         filterResourcesWithEvents?: boolean;
         firstDay?: dayOfWeek;
         flexibleSlotTimeLimits?: boolean | { eventFilter: (e: Event) => boolean };
