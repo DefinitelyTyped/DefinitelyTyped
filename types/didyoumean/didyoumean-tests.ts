@@ -10,7 +10,6 @@ input = "google plus";
 
 result = didYouMean(input, list); // null
 
-
 input = "insargrm";
 const listOfObjects = [{ id: "facebook" }, { id: "twitter" }, { id: "instagram" }, { id: "linkedin" }];
 const key = "id";
