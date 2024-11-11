@@ -32,6 +32,9 @@ import ColumnListItem from "sap/m/ColumnListItem";
 import Filter from "sap/ui/model/Filter";
 import Version from "sap/base/util/Version";
 import UploadItem from "sap/m/upload/UploadItem";
+import DragDropInfo from "sap/ui/core/dnd/DragDropInfo";
+import nextUIUpdate from "sap/ui/test/utils/nextUIUpdate";
+import Link from "sap/m/Link";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -222,3 +225,20 @@ const v: Version = new Version(1); // minor version is only optional since 1.124
 // 1.125
 const ui = new UploadItem();
 ui.getIsTrustedSource();
+
+// 1.126
+const drag = new DragDropInfo();
+drag.getKeyboardHandling();
+
+// 1.127
+nextUIUpdate();
+
+// 1.128
+const link = new Link();
+link.getEndIcon();
+
+// 1.129
+MessageBox.alert("Hello World", { contentWidth: "100px" });
+
+// 1.130
+link.hasLabelableHTMLElement();

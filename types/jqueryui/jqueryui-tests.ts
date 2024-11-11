@@ -1094,7 +1094,26 @@ function test_button() {
     $(".selector").button({ icons: { primary: "ui-icon-gear", secondary: "ui-icon-triangle-1-s" } });
     $(".selector").button({ label: "custom label" });
     $(".selector").button({ text: false });
+    // $ExpectType JQuery<HTMLElement>
     $(".selector").button("destroy");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").button("disable");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").button("enable");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").button("refresh");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").button("widget");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").buttonset("destroy");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").buttonset("disable");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").buttonset("enable");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").buttonset("refresh");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").buttonset("widget");
 }
 
 function test_datepicker() {

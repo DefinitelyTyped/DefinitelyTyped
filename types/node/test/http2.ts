@@ -421,7 +421,9 @@ import { URL } from "node:url";
         foo: number;
     }
 
-    class MyHttp2ServerResponse extends Http2ServerResponse {
+    class MyHttp2ServerResponse<Request extends Http2ServerRequest = Http2ServerRequest>
+        extends Http2ServerResponse<Request>
+    {
         bar: string;
     }
 
@@ -485,7 +487,7 @@ import { URL } from "node:url";
     const http2Stream: Http2Stream = {} as any;
     const duplex: Duplex = http2Stream;
 
-    performServerHandshake(duplex, serverOptions); // $ExpectType ServerHttp2Session
+    performServerHandshake(duplex, serverOptions); // $ExpectType ServerHttp2Session<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>
 }
 
 // constants

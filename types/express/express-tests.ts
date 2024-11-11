@@ -258,9 +258,11 @@ namespace express_tests {
 
     // Make sure we can use every generic
     const someOtherHandler: express.RequestHandler<{}, any, any, { foo: string }> = (req, res, next) => next();
+    const asyncHandler: express.RequestHandler<{}, any, any, { foo: string }> = async (req, res, next) => next();
 
     // Make sure we can use every generic
     const someOtherErrorHandler: express.ErrorRequestHandler<{}, any, any, { foo: string }> = (req, res) => {};
+    const asyncErrorHandler: express.ErrorRequestHandler<{}, any, any, { foo: string }> = async (req, res) => {};
 }
 
 /***************************

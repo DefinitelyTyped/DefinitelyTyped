@@ -202,9 +202,9 @@ declare namespace Arborist {
          * Edges in the dependency graph indicating nodes that this node depends
          * on, which resolve its dependencies.
          */
-        edgesOut: Edge[];
+        edgesOut: Map<string, Edge>;
         /** Edges in the dependency graph indicating nodes that depend on this node. */
-        edgesIn: Edge[];
+        edgesIn: Set<Edge>;
 
         /** True if this package is not required by any other for any reason.  False for top of tree. */
         extraneous: boolean;
@@ -215,6 +215,8 @@ declare namespace Arborist {
         get pkgid(): string;
 
         get inBundle(): boolean;
+
+        get isWorkspace(): boolean;
 
         /** Errors encountered while parsing package.json or version specifiers. */
         errors: Error[];
@@ -258,9 +260,9 @@ declare namespace Arborist {
          */
         constructor(fields: Pick<Edge, "from" | "type" | "name" | "spec">);
         /** The node that has the dependency. */
-        from: Node;
+        from: Node | null;
         /** The type of dependency. */
-        type: Exclude<SaveType, "peerOptional">;
+        type: SaveType;
         /** The name of the dependency.  Ie, the key in the relevant `package.json` dependencies object. */
         name: string;
         /**
@@ -270,7 +272,7 @@ declare namespace Arborist {
          */
         spec: string;
         /** Automatically set to the node in the tree that matches the `name` field. */
-        to: Node;
+        to: Node | null;
         /** True if `edge.to` satisfies the specifier. */
         valid: boolean;
         invalid: boolean;

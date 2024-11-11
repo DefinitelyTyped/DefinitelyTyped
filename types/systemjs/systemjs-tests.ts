@@ -67,7 +67,7 @@ System.set("https://example.com/d.js", {
 });
 
 for (const entry of System.entries()) {
-    // $ExpectType: string
+    // $ExpectType string
     const moduleId = entry[0];
     const module = entry[1];
 }
@@ -89,4 +89,9 @@ System.addImportMap({
             c: "https://example.com/c.js",
         },
     },
+    integrity: {
+        "https://example.com/a.js": "sha256-5e3e",
+    },
 });
+
+System.getImportMap();

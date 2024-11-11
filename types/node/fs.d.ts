@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/fs.js)
  */
 declare module "fs" {
     import * as stream from "node:stream";
@@ -130,7 +130,9 @@ declare module "fs" {
      * ```
      * @since v0.1.21
      */
-    export class Stats {}
+    export class Stats {
+        private constructor();
+    }
     export interface StatsFsBase<T> {
         /** Type of file system. */
         type: T;
@@ -282,7 +284,7 @@ declare module "fs" {
         /**
          * Asynchronously iterates over the directory via `readdir(3)` until all entries have been read.
          */
-        [Symbol.asyncIterator](): AsyncIterableIterator<Dirent>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<Dirent>;
         /**
          * Asynchronously close the directory's underlying resource handle.
          * Subsequent reads will result in errors.
@@ -1898,7 +1900,7 @@ declare module "fs" {
      * The `fs.mkdtemp()` method will append the six randomly selected characters
      * directly to the `prefix` string. For instance, given a directory `/tmp`, if the
      * intention is to create a temporary directory _within_`/tmp`, the `prefix`must end with a trailing platform-specific path separator
-     * (`require('node:path').sep`).
+     * (`import { sep } from 'node:path'`).
      *
      * ```js
      * import { tmpdir } from 'node:os';
@@ -3154,7 +3156,7 @@ declare module "fs" {
      * stat object:
      *
      * ```js
-     * import { watchFile } from 'fs';
+     * import { watchFile } from 'node:fs';
      *
      * watchFile('message.text', (curr, prev) => {
      *   console.log(`the current mtime is: ${curr.mtime}`);
@@ -4311,6 +4313,77 @@ declare module "fs" {
      * @param dest destination path to copy to.
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
+
+    export interface GlobOptions {
+        /**
+         * Current working directory.
+         * @default process.cwd()
+         */
+        cwd?: string | undefined;
+        /**
+         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         */
+        exclude?: ((fileName: string) => boolean) | undefined;
+        /**
+         * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
+         * @default false
+         * @since v22.2.0
+         */
+        withFileTypes?: boolean | undefined;
+    }
+    export interface GlobOptionsWithFileTypes extends GlobOptions {
+        withFileTypes: true;
+    }
+    export interface GlobOptionsWithoutFileTypes extends GlobOptions {
+        withFileTypes?: false | undefined;
+    }
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    export function glob(
+        pattern: string | string[],
+        callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
+        options: GlobOptionsWithFileTypes,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: Dirent[],
+        ) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
+        options: GlobOptionsWithoutFileTypes,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: string[],
+        ) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
+        options: GlobOptions,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: Dirent[] | string[],
+        ) => void,
+    ): void;
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    export function globSync(pattern: string | string[]): string[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptionsWithFileTypes,
+    ): Dirent[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptionsWithoutFileTypes,
+    ): string[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptions,
+    ): Dirent[] | string[];
 }
 declare module "node:fs" {
     export * from "fs";

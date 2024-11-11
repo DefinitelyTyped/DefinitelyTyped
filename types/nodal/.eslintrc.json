@@ -1,10 +1,10 @@
 {
     "rules": {
-        "@definitelytyped/dt-header": "off",
         "@definitelytyped/no-any-union": "off",
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/no-single-element-tuple-type": "off",
-        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off",
         "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/explicit-member-accessibility": "off"
     }

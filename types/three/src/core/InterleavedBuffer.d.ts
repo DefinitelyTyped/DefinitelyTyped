@@ -43,18 +43,6 @@ export class InterleavedBuffer {
     usage: Usage;
 
     /**
-     * Object containing offset and count.
-     * @defaultValue `{ offset: number = 0; count: number = -1 }`
-     * @deprecated Will be removed in r169. Use "addUpdateRange()" instead.
-     */
-    updateRange: {
-        /** @defaultValue `0` */
-        offset: number;
-        /** @defaultValue `-1` */
-        count: number;
-    };
-
-    /**
      * This can be used to only update some components of stored data. Use the {@link .addUpdateRange} function to add
      * ranges to this array.
      */

@@ -1,6 +1,14 @@
 /// <reference types="node" />
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+
+    export default function createNodeClient(config: SdkConfig): MapiClient;
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/lib/classes/mapi-client" {
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest, MapiRequestOptions } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
@@ -1228,6 +1236,100 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/isochrone" {
+    import * as GeoJSON from "geojson";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+
+    export default function Isochrone(config: SdkConfig | MapiClient): IsochroneService;
+
+    interface IsochroneService {
+        getContours(
+            request: IsochroneRequest<false | undefined>,
+        ): MapiRequest<GeoJSON.FeatureCollection<GeoJSON.LineString>>;
+        getContours(
+            request: IsochroneRequest<true>,
+        ): MapiRequest<GeoJSON.FeatureCollection<GeoJSON.Polygon>>;
+    }
+
+    interface IsochroneDistance {
+        /**
+         * The times in minutes to use for each isochrone contour. You can specify up to four contours.
+         * Times must be in increasing order. The maximum time that can be specified is 60 minutes.
+         * Setting minutes and meters in the same time is an error.
+         */
+        minutes?: never;
+        /**
+         * The distances in meters to use for each isochrone contour. You can specify up to four contours.
+         * Distances must be in increasing order. The maximum distance that can be specified is
+         * 100000 meters. Setting minutes and meters in the same time is an error.
+         */
+        meters: [number, number?, number?, number?];
+    }
+
+    interface IsochroneTime {
+        /**
+         * The times in minutes to use for each isochrone contour. You can specify up to four contours.
+         * Times must be in increasing order. The maximum time that can be specified is 60 minutes.
+         * Setting minutes and meters in the same time is an error.
+         */
+        minutes: [number, number?, number?, number?];
+        /**
+         * The distances in meters to use for each isochrone contour. You can specify up to four contours.
+         * Distances must be in increasing order. The maximum distance that can be specified is
+         * 100000 meters. Setting minutes and meters in the same time is an error.
+         */
+        meters?: never;
+    }
+
+    type IsochroneRequest<T extends boolean | undefined = false> = (IsochroneDistance | IsochroneTime) & {
+        /**
+         * The colors to use for each isochrone contour, specified as hex values without a leading
+         * `#`(for example, `ff0000` for red). If this parameter is used, there must be the same
+         * number of colors as there are entries in contours_minutes or contours_meters. If no
+         * colors are specified, the Isochrone API will assign a default rainbow color scheme to
+         * the output.
+         */
+        colors?: [string?, string?, string?, string?];
+        /** A {longitude,latitude} coordinate pair around which to center the isochrone lines. */
+        coordinates: [number, number];
+        /**
+         * A floating point value from 0.0 to 1.0 that can be used to remove smaller contours. The
+         * default is 1.0. A value of 1.0 will only return the largest contour for a given time
+         * value. A value of 0.5 drops any contours that are less than half the area of the largest
+         * contour in the set of contours for that same time value.
+         *
+         * @default 1.0
+         */
+        denoise?: number;
+        /**
+         *  A positive floating point value in meters used as the tolerance for Douglas-Peucker
+         * generalization. There is no upper bound. If no value is specified in the request, the
+         * Isochrone API will choose the most optimized generalization to use for the request.
+         * Note that the generalization of contours can lead to self-intersections, as well as
+         * intersections of adjacent contours.
+         */
+        generalize?: number;
+        /**
+         * Specify whether to return the contours as GeoJSON polygons (`true`) or linestrings
+         * (`false`, default). When polygons=`true`, any contour that forms a ring is returned as a
+         * polygon.
+         *
+         * @default false
+         */
+        polygons?: T;
+        /**
+         * A Mapbox Directions routing profile ID.
+         *
+         * @default 'driving'
+         */
+        profile?: "driving" | "driving-traffic" | "walking" | "cycling";
+    };
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/geocoding" {
     import { LngLatLike } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -1739,7 +1841,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
          * Get a static map image..
          * @param request
          */
-        getStaticImage(request: StaticMapRequest): MapiRequest;
+        getStaticImage(request: StaticMapRequest): MapiRequest<string>;
     }
 
     interface StaticMapRequest {
@@ -1754,6 +1856,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
                 bearing?: number | undefined;
                 pitch?: number | undefined;
             }
+            | { bbox: [number, number, number, number] }
             | "auto";
         padding?: string | undefined;
         overlays?: Array<CustomMarkerOverlay | SimpleMarkerOverlay | PathOverlay | GeoJsonOverlay> | undefined;
@@ -1780,7 +1883,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
     }
 
     interface SimpleMarker {
-        coordinates: LngLatLike;
+        coordinates: [number, number];
         label?: string | undefined;
         color?: string | undefined;
         size?: "large" | "small" | undefined;

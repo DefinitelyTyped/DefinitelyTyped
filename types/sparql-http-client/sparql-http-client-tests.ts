@@ -89,6 +89,18 @@ async function streamingClient() {
     const post: Promise<void> = fullOptions.store.post(stream);
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+function accessingProperties<C extends StreamClient | ParsingClient | SimpleClient>(client: C) {
+    const {
+        endpointUrl,
+        storeUrl,
+        updateUrl,
+        user,
+        password,
+        headers,
+    } = client;
+}
+
 async function parsingClient() {
     // construct
     const usingDefaultFactory: IParsingClient = new ParsingClient({
@@ -228,4 +240,13 @@ async function simpleClient() {
         headers,
         operation: "get",
     });
+}
+
+function initFromInstance() {
+    const client = new StreamClient({
+        endpointUrl,
+    });
+    const cloneClient = new StreamClient(client);
+    const parsingClient = new ParsingClient(client);
+    const simpleClient = new SimpleClient(client);
 }

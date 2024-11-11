@@ -23,7 +23,7 @@ interface S3Zip {
 
     setArchiverOptions(archiverOpts: ArchiverOptions): this;
 
-    // eslint-disable-next-line @typescript-eslint/ban-types -- Function
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type -- Function
     setRegisterFormatOptions(registerFormat: string, formatModule: Function): this;
 }
 

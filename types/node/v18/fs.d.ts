@@ -262,7 +262,7 @@ declare module "fs" {
         /**
          * Asynchronously iterates over the directory via `readdir(3)` until all entries have been read.
          */
-        [Symbol.asyncIterator](): AsyncIterableIterator<Dirent>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<Dirent>;
         /**
          * Asynchronously close the directory's underlying resource handle.
          * Subsequent reads will result in errors.
@@ -1867,7 +1867,7 @@ declare module "fs" {
      * The `fs.mkdtemp()` method will append the six randomly selected characters
      * directly to the `prefix` string. For instance, given a directory `/tmp`, if the
      * intention is to create a temporary directory _within_`/tmp`, the `prefix`must end with a trailing platform-specific path separator
-     * (`require('path').sep`).
+     * (`import { sep } from 'node:path'`).
      *
      * ```js
      * import { tmpdir } from 'os';

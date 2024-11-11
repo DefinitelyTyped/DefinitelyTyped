@@ -109,6 +109,7 @@ declare namespace sharedb {
         suppressPublish?: boolean;
         maxSubmitRetries?: number;
         doNotForwardSendPresenceErrorsToClient?: boolean;
+        doNotCommitNoOps?: boolean;
         errorHandler?: ErrorHandler;
 
         presence?: boolean;
@@ -221,7 +222,12 @@ declare namespace sharedb {
         private _removeStream(channel, stream): void;
     }
 
-    abstract class MilestoneDB {
+    interface MilestoneDBEventMap {
+        "error": (error: Error) => void;
+        "save": (collection: string, snapshot: Snapshot) => void;
+    }
+
+    abstract class MilestoneDB extends ShareDB.TypedEmitter<MilestoneDBEventMap> {
         close(callback?: BasicCallback): void;
         getMilestoneSnapshot(collection: string, id: string, version: number, callback?: BasicCallback): void;
         saveMilestoneSnapshot(collection: string, snapshot: Snapshot, callback?: BasicCallback): void;

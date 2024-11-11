@@ -4,6 +4,14 @@ import { CubicInterpolant } from "../math/interpolants/CubicInterpolant.js";
 import { DiscreteInterpolant } from "../math/interpolants/DiscreteInterpolant.js";
 import { LinearInterpolant } from "../math/interpolants/LinearInterpolant.js";
 
+export interface KeyframeTrackJSON {
+    name: string;
+    times: number[];
+    values: number[];
+    interpolation?: InterpolationModes;
+    type: string;
+}
+
 export class KeyframeTrack {
     /**
      * @param name
@@ -43,5 +51,5 @@ export class KeyframeTrack {
     optimize(): KeyframeTrack;
     clone(): this;
 
-    static toJSON(track: KeyframeTrack): any;
+    static toJSON(track: KeyframeTrack): KeyframeTrackJSON;
 }

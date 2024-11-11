@@ -10,7 +10,7 @@
  * * [Resource Timing](https://www.w3.org/TR/resource-timing-2/)
  *
  * ```js
- * const { PerformanceObserver, performance } = require('node:perf_hooks');
+ * import { PerformanceObserver, performance } from 'node:perf_hooks';
  *
  * const obs = new PerformanceObserver((items) => {
  *   console.log(items.getEntries()[0].duration);
@@ -27,11 +27,21 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/perf_hooks.js)
  */
 declare module "perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
-    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http" | "dns" | "net";
+    type EntryType =
+        | "dns" // Node.js only
+        | "function" // Node.js only
+        | "gc" // Node.js only
+        | "http2" // Node.js only
+        | "http" // Node.js only
+        | "mark" // available on the Web
+        | "measure" // available on the Web
+        | "net" // Node.js only
+        | "node" // Node.js only
+        | "resource"; // available on the Web
     interface NodeGCPerformanceDetail {
         /**
          * When `performanceEntry.entryType` is equal to 'gc', the `performance.kind` property identifies
@@ -106,6 +116,20 @@ declare module "perf_hooks" {
     class PerformanceMeasure extends PerformanceEntry {
         readonly entryType: "measure";
     }
+    interface UVMetrics {
+        /**
+         * Number of event loop iterations.
+         */
+        readonly loopCount: number;
+        /**
+         * Number of events that have been processed by the event handler.
+         */
+        readonly events: number;
+        /**
+         * Number of events that were waiting to be processed when the event provider was called.
+         */
+        readonly eventsWaiting: number;
+    }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
      *
@@ -114,6 +138,7 @@ declare module "perf_hooks" {
      * @since v8.5.0
      */
     class PerformanceNodeTiming extends PerformanceEntry {
+        readonly entryType: "node";
         /**
          * The high resolution millisecond timestamp at which the Node.js process
          * completed bootstrapping. If bootstrapping has not yet finished, the property
@@ -155,6 +180,16 @@ declare module "perf_hooks" {
          * @since v8.5.0
          */
         readonly nodeStart: number;
+        /**
+         * This is a wrapper to the `uv_metrics_info` function.
+         * It returns the current set of event loop metrics.
+         *
+         * It is recommended to use this property inside a function whose execution was
+         * scheduled using `setImmediate` to avoid collecting metrics before finishing all
+         * operations scheduled during the current loop iteration.
+         * @since v22.8.0, v20.18.0
+         */
+        readonly uvMetricsInfo: UVMetrics;
         /**
          * The high resolution millisecond timestamp at which the V8 platform was
          * initialized.
@@ -271,6 +306,30 @@ declare module "perf_hooks" {
          */
         mark(name: string, options?: MarkOptions): PerformanceMark;
         /**
+         * Creates a new `PerformanceResourceTiming` entry in the Resource Timeline.
+         * A `PerformanceResourceTiming` is a subclass of `PerformanceEntry` whose `performanceEntry.entryType` is always `'resource'`.
+         * Performance resources are used to mark moments in the Resource Timeline.
+         * @param timingInfo [Fetch Timing Info](https://fetch.spec.whatwg.org/#fetch-timing-info)
+         * @param requestedUrl The resource url
+         * @param initiatorType The initiator name, e.g: 'fetch'
+         * @param global
+         * @param cacheMode The cache mode must be an empty string ('') or 'local'
+         * @param bodyInfo [Fetch Response Body Info](https://fetch.spec.whatwg.org/#response-body-info)
+         * @param responseStatus The response's status code
+         * @param deliveryType The delivery type. Default: ''.
+         * @since v18.2.0, v16.17.0
+         */
+        markResourceTiming(
+            timingInfo: object,
+            requestedUrl: string,
+            initiatorType: string,
+            global: object,
+            cacheMode: "" | "local",
+            bodyInfo: object,
+            responseStatus: number,
+            deliveryType?: string,
+        ): PerformanceResourceTiming;
+        /**
          * Creates a new PerformanceMeasure entry in the Performance Timeline.
          * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
          * and whose performanceEntry.duration measures the number of milliseconds elapsed since startMark and endMark.
@@ -320,10 +379,10 @@ declare module "perf_hooks" {
          * A `PerformanceObserver` must be subscribed to the `'function'` event type in order for the timing details to be accessed.
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver,
-         * } = require('node:perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * function someFunction() {
          *   console.log('hello world');
@@ -362,10 +421,10 @@ declare module "perf_hooks" {
          * with respect to `performanceEntry.startTime`.
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver,
-         * } = require('node:perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntries());
@@ -405,10 +464,10 @@ declare module "perf_hooks" {
          * equal to `name`, and optionally, whose `performanceEntry.entryType` is equal to`type`.
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver,
-         * } = require('node:perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntriesByName('meow'));
@@ -456,10 +515,10 @@ declare module "perf_hooks" {
          * with respect to `performanceEntry.startTime` whose `performanceEntry.entryType` is equal to `type`.
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver,
-         * } = require('node:perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntriesByType('mark'));
@@ -509,10 +568,10 @@ declare module "perf_hooks" {
          * Subscribes the `PerformanceObserver` instance to notifications of new `PerformanceEntry` instances identified either by `options.entryTypes` or `options.type`:
          *
          * ```js
-         * const {
+         * import {
          *   performance,
          *   PerformanceObserver,
-         * } = require('node:perf_hooks');
+         * } from 'node:perf_hooks';
          *
          * const obs = new PerformanceObserver((list, observer) => {
          *   // Called once asynchronously. `list` contains three items.
@@ -543,6 +602,7 @@ declare module "perf_hooks" {
      * @since v18.2.0, v16.17.0
      */
     class PerformanceResourceTiming extends PerformanceEntry {
+        readonly entryType: "resource";
         protected constructor();
         /**
          * The high resolution millisecond timestamp at immediately before dispatching the `fetch`
@@ -780,7 +840,7 @@ declare module "perf_hooks" {
      * detect.
      *
      * ```js
-     * const { monitorEventLoopDelay } = require('node:perf_hooks');
+     * import { monitorEventLoopDelay } from 'node:perf_hooks';
      * const h = monitorEventLoopDelay({ resolution: 20 });
      * h.enable();
      * // Do something.
@@ -829,8 +889,8 @@ declare module "perf_hooks" {
     } from "perf_hooks";
     global {
         /**
-         * `PerformanceEntry` is a global reference for `require('node:perf_hooks').PerformanceEntry`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceentry
+         * `PerformanceEntry` is a global reference for `import { PerformanceEntry } from 'node:perf_hooks'`
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceentry
          * @since v19.0.0
          */
         var PerformanceEntry: typeof globalThis extends {
@@ -839,8 +899,8 @@ declare module "perf_hooks" {
         } ? T
             : typeof _PerformanceEntry;
         /**
-         * `PerformanceMark` is a global reference for `require('node:perf_hooks').PerformanceMark`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performancemark
+         * `PerformanceMark` is a global reference for `import { PerformanceMark } from 'node:perf_hooks'`
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performancemark
          * @since v19.0.0
          */
         var PerformanceMark: typeof globalThis extends {
@@ -849,8 +909,8 @@ declare module "perf_hooks" {
         } ? T
             : typeof _PerformanceMark;
         /**
-         * `PerformanceMeasure` is a global reference for `require('node:perf_hooks').PerformanceMeasure`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performancemeasure
+         * `PerformanceMeasure` is a global reference for `import { PerformanceMeasure } from 'node:perf_hooks'`
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performancemeasure
          * @since v19.0.0
          */
         var PerformanceMeasure: typeof globalThis extends {
@@ -859,8 +919,8 @@ declare module "perf_hooks" {
         } ? T
             : typeof _PerformanceMeasure;
         /**
-         * `PerformanceObserver` is a global reference for `require('node:perf_hooks').PerformanceObserver`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceobserver
+         * `PerformanceObserver` is a global reference for `import { PerformanceObserver } from 'node:perf_hooks'`
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceobserver
          * @since v19.0.0
          */
         var PerformanceObserver: typeof globalThis extends {
@@ -869,8 +929,8 @@ declare module "perf_hooks" {
         } ? T
             : typeof _PerformanceObserver;
         /**
-         * `PerformanceObserverEntryList` is a global reference for `require('node:perf_hooks').PerformanceObserverEntryList`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceobserverentrylist
+         * `PerformanceObserverEntryList` is a global reference for `import { PerformanceObserverEntryList } from 'node:perf_hooks'`
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceobserverentrylist
          * @since v19.0.0
          */
         var PerformanceObserverEntryList: typeof globalThis extends {
@@ -879,8 +939,8 @@ declare module "perf_hooks" {
         } ? T
             : typeof _PerformanceObserverEntryList;
         /**
-         * `PerformanceResourceTiming` is a global reference for `require('node:perf_hooks').PerformanceResourceTiming`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceresourcetiming
+         * `PerformanceResourceTiming` is a global reference for `import { PerformanceResourceTiming } from 'node:perf_hooks'`
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceresourcetiming
          * @since v19.0.0
          */
         var PerformanceResourceTiming: typeof globalThis extends {
@@ -889,8 +949,8 @@ declare module "perf_hooks" {
         } ? T
             : typeof _PerformanceResourceTiming;
         /**
-         * `performance` is a global reference for `require('node:perf_hooks').performance`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performance
+         * `performance` is a global reference for `import { performance } from 'node:perf_hooks'`
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performance
          * @since v16.0.0
          */
         var performance: typeof globalThis extends {

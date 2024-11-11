@@ -21,6 +21,7 @@ import * as net from "node:net";
     let server = net.createServer({
         keepAlive: true,
         keepAliveInitialDelay: 1000,
+        highWaterMark: 16384,
     });
     // Check methods which return server instances by chaining calls
     server = server.listen(0)
@@ -47,6 +48,13 @@ import * as net from "node:net";
     let _socket: net.Socket = new net.Socket({
         fd: 1,
         allowHalfOpen: false,
+        onread: {
+            buffer: Buffer.alloc(4 * 1024),
+            callback: (bytesWritten, buffer) => {
+                console.log(Buffer.from(buffer).toString("utf-8", 0, bytesWritten));
+                return true;
+            },
+        },
         readable: false,
         writable: false,
     });

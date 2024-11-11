@@ -1,11 +1,10 @@
 // tests taken from http://chaijs.com/plugins/chai-fuzzy
 
-import chai = require("chai");
 import chaiFuzzy = require("chai-fuzzy");
 
-chai.use(chaiFuzzy);
-var expect = chai.expect;
-var assert = chai.assert;
+import("chai").then(chai => chai.use(chaiFuzzy));
+declare const expect: Chai.ExpectStatic;
+declare const assert: Chai.AssertStatic;
 
 /**
  * compare object attributes and values rather than checking to see if they're the same reference

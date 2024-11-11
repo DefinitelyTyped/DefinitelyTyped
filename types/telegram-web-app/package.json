@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/telegram-web-app",
-    "version": "7.2.9999",
+    "version": "7.10.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "telegram-web-app",
     "projects": [

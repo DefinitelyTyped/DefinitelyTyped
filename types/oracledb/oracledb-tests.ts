@@ -702,4 +702,12 @@ export const version6Tests = async (): Promise<void> => {
     const offset = 1, len = 100;
     await lob.getData(offset);
     await lob.getData(offset + 3, len);
+
+    console.log(defaultOracledb.DB_TYPE_VECTOR);
+    console.log(defaultOracledb.JsonId);
+
+    // pass random 12 byte value to JsonId which is generated
+    // by DB for SODA document.
+    const key = new oracledb.JsonId([102, 241, 117, 85, 174, 103, 204, 25, 15, 172, 252, 47]);
+    console.log(key.toJSON()); // 66f17555ae67cc190facfc2f
 };

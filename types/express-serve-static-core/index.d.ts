@@ -61,7 +61,7 @@ export interface RequestHandler<
         req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
         res: Response<ResBody, LocalsObj>,
         next: NextFunction,
-    ): void;
+    ): void | Promise<void>;
 }
 
 export type ErrorRequestHandler<
@@ -75,7 +75,7 @@ export type ErrorRequestHandler<
     req: Request<P, ResBody, ReqBody, ReqQuery, LocalsObj>,
     res: Response<ResBody, LocalsObj>,
     next: NextFunction,
-) => void;
+) => void | Promise<void>;
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
@@ -619,12 +619,12 @@ export interface Request<
     readonly path: string;
 
     /**
-     * Parse the "Host" header field hostname.
+     * Contains the hostname derived from the `Host` HTTP header.
      */
     readonly hostname: string;
 
     /**
-     * @deprecated Use hostname instead.
+     * Contains the host derived from the `Host` HTTP header.
      */
     readonly host: string;
 

@@ -1,4 +1,4 @@
-// For Library Version: 1.125.0
+// For Library Version: 1.130.0
 
 declare module "sap/uxap/library" {
   /**
@@ -1676,6 +1676,19 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
       | AccessibleLandmarkRole
       | keyof typeof AccessibleLandmarkRole;
     /**
+     * Gets current value of property {@link #getHeaderContentLabel headerContentLabel}.
+     *
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * @since 1.127.0
+     *
+     * @returns Value of property `headerContentLabel`
+     */
+    getHeaderContentLabel(): string;
+    /**
      * Gets current value of property {@link #getHeaderLabel headerLabel}.
      *
      * Texts which describe the landmark of the header container of the corresponding `sap.uxap.ObjectPageLayout`
@@ -1838,6 +1851,26 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
        * New value for property `footerRole`
        */
       sFooterRole?: AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeaderContentLabel headerContentLabel}.
+     *
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.127.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderContentLabel(
+      /**
+       * New value for property `headerContentLabel`
+       */
+      sHeaderContentLabel?: string
     ): this;
     /**
      * Sets a new value for property {@link #getHeaderLabel headerLabel}.
@@ -2061,6 +2094,16 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      * is set.
      */
     footerLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * @since 1.127.0
+     */
+    headerContentLabel?: string | PropertyBindingInfo;
   }
 }
 
@@ -7521,6 +7564,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * Default value is `true`.
      *
      * @since 1.121.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Value of property `titleVisible`
      */
@@ -7688,6 +7732,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * binding to determine the aria-levels of the inner Controls.
      *
      * @since 1.121.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     titleVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 

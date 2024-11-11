@@ -8,15 +8,32 @@ examineChanges(changes);
 
 // $ExpectType void
 Diff.diffChars(one, other, {
-    callback: (err, value) => {
-        err; // $ExpectType undefined
-        value; // $ExpectType Change[] | undefined
+    callback: (value) => {
+        value; // $ExpectType Change[]
     },
 });
 // $ExpectType void
-Diff.diffChars(one, other, (err, value) => {
-    err; // $ExpectType undefined
-    value; // $ExpectType Change[] | undefined
+Diff.diffChars(one, other, (value) => {
+    value; // $ExpectType Change[]
+});
+Diff.diffWords("吾輩は猫である。名前はまだ無い。", "吾輩は猫である。名前はたぬき。", {
+    intlSegmenter: new Intl.Segmenter("ja-JP", { granularity: "word" }),
+});
+// $ExpectType Change[]
+Diff.diffLines(
+    "line\nold value\nline",
+    "line\nnew value\nline",
+    {
+        ignoreNewlineAtEof: true,
+        maxEditLength: 1,
+        oneChangePerToken: true,
+    },
+);
+// $ExpectType void
+Diff.createPatch("filename", "A", "a", undefined, undefined, {
+    callback: (value) => {
+        value; // $ExpectType string
+    },
 });
 
 const diffArraysResult = Diff.diffArrays(["a", "b", "c"], ["a", "c", "d"]);
@@ -65,8 +82,8 @@ examineChanges(changes);
 
 function examineChanges(diff: Diff.Change[]) {
     diff.forEach(part => {
-        part.added; // $ExpectType boolean | undefined
-        part.removed; // $ExpectType boolean | undefined
+        part.added; // $ExpectType boolean
+        part.removed; // $ExpectType boolean
         part.value; // $ExpectType string
         part.count; // $ExpectType number | undefined
     });
@@ -126,6 +143,8 @@ const uniDiffPatch = Diff.structuredPatch("oldFile.ts", "newFile.ts", one, other
 });
 verifyPatchMethods(one, other, uniDiffPatch);
 
+const formatted: string = Diff.formatPatch(uniDiffPatch);
+
 const uniDiffStr = Diff.createPatch("file.ts", one, other, "old", "new", { context: 1 });
 verifyApplyMethods(one, other, uniDiffStr);
 
@@ -140,3 +159,16 @@ const verifyPatch = Diff.parsePatch(
         context: 1,
     }),
 );
+
+const wordDiff = new Diff.Diff();
+wordDiff.equals = function(left, right, options) {
+    if (options.ignoreWhitespace) {
+        if (!options.newlineIsToken || !left.includes("\n")) {
+            left = left.trim();
+        }
+        if (!options.newlineIsToken || !right.includes("\n")) {
+            right = right.trim();
+        }
+    }
+    return Diff.Diff.prototype.equals.call(this, left, right, options);
+};

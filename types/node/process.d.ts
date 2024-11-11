@@ -1,8 +1,121 @@
 declare module "process" {
-    import * as net from "node:net";
-    import * as os from "node:os";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
+
+    interface BuiltInModule {
+        "assert": typeof import("assert");
+        "node:assert": typeof import("node:assert");
+        "assert/strict": typeof import("assert/strict");
+        "node:assert/strict": typeof import("node:assert/strict");
+        "async_hooks": typeof import("async_hooks");
+        "node:async_hooks": typeof import("node:async_hooks");
+        "buffer": typeof import("buffer");
+        "node:buffer": typeof import("node:buffer");
+        "child_process": typeof import("child_process");
+        "node:child_process": typeof import("node:child_process");
+        "cluster": typeof import("cluster");
+        "node:cluster": typeof import("node:cluster");
+        "console": typeof import("console");
+        "node:console": typeof import("node:console");
+        "constants": typeof import("constants");
+        "node:constants": typeof import("node:constants");
+        "crypto": typeof import("crypto");
+        "node:crypto": typeof import("node:crypto");
+        "dgram": typeof import("dgram");
+        "node:dgram": typeof import("node:dgram");
+        "diagnostics_channel": typeof import("diagnostics_channel");
+        "node:diagnostics_channel": typeof import("node:diagnostics_channel");
+        "dns": typeof import("dns");
+        "node:dns": typeof import("node:dns");
+        "dns/promises": typeof import("dns/promises");
+        "node:dns/promises": typeof import("node:dns/promises");
+        "domain": typeof import("domain");
+        "node:domain": typeof import("node:domain");
+        "events": typeof import("events");
+        "node:events": typeof import("node:events");
+        "fs": typeof import("fs");
+        "node:fs": typeof import("node:fs");
+        "fs/promises": typeof import("fs/promises");
+        "node:fs/promises": typeof import("node:fs/promises");
+        "http": typeof import("http");
+        "node:http": typeof import("node:http");
+        "http2": typeof import("http2");
+        "node:http2": typeof import("node:http2");
+        "https": typeof import("https");
+        "node:https": typeof import("node:https");
+        "inspector": typeof import("inspector");
+        "node:inspector": typeof import("node:inspector");
+        "inspector/promises": typeof import("inspector/promises");
+        "node:inspector/promises": typeof import("node:inspector/promises");
+        "module": typeof import("module");
+        "node:module": typeof import("node:module");
+        "net": typeof import("net");
+        "node:net": typeof import("node:net");
+        "os": typeof import("os");
+        "node:os": typeof import("node:os");
+        "path": typeof import("path");
+        "node:path": typeof import("node:path");
+        "path/posix": typeof import("path/posix");
+        "node:path/posix": typeof import("node:path/posix");
+        "path/win32": typeof import("path/win32");
+        "node:path/win32": typeof import("node:path/win32");
+        "perf_hooks": typeof import("perf_hooks");
+        "node:perf_hooks": typeof import("node:perf_hooks");
+        "process": typeof import("process");
+        "node:process": typeof import("node:process");
+        "punycode": typeof import("punycode");
+        "node:punycode": typeof import("node:punycode");
+        "querystring": typeof import("querystring");
+        "node:querystring": typeof import("node:querystring");
+        "readline": typeof import("readline");
+        "node:readline": typeof import("node:readline");
+        "readline/promises": typeof import("readline/promises");
+        "node:readline/promises": typeof import("node:readline/promises");
+        "repl": typeof import("repl");
+        "node:repl": typeof import("node:repl");
+        "node:sea": typeof import("node:sea");
+        "node:sqlite": typeof import("node:sqlite");
+        "stream": typeof import("stream");
+        "node:stream": typeof import("node:stream");
+        "stream/consumers": typeof import("stream/consumers");
+        "node:stream/consumers": typeof import("node:stream/consumers");
+        "stream/promises": typeof import("stream/promises");
+        "node:stream/promises": typeof import("node:stream/promises");
+        "stream/web": typeof import("stream/web");
+        "node:stream/web": typeof import("node:stream/web");
+        "string_decoder": typeof import("string_decoder");
+        "node:string_decoder": typeof import("node:string_decoder");
+        "node:test": typeof import("node:test");
+        "node:test/reporters": typeof import("node:test/reporters");
+        "timers": typeof import("timers");
+        "node:timers": typeof import("node:timers");
+        "timers/promises": typeof import("timers/promises");
+        "node:timers/promises": typeof import("node:timers/promises");
+        "tls": typeof import("tls");
+        "node:tls": typeof import("node:tls");
+        "trace_events": typeof import("trace_events");
+        "node:trace_events": typeof import("node:trace_events");
+        "tty": typeof import("tty");
+        "node:tty": typeof import("node:tty");
+        "url": typeof import("url");
+        "node:url": typeof import("node:url");
+        "util": typeof import("util");
+        "node:util": typeof import("node:util");
+        "sys": typeof import("util");
+        "node:sys": typeof import("node:util");
+        "util/types": typeof import("util/types");
+        "node:util/types": typeof import("node:util/types");
+        "v8": typeof import("v8");
+        "node:v8": typeof import("node:v8");
+        "vm": typeof import("vm");
+        "node:vm": typeof import("node:vm");
+        "wasi": typeof import("wasi");
+        "node:wasi": typeof import("node:wasi");
+        "worker_threads": typeof import("worker_threads");
+        "node:worker_threads": typeof import("node:worker_threads");
+        "zlib": typeof import("zlib");
+        "node:zlib": typeof import("node:zlib");
+    }
     global {
         var process: NodeJS.Process;
         namespace NodeJS {
@@ -210,23 +323,27 @@ declare module "process" {
             }
             interface ProcessReport {
                 /**
+                 * Write reports in a compact format, single-line JSON, more easily consumable by log processing systems
+                 * than the default multi-line format designed for human consumption.
+                 * @since v13.12.0, v12.17.0
+                 */
+                compact: boolean;
+                /**
                  * Directory where the report is written.
+                 * The default value is the empty string, indicating that reports are written to the current
                  * working directory of the Node.js process.
-                 * @default '' indicating that reports are written to the current
                  */
                 directory: string;
                 /**
-                 * Filename where the report is written.
-                 * The default value is the empty string.
-                 * @default '' the output filename will be comprised of a timestamp,
-                 * PID, and sequence number.
+                 * Filename where the report is written. If set to the empty string, the output filename will be comprised
+                 * of a timestamp, PID, and sequence number. The default value is the empty string.
                  */
                 filename: string;
                 /**
-                 * Returns a JSON-formatted diagnostic report for the running process.
-                 * The report's JavaScript stack trace is taken from err, if present.
+                 * Returns a JavaScript Object representation of a diagnostic report for the running process.
+                 * The report's JavaScript stack trace is taken from `err`, if present.
                  */
-                getReport(err?: Error): string;
+                getReport(err?: Error): object;
                 /**
                  * If true, a diagnostic report is generated on fatal errors,
                  * such as out of memory errors or failed C++ assertions.
@@ -252,18 +369,19 @@ declare module "process" {
                 /**
                  * Writes a diagnostic report to a file. If filename is not provided, the default filename
                  * includes the date, time, PID, and a sequence number.
-                 * The report's JavaScript stack trace is taken from err, if present.
+                 * The report's JavaScript stack trace is taken from `err`, if present.
                  *
+                 * If the value of filename is set to `'stdout'` or `'stderr'`, the report is written
+                 * to the stdout or stderr of the process respectively.
                  * @param fileName Name of the file where the report is written.
                  * This should be a relative path, that will be appended to the directory specified in
                  * `process.report.directory`, or the current working directory of the Node.js process,
                  * if unspecified.
-                 * @param error A custom error used for reporting the JavaScript stack.
+                 * @param err A custom error used for reporting the JavaScript stack.
                  * @return Filename of the generated report.
                  */
-                writeReport(fileName?: string): string;
-                writeReport(error?: Error): string;
                 writeReport(fileName?: string, err?: Error): string;
+                writeReport(err?: Error): string;
             }
             interface ResourceUsage {
                 fsRead: number;
@@ -520,7 +638,7 @@ declare module "process" {
                  * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
                  * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
                  *
-                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v20.x/api/os.html#dlopen-constants)`
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v22.x/api/os.html#dlopen-constants)`
                  * documentation for details.
                  *
                  * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
@@ -775,6 +893,40 @@ declare module "process" {
                  * @since v0.11.8
                  */
                 exitCode?: number | string | number | undefined;
+                finalization: {
+                    /**
+                     * This function registers a callback to be called when the process emits the `exit` event if the `ref` object was not garbage collected.
+                     * If the object `ref` was garbage collected before the `exit` event is emitted, the callback will be removed from the finalization registry, and it will not be called on process exit.
+                     *
+                     * Inside the callback you can release the resources allocated by the `ref` object.
+                     * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function,
+                     * this means that there is a possibility that the callback will not be called under special circumstances.
+                     *
+                     * The idea of ​​this function is to help you free up resources when the starts process exiting, but also let the object be garbage collected if it is no longer being used.
+                     * @param ref The reference to the resource that is being tracked.
+                     * @param callback The callback function to be called when the resource is finalized.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    register<T extends object>(ref: T, callback: (ref: T, event: "exit") => void): void;
+                    /**
+                     * This function behaves exactly like the `register`, except that the callback will be called when the process emits the `beforeExit` event if `ref` object was not garbage collected.
+                     *
+                     * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function, this means that there is a possibility that the callback will not be called under special circumstances.
+                     * @param ref The reference to the resource that is being tracked.
+                     * @param callback The callback function to be called when the resource is finalized.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    registerBeforeExit<T extends object>(ref: T, callback: (ref: T, event: "beforeExit") => void): void;
+                    /**
+                     * This function remove the register of the object from the finalization registry, so the callback will not be called anymore.
+                     * @param ref The reference to the resource that was registered previously.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    unregister(ref: object): void;
+                };
                 /**
                  * The `process.getActiveResourcesInfo()` method returns an array of strings containing
                  * the types of the active resources that are currently keeping the event loop alive.
@@ -793,6 +945,12 @@ declare module "process" {
                  * @since v17.3.0, v16.14.0
                  */
                 getActiveResourcesInfo(): string[];
+                /**
+                 * Provides a way to load built-in modules in a globally available function.
+                 * @param id ID of the built-in module being requested.
+                 */
+                getBuiltinModule<ID extends keyof BuiltInModule>(id: ID): BuiltInModule[ID];
+                getBuiltinModule(id: string): object | undefined;
                 /**
                  * The `process.getgid()` method returns the numerical group identity of the
                  * process. (See [`getgid(2)`](http://man7.org/linux/man-pages/man2/getgid.2.html).)
@@ -1303,7 +1461,7 @@ declare module "process" {
                 constrainedMemory(): number;
                 /**
                  * Gets the amount of free memory that is still available to the process (in bytes).
-                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v20.x/api/process.html#processavailablememory) for more information.
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v22.x/api/process.html#processavailablememory) for more information.
                  * @experimental
                  * @since v20.13.0
                  */
@@ -1585,11 +1743,11 @@ declare module "process" {
                  */
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
-                 * `process.report` is an object whose methods are used to generate diagnostic
-                 * reports for the current process. Additional documentation is available in the `report documentation`.
+                 * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v22.x/api/report.html).
                  * @since v11.8.0
                  */
-                report?: ProcessReport | undefined;
+                report: ProcessReport;
                 /**
                  * ```js
                  * import { resourceUsage } from 'node:process';

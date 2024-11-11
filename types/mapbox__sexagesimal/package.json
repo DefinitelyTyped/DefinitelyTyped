@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mapbox__sexagesimal",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/mapbox/sexagesimal#readme"
+    ],
+    "devDependencies": {
+        "@types/mapbox__sexagesimal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}

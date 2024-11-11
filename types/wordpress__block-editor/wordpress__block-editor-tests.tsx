@@ -612,6 +612,12 @@ be.useBlockProps.save({ foo: "bar" });
     children;
 }
 
+{
+    // Allow using blockProps as first parameter in useInnerBlocksProps.
+    const blockProps = be.useBlockProps({ foo: "bar" });
+    const innerBlocksProps = be.useInnerBlocksProps(blockProps);
+}
+
 // $ExpectType Record<string, unknown>
 be.useInnerBlocksProps.save();
 

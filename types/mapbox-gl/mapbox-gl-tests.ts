@@ -60,6 +60,13 @@ let map = new mapboxgl.Map({
     interactive: true,
     attributionControl: true,
     customAttribution: "© YourCo",
+    performanceMetricsCollection: false,
+    respectPrefersReducedMotion: true,
+    config: {
+        basemap: {
+            lightPreset: "night",
+        },
+    },
     bearingSnap: 7,
     scrollZoom: true,
     maxBounds: [
@@ -724,6 +731,7 @@ const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once("load");
  * Marker
  */
 let marker = new mapboxgl.Marker(undefined, {
+    className: "test",
     element: undefined,
     offset: [10, 0],
     anchor: "bottom-right",

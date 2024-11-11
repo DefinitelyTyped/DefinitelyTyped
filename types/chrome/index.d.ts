@@ -487,6 +487,160 @@ declare namespace chrome.alarms {
 }
 
 ////////////////////
+// Audio
+////////////////////
+/**
+ * The chrome.audio API is provided to allow users to get information about and control the audio devices attached to the system.
+ * This API is currently only available in kiosk mode for ChromeOS.
+ *
+ * Permissions: "audio"
+ *
+ * @platform ChromeOS only
+ * @since Chrome 59
+ */
+declare namespace chrome.audio {
+    export interface AudioDeviceInfo {
+        /** Device name */
+        deviceName: string;
+        /** Type of the device */
+        deviceType: DeviceType;
+        /** The user-friendly name (e.g. "USB Microphone"). */
+        displayName: string;
+        /** The unique identifier of the audio device. */
+        id: string;
+        /** True if this is the current active device. */
+        isActive: boolean;
+        /** The sound level of the device, volume for output, gain for input. */
+        level: number;
+        /** The stable/persisted device id string when available. */
+        stableDeviceId?: string;
+        /** Stream type associated with this device. */
+        streamType: StreamType;
+    }
+
+    export interface DeviceFilter {
+        /** If set, only audio devices whose active state matches this value will satisfy the filter. */
+        isActive?: boolean;
+        /** If set, only audio devices whose stream type is included in this list will satisfy the filter. */
+        streamTypes?: StreamType[];
+    }
+
+    export interface DeviceIdLists {
+        /**
+         * List of input devices specified by their ID.
+         * To indicate input devices should be unaffected, leave this property unset.
+         */
+        input?: string[];
+        /**
+         * List of output devices specified by their ID.
+         * To indicate output devices should be unaffected, leave this property unset.
+         */
+        output?: string[];
+    }
+
+    export interface DeviceProperties {
+        /**
+         * The audio device's desired sound level. Defaults to the device's current sound level.
+         * If used with audio input device, represents audio device gain.
+         * If used with audio output device, represents audio device volume.
+         */
+        level?: number;
+    }
+
+    /** Available audio device types. */
+    export enum DeviceType {
+        ALSA_LOOPBACK = "ALSA_LOOPBACK",
+        BLUETOOTH = "BLUETOOTH",
+        FRONT_MIC = "FRONT_MIC",
+        HDMI = "HDMI",
+        HEADPHONE = "HEADPHONE",
+        HOTWORD = "HOTWORD",
+        INTERNAL_MIC = "INTERNAL_MIC",
+        INTERNAL_SPEAKER = "INTERNAL_SPEAKER",
+        KEYBOARD_MIC = "KEYBOARD_MIC",
+        LINEOUT = "LINEOUT",
+        MIC = "MIC",
+        OTHER = "OTHER",
+        POST_DSP_LOOPBACK = "POST_DSP_LOOPBACK",
+        POST_MIX_LOOPBACK = "POST_MIX_LOOPBACK",
+        REAR_MIC = "REAR_MIC",
+        USB = "USB",
+    }
+
+    export interface LevelChangedEvent {
+        /** ID of device whose sound level has changed. */
+        deviceId: string;
+        /** The device's new sound level. */
+        level: number;
+    }
+
+    export interface MuteChangedEvent {
+        /** Whether or not the stream is now muted. */
+        isMuted: boolean;
+        /** The type of the stream for which the mute value changed. The updated mute value applies to all devices with this stream type. */
+        streamType: StreamType;
+    }
+
+    /** Type of stream an audio device provides. */
+    export enum StreamType {
+        INPUT = "INPUT",
+        OUTPUT = "OUTPUT",
+    }
+
+    /**
+     * Gets a list of audio devices filtered based on filter.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function getDevices(filter?: DeviceFilter): Promise<AudioDeviceInfo[]>;
+    export function getDevices(filter: DeviceFilter, callback: (devices: AudioDeviceInfo[]) => void): void;
+    export function getDevices(callback: (devices: AudioDeviceInfo[]) => void): void;
+
+    /**
+     * Gets the system-wide mute state for the specified stream type.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function getMute(streamType: `${StreamType}`): Promise<boolean>;
+    export function getMute(streamType: `${StreamType}`, callback: (value: boolean) => void): void;
+
+    /**
+     * Sets lists of active input and/or output devices.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function setActiveDevices(ids: DeviceIdLists): Promise<void>;
+    export function setActiveDevices(ids: DeviceIdLists, callback: () => void): void;
+
+    /**
+     * Sets mute state for a stream type. The mute state will apply to all audio devices with the specified audio stream type.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function setMute(streamType: `${StreamType}`, isMuted: boolean): Promise<void>;
+    export function setMute(streamType: `${StreamType}`, isMuted: boolean, callback: () => void): void;
+
+    /**
+     * Sets the properties for the input or output device.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+     */
+    export function setProperties(id: string, properties: DeviceProperties): Promise<void>;
+    export function setProperties(id: string, properties: DeviceProperties, callback: () => void): void;
+
+    /**
+     * Fired when audio devices change, either new devices being added, or existing devices being removed.
+     */
+    export const onDeviceListChanged: chrome.events.Event<(devices: AudioDeviceInfo[]) => void>;
+
+    /**
+     * Fired when sound level changes for an active audio device.
+     */
+    export const onLevelChanged: chrome.events.Event<(event: LevelChangedEvent) => void>;
+
+    /**
+     * Fired when the mute state of the audio input or output changes.
+     * Note that mute state is system-wide and the new value applies to every audio device with specified stream type.
+     */
+    export const onMuteChanged: chrome.events.Event<(event: MuteChangedEvent) => void>;
+}
+
+////////////////////
 // Browser
 ////////////////////
 /**
@@ -1822,6 +1976,11 @@ declare namespace chrome.cookies {
         domain: string;
         /** The name of the cookie. */
         name: string;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey;
         /** The ID of the cookie store containing this cookie, as provided in getAllCookieStores(). */
         storeId: string;
         /** The value of the cookie. */
@@ -1845,6 +2004,12 @@ declare namespace chrome.cookies {
         sameSite: SameSiteStatus;
     }
 
+    /** Represents a partitioned cookie's partition key. */
+    export interface CookiePartitionKey {
+        /** The top-level site the partitioned cookie is available in. */
+        topLevelSite?: string | undefined;
+    }
+
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
     export interface CookieStore {
         /** The unique identifier for the cookie store. */
@@ -1858,6 +2023,11 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. Filters the cookies by name.  */
         name?: string | undefined;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
         /** Optional. Restricts the retrieved cookies to those that would match the given URL.  */
         url?: string | undefined;
         /** Optional. The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.  */
@@ -1875,6 +2045,11 @@ declare namespace chrome.cookies {
         domain?: string | undefined;
         /** Optional. The name of the cookie. Empty by default if omitted.  */
         name?: string | undefined;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
         /** The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
         url: string;
         /** Optional. The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.  */
@@ -1896,10 +2071,19 @@ declare namespace chrome.cookies {
         sameSite?: SameSiteStatus | undefined;
     }
 
-    export interface Details {
+    /** Details to identify the cookie. */
+    export interface CookieDetails {
+        /** The name of the cookie to access. */
         name: string;
-        url: string;
+        /**
+         * The partition key for reading or modifying cookies with the Partitioned attribute.
+         * @since Chrome 119
+         */
+        partitionKey?: CookiePartitionKey | undefined;
+        /** The ID of the cookie store in which to look for the cookie. By default, the current execution context's cookie store will be used. */
         storeId?: string | undefined;
+        /** The URL with which the cookie to access is associated. This argument may be a full URL, in which case any data following the URL path (e.g. the query string) is simply ignored. If host permissions for this URL are not specified in the manifest file, the API call will fail. */
+        url: string;
     }
 
     export interface CookieChangeInfo {
@@ -1955,24 +2139,24 @@ declare namespace chrome.cookies {
      * @param details Information to identify the cookie to remove.
      * @return The `remove` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function remove(details: Details): Promise<Details>;
+    export function remove(details: CookieDetails): Promise<CookieDetails>;
     /**
      * Deletes a cookie by name.
      * @param details Information to identify the cookie to remove.
      */
-    export function remove(details: Details, callback?: (details: Details) => void): void;
+    export function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
      */
-    export function get(details: Details, callback: (cookie: Cookie | null) => void): void;
+    export function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
     /**
      * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
      * @param details Details to identify the cookie being retrieved.
      * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function get(details: Details): Promise<Cookie | null>;
+    export function get(details: CookieDetails): Promise<Cookie | null>;
 
     /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
     export var onChanged: CookieChangedEvent;
@@ -2536,6 +2720,24 @@ declare namespace chrome.devtools.network {
 }
 
 ////////////////////
+// Dev Tools - Performance
+////////////////////
+/**
+ * The chrome.devtools.performance API allows developers to interact with the recording features of the Performance panel in Chrome DevTools. You can use this API to get notifications when recording starts or stops.
+ * @since Chrome 128
+ */
+declare namespace chrome.devtools.performance {
+    export interface ProfilingStartedEvent extends chrome.events.Event<() => void> {}
+
+    export interface ProfilingStoppedEvent extends chrome.events.Event<() => void> {}
+
+    /** Fired when the Performance panel begins recording performance data. */
+    export var onProfilingStarted: ProfilingStartedEvent;
+    /** Fired when the Performance panel stops recording performance data. */
+    export var onProfilingStopped: ProfilingStoppedEvent;
+}
+
+////////////////////
 // Dev Tools - Panels
 ////////////////////
 /**
@@ -2622,9 +2824,7 @@ declare namespace chrome.devtools.panels {
         onSelectionChanged: SelectionChangedEvent;
     }
 
-    export interface ExtensionSidebarPaneShownEvent
-        extends chrome.events.Event<(window: chrome.windows.Window) => void>
-    {}
+    export interface ExtensionSidebarPaneShownEvent extends chrome.events.Event<(window: Window) => void> {}
 
     export interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> {}
 
@@ -3195,7 +3395,7 @@ declare namespace chrome.enterprise.platformKeys {
     export interface Token {
         /**
          * Uniquely identifies this Token.
-         * Static IDs are "user" and "system", referring to the platform's user-specific and the system-wide hardware token, respectively. Any other tokens (with other identifiers) might be returned by enterprise.platformKeys.getTokens.
+         * Static IDs are `user` and `system`, referring to the platform's user-specific and the system-wide hardware token, respectively. Any other tokens (with other identifiers) might be returned by enterprise.platformKeys.getTokens.
          */
         id: string;
         /**
@@ -3224,7 +3424,7 @@ declare namespace chrome.enterprise.platformKeys {
          * Which Enterprise Key to challenge.
          * @since Chrome 110
          */
-        scope: Scope;
+        scope: `${Scope}`;
         /**
          * If present, registers the challenged key with the specified scope's token.
          * The key can then be associated with a certificate and used like any other signing key.
@@ -3238,20 +3438,26 @@ declare namespace chrome.enterprise.platformKeys {
         /**
          * Which algorithm the registered key should use.
          */
-        algorithm: Algorithm;
+        algorithm: `${Algorithm}`;
     }
 
     /**
-     * @since Chrome 110
      * Type of key to generate.
+     * @since Chrome 110
      */
-    type Algorithm = "RSA" | "ECDSA";
+    export enum Algorithm {
+        ECDSA = "ECDSA",
+        RSA = "RSA",
+    }
 
     /**
-     * @since Chrome 110
      * Whether to use the Enterprise User Key or the Enterprise Machine Key.
+     * @since Chrome 110
      */
-    type Scope = "USER" | "MACHINE";
+    export enum Scope {
+        USER = "USER",
+        MACHINE = "MACHINE",
+    }
 
     /**
      * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
@@ -3259,6 +3465,7 @@ declare namespace chrome.enterprise.platformKeys {
      * Parameter tokens: The list of available tokens.
      */
     export function getTokens(callback: (tokens: Token[]) => void): void;
+
     /**
      * Returns the list of all client certificates available from the given token. Can be used to check for the existence and expiration of client certificates that are usable for a certain authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3266,6 +3473,7 @@ declare namespace chrome.enterprise.platformKeys {
      * Parameter certificates: The list of certificates, each in DER encoding of a X.509 certificate.
      */
     export function getCertificates(tokenId: string, callback: (certificates: ArrayBuffer[]) => void): void;
+
     /**
      * Imports certificate to the given token if the certified key is already stored in this token. After a successful certification request, this function should be used to store the obtained certificate and to make it available to the operating system and browser for authentication.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3273,6 +3481,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back when this operation is finished.
      */
     export function importCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+
     /**
      * Removes certificate from the given token if present. Should be used to remove obsolete certificates so that they are not considered during authentication and do not clutter the certificate choice. Should be used to free storage in the certificate store.
      * @param tokenId The id of a Token returned by getTokens.
@@ -3280,6 +3489,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back when this operation is finished.
      */
     export function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback?: () => void): void;
+
     /**
      * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
      *
@@ -3295,6 +3505,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @since Chrome 110
      */
     export function challengeKey(options: ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
+
     /**
      * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
      *
@@ -3312,11 +3523,13 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back with the challenge response.
      * @since Chrome 50
      */
+
     export function challengeMachineKey(
         challenge: ArrayBuffer,
         registerKey: boolean,
         callback: (response: ArrayBuffer) => void,
     ): void;
+
     export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
     /**
      * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
@@ -3335,6 +3548,7 @@ declare namespace chrome.enterprise.platformKeys {
      * @param callback Called back with the challenge response.
      * @since Chrome 50
      */
+
     export function challengeUserKey(
         challenge: ArrayBuffer,
         registerKey: boolean,
@@ -3393,6 +3607,32 @@ declare namespace chrome.enterprise.deviceAttributes {
      * @param callback Called with the hostname of the device.
      */
     export function getDeviceHostname(callback: (hostname: string) => void): void;
+}
+
+////////////////////
+// Enterprise Hardware Platform
+////////////////////
+/**
+ * Use the chrome.enterprise.hardwarePlatform API to get the manufacturer and model of the hardware platform where the browser runs.
+ *
+ * Permissions: "enterprise.hardwarePlatform"
+ *
+ * Note: This API is only for extensions pre-installed by policy.
+ * @platform ChromeOS only
+ * @since Chrome 71
+ */
+declare namespace chrome.enterprise.hardwarePlatform {
+    export interface HardwarePlatformInfo {
+        manufacturer: string;
+        model: string;
+    }
+
+    /**
+     * Obtains the manufacturer and model for the hardware platform and, if the extension is authorized, returns it via callback.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+     */
+    export function getHardwarePlatformInfo(): Promise<HardwarePlatformInfo>;
+    export function getHardwarePlatformInfo(callback: (info: HardwarePlatformInfo) => void): void;
 }
 
 ////////////////////
@@ -4910,7 +5150,7 @@ declare namespace chrome.identity {
     export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
 
     /** @since Chrome 84 */
-    export function getProfileUserInfo(details: ProfileDetails): Promise<UserInfo>;
+    export function getProfileUserInfo(details?: ProfileDetails): Promise<UserInfo>;
 
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
@@ -6591,14 +6831,31 @@ declare namespace chrome.platformKeys {
 ////////////////////
 /**
  * Use the chrome.power API to override the system's power management features.
- * Permissions:  "power"
+ * Permissions: "power"
  * @since Chrome 27
  */
 declare namespace chrome.power {
-    /** Requests that power management be temporarily disabled. |level| describes the degree to which power management should be disabled. If a request previously made by the same app is still active, it will be replaced by the new request. */
-    export function requestKeepAwake(level: string): void;
+    export enum Level {
+        /** Prevents the display from being turned off or dimmed, or the system from sleeping in response to user inactivity */
+        DISPLAY = "display",
+        /** Prevents the system from sleeping in response to user inactivity. */
+        SYSTEM = "system",
+    }
+
+    /** Requests that power management be temporarily disabled. `level` describes the degree to which power management should be disabled. If a request previously made by the same app is still active, it will be replaced by the new request. */
+    export function requestKeepAwake(level: `${Level}`): void;
+
     /** Releases a request previously made via requestKeepAwake(). */
     export function releaseKeepAwake(): void;
+
+    /**
+     * Reports a user activity in order to awake the screen from a dimmed or turned off state or from a screensaver. Exits the screensaver if it is currently active.
+     * Can return its result via Promise in Manifest V3 or later.
+     * @platform ChromeOS only
+     * @since Chrome 113
+     */
+    export function reportActivity(): Promise<void>;
+    export function reportActivity(callback: () => void): void;
 }
 
 ////////////////////
@@ -6667,6 +6924,289 @@ declare namespace chrome.printerProvider {
     export var onGetCapabilityRequested: CapabilityRequestedEvent;
     /** Event fired when print manager requests printing. */
     export var onPrintRequested: PrintRequestedEvent;
+}
+
+////////////////////
+// Printing
+////////////////////
+/**
+ * Use the chrome.printing API to send print jobs to printers installed on Chromebook.
+
+ * Permissions: "printing"
+ * @platform ChromeOS only
+ * @since Chrome 81
+ */
+declare namespace chrome.printing {
+    export interface GetPrinterInfoResponse {
+        /** Printer capabilities in [CDD format](https://developers.google.com/cloud-print/docs/cdd#cdd-example). The property may be missing. */
+        capabilities?: { [key: string]: unknown };
+        /** The status of the printer. */
+        status: PrinterStatus;
+    }
+
+    /** Status of the print job. */
+    export enum JobStatus {
+        /** Print job is received on Chrome side but was not processed yet. */
+        PENDING = "PENDING",
+        /** Print job is sent for printing. */
+        IN_PROGRESS = "IN_PROGRESS",
+        /** Print job was interrupted due to some error. */
+        FAILED = "FAILED",
+        /** Print job was canceled by the user or via API. */
+        CANCELED = "CANCELED",
+        /** Print job was printed without any errors. */
+        PRINTED = "PRINTED",
+    }
+
+    export interface Printer {
+        /** The human-readable description of the printer. */
+        description: string;
+        /** The printer's identifier; guaranteed to be unique among printers on the device. */
+        id: string;
+        /** The flag which shows whether the printer fits DefaultPrinterSelection rules. Note that several printers could be flagged. */
+        isDefault: boolean;
+        /** The name of the printer. */
+        name: string;
+        /**
+         * The value showing how recent the printer was used for printing from Chrome.
+         * The lower the value is the more recent the printer was used.
+         * The minimum value is 0.
+         * Missing value indicates that the printer wasn't used recently.
+         * This value is guaranteed to be unique amongst printers.
+         */
+        recentlyUsedRank?: number;
+        /** The source of the printer (user or policy configured). */
+        source: PrinterSource;
+        /** The printer URI. This can be used by extensions to choose the printer for the user. */
+        uri: string;
+    }
+
+    /** The source of the printer. */
+    export enum PrinterSource {
+        /** Printer was added by user. */
+        USER = "USER",
+        /** Printer was added via policy. */
+        POLICY = "POLICY",
+    }
+
+    /** The status of the printer. */
+    export enum PrinterStatus {
+        /** The door of the printer is open. Printer still accepts print jobs. */
+        DOOR_OPEN = "DOOR_OPEN",
+        /** The tray of the printer is missing. Printer still accepts print jobs. */
+        TRAY_MISSING = "TRAY_MISSING",
+        /** The printer is out of ink. Printer still accepts print jobs. */
+        OUT_OF_INK = "OUT_OF_INK",
+        /** The printer is out of paper. Printer still accepts print jobs. */
+        OUT_OF_PAPER = "OUT_OF_PAPER",
+        /** The output area of the printer (e.g. tray) is full. Printer still accepts print jobs. */
+        OUTPUT_FULL = "OUTPUT_FULL",
+        /** The printer has a paper jam. Printer still accepts print jobs. */
+        PAPER_JAM = "PAPER_JAM",
+        /** Some generic issue. Printer still accepts print jobs. */
+        GENERIC_ISSUE = "GENERIC_ISSUE",
+        /** The printer is stopped and doesn't print but still accepts print jobs. */
+        STOPPED = "STOPPED",
+        /** The printer is unreachable and doesn't accept print jobs. */
+        UNREACHABLE = "UNREACHABLE",
+        /** The SSL certificate is expired. Printer accepts jobs but they fail. */
+        EXPIRED_CERTIFICATE = "EXPIRED_CERTIFICATE",
+        /** The printer is available. */
+        AVAILABLE = "AVAILABLE",
+    }
+
+    export interface SubmitJobRequest {
+        /**
+         * The print job to be submitted.
+         * The only supported content type is "application/pdf", and the Cloud Job Ticket shouldn't include FitToPageTicketItem, PageRangeTicketItem, ReverseOrderTicketItem and VendorTicketItem fields since they are irrelevant for native printing.
+         * All other fields must be present.
+         */
+        job: chrome.printerProvider.PrintJob;
+    }
+
+    export interface SubmitJobResponse {
+        /** The id of created print job. This is a unique identifier among all print jobs on the device. If status is not OK, jobId will be null. */
+        jobId: string | null;
+        /** The status of the request. */
+        status: SubmitJobStatus;
+    }
+
+    /** The status of submitJob request. */
+    export enum SubmitJobStatus {
+        /** Sent print job request is accepted. */
+        OK = "OK",
+        /** Sent print job request is rejected by the user. */
+        USER_REJECTED = "USER_REJECTED",
+    }
+
+    /** The maximum number of times that getPrinterInfo can be called per minute. */
+    export const MAX_GET_PRINTER_INFO_CALLS_PER_MINUTE: 20;
+
+    /** The maximum number of times that submitJob can be called per minute. */
+    export const MAX_SUBMIT_JOB_CALLS_PER_MINUTE: 40;
+
+    /**
+     * Cancels previously submitted job.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 100.
+     */
+    export function cancelJob(jobId: string): Promise<void>;
+    export function cancelJob(jobId: string, callback: () => void): void;
+
+    /**
+     * Returns the status and capabilities of the printer in CDD format. This call will fail with a runtime error if no printers with given id are installed.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 100.
+     */
+    export function getPrinterInfo(printerId: string): Promise<GetPrinterInfoResponse>;
+    export function getPrinterInfo(printerId: string, callback: (response: GetPrinterInfoResponse) => void): void;
+
+    /**
+     * Returns the list of available printers on the device. This includes manually added, enterprise and discovered printers.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 100.
+     */
+    export function getPrinters(): Promise<Printer[]>;
+    export function getPrinters(callback: (printers: Printer[]) => void): void;
+
+    /**
+     * Submits the job for printing. If the extension is not listed in the PrintingAPIExtensionsAllowlist policy, the user is prompted to accept the print job.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 120.
+     */
+    export function submitJob(request: SubmitJobRequest): Promise<SubmitJobResponse>;
+    export function submitJob(request: SubmitJobRequest, callback: (response: SubmitJobResponse) => void): void;
+
+    /**
+     * Event fired when the status of the job is changed. This is only fired for the jobs created by this extension.
+     */
+    export const onJobStatusChanged: chrome.events.Event<(jobId: string, status: JobStatus) => void>;
+}
+
+////////////////////
+// Printing Metrics
+////////////////////
+/**
+ * Use the chrome.printingMetrics API to fetch data about printing usage.
+ *
+ * Permissions: "printingMetrics"
+ *
+ * Note: This API is only for extensions pre-installed by policy.
+ * @platform ChromeOS only
+ * @since Chrome 79
+ */
+declare namespace chrome.printingMetrics {
+    export enum ColorMode {
+        /** Specifies that black and white mode was used. */
+        BLACK_AND_WHITE = "BLACK_AND_WHITE",
+        /** Specifies that color mode was used. */
+        COLOR = "COLOR",
+    }
+
+    export enum DuplexMode {
+        /** Specifies that one-sided printing was used. */
+        ONE_SIDED = "ONE_SIDED",
+        /** Specifies that two-sided printing was used, flipping on long edge. */
+        TWO_SIDED_LONG_EDGE = "TWO_SIDED_LONG_EDGE",
+        /** Specifies that two-sided printing was used, flipping on short edge. */
+        TWO_SIDED_SHORT_EDGE = "TWO_SIDED_SHORT_EDGE",
+    }
+
+    export interface MediaSize {
+        /** Height (in micrometers) of the media used for printing. */
+        height: number;
+        /**
+         * Vendor-provided ID, e.g. "iso_a3_297x420mm" or "na_index-3x5_3x5in".
+         * Possible values are values of "media" IPP attribute and can be found on [IANA page](https://www.iana.org/assignments/ipp-registrations/ipp-registrations.xhtml).
+         */
+        vendorId: string;
+        /** Width (in micrometers) of the media used for printing. */
+        width: number;
+    }
+
+    export interface Printer {
+        /** Displayed name of the printer. */
+        name: string;
+        /** The source of the printer. */
+        source: PrinterSource;
+        /** The full path for the printer. Contains protocol, hostname, port, and queue. */
+        uri: string;
+    }
+
+    /** The source of the printer. */
+    export enum PrinterSource {
+        /** Specifies that the printer was added by user. */
+        USER = "USER",
+        /** Specifies that the printer was added via policy. */
+        POLICY = "POLICY",
+    }
+
+    export interface PrintJobInfo {
+        /** The job completion time (in milliseconds past the Unix epoch). */
+        completionTime: number;
+        /** The job creation time (in milliseconds past the Unix epoch). */
+        creationTime: number;
+        /** The ID of the job. */
+        id: string;
+        /** The number of pages in the document. */
+        numberOfPages: number;
+        /** The info about the printer which printed the document. */
+        printer: Printer;
+        /**
+         * The status of the printer.
+         * @since Chrome 85
+         */
+        printer_status: chrome.printing.PrinterStatus;
+        /** The settings of the print job. */
+        settings: PrintSettings;
+        /** Source showing who initiated the print job. */
+        source: PrintJobSource;
+        /** ID of source. Null if source is PRINT_PREVIEW or ANDROID_APP. */
+        sourceId: string | null;
+        /** The final status of the job. */
+        status: PrintJobStatus;
+        /** The title of the document which was printed. */
+        title: string;
+    }
+
+    /** The source of the print job. */
+    export enum PrintJobSource {
+        /** Specifies that the job was created from the Print Preview page initiated by the user. */
+        PRINT_PREVIEW = "PRINT_PREVIEW",
+        /** Specifies that the job was created from an Android App. */
+        ANDROID_APP = "ANDROID_APP",
+        /** Specifies that the job was created by extension via Chrome API. */
+        EXTENSION = "EXTENSION",
+        /** Specifies that the job was created by an Isolated Web App via API. */
+        ISOLATED_WEB_APP = "ISOLATED_WEB_APP",
+    }
+
+    /** Specifies the final status of the print job. */
+    export enum PrintJobStatus {
+        /** Specifies that the print job was interrupted due to some error. */
+        FAILED = "FAILED",
+        /** Specifies that the print job was canceled by the user or via API. */
+        CANCELED = "CANCELED",
+        /** Specifies that the print job was printed without any errors. */
+        PRINTED = "PRINTED",
+    }
+
+    export interface PrintSettings {
+        /** The requested color mode. */
+        color: ColorMode;
+        /** The requested number of copies. */
+        copies: number;
+        /** The requested duplex mode. */
+        duplex: DuplexMode;
+        /** The requested media size. */
+        mediaSize: MediaSize;
+    }
+
+    /**
+     * Returns the list of the finished print jobs.
+     * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+     */
+    export function getPrintJobs(): Promise<PrintJobInfo[]>;
+    export function getPrintJobs(callback: (jobs: PrintJobInfo[]) => void): void;
+
+    /** Event fired when the print job is finished. This includes any of termination statuses: FAILED, CANCELED and PRINTED. */
+    export const onPrintJobFinished: chrome.events.Event<(jobInfo: PrintJobInfo) => void>;
 }
 
 ////////////////////
@@ -7361,6 +7901,7 @@ declare namespace chrome.runtime {
     export type ManifestPermissions =
         | "activeTab"
         | "alarms"
+        | "audio"
         | "background"
         | "bookmarks"
         | "browsingData"
@@ -7420,6 +7961,7 @@ declare namespace chrome.runtime {
         | "system.display"
         | "system.memory"
         | "system.storage"
+        | "systemLog"
         | "tabCapture"
         | "tabGroups"
         | "tabs"
@@ -7432,7 +7974,8 @@ declare namespace chrome.runtime {
         | "wallpaper"
         | "webNavigation"
         | "webRequest"
-        | "webRequestBlocking";
+        | "webRequestBlocking"
+        | "webRequestAuthProvider";
 
     export interface SearchProvider {
         name?: string | undefined;
@@ -8341,6 +8884,11 @@ declare namespace chrome.sessions {
  * @since Chrome 20
  */
 declare namespace chrome.storage {
+    /** NoInfer for old TypeScript versions */
+    type NoInferX<T> = T[][T extends any ? 0 : never];
+    // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
+    export {};
+
     export interface StorageArea {
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
@@ -8354,14 +8902,17 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with a number
          * @since MV3
          */
-        getBytesInUse(keys?: string | string[] | null): Promise<number>;
+        getBytesInUse<T = { [key: string]: any }>(keys?: keyof T | Array<keyof T> | null): Promise<number>;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param keys Optional. A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
          * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
          * Parameter bytesInUse: Amount of space being used in storage, in bytes.
          */
-        getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
+        getBytesInUse<T = { [key: string]: any }>(
+            keys: keyof T | Array<keyof T> | null,
+            callback: (bytesInUse: number) => void,
+        ): void;
         /**
          * Removes all items from storage.
          * @return A void Promise
@@ -8381,7 +8932,7 @@ declare namespace chrome.storage {
          * @return A void Promise
          * @since MV3
          */
-        set(items: { [key: string]: any }): Promise<void>;
+        set<T = { [key: string]: any }>(items: Partial<T>): Promise<void>;
         /**
          * Sets multiple items.
          * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
@@ -8389,7 +8940,7 @@ declare namespace chrome.storage {
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        set(items: { [key: string]: any }, callback: () => void): void;
+        set<T = { [key: string]: any }>(items: Partial<T>, callback: () => void): void;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
@@ -8397,20 +8948,20 @@ declare namespace chrome.storage {
          * @return A void Promise
          * @since MV3
          */
-        remove(keys: string | string[]): Promise<void>;
+        remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>): Promise<void>;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        remove(keys: string | string[], callback: () => void): void;
+        remove<T = { [key: string]: any }>(keys: keyof T | Array<keyof T>, callback: () => void): void;
         /**
          * Gets the entire contents of storage.
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
          * Parameter items: Object with items in their key-value mappings.
          */
-        get(callback: (items: { [key: string]: any }) => void): void;
+        get<T = { [key: string]: any }>(callback: (items: T) => void): void;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8418,7 +8969,9 @@ declare namespace chrome.storage {
          * @return A Promise that resolves with an object containing items
          * @since MV3
          */
-        get(keys?: string | string[] | { [key: string]: any } | null): Promise<{ [key: string]: any }>;
+        get<T = { [key: string]: any }>(
+            keys?: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+        ): Promise<T>;
         /**
          * Gets one or more items from storage.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
@@ -8426,9 +8979,9 @@ declare namespace chrome.storage {
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
          * Parameter items: Object with items in their key-value mappings.
          */
-        get(
-            keys: string | string[] | { [key: string]: any } | null,
-            callback: (items: { [key: string]: any }) => void,
+        get<T = { [key: string]: any }>(
+            keys: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+            callback: (items: T) => void,
         ): void;
         /**
          * Sets the desired access level for the storage area. The default will be only trusted contexts.
@@ -8497,12 +9050,12 @@ declare namespace chrome.storage {
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void>
     {}
 
-    type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
+    export type AreaName = keyof Pick<typeof chrome.storage, "sync" | "local" | "managed" | "session">;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void>
     {}
 
-    type AccessLevel = keyof typeof AccessLevel;
+    export type AccessLevel = keyof typeof AccessLevel;
 
     /** The storage area's access level. */
     export var AccessLevel: {
@@ -8997,14 +9550,28 @@ declare namespace chrome.system.display {
         singleUnified?: boolean | undefined;
     }
 
+    /**
+     * An enum to tell if the display is detected and used by the system.
+     * The display is considered 'inactive', if it is not detected by the system (maybe disconnected, or considered disconnected due to sleep mode, etc).
+     * This state is used to keep existing display when the all displays are disconnected, for example.
+     * @since Chrome 117
+     */
+    export type ActiveStateEnum = "active" | "inactive";
+
     /** Information about display properties. */
     export interface DisplayInfo {
+        /**
+         * Active if the display is detected and used by the system.
+         * @since Chrome 117
+         */
+        activeState: ActiveStateEnum;
         /** The unique identifier of the display. */
         id: string;
         /** The user-friendly name (e.g. 'HP LCD monitor'). */
         name: string;
         /**
          * requires(CrOS Kiosk app) Only available in Chrome OS Kiosk apps
+         * @since Chrome 67
          */
         edid?: {
             /**
@@ -9034,6 +9601,7 @@ declare namespace chrome.system.display {
          * Empty if no displays are being mirrored. This will be set to the same value
          * for all displays.
          * ❗ This must not include *mirroringSourceId*. ❗
+         * @since Chrome 64
          */
         mirroringDestinationIds: string[];
         /** True if this is the primary display. */
@@ -9042,6 +9610,11 @@ declare namespace chrome.system.display {
         isInternal: boolean;
         /** True if this display is enabled. */
         isEnabled: boolean;
+        /**
+         * True for all displays when in unified desktop mode
+         * @since Chrome 59
+         */
+        isUnified: boolean;
         /** The number of pixels per inch along the x-axis. */
         dpiX: number;
         /** The number of pixels per inch along the y-axis. */
@@ -9060,15 +9633,20 @@ declare namespace chrome.system.display {
          * The current mode will have isSelected=true.
          * Only available on Chrome OS.
          * Will be set to an empty array on other platforms.
+         * @since Chrome 52
          */
         modes: DisplayMode[];
         /** True if this display has a touch input device associated with it. */
         hasTouchSupport: boolean;
-        /** A list of zoom factor values that can be set for the display. */
+        /**
+         * A list of zoom factor values that can be set for the display.
+         * @since Chrome 67
+         */
         availableDisplayZoomFactors: number[];
         /**
          * The ratio between the display's current and default zoom.
          * For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
+         * @since Chrome 65
          */
         displayZoomFactor: number;
     }
@@ -9303,6 +9881,31 @@ declare namespace chrome.system.display {
      * Fired when anything changes to the display configuration.
      */
     export const onDisplayChanged: chrome.events.Event<() => void>;
+}
+
+////////////////////
+// SystemLog
+////////////////////
+/**
+ * Use the chrome.systemLog API to record Chrome system logs from extensions.
+ *
+ * Permissions: "systemLog"
+ *
+ * Note: This API is only for extensions pre-installed by policy.
+ * @platform ChromeOS only
+ * @since Chrome 125
+ */
+declare namespace chrome.systemLog {
+    export interface MessageOptions {
+        message: string;
+    }
+
+    /**
+     * Adds a new log record.
+     * Can return its result via Promise in Manifest V3 or later.
+     */
+    export function add(options: MessageOptions): Promise<void>;
+    export function add(options: MessageOptions, callback: () => void): void;
 }
 
 ////////////////////
@@ -11676,7 +12279,14 @@ declare namespace chrome.webRequest {
     export var onSendHeaders: WebRequestHeadersEvent;
     /** Fired when HTTP response headers of a request have been received. */
     export var onHeadersReceived: WebResponseHeadersEvent;
-    /** Fired when an authentication failure is received. The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge. If bad user credentials are provided, this may be called multiple times for the same request. */
+    /**
+     * Fired when an authentication failure is received.
+     * The listener has three options: it can provide authentication credentials, it can cancel the request and display the error page, or it can take no action on the challenge.
+     * If bad user credentials are provided, this may be called multiple times for the same request.
+     * Note, only one of `blocking` or `asyncBlocking` modes must be specified in the extraInfoSpec parameter.
+     *
+     * Requires the `webRequestAuthProvider` permission.
+     */
     export var onAuthRequired: WebAuthenticationChallengeEvent;
     /** Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available. */
     export var onResponseStarted: WebResponseCacheEvent;

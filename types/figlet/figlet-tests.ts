@@ -14,9 +14,11 @@ figlet("My World", "1Row", (err, str) => {
 });
 // @ts-expect-error
 figlet("fweGWEPewfe", "What is the font? I cannot get it");
-// @ts-expect-error
+// It is ok to skip callback.
+// $ExpectType void
 figlet("qweoqw");
-// @ts-expect-error
+// It is ok to skip callback.
+// $ExpectType void
 figlet("qweoqw", "1Row");
 // @ts-expect-error
 figlet("qweoqw", "1Row", undefined as any, undefined as any);
@@ -63,9 +65,11 @@ figlet.text(
         str;
     },
 );
-// @ts-expect-error
-figlet.text("Oreehe", { font: "Fun Face", value: "abc" }, undefined as any);
-// @ts-expect-error
+// It is ok to skip callback.
+// $ExpectType void
+figlet.text("Oreehe", { font: "Fun Face" });
+// It is ok to skip callback.
+// $ExpectType void
 figlet.text("It cannot make sense");
 
 // $ExpectType string
@@ -129,3 +133,13 @@ figlet.textSync("test3", { whitespaceBreak: false, width: 100 });
 figlet.textSync("test3", { width: 69 });
 // $ExpectType string
 figlet.textSync("test4", { font: "Pagga" });
+
+// Can only preload specific fonts
+// @ts-expect-error
+figlet.preloadFonts(["test4"]);
+// Can omit optional callback
+// $ExpectType Promise<void>
+figlet.preloadFonts(["Fun Face"]);
+// Can pass optional callback
+// $ExpectType Promise<void>
+figlet.preloadFonts(["Fun Face"], () => {});

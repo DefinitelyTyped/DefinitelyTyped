@@ -63,11 +63,14 @@ export interface QueryOptions {
     guildId?: string;
     // Nadeo
     login?: string;
+    // Nadeo / Palworld
     password?: string;
     // Teamspeak 3
     teamspeakQueryPort?: number;
     // Terraria
     token?: string;
+    // Palworld
+    username?: string;
 }
 
 export interface QueryResult {

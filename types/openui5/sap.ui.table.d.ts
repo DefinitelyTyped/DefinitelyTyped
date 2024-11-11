@@ -1,4 +1,4 @@
-// For Library Version: 1.125.0
+// For Library Version: 1.130.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -1754,8 +1754,8 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
      *
      *
      * @returns Value of property `filterProperty`
@@ -1942,7 +1942,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets current value of property {@link #getShowFilterMenuEntry showFilterMenuEntry}.
      *
-     * Defines if the filter menu entry is displayed
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * Default value is `true`.
      *
@@ -1954,7 +1955,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets current value of property {@link #getShowSortMenuEntry showSortMenuEntry}.
      *
-     * Defines if the sort menu entries are displayed
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * Default value is `true`.
      *
@@ -2000,7 +2002,8 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
      *
      *
      * @returns Value of property `sortProperty`
@@ -2009,17 +2012,22 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets content of aggregation {@link #getTemplate template}.
      *
-     * Template (cell renderer) of this column. A template is decoupled from the column. Each time the template's
-     * properties or aggregations have been changed, the template has to be applied again via `setTemplate`
-     * for the changes to take effect. If a string is defined, a default text control will be created with its
-     * text property bound to the value of the string. The default template depends on the libraries loaded.
-     * If there is no template, the column will not be rendered in the table. The set of supported controls
-     * is limited. See section "{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}"
+     * Template (cell renderer) of this column.
+     *
+     * A template is decoupled from the column. Each time the template's properties or aggregations have been
+     * changed, the template has to be applied again via `setTemplate` for the changes to take effect.
+     *
+     * If there is no template, the column will not be rendered in the table.
+     *
+     * The set of supported controls is limited. See section "{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}"
      * in the documentation for more details. While it is technically possible to also use other controls, doing
      * so might lead to issues with regards to scrolling, alignment, condensed mode, screen reader support,
      * and keyboard support.
      *
-     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
+     * If a string is defined, this string is interpreted as the binding path. Internally, a default text control
+     * will be created with its `text` property bound to the value of the string. The default template depends
+     * on the libraries loaded. **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control`
+     * instead.
      */
     getTemplate(): Control | string;
     /**
@@ -2195,8 +2203,8 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2441,7 +2449,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Sets a new value for property {@link #getShowFilterMenuEntry showFilterMenuEntry}.
      *
-     * Defines if the filter menu entry is displayed
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2460,7 +2469,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Sets a new value for property {@link #getShowSortMenuEntry showSortMenuEntry}.
      *
-     * Defines if the sort menu entries are displayed
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2527,7 +2537,8 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2694,7 +2705,8 @@ declare module "sap/ui/table/Column" {
      * the binding property for sorting must be specified. For example, if the first name and last name are
      * displayed in the same column, only one of the two can be defined as `sortProperty`.
      *
-     * A column menu entry for sorting can only be generated if the `sortProperty` is set.
+     * A column menu entry for sorting can only be generated if the `headerMenu` association and `sortProperty`
+     * are set.
      */
     sortProperty?: string | PropertyBindingInfo;
 
@@ -2710,8 +2722,8 @@ declare module "sap/ui/table/Column" {
      * Therefore the binding property for filtering must be specified. For example, if the first name and last
      * name are displayed in the same column, only one of the two can be defined as `filterProperty`.
      *
-     * A column menu entry for filtering can only be generated if the `filterProperty` is set. The default menu
-     * entry is a text input field.
+     * A column menu entry for filtering can only be generated if the `headerMenu` association and `filterProperty`
+     * are set. The default menu entry is a text input field.
      */
     filterProperty?: string | PropertyBindingInfo;
 
@@ -2785,14 +2797,16 @@ declare module "sap/ui/table/Column" {
     name?: string | PropertyBindingInfo;
 
     /**
-     * Defines if the filter menu entry is displayed
+     * Defines if the filter menu entry is displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * @since 1.13.0
      */
     showFilterMenuEntry?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines if the sort menu entries are displayed
+     * Defines if the sort menu entries are displayed. **Note**: It only takes effect if the `headerMenu` association
+     * is set.
      *
      * @since 1.13.0
      */
@@ -2834,17 +2848,22 @@ declare module "sap/ui/table/Column" {
     multiLabels?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * Template (cell renderer) of this column. A template is decoupled from the column. Each time the template's
-     * properties or aggregations have been changed, the template has to be applied again via `setTemplate`
-     * for the changes to take effect. If a string is defined, a default text control will be created with its
-     * text property bound to the value of the string. The default template depends on the libraries loaded.
-     * If there is no template, the column will not be rendered in the table. The set of supported controls
-     * is limited. See section "{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}"
+     * Template (cell renderer) of this column.
+     *
+     * A template is decoupled from the column. Each time the template's properties or aggregations have been
+     * changed, the template has to be applied again via `setTemplate` for the changes to take effect.
+     *
+     * If there is no template, the column will not be rendered in the table.
+     *
+     * The set of supported controls is limited. See section "{@link https://ui5.sap.com/#/topic/148892ff9aea4a18b912829791e38f3e Tables: Which One Should I Choose?}"
      * in the documentation for more details. While it is technically possible to also use other controls, doing
      * so might lead to issues with regards to scrolling, alignment, condensed mode, screen reader support,
      * and keyboard support.
      *
-     * **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control` instead.
+     * If a string is defined, this string is interpreted as the binding path. Internally, a default text control
+     * will be created with its `text` property bound to the value of the string. The default template depends
+     * on the libraries loaded. **Note:** The `altType` string is deprecated as of version 1.118. Use a `Control`
+     * instead.
      */
     template?: string | Control | PropertyBindingInfo;
 
@@ -3015,8 +3034,11 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
 
   /**
    * Implements a plugin to enable a special multi-selection behavior:
-   * 	 - No Select All checkbox, select all can only be done via range selection
-   * 	 - Dedicated Deselect All button to clear the selection
+   * 	 - Select All checkbox for selecting rows up to the set limit.
+   * If the number of selected rows is smaller than the limit, all these rows can be selected at once with
+   * a single operation. If there are more rows than the limit, the first x rows are selected until the limit
+   * x has been reached.
+   * 	 - Dedicated Deselect All button for removing the selection
    * 	 - The number of indices which can be selected in a range is defined by the `limit` property. If the
    *     user tries to select more indices, the selection is automatically limited, and the table scrolls to the
    *     last selected index.
@@ -4985,14 +5007,9 @@ declare module "sap/ui/table/rowmodes/Interactive" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * The user can change the number of displayed rows by dragging a resizer.
-   *
-   * The following restrictions apply:
-   * 	 - The functionality targets only the mouse interaction (drag and drop). There is no keyboard alternative
-   *     available. An accessible alternative must be provided by applications, for example, by giving the user
-   *     the possibility to enter the number of required rows in an input field.
-   * 	 - The resize interaction is not optimized for touch devices from a design and interaction perspective.
-   *     We do not recommend to use this mode in such scenarios.
+   * The user can change the number of displayed rows by dragging a resizer. The resizer is focusable and
+   * allows resizing via keyboard shortcuts and context menu. Double clicking the bar performs a quick resize
+   * that toggles between the minimum, the default, and the maximum row count.
    *
    * @since 1.119
    */
@@ -5060,6 +5077,18 @@ declare module "sap/ui/table/rowmodes/Interactive" {
      * @returns Value of property `fixedTopRowCount`
      */
     getFixedTopRowCount(): int;
+    /**
+     * Gets current value of property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Value of property `maxRowCount`
+     */
+    getMaxRowCount(): int;
     /**
      * Gets current value of property {@link #getMinRowCount minRowCount}.
      *
@@ -5136,6 +5165,25 @@ declare module "sap/ui/table/rowmodes/Interactive" {
       iFixedTopRowCount?: int
     ): this;
     /**
+     * Sets a new value for property {@link #getMaxRowCount maxRowCount}.
+     *
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxRowCount(
+      /**
+       * New value for property `maxRowCount`
+       */
+      iMaxRowCount?: int
+    ): this;
+    /**
      * Sets a new value for property {@link #getMinRowCount minRowCount}.
      *
      * The minimum number of displayed rows.
@@ -5207,6 +5255,12 @@ declare module "sap/ui/table/rowmodes/Interactive" {
      * The minimum number of displayed rows.
      */
     minRowCount?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The maximum number of displayed rows. If not set, the maximum number of rows is determined by the viewport
+     * height of the device.
+     */
+    maxRowCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The number of rows in the fixed area at the top. If the number of fixed rows exceeds the number of displayed
@@ -5324,15 +5378,15 @@ declare module "sap/ui/table/rowmodes/Type" {
    */
   enum Type {
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Auto}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Auto}
      */
     Auto = "Auto",
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Fixed}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Fixed}
      */
     Fixed = "Fixed",
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Interactive}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Interactive}
      */
     Interactive = "Interactive",
   }
@@ -5638,8 +5692,10 @@ declare module "sap/ui/table/Table" {
    * This allows the Table control to handle huge amounts of data. Nevertheless, restrictions apply regarding
    * the number of displayed columns. Keep the number as low as possible to improve performance. Due to the
    * nature of tables, the used control for column templates also has a big influence on the performance.
-   *   The Table control relies completely on data binding, and its supported feature set is tightly
-   * coupled to the data model and binding being used.
+   * Because of the described reuse of the controls during scrolling, all data-related changes must be based
+   * on bindings. Static changes, such as calling mutator functions or defining a one-time binding, must be
+   * avoided.   The Table control relies completely on data binding, and its supported feature set
+   * is tightly coupled to the data model and binding being used.
    */
   export default class Table extends Control {
     /**
@@ -5857,6 +5913,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5885,6 +5942,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6358,6 +6416,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6387,6 +6446,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6676,9 +6736,9 @@ declare module "sap/ui/table/Table" {
     /**
      * Triggers automatic resizing of a column to the widest content.
      *
+     * See {@link sap.ui.table.Column#autoResize} for details about the auto-resize feature.
+     *
      * @deprecated (since 1.125) - replaced by {@link sap.ui.table.Column#autoResize}
-     * @experimental - Experimental! Presently implemented to only work with a very limited set of controls
-     * (e.g. sap.m.Text).
      */
     autoResizeColumn(
       /**
@@ -6843,6 +6903,7 @@ declare module "sap/ui/table/Table" {
      * The passed function and listener object must match the ones used for event registration.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7034,6 +7095,7 @@ declare module "sap/ui/table/Table" {
      * The passed function and listener object must match the ones used for event registration.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7639,6 +7701,10 @@ declare module "sap/ui/table/Table" {
      *
      * Flag to enable or disable column reordering
      *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
+     *
      * Default value is `true`.
      *
      *
@@ -7905,6 +7971,31 @@ declare module "sap/ui/table/Table" {
      */
     getRowSettingsTemplate(): RowSettings;
     /**
+     * Gets current value of property {@link #getScrollThreshold scrollThreshold}.
+     *
+     * Defines how many additional data records are requested from the back-end system when the user scrolls
+     * vertically in the table. The `scrollThreshold` is always added to the number of rows. If the number of
+     * rows is 10 and the `scrollThreshold` is 100, 110 records will be fetched during scrolling. The threshold
+     * that is applied to requests that are not initiated by scrolling can be configured with the `threshold`
+     * property. If the `scrollThreshold` is lower than the number of rows in the scrollable area (number of
+     * rows minus number of fixed rows), this number is used as the `scrollThreshold`. If the value is 0, no
+     * threshold is applied during scrolling. The value -1 applies the same value as the `threshold` property.
+     *
+     *  **Note:** This property only takes effect if it is set to a positive integer value.
+     *
+     * The value of the `scrollThreshold` should be higher than the `threshold` value to avoid unnecessary requests.
+     *
+     * For `AnalyticalTable` and `TreeTable`, the `scrollThreshold` property must be higher than the `threshold`
+     * property to take effect.
+     *
+     * Default value is `-1`.
+     *
+     * @since 1.128
+     *
+     * @returns Value of property `scrollThreshold`
+     */
+    getScrollThreshold(): int;
+    /**
      * Retrieves the lead selection index.
      *
      * @deprecated (since 1.69) - replaced by {@link sap.ui.table.Table#getSelectedIndices}
@@ -8008,10 +8099,12 @@ declare module "sap/ui/table/Table" {
      * Gets current value of property {@link #getThreshold threshold}.
      *
      * Defines how many additional (not yet visible) data records from the back-end system are pre-fetched to
-     * enable smooth scrolling. The threshold is always added to the `visibleRowCount`. If the `visibleRowCount`
-     * is 10 and the `threshold` is 100, there will be 110 records fetched with the initial load. If the `threshold`
-     * is lower than the number of rows in the scrollable area (`visibleRowCount` minus number of fixed rows),
-     * this number is used as the `threshold`. If the value is 0, thresholding is disabled.
+     * enable smooth scrolling. The threshold is always added to the number of rows. If the number of rows is
+     * 10 and the `threshold` is 100, 110 records will be fetched with the initial load. This property affects
+     * requests triggered by changes in the binding, for example, initial loading, sorting, filtering, etc.
+     * The threshold that is applied during scrolling can be configured with the `scrollThreshold` property.
+     * If the `threshold` is lower than the number of rows in the scrollable area (`visibleRowCount` minus number
+     * of fixed rows), this number is used as the `threshold`. If the value is 0, thresholding is disabled.
      *
      * Default value is `100`.
      *
@@ -8531,6 +8624,10 @@ declare module "sap/ui/table/Table" {
      *
      * Flag to enable or disable column reordering
      *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
@@ -8864,6 +8961,19 @@ declare module "sap/ui/table/Table" {
        * The rowSettingsTemplate to set
        */
       oRowSettingsTemplate: RowSettings
+    ): this;
+    /**
+     * Sets the threshold value, which will be added to all data requests initiated by scrolling if the `Table`
+     * is bound against an OData service.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setScrollThreshold(
+      /**
+       * The threshold for scrolling
+       */
+      iThreshold: int
     ): this;
     /**
      * Sets the selected index. The previous selection is removed.
@@ -9276,15 +9386,41 @@ declare module "sap/ui/table/Table" {
 
     /**
      * Defines how many additional (not yet visible) data records from the back-end system are pre-fetched to
-     * enable smooth scrolling. The threshold is always added to the `visibleRowCount`. If the `visibleRowCount`
-     * is 10 and the `threshold` is 100, there will be 110 records fetched with the initial load. If the `threshold`
-     * is lower than the number of rows in the scrollable area (`visibleRowCount` minus number of fixed rows),
-     * this number is used as the `threshold`. If the value is 0, thresholding is disabled.
+     * enable smooth scrolling. The threshold is always added to the number of rows. If the number of rows is
+     * 10 and the `threshold` is 100, 110 records will be fetched with the initial load. This property affects
+     * requests triggered by changes in the binding, for example, initial loading, sorting, filtering, etc.
+     * The threshold that is applied during scrolling can be configured with the `scrollThreshold` property.
+     * If the `threshold` is lower than the number of rows in the scrollable area (`visibleRowCount` minus number
+     * of fixed rows), this number is used as the `threshold`. If the value is 0, thresholding is disabled.
      */
     threshold?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Defines how many additional data records are requested from the back-end system when the user scrolls
+     * vertically in the table. The `scrollThreshold` is always added to the number of rows. If the number of
+     * rows is 10 and the `scrollThreshold` is 100, 110 records will be fetched during scrolling. The threshold
+     * that is applied to requests that are not initiated by scrolling can be configured with the `threshold`
+     * property. If the `scrollThreshold` is lower than the number of rows in the scrollable area (number of
+     * rows minus number of fixed rows), this number is used as the `scrollThreshold`. If the value is 0, no
+     * threshold is applied during scrolling. The value -1 applies the same value as the `threshold` property.
+     *
+     *  **Note:** This property only takes effect if it is set to a positive integer value.
+     *
+     * The value of the `scrollThreshold` should be higher than the `threshold` value to avoid unnecessary requests.
+     *
+     * For `AnalyticalTable` and `TreeTable`, the `scrollThreshold` property must be higher than the `threshold`
+     * property to take effect.
+     *
+     * @since 1.128
+     */
+    scrollThreshold?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Flag to enable or disable column reordering
+     *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
      */
     enableColumnReordering?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -9685,6 +9821,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     firstVisibleRowChanged?: (
       oEvent: Table$FirstVisibleRowChangedEvent
@@ -9694,6 +9831,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     busyStateChanged?: (oEvent: Table$BusyStateChangedEvent) => void;
 

@@ -1,7 +1,7 @@
 import { Deck, evalHand, EvaluatedHand, HandName, HANDTYPES, ranks } from "poker-evaluator";
 
 HANDTYPES; // $ExpectType HandName[]
-ranks; // $ExpectType Buffer
+ranks; // $ExpectType Buffer || Buffer<ArrayBufferLike>
 
 evalHand(["as", "ks", "qs", "js", "ts", "3c", "5h"]); // $ExpectType EvaluatedHand
 evalHand([52, 48, 44, 40, 36, 5, 15]); // $ExpectType EvaluatedHand

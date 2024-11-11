@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * ProductFeedUploadError
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -28,11 +28,7 @@ export default class ProductFeedUploadError extends AbstractCrudObject {
         low: "LOW";
         medium: "MEDIUM";
     }>;
-    getSamples(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getSamples(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getSamples(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getSuggestedRules(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getSuggestedRules(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getSuggestedRules(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<ProductFeedUploadError>;
+    getSamples(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getSuggestedRules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductFeedUploadError>;
 }

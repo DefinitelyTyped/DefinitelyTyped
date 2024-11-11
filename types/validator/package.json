@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/validator",
-    "version": "13.11.9999",
+    "version": "13.12.9999",
     "projects": [
         "https://github.com/validatorjs/validator.js"
     ],
@@ -56,10 +56,6 @@
         {
             "name": "Matteo Nista",
             "githubUsername": "Mattewn99"
-        },
-        {
-            "name": "Roman Babiak",
-            "githubUsername": "Almost-Infinity"
         },
         {
             "name": "Daniel Freire",

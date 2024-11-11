@@ -257,7 +257,6 @@ export type SassRenderCallback = (err: SassError, result: Result) => any;
 // Because of this, the new-able object notation is used here, a class does not
 // work for these types.
 export namespace types {
-    /* tslint:disable:ban-types */
     /**
      * Values that are received from Sass as an argument to a javascript function.
      */
@@ -512,9 +511,6 @@ export namespace types {
         (message: string): Error;
     }
     export const Error: ErrorConstructor;
-
-    /* eslint-enable @typescript-eslint/ban-types */
-    /* tslint:enable:ban-types */
 }
 
 // *** Top level Constants ***

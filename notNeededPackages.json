@@ -4,6 +4,10 @@
             "libraryName": "3d-bin-packing",
             "asOfVersion": "1.1.3"
         },
+        "@types/hyphenate-style-name": {
+            "libraryName": "hyphenate-style-name",
+            "asOfVersion": "1.1.0"
+        },
         "a11y-dialog": {
             "libraryName": "a11y-dialog",
             "asOfVersion": "5.3.2"
@@ -99,6 +103,10 @@
         "all-property-names": {
             "libraryName": "all-keys",
             "asOfVersion": "3.0.0"
+        },
+        "allure-js-commons": {
+            "libraryName": "allure-js-commons",
+            "asOfVersion": "2.0.0"
         },
         "amazon-connect-streams": {
             "libraryName": "amazon-connect-streams",
@@ -1000,6 +1008,10 @@
             "libraryName": "convert-hrtime",
             "asOfVersion": "3.0.0"
         },
+        "cookie": {
+            "libraryName": "cookie",
+            "asOfVersion": "1.0.0"
+        },
         "copy-text-to-clipboard": {
             "libraryName": "copy-text-to-clipboard",
             "asOfVersion": "2.0.1"
@@ -1777,6 +1789,10 @@
             "libraryName": "fast-json-stable-stringify",
             "asOfVersion": "2.1.0"
         },
+        "fast-shuffle": {
+            "libraryName": "fast-shuffle",
+            "asOfVersion": "6.1.0"
+        },
         "fast-simplex-noise": {
             "libraryName": "fast-simplex-noise",
             "asOfVersion": "3.0.0"
@@ -1820,6 +1836,10 @@
         "fb": {
             "libraryName": "@types/facebook-js-sdk",
             "asOfVersion": "0.0.28"
+        },
+        "fcostarodrigo__walk": {
+            "libraryName": "@fcostarodrigo/walk",
+            "asOfVersion": "6.0.0"
         },
         "fecha": {
             "libraryName": "fecha",
@@ -3549,6 +3569,10 @@
             "libraryName": "mobx-task",
             "asOfVersion": "2.0.0"
         },
+        "mock-property": {
+            "libraryName": "mock-property",
+            "asOfVersion": "1.1.0"
+        },
         "mockdate": {
             "libraryName": "mockdate",
             "asOfVersion": "3.0.0"
@@ -3584,6 +3608,10 @@
         "mongoose": {
             "libraryName": "mongoose",
             "asOfVersion": "5.11.0"
+        },
+        "mongoose-autopopulate": {
+            "libraryName": "mongoose-autopopulate",
+            "asOfVersion": "0.16.0"
         },
         "mongoose-paginate-v2": {
             "libraryName": "mongoose-paginate-v2",
@@ -4803,6 +4831,10 @@
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
         },
+        "react-datepicker": {
+            "libraryName": "react-datepicker",
+            "asOfVersion": "7.0.0"
+        },
         "react-datetime-picker": {
             "libraryName": "react-datetime-picker",
             "asOfVersion": "5.0.0"
@@ -5879,6 +5911,10 @@
             "libraryName": "stream-to-string",
             "asOfVersion": "1.2.0"
         },
+        "streamtest": {
+            "libraryName": "streamtest",
+            "asOfVersion": "3.0.0"
+        },
         "string-argv": {
             "libraryName": "string-argv",
             "asOfVersion": "0.3.0"
@@ -5982,6 +6018,10 @@
         "svg.js": {
             "libraryName": "svg.js",
             "asOfVersion": "2.3.1"
+        },
+        "svgicons2svgfont": {
+            "libraryName": "svgicons2svgfont",
+            "asOfVersion": "14.0.0"
         },
         "svgo": {
             "libraryName": "svgo",
@@ -6187,6 +6227,10 @@
             "libraryName": "tstl",
             "asOfVersion": "1.5.7"
         },
+        "ttf2woff2": {
+            "libraryName": "ttf2woff2",
+            "asOfVersion": "6.0.0"
+        },
         "tus-js-client": {
             "libraryName": "tus-js-client",
             "asOfVersion": "2.1.0"
@@ -6374,6 +6418,10 @@
         "victory": {
             "libraryName": "victory",
             "asOfVersion": "35.0.0"
+        },
+        "videojs-hotkeys": {
+            "libraryName": "videojs-hotkeys",
+            "asOfVersion": "0.2.29"
         },
         "viewerjs": {
             "libraryName": "viewerjs",
@@ -6638,6 +6686,10 @@
         "wordpress__keycodes": {
             "libraryName": "@wordpress/keycodes",
             "asOfVersion": "2.18.0"
+        },
+        "wordpress__media-utils": {
+            "libraryName": "@wordpress/media-utils",
+            "asOfVersion": "5.8.0"
         },
         "wordpress__notices": {
             "libraryName": "@wordpress/notices",

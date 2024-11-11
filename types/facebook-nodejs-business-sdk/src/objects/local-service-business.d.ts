@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * LocalServiceBusiness
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -40,6 +40,7 @@ export default class LocalServiceBusiness extends AbstractCrudObject {
         retailer_category: "retailer_category";
         sanitized_images: "sanitized_images";
         size: "size";
+        tags: "tags";
         title: "title";
         unit_price: "unit_price";
         url: "url";
@@ -77,8 +78,6 @@ export default class LocalServiceBusiness extends AbstractCrudObject {
         published: "PUBLISHED";
         staging: "STAGING";
     }>;
-    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getChannelsToIntegrityStatus(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<LocalServiceBusiness>;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<LocalServiceBusiness>;
 }

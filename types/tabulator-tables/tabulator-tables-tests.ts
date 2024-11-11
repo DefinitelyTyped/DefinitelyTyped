@@ -1718,3 +1718,42 @@ table.on("importError", function(err) {
 table.on("importImported", function(data) {
     // data - array of row data
 });
+
+table = new Tabulator("#example-table", {
+    columns: [
+        {
+            title: "First",
+            field: "rownum",
+            formatter: "rownum",
+            accessor: "rownum",
+        },
+        {
+            title: "Toggle",
+            field: "toggle",
+            formatter: "toggle",
+            editable: false,
+            formatterParams: {
+                onValue: "true",
+                offValue: "false",
+                onColor: "green",
+                offColor: "gray",
+                clickable: true,
+            },
+        },
+    ],
+});
+
+table = new Tabulator("#example-table", {
+    height: "500px",
+    layout: "fitColumns",
+    ajaxURL: "https://jsonplaceholder.typicode.com/posts",
+    columns: [
+        { title: "ID", field: "id", width: 50 },
+        { title: "User ID", field: "userId", width: 50 },
+        { title: "Title", field: "title" },
+        { title: "Body", field: "body" },
+    ],
+});
+
+table.setData(table.getAjaxUrl());
+table.setData();

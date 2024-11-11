@@ -1,16 +1,24 @@
+/* eslint-disable no-duplicate-imports */
+
 import * as crypto from "node:crypto";
 
-import Provider, { errors, interactionPolicy, JWKS } from "oidc-provider";
+import Provider from "oidc-provider";
+import * as oidc from "oidc-provider";
 
-errors.AccessDenied.name;
+oidc.errors.AccessDenied.name;
 
+new oidc.Provider("https://op.example.com");
 new Provider("https://op.example.com");
 
-new Provider("https://op.example.com", {
+new oidc.Provider("https://op.example.com", {
     rotateRefreshToken: true,
     formats: {
         customizers: {
-            async jwt(ctx, token, parts) {
+            async jwt(
+                ctx: oidc.KoaContextWithOIDC,
+                token: oidc.AccessToken | oidc.ClientCredentials,
+                parts: oidc.JWTStructured,
+            ) {
                 ctx.oidc.issuer.substring(0);
                 token.iat.toFixed();
                 parts.header = { foo: "bar" };
@@ -21,13 +29,24 @@ new Provider("https://op.example.com", {
     },
 });
 
-new Provider("https://op.example.com", {
+new oidc.Provider("https://op.example.com", {
     pkce: {
         required: () => false,
     },
 });
 
-new Provider("https://op.example.com", {
+new oidc.Provider("https://op.example.com", {
+    extraParams: {
+        foo: null,
+        bar: (ctx: oidc.KoaContextWithOIDC, value, client: oidc.Client) => {
+            ctx.oidc.issuer.substring(0);
+            value?.substring(0);
+            client.clientId.substring(0);
+        },
+    },
+});
+
+new oidc.Provider("https://op.example.com", {
     adapter: class Adapter {
         name: string;
         constructor(name: string) {
@@ -50,7 +69,7 @@ new Provider("https://op.example.com", {
     },
 });
 
-new Provider("https://op.example.com", {
+new oidc.Provider("https://op.example.com", {
     adapter: (name: string) => ({
         name,
         async upsert(id: string, payload: object, expiresIn: number) {},
@@ -68,7 +87,7 @@ new Provider("https://op.example.com", {
     }),
 });
 
-const jwks: JWKS = {
+const jwks: oidc.JWKS = {
     keys: [
         {
             kty: "RSA",
@@ -85,39 +104,39 @@ const jwks: JWKS = {
     ],
 };
 
-new Provider("https://op.example.com", { jwks });
+new oidc.Provider("https://op.example.com", { jwks });
 
-new Provider("https://op.example.com", {
+new oidc.Provider("https://op.example.com", {
     features: {
         mTLS: {
-            getCertificate() {
+            getCertificate(ctx: oidc.KoaContextWithOIDC) {
                 return undefined;
             },
         },
     },
 });
 
-new Provider("https://op.example.com", {
+new oidc.Provider("https://op.example.com", {
     features: {
         mTLS: {
-            getCertificate() {
+            getCertificate(ctx: oidc.KoaContextWithOIDC) {
                 return "foo";
             },
         },
     },
 });
 
-new Provider("https://op.example.com", {
+new oidc.Provider("https://op.example.com", {
     features: {
         mTLS: {
-            getCertificate() {
+            getCertificate(ctx: oidc.KoaContextWithOIDC) {
                 return new crypto.X509Certificate(Buffer.alloc(0));
             },
         },
     },
 });
 
-const provider = new Provider("https://op.example.com", {
+const provider = new oidc.Provider("https://op.example.com", {
     acrValues: ["urn:example:bronze"],
     adapter: class Adapter {
         name: string;
@@ -151,7 +170,7 @@ const provider = new Provider("https://op.example.com", {
         foo: null,
         bar: ["bar"],
     },
-    clientBasedCORS(ctx, origin, client) {
+    clientBasedCORS(ctx: oidc.KoaContextWithOIDC, origin, client: oidc.Client) {
         ctx.oidc.issuer.substring(0);
         client.clientId.substring(0);
         origin.substring(0);
@@ -193,7 +212,7 @@ const provider = new Provider("https://op.example.com", {
         },
     },
     extraParams: ["foo", "bar", "baz"],
-    async extraTokenClaims(ctx, token) {
+    async extraTokenClaims(ctx: oidc.KoaContextWithOIDC, token: oidc.AccessToken | oidc.ClientCredentials) {
         ctx.oidc.issuer.substring(0);
         token.jti.substring(0);
 
@@ -201,7 +220,7 @@ const provider = new Provider("https://op.example.com", {
     },
     formats: {
         customizers: {
-            jwt(ctx, token, parts) {
+            jwt(ctx: oidc.KoaContextWithOIDC, token: oidc.AccessToken | oidc.ClientCredentials, parts) {
                 ctx.oidc.issuer.substring(0);
                 token.iat.toFixed();
                 parts.header = { foo: "bar" };
@@ -215,12 +234,19 @@ const provider = new Provider("https://op.example.com", {
         const c = new AbortController();
         return { signal: c.signal, "user-agent": "foo" };
     },
-    async expiresWithSession(ctx, token) {
+    async expiresWithSession(
+        ctx: oidc.KoaContextWithOIDC,
+        token: oidc.AuthorizationCode | oidc.AccessToken | oidc.DeviceCode,
+    ) {
         ctx.oidc.issuer.substring(0);
         token.iat.toFixed();
         return false;
     },
-    async issueRefreshToken(ctx, client, token) {
+    async issueRefreshToken(
+        ctx: oidc.KoaContextWithOIDC,
+        client: oidc.Client,
+        token: oidc.AuthorizationCode | oidc.DeviceCode | oidc.BackchannelAuthenticationRequest,
+    ) {
         ctx.oidc.issuer.substring(0);
         client.clientId.substring(0);
         token.iat.toFixed();
@@ -245,7 +271,7 @@ const provider = new Provider("https://op.example.com", {
     responseTypes: ["code", "code id_token", "none"],
     pkce: {
         methods: ["plain", "S256"],
-        required(ctx, client) {
+        required(ctx: oidc.KoaContextWithOIDC, client: oidc.Client) {
             ctx.oidc.issuer.substring(0);
             client.clientId.substring(0);
             return true;
@@ -270,7 +296,7 @@ const provider = new Provider("https://op.example.com", {
     clientAuthMethods: ["self_signed_tls_client_auth"],
     ttl: {
         CustomToken: 23,
-        AccessToken(ctx, accessToken) {
+        AccessToken(ctx: oidc.KoaContextWithOIDC, accessToken: oidc.AccessToken) {
             if (accessToken.resourceServer) {
                 return accessToken.resourceServer.accessTokenTTL || 60 * 60;
             }
@@ -278,7 +304,7 @@ const provider = new Provider("https://op.example.com", {
             accessToken.iat.toFixed();
             return 2;
         },
-        ClientCredentials(ctx, cc) {
+        ClientCredentials(ctx: oidc.KoaContextWithOIDC, cc: oidc.ClientCredentials) {
             if (cc.resourceServer) {
                 return cc.resourceServer.accessTokenTTL || 60 * 60;
             }
@@ -294,7 +320,7 @@ const provider = new Provider("https://op.example.com", {
     },
     extraClientMetadata: {
         properties: ["foo", "bar"],
-        validator(ctx, key, value, metadata) {
+        validator(ctx: oidc.KoaContextWithOIDC, key, value, metadata: oidc.ClientMetadata) {
             ctx.oidc.issuer.substring(0);
             metadata.client_id.substring(0);
             key.substring(0);
@@ -302,7 +328,7 @@ const provider = new Provider("https://op.example.com", {
         },
     },
     interactions: {
-        async url(ctx, interaction) {
+        async url(ctx: oidc.KoaContextWithOIDC, interaction: oidc.Interaction) {
             ctx.oidc.issuer.substring(0);
             interaction.cid.substring(0);
             interaction.iat.toFixed();
@@ -313,32 +339,32 @@ const provider = new Provider("https://op.example.com", {
             return "foo";
         },
         policy: [
-            new interactionPolicy.Prompt(
+            new oidc.interactionPolicy.Prompt(
                 { name: "foo", requestable: true },
-                new interactionPolicy.Check("foo", "bar", "baz", ctx => false),
-                new interactionPolicy.Check(
+                new oidc.interactionPolicy.Check("foo", "bar", "baz", (ctx: oidc.KoaContextWithOIDC) => false),
+                new oidc.interactionPolicy.Check(
                     "foo",
                     "bar",
                     "baz",
-                    async ctx => true,
+                    async ctx => oidc.interactionPolicy.Check.REQUEST_PROMPT,
                     async ctx => ({ foo: "bar" }),
                 ),
             ),
-            new interactionPolicy.Prompt(
+            new oidc.interactionPolicy.Prompt(
                 { name: "foo", requestable: true },
                 ctx => ({ foo: "bar" }),
-                new interactionPolicy.Check("foo", "bar", "baz", ctx => false),
-                new interactionPolicy.Check(
+                new oidc.interactionPolicy.Check("foo", "bar", "baz", (ctx: oidc.KoaContextWithOIDC) => false),
+                new oidc.interactionPolicy.Check(
                     "foo",
                     "bar",
                     "baz",
-                    async ctx => true,
+                    async ctx => oidc.interactionPolicy.Check.NO_NEED_TO_PROMPT,
                     async ctx => ({ foo: "bar" }),
                 ),
             ),
         ],
     },
-    async findAccount(ctx, sub, token) {
+    async findAccount(ctx: oidc.KoaContextWithOIDC, sub, token) {
         ctx.oidc.issuer.substring(0);
         sub.substring(0);
         if (token !== undefined) {
@@ -361,12 +387,12 @@ const provider = new Provider("https://op.example.com", {
         ctx.oidc.issuer.substring(0);
         return true;
     },
-    async renderError(ctx, out, err) {
+    async renderError(ctx: oidc.KoaContextWithOIDC, out, err) {
         ctx.oidc.issuer.substring(0);
         out.error.substring(0);
         err.message.substring(0);
     },
-    async pairwiseIdentifier(ctx, accountId, client) {
+    async pairwiseIdentifier(ctx: oidc.KoaContextWithOIDC, accountId, client: oidc.Client) {
         ctx.oidc.issuer.substring(0);
         accountId.substring(0);
         client.clientId.substring(0);
@@ -377,7 +403,7 @@ const provider = new Provider("https://op.example.com", {
             async postLogoutSuccessSource(ctx) {
                 ctx.oidc.issuer.substring(0);
             },
-            async logoutSource(ctx, form) {
+            async logoutSource(ctx: oidc.KoaContextWithOIDC, form) {
                 ctx.oidc.issuer.substring(0);
                 form.substring(0);
             },
@@ -387,7 +413,7 @@ const provider = new Provider("https://op.example.com", {
         claimsParameter: { enabled: false },
         introspection: {
             enabled: false,
-            async allowedPolicy(ctx, client, token) {
+            async allowedPolicy(ctx: oidc.KoaContextWithOIDC, client: oidc.Client, token) {
                 ctx.oidc.issuer.substring(0);
                 client.clientId.substring(0);
                 token.iat.toFixed();
@@ -405,7 +431,7 @@ const provider = new Provider("https://op.example.com", {
             enabled: true,
             initialAccessToken: true,
             policies: {
-                async foo(ctx, metadata) {
+                async foo(ctx: oidc.KoaContextWithOIDC, metadata: oidc.ClientMetadata) {
                     ctx.oidc.issuer.substring(0);
                     metadata.client_id.substring(0);
                 },
@@ -426,7 +452,7 @@ const provider = new Provider("https://op.example.com", {
         },
         resourceIndicators: {
             enabled: true,
-            async getResourceServerInfo(ctx, resourceIndicator, client) {
+            async getResourceServerInfo(ctx: oidc.KoaContextWithOIDC, resourceIndicator, client: oidc.Client) {
                 ctx.oidc.issuer.substring(0);
                 resourceIndicator.substring(0);
                 client.clientId.substring(0);
@@ -434,7 +460,7 @@ const provider = new Provider("https://op.example.com", {
                     scope: "api:read",
                 };
             },
-            async defaultResource(ctx, client, oneOf) {
+            async defaultResource(ctx: oidc.KoaContextWithOIDC, client: oidc.Client, oneOf) {
                 if (oneOf) {
                     return oneOf[0];
                 }
@@ -452,7 +478,12 @@ const provider = new Provider("https://op.example.com", {
         ciba: {
             enabled: false,
             deliveryModes: ["ping"],
-            async triggerAuthenticationDevice(ctx, request, account, client) {
+            async triggerAuthenticationDevice(
+                ctx: oidc.KoaContextWithOIDC,
+                request: oidc.BackchannelAuthenticationRequest,
+                account: oidc.Account,
+                client: oidc.Client,
+            ) {
                 ctx.oidc.issuer.substring(0);
                 request.jti.substring(0);
                 account.accountId.substring(0);
@@ -473,7 +504,7 @@ const provider = new Provider("https://op.example.com", {
                 ctx.oidc.issuer.substring(0);
                 return {};
             },
-            async userCodeInputSource(ctx, form, out, err) {
+            async userCodeInputSource(ctx: oidc.KoaContextWithOIDC, form, out, err) {
                 ctx.oidc.issuer.substring(0);
                 form.substring(0);
                 if (out !== undefined) {
@@ -483,7 +514,7 @@ const provider = new Provider("https://op.example.com", {
                     err.message.substring(0);
                 }
             },
-            async userCodeConfirmSource(ctx, form, client, deviceInfo, userCode) {
+            async userCodeConfirmSource(ctx: oidc.KoaContextWithOIDC, form, client: oidc.Client, deviceInfo, userCode) {
                 ctx.oidc.issuer.substring(0);
                 form.substring(0);
                 client.clientId.substring(0);
@@ -507,7 +538,7 @@ const provider = new Provider("https://op.example.com", {
                 ctx.oidc.issuer.substring(0);
                 return false;
             },
-            certificateSubjectMatches(ctx, property, expected) {
+            certificateSubjectMatches(ctx: oidc.KoaContextWithOIDC, property: oidc.TLSClientAuthProperty, expected) {
                 ctx.oidc.issuer.substring(0);
                 property.substring(0);
                 expected.substring(0);
@@ -557,13 +588,13 @@ const provider = new Provider("https://op.example.com", {
     },
 });
 
-provider.on("access_token.saved", accessToken => {
+provider.on("access_token.saved", (accessToken: oidc.AccessToken) => {
     accessToken.jti.substring(0);
 });
 
 provider.registerGrantType(
     "urn:example",
-    async (ctx, next) => {
+    async (ctx: oidc.KoaContextWithOIDC, next) => {
         ctx.oidc.route.substring(0);
         return next();
     },
@@ -571,7 +602,7 @@ provider.registerGrantType(
     ["foo"],
 );
 
-provider.on("authorization.accepted", ctx => {
+provider.on("authorization.accepted", (ctx: oidc.KoaContextWithOIDC) => {
     const value = ctx.oidc.cookies.get("key");
     if (value !== undefined) {
         value.substring(0);
@@ -580,18 +611,18 @@ provider.on("authorization.accepted", ctx => {
     ctx.oidc.cookies.set("key", "value", { signed: true, sameSite: "strict" });
 });
 
-provider.on("interaction.started", (ctx, prompt) => {
+provider.on("interaction.started", (ctx: oidc.KoaContextWithOIDC, prompt: oidc.PromptDetail) => {
     ctx.oidc.route.substring(0);
     prompt.name.substring(0);
     prompt.reasons.pop();
 });
 
-provider.use((ctx, next) => {
+provider.use((ctx: oidc.KoaContextWithOIDC, next) => {
     ctx.href.substring(0);
     return next();
 });
 
-provider.use(async (ctx, next) => {
+provider.use(async (ctx: oidc.KoaContextWithOIDC, next) => {
     ctx.href.substring(0);
     await next();
     //
@@ -601,7 +632,7 @@ provider.backchannelResult("foo", "bar").then(console.log);
 provider.backchannelResult(new provider.BackchannelAuthenticationRequest({ accountId: "foo", clientId: "bar" }), "bar")
     .then(console.log);
 provider.backchannelResult("foo", new provider.Grant({ clientId: "foo", accountId: "bar" })).then(console.log);
-provider.backchannelResult("foo", new errors.AccessDenied()).then(console.log);
+provider.backchannelResult("foo", new oidc.errors.AccessDenied()).then(console.log);
 
 const _clientJwtAuthExpectedAudience = provider.OIDCContext.prototype.clientJwtAuthExpectedAudience;
 provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJwtAuthExpectedAudience() {

@@ -26,6 +26,7 @@ declare namespace QueryString {
         charset?: "utf-8" | "iso-8859-1" | undefined;
         charsetSentinel?: boolean | undefined;
         allowEmptyArrays?: boolean | undefined;
+        commaRoundTrip?: boolean | undefined;
     }
 
     type IStringifyDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true
@@ -56,6 +57,7 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean | undefined;
         allowEmptyArrays?: boolean | undefined;
         duplicates?: "combine" | "first" | "last" | undefined;
+        strictDepth?: boolean | undefined;
     }
 
     type IParseDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true

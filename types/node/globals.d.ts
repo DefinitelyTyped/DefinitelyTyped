@@ -2,17 +2,132 @@ export {}; // Make this a module
 
 // #region Fetch and friends
 // Conditional type aliases, used at the end of this file.
-// Will either be empty if lib-dom is included, or the undici version otherwise.
+// Will either be empty if lib.dom (or lib.webworker) is included, or the undici version otherwise.
 type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Request;
 type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
 type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
 type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
+type _MessageEvent = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").MessageEvent;
 type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").RequestInit;
 type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").ResponseInit;
-type _File = typeof globalThis extends { onmessage: any } ? {} : import("node:buffer").File;
+type _WebSocket = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").WebSocket;
+type _EventSource = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").EventSource;
 // #endregion Fetch and friends
+
+// Conditional type definitions for webstorage interface, which conflicts with lib.dom otherwise.
+type _Storage = typeof globalThis extends { onabort: any } ? {} : {
+    /**
+     * Returns the number of key/value pairs.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/length)
+     */
+    readonly length: number;
+    /**
+     * Removes all key/value pairs, if there are any.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/clear)
+     */
+    clear(): void;
+    /**
+     * Returns the current value associated with the given key, or null if the given key does not exist.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/getItem)
+     */
+    getItem(key: string): string | null;
+    /**
+     * Returns the name of the nth key, or null if n is greater than or equal to the number of key/value pairs.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/key)
+     */
+    key(index: number): string | null;
+    /**
+     * Removes the key/value pair with the given key, if a key/value pair with the given key exists.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/removeItem)
+     */
+    removeItem(key: string): void;
+    /**
+     * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
+     *
+     * Throws a "QuotaExceededError" DOMException exception if the new value couldn't be set.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/setItem)
+     */
+    setItem(key: string, value: string): void;
+    [key: string]: any;
+};
+
+// #region DOMException
+type _DOMException = typeof globalThis extends { onmessage: any } ? {} : NodeDOMException;
+interface NodeDOMException extends Error {
+    /**
+     * @deprecated
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/code)
+     */
+    readonly code: number;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/message) */
+    readonly message: string;
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException/name) */
+    readonly name: string;
+    readonly INDEX_SIZE_ERR: 1;
+    readonly DOMSTRING_SIZE_ERR: 2;
+    readonly HIERARCHY_REQUEST_ERR: 3;
+    readonly WRONG_DOCUMENT_ERR: 4;
+    readonly INVALID_CHARACTER_ERR: 5;
+    readonly NO_DATA_ALLOWED_ERR: 6;
+    readonly NO_MODIFICATION_ALLOWED_ERR: 7;
+    readonly NOT_FOUND_ERR: 8;
+    readonly NOT_SUPPORTED_ERR: 9;
+    readonly INUSE_ATTRIBUTE_ERR: 10;
+    readonly INVALID_STATE_ERR: 11;
+    readonly SYNTAX_ERR: 12;
+    readonly INVALID_MODIFICATION_ERR: 13;
+    readonly NAMESPACE_ERR: 14;
+    readonly INVALID_ACCESS_ERR: 15;
+    readonly VALIDATION_ERR: 16;
+    readonly TYPE_MISMATCH_ERR: 17;
+    readonly SECURITY_ERR: 18;
+    readonly NETWORK_ERR: 19;
+    readonly ABORT_ERR: 20;
+    readonly URL_MISMATCH_ERR: 21;
+    readonly QUOTA_EXCEEDED_ERR: 22;
+    readonly TIMEOUT_ERR: 23;
+    readonly INVALID_NODE_TYPE_ERR: 24;
+    readonly DATA_CLONE_ERR: 25;
+}
+interface NodeDOMExceptionConstructor {
+    prototype: DOMException;
+    new(message?: string, nameOrOptions?: string | { name?: string; cause?: unknown }): DOMException;
+    readonly INDEX_SIZE_ERR: 1;
+    readonly DOMSTRING_SIZE_ERR: 2;
+    readonly HIERARCHY_REQUEST_ERR: 3;
+    readonly WRONG_DOCUMENT_ERR: 4;
+    readonly INVALID_CHARACTER_ERR: 5;
+    readonly NO_DATA_ALLOWED_ERR: 6;
+    readonly NO_MODIFICATION_ALLOWED_ERR: 7;
+    readonly NOT_FOUND_ERR: 8;
+    readonly NOT_SUPPORTED_ERR: 9;
+    readonly INUSE_ATTRIBUTE_ERR: 10;
+    readonly INVALID_STATE_ERR: 11;
+    readonly SYNTAX_ERR: 12;
+    readonly INVALID_MODIFICATION_ERR: 13;
+    readonly NAMESPACE_ERR: 14;
+    readonly INVALID_ACCESS_ERR: 15;
+    readonly VALIDATION_ERR: 16;
+    readonly TYPE_MISMATCH_ERR: 17;
+    readonly SECURITY_ERR: 18;
+    readonly NETWORK_ERR: 19;
+    readonly ABORT_ERR: 20;
+    readonly URL_MISMATCH_ERR: 21;
+    readonly QUOTA_EXCEEDED_ERR: 22;
+    readonly TIMEOUT_ERR: 23;
+    readonly INVALID_NODE_TYPE_ERR: 24;
+    readonly DATA_CLONE_ERR: 25;
+}
+// #endregion DOMException
 
 declare global {
     // Declare "static" methods in Error
@@ -41,6 +156,8 @@ declare global {
     interface RequireResolve extends NodeJS.RequireResolve {}
     interface NodeModule extends NodeJS.Module {}
 
+    var global: typeof globalThis;
+
     var process: NodeJS.Process;
     var console: Console;
 
@@ -53,10 +170,26 @@ declare global {
     // Same as module.exports
     var exports: any;
 
+    interface GCFunction {
+        (options: {
+            execution?: "sync";
+            flavor?: "regular" | "last-resort";
+            type?: "major-snapshot" | "major" | "minor";
+            filename?: string;
+        }): void;
+        (options: {
+            execution: "async";
+            flavor?: "regular" | "last-resort";
+            type?: "major-snapshot" | "major" | "minor";
+            filename?: string;
+        }): Promise<void>;
+        (options?: boolean): void;
+    }
+
     /**
      * Only available if `--expose-gc` is passed to the process.
      */
-    var gc: undefined | (() => void);
+    var gc: undefined | GCFunction;
 
     // #region borrowed
     // from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
@@ -96,55 +229,43 @@ declare global {
             new(): AbortSignal;
             abort(reason?: any): AbortSignal;
             timeout(milliseconds: number): AbortSignal;
+            any(signals: AbortSignal[]): AbortSignal;
         };
     // #endregion borrowed
 
-    // #region Disposable
-    interface SymbolConstructor {
-        /**
-         * A method that is used to release resources held by an object. Called by the semantics of the `using` statement.
-         */
-        readonly dispose: unique symbol;
+    // #region Storage
+    /**
+     * This Web Storage API interface provides access to a particular domain's session or local storage. It allows, for example, the addition, modification, or deletion of stored data items.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage)
+     */
+    interface Storage extends _Storage {}
 
-        /**
-         * A method that is used to asynchronously release resources held by an object. Called by the semantics of the `await using` statement.
-         */
-        readonly asyncDispose: unique symbol;
-    }
+    // Conditional on `onabort` rather than `onmessage`, in order to exclude lib.webworker
+    var Storage: typeof globalThis extends { onabort: any; Storage: infer T } ? T
+        : {
+            prototype: Storage;
+            new(): Storage;
+        };
 
-    interface Disposable {
-        [Symbol.dispose](): void;
-    }
+    /**
+     * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+     * Data is stored unencrypted in the file specified by the `--localstorage-file` CLI flag.
+     * Any modification of this data outside of the Web Storage API is not supported.
+     * Enable this API with the `--experimental-webstorage` CLI flag.
+     * @since v22.4.0
+     */
+    var localStorage: Storage;
 
-    interface AsyncDisposable {
-        [Symbol.asyncDispose](): PromiseLike<void>;
-    }
-    // #endregion Disposable
-
-    // #region ArrayLike.at()
-    interface RelativeIndexable<T> {
-        /**
-         * Takes an integer value and returns the item at that index,
-         * allowing for positive and negative integers.
-         * Negative integers count back from the last item in the array.
-         */
-        at(index: number): T | undefined;
-    }
-    interface String extends RelativeIndexable<string> {}
-    interface Array<T> extends RelativeIndexable<T> {}
-    interface ReadonlyArray<T> extends RelativeIndexable<T> {}
-    interface Int8Array extends RelativeIndexable<number> {}
-    interface Uint8Array extends RelativeIndexable<number> {}
-    interface Uint8ClampedArray extends RelativeIndexable<number> {}
-    interface Int16Array extends RelativeIndexable<number> {}
-    interface Uint16Array extends RelativeIndexable<number> {}
-    interface Int32Array extends RelativeIndexable<number> {}
-    interface Uint32Array extends RelativeIndexable<number> {}
-    interface Float32Array extends RelativeIndexable<number> {}
-    interface Float64Array extends RelativeIndexable<number> {}
-    interface BigInt64Array extends RelativeIndexable<bigint> {}
-    interface BigUint64Array extends RelativeIndexable<bigint> {}
-    // #endregion ArrayLike.at() end
+    /**
+     * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
+     * Data is stored in memory, with a storage quota of 10 MB.
+     * Any modification of this data outside of the Web Storage API is not supported.
+     * Enable this API with the `--experimental-webstorage` CLI flag.
+     * @since v22.4.0
+     */
+    var sessionStorage: Storage;
+    // #endregion Storage
 
     /**
      * @since v17.0.0
@@ -155,6 +276,24 @@ declare global {
         value: T,
         transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
     ): T;
+
+    // #region DOMException
+    /**
+     * @since v17.0.0
+     * An abnormal event (called an exception) which occurs as a result of calling a method or accessing a property of a web API.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/DOMException)
+     */
+    interface DOMException extends _DOMException {}
+
+    /**
+     * @since v17.0.0
+     *
+     * The WHATWG `DOMException` class. See [DOMException](https://developer.mozilla.org/docs/Web/API/DOMException) for more details.
+     */
+    var DOMException: typeof globalThis extends { onmessage: any; DOMException: infer T } ? T
+        : NodeDOMExceptionConstructor;
+    // #endregion DOMException
 
     /*----------------------------------------------*
     *                                               *
@@ -280,7 +419,7 @@ declare global {
             unpipe(destination?: WritableStream): this;
             unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
             wrap(oldStream: ReadableStream): this;
-            [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<string | Buffer>;
         }
 
         interface WritableStream extends EventEmitter {
@@ -298,20 +437,6 @@ declare global {
             ref(): this;
             unref(): this;
         }
-
-        type TypedArray =
-            | Uint8Array
-            | Uint8ClampedArray
-            | Uint16Array
-            | Uint32Array
-            | Int8Array
-            | Int16Array
-            | Int32Array
-            | BigUint64Array
-            | BigInt64Array
-            | Float32Array
-            | Float64Array;
-        type ArrayBufferView = TypedArray | DataView;
 
         interface Require {
             (id: string): any;
@@ -363,6 +488,20 @@ declare global {
         interface ReadOnlyDict<T> {
             readonly [key: string]: T | undefined;
         }
+
+        /** An iterable iterator returned by the Node.js API. */
+        // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used IterableIterator.
+        // TODO: In next major @types/node version, change default TReturn to undefined.
+        interface Iterator<T, TReturn = any, TNext = any> extends IteratorObject<T, TReturn, TNext> {
+            [Symbol.iterator](): NodeJS.Iterator<T, TReturn, TNext>;
+        }
+
+        /** An async iterable iterator returned by the Node.js API. */
+        // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used AsyncIterableIterator.
+        // TODO: In next major @types/node version, change default TReturn to undefined.
+        interface AsyncIterator<T, TReturn = any, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<T, TReturn, TNext>;
+        }
     }
 
     interface RequestInit extends _RequestInit {}
@@ -402,10 +541,26 @@ declare global {
     } ? T
         : typeof import("undici-types").Headers;
 
-    interface File extends _File {}
-    var File: typeof globalThis extends {
+    interface MessageEvent extends _MessageEvent {}
+    /**
+     * @since v15.0.0
+     */
+    var MessageEvent: typeof globalThis extends {
         onmessage: any;
-        File: infer T;
+        MessageEvent: infer T;
     } ? T
-        : typeof import("node:buffer").File;
+        : typeof import("undici-types").MessageEvent;
+
+    interface WebSocket extends _WebSocket {}
+    var WebSocket: typeof globalThis extends { onmessage: any; WebSocket: infer T } ? T
+        : typeof import("undici-types").WebSocket;
+
+    interface EventSource extends _EventSource {}
+    /**
+     * Only available through the [--experimental-eventsource](https://nodejs.org/api/cli.html#--experimental-eventsource) flag.
+     *
+     * @since v22.3.0
+     */
+    var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
+        : typeof import("undici-types").EventSource;
 }

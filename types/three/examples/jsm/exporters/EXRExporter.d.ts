@@ -6,6 +6,7 @@
  */
 
 import { DataTexture, TextureDataType, WebGLRenderer, WebGLRenderTarget } from "three";
+import { WebGPURenderer } from "three/webgpu";
 
 export const NO_COMPRESSION: 0;
 export const ZIPS_COMPRESSION: 2;
@@ -17,6 +18,10 @@ export interface EXRExporterParseOptions {
 }
 
 export class EXRExporter {
-    parse(renderer: WebGLRenderer, renderTarget: WebGLRenderTarget, options?: EXRExporterParseOptions): Uint8Array;
-    parse(dataTexture: DataTexture, options?: EXRExporterParseOptions): Uint8Array;
+    parse(
+        renderer: WebGLRenderer | WebGPURenderer,
+        renderTarget: WebGLRenderTarget,
+        options?: EXRExporterParseOptions,
+    ): Promise<Uint8Array>;
+    parse(dataTexture: DataTexture, options?: EXRExporterParseOptions): Promise<Uint8Array>;
 }

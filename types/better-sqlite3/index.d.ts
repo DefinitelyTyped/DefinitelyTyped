@@ -42,7 +42,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface VirtualTableOptions {
-        rows: () => Generator;
+        rows: (...params: unknown[]) => Generator;
         columns: string[];
         parameters?: string[] | undefined;
         safeIntegers?: boolean | undefined;

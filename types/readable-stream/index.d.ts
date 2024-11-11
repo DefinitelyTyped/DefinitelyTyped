@@ -33,9 +33,9 @@ interface _IEventEmitter {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     rawListeners(eventName: string | symbol): Function[];
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
@@ -209,9 +209,9 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     listeners(eventName: string | symbol): Function[];
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     rawListeners(eventName: string | symbol): Function[];
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
@@ -352,7 +352,7 @@ declare namespace _Readable {
         ): Promise<T>;
         _destroy(err: Error | null, callback: (error: Error | null) => void): void;
         destroy(err?: Error, callback?: (error: Error | null) => void): this;
-        pipe<S extends _IWritable>(dest: S, pipeOpts?: { end?: boolean | undefined }): S;
+        pipe<S extends NodeJS.WritableStream>(dest: S, pipeOpts?: { end?: boolean | undefined }): S;
         addListener(ev: string | symbol, fn: (...args: any[]) => void): this;
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 

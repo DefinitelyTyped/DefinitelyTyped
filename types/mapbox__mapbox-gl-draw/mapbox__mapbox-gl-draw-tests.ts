@@ -1,6 +1,7 @@
 import MapboxDraw, {
     constants,
     DrawCustomMode,
+    DrawEvent,
     DrawFeature,
     DrawMode,
     DrawUpdateEvent,
@@ -89,7 +90,7 @@ const customMode: CustomMode = {
         // $ExpectType DrawFeature
         e.featureTarget;
 
-        // $ExpectType Map
+        // $ExpectType Map$1
         this.map;
 
         // $ExpectType boolean | undefined
@@ -169,7 +170,7 @@ const customMode: CustomMode = {
         // $ExpectType StringSet
         lib.StringSet(["1", 2]);
 
-        const FabricDrawingManagerStyles: Lib["theme"] = [
+        const FabricDrawingManagerStyles: Array<Partial<Lib["theme"][number]>> = [
             {
                 id: "gl-draw-polygon-fill-inactive",
                 type: "fill",
@@ -188,12 +189,26 @@ const customMode: CustomMode = {
         // $ExpectType any[]
         lib.toDenseArray(["", undefined, 1]);
     },
-
-    toDisplayFeatures(state, geojson, display) {},
+    toDisplayFeatures(state, geojson, display) {
+    },
 
     customMethod(): number {
         return 1;
     },
+};
+
+customMode.onStop = function() {
+    // $ExpectType Map$1
+    this.map;
+
+    // $ExpectType Map$1
+    this.map.on("draw.create" as any, (event: DrawEvent) => {
+        // $ExpectType keyof DrawEvents
+        event.type;
+    });
+
+    // $ExpectType Map$1
+    this.map.fire("draw.create" as any, { featureId: "1" });
 };
 
 // @ts-expect-error

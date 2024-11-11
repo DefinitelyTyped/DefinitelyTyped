@@ -393,6 +393,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode> | null;
+
+        /**
+         * A name for this Suspense boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
     }
     /**
      * This feature is not yet available for server-side rendering.
@@ -1855,6 +1861,7 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: Booleanish | "inherit" | undefined;
@@ -1893,7 +1900,6 @@ declare namespace React {
         vocab?: string | undefined;
 
         // Non-standard Attributes
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;

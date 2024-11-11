@@ -5,8 +5,13 @@
  * @since v17.0.0
  */
 declare module "readline/promises" {
-    import { AsyncCompleter, Completer, Direction, Interface as _Interface, ReadLineOptions } from "node:readline";
     import { Abortable } from "node:events";
+    import {
+        CompleterResult,
+        Direction,
+        Interface as _Interface,
+        ReadLineOptions as _ReadLineOptions,
+    } from "node:readline";
 
     class Interface extends _Interface {
         /**
@@ -80,12 +85,18 @@ declare module "readline/promises" {
          */
         rollback(): this;
     }
-
+    type Completer = (line: string) => CompleterResult | Promise<CompleterResult>;
+    interface ReadLineOptions extends Omit<_ReadLineOptions, "completer"> {
+        /**
+         * An optional function used for Tab autocompletion.
+         */
+        completer?: Completer | undefined;
+    }
     /**
      * The `readlinePromises.createInterface()` method creates a new `readlinePromises.Interface` instance.
      *
      * ```js
-     * const readlinePromises = require('node:readline/promises');
+     * import readlinePromises from 'node:readline/promises';
      * const rl = readlinePromises.createInterface({
      *   input: process.stdin,
      *   output: process.stdout
@@ -133,7 +144,7 @@ declare module "readline/promises" {
     function createInterface(
         input: NodeJS.ReadableStream,
         output?: NodeJS.WritableStream,
-        completer?: Completer | AsyncCompleter,
+        completer?: Completer,
         terminal?: boolean,
     ): Interface;
     function createInterface(options: ReadLineOptions): Interface;

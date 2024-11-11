@@ -1,13 +1,10 @@
-import chai = require("chai");
-chai.should();
-
 import chaiAsPromised = require("chai-as-promised");
-chai.use(chaiAsPromised);
+import("chai").then(chai => chai.use(chaiAsPromised));
 
 import dirtyChai = require("dirty-chai");
-chai.use(dirtyChai);
+import("chai").then(chai => chai.use(dirtyChai));
 
-const expect = chai.expect;
+declare const expect: Chai.ExpectStatic;
 
 // mocha-like stubs so we don't need to use mocha typings
 

@@ -2,7 +2,6 @@ import { dispatch, select } from "@wordpress/data";
 import * as e from "@wordpress/editor";
 
 declare const BLOCK_INSTANCE: import("@wordpress/blocks").BlockInstance;
-declare const FILELIST: FileList;
 declare const FILE_ARRAY: File[];
 
 // $ExpectType EditorStoreDescriptor
@@ -304,6 +303,51 @@ e.store.name;
 <e.PostVisibilityLabel />;
 
 //
+// PluginDocumentSettingPanel
+//
+<e.PluginDocumentSettingPanel name="dts-test" title="Test panel" />;
+
+//
+// PluginSidebarMoreMenuItem
+//
+<e.PluginSidebarMoreMenuItem target="my-sidebar">
+    My sidebar title
+</e.PluginSidebarMoreMenuItem>;
+
+//
+// PluginSidebar
+//
+<e.PluginSidebar name="my-sidebar" title="My sidebar title">
+    My sidebar content
+</e.PluginSidebar>;
+
+//
+// PluginPostStatusInfo
+//
+<e.PluginPostStatusInfo className="my-plugin-post-status-info">
+    My post status info
+</e.PluginPostStatusInfo>;
+
+//
+// PluginPostPublishPanel
+//
+<e.PluginPostPublishPanel className="my-plugin-post-publish-panel" title="My panel title" initialOpen={true}>
+    My panel content
+</e.PluginPostPublishPanel>;
+
+//
+// PluginPrePublishPanel
+//
+<e.PluginPrePublishPanel className="my-plugin-pre-publish-panel" title="My panel title" initialOpen={true}>
+    My panel content
+</e.PluginPrePublishPanel>;
+
+// PluginMoreMenuItem
+<e.PluginMoreMenuItem onClick={() => console.log("Clicked!")}>
+    My button title
+</e.PluginMoreMenuItem>;
+
+//
 // TableOfContents
 //
 <e.TableOfContents />;
@@ -413,7 +457,7 @@ select("core/editor").inSomeHistory(state => state.foo === true);
 
 // $ExpectType void
 e.mediaUpload({
-    filesList: FILELIST,
+    filesList: FILE_ARRAY,
     onFileChange(files) {
         console.log(files[0].alt, files[0].media_type);
     },

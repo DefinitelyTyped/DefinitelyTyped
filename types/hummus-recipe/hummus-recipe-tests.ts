@@ -40,7 +40,7 @@ bufferDoc
     .endPage()
     .endPDF(
         (outBuffer: Buffer) =>
-            // $ExpectType Buffer
+            // $ExpectType Buffer || Buffer<ArrayBufferLike>
             outBuffer,
     );
 

@@ -83,7 +83,7 @@ declare module "url" {
      * The `url.format()` method returns a formatted URL string derived from `urlObject`.
      *
      * ```js
-     * const url = require('node:url');
+     * import url from 'node:url';
      * url.format({
      *   protocol: 'https',
      *   hostname: 'example.com',
@@ -147,7 +147,7 @@ declare module "url" {
      * The `url.format()` method returns a formatted URL string derived from `urlObject`.
      *
      * ```js
-     * const url = require('node:url');
+     * import url from 'node:url';
      * url.format({
      *   protocol: 'https',
      *   hostname: 'example.com',
@@ -212,7 +212,7 @@ declare module "url" {
      * manner similar to that of a web browser resolving an anchor tag.
      *
      * ```js
-     * const url = require('url');
+     * import url from 'node:url';
      * url.resolve('/one/two/three', 'four');         // '/one/two/four'
      * url.resolve('http://example.com/', '/one');    // 'http://example.com/one'
      * url.resolve('http://example.com/one', '/two'); // 'http://example.com/two'
@@ -394,10 +394,10 @@ declare module "url" {
          * Creates a `'blob:nodedata:...'` URL string that represents the given `Blob` object and can be used to retrieve the `Blob` later.
          *
          * ```js
-         * const {
+         * import {
          *   Blob,
          *   resolveObjectURL,
-         * } = require('buffer');
+         * } from 'node:buffer';
          *
          * const blob = new Blob(['hello']);
          * const id = URL.createObjectURL(blob);
@@ -742,6 +742,9 @@ declare module "url" {
          */
         toJSON(): string;
     }
+    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+        [Symbol.iterator](): URLSearchParamsIterator<T>;
+    }
     /**
      * The `URLSearchParams` API provides read and write access to the query of a `URL`. The `URLSearchParams` class can also be used standalone with one of the
      * four following constructors.
@@ -812,7 +815,7 @@ declare module "url" {
          *
          * Alias for `urlSearchParams[@@iterator]()`.
          */
-        entries(): IterableIterator<[string, string]>;
+        entries(): URLSearchParamsIterator<[string, string]>;
         /**
          * Iterates over each name-value pair in the query and invokes the given function.
          *
@@ -866,7 +869,7 @@ declare module "url" {
          * //   foo
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): URLSearchParamsIterator<string>;
         /**
          * Sets the value in the `URLSearchParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value` and remove all others. If not,
@@ -916,8 +919,8 @@ declare module "url" {
         /**
          * Returns an ES6 `Iterator` over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string, string]>;
+        values(): URLSearchParamsIterator<string>;
+        [Symbol.iterator](): URLSearchParamsIterator<[string, string]>;
     }
     import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
     global {
@@ -928,7 +931,7 @@ declare module "url" {
             URLSearchParams: typeof _URLSearchParams;
         }
         /**
-         * `URL` class is a global reference for `require('url').URL`
+         * `URL` class is a global reference for `import { URL } from 'node:url'`
          * https://nodejs.org/api/url.html#the-whatwg-url-api
          * @since v10.0.0
          */
@@ -938,7 +941,7 @@ declare module "url" {
         } ? T
             : typeof _URL;
         /**
-         * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
+         * `URLSearchParams` class is a global reference for `import { URLSearchParams } from 'node:url'`
          * https://nodejs.org/api/url.html#class-urlsearchparams
          * @since v10.0.0
          */

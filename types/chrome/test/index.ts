@@ -754,15 +754,48 @@ function testWindows() {
 
 // https://developer.chrome.com/extensions/storage#type-StorageArea
 function testStorage() {
-    function getCallback(loadedData: { [key: string]: any }) {
-        var myValue: { x: number } = loadedData["myKey"];
+    interface StorageData {
+        myKey: {
+            x: number;
+            y: number;
+            z?: number;
+        };
+        myKey2: string;
     }
 
-    chrome.storage.sync.get(getCallback);
+    function getCallback(loadedData: { [key: string]: any }) {
+        console.log(loadedData.myKey.x + loadedData.myKey.y);
+    }
+
+    function getCallbackTyped(loadedData: StorageData) {
+        console.log(loadedData.myKey.x + loadedData.myKey.y);
+    }
+
+    // @ts-expect-error
+    const testNoInferX: chrome.storage.NoInferX<string> = "This test checks if NoInferX is accidentally exported";
+
     chrome.storage.sync.get("myKey", getCallback);
-    chrome.storage.sync.get(["myKey", "myKey2"], getCallback);
-    chrome.storage.sync.get({ foo: 1, bar: 2 }, getCallback);
-    chrome.storage.sync.get(null, getCallback);
+    chrome.storage.sync.get("badKey", getCallback);
+    // @ts-expect-error
+    chrome.storage.sync.get("badKey", getCallbackTyped);
+    // @ts-expect-error
+    chrome.storage.sync.get({ myKey: { badKey: true } }, getCallbackTyped);
+    chrome.storage.sync.get(null, (data) => {
+        console.log(data.myKey);
+    });
+    chrome.storage.sync.get((data) => {
+        console.log(data.badKey);
+    });
+
+    chrome.storage.sync.get<StorageData>(getCallbackTyped);
+    chrome.storage.sync.get<StorageData>("myKey", getCallbackTyped);
+    chrome.storage.sync.get<StorageData>(["myKey", "myKey2"], getCallbackTyped);
+    chrome.storage.sync.get<StorageData>({ myKey: { x: 1, y: 2 } }, getCallbackTyped);
+    // @ts-expect-error
+    chrome.storage.sync.get<StorageData>({ myKey: { badKey: true } }, getCallback);
+    // @ts-expect-error
+    chrome.storage.sync.get<StorageData>({ myKey: { badKey: true } }, getCallbackTyped);
+    chrome.storage.sync.get<StorageData>(null, getCallbackTyped);
 
     function getBytesInUseCallback(bytesInUse: number) {
         console.log(bytesInUse);
@@ -770,20 +803,31 @@ function testStorage() {
 
     chrome.storage.sync.getBytesInUse(getBytesInUseCallback);
     chrome.storage.sync.getBytesInUse("myKey", getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse(["myKey", "myKey2"], getBytesInUseCallback);
-    chrome.storage.sync.getBytesInUse(null, getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse("badKey", getBytesInUseCallback);
+
+    chrome.storage.sync.getBytesInUse<StorageData>("myKey", getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse<StorageData>(["myKey", "myKey2"], getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse<StorageData>(null, getBytesInUseCallback);
+    // @ts-expect-error
+    chrome.storage.sync.getBytesInUse<StorageData>(["badKey", "myKey2"], getBytesInUseCallback);
 
     function doneCallback() {
         console.log("done");
     }
 
-    chrome.storage.sync.set({ foo: 1, bar: 2 });
-    chrome.storage.sync.set({ foo: 1, bar: 2 }, doneCallback);
+    chrome.storage.sync.set({ badKey: true });
+    chrome.storage.sync.set<StorageData>({ myKey: { x: 1, y: 2 } });
+    chrome.storage.sync.set<StorageData>({ myKey2: "hello world" }, doneCallback);
+    // @ts-expect-error
+    chrome.storage.sync.set<StorageData>({ badKey: "hello world" }, doneCallback);
 
-    chrome.storage.sync.remove("myKey");
-    chrome.storage.sync.remove("myKey", doneCallback);
-    chrome.storage.sync.remove(["myKey", "myKey2"]);
-    chrome.storage.sync.remove(["myKey", "myKey2"], doneCallback);
+    chrome.storage.sync.remove("badKey");
+    chrome.storage.sync.remove<StorageData>("myKey");
+    chrome.storage.sync.remove<StorageData>("myKey", doneCallback);
+    chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"]);
+    chrome.storage.sync.remove<StorageData>(["myKey", "myKey2"], doneCallback);
+    // @ts-expect-error
+    chrome.storage.sync.remove<StorageData>(["badKey", "myKey2"], doneCallback);
 
     chrome.storage.sync.clear();
     chrome.storage.sync.clear(doneCallback);
@@ -865,6 +909,14 @@ function testRuntimeOnMessageAddListener() {
 chrome.devtools.network.onRequestFinished.addListener((request: chrome.devtools.network.Request) => {
     request; // $ExpectType Request
     console.log("request: ", request);
+});
+
+chrome.devtools.performance.onProfilingStarted.addListener(() => {
+    console.log("Profiling started");
+});
+
+chrome.devtools.performance.onProfilingStopped.addListener(() => {
+    console.log("Profiling stopped");
 });
 
 chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
@@ -1246,6 +1298,88 @@ async function testAlarmsForPromise() {
     await chrome.alarms.get("name1");
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/audio
+function testAudio() {
+    chrome.audio.DeviceType.ALSA_LOOPBACK === "ALSA_LOOPBACK";
+    chrome.audio.DeviceType.BLUETOOTH === "BLUETOOTH";
+    chrome.audio.DeviceType.FRONT_MIC === "FRONT_MIC";
+    chrome.audio.DeviceType.HDMI === "HDMI";
+    chrome.audio.DeviceType.HEADPHONE === "HEADPHONE";
+    chrome.audio.DeviceType.HOTWORD === "HOTWORD";
+    chrome.audio.DeviceType.INTERNAL_MIC === "INTERNAL_MIC";
+    chrome.audio.DeviceType.INTERNAL_SPEAKER === "INTERNAL_SPEAKER";
+    chrome.audio.DeviceType.KEYBOARD_MIC === "KEYBOARD_MIC";
+    chrome.audio.DeviceType.LINEOUT === "LINEOUT";
+    chrome.audio.DeviceType.MIC === "MIC";
+    chrome.audio.DeviceType.OTHER === "OTHER";
+    chrome.audio.DeviceType.POST_DSP_LOOPBACK === "POST_DSP_LOOPBACK";
+    chrome.audio.DeviceType.POST_MIX_LOOPBACK === "POST_MIX_LOOPBACK";
+    chrome.audio.DeviceType.REAR_MIC === "REAR_MIC";
+    chrome.audio.DeviceType.USB === "USB";
+
+    chrome.audio.StreamType.INPUT === "INPUT";
+    chrome.audio.StreamType.OUTPUT === "OUTPUT";
+
+    chrome.audio.getDevices(); // $ExpectType Promise<AudioDeviceInfo[]>
+    chrome.audio.getDevices({}); // $ExpectType Promise<AudioDeviceInfo[]>
+    chrome.audio.getDevices(devices => {}); // $ExpectType void
+    chrome.audio.getDevices({}, devices => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.getDevices(() => {}).then(devices => {});
+
+    chrome.audio.getMute("INPUT"); // $ExpectType Promise<boolean>
+    chrome.audio.getMute("INPUT", value => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.getMute("INPUT", value => {}).then(value => {});
+
+    chrome.audio.setActiveDevices({}); // $ExpectType Promise<void>
+    chrome.audio.setActiveDevices({}, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.setActiveDevices(() => {}).then(() => {});
+
+    chrome.audio.setMute("INPUT", true); // $ExpectType Promise<void>
+    chrome.audio.setMute("INPUT", true, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.setMute("INPUT", true, () => {}).then(() => {});
+
+    chrome.audio.setProperties("INPUT", {}); // $ExpectType Promise<void>
+    chrome.audio.setProperties("INPUT", {}, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.audio.setProperties("INPUT", {}, () => {}).then(() => {});
+
+    chrome.audio.onDeviceListChanged.addListener(devices => {
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.onDeviceListChanged.removeListener(devices => {
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.onDeviceListChanged.hasListener(devices => {
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.onDeviceListChanged.hasListeners(); // $ExpectType boolean
+
+    chrome.audio.onLevelChanged.addListener(event => {
+        event; // $ExpectType LevelChangedEvent
+    });
+    chrome.audio.onLevelChanged.removeListener(event => {
+        event; // $ExpectType LevelChangedEvent
+    });
+    chrome.audio.onLevelChanged.hasListener(event => {
+        event; // $ExpectType LevelChangedEvent
+    });
+    chrome.audio.onLevelChanged.hasListeners(); // $ExpectType boolean
+    chrome.audio.onMuteChanged.addListener(event => {
+        event; // $ExpectType MuteChangedEvent
+    });
+    chrome.audio.onMuteChanged.removeListener(event => {
+        event; // $ExpectType MuteChangedEvent
+    });
+    chrome.audio.onMuteChanged.hasListener(event => {
+        event; // $ExpectType MuteChangedEvent
+    });
+    chrome.audio.onMuteChanged.hasListeners(); // $ExpectType boolean
+}
+
 // https://developer.chrome.com/docs/extensions/reference/bookmarks
 async function testBookmarksForPromise() {
     await chrome.bookmarks.search("query1");
@@ -1281,9 +1415,13 @@ async function testBrowserActionForPromise() {
 async function testCookieForPromise() {
     await chrome.cookies.getAllCookieStores();
     await chrome.cookies.getAll({});
+    await chrome.cookies.getAll({ partitionKey: {} });
     await chrome.cookies.set({ url: "url1" });
+    await chrome.cookies.set({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
     await chrome.cookies.remove({ url: "url1", name: "name1" });
+    await chrome.cookies.remove({ name: "test-cookie", url: "https://example.com", partitionKey: {} });
     await chrome.cookies.get({ url: "url1", name: "name1" });
+    await chrome.cookies.get({ url: "url1", name: "name1", partitionKey: {} });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/management
@@ -1412,6 +1550,14 @@ async function testSystemDisplayForPromise() {
     await chrome.system.display.setDisplayLayout([]);
     await chrome.system.display.showNativeTouchCalibration("id1");
     await chrome.system.display.setMirrorMode({});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/systemLog
+function testSystemLog() {
+    chrome.systemLog.add({ message: "" }); // $ExpectType Promise<void>
+    chrome.systemLog.add({ message: "" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.systemLog.add({ message: "" }, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/tabs
@@ -1801,6 +1947,14 @@ function testEnterpriseDeviceAttributes() {
     chrome.enterprise.deviceAttributes.getDeviceAssetId((assetId) => {});
     chrome.enterprise.deviceAttributes.getDeviceAnnotatedLocation((annotatedLocation) => {});
     chrome.enterprise.deviceAttributes.getDeviceHostname((hostName) => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/hardwarePlatform
+function testEnterpriseHardwarePlatform() {
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}); // $ExpectType void
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo(); // $ExpectType Promise<HardwarePlatformInfo>
+    // @ts-expect-error
+    chrome.enterprise.hardwarePlatform.getHardwarePlatformInfo((info) => {}).then((info) => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/browsingData
@@ -2282,15 +2436,156 @@ function testUserScripts() {
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
 }
 
-function testPlatformKeys() {
+// https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
+function testEnterPrisePlatformKeys() {
+    chrome.enterprise.platformKeys.Scope.MACHINE === "MACHINE";
+    chrome.enterprise.platformKeys.Scope.USER === "USER";
+
+    chrome.enterprise.platformKeys.Algorithm.ECDSA === "ECDSA";
+    chrome.enterprise.platformKeys.Algorithm.RSA === "RSA";
+
     chrome.enterprise.platformKeys.challengeKey({ // $ExpectType void
         scope: "MACHINE",
         challenge: new ArrayBuffer(0),
         registerKey: { algorithm: "ECDSA" },
     }, () => {});
 
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
-    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), response => {}); // $ExpectType void
 
-    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, response => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.getCertificates("tokenId", certificates => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.getTokens(tokens => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.importCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.removeCertificate("tokenId", new ArrayBuffer(0), () => {}); // $ExpectType void
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/power
+function testPower() {
+    chrome.power.Level.DISPLAY === "display";
+    chrome.power.Level.SYSTEM === "system";
+
+    chrome.power.releaseKeepAwake(); // $ExpectType void
+    chrome.power.requestKeepAwake(chrome.power.Level.SYSTEM); // $ExpectType void
+    chrome.power.requestKeepAwake("system"); // $ExpectType void
+    // @ts-expect-error
+    chrome.power.requestKeepAwake("other"); // $ExpectType void
+    chrome.power.reportActivity(() => {}); // $ExpectType void
+    chrome.power.reportActivity(); // $ExpectType Promise<void>
+    // @ts-expect-error
+    chrome.power.reportActivity(() => {}).then(() => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/printing
+function testPrinting() {
+    chrome.printing.MAX_GET_PRINTER_INFO_CALLS_PER_MINUTE === 20;
+    chrome.printing.MAX_SUBMIT_JOB_CALLS_PER_MINUTE === 40;
+
+    chrome.printing.JobStatus.CANCELED === "CANCELED";
+    chrome.printing.JobStatus.FAILED === "FAILED";
+    chrome.printing.JobStatus.IN_PROGRESS === "IN_PROGRESS";
+    chrome.printing.JobStatus.PENDING === "PENDING";
+    chrome.printing.JobStatus.PRINTED === "PRINTED";
+
+    chrome.printing.PrinterSource.POLICY === "POLICY";
+    chrome.printing.PrinterSource.USER === "USER";
+
+    chrome.printing.PrinterStatus.AVAILABLE === "AVAILABLE";
+    chrome.printing.PrinterStatus.DOOR_OPEN === "DOOR_OPEN";
+    chrome.printing.PrinterStatus.EXPIRED_CERTIFICATE === "EXPIRED_CERTIFICATE";
+    chrome.printing.PrinterStatus.GENERIC_ISSUE === "GENERIC_ISSUE";
+    chrome.printing.PrinterStatus.OUTPUT_FULL === "OUTPUT_FULL";
+    chrome.printing.PrinterStatus.OUT_OF_INK === "OUT_OF_INK";
+    chrome.printing.PrinterStatus.OUT_OF_PAPER === "OUT_OF_PAPER";
+    chrome.printing.PrinterStatus.PAPER_JAM === "PAPER_JAM";
+    chrome.printing.PrinterStatus.STOPPED === "STOPPED";
+    chrome.printing.PrinterStatus.TRAY_MISSING === "TRAY_MISSING";
+    chrome.printing.PrinterStatus.UNREACHABLE === "UNREACHABLE";
+
+    chrome.printing.SubmitJobStatus.OK === "OK";
+    chrome.printing.SubmitJobStatus.USER_REJECTED === "USER_REJECTED";
+
+    chrome.printing.cancelJob(""); // $ExpectType Promise<void>
+    chrome.printing.cancelJob("", () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printing.cancelJob("", () => {}).then(() => {});
+
+    chrome.printing.getPrinterInfo(""); // $ExpectType Promise<GetPrinterInfoResponse>
+    chrome.printing.getPrinterInfo("", response => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printing.getPrinterInfo("", response => {}).then(response => {});
+
+    chrome.printing.getPrinters(); // $ExpectType Promise<Printer[]>
+    chrome.printing.getPrinters(printers => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printing.getPrinters(printers => {}).then(printers => {});
+
+    const submitJobRequest = {
+        job: {
+            printerId: "",
+            title: "",
+            ticket: {},
+            contentType: "",
+            document: new Blob(),
+        },
+    };
+    chrome.printing.submitJob(submitJobRequest); // $ExpectType Promise<SubmitJobResponse>
+    chrome.printing.submitJob(submitJobRequest, response => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printing.submitJob(submitJobRequest, response => {}).then(response => {});
+
+    chrome.printing.onJobStatusChanged.addListener((jobId, status) => {
+        jobId; // $ExpectType string
+        status; // $ExpectType JobStatus
+    });
+    chrome.printing.onJobStatusChanged.removeListener((jobId, status) => {
+        jobId; // $ExpectType string
+        status; // $ExpectType JobStatus
+    });
+    chrome.printing.onJobStatusChanged.hasListener((jobId, status) => {
+        jobId; // $ExpectType string
+        status; // $ExpectType JobStatus
+    });
+    chrome.printing.onJobStatusChanged.hasListeners();
+}
+
+function testPrintingMetrics() {
+    chrome.printingMetrics.ColorMode.BLACK_AND_WHITE === "BLACK_AND_WHITE";
+    chrome.printingMetrics.ColorMode.COLOR === "COLOR";
+
+    chrome.printingMetrics.DuplexMode.ONE_SIDED === "ONE_SIDED";
+    chrome.printingMetrics.DuplexMode.TWO_SIDED_LONG_EDGE === "TWO_SIDED_LONG_EDGE";
+    chrome.printingMetrics.DuplexMode.TWO_SIDED_SHORT_EDGE === "TWO_SIDED_SHORT_EDGE";
+
+    chrome.printingMetrics.PrintJobSource.ANDROID_APP === "ANDROID_APP";
+    chrome.printingMetrics.PrintJobSource.EXTENSION === "EXTENSION";
+    chrome.printingMetrics.PrintJobSource.ISOLATED_WEB_APP === "ISOLATED_WEB_APP";
+    chrome.printingMetrics.PrintJobSource.PRINT_PREVIEW === "PRINT_PREVIEW";
+
+    chrome.printingMetrics.PrintJobStatus.CANCELED === "CANCELED";
+    chrome.printingMetrics.PrintJobStatus.FAILED === "FAILED";
+    chrome.printingMetrics.PrintJobStatus.PRINTED === "PRINTED";
+
+    chrome.printingMetrics.PrinterSource.POLICY === "POLICY";
+    chrome.printingMetrics.PrinterSource.USER === "USER";
+
+    chrome.printingMetrics.getPrintJobs(); // $ExpectType Promise<PrintJobInfo[]>
+    chrome.printingMetrics.getPrintJobs(jobs => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.printingMetrics.getPrintJobs(jobs => {}).then(jobs => {});
+
+    chrome.printingMetrics.onPrintJobFinished.addListener((jobInfo) => {
+        jobInfo; // $ExpectType PrintJobInfo
+    });
+    chrome.printingMetrics.onPrintJobFinished.removeListener((jobInfo) => {
+        jobInfo; // $ExpectType PrintJobInfo
+    });
+    chrome.printingMetrics.onPrintJobFinished.hasListener((jobInfo) => {
+        jobInfo; // $ExpectType PrintJobInfo
+    });
+    chrome.printingMetrics.onPrintJobFinished.hasListeners();
 }

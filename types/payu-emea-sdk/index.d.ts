@@ -17,7 +17,33 @@ declare namespace payu {
         extractRefReqId(input: string): string;
     }
 
-    type lang = "pl" | "en" | "cs" | "sk";
+    type lang =
+        | "bg"
+        | "cs"
+        | "da"
+        | "de"
+        | "el"
+        | "en"
+        | "es"
+        | "et"
+        | "fi"
+        | "fr"
+        | "hr"
+        | "hu"
+        | "it"
+        | "lt"
+        | "lv"
+        | "nl"
+        | "pl"
+        | "pt"
+        | "ro"
+        | "ru"
+        | "sk"
+        | "sl"
+        | "sr"
+        | "sv"
+        | "tr"
+        | "uk";
 
     interface SecureFormsOptions {
         fonts?: FontOptions[] | undefined;

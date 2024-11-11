@@ -136,6 +136,8 @@ export interface ConnectOptions {
     };
     usingSecure?: boolean;
     keepAlive?: number;
+    retries?: number;
+    delay?: number;
 }
 
 export interface GetConnectionInfoResponse {
@@ -474,7 +476,7 @@ export interface Security {
         options?: SetCertificatePromiseOptions,
     ) => void;
     setSignatureAlgorithm: (algorithm: Algorithm) => void;
-    setSignaturePromise: (promiseFactory: PromiseFactory) => void;
+    setSignaturePromise: (promiseFactory: PromiseFactory | ((dataToSign: string) => Promise<string>)) => void;
 }
 
 export interface Serial {

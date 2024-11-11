@@ -58,10 +58,10 @@ declare namespace Turnstile {
     type Theme = "auto" | "light" | "dark";
 
     /**
-     * The size of the Turnstile widget.
-     * The default is "normal", which is the default widget look. This can be set to "compact" to make the widget less large. The "invisible" option is only for invisible mode.
+     * The widget size.
+     * Can take the following values: normal, compact.
      */
-    type WidgetSize = "normal" | "compact" | "invisible";
+    type WidgetSize = "normal" | "compact" | "flexible";
 
     /**
      * How to retry on widget failure.
@@ -86,6 +86,14 @@ declare namespace Turnstile {
      * The default is "auto". "never" will never refresh the widget, "manual" will prompt the user with a refresh button.
      */
     type RefreshTimeoutMode = "never" | "manual" | "auto";
+
+    /**
+     * The execution mode to controls when to obtain the widget token
+     * The default is "render". "render" will make the challenge runs automatically after calling the render() function, while
+     * "execute" will make the challenge runs after the render() function has been called, by invoking the turnstile.execute function separately.
+     * This detaches the appearance and rendering of a widget from its execution.
+     */
+    type ExecutionMode = "render" | "execute";
 
     /**
      * Parameters for the turnstile.render() method.
@@ -118,9 +126,10 @@ declare namespace Turnstile {
         "expired-callback"?: (token: string) => void;
 
         /**
-         * Optional. A JavaScript callback that is invoked when an error occurs with the widget.
+         * Optional. A JavaScript callback invoked when there is an error (e.g. network error or the challenge failed).
+         * Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/).
          */
-        "error-callback"?: VoidFunction | undefined;
+        "error-callback"?: ((error: string) => void) | undefined;
 
         /**
          * Optional. A JavaScript callback that is invoked when the Turnstile widget times out.
@@ -218,5 +227,12 @@ declare namespace Turnstile {
          * @default "auto"
          */
         "refresh-timeout"?: RefreshTimeoutMode | undefined;
+
+        /**
+         * Optional
+         * @see ExecutionMode
+         * @default "render"
+         */
+        execution?: ExecutionMode | undefined;
     }
 }

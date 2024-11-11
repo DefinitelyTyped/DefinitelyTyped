@@ -47,6 +47,8 @@ user.logOn({
     refreshToken: "123token",
 });
 
+user.logOn(true);
+
 user.requestValidationEmail().catch(err => console.error(err));
 
 user.enableTwoFactor()
@@ -99,8 +101,15 @@ user.getProductInfo([730], [420])
 user.getProductChanges(0)
     .then(response => {
         void response.currentChangeNumber;
+        void response.appChanges.length;
+        void response.packageChanges.length;
     })
     .catch(err => console.error(err));
+
+user.getProductChanges(0, (err, currentChangeNumber, appChanges, packageChanges) => {
+    void appChanges.length;
+    void packageChanges.length;
+});
 
 const owned = user.getOwnedApps();
 console.log(owned);
@@ -288,3 +297,15 @@ user.activateAuthSessionTickets(730, [{ foo: 42, bar: "foobar" }]);
 user.activateAuthSessionTickets(730, [Buffer.alloc(42), Buffer.alloc(43)]);
 // $ExpectType Promise<void>
 user.activateAuthSessionTickets(730, Buffer.alloc(44));
+// $ExpectType Promise<UserOwnedApps>
+user.getUserOwnedApps(new SteamID("76561197960287930"));
+
+user.on("appUpdate", (appid, data) => {
+    // $ExpectType AppInfo
+    data;
+});
+
+user.on("packageUpdate", (packageid, data) => {
+    // $ExpectType PackageInfo
+    data;
+});

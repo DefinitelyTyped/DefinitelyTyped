@@ -6,7 +6,7 @@
         "https://github.com/xojs/xo#readme"
     ],
     "dependencies": {
-        "@types/eslint": "*"
+        "@types/eslint": "8"
     },
     "devDependencies": {
         "@types/xo": "workspace:."

@@ -212,3 +212,11 @@ import * as url from "node:url";
     const urlSearchParams1: URLSearchParams = new url.URLSearchParams();
     const urlSearchParams2: url.URLSearchParams = new URLSearchParams();
 }
+
+{
+    const isValid = url.URL.canParse("/foo", "https://example.org/");
+    isValid; // $ExpectType boolean
+
+    const parsedUrl = url.URL.parse("/foo", "https://example.org/");
+    parsedUrl; // $ExpectType URL | null
+}

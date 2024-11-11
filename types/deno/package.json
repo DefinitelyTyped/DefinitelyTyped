@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/deno",
+    "version": "2.0.9999",
+    "type": "module",
+    "minimumTypeScriptVersion": "5.4",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Deno",
+    "projects": [
+        "https://deno.com"
+    ],
+    "devDependencies": {
+        "@types/deno": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Sherret",
+            "githubUsername": "dsherret"
+        },
+        {
+            "name": "Bartek Iwańczuk",
+            "githubUsername": "bartlomieju"
+        }
+    ]
+}

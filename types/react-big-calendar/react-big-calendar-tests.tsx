@@ -19,6 +19,7 @@ import {
     Navigate,
     NavigateAction,
     ResourceHeaderProps,
+    ShowMoreProps,
     stringOrDate,
     TimeGrid,
     ToolbarProps,
@@ -352,7 +353,8 @@ class CalendarResource {
                         today: "Today",
                         agenda: "Agenda",
                         noEventsInRange: "There are no events in this range.",
-                        showMore: total => `+${total} more`,
+                        showMore: (total, remainingEvents, events) =>
+                            `+${total} more. Remaining: ${remainingEvents[0].title}. Events: ${events.length}`,
                     }}
                     timeslots={24}
                     defaultView={"month"}
@@ -367,6 +369,7 @@ class CalendarResource {
                         eventWrapper: EventWrapper,
                         header: CustomHeader,
                         resourceHeader: ResourceHeader,
+                        showMore: ShowMoreButton,
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
@@ -529,6 +532,16 @@ function ResourceHeader(props: ResourceHeaderProps<CalendarResource>) {
             <strong>{props.resource.title}</strong>
             {props.resource.id}
         </span>
+    );
+}
+
+function ShowMoreButton(props: ShowMoreProps<CalendarEvent>) {
+    return (
+        <div>
+            <div>Show more</div>
+            <p>All events: {props.events.length}</p>
+            <p>Remaining: {props.remainingEvents.length}</p>
+        </div>
     );
 }
 

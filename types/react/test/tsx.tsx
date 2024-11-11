@@ -106,6 +106,7 @@ const ComponentWithChildren3: React.FunctionComponent<React.PropsWithChildren<Co
     defaultChecked
     defaultValue="some value"
     contentEditable
+    enterKeyHint="done"
     suppressContentEditableWarning
     suppressHydrationWarning
 >
@@ -419,6 +420,13 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 // unstable API should not be part of the typings
 // @ts-expect-error
 <React.Suspense fallback={null} unstable_avoidThisFallback />;
+
+<React.Suspense
+    fallback={null}
+    // @ts-expect-error -- Should use `name`
+    id="test"
+/>;
+<React.Suspense fallback={null} name="test" />;
 
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
@@ -772,6 +780,15 @@ function elementTypeTests() {
         }
     }
 
+    const ReturnPromiseReactNode = async ({ children }: { children?: React.ReactNode }) => children;
+    const FCPromiseReactNode: React.FC = ReturnReactNode;
+    class RenderPromiseReactNode extends React.Component<{ children?: React.ReactNode }> {
+        // @ts-expect-error class components cannot render async
+        async render() {
+            return this.props.children;
+        }
+    }
+
     const ReturnWithLegacyContext = (props: { foo: string }, context: { bar: number }) => {
         return (
             <div>
@@ -864,6 +881,13 @@ function elementTypeTests() {
     <RenderPromise />;
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(RenderPromise);
+
+    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
+    <ReturnPromiseReactNode />;
+    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
+    React.createElement(ReturnPromiseReactNode);
+    <FCPromiseReactNode />;
+    React.createElement(FCPromiseReactNode);
 
     <ReturnWithLegacyContext foo="one" />;
     React.createElement(ReturnWithLegacyContext, { foo: "one" });

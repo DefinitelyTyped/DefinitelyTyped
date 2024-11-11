@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-to-go",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kduprey/json-to-go/"
+    ],
+    "devDependencies": {
+        "@types/json-to-go": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "LemonNeko",
+            "githubUsername": "LemonNekoGH"
+        }
+    ]
+}

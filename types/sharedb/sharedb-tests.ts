@@ -63,6 +63,7 @@ const options: ShareDB.ShareDBOptions = {
     milestoneDb: new MyMilestoneDB(),
     suppressPublish: false,
     maxSubmitRetries: 3,
+    doNotCommitNoOps: true,
     errorHandler: (error, context) => {
         console.log(error, context.agent.custom);
     },
@@ -79,6 +80,11 @@ backend.on("someCustomEvent", (arg0: string, arg1: number) => {});
 // https://github.com/share/sharedb/blob/960f5d152f6a8051ed2dcb00a57681a3ebbd7dc2/README.md#getops
 backend.db.getOps("someCollection", "someId", null, null, {}, () => {});
 backend.db.getSnapshotBulk("someCollection", ["id1", "id2"], null, null, () => {});
+
+backend.milestoneDb.once("save", (collection, snapshot) => {
+    console.log(collection, snapshot.data);
+});
+backend.milestoneDb.on("error", (error) => console.error(error.message));
 
 console.log(backend.pubsub);
 console.log(backend.extraDbs);
@@ -151,6 +157,8 @@ backend.use("connect", (context, callback) => {
         context.backend,
         context.stream,
         context.req,
+        context.agent.protocol.major,
+        context.agent.protocol.minor,
     );
     callback();
 });
@@ -284,6 +292,8 @@ doc.fetch((err) => {
 });
 
 doc.create({ foo: true }, "http://sharejs.org/types/JSONv0");
+
+doc.ingestSnapshot(doc.toSnapshot());
 
 function startServer() {
     const server = http.createServer();
@@ -488,6 +498,9 @@ backend.getOpsBulk(
         ops.forEach(console.log);
     },
 );
+
+const defaultType = ShareDB.types.defaultType;
+defaultType.transformPresence({ foo: true }, [], true).foo;
 
 class SocketLike {
     readyState = 1;

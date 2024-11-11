@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/nw.js",
-    "version": "0.13.9999",
+    "version": "0.92.9999",
     "nonNpm": true,
     "nonNpmDescription": "nw.js",
     "projects": [
@@ -13,5 +13,14 @@
     "devDependencies": {
         "@types/nw.js": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Ayushman Chhabra",
+            "githubUsername": "AyushmanChhabra"
+        },
+        {
+            "name": "Zayin Krige",
+            "githubUsername": "zkrige"
+        }
+    ]
 }

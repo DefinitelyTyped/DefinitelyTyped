@@ -27,6 +27,7 @@ declare namespace TurndownService {
         strongDelimiter?: "__" | "**" | undefined;
         linkStyle?: "inlined" | "referenced" | undefined;
         linkReferenceStyle?: "full" | "collapsed" | "shortcut" | undefined;
+        preformattedCode?: boolean;
 
         keepReplacement?: ReplacementFunction | undefined;
         blankReplacement?: ReplacementFunction | undefined;

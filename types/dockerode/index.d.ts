@@ -973,6 +973,13 @@ declare namespace Dockerode {
         target?: string | undefined;
         outputs?: string | undefined;
         nocache?: boolean | undefined;
+
+        /**
+         * Version of the builder backend to use.
+         *  - `1` is the first generation classic (deprecated) builder in the Docker daemon (default)
+         *  - `2` is [BuildKit](https://github.com/moby/buildkit)
+         */
+        version?: "1" | "2" | undefined;
     }
 
     interface ImageDistributionOptions {

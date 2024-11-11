@@ -524,7 +524,8 @@ export class NodeProcessingContext {
             processRes = this.processFunctionDeclaration(node);
         } else if (
             isNamedModuleDeclaration(node)
-            && !(node.name.text.startsWith("node:") && node.name.text !== "node:test") // apparently everything is a module
+            && !(node.name.text.startsWith("node:") && node.name.text !== "node:test"
+                && node.name.text !== "node:sqlite") // apparently everything is a module
         ) {
             processRes = this.handleModuleDeclaration();
         } else if (isClassDeclaration(node)) {

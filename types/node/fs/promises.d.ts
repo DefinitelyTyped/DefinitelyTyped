@@ -20,6 +20,9 @@ declare module "fs/promises" {
         CopyOptions,
         Dir,
         Dirent,
+        GlobOptions,
+        GlobOptionsWithFileTypes,
+        GlobOptionsWithoutFileTypes,
         MakeDirectoryOptions,
         Mode,
         ObjectEncodingOptions,
@@ -235,6 +238,10 @@ declare module "fs/promises" {
             length?: number | null,
             position?: number | null,
         ): Promise<FileReadResult<T>>;
+        read<T extends NodeJS.ArrayBufferView = Buffer>(
+            buffer: T,
+            options?: FileReadOptions<T>,
+        ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
          * Returns a `ReadableStream` that may be used to read the files data.
@@ -422,6 +429,13 @@ declare module "fs/promises" {
             offset?: number | null,
             length?: number | null,
             position?: number | null,
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        write<TBuffer extends Uint8Array>(
+            buffer: TBuffer,
+            options?: { offset?: number; length?: number; position?: number },
         ): Promise<{
             bytesWritten: number;
             buffer: TBuffer;
@@ -929,7 +943,7 @@ declare module "fs/promises" {
      * The `fsPromises.mkdtemp()` method will append the six randomly selected
      * characters directly to the `prefix` string. For instance, given a directory `/tmp`, if the intention is to create a temporary directory _within_ `/tmp`, the `prefix` must end with a trailing
      * platform-specific path separator
-     * (`require('node:path').sep`).
+     * (`import { sep } from 'node:path'`).
      * @since v10.0.0
      * @return Fulfills with a string containing the file system path of the newly created temporary directory.
      */
@@ -1171,7 +1185,7 @@ declare module "fs/promises" {
      * Returns an async iterator that watches for changes on `filename`, where `filename`is either a file or a directory.
      *
      * ```js
-     * const { watch } = require('node:fs/promises');
+     * import { watch } from 'node:fs/promises';
      *
      * const ac = new AbortController();
      * const { signal } = ac;
@@ -1239,6 +1253,22 @@ declare module "fs/promises" {
      * @return Fulfills with `undefined` upon success.
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    function glob(pattern: string | string[]): NodeJS.AsyncIterator<string>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptionsWithFileTypes,
+    ): NodeJS.AsyncIterator<Dirent>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptionsWithoutFileTypes,
+    ): NodeJS.AsyncIterator<string>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptions,
+    ): NodeJS.AsyncIterator<Dirent | string>;
 }
 declare module "node:fs/promises" {
     export * from "fs/promises";

@@ -39,7 +39,7 @@ declare namespace OO.ui {
              * Additional padding on the container to scroll past. Object containing any of 'top',
              * 'bottom', 'left', or 'right' as numbers.
              */
-            padding?: Rectangle;
+            padding?: Partial<Rectangle>;
             /**
              * Scroll container. Defaults to {@link Static.getClosestScrollableContainer getClosestScrollableContainer}
              * of the element.

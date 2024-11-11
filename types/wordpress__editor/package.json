@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/wordpress__editor",
-    "version": "13.6.9999",
+    "version": "14.3.9999",
     "projects": [
         "https://github.com/WordPress/gutenberg/tree/master/packages/editor/README.md"
     ],
@@ -10,11 +10,11 @@
         "@types/react": "*",
         "@types/wordpress__block-editor": "*",
         "@types/wordpress__blocks": "*",
-        "@types/wordpress__media-utils": "*",
-        "@wordpress/core-data": "^6.0.0",
-        "@wordpress/components": "^27.2.0",
-        "@wordpress/data": "^9.0.0",
-        "@wordpress/element": "^5.0.0"
+        "@wordpress/core-data": "^7.3.0",
+        "@wordpress/components": "^28.3.0",
+        "@wordpress/data": "^10.3.0",
+        "@wordpress/element": "^6.3.0",
+        "@wordpress/media-utils": "^5.8.0"
     },
     "devDependencies": {
         "@types/wordpress__editor": "workspace:."

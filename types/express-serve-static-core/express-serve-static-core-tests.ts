@@ -323,3 +323,6 @@ app.get("/:readonly", req => {
     // @ts-expect-error
     req.xhr = true;
 });
+
+// Starting with Express 5 RequestHandler can be async
+app.get("/async", Promise.resolve);
