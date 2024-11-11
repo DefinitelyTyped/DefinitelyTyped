@@ -3017,14 +3017,14 @@ export interface Page {
      * for metrics that are measured and emitted for the page.
      * 
      * When a {@link MetricMessage} is received by the handler, it can be used to
-     * group seemingly disparate metrics tagged with url and name so that a
-     * correlation can be found.
+     * group different metrics tagged with URL and name so that a correlation can
+     * be found and to reduce the cardinality of the metrics.
      *
      * **Usage**
      *
      * ```js
      * // Listen for all metric messages in the page and call its tag method to
-     * // tag matching urls with the new tag name.
+     * // tag matching URLs with the new tag name.
      * page.on('metric', (metric) => {
      *   metric.tag({
      *     name: 'test',
