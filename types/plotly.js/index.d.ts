@@ -1529,6 +1529,11 @@ export interface PlotData {
     ncontours: number;
     uirevision: string | number;
     uid: string;
+    histnorm: "" | "percent" | "probability" | "density" | "probability density";
+    alignmentgroup: string;
+    offsetgroup: string;
+    nbinsx: number;
+    nbinsy: number;
 }
 
 /**
