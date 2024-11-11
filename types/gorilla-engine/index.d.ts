@@ -40,6 +40,7 @@
 /// <reference path = "components/TagEditor.d.ts" />
 /// <reference path = "components/XYPad.d.ts" />
 /// <reference path = "components/Rubberband.d.ts" />
+/// <reference path = "components/MappingEditor.d.ts" />
 
 declare namespace GorillaEngine {
     /**
@@ -595,6 +596,7 @@ declare namespace GorillaEngine {
          * @param x  the x position to place the settings button
          * @param y  the y position to place the settings button
          */
-        function setSettingsButtonPosition(x: number, y: number): void;
+        function setSettingsButtonPosition(x: number, y: number): void;  
+
     }
 }

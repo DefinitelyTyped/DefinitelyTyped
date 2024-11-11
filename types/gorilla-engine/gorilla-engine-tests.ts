@@ -1,3 +1,4 @@
+
 const mylabel = new GorillaEngine.UI.Label({ text: "rr" });
 
 const combo = new GorillaEngine.UI.ComboBox({ id: "myCombo", x: 0 });
@@ -12,4 +13,7 @@ const knob = new GorillaEngine.UI.Knob({ id: "myknob" });
 
 const label = new GorillaEngine.UI.Label({ margin: 5 });
 
-const slider = new GorillaEngine.UI.Slider({ id: "slider", x: 0 });
+const slider = new GorillaEngine.UI.Slider({ id: 'slider', x: 0 });
+
+const mappingEditor = new GorillaEngine.UI.MappingEditor({ id: 'mapping'})
+
