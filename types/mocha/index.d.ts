@@ -388,14 +388,14 @@ declare namespace Mocha {
 
     // #region Test interface augmentations
 
-    interface HookFunction<T = Context> {
+    interface HookFunction<T = void> {
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
          * function is used as the name of the hook.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func<T>): Hook;
+        (fn: Func): T;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
@@ -403,21 +403,21 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: AsyncFunc<T>): Hook;
+        (fn: AsyncFunc): T;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: Func<T>): Hook;
+        (name: string, fn?: Func): T;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: AsyncFunc<T>): Hook;
+        (name: string, fn?: AsyncFunc): T;
     }
 
     interface SuiteFunction {
@@ -2287,12 +2287,12 @@ declare namespace Mocha {
     /**
      * Callback function used for tests and hooks.
      */
-    type Func<T = Context> = (this: T, done: Done) => void;
+    type Func = (this: Context, done: Done) => void;
 
     /**
      * Async callback function used for tests and hooks.
      */
-    type AsyncFunc<T = Context> = (this: T) => PromiseLike<any>;
+    type AsyncFunc = (this: Context) => PromiseLike<any>;
 
     /**
      * Options to pass to Mocha.
