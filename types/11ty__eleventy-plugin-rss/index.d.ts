@@ -24,7 +24,7 @@ declare namespace pluginRss {
             author?: {
                 name: string;
                 email?: string | undefined;
-            };
+            } | undefined;
         }
 
         interface Options {
