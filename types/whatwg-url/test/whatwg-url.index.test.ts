@@ -16,6 +16,12 @@ new whatwgUrl.URL("http://example.com");
 // $ExpectType URL
 new whatwgUrl.URL("foo", "http://example.com");
 
+// $ExpectType boolean
+whatwgUrl.URL.canParse("http://example.com");
+
+// $ExpectType boolean
+whatwgUrl.URL.canParse("foo", "http://example.com");
+
 // $ExpectType URLRecord | null
 const urlRecord = whatwgUrl.parseURL("http://example.com");
 
@@ -119,6 +125,7 @@ searchParams.forEach(function(value, name, self) {
     self; // $ExpectType URLSearchParams
 }, null);
 
+searchParams.size; // $ExpectType number
 searchParams.keys(); // $ExpectType IterableIterator<string>
 searchParams.values(); // $ExpectType IterableIterator<string>
 searchParams.entries(); // $ExpectType IterableIterator<[name: string, value: string]>
