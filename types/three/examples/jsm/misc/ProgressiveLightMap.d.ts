@@ -24,29 +24,23 @@ export interface LightMapContainers {
     object: Object3D;
 }
 
-export class ProgressiveLightMap {
+declare class ProgressiveLightMap {
     renderer: WebGLRenderer;
     res: number;
     lightMapContainers: LightMapContainers[];
-    compiled: boolean;
     scene: Scene;
-    tinyTarget: WebGLRenderTarget;
     buffer1Active: boolean;
     firstUpdate: boolean;
     warned: boolean;
+    labelMesh: Mesh<PlaneGeometry, MeshBasicMaterial> | null;
+    blurringPlane: Mesh<PlaneGeometry, MeshBasicMaterial> | null;
 
     progressiveLightMap1: WebGLRenderTarget;
     progressiveLightMap2: WebGLRenderTarget;
 
     uvMat: MeshPhongMaterial;
 
-    uv_boxes: UVBoxes[];
-
-    blurringPlane: Mesh<PlaneGeometry, MeshBasicMaterial>;
-
-    labelMaterial: MeshBasicMaterial;
-    labelPlane: PlaneGeometry;
-    labelMesh: Mesh<PlaneGeometry, MeshBasicMaterial>;
+    uv_boxes?: UVBoxes[];
 
     constructor(renderer: WebGLRenderer, res?: number);
 
@@ -57,4 +51,8 @@ export class ProgressiveLightMap {
     showDebugLightmap(visible: boolean, position?: Vector3): void;
 
     private _initializeBlurPlane(res: number, lightMap?: Texture | null): void;
+
+    dispose(): void;
 }
+
+export { ProgressiveLightMap };

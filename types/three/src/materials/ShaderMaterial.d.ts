@@ -80,11 +80,6 @@ export class ShaderMaterial extends Material {
     readonly isShaderMaterial: true;
 
     /**
-     * @default 'ShaderMaterial'
-     */
-    type: string;
-
-    /**
      * @default {}
      */
     defines: { [key: string]: any };

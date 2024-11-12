@@ -40,11 +40,6 @@ export class MeshBasicMaterial extends Material {
     readonly isMeshBasicMaterial: true;
 
     /**
-     * @default 'MeshBasicMaterial'
-     */
-    type: string;
-
-    /**
      * @default new THREE.Color( 0xffffff )
      */
     color: Color;

@@ -1,3 +1,4 @@
+import { BufferAttribute } from "../../../core/BufferAttribute.js";
 import { Matrix4 } from "../../../math/Matrix4.js";
 import NodeBuilder from "../../../nodes/core/NodeBuilder.js";
 import NodeFrame from "../../../nodes/core/NodeFrame.js";
@@ -59,8 +60,21 @@ type RefreshUniform = (typeof refreshUniforms)[number];
 type MaterialData = {
     [K in RefreshUniform]?: unknown;
 };
+interface AttributesData {
+    [name: string]: {
+        version: number;
+    };
+}
 interface RenderObjectData {
     material: MaterialData;
+    geometry: {
+        attributes: AttributesData;
+        indexVersion: number | null;
+        drawRange: {
+            start: number;
+            count: number;
+        };
+    };
     worldMatrix: Matrix4;
     version?: number;
 }
@@ -73,6 +87,7 @@ declare class NodeMaterialObserver {
     constructor(builder: NodeBuilder);
     firstInitialization(renderObject: RenderObject): boolean;
     getRenderObjectData(renderObject: RenderObject): RenderObjectData;
+    getAttributesData(attributes: Record<string, BufferAttribute>): AttributesData;
     containsNode(builder: NodeBuilder): boolean;
     getMaterialData(material: Material): MaterialData;
     equals(renderObject: RenderObject): boolean;
