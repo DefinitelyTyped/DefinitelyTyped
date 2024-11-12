@@ -395,7 +395,7 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): Context;
+        (fn: Func<Hook>): Hook;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
@@ -403,21 +403,21 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: AsyncFunc): Context;
+        (fn: AsyncFunc<Hook>): Hook;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: Func): Context;
+        (name: string, fn?: Func<Hook>): Hook;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: AsyncFunc): Context;
+        (name: string, fn?: AsyncFunc<Hook>): Hook;
     }
 
     interface SuiteFunction {
@@ -2287,12 +2287,12 @@ declare namespace Mocha {
     /**
      * Callback function used for tests and hooks.
      */
-    type Func = (this: Context, done: Done) => void;
+    type Func<T = Context> = (this: T, done: Done) => void;
 
     /**
      * Async callback function used for tests and hooks.
      */
-    type AsyncFunc = (this: Context) => PromiseLike<any>;
+    type AsyncFunc<T = Context> = (this: T) => PromiseLike<any>;
 
     /**
      * Options to pass to Mocha.
