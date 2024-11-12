@@ -8,22 +8,22 @@ declare namespace pluginRss {
             /**
              * Collection entries to iterate over to populate your feed.
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Number of entries to include (`0` means no limit).
              */
-            limit?: number;
+            limit?: number | undefined;
         }
 
         interface Metadata {
-            language?: string;
-            title?: string;
-            subtitle?: string;
-            base?: string;
+            language?: string | undefined;
+            title?: string | undefined;
+            subtitle?: string | undefined;
+            base?: string | undefined;
             author?: {
                 name: string;
-                email?: string;
+                email?: string | undefined;
             };
         }
 
@@ -31,36 +31,36 @@ declare namespace pluginRss {
             /**
              * @default 'atom'
              */
-            type?: "atom" | "rss" | "json";
+            type?: "atom" | "rss" | "json" | undefined;
 
             /**
              * Where to write the template in the output directory.
              *
              * @default 'feed.xml'
              */
-            outputPath?: string;
+            outputPath?: string | undefined;
 
             /**
              * Change where the virtual template pretends to live on the file system (e.g. if you want project directory data files to apply via the [Data Cascade](https://www.11ty.dev/docs/data-cascade/)).
              */
-            inputPath?: string;
+            inputPath?: string | undefined;
 
-            collection: Collection;
+            collection: Collection | undefined;
 
             /**
              * Content used to populate the feed boilerplate.
              */
-            metadata?: Metadata;
+            metadata?: Metadata | undefined;
 
             /**
              * URL to an XSL stylesheet to change how the feed is rendered in the browser (only for Atom and RSS feeds).
              */
-            stylesheet?: string;
+            stylesheet?: string | undefined;
 
             /**
              * Additional data to apply to the template (e.g. to add your feed to the [Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)).
              */
-            templateData?: Record<string, unknown>;
+            templateData?: Record<string, unknown> | undefined;
         }
     }
 
@@ -103,7 +103,7 @@ declare namespace pluginRss {
     function htmlToAbsoluteUrls(this: EleventyScope): string;
 
     interface Options {
-        posthtmlRenderOptions?: PostHtmlRenderOptions;
+        posthtmlRenderOptions?: PostHtmlRenderOptions | undefined;
     }
 }
 
