@@ -64,6 +64,10 @@ declare namespace pluginRss {
         }
     }
 
+    /**
+     * This method creates a feed template directly from your plugin configuration, without requiring additional files in your project. Read more about
+     * [Virtual Templates](https://www.11ty.dev/docs/virtual-templates/).
+     */
     function feedPlugin(config: EleventyConfig, options: feedPlugin.Options): void;
 
     /**
