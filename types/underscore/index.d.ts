@@ -3498,6 +3498,16 @@ declare namespace _ {
          */
         compose(...functions: Function[]): Function;
 
+        /**
+         * Returns a version of the function that, when called, receives all arguments from and beyond startIndex
+         * collected into a single array. If you don’t pass an explicit startIndex, it will be determined by looking
+         * at the number of arguments to the function itself. Similar to ES6’s rest parameters syntax.
+         * @param func The function to wrap.
+         * @param startIndex Where to start extracting parameters from.
+         * @return (...args: any[]) => any
+         */
+        restArguments(func: Function, startIndex?: number): (...args: any[]) => any;
+
         /***********
          * Objects *
          ***********/
@@ -4923,6 +4933,12 @@ declare namespace _ {
          */
         compose(...functions: Function[]): Function;
 
+        /**
+         * Wrapped type `(...args: any[]) => any`.
+         * @see _.restArguments
+         */
+        restArguments(func: Function, startIndex?: number): (...args: any[]) => any;
+
         /***********
          * Objects *
          ***********/
@@ -6217,6 +6233,12 @@ declare namespace _ {
          * @see _.compose
          */
         compose(...functions: Function[]): _Chain<T>;
+
+        /**
+         * Wrapped type `(...args: any[]) => any`.
+         * @see _.restArguments
+         */
+        restArguments(func: Function, startIndex?: number): _Chain<(...args: any[]) => any>;
 
         /***********
          * Objects *
