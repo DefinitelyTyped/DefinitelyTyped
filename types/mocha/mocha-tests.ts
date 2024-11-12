@@ -490,12 +490,12 @@ function test_bdd_qunit_before() {
     before(function(done) {
         // $ExpectType Done
         done;
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
     before(async function() {
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
@@ -506,12 +506,12 @@ function test_bdd_qunit_before() {
     before("description", function(done) {
         // $ExpectType Done
         done;
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
     before("description", async function() {
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 }
@@ -546,12 +546,12 @@ function test_bdd_qunit_after() {
     after(function(done) {
         // $ExpectType Done
         done;
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
     after(async function() {
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
@@ -562,12 +562,12 @@ function test_bdd_qunit_after() {
     after("description", function(done) {
         // $ExpectType Done
         done;
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
     after("description", async function() {
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 }
@@ -602,12 +602,12 @@ function test_bdd_qunit_beforeEach() {
     beforeEach(function(done) {
         // $ExpectType Done
         done;
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
     beforeEach(async function() {
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
@@ -618,12 +618,12 @@ function test_bdd_qunit_beforeEach() {
     beforeEach("description", function(done) {
         // $ExpectType Done
         done;
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
     beforeEach("description", async function() {
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 }
@@ -658,12 +658,12 @@ function test_bdd_qunit_afterEach() {
     afterEach(function(done) {
         // $ExpectType Done
         done;
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
     afterEach(async function() {
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
@@ -674,12 +674,12 @@ function test_bdd_qunit_afterEach() {
     afterEach("description", function(done) {
         // $ExpectType Done
         done;
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 
     afterEach("description", async function() {
-        // $ExpectType Context
+        // $ExpectType Hook
         this;
     });
 }

@@ -388,14 +388,14 @@ declare namespace Mocha {
 
     // #region Test interface augmentations
 
-    interface HookFunction {
+    interface HookFunction<T = Context> {
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
          * function is used as the name of the hook.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func<Hook>): Hook;
+        (fn: Func<T>): Hook;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
@@ -403,21 +403,21 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: AsyncFunc<Hook>): Hook;
+        (fn: AsyncFunc<T>): Hook;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: Func<Hook>): Hook;
+        (name: string, fn?: Func<T>): Hook;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: AsyncFunc<Hook>): Hook;
+        (name: string, fn?: AsyncFunc<T>): Hook;
     }
 
     interface SuiteFunction {
@@ -617,7 +617,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/global.html#afterEach
      */
-    let afterEach: HookFunction;
+    let afterEach: HookFunction<Hook>;
 
     /**
      * Execute after running tests.
@@ -626,7 +626,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/global.html#after
      */
-    let after: HookFunction;
+    let after: HookFunction<Hook>;
 
     /**
      * Execute before each test case.
@@ -635,7 +635,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/global.html#beforeEach
      */
-    let beforeEach: HookFunction;
+    let beforeEach: HookFunction<Hook>;
 
     /**
      * Execute before running tests.
@@ -644,7 +644,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/global.html#before
      */
-    let before: HookFunction;
+    let before: HookFunction<Hook>;
 
     /**
      * Describe a "suite" containing nested suites and tests.
@@ -2612,7 +2612,7 @@ declare function run(): void;
  *
  * @see https://mochajs.org/api/global.html#before
  */
-declare var before: Mocha.HookFunction;
+declare var before: Mocha.HookFunction<Mocha.Hook>;
 
 /**
  * Execute before running tests.
@@ -2630,7 +2630,7 @@ declare var suiteSetup: Mocha.HookFunction;
  *
  * @see https://mochajs.org/api/global.html#after
  */
-declare var after: Mocha.HookFunction;
+declare var after: Mocha.HookFunction<Mocha.Hook>;
 
 /**
  * Execute after running tests.
@@ -2648,7 +2648,7 @@ declare var suiteTeardown: Mocha.HookFunction;
  *
  * @see https://mochajs.org/api/global.html#beforeEach
  */
-declare var beforeEach: Mocha.HookFunction;
+declare var beforeEach: Mocha.HookFunction<Mocha.Hook>;
 
 /**
  * Execute before each test case.
@@ -2666,7 +2666,7 @@ declare var setup: Mocha.HookFunction;
  *
  * @see https://mochajs.org/api/global.html#afterEach
  */
-declare var afterEach: Mocha.HookFunction;
+declare var afterEach: Mocha.HookFunction<Mocha.Hook>;
 
 /**
  * Execute after each test case.
