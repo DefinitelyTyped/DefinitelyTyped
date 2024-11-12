@@ -15,7 +15,6 @@ interface BidderConfig {
 type NoParamFunction = () => void;
 type ParamFunction = (arg: any) => void;
 
-
 interface SocialVendorConsents {
     vendors: {
         tiktok: boolean;
@@ -28,7 +27,6 @@ interface SocialVendorConsents {
     };
 }
 
-
 const ndOne: OneLine.OneLine = {
     event: {
         o: {},
@@ -38,7 +36,7 @@ const ndOne: OneLine.OneLine = {
             isEmpty: "isEmpty",
             isNotEmpty: "isNotEmpty",
             ageGateReady: "ageGateReady",
-            socialVendorsReady: "socialVendorsReady"
+            socialVendorsReady: "socialVendorsReady",
         },
         cons: {
             OneTime: "OneTime",
