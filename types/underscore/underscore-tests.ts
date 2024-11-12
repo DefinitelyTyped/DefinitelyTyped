@@ -2978,6 +2978,15 @@ _.defer(() => alert("deferred")); // $ExpectType void
     welcome("moe"); // $ExpectType any
 }
 
+// restArguments
+
+// Used to retrieve all parameters of a function when called, except for the first parameter, and return them as an array.
+{
+    const startIndex = 0;
+    const concat = _.restArguments((...str: string[], startIndex) => str.join(' '));
+    concat('Hello', 'World', '!');
+}
+
 /***********
  * Objects *
  ***********/

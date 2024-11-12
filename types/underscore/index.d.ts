@@ -3498,6 +3498,14 @@ declare namespace _ {
          */
         compose(...functions: Function[]): Function;
 
+        /**
+         * Used to retrieve all parameters of a function when called, except for the first parameter, and return them as an array.
+         * @param func The function to wrap.
+         * @param startIndex Where to start extracting parameters from.
+         * @return (...args: any[]) => any
+         */
+        restArguments(func:Function, startIndex:number): (...args: any[]) => any;
+
         /***********
          * Objects *
          ***********/
@@ -4923,6 +4931,12 @@ declare namespace _ {
          */
         compose(...functions: Function[]): Function;
 
+        /**
+         * Wrapped type `(...args: any[]) => any`.
+         * @see _.restArguments
+         */
+        restArguments(startIndex:number): (...args: any[]) => any;
+
         /***********
          * Objects *
          ***********/
@@ -6217,6 +6231,12 @@ declare namespace _ {
          * @see _.compose
          */
         compose(...functions: Function[]): _Chain<T>;
+
+        /**
+         * Wrapped type `(...args: any[]) => any`.
+         * @see _.restArguments
+         */
+        restArguments(startIndex:number): _Chain<T>;
 
         /***********
          * Objects *
