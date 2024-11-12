@@ -20,6 +20,9 @@ export interface Validation extends Vue {
     readonly $pending: boolean;
     readonly $params: { [attr: string]: any };
 
+    readonly required?: boolean;
+    readonly minLength?: boolean;
+
     // const validationMethods
     $touch(): void;
     $reset(): void;

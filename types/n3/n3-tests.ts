@@ -567,3 +567,6 @@ function test_reasoner() {
     new N3.Reasoner(store).reason(new N3.Store());
     new N3.Reasoner(store).reason(new N3.Store<RDF.BaseQuad>());
 }
+
+export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
+export const df: RDF.DataFactory = N3.DataFactory;

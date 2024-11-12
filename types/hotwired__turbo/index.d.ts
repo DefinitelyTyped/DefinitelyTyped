@@ -40,13 +40,31 @@ export class StreamElement extends HTMLElement {
     readonly requestId: string;
 }
 
-export class FetchRequest {}
+export class FetchRequest {
+    body: FormData | URLSearchParams;
+    enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
+    fetchOptions: RequestInit;
+    headers: Headers | { [k: string]: any };
+    method: "get" | "post" | "put" | "patch" | "delete";
+    params: URLSearchParams;
+    target: HTMLFormElement | HTMLAnchorElement | FrameElement | null;
+    url: URL;
+}
+
 export class FetchResponse {
+    clientError: boolean;
+    contentType: string;
+    failed: boolean;
     header(key: string): string | undefined;
-    statusCode: number;
-    responseText: Promise<string>;
+    isHTML: boolean;
     location: URL;
+    redirected: boolean;
+    responseHTML: Promise<string>;
+    responseText: Promise<string>;
     response: Response;
+    serverError: boolean;
+    statusCode: number;
+    succeeded: boolean;
 }
 
 /**
@@ -157,7 +175,16 @@ export type TurboBeforeStreamRenderEvent = CustomEvent<{
 }>;
 
 export interface FormSubmission {
+    action: string;
+    body: FormData | URLSearchParams;
+    enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
+    fetchRequest: FetchRequest;
+    formElement: HTMLFormElement;
+    isSafe: boolean;
+    location: URL;
+    method: "get" | "post" | "put" | "patch" | "delete";
     stop(): void;
+    submitter?: HTMLButtonElement | HTMLInputElement;
 }
 export type FormSubmissionResult =
     | { success: boolean; fetchResponse: FetchResponse }

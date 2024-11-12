@@ -57,6 +57,7 @@ declare namespace QueryString {
         interpretNumericEntities?: boolean | undefined;
         allowEmptyArrays?: boolean | undefined;
         duplicates?: "combine" | "first" | "last" | undefined;
+        strictDepth?: boolean | undefined;
     }
 
     type IParseDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true

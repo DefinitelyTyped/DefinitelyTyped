@@ -285,18 +285,6 @@ async function Misc() {
     // $ExpectType () => void
     ysdk.onEvent("EXIT", () => {});
 
-    // $ExpectType () => void
-    ysdk.on("game_api_pause", () => {});
-
-    // $ExpectType void
-    ysdk.off("game_api_pause", () => {});
-
-    // $ExpectType () => void
-    ysdk.on("game_api_resume", () => {});
-
-    // $ExpectType void
-    ysdk.off("game_api_resume", () => {});
-
     // $ExpectType string
     ysdk.deviceInfo.type;
 
@@ -311,6 +299,21 @@ async function Misc() {
 
     // $ExpectType boolean
     ysdk.deviceInfo.isTV();
+
+    // $ExpectType void
+    ysdk.features.LoadingAPI.ready();
+
+    // $ExpectType void
+    ysdk.features.GameplayAPI.start();
+
+    // $ExpectType void
+    ysdk.features.GameplayAPI.stop();
+
+    // $ExpectType Promise<{ games: Game[]; developerURL: string; }>
+    ysdk.features.GamesAPI.getAllGames();
+
+    // $ExpectType Promise<{ game?: Game | undefined; isAvailable: boolean; }>
+    ysdk.features.GamesAPI.getGameByID(100000);
 
     // $ExpectType Promise<{ value: boolean; reason?: FeedbackError | undefined; }>
     ysdk.feedback.canReview();

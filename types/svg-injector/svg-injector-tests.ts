@@ -1,22 +1,28 @@
 import svgInjector = require("svg-injector");
 
-var SVGInjector: svgInjector.SVGInjector;
+declare const SVGInjector: svgInjector.SVGInjector;
 
 // Simple example
-var mySVGsToInject = document.querySelectorAll("img.inject-me");
+const mySVGsToInject = document.querySelectorAll("img.inject-me");
+// $ExpectType void
 SVGInjector(mySVGsToInject);
 
 // Single DOM element
+// $ExpectType void
 SVGInjector(document.querySelector(".inject-me"));
 
 // Configuration
 SVGInjector(mySVGsToInject, {
     evalScripts: "always",
     pngFallback: "./path/to/images/",
-    each: eachCallback,
+    each: function(element) {
+        // $ExpectType SVGElement | string
+        element;
+    },
 });
-function eachCallback(element: SVGElement) {}
 
 // Callback
-SVGInjector(mySVGsToInject, null, callback);
-function callback(count: number) {}
+SVGInjector(mySVGsToInject, null, function(count) {
+    // $ExpectType number
+    count;
+});

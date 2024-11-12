@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/airbnb/node-memwatch#readme"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/airbnb__node-memwatch": "workspace:."
     },

@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.128.0
+// For Library Version: 1.130.0
 
 declare module "sap/base/assert" {
   /**
@@ -6173,13 +6173,15 @@ declare module "sap/ui/performance/trace/Interaction" {
      * Enables the interaction tracking.
      *
      * @since 1.76
+     *
+     * @returns Resolves when FESR is active
      */
     setActive(
       /**
        * State of the interaction detection
        */
       bActive: boolean
-    ): void;
+    ): Promise<any>;
   }
   const Interaction: Interaction;
   export default Interaction;
@@ -13823,6 +13825,24 @@ declare module "sap/ui/core/library" {
      * @returns true if the `Form` is not allowed to adjust the width of the control to use the cell's width
      */
     getFormDoNotAdjustWidth?(): boolean;
+  }
+
+  /**
+   * Defines a control, which can specify if it can be bound to a label
+   *
+   * @since 1.121.0
+   */
+  export interface ILabelable {
+    __implements__sap_ui_core_ILabelable: boolean;
+
+    /**
+     * Returns if the control can be bound to a label
+     *
+     * @since 1.121.0
+     *
+     * @returns `true` if the control can be bound to a label
+     */
+    hasLabelableHTMLElement(): boolean;
   }
 
   /**
@@ -26595,7 +26615,8 @@ declare module "sap/ui/core/format/NumberFormat" {
          */
         maxIntegerDigits?: int;
         /**
-         * defines the minimal number of decimal digits
+         * Deprecated as of 1.130; this format option does not have an effect on currency formats since decimals
+         * can always be determined, either through the given format options, custom currencies or the CLDR
          */
         minFractionDigits?: int;
         /**
@@ -31124,7 +31145,7 @@ declare module "sap/ui/core/Locale" {
 declare module "sap/ui/core/LocaleData" {
   import BaseObject from "sap/ui/base/Object";
 
-  import CalendarType from "sap/ui/core/CalendarType";
+  import CalendarType from "sap/base/i18n/date/CalendarType";
 
   import Locale from "sap/ui/core/Locale";
 
@@ -31194,21 +31215,23 @@ declare module "sap/ui/core/LocaleData" {
      */
     firstDayStartsFirstWeek(): boolean;
     /**
-     * Returns the pattern for representing the calendar week number in the given style.
+     * Returns the pattern for representing the calendar week number in the given style. If `iWeekNumber` is
+     * given, the week number placeholder will be replaced by it.
      *
      * @since 1.32.0
      *
-     * @returns the week number string
+     * @returns The calendar week with the week number placeholder or the week number e.g. "Calendar Week {0}"
+     * or "CW 01"
      */
     getCalendarWeek(
       /**
-       * the style of the pattern
+       * The style of the pattern
        */
       sStyle: "narrow" | "wide",
       /**
-       * the week number
+       * The week number, e.g. "01" or "42"
        */
-      iWeekNumber: int
+      sWeekNumber?: string
     ): string;
     /**
      * Get combined datetime pattern with given date and time style. The combined datetime pattern is the datetime
@@ -31231,7 +31254,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Get combined interval pattern using a given pattern and the fallback interval pattern.
@@ -31252,7 +31275,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Returns the currency code which is corresponded with the given currency symbol.
@@ -31366,7 +31389,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Get interval pattern for a given skeleton format.
@@ -31399,7 +31422,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string | string[];
     /**
      * Get date pattern in the given style.
@@ -31416,7 +31439,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Get datetime pattern in the given style.
@@ -31433,7 +31456,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Get day periods in the given width.
@@ -31450,7 +31473,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get standalone day periods in the given width.
@@ -31467,7 +31490,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get day names in the given width.
@@ -31484,7 +31507,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get standalone day names in the given width.
@@ -31501,7 +31524,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Returns the short decimal format (like 1K, 1M....) of the given number in the given style and plural
@@ -31569,9 +31592,11 @@ declare module "sap/ui/core/LocaleData" {
      */
     getEraDates(
       /**
-       * the type of calendar
+       * The type of calendar; defaults to the calendar type either set via the "calendar-type" formatting configuration
+       * option, see {@link https://ui5.sap.com/#/topic/91f2d03b6f4d1014b6dd926db0e91070 Configuration Options and URL Parameters},
+       * or determined from the current locale
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): object[];
     /**
      * Returns array of eras in the given width.
@@ -31589,7 +31614,7 @@ declare module "sap/ui/core/LocaleData" {
        * The type of calendar; defaults to the calendar type either set in configuration or calculated from the
        * locale
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Returns the day that usually is regarded as the first day of a week in the current locale.
@@ -31623,7 +31648,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Gets the locale-specific language name for the given language tag.
@@ -31706,7 +31731,7 @@ declare module "sap/ui/core/LocaleData" {
        * The type of calendar; defaults to the calendar type either set in configuration or calculated from the
        * locale
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get standalone month names in the given width.
@@ -31723,7 +31748,7 @@ declare module "sap/ui/core/LocaleData" {
        * The type of calendar; defaults to the calendar type either set in configuration or calculated from the
        * locale
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get number symbol for the given type.
@@ -31784,13 +31809,13 @@ declare module "sap/ui/core/LocaleData" {
       vNumber: string | number
     ): string;
     /**
-     * Returns the preferred calendar type for the current locale which exists in {@link sap.ui.core.CalendarType}
+     * Returns the preferred calendar type for the current locale which exists in {@link module:sap/base/i18n/date/CalendarType}
      *
      * @since 1.28.6
      *
      * @returns the preferred calendar type
      */
-    getPreferredCalendarType(): CalendarType;
+    getPreferredCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
      * Returns the preferred hour pattern symbol ("h" for 12, "H" for 24 hours) for the current locale.
      *
@@ -31814,7 +31839,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Get standalone quarter names in the given width.
@@ -31831,7 +31856,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string[];
     /**
      * Returns the relative day resource pattern (like "Today", "Yesterday", "{0} days ago") based on the given
@@ -32080,7 +32105,7 @@ declare module "sap/ui/core/LocaleData" {
        * the type of calendar. If it's not set, it falls back to the calendar type either set in configuration
        * or calculated from locale.
        */
-      sCalendarType?: CalendarType
+      sCalendarType?: CalendarType | keyof typeof CalendarType
     ): string;
     /**
      * Retrieves the localized display name of a unit by sUnit, e.g. "duration-hour".
@@ -55127,10 +55152,10 @@ declare module "sap/ui/model/CompositeDataState" {
     getModelMessages(): Message[];
     /**
      * Returns whether the data state is dirty in the UI control. A data state is dirty in the UI control if
-     * the entered value did not yet pass the type validation.
+     * an entered value did not pass the type validation.
      *
      *
-     * @returns Whether the control data state is dirty
+     * @returns Whether this data state or at least one of the aggregated data states is dirty in the UI control
      */
     isControlDirty(): boolean;
     /**
@@ -55342,7 +55367,7 @@ declare module "sap/ui/model/Context" {
    *
    * For more information on the concept of data binding and binding contexts, see {@link https://ui5.sap.com/#/topic/e2e6f4127fe4450ab3cf1339c42ee832 documentation on binding syntax}.
    */
-  export default abstract class Context extends BaseObject {
+  export default class Context extends BaseObject {
     /**
      * Constructor for Context class. The constructor must only be called by model-internal methods.
      */
@@ -55685,10 +55710,11 @@ declare module "sap/ui/model/DataState" {
     getValue(): any;
     /**
      * Returns whether the data state is dirty in the UI control. A data state is dirty in the UI control if
-     * the entered value did not yet pass the type validation.
+     * an entered value did not pass the type validation. If the data state is used by a composite data state,
+     * it is also checked whether the composite data state is dirty in the UI control.
      *
      *
-     * @returns Whether the data state is dirty
+     * @returns Whether the data state is dirty in the UI control
      */
     isControlDirty(): boolean;
     /**
@@ -59957,6 +59983,26 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
      */
     static getMetadata(): Metadata;
     /**
+     * Gets the metadata context for the given function import and parameter name. The result can be used with
+     * {@link sap.ui.model.ODataMetaModel#getODataValueLists} to request the metadata for the value lists for
+     * that function import parameter.
+     *
+     * @since 1.129.0
+     *
+     * @returns The metadata context referencing the given function import parameter
+     */
+    getFunctionImportParameterContext(
+      /**
+       * The function import name, either unqualified or qualified, e.g. "Save" or "MyService.Entities/Save";
+       * if an unqualified name is used, the function import is searched for in the default entity container
+       */
+      sFunctionName: string,
+      /**
+       * The name of the function import parameter
+       */
+      sParameter: string
+    ): Context;
+    /**
      * Returns the OData meta model context corresponding to the given OData model path.
      *
      *
@@ -60154,11 +60200,11 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
       bAsPath?: boolean
     ): Property | string | undefined | null;
     /**
-     * Returns a `Promise` which is resolved with a map representing the `com.sap.vocabularies.Common.v1.ValueList`
-     * annotations of the given property or rejected with an error. The key in the map provided on successful
-     * resolution is the qualifier of the annotation or the empty string if no qualifier is defined. The value
-     * in the map is the JSON object for the annotation. The map is empty if the property has no `com.sap.vocabularies.Common.v1.ValueList`
-     * annotations.
+     * Returns a `Promise` which either resolves with a map representing the `com.sap.vocabularies.Common.v1.ValueList`
+     * annotations of the property or function import parameter referenced by the given metamodel context or
+     * rejects with an error. The key in the map provided on successful resolution is the qualifier of the annotation
+     * or the empty string if no qualifier is defined. The value in the map is the JSON object for the annotation.
+     * The map is empty if the property has no `com.sap.vocabularies.Common.v1.ValueList` annotations.
      *
      * @since 1.29.1
      *
@@ -60167,9 +60213,10 @@ declare module "sap/ui/model/odata/ODataMetaModel" {
      */
     getODataValueLists(
       /**
-       * A model context for a structural property of an entity type or a complex type, as returned by {@link #getMetaContext getMetaContext}
+       * A model context for a structural property of an entity type or a complex type, as returned by {@link #getMetaContext getMetaContext},
+       * or (since 1.129.0) a model context for a parameter of a function import, as returned by {@link #getFunctionImportParameterContext}
        */
-      oPropertyContext: Context
+      oPropertyOrParameterContext: Context
     ): Promise<Record<string, ValueListType>>;
     /**
      * Returns a promise which is fulfilled once the meta model data is loaded and can be used.
@@ -67542,30 +67589,6 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
     );
 
     /**
-     * Creates a new subclass of class sap.ui.model.odata.v2.ODataModel with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.model.Model.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ODataModel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Returns a metadata object for class sap.ui.model.odata.v2.ODataModel.
      *
      *
@@ -67573,50 +67596,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      */
     static getMetadata(): Metadata;
     /**
-     * Adds (a) new URL(s) whose content should be parsed as OData annotations, which are then merged into the
-     * annotations object which can be retrieved by calling the {@link #getServiceAnnotations}-method. If a
-     * `$metadata` URL is passed, the data will also be merged into the metadata object, which can be reached
-     * by calling the {@link #getServiceMetadata} method.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns The Promise to load the given URL(s), resolved if all URLs have been loaded, rejected if at
-     * least one fails to load. If this promise resolves it returns an object with the following properties:
-     * `annotations`: The annotation object `entitySets`: An array of EntitySet objects containing the newly
-     * merged EntitySets from a `$metadata` requests. The structure is the same as in the metadata object reached
-     * by the `getServiceMetadata()` method. For non-`$metadata` requests the array will be empty.
-     */
-    addAnnotationUrl(
-      /**
-       * Either one URL as string or an array of URL strings
-       */
-      vUrl: string | string[]
-    ): Promise<any>;
-    /**
-     * Adds new XML content to be parsed for OData annotations, which are then merged into the annotations object
-     * which can be retrieved by calling the {@link #getServiceAnnotations}-method.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns The Promise to parse the given XML-String, resolved if parsed without errors, rejected if errors
-     * occur
-     */
-    addAnnotationXML(
-      /**
-       * The string that should be parsed as annotation XML
-       */
-      sXMLContent: string,
-      /**
-       * Whether not to fire annotationsLoaded event on the annotationParser
-       */
-      bSuppressEvents?: boolean
-    ): Promise<any>;
-    /**
      * Returns a promise that resolves with an array containing information about the initially loaded annotations.
      *
      * **Important**: This covers the annotations that were given to the model constructor, not the ones that
-     * might have been added later on using the protected API method {@link #addAnnotationUrl}. In order to
-     * get information about those, the event `annotationsLoaded` can be used.
+     * might have been added later on using the API method {@link sap.ui.model.odata.ODataMetaModel#getODataValueLists}.
+     * In order to get information about those, the event `annotationsLoaded` can be used.
      *
      * @since 1.42
      *
@@ -69240,6 +69224,15 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * @returns Metadata object
      */
     getServiceMetadata(): Object | undefined;
+    /**
+     * Returns this model's base URI of the data service (as defined by the "serviceUrl" model parameter; see
+     * {@link #constructor}), without query options.
+     *
+     * @since 1.130.0
+     *
+     * @returns The service's base URI without query options
+     */
+    getServiceUrl(): string;
     /**
      * Checks if there exist pending changes in the model.
      *
@@ -71112,6 +71105,8 @@ declare module "sap/ui/model/odata/v4/Context" {
 
   import ODataListBinding from "sap/ui/model/odata/v4/ODataListBinding";
 
+  import Filter from "sap/ui/model/Filter";
+
   import Metadata from "sap/ui/base/Metadata";
 
   import {
@@ -71220,8 +71215,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * {@link #hasPendingChanges}, {@link #resetChanges}, or {@link #isSelected} (returns `false` since 1.114.0).
      *
      * Since 1.105 such a pending deletion is a pending change. It causes `hasPendingChanges` to return `true`
-     * for the context, the binding containing it, and the model. The `resetChanges` method called on the context
-     * (since 1.109.0), the binding, or the model cancels the deletion and restores the context.
+     * for the context, the binding containing it, and the model. The `resetChanges` method called on the context,
+     * the binding, or the model cancels the deletion and restores the context.
      *
      * If the DELETE request succeeds, the context is destroyed and must not be used anymore. If it fails or
      * is canceled, the context is restored, reinserted into the list, and fully functional again.
@@ -71298,6 +71293,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      * 	#isExpanded
      *
      * @since 1.77.0
+     *
+     * @returns A promise which is resolved without a defined result when the expand is successful, or rejected
+     * in case of an error
      */
     expand(
       /**
@@ -71306,7 +71304,7 @@ declare module "sap/ui/model/odata/v4/Context" {
        * is not changed.
        */
       iLevels?: number
-    ): void;
+    ): Promise<void>;
     /**
      * Returns the binding this context belongs to.
      *
@@ -71329,6 +71327,17 @@ declare module "sap/ui/model/odata/v4/Context" {
      * @returns The canonical path (e.g. "/SalesOrderList('0500000000')")
      */
     getCanonicalPath(): string;
+    /**
+     * Returns a filter object corresponding to this context. For an ordinary row context of a list binding,
+     * the filter matches exactly the entity's key properties. For a subtotal row (see {@link sap.ui.model.odata.v4.ODataListBinding.setAggregation}),
+     * the filter matches exactly the groupable properties corresponding to this context. For a grand total,
+     * `null` is returned.
+     *
+     * @since 1.130.0
+     *
+     * @returns A filter object corresponding to this context
+     */
+    getFilter(): Filter | null;
     /**
      * Returns the group ID of the context's binding that is used for read requests. See {@link sap.ui.model.odata.v4.ODataListBinding#getGroupId }
      * and {@link sap.ui.model.odata.v4.ODataContextBinding#getGroupId}.
@@ -71500,13 +71509,14 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isKeepAlive(): boolean;
     /**
-     * Tells whether this context is currently selected, but not {@link #delete deleted} on the client. Since
-     * 1.122.0 the selection state can also be accessed via instance annotation "@$ui5.context.isSelected" at
-     * the entity. Note that the annotation does not take the deletion state into account.
+     * Tells whether this context is currently selected, but not {@link #delete deleted} on the client. Selection
+     * was experimental as of version 1.111.0. Since 1.122.0, the selection state can also be accessed via instance
+     * annotation "@$ui5.context.isSelected" at the entity. Note that the annotation does not take the deletion
+     * state into account.
      * See:
      * 	#setSelected
      *
-     * @experimental (since 1.111.0)
+     * @since 1.130.0
      *
      * @returns Whether this context is currently selected
      */
@@ -71907,8 +71917,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Sets whether this context is currently selected. If the selection state changes, a {@link sap.ui.model.odata.v4.ODataListBinding#event:selectionChanged 'selectionChanged' }
      * event is fired on the list binding which this context belongs to. While a context is currently {@link #delete deleted }
      * on the client, it does not appear as {@link #isSelected selected}. If the preconditions of {@link #setKeepAlive }
-     * hold, a best effort is made to implicitly keep a selected context alive in order to preserve the selection
-     * state. Once the selection is no longer needed, for example because you perform an operation on this context
+     * hold, a best effort is made to implicitly keep a (de-)selected context alive in order to preserve the
+     * selection state of every exception to the "select all" state defined by the list binding's {@link sap.ui.model.odata.v4.ODataListBinding#getHeaderContext header context}.
+     * Once the selection is no longer needed, for example because you perform an operation on this context
      * which logically removes it from its list, you need to reset the selection.
      *
      * If this context is a header context of a list binding, the new selection state is propagated to all row
@@ -71919,11 +71930,13 @@ declare module "sap/ui/model/odata/v4/Context" {
      * of any row context changes in this way, then a {@link sap.ui.model.odata.v4.ODataListBinding#event:selectionChanged 'selectionChanged' }
      * event is nevertheless fired for this header context, but not for the row context.
      *
+     * Selection was experimental as of version 1.111.0.
+     *
      * **Note:** It is unsafe to keep a reference to a context instance which is not {@link #isKeepAlive kept alive}.
      * See:
      * 	#isSelected
      *
-     * @experimental (since 1.111.0)
+     * @since 1.130.0
      */
     setSelected(
       /**
@@ -72853,11 +72866,11 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * creation or {@link sap.ui.model.odata.v4.Context#move move} must be pending, and no other modification
      * (including collapse of some ancestor node) must happen while this creation is pending!
      *
-     * When using the `createInPlace` parameter (see {@link #setAggregation}, @experimental as of version 1.125.0),
-     * the new {@link sap.ui.model.odata.v4.Context#isTransient transient} child is hidden until its {@link sap.ui.model.odata.v4.Context#created created promise }
-     * resolves, and then it is shown at a position determined by the back end and the current sort order. Note
-     * that the returned context is not always part of this list binding's collection and can only be used for
-     * the following scenarios:
+     * When using the `createInPlace` parameter (see {@link #setAggregation}, since 1.130.0), the new {@link sap.ui.model.odata.v4.Context#isTransient transient }
+     * child is hidden until its {@link sap.ui.model.odata.v4.Context#created created promise} resolves, and
+     * then it is shown at a position determined by the back end and the current sort order. Note that the returned
+     * context is not always part of this list binding's collection and can only be used for the following scenarios:
+     *
      * 	 The position of the new child can be retrieved by using its {@link sap.ui.model.odata.v4.Context#getIndex index}.
      * If the created child does not become part of the hierarchy due to the search or filter criteria, the
      * context will be {@link sap.ui.model.odata.v4.Context#destroy destroyed} and its {@link sap.ui.model.odata.v4.Context#getIndex index }
@@ -73085,7 +73098,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * @since 1.37.0
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns The array of already created contexts with the first entry containing the context for `iStart`
+     * @returns The array of already created contexts with the first entry containing the context for `iStart`.
+     * Since 1.130.0, the array has an additional property `bExpectMore`, which is `true` if the response is
+     * not complete, a {@link #event:change 'change'} event will follow, and a busy indicator should be switched
+     * on.
      */
     getContexts(
       /**
@@ -73506,7 +73522,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        *  Since 1.89.0, the **deprecated** property `"grandTotal like 1.84" : true` can be used to turn on the
        * handling of grand totals like in 1.84.0, using aggregates of aggregates and thus allowing to filter by
        * aggregated properties while grand totals are needed. Beware that methods like "average" or "countdistinct"
-       * are not compatible with this approach, and it cannot be combined with group levels.
+       * are not compatible with this approach, and it cannot be combined with group levels. Since 1.129.0, this
+       * property is not needed anymore and filtering by aggregated properties is supported even while grand totals
+       * or subtotals are needed.
        *  Since 1.117.0, either a read-only recursive hierarchy or pure data aggregation is supported, but no
        * mix; `hierarchyQualifier` is the leading property that decides between those two use cases. Since 1.125.0,
        * maintenance of a recursive hierarchy is supported.
@@ -73516,24 +73534,24 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * A map from aggregatable property names or aliases to objects containing the following details:
          * 	 `grandTotal`: An optional boolean that tells whether a grand total for this aggregatable property is
          * needed (since 1.59.0); not supported in this case are:
-         * 	 filtering by any aggregatable property (since 1.89.0),  "$search" (since 1.93.0),  the `vGroup`
-         * parameter of {@link sap.ui.model.Sorter} (since 1.107.0),  shared requests (since 1.108.0).
-         *  `subtotals`: An optional boolean that tells whether subtotals for this aggregatable property are
-         * needed  `with`: An optional string that provides the name of the method (for example "sum") used
-         * for aggregation of this aggregatable property; see "3.1.2 Keyword with".  `name`: An optional string
-         * that provides the original aggregatable property name in case a different alias is chosen as the name
-         * of the dynamic property used for aggregation of this aggregatable property; see "3.1.1 Keyword as"
-         * `unit`: An optional string that provides the name of the custom aggregate for a currency or unit of measure
-         * corresponding to this aggregatable property (since 1.86.0). The custom aggregate must return the single
-         * value of that unit in case there is only one, or `null` otherwise ("multi-unit situation"). (SQL suggestion:
-         * `CASE WHEN MIN(Unit) = MAX(Unit) THEN MIN(Unit) END`)
+         * 	 "$search" (since 1.93.0),  the `vGroup` parameter of {@link sap.ui.model.Sorter} (since 1.107.0),
+         *  shared requests (since 1.108.0).   `subtotals`: An optional boolean that tells whether
+         * subtotals for this aggregatable property are needed  `with`: An optional string that provides the
+         * name of the method (for example "sum") used for aggregation of this aggregatable property; see "3.1.2
+         * Keyword with".  `name`: An optional string that provides the original aggregatable property name
+         * in case a different alias is chosen as the name of the dynamic property used for aggregation of this
+         * aggregatable property; see "3.1.1 Keyword as"  `unit`: An optional string that provides the name
+         * of the custom aggregate for a currency or unit of measure corresponding to this aggregatable property
+         * (since 1.86.0). The custom aggregate must return the single value of that unit in case there is only
+         * one, or `null` otherwise ("multi-unit situation"). (SQL suggestion: `CASE WHEN MIN(Unit) = MAX(Unit)
+         * THEN MIN(Unit) END`)
          */
         aggregate?: object;
         /**
-         * Whether created nodes are shown in place at the position specified by the service (@experimental as of
-         * version 1.125.0); only the value `true` is allowed. Otherwise, created nodes are displayed out of place
-         * as the first children of their parent or as the first roots, but not in their usual position as defined
-         * by the service and the current sort order.
+         * Whether created nodes are shown in place at the position specified by the service (since 1.130.0); only
+         * the value `true` is allowed. Otherwise, created nodes are displayed out of place as the first children
+         * of their parent or as the first roots, but not in their usual position as defined by the service and
+         * the current sort order.
          */
         createInPlace?: boolean;
         /**
@@ -73552,8 +73570,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * A map from groupable property names to objects containing the following details:
          * 	 `additionally`: An optional list of strings that provides the paths to properties (like texts or attributes)
          * related to this groupable property in a 1:1 relation (since 1.87.0). They are requested additionally
-         * via `groupby and must not change the actual grouping; a unit` for an aggregatable property
-         * must not be repeated here.
+         * via `groupby` and must not change the actual grouping; a `unit` for an aggregatable property must not
+         * be repeated here.
          */
         group?: object;
         /**
@@ -73893,8 +73911,6 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   /**
    * Parameters of the ODataListBinding#selectionChanged event.
-   *
-   * @experimental (since 1.126.0)
    */
   export interface ODataListBinding$SelectionChangedEventParameters {
     /**
@@ -73905,8 +73921,6 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
 
   /**
    * Event object of the ODataListBinding#selectionChanged event.
-   *
-   * @experimental (since 1.126.0)
    */
   export type ODataListBinding$SelectionChangedEvent = Event<
     ODataListBinding$SelectionChangedEventParameters,
@@ -74871,30 +74885,6 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
     );
 
     /**
-     * Creates a new subclass of class sap.ui.model.odata.v4.ODataModel with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.model.Model.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ODataModel>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
      * Returns a metadata object for class sap.ui.model.odata.v4.ODataModel.
      *
      *
@@ -75182,6 +75172,15 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $$ownRequest?: boolean;
         /**
+         * An array of navigation property names which are omitted from the main list request and loaded in a separate
+         * request instead (@experimental as of version 1.129.0). This results in the main list becoming available
+         * faster, while the separate properties are merged as soon as the data is received. Note that the separate
+         * properties must be single valued and part of the '$expand' system query option, either automatically
+         * via the "autoExpandSelect" model parameter (see {@link sap.ui.model.odata.v4.ODataModel#constructor})
+         * or manually. The `$$separate` parameter must not be combined with `$$aggregation`.
+         */
+        $$separate?: string[];
+        /**
          * Whether multiple bindings for the same resource path share the data, so that it is requested only once.
          * This parameter can be inherited from the model's parameter "sharedRequests", see {@link sap.ui.model.odata.v4.ODataModel#constructor}.
          * Supported since 1.80.0 **Note:** These bindings are read-only, so they may be especially useful for value
@@ -75223,8 +75222,8 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * If the target type specified in the corresponding control property's binding info is "any" and the binding
      * is relative or points to metadata, the binding may have an object value; in this case and unless the
      * binding refers to an action advertisement the binding's mode must be {@link sap.ui.model.BindingMode.OneTime}.
-     * {@link sap.ui.model.BindingMode.OneWay OneWay} is also supported (@experimental as of version 1.126.0)
-     * for complex types and collections thereof; for entity types, use {@link #bindContext} instead.
+     * {@link sap.ui.model.BindingMode.OneWay OneWay} is also supported (since 1.130.0) for complex types and
+     * collections thereof; for entity types, use {@link #bindContext} instead.
      * See:
      * 	sap.ui.base.ManagedObject#bindProperty
      * 	sap.ui.model.Model#bindProperty
@@ -87644,6 +87643,8 @@ declare namespace sap {
 
     "sap/ui/core/ComponentContainer": undefined;
 
+    "sap/ui/core/ComponentHooks": undefined;
+
     "sap/ui/core/ComponentMetadata": undefined;
 
     "sap/ui/core/ComponentRegistry": undefined;
@@ -87699,6 +87700,8 @@ declare namespace sap {
     "sap/ui/core/ExtensionPoint": undefined;
 
     "sap/ui/core/fieldhelp/FieldHelp": undefined;
+
+    "sap/ui/core/fieldhelp/FieldHelpCustomData": undefined;
 
     "sap/ui/core/fieldhelp/FieldHelpUtil": undefined;
 

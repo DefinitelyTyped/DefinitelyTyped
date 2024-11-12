@@ -1,28 +1,30 @@
-export interface Options {
-    /** The element to render die animation on. */
-    element: HTMLElement;
-    /** The number of dice to use. */
-    numberOfDice: number;
-    /**
-     * Called when animation is finished.
-     * @param values An array of the values from throw.
-     */
-    callback: (values: number[]) => any;
-    /**
-     * Roll the die without sound.
-     * @default false
-     */
-    noSound?: boolean | undefined;
-    /**
-     * Time in milliseconds to delay before removing animations
-     * @default 3000
-     */
-    delay?: number | undefined;
-    /**
-     * Values to show on die face.
-     * When provided, it overrides library genrated values.
-     */
-    values?: number[] | undefined;
+declare namespace RollADie {
+    interface Options {
+        /** The element to render die animation on. */
+        element: HTMLElement;
+        /** The number of dice to use. */
+        numberOfDice: number;
+        /**
+         * Called when animation is finished.
+         * @param values An array of the values from throw.
+         */
+        callback: (values: number[]) => any;
+        /**
+         * Roll the die without sound.
+         * @default false
+         */
+        noSound?: boolean | undefined;
+        /**
+         * Time in milliseconds to delay before removing animations
+         * @default 3000
+         */
+        delay?: number | undefined;
+        /**
+         * Values to show on die face.
+         * When provided, it overrides library genrated values.
+         */
+        values?: number[] | undefined;
+    }
 }
 
 /**
@@ -46,4 +48,6 @@ export interface Options {
  * @see {@link https://www.npmjs.com/package/roll-a-die|NPM}
  * @see {@link https://codepen.io/chukwuma-ezumezu/pen/qYKOGW|Demo}
  */
-export default function(options: Options): void;
+declare function RollADie(options: RollADie.Options): void;
+
+export = RollADie;

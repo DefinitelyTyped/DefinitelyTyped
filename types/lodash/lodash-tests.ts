@@ -555,6 +555,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     _.head("abc"); // $ExpectType string | undefined
     _.head(list); // $ExpectType AbcObject | undefined
+    _.head([1, 2, 3]); // $ExpectType number
+    _.head([1, 2, 3] as number[]); // $ExpectType number | undefined
+    _.head([]); // $ExpectType undefined
+    _.head([] as []); // $ExpectType undefined
+    _.head([1, 2, 3] as const); // $ExpectType 1
+    _.head([1, 2, 3] as [number, number, number]); // $ExpectType number
+    _.head([1, 2, 3] as [...number[]]); // $ExpectType number | undefined
+    _.head([1, 2, 3] as [number, ...number[]]); // $ExpectType number
 
     _("abc").head(); // $ExpectType string | undefined
     _(list).head(); // $ExpectType AbcObject | undefined
@@ -1134,6 +1142,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 // _.tail
 {
     _.tail(list); // $ExpectType AbcObject[]
+    _.tail([1, 2, 3] as const); // $ExpectType [2, 3]
+    _.tail([1, 2, 3] as [1, 2, 3]); // $ExpectType [2, 3]
+
     _(list).tail(); // $ExpectType Collection<AbcObject>
     _.chain(list).tail(); // $ExpectType CollectionChain<AbcObject>
     fp.tail(list); // $ExpectType AbcObject[]
@@ -2741,6 +2752,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.map
 {
+    _.map([] as AbcObject[]); // $ExpectType AbcObject[]
+    _.map([] as AbcObject[], (value, index, collection) => {
+        value; // $ExpectType AbcObject
+        index; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return 0;
+    });
     _.map(list);  // $ExpectType AbcObject[]
     // $ExpectType number[]
     _.map(list, (value, index, collection) => {
@@ -2774,6 +2792,21 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.map(list, { a: 42 });  // $ExpectType boolean[]
     _.map(dictionary, { a: 42 });  // $ExpectType boolean[]
     _.map(numericDictionary, { a: 42 });  // $ExpectType boolean[]
+    _.map([-1, -2, -3] as [number, number, number], (value) => value.toString());  // $ExpectType [string, string, string]
+    _.map([-1, -2, -3] as [number, number, number], (value) => value || "a");  // $ExpectType [number | "a", number | "a", number | "a"]
+    _.map([-1, -2, -3] as [number, number, number], (value, index, collection) => {
+        value; // $ExpectType number
+        index; // $ExpectType 0 | 1 | 2
+        collection; // $ExpectType [number, number, number]
+        return 0;
+    });
+    _.map([-1, -2, -3] as const, (value) => value.toString()) // $ExpectType readonly [string, string, string];
+    _.map([-1, -2, -3] as const, (value, index, collection) => {
+        value; // $ExpectType -1 | -2 | -3
+        index; // $ExpectType 0 | 1 | 2
+        collection; // $ExpectType readonly [-1, -2, -3]
+        return 0;
+    });
 
     _(list).map(); // $ExpectType Collection<AbcObject>
     // $ExpectType Collection<number>
@@ -5031,7 +5064,7 @@ fp.now(); // $ExpectType number
     fp.random(1, 2); // $ExpectType number
     fp.random(1)(2); // $ExpectType number
 
-    _.map([5, 5], _.random); // $ExpectType number[]
+    _.map([5, 5], _.random); // $ExpectType [number, number]
 }
 
 /**********
@@ -6597,10 +6630,27 @@ fp.now(); // $ExpectType number
 
 // _.capitalize
 {
-    _.capitalize("fred"); // $ExpectType string
-    _("fred").capitalize(); // $ExpectType string
-    _.chain("fred").capitalize(); // $ExpectType StringChain<string>
-    fp.capitalize("fred"); // $ExpectType string
+    _.capitalize("fred"); // $ExpectType "Fred"
+    _.capitalize("FRED"); // $ExpectType "Fred"
+    _.capitalize("fred" as string); // $ExpectType Capitalize<Lowercase<string>>
+    // @ts-expect-error cannot assign non string type
+    _.capitalize(123);
+
+    _("fred").capitalize(); // $ExpectType "Fred"
+    _("FRED").capitalize(); // $ExpectType "Fred"
+    _("fred" as string).capitalize(); // $ExpectType Capitalize<Lowercase<string>>
+    _(123).capitalize(); // $ExpectType never
+
+    _.chain("fred").capitalize(); // $ExpectType StringChain<"Fred">
+    _.chain("FRED").capitalize(); // $ExpectType StringChain<"Fred">
+    _.chain("fred" as string).capitalize(); // $ExpectType StringChain<Capitalize<Lowercase<string>>>
+    _.chain(123).capitalize(); // $ExpectType StringChain<never>
+
+    fp.capitalize("fred"); // $ExpectType "Fred"
+    fp.capitalize("FRED"); // $ExpectType "Fred"
+    fp.capitalize("fred" as string); // $ExpectType Capitalize<Lowercase<string>>
+    // @ts-expect-error cannot assign non string type
+    fp.capitalize(123);
 }
 
 // _.deburr
@@ -6798,7 +6848,7 @@ fp.now(); // $ExpectType number
     fp.split("-")(null); // $ExpectType string[]
     fp.split("-")("a-b-c"); // $ExpectType string[]
 
-    _.map(["abc", "def"], _.split); // $ExpectType string[][]
+    _.map(["abc", "def"], _.split); // $ExpectType [string[], string[]]
 }
 
 // _.startCase
@@ -6877,7 +6927,7 @@ fp.now(); // $ExpectType number
     fp.trimChars(" ", "  abc  "); // $ExpectType string
     fp.trimChars(" ")("  abc  "); // $ExpectType string
 
-    _.map(["  foo  ", "  bar  "], _.trim); // $ExpectType string[]
+    _.map(["  foo  ", "  bar  "], _.trim); // $ExpectType [string, string]
 }
 
 // _.trimEnd
@@ -6965,7 +7015,7 @@ fp.now(); // $ExpectType number
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]
 
-    _.map(["fred, barney", "pebbles"], _.words); // $ExpectType string[][]
+    _.map(["fred, barney", "pebbles"], _.words); // $ExpectType [string[], string[]]
 }
 
 /********
@@ -7331,8 +7381,8 @@ fp.now(); // $ExpectType number
     fp.rangeRight(1, 11); // $ExpectType number[]
     fp.rangeRight(1)(11); // $ExpectType number[]
 
-    _.map([5, 5], _.range); // $ExpectType number[][]
-    _.map([5, 5], _.rangeRight); // $ExpectType number[][]
+    _.map([5, 5], _.range); // $ExpectType [number[], number[]]
+    _.map([5, 5], _.rangeRight); // $ExpectType [number[], number[]]
 }
 
 // _.runInContext

@@ -610,11 +610,6 @@ declare module "crypto" {
          */
         asymmetricKeyType?: KeyType | undefined;
         /**
-         * For asymmetric keys, this property represents the size of the embedded key in
-         * bytes. This property is `undefined` for symmetric keys.
-         */
-        asymmetricKeySize?: number | undefined;
-        /**
          * This property exists only on asymmetric keys. Depending on the type of the key,
          * this object contains information about the key. None of the information obtained
          * through this property can be used to uniquely identify a key or to compromise
@@ -2139,7 +2134,10 @@ declare module "crypto" {
      * be passed instead of a public key.
      * @since v0.11.14
      */
-    function publicEncrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function publicEncrypt(
+        key: RsaPublicKey | RsaPrivateKey | KeyLike,
+        buffer: NodeJS.ArrayBufferView | string,
+    ): Buffer;
     /**
      * Decrypts `buffer` with `key`.`buffer` was previously encrypted using
      * the corresponding private key, for example using {@link privateEncrypt}.
@@ -2151,7 +2149,10 @@ declare module "crypto" {
      * be passed instead of a public key.
      * @since v1.1.0
      */
-    function publicDecrypt(key: RsaPublicKey | RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function publicDecrypt(
+        key: RsaPublicKey | RsaPrivateKey | KeyLike,
+        buffer: NodeJS.ArrayBufferView | string,
+    ): Buffer;
     /**
      * Decrypts `buffer` with `privateKey`. `buffer` was previously encrypted using
      * the corresponding public key, for example using {@link publicEncrypt}.
@@ -2160,7 +2161,7 @@ declare module "crypto" {
      * object, the `padding` property can be passed. Otherwise, this function uses `RSA_PKCS1_OAEP_PADDING`.
      * @since v0.11.14
      */
-    function privateDecrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateDecrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView | string): Buffer;
     /**
      * Encrypts `buffer` with `privateKey`. The returned data can be decrypted using
      * the corresponding public key, for example using {@link publicDecrypt}.
@@ -2169,7 +2170,7 @@ declare module "crypto" {
      * object, the `padding` property can be passed. Otherwise, this function uses `RSA_PKCS1_PADDING`.
      * @since v1.1.0
      */
-    function privateEncrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView): Buffer;
+    function privateEncrypt(privateKey: RsaPrivateKey | KeyLike, buffer: NodeJS.ArrayBufferView | string): Buffer;
     /**
      * ```js
      * const {

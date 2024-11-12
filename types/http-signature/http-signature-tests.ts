@@ -1,4 +1,5 @@
 import httpSignature = require("http-signature");
+import httpSignatureUtils = require("http-signature/lib/utils");
 import http = require("node:http");
 
 const request = new http.ClientRequest("http://127.0.0.1");
@@ -47,6 +48,7 @@ signer.writeDateHeader(); // $ExpectType string
 httpSignature.sshKeyToPEM("key"); // $ExpectType string
 httpSignature.sshKeyFingerprint("key"); // $ExpectType string
 httpSignature.pemToRsaSSHKey("key", "This is a key"); // $ExpectType string
+httpSignatureUtils.PK_ALGOS["ed25519"]; // $ExpectType boolean
 
 // --- verify.d.ts ---
 httpSignature.verify(httpSignature.parse(request), "key"); // $ExpectType boolean

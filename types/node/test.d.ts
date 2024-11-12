@@ -340,11 +340,22 @@ declare module "node:test" {
         globPatterns?: readonly string[] | undefined;
         /**
          * Sets inspector port of test child process.
-         * If a nullish value is provided, each process gets its own port,
-         * incremented from the primary's `process.debugPort`.
+         * This can be a number, or a function that takes no arguments and returns a
+         * number. If a nullish value is provided, each process gets its own port,
+         * incremented from the primary's `process.debugPort`. This option is ignored
+         * if the `isolation` option is set to `'none'` as no child processes are
+         * spawned.
          * @default undefined
          */
         inspectPort?: number | (() => number) | undefined;
+        /**
+         * Configures the type of test isolation. If set to
+         * `'process'`, each test file is run in a separate child process. If set to
+         * `'none'`, all test files run in the current process.
+         * @default 'process'
+         * @since v22.8.0
+         */
+        isolation?: "process" | "none" | undefined;
         /**
          * If truthy, the test context will only run tests that have the `only` option set
          */
@@ -1635,9 +1646,10 @@ declare module "node:test" {
          * This function is used to set a custom resolver for the location of the snapshot file used for snapshot testing.
          * By default, the snapshot filename is the same as the entry point filename with `.snapshot` appended.
          * @since v22.3.0
-         * @param fn A function which returns a string specifying the location of the snapshot file.
-         * The function receives the path of the test file as its only argument.
-         * If `process.argv[1]` is not associated with a file (for example in the REPL), the input is undefined.
+         * @param fn A function used to compute the location of the snapshot file.
+         * The function receives the path of the test file as its only argument. If the
+         * test is not associated with a file (for example in the REPL), the input is
+         * undefined. `fn()` must return a string specifying the location of the snapshot file.
          */
         function setResolveSnapshotPath(fn: (path: string | undefined) => string): void;
     }
@@ -1784,6 +1796,25 @@ interface TestCoverage {
                 count: number;
             }>;
         }>;
+        /**
+         * An object containing whether or not the coverage for
+         * each coverage type.
+         * @since v22.9.0
+         */
+        thresholds: {
+            /**
+             * The function coverage threshold.
+             */
+            function: number;
+            /**
+             * The branch coverage threshold.
+             */
+            branch: number;
+            /**
+             * The line coverage threshold.
+             */
+            line: number;
+        };
         /**
          * An object containing a summary of coverage for all files.
          */

@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/dt-header": "off",
         "@typescript-eslint/naming-convention": "off",
         "@typescript-eslint/explicit-member-accessibility": "off"
     }

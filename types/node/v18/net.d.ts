@@ -477,6 +477,12 @@ declare module "net" {
          * @since v16.5.0
          */
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * Optionally overrides all `net.Socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
+         * @default See [stream.getDefaultHighWaterMark()](https://nodejs.org/docs/latest-v18.x/api/stream.html#streamgetdefaulthighwatermarkobjectmode).
+         * @since v18.17.0
+         */
+        highWaterMark?: number | undefined;
     }
     interface DropArgument {
         localAddress?: string;

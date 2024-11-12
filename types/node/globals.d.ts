@@ -156,6 +156,8 @@ declare global {
     interface RequireResolve extends NodeJS.RequireResolve {}
     interface NodeModule extends NodeJS.Module {}
 
+    var global: typeof globalThis;
+
     var process: NodeJS.Process;
     var console: Console;
 
@@ -264,53 +266,6 @@ declare global {
      */
     var sessionStorage: Storage;
     // #endregion Storage
-
-    // #region Disposable
-    interface SymbolConstructor {
-        /**
-         * A method that is used to release resources held by an object. Called by the semantics of the `using` statement.
-         */
-        readonly dispose: unique symbol;
-
-        /**
-         * A method that is used to asynchronously release resources held by an object. Called by the semantics of the `await using` statement.
-         */
-        readonly asyncDispose: unique symbol;
-    }
-
-    interface Disposable {
-        [Symbol.dispose](): void;
-    }
-
-    interface AsyncDisposable {
-        [Symbol.asyncDispose](): PromiseLike<void>;
-    }
-    // #endregion Disposable
-
-    // #region ArrayLike.at()
-    interface RelativeIndexable<T> {
-        /**
-         * Takes an integer value and returns the item at that index,
-         * allowing for positive and negative integers.
-         * Negative integers count back from the last item in the array.
-         */
-        at(index: number): T | undefined;
-    }
-    interface String extends RelativeIndexable<string> {}
-    interface Array<T> extends RelativeIndexable<T> {}
-    interface ReadonlyArray<T> extends RelativeIndexable<T> {}
-    interface Int8Array extends RelativeIndexable<number> {}
-    interface Uint8Array extends RelativeIndexable<number> {}
-    interface Uint8ClampedArray extends RelativeIndexable<number> {}
-    interface Int16Array extends RelativeIndexable<number> {}
-    interface Uint16Array extends RelativeIndexable<number> {}
-    interface Int32Array extends RelativeIndexable<number> {}
-    interface Uint32Array extends RelativeIndexable<number> {}
-    interface Float32Array extends RelativeIndexable<number> {}
-    interface Float64Array extends RelativeIndexable<number> {}
-    interface BigInt64Array extends RelativeIndexable<bigint> {}
-    interface BigUint64Array extends RelativeIndexable<bigint> {}
-    // #endregion ArrayLike.at() end
 
     /**
      * @since v17.0.0
@@ -464,7 +419,7 @@ declare global {
             unpipe(destination?: WritableStream): this;
             unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
             wrap(oldStream: ReadableStream): this;
-            [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<string | Buffer>;
         }
 
         interface WritableStream extends EventEmitter {
@@ -532,6 +487,20 @@ declare global {
 
         interface ReadOnlyDict<T> {
             readonly [key: string]: T | undefined;
+        }
+
+        /** An iterable iterator returned by the Node.js API. */
+        // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used IterableIterator.
+        // TODO: In next major @types/node version, change default TReturn to undefined.
+        interface Iterator<T, TReturn = any, TNext = any> extends IteratorObject<T, TReturn, TNext> {
+            [Symbol.iterator](): NodeJS.Iterator<T, TReturn, TNext>;
+        }
+
+        /** An async iterable iterator returned by the Node.js API. */
+        // Default TReturn/TNext in v22 is `any`, for compatibility with the previously-used AsyncIterableIterator.
+        // TODO: In next major @types/node version, change default TReturn to undefined.
+        interface AsyncIterator<T, TReturn = any, TNext = any> extends AsyncIteratorObject<T, TReturn, TNext> {
+            [Symbol.asyncIterator](): NodeJS.AsyncIterator<T, TReturn, TNext>;
         }
     }
 

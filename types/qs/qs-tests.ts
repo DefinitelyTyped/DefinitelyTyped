@@ -397,6 +397,14 @@ qs.parse("a=b&c=d", { delimiter: "&" });
     assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "last" }), { foo: "baz" });
 });
 
+(() => {
+    try {
+        qs.parse("a[b][c][d][e][f][g][h][i]=j", { depth: 1, strictDepth: true });
+    } catch (err) {
+        assert.strictEqual(err.message, "Input depth exceeded depth option of 1 and strictDepth is true");
+    }
+});
+
 declare const myQuery: { a: string; b?: string | undefined };
 const myQueryCopy: qs.ParsedQs = myQuery;
 

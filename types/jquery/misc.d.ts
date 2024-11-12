@@ -759,12 +759,12 @@ declare namespace JQuery {
          * @since 1.7
          */
         /* eslint-disable @definitelytyped/no-unnecessary-generics */
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         <T extends Function>(flags?: string): Callbacks<T>;
         /* eslint-enable @definitelytyped/no-unnecessary-generics */
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     interface Callbacks<T extends Function = Function> {
         /**
          * Add a callback or a collection of callbacks to a callback list.

@@ -190,9 +190,9 @@ export class ValidComponent extends Vue {
         return !this.$v.$invalid;
     }
 
-    get isPasswordLengthOk() {
+    get isPasswordLengthOk(): boolean {
         if (this.$v.password) {
-            return !this.$v.password.minLength;
+            return this.$v.password.minLength == false;
         } else return false;
     }
 

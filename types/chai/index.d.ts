@@ -1,3 +1,5 @@
+import deepEqual = require("deep-eql");
+
 declare global {
     namespace Chai {
         type Message = string | (() => string);
@@ -70,6 +72,8 @@ declare global {
             hasProperty(obj: object | undefined | null, name: ObjectProperty): boolean;
             getPathInfo(obj: object, path: string): PathInfo;
             getPathValue(obj: object, path: string): object | undefined;
+
+            eql: typeof deepEqual;
         }
 
         type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
@@ -2088,6 +2092,8 @@ declare global {
              * Default: ['then', 'catch', 'inspect', 'toJSON']
              */
             proxyExcludedKeys: string[];
+
+            deepEqual: <L, R>(expected: L, actual: R) => void;
         }
 
         export class AssertionError {
