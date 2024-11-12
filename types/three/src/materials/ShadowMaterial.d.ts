@@ -17,11 +17,6 @@ export class ShadowMaterial extends Material {
     readonly isShadowMaterial: true;
 
     /**
-     * @default 'ShadowMaterial'
-     */
-    type: string;
-
-    /**
      * @default new THREE.Color( 0x000000 )
      */
     color: Color;

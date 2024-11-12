@@ -5,6 +5,7 @@ import { Light } from "../../lights/Light.js";
 import { Material } from "../../materials/Material.js";
 import { LightsNode } from "../../nodes/Nodes.js";
 import BundleGroup from "./BundleGroup.js";
+import Lighting from "./Lighting.js";
 export interface Bundle {
     bundleGroup: BundleGroup;
     camera: Camera;
@@ -24,12 +25,15 @@ declare class RenderList {
     renderItems: RenderItem[];
     renderItemsIndex: number;
     opaque: RenderItem[];
+    transparentDoublePass: RenderItem[];
     transparent: RenderItem[];
     bundles: Bundle[];
     lightsNode: LightsNode;
     lightsArray: Light[];
+    scene: Object3D;
+    camera: Camera;
     occlusionQueryCount: number;
-    constructor();
+    constructor(lighting: Lighting, scene: Object3D, camera: Camera);
     begin(): this;
     getNextRenderItem(
         object: Object3D,
@@ -57,7 +61,6 @@ declare class RenderList {
     ): void;
     pushBundle(group: Bundle): void;
     pushLight(light: Light): void;
-    getLightsNode(): LightsNode;
     sort(
         customOpaqueSort: ((a: RenderItem, b: RenderItem) => number) | null,
         customTransparentSort: ((a: RenderItem, b: RenderItem) => number) | null,

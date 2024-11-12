@@ -23,11 +23,6 @@ export class MeshDepthMaterial extends Material {
     readonly isMeshDepthMaterial: true;
 
     /**
-     * @default 'MeshDepthMaterial'
-     */
-    type: string;
-
-    /**
      * @default null
      */
     map: Texture | null;

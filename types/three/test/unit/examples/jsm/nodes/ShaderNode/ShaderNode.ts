@@ -9,8 +9,6 @@ import {
     Node,
     nodeArray,
     nodeImmutable,
-    nodeProxy,
-    OscNode,
     PropertyNode,
     ShaderNode,
     ShaderNodeObject,
@@ -30,15 +28,6 @@ const aa = nodeArray([1, 2, "hello"]);
 aa[0].xy = s;
 aa[1].w = s;
 aa[2] = "hello";
-
-const oscNode0 = nodeProxy(OscNode);
-assertSwizzable<OscNode>(oscNode0("sawtooth", s));
-
-const oscNode1 = nodeProxy(OscNode, OscNode.SAWTOOTH);
-assertSwizzable<OscNode>(oscNode1(s));
-
-export const oscSine0 = nodeProxy(OscNode, OscNode.SAWTOOTH, 1);
-assertSwizzable<OscNode>(oscSine0());
 
 assertSwizzable<MaterialNode>(nodeImmutable(MaterialNode, MaterialNode.ROTATION));
 assertSwizzable<PropertyNode>(nodeImmutable(PropertyNode, "vec4", "DiffuseColor"));

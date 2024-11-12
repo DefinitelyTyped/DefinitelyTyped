@@ -24,6 +24,7 @@ export interface NodeMaterialParameters extends MaterialParameters {
     alphaTestNode?: Node | null | undefined;
 
     positionNode?: Node | null | undefined;
+    geometryNode?: Node | null | undefined;
 
     depthNode?: Node | null | undefined;
     shadowNode?: Node | null | undefined;
@@ -54,6 +55,7 @@ declare class NodeMaterial extends Material {
     alphaTestNode: Node | null;
 
     positionNode: Node | null;
+    geometryNode: Node | null;
 
     depthNode: Node | null;
     shadowNode: Node | null;
