@@ -303,7 +303,7 @@ const graphDiv = "#test";
         itemsizing: "constant",
         itemwidth: 50,
         orientation: "h",
-        title: { font: { size: 15 }, side: "top", text: "Legend Title" },
+        title: { font: { size: 15 }, side: "top right", text: "Legend Title" },
         tracegroupgap: 15,
         traceorder: "reversed+grouped",
         valign: "bottom",
