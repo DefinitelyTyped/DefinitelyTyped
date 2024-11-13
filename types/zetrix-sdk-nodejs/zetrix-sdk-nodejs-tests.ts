@@ -6,9 +6,6 @@ const sdk = new ZtxChainSDK({
   secure: true,
 });
 
-// Test Util interface
-const util: ZtxChainSDK.Util = sdk.util;
-
 // Test Account interface
 const account: ZtxChainSDK.Account = sdk.account;
 const accountResponse: ZtxChainSDK.Response = account.create();

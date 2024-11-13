@@ -3,7 +3,6 @@ export = ZtxChainSDK
 declare class ZtxChainSDK {
   constructor(options?: ZtxChainSDK.Options)
 
-  util: ZtxChainSDK.Util
   account: ZtxChainSDK.Account
   transaction: ZtxChainSDK.Transaction
   token: ZtxChainSDK.Token
@@ -20,8 +19,6 @@ declare namespace ZtxChainSDK {
     timeout?: number
     secure: boolean
   }
-
-  interface Util {}
 
   interface Account {
     create(): Response
