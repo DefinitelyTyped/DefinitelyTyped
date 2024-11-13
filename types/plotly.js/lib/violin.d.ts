@@ -1,6 +1,11 @@
 import { Color } from "../";
 import { BoxPlotData } from "./box";
 
+export const moduleType: "trace";
+export const name: "violin";
+export const categories: string[];
+export const meta: { description: string };
+
 // See https://github.com/plotly/plotly.js/blob/master/src/traces/violin/attributes.js
 export interface ViolinData {
     type: "violin";

@@ -1,5 +1,10 @@
 import { OhlcData } from "./ohlc";
 
+export const moduleType: "trace";
+export const name: "candlestick";
+export const categories: string[];
+export const meta: { description: string };
+
 export interface CandlestickData {
     type: "candlestick";
     name: OhlcData["name"];

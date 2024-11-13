@@ -1,5 +1,10 @@
 // Types for plotly.js/src/traces/ohlc/attributes.js
 
+export const moduleType: "trace";
+export const name: "ohlc";
+export const categories: string[];
+export const meta: { description: string };
+
 export type HoverInfo =
     | "x"
     | "y"

@@ -2718,8 +2718,9 @@ interface TraceModule {
     moduleType: "trace";
     name: string;
     categories: string[];
-    meta: Record<string, unknown>;
-    [key: string]: unknown;
+    meta: {
+        description: string;
+    };
 }
 
 interface LocaleModule {
