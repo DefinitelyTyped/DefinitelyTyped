@@ -1,4 +1,4 @@
-import { Datum, HoverLabel } from "../../index";
+import { Datum, HoverLabel } from "../";
 
 export type SankeyColor = string | number;
 export type SankeyColors = Array<SankeyColor | null | undefined>;

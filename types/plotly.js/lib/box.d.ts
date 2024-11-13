@@ -1,4 +1,4 @@
-import { Color, MarkerSymbol, PlotData } from "../../index";
+import { Color, MarkerSymbol, PlotData } from "../";
 import { ScatterSelectedMarker } from "./scatter";
 
 // See https://github.com/plotly/plotly.js/blob/master/src/traces/box/attributes.js

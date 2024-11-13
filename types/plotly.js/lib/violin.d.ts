@@ -1,4 +1,4 @@
-import { Color } from "../../index";
+import { Color } from "../";
 import { BoxPlotData } from "./box";
 
 // See https://github.com/plotly/plotly.js/blob/master/src/traces/violin/attributes.js

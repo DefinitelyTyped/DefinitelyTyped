@@ -1,4 +1,4 @@
-import { DataTitle, Datum, HoverLabel, PlotData } from "../../index";
+import { DataTitle, Datum, HoverLabel, PlotData } from "../";
 
 export type PieColor = string | number;
 export type PieColors = Array<PieColor | null | undefined>;
