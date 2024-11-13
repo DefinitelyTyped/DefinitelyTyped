@@ -10,5 +10,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts","zetrix-sdk-nodejs-tests.ts"]
+    "files": ["index.d.ts", "zetrix-sdk-nodejs-tests.ts"]
 }

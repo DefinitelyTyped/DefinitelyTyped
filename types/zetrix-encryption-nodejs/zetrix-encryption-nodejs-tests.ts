@@ -1,6 +1,6 @@
-import * as keypair from 'keypair';
-import * as keystore from 'keystore';
-import * as signature from 'signature';
+import * as keypair from "keypair";
+import * as keystore from "keystore";
+import * as signature from "signature";
 
 // Test for `keypair` Module
 const publicKey: string = keypair.getEncPublicKey("someEncPrivateKey");
@@ -28,20 +28,24 @@ resultAny = keyPair;
 
 // Test for `keystore` Module
 keystore.encrypt("someEncPrivateKey", "password", (error: Error | null, result?: any) => {
-  if (error) {
-    console.error("Encryption failed:", error);
-  } else {
-    console.log("Encryption result:", result);
-  }
+    if (error) {
+        console.error("Encryption failed:", error);
+    } else {
+        console.log("Encryption result:", result);
+    }
 });
 
-const decryptedKey: string = keystore.decrypt({ /* keystore data */ }, "password", (error: Error | null, result?: string) => {
-  if (error) {
-    console.error("Decryption failed:", error);
-  } else {
-    console.log("Decryption result:", result);
-  }
-});
+const decryptedKey: string = keystore.decrypt(
+    {/* keystore data */},
+    "password",
+    (error: Error | null, result?: string) => {
+        if (error) {
+            console.error("Decryption failed:", error);
+        } else {
+            console.log("Decryption result:", result);
+        }
+    },
+);
 
 // Test for `signature` Module
 const signedMessage: string = signature.sign("Hello, Zetrix!", "someEncPrivateKey");

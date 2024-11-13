@@ -1,21 +1,21 @@
-import ZtxChainSDK = require('zetrix-sdk-nodejs');
+import ZtxChainSDK = require("zetrix-sdk-nodejs");
 
 // Test instantiation of ZtxChainSDK
 const sdk = new ZtxChainSDK({
-  host: 'https://test-node.zetrix.com',
-  secure: true,
+    host: "https://test-node.zetrix.com",
+    secure: true,
 });
 
 // Test Account interface
 const account: ZtxChainSDK.Account = sdk.account;
 const accountResponse: ZtxChainSDK.Response = account.create();
-const isValid: ZtxChainSDK.Response = account.checkValid('address');
-const accountInfo: ZtxChainSDK.Response = account.getInfo('address');
-const balance: ZtxChainSDK.Response = account.getBalance('address');
-const nonce: ZtxChainSDK.Response = account.getNonce('address');
-const assets: ZtxChainSDK.Response = account.getAssets('address');
+const isValid: ZtxChainSDK.Response = account.checkValid("address");
+const accountInfo: ZtxChainSDK.Response = account.getInfo("address");
+const balance: ZtxChainSDK.Response = account.getBalance("address");
+const nonce: ZtxChainSDK.Response = account.getNonce("address");
+const assets: ZtxChainSDK.Response = account.getAssets("address");
 const metadata: ZtxChainSDK.Response = account.getMetadata({});
-const isActivated: ZtxChainSDK.Response = account.isActivated('address');
+const isActivated: ZtxChainSDK.Response = account.isActivated("address");
 
 // Test Transaction interface
 const transaction: ZtxChainSDK.Transaction = sdk.transaction;
@@ -23,7 +23,7 @@ const transactionBlob: ZtxChainSDK.Response = transaction.buildBlob({});
 const signedTransaction: ZtxChainSDK.Response = transaction.sign({});
 const submittedTransaction: ZtxChainSDK.Response = transaction.submit({});
 const fee: ZtxChainSDK.Response = transaction.evaluateFee({});
-const transactionInfo: ZtxChainSDK.Response = transaction.getInfo('hash');
+const transactionInfo: ZtxChainSDK.Response = transaction.getInfo("hash");
 
 // Test Token interface
 const token: ZtxChainSDK.Token = sdk.token;
@@ -57,7 +57,7 @@ const logCreate: ZtxChainSDK.Response = operation.logCreateOperation({});
 
 // Test Contract interface
 const contract: ZtxChainSDK.Contract = sdk.contract;
-const contractInfo: ZtxChainSDK.Response = contract.getInfo('contractAddress');
-const contractValid: ZtxChainSDK.Response = contract.checkValid('contractAddress');
+const contractInfo: ZtxChainSDK.Response = contract.getInfo("contractAddress");
+const contractValid: ZtxChainSDK.Response = contract.checkValid("contractAddress");
 const contractCall: ZtxChainSDK.Response = contract.call({});
-const contractAddress: ZtxChainSDK.Response = contract.getAddress('hash');
+const contractAddress: ZtxChainSDK.Response = contract.getAddress("hash");

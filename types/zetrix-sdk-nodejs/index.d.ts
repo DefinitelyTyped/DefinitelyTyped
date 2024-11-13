@@ -1,120 +1,120 @@
-export = ZtxChainSDK
+export = ZtxChainSDK;
 
 declare class ZtxChainSDK {
-  constructor(options?: ZtxChainSDK.Options)
+    constructor(options?: ZtxChainSDK.Options);
 
-  account: ZtxChainSDK.Account
-  transaction: ZtxChainSDK.Transaction
-  token: ZtxChainSDK.Token
-  block: ZtxChainSDK.Block
-  operation: ZtxChainSDK.Operation
-  contract: ZtxChainSDK.Contract
+    account: ZtxChainSDK.Account;
+    transaction: ZtxChainSDK.Transaction;
+    token: ZtxChainSDK.Token;
+    block: ZtxChainSDK.Block;
+    operation: ZtxChainSDK.Operation;
+    contract: ZtxChainSDK.Contract;
 }
 
 declare namespace ZtxChainSDK {
-  interface Options {
-    inited?: boolean
-    host: string
-    chainId?: number
-    timeout?: number
-    secure: boolean
-  }
+    interface Options {
+        inited?: boolean;
+        host: string;
+        chainId?: number;
+        timeout?: number;
+        secure: boolean;
+    }
 
-  interface Account {
-    create(): Response
+    interface Account {
+        create(): Response;
 
-    checkValid(address: string): Response
+        checkValid(address: string): Response;
 
-    getInfo(address: string): Response
+        getInfo(address: string): Response;
 
-    getBalance(address: string): Response
+        getBalance(address: string): Response;
 
-    getNonce(address: string): Response
+        getNonce(address: string): Response;
 
-    getAssets(address: string): Response
+        getAssets(address: string): Response;
 
-    getMetadata(args: any): Response
+        getMetadata(args: any): Response;
 
-    isActivated(address: string): Response
-  }
+        isActivated(address: string): Response;
+    }
 
-  interface Transaction {
-    buildBlob(args: any): Response
+    interface Transaction {
+        buildBlob(args: any): Response;
 
-    sign(args: any): Response
+        sign(args: any): Response;
 
-    submit(args: any): Response
+        submit(args: any): Response;
 
-    evaluateFee(args: any): Response
+        evaluateFee(args: any): Response;
 
-    getInfo(hash: string): Response
-  }
+        getInfo(hash: string): Response;
+    }
 
-  interface Token {
-    getInfo(args: any): Response
-  }
+    interface Token {
+        getInfo(args: any): Response;
+    }
 
-  interface Block {
-    getNumber(): Response
+    interface Block {
+        getNumber(): Response;
 
-    checkStatus(): Response
+        checkStatus(): Response;
 
-    getTransactions(blockNumber: number): Response
+        getTransactions(blockNumber: number): Response;
 
-    getInfo(blockNumber: number): Response
+        getInfo(blockNumber: number): Response;
 
-    getLatestInfo(): Response
+        getLatestInfo(): Response;
 
-    getValidators(blockNumber: number): Response
+        getValidators(blockNumber: number): Response;
 
-    getLatestValidators(): Response
+        getLatestValidators(): Response;
 
-    getLatestReward(): Response
+        getLatestReward(): Response;
 
-    getFees(blockNumber: number): Response
+        getFees(blockNumber: number): Response;
 
-    getLatestFees(): Response
-  }
+        getLatestFees(): Response;
+    }
 
-  interface Operation {
-    // Account
-    accountActivateOperation(args: any): Response
+    interface Operation {
+        // Account
+        accountActivateOperation(args: any): Response;
 
-    accountSetMetadataOperation(args: any): Response
+        accountSetMetadataOperation(args: any): Response;
 
-    accountSetPrivilegeOperation(args: any): Response
+        accountSetPrivilegeOperation(args: any): Response;
 
-    // Asset
-    assetIssueOperation(args: any): Response
+        // Asset
+        assetIssueOperation(args: any): Response;
 
-    assetSendOperation(args: any): Response
+        assetSendOperation(args: any): Response;
 
-    // Contract
-    contractCreateOperation(args: any): Response
+        // Contract
+        contractCreateOperation(args: any): Response;
 
-    contractInvokeByAssetOperation(args: any): Response
+        contractInvokeByAssetOperation(args: any): Response;
 
-    contractInvokeByGasOperation(args: any): Response
+        contractInvokeByGasOperation(args: any): Response;
 
-    // Gas
-    gasSendOperation(args: any): Response
+        // Gas
+        gasSendOperation(args: any): Response;
 
-    // Logs
-    logCreateOperation(args: any): Response
-  }
+        // Logs
+        logCreateOperation(args: any): Response;
+    }
 
-  interface Contract {
-    getInfo(contractAddress: string): Response
+    interface Contract {
+        getInfo(contractAddress: string): Response;
 
-    checkValid(contractAddress: string): Response
+        checkValid(contractAddress: string): Response;
 
-    call(args: any): Response
+        call(args: any): Response;
 
-    getAddress(hash: string): Response
-  }
+        getAddress(hash: string): Response;
+    }
 
-  interface Response {
-    result: any
-    error: any
-  }
+    interface Response {
+        result: any;
+        error: any;
+    }
 }
