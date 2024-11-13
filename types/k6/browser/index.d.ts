@@ -959,41 +959,40 @@ export interface MetricMessage {
      * tag will match the given `tagMatch.matches` with the current metric's URL
      * and name tags. When a match is found it will use `tagMatch.name` to replace
      * the existing URL and name tag values.
-     * 
+     *
      * Doing this helps group metrics with different URL and name tags that, in
      * fact, reference the same resource, allowing for correlation over time and
      * reducing the cardinality of the metrics.
      * @param tagMatch
      */
     tag(tagMatch: {
+        /**
+         * The name value that replaces the current metric's URL and name
+         * tag values, if a match is found. Required, and must not be an
+         * empty string.
+         */
+        name: string;
+
+        /**
+         * An array of objects containing the matchers which will be used
+         * to match against the current metric's URL and name tags.
+         * Required.
+         */
+        matches: {
             /**
-             * The name value that replaces the current metric's URL and name
-             * tag values, if a match is found. Required, and must not be an
-             * empty string.
+             * The regular expression used to find matches in the current
+             * metric's URL and name tags. Required.
              */
-            name: string;
+            url: RegExp;
 
             /**
-             * An array of objects containing the matchers which will be used
-             * to match against the current metric's URL and name tags.
-             * Required.
+             * Used to match the metric's method tag. It's optional, and when
+             * it's not set it will group all metrics regardless of the method
+             * tag.
              */
-            matches: {
-                /**
-                 * The regular expression used to find matches in the current
-                 * metric's URL and name tags. Required.
-                 */
-                url: RegExp;
-
-                /**
-                 * Used to match the metric's method tag. It's optional, and when
-                 * it's not set it will group all metrics regardless of the method
-                 * tag.
-                 */
-                method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'OPTIONS' | 'HEAD' | 'TRACE' | 'CONNECT';
-            }[];
-        },
-    ): void;
+            method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD" | "TRACE" | "CONNECT";
+        }[];
+    }): void;
 }
 
 /**
@@ -3015,7 +3014,7 @@ export interface Page {
     /**
      * page.on('metric') will register a background handler that will listen out
      * for metrics that are measured and emitted for the page.
-     * 
+     *
      * When a {@link MetricMessage} is received by the handler, it can be used to
      * group different metrics tagged with URL and name so that a correlation can
      * be found and to reduce the cardinality of the metrics.
