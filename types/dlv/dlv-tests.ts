@@ -50,4 +50,3 @@ const obj = {
     dlv(v, "f", false);
     dlv(v, "f.badkey", "foo");
 });
-
