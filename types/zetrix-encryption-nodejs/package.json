@@ -1,0 +1,42 @@
+{
+    "name": "@types/zetrix-encryption-nodejs",
+    "version": "1.0.0",
+    "description": "TypeScript definitions for Zetrix SDK Nodejs",
+    "homepage": "https://github.com/Zetrix-Chain/zetrix-encryption-nodejs-ts",
+    "license": "MIT",
+    "author": "Ammar Abdullah <armmarov@gmail.com>",
+    "contributors": [
+        {
+            "name": "Ammar Abdullah",
+            "githubUsername": "armmarov",
+            "url": "https://github.com/armmarov"
+        },
+        {
+            "name": "Izad Imran",
+            "githubUsername": "izadimrantan",
+            "url": "https://github.com/izadimrantan"
+        }
+    ],
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
+    "projects": ["https://github.com/Zetrix-Chain/zetrix-encryption-nodejs-ts"],
+    "devDependencies": {
+        "@types/zetrix-encryption-nodejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Izad Imran Tan",
+            "githubUsername": "izadimrantan"
+        }
+    ],
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Zetrix-Chain/zetrix-encryption-nodejs-ts.git"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "",
+    "typeScriptVersion": "4.5"
+}

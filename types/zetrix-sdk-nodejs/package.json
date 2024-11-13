@@ -1,0 +1,42 @@
+{
+    "name": "@types/zetrix-sdk-nodejs",
+    "version": "1.0.0",
+    "description": "TypeScript definitions for Zetrix SDK Nodejs",
+    "homepage": "https://github.com/Zetrix-Chain/zetrix-sdk-nodejs-ts",
+    "license": "MIT",
+    "author": "Ammar Abdullah <armmarov@gmail.com>",
+    "contributors": [
+        {
+            "name": "Ammar Abdullah",
+            "githubUsername": "armmarov",
+            "url": "https://github.com/armmarov"
+        },
+        {
+            "name": "Izad Imran",
+            "githubUsername": "izadimrantan",
+            "url": "https://github.com/izadimrantan"
+        }
+    ],
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
+    "projects": ["https://github.com/Zetrix-Chain/zetrix-sdk-nodejs-ts"],
+    "devDependencies": {
+        "@types/zetrix-sdk-nodejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Izad Imran Tan",
+            "githubUsername": "izadimrantan"
+        }
+    ],
+    "types": "index.d.ts",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Zetrix-Chain/zetrix-sdk-nodejs-ts.git"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "ab51d155e7946b0b0e0edab741811a35172a48de2674195feb31eaaf7bf992b7",
+    "typeScriptVersion": "4.5"
+}
