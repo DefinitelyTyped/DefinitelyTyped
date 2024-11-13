@@ -37,7 +37,8 @@ export type ResponsiveValue<
     ThemeType extends Theme = RequiredTheme,
 > = T | null | Array<T | null> | { [key in ThemeValue<"breakpoints", ThemeType> & string | number]?: T };
 
-export type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = any> = NonNullable<ThemeType[K]> extends TVal[] ? number
+export type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = any> = NonNullable<ThemeType[K]> extends TVal[]
+    ? number
     : NonNullable<ThemeType[K]> extends Record<infer E, TVal> ? E
     : NonNullable<ThemeType[K]> extends ObjectOrArray<infer F> ? F
     : never;
