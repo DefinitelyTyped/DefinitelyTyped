@@ -4378,6 +4378,14 @@ declare namespace woosmap.map {
          */
         levelSelectorPosition?: "auto" | "top" | "right";
         /**
+         * Customise the appearance of the indoor polyline/route.
+         * Acceptable values for custom colors are in in hexadecimal or RGB format.
+         * -  `color`: Define color of the polyline path.
+         * -  `highlightColor`: Set a custom color to highlight a step of a polyline.
+         * -  `strokeColor`:  Specify a custom color for the polyline stroke.
+         */
+        polylineOptions?: woosmap.map.IndoorPolylineOptions;
+        /**
          * Enforces the view of the renderer.
          */
         responsive?: "mobile" | "desktop" | "auto";
@@ -4385,6 +4393,10 @@ declare namespace woosmap.map {
          * Show the routing paths
          */
         showRoutingPaths?: boolean;
+        /**
+         * If the map pans out of the venue boundaries reset the map to venue bounds.
+         */
+        snapToVenueBounds?: boolean;
         /**
          * Renders map with the custom theme provided.
          */
@@ -4543,6 +4555,16 @@ declare namespace woosmap.map {
     interface IndoorDirectionRoute {
         bounds: woosmap.map.IndoorDirectionsBounds;
         legs: woosmap.map.IndoorDirectionLeg[];
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Indoor polyline customisation options
+     */
+    interface IndoorPolylineOptions {
+        color?: string;
+        highlightColor?: string;
+        strokeColor?: string;
     }
 }
 declare namespace woosmap.map {
