@@ -4,6 +4,7 @@ import { WorkerPool } from "../utils/WorkerPool.js";
 
 export interface KTX2LoaderWorkerConfig {
     astcSupported: boolean;
+    astcHDRSupported: boolean;
     etc1Supported: boolean;
     etc2Supported: boolean;
     dxtSupported: boolean;

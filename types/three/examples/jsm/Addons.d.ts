@@ -3,8 +3,6 @@ export * from "./animation/CCDIKSolver.js";
 export * from "./animation/MMDAnimationHelper.js";
 export * from "./animation/MMDPhysics.js";
 
-export * from "./cameras/CinematicCamera.js";
-
 export { default as WebGL } from "./capabilities/WebGL.js";
 
 export * from "./controls/ArcballControls.js";
@@ -129,7 +127,9 @@ export * from "./loaders/VRMLLoader.js";
 export * from "./loaders/VTKLoader.js";
 export * from "./loaders/XYZLoader.js";
 
+export * from "./materials/LDrawConditionalLineMaterial.js";
 export * from "./materials/MeshGouraudMaterial.js";
+export * from "./materials/MeshPostProcessingMaterial.js";
 
 export * from "./math/Capsule.js";
 export * from "./math/ColorConverter.js";
@@ -274,8 +274,8 @@ export * as SceneUtils from "./utils/SceneUtils.js";
 export * from "./utils/ShadowMapViewer.js";
 export * as SkeletonUtils from "./utils/SkeletonUtils.js";
 export * as SortUtils from "./utils/SortUtils.js";
-export * from "./utils/TextureUtils.js";
 export * from "./utils/UVsDebug.js";
+export * from "./utils/WebGLTextureUtils.js";
 export * from "./utils/WorkerPool.js";
 
 export * from "./webxr/ARButton.js";

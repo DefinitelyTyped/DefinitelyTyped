@@ -47,11 +47,21 @@ export interface GLTFExporterOptions {
     includeCustomExtensions?: boolean;
 }
 
-export class GLTFExporter {
+type TextureUtils = {
+    decompress:
+        | ((texture: Texture, maxTextureSize?: number) => Promise<void>)
+        | ((texture: Texture, maxTextureSize?: number) => void);
+};
+
+declare class GLTFExporter {
+    textureUtils: TextureUtils | null;
+
     constructor();
 
     register(callback: (writer: GLTFWriter) => GLTFExporterPlugin): this;
     unregister(callback: (writer: GLTFWriter) => GLTFExporterPlugin): this;
+
+    setTextureUtils(utils: TextureUtils | null): this;
 
     /**
      * Generates a .gltf (JSON) or .glb (binary) output from the input (Scenes or Objects)
@@ -94,10 +104,14 @@ export class GLTFExporter {
     ): Promise<ArrayBuffer | { [key: string]: any }>;
 }
 
-export class GLTFWriter {
+declare class GLTFWriter {
+    textureUtils: TextureUtils | null;
+
     constructor();
 
     setPlugins(plugins: GLTFExporterPlugin[]): void;
+
+    setTextureUtils(utils: TextureUtils | null): this;
 
     /**
      * Parse scenes and generate GLTF output
@@ -106,7 +120,7 @@ export class GLTFWriter {
      * @param onDone Callback on completed
      * @param options options
      */
-    write(
+    writeAsync(
         input: Object3D | Object3D[],
         onDone: (gltf: ArrayBuffer | { [key: string]: any }) => void,
         options?: GLTFExporterOptions,
@@ -121,3 +135,6 @@ export interface GLTFExporterPlugin {
     beforeParse?: (input: Object3D | Object3D[]) => void;
     afterParse?: (input: Object3D | Object3D[]) => void;
 }
+
+export { GLTFExporter };
+export type { GLTFWriter };

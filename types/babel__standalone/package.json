@@ -10,7 +10,7 @@
         "@babel/types": "^7.25.6",
         "@types/babel__core": "^7.20.5",
         "@types/babel__generator": "^7.6.8",
-        "@types/babel__template": "^7.4.9999",
+        "@types/babel__template": "^7.4.4",
         "@types/babel__traverse": "^7.20.6"
     },
     "devDependencies": {

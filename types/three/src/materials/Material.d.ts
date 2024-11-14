@@ -234,6 +234,10 @@ export interface MaterialJSON {
  * Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
  */
 export class Material extends EventDispatcher<{ dispose: {} }> {
+    static get type(): string;
+
+    get type(): string;
+
     constructor();
 
     /**
@@ -508,12 +512,6 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @default false
      */
     transparent: boolean;
-
-    /**
-     * Value is the string 'Material'. This shouldn't be changed, and can be used to find all objects of this type in a scene.
-     * @default 'Material'
-     */
-    type: string;
 
     /**
      * UUID of this material instance. This gets automatically assigned, so this shouldn't be edited.

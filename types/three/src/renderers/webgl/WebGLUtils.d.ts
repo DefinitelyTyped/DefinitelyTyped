@@ -1,4 +1,4 @@
-import { ColorSpace, CompressedPixelFormat, PixelFormat, TextureDataType } from "../../constants.js";
+import { CompressedPixelFormat, PixelFormat, TextureDataType } from "../../constants.js";
 import { WebGLExtensions } from "./WebGLExtensions.js";
 
 export class WebGLUtils {
@@ -7,5 +7,5 @@ export class WebGLUtils {
         extensions: WebGLExtensions,
     );
 
-    convert(p: PixelFormat | CompressedPixelFormat | TextureDataType, colorSpace?: ColorSpace): number | null;
+    convert(p: PixelFormat | CompressedPixelFormat | TextureDataType, colorSpace?: string): number | null;
 }

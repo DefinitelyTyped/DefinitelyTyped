@@ -316,6 +316,10 @@ declare module "./cast.framework.messages" {
     interface BreakClipCustomData {
         advertiser?: string;
     }
+
+    interface RequestDataCustomData {
+        isRecovering?: boolean;
+    }
 }
 
 const sessionState = new cast.framework.messages.SessionState();
@@ -328,3 +332,4 @@ mediaStatus.customData = { description: "Lorem ipsum" };
 queueItem.customData = { priority: 1 };
 queueItem.media.customData = { environment: "production" };
 breakClip.customData = { advertiser: "Umbrella Corporation" };
+lrd.customData = { isRecovering: true };
