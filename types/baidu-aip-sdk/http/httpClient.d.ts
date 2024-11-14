@@ -3,7 +3,6 @@ export = HttpClient;
  * HttpClient类
  * 通用接口调用，依赖request库
  * @see https://github.com/request/request
- *
  */
 declare class HttpClient {
     postWithInfo(requestInfo: any): any;

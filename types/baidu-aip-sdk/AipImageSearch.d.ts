@@ -103,13 +103,13 @@ declare class AipImageSearch extends BaseClient {
      */
     sameHqDeleteBySign(contSign: string, options: any): Promise<any>;
     /**
-    * 相同图检索—删除接口
-    *
-    * @param {string} url - 图片url
-    * @param {Object} options - 可选参数对象，key: value都为string类型
-    * @description options - options列表:
-    * @return {Promise} - 标准Promise对象
-    */
+     * 相同图检索—删除接口
+     *
+     * @param {string} url - 图片url
+     * @param {Object} options - 可选参数对象，key: value都为string类型
+     * @description options - options列表:
+     * @return {Promise} - 标准Promise对象
+     */
     sameHqDeleteByUrl(url: string, options: any): Promise<any>;
     /**
      * 相似图检索—入库接口
@@ -147,17 +147,17 @@ declare class AipImageSearch extends BaseClient {
      */
     similarSearch(image: string, options: any): Promise<any>;
     /**
-    * 相似图检索—检索接口
-    *
-    * @param {string} image - 图片地址
-    * @param {Object} options - 可选参数对象，key: value都为string类型
-    * @description options - options列表:
-    *   tags 1 - 65535范围内的整数，tag间以逗号分隔，最多2个tag。样例："100,11" ；检索时可圈定分类维度进行检索
-    *   tag_logic 检索时tag之间的逻辑， 0：逻辑and，1：逻辑or
-    *   pn 分页功能，起始位置，例：0。未指定分页时，默认返回前300个结果；接口返回数量最大限制1000条，例如：起始位置为900，截取条数500条，接口也只返回第900 - 1000条的结果，共计100条
-    *   rn 分页功能，截取条数，例：250
-    * @return {Promise} - 标准Promise对象
-    */
+     * 相似图检索—检索接口
+     *
+     * @param {string} image - 图片地址
+     * @param {Object} options - 可选参数对象，key: value都为string类型
+     * @description options - options列表:
+     *   tags 1 - 65535范围内的整数，tag间以逗号分隔，最多2个tag。样例："100,11" ；检索时可圈定分类维度进行检索
+     *   tag_logic 检索时tag之间的逻辑， 0：逻辑and，1：逻辑or
+     *   pn 分页功能，起始位置，例：0。未指定分页时，默认返回前300个结果；接口返回数量最大限制1000条，例如：起始位置为900，截取条数500条，接口也只返回第900 - 1000条的结果，共计100条
+     *   rn 分页功能，截取条数，例：250
+     * @return {Promise} - 标准Promise对象
+     */
     similarSearchUrl(url: any, options: any): Promise<any>;
     /**
      * 相似图检索—更新-image
@@ -300,13 +300,13 @@ declare class AipImageSearch extends BaseClient {
      */
     productDeleteByImage(image: string, options: any): Promise<any>;
     /**
-         * 商品检索—删除接口
-         *
-         * @param {string} url - 图像url
-         * @param {Object} options - 可选参数对象，key: value都为string类型
-         * @description options - options列表:
-         * @return {Promise} - 标准Promise对象
-         */
+     * 商品检索—删除接口
+     *
+     * @param {string} url - 图像url
+     * @param {Object} options - 可选参数对象，key: value都为string类型
+     * @description options - options列表:
+     * @return {Promise} - 标准Promise对象
+     */
     productDeleteByUrl(url: string, options: any): Promise<any>;
     /**
      * 商品检索—删除接口

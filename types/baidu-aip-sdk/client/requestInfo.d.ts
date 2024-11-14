@@ -1,10 +1,10 @@
 export = RequestInfo;
 /**
-* RequestInfo类
-* 构造供request库调用的请求信息对象
-*
-* @constructor
-*/
+ * RequestInfo类
+ * 构造供request库调用的请求信息对象
+ *
+ * @constructor
+ */
 declare class RequestInfo {
     constructor(path: any, params: any, method: any, isHttp: any, headers: any);
     isHttp: any;

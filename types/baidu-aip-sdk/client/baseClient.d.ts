@@ -1,12 +1,12 @@
 export = BaseClient;
 /**
-* BaseClient类
-* 各具体接口类基类，处理鉴权逻辑等
-*
-* @param {string} appid appid.
-* @param {string} ak The access key.
-* @param {string} sk The security key.
-*/
+ * BaseClient类
+ * 各具体接口类基类，处理鉴权逻辑等
+ *
+ * @param {string} appid appid.
+ * @param {string} ak The access key.
+ * @param {string} sk The security key.
+ */
 declare class BaseClient {
     constructor(appId: any, ak: any, sk: any, options: any);
     appId: number;

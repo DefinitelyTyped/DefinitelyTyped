@@ -1,8 +1,8 @@
 export = DevAuth;
 /**
-* devAuth类
-* 百度开发者token获取类
-*/
+ * devAuth类
+ * 百度开发者token获取类
+ */
 declare class DevAuth {
     constructor(ak: string, sk: string);
     ak: string;

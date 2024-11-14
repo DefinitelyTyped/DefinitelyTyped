@@ -111,7 +111,7 @@ declare class AipImageClassify extends BaseClient {
      * @param {string} image - 图像数据，base64编码，要求base64编码后大小不超过4M，最短边至少15px，最长边最大4096px,支持jpg/png/bmp格式
      * @param {string} brief - 简介
      * @param {Object} options - 可选参数对象，key: value都为string类型
-        * @description options - options列表:
+     * @description options - options列表:
      * @return {Promise} - 标准Promise对象
      */
     customDishesAddImage(image: string, brief: string, options: any): Promise<any>;

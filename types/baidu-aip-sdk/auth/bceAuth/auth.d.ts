@@ -31,7 +31,15 @@ declare class Auth {
      *
      * @return {string} The signature.
      */
-    generateAuthorization(method: string, resource: string, params?: any | undefined, headers?: any | undefined, timestamp?: number | undefined, expirationInSeconds?: number | undefined, headersToSign?: Array<string> | undefined): string;
+    generateAuthorization(
+        method: string,
+        resource: string,
+        params?: any | undefined,
+        headers?: any | undefined,
+        timestamp?: number | undefined,
+        expirationInSeconds?: number | undefined,
+        headersToSign?: Array<string> | undefined,
+    ): string;
     uriCanonicalization(uri: any): any;
     /**
      * Canonical the query strings.

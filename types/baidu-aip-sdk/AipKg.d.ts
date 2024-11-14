@@ -22,7 +22,14 @@ declare class AipKg extends BaseClient {
      *   limit_count 限制解析数量limit_count为0时进行全量任务，limit_count&gt;0时只解析limit_count数量的页面
      * @return {Promise} - 标准Promise对象
      */
-    createTask(name: string, templateContent: string, inputMappingFile: string, outputFile: string, urlPattern: string, options: any): Promise<any>;
+    createTask(
+        name: string,
+        templateContent: string,
+        inputMappingFile: string,
+        outputFile: string,
+        urlPattern: string,
+        options: any,
+    ): Promise<any>;
     /**
      * 更新任务接口
      *
