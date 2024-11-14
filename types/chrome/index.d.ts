@@ -9005,6 +9005,19 @@ declare namespace chrome.storage {
          * Parameter items: Object with items in their key-value mappings.
          */
         onChanged: StorageAreaChangedEvent;
+        /**
+         * Gets all keys from storage.
+         * @return A Promise that resolves with an array of keys.
+         * @since Chrome 130
+         */
+        getKeys(): Promise<string[]>;
+        /**
+         * Gets all keys from storage.
+         * @param callback Callback with storage keys.
+         * Parameter keys: Array of keys in storage.
+         * @since Chrome 130
+         */
+        getKeys(callback: (keys: string[]) => void): void;
     }
 
     export interface StorageChange {

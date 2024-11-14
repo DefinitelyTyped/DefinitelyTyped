@@ -848,6 +848,13 @@ function testStorage() {
         var myNewValue: { x: number } = changes["myKey"].newValue;
         var myOldValue: { x: number } = changes["myKey"].oldValue;
     });
+
+    chrome.storage.sync.getKeys(); // $ExpectType Promise<string[]>
+    chrome.storage.sync.getKeys((keys) => { // $ExpectType void
+        keys;  // $ExpectType string[]
+    });
+    // @ts-expect-error
+    chrome.storage.sync.getKeys(() => {}).then(() => {});
 }
 
 // https://developer.chrome.com/apps/tts#type-TtsVoice
