@@ -851,7 +851,7 @@ function testStorage() {
 
     chrome.storage.sync.getKeys(); // $ExpectType Promise<string[]>
     chrome.storage.sync.getKeys((keys) => { // $ExpectType void
-        keys;  // $ExpectType string[]
+        keys; // $ExpectType string[]
     });
     // @ts-expect-error
     chrome.storage.sync.getKeys(() => {}).then(() => {});
