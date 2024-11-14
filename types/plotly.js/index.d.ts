@@ -472,7 +472,19 @@ export interface Layout {
     subplot: string;
     radialaxis: Partial<Axis>;
     angularaxis: {}; // TODO
-    dragmode: "zoom" | "pan" | "select" | "lasso" | "orbit" | "turntable" | false;
+    dragmode:
+        | "zoom"
+        | "pan"
+        | "select"
+        | "lasso"
+        | "drawclosedpath"
+        | "drawopenpath"
+        | "drawline"
+        | "drawrect"
+        | "drawcircle"
+        | "orbit"
+        | "turntable"
+        | false;
     orientation: number;
     annotations: Array<Partial<Annotations>>;
     shapes: Array<Partial<Shape>>;
