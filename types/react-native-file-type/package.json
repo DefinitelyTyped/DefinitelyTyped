@@ -1,8 +1,8 @@
 {
     "name": "@types/react-native-file-type",
+    "private": true,
     "version": "0.0.1",
     "description": "TypeScript definitions for react-native-file-type",
-    "license": "MIT",
     "contributors": [
         {
             "name": "Niclas Collmer",
@@ -10,12 +10,6 @@
             "githubUsername": "InkAndSteel"
         }
     ],
-    "main": "",
-    "types": "index.d.ts",
-    "dependencies": {},
-    "devDependencies": {
-        "react-native-file-type": "^1.0.0"
-    },
     "repository": {
         "type": "git",
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
