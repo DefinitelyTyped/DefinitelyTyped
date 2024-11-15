@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es6",
+      "strict": true,
+      "esModuleInterop": true,
+      "baseUrl": "../",
+      "typeRoots": ["../"],
+      "lib": ["es6"],
+      "paths": {
+        "react-native-file-type": ["index"]
+      }
+    },
+    "files": ["index.d.ts"]
+  }
