@@ -527,6 +527,8 @@ declare namespace google {
              * to
              * {@link https://developers.google.com/drive/v3/web/enable-shareddrives |
              * GoogleDrive API documentation for enabling shared drives}.
+             *
+             * If `true`, only shared drives are included in the view.
              */
             setEnableDrives(enabled: boolean): DocsView;
 
