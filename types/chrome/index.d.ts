@@ -18,7 +18,8 @@ interface Window {
  * Permissions: "accessibilityFeatures.read"
  * Important: This API works only on Chrome OS.
  */
-declare namespace chrome.accessibilityFeatures {
+declare namespace chrome {
+    export namespace accessibilityFeatures {
     /** **ChromeOS only.** Spoken feedback (text-to-speech). */
     export var spokenFeedback: chrome.types.ChromeSetting;
     /** **ChromeOS only.** Enlarged cursor. */
@@ -77,7 +78,7 @@ declare namespace chrome.accessibilityFeatures {
  * @since Chrome 88, MV3
  * Manifest:  "action": {...}
  */
-declare namespace chrome.action {
+export namespace action {
     /** @deprecated Use BadgeColorDetails instead. */
     export interface BadgeBackgroundColorDetails extends BadgeColorDetails {}
 
@@ -368,7 +369,7 @@ declare namespace chrome.action {
  * @since Chrome 22
  * Permissions:  "alarms"
  */
-declare namespace chrome.alarms {
+export namespace alarms {
     export interface AlarmCreateInfo {
         /** Optional. Length of time in minutes after which the onAlarm event should fire.  */
         delayInMinutes?: number | undefined;
@@ -498,7 +499,7 @@ declare namespace chrome.alarms {
  * @platform ChromeOS only
  * @since Chrome 59
  */
-declare namespace chrome.audio {
+export namespace audio {
     export interface AudioDeviceInfo {
         /** Device name */
         deviceName: string;
@@ -640,39 +641,39 @@ declare namespace chrome.audio {
     export const onMuteChanged: chrome.events.Event<(event: MuteChangedEvent) => void>;
 }
 
-////////////////////
-// Browser
-////////////////////
-/**
- * Use the chrome.browser API to interact with the Chrome browser associated with
- * the current application and Chrome profile.
- * @deprecated Part of the deprecated Chrome Apps platform
- */
-declare namespace chrome.browser {
-    export interface Options {
-        /** The URL to navigate to when the new tab is initially opened. */
-        url: string;
+    ////////////////////
+    // Browser
+    ////////////////////
+    /**
+     * Use the chrome.browser API to interact with the Chrome browser associated with
+     * the current application and Chrome profile.
+     * @deprecated Part of the deprecated Chrome Apps platform
+     */
+    export namespace browser {
+        export interface Options {
+            /** The URL to navigate to when the new tab is initially opened. */
+            url: string;
+        }
+
+        /**
+         * Opens a new tab in a browser window associated with the current application
+         * and Chrome profile. If no browser window for the Chrome profile is opened,
+         * a new one is opened prior to creating the new tab.
+         * @param options Configures how the tab should be opened.
+         * @param callback Called when the tab was successfully
+         * created, or failed to be created. If failed, runtime.lastError will be set.
+         */
+        export function openTab(options: Options, callback: () => void): void;
+
+        /**
+         * Opens a new tab in a browser window associated with the current application
+         * and Chrome profile. If no browser window for the Chrome profile is opened,
+         * a new one is opened prior to creating the new tab.
+         * @since Chrome 42
+         * @param options Configures how the tab should be opened.
+         */
+        export function openTab(options: Options): void;
     }
-
-    /**
-     * Opens a new tab in a browser window associated with the current application
-     * and Chrome profile. If no browser window for the Chrome profile is opened,
-     * a new one is opened prior to creating the new tab.
-     * @param options Configures how the tab should be opened.
-     * @param callback Called when the tab was successfully
-     * created, or failed to be created. If failed, runtime.lastError will be set.
-     */
-    export function openTab(options: Options, callback: () => void): void;
-
-    /**
-     * Opens a new tab in a browser window associated with the current application
-     * and Chrome profile. If no browser window for the Chrome profile is opened,
-     * a new one is opened prior to creating the new tab.
-     * @since Chrome 42
-     * @param options Configures how the tab should be opened.
-     */
-    export function openTab(options: Options): void;
-}
 
 ////////////////////
 // Bookmarks
@@ -682,7 +683,7 @@ declare namespace chrome.browser {
  * @since Chrome 5
  * Permissions:  "bookmarks"
  */
-declare namespace chrome.bookmarks {
+export namespace bookmarks {
     /** A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder. */
     export interface BookmarkTreeNode {
         /** Optional. The 0-based position of this node within its parent folder.  */
@@ -952,7 +953,7 @@ declare namespace chrome.bookmarks {
  * @since Chrome 5
  * Manifest:  "browser_action": {...}
  */
-declare namespace chrome.browserAction {
+export namespace browserAction {
     export interface BadgeBackgroundColorDetails {
         /** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
         color: string | ColorArray;
@@ -1131,7 +1132,7 @@ declare namespace chrome.browserAction {
  * @since Chrome 19
  * Permissions:  "browsingData"
  */
-declare namespace chrome.browsingData {
+export namespace browsingData {
     export interface OriginTypes {
         /** Optional. Extensions and packaged applications a user has installed (be _really_ careful!).  */
         extension?: boolean | undefined;
@@ -1405,7 +1406,7 @@ declare namespace chrome.browsingData {
  * @since Chrome 25
  * Manifest:  "commands": {...}
  */
-declare namespace chrome.commands {
+export namespace commands {
     export interface Command {
         /** Optional. The name of the Extension Command  */
         name?: string | undefined;
@@ -1440,7 +1441,7 @@ declare namespace chrome.commands {
  * @since Chrome 16
  * Permissions:  "contentSettings"
  */
-declare namespace chrome.contentSettings {
+export namespace contentSettings {
     type ScopeEnum = "regular" | "incognito_session_only";
 
     export interface ClearDetails {
@@ -1765,7 +1766,7 @@ declare namespace chrome.contentSettings {
  * @since Chrome 6
  * Permissions:  "contextMenus"
  */
-declare namespace chrome.contextMenus {
+export namespace contextMenus {
     export interface OnClickData {
         /**
          * Optional.
@@ -1966,7 +1967,7 @@ declare namespace chrome.contextMenus {
  * @since Chrome 6
  * Permissions:  "cookies", host permissions
  */
-declare namespace chrome.cookies {
+export namespace cookies {
     /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute. **/
     export type SameSiteStatus = "unspecified" | "no_restriction" | "lax" | "strict";
 
@@ -2175,8 +2176,7 @@ declare namespace chrome.cookies {
  * @since Chrome 18
  * Permissions:  "debugger"
  */
-declare namespace chrome {
-    namespace _debugger {
+    export namespace _debugger {
         /** Debuggee identifier. Either tabId or extensionId must be specified */
         export interface Debuggee {
             /** Optional. The id of the tab which you intend to debug.  */
@@ -2307,7 +2307,6 @@ declare namespace chrome {
     }
 
     export { _debugger as debugger };
-}
 ////////////////////
 // Declarative Content
 ////////////////////
@@ -2316,7 +2315,7 @@ declare namespace chrome {
  * @since Chrome 33
  * Permissions:  "declarativeContent"
  */
-declare namespace chrome.declarativeContent {
+export namespace declarativeContent {
     export interface PageStateUrlDetails {
         /** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
         hostContains?: string | undefined;
@@ -2404,7 +2403,7 @@ declare namespace chrome.declarativeContent {
 ////////////////////
 // Declarative Web Request
 ////////////////////
-declare namespace chrome.declarativeWebRequest {
+export namespace declarativeWebRequest {
     export interface HeaderFilter {
         nameEquals?: string | undefined;
         valueContains?: string | string[] | undefined;
@@ -2518,7 +2517,7 @@ declare namespace chrome.declarativeWebRequest {
  * @since Chrome 34
  * Permissions:  "desktopCapture"
  */
-declare namespace chrome.desktopCapture {
+export namespace desktopCapture {
     /** Contains properties that describe the stream. */
     export interface StreamOptions {
         /** True if "audio" is included in parameter sources, and the end user does not uncheck the "Share audio" checkbox. Otherwise false, and in this case, one should not ask for audio stream through getUserMedia call. */
@@ -2558,7 +2557,7 @@ declare namespace chrome.desktopCapture {
  * Use the chrome.devtools.inspectedWindow API to interact with the inspected window: obtain the tab ID for the inspected page, evaluate the code in the context of the inspected window, reload the page, or obtain the list of resources within the page.
  * @since Chrome 18
  */
-declare namespace chrome.devtools.inspectedWindow {
+export namespace devtools.inspectedWindow {
     /** A resource within the inspected page, such as a document, a script, or an image. */
     export interface Resource {
         /** The URL of the resource. */
@@ -2686,7 +2685,7 @@ declare namespace chrome.devtools.inspectedWindow {
  * Use the chrome.devtools.network API to retrieve the information about network requests displayed by the Developer Tools in the Network panel.
  * @since Chrome 18
  */
-declare namespace chrome.devtools.network {
+export namespace devtools.network {
     /** Represents a HAR entry for a specific finished request. */
     export interface HAREntry extends HARFormatEntry {}
     /** Represents a HAR log that contains all known network requests. */
@@ -2731,7 +2730,7 @@ declare namespace chrome.devtools.network {
  * The chrome.devtools.performance API allows developers to interact with the recording features of the Performance panel in Chrome DevTools. You can use this API to get notifications when recording starts or stops.
  * @since Chrome 128
  */
-declare namespace chrome.devtools.performance {
+export namespace devtools.performance {
     export interface ProfilingStartedEvent extends chrome.events.Event<() => void> {}
 
     export interface ProfilingStoppedEvent extends chrome.events.Event<() => void> {}
@@ -2749,7 +2748,7 @@ declare namespace chrome.devtools.performance {
  * Use the chrome.devtools.panels API to integrate your extension into Developer Tools window UI: create your own panels, access existing panels, and add sidebars.
  * @since Chrome 18
  */
-declare namespace chrome.devtools.panels {
+export namespace devtools.panels {
     export interface PanelShownEvent extends chrome.events.Event<(window: Window) => void> {}
 
     export interface PanelHiddenEvent extends chrome.events.Event<() => void> {}
@@ -2945,7 +2944,7 @@ declare namespace chrome.devtools.panels {
  * Permissions:  "documentScan"
  * Important: This API works only on Chrome OS.
  */
-declare namespace chrome.documentScan {
+export namespace documentScan {
     export interface DocumentScanOptions {
         /** Optional. The MIME types that are accepted by the caller.  */
         mimeTypes?: string[] | undefined;
@@ -2975,7 +2974,7 @@ declare namespace chrome.documentScan {
  * Use the chrome.dom API to programmatically access shadow root in an HTMLElement.
  * @since Chrome 88
  */
-declare namespace chrome.dom {
+export namespace dom {
     /**
      * @since Chrome 88
      * Requests chrome to return the open/closed shadow roots else return null.
@@ -2992,7 +2991,7 @@ declare namespace chrome.dom {
  * @since Chrome 31
  * Permissions:  "downloads"
  */
-declare namespace chrome.downloads {
+export namespace downloads {
     export interface HeaderNameValuePair {
         /** Name of the HTTP header. */
         name: string;
@@ -3396,7 +3395,7 @@ declare namespace chrome.downloads {
  * Important: This API works only on Chrome OS.
  * Note:  This API is only for extensions pre-installed by policy.
  */
-declare namespace chrome.enterprise.platformKeys {
+export namespace enterprise.platformKeys {
     export interface Token {
         /**
          * Uniquely identifies this Token.
@@ -3571,7 +3570,7 @@ declare namespace chrome.enterprise.platformKeys {
  * Important: This API works only on Chrome OS.
  * Note: This API is only for extensions pre-installed by policy.
  */
-declare namespace chrome.enterprise.deviceAttributes {
+export namespace enterprise.deviceAttributes {
     /**
      * @description Fetches the value of the device identifier of the directory API, that is generated by the server and identifies the cloud record of the device for querying in the cloud directory API.
      * @param callback Called with the device identifier of the directory API when received.
@@ -3626,7 +3625,7 @@ declare namespace chrome.enterprise.deviceAttributes {
  * @platform ChromeOS only
  * @since Chrome 71
  */
-declare namespace chrome.enterprise.hardwarePlatform {
+export namespace enterprise.hardwarePlatform {
     export interface HardwarePlatformInfo {
         manufacturer: string;
         model: string;
@@ -3648,7 +3647,7 @@ declare namespace chrome.enterprise.hardwarePlatform {
  * Important: This API works only on Chrome OS.
  * @since Chrome 85
  */
-declare namespace chrome.enterprise.networkingAttributes {
+export namespace enterprise.networkingAttributes {
     export interface NetworkDetails {
         /** The device's MAC address. */
         macAddress: string;
@@ -3672,7 +3671,7 @@ declare namespace chrome.enterprise.networkingAttributes {
  * The chrome.events namespace contains common types used by APIs dispatching events to notify you when something interesting happens.
  * @since Chrome 21
  */
-declare namespace chrome.events {
+export namespace events {
     /** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
     export interface UrlFilter {
         /** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
@@ -3822,7 +3821,7 @@ declare namespace chrome.events {
  * The chrome.extension API has utilities that can be used by any extension page. It includes support for exchanging messages between an extension and its content scripts or between extensions, as described in detail in Message Passing.
  * @since Chrome 5
  */
-declare namespace chrome.extension {
+export namespace extension {
     export interface FetchProperties {
         /**
          * Optional.
@@ -3945,7 +3944,7 @@ declare namespace chrome.extension {
  * Permissions:  "fileBrowserHandler"
  * Important: This API works only on Chrome OS.
  */
-declare namespace chrome.fileBrowserHandler {
+export namespace fileBrowserHandler {
     export interface SelectionParams {
         /**
          * Optional.
@@ -3998,7 +3997,7 @@ declare namespace chrome.fileBrowserHandler {
  * Permissions:  "fileSystemProvider"
  * Important: This API works only on Chrome OS.
  */
-declare namespace chrome.fileSystemProvider {
+export namespace fileSystemProvider {
     export interface OpenedFileInfo {
         /** A request ID to be be used by consecutive read/write and close requests. */
         openRequestId: number;
@@ -4525,7 +4524,7 @@ declare namespace chrome.fileSystemProvider {
  * @since Chrome 22
  * Permissions:  "fontSettings"
  */
-declare namespace chrome.fontSettings {
+export namespace fontSettings {
     /** Represents a font name. */
     export interface FontName {
         /** The display name of the font. */
@@ -4748,7 +4747,7 @@ declare namespace chrome.fontSettings {
  * @since Chrome 35
  * Permissions:  "gcm"
  */
-declare namespace chrome.gcm {
+export namespace gcm {
     export interface OutgoingMessage {
         /** The ID of the server to send the message to as assigned by Google API Console. */
         destinationId: string;
@@ -4830,7 +4829,7 @@ declare namespace chrome.gcm {
  * @since Chrome 5
  * Permissions:  "history"
  */
-declare namespace chrome.history {
+export namespace history {
     /** An object encapsulating one visit to a URL. */
     export interface VisitItem {
         /** The transition type for this visit from its referrer. */
@@ -4963,7 +4962,7 @@ declare namespace chrome.history {
  * Use the chrome.i18n infrastructure to implement internationalization across your whole app or extension.
  * @since Chrome 5
  */
-declare namespace chrome.i18n {
+export namespace i18n {
     /** Holds detected ISO language code and its percentage in the input string */
     export interface DetectedLanguage {
         /** An ISO language code such as 'en' or 'fr'.
@@ -5027,7 +5026,7 @@ declare namespace chrome.i18n {
  * Permissions:  "identity"
  * @since Chrome 29
  */
-declare namespace chrome.identity {
+export namespace identity {
     /** @since Chrome 32 */
     export interface AccountInfo {
         /** A unique identifier for the account. This ID will not change for the lifetime of the account. */
@@ -5200,7 +5199,7 @@ declare namespace chrome.identity {
  * Permissions:  "idle"
  * @since Chrome 6
  */
-declare namespace chrome.idle {
+export namespace idle {
     export type IdleState = "active" | "idle" | "locked";
     export interface IdleStateChangedEvent extends chrome.events.Event<(newState: IdleState) => void> {}
 
@@ -5243,7 +5242,7 @@ declare namespace chrome.idle {
  * Permissions:  "input"
  * @since Chrome 21
  */
-declare namespace chrome.input.ime {
+export namespace input.ime {
     /** See http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent */
     export interface KeyboardEvent {
         /**
@@ -5724,7 +5723,7 @@ declare namespace chrome.input.ime {
  * Permissions: "gcm"
  * @since Chrome 44
  */
-declare namespace chrome.instanceID {
+export namespace instanceID {
     export interface TokenRefreshEvent extends chrome.events.Event<() => void> {}
 
     /**
@@ -5808,7 +5807,7 @@ declare namespace chrome.instanceID {
  * @since Chrome 78
  * Important: This API works only on Chrome OS.
  */
-declare namespace chrome.loginState {
+export namespace loginState {
     export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> {}
 
     /** Possible profile types. */
@@ -5835,7 +5834,7 @@ declare namespace chrome.loginState {
  * Permissions:  "management"
  * @since Chrome 8
  */
-declare namespace chrome.management {
+export namespace management {
     /** Information about an installed extension, app, or theme. */
     export interface ExtensionInfo {
         /**
@@ -6159,7 +6158,7 @@ declare namespace chrome.management {
  * Important: This API works only on Chrome OS.
  * @since Chrome 43
  */
-declare namespace chrome.networking.config {
+export namespace networking.config {
     export interface NetworkInfo {
         /** Currently only WiFi supported. */
         Type: string;
@@ -6208,7 +6207,7 @@ declare namespace chrome.networking.config {
  * Permissions:  "notifications"
  * @since Chrome 28
  */
-declare namespace chrome.notifications {
+export namespace notifications {
     export type TemplateType = "basic" | "image" | "list" | "progress";
 
     export interface ButtonOptions {
@@ -6394,7 +6393,7 @@ declare namespace chrome.notifications {
  * @since Chrome 109, MV3
  * Permissions: "offscreen"
  */
-declare namespace chrome.offscreen {
+export namespace offscreen {
     /** The reason(s) the extension is creating the offscreen document. */
     export enum Reason {
         /** A reason used for testing purposes only. */
@@ -6483,7 +6482,7 @@ declare namespace chrome.offscreen {
  * Manifest:  "omnibox": {...}
  * @since Chrome 9
  */
-declare namespace chrome.omnibox {
+export namespace omnibox {
     /** A suggest result. */
     export interface SuggestResult {
         /** The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry. */
@@ -6548,7 +6547,7 @@ declare namespace chrome.omnibox {
  * Manifest:  "page_action": {...}
  * @since Chrome 5
  */
-declare namespace chrome.pageAction {
+export namespace pageAction {
     export interface PageActionClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
 
     export interface TitleDetails {
@@ -6639,7 +6638,7 @@ declare namespace chrome.pageAction {
  * Permissions:  "pageCapture"
  * @since Chrome 18
  */
-declare namespace chrome.pageCapture {
+export namespace pageCapture {
     export interface SaveDetails {
         /** The id of the tab to save as MHTML. */
         tabId: number;
@@ -6665,7 +6664,7 @@ declare namespace chrome.pageCapture {
  * Use the chrome.permissions API to request declared optional permissions at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary.
  * @since Chrome 16
  */
-declare namespace chrome.permissions {
+export namespace permissions {
     export interface Permissions {
         /**
          * Optional.
@@ -6742,7 +6741,7 @@ declare namespace chrome.permissions {
  * Important: This API works only on Chrome OS.
  * @since Chrome 45
  */
-declare namespace chrome.platformKeys {
+export namespace platformKeys {
     export interface Match {
         /** The DER encoding of a X.509 certificate. */
         certificate: ArrayBuffer;
@@ -6839,7 +6838,7 @@ declare namespace chrome.platformKeys {
  * Permissions: "power"
  * @since Chrome 27
  */
-declare namespace chrome.power {
+export namespace power {
     export enum Level {
         /** Prevents the display from being turned off or dimmed, or the system from sleeping in response to user inactivity */
         DISPLAY = "display",
@@ -6871,7 +6870,7 @@ declare namespace chrome.power {
  * Permissions:  "printerProvider"
  * @since Chrome 44
  */
-declare namespace chrome.printerProvider {
+export namespace printerProvider {
     export interface PrinterInfo {
         /** Unique printer ID. */
         id: string;
@@ -6941,7 +6940,7 @@ declare namespace chrome.printerProvider {
  * @platform ChromeOS only
  * @since Chrome 81
  */
-declare namespace chrome.printing {
+export namespace printing {
     export interface GetPrinterInfoResponse {
         /** Printer capabilities in [CDD format](https://developers.google.com/cloud-print/docs/cdd#cdd-example). The property may be missing. */
         capabilities?: { [key: string]: unknown };
@@ -7096,7 +7095,7 @@ declare namespace chrome.printing {
  * @platform ChromeOS only
  * @since Chrome 79
  */
-declare namespace chrome.printingMetrics {
+export namespace printingMetrics {
     export enum ColorMode {
         /** Specifies that black and white mode was used. */
         BLACK_AND_WHITE = "BLACK_AND_WHITE",
@@ -7223,7 +7222,7 @@ declare namespace chrome.printingMetrics {
  * The Chrome Privacy Whitepaper gives background detail regarding the features which this API can control.
  * @since Chrome 18
  */
-declare namespace chrome.privacy {
+export namespace privacy {
     export interface Services {
         /** @since Chrome 20 */
         spellingServiceEnabled: chrome.types.ChromeSetting;
@@ -7282,7 +7281,7 @@ declare namespace chrome.privacy {
  * Permissions:  "proxy"
  * @since Chrome 13
  */
-declare namespace chrome.proxy {
+export namespace proxy {
     /** An object holding proxy auto-config information. Exactly one of the fields should be non-empty. */
     export interface PacScript {
         /** Optional. URL of the PAC file to be used. */
@@ -7359,7 +7358,7 @@ declare namespace chrome.proxy {
  * Permissions:  "search"
  */
 
-declare namespace chrome.search {
+export namespace search {
     export type Disposition = "CURRENT_TAB" | "NEW_TAB" | "NEW_WINDOW";
 
     export interface QueryInfo {
@@ -7385,213 +7384,221 @@ declare namespace chrome.search {
     export function query(options: QueryInfo): Promise<void>;
 }
 
-////////////////////
-// Serial
-////////////////////
-/**
- * Use the <code>chrome.serial</code> API to read from and write to a device connected to a serial port.
- * Permissions:  "enterprise.serial"
- * @since Chrome 29
- * Important: This API works only on Chrome OS.
- * @deprecated Part of the deprecated Chrome Apps platform
- */
-declare namespace chrome.serial {
-    export const DataBits: {
-        SEVEN: "seven";
-        EIGHT: "eight";
-    };
-    export const ParityBit: {
-        NO: "no";
-        ODD: "odd";
-        EVEN: "even";
-    };
-    export const StopBits: {
-        ONE: "one";
-        TWO: "two";
-    };
+    ////////////////////
+    // Serial
+    ////////////////////
+    /**
+     * Use the <code>chrome.serial</code> API to read from and write to a device connected to a serial port.
+     * Permissions:  "enterprise.serial"
+     * @since Chrome 29
+     * Important: This API works only on Chrome OS.
+     * @deprecated Part of the deprecated Chrome Apps platform
+     */
+    export namespace serial {
+        export const DataBits: {
+            SEVEN: "seven";
+            EIGHT: "eight";
+        };
+        export const ParityBit: {
+            NO: "no";
+            ODD: "odd";
+            EVEN: "even";
+        };
+        export const StopBits: {
+            ONE: "one";
+            TWO: "two";
+        };
 
-    export interface DeviceInfo {
-        /** The device's system path. This should be passed as the path argument to chrome.serial.connect in order to connect to this device. */
-        path: string;
-        /** Optional. A PCI or USB vendor ID if one can be determined for the underlying device. */
-        vendorId?: number | undefined;
-        /** Optional. A USB product ID if one can be determined for the underlying device. */
-        productId?: number | undefined;
-        /** Optional. A human-readable display name for the underlying device if one can be queried from the host driver. */
-        displayName?: number | undefined;
+        export interface DeviceInfo {
+            /** The device's system path. This should be passed as the path argument to chrome.serial.connect in order to connect to this device. */
+            path: string;
+            /** Optional. A PCI or USB vendor ID if one can be determined for the underlying device. */
+            vendorId?: number | undefined;
+            /** Optional. A USB product ID if one can be determined for the underlying device. */
+            productId?: number | undefined;
+            /** Optional. A human-readable display name for the underlying device if one can be queried from the host driver. */
+            displayName?: number | undefined;
+        }
+
+        export interface ConnectionInfo {
+            /** The id of the serial port connection. */
+            connectionId?: number | undefined;
+            /** Flag indicating whether the connection is blocked from firing onReceive events. */
+            paused: boolean;
+            /** See ConnectionOptions.persistent */
+            persistent: boolean;
+            /** See ConnectionOptions.name */
+            name: string;
+            /** See ConnectionOptions.bufferSize */
+            bufferSize: number;
+            /** See ConnectionOptions.receiveTimeout */
+            receiveTimeout?: number | undefined;
+            /** See ConnectionOptions.sendTimeout */
+            sendTimeout?: number | undefined;
+            /** Optional. See ConnectionOptions.bitrate.
+             * This field may be omitted or inaccurate if a non-standard bitrate is in use, or if an error occurred while querying the underlying device. */
+            bitrate?: number | undefined;
+            /** Optional. See ConnectionOptions.dataBits. This field may be omitted if an error occurred while querying the underlying device. */
+            dataBits?: typeof DataBits[keyof typeof DataBits] | undefined;
+            /** Optional. See ConnectionOptions.parityBit. This field may be omitted if an error occurred while querying the underlying device. */
+            parityBit?: typeof ParityBit[keyof typeof ParityBit] | undefined;
+            /** Optional. See ConnectionOptions.stopBits. This field may be omitted if an error occurred while querying the underlying device. */
+            stopBits?: typeof StopBits[keyof typeof StopBits] | undefined;
+            /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
+            ctsFlowControl?: boolean | undefined;
+        }
+
+        export interface ConnectionOptions {
+            /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
+             *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
+            persistent?: boolean | undefined;
+            /** Optional. An application-defined string to associate with the connection. */
+            name?: string | undefined;
+            /** Optional. The size of the buffer used to receive data. The default value is 4096. */
+            bufferSize?: number | undefined;
+            /** Optional. The requested bitrate of the connection to be opened.
+             * For compatibility with the widest range of hardware, this number should match one of commonly-available bitrates,
+             * such as 110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200.
+             * There is no guarantee, of course, that the device connected to the serial port will support the requested bitrate, even if the port itself supports that bitrate.
+             * 9600 will be passed by default. */
+            bitrate?: number | undefined;
+            /** Optional. "eight" will be passed by default. */
+            dataBits?: typeof DataBits[keyof typeof DataBits] | undefined;
+            /** Optional. "no" will be passed by default. */
+            parityBit?: typeof ParityBit[keyof typeof ParityBit] | undefined;
+            /** Optional. "one" will be passed by default. */
+            stopBits?: typeof StopBits[keyof typeof StopBits] | undefined;
+            /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
+            ctsFlowControl?: boolean | undefined;
+            /** Optional. The maximum amount of time (in milliseconds) to wait for new data before raising an onReceiveError event with a "timeout" error.
+             * If zero, receive timeout errors will not be raised for the connection.
+             * Defaults to 0. */
+            receiveTimeout?: number | undefined;
+            /** Optional. The maximum amount of time (in milliseconds) to wait for a send operation to complete before calling the callback with a "timeout" error.
+             * If zero, send timeout errors will not be triggered.
+             * Defaults to 0. */
+            sendTimeout?: number | undefined;
+        }
+
+        /**
+         * @since Chrome 33
+         * @description Returns information about available serial devices on the system. The list is regenerated each time this method is called.
+         * @param callback Called with the list of DeviceInfo objects.
+         */
+        export function getDevices(callback: (ports: DeviceInfo[]) => void): void;
+
+        /**
+         * @since Chrome 33
+         * @description Connects to a given serial port.
+         * @param path The system path of the serial port to open.
+         * @param options Port configuration options.
+         * @param callback Called when the connection has been opened.
+         */
+        export function connect(
+            path: string,
+            options: ConnectionOptions,
+            callback: (connectionInfo: ConnectionInfo) => void,
+        ): void;
+
+        /**
+         * @since Chrome 33
+         * @description Update the option settings on an open serial port connection.
+         * @param connectionId The id of the opened connection.
+         * @param options Port configuration options.
+         * @param callback Called when the configuration has completed.
+         */
+        export function update(
+            connectionId: number,
+            options: ConnectionOptions,
+            callback: (result: boolean) => void,
+        ): void;
+
+        /**
+         * @since Chrome 33
+         * @description Disconnects from a serial port.
+         * @param connectionId The id of the opened connection.
+         * @param callback Called when the connection has been closed.
+         */
+        export function disconnect(connectionId: number, callback: (result: boolean) => void): void;
+
+        /**
+         * @since Chrome 33
+         * @description Pauses or unpauses an open connection.
+         * @param connectionId The id of the opened connection.
+         * @param paused Flag to indicate whether to pause or unpause.
+         * @param callback Called when the connection has been successfully paused or unpaused.
+         */
+        export function setPaused(connectionId: number, paused: boolean, callback: () => void): void;
+
+        /**
+         * @since Chrome 33
+         * @description Retrieves the state of a given connection.
+         * @param callback Called with connection state information when available.
+         */
+        export function getInfo(callback: (connectionInfos: ConnectionInfo[]) => void): void;
+
+        /**
+         * @since Chrome 33
+         * @description Retrieves the list of currently opened serial port connections owned by the application.
+         * @param callback Called with the list of connections when available.
+         */
+        export function getConnections(callback: (connectionInfos: ConnectionInfo[]) => void): void;
+
+        /**
+         * @since Chrome 33
+         * @description Writes data to the given connection.
+         * @param connectionId The id of the connection.
+         * @param data The data to send.
+         * @param callback Called when the operation has completed.
+         */
+        export function send(connectionId: number, data: ArrayBuffer, callback: (sendInfo: object) => void): void;
+
+        /**
+         * @description Flushes all bytes in the given connection's input and output buffers.
+         * @param connectionId The id of the connection.
+         * @param callback
+         */
+        export function flush(connectionId: number, callback: (result: boolean) => void): void;
+
+        /**
+         * @description Retrieves the state of control signals on a given connection.
+         * @param connectionId The id of the connection.
+         * @param callback Called when the control signals are available.
+         */
+        export function getControlSignals(connectionId: number, callback: (signals: object) => void): void;
+
+        /**
+         * @description Sets the state of control signals on a given connection.
+         * @param connectionId The id of the connection.
+         * @param signals The set of signal changes to send to the device:
+         * boolean:    (optional) dtr - DTR (Data Terminal Ready).
+         * boolean:    (optional) rts - RTS (Request To Send).
+         * @param callback Called once the control signals have been set.
+         */
+        export function setControlSignals(
+            connectionId: number,
+            signals: object,
+            callback: (result: boolean) => void,
+        ): void;
+
+        /**
+         * @since Chrome 45
+         * @description Suspends character transmission on a given connection and places the transmission line in a break state until the clearBreak is called.
+         * @param connectionId The id of the connection.
+         * @param callback
+         */
+        export function setBreak(connectionId: number, callback: (result: boolean) => void): void;
+
+        /**
+         * @since Chrome 45
+         * @description Restore character transmission on a given connection and place the transmission line in a nonbreak state.
+         * @param connectionId The id of the connection.
+         * @param callback
+         */
+        export function clearBreak(connectionId: number, callback: (result: boolean) => void): void;
     }
 
-    export interface ConnectionInfo {
-        /** The id of the serial port connection. */
-        connectionId?: number | undefined;
-        /** Flag indicating whether the connection is blocked from firing onReceive events. */
-        paused: boolean;
-        /** See ConnectionOptions.persistent */
-        persistent: boolean;
-        /** See ConnectionOptions.name */
-        name: string;
-        /** See ConnectionOptions.bufferSize */
-        bufferSize: number;
-        /** See ConnectionOptions.receiveTimeout */
-        receiveTimeout?: number | undefined;
-        /** See ConnectionOptions.sendTimeout */
-        sendTimeout?: number | undefined;
-        /** Optional. See ConnectionOptions.bitrate.
-         * This field may be omitted or inaccurate if a non-standard bitrate is in use, or if an error occurred while querying the underlying device. */
-        bitrate?: number | undefined;
-        /** Optional. See ConnectionOptions.dataBits. This field may be omitted if an error occurred while querying the underlying device. */
-        dataBits?: typeof DataBits[keyof typeof DataBits] | undefined;
-        /** Optional. See ConnectionOptions.parityBit. This field may be omitted if an error occurred while querying the underlying device. */
-        parityBit?: typeof ParityBit[keyof typeof ParityBit] | undefined;
-        /** Optional. See ConnectionOptions.stopBits. This field may be omitted if an error occurred while querying the underlying device. */
-        stopBits?: typeof StopBits[keyof typeof StopBits] | undefined;
-        /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
-        ctsFlowControl?: boolean | undefined;
-    }
-
-    export interface ConnectionOptions {
-        /** Optional. Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle: https://developer.chrome.com/apps/app_lifecycle).
-         *  The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections. */
-        persistent?: boolean | undefined;
-        /** Optional. An application-defined string to associate with the connection. */
-        name?: string | undefined;
-        /** Optional. The size of the buffer used to receive data. The default value is 4096. */
-        bufferSize?: number | undefined;
-        /** Optional. The requested bitrate of the connection to be opened.
-         * For compatibility with the widest range of hardware, this number should match one of commonly-available bitrates,
-         * such as 110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200.
-         * There is no guarantee, of course, that the device connected to the serial port will support the requested bitrate, even if the port itself supports that bitrate.
-         * 9600 will be passed by default. */
-        bitrate?: number | undefined;
-        /** Optional. "eight" will be passed by default. */
-        dataBits?: typeof DataBits[keyof typeof DataBits] | undefined;
-        /** Optional. "no" will be passed by default. */
-        parityBit?: typeof ParityBit[keyof typeof ParityBit] | undefined;
-        /** Optional. "one" will be passed by default. */
-        stopBits?: typeof StopBits[keyof typeof StopBits] | undefined;
-        /** Optional. Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false. */
-        ctsFlowControl?: boolean | undefined;
-        /** Optional. The maximum amount of time (in milliseconds) to wait for new data before raising an onReceiveError event with a "timeout" error.
-         * If zero, receive timeout errors will not be raised for the connection.
-         * Defaults to 0. */
-        receiveTimeout?: number | undefined;
-        /** Optional. The maximum amount of time (in milliseconds) to wait for a send operation to complete before calling the callback with a "timeout" error.
-         * If zero, send timeout errors will not be triggered.
-         * Defaults to 0. */
-        sendTimeout?: number | undefined;
-    }
-
-    /**
-     * @since Chrome 33
-     * @description Returns information about available serial devices on the system. The list is regenerated each time this method is called.
-     * @param callback Called with the list of DeviceInfo objects.
-     */
-    export function getDevices(callback: (ports: DeviceInfo[]) => void): void;
-
-    /**
-     * @since Chrome 33
-     * @description Connects to a given serial port.
-     * @param path The system path of the serial port to open.
-     * @param options Port configuration options.
-     * @param callback Called when the connection has been opened.
-     */
-    export function connect(
-        path: string,
-        options: ConnectionOptions,
-        callback: (connectionInfo: ConnectionInfo) => void,
-    ): void;
-
-    /**
-     * @since Chrome 33
-     * @description Update the option settings on an open serial port connection.
-     * @param connectionId The id of the opened connection.
-     * @param options Port configuration options.
-     * @param callback Called when the configuration has completed.
-     */
-    export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean) => void): void;
-
-    /**
-     * @since Chrome 33
-     * @description Disconnects from a serial port.
-     * @param connectionId The id of the opened connection.
-     * @param callback Called when the connection has been closed.
-     */
-    export function disconnect(connectionId: number, callback: (result: boolean) => void): void;
-
-    /**
-     * @since Chrome 33
-     * @description Pauses or unpauses an open connection.
-     * @param connectionId The id of the opened connection.
-     * @param paused Flag to indicate whether to pause or unpause.
-     * @param callback Called when the connection has been successfully paused or unpaused.
-     */
-    export function setPaused(connectionId: number, paused: boolean, callback: () => void): void;
-
-    /**
-     * @since Chrome 33
-     * @description Retrieves the state of a given connection.
-     * @param callback Called with connection state information when available.
-     */
-    export function getInfo(callback: (connectionInfos: ConnectionInfo[]) => void): void;
-
-    /**
-     * @since Chrome 33
-     * @description Retrieves the list of currently opened serial port connections owned by the application.
-     * @param callback Called with the list of connections when available.
-     */
-    export function getConnections(callback: (connectionInfos: ConnectionInfo[]) => void): void;
-
-    /**
-     * @since Chrome 33
-     * @description Writes data to the given connection.
-     * @param connectionId The id of the connection.
-     * @param data The data to send.
-     * @param callback Called when the operation has completed.
-     */
-    export function send(connectionId: number, data: ArrayBuffer, callback: (sendInfo: object) => void): void;
-
-    /**
-     * @description Flushes all bytes in the given connection's input and output buffers.
-     * @param connectionId The id of the connection.
-     * @param callback
-     */
-    export function flush(connectionId: number, callback: (result: boolean) => void): void;
-
-    /**
-     * @description Retrieves the state of control signals on a given connection.
-     * @param connectionId The id of the connection.
-     * @param callback Called when the control signals are available.
-     */
-    export function getControlSignals(connectionId: number, callback: (signals: object) => void): void;
-
-    /**
-     * @description Sets the state of control signals on a given connection.
-     * @param connectionId The id of the connection.
-     * @param signals The set of signal changes to send to the device:
-     * boolean:    (optional) dtr - DTR (Data Terminal Ready).
-     * boolean:    (optional) rts - RTS (Request To Send).
-     * @param callback Called once the control signals have been set.
-     */
-    export function setControlSignals(connectionId: number, signals: object, callback: (result: boolean) => void): void;
-
-    /**
-     * @since Chrome 45
-     * @description Suspends character transmission on a given connection and places the transmission line in a break state until the clearBreak is called.
-     * @param connectionId The id of the connection.
-     * @param callback
-     */
-    export function setBreak(connectionId: number, callback: (result: boolean) => void): void;
-
-    /**
-     * @since Chrome 45
-     * @description Restore character transmission on a given connection and place the transmission line in a nonbreak state.
-     * @param connectionId The id of the connection.
-     * @param callback
-     */
-    export function clearBreak(connectionId: number, callback: (result: boolean) => void): void;
-}
-
-declare namespace chrome.serial.onReceive {
+export namespace serial.onReceive {
     export interface OnReceiveInfo {
         /** The connection identifier. */
         connectionId: number;
@@ -7607,7 +7614,7 @@ declare namespace chrome.serial.onReceive {
     export function addListener(callback: (info: OnReceiveInfo) => void): void;
 }
 
-declare namespace chrome.serial.onReceiveError {
+export namespace serial.onReceiveError {
     export const OnReceiveErrorEnum: {
         /* The connection was disconnected. */
         disconnected: "disconnected";
@@ -7655,7 +7662,7 @@ type FrameType = "outermost_frame" | "fenced_frame" | "sub_frame";
  * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
  * @since Chrome 22
  */
-declare namespace chrome.runtime {
+export namespace runtime {
     /** This will be defined during an API method callback if there was an error */
     export var lastError: LastError | undefined;
     /** The ID of the extension/app. */
@@ -8532,7 +8539,7 @@ declare namespace chrome.runtime {
  * Permissions: "scripting"
  * @since Chrome 88, MV3
  */
-declare namespace chrome.scripting {
+export namespace scripting {
     /* The CSS style origin for a style change. */
     export type StyleOrigin = "AUTHOR" | "USER";
 
@@ -8753,7 +8760,7 @@ declare namespace chrome.scripting {
 ////////////////////
 // Script Badge
 ////////////////////
-declare namespace chrome.scriptBadge {
+export namespace scriptBadge {
     export interface GetPopupDetails {
         tabId: number;
     }
@@ -8784,7 +8791,7 @@ declare namespace chrome.scriptBadge {
  * Permissions:  "sessions"
  * @since Chrome 37
  */
-declare namespace chrome.sessions {
+export namespace sessions {
     export interface Filter {
         /**
          * Optional.
@@ -8888,7 +8895,7 @@ declare namespace chrome.sessions {
  * Permissions:  "storage"
  * @since Chrome 20
  */
-declare namespace chrome.storage {
+export namespace storage {
     /** NoInfer for old TypeScript versions */
     type NoInferX<T> = T[][T extends any ? 0 : never];
     // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
@@ -9102,89 +9109,94 @@ declare namespace chrome.storage {
     export var onChanged: StorageChangedEvent;
 }
 
-////////////////////
-// Socket
-////////////////////
-/**
- * @deprecated Part of the deprecated Chrome Apps platform
- */
-declare namespace chrome.socket {
-    export interface CreateInfo {
-        socketId: number;
-    }
+    ////////////////////
+    // Socket
+    ////////////////////
+    /**
+     * @deprecated Part of the deprecated Chrome Apps platform
+     */
+    export namespace socket {
+        export interface CreateInfo {
+            socketId: number;
+        }
 
-    export interface AcceptInfo {
-        resultCode: number;
-        socketId?: number | undefined;
-    }
+        export interface AcceptInfo {
+            resultCode: number;
+            socketId?: number | undefined;
+        }
 
-    export interface ReadInfo {
-        resultCode: number;
-        data: ArrayBuffer;
-    }
+        export interface ReadInfo {
+            resultCode: number;
+            data: ArrayBuffer;
+        }
 
-    export interface WriteInfo {
-        bytesWritten: number;
-    }
+        export interface WriteInfo {
+            bytesWritten: number;
+        }
 
-    export interface RecvFromInfo {
-        resultCode: number;
-        data: ArrayBuffer;
-        port: number;
-        address: string;
-    }
+        export interface RecvFromInfo {
+            resultCode: number;
+            data: ArrayBuffer;
+            port: number;
+            address: string;
+        }
 
-    export interface SocketInfo {
-        socketType: string;
-        localPort?: number | undefined;
-        peerAddress?: string | undefined;
-        peerPort?: number | undefined;
-        localAddress?: string | undefined;
-        connected: boolean;
-    }
+        export interface SocketInfo {
+            socketType: string;
+            localPort?: number | undefined;
+            peerAddress?: string | undefined;
+            peerPort?: number | undefined;
+            localAddress?: string | undefined;
+            connected: boolean;
+        }
 
-    export interface NetworkInterface {
-        name: string;
-        address: string;
-    }
+        export interface NetworkInterface {
+            name: string;
+            address: string;
+        }
 
-    export function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
-    export function destroy(socketId: number): void;
-    export function connect(socketId: number, hostname: string, port: number, callback: (result: number) => void): void;
-    export function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
-    export function disconnect(socketId: number): void;
-    export function read(socketId: number, bufferSize?: number, callback?: (readInfo: ReadInfo) => void): void;
-    export function write(socketId: number, data: ArrayBuffer, callback?: (writeInfo: WriteInfo) => void): void;
-    export function recvFrom(
-        socketId: number,
-        bufferSize?: number,
-        callback?: (recvFromInfo: RecvFromInfo) => void,
-    ): void;
-    export function sendTo(
-        socketId: number,
-        data: ArrayBuffer,
-        address: string,
-        port: number,
-        callback?: (writeInfo: WriteInfo) => void,
-    ): void;
-    export function listen(
-        socketId: number,
-        address: string,
-        port: number,
-        backlog?: number,
-        callback?: (result: number) => void,
-    ): void;
-    export function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
-    export function setKeepAlive(
-        socketId: number,
-        enable: boolean,
-        delay?: number,
-        callback?: (result: boolean) => void,
-    ): void;
-    export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
-    export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
-    export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
-}
+        export function create(type: string, options?: Object, callback?: (createInfo: CreateInfo) => void): void;
+        export function destroy(socketId: number): void;
+        export function connect(
+            socketId: number,
+            hostname: string,
+            port: number,
+            callback: (result: number) => void,
+        ): void;
+        export function bind(socketId: number, address: string, port: number, callback: (result: number) => void): void;
+        export function disconnect(socketId: number): void;
+        export function read(socketId: number, bufferSize?: number, callback?: (readInfo: ReadInfo) => void): void;
+        export function write(socketId: number, data: ArrayBuffer, callback?: (writeInfo: WriteInfo) => void): void;
+        export function recvFrom(
+            socketId: number,
+            bufferSize?: number,
+            callback?: (recvFromInfo: RecvFromInfo) => void,
+        ): void;
+        export function sendTo(
+            socketId: number,
+            data: ArrayBuffer,
+            address: string,
+            port: number,
+            callback?: (writeInfo: WriteInfo) => void,
+        ): void;
+        export function listen(
+            socketId: number,
+            address: string,
+            port: number,
+            backlog?: number,
+            callback?: (result: number) => void,
+        ): void;
+        export function accept(socketId: number, callback?: (acceptInfo: AcceptInfo) => void): void;
+        export function setKeepAlive(
+            socketId: number,
+            enable: boolean,
+            delay?: number,
+            callback?: (result: boolean) => void,
+        ): void;
+        export function setNoDelay(socketId: number, noDelay: boolean, callback?: (result: boolean) => void): void;
+        export function getInfo(socketId: number, callback: (result: SocketInfo) => void): void;
+        export function getNetworkList(callback: (result: NetworkInterface[]) => void): void;
+    }
 
 ////////////////////
 // System CPU
@@ -9194,7 +9206,7 @@ declare namespace chrome.socket {
  * Permissions: "system.cpu"
  * @since Chrome 32
  */
-declare namespace chrome.system.cpu {
+export namespace system.cpu {
     export interface ProcessorUsage {
         /** The cumulative time used by userspace programs on this processor. */
         user: number;
@@ -9245,7 +9257,7 @@ declare namespace chrome.system.cpu {
  * Permissions:  "system.memory"
  * @since Chrome 32
  */
-declare namespace chrome.system.memory {
+export namespace system.memory {
     export interface MemoryInfo {
         /** The total amount of physical memory capacity, in bytes. */
         capacity: number;
@@ -9271,7 +9283,7 @@ declare namespace chrome.system.memory {
  * Permissions:  "system.storage"
  * @since Chrome 30
  */
-declare namespace chrome.system.storage {
+export namespace system.storage {
     export interface StorageUnitInfo {
         /** The transient ID that uniquely identifies the storage device. This ID will be persistent within the same run of a single application. It will not be a persistent identifier between different runs of an application, or between different applications. */
         id: string;
@@ -9345,7 +9357,7 @@ declare namespace chrome.system.storage {
  * Permissions: 'system.display'
  * @since Chrome 30
  */
-declare namespace chrome.system.display {
+export namespace system.display {
     export const DisplayPosition: {
         TOP: "top";
         RIGHT: "right";
@@ -9913,7 +9925,7 @@ declare namespace chrome.system.display {
  * @platform ChromeOS only
  * @since Chrome 125
  */
-declare namespace chrome.systemLog {
+export namespace systemLog {
     export interface MessageOptions {
         message: string;
     }
@@ -9934,7 +9946,7 @@ declare namespace chrome.systemLog {
  * Permissions:  "tabCapture"
  * @since Chrome 31
  */
-declare namespace chrome.tabCapture {
+export namespace tabCapture {
     export interface CaptureInfo {
         /** The id of the tab whose status changed. */
         tabId: number;
@@ -10003,7 +10015,7 @@ declare namespace chrome.tabCapture {
  * Permissions: The majority of the chrome.tabs API can be used without declaring any permission. However, the "tabs" permission is required in order to populate the url, title, and favIconUrl properties of Tab.
  * @since Chrome 5
  */
-declare namespace chrome.tabs {
+export namespace tabs {
     /**
      * Tab muted state and the reason for the last state change.
      * @since Chrome 46
@@ -11224,7 +11236,7 @@ declare namespace chrome.tabs {
  * Permissions:  "tabGroups"
  * @since Chrome 89, MV3
  */
-declare namespace chrome.tabGroups {
+export namespace tabGroups {
     /** An ID that represents the absence of a group. */
     export var TAB_GROUP_ID_NONE: -1;
 
@@ -11357,7 +11369,7 @@ declare namespace chrome.tabGroups {
  * Permissions:  "topSites"
  * @since Chrome 19
  */
-declare namespace chrome.topSites {
+export namespace topSites {
     /** An object encapsulating a most visited URL, such as the URLs on the new tab page. */
     export interface MostVisitedURL {
         /** The most visited URL. */
@@ -11384,7 +11396,7 @@ declare namespace chrome.topSites {
  * Permissions:  "tts"
  * @since Chrome 14
  */
-declare namespace chrome.tts {
+export namespace tts {
     /** An event from the TTS engine to communicate the status of an utterance. */
     export interface TtsEvent {
         /** Optional. The index of the current character in the utterance. */
@@ -11517,7 +11529,7 @@ declare namespace chrome.tts {
  * Permissions:  "ttsEngine"
  * @since Chrome 14
  */
-declare namespace chrome.ttsEngine {
+export namespace ttsEngine {
     export interface SpeakOptions {
         /** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
         lang?: string | undefined;
@@ -11568,7 +11580,7 @@ declare namespace chrome.ttsEngine {
  * The chrome.types API contains type declarations for Chrome.
  * @since Chrome 13
  */
-declare namespace chrome.types {
+export namespace types {
     type settingsScope = "regular" | "regular_only" | "incognito_persistent" | "incognito_session_only" | undefined;
 
     export interface ChromeSettingClearDetails {
@@ -11668,7 +11680,7 @@ declare namespace chrome.types {
  * Important: This API works only on Chrome OS.
  * @since Chrome 43
  */
-declare namespace chrome.vpnProvider {
+export namespace vpnProvider {
     export interface VpnSessionParameters {
         /** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
         address: string;
@@ -11759,7 +11771,7 @@ declare namespace chrome.vpnProvider {
  * Important: This API works only on Chrome OS.
  * @since Chrome 43
  */
-declare namespace chrome.wallpaper {
+export namespace wallpaper {
     export interface WallpaperDetails {
         /** Optional. The jpeg or png encoded wallpaper image. */
         data?: ArrayBuffer | undefined;
@@ -11792,7 +11804,7 @@ declare namespace chrome.wallpaper {
  * Permissions:  "webNavigation"
  * @since Chrome 16
  */
-declare namespace chrome.webNavigation {
+export namespace webNavigation {
     export interface GetFrameDetails {
         /**
          * The ID of the process runs the renderer for this tab.
@@ -12002,7 +12014,7 @@ declare namespace chrome.webNavigation {
  * Permissions:  "webRequest", host permissions
  * @since Chrome 17
  */
-declare namespace chrome.webRequest {
+export namespace webRequest {
     /** How the requested resource will be used. */
     export type ResourceType =
         | "main_frame"
@@ -12323,7 +12335,7 @@ declare namespace chrome.webRequest {
  * Use the chrome.webstore API to initiate app and extension installations "inline" from your site.
  * @since Chrome 15
  */
-declare namespace chrome.webstore {
+export namespace webstore {
     /**
      * @param url Optional. If you have more than one <link> tag on your page with the chrome-webstore-item relation, you can choose which item you'd like to install by passing in its URL here. If it is omitted, then the first (or only) link will be used. An exception will be thrown if the passed in URL does not exist on the page.
      * @param successCallback Optional. This function is invoked when inline installation successfully completes (after the dialog is shown and the user agrees to add the item to Chrome). You may wish to use this to hide the user interface element that prompted the user to install the app or extension.
@@ -12431,7 +12443,7 @@ declare namespace chrome.webstore {
  * Permissions: The chrome.windows API can be used without declaring any permission. However, the "tabs" permission is required in order to populate the url, title, and favIconUrl properties of Tab objects.
  * @since Chrome 5
  */
-declare namespace chrome.windows {
+export namespace windows {
     export interface Window {
         /** Optional. Array of tabs.Tab objects representing the current tabs in the window. */
         tabs?: chrome.tabs.Tab[] | undefined;
@@ -12759,7 +12771,7 @@ declare namespace chrome.windows {
     export var onBoundsChanged: WindowReferenceEvent;
 }
 
-declare namespace chrome.declarativeNetRequest {
+export namespace declarativeNetRequest {
     /** Ruleset ID for the dynamic rules added by the extension. */
     export const DYNAMIC_RULESET_ID: string;
 
@@ -13531,7 +13543,7 @@ declare namespace chrome.declarativeNetRequest {
  * https://developer.chrome.com/docs/extensions/reference/api/sidePanel
  * Permissions: "sidePanel"
  */
-declare namespace chrome.sidePanel {
+export namespace sidePanel {
     export interface GetPanelOptions {
         /**
          * If specified, the side panel options for the given tab will be returned.
@@ -13679,7 +13691,7 @@ declare namespace chrome.sidePanel {
  * Description: "A user script is a bit of code injected into a web page to modify its appearance or behavior. Scripts are either created by users or downloaded from a script repository or a user script extension.""
  */
 
-declare namespace chrome.userScripts {
+export namespace userScripts {
     /**
      * Execution environment for a user script.
      */
@@ -13819,4 +13831,5 @@ declare namespace chrome.userScripts {
      * @param callback - Callback function to be executed after updating user scripts.
      */
     export function update(scripts: RegisteredUserScript[], callback: () => void): void;
+}
 }
