@@ -20,7 +20,7 @@ type ClassElementType = Extract<ElementType, new(props: Record<string, any>) => 
 /**
  * A valid JSX string component.
  */
-type StringComponent = Extract<keyof JSX.IntrinsicElements, ElementType extends never ? string : ElementType>;
+type StringComponent = Extract<keyof JSX.IntrinsicElements, ElementType extends never ? string & {} : ElementType>;
 
 /**
  * A JSX element returned by MDX content.
@@ -57,7 +57,7 @@ type ClassComponent<Props> = ElementType extends never
 type Component<Props> = FunctionComponent<Props> | ClassComponent<Props> | StringComponent;
 
 interface NestedMDXComponents {
-    [key: string]: NestedMDXComponents | Component<any>;
+    [key: string & {}]: NestedMDXComponents | Component<any>;
 }
 
 // Public MDX helper types
