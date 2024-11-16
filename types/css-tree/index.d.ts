@@ -528,6 +528,7 @@ export interface GenerateHandlers {
 export interface GenerateOptions {
     sourceMap?: boolean | undefined;
     decorator?: ((handlers: GenerateHandlers) => GenerateHandlers) | undefined;
+    mode?: "safe" | "spec" | undefined;
 }
 
 export function generate(ast: CssNode, options?: GenerateOptions): string;
@@ -910,4 +911,5 @@ export function fork(extension: {
     atrules?: Record<string, string> | undefined;
     properties?: Record<string, string> | undefined;
     types?: Record<string, string> | undefined;
+    cssWideKeywords?: Array<string> | undefined;
 }): { lexer: Lexer };

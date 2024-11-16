@@ -1,4 +1,4 @@
-import { Bone, Euler, Matrix4, Object3D, Quaternion, SkinnedMesh, Vector3 } from "three";
+import { Bone, Euler, Matrix4, MeshBasicMaterial, Object3D, Quaternion, SkinnedMesh, Vector3 } from "three";
 
 export interface MMDPhysicsParameter {
     unitStep?: number | undefined;
@@ -6,6 +6,10 @@ export interface MMDPhysicsParameter {
     gravity?: Vector3 | undefined;
 }
 
+/**
+ * @deprecated The module has been deprecated and will be removed with r172. Please migrate to
+ * https://github.com/takahirox/three-mmd-loader instead.
+ */
 export class MMDPhysics {
     constructor(
         mesh: SkinnedMesh,
@@ -115,10 +119,10 @@ export class Constraint {
 }
 
 export class MMDPhysicsHelper extends Object3D {
-    mesh: THREE.SkinnedMesh;
+    mesh: SkinnedMesh;
     physics: MMDPhysics;
-    materials: [THREE.MeshBasicMaterial, THREE.MeshBasicMaterial, THREE.MeshBasicMaterial];
+    materials: [MeshBasicMaterial, MeshBasicMaterial, MeshBasicMaterial];
 
-    constructor(mesh: THREE.SkinnedMesh, physics: MMDPhysics);
+    constructor(mesh: SkinnedMesh, physics: MMDPhysics);
     dispose(): void;
 }

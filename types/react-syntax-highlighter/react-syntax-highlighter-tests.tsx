@@ -11,7 +11,54 @@ import createElement from "react-syntax-highlighter/dist/esm/create-element";
 import javascript from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
 import PrismSyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { coldarkCold, coldarkDark, oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import {
+    a11yDark,
+    atomDark,
+    base16AteliersulphurpoolLight,
+    cb,
+    coldarkCold,
+    coldarkDark,
+    coy,
+    coyWithoutShadows,
+    darcula,
+    dark,
+    dracula,
+    duotoneDark,
+    duotoneEarth,
+    duotoneForest,
+    duotoneLight,
+    duotoneSea,
+    duotoneSpace,
+    // @ts-expect-error
+    foo,
+    funky,
+    ghcolors,
+    gruvboxDark,
+    gruvboxLight,
+    holiTheme,
+    hopscotch,
+    lucario,
+    materialDark,
+    materialLight,
+    materialOceanic,
+    nightOwl,
+    nord,
+    okaidia,
+    oneDark,
+    oneLight,
+    pojoaque,
+    prism,
+    shadesOfPurple,
+    solarizedDarkAtom,
+    solarizedlight,
+    synthwave84,
+    tomorrow,
+    twilight,
+    vs,
+    vscDarkPlus,
+    xonokai,
+    zTouch,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const codeString = `class CPP {
     private year: number;
@@ -55,11 +102,21 @@ function prismHighlighter(): React.JSX.Element {
 
 function primsLightHighlighter(): React.JSX.Element {
     PrismLightHighlighter.registerLanguage("jsx", jsx);
+    PrismLightHighlighter.alias("jsx", "jsx-alias");
+    PrismLightHighlighter.alias({ "jsx": ["alias-jsx"] });
 
     return (
-        <PrismLightHighlighter language="jsx" style={oneLight}>
-            {codeString}
-        </PrismLightHighlighter>
+        <>
+            <PrismLightHighlighter language="jsx" style={oneLight}>
+                {codeString}
+            </PrismLightHighlighter>
+            <PrismLightHighlighter language="jsx-alias" style={oneLight}>
+                {codeString}
+            </PrismLightHighlighter>
+            <PrismLightHighlighter language="alias-jsx" style={oneLight}>
+                {codeString}
+            </PrismLightHighlighter>
+        </>
     );
 }
 

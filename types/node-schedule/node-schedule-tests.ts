@@ -53,9 +53,34 @@ function testCancelNext() {
 
 function testReschedule() {
     const job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    const success: boolean = job.reschedule("");
-    const success2: boolean = job.reschedule(1234);
-    const success3: boolean = job.reschedule(new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0));
+    const sucess1 = job.reschedule("");
+    const sucess2 = job.reschedule(1234);
+
+    const spec: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
+    const sucess3 = job.reschedule(spec);
+
+    const date: Date = new Date();
+    const sucess4 = job.reschedule(date);
+
+    const jobObjLit = job.reschedule({ hour: 14, minute: 30, dayOfWeek: 0 });
+
+    const startDate: Date = new Date();
+    const endDate: Date = new Date(startDate.getDate() + 10000);
+    const jobDateRange = job.reschedule({
+        start: startDate,
+        end: endDate,
+        rule: "* * * * * *",
+    });
+    const jobDateRangeWithoutEndDate = job.reschedule({
+        start: startDate,
+        rule: "* * * * * *",
+    });
+    const jobDateRangeWithoutStartDate = job.reschedule({
+        end: endDate,
+        rule: "* * * * * *",
+    });
+
+    const jobTimestamp = job.reschedule(Date.now() + 1000);
 }
 
 function testNextInvocation() {
@@ -80,9 +105,34 @@ function testRunOnDate() {
 
 function testSchedule() {
     const job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    let success: boolean = job.schedule(new Date());
-    success = job.schedule("");
-    success = job.schedule(1234);
+    const sucess1 = job.schedule("");
+    const sucess2 = job.schedule(1234);
+
+    const spec: nodeSchedule.RecurrenceRule = new nodeSchedule.RecurrenceRule(0, 0, 0, 0, 0, 0, 0);
+    const sucess3 = job.schedule(spec);
+
+    const date: Date = new Date();
+    const sucess4 = job.schedule(date);
+
+    const jobObjLit = job.schedule({ hour: 14, minute: 30, dayOfWeek: 0 });
+
+    const startDate: Date = new Date();
+    const endDate: Date = new Date(startDate.getDate() + 10000);
+    const jobDateRange = job.schedule({
+        start: startDate,
+        end: endDate,
+        rule: "* * * * * *",
+    });
+    const jobDateRangeWithoutEndDate = job.schedule({
+        start: startDate,
+        rule: "* * * * * *",
+    });
+    const jobDateRangeWithoutStartDate = job.schedule({
+        end: endDate,
+        rule: "* * * * * *",
+    });
+
+    const jobTimestamp = job.schedule(Date.now() + 1000);
 }
 
 /**

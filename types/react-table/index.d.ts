@@ -15,7 +15,6 @@ import {
     EffectCallback,
     MouseEvent,
     ReactElement,
-    ReactFragment,
     ReactNode,
 } from "react";
 
@@ -872,7 +871,7 @@ export type StringKey<D> = Extract<keyof D, string>;
 export type IdType<D> = StringKey<D> | string;
 export type CellValue<V = any> = V;
 
-export type Renderer<Props> = ComponentType<Props> | ReactElement | string | number | ReactFragment;
+export type Renderer<Props> = ComponentType<Props> | ReactElement | string | number | readonly ReactNode[];
 
 export interface PluginHook<D extends object> {
     (hooks: Hooks<D>): void;

@@ -215,7 +215,7 @@ declare module "fs" {
         /**
          * Asynchronously iterates over the directory via `readdir(3)` until all entries have been read.
          */
-        [Symbol.asyncIterator](): AsyncIterableIterator<Dirent>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<Dirent>;
         /**
          * Asynchronously close the directory's underlying resource handle.
          * Subsequent reads will result in errors.
@@ -235,7 +235,7 @@ declare module "fs" {
         /**
          * Asynchronously read the next directory entry via [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) as an `fs.Dirent`.
          *
-         * A promise is returned that will be resolved with an `fs.Dirent`, or `null`if there are no more directory entries to read.
+         * A promise is returned that will be resolved with an `fs.Dirent`, or `null` if there are no more directory entries to read.
          *
          * Directory entries returned by this function are in no particular order as
          * provided by the operating system's underlying directory mechanisms.
@@ -1747,7 +1747,7 @@ declare module "fs" {
      * The `fs.mkdtemp()` method will append the six randomly selected characters
      * directly to the `prefix` string. For instance, given a directory `/tmp`, if the
      * intention is to create a temporary directory _within_`/tmp`, the `prefix`must end with a trailing platform-specific path separator
-     * (`require('path').sep`).
+     * (`import { sep } from 'node:path'`).
      *
      * ```js
      * import { tmpdir } from 'os';
@@ -2978,7 +2978,7 @@ declare module "fs" {
      * again, with the latest stat objects. This is a change in functionality since
      * v0.10.
      *
-     * Using {@link watch} is more efficient than `fs.watchFile` and`fs.unwatchFile`. `fs.watch` should be used instead of `fs.watchFile` and`fs.unwatchFile` when possible.
+     * Using {@link watch} is more efficient than `fs.watchFile` and `fs.unwatchFile`. `fs.watch` should be used instead of `fs.watchFile` and `fs.unwatchFile` when possible.
      *
      * When a file being watched by `fs.watchFile()` disappears and reappears,
      * then the contents of `previous` in the second callback event (the file's
@@ -3028,7 +3028,7 @@ declare module "fs" {
      * Calling `fs.unwatchFile()` with a filename that is not being watched is a
      * no-op, not an error.
      *
-     * Using {@link watch} is more efficient than `fs.watchFile()` and`fs.unwatchFile()`. `fs.watch()` should be used instead of `fs.watchFile()`and `fs.unwatchFile()` when possible.
+     * Using {@link watch} is more efficient than `fs.watchFile()` and `fs.unwatchFile()`. `fs.watch()` should be used instead of `fs.watchFile()` and `fs.unwatchFile()` when possible.
      * @since v0.1.31
      * @param listener Optional, a listener previously attached using `fs.watchFile()`
      */
@@ -3677,7 +3677,7 @@ declare module "fs" {
      * it may require the `flags` option to be set to `r+` rather than the default `w`.
      * The `encoding` can be any one of those accepted by `Buffer`.
      *
-     * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
+     * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'` the file descriptor will be closed automatically. If `autoClose` is false,
      * then the file descriptor won't be closed, even if there's an error.
      * It is the application's responsibility to close it and make sure there's no
      * file descriptor leak.
@@ -3688,7 +3688,7 @@ declare module "fs" {
      * By providing the `fs` option it is possible to override the corresponding `fs`implementations for `open`, `write`, `writev` and `close`. Overriding `write()`without `writev()` can reduce
      * performance as some optimizations (`_writev()`)
      * will be disabled. When providing the `fs` option, overrides for at least one of`write` and `writev` are required. If no `fd` option is supplied, an override
-     * for `open` is also required. If `autoClose` is `true`, an override for `close`is also required.
+     * for `open` is also required. If `autoClose` is `true`, an override for `close` is also required.
      *
      * Like `fs.ReadStream`, if `fd` is specified, `fs.WriteStream` will ignore the`path` argument and will use the specified file descriptor. This means that no`'open'` event will be
      * emitted. `fd` should be blocking; non-blocking `fd`s

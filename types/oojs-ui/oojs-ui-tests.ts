@@ -934,11 +934,11 @@
         editable: false,
     });
 
-    instance.focus(); // $ExpectType
+    instance.focus(); // $ExpectType void
 
-    instance.focus(1); // $ExpectType
+    instance.focus(1); // $ExpectType void
 
-    instance.focusFirstFocusable(); // $ExpectType
+    instance.focusFirstFocusable(); // $ExpectType void
 
     instance.isOutlined(); // $ExpectType boolean
 

@@ -65,7 +65,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
         {
             name: "1",
             fetchType: 2002,
-            dbType: 2,
+            dbType: oracledb.DB_TYPE_NUMBER,
             nullable: true,
             precision: 0,
             scale: -127,
@@ -691,4 +691,23 @@ export const fetchAsStringTests = (): void => {
     defaultOracledb.fetchAsString = [{}];
     // @ts-expect-error
     defaultOracledb.fetchAsString = [oracledb.STRING];
+};
+
+export const version6Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+    });
+
+    const lob = await connection.createLob(oracledb.CLOB);
+    const offset = 1, len = 100;
+    await lob.getData(offset);
+    await lob.getData(offset + 3, len);
+
+    console.log(defaultOracledb.DB_TYPE_VECTOR);
+    console.log(defaultOracledb.JsonId);
+
+    // pass random 12 byte value to JsonId which is generated
+    // by DB for SODA document.
+    const key = new oracledb.JsonId([102, 241, 117, 85, 174, 103, 204, 25, 15, 172, 252, 47]);
+    console.log(key.toJSON()); // 66f17555ae67cc190facfc2f
 };

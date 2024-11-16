@@ -3,17 +3,10 @@ import { BufferGeometry } from "../../core/BufferGeometry.js";
 import { Object3D } from "../../core/Object3D.js";
 import { Material } from "../../materials/Material.js";
 import { WebGLAttributes } from "./WebGLAttributes.js";
-import { WebGLCapabilities } from "./WebGLCapabilities.js";
-import { WebGLExtensions } from "./WebGLExtensions.js";
 import { WebGLProgram } from "./WebGLProgram.js";
 
 export class WebGLBindingStates {
-    constructor(
-        gl: WebGLRenderingContext,
-        extensions: WebGLExtensions,
-        attributes: WebGLAttributes,
-        capabilities: WebGLCapabilities,
-    );
+    constructor(gl: WebGLRenderingContext, attributes: WebGLAttributes);
 
     setup(
         object: Object3D,

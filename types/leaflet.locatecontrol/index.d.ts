@@ -10,8 +10,7 @@ declare module "leaflet" {
             stopFollowing(): void;
             setView(): void;
         }
-        interface LocateOptions {
-            position?: string | undefined;
+        interface LocateOptions extends ControlOptions {
             layer?: Layer | undefined;
             setView?: boolean | string | undefined;
             keepCurrentZoomLevel?: boolean | undefined;
@@ -36,7 +35,12 @@ declare module "leaflet" {
             textElementTag?: string | undefined;
             circlePadding?: number[] | undefined;
             metric?: boolean | undefined;
-            createButtonCallback?: ((container: HTMLDivElement, options: LocateOptions) => void) | undefined;
+            createButtonCallback?:
+                | ((
+                    container: HTMLDivElement,
+                    options: LocateOptions,
+                ) => { link: HTMLAnchorElement; icon: HTMLElement })
+                | undefined;
             onLocationError?: ((event: ErrorEvent, control: Locate) => void) | undefined;
             onLocationOutsideMapBounds?: ((control: Locate) => void) | undefined;
             showPopup?: boolean | undefined;

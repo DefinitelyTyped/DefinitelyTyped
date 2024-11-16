@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jqueryui",
     "version": "1.12.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "jquery-ui",
     "projects": [
         "http://jqueryui.com/"
     ],

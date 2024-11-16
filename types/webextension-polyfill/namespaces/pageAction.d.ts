@@ -2,21 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.pageAction
- *
- * Use the <code>browser.pageAction</code> API to put icons inside the address bar. Page actions represent actions that can
- * be taken on the current page, but that aren't applicable to all pages.
- * Permissions: "manifest:page_action"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 import { Tabs } from "./tabs";
 
+/**
+ * Namespace: browser.pageAction
+ */
 export namespace PageAction {
     /**
      * Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element).
@@ -133,22 +124,16 @@ export namespace PageAction {
 
         /**
          * Checks whether the page action is shown.
-         *
-         * @param details
          */
         isShown(details: IsShownDetailsType): Promise<boolean>;
 
         /**
          * Sets the title of the page action. This is displayed in a tooltip over the page action.
-         *
-         * @param details
          */
         setTitle(details: SetTitleDetailsType): void;
 
         /**
          * Gets the title of the page action.
-         *
-         * @param details
          */
         getTitle(details: GetTitleDetailsType): Promise<string>;
 
@@ -156,22 +141,16 @@ export namespace PageAction {
          * Sets the icon for the page action. The icon can be specified either as the path to an image file or as the pixel data
          * from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b>
          * property must be specified.
-         *
-         * @param details
          */
         setIcon(details: SetIconDetailsType): Promise<void>;
 
         /**
          * Sets the html document to be opened as a popup when the user clicks on the page action's icon.
-         *
-         * @param details
          */
         setPopup(details: SetPopupDetailsType): Promise<void>;
 
         /**
          * Gets the html document set as the popup for this page action.
-         *
-         * @param details
          */
         getPopup(details: GetPopupDetailsType): Promise<string>;
 
@@ -183,7 +162,6 @@ export namespace PageAction {
         /**
          * Fired when a page action icon is clicked.  This event will not fire if the page action has a popup.
          *
-         * @param tab
          * @param info Optional.
          */
         onClicked: Events.Event<(tab: Tabs.Tab, info: OnClickData | undefined) => void>;

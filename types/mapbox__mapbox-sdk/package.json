@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mapbox__mapbox-sdk",
-    "version": "0.14.9999",
+    "version": "0.16.9999",
     "projects": [
         "https://github.com/mapbox/mapbox-sdk-js"
     ],

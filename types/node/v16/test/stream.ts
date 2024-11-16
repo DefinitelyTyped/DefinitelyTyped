@@ -479,7 +479,7 @@ async function readableToJson() {
 async function readableToBuffer() {
     const r = createReadStream("file.txt");
 
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     await buffer(r);
 }
 

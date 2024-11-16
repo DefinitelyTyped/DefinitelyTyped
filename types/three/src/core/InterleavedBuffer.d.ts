@@ -10,6 +10,8 @@ import { InterleavedBufferAttribute } from "./InterleavedBufferAttribute.js";
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBuffer.js | Source}
  */
 export class InterleavedBuffer {
+    readonly isInterleavedBuffer: true;
+
     /**
      * Create a new instance of {@link InterleavedBuffer}
      * @param array A {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} with a shared buffer. Stores the geometry data.
@@ -39,18 +41,6 @@ export class InterleavedBuffer {
      * @defaultValue {@link THREE.StaticDrawUsage | THREE.StaticDrawUsage}.
      */
     usage: Usage;
-
-    /**
-     * Object containing offset and count.
-     * @defaultValue `{ offset: number = 0; count: number = -1 }`
-     * @deprecated Will be removed in r169. Use "addUpdateRange()" instead.
-     */
-    updateRange: {
-        /** @defaultValue `0` */
-        offset: number;
-        /** @defaultValue `-1` */
-        count: number;
-    };
 
     /**
      * This can be used to only update some components of stored data. Use the {@link .addUpdateRange} function to add

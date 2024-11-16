@@ -61,6 +61,15 @@ const docker11 = new Docker({
     },
 });
 
+const docker12 = new Docker({
+    sshOptions: {
+        host: "192.168.1.10",
+        port: 3000,
+        forceIPv4: true,
+        forceIPv6: true,
+    },
+});
+
 async function foo() {
     const containers = await docker7.listContainers({
         all: false,
@@ -147,12 +156,12 @@ container.remove({ v: true, force: false, link: true }, (err, data) => {
 });
 
 container.logs((err, logs) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     logs;
 });
 
 container.logs({}, (err, logs) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     logs;
 });
 
@@ -162,20 +171,20 @@ container.logs({ follow: true }, (err, logs) => {
 });
 
 container.logs({ follow: false }, (err, logs) => {
-    // $ExpectType Buffer
+    // $ExpectType Buffer || Buffer<ArrayBufferLike>
     logs;
 });
 
-// $ExpectType Promise<Buffer>
+// $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 container.logs({ since: 0, until: 10, stdout: true, stderr: true });
 
-// $ExpectType Promise<Buffer>
+// $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 container.logs({ since: "12345.987654321", until: "54321.123456789", stdout: true, stderr: true });
 
 // $ExpectType Promise<ReadableStream>
 container.logs({ follow: true });
 
-// $ExpectType Promise<Buffer>
+// $ExpectType Promise<Buffer> || Promise<Buffer<ArrayBufferLike>>
 container.logs({ follow: false });
 
 container.stats((err, logs) => {
@@ -274,6 +283,15 @@ docker.listImages({
     return images.map(image => docker.getImage(image.Id));
 });
 
+docker.listImages({
+    all: true,
+    filters: { "dangling": ["true"] },
+    digests: true,
+    abortSignal: new AbortController().signal,
+}).then(images => {
+    return images.map(image => docker.getImage(image.Id));
+});
+
 docker.buildImage("archive.tar", { t: "imageName" }, (err, response) => {
     // NOOP
 });
@@ -297,7 +315,7 @@ docker.buildImage(
     },
 );
 
-docker.buildImage(".", { nocache: true }, (err, response) => {
+docker.buildImage(".", { nocache: true, version: "2" }, (err, response) => {
     // NOOP
 });
 
@@ -436,6 +454,17 @@ docker.listServices({ filters: JSON.stringify({ name: ["network-name"] }), statu
 
 docker.listServices({ filters: { name: ["network-name"] } }).then(services => {
     return services.map(service => docker.getService(service.ID));
+});
+
+(async () => {
+    // $ExpectType ReadableStream
+    const pullStream = await docker.pull("hello-world", { authconfig: { username: "username", password: "password" } });
+
+    // $ExpectType Image
+    const pushImage = docker.getImage("hello-world");
+
+    // $ExpectType ReadableStream
+    const pushStream = await pushImage.push({ authconfig: { username: "username", password: "password" } });
 });
 
 const image = docker.getImage("imageName");

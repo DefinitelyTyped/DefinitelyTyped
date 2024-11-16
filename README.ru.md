@@ -297,7 +297,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
 
 - Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-- Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+- Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) which maintains this repo.
 - The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
 
 To Add yourself as a Definition Owner:

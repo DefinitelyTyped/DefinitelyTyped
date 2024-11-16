@@ -55,5 +55,7 @@ interface OfflineChecks {
 }
 
 interface OfflineCheck {
-    url: string;
+    url: string | (() => string);
+    timeout?: number;
+    type?: "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "TRACE" | "PATCH";
 }

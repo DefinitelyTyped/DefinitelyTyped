@@ -6,7 +6,6 @@
 
 import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
-import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -155,6 +154,8 @@ declare namespace React {
         readonly current: T | null;
     }
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
+    }
     /**
      * A callback fired whenever the ref's value changes.
      *
@@ -168,7 +169,15 @@ declare namespace React {
      * <div ref={(node) => console.log(node)} />
      * ```
      */
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type RefCallback<T> = {
+        bivarianceHack(
+            instance: T | null,
+        ):
+            | void
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[
+                keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES
+            ];
+    }["bivarianceHack"];
 
     /**
      * A union type of all possible shapes for React refs.
@@ -213,7 +222,7 @@ declare namespace React {
         C extends
             | ForwardRefExoticComponent<any>
             | { new(props: any): Component<any> }
-            | ((props: any, context?: any) => ReactNode)
+            | ((props: any, deprecatedLegacyContext?: any) => ReactNode)
             | keyof JSX.IntrinsicElements,
     > =
         // need to check first if `ref` is a valid prop for ts@3.0
@@ -484,21 +493,27 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     // DOM Elements
+    /** @deprecated */
     function createFactory<T extends HTMLElement>(
         type: keyof ReactHTML,
     ): HTMLFactory<T>;
+    /** @deprecated */
     function createFactory(
         type: keyof ReactSVG,
     ): SVGFactory;
+    /** @deprecated */
     function createFactory<P extends DOMAttributes<T>, T extends Element>(
         type: string,
     ): DOMFactory<P, T>;
 
     // Custom components
+    /** @deprecated */
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
+    /** @deprecated */
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
     ): CFactory<P, T>;
+    /** @deprecated */
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
@@ -833,6 +848,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback?: ReactNode;
+
+        /**
+         * A name for this Suspense boundary for instrumentation purposes.
+         * The name will help identify this boundary in React DevTools.
+         */
+        name?: string | undefined;
     }
 
     /**
@@ -907,7 +928,6 @@ declare namespace React {
          * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
          */
         commitTime: number,
-        interactions: Set<SchedulerInteraction>,
     ) => void;
 
     /**
@@ -985,7 +1005,7 @@ declare namespace React {
          */
         context: unknown;
 
-        constructor(props: Readonly<P> | P);
+        constructor(props: P);
         /**
          * @deprecated
          * @see {@link https://legacy.reactjs.org/docs/legacy-context.html React Docs}
@@ -1097,7 +1117,15 @@ declare namespace React {
      * ```
      */
     interface FunctionComponent<P = {}> {
-        (props: P, context?: any): ReactNode;
+        (
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): ReactNode;
         /**
          * Used to declare the types of the props accepted by the
          * component. These types will be checked during rendering
@@ -1137,6 +1165,8 @@ declare namespace React {
          *   name: 'John Doe'
          * }
          * ```
+         *
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
          */
         defaultProps?: Partial<P> | undefined;
         /**
@@ -1174,9 +1204,20 @@ declare namespace React {
      * @see {@link React.FunctionComponent}
      */
     interface VoidFunctionComponent<P = {}> {
-        (props: P, context?: any): ReactNode;
+        (
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): ReactNode;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
+        /**
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         */
         defaultProps?: Partial<P> | undefined;
         displayName?: string | undefined;
     }
@@ -1237,7 +1278,15 @@ declare namespace React {
      * @template S The internal state of the component.
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
-        new(props: P, context?: any): Component<P, S>;
+        new(
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): Component<P, S>;
         /**
          * Used to declare the types of the props accepted by the
          * component. These types will be checked during rendering
@@ -1289,7 +1338,7 @@ declare namespace React {
      * @see {@link https://www.npmjs.com/package/create-react-class `create-react-class` on npm}
      */
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new(props: P, context?: any): ClassicComponent<P, ComponentState>;
+        new(props: P, deprecatedLegacyContext?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -1304,7 +1353,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         & C
-        & (new(props: P, context?: any) => T);
+        & (new(props: P, deprecatedLegacyContext?: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -1519,6 +1568,9 @@ declare namespace React {
      * @see {@link ExoticComponent}
      */
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
+        /**
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         */
         defaultProps?: Partial<P> | undefined;
         propTypes?: WeakValidationMap<P> | undefined;
     }
@@ -1551,7 +1603,7 @@ declare namespace React {
      * ```
      */
     function forwardRef<T, P = {}>(
-        render: ForwardRefRenderFunction<T, P>,
+        render: ForwardRefRenderFunction<T, PropsWithoutRef<P>>,
     ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /**
@@ -2005,7 +2057,7 @@ declare namespace React {
      */
     // A specific function type would not trigger implicit any.
     // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873#issuecomment-845806435 for a comparison between `Function` and more specific types.
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     function useCallback<T extends Function>(callback: T, deps: DependencyList): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
@@ -2079,6 +2131,21 @@ declare namespace React {
      * @param callback A _synchronous_ function which causes state updates that can be deferred.
      */
     export function startTransition(scope: TransitionFunction): void;
+
+    /**
+     * Wrap any code rendering and triggering updates to your components into `act()` calls.
+     *
+     * Ensures that the behavior in your tests matches what happens in the browser
+     * more closely by executing pending `useEffect`s before returning. This also
+     * reduces the amount of re-renders done.
+     *
+     * @param callback A synchronous, void callback that will execute as a single, complete React commit.
+     *
+     * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+     */
+    // While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
+    export function act(callback: () => VoidOrUndefinedOnly): void;
+    export function act<T>(callback: () => T | Promise<T>): Promise<T>;
 
     export function useId(): string;
 
@@ -2367,9 +2434,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
-        /** @deprecated */
+        /** @deprecated Use `onKeyUp` or `onKeyDown` instead */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
-        /** @deprecated */
+        /** @deprecated Use `onKeyUpCapture` or `onKeyDownCapture` instead */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;
@@ -2484,9 +2551,7 @@ declare namespace React {
         onPointerCancel?: PointerEventHandler<T> | undefined;
         onPointerCancelCapture?: PointerEventHandler<T> | undefined;
         onPointerEnter?: PointerEventHandler<T> | undefined;
-        onPointerEnterCapture?: PointerEventHandler<T> | undefined;
         onPointerLeave?: PointerEventHandler<T> | undefined;
-        onPointerLeaveCapture?: PointerEventHandler<T> | undefined;
         onPointerOver?: PointerEventHandler<T> | undefined;
         onPointerOverCapture?: PointerEventHandler<T> | undefined;
         onPointerOut?: PointerEventHandler<T> | undefined;
@@ -2834,12 +2899,14 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string | undefined;
+        autoCapitalize?: "off" | "none" | "on" | "sentences" | "words" | "characters" | undefined | (string & {});
         autoFocus?: boolean | undefined;
         className?: string | undefined;
         contentEditable?: Booleanish | "inherit" | "plaintext-only" | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: Booleanish | undefined;
+        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
@@ -2871,7 +2938,6 @@ declare namespace React {
         vocab?: string | undefined;
 
         // Non-standard Attributes
-        autoCapitalize?: string | undefined;
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;
@@ -3295,7 +3361,6 @@ declare namespace React {
         capture?: boolean | "user" | "environment" | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         disabled?: boolean | undefined;
-        enterKeyHint?: "enter" | "done" | "go" | "next" | "previous" | "search" | "send" | undefined;
         form?: string | undefined;
         formAction?:
             | string
@@ -4071,18 +4136,33 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
+    /**
+     * @deprecated Use `Validator` from the ´prop-types` instead.
+     */
     type Validator<T> = PropTypes.Validator<T>;
 
+    /**
+     * @deprecated Use `Requireable` from the ´prop-types` instead.
+     */
     type Requireable<T> = PropTypes.Requireable<T>;
 
+    /**
+     * @deprecated Use `ValidationMap` from the ´prop-types` instead.
+     */
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
+    /**
+     * @deprecated Use `WeakValidationMap` from the ´prop-types` instead.
+     */
     type WeakValidationMap<T> = {
         [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
             : undefined extends T[K] ? Validator<T[K] | null | undefined>
             : Validator<T[K]>;
     };
 
+    /**
+     * @deprecated Use `PropTypes.*` where `PropTypes` comes from `import * as PropTypes from 'prop-types'` instead.
+     */
     interface ReactPropTypes {
         any: typeof PropTypes.any;
         array: typeof PropTypes.array;

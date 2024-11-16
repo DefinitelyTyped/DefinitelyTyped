@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react-jsx",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "module": "node16",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "vite-plugin-react-control-statements-tests.tsx"
+    ]
+}

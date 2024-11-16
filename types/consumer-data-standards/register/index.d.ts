@@ -195,7 +195,8 @@ export interface JWK {
      */
     key_ops: string[];
     /**
-     * The "kid" (key ID) parameter is partially used to match a specific key. Note the "kid" parameter is not guaranteed unique and additional parameters should be used to progressively to identify a key within a set
+     * The "kid" (key ID) parameter is partially used to match a specific key.
+     * Note the "kid" parameter is not guaranteed to be unique and additional parameters should be used to progressively identify a key within a set
      */
     kid: string;
     /**
@@ -247,7 +248,7 @@ export interface LegalEntityDetail {
      */
     organisationType?: ("SOLE_TRADER" | "COMPANY" | "PARTNERSHIP" | "TRUST" | "GOVERNMENT_ENTITY" | "OTHER") | null;
     /**
-     * Country of registeration (if the company is registered outside Australia)
+     * Country of registration (if the company is registered outside Australia)
      */
     registeredCountry?: string | null;
     /**

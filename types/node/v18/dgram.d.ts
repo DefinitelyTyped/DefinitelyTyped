@@ -93,7 +93,7 @@ declare module "dgram" {
      */
     class Socket extends EventEmitter {
         /**
-         * Tells the kernel to join a multicast group at the given `multicastAddress` and`multicastInterface` using the `IP_ADD_MEMBERSHIP` socket option. If the`multicastInterface` argument is not
+         * Tells the kernel to join a multicast group at the given `multicastAddress` and `multicastInterface` using the `IP_ADD_MEMBERSHIP` socket option. If the`multicastInterface` argument is not
          * specified, the operating system will choose
          * one interface and will add membership to it. To add membership to every
          * available interface, call `addMembership` multiple times, once per interface.
@@ -122,7 +122,7 @@ declare module "dgram" {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         /**
          * Returns an object containing the address information for a socket.
-         * For UDP sockets, this object will contain `address`, `family` and `port`properties.
+         * For UDP sockets, this object will contain `address`, `family` and `port` properties.
          *
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.1.99
@@ -276,7 +276,7 @@ declare module "dgram" {
          *
          * The `address` argument is a string. If the value of `address` is a host name,
          * DNS will be used to resolve the address of the host. If `address` is not
-         * provided or otherwise nullish, `'127.0.0.1'` (for `udp4` sockets) or `'::1'`(for `udp6` sockets) will be used by default.
+         * provided or otherwise nullish, `'127.0.0.1'` (for `udp4` sockets) or `'::1'` (for `udp6` sockets) will be used by default.
          *
          * If the socket has not been previously bound with a call to `bind`, the socket
          * is assigned a random port number and is bound to the "all interfaces" address

@@ -1,8 +1,8 @@
 import { Popover } from "@wordpress/components";
-import { ComponentType, JSX, ReactNode } from "react";
+import { ComponentProps, ComponentType, JSX, ReactNode } from "react";
 
 declare namespace URLPopover {
-    interface Props extends Popover.Props {
+    type Props = ComponentProps<typeof Popover> & {
         additionalControls?: ReactNode | undefined;
         /**
          * Callback used to return the React Elements that will be rendered inside the settings
@@ -10,7 +10,7 @@ declare namespace URLPopover {
          * that allows the user to open and close the settings drawer.
          */
         renderSettings?(): JSX.Element;
-    }
+    };
 }
 declare const URLPopover: ComponentType<URLPopover.Props>;
 

@@ -1,7 +1,6 @@
 import {
     AnyMapping,
     AnyPixelFormat,
-    ColorSpace,
     MagnificationTextureFilter,
     Mapping,
     MinificationTextureFilter,
@@ -13,7 +12,45 @@ import {
 import { EventDispatcher } from "../core/EventDispatcher.js";
 import { Matrix3 } from "../math/Matrix3.js";
 import { Vector2 } from "../math/Vector2.js";
+import { CompressedTextureMipmap } from "./CompressedTexture.js";
+import { CubeTexture } from "./CubeTexture.js";
 import { Source } from "./Source.js";
+
+export interface TextureJSON {
+    metadata: { version: number; type: string; generator: string };
+
+    uuid: string;
+    name: string;
+
+    image: string;
+
+    mapping: AnyMapping;
+    channel: number;
+
+    repeat: [x: number, y: number];
+    offset: [x: number, y: number];
+    center: [x: number, y: number];
+    rotation: number;
+
+    wrap: [wrapS: number, wrapT: number];
+
+    format: AnyPixelFormat;
+    internalFormat: PixelFormatGPU | null;
+    type: TextureDataType;
+    colorSpace: string;
+
+    minFilter: MinificationTextureFilter;
+    magFilter: MagnificationTextureFilter;
+    anisotropy: number;
+
+    flipY: boolean;
+
+    generateMipmaps: boolean;
+    premultiplyAlpha: boolean;
+    unpackAlignment: number;
+
+    userData?: Record<string, unknown>;
+}
 
 /** Shim for OffscreenCanvas. */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -61,7 +98,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**
@@ -127,7 +164,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * Array of user-specified mipmaps
      * @defaultValue `[]`
      */
-    mipmaps: any[]; // ImageData[] for 2D textures and CubeTexture[] for cube textures;
+    mipmaps: CompressedTextureMipmap[] | CubeTexture[] | HTMLCanvasElement[] | undefined;
 
     /**
      * How the image is applied to the object.
@@ -331,20 +368,13 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @see {@link THREE.TextureDataType}
      * @defaultValue {@link THREE.NoColorSpace}
      */
-    colorSpace: ColorSpace;
+    colorSpace: string;
 
     /**
      * Indicates whether a texture belongs to a render target or not
      * @defaultValue `false`
      */
     isRenderTargetTexture: boolean;
-
-    /**
-     * Indicates whether this texture should be processed by {@link THREE.PMREMGenerator} or not.
-     * @remarks Only relevant for render target textures.
-     * @defaultValue `false`
-     */
-    needsPMREMUpdate: boolean;
 
     /**
      * An object that can be used to store custom data about the texture.
@@ -361,9 +391,22 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     version: number;
 
     /**
+     * Indicates whether this texture should be processed by PMREMGenerator or not (only relevant for render target
+     * textures)
+     */
+    pmremVersion: number;
+
+    /**
      * Set this to `true` to trigger an update next time the texture is used. Particularly important for setting the wrap mode.
      */
     set needsUpdate(value: boolean);
+
+    /**
+     * Indicates whether this texture should be processed by {@link THREE.PMREMGenerator} or not.
+     * @remarks Only relevant for render target textures.
+     * @defaultValue `false`
+     */
+    set needsPMREMUpdate(value: boolean);
 
     /**
      * The Global default value for {@link anisotropy | .anisotropy}.
@@ -423,7 +466,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * Convert the texture to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
      * @param meta Optional object containing metadata.
      */
-    toJSON(meta?: string | {}): {};
+    toJSON(meta?: string | {}): TextureJSON;
 
     /**
      * Frees the GPU-related resources allocated by this instance

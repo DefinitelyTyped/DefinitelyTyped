@@ -19,8 +19,12 @@ declare namespace WebTorrent {
         peerId?: string | Buffer | undefined;
         tracker?: boolean | {} | undefined;
         dht?: boolean | {} | undefined;
+        lsd?: boolean | undefined;
         webSeeds?: boolean | undefined;
         utp?: boolean | undefined;
+        blocklist?: (string | Array<string | { start: string; end: string }>) | undefined;
+        downloadLimit?: number | undefined;
+        uploadLimit?: number | undefined;
     }
 
     interface ServerAddress {
@@ -72,6 +76,7 @@ declare namespace WebTorrent {
         skipVerify?: boolean | undefined;
         preloadedStore?(): void;
         strategy?: string | undefined;
+        createdBy?: string | undefined;
     }
 
     interface TorrentDestroyOptions {
@@ -124,7 +129,6 @@ declare namespace WebTorrent {
         ): void;
 
         destroy(callback?: (err: Error | string) => void): void;
-
         createServer(
             opts?: BrowserServerOptions | NodeServerOptions,
             force?: "browser" | "node",
@@ -134,6 +138,10 @@ declare namespace WebTorrent {
 
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(torrentId: Torrent | string | Buffer): Torrent | void;
+
+        throttleDownload(rate: number): boolean | undefined;
+
+        throttleUpload(rate: number): boolean | undefined;
 
         readonly downloadSpeed: number;
 

@@ -8,6 +8,12 @@
         "https://nodejs.org/"
     ],
     "tsconfigs": ["tsconfig.dom.json", "tsconfig.non-dom.json"],
+    "types": "index",
+    "typesVersions": {
+        "<=5.6": {
+            "*": ["ts5.6/*"]
+        }
+    },
     "devDependencies": {
         "@types/node": "workspace:."
     },

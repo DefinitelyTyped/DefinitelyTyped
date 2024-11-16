@@ -1,5 +1,5 @@
-/// <reference lib="dom" />
-/// <reference types="markdown-it-emoji" />
+/// <reference types="markdown-it/dist/markdown-it.js" />
+/// <reference types="markdown-it-emoji/dist/markdown-it-emoji.js" />
 
 {
     const md = markdownit();

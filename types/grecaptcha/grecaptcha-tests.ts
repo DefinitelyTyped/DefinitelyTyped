@@ -4,6 +4,7 @@ const params: ReCaptchaV2.Parameters = {
     type: "image",
     hl: "en-US",
     size: "normal",
+    action: "signup",
     tabindex: 5,
     isolated: false,
     callback: (response: string) => {},

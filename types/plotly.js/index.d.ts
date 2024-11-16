@@ -118,12 +118,12 @@ export interface PlotScene {
 }
 
 export interface PlotRelayoutEvent extends Partial<Layout> {
-    "xaxis.range[0]"?: number | undefined;
-    "xaxis.range[1]"?: number | undefined;
-    "yaxis.range[0]"?: number | undefined;
-    "yaxis.range[1]"?: number | undefined;
-    "xaxis.autorange"?: boolean | undefined;
-    "yaxis.autorange"?: boolean | undefined;
+    "xaxis.range[0]"?: number;
+    "xaxis.range[1]"?: number;
+    "yaxis.range[0]"?: number;
+    "yaxis.range[1]"?: number;
+    "xaxis.autorange"?: boolean;
+    "yaxis.autorange"?: boolean;
 }
 
 export interface ClickAnnotationEvent {
@@ -137,10 +137,7 @@ export interface FrameAnimationEvent {
     name: string;
     frame: Frame;
     animation: {
-        frame: {
-            duration: number;
-            redraw: boolean;
-        };
+        frame: AnimationFrameOpts;
         transition: Transition;
     };
 }
@@ -295,16 +292,41 @@ export interface PlotlyHTMLElement extends HTMLElement {
 
 export interface ToImgopts {
     format: "jpeg" | "png" | "webp" | "svg";
-    width: number;
-    height: number;
+    /**
+     * If null, uses current graph width
+     */
+    width: number | null;
+    /**
+     * If null, uses current graph height
+     */
+    height: number | null;
     scale?: number | undefined;
 }
 
 export interface DownloadImgopts {
     format: "jpeg" | "png" | "webp" | "svg";
-    width: number;
-    height: number;
+    /**
+     * If null, uses current graph width
+     */
+    width: number | null;
+    /**
+     * If null, uses current graph height
+     */
+    height: number | null;
     filename: string;
+}
+
+export interface AnimationFrameOpts {
+    duration: number;
+    redraw: boolean;
+}
+
+export interface AnimationOpts {
+    mode: "immediate" | "next" | "afterall";
+    direction: "forward" | "reverse";
+    fromcurrent: boolean;
+    transition: Partial<Transition> | Array<Partial<Transition>>;
+    frame: Partial<AnimationFrameOpts> | Array<Partial<AnimationFrameOpts>>;
 }
 
 export interface PolarLayout {
@@ -378,6 +400,11 @@ export function react(
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 export function register(modules: PlotlyModule | PlotlyModule[]): void;
+export function animate(
+    root: Root,
+    frameOrGroupNameOrFrameList?: string | string[] | Partial<Frame> | Array<Partial<Frame>>,
+    opts?: Partial<AnimationOpts>,
+): Promise<void>;
 
 // Layout
 export interface Layout {
@@ -445,7 +472,19 @@ export interface Layout {
     subplot: string;
     radialaxis: Partial<Axis>;
     angularaxis: {}; // TODO
-    dragmode: "zoom" | "pan" | "select" | "lasso" | "orbit" | "turntable" | false;
+    dragmode:
+        | "zoom"
+        | "pan"
+        | "select"
+        | "lasso"
+        | "drawclosedpath"
+        | "drawopenpath"
+        | "drawline"
+        | "drawrect"
+        | "drawcircle"
+        | "orbit"
+        | "turntable"
+        | false;
     orientation: number;
     annotations: Array<Partial<Annotations>>;
     shapes: Array<Partial<Shape>>;
@@ -524,8 +563,10 @@ export interface Legend extends Label {
     valign: "top" | "middle" | "bottom";
     x: number;
     xanchor: "auto" | "left" | "center" | "right";
+    xref: "container" | "paper";
     y: number;
     yanchor: "auto" | "top" | "middle" | "bottom";
+    yref: "container" | "paper";
 }
 
 export type AxisType = "-" | "linear" | "log" | "date" | "category" | "multicategory";
@@ -569,6 +610,40 @@ export interface TickFormatStop {
     templateitemname: string;
 }
 
+export interface AutoRangeOptions {
+    clipmax: DTickValue;
+    clipmin: DTickValue;
+    include: DTickValue;
+    maxallowed: DTickValue;
+    minallowed: DTickValue;
+}
+
+export interface MinorAxisLayout {
+    dtick: DTickValue;
+    gridcolor: Color;
+    griddash: Dash;
+    gridwidth: number;
+    nticks: number;
+    showgrid: boolean;
+    tick0: DTickValue;
+    tickcolor: Color;
+    ticklen: number;
+    tickmode: "auto" | "linear" | "array";
+    ticks: "outside" | "inside" | "";
+    tickvals: any[];
+    tickwidth: number;
+}
+
+export interface RangeBreak {
+    bounds: any[];
+    dvalue: number;
+    enabled: boolean;
+    name: string;
+    pattern: "day of week" | "hour" | "";
+    templateitemname: string;
+    values: any[];
+}
+
 export interface Axis {
     /**
      * A single toggle to hide the axis while preserving interaction like dragging.
@@ -590,7 +665,8 @@ export interface Axis {
      */
     titlefont: Partial<Font>;
     type: AxisType;
-    autorange: true | false | "reversed";
+    autorange: true | false | "reversed" | "min reversed" | "max reversed" | "min" | "max";
+    autorangeoptions: Partial<AutoRangeOptions>;
     /**
      * 'If *normal*, the range is computed in relation to the extrema
      * of the input data.
@@ -805,6 +881,11 @@ export interface Axis {
      * Only has an effect on *multicategory* axes.
      */
     dividerwidth: number;
+
+    autotypenumbers: "convert types" | "strict";
+    labelalias: DTickValue;
+    maxallowed: DTickValue;
+    minallowed: DTickValue;
 }
 
 export type Calendar =
@@ -825,8 +906,16 @@ export type Calendar =
     | "thai"
     | "ummalqura";
 
-export type XAxisName = "x" | "x2" | "x3" | "x4" | "x5" | "x6" | "x7" | "x8" | "x9" | "x10" | "x11";
-export type YAxisName = "y" | "y2" | "y3" | "y4" | "y5" | "y6" | "y7" | "y8" | "y9" | "y10" | "y11";
+// regex from documentation: "/^x([2-9]|[1-9][0-9]+)?( domain)?$/" | "/^y([2-9]|[1-9][0-9]+)?( domain)?$/"
+// regex allows for an unlimited amount of digits for the 'axis number', but the following typescript definition is limited to two digits
+type xYAxisNames = `${
+    | ""
+    | `${2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
+    | `${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`}${"" | " domain"}`;
+
+export type XAxisName = `x${xYAxisNames}`;
+export type YAxisName = `y${xYAxisNames}`;
+
 export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
@@ -850,6 +939,28 @@ export interface LayoutAxis extends Axis {
     angle: any;
     griddash: Dash;
     l2p: (v: Datum) => number;
+
+    autotickangles: number[];
+    insiderange: any[];
+    matches: AxisName;
+    minor: Partial<MinorAxisLayout>;
+    rangebreaks: Array<Partial<RangeBreak>>;
+    ticklabelmode: "instant" | "period";
+    ticklabeloverflow: "allow" | "hide past div" | "hide past domain";
+    ticklabelposition:
+        | "outside"
+        | "inside"
+        | "outside top"
+        | "inside top"
+        | "outside left"
+        | "inside left"
+        | "outside right"
+        | "inside right"
+        | "outside bottom"
+        | "inside bottom";
+    ticklabelstep: number;
+    tickson: "labels" | "boundaries";
+    uirevision: DTickValue;
 }
 
 export interface SceneAxis extends Axis {
@@ -1305,6 +1416,7 @@ export interface PlotData {
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
+    hoverongaps: boolean;
     xhoverformat: string;
     yhoverformat: string;
     zhoverformat: string;
@@ -1584,6 +1696,7 @@ export interface ScatterLine {
 }
 
 export interface Font {
+    color: Color;
     /**
      * HTML font family - the typeface that will be applied by the web browser.
      * The web browser will only be able to apply a font if it is available on the system
@@ -1598,11 +1711,21 @@ export interface Font {
      */
     family: string;
     /**
+     * Sets the shape and color of the shadow behind text. "auto" places minimal shadow and applies contrast text font color. See https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow for additional options.
+     * @default "none"
+     */
+    shadow: string;
+    /**
      * number greater than or equal to 1
      * @default 13
      */
     size: number;
-    color: Color;
+    /**
+     * Sets the weight (or boldness) of the font.
+     * number between or equal to 1 and 1000
+     * @default normal
+     */
+    weight: number;
 }
 
 export interface Edits {
@@ -1837,7 +1960,7 @@ export interface Label {
 
 export interface LegendTitle {
     font: Partial<Font>;
-    side: "top" | "left" | "top left";
+    side: "top" | "left" | "top left" | "top center" | "top right";
     text: string;
 }
 

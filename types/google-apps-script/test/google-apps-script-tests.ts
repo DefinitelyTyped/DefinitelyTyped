@@ -336,6 +336,8 @@ function timeDriven(e: GoogleAppsScript.Events.TimeDriven) {
 
 CardService.newTextButton().setAltText("alt text"); // $ExpectType TextButton
 
+CardService.newLinkPreview().setTitle("Smart chip title"); // $ExpectType LinkPreview
+
 CardService.newDecoratedText(); // $ExpectType DecoratedText
 CardService.newDecoratedText().setAuthorizationAction(CardService.newAuthorizationAction()); // $ExpectType DecoratedText
 CardService.newDecoratedText().setBottomLabel(""); // $ExpectType DecoratedText
@@ -933,6 +935,76 @@ const driveActivity = () => {
             console.log(driveItem.driveFolder);
         }
     }
+};
+
+// People_v1 (Advanced Service)
+const people = () => {
+    // contacts batch methods
+    const batchCreateContactsResponse = People.People.batchCreateContacts({
+        readMask: "names,emailAddresses",
+        contacts: [{
+            contactPerson: {
+                names: [{ displayName: "test user" }],
+                emailAddresses: [{ value: "test@example.com" }],
+            },
+        }],
+    });
+    console.log(batchCreateContactsResponse.createdPeople[0].person.names);
+    const batchUpdateContactsResponse = People.People.batchUpdateContacts({
+        updateMask: "names,emailAddresses",
+        readMask: "names,emailAddresses",
+        contacts: {
+            "people/test0123": {
+                names: [{ displayName: "test user" }],
+                emailAddresses: [{ value: "test-2@example.com" }],
+            },
+        },
+    });
+    console.log(batchUpdateContactsResponse.updateResult.names);
+    People.People.batchDeleteContacts({ resourceNames: ["people/test1234"] });
+
+    const image = DriveApp.getFileById("some-photo-data-file-id").getBlob();
+    const baseImage = Utilities.base64Encode(image.getBytes());
+
+    // contacts photo methods
+    const updateContactPhotoResponse = People.People.updateContactPhoto({
+        photoBytes: baseImage,
+        sources: ["READ_SOURCE_TYPE_PROFILE", "READ_SOURCE_TYPE_CONTACT"],
+    }, "people/test0123");
+    console.log(updateContactPhotoResponse.person.names);
+    const deleteContactPhotoResponse = People.People.deleteContactPhoto("people/test0123", {
+        sources: ["READ_SOURCE_TYPE_PROFILE", "READ_SOURCE_TYPE_CONTACT"],
+    });
+    console.log(deleteContactPhotoResponse.person.names);
+
+    // directory methods
+    const searchDirectoryPeopleResponse = People.People.searchDirectoryPeople({
+        query: "test@example.com",
+        readMask: "names,emailAddresses",
+        sources: ["DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"],
+    });
+    console.log(searchDirectoryPeopleResponse.people[0].names);
+    const listDirectoryPeopleResponse = People.People.listDirectoryPeople({
+        readMask: "names,emailAddresses",
+        sources: ["DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"],
+    });
+    console.log(listDirectoryPeopleResponse.people[0].names);
+
+    // other contacts methods
+    const otherContactsListResponse = People.OtherContacts.list({
+        readMask: "names,emailAddresses",
+        sources: ["READ_SOURCE_TYPE_CONTACT", "READ_SOURCE_TYPE_PROFILE"],
+    });
+    console.log(otherContactsListResponse.otherContacts[0].names);
+    const otherContactsSearchResponse = People.OtherContacts.search({
+        query: "Foo",
+        readMask: "names,emailAddresses",
+    });
+    console.log(otherContactsSearchResponse.people[0].names);
+    const otherContactsCopyResponse = People.OtherContacts.copyOtherContactToMyContactsGroup({
+        copyMask: "names,emailAddresses,phoneNumbers",
+    }, "people/test0123");
+    console.log(otherContactsCopyResponse.names);
 };
 
 // DataSourceFormula test

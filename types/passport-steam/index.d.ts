@@ -1,23 +1,23 @@
 import { Request } from "express";
 import * as Passport from "passport";
 
-declare class SteamStrategy<T extends SteamStrategyOptions> extends Passport.Strategy {
+declare class SteamStrategy<T extends SteamStrategy.SteamStrategyOptions> extends Passport.Strategy {
     constructor(options: T, validate: ValidateFn<T>);
 }
 
 declare namespace SteamStrategy {
     const Strategy: typeof SteamStrategy;
     const version: string;
+
+    interface SteamStrategyOptions {
+        returnURL: string;
+        realm: string;
+        apiKey: string;
+        passReqToCallback?: boolean;
+    }
 }
 
-interface SteamStrategyOptions {
-    returnURL: string;
-    realm: string;
-    apiKey: string;
-    passReqToCallback?: boolean;
-}
-
-type ValidateFn<T extends SteamStrategyOptions> = T["passReqToCallback"] extends true
+type ValidateFn<T extends SteamStrategy.SteamStrategyOptions> = T["passReqToCallback"] extends true
     ? (req: Request, identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void
     : (identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void;
 

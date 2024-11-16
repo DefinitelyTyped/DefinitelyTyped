@@ -159,8 +159,9 @@ declare namespace Isotope {
 
     interface Masonry {
         columnWidth?: number | string | undefined;
-        fitWidth?: boolean | undefined;
         gutter?: number | string | undefined;
+        horizontalOrder?: boolean | undefined;
+        fitWidth?: boolean | undefined;
     }
 
     interface MasonryHorizontal {

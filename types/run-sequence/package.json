@@ -1,13 +1,14 @@
 {
     "private": true,
     "name": "@types/run-sequence",
-    "version": "0.0.9999",
+    "version": "2.2.9999",
     "projects": [
         "https://github.com/OverZealous/run-sequence"
     ],
     "dependencies": {
-        "@types/gulp": "*",
-        "@types/node": "*"
+        "@types/gulp": ">=3.8",
+        "@types/node": "*",
+        "@types/undertaker": ">=1.2.6"
     },
     "devDependencies": {
         "@types/run-sequence": "workspace:."

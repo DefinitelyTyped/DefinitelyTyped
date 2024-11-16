@@ -31,7 +31,7 @@ declare module "assert" {
                 /** The `operator` property on the error instance. */
                 operator?: string | undefined;
                 /** If provided, the generated stack trace omits frames before this function. */
-                // eslint-disable-next-line @typescript-eslint/ban-types
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
                 stackStartFn?: Function | undefined;
             });
         }
@@ -217,7 +217,7 @@ declare module "assert" {
             expected: unknown,
             message?: string | Error,
             operator?: string,
-            // eslint-disable-next-line @typescript-eslint/ban-types
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             stackStartFn?: Function,
         ): never;
         /**
@@ -795,7 +795,7 @@ declare module "assert" {
          * If specified, `error` can be a [`Class`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes),
          * [`RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions), a validation function,
          * an object where each property will be tested for, or an instance of error where
-         * each property will be tested for including the non-enumerable `message` and`name` properties.
+         * each property will be tested for including the non-enumerable `message` and `name` properties.
          *
          * If specified, `message` will be the message provided by the `AssertionError` if the `asyncFn` fails to reject.
          *

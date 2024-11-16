@@ -30,31 +30,10 @@ export {};
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
+type NativeToggleEvent = ToggleEvent;
+
 declare module "." {
-    interface ThenableImpl<T> {
-        then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
-    }
-    interface UntrackedThenable<T> extends ThenableImpl<T> {
-        status?: void;
-    }
-
-    export interface PendingThenable<T> extends ThenableImpl<T> {
-        status: "pending";
-    }
-
-    export interface FulfilledThenable<T> extends ThenableImpl<T> {
-        status: "fulfilled";
-        value: T;
-    }
-
-    export interface RejectedThenable<T> extends ThenableImpl<T> {
-        status: "rejected";
-        reason: unknown;
-    }
-
-    export type Thenable<T> = UntrackedThenable<T> | PendingThenable<T> | FulfilledThenable<T> | RejectedThenable<T>;
-
-    export type Usable<T> = Thenable<T> | Context<T>;
+    export type Usable<T> = PromiseLike<T> | Context<T>;
 
     export function use<T>(usable: Usable<T>): T;
 
@@ -82,13 +61,13 @@ declare module "." {
         defaultValue: T,
     ): ServerContext<T>;
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
     export function unstable_useCacheRefresh(): () => void;
 
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
-        functions: (formData: FormData) => void;
+        functions: (formData: FormData) => void | Promise<void>;
     }
 
     export interface TransitionStartFunction {
@@ -102,11 +81,86 @@ declare module "." {
         (callback: () => Promise<VoidOrUndefinedOnly>): void;
     }
 
-    function useOptimistic<State>(
+    /**
+     * Similar to `useTransition` but allows uses where hooks are not available.
+     *
+     * @param callback An _asynchronous_ function which causes state updates that can be deferred.
+     */
+    export function startTransition(scope: () => Promise<VoidOrUndefinedOnly>): void;
+
+    export function useOptimistic<State>(
         passthrough: State,
     ): [State, (action: State | ((pendingState: State) => State)) => void];
-    function useOptimistic<State, Action>(
+    export function useOptimistic<State, Action>(
         passthrough: State,
         reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
+        cleanup: () => VoidOrUndefinedOnly;
+    }
+
+    export function useActionState<State>(
+        action: (state: Awaited<State>) => State | Promise<State>,
+        initialState: Awaited<State>,
+        permalink?: string,
+    ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
+    export function useActionState<State, Payload>(
+        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
+        initialState: Awaited<State>,
+        permalink?: string,
+    ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
+
+    interface DOMAttributes<T> {
+        // Transition Events
+        onTransitionCancel?: TransitionEventHandler<T> | undefined;
+        onTransitionCancelCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionRun?: TransitionEventHandler<T> | undefined;
+        onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionStart?: TransitionEventHandler<T> | undefined;
+        onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
+    }
+
+    type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
+
+    interface HTMLAttributes<T> {
+        popover?: "" | "auto" | "manual" | undefined;
+        popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
+        popoverTarget?: string | undefined;
+        onToggle?: ToggleEventHandler<T> | undefined;
+        onBeforeToggle?: ToggleEventHandler<T> | undefined;
+    }
+
+    interface ToggleEvent<T = Element> extends SyntheticEvent<T, NativeToggleEvent> {
+        oldState: "closed" | "open";
+        newState: "closed" | "open";
+    }
+
+    interface LinkHTMLAttributes<T> {
+        precedence?: string | undefined;
+    }
+
+    interface StyleHTMLAttributes<T> {
+        href?: string | undefined;
+        precedence?: string | undefined;
+    }
+
+    /**
+     * @internal Use `Awaited<ReactNode>` instead
+     */
+    // Helper type to enable `Awaited<ReactNode>`.
+    // Must be a copy of the non-thenables of `ReactNode`.
+    type AwaitedReactNode =
+        | ReactElement
+        | string
+        | number
+        | Iterable<AwaitedReactNode>
+        | ReactPortal
+        | boolean
+        | null
+        | undefined;
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
+        promises: Promise<AwaitedReactNode>;
+        bigints: bigint;
+    }
 }

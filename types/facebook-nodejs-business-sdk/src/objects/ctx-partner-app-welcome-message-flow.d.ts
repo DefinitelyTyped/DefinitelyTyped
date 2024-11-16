@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CTXPartnerAppWelcomeMessageFlow
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -13,5 +13,5 @@ export default class CTXPartnerAppWelcomeMessageFlow extends AbstractCrudObject 
         name: "name";
         welcome_message_flow: "welcome_message_flow";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<CTXPartnerAppWelcomeMessageFlow>;
+    get(fields: string[], params?: Record<string, any>): Promise<CTXPartnerAppWelcomeMessageFlow>;
 }

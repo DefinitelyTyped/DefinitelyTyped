@@ -9,6 +9,7 @@ import blacklistFunc from "validator/lib/blacklist";
 import containsFunc from "validator/lib/contains";
 import equalsFunc from "validator/lib/equals";
 import escapeFunc from "validator/lib/escape";
+import isAbaRoutingFunc from "validator/lib/isAbaRouting";
 import isAfterFunc from "validator/lib/isAfter";
 import isAlphaFunc from "validator/lib/isAlpha";
 import isAlphanumericFunc from "validator/lib/isAlphanumeric";
@@ -58,8 +59,10 @@ import isJSONFunc from "validator/lib/isJSON";
 import isJWTFunc from "validator/lib/isJWT";
 import isLatLongFunc from "validator/lib/isLatLong";
 import isLengthFunc from "validator/lib/isLength";
+import isLicensePlateFunc from "validator/lib/isLicensePlate";
 import isLocaleFunc from "validator/lib/isLocale";
 import isLowercaseFunc from "validator/lib/isLowercase";
+import isLuhnNumberFunc from "validator/lib/isLuhnNumber";
 import isMACAddressFunc from "validator/lib/isMACAddress";
 import isMailtoURIFunc from "validator/lib/isMailtoURI";
 import isMD5Func from "validator/lib/isMD5";
@@ -110,6 +113,10 @@ import whitelistFunc from "validator/lib/whitelist";
 
     let _escape = validator.escape;
     _escape = escapeFunc;
+
+    // $ExpectType (str: string) => boolean
+    let _isAbaRouting = validator.isAbaRouting;
+    _isAbaRouting = isAbaRoutingFunc;
 
     let _isAfter = validator.isAfter;
     _isAfter = isAfterFunc;
@@ -264,11 +271,19 @@ import whitelistFunc from "validator/lib/whitelist";
     let _isLength = validator.isLength;
     _isLength = isLengthFunc;
 
+    // $ExpectType { (str: string, locale: LicensePlateLocale): boolean; (str: string, locale: string): unknown; }
+    let _isLicensePlate = validator.isLicensePlate;
+    _isLicensePlate = isLicensePlateFunc;
+
     let _isLocale = validator.isLocale;
     _isLocale = isLocaleFunc;
 
     let _isLowercase = validator.isLowercase;
     _isLowercase = isLowercaseFunc;
+
+    // $ExpectType (str: string) => boolean
+    let _isLuhnNumber = validator.isLuhnNumber;
+    _isLuhnNumber = isLuhnNumberFunc;
 
     let _isMACAddress = validator.isMACAddress;
     _isMACAddress = isMACAddressFunc;
@@ -385,6 +400,7 @@ import blacklistFuncEs from "validator/es/lib/blacklist";
 import containsFuncEs from "validator/es/lib/contains";
 import equalsFuncEs from "validator/es/lib/equals";
 import escapeFuncEs from "validator/es/lib/escape";
+import isAbaRoutingFuncEs from "validator/es/lib/isAbaRouting";
 import isAfterFuncEs from "validator/es/lib/isAfter";
 import isAlphaFuncEs from "validator/es/lib/isAlpha";
 import isAlphanumericFuncEs from "validator/es/lib/isAlphanumeric";
@@ -433,8 +449,10 @@ import isJSONFuncEs from "validator/es/lib/isJSON";
 import isJWTFuncEs from "validator/es/lib/isJWT";
 import isLatLongFuncEs from "validator/es/lib/isLatLong";
 import isLengthFuncEs from "validator/es/lib/isLength";
+import isLicensePlateFuncEs from "validator/es/lib/isLicensePlate";
 import isLocaleFuncEs from "validator/es/lib/isLocale";
 import isLowercaseFuncEs from "validator/es/lib/isLowercase";
+import isLuhnNumberFuncEs from "validator/es/lib/isLuhnNumber";
 import isMACAddressFuncEs from "validator/es/lib/isMACAddress";
 import isMailtoURIFuncEs from "validator/es/lib/isMailtoURI";
 import isMD5FuncEs from "validator/es/lib/isMD5";
@@ -493,6 +511,8 @@ const any: any = null;
     result = validator.contains("Sampletestsample", "sample", { ignoreCase: true, minOccurrences: 2 });
 
     result = validator.equals("sample", "sample");
+
+    result = validator.isAbaRouting("sample");
 
     result = validator.isAfter("sample");
     result = validator.isAfter("sample", new Date().toString());
@@ -649,7 +669,39 @@ const any: any = null;
 
     result = validator.isDivisibleBy("sample", 2);
 
-    const isEmailOptions: validator.IsEmailOptions = {
+    const isEmailOptionsWithAllowDisplayName: validator.IsEmailOptions = {
+        allow_display_name: true,
+    };
+
+    const isEmailOptionsWithRequireDisplayName: validator.IsEmailOptions = {
+        require_display_name: true,
+    };
+
+    const isEmailOptionsWithAllowUtf8LocalPart: validator.IsEmailOptions = {
+        allow_utf8_local_part: true,
+    };
+
+    const isEmailOptionsWithRequiredTld: validator.IsEmailOptions = {
+        require_tld: true,
+    };
+
+    const isEmailOptionsWitIgnoreMaxLength: validator.IsEmailOptions = {
+        ignore_max_length: true,
+    };
+
+    const isEmailOptionsWithAllowIpDomain: validator.IsEmailOptions = {
+        allow_ip_domain: true,
+    };
+
+    const isEmailOptionsWithDomainSpecificValidation: validator.IsEmailOptions = {
+        domain_specific_validation: true,
+    };
+
+    const isEmailOptionsWithAllowUnderscores: validator.IsEmailOptions = {
+        allow_underscores: true,
+    };
+
+    const isEmailOptionsWithBlacklistedHosts: validator.IsEmailOptions = {
         host_blacklist: ["domain"],
     };
 
@@ -662,7 +714,15 @@ const any: any = null;
     };
 
     result = validator.isEmail("sample");
-    result = validator.isEmail("sample", isEmailOptions);
+    result = validator.isEmail("sample", isEmailOptionsWithAllowDisplayName);
+    result = validator.isEmail("sample", isEmailOptionsWithRequireDisplayName);
+    result = validator.isEmail("sample", isEmailOptionsWithAllowUtf8LocalPart);
+    result = validator.isEmail("sample", isEmailOptionsWithRequiredTld);
+    result = validator.isEmail("sample", isEmailOptionsWitIgnoreMaxLength);
+    result = validator.isEmail("sample", isEmailOptionsWithAllowIpDomain);
+    result = validator.isEmail("sample", isEmailOptionsWithDomainSpecificValidation);
+    result = validator.isEmail("sample", isEmailOptionsWithAllowUnderscores);
+    result = validator.isEmail("sample", isEmailOptionsWithBlacklistedHosts);
     result = validator.isEmail("sample", isEmailOptionsWithBlacklistedCharacters);
     result = validator.isEmail("sample", isEmailOptionsWithWhitelistedHosts);
 
@@ -774,9 +834,16 @@ const any: any = null;
     result = validator.isLength("sample", isLengthOptions);
     result = validator.isLength("sample");
 
+    const licensePlateLocale: validator.LicensePlateLocale = "any";
+    result = validator.isLicensePlate("sample", licensePlateLocale);
+    // $ExpectType unknown
+    validator.isLicensePlate("sample", "");
+
     result = validator.isLocale("sample");
 
     result = validator.isLowercase("sample");
+
+    result = validator.isLuhnNumber("sample");
 
     result = validator.isMACAddress("sample", { no_separators: true, eui: "48" });
     result = validator.isMACAddress("sample", { no_separators: true, eui: "64" });
@@ -922,8 +989,19 @@ const any: any = null;
     result = validator.isURL("sample", isURLOptions);
 
     result = validator.isUUID("sample");
-    result = validator.isUUID("sample", 5);
     result = validator.isUUID("sample", "all");
+    result = validator.isUUID("sample", "1");
+    result = validator.isUUID("sample", "2");
+    result = validator.isUUID("sample", "3");
+    result = validator.isUUID("sample", "4");
+    result = validator.isUUID("sample", "5");
+    result = validator.isUUID("sample", "7");
+    result = validator.isUUID("sample", 1);
+    result = validator.isUUID("sample", 2);
+    result = validator.isUUID("sample", 3);
+    result = validator.isUUID("sample", 4);
+    result = validator.isUUID("sample", 5);
+    result = validator.isUUID("sample", 7);
 
     result = validator.isUppercase("sample");
 

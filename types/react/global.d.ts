@@ -17,6 +17,7 @@ interface KeyboardEvent extends Event {}
 interface MouseEvent extends Event {}
 interface TouchEvent extends Event {}
 interface PointerEvent extends Event {}
+interface ToggleEvent extends Event {}
 interface TransitionEvent extends Event {}
 interface UIEvent extends Event {}
 interface WheelEvent extends Event {}

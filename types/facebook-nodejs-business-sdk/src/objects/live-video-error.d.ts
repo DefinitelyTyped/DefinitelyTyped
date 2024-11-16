@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * LiveVideoError
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -11,5 +11,5 @@ export default class LiveVideoError extends AbstractCrudObject {
         error_type: "error_type";
         id: "id";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<LiveVideoError>;
+    get(fields: string[], params?: Record<string, any>): Promise<LiveVideoError>;
 }

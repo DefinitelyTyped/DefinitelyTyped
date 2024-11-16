@@ -9,7 +9,7 @@ import { ScrollSync, ScrollSyncPane } from "react-scroll-sync";
         <ScrollSyncPane enabled group="two" attachTo={document.body} innerRef={React.createRef()}>
             <div></div>
         </ScrollSyncPane>
-        <ScrollSyncPane enabled group={["one", "two"]} attachTo={document.body} innerRef={() => React.createRef()}>
+        <ScrollSyncPane enabled group={["one", "two"]} attachTo={document.body} innerRef={React.createRef()}>
             <div></div>
         </ScrollSyncPane>
     </ScrollSync>

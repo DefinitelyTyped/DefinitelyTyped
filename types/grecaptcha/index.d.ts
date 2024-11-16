@@ -96,6 +96,11 @@ declare namespace ReCaptchaV2 {
          */
         badge?: Badge | undefined;
         /**
+         * Optional. Enterprise checkbox reCAPTCHA only.
+         * The action associated with the user-initiated event.
+         */
+        action?: string | undefined;
+        /**
          * Optional. Invisible reCAPTCHA only. For plugin owners to not interfere with existing reCAPTCHA installations on a page.
          * If true, this reCAPTCHA instance will be part of a separate ID space.
          *

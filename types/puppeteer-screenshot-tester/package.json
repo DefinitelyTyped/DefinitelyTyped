@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/puppeteer-screenshot-tester",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/burnpiro/puppeteer-screenshot-tester#readme"
+    ],
+    "dependencies": {
+        "puppeteer": "*",
+        "sharp": "*"
+    },
+    "devDependencies": {
+        "@types/puppeteer-screenshot-tester": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ferran Llop",
+            "githubUsername": "ferllop"
+        }
+    ]
+}

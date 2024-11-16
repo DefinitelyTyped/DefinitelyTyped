@@ -24,6 +24,11 @@ export class RGBMLoader extends DataTextureLoader {
         onError?: (event: ErrorEvent) => void,
     ): CubeTexture;
 
+    loadCubemapAsync(
+        urls: string[],
+        onProgress?: (event: ProgressEvent) => void,
+    ): Promise<CubeTexture>;
+
     parse(buffer: ArrayBuffer): RGBM;
 
     setDataType(dataType: TextureDataType): this;

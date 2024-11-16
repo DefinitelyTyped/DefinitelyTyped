@@ -1587,6 +1587,11 @@ export default class Dygraph {
      */
     ready(callback: (g: Dygraph) => any): void;
 
+    // built-in tickers
+    static numericLinearTicks: dygraphs.Ticker;
+    static numericTicks: dygraphs.Ticker;
+    static dateTicker: dygraphs.Ticker;
+
     // Tick granularities (passed to ticker).
     static SECONDLY: number;
     static TWO_SECONDLY: number;

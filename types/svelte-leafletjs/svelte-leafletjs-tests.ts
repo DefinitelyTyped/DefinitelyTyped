@@ -66,7 +66,7 @@ import { Circle, LeafletContext, LeafletMap, TileLayer } from "svelte-leafletjs"
 
 {
     /* tslint:disable-next-line */
-    let getMap: () => Map;
+    let getMap!: () => Map;
 
     const f = () => {
         const mapEl = new LeafletMap({

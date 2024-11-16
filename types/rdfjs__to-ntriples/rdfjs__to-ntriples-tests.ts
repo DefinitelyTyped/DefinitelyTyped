@@ -1,12 +1,11 @@
+import toNT from "@rdfjs/to-ntriples";
+import blankNode from "@rdfjs/to-ntriples/lib/blankNode.js";
+import dataset from "@rdfjs/to-ntriples/lib/dataset.js";
+import defaultGraph from "@rdfjs/to-ntriples/lib/defaultGraph.js";
+import namedNode from "@rdfjs/to-ntriples/lib/namedNode.js";
+import quad from "@rdfjs/to-ntriples/lib/quad.js";
+import variable from "@rdfjs/to-ntriples/lib/variable.js";
 import * as RDF from "@rdfjs/types";
-import toNT = require("@rdfjs/to-ntriples");
-import blankNode = require("@rdfjs/to-ntriples/lib/blankNode");
-import defaultGraph = require("@rdfjs/to-ntriples/lib/defaultGraph");
-import namedNode = require("@rdfjs/to-ntriples/lib/namedNode");
-import variable = require("@rdfjs/to-ntriples/lib/variable");
-import quad = require("@rdfjs/to-ntriples/lib/quad");
-import dataset = require("@rdfjs/to-ntriples/lib/dataset");
-import term = require("@rdfjs/to-ntriples/lib/term");
 
 const rdfBlankNode: RDF.BlankNode = <any> {};
 const rdfDefaultGraph: RDF.DefaultGraph = <any> {};
@@ -29,5 +28,6 @@ ntString = toNT(rdfDefaultGraph);
 ntString = toNT(rdfNamedNode);
 ntString = toNT(rdfVariable);
 ntString = toNT(rdfDataset);
+ntString = toNT([rdfBlankNode, rdfNamedNode, rdfQuad]);
 ntString = toNT(rdfQuad);
 ntString = toNT(rdfTerm);

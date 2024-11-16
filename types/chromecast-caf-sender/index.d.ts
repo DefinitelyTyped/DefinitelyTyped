@@ -55,6 +55,8 @@ declare namespace cast.framework {
         ANY_CHANGE = "anyChanged",
         IS_CONNECTED_CHANGED = "isConnectedChanged",
         IS_MEDIA_LOADED_CHANGED = "isMediaLoadedChanged",
+        QUEUE_DATA_CHANGED = "queueDataChanged",
+        VIDEO_INFO_CHANGED = "videoInfoChanged",
         DURATION_CHANGED = "durationChanged",
         CURRENT_TIME_CHANGED = "currentTimeChanged",
         IS_PAUSED_CHANGED = "isPausedChanged",
@@ -70,7 +72,15 @@ declare namespace cast.framework {
         MEDIA_INFO_CHANGED = "mediaInfoChanged",
         IMAGE_URL_CHANGED = "imageUrlChanged",
         PLAYER_STATE_CHANGED = "playerStateChanged",
-        LIVE_SEEKABLE_RANGE_CHANGED = "liveSeekableRange",
+        IS_PLAYING_BREAK_CHANGED = "isPlayingBreakChanged",
+        NUMBER_BREAK_CLIPS_CHANGED = "numberBreakClipsChanged",
+        CURRENT_BREAK_CLIP_NUMBER_CHANGED = "currentBreakClipNumberChanged",
+        CURRENT_BREAK_TIME_CHANGED = "currentBreakTimeChanged",
+        CURRENT_BREAK_CLIP_TIME_CHANGED = "currentBreakClipTimeChanged",
+        BREAK_ID_CHANGED = "breakIdChanged",
+        BREAK_CLIP_ID_CHANGED = "breakClipIdChanged",
+        WHEN_SKIPPABLE_CHANGED = "whenSkippableChanged",
+        LIVE_SEEKABLE_RANGE_CHANGED = "liveSeekableRangeChanged",
     }
 
     enum ActiveInputState {

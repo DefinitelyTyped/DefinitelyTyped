@@ -10,11 +10,11 @@ shp.parseZip(new Buffer(""), ["white", "list"]).then((geojson) => {});
 shp.parseZip(new ArrayBuffer(50)).then((geojson) => {});
 shp.parseZip(new Int32Array(50)).then((geojson) => {});
 
-shp.getShapeFile("xxx.zip").then((geojson) => {});
-shp.getShapeFile("xxx.zip", ["white", "list"]).then((geojson) => {});
-shp.getShapeFile(new Buffer("")).then((geojson) => {});
-shp.getShapeFile(new ArrayBuffer(50)).then((geojson) => {});
-shp.getShapeFile(new Int32Array(50)).then((geojson) => {});
+shp.getShapefile("xxx.zip").then((geojson) => {});
+shp.getShapefile("xxx.zip", ["white", "list"]).then((geojson) => {});
+shp.getShapefile(new Buffer("")).then((geojson) => {});
+shp.getShapefile(new ArrayBuffer(50)).then((geojson) => {});
+shp.getShapefile(new Int32Array(50)).then((geojson) => {});
 
 const combinedGeojson = shp.combine([
     [{

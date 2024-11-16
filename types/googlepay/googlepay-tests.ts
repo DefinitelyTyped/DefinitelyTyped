@@ -126,6 +126,12 @@ function addGooglePayButton() {
     buttonOptions.buttonType = "long";
     buttonOptions.buttonType = "short";
 
+    buttonOptions.buttonRadius = -1;
+    buttonOptions.buttonRadius = 0;
+    buttonOptions.buttonRadius = 10;
+    buttonOptions.buttonRadius = 20;
+    buttonOptions.buttonRadius = 100;
+
     buttonOptions.buttonSizeMode = undefined;
     buttonOptions.buttonSizeMode = "fill";
     buttonOptions.buttonSizeMode = "static";

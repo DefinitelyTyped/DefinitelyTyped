@@ -13,7 +13,12 @@ function App() {
 }
 
 function AppWithPorts() {
-    return <Elm src={Elm19Mock.main} ports={(ports: Record<string, any>) => {}} />;
+    return (
+        <Elm
+            src={Elm19Mock.main}
+            ports={(ports: Record<string, Elm.SenderPort<{ value: number }> | Elm.ReceiverPort<string>>) => {}}
+        />
+    );
 }
 
 function AppWithFlags() {

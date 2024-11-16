@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { Protocol } from "devtools-protocol";
 import { Actions, By, RelativeBy, WebElement } from "selenium-webdriver";
 import { Expect } from "./expect";

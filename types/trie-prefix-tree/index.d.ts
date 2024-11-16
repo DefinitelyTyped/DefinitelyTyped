@@ -1,4 +1,8 @@
-export default function Trie(
+type RawTree =
+    & { "$"?: 1 | undefined }
+    & { [s in Exclude<string, "$">]?: RawTree | undefined };
+
+declare function Trie(
     strings: string[],
 ): {
     /**
@@ -8,7 +12,7 @@ export default function Trie(
     /**
      * Get the generated raw trie object
      */
-    tree(): any;
+    tree(): RawTree;
     /**
      * Add a new word to the trie
      */
@@ -58,3 +62,5 @@ export default function Trie(
      */
     getSubAnagrams(word: string): string[];
 };
+
+export = Trie;

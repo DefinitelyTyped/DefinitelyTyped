@@ -101,7 +101,7 @@ isStreamx(new Readable()); // $ExpectType boolean
 {
     const d = new Duplex<string, number, Buffer>({
         write(data, cb) {
-            data; // $ExpectType Buffer
+            data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
             this.push(data); // $ExpectType boolean
             this.read(); // $ExpectType number
             this.writable; // $ExpectType true

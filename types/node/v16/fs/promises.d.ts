@@ -172,7 +172,7 @@ declare module "fs/promises" {
          * it may require the `flags` `open` option to be set to `r+` rather than the
          * default `r`. The `encoding` can be any one of those accepted by `Buffer`.
          *
-         * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
+         * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'` the file descriptor will be closed automatically. If `autoClose` is false,
          * then the file descriptor won't be closed, even if there's an error.
          * It is the application's responsibility to close it and make sure there's no
          * file descriptor leak.
@@ -670,7 +670,7 @@ declare module "fs/promises" {
     /**
      * Creates a symbolic link.
      *
-     * The `type` argument is only used on Windows platforms and can be one of `'dir'`,`'file'`, or `'junction'`. Windows junction points require the destination path
+     * The `type` argument is only used on Windows platforms and can be one of `'dir'`, `'file'`, or `'junction'`. Windows junction points require the destination path
      * to be absolute. When using `'junction'`, the `target` argument will
      * automatically be normalized to absolute path.
      * @since v10.0.0
@@ -830,7 +830,7 @@ declare module "fs/promises" {
      * The `fsPromises.mkdtemp()` method will append the six randomly selected
      * characters directly to the `prefix` string. For instance, given a directory`/tmp`, if the intention is to create a temporary directory _within_`/tmp`, the`prefix` must end with a trailing
      * platform-specific path separator
-     * (`require('path').sep`).
+     * (`import { sep } from 'node:path'`).
      * @since v10.0.0
      * @return Fulfills with a string containing the filesystem path of the newly created temporary directory.
      */
@@ -1050,7 +1050,7 @@ declare module "fs/promises" {
      * Returns an async iterator that watches for changes on `filename`, where `filename`is either a file or a directory.
      *
      * ```js
-     * const { watch } = require('fs/promises');
+     * import { watch } from 'node:fs/promises';
      *
      * const ac = new AbortController();
      * const { signal } = ac;

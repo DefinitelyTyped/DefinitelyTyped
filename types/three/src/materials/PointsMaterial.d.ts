@@ -22,11 +22,6 @@ export class PointsMaterial extends Material {
     readonly isPointsMaterial: true;
 
     /**
-     * @default 'PointsMaterial'
-     */
-    type: string;
-
-    /**
      * @default new THREE.Color( 0xffffff )
      */
     color: Color;

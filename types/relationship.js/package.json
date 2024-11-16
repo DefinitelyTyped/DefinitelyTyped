@@ -5,6 +5,7 @@
     "projects": [
         "https://passer-by.com/relationship/"
     ],
+    "minimumTypeScriptVersion": "4.7",
     "devDependencies": {
         "@types/relationship.js": "workspace:."
     },

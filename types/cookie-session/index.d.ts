@@ -72,6 +72,12 @@ declare namespace CookieSessionInterfaces {
          * a boolean indicating whether to overwrite previously set cookies of the same name (true by default). If this is true, all cookies set during the same request with the same name (regardless of path or domain) are filtered out of the Set-Cookie header when setting this cookie.
          */
         overwrite?: boolean | undefined;
+
+        /**
+         * a boolean indicating whether to partition the cookie in Chrome for the [CHIPS Update](https://developers.google.com/privacy-sandbox/3pcd/chips) (`false` by default). If this is true, Cookies from embedded sites will be partitioned and only readable from the same top
+         * level site from which it was created.
+         */
+        partitioned?: boolean | undefined;
     }
 
     interface CookieSessionObject {

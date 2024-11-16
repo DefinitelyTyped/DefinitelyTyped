@@ -13,6 +13,12 @@ declare namespace WebMidi {
          * exclusive messages is requested or allowed on a given MIDIAccess object.
          */
         sysex: boolean;
+
+        /**
+         * This member informs the system whether the ability to utilize any software synthesizers
+         * installed in the host system is requested or allowed on a given MIDIAccess object.
+         */
+        software: boolean;
     }
 
     /**
@@ -31,22 +37,22 @@ declare namespace WebMidi {
         /**
          * The MIDI input ports available to the system.
          */
-        inputs: MIDIInputMap;
+        readonly inputs: MIDIInputMap;
 
         /**
          * The MIDI output ports available to the system.
          */
-        outputs: MIDIOutputMap;
+        readonly outputs: MIDIOutputMap;
 
         /**
          * The handler called when a new port is connected or an existing port changes the
          * state attribute.
          */
-        onstatechange(e: MIDIConnectionEvent): void;
+        onstatechange: ((e: MIDIConnectionEvent) => void) | null;
 
         addEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
@@ -55,11 +61,22 @@ declare namespace WebMidi {
             options?: boolean | AddEventListenerOptions,
         ): void;
 
+        removeEventListener(
+            type: "statechange",
+            listener: (this: this, e: MIDIConnectionEvent) => void,
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | EventListenerOptions,
+        ): void;
+
         /**
          * This attribute informs the user whether system exclusive support is enabled on
          * this MIDIAccess.
          */
-        sysexEnabled: boolean;
+        readonly sysexEnabled: boolean;
     }
 
     type MIDIPortType = "input" | "output";
@@ -73,54 +90,65 @@ declare namespace WebMidi {
          * A unique ID of the port. This can be used by developers to remember ports the
          * user has chosen for their application.
          */
-        id: string;
+        readonly id: string;
 
         /**
          * The manufacturer of the port.
          */
-        manufacturer?: string | undefined;
+        readonly manufacturer?: string;
 
         /**
          * The system name of the port.
          */
-        name?: string | undefined;
+        readonly name?: string;
 
         /**
          * A descriptor property to distinguish whether the port is an input or an output
          * port.
          */
-        type: MIDIPortType;
+        readonly type: MIDIPortType;
 
         /**
          * The version of the port.
          */
-        version?: string | undefined;
+        readonly version?: string;
 
         /**
          * The state of the device.
          */
-        state: MIDIPortDeviceState;
+        readonly state: MIDIPortDeviceState;
 
         /**
          * The state of the connection to the device.
          */
-        connection: MIDIPortConnectionState;
+        readonly connection: MIDIPortConnectionState;
 
         /**
          * The handler called when an existing port changes its state or connection
          * attributes.
          */
-        onstatechange(e: MIDIConnectionEvent): void;
+        onstatechange: ((e: MIDIConnectionEvent) => void) | null;
 
         addEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
             type: string,
             listener: EventListenerOrEventListenerObject,
             options?: boolean | AddEventListenerOptions,
+        ): void;
+
+        removeEventListener(
+            type: "statechange",
+            listener: (this: this, e: MIDIConnectionEvent) => void,
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | EventListenerOptions,
         ): void;
 
         /**
@@ -151,17 +179,17 @@ declare namespace WebMidi {
     }
 
     interface MIDIInput extends MIDIPort {
-        type: "input";
-        onmidimessage(e: MIDIMessageEvent): void;
+        readonly type: "input";
+        onmidimessage: ((e: MIDIMessageEvent) => void) | null;
 
         addEventListener(
             type: "midimessage",
-            listener: (this: this, e: MIDIMessageEvent) => any,
+            listener: (this: this, e: MIDIMessageEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
@@ -169,10 +197,26 @@ declare namespace WebMidi {
             listener: EventListenerOrEventListenerObject,
             options?: boolean | AddEventListenerOptions,
         ): void;
+
+        removeEventListener(
+            type: "midimessage",
+            listener: (this: this, e: MIDIMessageEvent) => void,
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: "statechange",
+            listener: (this: this, e: MIDIConnectionEvent) => void,
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | EventListenerOptions,
+        ): void;
     }
 
     interface MIDIOutput extends MIDIPort {
-        type: "output";
+        readonly type: "output";
 
         /**
          * Enqueues the message to be sent to the corresponding MIDI port.
@@ -194,39 +238,29 @@ declare namespace WebMidi {
 
     interface MIDIMessageEvent extends Event {
         /**
-         * A timestamp specifying when the event occurred.
-         */
-        receivedTime: number;
-
-        /**
          * A Uint8Array containing the MIDI data bytes of a single MIDI message.
          */
-        data: Uint8Array;
+        readonly data: Uint8Array;
     }
 
     interface MIDIMessageEventInit extends EventInit {
         /**
-         * A timestamp specifying when the event occurred.
-         */
-        receivedTime: number;
-
-        /**
          * A Uint8Array containing the MIDI data bytes of a single MIDI message.
          */
-        data: Uint8Array;
+        readonly data: Uint8Array;
     }
 
     interface MIDIConnectionEvent extends Event {
         /**
          * The port that has been connected or disconnected.
          */
-        port: MIDIPort;
+        readonly port: MIDIPort;
     }
 
     interface MIDIConnectionEventInit extends EventInit {
         /**
          * The port that has been connected or disconnected.
          */
-        port: MIDIPort;
+        readonly port: MIDIPort;
     }
 }

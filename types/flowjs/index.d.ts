@@ -12,6 +12,7 @@ declare namespace flowjs {
             singleFile?: boolean,
             attributes?: object,
         ): void;
+        onDrop(event: MouseEvent): void;
         assignDrop(node: HTMLElement | readonly HTMLElement[]): void;
         unAssignDrop(node: HTMLElement | readonly HTMLElement[]): void;
         on<T extends EventName>(event: T, callback: (...args: FlowEventMap[T]) => void): void;

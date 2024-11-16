@@ -77,7 +77,7 @@ interface ScreepsProfilerStatic {
      *
      * @param callback - your main loop function
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     wrap(callback: Function): Function;
 
     /**
@@ -86,7 +86,7 @@ interface ScreepsProfilerStatic {
      * @param  clazz constructor
      * @param className - The name of the class, a label used in output
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     registerClass(constructor: Function, className: string): void;
 
     /**
@@ -106,7 +106,7 @@ interface ScreepsProfilerStatic {
      * @param [fnName] - Name of the function, used as a label in output
      * @return the original function wrapped for profiling
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     registerFN(fn: Function, fnName?: string): Function;
 }
 

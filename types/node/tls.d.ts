@@ -4,9 +4,9 @@
  * The module can be accessed using:
  *
  * ```js
- * const tls = require('node:tls');
+ * import tls from 'node:tls';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/tls.js)
  */
 declare module "tls" {
     import { X509Certificate } from "node:crypto";
@@ -125,7 +125,7 @@ declare module "tls" {
          */
         asn1Curve?: string;
         /**
-         * The NIST name for the elliptic curve,if it has one
+         * The NIST name for the elliptic curve, if it has one
          * (not all well-known curves have been assigned names by NIST).
          */
         nistCurve?: string;
@@ -278,7 +278,7 @@ declare module "tls" {
          * an ephemeral key exchange in `perfect forward secrecy` on a client
          * connection. It returns an empty object when the key exchange is not
          * ephemeral. As this is only supported on a client socket; `null` is returned
-         * if called on a server socket. The supported types are `'DH'` and `'ECDH'`. The`name` property is available only when type is `'ECDH'`.
+         * if called on a server socket. The supported types are `'DH'` and `'ECDH'`. The `name` property is available only when type is `'ECDH'`.
          *
          * For example: `{ type: 'ECDH', name: 'prime256v1', size: 256 }`.
          * @since v5.0.0
@@ -382,7 +382,7 @@ declare module "tls" {
          * This method can be used to request a peer's certificate after the secure
          * connection has been established.
          *
-         * When running as the server, the socket will be destroyed with an error after`handshakeTimeout` timeout.
+         * When running as the server, the socket will be destroyed with an error after `handshakeTimeout` timeout.
          *
          * For TLSv1.3, renegotiation cannot be initiated, it is not supported by the
          * protocol.
@@ -810,6 +810,12 @@ declare module "tls" {
          */
         ALPNCallback?: ((arg: { servername: string; protocols: string[] }) => string | undefined) | undefined;
         /**
+         * Treat intermediate (non-self-signed)
+         * certificates in the trust CA certificate list as trusted.
+         * @since v22.9.0, v20.18.0
+         */
+        allowPartialTrustChain?: boolean | undefined;
+        /**
          * Optionally override the trusted CA certificates. Default is to trust
          * the well-known CAs curated by Mozilla. Mozilla's CAs are completely
          * replaced when CAs are explicitly specified using this option.
@@ -843,6 +849,7 @@ declare module "tls" {
         ciphers?: string | undefined;
         /**
          * Name of an OpenSSL engine which can provide the client certificate.
+         * @deprecated
          */
         clientCertEngine?: string | undefined;
         /**
@@ -885,12 +892,14 @@ declare module "tls" {
         /**
          * Name of an OpenSSL engine to get private key from. Should be used
          * together with privateKeyIdentifier.
+         * @deprecated
          */
         privateKeyEngine?: string | undefined;
         /**
          * Identifier of a private key managed by an OpenSSL engine. Should be
          * used together with privateKeyEngine. Should not be set together with
          * key, because both options define a private key in different ways.
+         * @deprecated
          */
         privateKeyIdentifier?: string | undefined;
         /**
@@ -975,7 +984,7 @@ declare module "tls" {
      * This function is intended to be used in combination with the`checkServerIdentity` option that can be passed to {@link connect} and as
      * such operates on a `certificate object`. For other purposes, consider using `x509.checkHost()` instead.
      *
-     * This function can be overwritten by providing an alternative function as the`options.checkServerIdentity` option that is passed to `tls.connect()`. The
+     * This function can be overwritten by providing an alternative function as the `options.checkServerIdentity` option that is passed to `tls.connect()`. The
      * overwriting function can call `tls.checkServerIdentity()` of course, to augment
      * the checks done with additional verification.
      *
@@ -984,7 +993,7 @@ declare module "tls" {
      *
      * Earlier versions of Node.js incorrectly accepted certificates for a given`hostname` if a matching `uniformResourceIdentifier` subject alternative name
      * was present (see [CVE-2021-44531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44531)). Applications that wish to accept`uniformResourceIdentifier` subject alternative names can use
-     * a custom`options.checkServerIdentity` function that implements the desired behavior.
+     * a custom `options.checkServerIdentity` function that implements the desired behavior.
      * @since v0.8.4
      * @param hostname The host name or IP address to verify the certificate against.
      * @param cert A `certificate object` representing the peer's certificate.
@@ -1000,8 +1009,8 @@ declare module "tls" {
      * The following illustrates a simple echo server:
      *
      * ```js
-     * const tls = require('node:tls');
-     * const fs = require('node:fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   key: fs.readFileSync('server-key.pem'),
@@ -1046,8 +1055,8 @@ declare module "tls" {
      *
      * ```js
      * // Assumes an echo server that is listening on port 8000.
-     * const tls = require('node:tls');
-     * const fs = require('node:fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   // Necessary only if the server requires client certificate authentication.
@@ -1092,7 +1101,7 @@ declare module "tls" {
      * stream and the cleartext one is used as a replacement for the initial encrypted
      * stream.
      *
-     * `tls.createSecurePair()` returns a `tls.SecurePair` object with `cleartext` and`encrypted` stream properties.
+     * `tls.createSecurePair()` returns a `tls.SecurePair` object with `cleartext` and `encrypted` stream properties.
      *
      * Using `cleartext` has the same API as {@link TLSSocket}.
      *
@@ -1125,10 +1134,10 @@ declare module "tls" {
         rejectUnauthorized?: boolean,
     ): SecurePair;
     /**
-     * {@link createServer} sets the default value of the `honorCipherOrder` option
+     * `{@link createServer}` sets the default value of the `honorCipherOrder` option
      * to `true`, other APIs that create secure contexts leave it unset.
      *
-     * {@link createServer} uses a 128 bit truncated SHA1 hash value generated
+     * `{@link createServer}` uses a 128 bit truncated SHA1 hash value generated
      * from `process.argv` as the default value of the `sessionIdContext` option, other
      * APIs that create secure contexts have no default value.
      *
@@ -1136,12 +1145,12 @@ declare module "tls" {
      * usable as an argument to several `tls` APIs, such as `server.addContext()`,
      * but has no public methods. The {@link Server} constructor and the {@link createServer} method do not support the `secureContext` option.
      *
-     * A key is _required_ for ciphers that use certificates. Either `key` or`pfx` can be used to provide it.
+     * A key is _required_ for ciphers that use certificates. Either `key` or `pfx` can be used to provide it.
      *
      * If the `ca` option is not given, then Node.js will default to using [Mozilla's publicly trusted list of
      * CAs](https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt).
      *
-     * Custom DHE parameters are discouraged in favor of the new `dhparam: 'auto'`option. When set to `'auto'`, well-known DHE parameters of sufficient strength
+     * Custom DHE parameters are discouraged in favor of the new `dhparam: 'auto' `option. When set to `'auto'`, well-known DHE parameters of sufficient strength
      * will be selected automatically. Otherwise, if necessary, `openssl dhparam` can
      * be used to create custom parameters. The key length must be greater than or
      * equal to 1024 bits or else an error will be thrown. Although 1024 bits is
@@ -1152,9 +1161,10 @@ declare module "tls" {
     /**
      * Returns an array with the names of the supported TLS ciphers. The names are
      * lower-case for historical reasons, but must be uppercased to be used in
-     * the `ciphers` option of {@link createSecureContext}.
+     * the `ciphers` option of `{@link createSecureContext}`.
      *
-     * Not all supported ciphers are enabled by default. See `Modifying the default TLS cipher suite`.
+     * Not all supported ciphers are enabled by default. See
+     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v22.x/api/tls.html#modifying-the-default-tls-cipher-suite).
      *
      * Cipher names that start with `'tls_'` are for TLSv1.3, all the others are for
      * TLSv1.2 and below.
@@ -1167,41 +1177,47 @@ declare module "tls" {
     function getCiphers(): string[];
     /**
      * The default curve name to use for ECDH key agreement in a tls server.
-     * The default value is 'auto'. See tls.createSecureContext() for further
+     * The default value is `'auto'`. See `{@link createSecureContext()}` for further
      * information.
+     * @since v0.11.13
      */
     let DEFAULT_ECDH_CURVE: string;
     /**
-     * The default value of the maxVersion option of
-     * tls.createSecureContext(). It can be assigned any of the supported TLS
-     * protocol versions, 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default:
-     * 'TLSv1.3', unless changed using CLI options. Using --tls-max-v1.2 sets
-     * the default to 'TLSv1.2'. Using --tls-max-v1.3 sets the default to
-     * 'TLSv1.3'. If multiple of the options are provided, the highest maximum
-     * is used.
+     * The default value of the `maxVersion` option of `{@link createSecureContext()}`.
+     * It can be assigned any of the supported TLS protocol versions,
+     * `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. **Default:** `'TLSv1.3'`, unless
+     * changed using CLI options. Using `--tls-max-v1.2` sets the default to `'TLSv1.2'`. Using
+     * `--tls-max-v1.3` sets the default to `'TLSv1.3'`. If multiple of the options
+     * are provided, the highest maximum is used.
+     * @since v11.4.0
      */
     let DEFAULT_MAX_VERSION: SecureVersion;
     /**
-     * The default value of the minVersion option of tls.createSecureContext().
+     * The default value of the `minVersion` option of `{@link createSecureContext()}`.
      * It can be assigned any of the supported TLS protocol versions,
-     * 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default: 'TLSv1.2', unless
-     * changed using CLI options. Using --tls-min-v1.0 sets the default to
-     * 'TLSv1'. Using --tls-min-v1.1 sets the default to 'TLSv1.1'. Using
-     * --tls-min-v1.3 sets the default to 'TLSv1.3'. If multiple of the options
+     * `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. **Default:** `'TLSv1.2'`, unless
+     * changed using CLI options. Using `--tls-min-v1.0` sets the default to
+     * `'TLSv1'`. Using `--tls-min-v1.1` sets the default to `'TLSv1.1'`. Using
+     * `--tls-min-v1.3` sets the default to `'TLSv1.3'`. If multiple of the options
      * are provided, the lowest minimum is used.
+     * @since v11.4.0
      */
     let DEFAULT_MIN_VERSION: SecureVersion;
     /**
-     * The default value of the ciphers option of tls.createSecureContext().
+     * The default value of the `ciphers` option of `{@link createSecureContext()}`.
      * It can be assigned any of the supported OpenSSL ciphers.
-     * Defaults to the content of crypto.constants.defaultCoreCipherList, unless
-     * changed using CLI options using --tls-default-ciphers.
+     * Defaults to the content of `crypto.constants.defaultCoreCipherList`, unless
+     * changed using CLI options using `--tls-default-ciphers`.
+     * @since v19.8.0
      */
     let DEFAULT_CIPHERS: string;
     /**
-     * An immutable array of strings representing the root certificates (in PEM
-     * format) used for verifying peer certificates. This is the default value
-     * of the ca option to tls.createSecureContext().
+     * An immutable array of strings representing the root certificates (in PEM format)
+     * from the bundled Mozilla CA store as supplied by the current Node.js version.
+     *
+     * The bundled CA store, as supplied by Node.js, is a snapshot of Mozilla CA store
+     * that is fixed at release time. It is identical on all supported platforms.
+     * @since v12.3.0
      */
     const rootCertificates: readonly string[];
 }

@@ -2,20 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.webNavigation
- *
- * Use the <code>browser.webNavigation</code> API to receive notifications about the status of navigation requests
- * in-flight.
- * Permissions: "webNavigation"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.webNavigation
+ */
 export namespace WebNavigation {
     /**
      * Cause of the navigation. The same transition types as defined in the history API are used.
@@ -534,8 +525,6 @@ export namespace WebNavigation {
 
         /**
          * Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab.
-         *
-         * @param details
          */
         onTabReplaced: Events.Event<(details: OnTabReplacedDetailsType) => void>;
 

@@ -8,7 +8,7 @@ import {
     SphereGeometry,
     WebGLRenderer,
 } from "three";
-import { Reflector } from "three/examples/jsm/objects/Reflector";
+import { Reflector } from "three/addons/objects/Reflector.js";
 
 const renderer = new WebGLRenderer();
 

@@ -1,12 +1,4 @@
-import {
-    ColorSpace,
-    Combine,
-    DepthPackingStrategies,
-    GLSLVersion,
-    Mapping,
-    ShadowMapType,
-    ToneMapping,
-} from "../../constants.js";
+import { Combine, DepthPackingStrategies, GLSLVersion, Mapping, ShadowMapType, ToneMapping } from "../../constants.js";
 import { Object3D } from "../../core/Object3D.js";
 import { Light } from "../../lights/Light.js";
 import { Material } from "../../materials/Material.js";
@@ -22,8 +14,6 @@ import { WebGLLightsState } from "./WebGLLights.js";
 import { WebGLProgram } from "./WebGLProgram.js";
 
 export interface WebGLProgramParameters {
-    isWebGL2: boolean;
-
     shaderID: string;
     shaderType: string;
     shaderName: string;
@@ -41,12 +31,13 @@ export interface WebGLProgramParameters {
     precision: "lowp" | "mediump" | "highp";
 
     batching: boolean;
+    batchingColor: boolean;
     instancing: boolean;
     instancingColor: boolean;
     instancingMorph: boolean;
 
     supportsVertexTextures: boolean;
-    outputColorSpace: ColorSpace;
+    outputColorSpace: string;
     alphaToCoverage: boolean;
 
     map: boolean;
@@ -74,6 +65,8 @@ export interface WebGLProgramParameters {
     clearcoatMap: boolean;
     clearcoatNormalMap: boolean;
     clearcoatRoughnessMap: boolean;
+
+    dispersion: boolean;
 
     iridescence: boolean;
     iridescenceMap: boolean;
@@ -154,6 +147,7 @@ export interface WebGLProgramParameters {
 
     sizeAttenuation: boolean;
     logarithmicDepthBuffer: boolean;
+    reverseDepthBuffer: boolean;
 
     skinning: boolean;
 
@@ -186,9 +180,9 @@ export interface WebGLProgramParameters {
     shadowMapType: ShadowMapType;
 
     toneMapping: ToneMapping;
-    useLegacyLights: boolean;
 
     decodeVideoTexture: boolean;
+    decodeVideoTextureEmissive: boolean;
 
     premultipliedAlpha: boolean;
 
@@ -200,16 +194,9 @@ export interface WebGLProgramParameters {
 
     index0AttributeName: string | undefined;
 
-    extensionDerivatives: boolean;
-    extensionFragDepth: boolean;
-    extensionDrawBuffers: boolean;
-    extensionShaderTextureLOD: boolean;
     extensionClipCullDistance: boolean;
     extensionMultiDraw: boolean;
 
-    rendererExtensionFragDepth: boolean;
-    rendererExtensionDrawBuffers: boolean;
-    rendererExtensionShaderTextureLod: boolean;
     rendererExtensionParallelShaderCompile: boolean;
 
     customProgramCacheKey: string;

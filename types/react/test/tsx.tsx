@@ -106,6 +106,7 @@ const ComponentWithChildren3: React.FunctionComponent<React.PropsWithChildren<Co
     defaultChecked
     defaultValue="some value"
     contentEditable
+    enterKeyHint="done"
     suppressContentEditableWarning
     suppressHydrationWarning
 >
@@ -155,15 +156,30 @@ const FunctionComponentWithoutProps: React.FunctionComponent = props => {
 <FunctionComponentWithoutProps />;
 
 // React.createContext
-const ContextWithRenderProps = React.createContext("defaultValue");
+const Context = React.createContext("defaultValue");
+
+// @ts-expect-error Forgot value
+<Context.Provider />;
+<Context.Provider value="provided" />;
+<Context.Provider value="provided">
+    <div />
+</Context.Provider>;
+// @ts-expect-error Wrong value type
+<Context.Provider value={5} />;
+// @ts-expect-error Requires explicit default value.
+React.createContext();
+const UndefinedContext = React.createContext(undefined);
+// @ts-expect-error Forgot value even if it can be undefined
+<UndefinedContext.Provider />;
+<UndefinedContext.Provider value={undefined} />;
 
 // unstable APIs should not be part of the typings
 // @ts-expect-error
 const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
 // @ts-expect-error
-<ContextWithRenderProps.Consumer unstable_observedBits={4}>
+<Context.Consumer unstable_observedBits={4}>
     {(value: unknown) => null}
-</ContextWithRenderProps.Consumer>;
+</Context.Consumer>;
 
 // Fragments
 <div>
@@ -405,6 +421,13 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 // @ts-expect-error
 <React.Suspense fallback={null} unstable_avoidThisFallback />;
 
+<React.Suspense
+    fallback={null}
+    // @ts-expect-error -- Should use `name`
+    id="test"
+/>;
+<React.Suspense fallback={null} name="test" />;
+
 class LegacyContext extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
 
@@ -427,8 +450,8 @@ class LegacyContextAnnotated extends React.Component {
 }
 
 class NewContext extends React.Component {
-    static contextType = ContextWithRenderProps;
-    context: React.ContextType<typeof ContextWithRenderProps> = "";
+    static contextType = Context;
+    context: React.ContextType<typeof Context> = "";
 
     render() {
         // $ExpectType string
@@ -515,18 +538,10 @@ const { Profiler } = React;
         baseDuration,
         startTime,
         commitTime,
-        interactions,
     ) => {
         const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
 
         const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
-
-        const interactionsSummary = Array.from(interactions)
-            .map(interaction => {
-                return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
-            })
-            .join("\n");
-        const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
     }}
 >
     <div />
@@ -546,7 +561,7 @@ imgProps.loading = "nonsense";
 // @ts-expect-error
 imgProps.decoding = "nonsense";
 type ImgPropsWithRef = React.ComponentPropsWithRef<"img">;
-// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType ((instance: HTMLImageElement | null) => void | (() => VoidOrUndefinedOnly)) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef["ref"];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<"img">;
 // $ExpectType false
@@ -765,6 +780,15 @@ function elementTypeTests() {
         }
     }
 
+    const ReturnPromiseReactNode = async ({ children }: { children?: React.ReactNode }) => children;
+    const FCPromiseReactNode: React.FC = ReturnReactNode;
+    class RenderPromiseReactNode extends React.Component<{ children?: React.ReactNode }> {
+        // @ts-expect-error class components cannot render async
+        async render() {
+            return this.props.children;
+        }
+    }
+
     const ReturnWithLegacyContext = (props: { foo: string }, context: { bar: number }) => {
         return (
             <div>
@@ -858,6 +882,13 @@ function elementTypeTests() {
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(RenderPromise);
 
+    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
+    <ReturnPromiseReactNode />;
+    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
+    React.createElement(ReturnPromiseReactNode);
+    <FCPromiseReactNode />;
+    React.createElement(FCPromiseReactNode);
+
     <ReturnWithLegacyContext foo="one" />;
     React.createElement(ReturnWithLegacyContext, { foo: "one" });
 
@@ -909,4 +940,28 @@ function managingRefs() {
     // `inputRef.current` will contain `Element | null` at runtime
     // while it has `HTMLInputElement | null` at compiletime.
     <ElementComponent ref={inputRef} />;
+    // ref cleanup
+    <div
+        ref={current => {
+            return function refCleanup() {
+            };
+        }}
+    />;
+    <div
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
+        ref={current => {
+            // @ts-expect-error
+            return function refCleanup(implicitAny) {
+            };
+        }}
+    />;
+    <div
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
+        ref={current => {
+            return function refCleanup(neverPassed: string) {
+            };
+        }}
+    />;
 }

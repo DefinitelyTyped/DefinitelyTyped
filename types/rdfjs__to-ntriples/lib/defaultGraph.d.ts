@@ -1,3 +1,1 @@
-declare function defaultGraph(): string;
-
-export = defaultGraph;
+export default function defaultGraph(): string;

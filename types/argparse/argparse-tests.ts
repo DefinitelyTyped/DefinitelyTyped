@@ -350,3 +350,8 @@ let [ns, remaining] = intermixedArgsExample.parse_known_intermixed_args("doit 1 
 console.dir(ns);
 console.log(remaining);
 console.log("-----------");
+
+const fromfilePrefixCharsExample = new ArgumentParser({
+    fromfile_prefix_chars: "@",
+});
+fromfilePrefixCharsExample.add_argument("--foo");

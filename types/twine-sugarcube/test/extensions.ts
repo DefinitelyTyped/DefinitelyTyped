@@ -27,6 +27,10 @@ ar1.delete(1, 2);
 // @ts-expect-error
 ar1.delete(1, "a");
 
+ar1.deleteFirst(1, 2);
+ar1.deleteLast(2, 3);
+ar1.deleteAll(1, 2);
+
 ar1.deleteAt(1, 2);
 // @ts-expect-error
 ar1.deleteAt("a", 2);
@@ -64,6 +68,8 @@ ar2 = arNum.randomMany();
 ar2 = arNum.randomMany(2);
 
 ar2 = ar1.shuffle();
+ar2 = ar1.toShuffled();
+ar2 = ar1.toUnique();
 
 ar1.unshiftUnique(1, 2, 3);
 // @ts-expect-error
@@ -95,5 +101,8 @@ RegExp.escape(s);
 const j: JQuery = $(s).ariaDisabled(true);
 $(s).wiki(s);
 $.wiki(s);
+$.wikiPassage(s);
+
+Serial.createReviver("new Character($ReviveData$)", {});
 
 export {};

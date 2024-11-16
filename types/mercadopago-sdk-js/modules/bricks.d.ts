@@ -116,6 +116,7 @@ declare namespace bricks {
         verticalPadding?: string;
         horizontalPadding?: string;
         hideValueProp?: boolean;
+        hidePixQrCode?: boolean;
     }
 
     type GenericPaymentMethod = string | string[];
@@ -149,7 +150,9 @@ declare namespace bricks {
             | "security_details"
             | "security_safety"
             | "convenience_credits"
-            | "smart_option";
+            | "smart_option"
+            | "payment_methods_logos";
+        actionComplement?: "brand" | "amount";
     }
 
     interface StatusBrickBackUrls {
@@ -479,13 +482,13 @@ declare namespace bricks {
     type BrandBrickBorderColor = "dark" | "light";
 
     interface BrandBrickPaymentMethodCustomization {
-        excludedPaymentMethods?: BrandBrickPaymentMethods[];
-        excludedPaymentTypes?: BrandBrickPaymentTypes[];
+        excludedPaymentMethods?: BrandBrickExcludedPaymentMethods[];
+        excludedPaymentTypes?: BrandBrickExcludedPaymentTypes[];
         maxInstallments?: number;
         interestFreeInstallments?: boolean;
     }
 
-    type BrandBrickPaymentMethods =
+    type BrandBrickExcludedPaymentMethods =
         | "master"
         | "visa"
         | "amex"
@@ -499,10 +502,9 @@ declare namespace bricks {
         | "tarshop"
         | "cmr"
         | "rapipago"
-        | "pagofacil"
-        | "mercadopago";
+        | "pagofacil";
 
-    type BrandBrickPaymentTypes = "credit_card" | "debit_card" | "ticket" | "account_money" | "mercado_credito";
+    type BrandBrickExcludedPaymentTypes = "credit_card" | "debit_card" | "ticket";
 
     interface CardPaymentController {
         unmount: () => void;

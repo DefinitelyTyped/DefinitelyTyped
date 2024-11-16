@@ -1,16 +1,10 @@
 declare module "game/prototypes" {
-    export interface Resource extends GameObject {
-        readonly prototype: Resource;
+    /** A dropped piece of resource. Dropped resource pile decays for ceil(amount/1000) units per tick */
+    export class Resource extends GameObject {
+        /** The amount of dropped resource */
         amount: number;
-        resourceType: "energy"; // TODO: fix
-        // TODO: fix toJSON
-        // toJSON() {
-        //   return Object.assign(super.toJSON(), {
-        //     amount: this.amount,
-        //     resourceType: this.resourceType
-        //   });
-        // }
-    }
 
-    export const Resource: _Constructor<Resource>;
+        /** The type of dropped resource (one of RESOURCE_* constants) */
+        resourceType: ResourceType;
+    }
 }

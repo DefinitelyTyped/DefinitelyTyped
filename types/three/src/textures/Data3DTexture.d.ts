@@ -4,7 +4,6 @@ import { Texture3DImageData } from "./types.js";
 
 /**
  * Creates a three-dimensional texture from raw data, with parameters to divide it into width, height, and depth
- * @remarks Compatible only with {@link WebGL2RenderingContext | WebGL 2 Rendering Context}.
  * @example
  * ```typescript
  * This creates a[name] with repeating data, 0 to 255

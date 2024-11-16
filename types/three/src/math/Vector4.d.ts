@@ -119,6 +119,8 @@ export class Vector4 {
 
     applyMatrix4(m: Matrix4): this;
 
+    divide(v: Vector4Like): this;
+
     /**
      * Divides this vector by scalar s.
      * Set vector to ( 0, 0, 0 ) if s == 0.
@@ -136,6 +138,12 @@ export class Vector4 {
      * @param m assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
      */
     setAxisAngleFromRotationMatrix(m: Matrix4): this;
+
+    /**
+     * Sets this vector to the position elements of the
+     * [transformation matrix]{@link https://en.wikipedia.org/wiki/Transformation_matrix} m.
+     */
+    setFromMatrixPosition(m: Matrix4): this;
 
     min(v: Vector4Like): this;
     max(v: Vector4Like): this;

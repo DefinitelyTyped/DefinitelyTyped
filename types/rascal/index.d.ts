@@ -165,6 +165,11 @@ export interface Recovery {
     immediateNack?: boolean | undefined;
 }
 
+export interface ConnectionDetails {
+    vhost: string;
+    connectionUrl: string;
+}
+
 export interface SubscriptionConfig {
     vhost?: string | undefined;
     queue?: string | undefined;
@@ -459,6 +464,7 @@ declare class BrokerAsPromised extends EventEmitter {
     unsubscribeAll(): Promise<void>;
     subscribe(name: string, overrides?: SubscriptionConfig): Promise<SubscriberSessionAsPromised>;
     subscribeAll(filter?: (config: SubscriptionConfig) => boolean): Promise<SubscriberSessionAsPromised[]>;
+    getConnections(): ConnectionDetails[];
 }
 
 export class SubscriptionSession extends EventEmitter {
@@ -507,6 +513,7 @@ declare class Broker extends EventEmitter {
     subscribeAll(next: Cb<Error, SubscriptionSession[]>): void;
     subscribeAll(filter: (config: SubscriptionConfig) => boolean, next: Cb<Error, SubscriptionSession[]>): void;
     unsubscribeAll(next: ErrorCb): void;
+    getConnections(): ConnectionDetails[];
 }
 
 export class PublicationSession extends EventEmitter {
@@ -538,6 +545,7 @@ export class Vhost extends EventEmitter {
     returnConfirmChannel(channel: Channel): void;
     destroyConfirmChannel(channel: Channel): void;
     isPaused(): boolean;
+    getConnectionDetails(): ConnectionDetails;
 }
 
 declare function createBroker(config: BrokerConfig, next: CreateCb): void;

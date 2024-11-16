@@ -46,14 +46,17 @@ class Test extends React.Component<any> {
                     onPress={() => this.showPopupDialog(this.slidingPopupDialog)}
                     title="Show Sliding Dialog"
                 />
-
                 <Dialog
-                    ref={(popupDialog) => this.fadingPopupDialog = popupDialog}
+                    ref={popupDialog => {
+                        this.fadingPopupDialog = popupDialog;
+                    }}
                     dialogTitle={<DialogTitle title="Popup Dialog - Fade Animation" />}
                     dialogAnimation={fadeAnimation}
                 />
                 <Dialog
-                    ref={(popupDialog) => this.scalingPopupDialog = popupDialog}
+                    ref={popupDialog => {
+                        this.scalingPopupDialog = popupDialog;
+                    }}
                     dialogTitle={<DialogTitle title="Popup Dialog - Scale Animation" />}
                     dialogAnimation={scaleAnimation}
                     footer={
@@ -74,7 +77,9 @@ class Test extends React.Component<any> {
                     }
                 />
                 <Dialog
-                    ref={(popupDialog) => this.slidingPopupDialog = popupDialog}
+                    ref={popupDialog => {
+                        this.slidingPopupDialog = popupDialog;
+                    }}
                     dialogTitle={<DialogTitle title="Popup Dialog - Slide Animation" />}
                     width={300}
                     height={300}

@@ -1,10 +1,9 @@
 import { BufferAttribute } from "../../core/BufferAttribute.js";
 import { GLBufferAttribute } from "../../core/GLBufferAttribute.js";
 import { InterleavedBufferAttribute } from "../../core/InterleavedBufferAttribute.js";
-import { WebGLCapabilities } from "./WebGLCapabilities.js";
 
 export class WebGLAttributes {
-    constructor(gl: WebGLRenderingContext | WebGL2RenderingContext, capabilities: WebGLCapabilities);
+    constructor(gl: WebGLRenderingContext | WebGL2RenderingContext);
 
     get(attribute: BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute):
         | {

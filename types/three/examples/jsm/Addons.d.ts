@@ -3,8 +3,6 @@ export * from "./animation/CCDIKSolver.js";
 export * from "./animation/MMDAnimationHelper.js";
 export * from "./animation/MMDPhysics.js";
 
-export * from "./cameras/CinematicCamera.js";
-
 export { default as WebGL } from "./capabilities/WebGL.js";
 
 export * from "./controls/ArcballControls.js";
@@ -71,7 +69,6 @@ export * from "./interactive/InteractiveGroup.js";
 export * from "./interactive/SelectionBox.js";
 export * from "./interactive/SelectionHelper.js";
 
-export { default as IESSpotLight } from "./lights/IESSpotLight.js";
 export * from "./lights/LightProbeGenerator.js";
 export * from "./lights/RectAreaLightUniformsLib.js";
 
@@ -101,7 +98,6 @@ export * from "./loaders/KMZLoader.js";
 export * from "./loaders/KTX2Loader.js";
 export * from "./loaders/KTXLoader.js";
 export * from "./loaders/LDrawLoader.js";
-export * from "./loaders/LogLuvLoader.js";
 export * from "./loaders/LottieLoader.js";
 export * from "./loaders/LUT3dlLoader.js";
 export * from "./loaders/LUTCubeLoader.js";
@@ -123,15 +119,17 @@ export * from "./loaders/SVGLoader.js";
 export * from "./loaders/TDSLoader.js";
 export * from "./loaders/TGALoader.js";
 export * from "./loaders/TIFFLoader.js";
-export * from "./loaders/TiltLoader.js";
 export * from "./loaders/TTFLoader.js";
+export * from "./loaders/UltraHDRLoader.js";
 export * from "./loaders/USDZLoader.js";
 export * from "./loaders/VOXLoader.js";
 export * from "./loaders/VRMLLoader.js";
 export * from "./loaders/VTKLoader.js";
 export * from "./loaders/XYZLoader.js";
 
+export * from "./materials/LDrawConditionalLineMaterial.js";
 export * from "./materials/MeshGouraudMaterial.js";
+export * from "./materials/MeshPostProcessingMaterial.js";
 
 export * from "./math/Capsule.js";
 export * from "./math/ColorConverter.js";
@@ -172,6 +170,7 @@ export * from "./objects/ShadowMesh.js";
 export * from "./objects/Sky.js";
 export * from "./objects/Water.js";
 export { Water as Water2 } from "./objects/Water2.js";
+export type { WaterOptions as Water2Options } from "./objects/Water2.js";
 
 export * from "./physics/AmmoPhysics.js";
 export * from "./physics/RapierPhysics.js";
@@ -270,15 +269,13 @@ export * as BufferGeometryUtils from "./utils/BufferGeometryUtils.js";
 export * as CameraUtils from "./utils/CameraUtils.js";
 export * as GeometryCompressionUtils from "./utils/GeometryCompressionUtils.js";
 export * as GeometryUtils from "./utils/GeometryUtils.js";
-export * from "./utils/GPUStatsPanel.js";
 export * from "./utils/LDrawUtils.js";
-export * from "./utils/PackedPhongMaterial.js";
 export * as SceneUtils from "./utils/SceneUtils.js";
 export * from "./utils/ShadowMapViewer.js";
 export * as SkeletonUtils from "./utils/SkeletonUtils.js";
 export * as SortUtils from "./utils/SortUtils.js";
-export * from "./utils/TextureUtils.js";
 export * from "./utils/UVsDebug.js";
+export * from "./utils/WebGLTextureUtils.js";
 export * from "./utils/WorkerPool.js";
 
 export * from "./webxr/ARButton.js";

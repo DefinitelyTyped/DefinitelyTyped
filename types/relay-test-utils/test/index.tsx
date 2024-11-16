@@ -58,7 +58,7 @@ const UserComponent = ({ userKey }: { userKey: UserComponent_user$key }) => {
 };
 
 function MockPayloadGeneratorTests() {
-    // @ExpectType MockEnvironment
+    // $ExpectType RelayMockEnvironment
     const environment = createMockEnvironment();
 
     // to get an operation type
@@ -97,7 +97,7 @@ function MockPayloadGeneratorTests() {
 }
 
 function environmentTests() {
-    // @ExpectType MockEnvironment
+    // $ExpectType RelayMockEnvironment
     const environment = createMockEnvironment();
 
     const queryRef = loadQuery(environment, userQuery, {});
@@ -118,6 +118,59 @@ function environmentTests() {
     environment.mock.nextValue(operation, { data: {} });
     environment.mock.resolve(operation, { data: {} });
     environment.mock.queuePendingOperation(userQuery, {});
+
+    // $ExpectType OperationDescriptor
+    const newOperation = environment.mock.getMostRecentOperation();
+
+    // $ExpectType readonly GraphQLSingularResponse[]
+    const mockDataWithDeferredPayload1 = MockPayloadGenerator.generateWithDefer(newOperation, null, {
+        generateDeferredPayload: true,
+        mockClientData: true,
+    });
+
+    // $ExpectType readonly GraphQLSingularResponse[]
+    const mockDataWithDeferredPayload2 = MockPayloadGenerator.generateWithDefer(newOperation, null, {
+        generateDeferredPayload: true,
+    });
+
+    // $ExpectType GraphQLSingularResponse
+    const mockDataWithoutDeferredPayload1 = MockPayloadGenerator.generateWithDefer(newOperation, null, {
+        generateDeferredPayload: false,
+        mockClientData: true,
+    });
+
+    // $ExpectType GraphQLSingularResponse
+    const mockDataWithoutDeferredPayload2 = MockPayloadGenerator.generateWithDefer(newOperation, null, {
+        mockClientData: true,
+    });
+
+    // $ExpectType GraphQLSingularResponse
+    const mockDataWithoutDeferredPayload3 = MockPayloadGenerator.generateWithDefer(newOperation, null);
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithoutDeferredPayload1,
+    );
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithoutDeferredPayload2,
+    );
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithoutDeferredPayload3,
+    );
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithDeferredPayload1,
+    );
+
+    environment.mock.resolve(
+        operation,
+        mockDataWithDeferredPayload2,
+    );
 }
 
 function testResolverTests() {

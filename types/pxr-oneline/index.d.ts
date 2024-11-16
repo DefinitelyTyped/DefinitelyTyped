@@ -2,13 +2,23 @@ declare namespace OneLine {
     interface OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
-        buildVideoUrl(bidder: BidderConfig[], placementID: string): void;
-        adUnitInfiniteRequest(arrOfOb: ArrOfOb[]): void;
+        preBidAdUnit(prebidBids: PrebidBids, gtag: string, isDebug: boolean): any;
+        requestVideoPlayerAds(onBiddingComplete: () => void): void;
+        buildVideoUrl(
+            bidder: BidderConfig[],
+            placementID: string,
+            customParams: VideoCustomParameters,
+            videoTitle?: string,
+        ): string;
+    }
+    interface VideoCustomParameters {
+        [key: string]: number | string | undefined;
     }
 
-    interface ArrOfOb {
-        infiniteId: string;
-        divId: string;
+    interface VideoParameters {
+        cust_params: VideoCustomParameters;
+        iu: string;
+        output: string;
     }
 
     interface BidderParams {
@@ -20,6 +30,15 @@ declare namespace OneLine {
         params: BidderParams;
     }
 
+    interface PrebidBids {
+        [key: string]: {
+            bidder: string;
+            params: {
+                placementId: string;
+            };
+        };
+    }
+
     interface EventObject {
         o: { [key: string]: (NoParamFunction[] | "ONE-TIME-DONE") | (ParamFunction[] | "ONE-TIME-DONE") };
         topic: {
@@ -28,12 +47,26 @@ declare namespace OneLine {
             isEmpty: string;
             isNotEmpty: string;
             ageGateReady: string;
+            socialVendorsReady: string;
         };
         cons: {
             OneTime: string;
         };
         subscribe(topic: string, fn: NoParamFunction): void;
+        subscribe(topic: EventObject["topic"]["socialVendorsReady"], fn: (data: SocialVendorConsents) => void): void;
         broadcast(oneTime: boolean, topic: string, data?: any): void;
+    }
+
+    interface SocialVendorConsents {
+        vendors: {
+            tiktok: boolean;
+            twitter: boolean;
+            youtube: boolean;
+            instagram: boolean;
+            facebook: boolean;
+            google_maps: boolean;
+            spotify: boolean;
+        };
     }
 
     type NoParamFunction = () => void;

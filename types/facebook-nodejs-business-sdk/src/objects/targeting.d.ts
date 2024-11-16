@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * Targeting
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -8,6 +8,7 @@ export default class Targeting extends AbstractCrudObject {
         adgroup_id: "adgroup_id";
         age_max: "age_max";
         age_min: "age_min";
+        age_range: "age_range";
         alternate_auto_targeting_option: "alternate_auto_targeting_option";
         app_install_state: "app_install_state";
         audience_network_positions: "audience_network_positions";
@@ -85,6 +86,7 @@ export default class Targeting extends AbstractCrudObject {
         regions: "regions";
         relationship_statuses: "relationship_statuses";
         site_category: "site_category";
+        targeting_automation: "targeting_automation";
         targeting_optimization: "targeting_optimization";
         targeting_relaxation_types: "targeting_relaxation_types";
         user_adclusters: "user_adclusters";

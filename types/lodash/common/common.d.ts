@@ -1,6 +1,7 @@
 import _ = require("../index");
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
+export const uniqueSymbol: unique symbol;
 declare module "../index" {
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
     type PartialObject<T> = GlobalPartial<T>;
@@ -8,7 +9,7 @@ declare module "../index" {
     type ImpChain<T> =
         T extends { __trapAny: any } ? Collection<any> & Function<any> & Object<any> & Primitive<any> & String :
         T extends null | undefined ? never :
-        T extends string | null | undefined ? String :
+        T extends string ? String<T> :
         T extends (...args: any) => any ? Function<T> :
         T extends List<infer U> | null | undefined ? Collection<U> :
         T extends object | null | undefined ? Object<T> :
@@ -16,8 +17,7 @@ declare module "../index" {
     type ExpChain<T> =
         T extends { __trapAny: any } ? CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain :
         T extends null | undefined ? never :
-        T extends string ? StringChain :
-        T extends string | null | undefined ? StringNullableChain :
+        T extends string ? StringChain<T> :
         T extends (...args: any) => any ? FunctionChain<T> :
         T extends List<infer U> | null | undefined ? CollectionChain<U> :
         T extends object | null | undefined ? ObjectChain<T> :
@@ -92,6 +92,7 @@ declare module "../index" {
         * upperFirst, value, and words.
         **/
         <TrapAny extends { __trapAny: any }>(value: TrapAny): Collection<any> & Function<any> & Object<any> & Primitive<any> & String;
+        <T extends string>(value: T): String<T>;
         <T extends null | undefined>(value: T): Primitive<T>;
         (value: string | null | undefined): String;
         <T extends (...args: any) => any>(value: T): Function<T>;
@@ -189,7 +190,7 @@ declare module "../index" {
     }
     interface Function<T extends (...args: any) => any> extends LoDashImplicitWrapper<T> {
     }
-    interface String extends LoDashImplicitWrapper<string> {
+    interface String<T extends string = string> extends LoDashImplicitWrapper<T> {
     }
     interface Object<T> extends LoDashImplicitWrapper<T> {
     }
@@ -199,7 +200,7 @@ declare module "../index" {
     }
     interface FunctionChain<T extends (...args: any) => any> extends LoDashExplicitWrapper<T> {
     }
-    interface StringChain extends LoDashExplicitWrapper<string> {
+    interface StringChain<T extends string = string> extends LoDashExplicitWrapper<T> {
     }
     interface StringNullableChain extends LoDashExplicitWrapper<string | undefined> {
     }
@@ -212,6 +213,7 @@ declare module "../index" {
     type NotVoid = unknown;
     type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialShallow<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
+    type TupleIterator<T extends readonly unknown[], TResult> = (value: T[number], index: StringToNumber<keyof T>, collection: T) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | IterateeShorthand<T>;
     type ListIterateeCustom<T, TResult> = ListIterator<T, TResult> | IterateeShorthand<T>;
@@ -257,6 +259,7 @@ declare module "../index" {
     type PartialShallow<T> = {
         [P in keyof T]?: T[P] extends object ? object : T[P]
     };
+    type StringToNumber<T> = T extends `${infer N extends number}` ? N : never;
     // For backwards compatibility
     type LoDashImplicitArrayWrapper<T> = LoDashImplicitWrapper<T[]>;
     type LoDashImplicitNillableArrayWrapper<T> = LoDashImplicitWrapper<T[] | null | undefined>;

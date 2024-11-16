@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/dsanel/mongoose-delete"
     ],
+    "minimumTypeScriptVersion": "4.9",
     "dependencies": {
         "@types/node": "*",
         "mongoose": "^5.11 || ^6 || ^7 || ^8"

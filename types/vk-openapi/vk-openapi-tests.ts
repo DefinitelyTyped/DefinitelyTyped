@@ -832,7 +832,7 @@ VK.Widgets.CommunityMessages("test", 123, {});
 
 VK.Widgets.CommunityMessages("test", 123, {
     onCanNotWrite: reason => {
-        // $ExpectType: 'offline' | 'no_access' | 'disabled_messages' | 'cant_write'
+        // $ExpectType OnCanNotWriteReason
         reason;
     },
     welcomeScreen: 0,

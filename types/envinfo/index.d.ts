@@ -38,6 +38,7 @@ export interface CliOptions extends Options, Config {
 export type HelperNames =
     | "getNodeInfo"
     | "getnpmInfo"
+    | "getpnpmInfo"
     | "getWatchmanInfo"
     | "getYarnInfo"
     | "getBraveBrowserInfo"

@@ -174,6 +174,10 @@ declare namespace passport {
          */
         userProperty?: string | undefined;
         passReqToCallback?: boolean | undefined;
+        /**
+         * **Note:** The availability of this property depends on the passport strategy you are using.
+         * If not explicitly supported by the strategy or implemented by yourself, this property will be ignored.
+         */
         prompt?: string | undefined;
     }
 

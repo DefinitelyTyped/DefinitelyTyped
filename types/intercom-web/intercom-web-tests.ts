@@ -40,9 +40,11 @@ Intercom("showNewMessage");
 Intercom("showNewMessage", "pre-populated content");
 Intercom("startTour", 123);
 Intercom("showArticle", 123);
+Intercom("showConversation", 123);
 Intercom("startSurvey", 123);
 Intercom("reattach_activator");
 Intercom("showSpace", "help");
+Intercom("startChecklist", 123);
 Intercom("onHide", () => {
     /* Do stuff */
 });

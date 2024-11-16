@@ -90,6 +90,7 @@ csstree.generate(ast, {
             return handlers.result.call(handlers);
         },
     }),
+    mode: "spec",
 });
 
 const property = csstree.property("*-vendor-property"); // $ExpectType Property
@@ -728,7 +729,12 @@ csstree.url.decode("foo"); // $ExpectType string
 csstree.url.encode("foo"); // $ExpectType string
 
 csstree.fork({}); // $ExpectType { lexer: Lexer; }
-const { lexer } = csstree.fork({ atrules: {}, properties: {}, types: { foo: "<length>" } });
+const { lexer } = csstree.fork({
+    atrules: {},
+    properties: {},
+    types: { foo: "<length>" },
+    cssWideKeywords: ["initial"],
+});
 lexer; // $ExpectType Lexer
 lexer.matchAtruleDescriptor("foo", "bar", ast); // $ExpectType LexerMatchResult
 lexer.matchAtruleDescriptor("foo", "bar", "baz"); // $ExpectType LexerMatchResult

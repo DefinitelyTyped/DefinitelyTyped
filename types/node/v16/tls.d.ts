@@ -4,7 +4,7 @@
  * The module can be accessed using:
  *
  * ```js
- * const tls = require('tls');
+ * import tls from 'node:tls';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/tls.js)
  */
@@ -905,8 +905,8 @@ declare module "tls" {
      * The following illustrates a simple echo server:
      *
      * ```js
-     * const tls = require('tls');
-     * const fs = require('fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   key: fs.readFileSync('server-key.pem'),
@@ -951,8 +951,8 @@ declare module "tls" {
      *
      * ```js
      * // Assumes an echo server that is listening on port 8000.
-     * const tls = require('tls');
-     * const fs = require('fs');
+     * import tls from 'node:tls';
+     * import fs from 'node:fs';
      *
      * const options = {
      *   // Necessary only if the server requires client certificate authentication.
@@ -997,7 +997,7 @@ declare module "tls" {
      * stream and the cleartext one is used as a replacement for the initial encrypted
      * stream.
      *
-     * `tls.createSecurePair()` returns a `tls.SecurePair` object with `cleartext` and`encrypted` stream properties.
+     * `tls.createSecurePair()` returns a `tls.SecurePair` object with `cleartext` and `encrypted` stream properties.
      *
      * Using `cleartext` has the same API as {@link TLSSocket}.
      *

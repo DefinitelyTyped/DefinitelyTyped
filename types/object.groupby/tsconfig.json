@@ -14,6 +14,11 @@
     },
     "files": [
         "index.d.ts",
+        "index.d.mts",
+        "auto.d.ts",
+        "polyfill.d.ts",
+        "implementation.d.ts",
+        "shim.d.ts",
         "object.groupby-tests.ts"
     ]
 }

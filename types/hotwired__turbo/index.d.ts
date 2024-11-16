@@ -40,8 +40,32 @@ export class StreamElement extends HTMLElement {
     readonly requestId: string;
 }
 
-export class FetchRequest {}
-export class FetchResponse {}
+export class FetchRequest {
+    body: FormData | URLSearchParams;
+    enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
+    fetchOptions: RequestInit;
+    headers: Headers | { [k: string]: any };
+    method: "get" | "post" | "put" | "patch" | "delete";
+    params: URLSearchParams;
+    target: HTMLFormElement | HTMLAnchorElement | FrameElement | null;
+    url: URL;
+}
+
+export class FetchResponse {
+    clientError: boolean;
+    contentType: string;
+    failed: boolean;
+    header(key: string): string | undefined;
+    isHTML: boolean;
+    location: URL;
+    redirected: boolean;
+    responseHTML: Promise<string>;
+    responseText: Promise<string>;
+    response: Response;
+    serverError: boolean;
+    statusCode: number;
+    succeeded: boolean;
+}
 
 /**
  * Connects a stream source to the main session.
@@ -71,10 +95,16 @@ export interface TurboSession {
     renderStreamMessage(message: unknown): void;
 }
 
-export function visit(
-    location: string,
-    options?: { action?: "advance" | "replace"; frame?: string },
-): void;
+export const StreamActions: {
+    [action: string]: (this: StreamElement) => void;
+};
+
+export type Action = "advance" | "replace" | "restore";
+export interface VisitOptions {
+    action?: Action;
+    frame?: string;
+}
+export function visit(location: string, options?: VisitOptions): void;
 
 export interface TurboGlobal {
     /**
@@ -98,14 +128,126 @@ export interface TurboGlobal {
      */
     setConfirmMethod(confirmMethod: () => boolean): void;
 
-    visit(
-        location: string,
-        options?: { action?: "advance" | "replace"; frame?: string },
-    ): void;
+    visit(location: string, options?: { action?: Action; frame?: string }): void;
 
     session: TurboSession;
 }
 
 declare global {
     const Turbo: TurboGlobal;
+}
+
+export type Render = (currentElement: StreamElement) => Promise<void>;
+export type TimingData = unknown;
+export type VisitFallback = (location: string | Response, options: VisitOptions) => Promise<void>;
+
+export type TurboBeforeCacheEvent = CustomEvent;
+export type TurboBeforePrefetchEvent = CustomEvent;
+export type TurboBeforeRenderEvent = CustomEvent<{
+    newBody: HTMLBodyElement;
+    renderMethod: "replace" | "morph";
+    isPreview: boolean;
+    resume: (value?: any) => void;
+    render: (currentBody: HTMLBodyElement, newBody: HTMLBodyElement) => void;
+}>;
+export type TurboBeforeVisitEvent = CustomEvent<{ url: string }>;
+export type TurboClickEvent = CustomEvent<{
+    url: string;
+    originalEvent: MouseEvent;
+}>;
+export type TurboFrameLoadEvent = CustomEvent;
+export type TurboBeforeFrameRenderEvent = CustomEvent<{
+    newFrame: FrameElement;
+    resume: (value?: any) => void;
+    render: (currentFrame: FrameElement, newFrame: FrameElement) => void;
+}>;
+export type TurboFrameRenderEvent = CustomEvent<{
+    fetchResponse: FetchResponse;
+}>;
+export type TurboLoadEvent = CustomEvent<{ url: string; timing: TimingData }>;
+export type TurboRenderEvent = CustomEvent;
+export type TurboReloadEvent = CustomEvent;
+export type TurboVisitEvent = CustomEvent<{ url: string; action: Action }>;
+
+export type TurboBeforeStreamRenderEvent = CustomEvent<{
+    newStream: StreamElement;
+    render: Render;
+}>;
+
+export interface FormSubmission {
+    action: string;
+    body: FormData | URLSearchParams;
+    enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
+    fetchRequest: FetchRequest;
+    formElement: HTMLFormElement;
+    isSafe: boolean;
+    location: URL;
+    method: "get" | "post" | "put" | "patch" | "delete";
+    stop(): void;
+    submitter?: HTMLButtonElement | HTMLInputElement;
+}
+export type FormSubmissionResult =
+    | { success: boolean; fetchResponse: FetchResponse }
+    | { success: false; error: Error };
+
+export type TurboSubmitStartEvent = CustomEvent<{
+    formSubmission: FormSubmission;
+}>;
+export type TurboSubmitEndEvent = CustomEvent<
+    & { formSubmission: FormSubmission }
+    & {
+        [K in keyof FormSubmissionResult]?: FormSubmissionResult[K];
+    }
+>;
+
+export type TurboFrameMissingEvent = CustomEvent<{
+    response: Response;
+    visit: VisitFallback;
+}>;
+
+export type TurboBeforeFetchRequestEvent = CustomEvent<{
+    fetchOptions: RequestInit;
+    url: URL;
+    resume: (value: any) => void;
+}>;
+
+export type TurboBeforeFetchResponseEvent = CustomEvent<{
+    fetchResponse: FetchResponse;
+}>;
+
+export type TurboFetchRequestErrorEvent = CustomEvent<{
+    request: FetchRequest;
+    error: Error;
+}>;
+
+export interface TurboElementEventMap {
+    "turbo:before-frame-render": TurboBeforeFrameRenderEvent;
+    "turbo:before-fetch-request": TurboBeforeFetchRequestEvent;
+    "turbo:before-fetch-response": TurboBeforeFetchResponseEvent;
+    "turbo:fetch-request-error": TurboFetchRequestErrorEvent;
+    "turbo:frame-load": TurboFrameLoadEvent;
+    "turbo:frame-render": TurboFrameRenderEvent;
+    "turbo:frame-missing": TurboFrameMissingEvent;
+    "turbo:submit-start": TurboSubmitStartEvent;
+    "turbo:submit-end": TurboSubmitEndEvent;
+}
+
+export interface TurboGlobalEventHandlersEventMap extends TurboElementEventMap {
+    "turbo:before-cache": TurboBeforeCacheEvent;
+    "turbo:before-prefetch": TurboBeforePrefetchEvent;
+    "turbo:before-stream-render": TurboBeforeStreamRenderEvent;
+    "turbo:before-render": TurboBeforeRenderEvent;
+    "turbo:before-visit": TurboBeforeVisitEvent;
+    "turbo:click": TurboClickEvent;
+    "turbo:load": TurboLoadEvent;
+    "turbo:render": TurboRenderEvent;
+    "turbo:reload": TurboReloadEvent;
+    "turbo:visit": TurboVisitEvent;
+}
+
+declare global {
+    /* eslint-disable @typescript-eslint/no-empty-interface */
+    interface ElementEventMap extends TurboElementEventMap {}
+    interface GlobalEventHandlersEventMap extends TurboGlobalEventHandlersEventMap {}
+    /* eslint-enable @typescript-eslint/no-empty-interface */
 }

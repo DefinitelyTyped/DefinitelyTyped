@@ -13,6 +13,16 @@ export type TypedArray =
     | Float32Array
     | Float64Array;
 
+export interface BufferAttributeJSON {
+    itemSize: number;
+    type: string;
+    array: number[];
+    normalized: boolean;
+
+    name?: string;
+    usage?: Usage;
+}
+
 /**
  * This class stores data for an attribute (such as vertex positions, face indices, normals, colors, UVs, and any custom attributes )
  * associated with a {@link THREE.BufferGeometry | BufferGeometry}, which allows for more efficient passing of data to the GPU
@@ -84,21 +94,6 @@ export class BufferAttribute {
      * float types, see https://threejs.org/docs/#api/en/core/bufferAttributeTypes/BufferAttributeTypes.
      */
     gpuType: AttributeGPUType;
-
-    /**
-     * This can be used to only update some components of stored vectors (for example, just the component related to color).
-     * @defaultValue `{ offset: number = 0; count: number = -1 }`
-     * @deprecated Will be removed in r169. Use "addUpdateRange()" instead.
-     */
-    updateRange: {
-        /**
-         * Position at which to start update.
-         * @defaultValue `0`
-         */
-        offset: number;
-        /** @defaultValue `-1`, which means don't use update ranges. */
-        count: number;
-    };
 
     /**
      * This can be used to only update some components of stored vectors (for example, just the component related to
@@ -336,12 +331,7 @@ export class BufferAttribute {
     /**
      * Convert this object to three.js to the `data.attributes` part of {@link https://github.com/mrdoob/three.js/wiki/JSON-Geometry-format-4 | JSON Geometry format v4},
      */
-    toJSON(): {
-        itemSize: number;
-        type: string;
-        array: number[];
-        normalized: boolean;
-    };
+    toJSON(): BufferAttributeJSON;
 }
 
 /**

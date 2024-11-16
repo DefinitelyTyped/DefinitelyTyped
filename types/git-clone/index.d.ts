@@ -18,6 +18,10 @@ declare namespace clone {
          * Revision/branch/tag to check out.
          */
         checkout?: string;
+        /**
+         * Additional array of arguments to pass to `git clone`.
+         */
+        args?: string[];
     }
 }
 

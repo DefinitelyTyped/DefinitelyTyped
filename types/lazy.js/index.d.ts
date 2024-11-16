@@ -1,10 +1,8 @@
 declare namespace LazyJS {
     interface LazyStatic {
         (value: string): StringLikeSequence;
-        <T>(value: T[]): ArrayLikeSequence<T>;
-        (value: any[]): ArrayLikeSequence<any>;
-        <T>(value: any): ObjectLikeSequence<T>;
-        (value: any): ObjectLikeSequence<any>;
+        <T>(value: readonly T[]): ArrayLikeSequence<T>;
+        <T, K extends string | number = string | number>(value: Readonly<Record<K, T>>): ObjectLikeSequence<T>;
 
         strict(): LazyStatic;
 
@@ -17,8 +15,6 @@ declare namespace LazyJS {
         range(from: number, to: number, step?: number): GeneratedSequence<number>;
 
         repeat<T>(value: T, count?: number): GeneratedSequence<T>;
-
-        on<T>(eventType: string): Sequence<T>;
 
         readFile(path: string): StringLikeSequence;
         makeHttpRequest(path: string): StringLikeSequence;
@@ -76,7 +72,6 @@ declare namespace LazyJS {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     interface Iterator<T> {
-        new(sequence: Sequence<T>): Iterator<T>;
         current(): T;
         moveNext(): boolean;
     }
@@ -109,13 +104,13 @@ declare namespace LazyJS {
     }
 
     interface SequenceBase<T> extends SequenceBaser<T> {
-        first(): any;
+        first(): T | undefined;
         first(count: number): Sequence<T>;
-        indexOf(value: any, startIndex?: number): number;
+        indexOf(value: T, equalityFn?: (a: T, b: T) => boolean): number;
 
-        last(): any;
+        last(): T | undefined;
         last(count: number): Sequence<T>;
-        lastIndexOf(value: any): number;
+        lastIndexOf(value: T, equalityFn?: (a: T, b: T) => boolean): number;
 
         reverse(): Sequence<T>;
     }
@@ -152,35 +147,39 @@ declare namespace LazyJS {
     ];
 
     interface SequenceBaser<T> {
-        // TODO improve define() (needs ugly overload)
-        async(interval: number): AsyncSequence<T>;
+        async(interval?: number): AsyncSequence<T>;
         chunk<N extends number>(size: N): Sequence<Tuple<T, N>>;
         compact(): Sequence<T>;
-        concat(var_args: T[]): Sequence<T>;
+        concat(...var_args: Array<T | T[] | SequenceBaser<T>>): Sequence<T>;
         consecutive(length: number): Sequence<T>;
         contains(value: T): boolean;
-        countBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
-        countBy(propertyName: string): ObjectLikeSequence<T>;
+        countBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<number>;
+        countBy(propertyName: keyof T): ObjectLikeSequence<number>;
         dropWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         every(predicateFn: TestCallback<T, string | number>): boolean;
+        filter<U extends T>(predicateFn: (value: T, index: string | number) => value is U): Sequence<U>;
         filter(predicateFn: TestCallback<T, string | number>): Sequence<T>;
-        find(predicateFn: TestCallback<T, string | number>): T;
-        findWhere(properties: any): T;
+        find(predicateFn: TestCallback<T, string | number>): T | undefined;
+        findWhere(properties: Partial<T>): T;
         flatten(shallow: true): Sequence<Flatten<T, true>>;
         flatten(shallow?: false): Sequence<Flatten<T, false>>;
-        groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
+        groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T[]>;
         initial(count?: number): Sequence<T>;
         intersection(var_args: T[]): Sequence<T>;
-        invoke(methodName: string): Sequence<T>;
+        invoke(methodName: string): Sequence<unknown>;
         isEmpty(): boolean;
         join(delimiter?: string): string;
         map<U>(mapFn: MapCallback<T, U>): Sequence<U>;
         max(valueFn?: NumberCallback<T>): T;
         min(valueFn?: NumberCallback<T>): T;
         none(valueFn?: TestCallback<T, string | number>): boolean;
-        pluck(propertyName: string): Sequence<any>;
-        reduce<U>(aggregatorFn: MemoCallback<T, U>, memo?: U): U;
+        pluck<K extends keyof T>(propertyName: K): Sequence<T[K]>;
+        reduce(aggregatorFn: (memo: T, value: T) => T): T | undefined;
+        reduce<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;
+        reduce<U>(aggregatorFn: (memo: T | U, value: T) => U): T | U | undefined;
+        reduceRight(aggregatorFn: (memo: T, value: T) => T): T | undefined;
         reduceRight<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;
+        reduceRight<U>(aggregatorFn: (memo: T | U, value: T) => U): T | U | undefined;
         reject(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         rest(count?: number): Sequence<T>;
         shuffle(): Sequence<T>;
@@ -194,9 +193,10 @@ declare namespace LazyJS {
         takeWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         toArray(): T[];
         toObject(): any;
-        union(var_args: T[]): Sequence<T>;
+        union(var_args: T | T[] | SequenceBaser<T>): Sequence<T>;
+        uniq(key: (value: T) => unknown): Sequence<T>;
         uniq(key?: keyof T): Sequence<T>;
-        where(properties: any): Sequence<T>;
+        where(properties: Partial<T>): Sequence<T>;
         without(...var_args: T[]): Sequence<T>;
         without(var_args: T[]): Sequence<T>;
         zip(var_args: T[]): Sequence<T>;
@@ -210,10 +210,10 @@ declare namespace LazyJS {
 
     interface ArrayLikeSequence<T> extends Sequence<T> {
         // define()X;
-        concat(var_args: T[]): ArrayLikeSequence<T>;
-        first(): T;
+        concat(...var_args: Array<T | T[] | SequenceBaser<T>>): ArrayLikeSequence<T>;
+        first(): T | undefined;
         first(count?: number): ArrayLikeSequence<T>;
-        get(index: number): T;
+        get(index: number): T | undefined;
         length(): number;
         map<U>(mapFn: MapCallback<T, U>): ArrayLikeSequence<U>;
         pop(): ArrayLikeSequence<T>;
@@ -226,8 +226,9 @@ declare namespace LazyJS {
 
         dropWhile(predicateFn: TestCallback<T, number>): Sequence<T>;
         every(predicateFn: TestCallback<T, number>): boolean;
+        filter<U extends T>(predicateFn: (value: T, index: number) => value is U): Sequence<U>;
         filter(predicateFn: TestCallback<T, number>): Sequence<T>;
-        find(predicateFn: TestCallback<T, number>): T;
+        find(predicateFn: TestCallback<T, number>): T | undefined;
         none(valueFn?: TestCallback<T, number>): boolean;
         reject(predicateFn: TestCallback<T, number>): Sequence<T>;
         some(predicateFn?: TestCallback<T, number>): boolean;
@@ -242,26 +243,26 @@ declare namespace LazyJS {
 
     interface ObjectLikeSequence<T> extends Sequence<T> {
         assign(other: any): ObjectLikeSequence<T>;
-        // throws error
-        // async(): X;
-        defaults(defaults: any): ObjectLikeSequence<T>;
-        functions(): Sequence<T>;
-        get(property: string): any;
+        async(): never;
+        defaults<U>(defaults: U): ObjectLikeSequence<T | U>;
+        functions(): Sequence<keyof T>;
+        get(property: string): T | undefined;
         invert(): ObjectLikeSequence<T>;
         keys(): Sequence<string>;
         merge(others: any | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
         omit(properties: string[]): ObjectLikeSequence<T>;
-        pairs(): Sequence<T>;
+        pairs(): Sequence<[string, T]>;
         pick(properties: string[]): ObjectLikeSequence<T>;
         toArray(): T[];
-        toObject(): any;
+        toObject(): Record<string, T>;
         values(): Sequence<T>;
-        watch(propertyNames: string | string[]): Sequence<{ property: string; value: any }>;
+        watch(propertyNames: string | string[]): Sequence<{ property: string; value: T }>;
 
         dropWhile(predicateFn: TestCallback<T, string>): Sequence<T>;
         every(predicateFn: TestCallback<T, string>): boolean;
+        filter<U extends T>(predicateFn: (value: T, index: string) => value is U): Sequence<U>;
         filter(predicateFn: TestCallback<T, string>): Sequence<T>;
-        find(predicateFn: TestCallback<T, string>): T;
+        find(predicateFn: TestCallback<T, string>): T | undefined;
         none(valueFn?: TestCallback<T, string>): boolean;
         reject(predicateFn: TestCallback<T, string>): Sequence<T>;
         some(predicateFn?: TestCallback<T, string>): boolean;
@@ -297,6 +298,7 @@ declare namespace LazyJS {
 
         dropWhile(predicateFn: TestCallback<string, number>): Sequence<string>;
         every(predicateFn: TestCallback<string, number>): boolean;
+        filter<U extends string>(predicateFn: (value: string, index: number) => value is U): Sequence<U>;
         filter(predicateFn: TestCallback<string, number>): Sequence<string>;
         find(predicateFn: TestCallback<string, number>): string;
         none(valueFn?: TestCallback<string, number>): boolean;

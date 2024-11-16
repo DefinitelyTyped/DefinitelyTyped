@@ -3,7 +3,7 @@
 
 let obsNum: Rx.Observable<number>;
 let obsStr: Rx.Observable<string>;
-let sch: Rx.IScheduler;
+let sch!: Rx.IScheduler;
 
 function start() {
     obsNum = Rx.Observable.start(() => 10, obsStr, sch);

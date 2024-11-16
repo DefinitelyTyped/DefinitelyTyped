@@ -12,6 +12,7 @@ FB.init({
     cookie: true,
     xfbml: true,
     autoLogAppEvents: false,
+    localStorage: false,
 });
 
 FB.getLoginStatus(function(response: fb.StatusResponse) {
@@ -47,6 +48,14 @@ FB.login(function(response: fb.StatusResponse) {
 
 FB.login({
     scope: "public_profile",
+});
+
+FB.login({
+    scope: "business_management, whatsapp_business_management, whatsapp_business_messaging",
+    extras: {
+        featureType: "only_waba_sharing",
+        setup: {},
+    },
 });
 
 FB.login({ auth_type: "reauthenticate" });

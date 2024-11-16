@@ -15,6 +15,7 @@ let map = new naver.maps.Map("map", {
             overlayType: "bg",
         }),
     }),
+    mapTypeId: "normal", // or naver.maps.MapTypeId.NORMAL
 });
 
 /**
@@ -117,6 +118,8 @@ const infowindow = new naver.maps.InfoWindow({
     content: `<div>InfoWindow Title</div>`,
 });
 infowindow.open(map, htmlMarker);
+infowindow.getContent();
+infowindow.getContentElement();
 infowindow.close();
 
 /**

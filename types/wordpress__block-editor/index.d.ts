@@ -20,7 +20,7 @@ export const store: BlockEditorStoreDescriptor;
 
 export type EditorBlockMode = "html" | "visual";
 export type EditorMode = "text" | "visual";
-export type EditorTemplateLock = "all" | "insert" | false;
+export type EditorTemplateLock = "contentOnly" | "all" | "insert" | false;
 
 export interface EditorBaseSetting {
     name: string;

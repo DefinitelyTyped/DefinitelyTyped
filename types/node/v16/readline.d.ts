@@ -3,13 +3,13 @@
  * using:
  *
  * ```js
- * const readline = require('readline');
+ * import readline from 'node:readline';
  * ```
  *
  * The following simple example illustrates the basic use of the `readline` module.
  *
  * ```js
- * const readline = require('readline');
+ * import readline from 'node:readline';
  *
  * const rl = readline.createInterface({
  *   input: process.stdin,
@@ -93,7 +93,7 @@ declare module "readline" {
          * > Instances of the `readline.Interface` class are constructed using the
          * > `readline.createInterface()` method.
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/readline.html#readline_class_interface
+         * @see https://nodejs.org/dist/latest-v16.x/docs/api/readline.html#readline_class_interface
          */
         protected constructor(
             input: NodeJS.ReadableStream,
@@ -107,7 +107,7 @@ declare module "readline" {
          * > Instances of the `readline.Interface` class are constructed using the
          * > `readline.createInterface()` method.
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/readline.html#readline_class_interface
+         * @see https://nodejs.org/dist/latest-v16.x/docs/api/readline.html#readline_class_interface
          */
         protected constructor(options: ReadLineOptions);
         /**
@@ -176,7 +176,7 @@ declare module "readline" {
          * an `AbortController` it will reject with an `AbortError`.
          *
          * ```js
-         * const util = require('util');
+         * import util from 'node:util';
          * const question = util.promisify(rl.question).bind(rl);
          *
          * async function questionExample() {
@@ -314,42 +314,91 @@ declare module "readline" {
         prependOnceListener(event: "SIGINT", listener: () => void): this;
         prependOnceListener(event: "SIGTSTP", listener: () => void): this;
         prependOnceListener(event: "history", listener: (history: string[]) => void): this;
-        [Symbol.asyncIterator](): AsyncIterableIterator<string>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<string>;
     }
     type ReadLine = Interface; // type forwarded for backwards compatibility
     type Completer = (line: string) => CompleterResult;
     type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => void;
     type CompleterResult = [string[], string];
     interface ReadLineOptions {
+        /**
+         * The [`Readable`](https://nodejs.org/docs/latest-v16.x/api/stream.html#readable-streams) stream to listen to
+         */
         input: NodeJS.ReadableStream;
+        /**
+         * The [`Writable`](https://nodejs.org/docs/latest-v16.x/api/stream.html#writable-streams) stream to write readline data to.
+         */
         output?: NodeJS.WritableStream | undefined;
+        /**
+         * An optional function used for Tab autocompletion.
+         */
         completer?: Completer | AsyncCompleter | undefined;
+        /**
+         * `true` if the `input` and `output` streams should be treated like a TTY,
+         * and have ANSI/VT100 escape codes written to it.
+         * Default: checking `isTTY` on the `output` stream upon instantiation.
+         */
         terminal?: boolean | undefined;
         /**
-         *  Initial list of history lines. This option makes sense
-         * only if `terminal` is set to `true` by the user or by an internal `output`
-         * check, otherwise the history caching mechanism is not initialized at all.
+         * Initial list of history lines.
+         * This option makes sense only if `terminal` is set to `true` by the user or by an internal `output` check,
+         * otherwise the history caching mechanism is not initialized at all.
          * @default []
          */
         history?: string[] | undefined;
-        historySize?: number | undefined;
-        prompt?: string | undefined;
-        crlfDelay?: number | undefined;
         /**
-         * If `true`, when a new input line added
-         * to the history list duplicates an older one, this removes the older line
-         * from the list.
+         * Maximum number of history lines retained.
+         * To disable the history set this value to `0`.
+         * This option makes sense only if `terminal` is set to `true` by the user or by an internal `output` check,
+         * otherwise the history caching mechanism is not initialized at all.
+         * @default 30
+         */
+        historySize?: number | undefined;
+        /**
+         * If `true`, when a new input line added to the history list duplicates an older one,
+         * this removes the older line from the list.
          * @default false
          */
         removeHistoryDuplicates?: boolean | undefined;
+        /**
+         * The prompt string to use.
+         * @default "> "
+         */
+        prompt?: string | undefined;
+        /**
+         * If the delay between `\r` and `\n` exceeds `crlfDelay` milliseconds,
+         * both `\r` and `\n` will be treated as separate end-of-line input.
+         * `crlfDelay` will be coerced to a number no less than `100`.
+         * It can be set to `Infinity`, in which case
+         * `\r` followed by `\n` will always be considered a single newline
+         * (which may be reasonable for [reading files](https://nodejs.org/docs/latest-v16.x/api/readline.html#example-read-file-stream-line-by-line) with `\r\n` line delimiter).
+         * @default 100
+         */
+        crlfDelay?: number | undefined;
+        /**
+         * The duration `readline` will wait for a character
+         * (when reading an ambiguous key sequence in milliseconds
+         * one that can both form a complete key sequence using the input read so far
+         * and can take additional input to complete a longer key sequence).
+         * @default 500
+         */
         escapeCodeTimeout?: number | undefined;
+        /**
+         * The number of spaces a tab is equal to (minimum 1).
+         * @default 8
+         */
         tabSize?: number | undefined;
+        /**
+         * Allows closing the interface using an AbortSignal.
+         * Aborting the signal will internally call `close` on the interface.
+         */
+        signal?: AbortSignal | undefined;
     }
     /**
-     * The `readline.createInterface()` method creates a new `readline.Interface`instance.
+     * The `readline.createInterface()` method creates a new `readline.Interface` instance.
      *
      * ```js
-     * const readline = require('readline');
+     * import readline from 'node:readline';
      * const rl = readline.createInterface({
      *   input: process.stdin,
      *   output: process.stdout
@@ -446,7 +495,7 @@ declare module "readline" {
      * implement a small command-line interface:
      *
      * ```js
-     * const readline = require('readline');
+     * import readline from 'node:readline';
      * const rl = readline.createInterface({
      *   input: process.stdin,
      *   output: process.stdout,
@@ -478,8 +527,8 @@ declare module "readline" {
      * well as a `for await...of` loop:
      *
      * ```js
-     * const fs = require('fs');
-     * const readline = require('readline');
+     * import fs from 'node:fs';
+     * import readline from 'node:readline';
      *
      * async function processLineByLine() {
      *   const fileStream = fs.createReadStream('input.txt');
@@ -503,8 +552,8 @@ declare module "readline" {
      * Alternatively, one could use the `'line'` event:
      *
      * ```js
-     * const fs = require('fs');
-     * const readline = require('readline');
+     * import fs from 'node:fs';
+     * import readline from 'node:readline';
      *
      * const rl = readline.createInterface({
      *   input: fs.createReadStream('sample.txt'),
@@ -519,9 +568,9 @@ declare module "readline" {
      * Currently, `for await...of` loop can be a bit slower. If `async` / `await`flow and speed are both essential, a mixed approach can be applied:
      *
      * ```js
-     * const { once } = require('events');
-     * const { createReadStream } = require('fs');
-     * const { createInterface } = require('readline');
+     * import { once } from 'node:events';
+     * import { createReadStream } from 'node:fs';
+     * import { createInterface } from 'node:readline';
      *
      * (async function processLineByLine() {
      *   try {

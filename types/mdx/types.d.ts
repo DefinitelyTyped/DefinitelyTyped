@@ -23,11 +23,16 @@ type ClassElementType = Extract<ElementType, new(props: Record<string, any>) => 
 type StringComponent = Extract<keyof JSX.IntrinsicElements, ElementType extends never ? string : ElementType>;
 
 /**
+ * A JSX element returned by MDX content.
+ */
+export type Element = JSX.Element;
+
+/**
  * A valid JSX function component.
  */
 type FunctionComponent<Props> = ElementType extends never
     // If JSX.ElementType isn’t defined, the valid return type is JSX.Element
-    ? (props: Props) => JSX.Element | null
+    ? (props: Props) => Element | null
     : FunctionElementType extends never
     // If JSX.ElementType is defined, but doesn’t allow function components, function components are disallowed.
         ? never
@@ -93,7 +98,7 @@ export interface MDXProps {
 /**
  * The type of the default export of an MDX module.
  */
-export type MDXContent = (props: MDXProps) => JSX.Element;
+export type MDXContent = (props: MDXProps) => Element;
 
 /**
  * A generic MDX module type.

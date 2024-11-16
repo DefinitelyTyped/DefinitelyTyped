@@ -117,6 +117,7 @@ declare namespace TelegramBot {
         request?: Options | undefined;
         baseApiUrl?: string | undefined;
         filepath?: boolean | undefined;
+        testEnvironment?: boolean | undefined;
     }
 
     interface StartPollingOptions extends ConstructorOptions {
@@ -175,6 +176,7 @@ declare namespace TelegramBot {
         has_spoiler?: boolean | undefined;
         parse_mode?: ParseMode | undefined;
         caption?: string | undefined;
+        caption_entities?: MessageEntity[] | undefined;
     }
 
     interface FileOptions {
@@ -198,6 +200,7 @@ declare namespace TelegramBot {
         performer?: string | undefined;
         title?: string | undefined;
         thumbnail?: string | Stream | Buffer;
+        caption_entities?: MessageEntity[] | undefined;
     }
 
     interface SendAnimationOptions extends SendBasicOptions {
@@ -208,12 +211,14 @@ declare namespace TelegramBot {
         width?: number | undefined;
         height?: number | undefined;
         thumbnail?: string | Stream | Buffer;
+        caption_entities?: MessageEntity[] | undefined;
     }
 
     interface SendDocumentOptions extends SendBasicOptions {
         parse_mode?: ParseMode | undefined;
         caption?: string | undefined;
         thumbnail?: string | Stream | Buffer;
+        caption_entities?: MessageEntity[] | undefined;
     }
 
     interface SendMediaGroupOptions {
@@ -247,12 +252,14 @@ declare namespace TelegramBot {
         height?: number | undefined;
         caption?: string | undefined;
         thumbnail?: string | Stream | Buffer;
+        caption_entities?: MessageEntity[] | undefined;
     }
 
     interface SendVoiceOptions extends SendBasicOptions {
         parse_mode?: ParseMode | undefined;
         caption?: string | undefined;
         duration?: number | undefined;
+        caption_entities?: MessageEntity[] | undefined;
     }
 
     interface SendVideoNoteOptions extends SendBasicOptions {
@@ -638,6 +645,7 @@ declare namespace TelegramBot {
         media: string;
         has_spoiler?: boolean | undefined;
         caption?: string | undefined;
+        caption_entities?: MessageEntity[] | undefined;
         parse_mode?: ParseMode | undefined;
     }
 

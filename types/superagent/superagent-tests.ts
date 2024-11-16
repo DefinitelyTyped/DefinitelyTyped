@@ -144,7 +144,7 @@ request("/search").end((res: request.Response) => {
 
 // Getting response 'Set-Cookie'
 request("/search").end((res: request.Response) => {
-    const setCookie: string[] = res.get("Set-Cookie");
+    const setCookie: string[] | undefined = res.get("Set-Cookie");
 });
 
 // Custom parsers

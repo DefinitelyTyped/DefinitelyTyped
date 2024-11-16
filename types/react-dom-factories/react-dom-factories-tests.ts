@@ -36,10 +36,18 @@ function testsFromReact(htmlAttr: React.HTMLProps<HTMLElement>) {
     let domNodeRef: Element | null;
     DOM.div({ ref: "domRef" });
     // type of node should be inferred
-    DOM.div({ ref: node => domNodeRef = node });
+    DOM.div({
+        ref: node => {
+            domNodeRef = node;
+        },
+    });
 
     let inputNodeRef: HTMLInputElement | null;
-    DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
+    DOM.input({
+        ref: node => {
+            inputNodeRef = node as HTMLInputElement;
+        },
+    });
 
     DOM.span(null);
 

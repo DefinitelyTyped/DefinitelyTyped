@@ -113,7 +113,7 @@ interface DatepickerEventObject extends JQueryEventObject {
 interface JQuery {
     datepicker(): JQuery;
     datepicker(methodName: string): any;
-    datepicker(methodName: string, params: any): any;
+    datepicker(methodName: string, ...params: any[]): any;
     datepicker(options: DatepickerOptions): JQuery;
 
     off(events: DatepickerEvents, selector?: string, handler?: (eventObject: DatepickerEventObject) => any): JQuery;

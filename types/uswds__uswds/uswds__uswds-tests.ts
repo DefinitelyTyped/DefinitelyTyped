@@ -1,4 +1,8 @@
-import {
+import * as components from "@uswds/uswds/js";
+
+type ComponentKey = keyof typeof components;
+
+const {
     accordion,
     banner,
     button,
@@ -22,7 +26,7 @@ import {
     timePicker,
     tooltip,
     validator,
-} from "@uswds/uswds/js";
+} = components;
 
 const element = document.createElement("div");
 const buttonElement = document.createElement("button");
@@ -57,6 +61,9 @@ button.off(element); // $ExpectType void
 
 // Character Count
 characterCount.DEFAULT_STATUS_LABEL; // $ExpectType string
+characterCount.FORM_GROUP_ERROR_CLASS; // $ExpectType string
+characterCount.LABEL_ERROR_CLASS; // $ExpectType string
+characterCount.INPUT_ERROR_CLASS; // $ExpectType string
 characterCount.MESSAGE_INVALID_CLASS; // $ExpectType string
 characterCount.STATUS_MESSAGE_CLASS; // $ExpectType string
 characterCount.STATUS_MESSAGE_SR_ONLY_CLASS; // $ExpectType string
@@ -316,3 +323,30 @@ validator.on(); // $ExpectType void
 validator.on(element); // $ExpectType void
 validator.off(); // $ExpectType void
 validator.off(element); // $ExpectType void
+
+// Common Interface
+Object.keys(components).forEach((key) => {
+    const component = components[key as ComponentKey];
+    component.on(); // $ExpectType void
+    component.on(element); // $ExpectType void
+    component.off(); // $ExpectType void
+    component.off(element); // $ExpectType void
+});
+import("@uswds/uswds").then((imports) => {
+    Object.keys(components).forEach((key) => {
+        const component = imports[key as ComponentKey];
+        component.on(); // $ExpectType void
+        component.on(element); // $ExpectType void
+        component.off(); // $ExpectType void
+        component.off(element); // $ExpectType void
+    });
+});
+import("@uswds/uswds/src/js/components").then((imports) => {
+    Object.keys(components).forEach((key) => {
+        const component = imports[key as ComponentKey];
+        component.on(); // $ExpectType void
+        component.on(element); // $ExpectType void
+        component.off(); // $ExpectType void
+        component.off(element); // $ExpectType void
+    });
+});

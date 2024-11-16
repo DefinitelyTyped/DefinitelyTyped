@@ -11,7 +11,7 @@
  * It can be accessed using:
  *
  * ```js
- * const inspector = require('inspector');
+ * import inspector from 'node:inspector';
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/inspector.js)
  */
@@ -2738,6 +2738,5 @@ declare module 'inspector' {
     function waitForDebugger(): void;
 }
 declare module 'node:inspector' {
-    import EventEmitter = require('inspector');
-    export = EventEmitter;
+    export * from 'inspector';
 }

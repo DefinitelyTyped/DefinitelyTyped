@@ -10,6 +10,7 @@ import { ReadStream } from "fs";
 import { LookupFunction } from "net";
 import RequestBase = require("../request-base");
 import ResponseBase = require("./response");
+import { AppendOptions } from "form-data";
 import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
 import { Request as Http2Request } from "./http2wrapper";
 
@@ -65,6 +66,7 @@ declare class SARequest extends Stream implements RequestBase {
         val:
             | (string | number | boolean | Blob | Buffer | ReadStream)
             | Array<string | number | boolean | Blob | Buffer | ReadStream>,
+        options?: AppendOptions | string,
     ): this;
     finally(onfinally?: (() => void) | null): Promise<ResponseBase>;
     get(header: string): string;
@@ -88,7 +90,7 @@ declare class SARequest extends Stream implements RequestBase {
     send(data?: string | object): this;
     serialize(serializer: (obj: any) => string): this;
     set(field: "Cookie", val: string[]): this;
-    set(field: Record<string, string>): this;
+    set(field: http.IncomingHttpHeaders): this;
     set(field: string, val: string): this;
     sortQuery(sort?: boolean | ((a: string, b: string) => number)): this;
     then<TResult1 = ResponseBase, TResult2 = never>(

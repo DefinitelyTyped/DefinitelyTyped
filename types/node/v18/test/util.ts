@@ -260,7 +260,7 @@ access("file/that/does/not/exist", (err) => {
 
     util.parseArgs();
 
-    // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
+    // $ExpectType { values: { foo?: string | undefined; bar?: boolean[] | undefined; }; positionals: string[]; }
     util.parseArgs(config);
 }
 
@@ -312,6 +312,7 @@ access("file/that/does/not/exist", (err) => {
             x: { type: "string", multiple: true },
         },
     });
+
     // $ExpectType (string | boolean)[] | undefined
     result.values.x;
     // $ExpectType string | boolean | undefined
@@ -324,6 +325,28 @@ access("file/that/does/not/exist", (err) => {
 
     // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
     const result = util.parseArgs(config);
+}
+
+{
+    // args are passed with a default
+    const result = util.parseArgs({
+        args: ["--alpha", "--beta"],
+        options: {
+            alpha: { type: "boolean", default: false },
+            beta: { type: "boolean", default: undefined },
+            gamma: { type: "boolean" },
+        },
+    });
+
+    // $ExpectType { alpha: boolean; beta?: boolean | undefined; gamma?: boolean | undefined; }
+    result.values;
+
+    // $ExpectType boolean
+    result.values.alpha; // true
+    // $ExpectType boolean | undefined
+    result.values.beta; // undefined
+    // $ExpectType boolean | undefined
+    result.values.gamma; // undefined
 }
 
 {

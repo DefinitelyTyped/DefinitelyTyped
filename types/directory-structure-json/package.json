@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/directory-structure-json",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/MistAEGIS/Directory-Structure-JSON"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/directory-structure-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Valentin Zolotov",
+            "githubUsername": "vdistortion"
+        }
+    ]
+}

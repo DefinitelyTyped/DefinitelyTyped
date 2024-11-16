@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/tonic-ui__react",
-    "version": "1.29.9999",
+    "version": "2.0.9999",
     "projects": [
         "https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react"
     ],

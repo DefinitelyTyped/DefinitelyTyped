@@ -16,14 +16,14 @@ declare namespace Elm {
         init: ({ node, flags }: { node: HTMLElement; flags: any }) => any;
     }
 
-    interface SenderPort {
-        send: (data: any) => void;
+    interface SenderPort<Data> {
+        send: (data: Data) => void;
     }
-    interface ReceiverPort {
-        subscribe: (callback: (value: any) => void) => void;
+    interface ReceiverPort<Value> {
+        subscribe: (callback: (value: Value) => void) => void;
     }
     interface Ports {
-        [x: string]: SenderPort | ReceiverPort;
+        [x: string]: SenderPort<any> | ReceiverPort<any>;
     }
 }
 

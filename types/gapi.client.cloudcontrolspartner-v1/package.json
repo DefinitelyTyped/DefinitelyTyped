@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gapi.client.cloudcontrolspartner-v1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Cloud Controls Partner API v1",
+    "projects": [
+        "https://cloud.google.com/sovereign-controls-by-partners/docs/sovereign-partners/reference/rest"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.cloudcontrolspartner-v1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.cloudcontrolspartner-v1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
+}

@@ -92,4 +92,7 @@ export type CorejsOption =
     | CorejsVersion
     | { version: CorejsVersion; proposals: boolean };
 
-export type CorejsVersion = 2 | 3;
+/**
+ * https://babeljs.io/docs/babel-preset-env#corejs
+ */
+export type CorejsVersion = 2 | 3 | string;

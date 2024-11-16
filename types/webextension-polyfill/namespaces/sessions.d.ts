@@ -2,21 +2,13 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.sessions
- *
- * Use the <code>chrome.sessions</code> API to query and restore tabs and windows from a browsing session.
- * Permissions: "sessions"
- *
- * Comments found in source JSON schema files:
- * Copyright 2013 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 import { Tabs } from "./tabs";
 import { Windows } from "./windows";
 
+/**
+ * Namespace: browser.sessions
+ */
 export namespace Sessions {
     interface Filter {
         /**
@@ -98,7 +90,7 @@ export namespace Sessions {
          * @param key The key which corresponds to the value being set.
          * @param value The value being set.
          */
-        setTabValue(tabId: number, key: string, value: any): Promise<void>;
+        setTabValue(tabId: number, key: string, value: unknown): Promise<void>;
 
         /**
          * Retrieve a value that was set for a given key on a given tab.
@@ -106,7 +98,7 @@ export namespace Sessions {
          * @param tabId The id of the tab whose value is being retrieved from.
          * @param key The key which corresponds to the value.
          */
-        getTabValue(tabId: number, key: string): Promise<any>;
+        getTabValue(tabId: number, key: string): Promise<unknown>;
 
         /**
          * Remove a key/value pair that was set on a given tab.
@@ -123,7 +115,7 @@ export namespace Sessions {
          * @param key The key which corresponds to the value being set.
          * @param value The value being set.
          */
-        setWindowValue(windowId: number, key: string, value: any): Promise<void>;
+        setWindowValue(windowId: number, key: string, value: unknown): Promise<void>;
 
         /**
          * Retrieve a value that was set for a given key on a given window.
@@ -131,7 +123,7 @@ export namespace Sessions {
          * @param windowId The id of the window whose value is being retrieved from.
          * @param key The key which corresponds to the value.
          */
-        getWindowValue(windowId: number, key: string): Promise<any>;
+        getWindowValue(windowId: number, key: string): Promise<unknown>;
 
         /**
          * Remove a key/value pair that was set on a given window.

@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.130.0
 
 declare module "sap/uxap/library" {
   /**
@@ -416,7 +416,9 @@ declare module "sap/uxap/AnchorBar" {
       bUpperCase?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the AnchorBar constructor.
+   */
   export interface $AnchorBarSettings extends $ToolbarSettings {
     /**
      * Determines whether to show a Popover with Subsection links when clicking on Section links in the Anchor
@@ -909,7 +911,9 @@ declare module "sap/uxap/BlockBase" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the BlockBase constructor.
+   */
   export interface $BlockBaseSettings extends $ControlSettings {
     /**
      * Determines the mode of the block. See {@link sap.uxap.ObjectPageSubSectionMode ObjectPageSubSectionMode}.
@@ -977,6 +981,9 @@ declare module "sap/uxap/BlockBase" {
     viewInit?: (oEvent: BlockBase$ViewInitEvent) => void;
   }
 
+  /**
+   * Parameters of the BlockBase#viewInit event.
+   */
   export interface BlockBase$ViewInitEventParameters {
     /**
      * The initialized view.
@@ -984,6 +991,9 @@ declare module "sap/uxap/BlockBase" {
     view?: View;
   }
 
+  /**
+   * Event object of the BlockBase#viewInit event.
+   */
   export type BlockBase$ViewInitEvent = Event<
     BlockBase$ViewInitEventParameters,
     BlockBase
@@ -1214,7 +1224,9 @@ declare module "sap/uxap/BreadCrumbs" {
       bShowCurrentLocation?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the BreadCrumbs constructor.
+   */
   export interface $BreadCrumbsSettings extends $ControlSettings {
     /**
      * Sets the visibility of the current/last element in the BreadCrumbs path.
@@ -1341,7 +1353,9 @@ declare module "sap/uxap/HierarchicalSelect" {
       bUpperCase?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the HierarchicalSelect constructor.
+   */
   export interface $HierarchicalSelectSettings extends $SelectSettings {
     /**
      * Determines whether the HierarchicalSelect items are displayed in upper case.
@@ -1505,7 +1519,9 @@ declare module "sap/uxap/ModelMapping" {
       sInternalModelName?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ModelMapping constructor.
+   */
   export interface $ModelMappingSettings extends $ElementSettings {
     /**
      * Determines the external model name.
@@ -1659,6 +1675,19 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
     getFooterRole():
       | AccessibleLandmarkRole
       | keyof typeof AccessibleLandmarkRole;
+    /**
+     * Gets current value of property {@link #getHeaderContentLabel headerContentLabel}.
+     *
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * @since 1.127.0
+     *
+     * @returns Value of property `headerContentLabel`
+     */
+    getHeaderContentLabel(): string;
     /**
      * Gets current value of property {@link #getHeaderLabel headerLabel}.
      *
@@ -1824,6 +1853,26 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
       sFooterRole?: AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole
     ): this;
     /**
+     * Sets a new value for property {@link #getHeaderContentLabel headerContentLabel}.
+     *
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.127.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderContentLabel(
+      /**
+       * New value for property `headerContentLabel`
+       */
+      sHeaderContentLabel?: string
+    ): this;
+    /**
      * Sets a new value for property {@link #getHeaderLabel headerLabel}.
      *
      * Texts which describe the landmark of the header container of the corresponding `sap.uxap.ObjectPageLayout`
@@ -1946,7 +1995,9 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
       sRootRole?: AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageAccessibleLandmarkInfo constructor.
+   */
   export interface $ObjectPageAccessibleLandmarkInfoSettings
     extends $ElementSettings {
     /**
@@ -2043,6 +2094,16 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
      * is set.
      */
     footerLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Texts which describe the landmark of the section inside the header container of the corresponding `sap.uxap.ObjectPageLayout`
+     * control.
+     *
+     * If not set, default "Expanded header" aria-label is set.
+     *
+     * @since 1.127.0
+     */
+    headerContentLabel?: string | PropertyBindingInfo;
   }
 }
 
@@ -2074,7 +2135,8 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
    */
   export default class ObjectPageDynamicHeaderContent
     extends DynamicPageHeader
-    implements IHeaderContent {
+    implements IHeaderContent
+  {
     __implements__sap_uxap_IHeaderContent: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderContent`.
@@ -2145,7 +2207,9 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageDynamicHeaderContent constructor.
+   */
   export interface $ObjectPageDynamicHeaderContentSettings
     extends $DynamicPageHeaderSettings {}
 }
@@ -2175,7 +2239,8 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
    */
   export default class ObjectPageDynamicHeaderTitle
     extends DynamicPageTitle
-    implements IHeaderTitle {
+    implements IHeaderTitle
+  {
     __implements__sap_uxap_IHeaderTitle: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderTitle`.
@@ -2254,7 +2319,9 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageDynamicHeaderTitle constructor.
+   */
   export interface $ObjectPageDynamicHeaderTitleSettings
     extends $DynamicPageTitleSettings {}
 }
@@ -2302,7 +2369,8 @@ declare module "sap/uxap/ObjectPageHeader" {
    */
   export default class ObjectPageHeader
     extends Control
-    implements IHeaderTitle {
+    implements IHeaderTitle
+  {
     __implements__sap_uxap_IHeaderTitle: boolean;
     /**
      * Constructor for a new `ObjectPageHeader`.
@@ -2729,7 +2797,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      *
      * Default value is `Light`.
      *
-     * @deprecated (since 1.40.1)
+     * @deprecated (since 1.40.1) - without replacement.
      *
      * @returns Value of property `headerDesign`
      */
@@ -3447,7 +3515,9 @@ declare module "sap/uxap/ObjectPageHeader" {
       vTitleSelectorTooltip: TooltipBase | string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageHeader constructor.
+   */
   export interface $ObjectPageHeaderSettings extends $ControlSettings {
     /**
      * The URL of the image, representing the business object
@@ -3520,7 +3590,7 @@ declare module "sap/uxap/ObjectPageHeader" {
      * Determines the design of the header - Light or Dark. **Note: **This property is deprecated. It will continue
      * to work in the Blue Crystal theme, but it will not be taken into account for the Belize themes.
      *
-     * @deprecated (since 1.40.1)
+     * @deprecated (since 1.40.1) - without replacement.
      */
     headerDesign?:
       | (ObjectPageHeaderDesign | keyof typeof ObjectPageHeaderDesign)
@@ -3636,6 +3706,9 @@ declare module "sap/uxap/ObjectPageHeader" {
     markChangesPress?: (oEvent: ObjectPageHeader$MarkChangesPressEvent) => void;
   }
 
+  /**
+   * Parameters of the ObjectPageHeader#markChangesPress event.
+   */
   export interface ObjectPageHeader$MarkChangesPressEventParameters {
     /**
      * DOM reference of the changed item's icon to be used for positioning.
@@ -3643,11 +3716,17 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
+  /**
+   * Event object of the ObjectPageHeader#markChangesPress event.
+   */
   export type ObjectPageHeader$MarkChangesPressEvent = Event<
     ObjectPageHeader$MarkChangesPressEventParameters,
     ObjectPageHeader
   >;
 
+  /**
+   * Parameters of the ObjectPageHeader#markLockedPress event.
+   */
   export interface ObjectPageHeader$MarkLockedPressEventParameters {
     /**
      * DOM reference of the lock item's icon to be used for positioning.
@@ -3655,11 +3734,17 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
+  /**
+   * Event object of the ObjectPageHeader#markLockedPress event.
+   */
   export type ObjectPageHeader$MarkLockedPressEvent = Event<
     ObjectPageHeader$MarkLockedPressEventParameters,
     ObjectPageHeader
   >;
 
+  /**
+   * Parameters of the ObjectPageHeader#titleSelectorPress event.
+   */
   export interface ObjectPageHeader$TitleSelectorPressEventParameters {
     /**
      * DOM reference of the title item's icon to be used for positioning.
@@ -3667,6 +3752,9 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
+  /**
+   * Event object of the ObjectPageHeader#titleSelectorPress event.
+   */
   export type ObjectPageHeader$TitleSelectorPressEvent = Event<
     ObjectPageHeader$TitleSelectorPressEventParameters,
     ObjectPageHeader
@@ -3694,7 +3782,8 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
    */
   export default class ObjectPageHeaderActionButton
     extends Button
-    implements IOverflowToolbarContent {
+    implements IOverflowToolbarContent
+  {
     __implements__sap_m_IOverflowToolbarContent: boolean;
     /**
      * Constructor for a new `ObjectPageHeaderActionButton`.
@@ -3856,7 +3945,9 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
       sImportance?: Importance | keyof typeof Importance
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageHeaderActionButton constructor.
+   */
   export interface $ObjectPageHeaderActionButtonSettings
     extends $ButtonSettings {
     /**
@@ -3916,7 +4007,8 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
    */
   export default class ObjectPageHeaderContent
     extends Control
-    implements IHeaderContent {
+    implements IHeaderContent
+  {
     __implements__sap_uxap_IHeaderContent: boolean;
     /**
      * Constructor for a new `ObjectPageHeaderContent`.
@@ -4017,7 +4109,7 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
      *
      * Default value is `Light`.
      *
-     * @deprecated (since 1.40.1)
+     * @deprecated (since 1.40.1) - without replacement.
      *
      * @returns Value of property `contentDesign`
      */
@@ -4086,7 +4178,7 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
      *
      * Default value is `Light`.
      *
-     * @deprecated (since 1.40.1)
+     * @deprecated (since 1.40.1) - without replacement.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4099,13 +4191,15 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
         | keyof typeof ObjectPageHeaderDesign
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageHeaderContent constructor.
+   */
   export interface $ObjectPageHeaderContentSettings extends $ControlSettings {
     /**
      * Determines the design of the header - Light or Dark. **Note: **This property is deprecated. It will continue
      * to work in the Blue Crystal theme, but it will not be taken into account for the Belize themes.
      *
-     * @deprecated (since 1.40.1)
+     * @deprecated (since 1.40.1) - without replacement.
      */
     contentDesign?:
       | (ObjectPageHeaderDesign | keyof typeof ObjectPageHeaderDesign)
@@ -4378,7 +4472,9 @@ declare module "sap/uxap/ObjectPageHeaderLayoutData" {
       sWidth?: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageHeaderLayoutData constructor.
+   */
   export interface $ObjectPageHeaderLayoutDataSettings
     extends $LayoutDataSettings {
     /**
@@ -6273,7 +6369,9 @@ declare module "sap/uxap/ObjectPageLayout" {
       bUseTwoColumnsForLargeScreen?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageLayout constructor.
+   */
   export interface $ObjectPageLayoutSettings extends $ControlSettings {
     /**
      * Determines whether the Navigation bar (Anchor bar) is displayed.
@@ -6587,6 +6685,9 @@ declare module "sap/uxap/ObjectPageLayout" {
     ) => void;
   }
 
+  /**
+   * Parameters of the ObjectPageLayout#beforeNavigate event.
+   */
   export interface ObjectPageLayout$BeforeNavigateEventParameters {
     /**
      * The selected section object.
@@ -6599,18 +6700,30 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
+  /**
+   * Event object of the ObjectPageLayout#beforeNavigate event.
+   */
   export type ObjectPageLayout$BeforeNavigateEvent = Event<
     ObjectPageLayout$BeforeNavigateEventParameters,
     ObjectPageLayout
   >;
 
+  /**
+   * Parameters of the ObjectPageLayout#editHeaderButtonPress event.
+   */
   export interface ObjectPageLayout$EditHeaderButtonPressEventParameters {}
 
+  /**
+   * Event object of the ObjectPageLayout#editHeaderButtonPress event.
+   */
   export type ObjectPageLayout$EditHeaderButtonPressEvent = Event<
     ObjectPageLayout$EditHeaderButtonPressEventParameters,
     ObjectPageLayout
   >;
 
+  /**
+   * Parameters of the ObjectPageLayout#headerContentPinnedStateChange event.
+   */
   export interface ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters {
     /**
      * False or True values indicate the new pinned property value.
@@ -6618,11 +6731,17 @@ declare module "sap/uxap/ObjectPageLayout" {
     pinned?: boolean;
   }
 
+  /**
+   * Event object of the ObjectPageLayout#headerContentPinnedStateChange event.
+   */
   export type ObjectPageLayout$HeaderContentPinnedStateChangeEvent = Event<
     ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters,
     ObjectPageLayout
   >;
 
+  /**
+   * Parameters of the ObjectPageLayout#navigate event.
+   */
   export interface ObjectPageLayout$NavigateEventParameters {
     /**
      * The selected section object.
@@ -6635,11 +6754,17 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
+  /**
+   * Event object of the ObjectPageLayout#navigate event.
+   */
   export type ObjectPageLayout$NavigateEvent = Event<
     ObjectPageLayout$NavigateEventParameters,
     ObjectPageLayout
   >;
 
+  /**
+   * Parameters of the ObjectPageLayout#sectionChange event.
+   */
   export interface ObjectPageLayout$SectionChangeEventParameters {
     /**
      * The section which the layout is scrolled to.
@@ -6652,11 +6777,17 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
+  /**
+   * Event object of the ObjectPageLayout#sectionChange event.
+   */
   export type ObjectPageLayout$SectionChangeEvent = Event<
     ObjectPageLayout$SectionChangeEventParameters,
     ObjectPageLayout
   >;
 
+  /**
+   * Parameters of the ObjectPageLayout#subSectionVisibilityChange event.
+   */
   export interface ObjectPageLayout$SubSectionVisibilityChangeEventParameters {
     /**
      * Object whose keys are the visible SubSection IDs and their values are the SubSection instances
@@ -6664,11 +6795,17 @@ declare module "sap/uxap/ObjectPageLayout" {
     visibleSubSections?: object;
   }
 
+  /**
+   * Event object of the ObjectPageLayout#subSectionVisibilityChange event.
+   */
   export type ObjectPageLayout$SubSectionVisibilityChangeEvent = Event<
     ObjectPageLayout$SubSectionVisibilityChangeEventParameters,
     ObjectPageLayout
   >;
 
+  /**
+   * Parameters of the ObjectPageLayout#toggleAnchorBar event.
+   */
   export interface ObjectPageLayout$ToggleAnchorBarEventParameters {
     /**
      * False indicates that the Anchor bar has just detached from the Header and became part of the scrolling
@@ -6677,6 +6814,9 @@ declare module "sap/uxap/ObjectPageLayout" {
     fixed?: boolean;
   }
 
+  /**
+   * Event object of the ObjectPageLayout#toggleAnchorBar event.
+   */
   export type ObjectPageLayout$ToggleAnchorBarEvent = Event<
     ObjectPageLayout$ToggleAnchorBarEventParameters,
     ObjectPageLayout
@@ -6849,7 +6989,9 @@ declare module "sap/uxap/ObjectPageLazyLoader" {
       vContent: int | string | Control
     ): Control | null;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageLazyLoader constructor.
+   */
   export interface $ObjectPageLazyLoaderSettings extends $ElementSettings {
     /**
      * Controls to be displayed after this element is unstashed
@@ -6866,11 +7008,11 @@ declare module "sap/uxap/ObjectPageSection" {
 
   import ObjectPageSubSection from "sap/uxap/ObjectPageSubSection";
 
+  import { IconColor, ID } from "sap/ui/core/library";
+
   import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { ID } from "sap/ui/core/library";
 
   import {
     PropertyBindingInfo,
@@ -6976,6 +7118,20 @@ declare module "sap/uxap/ObjectPageSection" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySubSections(): this;
+    /**
+     * Gets current value of property {@link #getAnchorBarButtonColor anchorBarButtonColor}.
+     *
+     * Specifies the text color of each button inside the AnchorBar.
+     *
+     * The color can be chosen from the icon colors (https://ui5.sap.com/#/api/sap.ui.core.IconColor%23overview).
+     * Possible semantic colors are: Neutral, Positive, Critical, Negative.
+     *
+     * Default value is `Default`.
+     *
+     *
+     * @returns Value of property `anchorBarButtonColor`
+     */
+    getAnchorBarButtonColor(): IconColor | keyof typeof IconColor;
     /**
      * Gets content of aggregation {@link #getHeading heading}.
      *
@@ -7083,6 +7239,27 @@ declare module "sap/uxap/ObjectPageSection" {
       vSubSection: int | string | ObjectPageSubSection
     ): ObjectPageSubSection | null;
     /**
+     * Sets a new value for property {@link #getAnchorBarButtonColor anchorBarButtonColor}.
+     *
+     * Specifies the text color of each button inside the AnchorBar.
+     *
+     * The color can be chosen from the icon colors (https://ui5.sap.com/#/api/sap.ui.core.IconColor%23overview).
+     * Possible semantic colors are: Neutral, Positive, Critical, Negative.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Default`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAnchorBarButtonColor(
+      /**
+       * New value for property `anchorBarButtonColor`
+       */
+      sAnchorBarButtonColor?: IconColor | keyof typeof IconColor
+    ): this;
+    /**
      * Sets the aggregated {@link #getHeading heading}.
      *
      * @since 1.106
@@ -7163,7 +7340,9 @@ declare module "sap/uxap/ObjectPageSection" {
       bWrapTitle?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageSection constructor.
+   */
   export interface $ObjectPageSectionSettings
     extends $ObjectPageSectionBaseSettings {
     /**
@@ -7180,6 +7359,17 @@ declare module "sap/uxap/ObjectPageSection" {
      * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
      */
     wrapTitle?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Specifies the text color of each button inside the AnchorBar.
+     *
+     * The color can be chosen from the icon colors (https://ui5.sap.com/#/api/sap.ui.core.IconColor%23overview).
+     * Possible semantic colors are: Neutral, Positive, Critical, Negative.
+     */
+    anchorBarButtonColor?:
+      | (IconColor | keyof typeof IconColor)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The list of Subsections.
@@ -7374,6 +7564,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * Default value is `true`.
      *
      * @since 1.121.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Value of property `titleVisible`
      */
@@ -7499,7 +7690,9 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      */
     updateInvisibleTextLabelValue(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageSectionBase constructor.
+   */
   export interface $ObjectPageSectionBaseSettings extends $ControlSettings {
     /**
      * Defines the title of the respective section/subsection.
@@ -7539,6 +7732,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * binding to determine the aria-levels of the inner Controls.
      *
      * @since 1.121.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     titleVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -7595,6 +7789,9 @@ declare module "sap/uxap/ObjectPageSubSection" {
    * by adding the `sapUxAPObjectPageSubSectionFitContainer` class to the subsection. This is useful in situations
    * where the sub-section contains a control that has “100%” height, for example, `sap.ui.table.Table` with
    * `visibleRowCountMode` set to `Auto`.
+   *
+   * As of version 1.122, applications can set transparent background to subsections by adding the `sapUxAPObjectPageSubSectionTransparentBackground`
+   * class to the subsection.
    *
    * **Note:** This control is intended to be used only as part of the `ObjectPageLayout`.
    *
@@ -8024,7 +8221,9 @@ declare module "sap/uxap/ObjectPageSubSection" {
       bTitleUppercase?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ObjectPageSubSection constructor.
+   */
   export interface $ObjectPageSubSectionSettings
     extends $ObjectPageSectionBaseSettings {
     /**

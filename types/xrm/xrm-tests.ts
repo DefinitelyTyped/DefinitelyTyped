@@ -242,6 +242,21 @@ Xrm.WebApi.retrieveMultipleRecords(
     console.log("Query Returned : " + response.entities.length);
 });
 
+// Confirm generics on query
+Xrm.WebApi.retrieveMultipleRecords(
+    "contact",
+    `?fetchXml=<fetch version='1.0' mapping='logical' distinct='false'>
+    <entity name='contact'>
+        <attribute name='fullname' />
+        <attribute name='telephone1' />
+        <attribute name='contactid' />
+        <order attribute='fullname' descending='false' />
+    </entity>
+    </fetch>`,
+).then((response: Xrm.RetrieveMultipleResult<{ contactid: string; fullname: string; telephone1: string }>) => {
+    console.log("Query Returned : " + response.entities.length);
+});
+
 // Demonstrate add/removeTabStateChange
 const contextHandler = (context: Xrm.Page.EventContext) => {
     context.getEventSource();
@@ -626,3 +641,31 @@ optionSetControl.getOptions();
 // Demonstrates getOptions for Xrm.Controls.MultiSelectOptionSetControl
 // $ExpectType OptionSetValue[]
 multiSelectOptionSetControl.getOptions();
+
+const openFileSave = Xrm.Navigation.openFile({
+    fileContent: "",
+    fileName: "test.txt",
+    fileSize: 0,
+    mimeType: "text/plain",
+}, {
+    openMode: XrmEnum.OpenFileOptions.Save,
+});
+
+// Demonstrate addOnPostSave/removeOnPostSave methods
+const formContextDataEntityPostSaveMethods = (context: Xrm.Events.EventContext) => {
+    const formContext = context.getFormContext();
+    formContext.data.entity.addOnPostSave(contextHandler);
+    formContext.data.entity.removeOnPostSave(contextHandler);
+};
+
+// Demonstrate usage of Eventargs of postsave
+function ActionOnPostsave(context: Xrm.Events.PostSaveEventContext) {
+    const args = context.getEventArgs();
+
+    if (args.getIsSaveSuccess()) {
+        // if success get id
+        let id = args.getEntityReference().id;
+    } else {
+        console.log(args.getSaveErrorInfo());
+    }
+}

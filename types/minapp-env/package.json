@@ -10,10 +10,5 @@
     "devDependencies": {
         "@types/minapp-env": "workspace:."
     },
-    "owners": [
-        {
-            "name": "chobits4",
-            "githubUsername": "chobits4"
-        }
-    ]
+    "owners": []
 }

@@ -1,18 +1,26 @@
 import { BindMode } from "../constants.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
-import { Object3DEventMap } from "../core/Object3D.js";
+import { JSONMeta, Object3DEventMap } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Box3 } from "../math/Box3.js";
-import { Matrix4 } from "../math/Matrix4.js";
+import { Matrix4, Matrix4Tuple } from "../math/Matrix4.js";
 import { Sphere } from "../math/Sphere.js";
 import { Vector3 } from "../math/Vector3.js";
-import { Mesh } from "./Mesh.js";
+import { Mesh, MeshJSON, MeshJSONObject } from "./Mesh.js";
 import { Skeleton } from "./Skeleton.js";
+
+export interface SkinnedMeshJSONObject extends MeshJSONObject {
+    bindMode: BindMode;
+    bindMatrix: Matrix4Tuple;
+    skeleton?: string;
+}
+
+export interface SkinnedMeshJSON extends MeshJSON {
+    object: SkinnedMeshJSONObject;
+}
 
 /**
  * A mesh that has a {@link THREE.Skeleton | Skeleton} with {@link Bone | bones} that can then be used to animate the vertices of the geometry.
- * @remarks
- * {@link SkinnedMesh} can only be used with WebGL 2.
  * @example
  * ```typescript
  * const geometry = new THREE.CylinderGeometry(5, 5, 5, 5, 15, 5, 30);
@@ -147,4 +155,6 @@ export class SkinnedMesh<
      * @param vector
      */
     applyBoneTransform(index: number, vector: Vector3): Vector3;
+
+    toJSON(meta?: JSONMeta): SkinnedMeshJSON;
 }

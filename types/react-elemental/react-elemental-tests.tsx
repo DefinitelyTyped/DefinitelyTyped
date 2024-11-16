@@ -46,7 +46,7 @@ class App extends React.Component {
                         value="s"
                         accentColor={colors.blue}
                         style={{ display: "flex" }}
-                        radioRenderer={(option) => (
+                        radioRenderer={(option: React.ReactElement<any>) => (
                             <Spacing key={option.props.value} right>
                                 {option}
                             </Spacing>

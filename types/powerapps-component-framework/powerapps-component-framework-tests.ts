@@ -6,15 +6,22 @@ interface TInputs {
 interface TOutputs {
     testString: string;
 }
+interface TEvents {
+    testEvent: () => void;
+}
 
-class TestControl implements ComponentFramework.StandardControl<TInputs, TOutputs> {
+class TestControl implements ComponentFramework.StandardControl<TInputs, TOutputs, TEvents> {
     init(
-        context: ComponentFramework.Context<TInputs>,
+        context: ComponentFramework.Context<TInputs, TEvents>,
         notifyOutputChanged?: () => void,
         state?: ComponentFramework.Dictionary,
         container?: HTMLDivElement,
     ) {}
-    updateView(context: ComponentFramework.Context<TInputs>) {}
+    updateView(context: ComponentFramework.Context<TInputs, TEvents>) {
+        context.events.testEvent();
+
+        context.utils.loadDependency?.("pubprefix_TestNamespace.TestControlName").then(() => {});
+    }
     destroy() {}
     getOutputs() {
         return {
@@ -23,10 +30,13 @@ class TestControl implements ComponentFramework.StandardControl<TInputs, TOutput
     }
 }
 
-class TestReactControl implements ComponentFramework.ReactControl<TInputs, TOutputs> {
-    init(context: ComponentFramework.Context<TInputs>, notifyOutputChanged?: () => void) {
+class TestReactControl implements ComponentFramework.ReactControl<TInputs, TOutputs, TEvents> {
+    init(context: ComponentFramework.Context<TInputs, TEvents>, notifyOutputChanged?: () => void) {
     }
-    updateView(context: ComponentFramework.Context<TInputs>) {
+    updateView(context: ComponentFramework.Context<TInputs, TEvents>) {
+        context.events.testEvent();
+        context.utils.loadDependency?.("pubprefix_TestNamespace.TestControlName").then(() => {});
+
         return React.createElement("div", { id: "test-id" });
     }
     destroy() {
@@ -665,4 +675,14 @@ const fluentDesignLanguage: ComponentFramework.FluentDesignState = {
 
 const lookupOptionsTest: ComponentFramework.UtilityApi.LookupOptions = {
     entityTypes: [],
+};
+
+const entityFormOptionsTest: ComponentFramework.NavigationApi.EntityFormOptions = {
+    entityName: "",
+    entityId: "",
+    createFromEntity: {
+        id: "",
+        name: "",
+        entityType: "",
+    },
 };
