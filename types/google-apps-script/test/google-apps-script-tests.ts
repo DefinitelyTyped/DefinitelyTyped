@@ -1081,10 +1081,9 @@ function driveFileOperations() {
     const createdFile = Drive.Files.create({
         name: "test_create",
         description: "This is a description for a test file.",
-        mimeType: MimeType.GOOGLE_DOCS // Example MIME type
+        mimeType: MimeType.GOOGLE_DOCS, // Example MIME type
     });
     console.log("Created File:", createdFile.name, createdFile.id, createdFile.mimeType);
-
 
     // Get a file (replace with a valid Drive ID)
     const driveId = "YOUR_DRIVE_ID_HERE"; // <--- REPLACE with an actual Drive ID
@@ -1093,17 +1092,20 @@ function driveFileOperations() {
 
         if (drive) { // Check if the Drive exists (Drives.get returns null if not found)
             // Update a file (using a blob)
-            const blob = Utilities.newBlob("Hello world!\nRepo Link: https://github.dev/DefinitelyTyped/DefinitelyTyped", MimeType.PLAIN_TEXT);
-            const updatedFile = Drive.Files.update({ name: "test_updated" }, createdFile.id, blob, { addParents: [drive.id] }); // addParents takes an array
+            const blob = Utilities.newBlob(
+                "Hello world!\nRepo Link: https://github.dev/DefinitelyTyped/DefinitelyTyped",
+                MimeType.PLAIN_TEXT,
+            );
+            const updatedFile = Drive.Files.update({ name: "test_updated" }, createdFile.id, blob, {
+                addParents: [drive.id],
+            }); // addParents takes an array
             console.log("Updated File:", updatedFile.name, updatedFile.id);
         } else {
             console.error("Drive not found:", driveId);
         }
-
     } catch (e) {
         console.error("Error getting Drive:", e);
     }
-
 
     // Remove a file
     // Comment out to keep the test file
@@ -1114,7 +1116,7 @@ function driveFileOperations() {
     // List files (Example showing how to use the 'q' parameter)
     const fileList = Drive.Files.list({
         q: "mimeType = 'application/vnd.google-apps.document' and trashed = false", // Example query
-        pageSize: 10 // Optional: Limit the number of results
+        pageSize: 10, // Optional: Limit the number of results
     });
 
     if (fileList.files && fileList.files.length > 0) {
@@ -1139,8 +1141,8 @@ function driveFileOperations() {
 // Example showing how to create a folder
 function createFolder() {
     const folder = Drive.Files.create({
-        name: 'Test Folder',
-        mimeType: MimeType.FOLDER
+        name: "Test Folder",
+        mimeType: MimeType.FOLDER,
     });
     console.log("Created Folder:", folder.name, folder.id);
 }
