@@ -7,12 +7,12 @@
 
 interface LuminousOptions {
     /**
-     *  Prefix for generated element class names (e.g. `my-ns` will result in classes such as `my-ns-lightbox`. Default `lum-` prefixed classes will always be added as well.
+     * Prefix for generated element class names (e.g. `my-ns` will result in classes such as `my-ns-lightbox`. Default `lum-` prefixed classes will always be added as well.
      */
     namespace?: string;
 
     /**
-     *  Which attribute to pull the lightbox image source from.
+     * Which attribute to pull the lightbox image source from.
      * @default "href"
      */
     sourceAttribute?: string;
