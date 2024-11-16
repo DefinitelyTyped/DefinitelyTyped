@@ -3768,18 +3768,22 @@ declare namespace React {
         displaystyle?: boolean | undefined;
         href?: string | undefined;
         id?: string | undefined;
-        mathbackground?: string | undefined;
-        mathcolor?: string | undefined;
-        mathsize?: string | undefined;
         nonce?: string | undefined;
         scriptlevel?: string | undefined;
         style?: CSSProperties | undefined;
         tabindex?: number | undefined;
+        // This attributes are considered legacy but still described in the specification:
+        //
+        // https://www.w3.org/TR/mathml-core/#legacy-mathml-style-attributes
+        //
+        mathbackground?: string | undefined;
+        mathcolor?: string | undefined;
+        mathsize?: string | undefined;
     }
 
-    // Individual MathML elements are described here:
+    // MathML elements and attributes are described here:
     //
-    // https://developer.mozilla.org/en-US/docs/Web/MathML/Element/math
+    // https://www.w3.org/TR/mathml-core/#mathml-elements-and-attributes
     //
     interface MathMLMActionAttributes extends MathMLAttributes<MathMLMActionElement> {
         actiontype?: string | undefined;
