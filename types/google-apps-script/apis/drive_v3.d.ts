@@ -1,10 +1,10 @@
 /// <reference path="../google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-    module Drive_v3 {
-        module Drive {
-            module V3 {
-                module Schema {
+    namespace Drive_v3 {
+        namespace Drive {
+            namespace V3 {
+                namespace Schema {
                     /**Information about a Drive user.*/
                     interface User {
                         /**Output only. A plain text displayable name for this user.*/
@@ -1054,7 +1054,7 @@ declare namespace GoogleAppsScript {
                         user: Drive_v3.Drive.V3.Schema.User;
                     }
                 }
-                module Collection {
+                namespace Collection {
                     interface TeamdrivesCollection {
                         /**Deprecated: Use `drives.create` instead.
                         @param requestId Required. An ID, such as a random UUID, which uniquely identifies this user's request for idempotent creation of a Team Drive. A repeated request by the same user and with the same request ID will avoid creating duplicates by attempting to create the same Team Drive. If the Team Drive already exists a 409 error will be returned.*/
