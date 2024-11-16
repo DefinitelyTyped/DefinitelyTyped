@@ -178,6 +178,9 @@ const testCases = [
     <script blocking="render" async />,
     <script blocking="render render" async />,
     // MathML test cases
+    <maction actiontype="toggle" selection="2"></maction>,
+    <maction actiontype="toggle"></maction>,
+    <maction></maction>,
     <math display="block"></math>,
     <math display="inline"></math>,
     // @ts-expect-error

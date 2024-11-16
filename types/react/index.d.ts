@@ -3761,7 +3761,7 @@ declare namespace React {
         zoomAndPan?: string | undefined;
     }
 
-    // https://developer.mozilla.org/en-US/docs/Web/MathML/Global_attributes
+    // https://www.w3.org/TR/mathml-core/#global-attributes
     interface MathMLAttributes<T> extends DOMAttributes<T> {
         className?: string | undefined;
         dir?: "ltr" | "rtl" | undefined;
@@ -3781,6 +3781,10 @@ declare namespace React {
     //
     // https://developer.mozilla.org/en-US/docs/Web/MathML/Element/math
     //
+    interface MathMLMActionAttributes extends MathMLAttributes<MathMLMActionElement> {
+        actiontype?: string | undefined;
+        selection?: string | undefined;
+    }
     interface MathMLMathAttributes extends MathMLAttributes<MathMLMathElement> {
         display?: "block" | "inline" | undefined;
     }
@@ -3820,7 +3824,7 @@ declare namespace React {
     interface MathMLMphantomAttributes extends MathMLAttributes<MathMLMphantomElement> {}
     // Described in relation to <mmultiscripts /> here:
     //
-    // https://developer.mozilla.org/en-US/docs/Web/MathML/Element/mmultiscripts#using_mprescripts
+    // https://www.w3.org/TR/mathml-core/#prescripts-and-tensor-indices-mmultiscripts
     //
     interface MathMLMprescriptsAttributes extends MathMLAttributes<MathMLMprescriptsElement> {}
     interface MathMLMrootAttributes extends MathMLAttributes<MathMLMrootElement> {}
@@ -4359,6 +4363,7 @@ declare namespace React {
             view: React.SVGProps<SVGViewElement>;
 
             // MathML
+            maction: React.MathMLProps<React.MathMLMActionAttributes, MathMLMActionElement>
             math: React.MathMLProps<React.MathMLMathAttributes, MathMLMathElement>;
             merror: React.MathMLProps<React.MathMLMerrorAttributes, MathMLMerrorElement>;
             mfrac: React.MathMLProps<React.MathMLMfracAttributes, MathMLMfracElement>;
