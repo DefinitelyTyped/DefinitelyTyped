@@ -4367,7 +4367,7 @@ declare namespace React {
             view: React.SVGProps<SVGViewElement>;
 
             // MathML
-            maction: React.MathMLProps<React.MathMLMActionAttributes, MathMLMActionElement>
+            maction: React.MathMLProps<React.MathMLMActionAttributes, MathMLMActionElement>;
             math: React.MathMLProps<React.MathMLMathAttributes, MathMLMathElement>;
             merror: React.MathMLProps<React.MathMLMerrorAttributes, MathMLMerrorElement>;
             mfrac: React.MathMLProps<React.MathMLMfracAttributes, MathMLMfracElement>;
