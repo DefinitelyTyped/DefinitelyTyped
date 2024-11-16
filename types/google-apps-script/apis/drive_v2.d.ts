@@ -904,7 +904,7 @@ declare namespace GoogleAppsScript {
             }
         }
     }
-    interface Drive {
+    interface Drive_v2 {
         About?: Drive.Collection.AboutCollection | undefined;
         Apps?: Drive.Collection.AppsCollection | undefined;
         Changes?: Drive.Collection.ChangesCollection | undefined;
@@ -981,4 +981,4 @@ declare namespace GoogleAppsScript {
     }
 }
 
-declare var Drive: GoogleAppsScript.Drive;
+declare var Drive_v2: GoogleAppsScript.Drive_v2;
