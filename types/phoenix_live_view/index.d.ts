@@ -4,7 +4,7 @@
 // Version 0.17.0 added LiveSocket.execJS() method for executing JavaScript utility operations on the client
 // See: https://github.com/phoenixframework/phoenix_live_view/blob/master/CHANGELOG.md#enhancements-17
 
-import { Socket, SocketConnectOption } from "phoenix";
+import { Socket } from "phoenix";
 
 export interface Defaults {
     debounce?: number | undefined;
@@ -31,7 +31,7 @@ export interface SocketOptions {
     bindingPrefix?: string | undefined;
     defaults?: Defaults | undefined;
     dom?: DomOptions | undefined;
-    hooks?: object | undefined;
+    hooks?: HooksOptions | undefined;
     loaderTimeout?: number | undefined;
     params?: object | undefined;
     uploaders?: object | undefined;
@@ -47,6 +47,8 @@ export type BindCallback = (
     phxEvent: string,
     windowOwner?: string,
 ) => void;
+
+
 
 export class LiveSocket {
     // phxSocket should be the Socket class (LiveSocket will use the constructor)
@@ -144,7 +146,7 @@ export class Rendered {
     // toOutputBuffer(rendered: any, output: object): any;
 }
 
-export interface ViewHook {
+export interface ViewHookInternal {
     el: HTMLElement;
     viewName: string;
     pushEvent(event: string, payload: object, onReply?: (reply: any, ref: number) => any): void;
@@ -157,14 +159,26 @@ export interface ViewHook {
     handleEvent(event: string, callback: (payload: object) => void): void;
 
     // callbacks
-    mounted?: (() => void) | undefined;
-    beforeUpdate?: (() => void) | undefined;
-    updated?: (() => void) | undefined;
-    beforeDestroy?: (() => void) | undefined;
-    destroyed?: (() => void) | undefined;
-    disconnected?: (() => void) | undefined;
-    reconnected?: (() => void) | undefined;
+    mounted?: (() => void);
+    beforeUpdate?: (() => void);
+    updated?: (() => void);
+    beforeDestroy?: (() => void);
+    destroyed?: (() => void);
+    disconnected?: (() => void);
+    reconnected?: (() => void);
 }
+
+export interface ViewHook<T extends object = Object> {
+    mounted?: ((this: T & ViewHookInternal) => void);
+    beforeUpdate?: ((this: T & ViewHookInternal) => void);
+    updated?: ((this: T & ViewHookInternal) => void);
+    beforeDestroy?: ((this: T & ViewHookInternal) => void);
+    destroyed?: ((this: T & ViewHookInternal) => void);
+    disconnected?: ((this: T & ViewHookInternal) => void);
+    reconnected?: ((this: T & ViewHookInternal) => void);
+}
+
+export type HooksOptions = Record<string, ViewHook<any>>;
 
 export class View {
     constructor(el: HTMLElement, liveSocket: LiveSocket, parentView: View, href: string, flash: string);
