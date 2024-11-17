@@ -1,4 +1,5 @@
 import SwaggerUI = require("swagger-ui");
+import StandalonePreset = require("swagger-ui/dist/swagger-ui-standalone-preset");
 
 SwaggerUI({
     configUrl: "http://www.example.com",
@@ -25,6 +26,7 @@ SwaggerUI({
                 afterLoad: (system: any) => console.log("Preset system:", system),
             };
         },
+        ...StandalonePreset,
     ],
 
     deepLinking: false,
