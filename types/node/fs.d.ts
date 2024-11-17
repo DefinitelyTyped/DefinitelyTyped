@@ -4323,7 +4323,7 @@ declare module "fs" {
         /**
          * Function to filter out files/directories. Return true to exclude the item, false to include it.
          */
-        exclude?: ((fileName: string) => boolean) | undefined;
+        exclude?: ((fileName: Dirent | string) => boolean) | undefined;
         /**
          * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
          * @default false
@@ -4331,10 +4331,18 @@ declare module "fs" {
          */
         withFileTypes?: boolean | undefined;
     }
-    export interface GlobOptionsWithFileTypes extends GlobOptions {
+    export interface GlobOptionsWithFileTypes extends Omit<GlobOptions, "exclude"> {
+        /**
+         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         */
+        exclude?: ((fileName: Dirent) => boolean) | undefined;
         withFileTypes: true;
     }
-    export interface GlobOptionsWithoutFileTypes extends GlobOptions {
+    export interface GlobOptionsWithoutFileTypes extends Omit<GlobOptions, "exclude"> {
+        /**
+         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         */
+        exclude?: ((fileName: string) => boolean) | undefined;
         withFileTypes?: false | undefined;
     }
     /**

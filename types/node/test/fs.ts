@@ -933,7 +933,13 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
             matches; // $ExpectType string[]
         },
     );
-    glob("**/*.js", { withFileTypes: true }, (err, matches) => {
+    glob("**/*.js", {
+        withFileTypes: true,
+        exclude: (fileName) => {
+            fileName; // $ExpectType Dirent
+            return false;
+        },
+    }, (err, matches) => {
         matches; // $ExpectType Dirent[]
     });
     glob("**/*.js", { withFileTypes: Math.random() > 0.5 }, (err, matches) => {
