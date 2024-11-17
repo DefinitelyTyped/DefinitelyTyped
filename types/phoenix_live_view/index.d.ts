@@ -45,10 +45,8 @@ export type BindCallback = (
     el: HTMLElement,
     targetCtx: object,
     phxEvent: string,
-    windowOwner?: string,
+    windowOwner?: string
 ) => void;
-
-
 
 export class LiveSocket {
     // phxSocket should be the Socket class (LiveSocket will use the constructor)
@@ -154,28 +152,28 @@ export interface ViewHookInternal {
         selectorOrTarget: any,
         event: string,
         payload: object,
-        onReply?: (reply: any, ref: number) => any,
+        onReply?: (reply: any, ref: number) => any
     ): void;
     handleEvent(event: string, callback: (payload: object) => void): void;
 
     // callbacks
-    mounted?: (() => void);
-    beforeUpdate?: (() => void);
-    updated?: (() => void);
-    beforeDestroy?: (() => void);
-    destroyed?: (() => void);
-    disconnected?: (() => void);
-    reconnected?: (() => void);
+    mounted?: () => void;
+    beforeUpdate?: () => void;
+    updated?: () => void;
+    beforeDestroy?: () => void;
+    destroyed?: () => void;
+    disconnected?: () => void;
+    reconnected?: () => void;
 }
 
 export interface ViewHook<T extends object = {}> {
-    mounted?: ((this: T & ViewHookInternal) => void);
-    beforeUpdate?: ((this: T & ViewHookInternal) => void);
-    updated?: ((this: T & ViewHookInternal) => void);
-    beforeDestroy?: ((this: T & ViewHookInternal) => void);
-    destroyed?: ((this: T & ViewHookInternal) => void);
-    disconnected?: ((this: T & ViewHookInternal) => void);
-    reconnected?: ((this: T & ViewHookInternal) => void);
+    mounted?: (this: T & ViewHookInternal) => void;
+    beforeUpdate?: (this: T & ViewHookInternal) => void;
+    updated?: (this: T & ViewHookInternal) => void;
+    beforeDestroy?: (this: T & ViewHookInternal) => void;
+    destroyed?: (this: T & ViewHookInternal) => void;
+    disconnected?: (this: T & ViewHookInternal) => void;
+    reconnected?: (this: T & ViewHookInternal) => void;
 }
 
 export type HooksOptions = Record<string, ViewHook<any>>;
@@ -321,7 +319,7 @@ export namespace DOM {
         defaultDebounce: string | null,
         phxThrottle: string,
         defaultThrottle: string | null,
-        callback: () => any,
+        callback: () => any
     ): any;
     function deletePrivate(el: HTMLElement, key: string): void;
     function discardError(container: Node, el: HTMLElement, phxFeedbackFor: string): void;

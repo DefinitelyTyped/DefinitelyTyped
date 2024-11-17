@@ -13,7 +13,7 @@ function test_socket() {
         },
     };
 
-    const testHookWithExtendedPrototype: ViewHook<{handleClick: (event: MouseEvent) => void}> = {
+    const testHookWithExtendedPrototype: ViewHook<{ handleClick: (event: MouseEvent) => void }> = {
         mounted() {
             this.handleClick = (event: MouseEvent) => {
                 console.log("click", event);
@@ -23,12 +23,12 @@ function test_socket() {
         },
         destroyed() {
             document.removeEventListener("click", this.handleClick);
-        }
-    }
+        },
+    };
 
     // Uploaders
     function testUploader(entries: UploadEntry[], _onViewError: any) {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
             console.log(`file: ${entry.file.name}`);
             console.log(`meta: ${JSON.stringify(entry.meta)}`);
         });
@@ -36,7 +36,7 @@ function test_socket() {
 
     const MyHooks: HooksOptions = {
         test: testHook,
-        testWithExtendedPrototype: testHookWithExtendedPrototype
+        testWithExtendedPrototype: testHookWithExtendedPrototype,
     };
 
     const MyUploaders = {
@@ -58,6 +58,6 @@ function test_socket() {
 
     const element = "dummyElement" as unknown as HTMLElement;
     // $ExpectType void
-    liveSocket.execJS(element, "[[\"patch\",{\"href\":\"/\",\"replace\":false}]]");
-    liveSocket.execJS(element, "[[\"navigate\",{\"href\":\"/\",\"replace\":false}]]", "submit");
+    liveSocket.execJS(element, '[["patch",{"href":"/","replace":false}]]');
+    liveSocket.execJS(element, '[["navigate",{"href":"/","replace":false}]]', "submit");
 }
