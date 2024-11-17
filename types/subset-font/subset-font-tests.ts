@@ -35,4 +35,8 @@ import subsetFont = require("subset-font");
             slnt: { min: -9, max: 0 },
         },
     });
+
+    const noLayoutClosure = await subsetFont(mySfntFontBuffer, "1234", {
+        noLayoutClosure: true,
+    });
 })();

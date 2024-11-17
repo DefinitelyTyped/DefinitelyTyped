@@ -19,6 +19,11 @@ interface SubsetFontOptions {
     variationAxes?: {
         [axeName: string]: number | { min: number; max: number; default?: number };
     };
+    /**
+     * Don't perform glyph closure for layout substitution (GSUB).
+     * Equivalent to `hb-subset --no-layout-closure` and `pyftsubset --no-layout-closure`.
+     */
+    noLayoutClosure?: boolean;
 }
 
 /**
