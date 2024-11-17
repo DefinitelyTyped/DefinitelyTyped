@@ -168,7 +168,7 @@ export interface ViewHookInternal {
     reconnected?: (() => void);
 }
 
-export interface ViewHook<T extends object = Object> {
+export interface ViewHook<T extends object = {}> {
     mounted?: ((this: T & ViewHookInternal) => void);
     beforeUpdate?: ((this: T & ViewHookInternal) => void);
     updated?: ((this: T & ViewHookInternal) => void);
