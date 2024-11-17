@@ -45,7 +45,7 @@ export type BindCallback = (
     el: HTMLElement,
     targetCtx: object,
     phxEvent: string,
-    windowOwner?: string
+    windowOwner?: string,
 ) => void;
 
 export class LiveSocket {
@@ -152,7 +152,7 @@ export interface ViewHookInternal {
         selectorOrTarget: any,
         event: string,
         payload: object,
-        onReply?: (reply: any, ref: number) => any
+        onReply?: (reply: any, ref: number) => any,
     ): void;
     handleEvent(event: string, callback: (payload: object) => void): void;
 
@@ -319,7 +319,7 @@ export namespace DOM {
         defaultDebounce: string | null,
         phxThrottle: string,
         defaultThrottle: string | null,
-        callback: () => any
+        callback: () => any,
     ): any;
     function deletePrivate(el: HTMLElement, key: string): void;
     function discardError(container: Node, el: HTMLElement, phxFeedbackFor: string): void;

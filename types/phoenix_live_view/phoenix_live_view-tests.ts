@@ -58,6 +58,6 @@ function test_socket() {
 
     const element = "dummyElement" as unknown as HTMLElement;
     // $ExpectType void
-    liveSocket.execJS(element, '[["patch",{"href":"/","replace":false}]]');
-    liveSocket.execJS(element, '[["navigate",{"href":"/","replace":false}]]', "submit");
+    liveSocket.execJS(element, "[[\"patch\",{\"href\":\"/\",\"replace\":false}]]");
+    liveSocket.execJS(element, "[[\"navigate\",{\"href\":\"/\",\"replace\":false}]]", "submit");
 }
