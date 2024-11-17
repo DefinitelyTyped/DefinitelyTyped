@@ -152,55 +152,55 @@ export const TestCustomMentionsInputStyle: React.FC<TestProps> = props => {
             customSuggestionsContainer={children => <div className="suggestions">{children}</div>}
             style={{
                 control: {
-                    backgroundColor: '#fff',
+                    backgroundColor: "#fff",
                     fontSize: 14,
-                    fontWeight: 'normal',
-                  },
-                
-                  '&multiLine': {
+                    fontWeight: "normal",
+                },
+
+                "&multiLine": {
                     control: {
-                      fontFamily: 'monospace',
-                      minHeight: 63,
+                        fontFamily: "monospace",
+                        minHeight: 63,
                     },
                     highlighter: {
-                      padding: 9,
-                      border: '1px solid transparent',
+                        padding: 9,
+                        border: "1px solid transparent",
                     },
                     input: {
-                      padding: 9,
-                      border: '1px solid silver',
+                        padding: 9,
+                        border: "1px solid silver",
                     },
-                  },
-                
-                  '&singleLine': {
-                    display: 'inline-block',
+                },
+
+                "&singleLine": {
+                    display: "inline-block",
                     width: 180,
-                
+
                     highlighter: {
-                      padding: 1,
-                      border: '2px inset transparent',
+                        padding: 1,
+                        border: "2px inset transparent",
                     },
                     input: {
-                      padding: 1,
-                      border: '2px inset',
+                        padding: 1,
+                        border: "2px inset",
                     },
-                  },
-                
-                  suggestions: {
-                    backgroundColor: 'red',
+                },
+
+                suggestions: {
+                    backgroundColor: "red",
                     list: {
-                      backgroundColor: 'white',
-                      border: '1px solid rgba(0,0,0,0.15)',
-                      fontSize: 14,
+                        backgroundColor: "white",
+                        border: "1px solid rgba(0,0,0,0.15)",
+                        fontSize: 14,
                     },
                     item: {
-                      padding: '5px 15px',
-                      borderBottom: '1px solid rgba(0,0,0,0.15)',
-                      '&focused': {
-                        backgroundColor: '#cee4e5',
-                      },
+                        padding: "5px 15px",
+                        borderBottom: "1px solid rgba(0,0,0,0.15)",
+                        "&focused": {
+                            backgroundColor: "#cee4e5",
+                        },
                     },
-                  },
+                },
             }}
         >
             <Mention
@@ -211,8 +211,7 @@ export const TestCustomMentionsInputStyle: React.FC<TestProps> = props => {
             />
         </MentionsInput>
     );
-}
-
+};
 
 export const TestCustomMentionstyle: React.FC<TestProps> = props => {
     const onAdd: OnAddHandlerFunc = (id: string | number, display: string) => {};
@@ -221,7 +220,7 @@ export const TestCustomMentionstyle: React.FC<TestProps> = props => {
             value={props.value}
             onChange={props.onChange}
             placeholder={"Mention people using '@'"}
-            customSuggestionsContainer={children => <div className="suggestions">{children}</div>}            
+            customSuggestionsContainer={children => <div className="suggestions">{children}</div>}
         >
             <Mention
                 trigger={props.regex}
@@ -229,13 +228,13 @@ export const TestCustomMentionstyle: React.FC<TestProps> = props => {
                 data={search => [{ id: search, display: search }]}
                 onAdd={onAdd}
                 style={{
-                    backgroundColor: '#cee4e5',
-                    fontWeight: 500
+                    backgroundColor: "#cee4e5",
+                    fontWeight: 500,
                 }}
             />
         </MentionsInput>
     );
-}
+};
 
 /**
  * Utils
