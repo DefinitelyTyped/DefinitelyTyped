@@ -1,15 +1,18 @@
 {
     "compilerOptions": {
-      "module": "commonjs",
-      "target": "es6",
-      "strict": true,
-      "esModuleInterop": true,
-      "baseUrl": "../",
-      "typeRoots": ["../"],
-      "lib": ["es6"],
-      "paths": {
-        "react-native-file-type": ["index"]
-      }
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts"]
-  }
+    "files": [
+        "index.d.ts"
+    ]
+}
