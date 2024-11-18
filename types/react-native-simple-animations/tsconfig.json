@@ -1,14 +1,19 @@
 {
     "compilerOptions": {
-        "module": "node16",
-        "lib": ["es6"],
-        "strict": true,
-        "esModuleInterop": true,
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
+        "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "jsx": "react-native",
         "forceConsistentCasingInFileNames": true
     },
     "files": [
