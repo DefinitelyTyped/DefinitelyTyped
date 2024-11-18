@@ -3,6 +3,7 @@
 # See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners
 
 /types/11ty__eleventy-img/                                @NotWoods
+/types/11ty__eleventy-plugin-rss/                         @remcohaszing
 /types/1line-aa/                                          @Ry0taK
 /types/3box/                                              @shikanime
 /types/7zip-min/                                          @Tanandara
@@ -891,7 +892,7 @@
 /types/chownr/                                            @BendingBender
 /types/chroma-js/                                         @invliD @mpacholec @CharlieZhuo
 /types/chroma-js/v0/                                      @invliD
-/types/chrome/                                            @matthewkimber @otiai10 @sreimer15 @MatCarlson @ekinsol @echoabstract @spasma @bdbai @pokutuna @JasonXian @usertim @idan315 @nicolas377 @idosal @fregante
+/types/chrome/                                            @matthewkimber @otiai10 @sreimer15 @MatCarlson @ekinsol @echoabstract @spasma @bdbai @pokutuna @JasonXian @usertim @idan315 @nicolas377 @idosal @fregante @erwanjugand
 /types/chrome-apps/                                       @niikoo @AdamLay @mzsm @RReverser @pyle @matthewkimber @otiai10 @rreverser @sreimer15
 /types/chrome-har-capturer/                               @NicolasNewman
 /types/chrome-location/                                   @IngyuTae
@@ -3650,7 +3651,7 @@
 /types/iterate-iterator/                                  @JasonHK @ljharb
 /types/iterate-object/                                    @jimmycuadra
 /types/iterate-value/                                     @JasonHK @ljharb
-/types/itowns/                                            @desplandis @mgermerie
+/types/itowns/                                            @desplandis @mgermerie @HoloTheDrunk
 /types/itty-router-extras/                                @hmnd
 /types/itunesconnectanalytics/                            @dctrotz
 /types/ityped/                                            @DanielRosenwasser @MaySoMusician
@@ -8123,7 +8124,7 @@
 /types/tiny-slider-react/                                 @screendriver
 /types/tiny-templater/                                    @jimmycuadra
 /types/tinycolor2/                                        @M-Zuber @geertjansen @nvh
-/types/tinycon/                                           @dwaxweiler @jaulz @peterblazejewicz
+/types/tinycon/                                           @dwaxweiler @peterblazejewicz
 /types/tinycopy/                                          @vvatanabe
 /types/tinymce/                                           @martinduparc @iampoul @nicohartto @Parent5446 @CymruKakashi @wafuwafu13
 /types/titanium/                                          @appcelerator @janvennemann @drauggres @ffMathy
