@@ -1,0 +1,12 @@
+{
+  "name": "@types/react-native-simple-animations",
+  "version": "1.0.0",
+  "description": "TypeScript definitions for react-native-simple-animations",
+  "contributors": [
+    {
+      "name": "iamwinner422",
+      "github": "https://github.com/iamwinner422"
+    }
+  ],
+  "license": "MIT"
+}
