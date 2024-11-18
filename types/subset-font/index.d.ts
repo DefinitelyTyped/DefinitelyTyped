@@ -12,6 +12,13 @@ interface SubsetFontOptions {
      * An array of numbers specifying the extra name ids to preserve in the name table. See README for details.
      */
     preserveNameIds?: number[];
+    /**
+     * An object specifying a full or partial instancing of variation axes in the font.
+     * Only works with variable fonts. See README's example for details.
+     */
+    variationAxes?: {
+        [axeName: string]: number | { min: number; max: number; default?: number };
+    };
 }
 
 /**
