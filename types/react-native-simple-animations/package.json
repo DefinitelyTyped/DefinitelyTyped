@@ -9,6 +9,9 @@
         "@types/react": "*",
         "@types/react-native": "*"
     },
+    "devDependencies": {
+        "@types/react-native-simple-animations": "workspace:."
+    },
     "description": "TypeScript definitions for react-native-simple-animations",
     "owners": [
         {
