@@ -12,7 +12,6 @@
     "devDependencies": {
         "@types/react-native-simple-animations": "workspace:."
     },
-    "description": "TypeScript definitions for react-native-simple-animations",
     "owners": [
         {
             "name": "Joey Schroeder",
