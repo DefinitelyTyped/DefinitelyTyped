@@ -1,7 +1,7 @@
 {
     "name": "@types/react-native-file-type",
     "private": true,
-    "version": "0.0.1.9999",
+    "version": "0.10.9999",
     "devDependencies": {
         "@types/react-native-file-type": "workspace:."
     },
@@ -11,7 +11,6 @@
     "owners": [
         {
             "name": "Niclas Collmer",
-            "url": "https://github.com/InkAndSteel",
             "githubUsername": "InkAndSteel"
         }
     ]
