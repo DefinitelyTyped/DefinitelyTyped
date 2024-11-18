@@ -247,6 +247,7 @@ declare namespace Kinetic {
     };
 
     interface ICollection {
+        // eslint-disable-next-line @typescript-eslint/ban-types
         apply(method: Function, val: any): any;
         each(func: () => any): any;
     }
