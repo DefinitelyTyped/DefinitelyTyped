@@ -3001,10 +3001,6 @@
             "libraryName": "@keyv/sqlite",
             "asOfVersion": "3.0.1"
         },
-        "kineticjs": {
-            "libraryName": "kineticjs",
-            "asOfVersion": "1.0.0"
-        },
         "knex": {
             "libraryName": "knex",
             "asOfVersion": "0.16.1"
