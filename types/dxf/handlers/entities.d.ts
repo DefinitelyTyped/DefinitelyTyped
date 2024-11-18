@@ -14,7 +14,7 @@ import Text from "./entity/text";
 import ThreeDFace from "./entity/threedface";
 import Vertex from "./entity/vertex";
 
-export type LayerGroupedEntities = Record<string, Entity>;
+export type LayerGroupedEntities = Record<string, Entity[]>;
 export type EntityType =
     | "POINT"
     | "LINE"
