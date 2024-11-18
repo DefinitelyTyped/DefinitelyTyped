@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": ["es6"],
+        "strict": true,
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "jsx": "react-native",
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+    ]
+}
