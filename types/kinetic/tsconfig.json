@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "kineticjs-tests.ts"
+        "kinetic-tests.ts"
     ]
 }

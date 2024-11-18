@@ -1,14 +1,12 @@
 {
     "private": true,
-    "name": "@types/kineticjs",
+    "name": "@types/kinetic",
     "version": "0.0.9999",
-    "nonNpm": true,
-    "nonNpmDescription": "kineticjs",
     "projects": [
-        "http://kineticjs.com/"
+        "https://www.npmjs.com/package/kinetic"
     ],
     "devDependencies": {
-        "@types/kineticjs": "workspace:."
+        "@types/kinetic": "workspace:."
     },
     "owners": [
         {
