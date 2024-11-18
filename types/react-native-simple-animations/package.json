@@ -1,12 +1,24 @@
 {
-  "name": "@types/react-native-simple-animations",
-  "version": "1.0.0",
-  "description": "TypeScript definitions for react-native-simple-animations",
-  "contributors": [
-    {
-      "name": "iamwinner422",
-      "github": "https://github.com/iamwinner422"
-    }
-  ],
-  "license": "MIT"
+    "private": true,
+    "name": "@types/react-native-simple-animations",
+    "version": "1.0.0",
+    "projects": [
+        "https://www.npmjs.com/package/react-native-simple-animations"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-native": "*"
+    },
+    "description": "TypeScript definitions for react-native-simple-animations",
+    "owners": [
+        {
+            "name": "Joey Schroeder",
+            "githubUsername": "joeyschroeder"
+        },
+        {
+            "name": "iamwinner422",
+            "githubUsername": "iamwinner422"
+        }
+    ]
+    "license": "MIT"
 }
