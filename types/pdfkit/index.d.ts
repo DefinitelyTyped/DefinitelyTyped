@@ -649,14 +649,14 @@ declare module "pdfkit/js/data" {
 
 declare namespace PDFKit {
     interface DocumentInfo {
-        Producer?: string | undefined;
-        Creator?: string | undefined;
-        CreationDate?: Date | undefined;
-        Title?: string | undefined;
-        Author?: string | undefined;
-        Subject?: string | undefined;
-        Keywords?: string | undefined;
-        ModDate?: Date | undefined;
+        Producer?: string;
+        Creator?: string;
+        CreationDate?: Date;
+        Title?: string;
+        Author?: string;
+        Subject?: string;
+        Keywords?: string;
+        ModDate?: Date;
     }
 
     interface DocumentPermissions {
