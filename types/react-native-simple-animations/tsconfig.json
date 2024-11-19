@@ -1,9 +1,8 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -13,5 +12,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "react-native-simple-animations-tests.tsx"
+    ]
 }
