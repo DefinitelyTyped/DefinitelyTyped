@@ -3,7 +3,7 @@ import { Adapter, Brain, Message, Robot, User } from "hubot";
 const user = new User("123");
 const message = new Message(user);
 
-const robot = new Robot<Adapter>("src/adapters", "slack", false, "hubot");
+const robot = new Robot<Adapter>("src/adapters", false, "hubot");
 robot; // $ExpectType Robot<Adapter>
 robot.adapter; // $ExpectType Adapter
 robot.name; // $ExpectType string
@@ -16,23 +16,28 @@ robot.hear(/hello/, () => null); // $ExpectType void
 robot.helpCommands(); // $ExpectType string[]
 robot.http("https://google.com"); // $ExpectType ScopedClient
 robot.leave(() => null); // $ExpectType void
+robot.load(""); // $ExpectType Promise<void>
+robot.loadAdapter(); // $ExpectType Promise<void>
+robot.loadAdapter(""); // $ExpectType Promise<void>
+robot.loadExternalScripts("", ""); // $ExpectType Promise<void>
+robot.parseVersion(); // $ExpectType string
 // $ExpectType void
 robot.listen(
     () => true,
     () => null,
 );
 // $ExpectType void
-robot.listenerMiddleware((context, next, done) => {
-    next(done);
+robot.listenerMiddleware(async (context) => {
+    return true;
 });
 robot.messageRoom("general", "Hello friends"); // $ExpectType void
 robot.on("test", () => null); // $ExpectType Robot<Adapter>
-robot.receive(message, () => null); // $ExpectType void
+robot.receive(message); // $ExpectType Promise<void>
 // $ExpectType void
-robot.receiveMiddleware((context, next, done) => {
-    next(done);
+robot.receiveMiddleware(async (context) => {
+    return true;
 });
-// $ExpectType void
+// $ExpectType Promise<void>
 robot.reply(
     {
         message,
@@ -43,12 +48,11 @@ robot.reply(
 );
 robot.respond(/hello/, () => null); // $ExpectType void
 robot.respondPattern(/hello/); // $ExpectType RegExp
-// $ExpectType void
-robot.responseMiddleware((context, next, done) => {
-    next(done);
+robot.responseMiddleware(async (context) => {
+    return true;
 });
 robot.run(); // $ExpectType void
-// $ExpectType void
+// $ExpectType Promise<void>
 robot.send(
     {
         message,
@@ -57,7 +61,7 @@ robot.send(
     },
     "Replying to friends",
 );
-robot.shutdown(); // $ExpectType void
+robot.shutdown(); // $ExpectType Promise<void>
 robot.topic(message => null); // $ExpectType void
 
 const brain = new Brain(robot);
