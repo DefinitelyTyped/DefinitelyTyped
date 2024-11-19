@@ -246,7 +246,7 @@ export class Robot<A extends Adapter = Adapter> {
     messageRoom(room: string, ...strings: string[]): Promise<void>;
     parseVersion(): string;
     on(event: string | symbol, listener: (...args: unknown[]) => void): this;
-    receive(message: Message): Promise<null | any>;
+    receive(message: Message): Promise<any>;
     receiveMiddleware(middleware: MiddlewareHandler<A, TextMessage>): void;
     reply(envelope: Envelope, ...strings: string[]): Promise<any>;
     respond(regex: RegExp, callback: ListenerCallback<A, TextMessage>): void;
