@@ -388,6 +388,7 @@ declare namespace Mocha {
 
     // #region Test interface augmentations
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     interface HookFunction<T extends void | Hook = void> {
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
