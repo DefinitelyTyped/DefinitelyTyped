@@ -388,7 +388,7 @@ declare namespace Mocha {
 
     // #region Test interface augmentations
 
-    interface HookFunction<T = void> {
+    interface HookFunction<T extends void | Hook = void> {
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
          * function is used as the name of the hook.
