@@ -1433,6 +1433,10 @@
             "libraryName": "domelementtype",
             "asOfVersion": "2.0.1"
         },
+        "dompurify": {
+            "libraryName": "dompurify",
+            "asOfVersion": "3.2.0"
+        },
         "dot-case": {
             "libraryName": "dot-case",
             "asOfVersion": "1.1.2"
