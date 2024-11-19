@@ -1,7 +1,7 @@
 import { ReactNode, Component } from "react";
 import { EasingFunction, ViewStyle } from "react-native";
 
-interface SimpleAnimationProps {
+export interface SimpleAnimationProps {
     /**
      * Whether the child component will animate in or out
      * @default "in"
