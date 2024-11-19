@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/phoenix_live_view",
-    "version": "0.18.9999",
+    "version": "1.6.5",
     "projects": [
         "https://github.com/phoenixframework/phoenix_live_view"
     ],
@@ -15,6 +15,23 @@
         {
             "name": "Peter Zingg",
             "githubUsername": "pzingg"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "Igor Barchenkov",
+            "githubUsername": "ibarchenkov",
+            "url": "https://github.com/ibarchenkov"
+        },
+        {
+            "name": "Rodolfo Carvalho",
+            "githubUsername": "rhcarvalho",
+            "url": "https://github.com/rhcarvalho"
+        },
+        {
+            "name": "François Roland",
+            "githubUsername": "francois-codes",
+            "url": "https://github.com/francois-codes"
         }
     ]
 }
