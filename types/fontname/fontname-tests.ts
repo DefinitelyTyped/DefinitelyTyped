@@ -1,3 +1,3 @@
 import Fontname from "fontname";
 
-Fontname.parse(""); // $ExpectType FontNameData[]
+Fontname.parse(new ArrayBuffer(0)); // $ExpectType FontNameData[]
