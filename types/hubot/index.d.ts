@@ -152,7 +152,7 @@ export type ListenerCallback<A extends Adapter = Adapter, M extends Message = Me
     response: Response<A, M>
 ) => Promise<void>;
 
-type ListenerMatcher = (message: Message) => boolean;
+export type ListenerMatcher = (message: Message) => boolean;
 
 export class Listener<A extends Adapter = Adapter> {
     options: {};
@@ -161,7 +161,7 @@ export class Listener<A extends Adapter = Adapter> {
 
     constructor(robot: Robot<A>, matcher: ListenerMatcher, options: {} | null, callback: ListenerCallback<A, Message>);
 
-    call(message: Message, middleware: Middleware<A>): Promise<null | any>;
+    call(message: Message, middleware: Middleware<A>): Promise<any>;
 }
 
 export class TextListener<A extends Adapter> extends Listener<A> {
