@@ -6,24 +6,24 @@ const message = new Message(user);
 const robot = new Robot<Adapter>("src/adapters", false, "hubot");
 robot; // $ExpectType Robot<Adapter>
 robot.name; // $ExpectType string
-robot.events; // $ExpectType EventEmitter
+robot.events; // $ExpectType EventEmitter<DefaultEventMap>
 robot.brain; // $ExpectType Brain<Adapter>
 robot.alias; // $ExpectType string
 robot.adapterName; // $ExpectType string
 robot.adapter; // $ExpectType Adapter
-robot.errorHandlers; // $ExpectType Array
-robot.datastore; // $ExpectType DataStore
+robot.errorHandlers; // $ExpectType []
+robot.datastore; // $ExpectType DataStore | null
 robot.commands; // $ExpectType string[]
 robot.listeners; // $ExpectType Listener<Adapter>[]
 robot.middleware.listener; // $ExpectType Middleware<Adapter>
 robot.middleware.response; // $ExpectType Middleware<Adapter>
 robot.middleware.receive; // $ExpectType Middleware<Adapter>
 robot.logger; // $ExpectType Log
-robot.pingIntervalId; // $ExpectType NodeJS.Timeout | null
-robot.globalHttpOptions; // $ExpectType HttpOptions
+robot.pingIntervalId; // $ExpectType Timeout | null
+robot.globalHttpOptions; // $ExpectType Options
 robot.version; // $ExpectType string
-robot.server; // $ExpectType Server | null
-robot.router; // $ExpectType
+robot.server; // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse> | undefined
+robot.router; // $ExpectType Express
 robot.shouldEnableHttpd; // $ExpectType boolean
 
 let callback = (r: Response) => Promise.resolve(null);
