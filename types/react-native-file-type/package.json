@@ -1,7 +1,7 @@
 {
     "name": "@types/react-native-file-type",
     "private": true,
-    "version": "0.10.9999",
+    "version": "0.0.8.9999g",
     "devDependencies": {
         "@types/react-native-file-type": "workspace:."
     },
