@@ -26,7 +26,8 @@ robot.server; // $ExpectType Server<typeof IncomingMessage, typeof ServerRespons
 robot.router; // $ExpectType Express
 robot.shouldEnableHttpd; // $ExpectType boolean
 
-function callback<A extends Adapter, M extends Message>(context: MiddlewareContext<A, M>) {
+function callback<A extends Adapter, M extends Message>(response: Response<A, M>) {
+    response; // $ExpectType Response<A, M>
     return Promise.resolve();
 }
 
