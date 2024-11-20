@@ -1,4 +1,4 @@
-import { Adapter, Brain, Message, Robot, User, Response } from "hubot";
+import { Adapter, Brain, Message, Response, Robot, User } from "hubot";
 
 const user = new User("123");
 const message = new Message(user);
@@ -31,7 +31,6 @@ function callback(response: Response) {
 }
 
 let middleware = () => Promise.resolve(true);
-
 
 robot.catchAll(callback); // $ExpectType void
 robot.catchAll({}, callback); // $ExpectType void
@@ -87,7 +86,6 @@ robot.send(
 robot.shutdown(); // $ExpectType void
 robot.topic(callback); // $ExpectType void
 robot.topic({}, callback); // $ExpectType void
-
 
 const brain = new Brain(robot);
 brain; // $ExpectType Brain<Adapter>

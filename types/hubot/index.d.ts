@@ -100,7 +100,6 @@ export class Message {
 }
 
 export class TextMessage extends Message {
-
     constructor(user: User, text: string, id: string);
 
     match(regex: RegExp): RegExpMatchArray;
@@ -128,7 +127,7 @@ export interface Envelope {
 export class Response<
     A extends Adapter = Adapter,
     M extends Message = Message,
-    R extends RegExpMatchArray | { [key: string]: string } = RegExpMatchArray
+    R extends RegExpMatchArray | { [key: string]: string } = RegExpMatchArray,
 > {
     robot: Robot<A>;
     match: R;
@@ -148,7 +147,7 @@ export class Response<
 }
 
 export type ListenerCallback<A extends Adapter = Adapter, M extends Message = Message> = (
-    response: Response<A, M>
+    response: Response<A, M>,
 ) => Promise<void>;
 
 export type ListenerMatcher = (message: Message) => boolean;
@@ -176,7 +175,7 @@ export interface MiddlewareContext<A extends Adapter = Adapter, M extends Messag
 }
 
 export type MiddlewareHandler<A extends Adapter = Adapter, M extends Message = Message> = (
-    context: MiddlewareContext<A, M>
+    context: MiddlewareContext<A, M>,
 ) => Promise<boolean>;
 
 export interface LogLevel {
