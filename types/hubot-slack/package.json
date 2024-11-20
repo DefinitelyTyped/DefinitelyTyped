@@ -9,8 +9,8 @@
     "dependencies": {
         "@slack/rtm-api": "*",
         "@slack/web-api": "*",
-        "@slack/types": "4",
-        "@types/hubot": "*"
+        "@slack/types": "*",
+        "@types/hubot": "3.3.7"
     },
     "devDependencies": {
         "@types/hubot-slack": "workspace:."
