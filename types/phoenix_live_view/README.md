@@ -8,7 +8,7 @@ This package contains the type definitions for the [Phoenix LiveView](https://gi
 npm install --save-dev @types/phoenix_live_view
 ```
 
-## BREAKING CHANGE in 1.6.5
+## BREAKING CHANGE in 0.20.0
 
 The `ViewHook` interface has been modified to better reflect the type expected by developers writing their own hooks. It used to correspond to the type of the hook object as it is constructed by the Phoenix LiveView library internally, but it included properties which are not expected for developers to provide. This required casting or commenting to make the typescript compiler happy when declaring hooks.
 

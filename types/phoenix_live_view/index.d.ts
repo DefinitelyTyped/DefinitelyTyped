@@ -1,3 +1,18 @@
+// Project: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/phoenix_live_view
+// Definitions by: Peter Zingg <https://github.com/pzingg>
+//                 Igor Barchenkov <https://github.com/ibarchenkov>
+//                 Rodolfo Carvalho <https://github.com/rhcarvalho>
+//                 François Roland <https://github.com/francois-codes>
+//
+// Changelog:
+// Version 0.20 refactored ViewHook interface with generic type and
+// ViewHookInternal interface
+//
+// Version 0.17 added LiveSocket.execJS() method for executing JavaScript utility operations on the client
+// See: https://github.com/phoenixframework/phoenix_live_view/blob/master/CHANGELOG.md#enhancements-17
+//
+// Version 0.15 added options and interfaces for LiveView uploads
+// See: https://hexdocs.pm/phoenix_live_view/uploads.html
 // Version 0.15.4 added options and interfaces for LiveView uploads
 // See: https://hexdocs.pm/phoenix_live_view/uploads.html
 
