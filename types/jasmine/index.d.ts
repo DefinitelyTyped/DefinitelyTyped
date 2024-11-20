@@ -981,6 +981,11 @@ declare namespace jasmine {
         fullName: string;
 
         /**
+         * The name of the file the suite was defined in.
+         */
+        filename: string;
+
+        /**
          * The list of expectations that failed during execution of this spec.
          */
         failedExpectations: FailedExpectation[];
