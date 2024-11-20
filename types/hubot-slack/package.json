@@ -9,7 +9,7 @@
     "dependencies": {
         "@slack/rtm-api": "*",
         "@slack/web-api": "*",
-        "@slack/types": "*",
+        "@slack/types": "4",
         "@types/hubot": "*"
     },
     "devDependencies": {
