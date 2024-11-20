@@ -1,4 +1,4 @@
-import { Adapter, Brain, Message, Robot, User, Response, CatchAllMessage, MiddlewareContext } from "hubot";
+import { Adapter, Brain, Message, Robot, User, Response } from "hubot";
 
 const user = new User("123");
 const message = new Message(user);
@@ -51,14 +51,14 @@ robot.load(""); // $ExpectType Promise<void>
 robot.loadAdapter(); // $ExpectType Promise<void>
 robot.loadAdapter(""); // $ExpectType Promise<void>
 robot.loadExternalScripts(["hubot-pager-me", "hubot-help"]); // $ExpectType void
-robot.loadFile("scripts", "hi.js"); // $ExpectType void
+robot.loadFile("scripts", "hi.js"); // $ExpectType Promise<void>
 robot.messageRoom("general", "Hello friends"); // $ExpectType Promise<void>
 robot.parseVersion(); // $ExpectType string
 robot.on("test", () => null); // $ExpectType Robot<Adapter>
 robot.receive(message); // $ExpectType Promise<any>
 robot.receiveMiddleware(middleware); // $ExpectType Promise<void>
 
-// $ExpectType Promise<void>
+// $ExpectType Promise<any>
 robot.reply(
     {
         message,
@@ -74,7 +74,7 @@ robot.respondPattern(/hello/); // $ExpectType RegExp
 robot.responseMiddleware(middleware); // $ExpectType void
 robot.run(); // $ExpectType Promise<any>
 
-// $ExpectType Promise<void>
+// $ExpectType Promise<any>
 robot.send(
     {
         message,
