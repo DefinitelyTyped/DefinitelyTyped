@@ -172,7 +172,7 @@ export default class DPlayer {
 
     toggle(): void;
 
-    on(event: DPlayerEvents, handler: () => void): void;
+    on(event: keyof typeof DPlayerEvents, handler: () => void): void;
 
     switchVideo(video: DPlayerVideo, danmaku: DPlayerDanmaku): void;
 
