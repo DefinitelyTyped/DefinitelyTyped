@@ -3861,6 +3861,10 @@
             "libraryName": "nuka-carousel",
             "asOfVersion": "4.4.6"
         },
+        "nulogy__components": {
+            "libraryName": "@nulogy/components",
+            "asOfVersion": "4.2.0"
+        },
         "numbro": {
             "libraryName": "numbro",
             "asOfVersion": "1.9.3"
