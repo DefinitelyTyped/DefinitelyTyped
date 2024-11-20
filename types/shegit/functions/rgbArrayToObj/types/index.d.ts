@@ -1,4 +1,4 @@
-import { FuncRgbArray, RgbArrayFunc, RgbObj } from '../../../types';
+import { FuncRgbArray, RgbArrayFunc, RgbObj } from "../../../types";
 export type Input = RgbArrayFunc | FuncRgbArray;
 export interface Default {
     input: Input;

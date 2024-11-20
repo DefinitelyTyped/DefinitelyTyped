@@ -1,5 +1,5 @@
-import { RgbObj } from '../../types';
-import { Input } from './types';
+import { RgbObj } from "../../types";
+import { Input } from "./types";
 /**
  * #### RGB color array to object
  *

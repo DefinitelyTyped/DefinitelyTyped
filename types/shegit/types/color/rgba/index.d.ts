@@ -1,9 +1,9 @@
-import { RgbComponent, RgbMultipleComponent } from '../..';
+import { RgbComponent, RgbMultipleComponent } from "../..";
 export type RgbaArrayTemplate<Component, ComponentAlfa> = [
     Component?,
     Component?,
     Component?,
-    ComponentAlfa?
+    ComponentAlfa?,
 ];
 export interface RgbaObjTemplate<Component, ComponentAlfa> {
     r?: Component;

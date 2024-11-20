@@ -1,4 +1,4 @@
-import { ColorProp, ReturnColorType, To } from './types';
+import { ColorProp, ReturnColorType, To } from "./types";
 /**
  * #### To color
  *

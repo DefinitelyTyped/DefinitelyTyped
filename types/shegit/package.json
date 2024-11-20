@@ -1,17 +1,18 @@
 {
-  "private": true,
-  "name": "@types/shegit",
-  "version": "1.0.9999",
-  "projects": [
-      "https://github.com/or-temka/shegit"
-  ],
-  "devDependencies": {
-      "@types/shegit": "workspace:."
-  },
-  "owners": [
-      {
-          "name": "Artem Shchegortsov",
-          "githubUsername": "or-temka"
-      }
-  ]
+    "private": true,
+    "name": "@types/shegit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/or-temka/shegit"
+    ],
+    "devDependencies": {
+        "@types/shegit": "workspace:.",
+        "dprint": "^0.47.2"
+    },
+    "owners": [
+        {
+            "name": "Artem Shchegortsov",
+            "githubUsername": "or-temka"
+        }
+    ]
 }
