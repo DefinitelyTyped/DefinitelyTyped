@@ -56,7 +56,7 @@ robot.messageRoom("general", "Hello friends"); // $ExpectType Promise<void>
 robot.parseVersion(); // $ExpectType string
 robot.on("test", () => null); // $ExpectType Robot<Adapter>
 robot.receive(message); // $ExpectType Promise<any>
-robot.receiveMiddleware(middleware); // $ExpectType void
+robot.receiveMiddleware(middleware); // $ExpectType Promise<void>
 
 // $ExpectType Promise<void>
 robot.reply(

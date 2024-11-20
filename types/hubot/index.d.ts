@@ -240,7 +240,7 @@ export class Robot<A extends Adapter = Adapter> {
     loadAdapter(adapterPath: string): Promise<void>;
     loadExternalScripts(packages: string[]): void;
     loadFile(directory: string, fileName: string): Promise<void>;
-    messageRoom(room: string, ...strings: string[]): Promise<void | unknown>;
+    messageRoom(room: string, ...strings: string[]): Promise<void> | Promise<unknown>;
     parseVersion(): string;
     on(event: string | symbol, listener: (...args: unknown[]) => void): this;
     receive(message: Message): Promise<any>;
