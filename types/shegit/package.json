@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@types/shegit",
-  "version": "1.0.2",
+  "version": "1.0.9999",
   "projects": [
       "https://github.com/or-temka/shegit"
   ],
