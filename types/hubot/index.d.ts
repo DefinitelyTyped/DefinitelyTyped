@@ -15,7 +15,6 @@ export class Adapter extends EventEmitter {
     play(envelope: Envelope, ...strings: string[]): Promise<any>;
 
     run(): Promise<void>;
-    close(): void;
 
     receive(message: Message): Promise<any>;
     http(url: string): ScopedClient;
@@ -52,11 +51,11 @@ export class DataStore {
 
 export class DataStoreUnavailable extends Error {}
 
-export class Middleware<T extends Adapter = Adapter> {
-    stack: Array<MiddlewareHandler<T>>;
-    constructor(robot: Robot<T>);
-    execute(context: MiddlewareContext<T>): Promise<boolean>;
-    register(middleware: MiddlewareHandler<T>): void;
+export class Middleware<A extends Adapter = Adapter> {
+    stack: Array<MiddlewareHandler<A>>;
+    constructor(robot: Robot<A>);
+    execute(context: MiddlewareContext<A>): Promise<boolean>;
+    register(middleware: MiddlewareHandler<A>): void;
 }
 
 export class Brain<A extends Adapter> extends EventEmitter {
@@ -201,11 +200,9 @@ export class Robot<A extends Adapter = Adapter> {
     readonly events: EventEmitter;
     readonly brain: Brain<A>;
     readonly alias: string;
-    readonly adapterPath: string;
     readonly adapterName: string;
     readonly adapter: A;
     readonly errorHandlers: [];
-    readonly onUncaughtException: (err: Error) => void;
     readonly datastore: null | DataStore;
     readonly commands: string[];
     readonly listeners: Listener<A>[];
