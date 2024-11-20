@@ -52,11 +52,11 @@ robot.loadAdapter(); // $ExpectType Promise<void>
 robot.loadAdapter(""); // $ExpectType Promise<void>
 robot.loadExternalScripts(["hubot-pager-me", "hubot-help"]); // $ExpectType void
 robot.loadFile("scripts", "hi.js"); // $ExpectType Promise<void>
-robot.messageRoom("general", "Hello friends"); // $ExpectType Promise<void>
+robot.messageRoom("general", "Hello friends"); // $ExpectType Promise<void> | Promise<unknown>
 robot.parseVersion(); // $ExpectType string
 robot.on("test", () => null); // $ExpectType Robot<Adapter>
 robot.receive(message); // $ExpectType Promise<any>
-robot.receiveMiddleware(middleware); // $ExpectType Promise<void>
+robot.receiveMiddleware(middleware); // $ExpectType void
 
 // $ExpectType Promise<any>
 robot.reply(
