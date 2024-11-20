@@ -1,0 +1,27 @@
+{
+  "name": "@shegit/rgb-array-to-obj",
+  "version": "1.0.1",
+  "description": "function rgbArrayToObj from shegit library",
+  "main": "index.js",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/or-temka/shegit.git"
+  },
+  "keywords": [
+    "utils",
+    "color"
+  ],
+  "author": "Shchegortsov Artem Mikhailovich <tema.chegortzov@mail.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/or-temka/shegit/issues"
+  },
+  "homepage": "https://github.com/or-temka/shegit#readme"
+}
