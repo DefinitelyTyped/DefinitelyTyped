@@ -1,4 +1,4 @@
-import { Adapter, Brain, Message, Robot, User, Response } from "hubot";
+import { Adapter, Brain, Message, Robot, User, Response, CatchAllMessage, MiddlewareContext } from "hubot";
 
 const user = new User("123");
 const message = new Message(user);
@@ -26,8 +26,12 @@ robot.server; // $ExpectType Server<typeof IncomingMessage, typeof ServerRespons
 robot.router; // $ExpectType Express
 robot.shouldEnableHttpd; // $ExpectType boolean
 
-let callback = (r: Response) => Promise.resolve(null);
+function callback<A extends Adapter, M extends Message>(context: MiddlewareContext<A, M>) {
+    return Promise.resolve();
+}
+
 let middleware = () => Promise.resolve(true);
+
 
 robot.catchAll(callback); // $ExpectType void
 robot.catchAll({}, callback); // $ExpectType void
