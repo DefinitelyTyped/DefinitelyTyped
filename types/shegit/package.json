@@ -6,8 +6,7 @@
         "https://github.com/or-temka/shegit"
     ],
     "devDependencies": {
-        "@types/shegit": "workspace:.",
-        "dprint": "^0.47.2"
+        "@types/shegit": "workspace:."
     },
     "owners": [
         {
