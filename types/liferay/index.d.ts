@@ -15,7 +15,7 @@ declare const Liferay: {
      * Call a Liferay service
      */
     Service: (service: string, params?: unknown, callback?: (obj: unknown) => void) => Promise<unknown>;
-}
+};
 
 interface UserAgentApplication {
     /**
@@ -54,7 +54,7 @@ interface LiferayOAuth2 {
      * Get the user agent application
      * @param externalReferenceCode
      */
-    getUserAgentApplication(externalReferenceCode: string): UserAgentApplication
+    getUserAgentApplication(externalReferenceCode: string): UserAgentApplication;
 }
 
 interface OAuth2ClientFromParametersOptions {
@@ -232,7 +232,7 @@ interface LiferayUtil {
      * @param type the type of the toast
      * @param autoClose the time in milliseconds after which the toast should be closed
      */
-    openToast: ({title, message, type, autoClose}: ToastParams) => void;
+    openToast: ({ title, message, type, autoClose }: ToastParams) => void;
 }
 
 interface ToastParams {
@@ -249,7 +249,7 @@ interface ToastParams {
     /**
      * The type of the toast
      */
-    type: 'info' | 'error' | 'danger' | 'success';
+    type: "info" | "error" | "danger" | "success";
 
     /**
      * The time in milliseconds after which the toast should be closed
