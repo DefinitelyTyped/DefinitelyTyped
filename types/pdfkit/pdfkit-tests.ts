@@ -19,7 +19,7 @@ font.registerFont("CustomFont", "path/to/font.ttf");
 font.registerFont("CustomFontWithBuffer", Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]));
 text.widthOfString("Kila", { ellipsis: true });
 
-var doc: PDFKit.PDFDocument = new PDFDocument({
+var doc = new PDFDocument({
     compress: false,
     size: [526, 525],
     autoFirstPage: true,
@@ -31,11 +31,6 @@ var doc: PDFKit.PDFDocument = new PDFDocument({
     },
     font: "Arial",
     fontLayoutCache: true,
-    info: {
-        Author: "John Doe",
-        Producer: "Johny Doe",
-        Title: "John Doe's PDF",
-    }
 });
 
 doc.addPage({
