@@ -48,7 +48,7 @@ declare module "module" {
          * @since v13.7.0, v12.17.0
          * @return Returns `module.SourceMap` if a source map is found, `undefined` otherwise.
          */
-        function findSourceMap(path: string, error?: Error): SourceMap;
+        function findSourceMap(path: string, error?: Error): SourceMap | undefined;
         interface SourceMapPayload {
             file: string;
             version: number;
