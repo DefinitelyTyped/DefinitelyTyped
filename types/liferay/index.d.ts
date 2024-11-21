@@ -3,6 +3,8 @@ declare const Liferay: {
     Util: LiferayUtil;
     ThemeDisplay: LiferayThemeDisplay;
     Loader: LiferayLoader;
+    OAuth2: LiferayOAuth2;
+    OAuth2Client: LiferayOAuth2Client;
 
     /**
      * Get the authentication token
@@ -13,7 +15,95 @@ declare const Liferay: {
      * Call a Liferay service
      */
     Service: (service: string, params?: unknown, callback?: (obj: unknown) => void) => Promise<unknown>;
-};
+}
+
+interface UserAgentApplication {
+    /**
+     * Get the user agent client id
+     */
+    clientId: string;
+
+    /**
+     * Get the user agent home page URL
+     */
+    homePageURL: string;
+
+    /**
+     * Get the user agent redirect URIs
+     */
+    redirectURIs: Array<string>;
+}
+
+interface LiferayOAuth2 {
+    /**
+     * Get the authorize URL
+     */
+    getAuthorizeURL(): string;
+
+    /**
+     * Get the built-in redirect URL
+     */
+    getBuiltInRedirectURL(): string;
+
+    /**
+     * Get the introspect token URL
+     */
+    getTokenURL(): string;
+
+    /**
+     * Get the user agent application
+     * @param externalReferenceCode
+     */
+    getUserAgentApplication(externalReferenceCode: string): UserAgentApplication
+}
+
+interface OAuth2ClientFromParametersOptions {
+    /**
+     * The authorize URL
+     */
+    authorizeURL?: string;
+
+    /**
+     * The client id
+     */
+    clientId: string;
+
+    /**
+     * The client secret
+     */
+    homePageURL: string;
+
+    /**
+     * The redirect URIs
+     */
+    redirectURIs?: Array<string>;
+
+    /**
+     * The token URL
+     */
+    tokenURL?: string;
+}
+
+interface LiferayOAuth2Client {
+    /**
+     * Create a new OAuth2 client from parameters
+     * @param options
+     */
+    FromParameters(options: OAuth2ClientFromParametersOptions): LiferayOAuth2Client;
+
+    /**
+     * Create a new OAuth2 client from user agent application
+     * @param userAgentApplicationId
+     */
+    FromUserAgentApplication(userAgentApplicationId: string): LiferayOAuth2Client;
+
+    /**
+     * Fetch the given URL
+     * @param url
+     * @param options
+     */
+    fetch(url: string, options?: any): Promise<any>;
+}
 
 interface LiferayLanguage {
     /**
@@ -142,7 +232,7 @@ interface LiferayUtil {
      * @param type the type of the toast
      * @param autoClose the time in milliseconds after which the toast should be closed
      */
-    openToast: ({ title, message, type, autoClose }: ToastParams) => void;
+    openToast: ({title, message, type, autoClose}: ToastParams) => void;
 }
 
 interface ToastParams {
@@ -159,7 +249,7 @@ interface ToastParams {
     /**
      * The type of the toast
      */
-    type: "info" | "error" | "danger" | "success";
+    type: 'info' | 'error' | 'danger' | 'success';
 
     /**
      * The time in milliseconds after which the toast should be closed
