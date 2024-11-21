@@ -360,7 +360,7 @@ declare namespace Calendar {
         unselectAuto?: boolean;
         unselectCancel?: string;
         view?: string;
-        viewDidMount?: (info: { view: View }) => void;
+        viewDidMount?: (info: View ) => void;
         views?: Record<string, Options>;
     }
 }
