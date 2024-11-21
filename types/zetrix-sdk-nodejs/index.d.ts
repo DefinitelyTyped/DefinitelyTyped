@@ -1,7 +1,7 @@
 export = ZtxChainSDK;
 
 declare class ZtxChainSDK {
-    constructor(options?: ZtxChainSDK.Options);
+    constructor(options: ZtxChainSDK.Options);
 
     account: ZtxChainSDK.Account;
     transaction: ZtxChainSDK.Transaction;
@@ -15,11 +15,12 @@ declare namespace ZtxChainSDK {
     interface Options {
         inited?: boolean;
         host: string;
-        chainId?: number;
+        chainId?: number | bigint;
         timeout?: number;
         secure: boolean;
     }
-
+    interface Util {}
+    
     interface Account {
         create(): Response;
 
