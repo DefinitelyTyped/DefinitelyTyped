@@ -19,7 +19,6 @@ declare namespace ZtxChainSDK {
         timeout?: number;
         secure: boolean;
     }
-    interface Util {}
     
     interface Account {
         create(): Response;
