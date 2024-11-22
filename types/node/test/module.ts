@@ -49,8 +49,8 @@ const smap = new Module.SourceMap({
 const pl: Module.SourceMapPayload = smap.payload;
 const entry: Module.SourceMapping = smap.findEntry(1, 1);
 
-Module.findSourceMap('/path/to/file.js'); // $ExpectType SourceMap | undefined
-Module.findSourceMap('/path/to/file.js', new Error()); // $ExpectType SourceMap | undefined
+Module.findSourceMap("/path/to/file.js"); // $ExpectType SourceMap | undefined
+Module.findSourceMap("/path/to/file.js", new Error()); // $ExpectType SourceMap | undefined
 
 // global
 {
