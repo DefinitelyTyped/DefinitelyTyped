@@ -495,6 +495,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     resources?: TResource[] | undefined;
     resourceIdAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
     resourceTitleAccessor?: keyof TResource | ((resource: TResource) => any) | undefined;
+    resourceGroupingLayout?: boolean | undefined;
     defaultView?: View | undefined;
     defaultDate?: stringOrDate | undefined;
     className?: string | undefined;

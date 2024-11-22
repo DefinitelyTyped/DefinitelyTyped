@@ -22,6 +22,7 @@ export interface OnDragStartArgs<TEvent> {
 export interface DragFromOutsideItemArgs {
     start: stringOrDate;
     end: stringOrDate;
+    resource?: string | number;
     allDay: boolean;
 }
 
