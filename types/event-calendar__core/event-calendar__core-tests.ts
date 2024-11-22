@@ -271,6 +271,19 @@ cal.setOption("buttonText", () => {
     .setOption("moreLinkContent", (_info: Calendar.MoreLinkInfo) => "content")
     .setOption("noEventsContent", () => "content")
     .setOption("resourceLabelContent", (_info: Calendar.ResourceLabelInfo) => "content")
+    .setOption("resources", [{
+        id: "foo",
+        children: [
+            {
+                id: "bar",
+                children: [
+                    {
+                        id: "baz",
+                    },
+                ],
+            },
+        ],
+    }])
     .setOption("slotLabelFormat", (_t: Date) => "content")
     .setOption("theme", (theme: Calendar.Theme) => {
         let result: Calendar.Theme = {};
