@@ -58,6 +58,7 @@ declare namespace Calendar {
         eventBackgroundColor?: string;
         eventTextColor?: string;
         extendedProps?: Record<string, unknown>;
+        children?: ResourceInput[];
     }
 
     interface Resource {
