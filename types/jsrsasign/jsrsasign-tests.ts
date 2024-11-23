@@ -153,3 +153,60 @@ x509crl.getRevCertArray(); // $ExpectType RevokedCertificate[] | null
 x509crl.findRevCert(PEM_CERTIFICATE);
 x509crl.findRevCertBySN("0000");
 x509crl.getParam();
+
+
+const paramOrg = {
+    "version": 1,
+    "hashalgs": [
+        "sha256"
+    ],
+    "econtent": {
+        "type": "data",
+        "content": {
+            "str": "{\"id\":\"299bfdd4-6437-4aac-baf0-78ceddf5acff\",\"aip\":\"mailto:test.aip@datakaveri.org\",\"dataPrincipal\":{\"id\":\"T26170131559\",\"idType\":\"PPB Number\"},\"purposes\":[{\"code\":\"B1\"}],\"itemId\":\"d3b7d827-8617-418a-a22b-0621aca2ee30\",\"itemType\":\"resource\",\"expiry\":\"2024-11-06T00:00:00.000Z\",\"createdAt\":\"2024-11-23T10:40:07.483Z\",\"consentUseLogTo\":\"https://consent.adex.iudx.io\",\"dataAccessLogTo\":\"https://gateway.adex.iudx.io\",\"aiu\":\"mailto:test.aiu@datakaveri.org\"}"
+        }
+    },
+    "sinfos": [
+        {
+            "version": 1,
+            "id": {
+                "type": "isssn",
+                "cert": "-----BEGIN CERTIFICATE-----\r\nMIIDmjCCAoKgAwIBAgIUPm2DqtwN0/JOREckQbYhHI60iP8wDQYJKoZIhvcNAQEL\r\nBQAwGTEXMBUGA1UEAwwOZmFrZWNhLml1ZHguaW8wHhcNMjQxMDI5MDkxNjM0WhcN\r\nMjUxMDI5MDkxNjM0WjAvMQswCQYDVQQGEwJJTjEgMB4GA1UEAwwXdGVzdC5haXBA\r\nZGF0YWthdmVyaS5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCz\r\nFgh08JTzYYiSGBHtKQUsinOsjRMGsGEeP7m4TFTODEsyUfItuQrWsi9LRtzrFigq\r\nOde+bI67aBUj3krM2JfPe/1aDASnS8tjff9A9IrX5y9rAdaa0rZBPtWaNWai+s1/\r\ncD5CIb4rB5PHcJL/SnlBgbKtBylP4d/mRO+m/abx3tMXuOvEiGufhrCDrz6NT/B4\r\npqln+ChdpNb/1N4GLHYhb0aRXa+eHqWliJW5+TJB6Y3aNUutO2Yc02Sa5S4GD6xD\r\ny7nzTxWzrS93V+7fvFZk+DL3xZyY9gXD3YfW9EjG53gwbS3WiC4PBeJqUfR3HJnI\r\ngfIfsuNmZumufMjeECDvAgMBAAGjgcMwgcAwDgYDVR0PAQH/BAQDAgbAMB0GA1Ud\r\nDgQWBBTcnrsUPuS9CSQrV0YIKI+4P97atTAfBgNVHSMEGDAWgBQQmPVY2VIxLDbC\r\nr491i0Xlz9ECZzAlBgNVHREBAf8EGzAZgRd0ZXN0LmFpcEBkYXRha2F2ZXJpLm9y\r\nZzBHBgNVHR8BAf8EPTA7MDmgJaAjhiFodHRwczovL2Zha2VjYS5pdWR4LmlvL2Zh\r\na2VjYS5jcmyiEIIOZmFrZWNhLml1ZHguaW8wDQYJKoZIhvcNAQELBQADggEBAFTs\r\n/W/ONQebv+tN0A52AtE3YZ4WXcwHHi0wF4MFQV/qmEygmV8ZPJQ+6x5z02KnDLcE\r\nXSFWH5b0Fhrj7OPB5Smnnd47syRVuDHIteAFdx8c2Ds65Mrui2Rv1yZnepwTwVtz\r\n1S6pRV/G4C8Ym91s27pfhFa9Pj5LvGgviZiFOJ/GibJcm9n19UIn1qFMg6TYTmkl\r\n6NzAZK2r2icNtWuSHWFY2rD2LEH3dorduUrfX+ykxUwVPDb7DQs4JJHu8h3+8AlM\r\nkSegyo4FGaXAmTHvMUW7d626WGyZIBWVnWFqyqY4p3BvoAl3ByxCTtUiKCb/jNGm\r\nq2EAY77Z7TqDLdfzVlY=\r\n-----END CERTIFICATE-----\r\n"
+            },
+            "hashalg": "sha256",
+            "sattrs": {
+                "array": [
+                    {
+                        "attr": "contentType",
+                        "type": "data"
+                    },
+                    {
+                        "attr": "messageDigest",
+                        "hex": "c2a27013852863110b45bf9657e3cdee1c0afd9dd8a30bffe9e974d432dfbfde"
+                    },
+                    {
+                        "attr": "signingTime"
+                    },
+                    {
+                        "attr": "signingCertificateV2",
+                        "array": [
+                            "-----BEGIN CERTIFICATE-----\r\nMIIDmjCCAoKgAwIBAgIUPm2DqtwN0/JOREckQbYhHI60iP8wDQYJKoZIhvcNAQEL\r\nBQAwGTEXMBUGA1UEAwwOZmFrZWNhLml1ZHguaW8wHhcNMjQxMDI5MDkxNjM0WhcN\r\nMjUxMDI5MDkxNjM0WjAvMQswCQYDVQQGEwJJTjEgMB4GA1UEAwwXdGVzdC5haXBA\r\nZGF0YWthdmVyaS5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCz\r\nFgh08JTzYYiSGBHtKQUsinOsjRMGsGEeP7m4TFTODEsyUfItuQrWsi9LRtzrFigq\r\nOde+bI67aBUj3krM2JfPe/1aDASnS8tjff9A9IrX5y9rAdaa0rZBPtWaNWai+s1/\r\ncD5CIb4rB5PHcJL/SnlBgbKtBylP4d/mRO+m/abx3tMXuOvEiGufhrCDrz6NT/B4\r\npqln+ChdpNb/1N4GLHYhb0aRXa+eHqWliJW5+TJB6Y3aNUutO2Yc02Sa5S4GD6xD\r\ny7nzTxWzrS93V+7fvFZk+DL3xZyY9gXD3YfW9EjG53gwbS3WiC4PBeJqUfR3HJnI\r\ngfIfsuNmZumufMjeECDvAgMBAAGjgcMwgcAwDgYDVR0PAQH/BAQDAgbAMB0GA1Ud\r\nDgQWBBTcnrsUPuS9CSQrV0YIKI+4P97atTAfBgNVHSMEGDAWgBQQmPVY2VIxLDbC\r\nr491i0Xlz9ECZzAlBgNVHREBAf8EGzAZgRd0ZXN0LmFpcEBkYXRha2F2ZXJpLm9y\r\nZzBHBgNVHR8BAf8EPTA7MDmgJaAjhiFodHRwczovL2Zha2VjYS5pdWR4LmlvL2Zh\r\na2VjYS5jcmyiEIIOZmFrZWNhLml1ZHguaW8wDQYJKoZIhvcNAQELBQADggEBAFTs\r\n/W/ONQebv+tN0A52AtE3YZ4WXcwHHi0wF4MFQV/qmEygmV8ZPJQ+6x5z02KnDLcE\r\nXSFWH5b0Fhrj7OPB5Smnnd47syRVuDHIteAFdx8c2Ds65Mrui2Rv1yZnepwTwVtz\r\n1S6pRV/G4C8Ym91s27pfhFa9Pj5LvGgviZiFOJ/GibJcm9n19UIn1qFMg6TYTmkl\r\n6NzAZK2r2icNtWuSHWFY2rD2LEH3dorduUrfX+ykxUwVPDb7DQs4JJHu8h3+8AlM\r\nkSegyo4FGaXAmTHvMUW7d626WGyZIBWVnWFqyqY4p3BvoAl3ByxCTtUiKCb/jNGm\r\nq2EAY77Z7TqDLdfzVlY=\r\n-----END CERTIFICATE-----\r\n"
+                        ]
+                    }
+                ]
+            },
+            "sigalg": "SHA256withRSA",
+            "signkey": "-----BEGIN RSA PRIVATE KEY-----\r\nMIIEowIBAAKCAQEAsxYIdPCU82GIkhgR7SkFLIpzrI0TBrBhHj+5uExUzgxLMlHy\r\nLbkK1rIvS0bc6xYoKjnXvmyOu2gVI95KzNiXz3v9WgwEp0vLY33/QPSK1+cvawHW\r\nmtK2QT7VmjVmovrNf3A+QiG+KweTx3CS/0p5QYGyrQcpT+Hf5kTvpv2m8d7TF7jr\r\nxIhrn4awg68+jU/weKapZ/goXaTW/9TeBix2IW9GkV2vnh6lpYiVufkyQemN2jVL\r\nrTtmHNNkmuUuBg+sQ8u5808Vs60vd1fu37xWZPgy98WcmPYFw92H1vRIxud4MG0t\r\n1oguDwXialH0dxyZyIHyH7LjZmbprnzI3hAg7wIDAQABAoIBAA7ANb62fEZWiWKJ\r\nmgLM7XcSoysaZm+w6Ob0ovsDsO6IQ7KOEZXjinmBrSfIDluzJ2hglR0puurDzKeR\r\nYHVIyxEh6nQ+AWCFFTUjBGEL/Q21WXBsDKQTz0N57F7EORAbYWbQTq7kZNINhAYa\r\nIMZNxfjeOOKyPTX66fxncpsjt6cI98sY0hM04eoDHgPEgKFQLh7RrzOFCE3iaXeT\r\n6A43Gk5ULu0r8QwL7nw346bX9OmmZ34/Jyv5LjfWjXAmXtNk3IhsYCKV8FyxWxrp\r\n6hjgmnCH41+2NhxXVVBovX4nXXcyrAYOi0OYSt1lb8rrQh4+Ee+SXLGZaV6R1BAi\r\nBZoyPcECgYEA6tvcXS7f1ScEt/5k41yR2UYHuG2WY/PC6qZSjn+9BnGke7nblEFt\r\nZgOYdZh11DyBikaoZDtF/J7c8Rh5JkVXU3Zo226sxsk3mU5tBC8DApy4bCuP0NnY\r\n7wz9NS16F58yaRoG/yGtHNUQjNKmmN+qSJN/ErI1sLK3634DrmBH7y8CgYEAwzTu\r\npo0r8Sox3sZcOJHwD05wimZIyuaB7MlTqaiJAtZgfRZhPu95x6NEXv/diDMlYsSx\r\nnTwT4LJEo/P7uy79wDJv45vJpiamLWkzOBFfzJzJ0rhZgVJIYSsNoIXvWPqXR8M+\r\nFtEt8VuiVU4mblfRdeDOGwlwLUg+kCX4JqUwekECgYEA3q6GO4glTNpJHBfGGtl7\r\npHJFAbZOgQjwSEJZRqmRVZnM5k8sBl8e1joUhXOATTLtdGlYYmjdDBCo1qRowkO+\r\n7/D2rRA8G+NPpzl4Hh5hEUn9hvqqytCzYr2DG7e56snUJ1k5RxDsLclLfuqAcbSo\r\npVXMh7KXO6nIvy1lWiIKMpsCgYAxrfv6qT0AsHNmtebsgr+stZLQtj1aXhW81HQV\r\nXo4YCcUesJ5pLPs6QqP45XdU3WdrXpGxaYPJkLUFYOe0+L2dt3hgXdqRDY8HSZm+\r\ncDWIVnLKzR4CWpWPHSznqI6Ef6oWmmrn1a6ymVaUDUKcnH7zWBY8LUe+Tn+VogQo\r\nmavfwQKBgCpbxA2ykC5+wP+shjiHZIXeTR/t7SrqXTpJS+/WsVulqC/9OZahZPNM\r\nyKmt6E8gbG1Bu45SxGCXr/V2snDcfizx9WoAnsn9vA1agihD1Slz97hnXwh4kz76\r\nXqBcsX5HonkTPiOz3PcarGo0SOxBNtf2uPiXLK10eTK9tCUpNKdD\r\n-----END RSA PRIVATE KEY-----\r\n",
+            "sighex": "39d5989b2ae6b62357c450997906ed63454ac90db549c88fa6e8033ea25bae05cfacf275de1225cac8ce0fa1c1107f62252768c0327b9ce45c6c7a4b2354ac2a3fb1a0e90454e817aed0289bc70e81cd8211af85d76eb739d3fe9460ccdf6d40f4f05e4003f84e9263318bf118b16731fa04964b88630e9d4d7cd1e0c22afd6fd52229e72022dd834d783135c9c5da66bf5359e7f7c1b61fa1b353957969a0e134542bbdd61a59e3c46bb5902a83e265bc7b5a5c2dba03c32066978af19951845cb8aa97c90961a735156b64447ef890ed6db22f1b2db098dd93b9d149a6672cc78d4349bb9f0d6f1340c96f1bcfbc24de5fba8f970364e8e973eb78dd33717b"
+        }
+    ],
+    "certs": [
+        "-----BEGIN CERTIFICATE-----\r\nMIIDmjCCAoKgAwIBAgIUPm2DqtwN0/JOREckQbYhHI60iP8wDQYJKoZIhvcNAQEL\r\nBQAwGTEXMBUGA1UEAwwOZmFrZWNhLml1ZHguaW8wHhcNMjQxMDI5MDkxNjM0WhcN\r\nMjUxMDI5MDkxNjM0WjAvMQswCQYDVQQGEwJJTjEgMB4GA1UEAwwXdGVzdC5haXBA\r\nZGF0YWthdmVyaS5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCz\r\nFgh08JTzYYiSGBHtKQUsinOsjRMGsGEeP7m4TFTODEsyUfItuQrWsi9LRtzrFigq\r\nOde+bI67aBUj3krM2JfPe/1aDASnS8tjff9A9IrX5y9rAdaa0rZBPtWaNWai+s1/\r\ncD5CIb4rB5PHcJL/SnlBgbKtBylP4d/mRO+m/abx3tMXuOvEiGufhrCDrz6NT/B4\r\npqln+ChdpNb/1N4GLHYhb0aRXa+eHqWliJW5+TJB6Y3aNUutO2Yc02Sa5S4GD6xD\r\ny7nzTxWzrS93V+7fvFZk+DL3xZyY9gXD3YfW9EjG53gwbS3WiC4PBeJqUfR3HJnI\r\ngfIfsuNmZumufMjeECDvAgMBAAGjgcMwgcAwDgYDVR0PAQH/BAQDAgbAMB0GA1Ud\r\nDgQWBBTcnrsUPuS9CSQrV0YIKI+4P97atTAfBgNVHSMEGDAWgBQQmPVY2VIxLDbC\r\nr491i0Xlz9ECZzAlBgNVHREBAf8EGzAZgRd0ZXN0LmFpcEBkYXRha2F2ZXJpLm9y\r\nZzBHBgNVHR8BAf8EPTA7MDmgJaAjhiFodHRwczovL2Zha2VjYS5pdWR4LmlvL2Zh\r\na2VjYS5jcmyiEIIOZmFrZWNhLml1ZHguaW8wDQYJKoZIhvcNAQELBQADggEBAFTs\r\n/W/ONQebv+tN0A52AtE3YZ4WXcwHHi0wF4MFQV/qmEygmV8ZPJQ+6x5z02KnDLcE\r\nXSFWH5b0Fhrj7OPB5Smnnd47syRVuDHIteAFdx8c2Ds65Mrui2Rv1yZnepwTwVtz\r\n1S6pRV/G4C8Ym91s27pfhFa9Pj5LvGgviZiFOJ/GibJcm9n19UIn1qFMg6TYTmkl\r\n6NzAZK2r2icNtWuSHWFY2rD2LEH3dorduUrfX+ykxUwVPDb7DQs4JJHu8h3+8AlM\r\nkSegyo4FGaXAmTHvMUW7d626WGyZIBWVnWFqyqY4p3BvoAl3ByxCTtUiKCb/jNGm\r\nq2EAY77Z7TqDLdfzVlY=\r\n-----END CERTIFICATE-----\r\n"
+    ]
+};
+
+const param = JSON.parse(JSON.stringify(paramOrg));
+new KJUR.asn1.cms.SignedData(param);
+const hCmsSignedData = sd.getContentInfoEncodedHex();
+let pem = KJUR.asn1.ASN1Util.getPEMStringFromHex(hCmsSignedData, 'CMS');  // $ExpectType string
+    
