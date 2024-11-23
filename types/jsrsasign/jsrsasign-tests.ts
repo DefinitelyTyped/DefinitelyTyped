@@ -206,7 +206,7 @@ const paramOrg = {
 };
 
 const param = JSON.parse(JSON.stringify(paramOrg));
-new KJUR.asn1.cms.SignedData(param);
+const sd = new KJUR.asn1.cms.SignedData(param);
 const hCmsSignedData = sd.getContentInfoEncodedHex();
 let pem = KJUR.asn1.ASN1Util.getPEMStringFromHex(hCmsSignedData, 'CMS');  // $ExpectType string
     
