@@ -3831,7 +3831,7 @@ declare namespace Matter {
          * @param eventName
          * @param callback
          */
-        static off(obj: any, eventName: string, callback: (e: any) => void): void;
+        static off(obj: any, eventName: string, callback?: (e: any) => void): void;
 
         /**
          * Fires all the callbacks subscribed to the given object's eventName, in the order they subscribed, if any.
