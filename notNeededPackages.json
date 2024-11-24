@@ -3781,6 +3781,10 @@
             "libraryName": "ng-table",
             "asOfVersion": "2.0.1"
         },
+        "nightwatch": {
+            "libraryName": "nightwatch",
+            "asOfVersion": "3.0.1"
+        },
         "nock": {
             "libraryName": "nock",
             "asOfVersion": "11.1.0"
