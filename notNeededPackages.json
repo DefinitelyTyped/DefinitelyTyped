@@ -5195,6 +5195,10 @@
             "libraryName": "react-sticky-box",
             "asOfVersion": "0.8.0"
         },
+        "react-sticky-el": {
+            "libraryName": "react-sticky-el",
+            "asOfVersion": "2.1.0"
+        },
         "react-svg": {
             "libraryName": "react-svg",
             "asOfVersion": "5.0.0"
