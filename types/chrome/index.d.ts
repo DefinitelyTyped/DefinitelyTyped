@@ -9,16 +9,16 @@ interface Window {
     chrome: typeof chrome;
 }
 
-////////////////////
-// Accessibility Features
-////////////////////
-/**
- * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request accessibilityFeatures.read permission. For modifying feature state, the extension needs accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
- * @since Chrome 37
- * Permissions: "accessibilityFeatures.read"
- * Important: This API works only on Chrome OS.
- */
 declare namespace chrome {
+    ////////////////////
+    // Accessibility Features
+    ////////////////////
+    /**
+     * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request accessibilityFeatures.read permission. For modifying feature state, the extension needs accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
+     * @since Chrome 37
+     * Permissions: "accessibilityFeatures.read"
+     * Important: This API works only on Chrome OS.
+     */
     export namespace accessibilityFeatures {
         /** **ChromeOS only.** Spoken feedback (text-to-speech). */
         export var spokenFeedback: chrome.types.ChromeSetting;
