@@ -152,6 +152,10 @@
             "libraryName": "antd",
             "asOfVersion": "1.0.0"
         },
+        "antlr4": {
+            "libraryName": "antlr4",
+            "asOfVersion": "4.12.0"
+        },
         "anybar": {
             "libraryName": "anybar",
             "asOfVersion": "4.0.0"
