@@ -6687,6 +6687,10 @@
             "libraryName": "@wordpress/dom-ready",
             "asOfVersion": "2.9.0"
         },
+        "wordpress__editor": {
+            "libraryName": "@wordpress/editor",
+            "asOfVersion": "14.12.0"
+        },
         "wordpress__element": {
             "libraryName": "@wordpress/element",
             "asOfVersion": "2.14.0"
