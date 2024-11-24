@@ -32,7 +32,7 @@ async function topLevel() {
         languageModelCapabilities.defaultTopK,
         languageModelCapabilities.maxTopK,
         languageModelCapabilities.defaultTemperature,
-        languageModelCapabilities.supportsLanguage("de"),
+        languageModelCapabilities.languageAvailable("de"),
     );
 
     languageModel.addEventListener("contextoverflow", () => {});
@@ -78,7 +78,7 @@ async function topLevel() {
         summarizerCapabilities.supportsType("teaser"),
         summarizerCapabilities.supportsFormat("plain-text"),
         summarizerCapabilities.supportsLength("long"),
-        summarizerCapabilities.supportsInputLanguage("de"),
+        summarizerCapabilities.languageAvailable("de"),
     );
 
     const summarizerResult: string = await summarizer.summarize("foo", {
@@ -116,7 +116,7 @@ async function topLevel() {
         writerCapabilities.supportsTone("casual"),
         writerCapabilities.supportsFormat("plain-text"),
         writerCapabilities.supportsLength("long"),
-        writerCapabilities.supportsInputLanguage("de"),
+        writerCapabilities.languageAvailable("de"),
     );
 
     const writerResult: string = await writer.write("foo", { signal: (new AbortController()).signal, context: "foo" });
@@ -151,7 +151,7 @@ async function topLevel() {
         rewriterCapabilities.supportsTone("more-casual"),
         rewriterCapabilities.supportsFormat("plain-text"),
         rewriterCapabilities.supportsLength("as-is"),
-        rewriterCapabilities.supportsInputLanguage("de"),
+        rewriterCapabilities.languageAvailable("de"),
     );
 
     const rewriterResult: string = await rewriter.rewrite("foo", {
@@ -189,7 +189,7 @@ async function topLevel() {
     const translatorCapabilities = await window.ai.translator.capabilities();
     console.log(
         translatorCapabilities.available,
-        translatorCapabilities.canTranslate("de", "en"),
+        translatorCapabilities.languagePairAvailable("de", "en"),
     );
 
     const translatorResult: string = await translator.translate("foo", {
@@ -219,7 +219,7 @@ async function topLevel() {
     const languageDetectorCapabilities = await window.ai.languageDetector.capabilities();
     console.log(
         languageDetectorCapabilities.available,
-        languageDetectorCapabilities.canDetect("de"),
+        languageDetectorCapabilities.languageAvailable("de"),
     );
 
     const [languageDetectorResult]: LanguageDetectionResult[] = await languageDetector.detect("foo", {

@@ -151,12 +151,11 @@ interface AILanguageModelCloneOptions {
 
 interface AILanguageModelCapabilities {
     readonly available: AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 
     readonly defaultTopK: number | null;
     readonly maxTopK: number | null;
     readonly defaultTemperature: number | null;
-
-    supportsLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Summarizer
@@ -205,7 +204,7 @@ interface AISummarizerCapabilities {
     supportsFormat(format: AISummarizerFormat): AICapabilityAvailability;
     supportsLength(length: AISummarizerLength): AICapabilityAvailability;
 
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Writer
@@ -254,7 +253,7 @@ interface AIWriterCapabilities {
     supportsFormat(format: AIWriterFormat): AICapabilityAvailability;
     supportsLength(length: AIWriterLength): AICapabilityAvailability;
 
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Rewriter
@@ -303,7 +302,7 @@ interface AIRewriterCapabilities {
     supportsFormat(format: AIRewriterFormat): AICapabilityAvailability;
     supportsLength(length: AIRewriterLength): AICapabilityAvailability;
 
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Translator
@@ -318,8 +317,8 @@ interface AITranslator {
     translate(input: string, options?: AITranslatorTranslateOptions): Promise<string>;
     translateStreaming(input: string, options?: AITranslatorTranslateOptions): ReadableStream;
 
-    readonly sourceLanguage: string;
-    readonly targetLanguage: string;
+    readonly sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier;
+    readonly targetLanguage: Intl.UnicodeBCP47LocaleIdentifier;
 
     destroy(): void;
 }
@@ -327,15 +326,18 @@ interface AITranslator {
 interface AITranslatorCapabilities {
     readonly available: AICapabilityAvailability;
 
-    canTranslate(sourceLanguage: string, targetLanguage: string): AICapabilityAvailability;
+    languagePairAvailable(
+        sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier,
+        targetLanguage: Intl.UnicodeBCP47LocaleIdentifier,
+    ): AICapabilityAvailability;
 }
 
 interface AITranslatorCreateOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
-    sourceLanguage: string;
-    targetLanguage: string;
+    sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier;
+    targetLanguage: Intl.UnicodeBCP47LocaleIdentifier;
 }
 
 interface AITranslatorTranslateOptions {
@@ -359,7 +361,7 @@ interface AILanguageDetector {
 interface AILanguageDetectorCapabilities {
     readonly available: AICapabilityAvailability;
 
-    canDetect(languageTag: string): AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 interface AILanguageDetectorCreateOptions {
@@ -373,6 +375,6 @@ interface AILanguageDetectorDetectOptions {
 
 interface LanguageDetectionResult {
     /** null represents unknown language */
-    detectedLanguage: string | null;
+    detectedLanguage: Intl.UnicodeBCP47LocaleIdentifier | null;
     confidence: number;
 }
