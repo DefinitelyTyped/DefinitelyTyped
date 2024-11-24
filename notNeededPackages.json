@@ -1625,6 +1625,10 @@
             "libraryName": "env-paths",
             "asOfVersion": "2.1.0"
         },
+        "epub": {
+            "libraryName": "epub",
+            "asOfVersion": "0.2.0"
+        },
         "err-code": {
             "libraryName": "err-code",
             "asOfVersion": "3.0.0"
