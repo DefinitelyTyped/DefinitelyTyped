@@ -1136,6 +1136,10 @@
             "libraryName": "cpy",
             "asOfVersion": "7.1.1"
         },
+        "crc": {
+            "libraryName": "crc",
+            "asOfVersion": "4.0.0"
+        },
         "create-banner": {
             "libraryName": "create-banner",
             "asOfVersion": "2.0.0"
