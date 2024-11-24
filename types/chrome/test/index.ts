@@ -1555,15 +1555,111 @@ async function testSystemStorageForPromise() {
     await chrome.system.storage.getAvailableCapacity("id1");
 }
 
-// https://developer.chrome.com/docs/extensions/reference/system_display
-async function testSystemDisplayForPromise() {
-    await chrome.system.display.getInfo();
-    await chrome.system.display.getInfo({});
-    await chrome.system.display.getDisplayLayout();
-    await chrome.system.display.setDisplayProperties("id1", {});
-    await chrome.system.display.setDisplayLayout([]);
-    await chrome.system.display.showNativeTouchCalibration("id1");
-    await chrome.system.display.setMirrorMode({});
+// https://developer.chrome.com/docs/extensions/reference/api/system/display
+async function testSystemDisplay() {
+    chrome.system.display.ActiveState.ACTIVE === "active";
+    chrome.system.display.ActiveState.INACTIVE === "inactive";
+
+    chrome.system.display.LayoutPosition.BOTTOM === "bottom";
+    chrome.system.display.LayoutPosition.LEFT === "left";
+    chrome.system.display.LayoutPosition.RIGHT === "right";
+    chrome.system.display.LayoutPosition.TOP === "top";
+
+    chrome.system.display.MirrorMode.MIXED === "mixed";
+    chrome.system.display.MirrorMode.NORMAL === "normal";
+    chrome.system.display.MirrorMode.OFF === "off";
+
+    chrome.system.display.clearTouchCalibration("id"); // $ExpectType void
+
+    const point = { x: 0, y: 0 };
+    const touchCalibrationPair = { displayPoint: point, touchPoint: point };
+    const touchCalibrationPairs = {
+        pair1: touchCalibrationPair,
+        pair2: touchCalibrationPair,
+        pair3: touchCalibrationPair,
+        pair4: touchCalibrationPair,
+    };
+    const bound = { left: 0, top: 0, width: 0, height: 0 };
+    chrome.system.display.completeCustomTouchCalibration(touchCalibrationPairs, bound); // $ExpectType void
+
+    chrome.system.display.enableUnifiedDesktop(true); // $ExpectType void
+    chrome.system.display.enableUnifiedDesktop(false); // $ExpectType void
+
+    chrome.system.display.getDisplayLayout(); // $ExpectType Promise<DisplayLayout[]>
+    chrome.system.display.getDisplayLayout((layouts) => { // $ExpectType void
+        layouts; // $ExpectType DisplayLayout[]
+    });
+    // @ts-expect-error
+    chrome.printing.getPrinterInfo(() => {}).then(() => {});
+
+    const flags = { singleUnified: true };
+    chrome.system.display.getInfo(); // $ExpectType Promise<DisplayUnitInfo[]>
+    chrome.system.display.getInfo((displayInfo) => { // $ExpectType void
+        displayInfo; // $ExpectType DisplayUnitInfo[]
+    });
+    chrome.system.display.getInfo(flags); // $ExpectType Promise<DisplayUnitInfo[]>
+    chrome.system.display.getInfo(flags, (displayInfo) => { // $ExpectType void
+        displayInfo; // $ExpectType DisplayUnitInfo[]
+    });
+    // @ts-expect-error
+    chrome.system.display.getInfo(() => {}).then(() => {});
+
+    const insets = { left: 0, top: 0, right: 0, bottom: 0 };
+    chrome.system.display.overscanCalibrationAdjust("id", insets); // $ExpectType void
+
+    chrome.system.display.overscanCalibrationComplete("id"); // $ExpectType void
+
+    chrome.system.display.overscanCalibrationReset("id"); // $ExpectType void
+
+    chrome.system.display.overscanCalibrationStart("id"); // $ExpectType void
+
+    const displayLayout = {
+        id: "id",
+        parentId: "parentId",
+        position: "top",
+        offset: 0,
+    } as const;
+    chrome.system.display.setDisplayLayout([displayLayout]); // $ExpectType Promise<void>
+    chrome.system.display.setDisplayLayout([displayLayout], () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.system.display.setDisplayLayout([displayLayout], () => {}).then(() => {});
+
+    const displayProperties = {
+        isUnified: true,
+        mirroringSourceId: "",
+        isPrimary: true,
+        overscan: insets,
+        rotation: 90,
+        boundsOriginX: 0,
+        boundsOriginY: 0,
+        displayZoomFactor: 0,
+    } as const;
+    chrome.system.display.setDisplayProperties("id", displayProperties); // $ExpectType Promise<void>
+    chrome.system.display.setDisplayProperties("id", displayProperties, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.system.display.setDisplayProperties("id", displayProperties, () => {}).then(() => {});
+
+    const mirrorModeInfo = {
+        mode: "off",
+    } as const;
+    chrome.system.display.setMirrorMode(mirrorModeInfo); // $ExpectType Promise<void>
+    chrome.system.display.setMirrorMode(mirrorModeInfo, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.system.display.setMirrorMode(mirrorModeInfo, () => {}).then(() => {});
+
+    chrome.system.display.showNativeTouchCalibration("id"); // $ExpectType Promise<boolean>
+    chrome.system.display.showNativeTouchCalibration("id", (success) => { // $ExpectType void
+        success; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.system.display.showNativeTouchCalibration("id", () => {}).then(() => {});
+
+    chrome.system.display.startCustomTouchCalibration("id"); // $ExpectType void
+
+    chrome.system.display.onDisplayChanged.addListener(() => {}); // $ExpectType void
+    chrome.system.display.onDisplayChanged.removeListener(() => {}); // $ExpectType void
+    chrome.system.display.onDisplayChanged.hasListener(() => {}); // $ExpectType boolean
+    chrome.system.display.onDisplayChanged.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/systemLog

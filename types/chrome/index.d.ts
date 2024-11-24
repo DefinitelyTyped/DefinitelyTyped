@@ -9368,21 +9368,33 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the system.display API to query display metadata.
-     * Permissions: 'system.display'
+     * Permissions: "system.display"
      * @since Chrome 30
      */
     export namespace system.display {
-        export const DisplayPosition: {
-            TOP: "top";
-            RIGHT: "right";
-            BOTTOM: "bottom";
-            LEFT: "left";
-        };
-        export const MirrorMode: {
-            OFF: "off";
-            NORMAL: "normal";
-            MIXED: "mixed";
-        };
+        export enum LayoutPosition {
+            TOP = "top",
+            RIGHT = "right",
+            BOTTOM = "bottom",
+            LEFT = "left",
+        }
+
+        /**
+         * Mirror mode, i.e. different ways of how a display is mirrored to other displays.
+         * @since Chrome 65
+         */
+        export enum MirrorMode {
+            /** Specifies the default mode (extended or unified desktop). */
+            OFF = "off",
+            /** Specifies that the default source display will be mirrored to all other displays. */
+            NORMAL = "normal",
+            /**
+             * Specifies that the specified source display will be mirrored to the provided destination displays.
+             * All other connected displays will be extended.
+             */
+            MIXED = "mixed",
+        }
+
         export interface Bounds {
             /**  The x-coordinate of the upper-left corner. */
             left: number;
@@ -9405,9 +9417,7 @@ declare namespace chrome {
             bottom: number;
         }
 
-        /**
-         * @since Chrome 57
-         */
+        /** @since Chrome 57 */
         export interface Point {
             /** The x-coordinate of the point. */
             x: number;
@@ -9415,9 +9425,7 @@ declare namespace chrome {
             y: number;
         }
 
-        /**
-         * @since Chrome 57
-         */
+        /** @since Chrome 57 */
         export interface TouchCalibrationPair {
             /** The coordinates of the display point. */
             displayPoint: Point;
@@ -9425,47 +9433,40 @@ declare namespace chrome {
             touchPoint: Point;
         }
 
-        /**
-         * @since Chrome 52
-         */
+        /** @since Chrome 52 */
         export interface DisplayMode {
             /** The display mode width in device independent (user visible) pixels. */
             width: number;
-
             /** The display mode height in device independent (user visible) pixels. */
             height: number;
-
             /** The display mode width in native pixels. */
             widthInNativePixels: number;
-
             /** The display mode height in native pixels. */
             heightInNativePixels: number;
-
             /**
-             * @deprecated Deprecated since Chrome 70. Use `displayZoomFactor`
-             * @description The display mode UI scale factor.
+             * True if this mode is interlaced, false if not provided.
+             * @since Chrome 74
              */
-            uiScale: number;
-
+            isInterlaced?: boolean;
+            /**
+             * The display mode UI scale factor.
+             * @deprecated Deprecated since Chrome 70. Use `displayZoomFactor`
+             */
+            uiScale?: number;
             /** The display mode device scale factor. */
             deviceScaleFactor: number;
-
             /**
              * The display mode refresh rate in hertz.
              * @since Chrome 67
              */
             refreshRate: number;
-
             /** True if the mode is the display's native mode. */
             isNative: boolean;
-
             /** True if the display mode is currently selected. */
             isSelected: boolean;
         }
 
-        /**
-         * @since Chrome 53
-         */
+        /** @since Chrome 53 */
         export interface DisplayLayout {
             /** The unique identifier of the display. */
             id: string;
@@ -9474,17 +9475,14 @@ declare namespace chrome {
             /**
              * The layout position of this display relative to the parent.
              * This will be ignored for the root.
-             * @see enum
              */
-            position: typeof DisplayPosition[keyof typeof DisplayPosition];
+            position: `${LayoutPosition}`;
             /** The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned. */
             offset: number;
         }
 
-        /**
-         * The pairs of point used to calibrate the display.
-         */
-        export interface TouchCalibrationPairs {
+        /** The pairs of point used to calibrate the display. */
+        export interface TouchCalibrationPairQuad {
             /** First pair of touch and display point required for touch calibration. */
             pair1: TouchCalibrationPair;
             /** Second pair of touch and display point required for touch calibration. */
@@ -9495,49 +9493,38 @@ declare namespace chrome {
             pair4: TouchCalibrationPair;
         }
 
-        /**
-         * Representation of info data to be used in chrome.system.display.setDisplayProperties()
-         */
-        export interface DisplayPropertiesInfo {
+        export interface DisplayProperties {
             /**
-             * requires(CrOS) Chrome OS only.
-             * @description
-             * If set to true, changes the display mode to unified desktop.
+             * If set to true, changes the display mode to unified desktop (see `enableUnifiedDesktop` for details).
              * If set to false, unified desktop mode will be disabled.
              * This is only valid for the primary display.
-             * If provided, mirroringSourceId must not be provided and other properties may not apply.
+             * If provided, mirroringSourceId must not be provided and other properties will be ignored.
              * This is has no effect if not provided.
-             * @see `enableUnifiedDesktop` for details
+             * @platform ChromeOS only
              * @since Chrome 59
              */
             isUnified?: boolean | undefined;
-
             /**
-             * requires(CrOS) Chrome OS only.
-             * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
-             * @see setMirrorMode
-             * @description
-             * If set and not empty, enables mirroring for this display.
-             * Otherwise disables mirroring for this display.
-             * This value should indicate the id of the source display to mirror,
-             * which must not be the same as the id passed to setDisplayProperties.
+             * If set and not empty, enables mirroring for this display only.
+             * Otherwise disables mirroring for all displays.
+             * This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties.
              * If set, no other property may be set.
+             * @platform ChromeOS only
+             * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
              */
             mirroringSourceId?: string | undefined;
-
             /**
              * If set to true, makes the display primary.
              * No-op if set to false.
+             * Note: If set, the display is considered primary for all other properties (i.e. `isUnified` may be set and bounds origin may not).
              */
             isPrimary?: boolean | undefined;
-
             /**
              * If set, sets the display's overscan insets to the provided values.
              * Note that overscan values may not be negative or larger than a half of the screen's size.
-             * Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter.
+             * Overscan cannot be changed on the internal monitor.
              */
             overscan?: Insets | undefined;
-
             /**
              * If set, updates the display's rotation.
              * Legal values are [0, 90, 180, 270].
@@ -9545,38 +9532,31 @@ declare namespace chrome {
              * It's applied after overscan parameter.
              */
             rotation?: 0 | 90 | 180 | 270 | undefined;
-
             /**
-             * If set, updates the display's logical bounds origin along x-axis.
-             * Applied together with boundsOriginY, if boundsOriginY is set.
-             * Note that, when updating the display origin, some constraints will be applied,
-             * so the final bounds origin may be different than the one set.
-             * The final bounds can be retrieved using getInfo. The bounds origin is applied
-             * after rotation. The bounds origin cannot be changed on the primary display.
-             * Note that is also invalid to set bounds origin values if isPrimary is also set
-             * (as isPrimary parameter is applied first).
+             * If set, updates the display's logical bounds origin along the x-axis.
+             * Applied together with `boundsOriginY`.
+             * Defaults to the current value if not set and `boundsOriginY` is set.
+             * Note that when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set.
+             * The final bounds can be retrieved using `getInfo`.
+             * The bounds origin cannot be changed on the primary display.
              */
             boundsOriginX?: number | undefined;
-
             /**
-             * If set, updates the display's logical bounds origin along y-axis.
-             * @see boundsOriginX
+             * If set, updates the display's logical bounds origin along the y-axis.
+             * See documentation for `boundsOriginX` parameter.
              */
             boundsOriginY?: number | undefined;
-
             /**
              * If set, updates the display mode to the mode matching this value.
+             * If other parameters are invalid, this will not be applied.
+             * If the display mode is invalid, it will not be applied and an error will be set, but other properties will still be applied.
              * @since Chrome 52
              */
             displayMode?: DisplayMode | undefined;
-
             /**
-             * @since Chrome 65
-             * @description
              * If set, updates the zoom associated with the display.
-             * This zoom performs re-layout and repaint thus resulting
-             * in a better quality zoom than just performing
-             * a pixel by pixel stretch enlargement.
+             * This zoom performs re-layout and repaint thus resulting in a better quality zoom than just performing a pixel by pixel stretch enlargement.
+             * @since Chrome 65
              */
             displayZoomFactor?: number | undefined;
         }
@@ -9585,10 +9565,9 @@ declare namespace chrome {
          * Options affecting how the information is returned.
          * @since Chrome 59
          */
-        export interface DisplayInfoFlags {
+        export interface GetInfoFlags {
             /**
-             * If set to true, only a single DisplayUnitInfo will be returned by getInfo when in unified desktop mode.
-             * @see enableUnifiedDesktop
+             * If set to true, only a single `DisplayUnitInfo` will be returned by `getInfo` when in unified desktop mode (see `enableUnifiedDesktop`).
              * @default false
              */
             singleUnified?: boolean | undefined;
@@ -9600,51 +9579,37 @@ declare namespace chrome {
          * This state is used to keep existing display when the all displays are disconnected, for example.
          * @since Chrome 117
          */
-        export type ActiveStateEnum = "active" | "inactive";
+        export enum ActiveState {
+            ACTIVE = "active",
+            INACTIVE = "inactive",
+        }
 
-        /** Information about display properties. */
-        export interface DisplayInfo {
+        export interface DisplayUnitInfo {
             /**
              * Active if the display is detected and used by the system.
              * @since Chrome 117
              */
-            activeState: ActiveStateEnum;
+            activeState: `${ActiveState}`;
             /** The unique identifier of the display. */
             id: string;
             /** The user-friendly name (e.g. 'HP LCD monitor'). */
             name: string;
             /**
-             * requires(CrOS Kiosk app) Only available in Chrome OS Kiosk apps
+             * @platform ChromeOS and Web UI only
              * @since Chrome 67
              */
-            edid?: {
-                /**
-                 * 3 character manufacturer code.
-                 */
-                manufacturerId: string;
-                /**
-                 * 2 byte manufacturer-assigned code.
-                 */
-                productId: string;
-                /**
-                 * Year of manufacturer.
-                 */
-                yearOfManufacture?: string | undefined;
-            } | undefined;
+            edid?: Edid;
             /**
-             * requires(CrOS) Only working properly on Chrome OS.
-             * Identifier of the display that is being mirrored on the display unit.
-             * If mirroring is not in progress, set to an empty string
-             * Currently exposed only on ChromeOS.
-             * Will be empty string on other platforms.
+             * Identifier of the display that is being mirrored if mirroring is enabled, otherwise empty.
+             * This will be set for all displays (including the display being mirrored).
+             * @platform ChromeOS only
              */
             mirroringSourceId: string;
             /**
-             * requires(CrOS) Only available on Chrome OS.
              * Identifiers of the displays to which the source display is being mirrored.
-             * Empty if no displays are being mirrored. This will be set to the same value
-             * for all displays.
-             * ❗ This must not include *mirroringSourceId*. ❗
+             * Empty if no displays are being mirrored.
+             * This must not include `mirroringSourceId`.
+             * @platform ChromeOS only
              * @since Chrome 64
              */
             mirroringDestinationIds: string[];
@@ -9655,7 +9620,7 @@ declare namespace chrome {
             /** True if this display is enabled. */
             isEnabled: boolean;
             /**
-             * True for all displays when in unified desktop mode
+             * True for all displays when in unified desktop mode. See documentation for `enableUnifiedDesktop`.
              * @since Chrome 59
              */
             isUnified: boolean;
@@ -9663,24 +9628,37 @@ declare namespace chrome {
             dpiX: number;
             /** The number of pixels per inch along the y-axis. */
             dpiY: number;
-            /** The display's clockwise rotation in degrees relative to the vertical position. Currently exposed only on ChromeOS. Will be set to 0 on other platforms. */
+            /** The display's clockwise rotation in degrees relative to the vertical position.
+             * Currently exposed only on ChromeOS. Will be set to 0 on other platforms.
+             * A value of -1 will be interpreted as auto-rotate when the device is in a physical tablet state.
+             * @platform ChromeOS only
+             */
             rotation: number;
             /** The display's logical bounds. */
             bounds: Bounds;
-            /** The display's insets within its screen's bounds. Currently exposed only on ChromeOS. Will be set to empty insets on other platforms. */
+            /**
+             * The display's insets within its screen's bounds.
+             * Currently exposed only on ChromeOS. Will be set to empty insets on other platforms.
+             * @platform ChromeOS only
+             */
             overscan: Insets;
-            /** The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher. */
+            /**
+             * The usable work area of the display within the display bounds.
+             * The work area excludes areas of the display reserved for OS, for example taskbar and launcher.
+             */
             workArea: Bounds;
             /**
-             * requires(CrOS) Only available on Chrome OS.
              * The list of available display modes.
              * The current mode will have isSelected=true.
-             * Only available on Chrome OS.
              * Will be set to an empty array on other platforms.
+             * @platform ChromeOS only
              * @since Chrome 52
              */
             modes: DisplayMode[];
-            /** True if this display has a touch input device associated with it. */
+            /**
+             * True if this display has a touch input device associated with it.
+             * @since Chrome 57
+             */
             hasTouchSupport: boolean;
             /**
              * A list of zoom factor values that can be set for the display.
@@ -9695,20 +9673,25 @@ declare namespace chrome {
             displayZoomFactor: number;
         }
 
-        export interface MirrorModeInfo {
-            /**
-             * The mirror mode that should be set.
-             * **off**
-             * Use the default mode (extended or unified desktop).
-             * **normal**
-             * The default source display will be mirrored to all other displays.
-             * **mixed**
-             * The specified source display will be mirrored to the provided destination displays. All other connected displays will be extended.
-             */
-            mode?: "off" | "normal" | "mixed" | undefined;
+        /** @since Chrome 67 */
+        export interface Edid {
+            /** 3 character manufacturer code. */
+            manufacturerId: string;
+            /** 2 byte manufacturer-assigned code. */
+            productId: string;
+            /** Year of manufacturer. */
+            yearOfManufacture: number;
         }
+
+        export interface MirrorModeInfo {
+            /** The mirror mode that should be set. */
+            mode?: `${MirrorMode}`;
+        }
+
         export interface MirrorModeInfoMixed extends MirrorModeInfo {
+            /** The mirror mode that should be set. */
             mode: "mixed";
+            /** The id of the mirroring source display. */
             mirroringSourceId?: string | undefined;
             /** The ids of the mirroring destination displays. */
             mirroringDestinationIds?: string[] | undefined;
@@ -9716,116 +9699,71 @@ declare namespace chrome {
 
         /**
          * Requests the information for all attached display devices.
-         * @param callback The callback to invoke with the results.
-         */
-        export function getInfo(callback: (info: DisplayInfo[]) => void): void;
-        /**
-         * Requests the information for all attached display devices.
-         * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getInfo(): Promise<DisplayInfo[]>;
-        /**
-         * Requests the information for all attached display devices.
-         * @since Chrome 59
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param flags Options affecting how the information is returned.
-         * @param callback The callback to invoke with the results.
          */
-        export function getInfo(flags: DisplayInfoFlags, callback: (info: DisplayInfo[]) => void): void;
-        /**
-         * Requests the information for all attached display devices.
-         * @since Chrome 59
-         * @param flags Options affecting how the information is returned.
-         * @return The `getInfo` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
-        export function getInfo(flags: DisplayInfoFlags): Promise<DisplayInfo[]>;
+        export function getInfo(callback: (displayInfo: DisplayUnitInfo[]) => void): void;
+        export function getInfo(flags: GetInfoFlags, callback: (displayInfo: DisplayUnitInfo[]) => void): void;
+        export function getInfo(): Promise<DisplayUnitInfo[]>;
+        export function getInfo(flags: GetInfoFlags): Promise<DisplayUnitInfo[]>;
 
         /**
-         * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-         * @description Requests the layout info for all displays.
+         * Requests the layout info for all displays
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
+         * @platform ChromeOS and Web UI only
          * @since Chrome 53
-         * @param callback The callback to invoke with the results.
          */
         export function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
-
-        /**
-         * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-         * @description Requests the layout info for all displays.
-         * @since Chrome 53
-         * @return The getDisplayLayout method provides its result via callback or returned as a Promise (MV3 only).
-         */
         export function getDisplayLayout(): Promise<DisplayLayout[]>;
 
         /**
          * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
          * @description
-         * Updates the properties for the display specified by **id**,
-         * according to the information provided in **info**.
-         * On failure, runtime.lastError will be set.
+         * Updates the properties for the display specified by `id`,
+         * according to the information provided in `info`.
+         * On failure, `runtime.lastError` will be set.
+         * @platform ChromeOS and Web UI only
          * @param id The display's unique identifier.
-         * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
-         * @return The `setDisplayProperties` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters. To find out whether the function succeeded, runtime.lastError should be queried.
+         * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in `info`.
          */
-        export function setDisplayProperties(id: string, info: DisplayPropertiesInfo): Promise<void>;
+        export function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
+        export function setDisplayProperties(id: string, info: DisplayProperties): Promise<void>;
 
         /**
-         * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-         * @description
-         * Updates the properties for the display specified by **id**,
-         * according to the information provided in **info**.
-         * On failure, runtime.lastError will be set.
-         * @param id The display's unique identifier.
-         * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
-         * @param [callback] Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
-         */
-        export function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback: () => void): void;
-
-        /**
-         * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-         * @description
          * Set the layout for all displays.
          * Any display not included will use the default layout.
          * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
          * After layout is resolved, an onDisplayChanged event will be triggered.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
+         * @platform ChromeOS and Web UI only
          * @since Chrome 53
          * @param layouts The layout information, required for all displays except the primary display.
-         * @return The `setDisplayLayout` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters. To find out whether the function succeeded, runtime.lastError should be queried.
          */
+        export function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
         export function setDisplayLayout(layouts: DisplayLayout[]): Promise<void>;
 
         /**
-         * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-         * @description
-         * Set the layout for all displays.
-         * Any display not included will use the default layout.
-         * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
-         * After layout is resolved, an onDisplayChanged event will be triggered.
-         * @since Chrome 53
-         * @param layouts The layout information, required for all displays except the primary display.
-         * @param callback Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
-         */
-        export function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
-
-        /**
-         * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-         * @description
          * Enables/disables the unified desktop feature.
-         * Note that this simply enables the feature, but will not change the actual desktop mode.
-         * (That is, if the desktop is in mirror mode, it will stay in mirror mode)
+         * If enabled while mirroring is active, the desktop mode will not change until mirroring is turned off.
+         * Otherwise, the desktop mode will switch to unified immediately.
          * @since Chrome 46
+         * @platform ChromeOS and Web UI only
          * @param enabled True if unified desktop should be enabled.
          */
         export function enableUnifiedDesktop(enabled: boolean): void;
+
         /**
          * Starts overscan calibration for a display.
          * This will show an overlay on the screen indicating the current overscan insets.
-         * If overscan calibration for display **id** is in progress this will reset calibration.
+         * If overscan calibration for display `id` is in progress this will reset calibration.
          * @since Chrome 53
          * @param id The display's unique identifier.
          */
         export function overscanCalibrationStart(id: string): void;
+
         /**
          * Adjusts the current overscan insets for a display.
-         * Typically this should etiher move the display along an axis (e.g. left+right have the same value)
+         * Typically this should either move the display along an axis (e.g. left+right have the same value)
          * or scale it along an axis (e.g. top+bottom have opposite values).
          * Each Adjust call is cumulative with previous calls since Start.
          * @since Chrome 53
@@ -9849,25 +9787,15 @@ declare namespace chrome {
         export function overscanCalibrationComplete(id: string): void;
 
         /**
-         * Displays the native touch calibration UX for the display with **id** as display id.
+         * Displays the native touch calibration UX for the display with `id` as display id.
          * This will show an overlay on the screen with required instructions on how to proceed.
-         * The callback will be invoked in case of successful calibraion only.
+         * The callback will be invoked in case of successful calibration only.
          * If the calibration fails, this will throw an error.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @since Chrome 57
          * @param id The display's unique identifier.
-         * @param callback Optional callback to inform the caller that the touch calibration has ended. The argument of the callback informs if the calibration was a success or not.
          */
         export function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
-
-        /**
-         * Displays the native touch calibration UX for the display with **id** as display id.
-         * This will show an overlay on the screen with required instructions on how to proceed.
-         * The callback will be invoked in case of successful calibraion only.
-         * If the calibration fails, this will throw an error.
-         * @since Chrome 57
-         * @param id The display's unique identifier.
-         * @return The `showNativeTouchCalibration` method provides its result via callback or returned as a `Promise` (MV3 only).
-         */
         export function showNativeTouchCalibration(id: string): Promise<boolean>;
 
         /**
@@ -9881,15 +9809,15 @@ declare namespace chrome {
 
         /**
          * Sets the touch calibration pairs for a display.
-         * These **pairs** would be used to calibrate the touch screen for display with **id** called in startCustomTouchCalibration().
-         * Always call **startCustomTouchCalibration** before calling this method.
+         * These `pairs` would be used to calibrate the touch screen for display with `id` called in startCustomTouchCalibration().
+         * Always call `startCustomTouchCalibration` before calling this method.
          * If another touch calibration is already in progress this will throw an error.
          * @since Chrome 57
          * @param pairs The pairs of point used to calibrate the display.
-         * @param bounds Bounds of the display when the touch calibration was performed. |bounds.left| and |bounds.top| values are ignored.
+         * @param bounds Bounds of the display when the touch calibration was performed. `bounds.left` and `bounds.top` values are ignored.
          * @throws Error
          */
-        export function completeCustomTouchCalibration(pairs: TouchCalibrationPairs, bounds: Bounds): void;
+        export function completeCustomTouchCalibration(pairs: TouchCalibrationPairQuad, bounds: Bounds): void;
 
         /**
          * Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
@@ -9899,31 +9827,17 @@ declare namespace chrome {
         export function clearTouchCalibration(id: string): void;
 
         /**
-         * requires(CrOS Kiosk app) Chrome OS Kiosk apps only
-         * @since Chrome 65
-         * @description
          * Sets the display mode to the specified mirror mode.
          * Each call resets the state from previous calls.
-         * Calling setDisplayProperties() will fail for the
-         * mirroring destination displays.
+         * Calling setDisplayProperties() will fail for the mirroring destination displays.
+         * @platform ChromeOS and Web UI only
+         * @param info The information of the mirror mode that should be applied to the display mode.
+         * @since Chrome 65
          */
         export function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed, callback: () => void): void;
-
-        /**
-         * requires(CrOS Kiosk app) Chrome OS Kiosk apps only
-         * @since Chrome 65
-         * @description
-         * Sets the display mode to the specified mirror mode.
-         * Each call resets the state from previous calls.
-         * Calling setDisplayProperties() will fail for the
-         * mirroring destination displays.
-         * @return The `setMirrorMode` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
-         */
         export function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed): Promise<void>;
 
-        /**
-         * Fired when anything changes to the display configuration.
-         */
+        /** Fired when anything changes to the display configuration. */
         export const onDisplayChanged: chrome.events.Event<() => void>;
     }
 
