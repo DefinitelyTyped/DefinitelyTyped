@@ -182,7 +182,7 @@ const environment = new Environment({
             console.log(arg.fieldPath, arg.owner);
         } else if (arg.kind === "relay_resolver.error") {
             console.log(arg.fieldPath, arg.owner);
-        } else if(arg.kind === "relay_field_payload.error") {
+        } else if (arg.kind === "relay_field_payload.error") {
             arg.kind;
             console.log(arg.fieldPath, arg.owner, arg.error);
         } else if (arg.kind === "missing_expected_data.throw") {
