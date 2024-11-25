@@ -9,6 +9,7 @@
         "@types/express": "*"
     },
     "devDependencies": {
+        "@types/express": "*",
         "@types/method-override": "workspace:."
     },
     "owners": [
