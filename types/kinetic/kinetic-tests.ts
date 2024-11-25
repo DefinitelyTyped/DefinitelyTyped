@@ -1,4 +1,3 @@
-// http://www.html5canvastutorials.com/kineticjs/html5-canvas-kineticjs-rect-tutorial/
 namespace RectTutorial {
     var stage = new Kinetic.Stage({
         container: "container",
@@ -25,7 +24,6 @@ namespace RectTutorial {
     stage.add(layer);
 }
 
-// http://www.html5canvastutorials.com/kineticjs/html5-canvas-kineticjs-circle-tutorial/
 namespace CircleTutorial {
     var stage = new Kinetic.Stage({
         container: "container",
