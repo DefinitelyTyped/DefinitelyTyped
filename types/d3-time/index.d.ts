@@ -661,6 +661,20 @@ export const utcYear: CountableTimeInterval;
 export function utcYears(start: Date, stop: Date, step?: number): Date[];
 
 /**
+ * Like d3.utcDay, except it counts days since the UNIX epoch (January 1, 1970) such that interval.every returns uniformly-spaced dates rather than varying based on day-of-month.
+ */
+export const unixDay: CountableTimeInterval;
+
+/**
+ * This is a convenience alias for unixDay.range(...).
+ *
+ * @param start A start date object for the range.
+ * @param stop A stop date object for the range.
+ * @param step An optional number of steps to apply when calculating the dates in the range.
+ */
+export function unixDays(start: Date, stop: Date, step?: number): Date[];
+
+/**
  * Equivalent to d3.utcTicks, but in local time.
  */
 export function timeTicks(start: Date, stop: Date, count: number): Date[];
