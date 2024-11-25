@@ -1037,14 +1037,14 @@ type RelayResolverErrorEvent = Readonly<{
     handled: boolean;
 }>;
 
-type RelayFieldPayloadErrorEvent = {
+type RelayFieldPayloadErrorEvent = Readonly<{
     kind: "relay_field_payload.error";
     owner: string;
     fieldPath: string;
     error: TRelayFieldError;
     shouldThrow: boolean;
     handled: boolean;
-};
+}>;
 
 export type RelayFieldLoggerEvent =
     | MissingExpectedDataLogEvent
