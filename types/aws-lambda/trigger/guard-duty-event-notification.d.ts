@@ -1,4 +1,4 @@
-import { EventBridgeEvent } from "aws-lambda/trigger/eventbridge";
+import { EventBridgeEvent } from "./eventbridge";
 
 /**
  * Guard Duty events
