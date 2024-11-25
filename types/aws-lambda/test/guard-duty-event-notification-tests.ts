@@ -1,6 +1,4 @@
-import {
-    GuardDutyScanResultNotificationEvent,
-} from "aws-lambda";
+import { GuardDutyScanResultNotificationEvent } from "aws-lambda";
 
 const guardDutyScanResultNotificationEvent: GuardDutyScanResultNotificationEvent = {
     version: "0",
@@ -11,7 +9,7 @@ const guardDutyScanResultNotificationEvent: GuardDutyScanResultNotificationEvent
     time: "2024-10-29T20:40:58Z",
     region: "ca-central-1",
     resources: [
-        "arn:aws:guardduty:ca-central-1:123456789012:malware-protection-plan/24c96cfb217c338fc3df"
+        "arn:aws:guardduty:ca-central-1:123456789012:malware-protection-plan/24c96cfb217c338fc3df",
     ],
     detail: {
         schemaVersion: "1.0",
@@ -22,15 +20,15 @@ const guardDutyScanResultNotificationEvent: GuardDutyScanResultNotificationEvent
             objectKey: "objectKey",
             eTag: "6ee985bd6f65dc90bb7896a94fe9adb0",
             versionId: "NpeIP.i5R7OBO0bChPbGTmSsym5UohWS",
-            s3Throttled: false
+            s3Throttled: false,
         },
         scanResultDetails: {
             scanResultStatus: "THREAT_FOUND",
             threats: [
                 {
-                    name: "foobar"
-                }
-            ]
-        }
-    }
+                    name: "foobar",
+                },
+            ],
+        },
+    },
 };

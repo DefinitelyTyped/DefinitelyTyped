@@ -5,7 +5,10 @@ import { EventBridgeEvent } from "./eventbridge";
  * https://docs.aws.amazon.com/guardduty/latest/ug/monitor-with-eventbridge-s3-malware-protection.html
  */
 
-export interface GuardDutyScanResultNotificationEvent extends EventBridgeEvent<"GuardDuty Malware Protection Object Scan Result", GuardDutyScanResultNotificationEventDetail> {
+export interface GuardDutyScanResultNotificationEvent
+    extends
+        EventBridgeEvent<"GuardDuty Malware Protection Object Scan Result", GuardDutyScanResultNotificationEventDetail>
+{
     source: "aws.guardduty";
 }
 
@@ -22,7 +25,7 @@ export interface GuardDutyScanResultNotificationEventDetail {
     };
     scanResultDetails: {
         scanResultStatus: "NO_THREATS_FOUND" | "THREAT_FOUND" | "UNSUPPORTED" | "ACCESS_DENIED" | "FAILED";
-        threats: GuardDutyThreatDetail[] | null
+        threats: GuardDutyThreatDetail[] | null;
     };
 }
 
