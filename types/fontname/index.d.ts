@@ -12,3 +12,4 @@ interface FontName {
 
 declare const FontName: FontName;
 export = FontName;
+export as namespace FontName;
