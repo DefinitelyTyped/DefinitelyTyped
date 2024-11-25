@@ -1,6 +1,6 @@
-import Pbf = require("pbf");
+import Pbf from "pbf";
 import { Feature } from "geojson";
-import Point = require("@mapbox/point-geometry");
+import Point from "@mapbox/point-geometry";
 
 export class VectorTile {
     constructor(pbf: Pbf);
