@@ -265,6 +265,13 @@ playerManager.setMessageInterceptor(
     },
 );
 
+playerManager.addEventListener(cast.framework.events.EventType.ERROR, (event) => {
+    if (event.severity !== undefined) {
+        // $ExpectType ErrorSeverity
+        const severity = event.severity;
+    }
+});
+
 const queueItem = new cast.framework.messages.QueueItem();
 queueItem.activeTrackIds = [1, 2];
 queueItem.autoplay = false;
