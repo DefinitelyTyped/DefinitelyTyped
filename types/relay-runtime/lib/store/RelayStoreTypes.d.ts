@@ -993,41 +993,43 @@ export type MissingFieldHandler =
 
 type TRelayFieldErrorForDisplay = Readonly<{
     path?: Readonly<string[] | number[]>;
-    severity?: 'CRITICAL' | 'ERROR' | 'WARNING';
+    severity?: "CRITICAL" | "ERROR" | "WARNING";
 }>;
 
-export type TRelayFieldError = TRelayFieldErrorForDisplay & Readonly<{
-    message: string;
-}>;
+export type TRelayFieldError =
+    & TRelayFieldErrorForDisplay
+    & Readonly<{
+        message: string;
+    }>;
 
 type MissingExpectedDataLogEvent = Readonly<{
-    kind: 'missing_expected_data.log';
+    kind: "missing_expected_data.log";
     owner: string;
     fieldPath: string;
 }>;
 
 type MissingExpectedDataThrowEvent = Readonly<{
-    kind: 'missing_expected_data.throw';
+    kind: "missing_expected_data.throw";
     owner: string;
     fieldPath: string;
     handled: boolean;
 }>;
 
 type MissingRequiredFieldLogEvent = Readonly<{
-    kind: 'missing_required_field.log';
+    kind: "missing_required_field.log";
     owner: string;
     fieldPath: string;
 }>;
 
 type MissingRequiredFieldThrowEvent = Readonly<{
-    kind: 'missing_required_field.throw';
+    kind: "missing_required_field.throw";
     owner: string;
     fieldPath: string;
     handled: boolean;
 }>;
 
 type RelayResolverErrorEvent = Readonly<{
-    kind: 'relay_resolver.error';
+    kind: "relay_resolver.error";
     owner: string;
     fieldPath: string;
     error: Error;
@@ -1036,13 +1038,13 @@ type RelayResolverErrorEvent = Readonly<{
 }>;
 
 type RelayFieldPayloadErrorEvent = {
-    kind: 'relay_field_payload.error';
+    kind: "relay_field_payload.error";
     owner: string;
     fieldPath: string;
     error: TRelayFieldError;
     shouldThrow: boolean;
     handled: boolean;
-}
+};
 
 export type RelayFieldLoggerEvent =
     | MissingExpectedDataLogEvent
