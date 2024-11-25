@@ -1,9 +1,9 @@
-import { BoxPlotData, BoxPlotMarker } from "./lib/traces/box";
-import { CandlestickData } from "./lib/traces/candlestick";
-import { OhlcData } from "./lib/traces/ohlc";
-import { PieData } from "./lib/traces/pie";
-import { SankeyData } from "./lib/traces/sankey";
-import { ViolinData } from "./lib/traces/violin";
+import { BoxPlotData, BoxPlotMarker } from "./lib/box";
+import { CandlestickData } from "./lib/candlestick";
+import { OhlcData } from "./lib/ohlc";
+import { PieData } from "./lib/pie";
+import { SankeyData } from "./lib/sankey";
+import { ViolinData } from "./lib/violin";
 
 export as namespace Plotly;
 export { BoxPlotData, CandlestickData, OhlcData, PieData, SankeyData, ViolinData };
@@ -2730,8 +2730,9 @@ interface TraceModule {
     moduleType: "trace";
     name: string;
     categories: string[];
-    meta: Record<string, unknown>;
-    [key: string]: unknown;
+    meta: {
+        description: string;
+    };
 }
 
 interface LocaleModule {

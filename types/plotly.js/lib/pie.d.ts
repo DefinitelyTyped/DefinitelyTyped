@@ -1,4 +1,9 @@
-import { DataTitle, Datum, HoverLabel, PlotData } from "../../index";
+import { DataTitle, Datum, HoverLabel, PlotData } from "../";
+
+export const moduleType: "trace";
+export const name: "pie";
+export const categories: string[];
+export const meta: { description: string };
 
 export type PieColor = string | number;
 export type PieColors = Array<PieColor | null | undefined>;

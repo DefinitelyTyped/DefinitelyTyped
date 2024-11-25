@@ -1,4 +1,9 @@
-import { Datum, HoverLabel } from "../../index";
+import { Datum, HoverLabel } from "../";
+
+export const moduleType: "trace";
+export const name: "sankey";
+export const categories: string[];
+export const meta: { description: string };
 
 export type SankeyColor = string | number;
 export type SankeyColors = Array<SankeyColor | null | undefined>;

@@ -1,5 +1,10 @@
-import { Color, MarkerSymbol, PlotData } from "../../index";
+import { Color, MarkerSymbol, PlotData } from "../";
 import { ScatterSelectedMarker } from "./scatter";
+
+export const moduleType: "trace";
+export const name: "box";
+export const categories: string[];
+export const meta: { description: string };
 
 // See https://github.com/plotly/plotly.js/blob/master/src/traces/box/attributes.js
 export interface BoxPlotData extends PlotData {
