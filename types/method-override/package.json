@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/expressjs/method-override"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/express": "*"
     },
     "devDependencies": {
