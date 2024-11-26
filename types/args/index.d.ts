@@ -28,22 +28,22 @@ interface args {
     printMainColor: any; // depends on chalk
     printSubColor: any; // depends on chalk
     Args(): any; // not sure what this is supposed to be
-    handleType(value: any): any;
-    readOption(option: any): any;
+    handleType(value: any): (string | ((value: any) => any))[]; // value -> initialType
+    readOption(option: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): { [key: string]: any};
     getOptions(definedSubcommand: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): boolean; // can also return map type options or details
-    generateExamples(): any;
-    generateDetails(kind: any): any;
+    generateExamples(): string[];
+    generateDetails(kind: {defaultValue: any, usage: string[], description: string, init?: any}[]): string[];
     runCommand(details: any, options: any): void;
     checkHelp(): void;
     checkVersion(): void;
-    isDefined(name: any, list: any): {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean;
+    isDefined(name: any, list: string): {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean;
     optionWasProvided(name: string): boolean;
     raw?: Object; // not too sure...
     binary?: string;
     sub?: string[];
     // test props
     reset?: () => any; // returns args object
-    suppressOutput?: (fn: () => any) => any; // returns config in test cases ?
+    suppressOutput?: (fn: () => any) => {exit: {help: boolean, version: boolean}, help: boolean, version: boolean, usageFilter: any, value: string, name: string, mainColor: string | string[], subColor: string | string[]}; // returns config in test cases ?
 }
 type OptionInitFunction = (value: any) => any;
 
