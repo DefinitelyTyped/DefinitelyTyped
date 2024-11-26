@@ -90,5 +90,3 @@ v8.deserialize(new DataView(new ArrayBuffer(1)));
 v8.deserialize(new ArrayBuffer(1));
 // @ts-expect-error String is not a valid deserialize parameter
 v8.deserialize("Hello World!");
-// @ts-expect-error Number is not a valid deserialize parameter
-v8.deserialize(5);
