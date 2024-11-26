@@ -43,7 +43,26 @@ function test_socket() {
         test: testUploader,
     };
 
-    const MyMetadata = {};
+    const MyMetadata = {
+        click: (e: MouseEvent, el: Element) => {
+            return {
+                el: el,
+                ctrlKey: e.ctrlKey,
+            };
+        },
+        keydown: (e: KeyboardEvent, _el: Element) => {
+            return {
+                ctrlKey: e.ctrlKey,
+                detail: e.detail || 1
+            }
+        },
+        focus: (e: FocusEvent, el: Element) => {
+            return {
+                el,
+                detail: e.detail
+            }
+        },
+    };
 
     const opts: SocketOptions = {
         params: {

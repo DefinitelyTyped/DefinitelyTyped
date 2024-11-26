@@ -5,7 +5,7 @@
 //                 François Roland <https://github.com/francois-codes>
 //
 // Changelog:
-// Version 0.21 added metadata property to SocketOptions
+// added metadata property to SocketOptions
 // See: https://hexdocs.pm/phoenix_live_view/bindings.html#click-events
 // Version 0.20 refactored ViewHook interface with generic type and
 // ViewHookInternal interface
@@ -43,6 +43,13 @@ export interface DomOptions {
 
 export type ViewLogger = (view: View, kind: string, msg: any, obj: any) => void;
 
+export type EventCallback =
+    ((e: KeyboardEvent, el: Element) => Record<string, unknown>) |
+    ((e: MouseEvent, el: Element) => Record<string, unknown>) |
+    ((e: FocusEvent, el: Element) => Record<string, unknown>)
+
+export type Metadata = Record<string, EventCallback>
+
 export interface SocketOptions {
     longPollFallbackMs?: number | undefined;
     bindingPrefix?: string | undefined;
@@ -53,7 +60,7 @@ export interface SocketOptions {
     params?: object | undefined;
     uploaders?: object | undefined;
     viewLogger?: ViewLogger | undefined;
-    metadata?: object | undefined;
+    metadata?: Metadata | undefined;
 }
 
 export type BindCallback = (
