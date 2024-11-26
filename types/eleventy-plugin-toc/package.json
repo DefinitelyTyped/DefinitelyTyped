@@ -6,7 +6,6 @@
         "https://github.com/jdsteinbach/eleventy-plugin-toc#readme"
     ],
     "dependencies": {
-        "@types/node": "*",
         "11ty.ts": "*"
     },
     "devDependencies": {
