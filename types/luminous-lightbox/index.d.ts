@@ -5,7 +5,7 @@
  * Licensed under BSD-2 (https://github.com/imgix/luminous/blob/main/LICENSE.md)
  */
 
-interface LuminousOptions {
+export interface LuminousOptions {
     /**
      * Prefix for generated element class names (e.g. `my-ns` will result in classes such as `my-ns-lightbox`. Default `lum-` prefixed classes will always be added as well.
      */
@@ -87,7 +87,7 @@ interface LuminousOptions {
     injectBaseStyles?: boolean | undefined;
 }
 
-interface LuminousGalleryOptions {
+export interface LuminousGalleryOptions {
     /**
      * Whether pressing the arrow keys should move to the next/previous slide.
      * @default true
@@ -100,12 +100,10 @@ interface LuminousGalleryOptions {
     onChange?: ((args: { imgEl: HTMLImageElement }) => void) | undefined;
 }
 
-declare class Luminous {
+export class Luminous {
     constructor(trigger: Element | null, options?: LuminousOptions);
 }
 
-declare class LuminousGallery {
+export class LuminousGallery {
     constructor(triggers: Array<Element> | NodeList, options?: LuminousGalleryOptions, luminousOpts?: LuminousOptions);
 }
-
-export { Luminous, LuminousGallery };
