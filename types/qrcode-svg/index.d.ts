@@ -34,7 +34,7 @@ declare class QRCode {
      * @param  file The filename to write to
      * @param  callback The callback that will be called, possibly with an error, when done.
      */
-    save(file: string, callback: (error?: Error) => void): void;
+    save(file: string, callback?: (error?: Error) => void): void;
 }
 
 declare namespace QRCode {
@@ -74,6 +74,7 @@ declare namespace QRCode {
          * `none`: No wrapper.
          */
         container?: "svg" | "svg-viewbox" | "g" | "none" | undefined;
+        typeNumber?: number | undefined;
     }
 
     interface Model {
@@ -115,6 +116,14 @@ declare namespace QRCode {
         getModuleCount(): number;
         /** Generate this QRCode's matrix from the queued data. */
         make(): void;
+        makeImpl(test: boolean, maskPattern: number): void;
+        setupPositionProbePattern(row: number, col: number): void;
+        getBestMaskPattern(): number;
+        setupTimingPattern(): void;
+        setupPositionAdjustPattern(): void;
+        setupTypeNumber(test: boolean): void;
+        setupTypeInfo(test: boolean, maskPattern: number): void;
+        mapData(data: number[] | null, maskPattern: number): void;
     }
 }
 
