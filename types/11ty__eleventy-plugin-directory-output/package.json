@@ -6,7 +6,6 @@
         "https://www.11ty.dev/docs/plugins/directory-output/"
     ],
     "dependencies": {
-        "@types/node": "*",
         "11ty.ts": "*"
     },
     "devDependencies": {

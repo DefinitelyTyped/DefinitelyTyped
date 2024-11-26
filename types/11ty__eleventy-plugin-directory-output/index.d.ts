@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import type { EleventyConfig } from "11ty.ts";
 
 declare namespace dirOutputPlugin {
