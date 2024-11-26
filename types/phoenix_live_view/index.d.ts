@@ -5,6 +5,8 @@
 //                 François Roland <https://github.com/francois-codes>
 //
 // Changelog:
+// Version 0.21 added metadata property to SocketOptions
+// See: https://hexdocs.pm/phoenix_live_view/bindings.html#click-events
 // Version 0.20 refactored ViewHook interface with generic type and
 // ViewHookInternal interface
 //
@@ -51,6 +53,7 @@ export interface SocketOptions {
     params?: object | undefined;
     uploaders?: object | undefined;
     viewLogger?: ViewLogger | undefined;
+    metadata?: object | undefined;
 }
 
 export type BindCallback = (

@@ -43,12 +43,15 @@ function test_socket() {
         test: testUploader,
     };
 
+    const MyMetadata = {};
+
     const opts: SocketOptions = {
         params: {
             _csrf_token: "1234",
         },
         hooks: MyHooks,
         uploaders: MyUploaders,
+        metadata: MyMetadata,
     };
 
     const liveSocket = new LiveSocket("/live", Socket, opts);
