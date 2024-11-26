@@ -22,7 +22,7 @@ declare namespace tape {
      */
     interface TestOptions {
         /** See test.skip. */
-        skip?: boolean | undefined;
+        skip?: boolean | string | undefined;
         /** Set a timeout for the test, after which it will fail. See tape.timeoutAfter. */
         timeout?: number | undefined;
         /**
