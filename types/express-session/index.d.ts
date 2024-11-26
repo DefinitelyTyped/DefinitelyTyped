@@ -1,6 +1,6 @@
 import express = require("express");
-import { EventEmitter } from "events";
 import { CipherKey } from "crypto";
+import { EventEmitter } from "events";
 
 declare global {
     namespace Express {
