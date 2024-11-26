@@ -1,4 +1,4 @@
-import { ReactNode, Component } from "react";
+import { Component, ReactNode } from "react";
 import { EasingFunction, ViewStyle } from "react-native";
 
 export interface SimpleAnimationProps {

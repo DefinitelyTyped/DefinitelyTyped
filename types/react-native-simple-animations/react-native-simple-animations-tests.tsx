@@ -1,12 +1,12 @@
-import { SimpleAnimation } from 'react-native-simple-animations';
-import * as React from 'react';
-import { Text, View } from 'react-native';
+import * as React from "react";
+import { Text, View } from "react-native";
+import { SimpleAnimation } from "react-native-simple-animations";
 
 // Test basic usage
 class TestComponent extends React.Component {
     render() {
         return (
-            <SimpleAnimation 
+            <SimpleAnimation
                 aim="in"
                 duration={1000}
                 movementType="slide"
@@ -22,7 +22,7 @@ class TestComponent extends React.Component {
 class CompleteTest extends React.Component {
     render() {
         return (
-            <SimpleAnimation 
+            <SimpleAnimation
                 aim="out"
                 animate={true}
                 animateOnUpdate={false}
@@ -42,6 +42,6 @@ class CompleteTest extends React.Component {
                     <Text>Complete test</Text>
                 </View>
             </SimpleAnimation>
-        )
+        );
     }
 }
