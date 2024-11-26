@@ -159,7 +159,7 @@ interface AILanguageModelCapabilities {
 }
 
 // Summarizer
-// https://github.com/explainers-by-googlers/writing-assistance-apis/#full-api-surface-in-web-idl
+// https://github.com/WICG/writing-assistance-apis/#full-api-surface-in-web-idl
 
 interface AISummarizerFactory {
     create(options?: AISummarizerCreateOptions): Promise<AISummarizer>;
@@ -208,7 +208,7 @@ interface AISummarizerCapabilities {
 }
 
 // Writer
-// https://github.com/explainers-by-googlers/writing-assistance-apis/#full-api-surface-in-web-idl
+// https://github.com/WICG/writing-assistance-apis/#full-api-surface-in-web-idl
 
 interface AIWriterFactory {
     create(options?: AIWriterCreateOptions): Promise<AIWriter>;
@@ -257,7 +257,7 @@ interface AIWriterCapabilities {
 }
 
 // Rewriter
-// https://github.com/explainers-by-googlers/writing-assistance-apis/#full-api-surface-in-web-idl
+// https://github.com/WICG/writing-assistance-apis/#full-api-surface-in-web-idl
 
 interface AIRewriterFactory {
     create(options?: AIRewriterCreateOptions): Promise<AIRewriter>;
