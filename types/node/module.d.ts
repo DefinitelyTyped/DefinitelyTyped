@@ -349,6 +349,16 @@ declare module "module" {
          * directory if it is enabled, or `undefined` otherwise.
          */
         static getCompileCacheDir(): string | undefined;
+        /**
+         * Flush the [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
+         * accumulated from modules already loaded
+         * in the current Node.js instance to disk. This returns after all the flushing
+         * file system operations come to an end, no matter they succeed or not. If there
+         * are any errors, this will fail silently, since compile cache misses should not
+         * interfere with the actual operation of the application.
+         * @since v22.10.0
+         */
+        static flushCompileCache(): void;
         constructor(id: string, parent?: Module);
     }
     global {

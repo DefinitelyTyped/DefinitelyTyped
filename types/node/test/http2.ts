@@ -481,6 +481,8 @@ import { URL } from "node:url";
         peerMaxConcurrentStreams: 0,
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings,
+        streamResetBurst: 1000,
+        streamResetRate: 33,
         unknownProtocolTimeout: 123,
     };
 

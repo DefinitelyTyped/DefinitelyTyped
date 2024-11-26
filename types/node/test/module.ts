@@ -163,4 +163,6 @@ Module.findSourceMap("/path/to/file.js", new Error()); // $ExpectType SourceMap 
     Module.getCompileCacheDir();
 
     const { ENABLED, ALREADY_ENABLED, FAILED, DISABLED } = Module.constants.compileCacheStatus;
+
+    Module.flushCompileCache();
 }

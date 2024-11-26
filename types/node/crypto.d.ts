@@ -663,6 +663,19 @@ declare module "crypto" {
          */
         symmetricKeySize?: number | undefined;
         /**
+         * Converts a `KeyObject` instance to a `CryptoKey`.
+         * @since 22.10.0
+         */
+        toCryptoKey(
+            algorithm:
+                | webcrypto.AlgorithmIdentifier
+                | webcrypto.RsaHashedImportParams
+                | webcrypto.EcKeyImportParams
+                | webcrypto.HmacImportParams,
+            extractable: boolean,
+            keyUsages: readonly webcrypto.KeyUsage[],
+        ): webcrypto.CryptoKey;
+        /**
          * Depending on the type of this `KeyObject`, this property is either`'secret'` for secret (symmetric) keys, `'public'` for public (asymmetric) keys
          * or `'private'` for private (asymmetric) keys.
          * @since v11.6.0
@@ -3650,10 +3663,20 @@ declare module "crypto" {
          */
         readonly validFrom: string;
         /**
+         * The date/time from which this certificate is valid, encapsulated in a `Date` object.
+         * @since v22.10.0
+         */
+        readonly validFromDate: Date;
+        /**
          * The date/time until which this certificate is considered valid.
          * @since v15.6.0
          */
         readonly validTo: string;
+        /**
+         * The date/time until which this certificate is valid, encapsulated in a `Date` object.
+         * @since v22.10.0
+         */
+        readonly validToDate: Date;
         constructor(buffer: BinaryLike);
         /**
          * Checks whether the certificate matches the given email address.

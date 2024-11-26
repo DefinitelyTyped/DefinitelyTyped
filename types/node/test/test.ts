@@ -47,11 +47,19 @@ run({
         // $ExpectType TestsStream
         reporter;
     },
+    execArgv: ["--jitless"],
+    argv: ["--arbitrary-argument"],
     watch: true,
     shard: {
         index: 1,
         total: 3,
     },
+    coverage: true,
+    coverageExcludeGlobs: "*.no-coverage.*",
+    coverageIncludeGlobs: ["test-*", "benchmark-*"],
+    lineCoverage: 70,
+    branchCoverage: 50,
+    functionCoverage: 80,
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -934,6 +942,15 @@ class TestReporter extends Transform {
             case "test:stdout": {
                 const { file, message } = event.data;
                 callback(null, `${message}/${file}`);
+                break;
+            }
+            case "test:summary": {
+                const { counts, duration_ms, file, success } = event.data;
+                callback(
+                    null,
+                    `${file ?? "<multiple>"}/${success}/${duration_ms}/
+                    ${counts.topLevel}/${counts.tests}/${counts.passed}`,
+                );
                 break;
             }
             case "test:watch:drained":
