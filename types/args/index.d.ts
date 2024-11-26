@@ -30,20 +30,20 @@ interface args {
     Args(): any; // not sure what this is supposed to be
     handleType(value: any): any;
     readOption(option: any): any;
-    getOptions(definedSubcommand: any): any;
+    getOptions(definedSubcommand: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): boolean; // can also return map type options or details
     generateExamples(): any;
     generateDetails(kind: any): any;
-    runCommand(details: any, options: any): any;
-    checkHelp(): any;
-    checkVersion(): any;
-    isDefined(name: any, list: any): any;
-    optionWasProvided(name: any): any;
-    raw?: any;
-    binary?: any;
+    runCommand(details: any, options: any): void;
+    checkHelp(): void;
+    checkVersion(): void;
+    isDefined(name: any, list: any): {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean;
+    optionWasProvided(name: string): boolean;
+    raw?: Object; // not too sure...
+    binary?: string;
     sub?: string[];
     // test props
-    reset?: any;
-    suppressOutput?: any;
+    reset?: () => any; // returns args object
+    suppressOutput?: (fn: () => any) => any; // returns config in test cases ?
 }
 type OptionInitFunction = (value: any) => any;
 
