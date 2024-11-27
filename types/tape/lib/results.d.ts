@@ -1,8 +1,8 @@
-import through = require('@ljharb/through');
-import type { EventEmitter } from 'events';
+import through = require("@ljharb/through");
+import type { EventEmitter } from "events";
 
-import type { StreamOptions } from '../';
-import Test = require('./test');
+import type { StreamOptions } from "../";
+import Test = require("./test");
 
 declare class Results extends EventEmitter {
     constructor(options?: { todoIsOK?: boolean });
