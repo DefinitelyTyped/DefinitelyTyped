@@ -1,4 +1,4 @@
-type Test = import("../").Test;
+import { type Test } from '../';
 
 declare const test: Test;
 
