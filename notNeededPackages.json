@@ -5627,6 +5627,10 @@
             "libraryName": "serialize-error",
             "asOfVersion": "4.0.0"
         },
+        "serialport": {
+            "libraryName": "serialport",
+            "asOfVersion": "10.2.0"
+        },
         "sharp": {
             "libraryName": "sharp",
             "asOfVersion": "0.32.0"
