@@ -1,6 +1,4 @@
-import * as keypair from "keypair";
-import * as keystore from "keystore";
-import * as signature from "signature";
+import { keypair, keystore, signature } from ".";
 
 // Test for `keypair` Module
 const publicKey: string = keypair.getEncPublicKey("someEncPrivateKey");
