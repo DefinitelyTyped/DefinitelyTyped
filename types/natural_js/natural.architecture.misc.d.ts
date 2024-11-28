@@ -4,7 +4,7 @@ declare namespace NA {
         /**
          * Options interface extending the JQuery.Ajax.AjaxSettingsBase interface for making `N.comm.request` with additional settings.
          */
-        interface Request extends JQuery.Ajax.AjaxSettingsBase {
+        interface Request extends JQuery.Ajax.AjaxSettingsBase<any> {
             /**
              * A string containing the URL to which the request is sent.
              */
@@ -40,7 +40,7 @@ declare namespace NA {
             /**
              * Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same key based on the value of the traditional setting (described below).
              */
-            data?: PlainObject | string;
+            data?: JQuery.PlainObject | string;
             /**
              * The type of data that you're expecting back from the server. If none is specified, jQuery will try to infer it based on the MIME type of the response (an XML MIME type will yield XML, in 1.4 JSON will yield a JavaScript object, in 1.4 script will execute the script, and anything else will be returned as a string). The available types (and the result passed as the first argument to your success callback) are:
              *
@@ -94,23 +94,23 @@ declare namespace NA {
              *
              * > When Communicator is used with `N(".block").comm("page.html").submit()`, the `N("#block")` element object is specified as the target property value.
              */
-            target?: N
+            target?: NJS<HTMLElement[]>
         }
     }
 
     namespace Callbacks {
         namespace Communicator {
             type Submit = {
-                (this: NA.Communicator, data?: object | object[] | NA.Controller, request?: NA.Request): void;
+                (this: NA.Communicator, data?: object | object[] | typeof NA.cont, request?: NA.Request): void;
             }
             type Error = {
-                (this: NA.Communicator, xhr: JQuery.jqXHR, textStatus: Ajax.TextStatus, e: Error, request?: NA.Request, submitCallback: Submit): void;
+                (this: NA.Communicator, xhr: JQuery.jqXHR, textStatus: JQuery.Ajax.TextStatus, e: Error, request: NA.Request, submitCallback: Submit): void;
             }
         }
 
         namespace Request {
             type Reload = {
-                (this: NA.Communicator, html?: string | NA.Controller, request?: NA.Request): void;
+                (this: NA.Communicator, html?: string | typeof NA.cont, request?: NA.Request): void;
             }
         }
     }

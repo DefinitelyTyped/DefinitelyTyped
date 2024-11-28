@@ -11,10 +11,10 @@ declare class NUS {
 
     static docs: {
         new(obj: NJS<HTMLElement[]>, opts?: NUS.Options.Documents): NUS.Documents;
-        createLoadIndicator();
-        updateLoadIndicator(entireLoadRequestCnt: number, entireLoadRequestMaxCnt: number);
-        removeLoadIndicator();
-        errorLoadIndicator();
+        createLoadIndicator(): typeof NUS.docs;
+        updateLoadIndicator(entireLoadRequestCnt: number, entireLoadRequestMaxCnt: number): typeof NUS.docs;
+        removeLoadIndicator(): typeof NUS.docs;
+        errorLoadIndicator(): typeof NUS.docs;
         wrapEle(): void;
         wrapScroll(): void;
         clearScrollPosition(tabEle: number | NJS<HTMLElement[]>, isActive?: boolean): void;
@@ -42,7 +42,7 @@ declare namespace NUS {
         options: NUS.Options.Documents;
         request: NA.Request;
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
-        add(docId: string, docNm: string, docOpts: DocOpts): this;
+        add(docId: string, docNm: string, docOpts: NUS.Options.DocOpts): this;
         active(docId: string, isFromDocsTabList?: boolean, isNotLoaded?: boolean): this;
         removeState(docId: string, callback: NUS.Callbacks.Documents.RemoveState): this;
         remove(docId: string, unconditional?: boolean): this;

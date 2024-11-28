@@ -50,7 +50,7 @@ N([]).comm("http://localhost:8080").request.attr("asd", "").request.attr("asd", 
 
 });
 
-N.context.attr("asdf");
+N.context.attr("asdf", 1).attr("asdf");
 
 const cont = new N.cont(N(".context"), {
     init: function (view, request) {

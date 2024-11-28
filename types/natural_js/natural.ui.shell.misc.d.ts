@@ -30,7 +30,7 @@ declare namespace NUS {
             onBeforeInactive?: EventHandlers.Documents.OnBeforeInactive | null;
             onInactive?: EventHandlers.Documents.OnInactive | null;
             onBeforeRemoveState?: EventHandlers.Documents.OnBeforeRemoveState | null;
-            onRemoveState?: EventHandlers.Documents.ORemoveState | null;
+            onRemoveState?: EventHandlers.Documents.OnRemoveState | null;
             onBeforeRemove?: EventHandlers.Documents.OnBeforeRemove | null;
             onRemove?: EventHandlers.Documents.OnRemove | null;
             stateless?: boolean
@@ -46,7 +46,7 @@ declare namespace NUS {
             tabScrollCorrection?: {
                 rightCorrectionPx?: number;
             };
-            msgContext?: N<JQuery.TypeOrArray<window>>;
+            msgContext?: NJS<Window[]>;
             entireLoadIndicator?: boolean;
             entireLoadScreenBlock?: boolean;
             entireLoadExcludeURLs?: string[];
@@ -83,20 +83,20 @@ declare namespace NUS {
                 (this: NUS.Documents, e: Error, request: NA.Request, xhr: JQueryXHR, textStatus: "success" | "error", submitCallback: NA.Callbacks.Communicator.Submit): void;
             }
             type OnEntireLoad = {
-                (this: NUS.Documents, docId?: string, entireLoadRequestCnt: number, entireLoadRequestMaxCnt: number): void;
+                (this: NUS.Documents, docId: string, entireLoadRequestCnt: number, entireLoadRequestMaxCnt: number): void;
             }
 
             type OnBeforeLoad = {
-                (this: NUS.Documents, docId?: string, target: NJS<HTMLElement[]>): void;
+                (this: NUS.Documents, docId: string, target: NJS<HTMLElement[]>): void;
             }
             type OnLoad = {
-                (this: NUS.Documents, docId?: string): void;
+                (this: NUS.Documents, docId: string): void;
             }
             type OnBeforeActive = {
-                (this: NUS.Documents, docId?: string, isFromDocsTabList: boolean, isNotLoaded: boolean): void;
+                (this: NUS.Documents, docId: string, isFromDocsTabList: boolean, isNotLoaded: boolean): void;
             }
             type OnActive = {
-                (this: NUS.Documents, docId?: string, isFromDocsTabList: boolean, isNotLoaded: boolean): void;
+                (this: NUS.Documents, docId: string, isFromDocsTabList: boolean, isNotLoaded: boolean): void;
             }
             type OnBeforeInactive = {
                 (this: NUS.Documents, docId?: string): void;

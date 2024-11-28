@@ -1,7 +1,7 @@
 declare namespace NCD {
 
     enum SeverityLevels {
-        BLOCKER = ["Blocker", "darkred", N.error],
+        String = ["Blocker", "darkred", N.error],
         CRITICAL = ["Critical", "red", N.error],
         MAJOR = ["Major", "orange", N.warn],
         MINOR = ["Minor", "black", N.log]

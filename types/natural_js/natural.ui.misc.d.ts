@@ -1,14 +1,14 @@
 declare namespace NU {
     namespace Options {
         type Alert = {
-            context?: window | NJS<HTMLElement[]> | null;
+            context?: Window | NJS<HTMLElement[]> | null;
             msg: string;
             vars?: string[] | undefined;
             html?: boolean;
             top?: number | undefined;
             left?: number | undefined;
             width?: NU.EventHandlers.Alert.Width | number;
-            height?: NU.EventHandlers.Alert.AlertHeight | number;
+            height?: NU.EventHandlers.Alert.Height | number;
             isInput?: boolean;
             isWindow?: boolean;
             title?: string;
@@ -384,7 +384,7 @@ declare namespace NU {
                 (this: NU.Datepicker, context: NJS<HTMLElement[]>, selMonthStr: string, selYearStr: string, e: JQuery.Event): void;
             }
             type OnSelect = {
-                (this: NU.Datepicker, context: NJS<HTMLElement[]>, selDate: NDate, monthonly: boolean): void;
+                (this: NU.Datepicker, context: NJS<HTMLElement[]>, selDate: NC.Date, monthonly: boolean): void;
             }
             type OnBeforeShow = {
                 (this: NU.Datepicker, context: NJS<HTMLElement[]>, contents: NJS<HTMLElement[]>): undefined | false;
