@@ -154,7 +154,5 @@ x509crl.findRevCert(PEM_CERTIFICATE);
 x509crl.findRevCertBySN("0000");
 x509crl.getParam();
 
-
 const paramOrg = {};
 new KJUR.asn1.cms.SignedData(paramOrg);
-    
