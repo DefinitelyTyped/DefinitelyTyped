@@ -5387,6 +5387,10 @@
             "libraryName": "reflect-metadata",
             "asOfVersion": "0.1.0"
         },
+        "refractor": {
+            "libraryName": "refractor",
+            "asOfVersion": "4.0.0"
+        },
         "rehype-react": {
             "libraryName": "rehype-react",
             "asOfVersion": "6.0.0"
