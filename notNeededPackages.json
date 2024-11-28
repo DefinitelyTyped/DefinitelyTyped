@@ -60,6 +60,10 @@
             "libraryName": "agenda",
             "asOfVersion": "4.1.0"
         },
+        "agent-base": {
+            "libraryName": "agent-base",
+            "asOfVersion": "5.0.0"
+        },
         "aggregate-error": {
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
