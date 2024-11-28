@@ -1,4 +1,5 @@
 import type { ConsentDetails, ThemeData } from "./api-interfaces";
+import type { BaseTCFUserDecision } from "./integration-interfaces";
 
 declare global {
     interface Window {
@@ -129,14 +130,9 @@ export interface UsercentricsFunctionality {
     updateTcfConsents: (tcfConsents: TCFConsents) => Promise<void>;
 }
 
-// not documented on the Usercentrics website
-export interface ConsentInput {
-    id: string;
-    consent: boolean;
-}
-export type CategoriesConsents = ReadonlyArray<ConsentInput>;
-export type ServicesConsents = ReadonlyArray<ConsentInput>;
-export type TCFConsents = ReadonlyArray<ConsentInput>;
+export type CategoriesConsents = ReadonlyArray<BaseTCFUserDecision>;
+export type ServicesConsents = ReadonlyArray<BaseTCFUserDecision>;
+export type TCFConsents = ReadonlyArray<BaseTCFUserDecision>;
 
 export type * from "./integration-interfaces";
 export type * from "./integration-types";
