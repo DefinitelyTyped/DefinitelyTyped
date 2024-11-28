@@ -345,7 +345,7 @@ Superficialmente:
 
 > PRs que alteram apenas os tipos de um módulo, e têm mudanças de testes correspondentes sofrerão merges muito mais rapidamente.
 
-PRs que forem aprovadas por um autor listado no cabeçalho da definição geralmente sofrem merge mais rápido; PRs para novas definições levarão mais tempo para serem aprovadas, uma vez que requerem mais revisão dos mantenedores. Cada PR é revisada por um membro do time do TypeScript ou Definitely Typed antes de sofrer merge, então por favor, seja paciente, pois fatores humanos podem causar alguns atrasos. Verifique o [Painel de Status de Novas Pull Requests](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) para checar o progresso enquanto os mantenedores revisam as PRs abertas.
+PRs que forem aprovadas por um autor listado no cabeçalho da definição geralmente sofrem merge mais rápido; PRs para novas definições levarão mais tempo para serem aprovadas, uma vez que requerem mais revisão dos mantenedores. Cada PR é revisada por um membro do time do TypeScript ou Definitely Typed antes de sofrer merge, então por favor, seja paciente, pois fatores humanos podem causar alguns atrasos. Verifique o [Painel de Status de Pull Requests](https://github.com/orgs/DefinitelyTyped/projects/1) para checar o progresso enquanto os mantenedores revisam as PRs abertas.
 
 #### Minha PR já sofreu merge; Quando é que o pacote `@types` no npm será atualizado?
 
