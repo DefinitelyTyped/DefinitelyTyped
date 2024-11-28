@@ -49,7 +49,10 @@ export class DataStore {
     getObject(key: string, objectKey: string): Promise<any>;
 }
 
-export class DataStoreUnavailable extends Error {}
+export class DataStoreUnavailable extends Error {
+    /* needed to please typescript */
+    private _? : string;
+}
 
 export class Middleware<A extends Adapter = Adapter> {
     stack: Array<MiddlewareHandler<A>>;
@@ -106,11 +109,20 @@ export class TextMessage extends Message {
     toString(): string;
 }
 
-export class EnterMessage extends Message {}
+export class EnterMessage extends Message {
+    /* needed to please typescript */
+    private _? : string;
+}
 
-export class LeaveMessage extends Message {}
+export class LeaveMessage extends Message {
+    /* needed to please typescript */
+    private _? : string;
+}
 
-export class TopicMessage extends TextMessage {}
+export class TopicMessage extends TextMessage {
+    /* needed to please typescript */
+    private _? : string;
+}
 
 export class CatchAllMessage extends Message {
     message: Message;
