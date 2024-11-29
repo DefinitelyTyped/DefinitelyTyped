@@ -4,7 +4,7 @@ declare namespace NA {
         /**
          * Options interface extending the JQuery.Ajax.AjaxSettingsBase interface for making `N.comm.request` with additional settings.
          */
-        interface Request extends JQuery.Ajax.AjaxSettingsBase<any> {
+        interface Request extends JQuery.Ajax.AjaxSettingsBase {
             /**
              * A string containing the URL to which the request is sent.
              */

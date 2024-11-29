@@ -166,7 +166,7 @@ declare namespace NA {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0204.html }
          */
-        request = new NA.Request(obj, url);
+        request: NA.Request;
     }
 
     class Request {

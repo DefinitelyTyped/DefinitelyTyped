@@ -71,11 +71,11 @@ declare namespace ND {
     }
 
     type FormatRuleObject = {
-        [key: string]: [FormatRules, ...NC.Primitive][];
+        [key: string]: [FormatRules, ...NC.Primitive[]][];
     };
 
     type ValidationRuleObject = {
-        [key: string]: [ValidationRules, ...NC.Primitive][];
+        [key: string]: [ValidationRules, ...NC.Primitive[]][];
     };
 
     type FormatResultObject = {

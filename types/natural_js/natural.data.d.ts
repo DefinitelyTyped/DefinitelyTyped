@@ -95,7 +95,7 @@ declare class ND {
     datasort(key: string, reverse?: boolean): NJS<NC.JSONObject[]>;
 
     static ds: {
-        instance(inst: T, isReg?: boolean): ND.DataSync;
+        instance(inst: Function, isReg?: boolean): ND.DataSync;
     };
 
     static formatter: {
@@ -270,7 +270,7 @@ declare class ND {
         regexp(str: string, args: NC.Primitive[]): boolean;
     };
     static data: {
-        filter(arr: NJS<NC.JSONObject[]> | NC.JSONObject[], condition: ConditionCallback | string): NJS<NC.JSONObject[]> | NC.JSONObject[];
+        filter(arr: NJS<NC.JSONObject[]> | NC.JSONObject[], condition: ND.ConditionCallback | string): NJS<NC.JSONObject[]> | NC.JSONObject[];
         sortBy(key: string, reverse: 1 | -1): (a: number, b: number) => 1 | -1 | 0;
         sort(arr: NJS<NC.JSONObject[]> | NC.JSONObject[], key: string, reverse?: boolean): NJS<NC.JSONObject[]> | NC.JSONObject[];
     };

@@ -107,7 +107,7 @@ declare class NU {
     static pagination: {
         new(data: NJS<NC.JSONObject[]>, opts?: NU.Options.Pagination | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Pagination;
         wrapEle: NU.Objects.Pagination.LinkEles
-        changePageSet(linkEles: U.Pagination.LinkEles, opts: NU.Options.Pagination, isRemake: boolean): NU.Options.CurrPageNavInfo;
+        changePageSet(linkEles: NU.Objects.Pagination.LinkEles, opts: NU.Options.Pagination, isRemake: boolean): NU.Options.CurrPageNavInfo;
     };
 
     static tree: {
@@ -172,14 +172,14 @@ declare namespace NU {
         bind(data?: NJS<NC.JSONObject[]>): this;
         index(): number;
         index(idx: number): this;
-        val(val?: NC.Primitive | NC.Primitive[]): PNC.rimitive | NC.Primitive[] | this;
+        val(val?: NC.Primitive | NC.Primitive[]): NC.Primitive | NC.Primitive[] | this;
         remove(val?: NC.Primitive): this;
         reset(selFlag?: boolean): this;
     }
 
     interface Form {
         options: NU.Options.Form;
-        data(selFlag: true, ...args?: string[]): JSONObject[];
+        data(selFlag: true, ...args: string[]): JSONObject[];
         data(selFlag: false): NJS<NC.JSONObject[]>;
         data(): JSONObject[];
         row(before?: "before"): number;
@@ -191,11 +191,11 @@ declare namespace NU {
             format(ele: NJS<HTMLElement[]>, opts: NU.Options.Form, eleType: string, key: string): void;
         };
         bind(row: number, data: NJS<NC.JSONObject[]>): this;
-        add(data?: number | NC.JSONObject, row: number): this;
+        add(data?: number | NC.JSONObject, row?: number): this;
         remove(): this;
         revert(): this;
         validate(): boolean;
-        val(key: string, val?: NC.Primitive | NC.Primitive[], notify: boolean): NC.Primitive | NC.Primitive[] | this;
+        val(key: string, val?: NC.Primitive | NC.Primitive[], notify?: boolean): NC.Primitive | NC.Primitive[] | this;
         update(row: number, key?: string): this;
     }
 
@@ -203,7 +203,7 @@ declare namespace NU {
         options: NU.Options.List;
         tempRowEle: NJS<HTMLElement[]>;
         contextEle: NJS<HTMLElement[]>;
-        data(selFlag: true | "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...args?: string[]): JSONObject[];
+        data(selFlag: true | "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...args: string[]): JSONObject[];
         data(selFlag: false): NJS<NC.JSONObject[]>;
         data(): JSONObject[];
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;

@@ -18,7 +18,7 @@ declare class NC {
      * @param {JQuery.EventHandler} eventHandler - The event handler function to execute when the event is triggered.
      * @return {this} The current object, for chainability.
      */
-    tpBind(eventName: string, eventHandler: JQuery.EventHandler): this;
+    tpBind(eventName: string, eventHandler: JQuery.EventHandler<HTMLElement, any>): this;
     /**
      * Returns or stores an instance of the component object or Controller object in the context element or View element of the UI component.
      * > Natural-JS stores the created object instances in the specified template (context or view) elements during the initialization of components or libraries to easily control block content such as tabs or popups.
@@ -82,11 +82,11 @@ declare class NC {
      *  - Instance of N.notify: notify
      *  - Instance of N.docs: docs
      *    > Components whose instance storage locations are not specifically mentioned are stored in the context elements specified by the context option.
-     * @param {T} [instance] - The instance to store in the selected elements or a callback function to retrieve instances.
+     * @param {any} [instance] - The instance to store in the selected elements or a callback function to retrieve instances.
      * > The callback function returns the index (arguments[0]) and each instance (arguments[1]). The `this` context of the callback function refers to each instance.
-     * @return {undefined | T[] | T | this} Returns undefined, an array of instances, a single instance, or the context itself.
+     * @return {undefined | NJS<Function[]> | Function[] | this} Returns undefined, an array of instances, a single instance, or the context itself.
      */
-    instance(name: string | NC.InstanceCallback, instance?: T): undefined | T[] | T | this;
+    instance(name: string | NC.InstanceCallback, instance?: any): undefined | NJS<Function[]> | Function[] | this;
     /**
      * Gets or selects the selected values of elements such as select, select[multiple=multiple], input[type=radio], and input[type=checkbox].
      *
@@ -250,7 +250,7 @@ declare class NC {
      * @returns {JQuery.Deferred[]} An array of JQuery.Deferred objects representing
      *                              the serialized execution of tasks.
      */
-    static serialExecute(...args: Function[]): JQuery.Deferred[];
+    static serialExecute(...args: Function[]): JQuery.Deferred<any>[];
 
     /**
      * Provides methods to perform different levels of garbage collection.

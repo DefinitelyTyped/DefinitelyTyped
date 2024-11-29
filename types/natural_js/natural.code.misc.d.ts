@@ -1,14 +1,14 @@
 declare namespace NCD {
 
     enum SeverityLevels {
-        String = ["Blocker", "darkred", N.error],
-        CRITICAL = ["Critical", "red", N.error],
-        MAJOR = ["Major", "orange", N.warn],
-        MINOR = ["Minor", "black", N.log]
+        BLOCKER = "Blocker",
+        CRITICAL = "Critical",
+        MAJOR = "Major",
+        MINOR = "Minor"
     }
 
     type CodeInspectionResult = {
-        level: SeverityLevels;
+        level: SeverityLevels.BLOCKER | SeverityLevels.CRITICAL | SeverityLevels.MAJOR | SeverityLevels.MINOR;
         message: string;
         line: number;
         code: string;
