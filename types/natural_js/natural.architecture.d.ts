@@ -157,9 +157,25 @@ declare namespace NA {
             obj: NA.Communicator;
         };
         /**
-         * Specify parameters to pass to the page to be loaded or retrieves the passed data.
+         * Get the parameters passed while calling this page.
          *
-         * If the `attr` method has two arguments, it works as a setter, and if it has one argument, it works as a getter.
+         * Retrieving data from the loaded page:
+         * ```
+         * N(".view").cont({
+         *     init: function(view, request) {
+         *         var data1 = request.attr("data1"); // { data: ["1", "2"] }
+         *         var data2 = request.attr("data2"); // ["3", "4"]
+         *     }
+         * });
+         * ```
+         *
+         * @param {String} name - Parameter name
+         *
+         * @return {NA.Communicator} Returns the passed parameter value.
+         */
+        attr(name: string): any;
+        /**
+         * Set the parameters to be passed to the page to be loaded.
          *
          * Sending data:
          * ```
@@ -173,22 +189,12 @@ declare namespace NA {
          * });
          * ```
          *
-         * Retrieving data from the loaded page:
-         * ```
-         * N(".view").cont({
-         *     init: function(view, request) {
-         *         var data1 = request.attr("data1"); // { data: ["1", "2"] }
-         *         var data2 = request.attr("data2"); // ["3", "4"]
-         *     }
-         * });
-         * ```
-         *
          * @param {String} name - Parameter name
          * @param {any} obj - Parameter data
          *
-         * @return {NA.Communicator} Returns the Communicator if both `name` and `obj` are specified, and returns the passed parameter value if only `name` is specified.
+         * @return {NA.Communicator} Returns the Communicator object.
          */
-        attr(name: string, obj?: any): NA.Communicator;
+        attr(name: string, obj: any): NA.Communicator;
         removeAttr(name: string): NA.Communicator;
         /**
          * Extracts the GET parameter values from the browser's URL.
@@ -238,7 +244,20 @@ declare namespace NA {
 
     interface Context {
         attrObj: object;
+        /**
+         * Get data stored in N.context.
+         *
+         * @param {string} name - data name.
+         * @return {any} Stored data.
+         */
         attr(name: string): any;
+        /**
+         * Set the data to be stored in N.context.
+         *
+         * @param {string} name - data name.
+         * @param {any} obj - Data to store.
+         * @return {this} The current object, for chainability.
+         */
         attr(name: string, obj: any): NA.Context;
     }
 

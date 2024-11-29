@@ -172,7 +172,7 @@ declare namespace NU {
         bind(data?: NJS<NC.JSONObject[]>): NU.Select;
         index(): number;
         index(idx: number): NU.Select;
-        val(val?: NC.Primitive | NC.Primitive[]): NC.Primitive | NC.Primitive[] | this;
+        val(val?: NC.Primitive | NC.Primitive[]): NC.Primitive | NC.Primitive[] | NC;
         remove(val?: NC.Primitive): NU.Select;
         reset(selFlag?: boolean): NU.Select;
     }

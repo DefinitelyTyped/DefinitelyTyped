@@ -86,7 +86,7 @@ declare class NC {
      * > The callback function returns the index (arguments[0]) and each instance (arguments[1]). The `this` context of the callback function refers to each instance.
      * @return {undefined | NJS<Function[]> | Function[] | this} Returns undefined, an array of instances, a single instance, or the context itself.
      */
-    instance(name: string | NC.InstanceCallback, instance?: any): undefined | NJS<Function[]> | Function[] | this;
+    instance(name: string | NC.InstanceCallback, instance?: any): undefined | NJS<Function[]> | Function[] | NC;
     /**
      * Gets or selects the selected values of elements such as select, select[multiple=multiple], input[type=radio], and input[type=checkbox].
      *
@@ -102,22 +102,32 @@ declare class NC {
      *  - this : The selected option element
      *  - arguments[0] : The index of the selected option element
      *  - arguments[1] : The selected option element
-     * @return {string|string[]|NJS<HTMLElement[]>|this} If the vals argument is not provided, the selected value is returned. If the vals argument is specified, the elements that match the specified value are selected.
+     * @return {string|string[] | NJS<HTMLElement[]> | this} If the vals argument is not provided, the selected value is returned. If the vals argument is specified, the elements that match the specified value are selected.
      * If only one is selected, a value of type string is returned, and if two or more are selected, the values are returned in an array.
      */
-    vals(vals?: string | string[] | NC.ValsCallback): string | string[] | NJS<HTMLElement[]> | this;
+    vals(vals?: string | string[] | NC.ValsCallback): string | string[] | NJS<HTMLElement[]> | NC;
     /**
      * Returns the events bound to the selected element.
      *
      * @param {string} eventName - The name of the event.
      * @param {string} [namespace] - The optional namespace for the event.
-     * @return {NC.EventsObject|NC.EventObject} If neither the eventType argument nor the namespace argument is provided, all events are returned; if the namespace is not provided, only the events corresponding to the specified eventType are returned.
+     * @return {NC.EventsObject | NC.EventObject} If neither the eventType argument nor the namespace argument is provided, all events are returned; if the namespace is not provided, only the events corresponding to the specified eventType are returned.
      * If the namespace argument is provided, the events are returned as an array object, otherwise they are returned as a jQuery object. If no events are bound, undefined is returned.
      */
     events(eventName: string, namespace?: string): NC.EventsObject | NC.EventObject;
-
     /**
-     * You can get or set the locale value configured in the framework.
+     * Gets the default locale value configured in the framework.
+     * > The default messages of the framework will be processed in multiple languages according to the configured locale value.
+     *
+     * > Pre-registered multilingual message sets include en_US, ko_KR, and can be modified in the `message` property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
+     *
+     * > The default locale of the framework can be set to the value of the `N.context.attr("core").locale` property in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
+     *
+     * @return {string} If the `str` argument is provided, it returns `undefined`. If not provided, it returns a locale string such as "en_US" or "ko_KR".
+     */
+    static locale(): string;
+    /**
+     * Sets the default locale value to be configured in the framework.
      * > The default messages of the framework will be processed in multiple languages according to the configured locale value.
      *
      * > Pre-registered multilingual message sets include en_US, ko_KR, and can be modified in the `message` property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
@@ -125,9 +135,9 @@ declare class NC {
      * > The default locale of the framework can be set to the value of the `N.context.attr("core").locale` property in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
      *
      * @param {string} str - Enter a valid locale string such as "en_US" or "ko_KR".
-     * @return {string} If the `str` argument is provided, it returns `undefined`. If not provided, it returns a locale string such as "en_US" or "ko_KR".
+     * @return {void} This method does not return any value.
      */
-    static locale(str: string): string | undefined;
+    static locale(str: string): void;
     /**
      * Logs the `debug` level messages to the console.
      *

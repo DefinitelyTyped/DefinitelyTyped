@@ -2,6 +2,7 @@ N([{}, {}]).each((index, element) => {});
 N(".button").remove_(1, 2).instance((instanceName, instance) => {});
 N(".button").tpBind("click", function () {});
 N(".button").events("click", "grid");
+N.locale();
 N.locale("en-US");
 N(".button").on("click", function (e) {
     N.event.disable(e);
@@ -59,7 +60,8 @@ N.config.filterConfig.successFilters;
 const cont = new N.cont(N(".context"), {
     init: function (view, request) {
         view.each(function () {});
-        request.attr("param");
+        request.attr("param01");
+        request.attr("param02", 1);
         request.reload(function (html, request) {
 
         });
