@@ -1,4 +1,5 @@
-N(".button").remove_(1, 2);
+N([{}, {}]).each((index, element) => {});
+N(".button").remove_(1, 2).instance((instanceName, instance) => {});
 N(".button").tpBind("click", function () {});
 N(".button").events("click", "grid");
 N.locale("en-US");
@@ -40,17 +41,20 @@ N([]).comm({
     type: NA.Objects.Request.HttpMethod.POST,
     dataType: NA.Objects.Request.DataType.JSON,
     enctype: NA.Objects.Request.Enctype.URLENCODED
-}).submit(function () {});
+}).submit(function (data, request) {});
 N.comm(N([]), "https://localhost:8080").request.attr("asd", "").error(function(xhr, textStatus, e, request, submitCallback) {
 
 }).submit(function () {
 
 });
-N([]).comm("http://localhost:8080").request.attr("asd", "").request.attr("asd", "asd").submit(function () {
+N([]).comm({
+    url: "http://localhost:8080"
+}).request.attr("asd", "").request.attr("asd", "asd").submit(function () {
 
 });
 
 N.context.attr("asdf", 1).attr("asdf");
+N.config.filterConfig.successFilters;
 
 const cont = new N.cont(N(".context"), {
     init: function (view, request) {
@@ -75,8 +79,6 @@ N(".context").cont({
         this.request!.attr("param");
     }
 });
-
-
 
 N.ds.instance(class {}, true)
     .remove()
@@ -122,6 +124,27 @@ new N.button(N(".button"), {
     color: "primary_container"
 }).disable();
 
+N(".input").datepicker({
+    maxYear: 2050
+}).show();
+new N.datepicker(N(".input"), {
+    minDate: "20190101",
+}).show();
+
+let popup = new N.popup(N(".popup"), {
+    title: "Title",
+    width: 800,
+    draggable: true
+});
+popup.open().close();
+popup = N().popup({
+    url: "page.html",
+    title: "Title",
+    width: 800,
+    draggable: true
+});
+popup.open();
+
 N(".tab").tab({
     tabOpts: [{
         url: "http://localhost:8080",
@@ -137,10 +160,6 @@ N(".tab").tab({
         url: "http://localhost:8080",
     }]
 }).open().cont.view!.find(".tab-pane").remove();
-
-
-N([{}, {}]).each((index, element) => {});
-
 
 let select = new N.select(N([{a:1}]), N(".select", cont.view));
 select.data(false).each((index, element) => {});
@@ -169,15 +188,49 @@ form.data().forEach(function (item) {});
 form.data(true).forEach(function (item) {});
 form.context("option").get().forEach(function (item) {});
 
-N([]).pagination({
-    onChange: function (page) {
-
+new N.list([{age: 18}, {age: 22}], N(".list", cont.view)).bind();
+N([{age: 18}, {age: 22}]).list({
+    context : N(".list", cont.view),
+    height : 200,
+    rowHandler : function(index, row, data) {
+        if(data.age as number >= 28) {
+            row.find("#age").css("background-color", "red");
+        }
     }
 }).bind();
-new N.pagination(N([]), {
-    onChange: function (page) {
 
+new N.grid([{age: 18}, {age: 22}], N(".grid", cont.view)).bind();
+N([{age: 18}, {age: 22}]).grid({
+    context : N(".grid", cont.view),
+    height : 200,
+    rowHandler : function(index, row, data) {
+        if(data.age as number >= 28) {
+            row.find("#age").css("background-color", "red");
+        }
     }
+}).bind();
+
+new N.pagination([{age: 18}, {age: 22}], {
+    context: N(".pagination", cont.view),
+    onChange: function(pageNo, selEle, selData, currPageNavInfo) {
+        N.log(selData);
+    }
+}).pageNo(3).bind();
+N([{age: 18}, {age: 22}]).pagination({
+    context: N(".pagination", cont.view),
+    onChange: function(pageNo, selEle, selData, currPageNavInfo) {
+        N.log(selData);
+    }
+}).pageNo(3).bind();
+
+new N.tree([{age: 18}, {age: 22}], {
+    context: ".treeBlock",
+    checkbox: true
+}).bind();
+
+N([{age: 18}, {age: 22}]).tree({
+    context: ".treeBlock",
+    checkbox: true
 }).bind();
 
 N({
@@ -198,16 +251,19 @@ N.notify({
 }).add("asd");
 N.notify.add("asd", "");
 
-const docs1 = N(".context").docs({
+const docs1 = new N.docs(N(".context"), {
     onEntireLoad: function(docId, entireLoadRequestCnt, entireLoadRequestMaxCnt) {
 
     }
 });
+docs1.add("ex-0001", "Example page", { url : "ex.html" });
+
 const docs2 = new N.docs(N(".context"), {
     onEntireLoad: function(docId, entireLoadRequestCnt, entireLoadRequestMaxCnt) {
 
     }
 });
+docs2.request.attr("a", 1).request.attr("b", 2).add("page", "Example page", { url : "page.html" });
 
 const inspectionResult = N.code.inspection.test("code");
 if(Array.isArray(inspectionResult)) {

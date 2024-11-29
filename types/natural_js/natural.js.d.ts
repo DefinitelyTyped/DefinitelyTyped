@@ -67,7 +67,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0203.html }
      */
-    function comm(obj: NJS<NC.JSONObject[]>, url: string | NA.Options.Request): NA.Communicator;
+    function comm(obj: NJS<NC.JSONObject[]> | string, url?: string | NA.Options.Request): NA.Communicator;
     /**
      * N.cont executes the init function of the Controller object and returns the Controller object.
      *

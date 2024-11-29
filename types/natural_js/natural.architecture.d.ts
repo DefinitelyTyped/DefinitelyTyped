@@ -5,28 +5,9 @@ declare class NA {
         (settings?: JQuery.AjaxSettings): JQuery.jqXHR;
     };
     static comm: NA.Communicator;
-    static cont: {
-        new(obj: NJS<HTMLElement[]>, contObj: NA.Objects.Controller.Object): NA.Objects.Controller.Object;
-        trInit(cont: NA.Objects.Controller.Object, request: NA.Request): void;
-        /**
-         * Aspect-oriented programming(AOP) processing class.
-         */
-        aop: {
-            pointcuts: {
-                regexp: {
-                    fn(param: RegExp | string, contFrag: NA.Objects.Controller.Object, fnChain: string): boolean;
-                };
-            };
-            wrap(cont: NA.Objects.Controller.Object): void;
-        };
-    };
-    static context: {
-        attrObj: object;
-        attr(name: string, obj?: any): typeof NA.context | any;
-    };
-    static config: {
-        filterConfig: NA.Objects.Config.FilterConfig;
-    };
+    static cont: NA.Controller;
+    static context: NA.Context;
+    static config: NA.Config
 
     /**
      * N.comm is a library that supports Ajax communication with the server, such as requesting content or data from the server or passing parameters.
@@ -82,7 +63,7 @@ declare class NA {
 declare namespace NA {
 
     class Communicator {
-        new(obj: NJS<NC.JSONObject[]>, url: string | NA.Options.Request): this;
+        new(obj: NJS<NC.JSONObject[]> | string, url?: string | NA.Options.Request): NA.Communicator;
         xhr: JQuery.jqXHR;
         initFilterConfig(): NA.Objects.Config.FilterConfig;
         resetFilterConfig(): NA.Communicator;
@@ -237,6 +218,32 @@ declare namespace NA {
         get(key: string): any;
 
         reload(callback?: NA.Callbacks.Request.Reload): NA.Communicator;
+    }
+
+    interface Controller {
+        new(obj: NJS<HTMLElement[]>, contObj: NA.Objects.Controller.Object): NA.Objects.Controller.Object;
+        trInit(cont: NA.Objects.Controller.Object, request: NA.Request): void;
+        /**
+         * Aspect-oriented programming(AOP) processing class.
+         */
+        aop: {
+            pointcuts: {
+                regexp: {
+                    fn(param: RegExp | string, contFrag: NA.Objects.Controller.Object, fnChain: string): boolean;
+                };
+            };
+            wrap(cont: NA.Objects.Controller.Object): void;
+        };
+    }
+
+    interface Context {
+        attrObj: object;
+        attr(name: string): any;
+        attr(name: string, obj: any): NA.Context;
+    }
+
+    interface Config {
+        filterConfig: NA.Objects.Config.FilterConfig;
     }
 
 }

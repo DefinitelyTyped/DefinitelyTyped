@@ -4,7 +4,7 @@ declare namespace NA {
         /**
          * Options interface extending the JQuery.Ajax.AjaxSettingsBase interface for making `N.comm.request` with additional settings.
          */
-        interface Request extends JQuery.Ajax.AjaxSettingsBase {
+        interface Request extends Omit<JQuery.Ajax.AjaxSettingsBase<any>, "success" | "error" | "complete"> {
             /**
              * A string containing the URL to which the request is sent.
              */
@@ -101,7 +101,7 @@ declare namespace NA {
     namespace Callbacks {
         namespace Communicator {
             type Submit = {
-                (this: NA.Communicator, data?: object | object[] | typeof NA.cont, request?: NA.Request): void;
+                (this: NA.Communicator, data?: object | object[] | NA.Controller, request?: NA.Request): void;
             }
             type Error = {
                 (this: NA.Communicator, xhr: JQuery.jqXHR, textStatus: JQuery.Ajax.TextStatus, e: Error, request: NA.Request, submitCallback: Submit): void;
@@ -110,7 +110,7 @@ declare namespace NA {
 
         namespace Request {
             type Reload = {
-                (this: NA.Communicator, html?: string | typeof NA.cont, request?: NA.Request): void;
+                (this: NA.Communicator, html?: string | NA.Controller, request?: NA.Request): void;
             }
         }
     }

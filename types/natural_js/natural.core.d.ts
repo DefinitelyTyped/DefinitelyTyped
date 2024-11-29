@@ -10,7 +10,7 @@ declare class NC {
      * @param {number} length - The length of the collection from which the element is to be removed.
      * @return {this} The instance of the collection after the element has been removed.
      */
-    remove_(idx: any, length: number): this;
+    remove_(idx: any, length: number): NC;
     /**
      * Binds an event handler that is executed with top priority to the specified event type of the selected element.
      *
@@ -18,7 +18,7 @@ declare class NC {
      * @param {JQuery.EventHandler} eventHandler - The event handler function to execute when the event is triggered.
      * @return {this} The current object, for chainability.
      */
-    tpBind(eventName: string, eventHandler: JQuery.EventHandler<HTMLElement, any>): this;
+    tpBind(eventName: string, eventHandler: JQuery.EventHandler<HTMLElement, any>): NC;
     /**
      * Returns or stores an instance of the component object or Controller object in the context element or View element of the UI component.
      * > Natural-JS stores the created object instances in the specified template (context or view) elements during the initialization of components or libraries to easily control block content such as tabs or popups.

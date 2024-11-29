@@ -109,12 +109,12 @@ declare namespace NU {
             onHide?: NU.EventHandlers.Popup.OnHide | null;
             onBeforeRemove?: NU.EventHandlers.Popup.OnBeforeRemove | null;
             onRemove?: NU.EventHandlers.Popup.OnRemove | null;
-            onOpen: string | NU.EventHandlers.Popup.OnOpen | null,
-            onOpenData: any | null,
-            onClose: NU.EventHandlers.Popup.OnClose | null,
-            onCloseData: any | null,
-            onLoad: NU.EventHandlers.Popup.OnLoad | null,
-            preload: boolean,
+            onOpen?: string | NU.EventHandlers.Popup.OnOpen | null,
+            onOpenData?: any | null,
+            onClose?: NU.EventHandlers.Popup.OnClose | null,
+            onCloseData?: any | null,
+            onLoad?: NU.EventHandlers.Popup.OnLoad | null,
+            preload?: boolean,
             dynPos?: boolean;
             windowScrollLock?: boolean;
             draggable?: boolean;
