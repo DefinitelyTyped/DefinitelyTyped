@@ -11,9 +11,9 @@
     "bugs": {
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
     },
-    "packageManager": "pnpm@9.14.2",
+    "packageManager": "pnpm@9.14.4",
     "engines": {
-        "pnpm": ">=9.14.2",
+        "pnpm": ">=9.14.4",
         "node": ">=18.12"
     },
     "scripts": {
