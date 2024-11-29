@@ -78,6 +78,7 @@ declare namespace LocomotiveScroll {
     interface OnScrollEvent {
         currentElements: Record<string, ScrollElement>;
         delta: Position;
+        direction: string
         limit: Position;
         scroll: Position;
         speed: number;
