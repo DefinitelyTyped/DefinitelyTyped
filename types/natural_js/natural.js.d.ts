@@ -16,6 +16,8 @@ declare interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
         "Natural-DATA": string;
         "Natural-UI": string;
         "Natural-UI.Shell": string;
+        "Natural-CODE": string;
+        "Natural-TEMPLATE": string;
     };
 
     selector: string;
@@ -25,7 +27,6 @@ declare interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
  * N is a collection class that defines common functions for Natural-JS.
  */
 declare namespace N {
-
     // === Natural-CORE
     const locale = NC.locale;
     const debug = NC.debug;
