@@ -5,6 +5,7 @@
 /// <reference path="global.d.ts" />
 
 import * as CSS from "csstype";
+import * as PropTypes from "prop-types";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -15,7 +16,6 @@ type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
 type NativePointerEvent = PointerEvent;
-type NativeToggleEvent = ToggleEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
@@ -32,25 +32,6 @@ type Booleanish = boolean | "true" | "false";
 type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined;
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
-
-/**
- * @internal Use `Awaited<ReactNode>` instead
- */
-// Helper type to enable `Awaited<ReactNode>`.
-// Must be a copy of the non-thenables of `ReactNode`.
-type AwaitedReactNode =
-    | React.ReactElement
-    | string
-    | number
-    | bigint
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | boolean
-    | null
-    | undefined
-    | React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES[
-        keyof React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES
-    ];
 
 /**
  * The function returned from an effect passed to {@link React.useEffect useEffect},
@@ -112,7 +93,8 @@ declare namespace React {
      * Represents any user-defined component, either as a function or a class.
      *
      * Similar to {@link JSXElementConstructor}, but with extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps }.
+     * {@link FunctionComponent.defaultProps defaultProps } and
+     * {@link ComponentClass.contextTypes contextTypes}.
      *
      * @template P The props the component accepts.
      *
@@ -125,18 +107,34 @@ declare namespace React {
      * Represents any user-defined component, either as a function or a class.
      *
      * Similar to {@link ComponentType}, but without extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps }.
+     * {@link FunctionComponent.defaultProps defaultProps } and
+     * {@link ComponentClass.contextTypes contextTypes}.
      *
      * @template P The props the component accepts.
      */
     type JSXElementConstructor<P> =
         | ((
             props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-stateless-function-components React Docs}
+             */
+            deprecatedLegacyContext?: any,
         ) => ReactElement<any, any> | null)
-        // constructor signature must match React.Component
-        | (new(props: P) => Component<any, any>);
+        | (new(
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ) => Component<any, any>);
 
     /**
+     * A readonly ref container where {@link current} cannot be mutated.
+     *
      * Created by {@link createRef}, or {@link useRef} when passed `null`.
      *
      * @template T The type of the ref's value.
@@ -153,7 +151,7 @@ declare namespace React {
         /**
          * The current value of the ref.
          */
-        current: T;
+        readonly current: T | null;
     }
 
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
@@ -176,7 +174,6 @@ declare namespace React {
             instance: T | null,
         ):
             | void
-            | (() => VoidOrUndefinedOnly)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES
             ];
@@ -189,15 +186,22 @@ declare namespace React {
      * @see {@link RefObject}
      */
 
-    type Ref<T> = RefCallback<T> | RefObject<T | null> | null;
+    type Ref<T> = RefCallback<T> | RefObject<T> | null;
     /**
-     * @deprecated Use `Ref` instead. String refs are no longer supported.
-     * If you're typing a library with support for React versions with string refs, use `RefAttributes<T>['ref']` instead.
-     */
-    type LegacyRef<T> = Ref<T>;
-    /**
-     * @deprecated Use `ComponentRef<T>` instead
+     * A legacy implementation of refs where you can pass a string to a ref prop.
      *
+     * @see {@link https://react.dev/reference/react/Component#refs React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * <div ref="myRef" />
+     * ```
+     */
+    // TODO: Remove the string ref special case from `PropsWithRef` once we remove LegacyRef
+    type LegacyRef<T> = string | Ref<T>;
+
+    /**
      * Retrieves the type of the 'ref' prop for a given component type or tag name.
      *
      * @template C The component type.
@@ -218,9 +222,17 @@ declare namespace React {
         C extends
             | ForwardRefExoticComponent<any>
             | { new(props: any): Component<any> }
-            | ((props: any) => ReactElement | null)
+            | ((props: any, deprecatedLegacyContext?: any) => ReactElement | null)
             | keyof JSX.IntrinsicElements,
-    > = ComponentRef<C>;
+    > =
+        // need to check first if `ref` is a valid prop for ts@3.0
+        // otherwise it will infer `{}` instead of `never`
+        "ref" extends keyof ComponentPropsWithRef<C>
+            ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends RefAttributes<
+                infer Instance
+            >["ref"] ? Instance
+            : never
+            : never;
 
     type ComponentState = any;
 
@@ -288,7 +300,7 @@ declare namespace React {
          *
          * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}
          */
-        ref?: Ref<T> | undefined;
+        ref?: LegacyRef<T> | undefined;
     }
 
     /**
@@ -313,7 +325,7 @@ declare namespace React {
      * ```
      */
     interface ReactElement<
-        P = unknown,
+        P = any,
         T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>,
     > {
         type: T;
@@ -329,28 +341,13 @@ declare namespace React {
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, "key" | "ref">>,
     > extends ReactElement<P, Exclude<T, number>> {}
 
-    /**
-     * @deprecated Use `ReactElement<P, React.FunctionComponent<P>>`
-     */
     interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
-        /**
-         * @deprecated Use `element.props.ref` instead.
-         */
         ref?: ("ref" extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never) | undefined;
     }
 
-    /**
-     * @deprecated Use `ReactElement<P, React.ComponentClass<P>>`
-     */
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
-    /**
-     * @deprecated Use `ReactElement<P, React.ComponentClass<P>>`
-     */
     interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P, ComponentClass<P>> {
-        /**
-         * @deprecated Use `element.props.ref` instead.
-         */
-        ref?: Ref<T> | undefined;
+        ref?: LegacyRef<T> | undefined;
     }
 
     /**
@@ -359,33 +356,88 @@ declare namespace React {
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     // string fallback for custom web-components
-    /**
-     * @deprecated Use `ReactElement<P, string>`
-     */
     interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element>
         extends ReactElement<P, string>
     {
-        /**
-         * @deprecated Use `element.props.ref` instead.
-         */
-        ref: Ref<T>;
+        ref: LegacyRef<T>;
     }
 
     // ReactHTML for ReactHTMLElement
     interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> {}
 
     interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
-        type: HTMLElementType;
+        type: keyof ReactHTML;
     }
 
     // ReactSVG for ReactSVGElement
     interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
-        type: SVGElementType;
+        type: keyof ReactSVG;
     }
 
     interface ReactPortal extends ReactElement {
         children: ReactNode;
     }
+
+    //
+    // Factories
+    // ----------------------------------------------------------------------
+
+    type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
+
+    /**
+     * @deprecated Please use `FunctionComponentFactory`
+     */
+    type SFCFactory<P> = FunctionComponentFactory<P>;
+
+    type FunctionComponentFactory<P> = (
+        props?: Attributes & P,
+        ...children: ReactNode[]
+    ) => FunctionComponentElement<P>;
+
+    type ComponentFactory<P, T extends Component<P, ComponentState>> = (
+        props?: ClassAttributes<T> & P,
+        ...children: ReactNode[]
+    ) => CElement<P, T>;
+
+    type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
+    type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
+
+    type DOMFactory<P extends DOMAttributes<T>, T extends Element> = (
+        props?: ClassAttributes<T> & P | null,
+        ...children: ReactNode[]
+    ) => DOMElement<P, T>;
+
+    interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
+
+    interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
+        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
+    }
+
+    interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
+        (
+            props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null,
+            ...children: ReactNode[]
+        ): ReactSVGElement;
+    }
+
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
+    type ReactText = string | number;
+    /**
+     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
+    type ReactChild = ReactElement | string | number;
+
+    /**
+     * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
+     */
+    interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
+    /**
+     * WARNING: Not related to `React.Fragment`.
+     * @deprecated This type is not relevant when using React. Inline the type instead to make the intent clear.
+     */
+    type ReactFragment = Iterable<ReactNode>;
 
     /**
      * For internal usage only.
@@ -428,7 +480,6 @@ declare namespace React {
         | ReactElement
         | string
         | number
-        | bigint
         | Iterable<ReactNode>
         | ReactPortal
         | boolean
@@ -436,12 +487,35 @@ declare namespace React {
         | undefined
         | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES[
             keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES
-        ]
-        | Promise<AwaitedReactNode>;
+        ];
 
     //
     // Top Level API
     // ----------------------------------------------------------------------
+
+    // DOM Elements
+    /** @deprecated */
+    function createFactory<T extends HTMLElement>(
+        type: keyof ReactHTML,
+    ): HTMLFactory<T>;
+    /** @deprecated */
+    function createFactory(
+        type: keyof ReactSVG,
+    ): SVGFactory;
+    /** @deprecated */
+    function createFactory<P extends DOMAttributes<T>, T extends Element>(
+        type: string,
+    ): DOMFactory<P, T>;
+
+    // Custom components
+    /** @deprecated */
+    function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
+    /** @deprecated */
+    function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
+        type: ClassType<P, T, C>,
+    ): CFactory<P, T>;
+    /** @deprecated */
+    function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
@@ -451,12 +525,12 @@ declare namespace React {
         ...children: ReactNode[]
     ): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        type: HTMLElementType,
+        type: keyof ReactHTML,
         props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]
     ): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
-        type: SVGElementType,
+        type: keyof ReactSVG,
         props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]
     ): ReactSVGElement;
@@ -585,6 +659,7 @@ declare namespace React {
      * @template P The props the component accepts.
      */
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
+        propTypes?: WeakValidationMap<P> | undefined;
     }
 
     /**
@@ -666,7 +741,7 @@ declare namespace React {
      * const ThemeContext = createContext('light');
      * ```
      */
-    interface Context<T> extends Provider<T> {
+    interface Context<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
         /**
@@ -695,13 +770,6 @@ declare namespace React {
      * import { createContext } from 'react';
      *
      * const ThemeContext = createContext('light');
-     * function App() {
-     *   return (
-     *     <ThemeContext value="dark">
-     *       <Toolbar />
-     *     </ThemeContext>
-     *   );
-     * }
      * ```
      */
     function createContext<T>(
@@ -712,6 +780,9 @@ declare namespace React {
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
+    /**
+     * Maintainer's note: Sync with {@link ReactChildren} until {@link ReactChildren} is removed.
+     */
     const Children: {
         map<T, C>(
             children: C | readonly C[],
@@ -918,12 +989,6 @@ declare namespace React {
         static contextType?: Context<any> | undefined;
 
         /**
-         * Ignored by React.
-         * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
-         */
-        static propTypes?: any;
-
-        /**
          * If using the new style context, re-declare this in your class to be the
          * `React.ContextType` of your `static contextType`.
          * Should be used with type annotation or static contextType.
@@ -941,8 +1006,12 @@ declare namespace React {
          */
         context: unknown;
 
-        // Keep in sync with constructor signature of JSXElementConstructor and ComponentClass.
         constructor(props: P);
+        /**
+         * @deprecated
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html React Docs}
+         */
+        constructor(props: P, context: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
@@ -957,6 +1026,14 @@ declare namespace React {
 
         readonly props: Readonly<P>;
         state: Readonly<S>;
+        /**
+         * @deprecated
+         *
+         * @see {@link https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs Legacy React Docs}
+         */
+        refs: {
+            [key: string]: ReactInstance;
+        };
     }
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {}
@@ -971,6 +1048,10 @@ declare namespace React {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
+    }
+
+    interface ChildContextProvider<CC> {
+        getChildContext(): CC;
     }
 
     //
@@ -1037,12 +1118,58 @@ declare namespace React {
      * ```
      */
     interface FunctionComponent<P = {}> {
-        (props: P): ReactElement<any, any> | null;
+        (
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): ReactElement<any, any> | null;
         /**
-         * Ignored by React.
-         * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
+         * Used to declare the types of the props accepted by the
+         * component. These types will be checked during rendering
+         * and in development only.
+         *
+         * We recommend using TypeScript instead of checking prop
+         * types at runtime.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
          */
-        propTypes?: any;
+        propTypes?: WeakValidationMap<P> | undefined;
+        /**
+         * @deprecated
+         *
+         * Lets you specify which legacy context is consumed by
+         * this component.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html Legacy React Docs}
+         */
+        contextTypes?: ValidationMap<any> | undefined;
+        /**
+         * Used to define default values for the props accepted by
+         * the component.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
+         *
+         * @example
+         *
+         * ```tsx
+         * type Props = { name?: string }
+         *
+         * const MyComponent: FC<Props> = (props) => {
+         *   return <div>{props.name}</div>
+         * }
+         *
+         * MyComponent.defaultProps = {
+         *   name: 'John Doe'
+         * }
+         * ```
+         *
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         */
+        defaultProps?: Partial<P> | undefined;
         /**
          * Used in debugging messages. You might want to set it
          * explicitly if you want to display a different name for
@@ -1061,6 +1188,38 @@ declare namespace React {
          * MyComponent.displayName = 'MyAwesomeComponent'
          * ```
          */
+        displayName?: string | undefined;
+    }
+
+    /**
+     * @deprecated - Equivalent to {@link React.FunctionComponent}.
+     *
+     * @see {@link React.FunctionComponent}
+     * @alias {@link VoidFunctionComponent}
+     */
+    type VFC<P = {}> = VoidFunctionComponent<P>;
+
+    /**
+     * @deprecated - Equivalent to {@link React.FunctionComponent}.
+     *
+     * @see {@link React.FunctionComponent}
+     */
+    interface VoidFunctionComponent<P = {}> {
+        (
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): ReactElement<any, any> | null;
+        propTypes?: WeakValidationMap<P> | undefined;
+        contextTypes?: ValidationMap<any> | undefined;
+        /**
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         */
+        defaultProps?: Partial<P> | undefined;
         displayName?: string | undefined;
     }
 
@@ -1098,10 +1257,19 @@ declare namespace React {
          */
         displayName?: string | undefined;
         /**
-         * Ignored by React.
-         * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
+         * defaultProps are not supported on render functions passed to forwardRef.
+         *
+         * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
+         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
          */
-        propTypes?: any;
+        defaultProps?: never | undefined;
+        /**
+         * propTypes are not supported on render functions passed to forwardRef.
+         *
+         * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
+         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
+         */
+        propTypes?: never | undefined;
     }
 
     /**
@@ -1111,14 +1279,48 @@ declare namespace React {
      * @template S The internal state of the component.
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
-        // constructor signature must match React.Component
-        new(props: P): Component<P, S>;
+        new(
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): Component<P, S>;
         /**
-         * Ignored by React.
-         * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
+         * Used to declare the types of the props accepted by the
+         * component. These types will be checked during rendering
+         * and in development only.
+         *
+         * We recommend using TypeScript instead of checking prop
+         * types at runtime.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
          */
-        propTypes?: any;
+        propTypes?: WeakValidationMap<P> | undefined;
         contextType?: Context<any> | undefined;
+        /**
+         * @deprecated use {@link ComponentClass.contextType} instead
+         *
+         * Lets you specify which legacy context is consumed by
+         * this component.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html Legacy React Docs}
+         */
+        contextTypes?: ValidationMap<any> | undefined;
+        /**
+         * @deprecated
+         *
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#how-to-use-context Legacy React Docs}
+         */
+        childContextTypes?: ValidationMap<any> | undefined;
+        /**
+         * Used to define default values for the props accepted by
+         * the component.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
+         */
         defaultProps?: Partial<P> | undefined;
         /**
          * Used in debugging messages. You might want to set it
@@ -1137,7 +1339,7 @@ declare namespace React {
      * @see {@link https://www.npmjs.com/package/create-react-class `create-react-class` on npm}
      */
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new(props: P): ClassicComponent<P, ComponentState>;
+        new(props: P, deprecatedLegacyContext?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -1152,7 +1354,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         & C
-        & (new(props: P) => T);
+        & (new(props: P, deprecatedLegacyContext?: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -1176,7 +1378,7 @@ declare namespace React {
          * If false is returned, {@link Component.render}, `componentWillUpdate`
          * and `componentDidUpdate` will not be called.
          */
-        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): boolean;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
         /**
          * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
          * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
@@ -1275,7 +1477,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillReceiveProps?(nextProps: Readonly<P>): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called when the component may be receiving new props.
          * React may call this even if props have not changed, so be sure to compare new and existing
@@ -1293,7 +1495,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>): void;
+        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1307,7 +1509,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1323,10 +1525,41 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
+        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
-    function createRef<T>(): RefObject<T | null>;
+    /**
+     * @deprecated
+     *
+     * @see {@link https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html Mixins Considered Harmful}
+     */
+    interface Mixin<P, S> extends ComponentLifecycle<P, S> {
+        mixins?: Array<Mixin<P, S>> | undefined;
+        statics?: {
+            [key: string]: any;
+        } | undefined;
+
+        displayName?: string | undefined;
+        propTypes?: ValidationMap<any> | undefined;
+        contextTypes?: ValidationMap<any> | undefined;
+        childContextTypes?: ValidationMap<any> | undefined;
+
+        getDefaultProps?(): P;
+        getInitialState?(): S;
+    }
+
+    /**
+     * @deprecated
+     *
+     * @see {@link https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html Mixins Considered Harmful}
+     */
+    interface ComponentSpec<P, S> extends Mixin<P, S> {
+        render(): ReactNode;
+
+        [propertyName: string]: any;
+    }
+
+    function createRef<T>(): RefObject<T>;
 
     /**
      * The type of the component returned from {@link forwardRef}.
@@ -1337,10 +1570,10 @@ declare namespace React {
      */
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
         /**
-         * Ignored by React.
-         * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
          */
-        propTypes?: any;
+        defaultProps?: Partial<P> | undefined;
+        propTypes?: WeakValidationMap<P> | undefined;
     }
 
     /**
@@ -1377,18 +1610,23 @@ declare namespace React {
     /**
      * Omits the 'ref' attribute from the given props object.
      *
-     * @template Props The props object type.
+     * @template P The props object type.
      */
-    type PropsWithoutRef<Props> =
+    type PropsWithoutRef<P> =
         // Omit would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
         // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        Props extends any ? ("ref" extends keyof Props ? Omit<Props, "ref"> : Props) : Props;
-    /**
-     * Ensures that the props do not include string ref, which cannot be forwarded
-     * @deprecated Use `Props` directly. `PropsWithRef<Props>` is just an alias for `Props`
-     */
-    type PropsWithRef<Props> = Props;
+        P extends any ? ("ref" extends keyof P ? Omit<P, "ref"> : P) : P;
+    /** Ensures that the props do not include string ref, which cannot be forwarded */
+    type PropsWithRef<P> =
+        // Note: String refs can be forwarded. We can't fix this bug without breaking a bunch of libraries now though.
+        // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
+        "ref" extends keyof P
+            ? P extends { ref?: infer R | undefined }
+                ? string extends R ? PropsWithoutRef<P> & { ref?: Exclude<R, string> | undefined }
+                : P
+            : P
+            : P;
 
     type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
 
@@ -1420,7 +1658,7 @@ declare namespace React {
      * ```
      */
     type ComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> = T extends
-        JSXElementConstructor<infer Props> ? Props
+        JSXElementConstructor<infer P> ? P
         : T extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[T]
         : {};
 
@@ -1447,11 +1685,9 @@ declare namespace React {
      * type MyComponentPropsWithRef = React.ComponentPropsWithRef<typeof MyComponent>;
      * ```
      */
-    type ComponentPropsWithRef<T extends ElementType> = T extends JSXElementConstructor<infer Props>
-        // If it's a class i.e. newable we're dealing with a class component
-        ? T extends abstract new(args: any) => any ? PropsWithoutRef<Props> & RefAttributes<InstanceType<T>>
-        : Props
-        : ComponentProps<T>;
+    type ComponentPropsWithRef<T extends ElementType> = T extends (new(props: infer P) => Component<any, any>)
+        ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
+        : PropsWithRef<ComponentProps<T>>;
     /**
      * Used to retrieve the props a custom component accepts with its ref.
      *
@@ -1468,10 +1704,9 @@ declare namespace React {
      * type MyComponentPropsWithRef = React.CustomComponentPropsWithRef<typeof MyComponent>;
      * ```
      */
-    type CustomComponentPropsWithRef<T extends ComponentType> = T extends JSXElementConstructor<infer Props>
-        // If it's a class i.e. newable we're dealing with a class component
-        ? T extends abstract new(args: any) => any ? PropsWithoutRef<Props> & RefAttributes<InstanceType<T>>
-        : Props
+    type CustomComponentPropsWithRef<T extends ComponentType> = T extends (new(props: infer P) => Component<any, any>)
+        ? (PropsWithoutRef<P> & RefAttributes<InstanceType<T>>)
+        : T extends ((props: infer P, legacyContext?: any) => ReactNode) ? PropsWithRef<P>
         : never;
 
     /**
@@ -1499,24 +1734,10 @@ declare namespace React {
      */
     type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<ComponentProps<T>>;
 
-    /**
-     * Retrieves the type of the 'ref' prop for a given component type or tag name.
-     *
-     * @template C The component type.
-     *
-     * @example
-     *
-     * ```tsx
-     * type MyComponentRef = React.ElementRef<typeof MyComponent>;
-     * ```
-     *
-     * @example
-     *
-     * ```tsx
-     * type DivRef = React.ElementRef<'div'>;
-     * ```
-     */
-    type ComponentRef<T extends ElementType> = ComponentPropsWithRef<T> extends RefAttributes<infer Method> ? Method
+    type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
+        ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
+    > ? Method
+        : ComponentPropsWithRef<T> extends RefAttributes<infer Method> ? Method
         : never;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
@@ -1617,11 +1838,6 @@ declare namespace React {
      * A {@link Dispatch} function can sometimes be called without any arguments.
      */
     type DispatchWithoutAction = () => void;
-    // Limit the reducer to accept only 0 or 1 action arguments
-    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-    type AnyActionArg = [] | [any];
-    // Get the dispatch type from the reducer arguments (captures optional action argument correctly)
-    type ActionDispatch<ActionArg extends AnyActionArg> = (...args: ActionArg) => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
     // If useReducer accepts a reducer without action, dispatch may be called without any parameters.
@@ -1629,14 +1845,15 @@ declare namespace React {
     // types used to try and prevent the compiler from reducing S
     // to a supertype common with the second argument to useReducer()
     type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
+    type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
+    // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
+    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S> ? S
+        : never;
     type DependencyList = readonly unknown[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => void | Destructor;
 
-    /**
-     * @deprecated Use `RefObject` instead.
-     */
     interface MutableRefObject<T> {
         current: T;
     }
@@ -1675,10 +1892,12 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useReducer}
      */
-    function useReducer<S, A extends AnyActionArg>(
-        reducer: (prevState: S, ...args: A) => S,
-        initialState: S,
-    ): [S, ActionDispatch<A>];
+    // overload where dispatch could accept 0 arguments.
+    function useReducer<R extends ReducerWithoutAction<any>, I>(
+        reducer: R,
+        initializerArg: I,
+        initializer: (arg: I) => ReducerStateWithoutAction<R>,
+    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
     /**
      * An alternative to `useState`.
      *
@@ -1689,10 +1908,12 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useReducer}
      */
-    function useReducer<S, A extends AnyActionArg>(
-        reducer: (prevState: S, ...args: A) => S,
-        initialState: S,
-    ): [S, ActionDispatch<A>];
+    // overload where dispatch could accept 0 arguments.
+    function useReducer<R extends ReducerWithoutAction<any>>(
+        reducer: R,
+        initializerArg: ReducerStateWithoutAction<R>,
+        initializer?: undefined,
+    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
     /**
      * An alternative to `useState`.
      *
@@ -1703,11 +1924,55 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useReducer}
      */
-    function useReducer<S, I, A extends AnyActionArg>(
-        reducer: (prevState: S, ...args: A) => S,
-        initialArg: I,
-        init: (i: I) => S,
-    ): [S, ActionDispatch<A>];
+    // overload where "I" may be a subset of ReducerState<R>; used to provide autocompletion.
+    // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be omitted.
+    // the last overload effectively behaves as if the identity function (x => x) is the initializer.
+    function useReducer<R extends Reducer<any, any>, I>(
+        reducer: R,
+        initializerArg: I & ReducerState<R>,
+        initializer: (arg: I & ReducerState<R>) => ReducerState<R>,
+    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see {@link https://react.dev/reference/react/useReducer}
+     */
+    // overload for free "I"; all goes as long as initializer converts it into "ReducerState<R>".
+    function useReducer<R extends Reducer<any, any>, I>(
+        reducer: R,
+        initializerArg: I,
+        initializer: (arg: I) => ReducerState<R>,
+    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see {@link https://react.dev/reference/react/useReducer}
+     */
+
+    // I'm not sure if I keep this 2-ary or if I make it (2,3)-ary; it's currently (2,3)-ary.
+    // The Flow types do have an overload for 3-ary invocation with undefined initializer.
+
+    // NOTE: without the ReducerState indirection, TypeScript would reduce S to be the most common
+    // supertype between the reducer's return type and the initialState (or the initializer's return type),
+    // which would prevent autocompletion from ever working.
+
+    // TODO: double-check if this weird overload logic is necessary. It is possible it's either a bug
+    // in older versions, or a regression in newer versions of the typescript completion service.
+    function useReducer<R extends Reducer<any, any>>(
+        reducer: R,
+        initialState: ReducerState<R>,
+        initializer?: undefined,
+    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
@@ -1718,7 +1983,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T>(initialValue: T): RefObject<T>;
+    function useRef<T>(initialValue: T): MutableRefObject<T>;
     // convenience overload for refs given as a ref prop as they typically start with a null value
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
@@ -1727,11 +1992,15 @@ declare namespace React {
      * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
      * value around similar to how you’d use instance fields in classes.
      *
+     * Usage note: if you need the result of useRef to be directly mutable, include `| null` in the type
+     * of the generic argument.
+     *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T>(initialValue: T | null): RefObject<T | null>;
-    // convenience overload for undefined initialValue
+    function useRef<T>(initialValue: T | null): RefObject<T>;
+    // convenience overload for potentially undefined initialValue / call with 0 arguments
+    // has a default to stop it from defaulting to {} instead
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
@@ -1742,7 +2011,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T>(initialValue: T | undefined): RefObject<T | undefined>;
+    function useRef<T = undefined>(): MutableRefObject<T | undefined>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
@@ -1812,7 +2081,8 @@ declare namespace React {
     // it's just the function name without the "use" prefix.
     function useDebugValue<T>(value: T, format?: (value: T) => any): void;
 
-    export type TransitionFunction = () => VoidOrUndefinedOnly | Promise<VoidOrUndefinedOnly>;
+    // must be synchronous
+    export type TransitionFunction = () => VoidOrUndefinedOnly;
     // strange definition to allow vscode to show documentation on the invocation
     export interface TransitionStartFunction {
         /**
@@ -1820,7 +2090,7 @@ declare namespace React {
          *
          * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
          *
-         * @param callback A function which causes state updates that can be deferred.
+         * @param callback A _synchronous_ function which causes state updates that can be deferred.
          */
         (callback: TransitionFunction): void;
     }
@@ -1859,9 +2129,8 @@ declare namespace React {
     /**
      * Similar to `useTransition` but allows uses where hooks are not available.
      *
-     * @param callback A function which causes state updates that can be deferred.
+     * @param callback A _synchronous_ function which causes state updates that can be deferred.
      */
-    export function startTransition(scope: TransitionFunction): void;
     export function startTransition(scope: TransitionFunction): void;
 
     /**
@@ -1875,11 +2144,6 @@ declare namespace React {
      *
      * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
      */
-    // NOTES
-    // - the order of these signatures matters - typescript will check the signatures in source order.
-    //   If the `() => VoidOrUndefinedOnly` signature is first, it'll erroneously match a Promise returning function for users with
-    //   `strictNullChecks: false`.
-    // - VoidOrUndefinedOnly is there to forbid any non-void return values for users with `strictNullChecks: true`
     // While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
     export function act(callback: () => VoidOrUndefinedOnly): void;
     export function act<T>(callback: () => T | Promise<T>): Promise<T>;
@@ -1906,32 +2170,6 @@ declare namespace React {
         getSnapshot: () => Snapshot,
         getServerSnapshot?: () => Snapshot,
     ): Snapshot;
-
-    export function useOptimistic<State>(
-        passthrough: State,
-    ): [State, (action: State | ((pendingState: State) => State)) => void];
-    export function useOptimistic<State, Action>(
-        passthrough: State,
-        reducer: (state: State, action: Action) => State,
-    ): [State, (action: Action) => void];
-
-    export type Usable<T> = PromiseLike<T> | Context<T>;
-
-    export function use<T>(usable: Usable<T>): T;
-
-    export function useActionState<State>(
-        action: (state: Awaited<State>) => State | Promise<State>,
-        initialState: Awaited<State>,
-        permalink?: string,
-    ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
-    export function useActionState<State, Payload>(
-        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
-        initialState: Awaited<State>,
-        permalink?: string,
-    ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
     //
     // Event System
@@ -2100,11 +2338,6 @@ declare namespace React {
         pseudoElement: string;
     }
 
-    interface ToggleEvent<T = Element> extends SyntheticEvent<T, NativeToggleEvent> {
-        oldState: "closed" | "open";
-        newState: "closed" | "open";
-    }
-
     interface TransitionEvent<T = Element> extends SyntheticEvent<T, NativeTransitionEvent> {
         elapsedTime: number;
         propertyName: string;
@@ -2132,7 +2365,6 @@ declare namespace React {
     type UIEventHandler<T = Element> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T = Element> = EventHandler<WheelEvent<T>>;
     type AnimationEventHandler<T = Element> = EventHandler<AnimationEvent<T>>;
-    type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
     type TransitionEventHandler<T = Element> = EventHandler<TransitionEvent<T>>;
 
     //
@@ -2346,19 +2578,9 @@ declare namespace React {
         onAnimationIteration?: AnimationEventHandler<T> | undefined;
         onAnimationIterationCapture?: AnimationEventHandler<T> | undefined;
 
-        // Toggle Events
-        onToggle?: ToggleEventHandler<T> | undefined;
-        onBeforeToggle?: ToggleEventHandler<T> | undefined;
-
         // Transition Events
-        onTransitionCancel?: TransitionEventHandler<T> | undefined;
-        onTransitionCancelCapture?: TransitionEventHandler<T> | undefined;
         onTransitionEnd?: TransitionEventHandler<T> | undefined;
         onTransitionEndCapture?: TransitionEventHandler<T> | undefined;
-        onTransitionRun?: TransitionEventHandler<T> | undefined;
-        onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
-        onTransitionStart?: TransitionEventHandler<T> | undefined;
-        onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
     }
 
     export interface CSSProperties extends CSS.Properties<string | number> {
@@ -2729,16 +2951,7 @@ declare namespace React {
         security?: string | undefined;
         unselectable?: "on" | "off" | undefined;
 
-        // Popover API
-        popover?: "" | "auto" | "manual" | undefined;
-        popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
-        popoverTarget?: string | undefined;
-
         // Living Standard
-        /**
-         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
-         */
-        inert?: boolean | undefined;
         /**
          * Hints at the type of data that might be entered by the user while editing the element or its contents
          * @see {@link https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute}
@@ -2765,7 +2978,6 @@ declare namespace React {
         action?:
             | string
             | undefined
-            | ((formData: FormData) => void | Promise<void>)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ];
@@ -2800,7 +3012,6 @@ declare namespace React {
         formAction?:
             | string
             | undefined
-            | ((formData: FormData) => void | Promise<void>)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ];
@@ -2933,7 +3144,6 @@ declare namespace React {
         form?: string | undefined;
         formAction?:
             | string
-            | ((formData: FormData) => void | Promise<void>)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ]
@@ -2967,6 +3177,7 @@ declare namespace React {
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
+        onToggle?: ReactEventHandler<T> | undefined;
         name?: string | undefined;
     }
 
@@ -2999,7 +3210,6 @@ declare namespace React {
         action?:
             | string
             | undefined
-            | ((formData: FormData) => void | Promise<void>)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ];
@@ -3155,7 +3365,6 @@ declare namespace React {
         form?: string | undefined;
         formAction?:
             | string
-            | ((formData: FormData) => void | Promise<void>)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ]
@@ -3218,9 +3427,6 @@ declare namespace React {
         sizes?: string | undefined;
         type?: string | undefined;
         charSet?: string | undefined;
-
-        // React props
-        precedence?: string | undefined;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3355,10 +3561,6 @@ declare namespace React {
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
-
-        // React props
-        href?: string | undefined;
-        precedence?: string | undefined;
     }
 
     interface TableHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3746,184 +3948,259 @@ declare namespace React {
         webpreferences?: string | undefined;
     }
 
-    // TODO: Move to react-dom
-    type HTMLElementType =
-        | "a"
-        | "abbr"
-        | "address"
-        | "area"
-        | "article"
-        | "aside"
-        | "audio"
-        | "b"
-        | "base"
-        | "bdi"
-        | "bdo"
-        | "big"
-        | "blockquote"
-        | "body"
-        | "br"
-        | "button"
-        | "canvas"
-        | "caption"
-        | "center"
-        | "cite"
-        | "code"
-        | "col"
-        | "colgroup"
-        | "data"
-        | "datalist"
-        | "dd"
-        | "del"
-        | "details"
-        | "dfn"
-        | "dialog"
-        | "div"
-        | "dl"
-        | "dt"
-        | "em"
-        | "embed"
-        | "fieldset"
-        | "figcaption"
-        | "figure"
-        | "footer"
-        | "form"
-        | "h1"
-        | "h2"
-        | "h3"
-        | "h4"
-        | "h5"
-        | "h6"
-        | "head"
-        | "header"
-        | "hgroup"
-        | "hr"
-        | "html"
-        | "i"
-        | "iframe"
-        | "img"
-        | "input"
-        | "ins"
-        | "kbd"
-        | "keygen"
-        | "label"
-        | "legend"
-        | "li"
-        | "link"
-        | "main"
-        | "map"
-        | "mark"
-        | "menu"
-        | "menuitem"
-        | "meta"
-        | "meter"
-        | "nav"
-        | "noscript"
-        | "object"
-        | "ol"
-        | "optgroup"
-        | "option"
-        | "output"
-        | "p"
-        | "param"
-        | "picture"
-        | "pre"
-        | "progress"
-        | "q"
-        | "rp"
-        | "rt"
-        | "ruby"
-        | "s"
-        | "samp"
-        | "search"
-        | "slot"
-        | "script"
-        | "section"
-        | "select"
-        | "small"
-        | "source"
-        | "span"
-        | "strong"
-        | "style"
-        | "sub"
-        | "summary"
-        | "sup"
-        | "table"
-        | "template"
-        | "tbody"
-        | "td"
-        | "textarea"
-        | "tfoot"
-        | "th"
-        | "thead"
-        | "time"
-        | "title"
-        | "tr"
-        | "track"
-        | "u"
-        | "ul"
-        | "var"
-        | "video"
-        | "wbr"
-        | "webview";
+    //
+    // React.DOM
+    // ----------------------------------------------------------------------
 
-    // TODO: Move to react-dom
-    type SVGElementType =
-        | "animate"
-        | "circle"
-        | "clipPath"
-        | "defs"
-        | "desc"
-        | "ellipse"
-        | "feBlend"
-        | "feColorMatrix"
-        | "feComponentTransfer"
-        | "feComposite"
-        | "feConvolveMatrix"
-        | "feDiffuseLighting"
-        | "feDisplacementMap"
-        | "feDistantLight"
-        | "feDropShadow"
-        | "feFlood"
-        | "feFuncA"
-        | "feFuncB"
-        | "feFuncG"
-        | "feFuncR"
-        | "feGaussianBlur"
-        | "feImage"
-        | "feMerge"
-        | "feMergeNode"
-        | "feMorphology"
-        | "feOffset"
-        | "fePointLight"
-        | "feSpecularLighting"
-        | "feSpotLight"
-        | "feTile"
-        | "feTurbulence"
-        | "filter"
-        | "foreignObject"
-        | "g"
-        | "image"
-        | "line"
-        | "linearGradient"
-        | "marker"
-        | "mask"
-        | "metadata"
-        | "path"
-        | "pattern"
-        | "polygon"
-        | "polyline"
-        | "radialGradient"
-        | "rect"
-        | "stop"
-        | "svg"
-        | "switch"
-        | "symbol"
-        | "text"
-        | "textPath"
-        | "tspan"
-        | "use"
-        | "view";
+    interface ReactHTML {
+        a: DetailedHTMLFactory<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+        abbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        address: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        area: DetailedHTMLFactory<AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
+        article: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        aside: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        audio: DetailedHTMLFactory<AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
+        b: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        base: DetailedHTMLFactory<BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
+        bdi: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        bdo: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        big: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        blockquote: DetailedHTMLFactory<BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
+        body: DetailedHTMLFactory<HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
+        br: DetailedHTMLFactory<HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
+        button: DetailedHTMLFactory<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+        canvas: DetailedHTMLFactory<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
+        caption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        center: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        cite: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+        colgroup: DetailedHTMLFactory<ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
+        data: DetailedHTMLFactory<DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
+        datalist: DetailedHTMLFactory<HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
+        dd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        del: DetailedHTMLFactory<DelHTMLAttributes<HTMLModElement>, HTMLModElement>;
+        details: DetailedHTMLFactory<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>;
+        dfn: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        dialog: DetailedHTMLFactory<DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
+        div: DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+        dl: DetailedHTMLFactory<HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
+        dt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        em: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        embed: DetailedHTMLFactory<EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
+        fieldset: DetailedHTMLFactory<FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
+        figcaption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        figure: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        footer: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        form: DetailedHTMLFactory<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
+        h1: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h2: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h3: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h4: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h5: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        h6: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+        head: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLHeadElement>;
+        header: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        hgroup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        hr: DetailedHTMLFactory<HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
+        html: DetailedHTMLFactory<HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
+        i: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        iframe: DetailedHTMLFactory<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
+        img: DetailedHTMLFactory<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
+        input: DetailedHTMLFactory<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+        ins: DetailedHTMLFactory<InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
+        kbd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        keygen: DetailedHTMLFactory<KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
+        label: DetailedHTMLFactory<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
+        legend: DetailedHTMLFactory<HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
+        li: DetailedHTMLFactory<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
+        link: DetailedHTMLFactory<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
+        main: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        map: DetailedHTMLFactory<MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
+        mark: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        menu: DetailedHTMLFactory<MenuHTMLAttributes<HTMLElement>, HTMLElement>;
+        menuitem: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        meta: DetailedHTMLFactory<MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
+        meter: DetailedHTMLFactory<MeterHTMLAttributes<HTMLMeterElement>, HTMLMeterElement>;
+        nav: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        noscript: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        object: DetailedHTMLFactory<ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
+        ol: DetailedHTMLFactory<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
+        optgroup: DetailedHTMLFactory<OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
+        option: DetailedHTMLFactory<OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
+        output: DetailedHTMLFactory<OutputHTMLAttributes<HTMLOutputElement>, HTMLOutputElement>;
+        p: DetailedHTMLFactory<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
+        param: DetailedHTMLFactory<ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
+        picture: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        pre: DetailedHTMLFactory<HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
+        progress: DetailedHTMLFactory<ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
+        q: DetailedHTMLFactory<QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
+        rp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        rt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        search: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        slot: DetailedHTMLFactory<SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
+        script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
+        section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        select: DetailedHTMLFactory<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
+        small: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        source: DetailedHTMLFactory<SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
+        span: DetailedHTMLFactory<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
+        strong: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        style: DetailedHTMLFactory<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
+        sub: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        summary: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        sup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        table: DetailedHTMLFactory<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+        template: DetailedHTMLFactory<HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
+        tbody: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        td: DetailedHTMLFactory<TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
+        textarea: DetailedHTMLFactory<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+        tfoot: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        th: DetailedHTMLFactory<ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
+        thead: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
+        time: DetailedHTMLFactory<TimeHTMLAttributes<HTMLTimeElement>, HTMLTimeElement>;
+        title: DetailedHTMLFactory<HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
+        tr: DetailedHTMLFactory<HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
+        track: DetailedHTMLFactory<TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
+        u: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        ul: DetailedHTMLFactory<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+        "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
+        wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
+    }
+
+    interface ReactSVG {
+        animate: SVGFactory;
+        circle: SVGFactory;
+        clipPath: SVGFactory;
+        defs: SVGFactory;
+        desc: SVGFactory;
+        ellipse: SVGFactory;
+        feBlend: SVGFactory;
+        feColorMatrix: SVGFactory;
+        feComponentTransfer: SVGFactory;
+        feComposite: SVGFactory;
+        feConvolveMatrix: SVGFactory;
+        feDiffuseLighting: SVGFactory;
+        feDisplacementMap: SVGFactory;
+        feDistantLight: SVGFactory;
+        feDropShadow: SVGFactory;
+        feFlood: SVGFactory;
+        feFuncA: SVGFactory;
+        feFuncB: SVGFactory;
+        feFuncG: SVGFactory;
+        feFuncR: SVGFactory;
+        feGaussianBlur: SVGFactory;
+        feImage: SVGFactory;
+        feMerge: SVGFactory;
+        feMergeNode: SVGFactory;
+        feMorphology: SVGFactory;
+        feOffset: SVGFactory;
+        fePointLight: SVGFactory;
+        feSpecularLighting: SVGFactory;
+        feSpotLight: SVGFactory;
+        feTile: SVGFactory;
+        feTurbulence: SVGFactory;
+        filter: SVGFactory;
+        foreignObject: SVGFactory;
+        g: SVGFactory;
+        image: SVGFactory;
+        line: SVGFactory;
+        linearGradient: SVGFactory;
+        marker: SVGFactory;
+        mask: SVGFactory;
+        metadata: SVGFactory;
+        path: SVGFactory;
+        pattern: SVGFactory;
+        polygon: SVGFactory;
+        polyline: SVGFactory;
+        radialGradient: SVGFactory;
+        rect: SVGFactory;
+        stop: SVGFactory;
+        svg: SVGFactory;
+        switch: SVGFactory;
+        symbol: SVGFactory;
+        text: SVGFactory;
+        textPath: SVGFactory;
+        tspan: SVGFactory;
+        use: SVGFactory;
+        view: SVGFactory;
+    }
+
+    interface ReactDOM extends ReactHTML, ReactSVG {}
+
+    //
+    // React.PropTypes
+    // ----------------------------------------------------------------------
+
+    /**
+     * @deprecated Use `Validator` from the ´prop-types` instead.
+     */
+    type Validator<T> = PropTypes.Validator<T>;
+
+    /**
+     * @deprecated Use `Requireable` from the ´prop-types` instead.
+     */
+    type Requireable<T> = PropTypes.Requireable<T>;
+
+    /**
+     * @deprecated Use `ValidationMap` from the ´prop-types` instead.
+     */
+    type ValidationMap<T> = PropTypes.ValidationMap<T>;
+
+    /**
+     * @deprecated Use `WeakValidationMap` from the ´prop-types` instead.
+     */
+    type WeakValidationMap<T> = {
+        [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
+            : undefined extends T[K] ? Validator<T[K] | null | undefined>
+            : Validator<T[K]>;
+    };
+
+    /**
+     * @deprecated Use `PropTypes.*` where `PropTypes` comes from `import * as PropTypes from 'prop-types'` instead.
+     */
+    interface ReactPropTypes {
+        any: typeof PropTypes.any;
+        array: typeof PropTypes.array;
+        bool: typeof PropTypes.bool;
+        func: typeof PropTypes.func;
+        number: typeof PropTypes.number;
+        object: typeof PropTypes.object;
+        string: typeof PropTypes.string;
+        node: typeof PropTypes.node;
+        element: typeof PropTypes.element;
+        instanceOf: typeof PropTypes.instanceOf;
+        oneOf: typeof PropTypes.oneOf;
+        oneOfType: typeof PropTypes.oneOfType;
+        arrayOf: typeof PropTypes.arrayOf;
+        objectOf: typeof PropTypes.objectOf;
+        shape: typeof PropTypes.shape;
+        exact: typeof PropTypes.exact;
+    }
+
+    //
+    // React.Children
+    // ----------------------------------------------------------------------
+
+    /**
+     * @deprecated - Use `typeof React.Children` instead.
+     */
+    // Sync with type of `const Children`.
+    interface ReactChildren {
+        map<T, C>(
+            children: C | readonly C[],
+            fn: (child: C, index: number) => T,
+        ): C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
+        forEach<C>(children: C | readonly C[], fn: (child: C, index: number) => void): void;
+        count(children: any): number;
+        only<C>(children: C): C extends any[] ? never : C;
+        toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
+    }
 
     //
     // Browser Interfaces
@@ -3965,6 +4242,67 @@ declare namespace React {
     }
 
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
+    namespace JSX {
+        interface Element extends GlobalJSXElement {}
+        interface ElementClass extends GlobalJSXElementClass {}
+        interface ElementAttributesProperty extends GlobalJSXElementAttributesProperty {}
+        interface ElementChildrenAttribute extends GlobalJSXElementChildrenAttribute {}
+
+        type LibraryManagedAttributes<C, P> = GlobalJSXLibraryManagedAttributes<C, P>;
+
+        interface IntrinsicAttributes extends GlobalJSXIntrinsicAttributes {}
+        interface IntrinsicClassAttributes<T> extends GlobalJSXIntrinsicClassAttributes<T> {}
+        interface IntrinsicElements extends GlobalJSXIntrinsicElements {}
+    }
+}
+
+// naked 'any' type in a conditional type will short circuit and union both the then/else branches
+// so boolean is only resolved for T = any
+type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
+
+type ExactlyAnyPropertyKeys<T> = { [K in keyof T]: IsExactlyAny<T[K]> extends true ? K : never }[keyof T];
+type NotExactlyAnyPropertyKeys<T> = Exclude<keyof T, ExactlyAnyPropertyKeys<T>>;
+
+// Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
+type MergePropTypes<P, T> =
+    // Distribute over P in case it is a union type
+    P extends any
+        // If props is type any, use propTypes definitions
+        ? IsExactlyAny<P> extends true ? T
+            // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
+        : string extends keyof P ? P
+            // Prefer declared types which are not exactly any
+        :
+            & Pick<P, NotExactlyAnyPropertyKeys<P>>
+            // For props which are exactly any, use the type inferred from propTypes if present
+            & Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
+            // Keep leftover props not specified in propTypes
+            & Pick<P, Exclude<keyof P, keyof T>>
+        : never;
+
+type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
+
+// Any prop that has a default prop becomes optional, but its type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely as keyof gets widened
+// Wrap in an outer-level conditional type to allow distribution over props that are unions
+type Defaultize<P, D> = P extends any ? string extends keyof P ? P
+    :
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & InexactPartial<Pick<P, Extract<keyof P, keyof D>>>
+        & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
+    : never;
+
+type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D }
+    ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
+    : C extends { propTypes: infer T } ? MergePropTypes<P, PropTypes.InferProps<T>>
+    : C extends { defaultProps: infer D } ? Defaultize<P, D>
+    : P;
+
+declare global {
+    /**
+     * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
+     */
     namespace JSX {
         interface Element extends React.ReactElement<any, any> {}
         interface ElementClass extends React.Component<any> {
@@ -4176,18 +4514,17 @@ declare namespace React {
     }
 }
 
-type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
+// React.JSX needs to point to global.JSX to keep global module augmentations intact.
+// But we can't access global.JSX so we need to create these aliases instead.
+// Once the global JSX namespace will be removed we replace React.JSX with the contents of global.JSX
+interface GlobalJSXElement extends JSX.Element {}
+interface GlobalJSXElementClass extends JSX.ElementClass {}
+interface GlobalJSXElementAttributesProperty extends JSX.ElementAttributesProperty {}
+interface GlobalJSXElementChildrenAttribute extends JSX.ElementChildrenAttribute {}
 
-// Any prop that has a default prop becomes optional, but its type is unchanged
-// Undeclared default props are augmented into the resulting allowable attributes
-// If declared props have indexed properties, ignore default props entirely as keyof gets widened
-// Wrap in an outer-level conditional type to allow distribution over props that are unions
-type Defaultize<P, D> = P extends any ? string extends keyof P ? P
-    :
-        & Pick<P, Exclude<keyof P, keyof D>>
-        & InexactPartial<Pick<P, Extract<keyof P, keyof D>>>
-        & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
-    : never;
+type GlobalJSXLibraryManagedAttributes<C, P> = JSX.LibraryManagedAttributes<C, P>;
 
-type ReactManagedAttributes<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D>
-    : P;
+interface GlobalJSXIntrinsicAttributes extends JSX.IntrinsicAttributes {}
+interface GlobalJSXIntrinsicClassAttributes<T> extends JSX.IntrinsicClassAttributes<T> {}
+
+interface GlobalJSXIntrinsicElements extends JSX.IntrinsicElements {}
