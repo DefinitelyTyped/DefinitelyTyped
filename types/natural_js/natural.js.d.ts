@@ -25,8 +25,8 @@ declare interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
  * N is a collection class that defines common functions for Natural-JS.
  */
 declare namespace N {
-    // === Natural-CORE
 
+    // === Natural-CORE
     const locale = NC.locale;
     const debug = NC.debug;
     const log = NC.log;
@@ -56,21 +56,18 @@ declare namespace N {
 
 
     // === Natural-ARCHITECTURE
-
     /**
      * Performs asynchronous HTTP (Ajax) requests in `N.comm`.
      *
      * @see {@link https://api.jquery.com/jquery.ajax/#jQuery-ajax-settings }
      */
     const ajax = NA.ajax;
-
     /**
      * N.comm is a library that supports Ajax communication with the server, such as requesting content or data from the server or passing parameters.
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0203.html }
      */
     function comm(obj: NJS<NC.JSONObject[]>, url: string | NA.Options.Request): NA.Communicator;
-
     /**
      * N.cont executes the init function of the Controller object and returns the Controller object.
      *
@@ -111,7 +108,6 @@ declare namespace N {
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0201.html }
      */
     const cont = NA.cont;
-
     /**
      * Context (N.context) is a space that guarantees data persistence within the life-cycle (until the page is loaded and redirected to another URL) of a Natural-JS-based application.
      *
@@ -120,7 +116,6 @@ declare namespace N {
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0206.html }
      */
     const context = NA.context;
-
     /**
      * Config(natural.config.js) stores the operational environment settings, AOP settings, Communication Filter settings,
      * and global option values for UI components of Natural-JS.
@@ -155,7 +150,6 @@ declare namespace N {
     const config = NA.config;
 
     // === Natural-DATA
-
     /**
      * DataSync(N.ds) is a module in Natural-JS that handles two-way data binding.
      */
@@ -170,7 +164,6 @@ declare namespace N {
     const data = ND.data;
 
     // === Natural-UI
-
     /**
      * This class defines common functions that support the development of Natural-UI components.
      */
@@ -279,7 +272,7 @@ declare namespace N {
      */
     const tree = NU.tree;
 
-// === Natural-UI.Shell
+    // === Natural-UI.Shell
     /**
      * Notify(N.notify) is a UI component that displays global notifications at a specified position without requiring user confirmation.
      * > The Alert(N.alert) is used for handling messages within the content area, while N.notify handles messages site-wide. Thus, N.alert component elements are created within each View element, and N.notify is created in the document.body element.
@@ -294,7 +287,6 @@ declare namespace N {
         const add = NUS.notify.add;
         // const add: (msg: string, url: string) => void;
     }
-
     /**
      * Documents(N.docs) is a page container that displays menu pages based on Natural-JS in either MDI (Multi Document Interface) or SDI (Single Document Interface) structures.
      *  - Options such as the maximum number of pages and the maximum number of state-maintained pages can be specified. It can also display a loading indicator for the requests and responses of N.comm.
@@ -302,12 +294,10 @@ declare namespace N {
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0502.html }
      */
     const docs = NUS.docs;
-
     /**
      * Natural-CODE
      */
     const code = NCD;
-
     /**
      * Natural-TEMPLATE
      */
