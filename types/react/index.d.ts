@@ -1931,6 +1931,9 @@ declare namespace React {
         permalink?: string,
     ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+    export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
+
     //
     // Event System
     // ----------------------------------------------------------------------

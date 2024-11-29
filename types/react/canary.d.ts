@@ -31,8 +31,5 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
-
     export function unstable_useCacheRefresh(): () => void;
 }
