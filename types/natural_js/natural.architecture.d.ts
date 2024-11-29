@@ -15,9 +15,16 @@ declare class NA {
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0203.html }
      */
     comm(url: string | NA.Options.Request): NA.Communicator;
-
+    /**
+     * The Communicator.request is a request information object created each time N.comm is initialized.
+     *
+     * Options for the N.comm() function are saved in the Communicator.request.options object and are passed on as request headers or parameters to the server.
+     *
+     * When a page file is requested, it is passed as the second argument of the init function of the Controller object or as a member variable (this.request) of the Controller object. You can verify the request information or receive page parameters with the passed request object.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0204.html }
+     */
     request(): NA.Request;
-
     /**
      * N.cont executes the init function of the Controller object and returns the Controller object.
      *
@@ -63,7 +70,7 @@ declare class NA {
 declare namespace NA {
 
     class Communicator {
-        new(obj: NJS<NC.JSONObject[]> | string, url?: string | NA.Options.Request): NA.Communicator;
+        constructor(obj: NJS<NC.JSONObject[]> | string, url?: string | NA.Options.Request);
         xhr: JQuery.jqXHR;
         initFilterConfig(): NA.Objects.Config.FilterConfig;
         resetFilterConfig(): NA.Communicator;
@@ -151,11 +158,10 @@ declare namespace NA {
     }
 
     class Request {
-        new(obj: NJS<NC.JSONObject[]>, opts: NA.Options.Request): {
-            options: NA.Options.Request;
-            attrObj: object;
-            obj: NA.Communicator;
-        };
+        constructor(obj: NJS<NC.JSONObject[]>, opts: NA.Options.Request);
+        options: NA.Options.Request;
+        attrObj: object;
+        obj: NA.Communicator;
         /**
          * Get the parameters passed while calling this page.
          *

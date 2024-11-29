@@ -45,7 +45,7 @@ N([]).comm({
 }).submit(function (data, request) {});
 N.comm(N([]), "https://localhost:8080").request.attr("asd", "").error(function(xhr, textStatus, e, request, submitCallback) {
 
-}).submit(function () {
+}).submit(function (data, request) {
 
 });
 N([]).comm({
