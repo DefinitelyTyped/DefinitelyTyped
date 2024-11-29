@@ -438,6 +438,7 @@ const awsServerless: Aws.Serverless = {
     functions: {
         testFunction: {
             handler: "testhandler",
+            architecture: "x86_64",
             name: "testname",
             description: "testdescription",
             memorySize: 1,
