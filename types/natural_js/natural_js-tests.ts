@@ -56,6 +56,9 @@ const cont = new N.cont(N(".context"), {
     init: function (view, request) {
         view.each(function () {});
         request.attr("param");
+        request.reload(function (html, request) {
+
+        });
     },
     fn01: function () {
         this.view!.each(function () {});

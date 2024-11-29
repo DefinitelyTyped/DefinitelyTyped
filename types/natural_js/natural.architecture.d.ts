@@ -22,8 +22,7 @@ declare class NA {
     };
     static context: {
         attrObj: object;
-        attr(name: string, obj?: any): obj[name];
-        attr(name: string, obj: any): this;
+        attr(name: string, obj?: any): typeof NA.context | any;
     };
     static config: {
         filterConfig: NA.Objects.Config.FilterConfig;
@@ -51,8 +50,8 @@ declare class NA {
      * </article>
      *
      * <script type="text/javascript">
-     *     N(".view").cont({ //  Controller object
-     *         init : function(view, request) {
+     *     N(".view").cont({ // Controller object
+     *         init: function(view, request) {
      *         }
      *     });
      * </script>
@@ -70,7 +69,7 @@ declare class NA {
      * > The `pageid` is `.(dot), #(sharp), [(left bracket), ](right bracket), '(single quote), :(colon), ((left bracket), ), )(right bracket), >(right arrow bracket), " "(space), -(hyphen)` characters are removed to create pageid, so the page identification value is defined not to include the special characters.
      * > For example, `N("page.view-01").cont()` creates a pageid of `pageview01` with the dot and hyphen removed.
      *
-     * To control a specific page, such as a block page or tab content, you can obtain a Controller object as follows.
+     * To control a specific page, such as a block page or tab content, you can get a Controller object as follows.
      * ```
      * var page01Cont = N("#page01").instance("cont");
      * page01Cont.gridInst.bind([]);
@@ -83,7 +82,7 @@ declare class NA {
 declare namespace NA {
 
     class Communicator {
-        new(obj: NJS<NC.JSONObject[]>, url: string | NA.Options.Request);
+        new(obj: NJS<NC.JSONObject[]>, url: string | NA.Options.Request): this;
         xhr: JQuery.jqXHR;
         initFilterConfig(): NA.Objects.Config.FilterConfig;
         resetFilterConfig(): NA.Communicator;
@@ -125,7 +124,7 @@ declare namespace NA {
          *
          * // HTML page
          * N("#page-container").comm("page.html").submit(function(cont) {
-         *     N.log(cont); // cont : Controller object
+         *     N.log(cont); // cont: Controller object
          * });
          * ```
          * @return {JQuery.jqXHR | NA.Communicator} The jqXHR object or the communicator instance depending on the submission context.
@@ -177,7 +176,7 @@ declare namespace NA {
             obj: NA.Communicator;
         };
         /**
-         * Specifies parameters to pass to the page to be loaded or retrieves the passed data.
+         * Specify parameters to pass to the page to be loaded or retrieves the passed data.
          *
          * If the `attr` method has two arguments, it works as a setter, and if it has one argument, it works as a getter.
          *

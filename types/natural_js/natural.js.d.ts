@@ -4,11 +4,10 @@
  * N() extends the jQuery() function, thus it can be replaced with $() or jQuery(). However, local functions of the N object cannot be used within jQuery or $ objects.
  */
 declare function N(
-    selector?: string | Element | Array<Element> | JQuery<Element> | JQuery.Node | JQuery.PlainObject | ((this: Document, readyCallback: (this: Document) => void) => void) | NJS | undefined,
-    context?: Element | Document | JQuery<Element> | string | NJS | undefined): NJS<E>;
+    selector?: string | Element | Array<Element> | JQuery<Element> | JQuery.Node | JQuery.PlainObject | ((this: Document, readyCallback: (this: Document) => void) => void) | NJS<Element> | undefined,
+    context?: Element | Document | JQuery<Element> | string | NJS<Element> | undefined): NJS<any>;
 
-type OmitJQuery = Omit<JQuery, "select">;
-declare interface NJS<T> extends OmitJQuery, NC, NA, ND, NU, NUS {
+declare interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
 
     version: {
         "Natural-JS": string;
@@ -70,9 +69,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0203.html }
      */
-    function comm(obj: NJS<NC.JSONObject[]>, url: string | NA.Options.Request): NA.Communicator {
-        return new NA.comm(obj, url);
-    }
+    function comm(obj: NJS<NC.JSONObject[]>, url: string | NA.Options.Request): NA.Communicator;
 
     /**
      * N.cont executes the init function of the Controller object and returns the Controller object.
@@ -87,8 +84,8 @@ declare namespace N {
      * </article>
      *
      * <script type="text/javascript">
-     *     N(".view").cont({ //  Controller object
-     *         init : function(view, request) {
+     *     N(".view").cont({ // Controller object
+     *         init: function(view, request) {
      *         }
      *     });
      * </script>
@@ -106,7 +103,7 @@ declare namespace N {
      * > The `pageid` is `.(dot), #(sharp), [(left bracket), ](right bracket), '(single quote), :(colon), ((left bracket), ), )(right bracket), >(right arrow bracket), " "(space), -(hyphen)` characters are removed to create pageid, so the page identification value is defined not to include the special characters.
      * > For example, `N("page.view-01").cont()` creates a pageid of `pageview01` with the dot and hyphen removed.
      *
-     * To control a specific page, such as a block page or tab content, you can obtain a Controller object as follows.
+     * To control a specific page, such as a block page or tab content, you can get a Controller object as follows.
      * ```
      * var page01Cont = N("#page01").instance("cont");
      * page01Cont.gridInst.bind([]);
@@ -141,11 +138,11 @@ declare namespace N {
      *  1. N.context.attr("architecture").page.context: Specifies the container area (element) where the web application's content will be displayed as a jQuery selector string.
      *     > It is automatically entered when using the Documents(N.docs) component.
      *
-     *     > If the web application is built as a SPA (Single Page Application), specify the element that loads the menu page. Otherwise, enter "body" or the element wrapping the entire content.
+     *     > If the web application is built as an SPA (Single Page Application), specify the element that loads the menu page. Otherwise, enter "body" or the element wrapping the entire content.
      *  2. N.context.attr("ui").alert.container: Specifies the area (element) where elements of the N.alert and N.popup components will be stored as a jQuery selector string.
      *     > It is automatically entered when using the Documents(N.docs) component.
      *
-     *     > If the web application is built as a SPA (Single Page Application), specify the element that loads the menu page. Otherwise, enter "body" or the element wrapping the entire content.
+     *     > If the web application is built as an SPA (Single Page Application), specify the element that loads the menu page. Otherwise, enter "body" or the element wrapping the entire content.
      *
      * The order in which component options are applied is as follows:
      *  1. Option values specified when initializing the component.
@@ -187,7 +184,7 @@ declare namespace N {
      */
     const alert = NU.alert;
     /**
-     * Button (N.button) is a UI component that creates buttons using the "a, input[type=button], button" elements specified by the context option.
+     * Button (N.button) is a UI component that creates buttons using the `a, input[type=button], button` elements specified by the context option.
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0402.html }
      */
@@ -215,7 +212,8 @@ declare namespace N {
     /**
      * Tab(N.tab) is a UI component that creates a tab page view using a context option specified element composed of div>ul>li tags.
      *
-     * If a page specified with the url option is created as a popup, the Controller object of the created popup will have properties caller (the N.popup instance that called it) and opener (the parent page Controller object that called it, which must be passed as an option when creating the popup). You can use opener to control the parent page or use caller to close itself and send data to the parent Controller.
+     * If a page specified with the url option is created as a popup, the Controller object of the created popup will have properties caller(the N.popup instance that called it) and opener(the parent page Controller object that called it, which must be passed as an option when creating the popup).
+     * You can use opener to control the parent page or use caller to close itself and send data to the parent Controller.
      * By calling the cont method on an instance of N.tab, you can get the Controller objects of each tab page. For more details on the cont method, please refer to the [Function] tab.
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0405.html }
@@ -288,14 +286,14 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0501.html }
      */
-    const notify = function (position: NUS.Options.NotifyPosition, opts?: NUS.Options.Notify) {
-        return new NUS.notify(position, opts);
-    }
-
+    function notify(position: NUS.Options.NotifyPosition, opts?: NUS.Options.Notify): NUS.Notify;
     /**
      * Creates a message notification.
      */
-    notify.add = NUS.notify.add;
+    namespace notify {
+        const add = NUS.notify.add;
+        // const add: (msg: string, url: string) => void;
+    }
 
     /**
      * Documents(N.docs) is a page container that displays menu pages based on Natural-JS in either MDI (Multi Document Interface) or SDI (Single Document Interface) structures.
