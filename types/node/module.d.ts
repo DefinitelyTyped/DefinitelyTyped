@@ -48,7 +48,13 @@ declare module "module" {
          * @since v13.7.0, v12.17.0
          * @return Returns `module.SourceMap` if a source map is found, `undefined` otherwise.
          */
-        function findSourceMap(path: string, error?: Error): SourceMap | undefined;
+        function findSourceMap(path: string): SourceMap | undefined;
+        interface SourceMapConstructorOptions {
+            /**
+             * @since v21.0.0, v20.5.0
+             */
+            lineLengths?: readonly number[] | undefined;
+        }
         interface SourceMapPayload {
             file: string;
             version: number;
@@ -69,7 +75,7 @@ declare module "module" {
             /**
              * The name of the range in the source map, if one was provided
              */
-            name?: string;
+            name: string | undefined;
             /**
              * The file name of the original source, as reported in the SourceMap
              */
@@ -87,11 +93,11 @@ declare module "module" {
          * @since v13.7.0, v12.17.0
          */
         class SourceMap {
+            constructor(payload: SourceMapPayload, options?: SourceMapConstructorOptions);
             /**
              * Getter for the payload used to construct the `SourceMap` instance.
              */
             readonly payload: SourceMapPayload;
-            constructor(payload: SourceMapPayload);
             /**
              * Given a line offset and column offset in the generated source
              * file, returns an object representing the SourceMap range in the
@@ -110,7 +116,7 @@ declare module "module" {
              * @param lineOffset The zero-indexed line number offset in the generated source
              * @param columnOffset The zero-indexed column number offset in the generated source
              */
-            findEntry(lineOffset: number, columnOffset: number): SourceMapping;
+            findEntry(lineOffset: number, columnOffset: number): SourceMapping | {};
             /**
              * Given a 1-indexed `lineNumber` and `columnNumber` from a call site in the generated source,
              * find the corresponding call site location in the original source.

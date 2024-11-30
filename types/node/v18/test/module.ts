@@ -47,7 +47,8 @@ const smap = new Module.SourceMap({
     sourcesContent: [],
 });
 const pl: Module.SourceMapPayload = smap.payload;
-const entry: Module.SourceMapping = smap.findEntry(1, 1);
+const entry: Module.SourceMapping | {} = smap.findEntry(1, 1);
+const origin: Module.SourceOrigin | {} = smap.findOrigin(1, 1);
 
 // global
 {

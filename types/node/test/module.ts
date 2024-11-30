@@ -47,10 +47,10 @@ const smap = new Module.SourceMap({
     sourcesContent: [],
 });
 const pl: Module.SourceMapPayload = smap.payload;
-const entry: Module.SourceMapping = smap.findEntry(1, 1);
+const entry: Module.SourceMapping | {} = smap.findEntry(1, 1);
+const origin: Module.SourceOrigin | {} = smap.findOrigin(1, 1);
 
 Module.findSourceMap("/path/to/file.js"); // $ExpectType SourceMap | undefined
-Module.findSourceMap("/path/to/file.js", new Error()); // $ExpectType SourceMap | undefined
 
 // global
 {
