@@ -1,6 +1,5 @@
 /**
  * @since v0.3.7
- * @experimental
  */
 declare module "module" {
     import { URL } from "node:url";
