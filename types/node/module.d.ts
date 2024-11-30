@@ -6,6 +6,131 @@ declare module "module" {
     import { URL } from "node:url";
     import { MessagePort } from "node:worker_threads";
     namespace Module {
+        export { Module };
+    }
+    namespace Module {
+        /**
+         * A list of the names of all modules provided by Node.js. Can be used to verify
+         * if a module is maintained by a third party or not.
+         *
+         * Note: the list doesn't contain prefix-only modules like `node:test`.
+         * @since v9.3.0, v8.10.0, v6.13.0
+         */
+        const builtinModules: readonly string[];
+        /**
+         * @since v12.2.0
+         * @param path Filename to be used to construct the require
+         * function. Must be a file URL object, file URL string, or absolute path
+         * string.
+         */
+        function createRequire(path: string | URL): NodeJS.Require;
+        interface EnableCompileCacheResult {
+            /**
+             * One of the {@link constants.compileCacheStatus}
+             */
+            status: number;
+            /**
+             * If Node.js cannot enable the compile cache, this contains
+             * the error message. Only set if `status` is `module.constants.compileCacheStatus.FAILED`.
+             */
+            message?: string;
+            /**
+             * If the compile cache is enabled, this contains the directory
+             * where the compile cache is stored. Only set if  `status` is
+             * `module.constants.compileCacheStatus.ENABLED` or
+             * `module.constants.compileCacheStatus.ALREADY_ENABLED`.
+             */
+            directory?: string;
+        }
+        /**
+         * Enable [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
+         * in the current Node.js instance.
+         *
+         * If `cacheDir` is not specified, Node.js will either use the directory specified by the
+         * `NODE_COMPILE_CACHE=dir` environment variable if it's set, or use
+         * `path.join(os.tmpdir(), 'node-compile-cache')` otherwise. For general use cases, it's
+         * recommended to call `module.enableCompileCache()` without specifying the `cacheDir`,
+         * so that the directory can be overridden by the `NODE_COMPILE_CACHE` environment
+         * variable when necessary.
+         *
+         * Since compile cache is supposed to be a quiet optimization that is not required for the
+         * application to be functional, this method is designed to not throw any exception when the
+         * compile cache cannot be enabled. Instead, it will return an object containing an error
+         * message in the `message` field to aid debugging.
+         * If compile cache is enabled successfully, the `directory` field in the returned object
+         * contains the path to the directory where the compile cache is stored. The `status`
+         * field in the returned object would be one of the `module.constants.compileCacheStatus`
+         * values to indicate the result of the attempt to enable the
+         * [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache).
+         *
+         * This method only affects the current Node.js instance. To enable it in child worker threads,
+         * either call this method in child worker threads too, or set the
+         * `process.env.NODE_COMPILE_CACHE` value to compile cache directory so the behavior can
+         * be inherited into the child workers. The directory can be obtained either from the
+         * `directory` field returned by this method, or with {@link getCompileCacheDir}.
+         * @since v22.8.0
+         * @param cacheDir Optional path to specify the directory where the compile cache
+         * will be stored/retrieved.
+         */
+        function enableCompileCache(cacheDir?: string): EnableCompileCacheResult;
+        /**
+         * Flush the [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
+         * accumulated from modules already loaded
+         * in the current Node.js instance to disk. This returns after all the flushing
+         * file system operations come to an end, no matter they succeed or not. If there
+         * are any errors, this will fail silently, since compile cache misses should not
+         * interfere with the actual operation of the application.
+         * @since v22.10.0
+         */
+        function flushCompileCache(): void;
+        /**
+         * @since v22.8.0
+         * @return Path to the [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
+         * directory if it is enabled, or `undefined` otherwise.
+         */
+        function getCompileCacheDir(): string | undefined;
+        /**
+         * @since v18.6.0, v16.17.0
+         */
+        function isBuiltin(moduleName: string): boolean;
+        interface RegisterOptions<Data> {
+            /**
+             * If you want to resolve `specifier` relative to a
+             * base URL, such as `import.meta.url`, you can pass that URL here. This
+             * property is ignored if the `parentURL` is supplied as the second argument.
+             * @default 'data:'
+             */
+            parentURL?: string | URL | undefined;
+            /**
+             * Any arbitrary, cloneable JavaScript value to pass into the
+             * {@link initialize} hook.
+             */
+            data?: Data | undefined;
+            /**
+             * [Transferable objects](https://nodejs.org/docs/latest-v22.x/api/worker_threads.html#portpostmessagevalue-transferlist)
+             * to be passed into the `initialize` hook.
+             */
+            transferList?: any[] | undefined;
+        }
+        /* eslint-disable @definitelytyped/no-unnecessary-generics */
+        /**
+         * Register a module that exports hooks that customize Node.js module
+         * resolution and loading behavior. See
+         * [Customization hooks](https://nodejs.org/docs/latest-v22.x/api/module.html#customization-hooks).
+         * @since v20.6.0, v18.19.0
+         * @param specifier Customization hooks to be registered; this should be
+         * the same string that would be passed to `import()`, except that if it is
+         * relative, it is resolved relative to `parentURL`.
+         * @param parentURL f you want to resolve `specifier` relative to a base
+         * URL, such as `import.meta.url`, you can pass that URL here.
+         */
+        function register<Data = any>(
+            specifier: string | URL,
+            parentURL?: string | URL,
+            options?: RegisterOptions<Data>,
+        ): void;
+        function register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
+        /* eslint-enable @definitelytyped/no-unnecessary-generics */
         /**
          * The `module.syncBuiltinESMExports()` method updates all the live bindings for
          * builtin `ES Modules` to match the properties of the `CommonJS` exports. It
@@ -287,91 +412,11 @@ declare module "module" {
                 const DISABLED: number;
             }
         }
-    }
-    interface RegisterOptions<Data> {
-        parentURL: string | URL;
-        data?: Data | undefined;
-        transferList?: any[] | undefined;
-    }
-    interface EnableCompileCacheResult {
-        /**
-         * One of the {@link constants.compileCacheStatus}
-         */
-        status: number;
-        /**
-         * If Node.js cannot enable the compile cache, this contains
-         * the error message. Only set if `status` is `module.constants.compileCacheStatus.FAILED`.
-         */
-        message?: string;
-        /**
-         * If the compile cache is enabled, this contains the directory
-         * where the compile cache is stored. Only set if  `status` is
-         * `module.constants.compileCacheStatus.ENABLED` or
-         * `module.constants.compileCacheStatus.ALREADY_ENABLED`.
-         */
-        directory?: string;
+        function runMain(main?: string): void;
+        function wrap(script: string): string;
     }
     interface Module extends NodeJS.Module {}
     class Module {
-        static runMain(): void;
-        static wrap(code: string): string;
-        static createRequire(path: string | URL): NodeJS.Require;
-        static builtinModules: string[];
-        static isBuiltin(moduleName: string): boolean;
-        static Module: typeof Module;
-        static register<Data = any>(
-            specifier: string | URL,
-            parentURL?: string | URL,
-            options?: RegisterOptions<Data>,
-        ): void;
-        static register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
-        /**
-         * Enable [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
-         * in the current Node.js instance.
-         *
-         * If `cacheDir` is not specified, Node.js will either use the directory specified by the
-         * `NODE_COMPILE_CACHE=dir` environment variable if it's set, or use
-         * `path.join(os.tmpdir(), 'node-compile-cache')` otherwise. For general use cases, it's
-         * recommended to call `module.enableCompileCache()` without specifying the `cacheDir`,
-         * so that the directory can be overridden by the `NODE_COMPILE_CACHE` environment
-         * variable when necessary.
-         *
-         * Since compile cache is supposed to be a quiet optimization that is not required for the
-         * application to be functional, this method is designed to not throw any exception when the
-         * compile cache cannot be enabled. Instead, it will return an object containing an error
-         * message in the `message` field to aid debugging.
-         * If compile cache is enabled successfully, the `directory` field in the returned object
-         * contains the path to the directory where the compile cache is stored. The `status`
-         * field in the returned object would be one of the `module.constants.compileCacheStatus`
-         * values to indicate the result of the attempt to enable the
-         * [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache).
-         *
-         * This method only affects the current Node.js instance. To enable it in child worker threads,
-         * either call this method in child worker threads too, or set the
-         * `process.env.NODE_COMPILE_CACHE` value to compile cache directory so the behavior can
-         * be inherited into the child workers. The directory can be obtained either from the
-         * `directory` field returned by this method, or with {@link getCompileCacheDir}.
-         * @since v22.8.0
-         * @param cacheDir Optional path to specify the directory where the compile cache
-         * will be stored/retrieved.
-         */
-        static enableCompileCache(cacheDir?: string): EnableCompileCacheResult;
-        /**
-         * @since v22.8.0
-         * @return Path to the [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
-         * directory if it is enabled, or `undefined` otherwise.
-         */
-        static getCompileCacheDir(): string | undefined;
-        /**
-         * Flush the [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
-         * accumulated from modules already loaded
-         * in the current Node.js instance to disk. This returns after all the flushing
-         * file system operations come to an end, no matter they succeed or not. If there
-         * are any errors, this will fail silently, since compile cache misses should not
-         * interfere with the actual operation of the application.
-         * @since v22.10.0
-         */
-        static flushCompileCache(): void;
         constructor(id: string, parent?: Module);
     }
     global {

@@ -5,6 +5,64 @@ declare module "module" {
     import { URL } from "node:url";
     import { MessagePort } from "node:worker_threads";
     namespace Module {
+        export { Module };
+    }
+    namespace Module {
+        /**
+         * A list of the names of all modules provided by Node.js. Can be used to verify
+         * if a module is maintained by a third party or not.
+         * @since v9.3.0, v8.10.0, v6.13.0
+         */
+        const builtinModules: readonly string[];
+        /**
+         * @since v12.2.0
+         * @param path Filename to be used to construct the require
+         * function. Must be a file URL object, file URL string, or absolute path
+         * string.
+         */
+        function createRequire(path: string | URL): NodeJS.Require;
+        /**
+         * @since v18.6.0, v16.17.0
+         */
+        function isBuiltin(moduleName: string): boolean;
+        interface RegisterOptions<Data> {
+            /**
+             * If you want to resolve `specifier` relative to a
+             * base URL, such as `import.meta.url`, you can pass that URL here. This
+             * property is ignored if the `parentURL` is supplied as the second argument.
+             * @default 'data:'
+             */
+            parentURL?: string | URL | undefined;
+            /**
+             * Any arbitrary, cloneable JavaScript value to pass into the
+             * `initialize` hook.
+             */
+            data?: Data | undefined;
+            /**
+             * [Transferable objects](https://nodejs.org/docs/latest-v18.x/api/worker_threads.html#portpostmessagevalue-transferlist)
+             * to be passed into the `initialize` hook.
+             */
+            transferList?: any[] | undefined;
+        }
+        /* eslint-disable @definitelytyped/no-unnecessary-generics */
+        /**
+         * Register a module that exports hooks that customize Node.js module
+         * resolution and loading behavior. See
+         * [Customization hooks](https://nodejs.org/docs/latest-v18.x/api/module.html#customization-hooks).
+         * @since v20.6.0, v18.19.0
+         * @param specifier Customization hooks to be registered; this should be
+         * the same string that would be passed to `import()`, except that if it is
+         * relative, it is resolved relative to `parentURL`.
+         * @param parentURL f you want to resolve `specifier` relative to a base
+         * URL, such as `import.meta.url`, you can pass that URL here.
+         */
+        function register<Data = any>(
+            specifier: string | URL,
+            parentURL?: string | URL,
+            options?: RegisterOptions<Data>,
+        ): void;
+        function register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
+        /* eslint-enable @definitelytyped/no-unnecessary-generics */
         /**
          * The `module.syncBuiltinESMExports()` method updates all the live bindings for
          * builtin `ES Modules` to match the properties of the `CommonJS` exports. It
@@ -250,26 +308,11 @@ declare module "module" {
             context: LoadHookContext,
             nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
-    }
-    interface RegisterOptions<Data> {
-        parentURL: string | URL;
-        data?: Data | undefined;
-        transferList?: any[] | undefined;
+        function runMain(main?: string): void;
+        function wrap(code: string): string;
     }
     interface Module extends NodeJS.Module {}
     class Module {
-        static runMain(): void;
-        static wrap(code: string): string;
-        static createRequire(path: string | URL): NodeJS.Require;
-        static builtinModules: string[];
-        static isBuiltin(moduleName: string): boolean;
-        static Module: typeof Module;
-        static register<Data = any>(
-            specifier: string | URL,
-            parentURL?: string | URL,
-            options?: RegisterOptions<Data>,
-        ): void;
-        static register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
         constructor(id: string, parent?: Module);
     }
     type ImportMetaDOMCompat = typeof globalThis extends { onmessage: any } ? {
