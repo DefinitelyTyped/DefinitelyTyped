@@ -446,6 +446,7 @@ interface XRSession extends EventTarget {
     readonly supportedFrameRates?: Float32Array | undefined;
     readonly enabledFeatures?: string[] | undefined;
     readonly isSystemKeyboardSupported: boolean;
+    readonly interactionMode?: XRInteractionMode | undefined;
 
     /**
      * Removes a callback from the animation frame painting callback from
@@ -1240,6 +1241,11 @@ interface XRWebGLDepthInformation extends XRDepthInformation {
 
 interface XRWebGLBinding {
     getDepthInformation(view: XRView): XRWebGLDepthInformation | null | undefined;
+}
+
+enum XRInteractionMode {
+    ScreenSpace = "screen-space",
+    WorldSpace = "world-space"
 }
 
 /**
