@@ -3,7 +3,10 @@
  */
 declare module "module" {
     import { URL } from "node:url";
-    import { MessagePort } from "node:worker_threads";
+    class Module {
+        constructor(id: string, parent?: Module);
+    }
+    interface Module extends NodeJS.Module {}
     namespace Module {
         export { Module };
     }
@@ -23,6 +26,42 @@ declare module "module" {
          * string.
          */
         function createRequire(path: string | URL): NodeJS.Require;
+        namespace constants {
+            /**
+             * The following constants are returned as the `status` field in the object returned by
+             * {@link enableCompileCache} to indicate the result of the attempt to enable the
+             * [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache).
+             * @since v22.8.0
+             */
+            namespace compileCacheStatus {
+                /**
+                 * Node.js has enabled the compile cache successfully. The directory used to store the
+                 * compile cache will be returned in the `directory` field in the
+                 * returned object.
+                 */
+                const ENABLED: number;
+                /**
+                 * The compile cache has already been enabled before, either by a previous call to
+                 * {@link enableCompileCache}, or by the `NODE_COMPILE_CACHE=dir`
+                 * environment variable. The directory used to store the
+                 * compile cache will be returned in the `directory` field in the
+                 * returned object.
+                 */
+                const ALREADY_ENABLED: number;
+                /**
+                 * Node.js fails to enable the compile cache. This can be caused by the lack of
+                 * permission to use the specified directory, or various kinds of file system errors.
+                 * The detail of the failure will be returned in the `message` field in the
+                 * returned object.
+                 */
+                const FAILED: number;
+                /**
+                 * Node.js cannot enable the compile cache because the environment variable
+                 * `NODE_DISABLE_COMPILE_CACHE=1` has been set.
+                 */
+                const DISABLED: number;
+            }
+        }
         interface EnableCompileCacheResult {
             /**
              * One of the {@link constants.compileCacheStatus}
@@ -166,6 +205,115 @@ declare module "module" {
          * @since v12.12.0
          */
         function syncBuiltinESMExports(): void;
+        interface ImportAttributes extends NodeJS.Dict<string> {
+            type?: string | undefined;
+        }
+        type ModuleFormat =
+        | "builtin"
+        | "commonjs"
+        | "commonjs-typescript"
+        | "json"
+        | "module"
+        | "module-typescript"
+        | "wasm";
+        type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
+        /**
+         * The `initialize` hook provides a way to define a custom function that runs in
+         * the hooks thread when the hooks module is initialized. Initialization happens
+         * when the hooks module is registered via {@link register}.
+         *
+         * This hook can receive data from a {@link register} invocation, including
+         * ports and other transferable objects. The return value of `initialize` can be a
+         * `Promise`, in which case it will be awaited before the main application thread
+         * execution resumes.
+         */
+        type InitializeHook<Data = any> = (data: Data) => void | Promise<void>;
+        interface ResolveHookContext {
+            /**
+             * Export conditions of the relevant `package.json`
+             */
+            conditions: string[];
+            /**
+             *  An object whose key-value pairs represent the assertions for the module to import
+             */
+            importAttributes: ImportAttributes;
+            /**
+             * The module importing this one, or undefined if this is the Node.js entry point
+             */
+            parentURL: string | undefined;
+        }
+        interface ResolveFnOutput {
+            /**
+             * A hint to the load hook (it might be ignored)
+             */
+            format?: ModuleFormat | null | undefined;
+            /**
+             * The import attributes to use when caching the module (optional; if excluded the input will be used)
+             */
+            importAttributes?: ImportAttributes | undefined;
+            /**
+             * A signal that this hook intends to terminate the chain of `resolve` hooks.
+             * @default false
+             */
+            shortCircuit?: boolean | undefined;
+            /**
+             * The absolute URL to which this input resolves
+             */
+            url: string;
+        }
+        /**
+         * The `resolve` hook chain is responsible for telling Node.js where to find and
+         * how to cache a given `import` statement or expression, or `require` call. It can
+         * optionally return a format (such as `'module'`) as a hint to the `load` hook. If
+         * a format is specified, the `load` hook is ultimately responsible for providing
+         * the final `format` value (and it is free to ignore the hint provided by
+         * `resolve`); if `resolve` provides a `format`, a custom `load` hook is required
+         * even if only to pass the value to the Node.js default `load` hook.
+         */
+        type ResolveHook = (
+            specifier: string,
+            context: ResolveHookContext,
+            nextResolve: (
+                specifier: string,
+                context?: Partial<ResolveHookContext>,
+            ) => ResolveFnOutput | Promise<ResolveFnOutput>,
+        ) => ResolveFnOutput | Promise<ResolveFnOutput>;
+        interface LoadHookContext {
+            /**
+             * Export conditions of the relevant `package.json`
+             */
+            conditions: string[];
+            /**
+             * The format optionally supplied by the `resolve` hook chain
+             */
+            format: ModuleFormat | null | undefined;
+            /**
+             *  An object whose key-value pairs represent the assertions for the module to import
+             */
+            importAttributes: ImportAttributes;
+        }
+        interface LoadFnOutput {
+            format: ModuleFormat;
+            /**
+             * A signal that this hook intends to terminate the chain of `resolve` hooks.
+             * @default false
+             */
+            shortCircuit?: boolean | undefined;
+            /**
+             * The source for Node.js to evaluate
+             */
+            source?: ModuleSource | undefined;
+        }
+        /**
+         * The `load` hook provides a way to define a custom method of determining how a
+         * URL should be interpreted, retrieved, and parsed. It is also in charge of
+         * validating the import attributes.
+         */
+        type LoadHook = (
+            url: string,
+            context: LoadHookContext,
+            nextLoad: (url: string, context?: Partial<LoadHookContext>) => LoadFnOutput | Promise<LoadFnOutput>,
+        ) => LoadFnOutput | Promise<LoadFnOutput>;
         /**
          * `path` is the resolved path for the file for which a corresponding source map
          * should be fetched.
@@ -252,171 +400,8 @@ declare module "module" {
              */
             findOrigin(lineNumber: number, columnNumber: number): SourceOrigin | {};
         }
-        interface ImportAttributes extends NodeJS.Dict<string> {
-            type?: string | undefined;
-        }
-        type ModuleFormat =
-            | "builtin"
-            | "commonjs"
-            | "commonjs-typescript"
-            | "json"
-            | "module"
-            | "module-typescript"
-            | "wasm";
-        type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
-        interface GlobalPreloadContext {
-            port: MessagePort;
-        }
-        /**
-         * @deprecated This hook will be removed in a future version.
-         * Use `initialize` instead. When a loader has an `initialize` export, `globalPreload` will be ignored.
-         *
-         * Sometimes it might be necessary to run some code inside of the same global scope that the application runs in.
-         * This hook allows the return of a string that is run as a sloppy-mode script on startup.
-         *
-         * @param context Information to assist the preload code
-         * @return Code to run before application startup
-         */
-        type GlobalPreloadHook = (context: GlobalPreloadContext) => string;
-        /**
-         * The `initialize` hook provides a way to define a custom function that runs in the hooks thread
-         * when the hooks module is initialized. Initialization happens when the hooks module is registered via `register`.
-         *
-         * This hook can receive data from a `register` invocation, including ports and other transferrable objects.
-         * The return value of `initialize` can be a `Promise`, in which case it will be awaited before the main application thread execution resumes.
-         */
-        type InitializeHook<Data = any> = (data: Data) => void | Promise<void>;
-        interface ResolveHookContext {
-            /**
-             * Export conditions of the relevant `package.json`
-             */
-            conditions: string[];
-            /**
-             *  An object whose key-value pairs represent the assertions for the module to import
-             */
-            importAttributes: ImportAttributes;
-            /**
-             * The module importing this one, or undefined if this is the Node.js entry point
-             */
-            parentURL: string | undefined;
-        }
-        interface ResolveFnOutput {
-            /**
-             * A hint to the load hook (it might be ignored)
-             */
-            format?: ModuleFormat | null | undefined;
-            /**
-             * The import attributes to use when caching the module (optional; if excluded the input will be used)
-             */
-            importAttributes?: ImportAttributes | undefined;
-            /**
-             * A signal that this hook intends to terminate the chain of `resolve` hooks.
-             * @default false
-             */
-            shortCircuit?: boolean | undefined;
-            /**
-             * The absolute URL to which this input resolves
-             */
-            url: string;
-        }
-        /**
-         * The `resolve` hook chain is responsible for resolving file URL for a given module specifier and parent URL, and optionally its format (such as `'module'`) as a hint to the `load` hook.
-         * If a format is specified, the load hook is ultimately responsible for providing the final `format` value (and it is free to ignore the hint provided by `resolve`);
-         * if `resolve` provides a format, a custom `load` hook is required even if only to pass the value to the Node.js default `load` hook.
-         *
-         * @param specifier The specified URL path of the module to be resolved
-         * @param context
-         * @param nextResolve The subsequent `resolve` hook in the chain, or the Node.js default `resolve` hook after the last user-supplied resolve hook
-         */
-        type ResolveHook = (
-            specifier: string,
-            context: ResolveHookContext,
-            nextResolve: (
-                specifier: string,
-                context?: Partial<ResolveHookContext>,
-            ) => ResolveFnOutput | Promise<ResolveFnOutput>,
-        ) => ResolveFnOutput | Promise<ResolveFnOutput>;
-        interface LoadHookContext {
-            /**
-             * Export conditions of the relevant `package.json`
-             */
-            conditions: string[];
-            /**
-             * The format optionally supplied by the `resolve` hook chain
-             */
-            format: ModuleFormat;
-            /**
-             *  An object whose key-value pairs represent the assertions for the module to import
-             */
-            importAttributes: ImportAttributes;
-        }
-        interface LoadFnOutput {
-            format: ModuleFormat;
-            /**
-             * A signal that this hook intends to terminate the chain of `resolve` hooks.
-             * @default false
-             */
-            shortCircuit?: boolean | undefined;
-            /**
-             * The source for Node.js to evaluate
-             */
-            source?: ModuleSource;
-        }
-        /**
-         * The `load` hook provides a way to define a custom method of determining how a URL should be interpreted, retrieved, and parsed.
-         * It is also in charge of validating the import assertion.
-         *
-         * @param url The URL/path of the module to be loaded
-         * @param context Metadata about the module
-         * @param nextLoad The subsequent `load` hook in the chain, or the Node.js default `load` hook after the last user-supplied `load` hook
-         */
-        type LoadHook = (
-            url: string,
-            context: LoadHookContext,
-            nextLoad: (url: string, context?: Partial<LoadHookContext>) => LoadFnOutput | Promise<LoadFnOutput>,
-        ) => LoadFnOutput | Promise<LoadFnOutput>;
-        namespace constants {
-            /**
-             * The following constants are returned as the `status` field in the object returned by
-             * {@link enableCompileCache} to indicate the result of the attempt to enable the
-             * [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache).
-             * @since v22.8.0
-             */
-            namespace compileCacheStatus {
-                /**
-                 * Node.js has enabled the compile cache successfully. The directory used to store the
-                 * compile cache will be returned in the `directory` field in the
-                 * returned object.
-                 */
-                const ENABLED: number;
-                /**
-                 * The compile cache has already been enabled before, either by a previous call to
-                 * {@link enableCompileCache}, or by the `NODE_COMPILE_CACHE=dir`
-                 * environment variable. The directory used to store the
-                 * compile cache will be returned in the `directory` field in the
-                 * returned object.
-                 */
-                const ALREADY_ENABLED: number;
-                /**
-                 * Node.js fails to enable the compile cache. This can be caused by the lack of
-                 * permission to use the specified directory, or various kinds of file system errors.
-                 * The detail of the failure will be returned in the `message` field in the
-                 * returned object.
-                 */
-                const FAILED: number;
-                /**
-                 * Node.js cannot enable the compile cache because the environment variable
-                 * `NODE_DISABLE_COMPILE_CACHE=1` has been set.
-                 */
-                const DISABLED: number;
-            }
-        }
         function runMain(main?: string): void;
         function wrap(script: string): string;
-    }
-    interface Module extends NodeJS.Module {}
-    class Module {
-        constructor(id: string, parent?: Module);
     }
     global {
         interface ImportMeta {

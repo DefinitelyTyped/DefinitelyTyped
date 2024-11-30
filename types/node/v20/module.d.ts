@@ -198,22 +198,23 @@ declare module "module" {
             port: MessagePort;
         }
         /**
-         * @deprecated This hook will be removed in a future version.
-         * Use `initialize` instead. When a loader has an `initialize` export, `globalPreload` will be ignored.
-         *
-         * Sometimes it might be necessary to run some code inside of the same global scope that the application runs in.
-         * This hook allows the return of a string that is run as a sloppy-mode script on startup.
-         *
-         * @param context Information to assist the preload code
-         * @return Code to run before application startup
+         * Sometimes it might be necessary to run some code inside of the same global
+         * scope that the application runs in. This hook allows the return of a string
+         * that is run as a sloppy-mode script on startup.
+         * @deprecated This hook will be removed in a future version. Use
+         * `initialize` instead. When a hooks module has an `initialize` export,
+         * `globalPreload` will be ignored.
          */
         type GlobalPreloadHook = (context: GlobalPreloadContext) => string;
         /**
-         * The `initialize` hook provides a way to define a custom function that runs in the hooks thread
-         * when the hooks module is initialized. Initialization happens when the hooks module is registered via `register`.
+         * The `initialize` hook provides a way to define a custom function that runs in
+         * the hooks thread when the hooks module is initialized. Initialization happens
+         * when the hooks module is registered via {@link register}.
          *
-         * This hook can receive data from a `register` invocation, including ports and other transferrable objects.
-         * The return value of `initialize` can be a `Promise`, in which case it will be awaited before the main application thread execution resumes.
+         * This hook can receive data from a {@link register} invocation, including
+         * ports and other transferable objects. The return value of `initialize` can be a
+         * `Promise`, in which case it will be awaited before the main application thread
+         * execution resumes.
          */
         type InitializeHook<Data = any> = (data: Data) => void | Promise<void>;
         interface ResolveHookContext {
@@ -258,13 +259,13 @@ declare module "module" {
             url: string;
         }
         /**
-         * The `resolve` hook chain is responsible for resolving file URL for a given module specifier and parent URL, and optionally its format (such as `'module'`) as a hint to the `load` hook.
-         * If a format is specified, the load hook is ultimately responsible for providing the final `format` value (and it is free to ignore the hint provided by `resolve`);
-         * if `resolve` provides a format, a custom `load` hook is required even if only to pass the value to the Node.js default `load` hook.
-         *
-         * @param specifier The specified URL path of the module to be resolved
-         * @param context
-         * @param nextResolve The subsequent `resolve` hook in the chain, or the Node.js default `resolve` hook after the last user-supplied resolve hook
+         * The `resolve` hook chain is responsible for telling Node.js where to find and
+         * how to cache a given `import` statement or expression, or `require` call. It can
+         * optionally return a format (such as `'module'`) as a hint to the `load` hook. If
+         * a format is specified, the `load` hook is ultimately responsible for providing
+         * the final `format` value (and it is free to ignore the hint provided by
+         * `resolve`); if `resolve` provides a `format`, a custom `load` hook is required
+         * even if only to pass the value to the Node.js default `load` hook.
          */
         type ResolveHook = (
             specifier: string,
@@ -282,7 +283,7 @@ declare module "module" {
             /**
              * The format optionally supplied by the `resolve` hook chain
              */
-            format: ModuleFormat;
+            format: ModuleFormat | null | undefined;
             /**
              * @deprecated Use `importAttributes` instead
              */
@@ -302,15 +303,12 @@ declare module "module" {
             /**
              * The source for Node.js to evaluate
              */
-            source?: ModuleSource;
+            source?: ModuleSource | undefined;
         }
         /**
-         * The `load` hook provides a way to define a custom method of determining how a URL should be interpreted, retrieved, and parsed.
-         * It is also in charge of validating the import assertion.
-         *
-         * @param url The URL/path of the module to be loaded
-         * @param context Metadata about the module
-         * @param nextLoad The subsequent `load` hook in the chain, or the Node.js default `load` hook after the last user-supplied `load` hook
+         * The `load` hook provides a way to define a custom method of determining how a
+         * URL should be interpreted, retrieved, and parsed. It is also in charge of
+         * validating the import attributes.
          */
         type LoadHook = (
             url: string,

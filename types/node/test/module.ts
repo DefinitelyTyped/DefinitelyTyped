@@ -92,7 +92,7 @@ Module.findSourceMap("/path/to/file.js"); // $ExpectType SourceMap | undefined
     const load: Module.LoadHook = async (url, context, nextLoad) => {
         const { format } = context;
 
-        if (Math.random() > 0.5) {
+        if (format) {
             return {
                 format,
                 shortCircuit: true,
@@ -101,19 +101,6 @@ Module.findSourceMap("/path/to/file.js"); // $ExpectType SourceMap | undefined
         }
 
         return nextLoad(url);
-    };
-
-    const globalPreload: Module.GlobalPreloadHook = (context) => {
-        return `\
-            globalThis.someInjectedProperty = 42;
-            console.log('I just set some globals!');
-
-            const { createRequire } = getBuiltin('module');
-            const { cwd } = getBuiltin('process');
-
-            const require = createRequire(cwd() + '/<preload>');
-            // [...]
-        `;
     };
 }
 

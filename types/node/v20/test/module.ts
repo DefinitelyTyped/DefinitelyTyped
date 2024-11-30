@@ -90,7 +90,7 @@ const origin: Module.SourceOrigin | {} = smap.findOrigin(1, 1);
     const load: Module.LoadHook = async (url, context, nextLoad) => {
         const { format } = context;
 
-        if (Math.random() > 0.5) {
+        if (format) {
             return {
                 format,
                 shortCircuit: true,
