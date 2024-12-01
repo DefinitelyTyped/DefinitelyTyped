@@ -26,9 +26,9 @@ export interface SDK {
             stop(): void;
         };
         GamesAPI: {
-            getAllGames(): Promise<{ games: Game[]; developerURL: string }>;
-            getGameByID(id: number): Promise<{ game?: Game; isAvailable: boolean }>;
-        };
+            getAllGames(): Promise<{ games: Game[], developerURL: string }>;
+            getGameByID(id: number): Promise<{ game?: Game, isAvailable: boolean }>;
+        }
     };
 
     clipboard: {
@@ -99,6 +99,9 @@ export interface SDK {
 
     dispatchEvent(eventName: SdkEventName, detail?: any): Promise<unknown>;
 
+    on(eventName: GameAPIEventName | SdkEventName, listener: () => void): () => void;
+
+    /** @deprecated */
     onEvent(eventName: SdkEventName, listener: () => void): () => void;
 
     shortcut: {
@@ -276,6 +279,8 @@ export interface LeaderboardDescription {
 export type FeedbackError = "NO_AUTH" | "GAME_RATED" | "REVIEW_ALREADY_REQUESTED" | "UNKNOWN";
 
 export type StickyAdvError = "ADV_IS_NOT_CONNECTED" | "UNKNOWN";
+
+export type GameAPIEventName = "game_api_pause" | "game_api_resume";
 
 export type SdkEventName = "EXIT" | "HISTORY_BACK";
 
