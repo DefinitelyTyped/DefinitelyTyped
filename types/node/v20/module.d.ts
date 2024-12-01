@@ -4,6 +4,10 @@
 declare module "module" {
     import { URL } from "node:url";
     import { MessagePort } from "node:worker_threads";
+    class Module {
+        constructor(id: string, parent?: Module);
+    }
+    interface Module extends NodeJS.Module {}
     namespace Module {
         export { Module };
     }
@@ -101,92 +105,6 @@ declare module "module" {
          * @since v12.12.0
          */
         function syncBuiltinESMExports(): void;
-        /**
-         * `path` is the resolved path for the file for which a corresponding source map
-         * should be fetched.
-         * @since v13.7.0, v12.17.0
-         * @return Returns `module.SourceMap` if a source map is found, `undefined` otherwise.
-         */
-        function findSourceMap(path: string): SourceMap | undefined;
-        interface SourceMapConstructorOptions {
-            /**
-             * @since v20.5.0
-             */
-            lineLengths?: readonly number[] | undefined;
-        }
-        interface SourceMapPayload {
-            file: string;
-            version: number;
-            sources: string[];
-            sourcesContent: string[];
-            names: string[];
-            mappings: string;
-            sourceRoot: string;
-        }
-        interface SourceMapping {
-            generatedLine: number;
-            generatedColumn: number;
-            originalSource: string;
-            originalLine: number;
-            originalColumn: number;
-        }
-        interface SourceOrigin {
-            /**
-             * The name of the range in the source map, if one was provided
-             */
-            name: string | undefined;
-            /**
-             * The file name of the original source, as reported in the SourceMap
-             */
-            fileName: string;
-            /**
-             * The 1-indexed lineNumber of the corresponding call site in the original source
-             */
-            lineNumber: number;
-            /**
-             * The 1-indexed columnNumber of the corresponding call site in the original source
-             */
-            columnNumber: number;
-        }
-        /**
-         * @since v13.7.0, v12.17.0
-         */
-        class SourceMap {
-            constructor(payload: SourceMapPayload, options?: SourceMapConstructorOptions);
-            /**
-             * Getter for the payload used to construct the `SourceMap` instance.
-             */
-            readonly payload: SourceMapPayload;
-            /**
-             * Given a line offset and column offset in the generated source
-             * file, returns an object representing the SourceMap range in the
-             * original file if found, or an empty object if not.
-             *
-             * The object returned contains the following keys:
-             *
-             * The returned value represents the raw range as it appears in the
-             * SourceMap, based on zero-indexed offsets, _not_ 1-indexed line and
-             * column numbers as they appear in Error messages and CallSite
-             * objects.
-             *
-             * To get the corresponding 1-indexed line and column numbers from a
-             * lineNumber and columnNumber as they are reported by Error stacks
-             * and CallSite objects, use `sourceMap.findOrigin(lineNumber, columnNumber)`
-             * @param lineOffset The zero-indexed line number offset in the generated source
-             * @param columnOffset The zero-indexed column number offset in the generated source
-             */
-            findEntry(lineOffset: number, columnOffset: number): SourceMapping | {};
-            /**
-             * Given a 1-indexed `lineNumber` and `columnNumber` from a call site in the generated source,
-             * find the corresponding call site location in the original source.
-             *
-             * If the `lineNumber` and `columnNumber` provided are not found in any source map,
-             * then an empty object is returned.
-             * @param lineNumber The 1-indexed line number of the call site in the generated source
-             * @param columnNumber The 1-indexed column number of the call site in the generated source
-             */
-            findOrigin(lineNumber: number, columnNumber: number): SourceOrigin | {};
-        }
         /** @deprecated Use `ImportAttributes` instead */
         interface ImportAssertions extends ImportAttributes {}
         interface ImportAttributes extends NodeJS.Dict<string> {
@@ -194,18 +112,6 @@ declare module "module" {
         }
         type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
-        interface GlobalPreloadContext {
-            port: MessagePort;
-        }
-        /**
-         * Sometimes it might be necessary to run some code inside of the same global
-         * scope that the application runs in. This hook allows the return of a string
-         * that is run as a sloppy-mode script on startup.
-         * @deprecated This hook will be removed in a future version. Use
-         * `initialize` instead. When a hooks module has an `initialize` export,
-         * `globalPreload` will be ignored.
-         */
-        type GlobalPreloadHook = (context: GlobalPreloadContext) => string;
         /**
          * The `initialize` hook provides a way to define a custom function that runs in
          * the hooks thread when the hooks module is initialized. Initialization happens
@@ -315,12 +221,106 @@ declare module "module" {
             context: LoadHookContext,
             nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
+        interface GlobalPreloadContext {
+            port: MessagePort;
+        }
+        /**
+         * Sometimes it might be necessary to run some code inside of the same global
+         * scope that the application runs in. This hook allows the return of a string
+         * that is run as a sloppy-mode script on startup.
+         * @deprecated This hook will be removed in a future version. Use
+         * `initialize` instead. When a hooks module has an `initialize` export,
+         * `globalPreload` will be ignored.
+         */
+        type GlobalPreloadHook = (context: GlobalPreloadContext) => string;
+        /**
+         * `path` is the resolved path for the file for which a corresponding source map
+         * should be fetched.
+         * @since v13.7.0, v12.17.0
+         * @return Returns `module.SourceMap` if a source map is found, `undefined` otherwise.
+         */
+        function findSourceMap(path: string): SourceMap | undefined;
+        interface SourceMapConstructorOptions {
+            /**
+             * @since v20.5.0
+             */
+            lineLengths?: readonly number[] | undefined;
+        }
+        interface SourceMapPayload {
+            file: string;
+            version: number;
+            sources: string[];
+            sourcesContent: string[];
+            names: string[];
+            mappings: string;
+            sourceRoot: string;
+        }
+        interface SourceMapping {
+            generatedLine: number;
+            generatedColumn: number;
+            originalSource: string;
+            originalLine: number;
+            originalColumn: number;
+        }
+        interface SourceOrigin {
+            /**
+             * The name of the range in the source map, if one was provided
+             */
+            name: string | undefined;
+            /**
+             * The file name of the original source, as reported in the SourceMap
+             */
+            fileName: string;
+            /**
+             * The 1-indexed lineNumber of the corresponding call site in the original source
+             */
+            lineNumber: number;
+            /**
+             * The 1-indexed columnNumber of the corresponding call site in the original source
+             */
+            columnNumber: number;
+        }
+        /**
+         * @since v13.7.0, v12.17.0
+         */
+        class SourceMap {
+            constructor(payload: SourceMapPayload, options?: SourceMapConstructorOptions);
+            /**
+             * Getter for the payload used to construct the `SourceMap` instance.
+             */
+            readonly payload: SourceMapPayload;
+            /**
+             * Given a line offset and column offset in the generated source
+             * file, returns an object representing the SourceMap range in the
+             * original file if found, or an empty object if not.
+             *
+             * The object returned contains the following keys:
+             *
+             * The returned value represents the raw range as it appears in the
+             * SourceMap, based on zero-indexed offsets, _not_ 1-indexed line and
+             * column numbers as they appear in Error messages and CallSite
+             * objects.
+             *
+             * To get the corresponding 1-indexed line and column numbers from a
+             * lineNumber and columnNumber as they are reported by Error stacks
+             * and CallSite objects, use `sourceMap.findOrigin(lineNumber, columnNumber)`
+             * @param lineOffset The zero-indexed line number offset in the generated source
+             * @param columnOffset The zero-indexed column number offset in the generated source
+             */
+            findEntry(lineOffset: number, columnOffset: number): SourceMapping | {};
+            /**
+             * Given a 1-indexed `lineNumber` and `columnNumber` from a call site in the generated source,
+             * find the corresponding call site location in the original source.
+             *
+             * If the `lineNumber` and `columnNumber` provided are not found in any source map,
+             * then an empty object is returned.
+             * @param lineNumber The 1-indexed line number of the call site in the generated source
+             * @param columnNumber The 1-indexed column number of the call site in the generated source
+             */
+            findOrigin(lineNumber: number, columnNumber: number): SourceOrigin | {};
+        }
         function runMain(main?: string): void;
         function wrap(script: string): string;
-    }
-    interface Module extends NodeJS.Module {}
-    class Module {
-        constructor(id: string, parent?: Module);
     }
     global {
         interface ImportMeta {

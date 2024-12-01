@@ -209,13 +209,13 @@ declare module "module" {
             type?: string | undefined;
         }
         type ModuleFormat =
-        | "builtin"
-        | "commonjs"
-        | "commonjs-typescript"
-        | "json"
-        | "module"
-        | "module-typescript"
-        | "wasm";
+            | "builtin"
+            | "commonjs"
+            | "commonjs-typescript"
+            | "json"
+            | "module"
+            | "module-typescript"
+            | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
         /**
          * The `initialize` hook provides a way to define a custom function that runs in
