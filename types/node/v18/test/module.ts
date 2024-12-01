@@ -1,6 +1,8 @@
 import Module = require("node:module");
 import { URL } from "node:url";
 
+Module.Module === Module;
+
 // Module class and NodeJS.Module
 {
     const module: NodeJS.Module = new Module("moduleId");
