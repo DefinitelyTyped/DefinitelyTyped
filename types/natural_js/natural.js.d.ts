@@ -28,32 +28,32 @@ declare interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
  */
 declare namespace N {
     // === Natural-CORE
-    const locale = NC.locale;
-    const debug = NC.debug;
-    const log = NC.log;
-    const info = NC.info;
-    const warn = NC.warn;
-    const error = NC.error;
-    const type = NC.type;
-    const isString = NC.isString;
-    const isNumeric = NC.isNumeric;
-    const isPlainObject = NC.isPlainObject;
-    const isArray = NC.isArray;
-    const isArraylike = NC.isArraylike;
-    const isWrappedSet = NC.isWrappedSet;
-    const isElement = NC.isElement;
-    const toSelector = NC.toSelector;
-    const serialExecute = NC.serialExecute;
-    const gc = NC.gc;
-    const string = NC.string;
-    const date = NC.date;
-    const element = NC.element;
-    const browser = NC.browser;
-    const message = NC.message;
-    const array = NC.array;
-    const json = NC.json;
-    const event = NC.event;
-    const mask = NC.mask;
+    const locale: typeof NC.locale;
+    const debug: typeof NC.debug;
+    const log: typeof NC.log;
+    const info: typeof NC.info;
+    const warn: typeof NC.warn;
+    const error: typeof NC.error;
+    const type: typeof NC.type;
+    const isString: typeof NC.isString;
+    const isNumeric: typeof NC.isNumeric;
+    const isPlainObject: typeof NC.isPlainObject;
+    const isArray: typeof NC.isArray;
+    const isArraylike: typeof NC.isArraylike;
+    const isWrappedSet: typeof NC.isWrappedSet;
+    const isElement: typeof NC.isElement;
+    const toSelector: typeof NC.toSelector;
+    const serialExecute: typeof NC.serialExecute;
+    const gc: typeof NC.gc;
+    const string: typeof NC.string;
+    const date: typeof NC.date;
+    const element: typeof NC.element;
+    const browser: typeof NC.browser;
+    const message: typeof NC.message;
+    const array: typeof NC.array;
+    const json: typeof NC.json;
+    const event: typeof NC.event;
+    const mask: typeof NC.mask;
 
 
     // === Natural-ARCHITECTURE
@@ -62,7 +62,7 @@ declare namespace N {
      *
      * @see {@link https://api.jquery.com/jquery.ajax/#jQuery-ajax-settings }
      */
-    const ajax = NA.ajax;
+    const ajax: typeof NA.ajax;
     /**
      * N.comm is a library that supports Ajax communication with the server, such as requesting content or data from the server or passing parameters.
      *
@@ -108,7 +108,7 @@ declare namespace N {
      * ```
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0201.html }
      */
-    const cont = NA.cont;
+    const cont: typeof NA.cont;
     /**
      * Context (N.context) is a space that guarantees data persistence within the life-cycle (until the page is loaded and redirected to another URL) of a Natural-JS-based application.
      *
@@ -116,7 +116,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0206.html }
      */
-    const context = NA.context;
+    const context: typeof NA.context;
     /**
      * Config(natural.config.js) stores the operational environment settings, AOP settings, Communication Filter settings,
      * and global option values for UI components of Natural-JS.
@@ -148,27 +148,27 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html }
      */
-    const config = NA.config;
+    const config: typeof NA.config;
 
     // === Natural-DATA
     /**
      * DataSync(N.ds) is a module in Natural-JS that handles two-way data binding.
      */
-    const ds = ND.ds;
-    const formatter = ND.formatter;
-    const validator = ND.validator;
+    const ds: typeof ND.ds;
+    const formatter: typeof ND.formatter;
+    const validator: typeof ND.validator;
     /**
      * The Natural-DATA library provides methods and functions for sorting, filtering, and refining data of type array[json object].
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0303.html }
      */
-    const data = ND.data;
+    const data: typeof ND.data;
 
     // === Natural-UI
     /**
      * This class defines common functions that support the development of Natural-UI components.
      */
-    const ui = NU.ui;
+    const ui: typeof NU.ui;
     /**
      * Alert (N.alert) is a UI component that displays message dialog boxes such as window.alert or window.confirm in a layer popup form.
      *
@@ -176,13 +176,13 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0401.html }
      */
-    const alert = NU.alert;
+    const alert: typeof NU.alert;
     /**
      * Button (N.button) is a UI component that creates buttons using the `a, input[type=button], button` elements specified by the context option.
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0402.html }
      */
-    const button = NU.button;
+    const button: typeof NU.button;
     /**
      * Datepicker (N.datepicker) is a UI component that displays a calendar popup on the text input element specified by the context option, allowing you to select and input dates or months.
      *
@@ -192,7 +192,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0403.html }
      */
-    const datepicker = NU.datepicker;
+    const datepicker: typeof NU.datepicker;
     /**
      * Popup (N.popup) is a UI component that creates a layer popup using the internal element specified by the context option or the page specified by the url option.
      *
@@ -202,7 +202,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0404.html }
      */
-    const popup = NU.popup;
+    const popup: typeof NU.popup;
     /**
      * Tab(N.tab) is a UI component that creates a tab page view using a context option specified element composed of div>ul>li tags.
      *
@@ -212,13 +212,13 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0405.html }
      */
-    const tab = NU.tab;
+    const tab: typeof NU.tab;
     /**
      * Select(N.select) is a UI component that binds data to select, input[type=checkbox], input[type=radio] elements to create selection elements and extend the functionality of those controls.
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0406.html }
      */
-    const select = NU.select;
+    const select: typeof NU.select;
     /**
      * Form(N.form) is a UI component that binds or creates single row data on an element (block elements like div, table) specified with the context option.
      *  - N.form integrates with components of the Natural-DATA package to simplify the data formatting and input data validation processes. For more details, please refer to the [Declarative Option] tab.
@@ -233,7 +233,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0407.html }
      */
-    const form = NU.form;
+    const form: typeof NU.form;
     /**
      * List(N.list) is a UI component that creates a data list in a single column format using ul>li elements specified with the context option.
      *
@@ -243,7 +243,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0408.html }
      */
-    const list = NU.list;
+    const list: typeof NU.list;
     /**
      * Grid(N.grid) is a UI component that creates a data list in a multi-column format using table elements specified with the context option.
      *  - N.grid integrates with components of the Natural-DATA package to simplify the data formatting and input data validation processes. For more details, please refer to the [Declarative Option] tab.
@@ -255,7 +255,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0409.html }
      */
-    const grid = NU.grid;
+    const grid: typeof NU.grid;
     /**
      * Pagination(N.pagination) is a UI component that creates paging indexes for list data or overall row counts.
      *  - The structure of the N.pagination context element consists of a div>ul>li>a hierarchy.
@@ -263,7 +263,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0410.html }
      */
-    const pagination = NU.pagination;
+    const pagination: typeof NU.pagination;
 
     /**
      * Tree(N.tree) is a UI component that creates tree elements from hierarchical data.
@@ -271,7 +271,7 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0411.html }
      */
-    const tree = NU.tree;
+    const tree: typeof NU.tree;
 
     // === Natural-UI.Shell
     /**
@@ -285,7 +285,7 @@ declare namespace N {
      * Creates a message notification.
      */
     namespace notify {
-        const add = NUS.notify.add;
+        const add: typeof NUS.notify.add;
         // const add: (msg: string, url: string) => void;
     }
     /**
@@ -294,13 +294,13 @@ declare namespace N {
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0502.html }
      */
-    const docs = NUS.docs;
+    const docs: typeof NUS.docs;
     /**
      * Natural-CODE
      */
-    const code = NCD;
+    const code: typeof NCD;
     /**
      * Natural-TEMPLATE
      */
-    const template = NT;
+    const template: typeof NT;
 }

@@ -2,7 +2,7 @@ N([{}, {}]).each((index, element) => {});
 N(".button").remove_(1, 2).instance((instanceName, instance) => {});
 N(".button").tpBind("click", function () {});
 N(".button").events("click", "grid");
-N.locale();
+N.locale().charAt(0);
 N.locale("en-US");
 N(".button").on("click", function (e) {
     N.event.disable(e);
