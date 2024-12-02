@@ -1394,7 +1394,7 @@ declare namespace woosmap.map {
 declare namespace woosmap.map {
     interface FlyToOptions {
         /**
-         * Controls weather to animate or not.
+         * Controls whether to animate or not.
          */
         animate?: boolean;
         /**
