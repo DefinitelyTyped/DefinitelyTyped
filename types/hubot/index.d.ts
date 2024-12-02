@@ -51,7 +51,7 @@ export class DataStore {
 
 export class DataStoreUnavailable extends Error {
     /* needed to please typescript */
-    private _? : string;
+    private _?: string;
 }
 
 export class Middleware<A extends Adapter = Adapter> {
@@ -111,17 +111,17 @@ export class TextMessage extends Message {
 
 export class EnterMessage extends Message {
     /* needed to please typescript */
-    private _? : string;
+    private _?: string;
 }
 
 export class LeaveMessage extends Message {
     /* needed to please typescript */
-    private _? : string;
+    private _?: string;
 }
 
 export class TopicMessage extends TextMessage {
     /* needed to please typescript */
-    private _? : string;
+    private _?: string;
 }
 
 export class CatchAllMessage extends Message {
