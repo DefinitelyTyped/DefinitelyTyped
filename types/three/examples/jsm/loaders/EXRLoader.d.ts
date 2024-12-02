@@ -1,4 +1,4 @@
-import { ColorSpace, DataTextureLoader, LoadingManager, PixelFormat, TextureDataType } from "three";
+import { DataTextureLoader, LoadingManager, PixelFormat, TextureDataType } from "three";
 
 export interface EXR {
     header: object;
@@ -6,7 +6,7 @@ export interface EXR {
     height: number;
     data: Float32Array | Uint16Array;
     format: PixelFormat;
-    colorSpace: ColorSpace;
+    colorSpace: string;
     type: TextureDataType;
 }
 

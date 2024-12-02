@@ -284,7 +284,7 @@ declare module "fs" {
         /**
          * Asynchronously iterates over the directory via `readdir(3)` until all entries have been read.
          */
-        [Symbol.asyncIterator](): AsyncIterableIterator<Dirent>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<Dirent>;
         /**
          * Asynchronously close the directory's underlying resource handle.
          * Subsequent reads will result in errors.
@@ -4314,29 +4314,35 @@ declare module "fs" {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 
-    export interface GlobOptions {
+    interface GlobOptionsBase {
         /**
          * Current working directory.
          * @default process.cwd()
          */
         cwd?: string | undefined;
         /**
-         * Function to filter out files/directories. Return true to exclude the item, false to include it.
-         */
-        exclude?: ((fileName: string) => boolean) | undefined;
-        /**
          * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
          * @default false
          * @since v22.2.0
          */
         withFileTypes?: boolean | undefined;
+        /**
+         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         */
+        exclude?: ((fileName: any) => boolean) | undefined;
     }
-    export interface GlobOptionsWithFileTypes extends GlobOptions {
+    export interface GlobOptionsWithFileTypes extends GlobOptionsBase {
+        exclude?: ((fileName: Dirent) => boolean) | undefined;
         withFileTypes: true;
     }
-    export interface GlobOptionsWithoutFileTypes extends GlobOptions {
+    export interface GlobOptionsWithoutFileTypes extends GlobOptionsBase {
+        exclude?: ((fileName: string) => boolean) | undefined;
         withFileTypes?: false | undefined;
     }
+    export interface GlobOptions extends GlobOptionsBase {
+        exclude?: ((fileName: Dirent | string) => boolean) | undefined;
+    }
+
     /**
      * Retrieves the files matching the specified pattern.
      */

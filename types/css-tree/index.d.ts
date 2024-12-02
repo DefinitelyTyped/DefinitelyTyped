@@ -911,4 +911,5 @@ export function fork(extension: {
     atrules?: Record<string, string> | undefined;
     properties?: Record<string, string> | undefined;
     types?: Record<string, string> | undefined;
+    cssWideKeywords?: Array<string> | undefined;
 }): { lexer: Lexer };

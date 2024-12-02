@@ -246,6 +246,38 @@ declare namespace Roles {
         group?: string,
     ): boolean;
 
+    /**
+     * Add role parent to roles.
+     *
+     * Previous parents are kept (role can have multiple parents). For users which have the
+     * parent role set, new subroles are added automatically.
+     *
+     * @example
+     *     Roles.addRolesToParent('editor', 'admin');
+     *     Roles.addRolesToParent(['moderator', 'contributor'], 'editor');
+     *
+     * @method addRolesToParent
+     * @param {Array|String} roleNames Name(s) of role(s).
+     * @param {String} parentName Name of parent role.
+     */
+    function addRolesToParent(roleNames: string | string[], parentName: string): void;
+
+    /**
+     * Remove role parent from roles.
+     *
+     * Other parents are kept (role can have multiple parents). For users which have the
+     * parent role set, removed subrole is removed automatically.
+     *
+     * @example
+     *     Roles.removeRolesFromParent('editor', 'admin');
+     *     Roles.removeRolesFromParent(['moderator', 'contributor'], 'editor');
+     *
+     * @method removeRolesFromParent
+     * @param {Array|String} roleNames Name(s) of role(s).
+     * @param {String} parentName Name of parent role.
+     */
+    function removeRolesFromParent(roleNames: string | string[], parentName: string): void;
+
     interface Role {
         name: string;
     }
@@ -497,6 +529,38 @@ declare module "meteor/alanning:roles" {
             roles: string | string[],
             group?: string,
         ): boolean;
+
+        /**
+         * Add role parent to roles.
+         *
+         * Previous parents are kept (role can have multiple parents). For users which have the
+         * parent role set, new subroles are added automatically.
+         *
+         * @example
+         *     Roles.addRolesToParent('editor', 'admin');
+         *     Roles.addRolesToParent(['moderator', 'contributor'], 'editor');
+         *
+         * @method addRolesToParent
+         * @param {Array|String} roleNames Name(s) of role(s).
+         * @param {String} parentName Name of parent role.
+         */
+        function addRolesToParent(roleNames: string | string[], parentName: string): void;
+
+        /**
+         * Remove role parent from roles.
+         *
+         * Other parents are kept (role can have multiple parents). For users which have the
+         * parent role set, removed subrole is removed automatically.
+         *
+         * @example
+         *     Roles.removeRolesFromParent('editor', 'admin');
+         *     Roles.removeRolesFromParent(['moderator', 'contributor'], 'editor');
+         *
+         * @method removeRolesFromParent
+         * @param {Array|String} roleNames Name(s) of role(s).
+         * @param {String} parentName Name of parent role.
+         */
+        function removeRolesFromParent(roleNames: string | string[], parentName: string): void;
 
         interface Role {
             name: string;

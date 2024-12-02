@@ -18,6 +18,9 @@ const fakeVirusUrl = "https://secure.eicar.org/eicar.com.txt";
     // $ExpectType string
     const version = await clamscan.getVersion();
 
+    const socket = await clamscan.ping();
+    socket.end();
+
     const response = await new Promise<http.IncomingMessage>((resolve, reject) => {
         https.get(fakeVirusUrl, (res) => {
             if (res.statusCode !== 200) {

@@ -1517,15 +1517,23 @@ declare module "util" {
         string | boolean
     >;
 
+    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = (
+        & { -readonly [LongOption in keyof O]?: V[LongOption] }
+        & { [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption] }
+    ) extends infer P ? { [K in keyof P]: P[K] } : never; // resolve intersection to object
+
     type ParsedValues<T extends ParseArgsConfig> =
         & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
-        & (T["options"] extends ParseArgsOptionsConfig ? {
-                -readonly [LongOption in keyof T["options"]]: IfDefaultsFalse<
-                    T["options"][LongOption]["multiple"],
-                    undefined | Array<ExtractOptionValue<T, T["options"][LongOption]>>,
-                    undefined | ExtractOptionValue<T, T["options"][LongOption]>
-                >;
-            }
+        & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
+                T["options"],
+                {
+                    [LongOption in keyof T["options"]]: IfDefaultsFalse<
+                        T["options"][LongOption]["multiple"],
+                        Array<ExtractOptionValue<T, T["options"][LongOption]>>,
+                        ExtractOptionValue<T, T["options"][LongOption]>
+                    >;
+                }
+            >
             : {});
 
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
@@ -1717,7 +1725,7 @@ declare module "util" {
          * Each item of the iterator is a JavaScript `Array`. The first item of the array
          * is the `name`, the second item of the array is the `value`.
          */
-        entries(): IterableIterator<[name: string, value: string]>;
+        entries(): NodeJS.Iterator<[name: string, value: string]>;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -1743,7 +1751,7 @@ declare module "util" {
          * //   bar
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): NodeJS.Iterator<string>;
         /**
          * Sets the value in the `MIMEParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value`.
@@ -1762,11 +1770,11 @@ declare module "util" {
         /**
          * Returns an iterator over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
+        values(): NodeJS.Iterator<string>;
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
          */
-        [Symbol.iterator]: typeof MIMEParams.prototype.entries;
+        [Symbol.iterator](): NodeJS.Iterator<[name: string, value: string]>;
     }
 }
 declare module "util/types" {

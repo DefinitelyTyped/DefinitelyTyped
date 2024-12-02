@@ -11,6 +11,7 @@ tape(cb);
 tape(name, cb);
 tape(topts, cb);
 tape(name, topts, cb);
+tape(name, { skip: "skip message" }, cb);
 
 tape(name, (test: tape.Test) => {
     t = test;

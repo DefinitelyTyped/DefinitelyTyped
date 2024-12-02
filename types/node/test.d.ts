@@ -340,11 +340,22 @@ declare module "node:test" {
         globPatterns?: readonly string[] | undefined;
         /**
          * Sets inspector port of test child process.
-         * If a nullish value is provided, each process gets its own port,
-         * incremented from the primary's `process.debugPort`.
+         * This can be a number, or a function that takes no arguments and returns a
+         * number. If a nullish value is provided, each process gets its own port,
+         * incremented from the primary's `process.debugPort`. This option is ignored
+         * if the `isolation` option is set to `'none'` as no child processes are
+         * spawned.
          * @default undefined
          */
         inspectPort?: number | (() => number) | undefined;
+        /**
+         * Configures the type of test isolation. If set to
+         * `'process'`, each test file is run in a separate child process. If set to
+         * `'none'`, all test files run in the current process.
+         * @default 'process'
+         * @since v22.8.0
+         */
+        isolation?: "process" | "none" | undefined;
         /**
          * If truthy, the test context will only run tests that have the `only` option set
          */
@@ -354,6 +365,20 @@ declare module "node:test" {
          * @default undefined
          */
         setup?: ((reporter: TestsStream) => void | Promise<void>) | undefined;
+        /**
+         * An array of CLI flags to pass to the `node` executable when
+         * spawning the subprocesses. This option has no effect when `isolation` is `'none`'.
+         * @since v22.10.0
+         * @default []
+         */
+        execArgv?: readonly string[] | undefined;
+        /**
+         * An array of CLI flags to pass to each test file when spawning the
+         * subprocesses. This option has no effect when `isolation` is `'none'`.
+         * @since v22.10.0
+         * @default []
+         */
+        argv?: readonly string[] | undefined;
         /**
          * Allows aborting an in-progress test execution.
          */
@@ -389,6 +414,53 @@ declare module "node:test" {
          * @default undefined
          */
         shard?: TestShard | undefined;
+        /**
+         * enable [code coverage](https://nodejs.org/docs/latest-v22.x/api/test.html#collecting-code-coverage) collection.
+         * @since v22.10.0
+         * @default false
+         */
+        coverage?: boolean | undefined;
+        /**
+         * Excludes specific files from code coverage
+         * using a glob pattern, which can match both absolute and relative file paths.
+         * This property is only applicable when `coverage` was set to `true`.
+         * If both `coverageExcludeGlobs` and `coverageIncludeGlobs` are provided,
+         * files must meet **both** criteria to be included in the coverage report.
+         * @since v22.10.0
+         * @default undefined
+         */
+        coverageExcludeGlobs?: string | readonly string[] | undefined;
+        /**
+         * Includes specific files in code coverage
+         * using a glob pattern, which can match both absolute and relative file paths.
+         * This property is only applicable when `coverage` was set to `true`.
+         * If both `coverageExcludeGlobs` and `coverageIncludeGlobs` are provided,
+         * files must meet **both** criteria to be included in the coverage report.
+         * @since v22.10.0
+         * @default undefined
+         */
+        coverageIncludeGlobs?: string | readonly string[] | undefined;
+        /**
+         * Require a minimum percent of covered lines. If code
+         * coverage does not reach the threshold specified, the process will exit with code `1`.
+         * @since v22.10.0
+         * @default 0
+         */
+        lineCoverage?: number | undefined;
+        /**
+         * Require a minimum percent of covered branches. If code
+         * coverage does not reach the threshold specified, the process will exit with code `1`.
+         * @since v22.10.0
+         * @default 0
+         */
+        branchCoverage?: number | undefined;
+        /**
+         * Require a minimum percent of covered functions. If code
+         * coverage does not reach the threshold specified, the process will exit with code `1`.
+         * @since v22.10.0
+         * @default 0
+         */
+        functionCoverage?: number | undefined;
     }
     /**
      * A successful call to `run()` will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.
@@ -408,6 +480,7 @@ declare module "node:test" {
         addListener(event: "test:start", listener: (data: TestStart) => void): this;
         addListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         addListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        addListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         addListener(event: "test:watch:drained", listener: () => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
         emit(event: "test:coverage", data: TestCoverage): boolean;
@@ -421,6 +494,7 @@ declare module "node:test" {
         emit(event: "test:start", data: TestStart): boolean;
         emit(event: "test:stderr", data: TestStderr): boolean;
         emit(event: "test:stdout", data: TestStdout): boolean;
+        emit(event: "test:summary", data: TestSummary): boolean;
         emit(event: "test:watch:drained"): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: "test:coverage", listener: (data: TestCoverage) => void): this;
@@ -434,6 +508,7 @@ declare module "node:test" {
         on(event: "test:start", listener: (data: TestStart) => void): this;
         on(event: "test:stderr", listener: (data: TestStderr) => void): this;
         on(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        on(event: "test:summary", listener: (data: TestSummary) => void): this;
         on(event: "test:watch:drained", listener: () => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: "test:coverage", listener: (data: TestCoverage) => void): this;
@@ -447,6 +522,7 @@ declare module "node:test" {
         once(event: "test:start", listener: (data: TestStart) => void): this;
         once(event: "test:stderr", listener: (data: TestStderr) => void): this;
         once(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        once(event: "test:summary", listener: (data: TestSummary) => void): this;
         once(event: "test:watch:drained", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
@@ -460,6 +536,7 @@ declare module "node:test" {
         prependListener(event: "test:start", listener: (data: TestStart) => void): this;
         prependListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        prependListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         prependListener(event: "test:watch:drained", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
@@ -473,6 +550,7 @@ declare module "node:test" {
         prependOnceListener(event: "test:start", listener: (data: TestStart) => void): this;
         prependOnceListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependOnceListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        prependOnceListener(event: "test:summary", listener: (data: TestSummary) => void): this;
         prependOnceListener(event: "test:watch:drained", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     }
@@ -1635,9 +1713,10 @@ declare module "node:test" {
          * This function is used to set a custom resolver for the location of the snapshot file used for snapshot testing.
          * By default, the snapshot filename is the same as the entry point filename with `.snapshot` appended.
          * @since v22.3.0
-         * @param fn A function which returns a string specifying the location of the snapshot file.
-         * The function receives the path of the test file as its only argument.
-         * If `process.argv[1]` is not associated with a file (for example in the REPL), the input is undefined.
+         * @param fn A function used to compute the location of the snapshot file.
+         * The function receives the path of the test file as its only argument. If the
+         * test is not associated with a file (for example in the REPL), the input is
+         * undefined. `fn()` must return a string specifying the location of the snapshot file.
          */
         function setResolveSnapshotPath(fn: (path: string | undefined) => string): void;
     }
@@ -1784,6 +1863,25 @@ interface TestCoverage {
                 count: number;
             }>;
         }>;
+        /**
+         * An object containing whether or not the coverage for
+         * each coverage type.
+         * @since v22.9.0
+         */
+        thresholds: {
+            /**
+             * The function coverage threshold.
+             */
+            function: number;
+            /**
+             * The branch coverage threshold.
+             */
+            branch: number;
+            /**
+             * The line coverage threshold.
+             */
+            line: number;
+        };
         /**
          * An object containing a summary of coverage for all files.
          */
@@ -2016,6 +2114,57 @@ interface TestStdout {
      */
     message: string;
 }
+interface TestSummary {
+    /**
+     * An object containing the counts of various test results.
+     */
+    counts: {
+        /**
+         * The total number of cancelled tests.
+         */
+        cancelled: number;
+        /**
+         * The total number of passed tests.
+         */
+        passed: number;
+        /**
+         * The total number of skipped tests.
+         */
+        skipped: number;
+        /**
+         * The total number of suites run.
+         */
+        suites: number;
+        /**
+         * The total number of tests run, excluding suites.
+         */
+        tests: number;
+        /**
+         * The total number of TODO tests.
+         */
+        todo: number;
+        /**
+         * The total number of top level tests and suites.
+         */
+        topLevel: number;
+    };
+    /**
+     * The duration of the test run in milliseconds.
+     */
+    duration_ms: number;
+    /**
+     * The path of the test file that generated the
+     * summary. If the summary corresponds to multiple files, this value is
+     * `undefined`.
+     */
+    file: string | undefined;
+    /**
+     * Indicates whether or not the test run is considered
+     * successful or not. If any error condition occurs, such as a failing test or
+     * unmet coverage threshold, this value will be set to `false`.
+     */
+    success: boolean;
+}
 
 /**
  * The `node:test/reporters` module exposes the builtin-reporters for `node:test`.
@@ -2049,6 +2198,7 @@ declare module "node:test/reporters" {
         | { type: "test:start"; data: TestStart }
         | { type: "test:stderr"; data: TestStderr }
         | { type: "test:stdout"; data: TestStdout }
+        | { type: "test:summary"; data: TestSummary }
         | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 

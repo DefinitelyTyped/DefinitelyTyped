@@ -1,12 +1,4 @@
-import {
-    ColorSpace,
-    Combine,
-    DepthPackingStrategies,
-    GLSLVersion,
-    Mapping,
-    ShadowMapType,
-    ToneMapping,
-} from "../../constants.js";
+import { Combine, DepthPackingStrategies, GLSLVersion, Mapping, ShadowMapType, ToneMapping } from "../../constants.js";
 import { Object3D } from "../../core/Object3D.js";
 import { Light } from "../../lights/Light.js";
 import { Material } from "../../materials/Material.js";
@@ -45,7 +37,7 @@ export interface WebGLProgramParameters {
     instancingMorph: boolean;
 
     supportsVertexTextures: boolean;
-    outputColorSpace: ColorSpace;
+    outputColorSpace: string;
     alphaToCoverage: boolean;
 
     map: boolean;
@@ -190,6 +182,7 @@ export interface WebGLProgramParameters {
     toneMapping: ToneMapping;
 
     decodeVideoTexture: boolean;
+    decodeVideoTextureEmissive: boolean;
 
     premultipliedAlpha: boolean;
 

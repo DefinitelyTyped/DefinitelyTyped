@@ -43,6 +43,7 @@ const storeWithNullOptions = new Store(source, {
     operationLoader: null,
     gcReleaseBufferSize: null,
     queryCacheExpirationTime: null,
+    resolverContext: null,
 });
 const storeWithOptions = new Store(source, {
     gcScheduler: () => undefined,
@@ -52,6 +53,11 @@ const storeWithOptions = new Store(source, {
     },
     gcReleaseBufferSize: 10,
     queryCacheExpirationTime: 1000,
+    resolverContext: {
+        customStore: {
+            nickName: "Lorem",
+        },
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -128,14 +134,43 @@ const environment = new Environment({
     ],
     log: logEvent => {
         switch (logEvent.name) {
-            case "network.start":
-            case "network.complete":
-            case "network.error":
+            case "suspense.fragment":
+            case "suspense.query":
+            case "queryresource.fetch":
+            case "queryresource.retain":
+            case "fragmentresource.missing_data":
+            case "pendingoperation.found":
             case "network.info":
+            case "network.start":
+            case "network.next":
+            case "network.error":
+            case "network.complete":
             case "network.unsubscribe":
             case "execute.start":
-            case "queryresource.fetch":
-            case "read.missing_required_field":
+            case "execute.next.start":
+            case "execute.next.end":
+            case "execute.async.module":
+            case "execute.error":
+            case "execute.complete":
+            case "execute.normalize.start":
+            case "execute.normalize.end":
+            case "store.datachecker.start":
+            case "store.datachecker.end":
+            case "store.publish":
+            case "store.snapshot":
+            case "store.lookup.start":
+            case "store.lookup.end":
+            case "store.restore":
+            case "store.gc.start":
+            case "store.gc.interrupted":
+            case "store.gc.end":
+            case "store.notify.start":
+            case "store.notify.complete":
+            case "store.notify.subscription":
+            case "entrypoint.root.consume":
+            case "liveresolver.batch.start":
+            case "liveresolver.batch.end":
+            case "useFragment.subscription.missedUpdates":
             default:
                 break;
         }

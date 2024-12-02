@@ -108,6 +108,25 @@ declare module "util" {
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
+    export interface StacktraceObject {
+        /**
+         * Returns the name of the function associated with this stack frame.
+         */
+        functionName: string;
+        /**
+         * Returns the name of the resource that contains the script for the
+         * function for this StackFrame.
+         */
+        scriptName: string;
+        /**
+         * Returns the number, 1-based, of the line for the associate function call.
+         */
+        lineNumber: number;
+        /**
+         * Returns the 1-based column offset on the line for the associated function call.
+         */
+        column: number;
+    }
     /**
      * The `util.format()` method returns a formatted string using the first argument
      * as a `printf`-like format string which can contain zero or more format
@@ -166,6 +185,52 @@ declare module "util" {
      * @since v10.0.0
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
+    /**
+     * Returns an array of stacktrace objects containing the stack of
+     * the caller function.
+     *
+     * ```js
+     * const util = require('node:util');
+     *
+     * function exampleFunction() {
+     *   const callSites = util.getCallSite();
+     *
+     *   console.log('Call Sites:');
+     *   callSites.forEach((callSite, index) => {
+     *     console.log(`CallSite ${index + 1}:`);
+     *     console.log(`Function Name: ${callSite.functionName}`);
+     *     console.log(`Script Name: ${callSite.scriptName}`);
+     *     console.log(`Line Number: ${callSite.lineNumber}`);
+     *     console.log(`Column Number: ${callSite.column}`);
+     *   });
+     *   // CallSite 1:
+     *   // Function Name: exampleFunction
+     *   // Script Name: /home/example.js
+     *   // Line Number: 5
+     *   // Column Number: 26
+     *
+     *   // CallSite 2:
+     *   // Function Name: anotherFunction
+     *   // Script Name: /home/example.js
+     *   // Line Number: 22
+     *   // Column Number: 3
+     *
+     *   // ...
+     * }
+     *
+     * // A function to simulate another stack layer
+     * function anotherFunction() {
+     *   exampleFunction();
+     * }
+     *
+     * anotherFunction();
+     * ```
+     * @param frames Number of frames returned in the stacktrace.
+     * **Default:** `10`. Allowable range is between 1 and 200.
+     * @return An array of stacktrace objects
+     * @since v22.9.0
+     */
+    export function getCallSite(frames?: number): StacktraceObject[];
     /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.
@@ -1517,18 +1582,23 @@ declare module "util" {
         string | boolean
     >;
 
+    type ApplyOptionalModifiers<O extends ParseArgsOptionsConfig, V extends Record<keyof O, unknown>> = (
+        & { -readonly [LongOption in keyof O]?: V[LongOption] }
+        & { [LongOption in keyof O as O[LongOption]["default"] extends {} ? LongOption : never]: V[LongOption] }
+    ) extends infer P ? { [K in keyof P]: P[K] } : never; // resolve intersection to object
+
     type ParsedValues<T extends ParseArgsConfig> =
         & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
-        & (T["options"] extends ParseArgsOptionsConfig ? {
-                -readonly [LongOption in keyof T["options"]]:
-                    // when "default" is not undefined, the value will be present
-                    | (T["options"][LongOption]["default"] extends {} ? never : undefined)
-                    | IfDefaultsFalse<
+        & (T["options"] extends ParseArgsOptionsConfig ? ApplyOptionalModifiers<
+                T["options"],
+                {
+                    [LongOption in keyof T["options"]]: IfDefaultsFalse<
                         T["options"][LongOption]["multiple"],
                         Array<ExtractOptionValue<T, T["options"][LongOption]>>,
                         ExtractOptionValue<T, T["options"][LongOption]>
                     >;
-            }
+                }
+            >
             : {});
 
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
@@ -1720,7 +1790,7 @@ declare module "util" {
          * Each item of the iterator is a JavaScript `Array`. The first item of the array
          * is the `name`, the second item of the array is the `value`.
          */
-        entries(): IterableIterator<[name: string, value: string]>;
+        entries(): NodeJS.Iterator<[name: string, value: string]>;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -1746,7 +1816,7 @@ declare module "util" {
          * //   bar
          * ```
          */
-        keys(): IterableIterator<string>;
+        keys(): NodeJS.Iterator<string>;
         /**
          * Sets the value in the `MIMEParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value`.
@@ -1765,11 +1835,11 @@ declare module "util" {
         /**
          * Returns an iterator over the values of each name-value pair.
          */
-        values(): IterableIterator<string>;
+        values(): NodeJS.Iterator<string>;
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
          */
-        [Symbol.iterator]: typeof MIMEParams.prototype.entries;
+        [Symbol.iterator](): NodeJS.Iterator<[name: string, value: string]>;
     }
 }
 declare module "util/types" {

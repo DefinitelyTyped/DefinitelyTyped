@@ -71,7 +71,7 @@ declare module "fs/promises" {
         length?: number | null;
         position?: number | null;
     }
-    interface CreateReadStreamOptions {
+    interface CreateReadStreamOptions extends Abortable {
         encoding?: BufferEncoding | null | undefined;
         autoClose?: boolean | undefined;
         emitClose?: boolean | undefined;
@@ -237,6 +237,10 @@ declare module "fs/promises" {
             offset?: number | null,
             length?: number | null,
             position?: number | null,
+        ): Promise<FileReadResult<T>>;
+        read<T extends NodeJS.ArrayBufferView = Buffer>(
+            buffer: T,
+            options?: FileReadOptions<T>,
         ): Promise<FileReadResult<T>>;
         read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
         /**
@@ -425,6 +429,13 @@ declare module "fs/promises" {
             offset?: number | null,
             length?: number | null,
             position?: number | null,
+        ): Promise<{
+            bytesWritten: number;
+            buffer: TBuffer;
+        }>;
+        write<TBuffer extends Uint8Array>(
+            buffer: TBuffer,
+            options?: { offset?: number; length?: number; position?: number },
         ): Promise<{
             bytesWritten: number;
             buffer: TBuffer;
@@ -1245,19 +1256,19 @@ declare module "fs/promises" {
     /**
      * Retrieves the files matching the specified pattern.
      */
-    function glob(pattern: string | string[]): AsyncIterableIterator<string>;
+    function glob(pattern: string | string[]): NodeJS.AsyncIterator<string>;
     function glob(
         pattern: string | string[],
         opt: GlobOptionsWithFileTypes,
-    ): AsyncIterableIterator<Dirent>;
+    ): NodeJS.AsyncIterator<Dirent>;
     function glob(
         pattern: string | string[],
         opt: GlobOptionsWithoutFileTypes,
-    ): AsyncIterableIterator<string>;
+    ): NodeJS.AsyncIterator<string>;
     function glob(
         pattern: string | string[],
         opt: GlobOptions,
-    ): AsyncIterableIterator<Dirent> | AsyncIterableIterator<string>;
+    ): NodeJS.AsyncIterator<Dirent | string>;
 }
 declare module "node:fs/promises" {
     export * from "fs/promises";

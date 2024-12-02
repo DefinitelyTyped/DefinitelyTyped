@@ -98,7 +98,7 @@ export * from "./materials/Materials.js";
 export * from "./math/Box2.js";
 export * from "./math/Box3.js";
 export * from "./math/Color.js";
-export { ColorManagement, DefinedColorSpace, WorkingColorSpace } from "./math/ColorManagement.js";
+export { ColorManagement, ColorSpaceDefinition } from "./math/ColorManagement.js";
 export * from "./math/Cylindrical.js";
 export * from "./math/Euler.js";
 export * from "./math/Frustum.js";
@@ -162,12 +162,7 @@ export type { WebGLProperties } from "./renderers/webgl/WebGLProperties.js";
 export type { RenderItem, WebGLRenderList, WebGLRenderLists } from "./renderers/webgl/WebGLRenderLists.js";
 export type { WebGLShader } from "./renderers/webgl/WebGLShader.js";
 export type { WebGLShadowMap } from "./renderers/webgl/WebGLShadowMap.js";
-export type {
-    WebGLColorBuffer,
-    WebGLDepthBuffer,
-    WebGLState,
-    WebGLStencilBuffer,
-} from "./renderers/webgl/WebGLState.js";
+export type { WebGLState } from "./renderers/webgl/WebGLState.js";
 export type { WebGLTextures } from "./renderers/webgl/WebGLTextures.js";
 export type { WebGLUniforms } from "./renderers/webgl/WebGLUniforms.js";
 export * from "./renderers/webgl/WebGLUtils.js";

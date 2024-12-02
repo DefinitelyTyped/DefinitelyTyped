@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/eslint-plugin-jsx-a11y",
-    "version": "6.9.9999",
+    "version": "6.10.9999",
     "projects": [
         "https://github.com/jsx-eslint/eslint-plugin-jsx-a11y#readme"
     ],

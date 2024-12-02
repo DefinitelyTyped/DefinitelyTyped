@@ -3,32 +3,66 @@ declare namespace Twitchat {
     const environment: "production";
     // List of the events fired by Twitchat you can listen.
     type EventType =
+        | "REMOTE_TEMP_TEXT_EVENT"
+        | "REMOTE_FINAL_TEXT_EVENT"
         | "MESSAGE_READ"
         | "MESSAGE_NON_FOLLOWER"
+        | "MESSAGE_FILTERED"
         | "MESSAGE_DELETED"
         | "MESSAGE_FIRST"
         | "MESSAGE_FIRST_ALL_TIME"
         | "MESSAGE_WHISPER"
         | "FOLLOW"
-        | "MENTION"
-        | "POLL_PROGRESS"
-        | "PREDICTION_PROGRESS"
+        | "REWARD_REDEEM"
+        | "BITS"
+        | "SUBSCRIPTION"
         | "MENTION"
         | "CURRENT_TRACK"
         | "TRACK_ADDED_TO_QUEUE"
-        | "RAFFLE_RESULT"
+        | "WHEEL_OVERLAY_PRESENCE"
+        | "BITSWALL_OVERLAY_PRESENCE"
+        | "CREDITS_OVERLAY_PRESENCE"
         | "COUNTDOWN_START"
         | "COUNTDOWN_COMPLETE"
         | "TIMER_START"
         | "TIMER_STOP"
         | "TIMER_OVERLAY_PRESENCE"
-        | "WHEEL_OVERLAY_PRESENCE"
+        | "POLL_PROGRESS"
+        | "PREDICTION_PROGRESS"
+        | "RAFFLE_RESULT"
         | "EMERGENCY_MODE"
         | "CHAT_HIGHLIGHT_OVERLAY_PRESENCE"
+        | "CHAT_HIGHLIGHT_OVERLAY_CONFIRM"
         | "VOICEMOD_CHANGE"
-        | "RAFFLE_CREATE"
-        | "RAFFLE_STOP"
-        | "VOICEMOD_CHANGE";
+        | "SET_COLS_COUNT"
+        | "COUNTER_UPDATE"
+        | "COUNTER_LIST"
+        | "TRIGGER_LIST"
+        | "MUSIC_PLAYER_HEAT_CLICK"
+        | "LABELS_UPDATE"
+        | "MERGE_TOGGLE"
+        | "SUMMARY_DATA"
+        | "ENDING_CREDITS_CONFIGS"
+        | "ENDING_CREDITS_CONTROL"
+        | "ENDING_CREDITS_COMPLETE"
+        | "AD_BREAK_OVERLAY_PRESENCE"
+        | "AD_BREAK_OVERLAY_PARAMETERS"
+        | "AD_BREAK_DATA"
+        | "DISTORT_OVERLAY_PARAMETERS"
+        | "BITSWALL_OVERLAY_PARAMETERS"
+        | "PREDICTIONS_OVERLAY_PRESENCE"
+        | "PREDICTIONS_OVERLAY_PARAMETERS"
+        | "POLLS_OVERLAY_PRESENCE"
+        | "POLLS_OVERLAY_PARAMETERS"
+        | "BINGO_GRID_PARAMETERS"
+        | "BINGO_GRID_OVERLAY_PRESENCE"
+        | "BINGO_GRID_HEAT_CLICK"
+        | "BINGO_GRID_OVERLAY_VIEWER_EVENT"
+        | "BINGO_GRID_OVERLAY_LEADER_BOARD"
+        | "LABEL_OVERLAY_PARAMS"
+        | "LABEL_OVERLAY_PLACEHOLDERS"
+        | "DONATION_GOALS_OVERLAY_PARAMS"
+        | "DONATION_EVENT";
     // List of actions you can request Twitchat to perform.
     type ActionType =
         | "GREET_FEED_READ"
@@ -39,7 +73,19 @@ declare namespace Twitchat {
         | "CHAT_FEED_UNPAUSE"
         | "CHAT_FEED_SCROLL_UP"
         | "CHAT_FEED_SCROLL_DOWN"
+        | "CHAT_FEED_SCROLL"
+        | "CHAT_FEED_SCROLL_BOTTOM"
+        | "CHAT_FEED_SELECT"
+        | "CHAT_FEED_SELECT_ACTION_CANCEL"
+        | "CHAT_FEED_SELECT_ACTION_DELETE"
+        | "CHAT_FEED_SELECT_ACTION_BAN"
+        | "CHAT_FEED_SELECT_CHOOSING_ACTION"
+        | "CHAT_FEED_SELECT_ACTION_PIN"
+        | "CHAT_FEED_SELECT_ACTION_HIGHLIGHT"
+        | "CHAT_FEED_SELECT_ACTION_SHOUTOUT"
+        | "CLEAR_CHAT_HIGHLIGHT"
         | "POLL_TOGGLE"
+        | "POLL_CREATE"
         | "PREDICTION_TOGGLE"
         | "BINGO_TOGGLE"
         | "RAFFLE_TOGGLE"
@@ -47,8 +93,10 @@ declare namespace Twitchat {
         | "MOD_TOOLS_TOGGLE"
         | "CENSOR_DELETED_MESSAGES_TOGGLE"
         | "GET_CURRENT_TRACK"
-        | "WHEEL_OVERLAY_START"
         | "GET_WHEEL_OVERLAY_PRESENCE"
+        | "GET_BITSWALL_OVERLAY_PRESENCE"
+        | "GET_CREDITS_OVERLAY_PRESENCE"
+        | "WHEEL_OVERLAY_START"
         | "GET_CURRENT_TIMERS"
         | "GET_TIMER_OVERLAY_PRESENCE"
         | "SET_EMERGENCY_MODE"
@@ -61,191 +109,222 @@ declare namespace Twitchat {
         | "STOP_TTS"
         | "ENABLE_STT"
         | "DISABLE_STT"
-        | "CUSTOM_CHAT_MESSAGE";
-    enum Icon {
-        AD = "ad",
-        ADD = "add",
-        ALERT = "alert",
-        ANIMATE = "animate",
-        ANNOUNCEMENT = "announcement",
-        ANON = "anon",
-        API = "api",
-        AUTOMOD = "automod",
-        BADGE = "badge",
-        BAN = "ban",
-        BINGO = "bingo",
-        BITS = "bits",
-        BLOCK = "block",
-        BOOST = "boost",
-        BOT = "bot",
-        BROADCAST = "broadcast",
-        BROADCASTER = "broadcaster",
-        CHANGE = "change",
-        CHANNEL_POINTS = "channelPoints",
-        CHAT_COMMAND = "chatCommand",
-        CHAT_POLL = "chatPoll",
-        CHECKMARK = "checkmark",
-        CLEAR_CHAT = "clearChat",
-        CLICK = "click",
-        CLIP = "clip",
-        COFFEE = "coffee",
-        COIN = "coin",
-        COLOR = "color",
-        COMMANDS = "commands",
-        CONVERSATION = "conversation",
-        COPY = "copy",
-        COUNT = "count",
-        COUNTDOWN = "countdown",
-        CREDITS = "credits",
-        CROSS = "cross",
-        DATE = "date",
-        DEBUG = "debug",
-        DELETE = "delete",
-        DICE = "dice",
-        DISCORD = "discord",
-        DONOR = "donor",
-        DOWNLOAD = "download",
-        DRAG_ZONE = "dragZone",
-        EASING = "easing",
-        EDIT = "edit",
-        ELEVATED = "elevated",
-        ELGATO = "elgato",
-        EMERGENCY = "emergency",
-        EMOTE = "emote",
-        ENTER = "enter",
-        FILTERS = "filters",
-        FIRST_TIME = "firstTime",
-        FIX = "fix",
-        FOLLOW = "follow",
-        FOLLOW_OUTLINE = "follow_outline",
-        FONT = "font",
-        FONT_SIZE = "fontSize",
-        FULLSCREEN = "fullscreen",
-        GIFT = "gift",
-        GITHUB = "github",
-        GOXLR = "goxlr",
-        GOXLR_BLEEP = "goxlr_bleep",
-        GOXLR_FX = "goxlr_fx",
-        HAND = "hand",
-        HEAT = "heat",
-        HELP = "help",
-        HIDE = "hide",
-        HIGHLIGHT = "highlight",
-        HISTORY = "history",
-        HYPE_CHAT = "hypeChat",
-        IDEA = "idea",
-        INFO = "info",
-        INTERNET = "internet",
-        KOFI = "kofi",
-        LEAVE = "leave",
-        LIST = "list",
-        LIVE = "live",
-        LOADER = "loader",
-        LOCK = "lock",
-        LOOP = "loop",
-        MAGNET = "magnet",
-        MARK_READ = "markRead",
-        MAX = "max",
-        MERGE = "merge",
-        MICROPHONE = "microphone",
-        MICROPHONE_MUTE = "microphone_mute",
-        MICROPHONE_RECORDING = "microphone_recording",
-        MIN = "min",
-        MINUS = "minus",
-        MOD = "mod",
-        MOVE = "move",
-        MUSIC = "music",
-        MUTE = "mute",
-        NEWTAB = "newtab",
-        NEXT = "next",
-        NO_MUSIC = "noMusic",
-        NOTIFICATION = "notification",
-        NUMBER = "number",
-        OBS = "obs",
-        OFFLINE = "offline",
-        ONLINE = "online",
-        ORDERABLE = "orderable",
-        OVERLAY = "overlay",
-        PARAMS = "params",
-        PARTNER = "partner",
-        PATREON = "patreon",
-        PAUSE = "pause",
-        PAYPAL = "paypal",
-        PIN = "pin",
-        PIPETTE = "pipette",
-        PLACEHOLDER = "placeholder",
-        PLAY = "play",
-        POLL = "poll",
-        POLYGON = "polygon",
-        PREDICTION = "prediction",
-        PREMIUM = "premium",
-        PRESENTATION = "presentation",
-        PRESS = "press",
-        PREV = "prev",
-        PRIME = "prime",
-        PROS = "pros",
-        QNA = "qna",
-        RAID = "raid",
-        READ = "read",
-        REFRESH = "refresh",
-        REPLY = "reply",
-        RETURNING = "returning",
-        REWARD_HIGHLIGHT = "reward_highlight",
-        RIGHT_CLICK = "rightClick",
-        ROTATE = "rotate",
-        SAVE = "save",
-        SCALE = "scale",
-        SCROLL = "scroll",
-        SCROLL_DOWN = "scrollDown",
-        SCROLL_UP = "scrollUp",
-        SEARCH = "search",
-        SHADOW = "shadow",
-        SHIELD = "shield",
-        SHIELD_MODE = "shieldMode",
-        SHOUTOUT = "shoutout",
-        SHOW = "show",
-        SKIP = "skip",
-        SLOW = "slow",
-        SPOTIFY = "spotify",
-        STARS = "stars",
-        STOP = "stop",
-        SUB = "sub",
-        TEST = "test",
-        THICKNESS = "thickness",
-        TICKET = "ticket",
-        TIKTOK = "tiktok",
-        TIMEOUT = "timeout",
-        TIMER = "timer",
-        TRAIN = "train",
-        TRAIN_BOOST = "train_boost",
-        TRANSLATE = "translate",
-        TRASH = "trash",
-        TTS = "tts",
-        TWITCH = "twitch",
-        TWITCHAT = "twitchat",
-        TWITTER = "twitter",
-        ULULE = "ulule",
-        UNBAN = "unban",
-        UNBLOCK = "unblock",
-        UNFOLLOW = "unfollow",
-        UNLOCK = "unlock",
-        UNMOD = "unmod",
-        UNMUTE = "unmute",
-        UNPIN = "unpin",
-        UNVIP = "unvip",
-        UPDATE = "update",
-        UPLOAD = "upload",
-        URL = "url",
-        USER = "user",
-        VIBRATE = "vibrate",
-        VIP = "vip",
-        VOICE = "voice",
-        VOICEMOD = "voicemod",
-        VOLUME = "volume",
-        WATCH_STREAK = "watchStreak",
-        WHISPERS = "whispers",
-        YOUTUBE = "youtube",
-    }
+        | "RAFFLE_START"
+        | "RAFFLE_PICK_WINNER"
+        | "RAFFLE_END"
+        | "GET_COLS_COUNT"
+        | "COUNTER_GET_ALL"
+        | "TRIGGERS_GET_ALL"
+        | "EXECUTE_TRIGGER"
+        | "TOGGLE_TRIGGER"
+        | "SEND_MESSAGE"
+        | "COUNTER_GET"
+        | "COUNTER_ADD"
+        | "TIMER_ADD"
+        | "COUNTDOWN_ADD"
+        | "CREATE_POLL"
+        | "STOP_POLL"
+        | "CREATE_PREDICTION"
+        | "STOP_PREDICTION"
+        | "GET_SUMMARY_DATA"
+        | "GET_AD_BREAK_OVERLAY_PRESENCE"
+        | "GET_AD_BREAK_OVERLAY_PARAMETERS"
+        | "GET_DISTORT_OVERLAY_PARAMETERS"
+        | "GET_BITS_WALL_OVERLAY_PARAMETERS"
+        | "CUSTOM_CHAT_MESSAGE"
+        | "GET_PREDICTIONS_OVERLAY_PRESENCE"
+        | "GET_PREDICTIONS_OVERLAY_PARAMETERS"
+        | "GET_POLLS_OVERLAY_PRESENCE"
+        | "GET_POLLS_OVERLAY_PARAMETERS"
+        | "GET_BINGO_GRID_PARAMETERS"
+        | "GET_LABEL_OVERLAY_PARAMS"
+        | "GET_LABEL_OVERLAY_PLACEHOLDERS"
+        | "AUTOMOD_ACCEPT"
+        | "AUTOMOD_REJECT"
+        | "GET_DONATION_GOALS_OVERLAY_PARAMS";
+    type Icon =
+        | "ad"
+        | "add"
+        | "alert"
+        | "animate"
+        | "announcement"
+        | "anon"
+        | "api"
+        | "automod"
+        | "badge"
+        | "ban"
+        | "bingo"
+        | "bits"
+        | "block"
+        | "boost"
+        | "bot"
+        | "broadcast"
+        | "broadcaster"
+        | "change"
+        | "channelPoints"
+        | "chatCommand"
+        | "chatPoll"
+        | "checkmark"
+        | "clearChat"
+        | "click"
+        | "clip"
+        | "coffee"
+        | "coin"
+        | "color"
+        | "commands"
+        | "conversation"
+        | "copy"
+        | "count"
+        | "countdown"
+        | "credits"
+        | "cross"
+        | "date"
+        | "debug"
+        | "delete"
+        | "dice"
+        | "discord"
+        | "donor"
+        | "download"
+        | "dragZone"
+        | "easing"
+        | "edit"
+        | "elevated"
+        | "elgato"
+        | "emergency"
+        | "emote"
+        | "enter"
+        | "filters"
+        | "firstTime"
+        | "fix"
+        | "follow"
+        | "follow_outline"
+        | "font"
+        | "fontSize"
+        | "fullscreen"
+        | "gift"
+        | "github"
+        | "goxlr"
+        | "goxlr_bleep"
+        | "goxlr_fx"
+        | "hand"
+        | "heat"
+        | "help"
+        | "hide"
+        | "highlight"
+        | "history"
+        | "hypeChat"
+        | "idea"
+        | "info"
+        | "internet"
+        | "kofi"
+        | "leave"
+        | "list"
+        | "live"
+        | "loader"
+        | "lock"
+        | "loop"
+        | "magnet"
+        | "markRead"
+        | "max"
+        | "merge"
+        | "microphone"
+        | "microphone_mute"
+        | "microphone_recording"
+        | "min"
+        | "minus"
+        | "mod"
+        | "move"
+        | "music"
+        | "mute"
+        | "newtab"
+        | "next"
+        | "noMusic"
+        | "notification"
+        | "number"
+        | "obs"
+        | "offline"
+        | "online"
+        | "orderable"
+        | "overlay"
+        | "params"
+        | "partner"
+        | "patreon"
+        | "pause"
+        | "paypal"
+        | "pin"
+        | "pipette"
+        | "placeholder"
+        | "play"
+        | "poll"
+        | "polygon"
+        | "prediction"
+        | "premium"
+        | "presentation"
+        | "press"
+        | "prev"
+        | "prime"
+        | "pros"
+        | "qna"
+        | "raid"
+        | "read"
+        | "refresh"
+        | "reply"
+        | "returning"
+        | "reward_highlight"
+        | "rightClick"
+        | "rotate"
+        | "save"
+        | "scale"
+        | "scroll"
+        | "scrollDown"
+        | "scrollUp"
+        | "search"
+        | "shadow"
+        | "shield"
+        | "shieldMode"
+        | "shoutout"
+        | "show"
+        | "skip"
+        | "slow"
+        | "spotify"
+        | "stars"
+        | "stop"
+        | "sub"
+        | "test"
+        | "thickness"
+        | "ticket"
+        | "tiktok"
+        | "timeout"
+        | "timer"
+        | "train"
+        | "train_boost"
+        | "translate"
+        | "trash"
+        | "tts"
+        | "twitch"
+        | "twitchat"
+        | "twitter"
+        | "ulule"
+        | "unban"
+        | "unblock"
+        | "unfollow"
+        | "unlock"
+        | "unmod"
+        | "unmute"
+        | "unpin"
+        | "unvip"
+        | "update"
+        | "upload"
+        | "url"
+        | "user"
+        | "vibrate"
+        | "vip"
+        | "voice"
+        | "voicemod"
+        | "volume"
+        | "watchStreak"
+        | "whispers"
+        | "youtube";
 }
 export = Twitchat;
 export as namespace Twitchat;

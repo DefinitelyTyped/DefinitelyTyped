@@ -43,7 +43,7 @@ export interface SubtleCrypto {
      * @returns A promise that resolves with the decrypted data (also known as "plaintext").
      */
     decrypt(
-        algorithm: AesCtrParams | AesCbcParams | AesGcmParams,
+        algorithm: AesCtrParams | AesCbcParams | AesGcmParams | RsaOaepParams,
         key: CryptoKey,
         data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<ArrayBuffer>;
@@ -80,7 +80,7 @@ export interface SubtleCrypto {
      * @returns A promise that resolves with the encrypted data (also known as "ciphertext").
      */
     encrypt(
-        algorithm: AesCtrParams | AesCbcParams | AesGcmParams,
+        algorithm: AesCtrParams | AesCbcParams | AesGcmParams | RsaOaepParams,
         key: CryptoKey,
         data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<ArrayBuffer>;
@@ -122,12 +122,12 @@ export interface SubtleCrypto {
      * @param extractable indicates whether it will be possible to export the key using `SubtleCrypto.exportKey()` or `SubtleCrypto.wrapKey`.
      * @param keyUsages indicates what can be done with the newly generated key.
      * @throws {SyntaxError} - if the result is a `CryptoKey` of type `secret` or `private` but `keyUsages is empty.
-     * @returns A promise that resolves with the newly generated CryptoKeyPair`.
+     * @returns A promise that resolves with the newly generated `CryptoKeyPair`.
      */
     generateKey(
-        algorithm: EcKeyGenParams,
+        algorithm: EcKeyGenParams | RSAHashedKeyGenParams,
         extractable: boolean,
-        keyUsages: Array<"sign" | "verify" | "deriveKey" | "deriveBits">,
+        keyUsages: Array<"sign" | "verify" | "deriveKey" | "deriveBits" | "encrypt" | "decrypt">,
     ): Promise<CryptoKeyPair>;
 
     /**
@@ -153,7 +153,8 @@ export interface SubtleCrypto {
             | "AES-GCM"
             | Algorithm<"AES-CBC" | "AES-CTR" | "AES-GCM">
             | HmacImportParams
-            | EcKeyImportParams,
+            | EcKeyImportParams
+            | RsaHashedImportParams,
         extractable: boolean,
         keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits">,
     ): Promise<CryptoKey>;
@@ -171,7 +172,7 @@ export interface SubtleCrypto {
      * @returns A promise that resolves with the signature.
      */
     sign(
-        algorithm: "HMAC" | Algorithm<"HMAC"> | EcdsaParams,
+        algorithm: "HMAC" | Algorithm<"HMAC"> | EcdsaParams | RsaPssParams,
         key: CryptoKey,
         data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<ArrayBuffer>;
@@ -187,7 +188,7 @@ export interface SubtleCrypto {
      * @returns A promise that resolves with a boolean indicating whether the signature is valid.
      */
     verify(
-        algorithm: "HMAC" | Algorithm<"HMAC"> | EcdsaParams,
+        algorithm: "HMAC" | Algorithm<"HMAC"> | EcdsaParams | RsaPssParams,
         key: CryptoKey,
         signature: ArrayBuffer | ArrayBufferView | DataView,
         data: ArrayBuffer | ArrayBufferView | DataView,
@@ -382,6 +383,24 @@ export interface AesGcmParams extends Algorithm<AlgorithmIdentifier> {
 }
 
 /**
+ * The `RsaOaepParams` dictionary of the Web Crypto API represents the
+ * object that should be passed as the `algorithm` parameter of the
+ * `SubtleCrypto.encrypt()` and `SubtleCrypto.decrypt()` methods when
+ * using the RSA-OAEP algorithm.
+ */
+export interface RsaOaepParams extends Algorithm<AlgorithmIdentifier> {
+    /**
+     * The name of the algorithm to use.
+     */
+    name: "RSA-OAEP";
+
+    /**
+     * The label to use. If not provided, it will default to an empty ArrayBuffer.
+     */
+    label?: ArrayBuffer | ArrayBufferView | DataView;
+}
+
+/**
  * The `HmacKeyGenParams` dictionary of the Web Crypto API represents the
  * object that should be passed as the `algorithm` parameter of the
  * `SubtleCrypto.generateKey()` method when generating a new HMAC key.
@@ -424,6 +443,34 @@ export interface EcKeyGenParams extends Algorithm<AlgorithmIdentifier> {
      * This may be any of the following names for NIST-approved curves.
      */
     namedCurve: "P-256" | "P-384" | "P-521";
+}
+
+/**
+ * The RSAHashedKeyGenParams dictionary of the Web Crypto API represents the
+ * object that should be passed as the algorithm parameter into
+ * `SubtleCrypto.generateKey()`, when the algorithm is identified
+ * as either of RSASSA-PKCS1-v1_5, RSA-PSS or RSA-OAEP.
+ */
+export interface RSAHashedKeyGenParams extends Algorithm<AlgorithmIdentifier> {
+    /**
+     * The name of the algorithm to use.
+     */
+    name: "RSASSA-PKCS1-v1_5" | "RSA-PSS" | "RSA-OAEP";
+
+    /**
+     * The modulus length, in bits.
+     */
+    modulusLength: number;
+
+    /**
+     * The public exponent.
+     */
+    publicExponent: Uint8Array;
+
+    /**
+     * The hash algorithm to use.
+     */
+    hash: HashAlgorithmIdentifier;
 }
 
 /**
@@ -472,6 +519,24 @@ export interface EcKeyImportParams extends Algorithm<AlgorithmIdentifier> {
 }
 
 /**
+ * The `RsaHashedImportParams` dictionary of the Web Crypto API represents
+ * the object that should be passed as the algorithm parameter
+ * into SubtleCrypto.importKey(), when the algorithm is identified
+ * as either of RSASSA-PKCS1-v1_5, RSA-PSS or RSA-OAEP.
+ */
+export interface RsaHashedImportParams extends Algorithm<AlgorithmIdentifier> {
+    /**
+     * The name of the algorithm to use.
+     */
+    name: "RSASSA-PKCS1-v1_5" | "RSA-PSS" | "RSA-OAEP";
+
+    /**
+     * The hash algorithm to use.
+     */
+    hash: HashAlgorithmIdentifier;
+}
+
+/**
  * The `EcdsaParams` dictionary of the Web Crypto API represents
  * the object that should be passed as the algorithm parameter
  * into SubtleCrypto.sign() or SubtleCrypto.verify()
@@ -487,6 +552,24 @@ export interface EcdsaParams extends Algorithm<AlgorithmIdentifier> {
      * An identifier for the digest algorithm to use.
      */
     hash: "SHA-1" | "SHA-256" | "SHA-384" | "SHA-512";
+}
+
+/**
+ * The `RsaPssParams` dictionary of the Web Crypto API represents
+ * the object that should be passed as the algorithm parameter
+ * into SubtleCrypto.sign() or SubtleCrypto.verify()
+ * when using the RSA-PSS algorithm.
+ */
+export interface RsaPssParams extends Algorithm<AlgorithmIdentifier> {
+    /**
+     * The name of the algorithm to use.
+     */
+    name: "RSA-PSS";
+
+    /**
+     * The length of the salt to use.
+     */
+    saltLength: number;
 }
 
 /**

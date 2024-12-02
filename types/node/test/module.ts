@@ -49,6 +49,9 @@ const smap = new Module.SourceMap({
 const pl: Module.SourceMapPayload = smap.payload;
 const entry: Module.SourceMapping = smap.findEntry(1, 1);
 
+Module.findSourceMap("/path/to/file.js"); // $ExpectType SourceMap | undefined
+Module.findSourceMap("/path/to/file.js", new Error()); // $ExpectType SourceMap | undefined
+
 // global
 {
     const importmeta: ImportMeta = {} as any; // Fake because we cannot really access the true `import.meta` with the current build target
@@ -143,4 +146,23 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
     const initializeHook: MyInitializeHook = async ({ number }) => {
         number; // $ExpectType number
     };
+}
+
+{
+    // $ExpectType EnableCompileCacheResult
+    Module.enableCompileCache();
+    // $ExpectType EnableCompileCacheResult
+    Module.enableCompileCache(`/var/run/nodejs/${process.pid}`);
+
+    const result = Module.enableCompileCache();
+    result.status; // $ExpectType number
+    result.message; // $ExpectType string | undefined
+    result.directory; // $ExpectType string | undefined
+
+    // $ExpectType string | undefined
+    Module.getCompileCacheDir();
+
+    const { ENABLED, ALREADY_ENABLED, FAILED, DISABLED } = Module.constants.compileCacheStatus;
+
+    Module.flushCompileCache();
 }

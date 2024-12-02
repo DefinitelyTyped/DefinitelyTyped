@@ -2562,6 +2562,7 @@ describe("Debug logging", function() {
             console.log("id", suite.id);
             console.log("description", suite.description);
             console.log("fullName", suite.fullName);
+            console.log("filename", suite.filename);
             console.log("fe", suite.failedExpectations);
 
             for (const fe of suite.failedExpectations) {

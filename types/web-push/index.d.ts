@@ -205,6 +205,7 @@ export function setVapidDetails(subject: string, publicKey: string, privateKey: 
  */
 export interface PushSubscription {
     endpoint: string;
+    expirationTime?: null | number;
     keys: {
         p256dh: string;
         auth: string;

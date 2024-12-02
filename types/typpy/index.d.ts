@@ -18,7 +18,7 @@ declare namespace Typpy {
         (input: boolean): "boolean";
         (input: any[]): "array";
         (input: RegExp): "regexp";
-        (input: Function): "function"; // eslint-disable-line @typescript-eslint/ban-types
+        (input: Function): "function"; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
         (input: number): "number" | "nan";
         (input: any): string;
     }
@@ -30,7 +30,7 @@ declare namespace Typpy {
         (input: boolean, compareTo: "boolean" | BooleanConstructor): true;
         (input: any[], compareTo: "array" | ArrayConstructor): true;
         (input: RegExp, compareTo: "regexp" | RegExpConstructor): true;
-        (input: Function, compareTo: "function" | FunctionConstructor): true; // eslint-disable-line @typescript-eslint/ban-types
+        (input: Function, compareTo: "function" | FunctionConstructor): true; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
         (input: number, compareTo: "number" | "nan" | NumberConstructor | number): boolean;
         (input: object, compareTo: "object" | ObjectConstructor): boolean;
         (input: any, compareTo: any): boolean;
@@ -44,7 +44,7 @@ declare namespace Typpy {
         (input: boolean, asString?: false): BooleanConstructor;
         (input: any[], asString?: false): ArrayConstructor;
         (input: RegExp, asString?: false): RegExpConstructor;
-        (input: Function, asString?: false): FunctionConstructor; // eslint-disable-line @typescript-eslint/ban-types
+        (input: Function, asString?: false): FunctionConstructor; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
         (input: any, asString?: false): ConstructorFn;
 
         (input: undefined, asString: true): "undefined";
@@ -54,7 +54,7 @@ declare namespace Typpy {
         (input: boolean, asString: true): "boolean";
         (input: any[], asString: true): "array";
         (input: RegExp, asString: true): "regexp";
-        (input: Function, asString: true): "function"; // eslint-disable-line @typescript-eslint/ban-types
+        (input: Function, asString: true): "function"; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
         (input: any, asString: true): string;
     }
 
