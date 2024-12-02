@@ -103,8 +103,6 @@ jobs:
 
       - run: pnpm ls
 
-      - run: find -L types/method-override/
-
       - run: pnpm run test-all --diffBase HEAD^1 --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
         if: ${{ !(github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
 
