@@ -3,6 +3,7 @@
 # See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners
 
 /types/11ty__eleventy-img/                                @NotWoods
+/types/11ty__eleventy-plugin-directory-output/            @remcohaszing
 /types/11ty__eleventy-plugin-rss/                         @remcohaszing
 /types/1line-aa/                                          @Ry0taK
 /types/3box/                                              @shikanime
@@ -71,7 +72,7 @@
 /types/adeira__test-utils/                                @mrtnzlml
 /types/adj-noun/                                          @BendingBender
 /types/adlib/                                             @Esri @MikeTschudi
-/types/adm-zip/                                           @jvilk @abner @BendingBender @mattsains @LeiNelissen
+/types/adm-zip/                                           @jvilk @abner @BendingBender @LeiNelissen
 /types/admin-check/                                       @Goldsmith42
 /types/adobe__aio-lib-analytics/                          @bodinsamuel
 /types/adobe__ccweb-add-on-sdk/                           @vamshich13 @xerxovksi
@@ -128,6 +129,8 @@
 /types/alpinejs__mask/                                    @ekwoka
 /types/alpinejs__morph/                                   @ekwoka
 /types/alpinejs__persist/                                 @ekwoka
+/types/alpinejs__resize/                                  @ekwoka
+/types/alpinejs__sort/                                    @ekwoka
 /types/alt/                                               @Shearerbeard
 /types/amap-js-api/                                       @breeze9527
 /types/amap-js-api-arrival-range/                         @breeze9527
@@ -890,7 +893,7 @@
 /types/chownr/                                            @BendingBender
 /types/chroma-js/                                         @invliD @mpacholec @CharlieZhuo
 /types/chroma-js/v0/                                      @invliD
-/types/chrome/                                            @matthewkimber @otiai10 @sreimer15 @MatCarlson @ekinsol @echoabstract @spasma @bdbai @pokutuna @JasonXian @usertim @idan315 @nicolas377 @idosal @fregante @erwanjugand
+/types/chrome/                                            @matthewkimber @otiai10 @sreimer15 @MatCarlson @ekinsol @echoabstract @spasma @bdbai @JasonXian @usertim @idan315 @nicolas377 @idosal @fregante @erwanjugand
 /types/chrome-apps/                                       @niikoo @AdamLay @mzsm @RReverser @pyle @matthewkimber @otiai10 @rreverser @sreimer15
 /types/chrome-har-capturer/                               @NicolasNewman
 /types/chrome-location/                                   @IngyuTae
@@ -1748,6 +1751,7 @@
 /types/element-size/                                      @peterblazejewicz
 /types/elementary-circuits-directed-graph/                @maienm
 /types/elementtree/                                       @dwieeb
+/types/eleventy-plugin-toc/                               @remcohaszing
 /types/elgamal/                                           @arbuztw
 /types/elizabot/                                          @elliottlawrence
 /types/ellipsize/                                         @natterstefan
@@ -2348,6 +2352,7 @@
 /types/fuzzyset.js/                                       @lgrignon @narainsagar
 /types/fxjs/                                              @load28
 /types/fxn/                                               @charrondev
+/types/ga-gtag/                                           @andersk
 /types/gae.channel.api/                                   @vvakame
 /types/gamedig/                                           @ivansieder @p4sca1 @MaximumWoahverdrive @a-sync
 /types/gamepad/                                           @Lange
@@ -3501,7 +3506,6 @@
 /types/integer/                                           @Morfent @peterblazejewicz
 /types/integrate-adaptive-simpson/                        @aimee-gm
 /types/intercept-stdout/                                  @pdcastro
-/types/intercom-client/                                   @jineshshah36 @peping @cdoe @kroustille
 /types/intercom-web/                                      @fongandrew @salbahra @onatm
 /types/intercomjs/                                        @spencerwi
 /types/internal-slot/                                     @ExE-Boss @ljharb
@@ -4759,6 +4763,7 @@
 /types/lucene/                                            @bengry @HugoMuller
 /types/lucene-escape-query/                               @vicary
 /types/luhn-generator/                                    @peterblazejewicz
+/types/luminous-lightbox/                                 @yuNuki2
 /types/lunr/                                              @seantanly @hokiegeek
 /types/lunr/v0/                                           @sebastian-lenz
 /types/lusca/                                             @crutchcorn @builtinnya @peterblazejewicz
@@ -5597,6 +5602,7 @@
 /types/open-file-explorer/                                @sevenc-nanashi
 /types/open-graph/                                        @ffflorian
 /types/open-graph-scraper/                                @ffflorian
+/types/open-in-editor/                                    @remcohaszing
 /types/open-location-code/                                @glassonion1
 /types/open-wc__testing-karma/                            @peterblazejewicz
 /types/open-wc__testing-karma-bs/                         @peterblazejewicz
@@ -6499,8 +6505,6 @@
 /types/react-hyperscript/                                 @roshal
 /types/react-icofont/                                     @ichuyko
 /types/react-icon-base/                                   @apare @LKay
-/types/react-image-crop/                                  @danielasy @chaaya @englund0110 @JonathanGuo @lemonJS
-/types/react-image-crop/v7/                               @danielasy @chaaya @englund0110
 /types/react-image-fallback/                              @8enSmith
 /types/react-image-gallery/                               @adamwpc @WToa
 /types/react-image-magnifiers/                            @rafw87
@@ -6686,6 +6690,7 @@
 /types/react-native-share-menu/                           @hmajid2301 @PhilBeaudoin
 /types/react-native-side-menu/                            @jsamr
 /types/react-native-signature-capture/                    @ifiokjr
+/types/react-native-simple-animations/                    @iamwinner422
 /types/react-native-simple-radio-button/                  @Frabanz
 /types/react-native-snackbar-component/                   @hmajid2301 @balsick
 /types/react-native-snap-carousel/                        @jnbt @j-fro @gazaret @GuillaumeAmat @VitorLuizC @egarrett94
@@ -7034,7 +7039,6 @@
 /types/reflexbox/                                         @iamkd @antonvasin @vittorio @akameco
 /types/reflux/                                            @mauricedb @LiangZugeng
 /types/reflux/v0/                                         @mauricedb
-/types/refractor/                                         @ifiokjr
 /types/refresh-fetch/                                     @AlexLisenkov @ppbraam
 /types/regenerate/                                        @ExE-Boss
 /types/regenerator-runtime/                               @ExE-Boss
@@ -7424,10 +7428,6 @@
 /types/sequencify/                                        @npenin
 /types/sequester/                                         @Strate
 /types/serialize-javascript/                              @Pochodaydayup @undefined-moe @peterblazejewicz
-/types/serialport/                                        @codefoster @apearson @cinderblock @doug-a-brunner
-/types/serialport/v4/                                     @codefoster
-/types/serialport/v6/                                     @codefoster @apearson
-/types/serialport/v7/                                     @codefoster @apearson @cinderblock
 /types/serve-favicon/                                     @urossmolnik @peterblazejewicz
 /types/serve-handler/                                     @simonhaenisch
 /types/serve-index/                                       @tkrotoff
@@ -8712,6 +8712,7 @@
 /types/win-version-info/                                  @Goldsmith42
 /types/winattr/                                           @anmiles
 /types/winbox/                                            @peterblazejewicz
+/types/winchan/                                           @andersk
 /types/window-or-global/                                  @vvakame @JasonHK @ExE-Boss
 /types/window-size/                                       @juergenie
 /types/windows-1251/                                      @RomanGolovanov
