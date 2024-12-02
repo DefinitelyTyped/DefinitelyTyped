@@ -10,10 +10,5 @@
     "devDependencies": {
         "@types/digitalbazaar__bitstring": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Antonio Ivanovski",
-            "githubUsername": "toteto"
-        }
-    ]
+    "owners": []
 }
