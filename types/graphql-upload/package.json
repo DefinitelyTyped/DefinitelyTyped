@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/graphql-upload",
-    "version": "16.0.9999",
+    "version": "17.0.9999",
     "projects": [
         "https://github.com/jaydenseric/graphql-upload#readme"
     ],
@@ -29,7 +29,7 @@
         "@types/koa": "*",
         "@types/node": "*",
         "fs-capacitor": "^8.0.0",
-        "graphql": "^16.3.0"
+        "graphql": "^16.9.0"
     },
     "devDependencies": {
         "@types/graphql-upload": "workspace:."
