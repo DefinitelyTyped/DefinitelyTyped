@@ -317,3 +317,25 @@ declare const event5: "event5";
     // @ts-expect-error
     doubleExtended.emit("event1", 123);
 }
+
+{
+    function onError(err: any) {
+        console.log(err);
+    }
+
+    class Test extends events.EventEmitter {
+        // The union was only uncallable when an instance method exists.
+        test() { return true; }
+    }
+    
+    class Test2 extends events.EventEmitter {}
+
+    const emitter = {} as Test | Test2
+    emitter.addListener('error', onError);
+    emitter.on("error", onError);
+    emitter.off('error', onError);
+    emitter.once('error', onError);
+    emitter.prependListener('error', onError);
+    emitter.prependOnceListener('error', onError);
+    emitter.removeListener('error', onError);
+}
