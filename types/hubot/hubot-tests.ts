@@ -51,7 +51,7 @@ robot.loadAdapter(); // $ExpectType Promise<void>
 robot.loadAdapter(""); // $ExpectType Promise<void>
 robot.loadExternalScripts(["hubot-pager-me", "hubot-help"]); // $ExpectType void
 robot.loadFile("scripts", "hi.js"); // $ExpectType Promise<void>
-robot.messageRoom("general", "Hello friends"); // $ExpectType Promise<void> | Promise<unknown>
+robot.messageRoom("general", "Hello friends"); // $ExpectType Promise<any>
 robot.parseVersion(); // $ExpectType string
 robot.on("test", () => null); // $ExpectType Robot<Adapter>
 robot.receive(message); // $ExpectType Promise<any>
