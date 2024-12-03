@@ -115,7 +115,13 @@ declare namespace Xrm {
     type FormNotificationLevel = "ERROR" | "INFO" | "WARNING";
 
     /**
-     * Submit Mode for {@link Attributes.Attribute.setSubmitMode} Attributes.Attribute.setSubmitMode().
+     * App Notification Levels for {@link Xrm.App.addGlobalNotification Xrm.App.addGlobalNotification()}.
+     * @see {@link XrmEnum.FormNotificationLevel}
+     */
+    type AppNotificationLevel = 1 | 2 | 3 | 4;
+
+    /**
+     * Submit Mode for {@link Attributes.Attribute.setSubmitMode Attributes.Attribute.setSubmitMode()}.
      * @see {@link XrmEnum.SubmitMode}
      */
     type SubmitMode = "always" | "dirty" | "never";
@@ -1050,7 +1056,7 @@ declare namespace Xrm {
     }
 
     /**
-     * Interface for the formContext.data object.
+     * Interface for the {@link Xrm.FormContext.data formContext.data} object.
      * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data External Link: formContext.data (Client API reference)}
      */
     interface Data {
@@ -1466,7 +1472,7 @@ declare namespace Xrm {
 
         /**
          * Refreshes the parent grid containing the specified record.
-         * @param lookupOptions: The lookup value of the parent object to refresh.
+         * @param lookupOptions The lookup value of the parent object to refresh.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/refreshparentgrid External Link: refreshParentGrid (Client API reference)}
          */
         refreshParentGrid(lookupOptions: LookupValue): void;
@@ -1766,8 +1772,8 @@ declare namespace Xrm {
         interface PromiseLike<T> {
             /**
              * Attaches callbacks for the resolution and/or rejection of the Promise.
-             * @param onfulfilled The callback to execute when the Promise is resolved.
-             * @param onrejected The callback to execute when the Promise is rejected.
+             * @param onFulfilled The callback to execute when the Promise is resolved.
+             * @param onRejected The callback to execute when the Promise is rejected.
              * @returns A Promise for the completion of which ever callback is executed.
              */
             then<U>(
@@ -1850,35 +1856,20 @@ declare namespace Xrm {
             get(delegate: MatchingDelegate<T>): T[];
 
             /**
-             * Gets the item given by the index.
-             * @param itemNumber The item number to get.
-             * @returns The T in the itemNumber-th place.
-             */
-            get(itemNumber: number): T;
-
-            /**
-             * Gets the item given by the index.
-             * @param itemNumber The item number to get.
-             * @returns The T in the itemNumber-th place.
+             * Gets the item given by key or index.
+             * @param itemNameOrNumber The item name or item number to get.
+             * @returns The T matching the key itemName or the T in the itemNumber-th place.
              * @see {@link Controls.Control.getName Controls.Control.getName()} for Control-naming schemes.
              */
-            get<TSubType extends T>(itemNumber: number): TSubType;
+            get(itemNameOrNumber: string | number): T;
 
             /**
-             * Gets the item given by the key.
-             * @param itemName The item name to get.
-             * @returns The T matching the key itemName.
+             * Gets the item given by key or index.
+             * @param itemNameOrNumber The item name or item number to get.
+             * @returns The T matching the key itemName or the T in the itemNumber-th place.
              * @see {@link Controls.Control.getName Controls.Control.getName()} for Control-naming schemes.
              */
-            get(itemName: string): T;
-
-            /**
-             * Gets the item given by the key.
-             * @param itemName The item name to get.
-             * @returns The T matching the key itemName.
-             * @see {@link Controls.Control.getName Controls.Control.getName()} for Control-naming schemes.
-             */
-            get<TSubType extends T>(attributeName: string): TSubType;
+            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType;
 
             /**
              * Gets the entire array of T.
@@ -4621,6 +4612,12 @@ declare namespace Xrm {
             getName(): string;
 
             /**
+             * Returns the status of the process.
+             * @returns The status, either as "active", "aborted" or "finished".
+             */
+            getStatus(): ProcessStatus;
+
+            /**
              * Returns an collection of stages in the process.
              * @returns The stages.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
@@ -4911,7 +4908,7 @@ declare namespace Xrm {
 
         /**
          * Called when method to get active processes is complete
-         * @param status The result of the get active processes operation.
+         * @param object The result of the get active processes operation.
          * @remarks **Returns object with the following key-value pairs**:
          * * CreatedOn
          * * ProcessDefinitionID
@@ -6098,7 +6095,7 @@ declare namespace Xrm {
          * Updates an entity record.
          * @param entityLogicalName The entity logical name of the record you want to update. For example: "account".
          * @param id GUID of the entity record you want to update.
-         * @param Data A JSON object containing key: value pairs, where key is the property of the entity and value is the value of the property you want update.
+         * @param data A JSON object containing key: value pairs, where key is the property of the entity and value is the value of the property you want update.
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
@@ -6142,7 +6139,7 @@ declare namespace Xrm {
     namespace App {
         /**
          * Defines the action of notification
-         * @see {@link Xmr.App.Notification}
+         * @see {@link Xrm.App.Notification}
          */
         interface Action {
             /**
@@ -6157,7 +6154,7 @@ declare namespace Xrm {
 
         /**
          * Defines the notification object for Xrm.App.addGlobalNotification
-         * @see {@link Xmr.App.addGlobalNotification}
+         * @see {@link Xrm.App.addGlobalNotification}
          */
         interface Notification {
             /**
@@ -6482,7 +6479,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Client Types for {@link ClientContext.getClient clientContext.getClient()}.
+     * Constant Enum: Client Types for {@link Xrm.ClientContext.getClient clientContext.getClient()}.
      * @see {@link Xrm.Client}
      */
     const enum Client {
@@ -6503,7 +6500,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Display States for setDisplayState() on {@link Controls.ProcessControl.setDisplayState Processes} and {@link Controls.Tab.setDisplayState Tabs}.
+     * Constant Enum: Display States for setDisplayState() on {@link Xrm.Controls.ProcessControl.setDisplayState Processes} and {@link Xrm.Controls.Tab.setDisplayState Tabs}.
      * @see {@link Xrm.DisplayState}
      */
     const enum DisplayState {
@@ -6512,10 +6509,10 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: {@link Entity.save Entity} Save Modes
+     * Constant Enum: {@link Xrm.Entity.save Entity} Save Modes
      * @see {@link Xrm.EntitySaveMode}
-     * @see {@link Entity}
-     * @see {@link Entity.save}
+     * @see {@link Xrm.Entity}
+     * @see {@link Xrm.Entity.save}
      */
     const enum EntitySaveMode {
         SaveAndClose = "saveandclose",
@@ -6523,7 +6520,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Form Notification Levels for {@link Ui.setFormNotification formContext.ui.setFormNotification()}.
+     * Constant Enum: Form Notification Levels for {@link Xrm.Ui.setFormNotification formContext.ui.setFormNotification()}.
      * @see {@link Xrm.FormNotificationLevel}
      */
     const enum FormNotificationLevel {
@@ -6533,7 +6530,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: App Notification Levels for {@link App.addGlobalNotification Xrm.App.addGlobalNotification()}.
+     * Constant Enum: App Notification Levels for {@link Xrm.App.addGlobalNotification Xrm.App.addGlobalNotification()}.
      * @see {@link Xrm.AppNotificationLevel}
      */
     const enum AppNotificationLevel {
@@ -6544,7 +6541,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Submit Modes for {@link Attributes.Attribute.setSubmitMode} Attributes.Attribute.setSubmitMode().
+     * Constant Enum: Submit Modes for {@link Xrm.Attributes.Attribute.setSubmitMode Attributes.Attribute.setSubmitMode()}.
      * @see {@link Xrm.SubmitMode}
      */
     const enum SubmitMode {
@@ -6554,7 +6551,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Themes for {@link GlobalContext.getCurrentTheme globalContext.getCurrentTheme()}.
+     * Constant Enum: Themes for {@link Xrm.GlobalContext.getCurrentTheme globalContext.getCurrentTheme()}.
      * @remarks getCurrentTheme() does not work with Dynamics CRM for tablets or in the unified interface.
      */
     const enum Theme {
@@ -6564,7 +6561,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Settings for {@link GlobalContext.getAdvancedConfigSetting globalContext.getAdvancedConfigSetting(setting)}
+     * Constant Enum: Settings for {@link Xrm.GlobalContext.getAdvancedConfigSetting globalContext.getAdvancedConfigSetting(setting)}
      */
     const enum AdvancedConfigSettingOption {
         MaxChildIncidentNumber = "MaxChildIncidentNumber",
@@ -6572,8 +6569,8 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Requirement Level for {@link Attributes.Attribute.getRequiredLevel Attributes.Attribute.getRequiredLevel()} and
-     * {@link Attributes.Attribute.setRequiredLevel Attributes.Attribute.setRequiredLevel()}.
+     * Constant Enum: Requirement Level for {@link Xrm.Attributes.Attribute.getRequiredLevel Attributes.Attribute.getRequiredLevel()} and
+     * {@link Xrm.Attributes.Attribute.setRequiredLevel Attributes.Attribute.setRequiredLevel()}.
      * @see {@link Xrm.Attributes.RequirementLevel}
      */
     const enum AttributeRequirementLevel {
@@ -6583,7 +6580,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Date attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.DateAttribute DateAttribute}.
+     * Constant Enum: Date attribute formats for Attributes.Attribute.getFormat(), used by {@link Xrm.Attributes.DateAttribute DateAttribute}.
      * @see {@link Xrm.Attributes.DateAttributeFormat}
      */
     const enum DateAttributeFormat {
@@ -6592,7 +6589,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Integer attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.NumberAttribute NumberAttribute}.
+     * Constant Enum: Integer attribute formats for Attributes.Attribute.getFormat(), used by {@link Xrm.Attributes.NumberAttribute NumberAttribute}.
      * @see {@link Xrm.Attributes.IntegerAttributeFormat}
      */
     const enum IntegerAttributeFormat {
@@ -6601,7 +6598,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: OptionSet attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.OptionSetAttribute OptionSetAttribute}.
+     * Constant Enum: OptionSet attribute formats for Attributes.Attribute.getFormat(), used by {@link Xrm.Attributes.OptionSetAttribute OptionSetAttribute}.
      * @see {@link Xrm.Attributes.OptionSetAttributeFormat}
      */
     const enum OptionSetAttributeFormat {
@@ -6610,7 +6607,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: String attribute formats for Attributes.Attribute.getFormat(), used by {@link Attributes.StringAttribute StringAttribute}.
+     * Constant Enum: String attribute formats for Attributes.Attribute.getFormat(), used by {@link Xrm.Attributes.StringAttribute StringAttribute}.
      * @see {@link Xrm.Attributes.StringAttributeFormat}
      */
     const enum StringAttributeFormat {
@@ -6641,7 +6638,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Control types for {@link Controls.Control.getControlType Controls.Control.getControlType()}.
+     * Constant Enum: Control types for {@link Xrm.Controls.Control.getControlType Controls.Control.getControlType()}.
      * @see {@link Xrm.Controls.ControlType}
      */
     const enum StandardControlType {
@@ -6661,7 +6658,7 @@ declare namespace XrmEnum {
 
     /**
      * Constant Enum: Direction types for a process stage change event
-     * @see {@link ProcessFlow.StageChangeDirection}
+     * @see {@link Xrm.ProcessFlow.StageChangeDirection}
      */
     const enum StageChangeDirection {
         Next = "Next",
@@ -6669,8 +6666,8 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Status for {@link ProcessFlow.Stage.getStatus Stage.getStatus()}.
-     * @see {@link ProcessFlow.StageStatus}
+     * Constant Enum: Status for {@link Xrm.ProcessFlow.Stage.getStatus Stage.getStatus()}.
+     * @see {@link Xrm.ProcessFlow.StageStatus}
      */
     const enum StageStatus {
         Active = "active",
@@ -6678,8 +6675,8 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Status for {@link ProcessFlow.Process.getStatus Process.getStatus()}.
-     * @see {@link ProcessFlow.ProcessStatus}
+     * Constant Enum: Status for {@link Xrm.ProcessFlow.Process.getStatus Process.getStatus()}.
+     * @see {@link Xrm.ProcessFlow.ProcessStatus}
      */
     const enum ProcessStatus {
         Active = "active",
@@ -6707,7 +6704,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Report Open Action options for Xrm.Url.ReportOpenParameters.actions.
+     * Constant Enum: Report Open Action options for {@link Xrm.Url.ReportOpenParameters.action Xrm.Url.ReportOpenParameters.action}.
      * @see {@link Xrm.Url.ReportAction}
      */
     const enum ReportAction {
@@ -6716,7 +6713,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Possible file types for Xrm.Device.pickFile options
+     * Constant Enum: Possible file types for {@link Xrm.Device.pickFile Xrm.Device.pickFile()} options
      * @see {@link Xrm.Device.PickFileTypes}
      */
     const enum DevicePickFileType {
