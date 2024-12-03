@@ -21,11 +21,11 @@ interface args {
     printMainColor: any; // depends on chalk
     printSubColor: any; // depends on chalk
     Args(): any; // not sure what this is supposed to be
-    handleType(value: any): (string | ((value: any) => any))[]; // value -> initialType
+    handleType(value: any): Array<(string | ((value: any) => any))>; // value -> initialType
     readOption(option: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): { [key: string]: any};
     getOptions(definedSubcommand: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): boolean | Option[]; // can also return map type options or details
     generateExamples(): string[];
-    generateDetails(kind: {defaultValue: any, usage: string[], description: string, init?: any}[]): string[];
+    generateDetails(kind: Array<{defaultValue: any, usage: string[], description: string, init?: any}>): string[];
     runCommand(details: any, options: any): void;
     checkHelp(): void;
     checkVersion(): void;
