@@ -23,7 +23,7 @@ interface args {
     Args(): any; // not sure what this is supposed to be
     handleType(value: any): (string | ((value: any) => any))[]; // value -> initialType
     readOption(option: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): { [key: string]: any};
-    getOptions(definedSubcommand: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): boolean | Options[]; // can also return map type options or details
+    getOptions(definedSubcommand: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): boolean | Option[]; // can also return map type options or details
     generateExamples(): string[];
     generateDetails(kind: {defaultValue: any, usage: string[], description: string, init?: any}[]): string[];
     runCommand(details: any, options: any): void;
@@ -31,8 +31,9 @@ interface args {
     checkVersion(): void;
     isDefined(name: any, list: string): {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean;
     optionWasProvided(name: string): boolean;
-    raw?: Object; // not too sure...
+    raw?: object; // not too sure...
     binary?: string;
+    _?: any;
     sub?: string[];
     // test props
     reset?: () => any; // returns args object

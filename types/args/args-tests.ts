@@ -64,5 +64,10 @@ args.parse(["~/bin/node", "~/dir", "arg", "--param"], {
 
 args.showHelp();
 args.showVersion();
-args.optionWasProvided
-const x: string = args.sub[0];
+;
+args.generateExamples();
+
+// args.sub can possibly be undefined or null
+if (args.sub != null) {
+  const x: string = args.sub[0];
+};
