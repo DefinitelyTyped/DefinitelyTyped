@@ -1,12 +1,5 @@
-// Type definitions for args 5.0
-// Project: https://github.com/leo/args#readme
-// Definitions by: Slessi <https://github.com/Slessi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const c: args;
 export = c;
-
-console.log(typeof details);
 
 interface args {
     option(name: string | [string, string], description: string, defaultValue?: any, init?: OptionInitFunction): args;
@@ -23,7 +16,7 @@ interface args {
     showHelp(): void;
     showVersion(): void;
     // new
-    details: {options: {defaultValue: any, usage: string[], description: string, init?: any}[], commands: Command[], examples: Example[]}; // TODO: wtf is init
+    details: {options: DetailsOptions[], commands: Command[], examples: Example[]}; // TODO: wtf is init
     config: {exit: {help: boolean, version: boolean}, help: boolean, version: boolean, usageFilter: any, value: string, name: string, mainColor: string | string[], subColor: string | string[]}; // TODO: wtf is usagefilter
     printMainColor: any; // depends on chalk
     printSubColor: any; // depends on chalk
@@ -105,3 +98,9 @@ interface Command {
     aliases?: any;
 }
 
+interface DetailsOptions {
+    defaultValue: any;
+    usage: string[];
+    description: string;
+    init?: any;
+}
