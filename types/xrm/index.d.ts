@@ -1034,8 +1034,10 @@ declare namespace Xrm {
     interface SaveOptions {
         /**
          * Specify a value indicating how the save event was initiated.
-         * @remarks For a list of supported values, see the return value of the getSaveMode method.
-         * @remarks Note that setting the saveMode does not actually take the corresponding action; it is just to provide information to the OnSave event handlers about the reason for the save operation.
+         * @remarks 
+         * For a list of supported values, see the return value of the {@link Xrm.Events.SaveEventArguments.getSaveMode getSaveMode} method.
+         * 
+         * Note that setting the saveMode does not actually take the corresponding action; it is just to provide information to the OnSave event handlers about the reason for the save operation.
          */
         saveMode: XrmEnum.SaveMode;
 
@@ -1162,7 +1164,7 @@ declare namespace Xrm {
         /**
          * Gets an attribute.
          * @param delegateFunction A matching delegate function
-         * @returns An array of attribute.
+         * @returns An array of attributes.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
         getAttribute(delegateFunction: Collection.MatchingDelegate<Attributes.Attribute>): Attributes.Attribute[];
@@ -2010,7 +2012,7 @@ declare namespace Xrm {
 
         /**
          * OptionSet attribute formats for Xrm.Page.Attribute.getFormat(), used by OptionSetAttribute.
-         * @deprecated Use {@link Xrm.Attributes.OptiopnSetAttributeFormat} instead.
+         * @deprecated Use {@link Xrm.Attributes.OptionSetAttributeFormat} instead.
          */
         type OptionSetAttributeFormat = Attributes.OptionSetAttributeFormat;
 
@@ -2360,7 +2362,7 @@ declare namespace Xrm {
 
         /**
          * Module for the Xrm.Page.data API.
-         * @deprecated Use {@link Xrm.Form.data formContext.data} has been deprecated.
+         * @deprecated Use {@link Xrm.FormContext.data formContext.data} instead.
          */
         namespace data {
             /**
@@ -2426,7 +2428,7 @@ declare namespace Xrm {
 
         /**
          * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
-         * @deprecated Use {@link Xrm.Form.ui formContext.ui} instead.
+         * @deprecated Use {@link Xrm.FormContext.ui formContext.ui} instead.
          */
         namespace ui {
             /**
@@ -2582,7 +2584,7 @@ declare namespace Xrm {
         type StringAttributeFormat = "email" | "phone" | "text" | "textarea" | "tickersymbol" | "url";
 
         /**
-         * Attribute types for {@link Attributes.Attribute.setDisplayState()}.
+         * Attribute types used by {@link Xrm.Attributes.Attribute.getAttributeType getAttributeType()}.
          * @see {@link XrmEnum.AttributeType}
          */
         type AttributeType =
@@ -6621,7 +6623,7 @@ declare namespace XrmEnum {
     }
 
     /**
-     * Constant Enum: Attribute types for {@link Attributes.Attribute.setDisplayState()}.
+     * Constant Enum: Attribute types for {@link Xrm.Attributes.Attribute.getAttributeType getAttributeType()}.
      * @see {@link Xrm.Attributes.AttributeType}
      */
     const enum AttributeType {
