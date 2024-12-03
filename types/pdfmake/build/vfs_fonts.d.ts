@@ -1,3 +1,1 @@
-export namespace pdfMake {
-    let vfs: { [file: string]: string };
-}
+export let vfs: { [file: string]: string };
