@@ -3673,6 +3673,10 @@
             "libraryName": "msportalfx-test",
             "asOfVersion": "0.7.2"
         },
+        "multer-gridfs-storage": {
+            "libraryName": "multer-gridfs-storage",
+            "asOfVersion": "5.0.0"
+        },
         "multiaddr": {
             "libraryName": "multiaddr",
             "asOfVersion": "7.4.0"
