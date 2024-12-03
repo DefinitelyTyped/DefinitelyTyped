@@ -119,9 +119,9 @@ declare class NC {
      * Gets the default locale value configured in the framework.
      * > The default messages of the framework will be processed in multiple languages according to the configured locale value.
      *
-     * > Pre-registered multilingual message sets include en_US, ko_KR, and can be modified in the `message` property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
+     * > Pre-registered multilingual message sets include en_US, ko_KR, and can be modified in the `message` property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html).
      *
-     * > The default locale of the framework can be set to the value of the `N.context.attr("core").locale` property in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
+     * > The default locale of the framework can be set to the value of the `N.context.attr("core").locale` property in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html).
      *
      * @return {string} If the `str` argument is provided, it returns `undefined`. If not provided, it returns a locale string such as "en_US" or "ko_KR".
      */
@@ -130,9 +130,9 @@ declare class NC {
      * Sets the default locale value to be configured in the framework.
      * > The default messages of the framework will be processed in multiple languages according to the configured locale value.
      *
-     * > Pre-registered multilingual message sets include en_US, ko_KR, and can be modified in the `message` property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
+     * > Pre-registered multilingual message sets include en_US, ko_KR, and can be modified in the `message` property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html).
      *
-     * > The default locale of the framework can be set to the value of the `N.context.attr("core").locale` property in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
+     * > The default locale of the framework can be set to the value of the `N.context.attr("core").locale` property in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html).
      *
      * @param {string} str - Enter a valid locale string such as "en_US" or "ko_KR".
      * @return {void} This method does not return any value.
@@ -459,7 +459,7 @@ declare class NC {
          * > - 12 digits : "Y-m-d H:i"
          * > - 14 digits : "Y-m-d H:i:s"
          *
-         * > Date and time separator characters such as dash (-) and colon (:) are defined by the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html) N.context.attr("data").formatter.date object functions. You can change these separator characters by modifying the return string of these functions.
+         * > Date and time separator characters such as dash (-) and colon (:) are defined by the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html) N.context.attr("data").formatter.date object functions. You can change these separator characters by modifying the return string of these functions.
          *
          * @return {NC.Date | null} A NC.Date object representing the date in the string, or null if the string does not match the format.
          */
@@ -625,7 +625,7 @@ declare class NC {
         /**
          * Returns a message that matches the currently set locale from the input message resource.
          *
-         * The framework's default locale is `N.context.attr("core")` value in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html) This can be set as the value of the `locale` property.
+         * The framework's default locale is `N.context.attr("core")` value in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html) This can be set as the value of the `locale` property.
          *
          * @param {NC.MessageResourceObj} resource - The message resource object that needs to be fetched.
          * Message resources must be created as object types and configure locale-specific message sets as follows.

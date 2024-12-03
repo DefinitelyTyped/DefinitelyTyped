@@ -40,7 +40,7 @@ declare class ND {
      *
      * @returns {ND.Formatter} A new N.format instance.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0301.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html }
      */
     formatter(rules?: NJS<HTMLElement[]> | HTMLElement | ND.FormatRuleObject | string): ND.Formatter;
     /**
@@ -86,7 +86,7 @@ declare class ND {
      *
      * @returns {ND.Validator} A new N.validate instance.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0302.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html }
      */
     validator(rules?: NJS<HTMLElement[]> | HTMLElement | ND.ValidationRuleObject | string): ND.Validator;
 
@@ -141,7 +141,7 @@ declare class ND {
          *
          * @returns {ND.Formatter} A new N.format instance.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0301.html }
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html }
          */
         new(data: NJS<NC.JSONObject[]>, rules?: NJS<HTMLElement[]> | HTMLElement | ND.FormatRuleObject | string): ND.Formatter;
 
@@ -215,7 +215,7 @@ declare class ND {
          *
          * @returns {ND.Validator} A new N.validate instance.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0302.html }
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html }
          */
         new(data: NJS<NC.JSONObject[]>, rules?: NJS<HTMLElement[]> | HTMLElement | ND.ValidationRuleObject | string): ND.Validator;
         required(str: string): boolean;

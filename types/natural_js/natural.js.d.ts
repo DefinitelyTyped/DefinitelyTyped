@@ -66,7 +66,7 @@ declare namespace N {
     /**
      * N.comm is a library that supports Ajax communication with the server, such as requesting content or data from the server or passing parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0203.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html }
      */
     function comm(obj: NJS<NC.JSONObject[]> | string, url?: string | NA.Options.Request): NA.Communicator;
     /**
@@ -95,7 +95,7 @@ declare namespace N {
      *
      * > When selecting an element on a page, you must `find` on a view or specify view as the `context` argument (second argument) to a jQuery function.
      * > Otherwise, unintended elements from other block pages may be selected, resulting in unpredictable errors.
-     * > For more information, please refer to the [Restrictions and Tips](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0601.html) menu.
+     * > For more information, please refer to the [Restrictions and Tips](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0601.html) menu.
      *
      * > When `N(".view").cont()` is executed, a `pageid data attribute value` such as `data-pageid="view"` is created in the `.view` element specified by the selector.
      * > The `pageid` is `.(dot), #(sharp), [(left bracket), ](right bracket), '(single quote), :(colon), ((left bracket), ), )(right bracket), >(right arrow bracket), " "(space), -(hyphen)` characters are removed to create pageid, so the page identification value is defined not to include the special characters.
@@ -106,15 +106,15 @@ declare namespace N {
      * var page01Cont = N("#page01").instance("cont");
      * page01Cont.gridInst.bind([]);
      * ```
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0201.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0201.html }
      */
     const cont: typeof NA.cont;
     /**
      * Context (N.context) is a space that guarantees data persistence within the life-cycle (until the page is loaded and redirected to another URL) of a Natural-JS-based application.
      *
-     * Natural-JS's [configuration values](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html), framework common messages, etc. are stored in the N.context object.
+     * Natural-JS's [configuration values](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html), framework common messages, etc. are stored in the N.context object.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0206.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0206.html }
      */
     const context: typeof NA.context;
     /**
@@ -146,7 +146,7 @@ declare namespace N {
      *  3. The component’s default option values.
      *     > If you set a global event option, the global event is executed first, followed by the event specified when initializing the component.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html }
      */
     const config: typeof NA.config;
 
@@ -160,7 +160,7 @@ declare namespace N {
     /**
      * The Natural-DATA library provides methods and functions for sorting, filtering, and refining data of type array[json object].
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0303.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html }
      */
     const data: typeof ND.data;
 
@@ -174,13 +174,13 @@ declare namespace N {
      *
      * > If the Alert dialog box is not displayed, and an error occurs, you need to specify the element where N.alert related elements will be stored with a jQuery selector string in the N.context.attr("ui").alert.container property of the Config (natural.config.js).
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0401.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html }
      */
     const alert: typeof NU.alert;
     /**
      * Button (N.button) is a UI component that creates buttons using the `a, input[type=button], button` elements specified by the context option.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0402.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html }
      */
     const button: typeof NU.button;
     /**
@@ -188,9 +188,9 @@ declare namespace N {
      *
      *  - You can easily use the Datepicker by declaring the "date" rule in the data-format attribute of the text input element and linking it with data-related components. Refer to the ["date", 4|6|8|10|12|14, "month"|"date"] rules in the [Declarative Options] tab of the Form, List, Grid menu, and the [Format Rule List] tab of the Formatter menu.
      *
-     * > For descriptions of declarative options, refer to the declarative options section of the [API Documentation Guide](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0001.html) menu.
+     * > For descriptions of declarative options, refer to the declarative options section of the [API Documentation Guide](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0001.html) menu.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0403.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html }
      */
     const datepicker: typeof NU.datepicker;
     /**
@@ -198,9 +198,9 @@ declare namespace N {
      *
      *  - When a popup is created with the page specified by the url option, the generated popup's Controller object will have caller (the N.popup instance that called it) and opener (the parent page's Controller object that called it, passed as an option during popup creation) properties. You can use the opener to control the parent page or use the caller to close itself or send data to the parent Controller.
      *
-     * > If the Popup dialog box is not displayed, and an error occurs, you need to specify the top-level HTML element where N.alert related HTML elements will be stored using a jQuery selector string in the N.context.attr("ui").alert.container property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0102.html).
+     * > If the Popup dialog box is not displayed, and an error occurs, you need to specify the top-level HTML element where N.alert related HTML elements will be stored using a jQuery selector string in the N.context.attr("ui").alert.container property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html).
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0404.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html }
      */
     const popup: typeof NU.popup;
     /**
@@ -210,13 +210,13 @@ declare namespace N {
      * You can use opener to control the parent page or use caller to close itself and send data to the parent Controller.
      * By calling the cont method on an instance of N.tab, you can get the Controller objects of each tab page. For more details on the cont method, please refer to the [Function] tab.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0405.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html }
      */
     const tab: typeof NU.tab;
     /**
      * Select(N.select) is a UI component that binds data to select, input[type=checkbox], input[type=radio] elements to create selection elements and extend the functionality of those controls.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0406.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html }
      */
     const select: typeof NU.select;
     /**
@@ -231,7 +231,7 @@ declare namespace N {
      *    > ```
      *  - When the value of an input element is changed or the val method is used to change data, the rowStatus property is created, with "insert" for input, "update" for modification, and "delete" for deletion.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0407.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html }
      */
     const form: typeof NU.form;
     /**
@@ -241,7 +241,7 @@ declare namespace N {
      *  - Data is bound when the property name (column name) of the bound data object matches the id attribute value of the element. Data formatting and validation are activated when data is bound to an element.
      *  - When changing the value of an input element or the val method is used to change data, the rowStatus property is created, with "insert" for input, "update" for modification, and "delete" for deletion.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0408.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html }
      */
     const list: typeof NU.list;
     /**
@@ -253,7 +253,7 @@ declare namespace N {
      *  - Provides many functions for handling list data, such as pasting Excel data, data filtering/sorting, etc. For more details on the provided functions, please refer to the option tab and function tab.
      * > The width of the table element to be made into a grid must be specified, whether it is a fixed length (px) or a variable length (%).
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0409.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html }
      */
     const grid: typeof NU.grid;
     /**
@@ -261,7 +261,7 @@ declare namespace N {
      *  - The structure of the N.pagination context element consists of a div>ul>li>a hierarchy.
      *  - The N.pagination component can generate parameters for SQL paging or paginate full list data of type array[json object].
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0410.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html }
      */
     const pagination: typeof NU.pagination;
 
@@ -269,7 +269,7 @@ declare namespace N {
      * Tree(N.tree) is a UI component that creates tree elements from hierarchical data.
      *  - A checkbox can be added to the nodes for group selection.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0411.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html }
      */
     const tree: typeof NU.tree;
 
@@ -278,7 +278,7 @@ declare namespace N {
      * Notify(N.notify) is a UI component that displays global notifications at a specified position without requiring user confirmation.
      * > The Alert(N.alert) is used for handling messages within the content area, while N.notify handles messages site-wide. Thus, N.alert component elements are created within each View element, and N.notify is created in the document.body element.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0501.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html }
      */
     function notify(position: NUS.Options.NotifyPosition, opts?: NUS.Options.Notify): NUS.Notify;
     /**
@@ -292,7 +292,7 @@ declare namespace N {
      * Documents(N.docs) is a page container that displays menu pages based on Natural-JS in either MDI (Multi Document Interface) or SDI (Single Document Interface) structures.
      *  - Options such as the maximum number of pages and the maximum number of state-maintained pages can be specified. It can also display a loading indicator for the requests and responses of N.comm.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0502.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html }
      */
     const docs: typeof NUS.docs;
     /**

@@ -12,7 +12,7 @@ declare class NA {
     /**
      * N.comm is a library that supports Ajax communication with the server, such as requesting content or data from the server or passing parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0203.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html }
      */
     comm(url: string | NA.Options.Request): NA.Communicator;
     /**
@@ -22,7 +22,7 @@ declare class NA {
      *
      * When a page file is requested, it is passed as the second argument of the init function of the Controller object or as a member variable (this.request) of the Controller object. You can verify the request information or receive page parameters with the passed request object.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0204.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html }
      */
     request(): NA.Request;
     /**
@@ -51,7 +51,7 @@ declare class NA {
      *
      * > When selecting an element on a page, you must `find` on a view or specify view as the `context` argument (second argument) to a jQuery function.
      * > Otherwise, unintended elements from other block pages may be selected, resulting in unpredictable errors.
-     * > For more information, please refer to the [Restrictions and Tips](https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0601.html) menu.
+     * > For more information, please refer to the [Restrictions and Tips](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0601.html) menu.
      *
      * > When `N(".view").cont()` is executed, a `pageid data attribute value` such as `data-pageid="view"` is created in the `.view` element specified by the selector.
      * > The `pageid` is `.(dot), #(sharp), [(left bracket), ](right bracket), '(single quote), :(colon), ((left bracket), ), )(right bracket), >(right arrow bracket), " "(space), -(hyphen)` characters are removed to create pageid, so the page identification value is defined not to include the special characters.
@@ -62,7 +62,7 @@ declare class NA {
      * var page01Cont = N("#page01").instance("cont");
      * page01Cont.gridInst.bind([]);
      * ```
-     * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0201.html }
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0201.html }
      */
     cont(contObj: NA.Objects.Controller.Object): NA.Objects.Controller.Object;
 }
@@ -152,7 +152,7 @@ declare namespace NA {
          *
          * When requesting an HTML page, the request object is passed as the second argument of the `init` function of the Controller object or as a member variable (`this.request`) of the Controller object. You can check the request information or retrieve the request parameter object using the provided request object.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/#html/naturaljs/refr/refr0204.html }
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html }
          */
         request: NA.Request;
     }
