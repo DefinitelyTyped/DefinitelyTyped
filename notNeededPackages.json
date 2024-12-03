@@ -4835,6 +4835,10 @@
             "libraryName": "react-bootstrap-daterangepicker",
             "asOfVersion": "7.0.0"
         },
+        "react-bootstrap-range-slider": {
+            "libraryName": "react-bootstrap-range-slider",
+            "asOfVersion": "3.0.0"
+        },
         "react-calendar": {
             "libraryName": "react-calendar",
             "asOfVersion": "4.1.0"
