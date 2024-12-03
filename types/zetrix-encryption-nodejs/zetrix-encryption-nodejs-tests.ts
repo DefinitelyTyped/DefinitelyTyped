@@ -1,4 +1,4 @@
-import { keypair, keystore, signature } from ".";
+import { keypair, keystore, signature } from "zetrix-encryption-nodejs";
 
 // Test for `keypair` Module
 const publicKey: string = keypair.getEncPublicKey("someEncPrivateKey");

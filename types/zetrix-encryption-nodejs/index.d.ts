@@ -1,29 +1,29 @@
 export namespace keypair {
-    export function getEncPublicKey(encPrivateKey: string): string;
+  function getEncPublicKey(encPrivateKey: string): string;
 
-    export function getAddress(encPublicKey: string): string;
+  function getAddress(encPublicKey: string): string;
 
-    export function parsePrivateKey(encPrivateKey: string): string;
+  function parsePrivateKey(encPrivateKey: string): string;
 
-    export function parsePublicKey(encPublicKey: string): string;
+  function parsePublicKey(encPublicKey: string): string;
 
-    export function getKeyPair(): any;
+  function getKeyPair(): any;
 
-    export function checkEncPrivateKey(encPrivateKey: string): boolean;
+  function checkEncPrivateKey(encPrivateKey: string): boolean;
 
-    export function checkEncPublicKey(encPublicKey: string): boolean;
+  function checkEncPublicKey(encPublicKey: string): boolean;
 
-    export function checkAddress(address: string): boolean;
+  function checkAddress(address: string): boolean;
 }
 
 export namespace keystore {
-    export function encrypt(encPrivateKey: string, password: string, callback: any): void;
+  function encrypt(encPrivateKey: string, password: string, callback: any): void;
 
-    export function decrypt(keystore: any, password: string, callback: any): string;
+  function decrypt(keystore: any, password: string, callback: any): string;
 }
 
 export namespace signature {
-    export function sign(message: string, encPrivateKey: string): string;
+  function sign(message: string, encPrivateKey: string): string;
 
-    export function verify(message: any, signature: string, encPublicKey: any): boolean;
+  function verify(message: any, signature: string, encPublicKey: any): boolean;
 }
