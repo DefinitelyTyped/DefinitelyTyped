@@ -915,7 +915,6 @@
         "geometry-dom",
         "get-emoji",
         "get-folder-size",
-        "get-sass-vars",
         "get-symbol-description",
         "git",
         "github-label-sync",
