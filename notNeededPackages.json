@@ -6139,6 +6139,10 @@
             "libraryName": "@tailwindcss/typography",
             "asOfVersion": "0.5.6"
         },
+        "tap": {
+            "libraryName": "tap",
+            "asOfVersion": "18.0.0"
+        },
         "tcomb": {
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
