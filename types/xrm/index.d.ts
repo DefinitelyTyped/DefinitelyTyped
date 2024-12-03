@@ -1153,18 +1153,11 @@ declare namespace Xrm {
         getAttribute<T extends Attributes.Attribute>(attributeName: string): T;
 
         /**
-         * Gets an attribute matching attributeName.
-         * @param attributeName Name of the attribute.
+         * Gets an attribute by name or index.
+         * @param attributeNameOrIndex Name of the attribute or the attribute index.
          * @returns The attribute.
          */
-        getAttribute(attributeName: string): Attributes.Attribute;
-
-        /**
-         * Gets an attribute by index.
-         * @param index The attribute index.
-         * @returns The attribute.
-         */
-        getAttribute(index: number): Attributes.Attribute;
+        getAttribute(attributeNameOrIndex: string | number): Attributes.Attribute;
 
         /**
          * Gets an attribute.
@@ -1181,34 +1174,19 @@ declare namespace Xrm {
         getControl(): Controls.Control[];
 
         /**
-         * Gets a control matching controlName.
+         * Gets a control by name or index.
          * @param T A Control type
-         * @param controlName Name of the control.
+         * @param controlNameOrIndex Name of the control.
          * @returns The control.
          */
-        getControl<T extends Controls.Control>(controlName: string): T;
+        getControl<T extends Controls.Control>(controlNameOrIndex: string | number): T;
 
         /**
-         * Gets a control matching controlName.
-         * @param controlName   Name of the control.
+         * Gets a control by name or index.
+         * @param controlNameOrIndex  Name of the control or the control index.
          * @returns The control.
          */
-        getControl(controlName: string): Controls.Control;
-
-        /**
-         * Gets a control by index.
-         * @param T A Control type
-         * @param index The control index.
-         * @returns The control.
-         */
-        getControl<T extends Controls.Control>(index: number): T;
-
-        /**
-         * Gets a control by index.
-         * @param index The control index.
-         * @returns The control.
-         */
-        getControl(index: number): Controls.Control;
+        getControl(controlNameOrIndex: string | number): Controls.Control;
 
         /**
          * Gets a control.
@@ -1965,7 +1943,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a navigation item.
-         * @see {@link UiElement}
+         * @see {@link UiStandardElement}
          * @see {@link UiFocusable}
          * @deprecated Use {@link Xrm.Controls.NavigationItem} instead.
          */
@@ -2270,7 +2248,8 @@ declare namespace Xrm {
 
         /**
          * Interface for Xrm.Page.ui controls.
-         * @see {@link UiElement}
+         * @see {@link UiLabelElement}
+         * @see {@link UiCanGetVisibleElement}
          * @deprecated Use {@link Xrm.Controls.Control} instead.
          */
         interface Control extends Controls.Control {}
@@ -2366,7 +2345,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a form tab.
-         * @see {@link UiElement}
+         * @see {@link UiStandardElement}
          * @see {@link UiFocusable}
          * @deprecated Use {@link Xrm.Controls.Tab} instead.
          */
@@ -2374,7 +2353,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a form section.
-         * @see {@link UiElement}
+         * @see {@link UiStandardElement}
          * @deprecated Use {@link Xrm.Controls.Section} instead.
          */
         interface Section extends Controls.Section {}
@@ -3276,7 +3255,8 @@ declare namespace Xrm {
         /**
          * Interface for controls.
          *
-         * @see {@link UiElement}
+         * @see {@link UiLabelElement}
+         * @see {@link UiCanGetVisibleElement}
          */
         interface Control extends UiLabelElement, UiCanGetVisibleElement {
             /**
@@ -3334,7 +3314,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a navigation item.
-         * @see {@link UiElement}
+         * @see {@link UiStandardElement}
          * @see {@link UiFocusable}
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-navigation External Link: formContext.ui.navigation item (Client API reference)}
          */
@@ -4123,38 +4103,21 @@ declare namespace Xrm {
             getControl(): Control[];
 
             /**
-             * Gets the constituent controls in a quick view control.
+             * Gets the constituent control in a quick view control by name or index.
              * @param T A Control type
-             * @param controlName Name of the control.
+             * @param controlNameOrIndex Name or index of the control.
              * @returns The control.
              * @remarks Constituent controls in a quick view control are read only.
              */
-            getControl<T extends Control>(controlName: string): T;
+            getControl<T extends Control>(controlNameOrIndex: string | number): T;
 
             /**
-             * Gets the constituent controls in a quick view control.
-             * @param controlName Name of the control.
+             * Gets the constituent control in a quick view control by name or index.
+             * @param controlNameOrIndex Name or index of the control.
              * @returns The control.
              * @remarks Constituent controls in a quick view control are read only.
              */
-            getControl(controlName: string): Control;
-
-            /**
-             * Gets a control by index.
-             * @param T A Control type
-             * @param index The control index.
-             * @returns The control.
-             * @remarks Constituent controls in a quick view control are read only.
-             */
-            getControl<T extends Control>(index: number): T;
-
-            /**
-             * Gets a control by index.
-             * @param index The control index.
-             * @returns The control.
-             * @remarks Constituent controls in a quick view control are read only.
-             */
-            getControl(index: number): Control;
+            getControl(controlNameOrIndex: string | number): Control;
 
             /**
              * Gets the controls type.
@@ -4228,7 +4191,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a form tab.
-         * @see {@link UiElement}
+         * @see {@link UiStandardElement}
          * @see {@link UiFocusable}
          */
         interface Tab extends UiStandardElement, UiFocusable {
@@ -4278,7 +4241,7 @@ declare namespace Xrm {
 
         /**
          * Interface for a form section.
-         * @see {@link UiElement}
+         * @see {@link UiStandardElement}
          */
         interface Section extends UiStandardElement {
             /**
