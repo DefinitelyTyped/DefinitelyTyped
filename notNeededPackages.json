@@ -5171,6 +5171,10 @@
             "libraryName": "react-navigation-material-bottom-tabs",
             "asOfVersion": "2.0.0"
         },
+        "react-notifications-component": {
+            "libraryName": "react-notifications-component",
+            "asOfVersion": "3.2.0"
+        },
         "react-overlays": {
             "libraryName": "react-overlays",
             "asOfVersion": "3.1.0"
