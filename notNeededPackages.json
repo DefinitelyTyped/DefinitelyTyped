@@ -2093,6 +2093,10 @@
             "libraryName": "get-range",
             "asOfVersion": "2.0.1"
         },
+        "get-sass-vars": {
+            "libraryName": "get-sass-vars",
+            "asOfVersion": "3.2.0"
+        },
         "get-stdin": {
             "libraryName": "get-stdin",
             "asOfVersion": "7.0.0"
@@ -3565,6 +3569,10 @@
             "libraryName": "mkdirp",
             "asOfVersion": "2.0.0"
         },
+        "ml-levenberg-marquardt": {
+            "libraryName": "ml-levenberg-marquardt",
+            "asOfVersion": "4.0.0"
+        },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
             "asOfVersion": "1.1.0"
@@ -3668,6 +3676,10 @@
         "msportalfx-test": {
             "libraryName": "msportalfx-test",
             "asOfVersion": "0.7.2"
+        },
+        "multer-gridfs-storage": {
+            "libraryName": "multer-gridfs-storage",
+            "asOfVersion": "5.0.0"
         },
         "multiaddr": {
             "libraryName": "multiaddr",
@@ -4823,6 +4835,10 @@
             "libraryName": "react-bootstrap-daterangepicker",
             "asOfVersion": "7.0.0"
         },
+        "react-bootstrap-range-slider": {
+            "libraryName": "react-bootstrap-range-slider",
+            "asOfVersion": "3.0.0"
+        },
         "react-calendar": {
             "libraryName": "react-calendar",
             "asOfVersion": "4.1.0"
@@ -5154,6 +5170,10 @@
         "react-navigation-material-bottom-tabs": {
             "libraryName": "react-navigation-material-bottom-tabs",
             "asOfVersion": "2.0.0"
+        },
+        "react-notifications-component": {
+            "libraryName": "react-notifications-component",
+            "asOfVersion": "3.2.0"
         },
         "react-overlays": {
             "libraryName": "react-overlays",
@@ -6122,6 +6142,10 @@
         "tailwindcss__typography": {
             "libraryName": "@tailwindcss/typography",
             "asOfVersion": "0.5.6"
+        },
+        "tap": {
+            "libraryName": "tap",
+            "asOfVersion": "18.0.0"
         },
         "tcomb": {
             "libraryName": "tcomb",
