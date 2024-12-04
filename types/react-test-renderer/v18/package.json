@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/react-test-renderer",
-    "version": "19.0.9999",
+    "version": "18.3.9999",
     "projects": [
         "https://facebook.github.io/react/"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/react": "^18"
     },
     "devDependencies": {
         "@types/react-test-renderer": "workspace:."

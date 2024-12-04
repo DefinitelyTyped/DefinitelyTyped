@@ -1436,6 +1436,7 @@
         "react-date-range/v0",
         "react-document-meta",
         "react-dom",
+        "react-dom/v18",
         "react-dynamic-number",
         "react-email-editor",
         "react-embed-gist",
