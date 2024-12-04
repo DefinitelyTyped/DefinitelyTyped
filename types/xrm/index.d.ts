@@ -1147,62 +1147,51 @@ declare namespace Xrm {
         ui: Ui;
 
         /**
-         * Gets all attributes.
-         * @returns An array of attributes.
-         */
-        getAttribute(): Attributes.Attribute[];
-
-        /**
          * Gets an attribute matching attributeName.
          * @param T An Attribute type.
-         * @param attributeName Name of the attribute.
+         * @param attributeNameOrIndex Name of the attribute.
          * @returns The attribute.
          */
-        getAttribute<T extends Attributes.Attribute>(attributeName: string): T;
+        getAttribute<T extends Attributes.Attribute>(attributeNameOrIndex: string | number): T | null;
 
         /**
          * Gets an attribute by name or index.
          * @param attributeNameOrIndex Name of the attribute or the attribute index.
-         * @returns The attribute.
+         * @returns The attribute or null if attribute does not exist.
          */
-        getAttribute(attributeNameOrIndex: string | number): Attributes.Attribute;
-
+        getAttribute(attributeNameOrIndex: string | number): Attributes.Attribute | null;
+        
         /**
-         * Gets an attribute.
+         * Gets a collection of attributes using a delegate function or gets all attributes if delegateFunction is not provided.
          * @param delegateFunction A matching delegate function
-         * @returns An array of attributes.
+         * @returns An collection of attributes.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
-        getAttribute(delegateFunction: Collection.MatchingDelegate<Attributes.Attribute>): Attributes.Attribute[];
-
-        /**
-         * Gets all controls.
-         * @returns An array of controls.
-         */
-        getControl(): Controls.Control[];
+        getAttribute(delegateFunction?: Collection.MatchingDelegate<Attributes.Attribute>): Collection.ItemCollection<Attributes.Attribute> | null;
 
         /**
          * Gets a control by name or index.
          * @param T A Control type
-         * @param controlNameOrIndex Name of the control.
+         * @param controlNameOrIndex Name of the control or the control index.
          * @returns The control.
          */
-        getControl<T extends Controls.Control>(controlNameOrIndex: string | number): T;
+        getControl<T extends Controls.Control>(controlNameOrIndex: string | number): T | null;
 
         /**
          * Gets a control by name or index.
          * @param controlNameOrIndex  Name of the control or the control index.
          * @returns The control.
          */
-        getControl(controlNameOrIndex: string | number): Controls.Control;
+        getControl(controlNameOrIndex: string | number): Controls.Control | null;
 
         /**
-         * Gets a control.
+         * Gets a collection of controls using a delegate function or gets all controls if delegateFunction is not provided.
          * @param delegateFunction A matching delegate function.
-         * @returns An array of control.
+         * @returns An collection of controls.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
-        getControl(delegateFunction: Collection.MatchingDelegate<Controls.Control>): Controls.Control[];
+        getControl(delegateFunction?: Collection.MatchingDelegate<Controls.Control>): Collection.ItemCollection<Controls.Control> | null;
+
     }
 
     /**
@@ -1849,33 +1838,25 @@ declare namespace Xrm {
             forEach(delegate: IterativeDelegate<T>): void;
 
             /**
-             * Gets the item using a delegate matching function
+             * Gets the item given by key or index.
+             * @param itemNameOrNumber The item name or item number to get.
+             * @returns The T matching the key itemName or the T in the itemNumber-th place.
+             */
+            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType | null;
+
+            /**
+             * Gets the item given by key or index.
+             * @param itemNameOrNumber The item name or item number to get.
+             * @returns The T matching the key itemName or the T in the itemNumber-th place.
+             */
+            get(itemNameOrNumber: string | number): T | null;
+
+            /**
+             * Gets the item using a delegate matching function or the entire array of T if delegate is not provided.
              * @param delegate A matching delegate function
-             * @returns A T[] whose members have been validated by delegate.
+             * @returns A T[] whose members have been validated by delegate or a entire array of T[]
              */
-            get(delegate: MatchingDelegate<T>): T[];
-
-            /**
-             * Gets the item given by key or index.
-             * @param itemNameOrNumber The item name or item number to get.
-             * @returns The T matching the key itemName or the T in the itemNumber-th place.
-             * @see {@link Controls.Control.getName Controls.Control.getName()} for Control-naming schemes.
-             */
-            get(itemNameOrNumber: string | number): T;
-
-            /**
-             * Gets the item given by key or index.
-             * @param itemNameOrNumber The item name or item number to get.
-             * @returns The T matching the key itemName or the T in the itemNumber-th place.
-             * @see {@link Controls.Control.getName Controls.Control.getName()} for Control-naming schemes.
-             */
-            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType;
-
-            /**
-             * Gets the entire array of T.
-             * @returns A T[].
-             */
-            get(): T[];
+            get(delegate?: MatchingDelegate<T>): T[] | null;
 
             /**
              * Gets the length of the collection.
@@ -3432,7 +3413,7 @@ declare namespace Xrm {
          * Interface for a String control.
          * @see {@link StandardControl}
          */
-        interface StringControl extends AutoLookupControl {
+        interface StringControl extends StandardControl {
             /**
              * Gets the control's bound attribute.
              * @returns The attribute.
@@ -3444,7 +3425,7 @@ declare namespace Xrm {
          * Interface for a Number control.
          * @see {@link StandardControl}
          */
-        interface NumberControl extends AutoLookupControl {
+        interface NumberControl extends StandardControl {
             /**
              * Gets the control's bound attribute.
              * @returns The attribute.
@@ -4557,7 +4538,7 @@ declare namespace Xrm {
          * @remarks  When using quick create forms in the web application the saveandnew option is not
          *           applied. It will always work as if saveandclose were used. Quick create forms in
          *           Microsoft Dynamics CRM for tablets will apply the saveandnew behavior.
-         * @deprecated Deprecated in v9.1; This method is deprecated and we recommend to use the formContext.data.save method.
+         * @deprecated Deprecated in v9.1; This method is deprecated and we recommend to use the {@link Xrm.Data.save formContext.data.save()} method.
          */
         save(): void;
 
