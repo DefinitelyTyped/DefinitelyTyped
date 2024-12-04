@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/zetrix-encryption-nodejs",
+    "version": "1.0.9999",
+    "projects": ["https://github.com/Zetrix-Chain/zetrix-encryption-nodejs-ts"],
+    "devDependencies": {
+        "@types/zetrix-encryption-nodejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Izad Imran Tan",
+            "githubUsername": "izadimrantan"
+        }
+    ],
+    "dependencies": {}
+}
