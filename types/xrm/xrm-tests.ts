@@ -1,7 +1,8 @@
 /// Demonstrate usage in the browser's window object
 
-window.Xrm.Navigation.openAlertDialog({text: "message"});
-parent && parent.Xrm.Utility.getGlobalContext() && parent.Xrm.Utility.getGlobalContext().organizationSettings.languageId
+window.Xrm.Navigation.openAlertDialog({ text: "message" });
+parent && parent.Xrm.Utility.getGlobalContext()
+    && parent.Xrm.Utility.getGlobalContext().organizationSettings.languageId;
 
 /// Demonstrate getting the Global Context and Form Context
 
@@ -24,7 +25,7 @@ function _getFormContext() {
     if (typeof formContext !== "undefined") {
         return formContext;
     } else if (typeof executionContext !== "undefined") {
-        return executionContext.getFormContext();;
+        return executionContext.getFormContext();
     } else {
         throw new Error(errorMessage);
     }
@@ -96,7 +97,7 @@ if (formContext.data.process != null) {
 
 /// Demonstrate v7.1 Quick Create form
 
-Xrm.Navigation.openForm({entityName: "account"}).then(
+Xrm.Navigation.openForm({ entityName: "account" }).then(
     (object) => {
         if (object) alert(`Newly created record Id: ${object.savedEntityReference[0].id}`);
     },
