@@ -6,7 +6,7 @@
         "https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/overview",
         "https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/overview"
     ],
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Microsoft's client API for interacting with model-driven PowerApps and Dynamics 365 CE (Customer Engagement) applications.",
     "devDependencies": {
         "@types/xrm": "workspace:."
