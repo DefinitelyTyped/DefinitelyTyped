@@ -201,7 +201,7 @@ braintree.client.create(
                         fieldsToTokenize: ["number", "cvv"],
                         billingAddress: {
                             postalCode: "12345",
-                        }
+                        },
                     },
                     (tokenizeErr: braintree.BraintreeError, payload: braintree.HostedFieldsTokenizePayload) => {
                         if (tokenizeErr) {

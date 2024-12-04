@@ -348,7 +348,7 @@ export interface HostedFields {
             cardholderName?: string | undefined;
             billingAddress?: HostedFieldsBillingAddress | undefined;
         },
-        callback: callback<HostedFieldsTokenizePayload>
+        callback: callback<HostedFieldsTokenizePayload>,
     ): void;
     tokenize(callback: callback<HostedFieldsTokenizePayload>): void;
 
