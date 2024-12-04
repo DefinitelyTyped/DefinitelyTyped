@@ -13,7 +13,7 @@ export interface Options {
 export interface User extends Profile {
     provider: "qq";
     id: string;
-    nickanme: string;
+    nickname: string;
     _raw: string;
     _json: object;
 }
