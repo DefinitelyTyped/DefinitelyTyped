@@ -1160,14 +1160,16 @@ declare namespace Xrm {
          * @returns The attribute or null if attribute does not exist.
          */
         getAttribute(attributeNameOrIndex: string | number): Attributes.Attribute | null;
-        
+
         /**
          * Gets a collection of attributes using a delegate function or gets all attributes if delegateFunction is not provided.
          * @param delegateFunction A matching delegate function
          * @returns An collection of attributes.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
-        getAttribute(delegateFunction?: Collection.MatchingDelegate<Attributes.Attribute>): Collection.ItemCollection<Attributes.Attribute> | null;
+        getAttribute(
+            delegateFunction?: Collection.MatchingDelegate<Attributes.Attribute>,
+        ): Collection.ItemCollection<Attributes.Attribute> | null;
 
         /**
          * Gets a control by name or index.
@@ -1190,8 +1192,9 @@ declare namespace Xrm {
          * @returns An collection of controls.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/collections External Link: Collections (Client API reference)}
          */
-        getControl(delegateFunction?: Collection.MatchingDelegate<Controls.Control>): Collection.ItemCollection<Controls.Control> | null;
-
+        getControl(
+            delegateFunction?: Collection.MatchingDelegate<Controls.Control>,
+        ): Collection.ItemCollection<Controls.Control> | null;
     }
 
     /**
@@ -1842,7 +1845,7 @@ declare namespace Xrm {
              * @param itemNameOrNumber The item name or item number to get.
              * @returns The T matching the key itemName or the T in the itemNumber-th place.
              */
-            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType | null;
+            get<TSubType extends T>(itemNameOrNumber: string | number): TSubType;
 
             /**
              * Gets the item given by key or index.
@@ -4069,12 +4072,6 @@ declare namespace Xrm {
                 UiCanGetVisibleElement,
                 UiCanSetVisibleElement
         {
-            /**
-             * Gets the constituent controls in a quick view control.
-             * @returns An array of controls.
-             * @remarks Constituent controls in a quick view control are read only.
-             */
-            getControl(): Control[];
 
             /**
              * Gets the constituent control in a quick view control by name or index.
@@ -4083,7 +4080,7 @@ declare namespace Xrm {
              * @returns The control.
              * @remarks Constituent controls in a quick view control are read only.
              */
-            getControl<T extends Control>(controlNameOrIndex: string | number): T;
+            getControl<T extends Control>(controlNameOrIndex: string | number): T | null;
 
             /**
              * Gets the constituent control in a quick view control by name or index.
@@ -4091,7 +4088,14 @@ declare namespace Xrm {
              * @returns The control.
              * @remarks Constituent controls in a quick view control are read only.
              */
-            getControl(controlNameOrIndex: string | number): Control;
+            getControl(controlNameOrIndex: string | number): Control | null;
+
+            /**
+             * Gets the constituent controls in a quick view control.
+             * @returns An array of controls.
+             * @remarks Constituent controls in a quick view control are read only.
+             */
+            getControl(): Control[] | null;
 
             /**
              * Gets the controls type.

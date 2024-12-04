@@ -44,14 +44,16 @@ const selectedGridReferences: Xrm.LookupValue[] = [];
 
 /// Demonstrate iterator typing with v7.1 additions
 
-grids.forEach((gridControl: Xrm.Controls.GridControl) => {
-    gridControl
-        .getGrid()
-        .getSelectedRows()
-        .forEach((row) => {
-            selectedGridReferences.push(row.data.entity.getEntityReference());
-        });
-});
+if (grids !== null) {
+    grids.forEach((gridControl: Xrm.Controls.GridControl) => {
+        gridControl
+            .getGrid()
+            .getSelectedRows()
+            .forEach((row) => {
+                selectedGridReferences.push(row.data.entity.getEntityReference());
+            });
+    });
+}
 
 /// Demonstrate generic overload vs typecast
 
@@ -154,11 +156,20 @@ alert(`The current entity type is: ${formContext.data.entity.getEntityName()}`);
 /// Demonstrate Optionset Value as int in Turbo Forms
 
 const optionSetAttribute = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute>("statuscode");
-const optionValue: number = optionSetAttribute.getOptions()[0].value;
+if(optionSetAttribute !== null) {
+    const optionValue: number = optionSetAttribute.getOptions()[0].value;
+    
+    /// Demonstrate Control.setFocus();
 
-/// Demonstrate Control.setFocus();
+    let controls = optionSetAttribute.controls
+    if(controls !== null){
+        let firstControl = controls.get(0)
+        if(firstControl !== null) {
+            firstControl.setFocus();
+        }
+    }
+}
 
-optionSetAttribute.controls.get(0).setFocus();
 
 /// Demonstrate setFormNotification
 
@@ -174,16 +185,18 @@ let submitMode: Xrm.SubmitMode = "always";
 const submitModeString = "always";
 
 let attribute = formContext.getAttribute<Xrm.Attributes.LookupAttribute>("customerid");
+if(attribute !== null){
 attribute.setSubmitMode(submitMode);
 attribute.setSubmitMode(submitModeString); // Works if the string is a const
 attribute.setRequiredLevel(requirementLevel);
 attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
 
 const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
-
+}
 /// Demonstrate v8.2 quick form controls
 
 const quickForm = formContext.ui.quickForms.get(0);
+if (quickForm !== null) {
 quickForm.getControlType(); // == "quickform"
 quickForm.getName();
 quickForm.getParent();
@@ -191,9 +204,10 @@ quickForm.getVisible(); // From UiCanSetVisibleElement
 quickForm.getLabel(); // From UiLabelElement
 quickForm.setLabel("Label"); // From UiLabelElement
 quickForm.refresh();
-
+}
 // Get standard control
 const ctrl = formContext.getControl<Xrm.Controls.StandardControl>("controlName");
+if (ctrl !== null) {
 ctrl.getControlType();
 ctrl.getName();
 ctrl.getParent();
@@ -201,7 +215,7 @@ ctrl.getLabel();
 ctrl.setLabel("Label name");
 ctrl.getVisible();
 ctrl.setVisible(true);
-
+}
 // Demonstrate getEntityMetadata
 Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
     console.log(metadata.Attributes["statuscode"].OptionSet[0].Label.LocalizedLabels[0].Label);
@@ -246,9 +260,11 @@ Xrm.WebApi.retrieveMultipleRecords(
 const contextHandler = (context: Xrm.Events.EventContext) => {
     context.getEventSource();
 };
-
-formContext.ui.tabs.get("tabName").addTabStateChange(contextHandler);
-formContext.ui.tabs.get("tabName").removeTabStateChange(contextHandler);
+const tabName = formContext.ui.tabs.get("tabName")
+if(tabName !== null) {
+    tabName.addTabStateChange(contextHandler);
+    tabName.removeTabStateChange(contextHandler);
+}
 
 // Demonstrate lookupObject
 
@@ -408,7 +424,9 @@ Xrm.Utility.getPageContext(); // $ExpectType PageContext
 const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
     const formContext = context.getFormContext();
     const gridControl = formContext.getControl<Xrm.Controls.GridControl>("myGrid");
-
+    if (gridControl === null) {
+        return;
+    }
     // getVisible
     const visibility = gridControl.getVisible();
 
@@ -482,11 +500,13 @@ const settingValue = Xrm.Utility.getGlobalContext().getCurrentAppSetting("Settin
 function onLoadSetupEvents(eventContext: Xrm.Events.EventContext) {
     const formContext = eventContext.getFormContext();
     // Demonstrate Knowledge base handler events
-    const kbSearchControl: Xrm.Controls.KbSearchControl = formContext.getControl("<name>");
+    const kbSearchControl = formContext.getControl<Xrm.Controls.KbSearchControl>("<name>");
     const kbHandler = () => {
         alert("hit handler");
     };
-
+    if (kbSearchControl === null) {
+        return;
+    }
     kbSearchControl.addOnPostSearch(kbHandler);
     kbSearchControl.removeOnPostSearch(kbHandler);
 
@@ -553,11 +573,13 @@ function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
 }
 
 function booleanAttributeControls(formContext: Xrm.FormContext) {
-    let booleanAttribute: Xrm.Attributes.BooleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>(
+    let booleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>(
         "prefx_myattribute",
     );
+    if(booleanAttribute === null) {
+        return;
+    }
     const booleanValue: boolean | null = booleanAttribute.getValue();
-
     // @ts-expect-error
     const notString: string = booleanAttribute.getValue();
 
@@ -610,7 +632,9 @@ Xrm.Navigation.navigateTo({
 );
 
 const multiSelectOptionSetControl = formContext.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
-
+if (multiSelectOptionSetControl === null) { 
+    throw new Error("Control does not exist!")
+}
 // $ExpectType MultiSelectOptionSetAttribute
 multiSelectOptionSetControl.getAttribute();
 
@@ -618,11 +642,12 @@ multiSelectOptionSetControl.getAttribute();
 const webResourceUrl = Xrm.Utility.getGlobalContext().getWebResourceUrl("sample_webResource1.js");
 
 const optionSetControl = formContext.getControl<Xrm.Controls.OptionSetControl>("singlechoice");
-
+if (optionSetControl === null) { 
+    throw new Error("Control does not exist!")
+}
 // Demonstrates getOptions for Xrm.Controls.OptionSetControl
-// $ExpectType OptionSetValue[]
-optionSetControl.getOptions();
 
+optionSetControl.getOptions();
 // Demonstrates getOptions for Xrm.Controls.MultiSelectOptionSetControl
 // $ExpectType OptionSetValue[]
 multiSelectOptionSetControl.getOptions();
