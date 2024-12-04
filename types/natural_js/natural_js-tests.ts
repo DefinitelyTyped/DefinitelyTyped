@@ -98,7 +98,8 @@ N([{}]).formatter({
     "limit" : [[ND.FormatRules.TRIMTOEMPTY], [ND.FormatRules.LIMIT, "13", "..."]],
     "etc" : [[ND.FormatRules.DATE, 12]]
 }).format(1);
-N.formatter.rpad("asf", []);
+N.formatter.rrn("1234567890123", [7, "*"]);
+N.formatter.trimtoval("", ["1"]);
 new N.validator(N([{}]), {
     "numeric" : [[ND.ValidationRules.REQUIRED], [ND.ValidationRules.COMMAS_INTEGER]],
     "generic" : [[ND.ValidationRules.REQUIRED], [ND.ValidationRules.KOREAN]],

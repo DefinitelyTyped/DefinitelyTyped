@@ -116,6 +116,8 @@ declare namespace NA {
          * });
          * ```
          * @return {JQuery.jqXHR | NA.Communicator} The jqXHR object or the communicator instance depending on the submission context.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
          */
         submit(callback: NA.Callbacks.Communicator.Submit): JQuery.jqXHR | NA.Communicator;
         /**
@@ -143,6 +145,8 @@ declare namespace NA {
          * ```
          *
          * @return {NA.Communicator} Returns the communicator instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
          */
         error(callback: NA.Callbacks.Communicator.Error): NA.Communicator;
         /**
@@ -178,6 +182,8 @@ declare namespace NA {
          * @param {String} name - Parameter name
          *
          * @return {NA.Communicator} Returns the passed parameter value.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
          */
         attr(name: string): any;
         /**
@@ -199,6 +205,8 @@ declare namespace NA {
          * @param {any} obj - Parameter data
          *
          * @return {NA.Communicator} Returns the Communicator object.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
          */
         attr(name: string, obj: any): NA.Communicator;
         removeAttr(name: string): NA.Communicator;
@@ -206,6 +214,8 @@ declare namespace NA {
          * Extracts the GET parameter values from the browser's URL.
          *
          * @return {object} Returns all GET parameters as an object.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
          */
         param(): object;
         /**
@@ -219,6 +229,8 @@ declare namespace NA {
          * Retrieves the current request options.
          *
          * @return {NA.Options.Request} The options used for the request.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
          */
         get(): NA.Options.Request;
         /**
@@ -226,9 +238,36 @@ declare namespace NA {
          *
          * @param {string} key - Property name of request options
          * @return {any} Value corresponding to the key value specified in request options
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
          */
         get(key: string): any;
-
+        /**
+         * Reloads the block page loaded by the Communicator.
+         * > If the attr method has not been called to set values before calling reload, the values in the request object before the reload are maintained even after reloading.
+         *
+         * > You can specify the Communicator.request data for the page being reloaded using the attr method.
+         *
+         * ```
+         * request.attr("param", { param: 1 });
+         * request.reload();
+         * ```
+         *
+         * > The reload function does not support method chaining.
+         *   ```
+         *   request.attr("param", { param: 1 }).reload(); // This usage is invalid.
+         *   ```
+         *
+         * @param {NA.Callbacks.Request.Reload} [callback] - An optional callback function that will be called upon the completion of the reload process.
+         * ```
+         * request.reload(function(html, request) {
+         *     N.log(html, request);
+         * });
+         * ```
+         * @return {NA.Communicator} Returns the Communicator instance to allow for method chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
+         */
         reload(callback?: NA.Callbacks.Request.Reload): NA.Communicator;
     }
 
@@ -237,6 +276,8 @@ declare namespace NA {
         trInit(cont: NA.Objects.Controller.Object, request: NA.Request): void;
         /**
          * Aspect-oriented programming(AOP) processing class.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0202.html }
          */
         aop: {
             pointcuts: {
@@ -255,6 +296,8 @@ declare namespace NA {
          *
          * @param {string} name - data name.
          * @return {any} Stored data.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0206.html&tab=html/naturaljs/refr/refr020602.html }
          */
         attr(name: string): any;
         /**
@@ -263,6 +306,8 @@ declare namespace NA {
          * @param {string} name - data name.
          * @param {any} obj - Data to store.
          * @return {this} The current object, for chainability.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0206.html&tab=html/naturaljs/refr/refr020602.html }
          */
         attr(name: string, obj: any): NA.Context;
     }

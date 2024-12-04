@@ -22,7 +22,6 @@ declare namespace NC {
         }
     }
 
-
     type InstanceCallback = {
         (this: Function, instanceName: string, instance: Function): void;
     }

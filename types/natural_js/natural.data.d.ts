@@ -94,6 +94,9 @@ declare class ND {
 
     datasort(key: string, reverse?: boolean): NJS<NC.JSONObject[]>;
 
+    /**
+     * This class handles data synchronization logic for two-way data binding.
+     */
     static ds: {
         instance(inst: Function, isReg?: boolean): ND.DataSync;
     };
@@ -144,30 +147,223 @@ declare class ND {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html }
          */
         new(data: NJS<NC.JSONObject[]>, rules?: NJS<HTMLElement[]> | HTMLElement | ND.FormatRuleObject | string): ND.Formatter;
-
+        /**
+         * Adds commas(,) at thousand separators. It processes only the part before the decimal point, if present.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         commas(str: string): string;
-        rrn(str: string, args: NC.Primitive[]): string;
+        /**
+         * Convert to South Korean resident registration number format.
+         *
+         * @param {string} str - The string to be formatted.
+         * @param {[number, string]} args - Replaces the entered string with the specified character.
+         * - args[0] Length of string to replace
+         * - args[1] Character to replace
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
+        rrn(str: string, args: [number, string]): string;
+        /**
+         * Convert to US Social Security number format.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         ssn(str: string): string;
+        /**
+         * Convert to South Korean business registration number format.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         kbrn(str: string): string;
+        /**
+         * Convert to South Korean corporate number format.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         kcn(str: string): string;
+        /**
+         * Convert to uppercase.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         upper(str: string): string;
+        /**
+         * Convert to lowercase.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         lower(str: string): string;
+        /**
+         * Converts the first alphabetic character to uppercase.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         capitalize(str: string): string;
+        /**
+         * Convert to South Korean zip code format.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         zipcode(str: string): string;
+        /**
+         * Convert to South Korean phone number format.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         phone(str: string): string;
+        /**
+         * Remove meaningless zeros.
+         *  - 0100.0 -> 100
+         *  - 0100.10 -> 100.1
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         realnum(str: string): string;
+        /**
+         * Removes the first and last whitespace from a string. If the input string is null or undefined, it is converted to an empty string.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         trimtoempty(str: string): string;
+        /**
+         * Removes the first and last whitespace from a string. If the input string is empty, null, or undefined, it is converted to 0.
+         *
+         * @param {string} str - The string to be formatted.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
         trimtozero(str: string): string;
-        trimtoval(str: string, args: NC.Primitive[]): string;
-        date(str: string, args: NC.Primitive[], ele: NJS<HTMLElement[]>): string;
-        time(str: string, args: NC.Primitive[]): string;
-        limit(str: string, args: NC.Primitive[], ele: NJS<HTMLElement[]>): string;
-        replace(str: string, args: NC.Primitive[], ele: NJS<HTMLElement[]>): string;
-        lpad(str: string, args: NC.Primitive[]): string;
-        rpad(str: string, args: NC.Primitive[]): string;
-        mask(str: string, args: NC.Primitive[]): string;
-        generic(str: string, args: NC.Primitive[]): string | true;
-        numeric(str: string, args: NC.Primitive[]): string | true;
+        /**
+         * Removes the first and last whitespace from a string. If the input string is empty, null, or undefined, it is converted to valStr.
+         *
+         * @param {string} str - The string to be formatted.
+         * @param {[string]} args - String to be replaced when the value is null or undefined
+         *  - args[0] String to replace
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
+        trimtoval(str: string, args: [string]): string;
+        /**
+         * Converts or formats a date string according to specified options and returns the formatted date string.
+         *
+         * The global date format can be set in the N.context.attr("data").formatter.date property of [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010204.html).
+         *
+         * @param {string} str - The string to be formatted.
+         * @param {[number | string, "date" | "month", NU.Options.Datepicker]} args - Specifies the date format and options for the Datepicker component applied to the element designated as the third argument of the function.
+         *  - args[0]: Specifies the date format in either a numeric or string format as follows:
+         *    - number
+         *      - 4: year
+         *      - 6: year-month
+         *      - 8: year-month-day
+         *      - 10: year-month-day hour
+         *      - 12: year-month-day hour:minute
+         *      - 14: year-month-day hour:minute:second
+         *    - string
+         *      - Y: year (4 digits)
+         *      - y: year (2 digits)
+         *      - m: month
+         *      - d: day
+         *      - H: hour
+         *      - i: minute
+         *      - s: second
+         *      ```
+         *      "1999/12/31": "Y/m/d"
+         *      "99/12/31": "y/m/d"
+         *      "31/12": "d/m"
+         *      "12/31/1999": "m/d/Y"
+         *      "1999-12-31 12:01:59": "Y-m-d H:i:s"
+         *      ```
+         *  - args[1]: If "date", a date picker is applied to the element specified as the third argument. If "month", a month picker is applied.
+         *  - args[2]: You can specify options to create the Datepicker for the element designated as the third argument of the function.
+         * @param {NJS<HTMLElement[]>} ele - If this argument is specified, the NU.datepicker component is automatically applied.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
+        date(str: string, args: [number | string, "date" | "month", NU.Options.Datepicker], ele?: NJS<HTMLElement[]>): string;
+        /**
+         * Convert to time format.
+         *
+         * @param {string} str - The string to be formatted.
+         * @param {[number]} args - Specifies the time format.
+         * number If you specify the length by type, it is converted as follows:
+         *  - 2: hour
+         *  - 4: hour:minute
+         *  - 6: hour:minute:second
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
+        time(str: string, args?: [number]): string;
+        /**
+         * Cuts the string to a specified length.
+         *
+         * @param {string} str - The string to be formatted.
+         * @param {[number, string]} args
+         *  - args[0] - String maximum length.
+         *  - args[1] - Character to be appended after cutting the string.
+         * @param {NJS<HTMLElement[]>} ele - An element that will display the original, uncut string as the title attribute.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
+        limit(str: string, args: [number, string], ele: NJS<HTMLElement[]>): string;
+        /**
+         * Replaces a string with a specified string.
+         *
+         * @param {string} str - The string to be formatted.
+         * @param {[number, string]} args
+         *  - args[0] - String to be replaced
+         *  - args[1] - String to replace
+         *  - args[2] - This is an argument used inside Formatter that is not generally used.
+         * @param {NJS<HTMLElement[]>} ele - This is an argument used inside Formatter that is not generally used.
+         * @return {string} The formatted string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         */
+        replace(str: string, args: [string, number, boolean], ele?: NJS<HTMLElement[]>): string;
+        lpad(str: string, args: [number, string]): string;
+        rpad(str: string, args: [number, string]): string;
+        mask(str: string, args: ["phone" | "email" | "address" | "name" | "rrn", string]): string;
+        generic(str: string, args: [string]): string | true;
+        numeric(str: string, args: [string, string]): string | true;
     };
 
     static validator: {

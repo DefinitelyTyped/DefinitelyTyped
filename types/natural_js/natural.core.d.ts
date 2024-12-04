@@ -17,6 +17,8 @@ declare class NC {
      * @param {string} eventName - The name of the event to bind to.
      * @param {JQuery.EventHandler} eventHandler - The event handler function to execute when the event is triggered.
      * @return {this} The current object, for chainability.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010103.html }
      */
     tpBind(eventName: string, eventHandler: JQuery.EventHandler<HTMLElement, any>): NC;
     /**
@@ -85,6 +87,8 @@ declare class NC {
      * @param {any} [instance] - The instance to store in the selected elements or a callback function to retrieve instances.
      * > The callback function returns the index (arguments[0]) and each instance (arguments[1]). The `this` context of the callback function refers to each instance.
      * @return {undefined | NJS<Function[]> | Function[] | this} Returns undefined, an array of instances, a single instance, or the context itself.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010103.html }
      */
     instance(name: string | NC.InstanceCallback, instance?: any): undefined | NJS<Function[]> | Function[] | NC;
     /**
@@ -104,6 +108,8 @@ declare class NC {
      *  - arguments[1] : The selected option element
      * @return {string|string[] | NJS<HTMLElement[]> | this} If the vals argument is not provided, the selected value is returned. If the vals argument is specified, the elements that match the specified value are selected.
      * If only one is selected, a value of type string is returned, and if two or more are selected, the values are returned in an array.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010103.html }
      */
     vals(vals?: string | string[] | NC.ValsCallback): string | string[] | NJS<HTMLElement[]> | NC;
     /**
@@ -113,6 +119,8 @@ declare class NC {
      * @param {string} [namespace] - The optional namespace for the event.
      * @return {NC.EventsObject | NC.EventObject} If neither the eventType argument nor the namespace argument is provided, all events are returned; if the namespace is not provided, only the events corresponding to the specified eventType are returned.
      * If the namespace argument is provided, the events are returned as an array object, otherwise they are returned as a jQuery object. If no events are bound, undefined is returned.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010103.html }
      */
     events(eventName: string, namespace?: string): NC.EventsObject | NC.EventObject;
     /**
@@ -124,6 +132,8 @@ declare class NC {
      * > The default locale of the framework can be set to the value of the `N.context.attr("core").locale` property in [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html).
      *
      * @return {string} If the `str` argument is provided, it returns `undefined`. If not provided, it returns a locale string such as "en_US" or "ko_KR".
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static locale(): string;
     /**
@@ -136,6 +146,8 @@ declare class NC {
      *
      * @param {string} str - Enter a valid locale string such as "en_US" or "ko_KR".
      * @return {void} This method does not return any value.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static locale(str: string): void;
     /**
@@ -143,6 +155,8 @@ declare class NC {
      *
      * @param {...any} obj - The items to log to the console. They can be of any type and multiple arguments can be passed.
      * @return {Console} Displays the contents of the provided item in the browser console.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010103.html }
      */
     static debug(...obj: any): Console;
     /**
@@ -150,6 +164,8 @@ declare class NC {
      *
      * @param {...any} obj - The items to log to the console. They can be of any type and multiple arguments can be passed.
      * @return {Console} Displays the contents of the provided item in the browser console.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static log(...obj: any): Console;
     /**
@@ -157,6 +173,8 @@ declare class NC {
      *
      * @param {...any} obj - The items to log to the console. They can be of any type and multiple arguments can be passed.
      * @return {Console} Displays the contents of the provided item in the browser console.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static info(...obj: any): Console;
     /**
@@ -164,6 +182,8 @@ declare class NC {
      *
      * @param {...any} obj - The items to log to the console. They can be of any type and multiple arguments can be passed.
      * @return {Console} Displays the contents of the provided item in the browser console.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static warn(...obj: any): Console;
     /**
@@ -177,6 +197,8 @@ declare class NC {
      * @param {string} msg - The error message to be logged.
      * @param {Error} [e] - If an Error object is specified, the error is raised using the specified object.
      * @return {Error} Error object.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static error(msg: string, e?: Error): Error;
     /**
@@ -184,6 +206,8 @@ declare class NC {
      *
      * @param {any} obj - The object to identify the type of.
      * @return {NC.ObjectType | string} The identified type of the object, either as an NC.ObjectType or a string.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static type(obj: any): NC.ObjectType | string;
     /**
@@ -191,6 +215,8 @@ declare class NC {
      *
      * @param {any} obj - The object to check.
      * @return {boolean} true if the value is a string; otherwise, false.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static isString(obj: any): boolean;
     /**
@@ -198,6 +224,8 @@ declare class NC {
      *
      * @param {any} obj - The object to check.
      * @return {boolean} true if the value is a numeric; otherwise, false.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static isNumeric(obj: any): boolean;
     /**
@@ -206,6 +234,8 @@ declare class NC {
      *
      * @param {any} obj - The object to test.
      * @return {boolean} true if the object is a plain object, false otherwise.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static isPlainObject(obj: any): boolean;
     /**
@@ -213,6 +243,8 @@ declare class NC {
      *
      * @param {object} obj - The object to check for emptiness.
      * @return {boolean} Returns true if the object is empty, false otherwise.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static isEmptyObject(obj: any): boolean;
     /**
@@ -220,6 +252,8 @@ declare class NC {
      *
      * @param {any} obj - The object to be checked.
      * @return {boolean} true if the object is an array, otherwise false.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static isArray(obj: any): boolean;
     /**
@@ -228,6 +262,8 @@ declare class NC {
      *
      * @param {any} obj - The object to check.
      * @return {boolean} - Returns `true` if the object is array-like, otherwise returns `false`.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static isArraylike(obj: any): boolean;
     /**
@@ -235,6 +271,8 @@ declare class NC {
      *
      * @param {any} obj - The object to check.
      * @return {boolean} true if the object is a jQuery object, otherwise false.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static isWrappedSet(obj: any): boolean;
     /**
@@ -242,14 +280,17 @@ declare class NC {
      *
      * @param {any} obj - The object to check.
      * @return {boolean} true if the object is a DOM element, otherwise false.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static isElement(obj: any): boolean;
-
     /**
      * Converts a given element, array of elements, or any input to a CSS selector string.
      *
      * @param {NJS<HTMLElement[]> | HTMLElement | HTMLElement[] | any} el - The input element(s) or any value to convert.
      * @returns {string} The CSS selector string derived from the input.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static toSelector(el: NJS<HTMLElement[]> | HTMLElement | HTMLElement[] | any): string;
     /**
@@ -257,11 +298,11 @@ declare class NC {
      * JQuery.Deferred objects, ensuring that the deferred tasks are executed in serial order.
      *
      * @param {...Function} args - The arguments to be passed to each deferred task.
-     * @returns {JQuery.Deferred[]} An array of JQuery.Deferred objects representing
-     *                              the serialized execution of tasks.
+     * @returns {JQuery.Deferred[]} An array of JQuery.Deferred objects representing the serialized execution of tasks.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html }
      */
     static serialExecute(...args: Function[]): JQuery.Deferred<any>[];
-
     /**
      * Provides methods to perform different levels of garbage collection.
      */
@@ -270,18 +311,24 @@ declare class NC {
          * Minimum garbage collection
          *
          * @returns {true} If the operation is successful, it unconditionally returns true.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010105.html }
          */
         minimum(): true;
         /**
          * Full garbage collection
          *
          * @returns {true} If the operation is successful, it unconditionally returns true.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010105.html }
          */
         full(): true;
         /**
          * Remove garbage instances from observables in ND.ds.
          *
          * @return {void} This method does not return any value.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010105.html }
          */
         ds(): void;
     };
@@ -295,6 +342,8 @@ declare class NC {
          * @param {string} context - The string in which to search for the substring.
          * @param {string} str - The substring to search for within the context string.
          * @return {boolean} - Returns true if the context string contains the specified substring, otherwise false.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         contains(context: string, str: string): boolean;
 
@@ -304,6 +353,8 @@ declare class NC {
          * @param {string} context - The string to be checked.
          * @param {string} str - The substring to look for at the end of the context string.
          * @return {boolean} Returns true if the context string ends with the specified substring, otherwise false.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         endsWith(context: string, str: string): boolean;
         /**
@@ -312,6 +363,8 @@ declare class NC {
          * @param {string} context - The full string to be checked.
          * @param {string} str - The substring to check for at the start of the full string.
          * @return {boolean} true if the full string starts with the substring, otherwise false.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         startsWith(context: string, str: string): boolean;
         /**
@@ -321,6 +374,8 @@ declare class NC {
          * @param {number} idx - The index at which to insert the substring.
          * @param {string} str - The substring to be inserted.
          * @return {string} - The resulting string after the insertion.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         insertAt(context: string, idx: number, str: string): string;
         /**
@@ -328,6 +383,8 @@ declare class NC {
          *
          * @param {string} str - The string from which to remove whitespace.
          * @return {string} The string without any whitespace characters.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         removeWhitespace(str: string): string;
         /**
@@ -337,6 +394,8 @@ declare class NC {
          * @param {number} length - The desired total length of the string after padding.
          * @param {string} padStr - The string to pad the original string with.
          * @return {string} - The padded string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         lpad(str: string, length: number, padStr: string): string;
         /**
@@ -346,14 +405,17 @@ declare class NC {
          * @param {number} length - The total length of the resulting string after padding.
          * @param {string} padStr - The string to pad with.
          * @return {string} The padded string of the specified length.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         rpad(str: string, length: number, padStr: string): string;
-
         /**
          * Checks if the provided string is empty.
          *
          * @param {string} str - The string to be checked.
          * @return {boolean} true if the string is empty, otherwise false.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         isEmpty(str: string): boolean;
         /**
@@ -362,6 +424,8 @@ declare class NC {
          * @param {string} str - The input string for which to calculate the byte length.
          * @param {number} charByteLength - The default byte length of each individual character in the string.
          * @return {number} The total byte length of the string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         byteLength(str: string, charByteLength: number): number;
         /**
@@ -369,6 +433,8 @@ declare class NC {
          *
          * @param str - The input string to be trimmed.
          * @return The trimmed string, or an empty string if the input is null or undefined.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         trimToEmpty(str: string): string;
         /**
@@ -377,6 +443,8 @@ declare class NC {
          *
          * @param {string | null | undefined} str - The input string which can be null, undefined, or a string.
          * @return {string} The original string if it is not null/undefined, otherwise an empty string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         nullToEmpty(str: string | null | undefined): string;
         /**
@@ -384,6 +452,8 @@ declare class NC {
          *
          * @param {string} str - The input string to be trimmed.
          * @return {string | null} The trimmed string or null if the trimmed string is empty.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         trimToNull(str: string): string | null;
         /**
@@ -391,6 +461,8 @@ declare class NC {
          *
          * @param {string} str - The string to be trimmed.
          * @return {string | undefined} - The trimmed string or undefined if the trimmed string is empty.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         trimToUndefined(str: string): string | undefined;
         /**
@@ -399,6 +471,8 @@ declare class NC {
          *
          * @param {string} str - The string to be trimmed.
          * @return {string} - The trimmed string, or "0" if the resulting string is empty.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         trimToZero(str: string): string;
         /**
@@ -407,6 +481,8 @@ declare class NC {
          * @param {string} str - The string to be trimmed.
          * @param {string} val - The value to replace if the trimmed string is empty.
          * @return {string} The trimmed string, or the replacement value if empty.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010106.html }
          */
         trimToVal(str: string, val: string): string;
     };
@@ -420,6 +496,8 @@ declare class NC {
          * @param {string} refDateStr - The reference date as a string in the format YYYYMMDD.
          * @param {string} targetDateStr - The target date as a string in the format YYYYMMDD.
          * @return {number} The number of days between the reference date and the target date.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
          */
         diff(refDateStr: string, targetDateStr: string): number;
         /**
@@ -429,6 +507,8 @@ declare class NC {
          * @param {string} format - The format of the date string (e.g. "YYYYMMDD").
          * @param {boolean} [isString=false] - Optional. If true, returns the components as strings; otherwise, returns them as numbers.
          * @return {string[] | number[]} An array of strings or numbers representing the date components.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
          */
         strToDateStrArr(str: string, format: string, isString?: boolean): string[] | number[];
         /**
@@ -462,6 +542,8 @@ declare class NC {
          * > Date and time separator characters such as dash (-) and colon (:) are defined by the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html) N.context.attr("data").formatter.date object functions. You can change these separator characters by modifying the return string of these functions.
          *
          * @return {NC.Date | null} A NC.Date object representing the date in the string, or null if the string does not match the format.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
          */
         strToDate(str: string, format: string): NC.Date | null;
         /**
@@ -476,6 +558,8 @@ declare class NC {
          *  - e.g., "3112" : "dm"
          *  - e.g., "12311999" : "mdY"
          * @return {string} The formatted date string.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
          */
         format(str: string, format?: string): string; // Format the date string
         /**
@@ -483,6 +567,8 @@ declare class NC {
          *
          * @param {Date} [dateObj] - The Date object to convert. If no Date object is provided, the current date and time are used.
          * @return {number} The timestamp representation of the given date.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
          */
         dateToTs(dateObj?: Date): number;
         /**
@@ -490,6 +576,8 @@ declare class NC {
          *
          * @param {number} [tsNum] - The Unix timestamp to convert. If not provided, the current time will be used.
          * @return {Date} The JavaScript Date object representing the given timestamp.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
          */
         tsToDate(tsNum?: number): Date;
         /**
@@ -498,6 +586,8 @@ declare class NC {
          * @param {number} year - The year for which the date list is to be generated.
          * @param {number} month - The month for which the date list is to be generated.
          * @return {[NC.JSONObject[]]} An array containing date objects for each day of the specified month in the specified year.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
          */
         dateList(year: number, month: number): [NC.JSONObject[]];
     };
@@ -510,6 +600,8 @@ declare class NC {
          *
          * @param {NJS<HTMLElement[]>} ele - HTML elements to be converted.
          * @return {string} Options object.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010107.html }
          */
         toOpts(ele: NJS<HTMLElement[]>): string;
         /**
@@ -518,6 +610,8 @@ declare class NC {
          * @param {NJS<HTMLElement[]>} ele - HTML elements to be converted.
          * @param {"format" | "validate"} ruleset - The type of rules to be applied, either formatting or validation.
          * @return {NC.RuleObj} - The resulting rule object containing the applied rules.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010107.html }
          */
         toRules(ele: NJS<HTMLElement[]>, ruleset: "format" | "validate"): NC.RuleObj;
         /**
@@ -532,6 +626,8 @@ declare class NC {
          *
          * @param {NJS<HTMLElement[]>} eles - N object containing only input select elements.
          * @return {JSONObject} JSON data object with id and value pairs of the input elements.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010107.html }
          */
         toData(eles: NJS<HTMLElement[]>): JSONObject;
 
@@ -540,6 +636,8 @@ declare class NC {
          *
          * @param {NJS<HTMLElement[]>} eles - HTML elements on which the change effect will be displayed.
          * @return {void} This method does not return a value.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010107.html }
          */
         dataChanged(eles: NJS<HTMLElement[]>): void;
         /**
@@ -547,6 +645,8 @@ declare class NC {
          *
          * @param {NJS<HTMLElement[]>} ele - A collection of HTML elements to evaluate.
          * @return {number} The highest z-index value found within the collection of elements.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010107.html }
          */
         maxZindex(ele: NJS<HTMLElement[]>): number;
     };
@@ -563,6 +663,8 @@ declare class NC {
          * @param {number} [expiredays] - The number of days until the cookie expires. Defaults to session cookie if not provided.
          * @param {string} [domain] - The domain where the cookie is accessible. Defaults to current domain if not provided.
          * @return {string | undefined} - The value of the cookie if only name is provided. Undefined if setting a cookie.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010109.html }
          */
         cookie(name: string, value?: string, expiredays?: number, domain?: string): string | undefined;
         /**
@@ -571,6 +673,8 @@ declare class NC {
          * @param {string} name - The name of the cookie to remove.
          * @param {string} [domain] - The domain from which the cookie is to be removed. If omitted, the current domain is assumed.
          * @return {void} This method does not return anything.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010109.html }
          */
         removeCookie(name: string, domain?: string): void;
         /**
@@ -580,6 +684,8 @@ declare class NC {
          * it as a number. If the browser is not Internet Explorer, it returns 0.
          *
          * @return {number} The version of Internet Explorer as a number, or 0 if the browser is not IE.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010109.html }
          */
         msieVersion(): number;
         /**
@@ -587,6 +693,8 @@ declare class NC {
          *
          * @param {"opera" | "firefox" | "safari" | "chrome" | "ie" | "ios" | "android"} name - The name of the browser type to check against.
          * @return {boolean} true if the given browser name matches the current browser type, otherwise false.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010109.html }
          */
         is(name: NC.BrowserType): boolean;
         /**
@@ -596,8 +704,17 @@ declare class NC {
          * which is typically the base path or root directory from which
          * the application is served. It is commonly used for constructing
          * URLs that are relative to the application's root.
+         * - "opera": Opera Browser.
+         * - "firefox": Mozilla Firefox Browser.
+         * - "safari": Apple Safari Browser.
+         * - "chrome": Google Chrome Browser.
+         * - "ie": Microsoft Internet Explorer Browser.
+         * - "android": Google Android OS
+         * - "ios": Apple iOS
          *
          * @returns {string} The application context path.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010109.html }
          */
         contextPath(): string;
         /**
@@ -607,6 +724,8 @@ declare class NC {
          * between its clientWidth and offsetWidth, and then removes the element.
          *
          * @returns {number} The width of the scrollbar in pixels.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010109.html }
          */
         scrollbarWidth(): number;
     };
@@ -647,6 +766,8 @@ declare class NC {
          *                       The message string containing variables to be replaced. Variables are denoted by placeholders such as {0}, {1}, etc.
          * @param {string[]} [vars] - An optional array of strings. Each entry in this array provides a replacement for the corresponding placeholder in the message string.
          * @return {void} This method does not return a value.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010110.html }
          */
         get(resource: NC.MessageResourceObj, key: string, vars?: string[]): void;
     };
@@ -661,6 +782,8 @@ declare class NC {
          * @param {Array} arr - The array from which duplicates are to be removed.
          * @param {string} [key] - Optional. The property name on which duplication check is based.
          * @return {Array} A new array with duplicates removed.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010111.html }
          */
         deduplicate(arr: [], key?: string): [];
     };
@@ -680,6 +803,8 @@ declare class NC {
          * @param {object[]} arr2 - The second JSON array to merge.
          * @param {string} key - The key used to identify and merge objects from the arrays.
          * @return {object[]} The merged JSON array containing objects from both arrays.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010112.html }
          */
         mergeJsonArray(arr1: object[], arr2: object[], key: string): object[]; // Merge JSON Array by key
         /**
@@ -688,6 +813,8 @@ declare class NC {
          * @param {object | object[] | string} oData - The data to be formatted. The data can be an object, array of objects, or json string.
          * @param {number} sIndent - The number of spaces to use for indentation.
          * @return {string | null} The formatted string or null if the data type is unsupported.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010112.html }
          */
         format(oData: object | object[] | string, sIndent: number): string | null; // Formats the json object beautifully.
     };
@@ -701,6 +828,8 @@ declare class NC {
          *
          * @param e - The jQuery keyboard event to be checked.
          * @return A boolean value indicating whether the event is related to number input keys.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010113.html }
          */
         isNumberRelatedKeys(e: JQuery.Event): boolean; //
         /**
@@ -708,6 +837,8 @@ declare class NC {
          *
          * @param {JQuery.Event} e - The jQuery event object associated with the event being handled.
          * @return {boolean} - Always returns false to indicate that the default action should not be executed.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010113.html }
          */
         disable(e: JQuery.Event): false;
         /**
