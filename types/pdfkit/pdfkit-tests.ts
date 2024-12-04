@@ -344,6 +344,13 @@ structureElement.end();
 const optionalPDF: PDFKit.PDFDocument = new PDFDocument({
     // @ts-expect-error
     info: {
-        Title: undefined
+        Producer: undefined,
+        Creator: undefined,
+        CreationDate: undefined,
+        Title: undefined,
+        Author: undefined,
+        Subject: undefined,
+        Keywords: undefined,
+        ModDate: undefined,
     }
 });
