@@ -1,4 +1,4 @@
-type PostTaskPriority = 'user-blocking' | 'user-visible' | 'background';
+type PostTaskPriority = "user-blocking" | "user-visible" | "background";
 
 interface PostTaskOptions {
     priority?: PostTaskPriority;

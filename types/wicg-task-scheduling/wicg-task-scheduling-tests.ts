@@ -3,7 +3,7 @@ if (window.scheduler) {
     window.scheduler.postTask(() => 42);
 
     // $ExpectType Promise<void>
-    window.scheduler.postTask(() => { });
+    window.scheduler.postTask(() => {});
 
     // $ExpectType Promise<void>
     window.scheduler.yield();
