@@ -7,7 +7,7 @@
         "https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/overview"
     ],
     "nonNpm": "conflict",
-    "nonNpmDescription": "Microsoft's client API for interacting with model-driven PowerApps and Dynamics 365 CE (Customer Engagement) applications.",
+    "nonNpmDescription": "Dynamics 365 & Power Platform JavaScript Client API",
     "devDependencies": {
         "@types/xrm": "workspace:."
     },
