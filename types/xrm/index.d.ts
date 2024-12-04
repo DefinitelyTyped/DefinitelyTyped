@@ -4072,7 +4072,6 @@ declare namespace Xrm {
                 UiCanGetVisibleElement,
                 UiCanSetVisibleElement
         {
-
             /**
              * Gets the constituent control in a quick view control by name or index.
              * @param T A Control type

@@ -156,20 +156,19 @@ alert(`The current entity type is: ${formContext.data.entity.getEntityName()}`);
 /// Demonstrate Optionset Value as int in Turbo Forms
 
 const optionSetAttribute = formContext.getAttribute<Xrm.Attributes.OptionSetAttribute>("statuscode");
-if(optionSetAttribute !== null) {
+if (optionSetAttribute !== null) {
     const optionValue: number = optionSetAttribute.getOptions()[0].value;
-    
+
     /// Demonstrate Control.setFocus();
 
-    let controls = optionSetAttribute.controls
-    if(controls !== null){
-        let firstControl = controls.get(0)
-        if(firstControl !== null) {
+    let controls = optionSetAttribute.controls;
+    if (controls !== null) {
+        let firstControl = controls.get(0);
+        if (firstControl !== null) {
             firstControl.setFocus();
         }
     }
 }
-
 
 /// Demonstrate setFormNotification
 
@@ -185,36 +184,36 @@ let submitMode: Xrm.SubmitMode = "always";
 const submitModeString = "always";
 
 let attribute = formContext.getAttribute<Xrm.Attributes.LookupAttribute>("customerid");
-if(attribute !== null){
-attribute.setSubmitMode(submitMode);
-attribute.setSubmitMode(submitModeString); // Works if the string is a const
-attribute.setRequiredLevel(requirementLevel);
-attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
+if (attribute !== null) {
+    attribute.setSubmitMode(submitMode);
+    attribute.setSubmitMode(submitModeString); // Works if the string is a const
+    attribute.setRequiredLevel(requirementLevel);
+    attribute.setRequiredLevel(requirementLevelString); // Works if the string is a const
 
-const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
+    const isMulitselect = attribute.getAttributeType() === "multiselectoptionset";
 }
 /// Demonstrate v8.2 quick form controls
 
 const quickForm = formContext.ui.quickForms.get(0);
 if (quickForm !== null) {
-quickForm.getControlType(); // == "quickform"
-quickForm.getName();
-quickForm.getParent();
-quickForm.getVisible(); // From UiCanSetVisibleElement
-quickForm.getLabel(); // From UiLabelElement
-quickForm.setLabel("Label"); // From UiLabelElement
-quickForm.refresh();
+    quickForm.getControlType(); // == "quickform"
+    quickForm.getName();
+    quickForm.getParent();
+    quickForm.getVisible(); // From UiCanSetVisibleElement
+    quickForm.getLabel(); // From UiLabelElement
+    quickForm.setLabel("Label"); // From UiLabelElement
+    quickForm.refresh();
 }
 // Get standard control
 const ctrl = formContext.getControl<Xrm.Controls.StandardControl>("controlName");
 if (ctrl !== null) {
-ctrl.getControlType();
-ctrl.getName();
-ctrl.getParent();
-ctrl.getLabel();
-ctrl.setLabel("Label name");
-ctrl.getVisible();
-ctrl.setVisible(true);
+    ctrl.getControlType();
+    ctrl.getName();
+    ctrl.getParent();
+    ctrl.getLabel();
+    ctrl.setLabel("Label name");
+    ctrl.getVisible();
+    ctrl.setVisible(true);
 }
 // Demonstrate getEntityMetadata
 Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
@@ -260,8 +259,8 @@ Xrm.WebApi.retrieveMultipleRecords(
 const contextHandler = (context: Xrm.Events.EventContext) => {
     context.getEventSource();
 };
-const tabName = formContext.ui.tabs.get("tabName")
-if(tabName !== null) {
+const tabName = formContext.ui.tabs.get("tabName");
+if (tabName !== null) {
     tabName.addTabStateChange(contextHandler);
     tabName.removeTabStateChange(contextHandler);
 }
@@ -576,7 +575,7 @@ function booleanAttributeControls(formContext: Xrm.FormContext) {
     let booleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>(
         "prefx_myattribute",
     );
-    if(booleanAttribute === null) {
+    if (booleanAttribute === null) {
         return;
     }
     const booleanValue: boolean | null = booleanAttribute.getValue();
@@ -632,8 +631,8 @@ Xrm.Navigation.navigateTo({
 );
 
 const multiSelectOptionSetControl = formContext.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
-if (multiSelectOptionSetControl === null) { 
-    throw new Error("Control does not exist!")
+if (multiSelectOptionSetControl === null) {
+    throw new Error("Control does not exist!");
 }
 // $ExpectType MultiSelectOptionSetAttribute
 multiSelectOptionSetControl.getAttribute();
@@ -642,8 +641,8 @@ multiSelectOptionSetControl.getAttribute();
 const webResourceUrl = Xrm.Utility.getGlobalContext().getWebResourceUrl("sample_webResource1.js");
 
 const optionSetControl = formContext.getControl<Xrm.Controls.OptionSetControl>("singlechoice");
-if (optionSetControl === null) { 
-    throw new Error("Control does not exist!")
+if (optionSetControl === null) {
+    throw new Error("Control does not exist!");
 }
 // Demonstrates getOptions for Xrm.Controls.OptionSetControl
 
