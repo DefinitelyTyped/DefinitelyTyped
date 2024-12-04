@@ -109,6 +109,11 @@ declare module "." {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
 
+    /**
+     * Warning: Only available in development builds.
+     */
+    function captureOwnerStack(): string | null;
+
     type Reference = object;
     type TaintableUniqueValue = string | bigint | ArrayBufferView;
     function experimental_taintUniqueValue(
