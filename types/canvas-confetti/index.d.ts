@@ -108,6 +108,12 @@ declare namespace confetti {
          * @default 100
          */
         zIndex?: number | undefined;
+        /**
+         * Optionally turns off the tilt and wobble that three dimensional confetti would have in the real world.
+         * Yeah, they look a little sad, but y'all asked for them, so don't blame me.
+         * @default false
+         */
+        flat?: boolean | undefined;
     }
 
     interface Origin {
