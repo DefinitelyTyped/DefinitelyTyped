@@ -22,6 +22,11 @@
                 "default": "./canary.d.ts"
             }
         },
+        "./compiler-runtime": {
+            "types": {
+                "default": "./compiler-runtime.d.ts"
+            }
+        },
         "./experimental": {
             "types@<=5.0": {
                 "default": "./ts5.0/experimental.d.ts"
