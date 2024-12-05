@@ -115,7 +115,7 @@ declare namespace NA {
          *     N.log(cont); // cont: Controller object
          * });
          * ```
-         * @return {JQuery.jqXHR | NA.Communicator} The jqXHR object or the communicator instance depending on the submission context.
+         * @return {JQuery.jqXHR | NA.Communicator} The jqXHR object or the Communicator instance depending on the submission context.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
          */
@@ -144,7 +144,7 @@ declare namespace NA {
          * });
          * ```
          *
-         * @return {NA.Communicator} Returns the communicator instance for chaining.
+         * @return {NA.Communicator} Returns the Communicator instance for chaining.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
          */

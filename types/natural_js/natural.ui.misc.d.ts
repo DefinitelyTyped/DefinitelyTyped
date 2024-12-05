@@ -1,56 +1,310 @@
 declare namespace NU {
+
+    enum ButtonSize {
+        NONE = "none",
+        SMALLER = "smaller",
+        SMALL = "small",
+        MEDIUM = "medium",
+        LARGE = "large",
+        BIG = "big"
+    }
+    enum ButtonColor {
+        NONE = "none",
+        PRIMARY = "primary",
+        PRIMARY_CONTAINER = "primary_container",
+        SECONDARY = "secondary",
+        SECONDARY_CONTAINER = "secondary_container",
+        TERTIARY = "tertiary",
+        TERTIARY_CONTAINER = "tertiary_container"
+    }
+    enum ButtonType {
+        NONE = "none",
+        FILLED = "filled",
+        OUTLINED = "outlined",
+        ELEVATED = "elevated"
+    }
+
     namespace Options {
         type Alert = {
+            /**
+             * N.alert의 메시지 대화상자가 표시될 영역을 지정합니다.
+             *
+             * modal 옵션이 true로 설정되었을 때 N.alert의 overlay 요소가 context로 지정한 요소만큼 가려 줍니다.
+             * > window 객체를 지정하면 화면 전체를 덮어 주고 jquery selector 나 jQuery object를 입력하면 지정한 요소만큼 만 가려줍니다.
+             *
+             * 입력 요소(select, input, textarea 등)를 지정하면 입력 요소 옆에 툴팁으로 메시지를 표시해 줍니다.
+             */
             context?: Window | NJS<HTMLElement[]> | null;
+            /**
+             * 메시지 내용.
+             *
+             * > 메시지 문자열, jQuery object, HTML 문자열이나 HTML 요소를 지정할 수 있습니다.
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             msg: string;
+            /**
+             * 메시지의 변수를 입력 한 값으로 치환해 줍니다.
+             * > 메시지에 선언된 `{index}`와 같은 변수가 vars 옵션으로 설정 한 array의 index에 해당하는 값으로 치환됩니다.
+             * ```
+             * N(window).alert({
+             *     msg : "{0} {1}-JS.",
+             *     vars : ["Hello", "Natural"]
+             * }).show();
+             *
+             * // Result message : "Hello Natural-JS"
+             * ```
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             vars?: string[] | undefined;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             html?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             top?: number | undefined;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             left?: number | undefined;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             width?: NU.EventHandlers.Alert.Width | number;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             height?: NU.EventHandlers.Alert.Height | number;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             isInput?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             isWindow?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             title?: string;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             button?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             okButtonOpts?: NU.Options.Button | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             cancelButtonOpts?: NU.Options.Button | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             closeMode?: "hide" | "remove";
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             modal?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             onOk?: NU.EventHandlers.Alert.OnOk | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             onCancel?: NU.EventHandlers.Alert.OnCancel | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             onBeforeShow?: NU.EventHandlers.Alert.OnBeforeShow | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             onShow?: NU.EventHandlers.Alert.OnShow | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             onBeforeHide?: NU.EventHandlers.Alert.OnBeforeHide | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             onHide?: NU.EventHandlers.Alert.OnHide | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             onBeforeRemove?: NU.EventHandlers.Alert.OnBeforeRemove | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             onRemove?: NU.EventHandlers.Alert.OnRemove | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             overlayColor?: "string" | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             overlayClose?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             escClose?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             confirm?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             alwaysOnTop?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             alwaysOnTopCalcTarget?: string;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             dynPos?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             windowScrollLock?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             draggable?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             draggableOverflowCorrection?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             draggableOverflowCorrectionAddValues?: {
                 top?: number;
                 bottom?: number;
                 left?: number;
                 right?: number
             };
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             */
             saveMemory?: boolean;
         };
 
         type Button = {
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             */
             context?: NJS<HTMLElement[]> | null;
-            size?: "none" | "smaller" | "small" | "medium" | "large" | "big";
-            color?: "none" | "primary" | "primary_container" | "secondary" | "secondary_container" | "tertiary" | "tertiary_container";
-            type?: "none" | "filled" | "outlined" | "elevated";
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             */
+            size?: ButtonSize;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             */
+            color?: ButtonColor;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             */
+            type?: ButtonType;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             */
             disable?: boolean;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             */
             onBeforeCreate?: NU.EventHandlers.Button.OnBeforeCreate | null;
+            /**
+             *
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             */
             onCreate?: NU.EventHandlers.Button.OnCreate | null;
         };
 

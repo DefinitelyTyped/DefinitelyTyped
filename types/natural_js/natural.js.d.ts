@@ -169,13 +169,6 @@ declare namespace N {
      * This class defines common functions that support the development of Natural-UI components.
      */
     const ui: typeof NU.ui;
-    /**
-     * Alert (N.alert) is a UI component that displays message dialog boxes such as window.alert or window.confirm in a layer popup form.
-     *
-     * > If the Alert dialog box is not displayed, and an error occurs, you need to specify the element where N.alert related elements will be stored with a jQuery selector string in the N.context.attr("ui").alert.container property of the Config (natural.config.js).
-     *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html }
-     */
     const alert: typeof NU.alert;
     /**
      * Button (N.button) is a UI component that creates buttons using the `a, input[type=button], button` elements specified by the context option.

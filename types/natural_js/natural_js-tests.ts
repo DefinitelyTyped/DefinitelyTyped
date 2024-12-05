@@ -122,10 +122,14 @@ alertInst.options.msg = "Hello";
 alertInst.context("span").each(function (index, element) {});
 
 N(".button").button({
-    color: "primary_container"
+    color: NU.ButtonColor.PRIMARY_CONTAINER,
+    size: NU.ButtonSize.BIG,
+    type: NU.ButtonType.ELEVATED
 }).disable();
 new N.button(N(".button"), {
-    color: "primary_container"
+    color: NU.ButtonColor.PRIMARY_CONTAINER,
+    size: NU.ButtonSize.BIG,
+    type: NU.ButtonType.ELEVATED
 }).disable();
 
 N(".input").datepicker({

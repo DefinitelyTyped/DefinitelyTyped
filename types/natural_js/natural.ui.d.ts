@@ -1,8 +1,33 @@
 import JSONObject = NC.JSONObject;
 
 declare class NU {
-
+    /**
+     * Create an object instance of Alert with the N() function.
+     * ```
+     * var alert = N(context).alert(opts|msg);
+     * var alert = N(context).alert(opts|msg, vars);
+     * ```
+     *
+     * @this {NJS<HTMLElement[]>} - The context element on which the modal overlay of Alert will be displayed.
+     * @param {NU.Options.Alert | string} msg - Specifies an options object for the component or a string representing the contents of the warning message.
+     * @param {string[]} [vars] - This is an array of strings to replace the message variable with.
+     * @returns {NU.Alert} An instance of an alert object, configured according to the provided options.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040103.html }
+     */
     alert(msg: NU.Options.Alert | string, vars?: string[]): NU.Alert;
+    /**
+     * Creates an object instance of Button with the N() function.
+     * ```
+     * var button = N(context).button(opts);
+     * ```
+     *
+     * @this {NJS<HTMLElement[]>} - The context element to which the Button will be applied.
+     * @param {NU.Options.Button} [opts] - Specifies the option object for the component.
+     * @returns {NU.Button} An instance of a Button object, configured according to the provided options.
+     *
+     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040203.html }
+     */
     button(opts?: NU.Options.Button): NU.Button;
     datepicker(opts?: NU.Options.Datepicker): NU.Datepicker;
     popup(opts?: NU.Options.Popup): NU.Popup;
@@ -38,6 +63,20 @@ declare class NU {
     };
 
     static alert: {
+        /**
+         * Creates an object instance of Alert.
+         * ```
+         * var alert = new N.alert(context, opts|msg);
+         * var alert = new N.alert(context, opts|msg, vars);
+         * ```
+         *
+         * @param {NJS<HTMLElement[]>} obj - Specifies the element on which Alert's modal overlay will be displayed.
+         * @param {NU.Options.Alert | string} msg - Either an options object that defines how the alert should behave, or a string representing the alert message content.
+         * @param {string[]} [vars] - This is an array of strings to replace the message variable with.
+         * @returns {NU.Alert} An instance of an Alert object, configured according to the provided parameters.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040103.html }
+         */
         new(obj: NJS<HTMLElement[]>, msg: NU.Options.Alert | string, vars?: string[]): NU.Alert;
         wrapEle(): void;
         resetOffSetEle(opts: NU.Options.Alert): void;
@@ -45,6 +84,16 @@ declare class NU {
     };
 
     static button: {
+        /**
+         * Creates an object instance of Button.
+         * ```
+         * var button = new N.button(context, opts);
+         * ```
+         *
+         * @param {NJS<HTMLElement[]>} obj - Specifies the context element to which the Button will be applied.
+         * @param {NU.Options.Button} [opts] - Specifies the default option object for the component.
+         * @returns {NU.Button} An instance of a Button object, configured according to the provided parameters.
+         */
         new(obj: NJS<HTMLElement[]>, opts?: NU.Options.Button): NU.Button;
         wrapEle(): void;
     };
@@ -120,16 +169,67 @@ declare namespace NU {
 
     interface Alert {
         options: NU.Options.Alert;
+        /**
+         * Returns the context element.
+         *
+         * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
+         * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
+         */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Shows a message dialog box.
+         *
+         * @return {NU.Alert} Returns the Alert instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
+         */
         show(): NU.Alert;
+        /**
+         * Hides the message dialog box.
+         *
+         * @return {NU.Alert} Returns the Alert instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
+         */
         hide(): NU.Alert;
+        /**
+         * Removes all elements related to Alert.
+         *
+         * @return {NU.Alert} Returns the Alert instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
+         */
         remove(): NU.Alert;
     }
 
     interface Button {
         options: NU.Options.Button;
+        /**
+         * Returns the context element.
+         *
+         * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
+         * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html }
+         */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Disable the button.
+         *
+         * @return {NU.Button} Returns the Alert instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html }
+         */
         disable(): NU.Button;
+        /**
+         * Enable the button.
+         *
+         * @return {NU.Button} Returns the Alert instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html }
+         */
         enable(): NU.Button;
     }
 
