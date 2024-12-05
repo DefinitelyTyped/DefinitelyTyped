@@ -63,5 +63,4 @@ export interface AssignmentObject {
     [variableName: string]: JsonValue;
 }
 
-// Add this type for JSONata expressions
 export type JSONataExpression = string | JsonValue;

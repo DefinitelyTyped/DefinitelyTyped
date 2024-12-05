@@ -14,7 +14,7 @@ export type Fail = {
     QueryLanguage?: QueryLanguage;
 } & ErrorConfig & CauseConfig;
 
-// Error configuration - must use either direct value or path, not both
+// Error configuration
 export type ErrorConfig =
     | {
         Error?: string | JSONataExpression;
@@ -25,7 +25,7 @@ export type ErrorConfig =
         ErrorPath?: ReferencePath | IntrinsicFunction;
     };
 
-// Cause configuration - must use either direct value or path, not both
+// Cause configuration
 export type CauseConfig =
     | {
         Cause?: string | JSONataExpression;
