@@ -21,22 +21,22 @@ interface args {
     printMainColor: any; // depends on chalk
     printSubColor: any; // depends on chalk
     Args(): any; // not sure what this is supposed to be
-    handleType(value: any): Array<(string | ((value: any) => any))>; // value -> initialType
-    readOption(option: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): { [key: string]: any};
-    getOptions(definedSubcommand: {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean): boolean | Option[]; // can also return map type options or details
+    handleType(value: string | number | any[] | undefined | ((input: string) => number)): Array<(string | ((value: string) => number))>; // value -> initialType
+    readOption(option: DetailsOptions | Command | Example | boolean): { [key: string]: any};
+    getOptions(definedSubcommand: DetailsOptions | Command | Example | boolean): boolean | Option[]; // can also return map type options or details
     generateExamples(): string[];
     generateDetails(kind: Array<{defaultValue: any, usage: string[], description: string, init?: any}>): string[];
-    runCommand(details: any, options: any): void;
+    runCommand(details: CommandDetails, options: {[key: string]: any}): void;
     checkHelp(): void;
     checkVersion(): void;
-    isDefined(name: any, list: string): {defaultValue: any, usage: string[], description: string, init?: any} | Command | Example | boolean;
+    isDefined(name: string, list: 'options' | 'commands' | 'examples'): Option | Command | Example | false;
     optionWasProvided(name: string): boolean;
-    raw?: object; // not too sure...
+    raw?: any; // not too sure...
     binary?: string;
-    _?: any;
-    sub?: string[];
+    _?: string[];
+    sub?: string[] | undefined;
     // test props
-    reset?: () => any; // returns args object
+    reset?: () => args; // returns args object
     suppressOutput?: (fn: () => any) => {exit: {help: boolean, version: boolean}, help: boolean, version: boolean, usageFilter: any, value: string, name: string, mainColor: string | string[], subColor: string | string[]}; // returns config in test cases ?
 }
 type OptionInitFunction = (value: any) => any;
@@ -104,4 +104,14 @@ interface DetailsOptions {
     usage: string[];
     description: string;
     init?: any;
+}
+
+interface CommandDetails {
+   usage: string | string[];
+   init?: ((name: string, sub: string[], options: any) => any) | false;
+}
+
+interface RawArgs {
+   _: string[];
+   [key: string]: string | boolean | number | string[] | undefined;
 }
