@@ -110,8 +110,3 @@ interface CommandDetails {
    usage: string | string[];
    init?: ((name: string, sub: string[], options: any) => any) | false;
 }
-
-interface RawArgs {
-   _: string[];
-   [key: string]: string | boolean | number | string[] | undefined;
-}
