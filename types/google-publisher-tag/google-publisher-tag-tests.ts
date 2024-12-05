@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20241118
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/c0d605d2054ade2594549848ebd57bb9c1b6b909
+// Tests for Google Publisher Tag 1.20241202
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/11a67de54de9180e5f3cf31c23c402f43071cdca
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -740,6 +740,22 @@ function test_googletag_config_interstitialConfig_triggers() {
                 navBar: enableTriggers,
                 unhideWindow: enableTriggers,
             },
+        },
+    });
+}
+
+// Test for googletag.config.InterstitialConfig.requireStorageAccess
+function test_googletag_config_interstitialConfig_requireStorageAccess() {
+    // Opt out of showing interstitials to users
+    // without local storage consent.
+    const interstitialSlot = googletag.defineOutOfPageSlot(
+        "/1234567/sports",
+        googletag.enums.OutOfPageFormat.INTERSTITIAL,
+    )!;
+
+    interstitialSlot.setConfig({
+        interstitial: {
+            requireStorageAccess: true, // defaults to false
         },
     });
 }
