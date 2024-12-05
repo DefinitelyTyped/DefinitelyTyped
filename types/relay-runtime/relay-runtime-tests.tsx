@@ -646,6 +646,12 @@ const operationWithCacheConfig = createOperationDescriptor(request, variables, c
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
 
+__internal.fetchQueryDeduped(
+    environment,
+    operation.request.identifier,
+    () => environment.execute({ operation }),
+);
+
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // MULTI ACTOR ENVIRONMENT
 // ~~~~~~~~~~~~~~~~~~~~~~~
