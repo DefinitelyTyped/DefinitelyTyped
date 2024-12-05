@@ -94,7 +94,7 @@ const handleRef = (el: HTMLAnchorElement | null) => {
 <Link innerRef={handleRef} to="./foo"></Link>;
 <Link ref={handleRef} to="./foo"></Link>;
 
-const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
+const refObject: React.RefObject<HTMLAnchorElement | null> = { current: null };
 <Link innerRef={refObject} to="./foo"></Link>;
 <Link ref={refObject} to="./foo"></Link>;
 
