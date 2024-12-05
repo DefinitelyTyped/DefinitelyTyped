@@ -15,12 +15,10 @@ interface args {
     parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };
     showHelp(): void;
     showVersion(): void;
-    // new
-    details: {options: DetailsOptions[], commands: Command[], examples: Example[]}; // TODO: wtf is init
-    config: {exit: {help: boolean, version: boolean}, help: boolean, version: boolean, usageFilter: any, value: string, name: string, mainColor: string | string[], subColor: string | string[]}; // TODO: wtf is usagefilter
-    printMainColor: any; // depends on chalk
-    printSubColor: any; // depends on chalk
-    Args(): any; // not sure what this is supposed to be
+    details: {options: DetailsOptions[], commands: Command[], examples: Example[]};
+    config: {exit: {help: boolean, version: boolean}, help: boolean, version: boolean, usageFilter: ((...args: any[]) => any) | null, value: string, name: string, mainColor: string | string[], subColor: string | string[]};
+    //printMainColor: depends on chalk
+    //printSubColor: depends on chalk
     handleType(value: string | number | any[] | undefined | ((input: string) => number)): Array<(string | ((value: string) => number))>; // value -> initialType
     readOption(option: DetailsOptions | Command | Example | boolean): { [key: string]: any};
     getOptions(definedSubcommand: DetailsOptions | Command | Example | boolean): boolean | Option[]; // can also return map type options or details
@@ -103,7 +101,7 @@ interface DetailsOptions {
     defaultValue: any;
     usage: string[];
     description: string;
-    init?: any;
+    init?: ((...args: any[]) => any) | undefined;
 }
 
 interface CommandDetails {
