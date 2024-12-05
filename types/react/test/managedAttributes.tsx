@@ -25,7 +25,6 @@ const unannotatedPropTypesAndDefaultPropsTests = [
     <UnannotatedPropTypesAndDefaultProps extraBool={0} />,
 ];
 
-
 class AnnotatedDefaultProps extends React.Component<Props> {
     static defaultProps = defaultProps;
 }
