@@ -1,5 +1,16 @@
 import { Catch, Retry } from "./errors";
-import { EndOrNext, IntrinsicFunction, JsonObject, Path, PositiveInteger, ReferencePath, Resource, JSONataExpression, QueryLanguage, AssignmentObject } from "./state";
+import {
+    AssignmentObject,
+    EndOrNext,
+    IntrinsicFunction,
+    JSONataExpression,
+    JsonObject,
+    Path,
+    PositiveInteger,
+    QueryLanguage,
+    ReferencePath,
+    Resource,
+} from "./state";
 
 /**
  * The Task State (identified by "Type":"Task") causes the interpreter to execute the work identified by the state's "Resource" field.

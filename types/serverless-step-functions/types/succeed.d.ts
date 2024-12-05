@@ -1,4 +1,4 @@
-import { Path, QueryLanguage, JSONataExpression } from "./state";
+import { JSONataExpression, Path, QueryLanguage } from "./state";
 
 /**
  * The Succeed State (identified by "Type":"Succeed") either terminates a state machine successfully,

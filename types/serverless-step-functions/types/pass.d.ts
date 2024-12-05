@@ -1,4 +1,12 @@
-import { Path, QueryLanguage, AssignmentObject, JSONataExpression, EndOrNext, ReferencePath, JsonObject } from "./state";
+import {
+    AssignmentObject,
+    EndOrNext,
+    JSONataExpression,
+    JsonObject,
+    Path,
+    QueryLanguage,
+    ReferencePath,
+} from "./state";
 
 /**
  * The Pass State (identified by "Type":"Pass") by default passes its input to its output, performing no work.

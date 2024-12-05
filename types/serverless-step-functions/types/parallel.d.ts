@@ -1,5 +1,14 @@
 import { Catch, Retry } from "./errors";
-import { EndOrNext, JsonObject, Path, ReferencePath, State, QueryLanguage, AssignmentObject, JSONataExpression } from "./state";
+import {
+    AssignmentObject,
+    EndOrNext,
+    JSONataExpression,
+    JsonObject,
+    Path,
+    QueryLanguage,
+    ReferencePath,
+    State,
+} from "./state";
 
 export interface Branch {
     StartAt: string;

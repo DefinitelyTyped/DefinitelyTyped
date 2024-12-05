@@ -1,4 +1,4 @@
-import { EndOrNext, Path, PositiveInteger, QueryLanguage, AssignmentObject, JSONataExpression } from "./state";
+import { AssignmentObject, EndOrNext, JSONataExpression, Path, PositiveInteger, QueryLanguage } from "./state";
 
 /**
  * The Wait State (identified by "Type":"Wait") can be used to delay the state machine from continuing for a specified time.

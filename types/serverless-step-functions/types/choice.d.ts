@@ -1,4 +1,4 @@
-import { Path, QueryLanguage, AssignmentObject, JSONataExpression } from "./state";
+import { AssignmentObject, JSONataExpression, Path, QueryLanguage } from "./state";
 
 // JSONPath style choice rules
 export interface ChoiceRuleComparison {

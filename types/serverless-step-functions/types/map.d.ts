@@ -1,5 +1,16 @@
 import { Catch, Retry } from "./errors";
-import { EndOrNext, JsonObject, Path, ReferencePath, State, QueryLanguage, AssignmentObject, JSONataExpression, Resource, PositiveInteger } from "./state";
+import {
+    AssignmentObject,
+    EndOrNext,
+    JSONataExpression,
+    JsonObject,
+    Path,
+    PositiveInteger,
+    QueryLanguage,
+    ReferencePath,
+    Resource,
+    State,
+} from "./state";
 
 export interface ItemProcessor {
     StartAt: string;

@@ -112,10 +112,11 @@ const stepFunctions: StepFunctions = {
                                         QueryLanguage: "JSONata",
                                         End: true,
                                         Output: {
-                                            isIdentityValid: "{% $match($states.input.data.identity.email, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/) and $match($states.input.data.identity.ssn, /^(\\d{3}-?\\d{2}-?\\d{4}|XXX-XX-XXXX)$/) %}"
-                                        }
-                                    }
-                                }
+                                            isIdentityValid:
+                                                "{% $match($states.input.data.identity.email, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/) and $match($states.input.data.identity.ssn, /^(\\d{3}-?\\d{2}-?\\d{4}|XXX-XX-XXXX)$/) %}",
+                                        },
+                                    },
+                                },
                             },
                             {
                                 StartAt: "Check Address",
@@ -125,17 +126,18 @@ const stepFunctions: StepFunctions = {
                                         QueryLanguage: "JSONata",
                                         End: true,
                                         Output: {
-                                            isAddressValid: "{% $not(null in $each($states.input.data.address, function($v) { $length($trim($v)) > 0 ? $v : null })) %}"
-                                        }
-                                    }
-                                }
-                            }
+                                            isAddressValid:
+                                                "{% $not(null in $each($states.input.data.address, function($v) { $length($trim($v)) > 0 ? $v : null })) %}",
+                                        },
+                                    },
+                                },
+                            },
                         ],
                         Assign: {
                             inputPayload: "{% $states.context.Execution.Input %}",
-                            isCustomerValid: "{% $states.result.isIdentityValid and $states.result.isAddressValid %}"
+                            isCustomerValid: "{% $states.result.isIdentityValid and $states.result.isAddressValid %}",
                         },
-                        Next: "Approve or Deny?"
+                        Next: "Approve or Deny?",
                     },
                     "Approve or Deny?": {
                         Type: "Choice",
@@ -143,10 +145,10 @@ const stepFunctions: StepFunctions = {
                         Choices: [
                             {
                                 Next: "Add Account",
-                                Condition: "{% $isCustomerValid %}"
-                            }
+                                Condition: "{% $isCustomerValid %}",
+                            },
                         ],
-                        Default: "Deny Message"
+                        Default: "Deny Message",
                     },
                     "Add Account": {
                         Type: "Task",
@@ -156,23 +158,23 @@ const stepFunctions: StepFunctions = {
                             TableName: "${AccountsTable}",
                             Item: {
                                 PK: {
-                                    S: "{% $uuid() %}"
+                                    S: "{% $uuid() %}",
                                 },
                                 email: {
-                                    S: "{% $inputPayload.data.identity.email %}"
+                                    S: "{% $inputPayload.data.identity.email %}",
                                 },
                                 name: {
-                                    S: "{% $inputPayload.data.firstname & ' ' & $inputPayload.data.lastname  %}"
+                                    S: "{% $inputPayload.data.firstname & ' ' & $inputPayload.data.lastname  %}",
                                 },
                                 address: {
-                                    S: "{% $join($each($inputPayload.data.address, function($v) { $v }), ', ') %}"
+                                    S: "{% $join($each($inputPayload.data.address, function($v) { $v }), ', ') %}",
                                 },
                                 timestamp: {
-                                    S: "{% $now() %}"
-                                }
-                            }
+                                    S: "{% $now() %}",
+                                },
+                            },
                         },
-                        Next: "Home Insurance Interests"
+                        Next: "Home Insurance Interests",
                     },
                     "Home Insurance Interests": {
                         Type: "Task",
@@ -180,31 +182,34 @@ const stepFunctions: StepFunctions = {
                         Resource: "arn:aws:states:::sqs:sendMessage",
                         Arguments: {
                             QueueUrl: "${HomeInsuranceInterestQueueArn}",
-                            MessageBody: "{% ($e := $inputPayload.data.identity.email; $n := $inputPayload.data.firstname & ' ' & $inputPayload.data.lastname; $inputPayload.data.interests[category = 'home']{'customer': $n, 'email': $e, 'totalAssetValue': $sum(estimatedValue), category: {type: yearBuilt}}) %}"
+                            MessageBody:
+                                "{% ($e := $inputPayload.data.identity.email; $n := $inputPayload.data.firstname & ' ' & $inputPayload.data.lastname; $inputPayload.data.interests[category = 'home']{'customer': $n, 'email': $e, 'totalAssetValue': $sum(estimatedValue), category: {type: yearBuilt}}) %}",
                         },
-                        Next: "Approved Message"
+                        Next: "Approved Message",
                     },
                     "Approved Message": {
                         Type: "Task",
                         Resource: "arn:aws:states:::sns:publish",
                         Parameters: {
                             TopicArn: "${SendCustomerNotificationSNSTopicArn}",
-                            "Message.$": "States.Format('Hello {}, your application has been approved.', $inputPayload.data.firstname)"
+                            "Message.$":
+                                "States.Format('Hello {}, your application has been approved.', $inputPayload.data.firstname)",
                         },
-                        End: true
+                        End: true,
                     },
                     "Deny Message": {
                         Type: "Task",
                         Resource: "arn:aws:states:::sns:publish",
                         Parameters: {
                             TopicArn: "${SendCustomerNotificationSNSTopicArn}",
-                            "Message.$": "States.Format('Hello {}, your application has been denied because validation of provided data failed', $inputPayload.data.firstname)"
+                            "Message.$":
+                                "States.Format('Hello {}, your application has been denied because validation of provided data failed', $inputPayload.data.firstname)",
                         },
-                        End: true
-                    }
-                }
-            }
-        }
+                        End: true,
+                    },
+                },
+            },
+        },
     },
     validate: true,
     noOutput: false,

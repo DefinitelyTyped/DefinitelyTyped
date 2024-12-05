@@ -1,4 +1,4 @@
-import { IntrinsicFunction, ReferencePath, QueryLanguage, JSONataExpression } from "./state";
+import { IntrinsicFunction, JSONataExpression, QueryLanguage, ReferencePath } from "./state";
 
 /**
  * The Fail State (identified by "Type":"Fail") terminates the state machine and marks it as a failure.
@@ -6,13 +6,16 @@ import { IntrinsicFunction, ReferencePath, QueryLanguage, JSONataExpression } fr
  * @see https://states-language.net/#fail-state
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-fail-state.html
  */
-export type Fail = {
-    Type: "Fail";
-    Comment?: string;
+export type Fail =
+    & {
+        Type: "Fail";
+        Comment?: string;
 
-    // Common fields
-    QueryLanguage?: QueryLanguage;
-} & ErrorConfig & CauseConfig;
+        // Common fields
+        QueryLanguage?: QueryLanguage;
+    }
+    & ErrorConfig
+    & CauseConfig;
 
 // Error configuration
 export type ErrorConfig =
