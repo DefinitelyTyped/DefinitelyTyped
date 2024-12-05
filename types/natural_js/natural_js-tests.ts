@@ -25,7 +25,6 @@ new Date().formatDate("Y-m-d");
 
 const selector = N("asdf").selector;
 
-N("").datasort("asd", false);
 N.validator.frn_rrn("");
 
 N.ajax({
@@ -110,8 +109,10 @@ N([{}]).validator({
     "generic" : [[ND.ValidationRules.REQUIRED], [ND.ValidationRules.KOREAN]],
     "limit" : [[ND.ValidationRules.REQUIRED], [ND.ValidationRules.ALPHABET]]
 }).validate(1);
-N.validator.rrn("asf");
+N.validator.rrn("123456-7890123");
+N.validator.minlength("123456-7890123", [6]);
 N([]).datasort("key", false);
+N.data.sort([{}], "key", true);
 
 N(".area").alert("Hello").show();
 const alertInst = new N.alert(N(".area"), {

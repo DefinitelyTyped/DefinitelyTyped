@@ -25,6 +25,13 @@ declare namespace ND {
         GENERIC = "generic",
         NUMERIC = "numeric"
     }
+    enum FormatMaskingRules {
+        PHONE = "phone",
+        EMAIL = "email",
+        ADDRESS = "address",
+        NAME = "name",
+        RRN = "rrn"
+    }
 
     enum ValidationRules {
         REQUIRED = "required",
