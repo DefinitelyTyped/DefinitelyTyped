@@ -708,7 +708,7 @@ export function createContext<T>(
     defaultValue: T,
 ): Context<T>;
 
-export function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
+export function isValidElement<P>(object: unknown): object is ReactElement<P>;
 
 export namespace Children {
     function map<T, C>(
