@@ -710,16 +710,17 @@ export function createContext<T>(
 
 export function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
-export const Children: {
-    map<T, C>(
+export namespace Children {
+    function map<T, C>(
         children: C | readonly C[],
         fn: (child: C, index: number) => T,
     ): C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
-    forEach<C>(children: C | readonly C[], fn: (child: C, index: number) => void): void;
-    count(children: any): number;
-    only<C>(children: C): C extends any[] ? never : C;
-    toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
-};
+    function forEach<C>(children: C | readonly C[], fn: (child: C, index: number) => void): void;
+    function count(children: any): number;
+    function only<C>(children: C): C extends any[] ? never : C;
+    function toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
+}
+
 /**
  * Lets you group elements without a wrapper node.
  *
