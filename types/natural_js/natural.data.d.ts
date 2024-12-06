@@ -1086,17 +1086,32 @@ declare class ND {
 declare namespace ND {
 
     interface Formatter {
+        /**
+         * TODO Please add a comment.
+         */
         format(row: number): ND.FormatResultObject;
+        /**
+         * TODO Please add a comment.
+         */
         unformat(row: number, key: string): NC.Primitive;
     }
 
     interface Validator {
+        /**
+         * TODO Please add a comment.
+         */
         validate(row: number): ND.ValidateResultObject;
     }
 
     interface DataSync {
         viewContext: NJS<HTMLElement[]>;
+        /**
+         * TODO Please add a comment.
+         */
         remove(): DataSync;
+        /**
+         * TODO Please add a comment.
+         */
         notify(row: number, key: string): DataSync;
     }
 
