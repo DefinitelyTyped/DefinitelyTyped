@@ -718,7 +718,7 @@ export namespace Children {
     function forEach<C>(children: C | readonly C[], fn: (child: C, index: number) => void): void;
     function count(children: any): number;
     function only<C>(children: C): C extends any[] ? never : C;
-    function toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
+    function toArray(children: ReactNode): Array<Exclude<ReactNode, boolean | null | undefined>>;
 }
 
 /**
