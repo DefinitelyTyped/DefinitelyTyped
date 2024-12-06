@@ -1243,11 +1243,7 @@ interface XRWebGLBinding {
     getDepthInformation(view: XRView): XRWebGLDepthInformation | null | undefined;
 }
 
-enum XRInteractionMode {
-    ScreenSpace = "screen-space",
-    WorldSpace = "world-space"
-}
-
+type XRInteractionMode = "screen-space" | "world-space";
 /**
  * END: WebXR Depth Sensing Module
  * https://www.w3.org/TR/webxr-depth-sensing-1/
