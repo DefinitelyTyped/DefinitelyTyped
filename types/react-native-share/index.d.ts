@@ -64,6 +64,7 @@ interface LinkMetadata {
     image?: string | undefined;
     remoteVideoUrl?: string | undefined;
     video?: string | undefined;
+    base64Icon?: string | undefined;
 }
 
 interface ActivityItem {
