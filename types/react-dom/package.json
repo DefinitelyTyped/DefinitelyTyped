@@ -42,8 +42,8 @@
             }
         }
     },
-    "dependencies": {
-        "@types/react": "*"
+    "peerDependencies": {
+        "@types/react": "^19.0.0"
     },
     "devDependencies": {
         "@types/react-dom": "workspace:."
