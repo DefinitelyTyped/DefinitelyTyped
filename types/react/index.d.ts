@@ -1835,7 +1835,7 @@ declare namespace React {
      * A good example of this is a text input.
      *
      * @param value The value that is going to be deferred
-     * @param initialValue A value to use during the initial render of a component. If this option is omitted, useDeferredValue will not defer during the initial render, because there’s no previous version of value that it can render instead.
+     * @param initialValue A value to use during the initial render of a component. If this option is omitted, `useDeferredValue` will not defer during the initial render, because there’s no previous version of `value` that it can render instead.
      *
      * @see {@link https://react.dev/reference/react/useDeferredValue}
      */
