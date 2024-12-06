@@ -6046,7 +6046,7 @@ declare namespace Xrm {
          *       * 5: EntityType
          *   - typeName: String. The fully qualified name of the parameter type.
          */
-        execute(request: any): Async.PromiseLike<ExecuteResponse>;
+        execute<TExecuteResponseBody = object>(request: any): Async.PromiseLike<ExecuteResponse<TExecuteResponseBody>>;
 
         /**
          * Execute a collection of action, function, or CRUD operations.
@@ -6349,7 +6349,9 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI Execute request response
      */
-    interface ExecuteResponse extends Response {}
+    interface ExecuteResponse<TResponseBody = object> extends Response {
+        json(): Promise<TResponseBody>;
+    }
 }
 
 declare namespace XrmEnum {

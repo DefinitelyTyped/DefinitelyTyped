@@ -669,3 +669,10 @@ function ActionOnPostsave(context: Xrm.Events.PostSaveEventContext) {
         console.log(args.getSaveErrorInfo());
     }
 }
+
+async function WebApiExecuteResponseType() {    
+    const response = await Xrm.WebApi.online.execute<{ value: string}>({});
+    const responseValue =  await response.json();
+    // $ExpectType string
+    responseValue.value;
+}
