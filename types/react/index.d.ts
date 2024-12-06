@@ -3976,7 +3976,6 @@ export interface ErrorInfo {
     digest?: string | null;
 }
 
-// Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
 export namespace JSX {
     // We don't just alias ElementType because ElementType
     // historically does more than we need it to.
