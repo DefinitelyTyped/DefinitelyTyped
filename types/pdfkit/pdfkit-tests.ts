@@ -339,7 +339,6 @@ structureElement.setAttached();
 structureElement.setParent(doc.ref({}));
 structureElement.end();
 
-
 // Test optional info types can not be undefined in PDFDocument (See PullRequest 71195)
 const optionalPDF: PDFKit.PDFDocument = new PDFDocument({
     // @ts-expect-error
@@ -352,5 +351,5 @@ const optionalPDF: PDFKit.PDFDocument = new PDFDocument({
         Subject: undefined,
         Keywords: undefined,
         ModDate: undefined,
-    }
+    },
 });
