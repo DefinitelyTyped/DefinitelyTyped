@@ -26,6 +26,11 @@
                 "default": "./server.d.ts"
             }
         },
+        "./static": {
+            "types": {
+                "default": "./static.d.ts"
+            }
+        },
         "./experimental": {
             "types": {
                 "default": "./experimental.d.ts"

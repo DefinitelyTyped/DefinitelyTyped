@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMClient from "react-dom/client";
 import * as ReactDOMServer from "react-dom/server";
+import * as ReactDOMStatic from "react-dom/static";
 import * as ReactTestUtils from "react-dom/test-utils";
 
 declare function describe(desc: string, f: () => void): void;
@@ -53,6 +54,20 @@ describe("ReactDOMServer", () => {
     it("renderToStaticMarkup", () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement("div"));
         ReactDOMServer.renderToStaticMarkup(React.createElement("div"), { identifierPrefix: "react-18-app" });
+    });
+});
+
+describe("ReactDOMStatic", () => {
+    it("prerender", async () => {
+        const prelude: ReadableStream<Uint8Array> =
+            (await ReactDOMStatic.prerender(React.createElement("div"))).prelude;
+        ReactDOMStatic.prerender(React.createElement("div"), { bootstrapScripts: ["./my-script.js"] });
+    });
+
+    it("prerenderToNodeStream", async () => {
+        const prelude: NodeJS.ReadableStream =
+            (await ReactDOMStatic.prerenderToNodeStream(React.createElement("div"))).prelude;
+        ReactDOMStatic.prerenderToNodeStream(React.createElement("div"), { bootstrapScripts: ["./my-script.js"] });
     });
 });
 
