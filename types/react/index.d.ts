@@ -1838,7 +1838,7 @@ declare namespace React {
      *
      * @see {@link https://react.dev/reference/react/useDeferredValue}
      */
-    export function useDeferredValue<T>(value: T): T;
+    export function useDeferredValue<T>(value: T, initialValue?: T): T;
 
     /**
      * Allows components to avoid undesirable loading states by waiting for content to load
