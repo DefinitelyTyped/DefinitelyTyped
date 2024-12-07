@@ -5035,6 +5035,10 @@
             "libraryName": "react-native",
             "asOfVersion": "0.73.0"
         },
+        "react-native-ad-manager": {
+            "libraryName": "react-native-ad-manager",
+            "asOfVersion": "2.0.0"
+        },
         "react-native-app-intro-slider": {
             "libraryName": "react-native-app-intro-slider",
             "asOfVersion": "4.0.0"
