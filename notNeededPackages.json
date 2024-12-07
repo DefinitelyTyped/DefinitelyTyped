@@ -520,6 +520,10 @@
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
         },
+        "cal-heatmap": {
+            "libraryName": "cal-heatmap",
+            "asOfVersion": "4.0.0"
+        },
         "callsites": {
             "libraryName": "callsites",
             "asOfVersion": "3.0.0"
