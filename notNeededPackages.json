@@ -5667,6 +5667,10 @@
             "libraryName": "serialport",
             "asOfVersion": "10.2.0"
         },
+        "set-interval-async": {
+            "libraryName": "set-interval-async",
+            "asOfVersion": "3.0.1"
+        },
         "sharp": {
             "libraryName": "sharp",
             "asOfVersion": "0.32.0"
