@@ -20,6 +20,10 @@
             "libraryName": "@hapi/accept",
             "asOfVersion": "5.0.1"
         },
+        "accessibility": {
+            "libraryName": "accessibility",
+            "asOfVersion": "4.5.4"
+        },
         "acme-client": {
             "libraryName": "acme-client",
             "asOfVersion": "3.3.0"
