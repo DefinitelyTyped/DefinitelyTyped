@@ -133,56 +133,60 @@ interface NewTransactionOptions {
      * @param tranx
      * @returns
      */
-    onSuccess?: ((tranx: {
-        /**
-         * transaction id from API
-         */
-        id: string;
-        /**
-         * transaction reference
-         */
-        reference: string;
-        /**
-         * message from API
-         */
-        message: string;
-        /**
-         * The redirect URL configured on you paystach dashboard along with the transaction reference
-         */
-        redirecturl: string;
-        /**
-         * The status of the transaction
-         */
-        status: "success";
-        /**
-         * The transaction ID
-         */
-        trans: string;
-        /**
-         * The transaction ID
-         */
-        transaction: string;
-        /**
-         * transaction reference
-         */
-        trxref: string;
-    }) => void) | undefined;
+    onSuccess?:
+        | ((tranx: {
+            /**
+             * transaction id from API
+             */
+            id: string;
+            /**
+             * transaction reference
+             */
+            reference: string;
+            /**
+             * message from API
+             */
+            message: string;
+            /**
+             * The redirect URL configured on you paystach dashboard along with the transaction reference
+             */
+            redirecturl: string;
+            /**
+             * The status of the transaction
+             */
+            status: "success";
+            /**
+             * The transaction ID
+             */
+            trans: string;
+            /**
+             * The transaction ID
+             */
+            transaction: string;
+            /**
+             * transaction reference
+             */
+            trxref: string;
+        }) => void)
+        | undefined;
     /**
      * Called when the transaction is successful loaded and the customer can see the checkout form
      *
      * @param tranx
      * @returns
      */
-    onLoad?: ((tranx: {
-        /**
-         * customer object from API
-         */
-        customer: Record<string, string>;
-        /**
-         * transaction access code
-         */
-        accessCode: string;
-    }) => void) | undefined;
+    onLoad?:
+        | ((tranx: {
+            /**
+             * customer object from API
+             */
+            customer: Record<string, string>;
+            /**
+             * transaction access code
+             */
+            accessCode: string;
+        }) => void)
+        | undefined;
     /**
      * Called when the customer cancels the transaction
      *
@@ -194,15 +198,17 @@ interface NewTransactionOptions {
      *
      * @returns
      */
-    onError?: ((
-        /**
-         * error response from API
-         */
-        error: {
-            type: "setup";
-            message: string;
-        },
-    ) => void) | undefined;
+    onError?:
+        | ((
+            /**
+             * error response from API
+             */
+            error: {
+                type: "setup";
+                message: string;
+            },
+        ) => void)
+        | undefined;
 }
 
 declare class PaystackInline {
@@ -211,11 +217,11 @@ declare class PaystackInline {
      * This method starts a new transaction on the checkout form.
      * @param options
      */
-    newTransaction (options: NewTransactionOptions): PopupTransaction;
+    newTransaction(options: NewTransactionOptions): PopupTransaction;
 
-    isLoaded (): boolean;
+    isLoaded(): boolean;
 
-    resumeTransaction (options: {
+    resumeTransaction(options: {
         /**
          * Access code created on the API via the https://paystack.com/docs/#initialize-a-transaction endpoint
          */
@@ -225,7 +231,7 @@ declare class PaystackInline {
     /**
      * Use this to cancel a transaction and hide the checkout iFrame.
      */
-    cancelTransaction (
+    cancelTransaction(
         /**
          * ID or transaction to cancel
          */
@@ -238,19 +244,19 @@ declare class PaystackInline {
      *
      * @param options
      */
-    preloadTransaction (options: NewTransactionOptions): () => void;
+    preloadTransaction(options: NewTransactionOptions): () => void;
 
     /**
      * This method loads a transaction on the checkout form but shows a pre
      * checkout modal before loading the form if a wallet payment e.g Apple Pay is supported.
      */
-    checkout (options: NewTransactionOptions): Promise<PopupTransaction>;
+    checkout(options: NewTransactionOptions): Promise<PopupTransaction>;
 
     /**
      * This method mounts a wallet payment button e.g Apple pay on a provided div
      * and also provides the option to allow a provided button open the checkout form.
      */
-    paymentRequest (
+    paymentRequest(
         options: NewTransactionOptions & {
             /**
              * ID of div to mount the payment request button
