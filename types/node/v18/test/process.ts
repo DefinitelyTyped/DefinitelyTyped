@@ -121,7 +121,12 @@ import EventEmitter = require("node:events");
     // This is some additional information
 }
 
-const hrtimeBigint: bigint = process.hrtime.bigint();
+// $ExpectType [number, number]
+process.hrtime();
+// $ExpectType [number, number]
+process.hrtime([0, 0]);
+// $ExpectType bigint
+process.hrtime.bigint();
 
 process.allowedNodeEnvironmentFlags.has("asdf");
 
