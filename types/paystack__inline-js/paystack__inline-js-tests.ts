@@ -89,3 +89,9 @@ paystackPop.preloadTransaction({
 paystackPop.cancelTransaction(tx);
 
 paystackPop.cancelTransaction("asasas");
+
+paystackPop.newTransaction({
+    key: "pk_test_TYooMQauvdEDq54NiTphI7jx",
+    email: "demo@paystack.com",
+    amount: 10000,
+});
