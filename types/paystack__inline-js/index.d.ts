@@ -43,7 +43,7 @@ interface NewTransactionOptions {
     /**
      * The currency of the transaction. Available options in PaystackPop.CURRENCIES object
      */
-    currency?: string;
+    currency?: string | undefined;
     /**
      * The email address of the customer
      */
@@ -51,31 +51,31 @@ interface NewTransactionOptions {
     /**
      * The first name of the customer
      */
-    firstName?: string;
+    firstName?: string | undefined;
     /**
      * The last name of the customer
      */
-    lastName?: string;
+    lastName?: string | undefined;
     /**
      * The phone number of the customer
      */
-    phone?: string;
+    phone?: string | undefined;
     /**
      * A valid Paystack customer code. If provided, this overrides all the customer information above
      */
-    customerCode?: string;
+    customerCode?: string | undefined;
     /**
      * An array of payment channels to use. By default, all options available in in PaystackPop.CHANNELS are used
      */
-    channels?: Array<"card" | "apple_pay" | "bank_transfer" | "ussd" | "mobile_money" | "eft" | "qr">;
+    channels?: Array<"card" | "apple_pay" | "bank_transfer" | "ussd" | "mobile_money" | "eft" | "qr"> | undefined;
     /**
      * A valid Paystack payment request id
      */
-    paymentRequest?: string;
+    paymentRequest?: string | undefined;
     /**
      * A valid Paystack payment page id
      */
-    paymentPage?: string;
+    paymentPage?: string | undefined;
     /**
      * A valid object of extra information that you want to be saved to the transaction. To show this on the dashboard, see https://www.npmjs.com/package/@paystack/inline-js#tip-seeing-your-metadata-on-the-dashboard
      */
@@ -83,57 +83,57 @@ interface NewTransactionOptions {
         custom_fields?: Array<{
             display_name: string;
             variable_name: string;
-            value?: string | number;
+            value?: string | number | undefined;
         }>;
-    };
+    } | undefined;
     /**
      * Unique case sensitive transaction reference. Only -,., = and alphanumeric characters allowed.
      */
-    reference?: string;
+    reference?: string | undefined;
     /**
      * A valid Paystack split code e.g. SPL_qQsdYLXddd
      */
-    split_code?: string;
+    split_code?: string | undefined;
     /**
      * A valid Paystack subaccount code e.g. ACCT_8f4s1eq7ml6rlzj
      */
-    subaccountCode?: string;
+    subaccountCode?: string | undefined;
     /**
      * Who bears Paystack charges? account or subaccount (defaults to account).
      */
-    bearer?: "account" | "all" | "subaccount" | "all-proportional";
+    bearer?: "account" | "all" | "subaccount" | "all-proportional" | undefined;
     /**
      * A flat fee (in kobo) to charge the subaccount for this transaction.
      * This overrides the split percentage set when the subaccount was created.
      */
-    transactionCharge?: number;
+    transactionCharge?: number | undefined;
     /**
      * A valid Paystack plan code e.g. PLN_cujsmvoyq2209ws
      */
-    planCode?: string;
+    planCode?: string | undefined;
     /**
      * The number of subscriptions to create for this plan
      */
-    subscriptionCount?: number;
+    subscriptionCount?: number | undefined;
     /**
      * Interval for the plan. Valid intervals are hourly, daily, weekly, monthly, annually
      */
-    planInterval?: "hourly" | "daily" | "weekly" | "monthly" | "annually";
+    planInterval?: "hourly" | "daily" | "weekly" | "monthly" | "annually" | undefined;
     /**
      * The number of times to charge for this subscription
      */
-    subscriptionLimit?: number;
+    subscriptionLimit?: number | undefined;
     /**
      * The start date for the subscription (after the first charge)
      */
-    subscriptionStartDate?: string;
+    subscriptionStartDate?: string | undefined;
     /**
      * Called when the customer successfully completes a transaction
      *
      * @param tranx
      * @returns
      */
-    onSuccess?: (tranx: {
+    onSuccess?: ((tranx: {
         /**
          * transaction id from API
          */
@@ -166,14 +166,14 @@ interface NewTransactionOptions {
          * transaction reference
          */
         trxref: string;
-    }) => void;
+    }) => void) | undefined;
     /**
      * Called when the transaction is successful loaded and the customer can see the checkout form
      *
      * @param tranx
      * @returns
      */
-    onLoad?: (tranx: {
+    onLoad?: ((tranx: {
         /**
          * customer object from API
          */
@@ -182,19 +182,19 @@ interface NewTransactionOptions {
          * transaction access code
          */
         accessCode: string;
-    }) => void;
+    }) => void) | undefined;
     /**
      * Called when the customer cancels the transaction
      *
      * @returns
      */
-    onCancel?: () => void;
+    onCancel?: (() => void) | undefined;
     /**
      * Called when the transaction was not successfully loaded
      *
      * @returns
      */
-    onError?: (
+    onError?: ((
         /**
          * error response from API
          */
@@ -202,7 +202,7 @@ interface NewTransactionOptions {
             type: "setup";
             message: string;
         },
-    ) => void;
+    ) => void) | undefined;
 }
 
 declare class PaystackInline {
@@ -211,11 +211,11 @@ declare class PaystackInline {
      * This method starts a new transaction on the checkout form.
      * @param options
      */
-    newTransaction(options: NewTransactionOptions): PopupTransaction;
+    newTransaction (options: NewTransactionOptions): PopupTransaction;
 
-    isLoaded(): boolean;
+    isLoaded (): boolean;
 
-    resumeTransaction(options: {
+    resumeTransaction (options: {
         /**
          * Access code created on the API via the https://paystack.com/docs/#initialize-a-transaction endpoint
          */
@@ -225,7 +225,7 @@ declare class PaystackInline {
     /**
      * Use this to cancel a transaction and hide the checkout iFrame.
      */
-    cancelTransaction(
+    cancelTransaction (
         /**
          * ID or transaction to cancel
          */
@@ -238,19 +238,19 @@ declare class PaystackInline {
      *
      * @param options
      */
-    preloadTransaction(options: NewTransactionOptions): () => void;
+    preloadTransaction (options: NewTransactionOptions): () => void;
 
     /**
      * This method loads a transaction on the checkout form but shows a pre
      * checkout modal before loading the form if a wallet payment e.g Apple Pay is supported.
      */
-    checkout(options: NewTransactionOptions): Promise<PopupTransaction>;
+    checkout (options: NewTransactionOptions): Promise<PopupTransaction>;
 
     /**
      * This method mounts a wallet payment button e.g Apple pay on a provided div
      * and also provides the option to allow a provided button open the checkout form.
      */
-    paymentRequest(
+    paymentRequest (
         options: NewTransactionOptions & {
             /**
              * ID of div to mount the payment request button
@@ -269,7 +269,7 @@ declare class PaystackInline {
              *
              * @returns
              */
-            onElementsMount?: (options?: { applePay: boolean } | null) => void;
+            onElementsMount?: ((options?: { applePay: boolean } | null | undefined) => void) | undefined;
         },
     ): Promise<PopupTransaction>;
 
