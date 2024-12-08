@@ -1,5 +1,7 @@
+/// <reference types="node" />
+
 declare class WordExtractor {
-    extract(documentPath: string | Uint8Array): Promise<WordExtractor.Document>;
+    extract(documentPath: string | Buffer): Promise<WordExtractor.Document>;
 }
 
 export = WordExtractor;

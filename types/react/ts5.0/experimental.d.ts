@@ -106,8 +106,13 @@ declare module "." {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
+
+    /**
+     * Warning: Only available in development builds.
+     */
+    function captureOwnerStack(): string | null;
 
     type Reference = object;
     type TaintableUniqueValue = string | bigint | ArrayBufferView;
@@ -117,11 +122,4 @@ declare module "." {
         value: TaintableUniqueValue,
     ): void;
     function experimental_taintObjectReference(message: string | undefined, object: Reference): void;
-
-    export interface HTMLAttributes<T> {
-        /**
-         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
-         */
-        inert?: boolean | undefined;
-    }
 }

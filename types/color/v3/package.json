@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/color",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/qix-/color#readme"
+    ],
+    "dependencies": {
+        "@types/color-convert": "*"
+    },
+    "devDependencies": {
+        "@types/color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junyoung Clare Jang",
+            "githubUsername": "Airlun"
+        },
+        {
+            "name": "James W. Lane",
+            "githubUsername": "jameswlane"
+        },
+        {
+            "name": "Adam Haglund",
+            "githubUsername": "BeeeQueue"
+        }
+    ]
+}

@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "name": "@types/event-calendar__core",
-    "version": "3.4.9999",
+    "version": "3.7.9999",
     "projects": [
         "https://vkurko.github.io/calendar/"
     ],
@@ -18,5 +18,8 @@
             "name": "Vladimir",
             "githubUsername": "vkurko"
         }
-    ]
+    ],
+    "dependencies": {
+        "svelte": "^4"
+    }
 }

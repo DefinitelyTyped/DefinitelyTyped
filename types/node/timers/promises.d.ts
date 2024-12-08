@@ -80,7 +80,7 @@ declare module "timers/promises" {
          * @experimental
          * @param [delay=1] The number of milliseconds to wait before fulfilling the promise.
          */
-        wait: (delay?: number, options?: Pick<TimerOptions, "signal">) => Promise<void>;
+        wait: (delay?: number, options?: TimerOptions) => Promise<void>;
         /**
          * An experimental API defined by the [Scheduling APIs](https://nodejs.org/docs/latest-v20.x/api/async_hooks.html#promise-execution-tracking) draft specification
          * being developed as a standard Web Platform API.

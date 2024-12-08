@@ -553,6 +553,41 @@ async function test() {
         // $ExpectType string
         msg.type();
     });
+    // @ts-expect-error
+    page.on("metric");
+    // $ExpectType void
+    page.on("metric", msg => {
+        // @ts-expect-error
+        msg.tag();
+    });
+    // $ExpectType void
+    page.on("metric", msg => {
+        // @ts-expect-error
+        msg.tag({
+            name: "test",
+        });
+    });
+    // $ExpectType void
+    page.on("metric", msg => {
+        // $ExpectType void
+        msg.tag({
+            name: "test",
+            matches: [{
+                url: /^https:\/\/test\.k6\.io\/\?q=[0-9a-z]+$/,
+            }],
+        });
+    });
+    // $ExpectType void
+    page.on("metric", msg => {
+        // $ExpectType void
+        msg.tag({
+            name: "test",
+            matches: [{
+                url: /^https:\/\/test\.k6\.io\/\?q=[0-9a-z]+$/,
+                method: "GET",
+            }],
+        });
+    });
 
     // $ExpectType Promise<Page | null>
     page.opener();

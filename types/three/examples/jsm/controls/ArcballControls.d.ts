@@ -44,7 +44,7 @@ declare class ArcballControls extends Controls<ArcballControlsEventMap> {
     focusAnimationTime: number;
 
     /**
-     * If true, camera's near and far values will be adjusted every time zoom is performed trying to mantain the same
+     * If true, camera's near and far values will be adjusted every time zoom is performed trying to maintain the same
      * visible portion given by initial near and far values ( {@link PerspectiveCamera} only ). Default is false.
      */
     adjustNearFar: boolean;

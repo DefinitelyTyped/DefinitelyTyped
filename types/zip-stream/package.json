@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/zip-stream",
+    "version": "7.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/archiverjs/node-zip-stream"
+    ],
+    "dependencies": {
+        "@types/compress-commons": "*",
+        "@types/node": "*",
+        "@types/readable-stream": "*"
+    },
+    "devDependencies": {
+        "@types/zip-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

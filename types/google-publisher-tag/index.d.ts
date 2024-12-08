@@ -1728,7 +1728,7 @@ declare namespace googletag {
              * @see [Expand ads on desktop and tablet](https://support.google.com/admanager/answer/9384852)
              * @see [Expand ads on mobile web (partial screen)](https://support.google.com/admanager/answer/9117822)
              */
-            enabled?: boolean;
+            enabled?: boolean | null;
         }
 
         /**
@@ -1810,7 +1810,7 @@ declare namespace googletag {
              * rendering creatives.
              *
              * GPT will yield only for browsers that support the Scheduler.postTask
-             * API.
+             * or Scheduler.yield API.
              *
              * Supported values:
              *  - `null` (default): GPT will yield the JS thread for slots outside of
@@ -1829,7 +1829,7 @@ declare namespace googletag {
              *   // Enable yielding only for slots outside of the viewport (default).
              *   googletag.setConfig({threadYield: null});
              *
-             * @see [Scheduler: postTask() method](https://developer.mozilla.org/docs/Web/API/Scheduler/postTask)
+             * @see [Scheduler](https://developer.mozilla.org/docs/Web/API/Scheduler)
              */
             threadYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
 
@@ -1854,7 +1854,7 @@ declare namespace googletag {
              *     privacyTreatments: {treatments: ['disablePersonalization']}
              *   });
              */
-            treatments: PrivacyTreatment[];
+            treatments: PrivacyTreatment[] | null;
         }
 
         /**
@@ -1871,7 +1871,7 @@ declare namespace googletag {
          *     taxonomies: {
          *       'IAB_AUDIENCE_1_1':
          *           {values: ['6', '626']},
-         *           // '6' = 'Demographic | Age Range | 18-20'
+         *           // '6' = 'Demographic | Age Range | 30-34'
          *           // '626' = 'Interest | Sports | Darts'
          *       'IAB_CONTENT_2_2':
          *           {values: ['48', '127']},
@@ -1976,17 +1976,17 @@ declare namespace googletag {
             /**
              * An array of component auctions to be included in an on-device ad auction.
              */
-            componentAuction?: ComponentAuctionConfig[];
+            componentAuction?: ComponentAuctionConfig[] | null;
 
             /**
              * Settings that control interstitial ad slot behavior.
              */
-            interstitial?: InterstitialConfig;
+            interstitial?: InterstitialConfig | null;
 
             /**
              * Settings to control ad expansion.
              */
-            adExpansion?: AdExpansionConfig;
+            adExpansion?: AdExpansionConfig | null;
         }
 
         /**
@@ -2097,7 +2097,35 @@ declare namespace googletag {
              *
              * @see [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
              */
-            triggers?: Partial<Record<InterstitialTrigger, boolean>>;
+            triggers?: Partial<Record<InterstitialTrigger, boolean>> | null;
+
+            /**
+             * Whether local storage consent is required to display this interstitial ad.
+             *
+             * GPT uses local storage to enforce a [frequency
+             * cap](https://support.google.com/admanager/answer/9840201#frequency) for
+             * interstitial ads. However, users who have not provided local storage
+             * consent are still eligible to be served interstitial ads. Setting this
+             * property to `true` opts out of the default behavior, and ensures
+             * interstial ads are only shown to users who have provided local storage
+             * consent.
+             *
+             * @example
+             *  // Opt out of showing interstitials to users
+             *  // without local storage consent.
+             *  const interstitialSlot = googletag.defineOutOfPageSlot(
+             *      "/1234567/sports",
+             *      googletag.enums.OutOfPageFormat.INTERSTITIAL)!;
+             *
+             *  interstitialSlot.setConfig({
+             *    interstitial: {
+             *      requireStorageAccess: true, // defaults to false
+             *    }
+             *  });
+             *
+             * @see [Traffic web interstitials](https://support.google.com/admanager/answer/9840201)
+             */
+            requireStorageAccess?: boolean | null;
         }
 
         /**
@@ -2331,7 +2359,6 @@ declare namespace googletag {
          *         console.log('Creative Template ID:', event.creativeTemplateId);
          *         console.log('Is backfill?:', event.isBackfill);
          *         console.log('Is empty?:', event.isEmpty);
-         *         console.log('Label IDs:', event.labelIds);
          *         console.log('Line Item ID:', event.lineItemId);
          *         console.log('Size:', event.size);
          *         console.log('Slot content changed?', event.slotContentChanged);
@@ -2391,9 +2418,7 @@ declare namespace googletag {
              */
             creativeTemplateId: number | null;
             /**
-             * Label IDs of the rendered ad. Value is `null` for empty slots,
-             * backfill ads, and creatives rendered by services other than {@link
-             * PubAdsService}.
+             * @deprecated This field is no longer populated.
              */
             labelIds: number[] | null;
             /**

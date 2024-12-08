@@ -425,7 +425,7 @@ En gros :
 
 > Les PRs qui ne modifient que les types d'un module, et qui ont des changements de tests correspondants seront fusionnés beaucoup plus rapidement.
 
-Les PRs qui ont été approuvés par un auteur listé dans l'en-tête de la définition sont généralement fusionnés plus rapidement ; les PRs pour de nouvelles définitions prendront plus de temps car ils nécessitent plus de révision de la part des mainteneurs. Chaque PR est révisé par un membre de l'équipe TypeScript ou Definitely Typed avant d'être fusionné, donc soyez patient car des facteurs humains peuvent causer des retards. Consultez le [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) pour voir les progrès réalisés par les mainteneurs sur les PRs ouverts.
+Les PRs qui ont été approuvés par un auteur listé dans l'en-tête de la définition sont généralement fusionnés plus rapidement ; les PRs pour de nouvelles définitions prendront plus de temps car ils nécessitent plus de révision de la part des mainteneurs. Chaque PR est révisé par un membre de l'équipe TypeScript ou Definitely Typed avant d'être fusionné, donc soyez patient car des facteurs humains peuvent causer des retards. Consultez le [Pull Request Status Board](https://github.com/orgs/DefinitelyTyped/projects/1) pour voir les progrès réalisés par les mainteneurs sur les PRs ouverts.
 
 #### J'aimerais apporter une modification à un projet très populaire, pourquoi sont-ils traités différemment ?
 

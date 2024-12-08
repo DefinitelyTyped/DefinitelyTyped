@@ -1,49 +1,58 @@
-import previewEmail = require("preview-email");
-import { Options } from "preview-email";
-import nodemailer = require("nodemailer");
-import { Options as NodeMailerOptions } from "nodemailer/lib/mailer";
+import type { Options as NodeMailerOptions } from "nodemailer/lib/mailer";
+import previewEmail, { OpenOptions, Options, UrlTransform } from "preview-email";
 
-// tests for `README Driven Development`
-const transport = nodemailer.createTransport({
-    jsonTransport: true,
-});
+declare const message: NodeMailerOptions;
 
-const message: NodeMailerOptions = {
-    from: "niftylettuce+from@gmail.com",
-    to: "niftylettuce+to@gmail.com",
-    subject: "Hello world",
-    html: "<p>Hello world</p>",
-    text: "Hello world",
-    attachments: [{ filename: "hello-world.txt", content: "Hello world" }],
-};
+// Without options
+// $ExpectType Promise<string>
+previewEmail(message);
 
-// note that `attachments` will not be parsed unless you use
-// `previewEmail` with the results of `transport.sendMail`
-// e.g. `previewEmail(JSON.parse(res.message));` where `res`
-// is `const res = await transport.sendMail(message);`
-previewEmail(message).then(console.log).catch(console.error);
-transport.sendMail(message).then(console.log).catch(console.error);
+// With empty options
+// $ExpectType Promise<string>
+previewEmail(message, {});
 
-// tests
-
-const options: Options = {
-    dir: "./dir",
+// With all available options
+// $ExpectType Promise<string>
+previewEmail(message, {
     id: "some-id",
-    open: true,
+    dir: "./dir",
     template: "./dir/template.pug",
     urlTransform: path => `./dir/${path}`,
     openSimulator: true,
-    simpleParser: {},
     returnHtml: true,
-};
+    hasDownloadOriginalButton: true,
+});
 
-// async/await
-(async () => {
-    try {
-        await previewEmail(message); // $ExpectType string
-        await previewEmail(message, {}); // $ExpectType string
-        await previewEmail(message, options); // $ExpectType string
-    } catch (error) {
-        //
-    }
-})();
+// With options.open
+{
+    // $ExpectType Promise<string>
+    previewEmail(message, { open: true });
+
+    // $ExpectType Promise<string>
+    previewEmail(message, { open: { wait: true } });
+}
+
+// With options.simpleParser
+{
+    // $ExpectType Promise<string>
+    previewEmail(message, { simpleParser: {} });
+
+    // $ExpectType Promise<string>
+    previewEmail(message, {
+        simpleParser: {
+            skipHtmlToText: true,
+            maxHtmlLengthToParse: 1,
+            formatDateString: (d) => {
+                d; // $ExpectType Date
+                return "";
+            },
+            skipImageLinks: true,
+            skipTextToHtml: true,
+            skipTextLinks: true,
+            keepCidLinks: true,
+        },
+    });
+
+    // @ts-expect-error `Iconv` is omitted in options.simpleParser
+    previewEmail(message, { Iconv: null });
+}

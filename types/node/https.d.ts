@@ -21,7 +21,6 @@ declare module "https" {
             servername?: string | undefined; // SNI TLS Extension
         };
     interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
-        rejectUnauthorized?: boolean | undefined;
         maxCachedSessions?: number | undefined;
     }
     /**

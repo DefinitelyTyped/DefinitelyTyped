@@ -71,6 +71,7 @@ export default class RenderObject {
     getMonitor(): NodeMaterialObserver;
     getBindings(): BindGroup[];
     getIndex(): BufferAttribute | null;
+    getIndirect(): import("./IndirectStorageBufferAttribute.js").default | null;
     getChainArray(): readonly [
         Object3D<import("../../core/Object3D.js").Object3DEventMap>,
         Material,

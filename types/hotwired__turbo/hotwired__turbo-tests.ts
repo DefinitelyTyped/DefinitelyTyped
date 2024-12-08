@@ -91,3 +91,7 @@ document.addEventListener("turbo:before-render", function(e) {
 document.addEventListener("turbo:frame-missing", function(event) {
     event.detail.visit(event.detail.response, {});
 });
+
+document.addEventListener("turbo:submit-start", function(event) {
+    event.detail.formSubmission.stop();
+});

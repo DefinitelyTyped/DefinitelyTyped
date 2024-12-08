@@ -1,4 +1,4 @@
-import { deserialize, serialize } from "@phc/format";
+import { deserialize, PhcInput, PhcOutput, serialize } from "@phc/format";
 
 // same cases from https://github.com/simonepri/phc-format/blob/master/test/fixtures/serialize-deserialize.js
 function test_serialize() {
@@ -63,10 +63,7 @@ function test_serialize() {
     serialize({
         id: "argon2i",
         params: { m: 120, t: 5000, p: 2 },
-        salt: Buffer.from(
-            "BwUgJHHQaynE+a4nZrYRzOllGSjjxuxNXxyNRUtI6Dlw/zlbt6PzOL8Onfqs6TcG",
-            "base64",
-        ),
+        salt: Buffer.from("BwUgJHHQaynE+a4nZrYRzOllGSjjxuxNXxyNRUtI6Dlw/zlbt6PzOL8Onfqs6TcG", "base64"),
     });
 
     serialize({
@@ -186,9 +183,28 @@ function test_serialize() {
             "base64",
         ),
     });
+
+    // $ExpectType string
+    serialize({
+        id: "argon2i",
+        version: 19,
+        params: {
+            m: 120,
+            t: 5000,
+            p: 2,
+            keyid: "Hj5+dsK0",
+            data: Buffer.from("sRlHhRmKUGzdOmXn01XmXygd5Kc", "base64"),
+        },
+        salt: Buffer.from("iHSDPHzUhPzK7rCcJgOFfg", "base64"),
+        hash: Buffer.from(
+            "J4moa2MM0/6uf3HbY2Tf5Fux8JIBTwIhmhxGRbsY14qhTltQt+Vw3b7tcJNEbk8ium8AQfZeD4tabCnNqfkD1g",
+            "base64",
+        ),
+    });
 }
 
 // same cases from https://github.com/simonepri/phc-format/blob/master/test/fixtures/serialize-deserialize.js
 function test_deserialize() {
+    // $ExpectType PhcOutput
     deserialize("$argon2i$m=120,t=5000,p=2,keyid=Hj5+dsK0,data=sRlHhRmKUGzdOmXn01XmXygd5Kc");
 }

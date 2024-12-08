@@ -1,9 +1,9 @@
 import { BufferGeometry } from "three";
 
 /**
- * {@link TeapotGeometry} tesselates the famous Utah teapot database by Martin Newell.
+ * TeapotGeometry tessellates the famous Utah teapot database by Martin Newell.
  *
- * {@link TeapotGeometry} is an add-on, and must be imported explicitly. See
+ * TeapotGeometry is an add-on, and must be imported explicitly. See
  * [Installation / Addons]{@link https://threejs.org/docs/#manual/en/introduction/Installation}.
  *
  * @example

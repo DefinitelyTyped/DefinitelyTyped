@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/json-stable-stringify",
-    "version": "1.0.9999",
+    "version": "1.1.9999",
     "projects": [
         "https://github.com/substack/json-stable-stringify"
     ],

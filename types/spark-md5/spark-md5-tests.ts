@@ -7,6 +7,10 @@ SparkMD5.hashBinary("");
 const spark = new SparkMD5();
 spark.append("Hi");
 spark.append(" there");
+
+var bytes = new ArrayBuffer(16);
+spark.append(bytes);
+
 let hexHash = spark.end();
 let rawHash = spark.end(true);
 

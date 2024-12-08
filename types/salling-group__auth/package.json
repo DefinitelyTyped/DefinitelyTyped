@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/salling-group__auth",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/DanskSupermarked/sg-npm-auth"
+    ],
+    "owners": [
+        {
+            "name": "Arjuna Enait",
+            "githubUsername": "HaayanchandravatSr"
+        }
+    ],
+    "dependencies": {
+        "axios": "^1.7.7"
+    },
+    "devDependencies": {
+        "@types/salling-group__auth": "workspace:."
+    }
+}

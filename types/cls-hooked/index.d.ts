@@ -10,7 +10,7 @@ export interface Namespace<N = Record<string, any>> {
     run(fn: (...args: any[]) => void): void;
     runAndReturn<T>(fn: (...args: any[]) => T): T;
     runPromise<T>(fn: (...args: any[]) => Promise<T>): Promise<T>;
-    bind<F extends Function>(fn: F, context?: any): F; // tslint:disable-line: ban-types
+    bind<F extends Function>(fn: F, context?: any): F; // eslint-disable-line @typescript-eslint/no-unsafe-function-type
     bindEmitter(emitter: EventEmitter): void;
     createContext(): any;
     enter(context: any): void;

@@ -80,7 +80,7 @@ declare class SaneWatcher extends EventEmitter {
     removeListener(event: "add" | "change", listener: (path: string, root: string, stat: Stats) => void): this;
     removeListener(event: "delete", listener: (path: string, root: string) => void): this;
     removeAllListeners(event?: EventType): this;
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     listeners(event: EventType): Function[];
     emit(event: "ready"): boolean;
     emit(event: "error", error: Error): boolean;

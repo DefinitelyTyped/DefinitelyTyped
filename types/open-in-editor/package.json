@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/open-in-editor",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/lahmatiy/open-in-editor#readme"
+    ],
+    "devDependencies": {
+        "@types/open-in-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

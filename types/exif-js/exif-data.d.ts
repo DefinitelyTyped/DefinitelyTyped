@@ -6,7 +6,7 @@ export namespace ExifData {
      * Type is especially Number, not number, because it has format of rational number (object)
      *  { numerator: number, denominator: number } which can be converted to number by calling Number(coord[0])
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
     type Coord_DMS = [D: Number, M: Number, S: Number];
     type Coord_DMS_empty = [D: null, M: null, S: null];
 

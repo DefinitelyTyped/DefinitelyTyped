@@ -611,11 +611,6 @@ declare module "crypto" {
          */
         asymmetricKeyType?: KeyType | undefined;
         /**
-         * For asymmetric keys, this property represents the size of the embedded key in
-         * bytes. This property is `undefined` for symmetric keys.
-         */
-        asymmetricKeySize?: number | undefined;
-        /**
          * This property exists only on asymmetric keys. Depending on the type of the key,
          * this object contains information about the key. None of the information obtained
          * through this property can be used to uniquely identify a key or to compromise

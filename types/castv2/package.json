@@ -15,8 +15,20 @@
     },
     "owners": [
         {
+            "name": "Thibaut Séguy",
+            "githubUsername": "thibauts"
+        },
+        {
             "name": "Joey Parrish",
             "githubUsername": "joeyparrish"
+        },
+        {
+            "name": "Julian Domingo",
+            "githubUsername": "juliandomingo"
+        },
+        {
+            "name": "Theodore Abshire",
+            "githubUsername": "theodab"
         }
     ]
 }
