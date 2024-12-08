@@ -314,7 +314,7 @@ declare module "readline" {
         prependOnceListener(event: "SIGINT", listener: () => void): this;
         prependOnceListener(event: "SIGTSTP", listener: () => void): this;
         prependOnceListener(event: "history", listener: (history: string[]) => void): this;
-        [Symbol.asyncIterator](): AsyncIterableIterator<string>;
+        [Symbol.asyncIterator](): NodeJS.AsyncIterator<string>;
     }
     type ReadLine = Interface; // type forwarded for backwards compatibility
     type Completer = (line: string) => CompleterResult;

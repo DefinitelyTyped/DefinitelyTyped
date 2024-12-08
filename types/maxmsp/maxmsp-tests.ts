@@ -103,6 +103,7 @@ const liveApiCallback = (args: any) => {
 };
 
 const liveApiInstance = new LiveAPI(liveApiCallback, "live_set tracks 0 devices 0");
+const liveApiInstance_empty = new LiveAPI();
 
 // Accessing properties
 post(liveApiInstance.id);

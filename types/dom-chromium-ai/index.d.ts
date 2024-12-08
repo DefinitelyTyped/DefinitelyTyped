@@ -3,7 +3,7 @@ interface WindowOrWorkerGlobalScope {
 }
 
 interface AI {
-    readonly assistant: AIAssistantFactory;
+    readonly languageModel: AILanguageModelFactory;
     readonly summarizer: AISummarizerFactory;
     readonly writer: AIWriterFactory;
     readonly rewriter: AIRewriterFactory;
@@ -47,17 +47,17 @@ type AICreateMonitorCallback = (monitor: AICreateMonitor) => void;
 
 type AICapabilityAvailability = "readily" | "after-download" | "no";
 
-// Assistant
+// Language Model
 // https://github.com/explainers-by-googlers/prompt-api/#full-api-surface-in-web-idl
 
-interface AIAssistantFactory {
+interface AILanguageModelFactory {
     create(
-        options?: AIAssistantCreateOptionsWithSystemPrompt | AIAssistantCreateOptionsWithoutSystemPrompt,
-    ): Promise<AIAssistant>;
-    capabilities(): Promise<AIAssistantCapabilities>;
+        options?: AILanguageModelCreateOptionsWithSystemPrompt | AILanguageModelCreateOptionsWithoutSystemPrompt,
+    ): Promise<AILanguageModel>;
+    capabilities(): Promise<AILanguageModelCapabilities>;
 }
 
-interface AIAssistantCreateOptions {
+interface AILanguageModelCreateOptions {
     signal?: AbortSignal;
     monitor?: AICreateMonitorCallback;
 
@@ -65,42 +65,42 @@ interface AIAssistantCreateOptions {
     temperature?: number;
 }
 
-interface AIAssistantCreateOptionsWithSystemPrompt extends AIAssistantCreateOptions {
+interface AILanguageModelCreateOptionsWithSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: string;
-    initialPrompts?: Array<AIAssistantAssistantPrompt | AIAssistantUserPrompt>;
+    initialPrompts?: Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>;
 }
 
-interface AIAssistantCreateOptionsWithoutSystemPrompt extends AIAssistantCreateOptions {
+interface AILanguageModelCreateOptionsWithoutSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: never;
     initialPrompts?:
-        | [AIAssistantSystemPrompt, ...Array<AIAssistantAssistantPrompt | AIAssistantUserPrompt>]
-        | Array<AIAssistantAssistantPrompt | AIAssistantUserPrompt>;
+        | [AILanguageModelSystemPrompt, ...Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>]
+        | Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>;
 }
 
-type AIAssistantPromptRole = "system" | "user" | "assistant";
+type AILanguageModelPromptRole = "system" | "user" | "assistant";
 
-interface AIAssistantPrompt {
-    role?: AIAssistantPromptRole;
+interface AILanguageModelPrompt {
+    role?: AILanguageModelPromptRole;
     content?: string;
 }
 
-interface AIAssistantSystemPrompt extends AIAssistantPrompt {
+interface AILanguageModelSystemPrompt extends AILanguageModelPrompt {
     role: "system";
 }
 
-interface AIAssistantUserPrompt extends AIAssistantPrompt {
+interface AILanguageModelUserPrompt extends AILanguageModelPrompt {
     role: "user";
 }
 
-interface AIAssistantAssistantPrompt extends AIAssistantPrompt {
+interface AILanguageModelAssistantPrompt extends AILanguageModelPrompt {
     role: "assistant";
 }
 
-interface AIAssistant extends EventTarget {
-    prompt(input: string, options?: AIAssistantPromptOptions): Promise<string>;
-    promptStreaming(input: string, options?: AIAssistantPromptOptions): ReadableStream<string>;
+interface AILanguageModel extends EventTarget {
+    prompt(input: string, options?: AILanguageModelPromptOptions): Promise<string>;
+    promptStreaming(input: string, options?: AILanguageModelPromptOptions): ReadableStream<string>;
 
-    countPromptTokens(input: string, options?: AIAssistantPromptOptions): Promise<number>;
+    countPromptTokens(input: string, options?: AILanguageModelPromptOptions): Promise<number>;
     readonly maxTokens: number;
     readonly tokensSoFar: number;
     readonly tokensLeft: number;
@@ -108,11 +108,11 @@ interface AIAssistant extends EventTarget {
     readonly topK: number;
     readonly temperature: number;
 
-    oncontextoverflow: ((this: AIAssistant, ev: Event) => any) | null;
+    oncontextoverflow: ((this: AILanguageModel, ev: Event) => any) | null;
 
-    addEventListener<K extends keyof AIAssistantEventMap>(
+    addEventListener<K extends keyof AILanguageModelEventMap>(
         type: K,
-        listener: (this: AIAssistant, ev: AIAssistantEventMap[K]) => any,
+        listener: (this: AILanguageModel, ev: AILanguageModelEventMap[K]) => any,
         options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
@@ -120,9 +120,9 @@ interface AIAssistant extends EventTarget {
         listener: EventListenerOrEventListenerObject,
         options?: boolean | AddEventListenerOptions,
     ): void;
-    removeEventListener<K extends keyof AIAssistantEventMap>(
+    removeEventListener<K extends keyof AILanguageModelEventMap>(
         type: K,
-        listener: (this: AIAssistant, ev: AIAssistantEventMap[K]) => any,
+        listener: (this: AILanguageModel, ev: AILanguageModelEventMap[K]) => any,
         options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(
@@ -131,23 +131,23 @@ interface AIAssistant extends EventTarget {
         options?: boolean | EventListenerOptions,
     ): void;
 
-    clone(options?: AIAssistantCloneOptions): Promise<AIAssistant>;
+    clone(options?: AILanguageModelCloneOptions): Promise<AILanguageModel>;
     destroy(): void;
 }
 
-interface AIAssistantEventMap {
+interface AILanguageModelEventMap {
     contextoverflow: Event;
 }
 
-interface AIAssistantPromptOptions {
+interface AILanguageModelPromptOptions {
     signal?: AbortSignal;
 }
 
-interface AIAssistantCloneOptions {
+interface AILanguageModelCloneOptions {
     signal?: AbortSignal;
 }
 
-interface AIAssistantCapabilities {
+interface AILanguageModelCapabilities {
     readonly available: AICapabilityAvailability;
 
     readonly defaultTopK: number | null;

@@ -1,19 +1,19 @@
 async function topLevel() {
-    // Assistant
+    // Language Model
 
     // Negative tests
-    await window.ai.assistant.create({
+    await window.ai.languageModel.create({
         systemPrompt: "foo",
         // @ts-expect-error - System prompt cannot be part of the array if systemPrompt is specified.
         initialPrompts: [{ role: "system" }],
     });
-    await window.ai.assistant.create({
+    await window.ai.languageModel.create({
         // @ts-expect-error - System prompt must be first element of the initialPrompt array.
         initialPrompts: [{ role: "user" }, { role: "system" }],
     });
 
     // Positive tests
-    const assistant = await window.ai.assistant.create({
+    const languageModel = await window.ai.languageModel.create({
         topK: 1,
         temperature: 0,
         signal: (new AbortController()).signal,
@@ -26,34 +26,36 @@ async function topLevel() {
         },
     });
 
-    const assistantCapabilities = await window.ai.assistant.capabilities();
+    const languageModelCapabilities = await window.ai.languageModel.capabilities();
     console.log(
-        assistantCapabilities.available,
-        assistantCapabilities.defaultTopK,
-        assistantCapabilities.maxTopK,
-        assistantCapabilities.defaultTemperature,
-        assistantCapabilities.supportsLanguage("de"),
+        languageModelCapabilities.available,
+        languageModelCapabilities.defaultTopK,
+        languageModelCapabilities.maxTopK,
+        languageModelCapabilities.defaultTemperature,
+        languageModelCapabilities.supportsLanguage("de"),
     );
 
-    assistant.addEventListener("contextoverflow", () => {});
+    languageModel.addEventListener("contextoverflow", () => {});
 
-    const promptTokens: number = await assistant.countPromptTokens("foo", { signal: (new AbortController()).signal });
+    const promptTokens: number = await languageModel.countPromptTokens("foo", {
+        signal: (new AbortController()).signal,
+    });
     console.log(promptTokens);
 
-    const assistantResult: string = await assistant.prompt("foo", { signal: (new AbortController()).signal });
-    console.log(assistantResult);
+    const languageModelResult: string = await languageModel.prompt("foo", { signal: (new AbortController()).signal });
+    console.log(languageModelResult);
 
-    for await (const chunk of assistant.promptStreaming("foo", { signal: (new AbortController()).signal })) {
+    for await (const chunk of languageModel.promptStreaming("foo", { signal: (new AbortController()).signal })) {
         console.log(chunk);
     }
 
-    const assistantClone1: AIAssistant = await assistant.clone();
-    console.log(assistantClone1);
+    const languageModelClone1: AILanguageModel = await languageModel.clone();
+    console.log(languageModelClone1);
 
-    const assistantClone2: AIAssistant = await assistant.clone({ signal: (new AbortController()).signal });
-    console.log(assistantClone2);
+    const languageModelClone2: AILanguageModel = await languageModel.clone({ signal: (new AbortController()).signal });
+    console.log(languageModelClone2);
 
-    assistant.destroy();
+    languageModel.destroy();
 
     // Summarizer
 
