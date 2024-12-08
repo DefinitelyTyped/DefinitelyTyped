@@ -224,6 +224,13 @@ declare namespace WebSocket {
         callback: (res: boolean, code?: number, message?: string, headers?: OutgoingHttpHeaders) => void,
     ) => void;
 
+    /**
+     * FinishRequestCallback is a callback for last minute customization of the
+     * headers. If finishRequest is set, then it has the responsibility to call
+     * request.end() once it is done setting request headers.
+     */
+    type FinishRequestCallback = (request: IncomingMessage, websocket: WebSocket) => void;
+
     interface ClientOptions extends SecureContextOptions {
         protocol?: string | undefined;
         followRedirects?: boolean | undefined;
@@ -242,6 +249,7 @@ declare namespace WebSocket {
         rejectUnauthorized?: boolean | undefined;
         maxPayload?: number | undefined;
         skipUTF8Validation?: boolean | undefined;
+        finishRequest?: FinishRequestCallback | undefined;
     }
 
     interface PerMessageDeflateOptions {

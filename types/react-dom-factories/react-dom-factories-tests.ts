@@ -34,7 +34,6 @@ function testsFromReact(htmlAttr: React.HTMLProps<HTMLElement>) {
     DOM.div(null, undefined);
 
     let domNodeRef: Element | null;
-    DOM.div({ ref: "domRef" });
     // type of node should be inferred
     DOM.div({
         ref: node => {

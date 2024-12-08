@@ -499,6 +499,10 @@ function test_bdd_qunit_before() {
         this;
     });
 
+    before(async function() {})
+        .timeout(1000)
+        .retries(1000);
+
     before("description", function(done) {
         // $ExpectType Done
         done;
@@ -550,6 +554,10 @@ function test_bdd_qunit_after() {
         // $ExpectType Context
         this;
     });
+
+    after(async function() {})
+        .timeout(1000)
+        .retries(1000);
 
     after("description", function(done) {
         // $ExpectType Done
@@ -603,6 +611,10 @@ function test_bdd_qunit_beforeEach() {
         this;
     });
 
+    beforeEach(async function() {})
+        .timeout(1000)
+        .retries(1000);
+
     beforeEach("description", function(done) {
         // $ExpectType Done
         done;
@@ -654,6 +666,10 @@ function test_bdd_qunit_afterEach() {
         // $ExpectType Context
         this;
     });
+
+    afterEach(async function() {})
+        .timeout(1000)
+        .retries(1000);
 
     afterEach("description", function(done) {
         // $ExpectType Done

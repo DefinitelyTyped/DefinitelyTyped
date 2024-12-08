@@ -50,3 +50,16 @@ const obj = { c: 8, b: [{ z: 6, y: 5, x: 4 }, 7], a: 3 };
     // We can specify the cycles
     stringify(obj, { cycles: true }); // $ExpectType string
 }
+
+{
+    // Third argument in a Comparator function
+    const s: string = stringify(
+        obj,
+        (a: stringify.Element, b: stringify.Element, opts: { get(k: string): any } | undefined): number => {
+            return opts
+                ? opts.get(a.key) < opts.get(b.key) ? 1 : -1
+                : -1;
+        },
+    );
+    console.log(s);
+}

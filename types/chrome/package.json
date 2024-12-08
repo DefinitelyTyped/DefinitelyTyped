@@ -48,10 +48,6 @@
             "githubUsername": "bdbai"
         },
         {
-            "name": "pokutuna",
-            "githubUsername": "pokutuna"
-        },
-        {
             "name": "Jason Xian",
             "githubUsername": "JasonXian"
         },
@@ -74,6 +70,10 @@
         {
             "name": "Federico Brigante",
             "githubUsername": "fregante"
+        },
+        {
+            "name": "Erwan Jugand",
+            "githubUsername": "erwanjugand"
         }
     ]
 }

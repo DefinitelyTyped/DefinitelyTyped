@@ -1,5 +1,5 @@
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../tsl/TSLCore.js";
+import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import ArrayElementNode from "../utils/ArrayElementNode.js";
 import BufferNode from "./BufferNode.js";
 
@@ -17,7 +17,7 @@ declare class UniformArrayNode extends BufferNode {
 
     getElementLength(): number;
 
-    element(indexNode: number): ShaderNodeObject<UniformArrayElementNode>;
+    element(indexNode: NodeRepresentation): ShaderNodeObject<UniformArrayElementNode>;
 }
 
 export default UniformArrayNode;

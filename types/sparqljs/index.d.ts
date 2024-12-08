@@ -284,10 +284,22 @@ export interface Triple {
     object: Term;
 }
 
-export interface PropertyPath {
+export type PropertyPath = NegatedPropertySet | {
     type: "path";
-    pathType: "|" | "/" | "^" | "+" | "*" | "!" | "?";
+    pathType: "|" | "/" | "^" | "+" | "*" | "?";
     items: Array<IriTerm | PropertyPath>;
+};
+
+export interface NegatedPropertySet {
+    type: "path";
+    pathType: "!";
+    items: Array<
+        IriTerm | {
+            type: "path";
+            pathType: "^";
+            items: [IriTerm];
+        }
+    >;
 }
 
 export type Expression =

@@ -1,4 +1,8 @@
-declare function timestring(input: string, returnUnit?: timestring.ReturnUnit, opts?: timestring.Options): number;
+declare function timestring(
+    input: string | number,
+    returnUnit?: timestring.ReturnUnit,
+    opts?: timestring.Options,
+): number;
 
 declare namespace timestring {
     type ReturnUnit =

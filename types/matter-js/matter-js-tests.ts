@@ -267,6 +267,8 @@ Events.on(engine, "newMadeUpEvent", (e) => {});
 
 // $ExpectType void
 Events.off(engine, "newMadeUpEvent", (e) => {});
+// $ExpectType void
+Events.off(engine, "newMadeUpEvent");
 
 // Pairs
 // $ExpectType Pairs

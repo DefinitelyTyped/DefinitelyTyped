@@ -387,7 +387,7 @@ declare namespace Ffmpeg {
          * Emitted just after ffmpeg has been spawned.
          *
          * @event FfmpegCommand#start
-         * @param {String} command ffmpeg command line
+         * @param command ffmpeg command line
          */
         on(event: "start", listener: (command: string) => void): this;
 
@@ -395,13 +395,13 @@ declare namespace Ffmpeg {
          * Emitted when ffmpeg reports progress information
          *
          * @event FfmpegCommand#progress
-         * @param {Object} progress progress object
-         * @param {Number} progress.frames number of frames transcoded
-         * @param {Number} progress.currentFps current processing speed in frames per second
-         * @param {Number} progress.currentKbps current output generation speed in kilobytes per second
-         * @param {Number} progress.targetSize current output file size
-         * @param {String} progress.timemark current video timemark
-         * @param {Number} [progress.percent] processing progress (may not be available depending on input)
+         * @param progress progress object
+         * @param progress.frames number of frames transcoded
+         * @param progress.currentFps current processing speed in frames per second
+         * @param progress.currentKbps current output generation speed in kilobytes per second
+         * @param progress.targetSize current output file size
+         * @param progress.timemark current video timemark
+         * @param [progress.percent] processing progress (may not be available depending on input)
          */
         on(
             event: "progress",
@@ -419,7 +419,7 @@ declare namespace Ffmpeg {
          * Emitted when ffmpeg outputs to stderr
          *
          * @event FfmpegCommand#stderr
-         * @param {String} line stderr output line
+         * @param line stderr output line
          */
         on(event: "stderr", listener: (line: string) => void): this;
 
@@ -427,21 +427,23 @@ declare namespace Ffmpeg {
          * Emitted when ffmpeg reports input codec data
          *
          * @event FfmpegCommand#codecData
-         * @param {Object} codecData codec data object
-         * @param {String} codecData.format input format name
-         * @param {String} codecData.audio input audio codec name
-         * @param {String} codecData.audio_details input audio codec parameters
-         * @param {String} codecData.video input video codec name
-         * @param {String} codecData.video_details input video codec parameters
+         * @param codecData codec data object
+         * @param codecData.format input format name
+         * @param codecData.audio input audio codec name
+         * @param codecData.audio_details input audio codec parameters
+         * @param codecData.video input video codec name
+         * @param codecData.video_details input video codec parameters
+         * @param codecData.duration input video duration
          */
         on(
             event: "codecData",
             listener: (codecData: {
                 format: string;
                 audio: string;
-                audio_details: string;
+                audio_details: string[];
                 video: string;
-                video_details: string;
+                video_details: string[];
+                duration: string;
             }) => void,
         ): this;
 
@@ -449,9 +451,9 @@ declare namespace Ffmpeg {
          * Emitted when an error happens when preparing or running a command
          *
          * @event FfmpegCommand#error
-         * @param {Error} error error object, with optional properties 'inputStreamError' / 'outputStreamError' for errors on their respective streams
-         * @param {String|null} stdout ffmpeg stdout, unless outputting to a stream
-         * @param {String|null} stderr ffmpeg stderr
+         * @param error error object, with optional properties 'inputStreamError' / 'outputStreamError' for errors on their respective streams
+         * @param stdout ffmpeg stdout, unless outputting to a stream
+         * @param stderr ffmpeg stderr
          */
         on(event: "error", listener: (error: Error, stdout: string | null, stderr: string | null) => void): this;
 
@@ -459,7 +461,7 @@ declare namespace Ffmpeg {
          * Emitted when a taking screenshots
          *
          * @event FfmpegCommand#filenames
-         * @param {Array} [filenames] generated filenames when taking screenshots
+         * @param filenames generated filenames when taking screenshots
          */
         on(event: "filenames", listener: (filenames: string[]) => void): this;
 
@@ -467,8 +469,8 @@ declare namespace Ffmpeg {
          * Emitted when a command finishes processing
          *
          * @event FfmpegCommand#end
-         * @param {String|null} stdout ffmpeg stdout when not outputting to a stream, null otherwise
-         * @param {String|null} stderr ffmpeg stderr
+         * @param stdout ffmpeg stdout when not outputting to a stream, null otherwise
+         * @param stderr ffmpeg stderr
          */
         on(event: "end", listener: (stdout: string | null, stderr: string | null) => void): this;
 

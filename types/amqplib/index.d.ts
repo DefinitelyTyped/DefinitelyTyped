@@ -11,6 +11,7 @@ export interface Connection extends events.EventEmitter {
     connection: {
         serverProperties: ServerProperties;
     };
+    updateSecret(newSecret: Buffer, reason: string): Promise<void>;
 }
 
 export interface Channel extends events.EventEmitter {

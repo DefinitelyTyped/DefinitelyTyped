@@ -1,4 +1,3 @@
-import * as PropTypes from "prop-types";
 import * as React from "react";
 import "trusted-types";
 
@@ -29,18 +28,14 @@ interface Context {
     someValue?: string | null | undefined;
 }
 
-interface ChildContext {
-    someOtherValue: string;
-}
-
 interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-// use any for ClassAttribute type sine we're using string refs
+// use any for ClassAttribute type since we're using refs
 const props: Props & React.ClassAttributes<any> = {
     key: 42,
-    ref: "myComponent42",
+    ref: React.createRef(),
     hello: "world",
     foo: 42,
 };
@@ -134,30 +129,12 @@ declare const container: Element;
     }
 }
 
-class ModernComponent extends React.Component<Props, State, Snapshot>
-    implements MyComponent, React.ChildContextProvider<ChildContext>
-{
-    static propTypes: React.ValidationMap<Props> = {
-        hello: PropTypes.string.isRequired,
-        world: PropTypes.string,
-        foo: PropTypes.number.isRequired,
-    };
+class ModernComponent extends React.Component<Props, State, Snapshot> implements MyComponent {
+    // deprecated. Kept for backwards compatibility.
+    static propTypes = {};
 
-    static contextTypes: React.ValidationMap<Context> = {
-        someValue: PropTypes.string,
-    };
-
-    static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string.isRequired,
-    };
-
+    contextType: React.Context<Context>;
     context: Context = {};
-
-    getChildContext() {
-        return {
-            someOtherValue: "foo",
-        };
-    }
 
     state = {
         inputValue: this.context.someValue,
@@ -217,37 +194,17 @@ interface SCProps {
 function FunctionComponent(props: SCProps) {
     return props.foo ? React.createElement("div", null, props.foo) : null;
 }
-
-// tslint:disable-next-line:no-namespace
-namespace FunctionComponent {
-    export const displayName = "FunctionComponent";
-    export const defaultProps = { foo: 42 };
-}
+FunctionComponent.displayName = "FunctionComponent";
 
 const FunctionComponent2: React.FunctionComponent<SCProps> =
     // props is contextually typed
     props => React.createElement("div", null, props.foo);
 FunctionComponent2.displayName = "FunctionComponent2";
-FunctionComponent2.defaultProps = {
-    foo: 42,
-};
 
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 
 const FunctionComponent5: React.FunctionComponent = () => false;
-
-// React.createFactory
-const factory: React.CFactory<Props, ModernComponent> = React.createFactory(ModernComponent);
-const factoryElement: React.CElement<Props, ModernComponent> = factory(props);
-
-const functionComponentFactory: React.FunctionComponentFactory<SCProps> = React.createFactory(FunctionComponent);
-const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> = functionComponentFactory(props);
-
-const legacyStatelessComponentFactory: React.SFCFactory<SCProps> = React.createFactory(FunctionComponent);
-
-const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> = React.createFactory("div");
-const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> = domFactory();
 
 // React.createElement
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
@@ -386,13 +343,18 @@ myComponent.reset();
 interface RCProps {}
 
 class RefComponent extends React.Component<RCProps> {
-    static create = React.createFactory(RefComponent);
+    static create(props: React.ClassAttributes<RefComponent>) {
+        return React.createElement(RefComponent);
+    }
     refMethod() {
     }
 }
 
 let componentRef: RefComponent | null = new RefComponent({});
-RefComponent.create({ ref: "componentRef" });
+RefComponent.create({
+    // @ts-expect-error -- string refs are no longer supported
+    ref: "componentRef",
+});
 // type of c should be inferred
 RefComponent.create({
     ref: c => {
@@ -460,19 +422,14 @@ const ForwardRefRenderFunctionWithInferrence3: React.ComponentType<
     ),
 );
 
-const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
-ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
+// deprecated. Kept for backwards compatibility.
+ForwardingRefComponent.propTypes = {};
 
 // render function tests
-// need the explicit type declaration for typescript < 3.1
-const ForwardRefRenderFunctionWithPropTypes: { (): null; propTypes?: {} | undefined } = () => null;
-// Warning: forwardRef render functions do not support propTypes or defaultProps
-// @ts-expect-error
-React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
-
 const ForwardRefRenderFunctionWithDefaultProps: { (): null; defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// @ts-expect-error
+// Ideally this would error but since `defaultProps` is removed, it becomes an excess property.
+// Excess properties are generally allowed in TypeScript.
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
 
 function RefCarryingComponent() {
@@ -529,7 +486,7 @@ const divStyle: React.CSSProperties = { // CSSProperties
 };
 const htmlAttr: React.HTMLProps<HTMLElement> = {
     key: 36,
-    ref: "htmlComponent",
+    ref: React.createRef(),
     children,
     className: "test-attr",
     style: divStyle,
@@ -634,10 +591,10 @@ const childrenToArray: Array<Exclude<React.ReactNode, boolean | null | undefined
 
 declare const numberChildren: number[];
 declare const nodeChildren: React.ReactNode;
-declare const elementChildren: JSX.Element[];
-declare const mixedChildren: Array<JSX.Element | string>;
-declare const singlePluralChildren: JSX.Element | JSX.Element[];
-declare const renderPropsChildren: () => JSX.Element;
+declare const elementChildren: React.JSX.Element[];
+declare const mixedChildren: Array<React.JSX.Element | string>;
+declare const singlePluralChildren: React.JSX.Element | React.JSX.Element[];
+declare const renderPropsChildren: () => React.JSX.Element;
 
 // $ExpectType null
 const mappedChildrenArray0 = React.Children.map(null, num => num);
@@ -768,11 +725,9 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     const emptyObject: React.ReactNode = {};
     // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const promise: React.ReactNode = Promise.resolve("React");
 
     const asyncTests = async function asyncTests() {
-        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         const node: Awaited<React.ReactNode> = await Promise.resolve("React");
     };
 
@@ -793,6 +748,18 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
             return null;
         },
     });
+    const RenderableContext = React.createContext<React.ReactNode>("HAL");
+    const NestedContext = React.createContext(RenderableContext);
+    // @ts-expect-error TODO Should be supported.
+    let node: React.ReactNode = RenderableContext;
+    // @ts-expect-error TODO context values are recursively unwrapped so this should be allowed by types.
+    node = NestedContext;
+
+    const NotRenderableContext = React.createContext(() => {});
+    // @ts-expect-error
+    node = NotRenderableContext;
+
+    node = BigInt(10);
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) {
@@ -810,6 +777,8 @@ React.createElement(Memoized2, { bar: "string" });
 
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
+// deprecated. Kept for backwards compatibility.
+functionComponent.propTypes = {};
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",
@@ -851,14 +820,19 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     Wrapper = (props: ExactProps) => null;
     Wrapper = class Wider extends React.Component<WiderProps> {};
     Wrapper = (props: WiderProps) => null;
+    // @ts-expect-error -- legacy context was removed
     Wrapper = (props, legacyContext) => {
         // $ExpectType any
         legacyContext;
         return null;
     };
+    // @ts-expect-error -- legacy context was removed
     Wrapper = (props, legacyContext: { foo: number }) => null;
+
+    // @ts-expect-error -- legacy context was removed
     Wrapper = class Exact extends React.Component<ExactProps> {
         constructor(props: ExactProps, legacyContext: { foo: number }) {
+            // @ts-expect-error -- legacy context was removed
             super(props, legacyContext);
         }
     };
@@ -1015,4 +989,39 @@ function propsInferenceHelpersTests() {
 {
     // act() exposed from react
     React.act(() => null);
+
+    React.act(() => {});
+    {
+        const result = React.act(() => "value");
+        result.then(x => {});
+    }
+    {
+        // tslint:disable-next-line no-void-expression
+        const result = React.act(() => {});
+        // @ts-expect-error
+        result.then;
+    }
+    const asyncCallbacks = async () => {
+        await React.act(async () => {});
+        await React.act(async () => null);
+        await React.act(async () => "value");
+        {
+            const result = React.act(async () => {});
+            result.then(x => {});
+        }
+    };
+}
+
+function cacheTest() {
+    const getLength = React.cache((a: string) => a.length);
+    const fooLength: number = getLength("foo");
+    getLength(
+        // @ts-expect-error -- number not assignable to string
+        133,
+    );
+
+    React.cache(
+        // @ts-expect-error implicit any
+        a => a,
+    );
 }

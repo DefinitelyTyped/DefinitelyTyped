@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/no-const-enum": "off",
-        "@definitelytyped/dt-header": "off"
+        "@definitelytyped/no-const-enum": "off"
     }
 }

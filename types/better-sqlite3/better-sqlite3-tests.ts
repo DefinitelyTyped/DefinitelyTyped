@@ -2,6 +2,8 @@ import fs = require("fs");
 import Sqlite = require("better-sqlite3");
 
 const err = new Sqlite.SqliteError("ok", "ok");
+const code = err.code;
+
 const result: Sqlite.RunResult = { changes: 1, lastInsertRowid: 1 };
 const options: Sqlite.Options = { fileMustExist: true, readonly: true, nativeBinding: "/some/native/binding/path" };
 const registrationOptions: Sqlite.RegistrationOptions = {

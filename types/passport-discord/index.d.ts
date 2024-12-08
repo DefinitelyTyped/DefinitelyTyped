@@ -121,6 +121,7 @@ declare namespace Strategy {
         owner: boolean;
         permissions: number;
         icon: string | null;
+        banner: string | null;
         id: string;
         name: string;
         features?: string[] | undefined;

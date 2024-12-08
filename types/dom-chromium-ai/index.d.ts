@@ -7,6 +7,8 @@ interface AI {
     readonly summarizer: AISummarizerFactory;
     readonly writer: AIWriterFactory;
     readonly rewriter: AIRewriterFactory;
+    readonly translator: AITranslatorFactory;
+    readonly languageDetector: AILanguageDetectorFactory;
 }
 
 interface AICreateMonitor extends EventTarget {
@@ -67,40 +69,40 @@ interface AILanguageModelCreateOptions {
 
 interface AILanguageModelCreateOptionsWithSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: string;
-    initialPrompts?: Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>;
+    initialPrompts?: AILanguageModelPrompt[];
 }
 
 interface AILanguageModelCreateOptionsWithoutSystemPrompt extends AILanguageModelCreateOptions {
     systemPrompt?: never;
     initialPrompts?:
-        | [AILanguageModelSystemPrompt, ...Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>]
-        | Array<AILanguageModelAssistantPrompt | AILanguageModelUserPrompt>;
+        | [AILanguageModelSystemPrompt, ...AILanguageModelPrompt[]]
+        | AILanguageModelPrompt[];
 }
 
-type AILanguageModelPromptRole = "system" | "user" | "assistant";
+type AILanguageModelPromptRole = "user" | "assistant";
+type AILanguageModelInitialPromptRole = "system" | AILanguageModelPromptRole;
 
 interface AILanguageModelPrompt {
-    role?: AILanguageModelPromptRole;
-    content?: string;
+    role: AILanguageModelPromptRole;
+    content: string;
 }
 
-interface AILanguageModelSystemPrompt extends AILanguageModelPrompt {
+interface AILanguageModelInitialPrompt {
+    role: AILanguageModelInitialPromptRole;
+    content: string;
+}
+
+interface AILanguageModelSystemPrompt extends AILanguageModelInitialPrompt {
     role: "system";
 }
 
-interface AILanguageModelUserPrompt extends AILanguageModelPrompt {
-    role: "user";
-}
-
-interface AILanguageModelAssistantPrompt extends AILanguageModelPrompt {
-    role: "assistant";
-}
+type AILanguageModelPromptInput = string | AILanguageModelPrompt | AILanguageModelPrompt[];
 
 interface AILanguageModel extends EventTarget {
-    prompt(input: string, options?: AILanguageModelPromptOptions): Promise<string>;
-    promptStreaming(input: string, options?: AILanguageModelPromptOptions): ReadableStream<string>;
+    prompt(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<string>;
+    promptStreaming(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): ReadableStream<string>;
 
-    countPromptTokens(input: string, options?: AILanguageModelPromptOptions): Promise<number>;
+    countPromptTokens(input: AILanguageModelPromptInput, options?: AILanguageModelPromptOptions): Promise<number>;
     readonly maxTokens: number;
     readonly tokensSoFar: number;
     readonly tokensLeft: number;
@@ -149,12 +151,11 @@ interface AILanguageModelCloneOptions {
 
 interface AILanguageModelCapabilities {
     readonly available: AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 
     readonly defaultTopK: number | null;
     readonly maxTopK: number | null;
     readonly defaultTemperature: number | null;
-
-    supportsLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Summarizer
@@ -203,7 +204,7 @@ interface AISummarizerCapabilities {
     supportsFormat(format: AISummarizerFormat): AICapabilityAvailability;
     supportsLength(length: AISummarizerLength): AICapabilityAvailability;
 
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Writer
@@ -252,7 +253,7 @@ interface AIWriterCapabilities {
     supportsFormat(format: AIWriterFormat): AICapabilityAvailability;
     supportsLength(length: AIWriterLength): AICapabilityAvailability;
 
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
 }
 
 // Rewriter
@@ -301,5 +302,79 @@ interface AIRewriterCapabilities {
     supportsFormat(format: AIRewriterFormat): AICapabilityAvailability;
     supportsLength(length: AIRewriterLength): AICapabilityAvailability;
 
-    supportsInputLanguage(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+}
+
+// Translator
+// https://github.com/WICG/translation-api?tab=readme-ov-file#full-api-surface-in-web-idl
+
+interface AITranslatorFactory {
+    create(options: AITranslatorCreateOptions): Promise<AITranslator>;
+    capabilities(): Promise<AITranslatorCapabilities>;
+}
+
+interface AITranslator {
+    translate(input: string, options?: AITranslatorTranslateOptions): Promise<string>;
+    translateStreaming(input: string, options?: AITranslatorTranslateOptions): ReadableStream;
+
+    readonly sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier;
+    readonly targetLanguage: Intl.UnicodeBCP47LocaleIdentifier;
+
+    destroy(): void;
+}
+
+interface AITranslatorCapabilities {
+    readonly available: AICapabilityAvailability;
+
+    languagePairAvailable(
+        sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier,
+        targetLanguage: Intl.UnicodeBCP47LocaleIdentifier,
+    ): AICapabilityAvailability;
+}
+
+interface AITranslatorCreateOptions {
+    signal?: AbortSignal;
+    monitor?: AICreateMonitorCallback;
+
+    sourceLanguage: Intl.UnicodeBCP47LocaleIdentifier;
+    targetLanguage: Intl.UnicodeBCP47LocaleIdentifier;
+}
+
+interface AITranslatorTranslateOptions {
+    signal?: AbortSignal;
+}
+
+// Language detector
+// https://github.com/WICG/translation-api?tab=readme-ov-file#full-api-surface-in-web-idl
+
+interface AILanguageDetectorFactory {
+    create(options?: AILanguageDetectorCreateOptions): Promise<AILanguageDetector>;
+    capabilities(): Promise<AILanguageDetectorCapabilities>;
+}
+
+interface AILanguageDetector {
+    detect(input: string, options?: AILanguageDetectorDetectOptions): Promise<LanguageDetectionResult[]>;
+
+    destroy(): void;
+}
+
+interface AILanguageDetectorCapabilities {
+    readonly available: AICapabilityAvailability;
+
+    languageAvailable(languageTag: Intl.UnicodeBCP47LocaleIdentifier): AICapabilityAvailability;
+}
+
+interface AILanguageDetectorCreateOptions {
+    signal?: AbortSignal;
+    monitor?: AICreateMonitorCallback;
+}
+
+interface AILanguageDetectorDetectOptions {
+    signal?: AbortSignal;
+}
+
+interface LanguageDetectionResult {
+    /** null represents unknown language */
+    detectedLanguage: Intl.UnicodeBCP47LocaleIdentifier | null;
+    confidence: number;
 }

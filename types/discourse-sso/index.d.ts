@@ -8,7 +8,7 @@ declare class DiscourseSSO {
 declare namespace DiscourseSSO {
     interface UserParams {
         nonce: string;
-        external_id: string;
+        external_id: string | number;
         email: string;
         admin?: boolean | undefined;
         moderator?: boolean | undefined;

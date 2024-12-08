@@ -116,6 +116,20 @@ declare module "perf_hooks" {
     class PerformanceMeasure extends PerformanceEntry {
         readonly entryType: "measure";
     }
+    interface UVMetrics {
+        /**
+         * Number of event loop iterations.
+         */
+        readonly loopCount: number;
+        /**
+         * Number of events that have been processed by the event handler.
+         */
+        readonly events: number;
+        /**
+         * Number of events that were waiting to be processed when the event provider was called.
+         */
+        readonly eventsWaiting: number;
+    }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
      *
@@ -166,6 +180,16 @@ declare module "perf_hooks" {
          * @since v8.5.0
          */
         readonly nodeStart: number;
+        /**
+         * This is a wrapper to the `uv_metrics_info` function.
+         * It returns the current set of event loop metrics.
+         *
+         * It is recommended to use this property inside a function whose execution was
+         * scheduled using `setImmediate` to avoid collecting metrics before finishing all
+         * operations scheduled during the current loop iteration.
+         * @since v22.8.0, v20.18.0
+         */
+        readonly uvMetricsInfo: UVMetrics;
         /**
          * The high resolution millisecond timestamp at which the V8 platform was
          * initialized.

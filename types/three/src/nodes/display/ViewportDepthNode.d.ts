@@ -29,6 +29,8 @@ export const viewZToPerspectiveDepth: (viewZ: Node, near: Node, far: Node) => No
 
 export const perspectiveDepthToViewZ: (depth: Node, near: Node, far: Node) => Node;
 
+export const perspectiveDepthToLogarithmicDepth: (perspectiveW: Node, near: Node, far: Node) => Node;
+
 export const depth: ShaderNodeObject<ViewportDepthNode>;
 export const linearDepth: (valueNode?: Node | null) => ShaderNodeObject<ViewportDepthNode>;
 export const viewportLinearDepth: ShaderNodeObject<ViewportDepthNode>;

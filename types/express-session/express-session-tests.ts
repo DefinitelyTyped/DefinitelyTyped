@@ -1,5 +1,6 @@
 import express = require("express");
 import session = require("express-session");
+import crypto = require("crypto");
 import { MemoryStore, Session, SessionData, Store } from "express-session";
 
 const app = express();
@@ -71,6 +72,12 @@ app.use(
         unset: "keep",
     }),
 );
+
+// Various `crypto.CipherKey` types
+app.use(session({ secret: Buffer.from("keyboard cat", "utf8") }));
+app.use(session({ secret: crypto.createSecretKey(Buffer.from("keyboard cat", "utf8")) }));
+app.use(session({ secret: new Uint8Array(32) }));
+app.use(session({ secret: new DataView(new ArrayBuffer(32)) }));
 
 // When constructed without arguments, `expires` and `originalMaxAge` are null.
 const emptyCookie: SessionData["cookie"] = { expires: null, originalMaxAge: null };

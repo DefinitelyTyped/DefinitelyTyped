@@ -223,6 +223,10 @@ countableI = d3Time.utcYear;
 dateArray = d3Time.utcYears(start, end);
 dateArray = d3Time.utcYears(start, end, 2);
 
+countableI = d3Time.unixDay;
+dateArray = d3Time.unixDays(start, end);
+dateArray = d3Time.unixDays(start, end, 2);
+
 dateArray = d3Time.timeTicks(start, end, 2);
 simpleIOrNull = d3Time.timeTickInterval(start, end, 2);
 

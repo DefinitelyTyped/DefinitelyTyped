@@ -1,15 +1,17 @@
-type Comparator<T> = (a: T, b: T) => number;
-type ComparisonArg<T> = string | Comparator<T>;
-type ComparisonArgs<T> = ComparisonArg<T> | Array<ComparisonArg<T>>;
+declare namespace ArraySort {
+    type Comparator<T> = (a: T, b: T) => number;
+    type ComparisonArg<T> = string | Comparator<T>;
+    type ComparisonArgs<T> = ComparisonArg<T> | Array<ComparisonArg<T>>;
 
-interface Options {
-    readonly reverse: boolean;
+    interface Options {
+        readonly reverse: boolean;
+    }
 }
 
-declare function arraySort<T>(
+declare function ArraySort<T>(
     arr: T[],
-    props?: ComparisonArgs<T>,
-    options?: Options,
+    props?: ArraySort.ComparisonArgs<T>,
+    options?: ArraySort.Options,
 ): T[];
 
-export default arraySort;
+export = ArraySort;
