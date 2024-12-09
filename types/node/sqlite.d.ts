@@ -70,6 +70,13 @@ declare module "node:sqlite" {
          * @default false
          */
         enableDoubleQuotedStringLiterals?: boolean | undefined;
+        /**
+         * If `true`, the database is opened in read-only mode.
+         * If the database does not exist, opening it will fail.
+         * @since v22.12.0
+         * @default false
+         */
+        readOnly?: boolean | undefined;
     }
     interface CreateSessionOptions {
         /**
