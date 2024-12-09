@@ -1,4 +1,4 @@
-import { StyledComponent } from "@emotion/styled/types/index";
+import { StyledComponent } from "@emotion/styled";
 import * as React from "react";
 import * as StyledSystem from "styled-system";
 
