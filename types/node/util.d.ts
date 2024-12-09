@@ -1918,6 +1918,18 @@ declare module "util/types" {
      */
     function isBigInt64Array(value: unknown): value is BigInt64Array;
     /**
+     * Returns `true` if the value is a BigInt object, e.g. created
+     * by `Object(BigInt(123))`.
+     *
+     * ```js
+     * util.types.isBigIntObject(Object(BigInt(123)));   // Returns true
+     * util.types.isBigIntObject(BigInt(123));   // Returns false
+     * util.types.isBigIntObject(123);  // Returns false
+     * ```
+     * @since v10.4.0
+     */
+    function isBigIntObject(object: unknown): object is BigInt;
+    /**
      * Returns `true` if the value is a `BigUint64Array` instance.
      *
      * ```js
