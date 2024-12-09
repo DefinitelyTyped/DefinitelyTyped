@@ -108,14 +108,14 @@ declare module "util" {
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
     }
-    export interface StacktraceObject {
+    export interface CallSiteObject {
         /**
-         * Returns the name of the function associated with this stack frame.
+         * Returns the name of the function associated with this call site.
          */
         functionName: string;
         /**
          * Returns the name of the resource that contains the script for the
-         * function for this StackFrame.
+         * function for this call site.
          */
         scriptName: string;
         /**
@@ -186,14 +186,14 @@ declare module "util" {
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
     /**
-     * Returns an array of stacktrace objects containing the stack of
+     * Returns an array of call site objects containing the stack of
      * the caller function.
      *
      * ```js
      * const util = require('node:util');
      *
      * function exampleFunction() {
-     *   const callSites = util.getCallSite();
+     *   const callSites = util.getCallSites();
      *
      *   console.log('Call Sites:');
      *   callSites.forEach((callSite, index) => {
@@ -225,12 +225,12 @@ declare module "util" {
      *
      * anotherFunction();
      * ```
-     * @param frames Number of frames returned in the stacktrace.
+     * @param frameCount Number of frames to capture as call site objects.
      * **Default:** `10`. Allowable range is between 1 and 200.
-     * @return An array of stacktrace objects
+     * @return An array of call site objects
      * @since v22.9.0
      */
-    export function getCallSite(frames?: number): StacktraceObject[];
+    export function getCallSites(frameCount?: number): CallSiteObject[];
     /**
      * Returns the string name for a numeric error code that comes from a Node.js API.
      * The mapping between error codes and error names is platform-dependent.

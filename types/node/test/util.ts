@@ -446,12 +446,12 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
 }
 
 {
-    // $ExpectType StacktraceObject[]
-    util.getCallSite();
-    // $ExpectType StacktraceObject[]
-    util.getCallSite(100);
+    // $ExpectType CallSiteObject[]
+    util.getCallSites();
+    // $ExpectType CallSiteObject[]
+    util.getCallSites(100);
 
-    const callSites = util.getCallSite();
+    const callSites = util.getCallSites();
 
     console.log("Call Sites:");
     callSites.forEach((callSite, index) => {
