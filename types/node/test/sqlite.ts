@@ -38,3 +38,21 @@ import { TextEncoder } from "node:util";
     statement.expandedSQL; // $ExpectType string
     statement.sourceSQL; // $ExpectType string
 }
+
+{
+    const sourceDb = new DatabaseSync(":memory:");
+    const targetDb = new DatabaseSync(":memory:");
+
+    sourceDb.exec("CREATE TABLE data(key INTEGER PRIMARY KEY, value TEXT)");
+    targetDb.exec("CREATE TABLE data(key INTEGER PRIMARY KEY, value TEXT)");
+
+    const session = sourceDb.createSession();
+
+    const insert = sourceDb.prepare("INSERT INTO data (key, value) VALUES (?, ?)");
+    insert.run(1, "hello");
+    insert.run(2, "world");
+
+    const changeset = session.changeset();
+    targetDb.applyChangeset(changeset);
+    // Now that the changeset has been applied, targetDb contains the same data as sourceDb.
+}
