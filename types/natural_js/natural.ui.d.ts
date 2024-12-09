@@ -399,7 +399,7 @@ declare namespace NU {
         /**
          * Shows a message dialog box.
          *
-         * @return {NU.Alert} Returns the Alert instance for chaining.
+         * @return {NU.Alert} Returns the `Alert` instance for chaining.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
          */
@@ -407,7 +407,7 @@ declare namespace NU {
         /**
          * Hides the message dialog box.
          *
-         * @return {NU.Alert} Returns the Alert instance for chaining.
+         * @return {NU.Alert} Returns the `Alert` instance for chaining.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
          */
@@ -415,7 +415,7 @@ declare namespace NU {
         /**
          * Removes all elements related to Alert.
          *
-         * @return {NU.Alert} Returns the Alert instance for chaining.
+         * @return {NU.Alert} Returns the `Alert` instance for chaining.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
          */
@@ -436,7 +436,7 @@ declare namespace NU {
         /**
          * Disable the button.
          *
-         * @return {NU.Button} Returns the Alert instance for chaining.
+         * @return {NU.Button} Returns the `Button` instance for chaining.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html }
          */
@@ -444,7 +444,7 @@ declare namespace NU {
         /**
          * Enable the button.
          *
-         * @return {NU.Button} Returns the Alert instance for chaining.
+         * @return {NU.Button} Returns the `Button` instance for chaining.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html }
          */
@@ -462,7 +462,21 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html }
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Shows the Datepicker.
+         *
+         * @return {NU.Datepicker} Returns the `Datepicker` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html }
+         */
         show(): NU.Datepicker;
+        /**
+         * Hides the Datepicker.
+         *
+         * @return {NU.Datepicker} Returns the `Datepicker` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html }
+         */
         hide(): NU.Datepicker;
     }
 
@@ -477,8 +491,33 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html }
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Opens the Popup.
+         *
+         * @param {any} [onOpenData] - Optional data to be processed or used when the popup is opened.
+         * > Pass onOpenData as the first argument to the onOpen function specified by the onOpen event option.
+         * @return {NU.Popup} Returns the `Popup` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html }
+         */
         open(onOpenData?: any): NU.Popup;
+        /**
+         * Close the Popup.
+         *
+         * @param {any} [onCloseData] - Optional data to be processed or used when the popup is closed.
+         * > Pass onCloseData as the first argument to the onClose function specified by the onClose event option.
+         * @return {NU.Popup} Returns the `Popup` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html }
+         */
         close(onCloseData?: any): NU.Popup;
+        /**
+         * Removes all elements related to Popup.
+         *
+         * @return {NU.Popup} Returns the `Popup` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html }
+         */
         remove(): NU.Popup;
     }
 
@@ -493,22 +532,103 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Opens the specified tab.
+         *
+         * @param {number} idx - The index of the tab to open.
+         * @param {any} [onOpenData] - Optional data to be processed or used when the tab is opened.
+         * > Pass onOpenData as the first argument to the onOpen function specified by the onOpen event option.
+         * @param {boolean} [isFirst] - This is an option used inside a component that is set to true when a tab is instantiated and the default active tab is automatically selected.
+         * @return {NU.Tab} - Returns the `Tab` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         */
         open(idx: number, onOpenData?: any, isFirst?: boolean): NU.Tab;
+        /**
+         * Opens the specified tab.
+         *
+         * @param {number} [idx] - The index of the tab to open. If no arguments are specified, a status information object is returned.
+         * @param {any} [onOpenData] - Optional data to be processed or used when the tab is opened.
+         * > Pass onOpenData as the first argument to the onOpen function specified by the onOpen event option.
+         * @param {boolean} [isFirst] - This is an option used inside a component that is set to true when a tab is instantiated and the default active tab is automatically selected.
+         * @return {Object} If all arguments are not entered, the following tab status information is returned in object type.
+         * @return {number} return.index - Index of the activated tab.
+         * @return {NJS<HTMLElement[]>} return.tab - Activated tab navigation element.
+         * @return {NJS<HTMLElement[]>} return.content - Activated tab content element.
+         * @return {NA.Objects.Controller.Object} return.cont - Controller object of the activated tab content.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         */
         open(idx?: number, onOpenData?: any, isFirst?: boolean): {
             index: number;
             tab: NJS<HTMLElement[]>;
             content: NJS<HTMLElement[]>;
             cont: NA.Objects.Controller.Object;
         };
+        /**
+         * Disables the specified tab.
+         *
+         * @param {number} idx - The index of the tab to disable.
+         * @return {NU.Tab} Returns the `Tab` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         */
         disable(idx: number): NU.Tab;
+        /**
+         * Enables the specified tab.
+         *
+         * @param {number} idx - The index of the tab to be enabled.
+         * @return {NU.Tab} Returns the `Tab` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         */
         enable(idx: number): NU.Tab;
+        /**
+         * Returns the Controller object of the tab content.
+         * > If the tab content is created internally or the preload option is false, undefined is returned because there is no Controller object.
+         *
+         * @param {number} [idx] - Enter the tab index where the controller object you want to look up is located. If no index is provided, the method returns the controller object that is active.
+         * @return {NA.Objects.Controller.Object} The controller object corresponding to the specified index.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         */
         cont(idx?: number): NA.Objects.Controller.Object;
     }
 
     interface Select {
         options: NU.Options.Select;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - true: Extracts only the currently selected row data and returns it as `JSONObject[]` type.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         */
         data(selFlag: true): JSONObject[];
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {false} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - true: Extracts only the currently selected row data and returns it as `JSONObject[]` type.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         * @return {NJS<NC.JSONObject[]>} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         */
         data(selFlag: false): NJS<NC.JSONObject[]>;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         */
         data(): JSONObject[];
         /**
          * Returns the context element.
@@ -519,19 +639,122 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Binds data to the element specified by the context option.
+         * > If the context element is a checkbox and is checked, the elements created when data is bound are also created in a checked state.
+         *
+         * > When data is bound to a radio or checkbox input element, the element set as context has an id attribute and a name attribute, and only the name attribute is added to the additionally created option element.
+         * > When binding an event to a created checkbox or radio, if you select an element with the id selector, the event is applied only to the first option element, so select the element with the name attribute.
+         * ```
+         * $("input[name='name']").on("click", function(e) { ... });
+         * ```
+         *
+         * @param {NJS<NC.JSONObject[]>} [data] - Specifies the data to bind.
+         * @return {NU.Select} Returns the `Select` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         */
         bind(data?: NJS<NC.JSONObject[]>): NU.Select;
-        index(): number;
+        /**
+         * Select the option corresponding to the specified index.
+         *
+         * @param {number} idx - Index of the option to select
+         * @return {NU.Select} Returns the `Select` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         */
         index(idx: number): NU.Select;
-        val(val?: NC.Primitive | NC.Primitive[]): NC.Primitive | NC.Primitive[] | NC;
-        remove(val?: NC.Primitive): NU.Select;
+        /**
+         * Returns the index of the selected option.
+         *
+         * @return {number} Index of selected option
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         */
+        index(): number;
+        /**
+         * Select the option corresponding to the specified value.
+         *
+         * @param {NC.Primitive | NC.Primitive[]} [val] - Option value to select.
+         * @return {NU.Select} Returns the `Select` instance for chaining.
+         */
+        val(val?: NC.Primitive | NC.Primitive[]): NU.Select;
+        /**
+         * Returns the value of the selected option.
+         *
+         * @return {NC.Primitive | NC.Primitive[]} Selected option value.
+         */
+        val(): NC.Primitive | NC.Primitive[];
+        /**
+         * Removes option elements and row data objects equal to the value specified by the val argument..
+         *
+         * @param {NC.Primitive} val -
+         * @return {NU.Select} Returns the `Select` instance for chaining.
+         */
+        remove(val: NC.Primitive): NU.Select;
+        /**
+         * Reset selection.
+         *
+         * @param {boolean} [selFlag] - For select elements, setting it to true will select nothing and setting it to false will select the default (first) option element.
+         * @return {NU.Select} - Returns the `Select` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         */
         reset(selFlag?: boolean): NU.Select;
     }
 
     interface Form {
         options: NU.Options.Form;
-        data(selFlag: true, ...args: string[]): JSONObject[];
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - true: Extracts only the currently selected row data and returns it as `JSONObject[]` type.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         * @param {...string} cols - If you specify the property name of the data as an argument from the second argument to the nth argument of the data method, an object from which only the specified property value is extracted is returned.
+         * ```
+         * var formInst = N([]).form(".context")
+         *     .bind(0, [{ col01: "", col02: "", col03: "", col04: "", col05: "", col06: "" }]);
+         * formInst.data(true, "col01", "col02", "col03");
+         *     // [{ col01: "", col02: "", col03: "" }]
+         * ```
+         * > This only works if you specify the first argument as true.
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         */
+        data(selFlag: true, ...cols: string[]): JSONObject[];
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - true: Extracts only the currently selected row data and returns it as `JSONObject[]` type.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         */
         data(selFlag: false): NJS<NC.JSONObject[]>;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         */
         data(): JSONObject[];
+        /**
+         * Returns the index of the data bound to the Form from the bound data array.
+         *
+         * @param {string} [before] - If "before" is specified, the index of the data bound just before is returned.
+         * @return {number} Row index.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         */
         row(before?: "before"): number;
         /**
          * Returns the context element.
@@ -548,21 +771,111 @@ declare namespace NU {
             enterKey(ele: NJS<HTMLElement[]>, opts: NU.Options.Form): void;
             format(ele: NJS<HTMLElement[]>, opts: NU.Options.Form, eleType: string, key: string): void;
         };
-        bind(row: number, data: NJS<NC.JSONObject[]>): NU.Form;
+        /**
+         * Binds data to elements that have an id attribute value within the element specified by the context option.
+         *
+         * > If you change only the data and bind it again, N.form may not work properly.
+         * > When rebinding to a context element that has data bound to it, you must first run the unbind method and then run the bind method.
+         *
+         * @param {number} row - Specifies the row index of the data array to bind.
+         * @param {NJS<NC.JSONObject[]>} [data] - Specifies the data to bind.
+         * @param {...string} [cols] - If you specify the property name of the data from the third to the nth argument of the bind method, only the elements whose property name and id attribute value match will be bound to the data.
+         * ```
+         * // Data to bind
+         * var data = [{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]
+         * // Binds only to elements that have the id attribute values “col01”, “col02”, and “col03”.
+         * formInstance.bind(0, data, "col01", "col02", "col03");
+         * ```
+         * ```
+         * // After directly modifying the bound data, bind only to elements that have the id attribute values “col01”, “col02”, and “col03”.
+         * var data = formInstance.data()[formInstance.row()]
+         * data.col01 = "abc";
+         * data.col02 = "123";
+         * data.col03 = "가나다";
+         * formInstance.bind(0, data, "col01", "col02", "col03");
+         * ```
+         * @return {NU.Form} Returns the `Form` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040705.html }
+         */
+        bind(row: number, data?: NJS<NC.JSONObject[]>, ...cols: string[]): NU.Form;
         add(data?: number | NC.JSONObject, row?: number): NU.Form;
         remove(): NU.Form;
         revert(): NU.Form;
         validate(): boolean;
-        val(key: string, val?: NC.Primitive | NC.Primitive[], notify?: boolean): NC.Primitive | NC.Primitive[] | NU.Form;
+        val(key: string): NC.Primitive | NC.Primitive[];
+        val(key: string, val?: NC.Primitive | NC.Primitive[], notify?: boolean): NU.Form;
+        /**
+         * Processes real-time data synchronization logic for two-way data binding between data components.
+         *
+         * @param {number} row - The index of the row to be updated.
+         * @param {string} [key] - This is the column name of the row data to be updated.
+         * @return {NU.Form} Returns the `Form` instance for chaining.
+         */
         update(row: number, key?: string): NU.Form;
     }
 
     interface List {
         options: NU.Options.List;
+        /**
+         * The default row(li) element of a list. Create row elements by duplicating this element.
+         */
         tempRowEle: NJS<HTMLElement[]>;
+        /**
+         * This is an element specified by the context option of the list component. An instance of the original context element is assigned to the processed element.
+         */
         contextEle: NJS<HTMLElement[]>;
-        data(selFlag: true | "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...args: string[]): JSONObject[];
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         *  - modified: Returns inserted, updated and deleted data as `JSONObject[]` type.
+         *  - selected: When the select option or multiselect option is set, the selected data is returned as `JSONObject[]` type.
+         *  - checked: When the checkAll option, checkAllTarget option, or checkOnlyTarget option is set, the checked data is returned as `JSONObject[]` type.
+         *  - insert: Returns the inserted data as `JSONObject[]` type.
+         *  - update: Returns the inserted data as `JSONObject[]` type.
+         *  - delete: Returns the inserted data as `JSONObject[]` type.
+         * @param {...string} cols - If you specify the property name of the data as an argument from the second argument to the nth argument of the data method, an object from which only the specified property value is extracted is returned.
+         * ```
+         * var listInst = N([]).list(".context")
+         *     .bind([{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]);
+         * listInst.data("modified", "col01", "col02", "col03");
+         *     // [{ col01 : "", col02 : "", col03 : "" }]
+         * ```
+         * > This only works if the first argument is "modified", "selected", "checked", "insert", "update", or "delete".
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
+        data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): JSONObject[];
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         *  - modified: Returns inserted, updated and deleted data as `JSONObject[]` type.
+         *  - selected: When the select option or multiselect option is set, the selected data is returned as `JSONObject[]` type.
+         *  - checked: When the checkAll option, checkAllTarget option, or checkOnlyTarget option is set, the checked data is returned as `JSONObject[]` type.
+         *  - insert: Returns the inserted data as `JSONObject[]` type.
+         *  - update: Returns the inserted data as `JSONObject[]` type.
+         *  - delete: Returns the inserted data as `JSONObject[]` type.
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         data(selFlag: false): NJS<NC.JSONObject[]>;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         data(): JSONObject[];
         /**
          * Returns the context element.
@@ -576,25 +889,103 @@ declare namespace NU {
         contextBodyTemplate(sel?: NJS<HTMLElement[]> | JQuery.Selector): NJS<HTMLElement[]>;
         select(row?: number | number[], isAppend?: boolean): NJS<number[]> | NU.List;
         check(row?: number | number[], isAppend?: boolean): NJS<number[]> | NU.List;
+        /**
+         * Binds data to elements with an id attribute value within the element specified by the context option and creates row elements equal to the length of data.
+         *
+         * @param {NJS<NC.JSONObject[]>} [data] - Specifies the data to bind.
+         * @param {"append" | "list.bind" | "list.update"} [callType]
+         *  - append: Merges previously bound data and newly bound data and adds new row elements to previously created row elements.
+         *  - list.bind: This is an option for processing status inside a component. Set opts.scrollPaging.idx to 0.
+         *  - list.update: This is an option for processing status inside a component. This is a flag to branch the logic processed when called from the logic for two-way data binding(update function).
+         * > When the "append" argument value is set, the scrollPaging.size option value is automatically set to 0, disabling the scroll paging feature.
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         bind(data?: NJS<NC.JSONObject[]>, callType?: "append" | "list.bind" | "list.update"): NU.List;
         add(data?: number | NC.JSONObject, row?: number): NU.List;
         remove(row?: number): NU.List;
         revert(row?: number): NU.List;
         validate(row?: number): boolean;
-        val(row: number, key: string, val?: NC.Primitive | NC.Primitive[]): NC.Primitive | NC.Primitive[] | NU.List;
+        val(row: number, key: string): NC.Primitive | NC.Primitive[];
+        val(row: number, key: string, val?: NC.Primitive | NC.Primitive[]): NU.List;
         move(fromRow: number, toRow: number): NU.List;
         copy(fromRow: number, toRow: number): NU.List;
+        /**
+         * Processes real-time data synchronization logic for two-way data binding between data components.
+         *
+         * @param {number} row - The index of the row to be updated.
+         * @param {string} [key] - This is the column name of the row data to be updated.
+         * @return {NU.Form} Returns the `Form` instance for chaining.
+         */
         update(row: number, key?: string): NU.List;
     }
 
     interface Grid {
         options: NU.Options.Grid;
+        /**
+         * The default row(tbody) element of a grid. Create row elements by duplicating this element.
+         */
         tempRowEle: NJS<HTMLElement[]>;
         tableMap: NU.Objects.Grid.TableMap;
         thead: NJS<HTMLElement[]>;
+        /**
+         * This is an element specified by the context option of the list component. An instance of the original context element is assigned to the processed element.
+         */
         contextEle: NJS<HTMLElement[]>;
         rowSpanIds: NJS<string[]>;
-        data(selFlag?: false | "modified" | "selected" | "checked" | "insert" | "update" | "delete"): NJS<NC.JSONObject[]> | JSONObject;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         *  - modified: Returns inserted, updated and deleted data as `JSONObject[]` type.
+         *  - selected: When the select option or multiselect option is set, the selected data is returned as `JSONObject[]` type.
+         *  - checked: When the checkAll option, checkAllTarget option, or checkOnlyTarget option is set, the checked data is returned as `JSONObject[]` type.
+         *  - insert: Returns the inserted data as `JSONObject[]` type.
+         *  - update: Returns the inserted data as `JSONObject[]` type.
+         *  - delete: Returns the inserted data as `JSONObject[]` type.
+         * @param {...string} cols - If you specify the property name of the data as an argument from the second argument to the nth argument of the data method, an object from which only the specified property value is extracted is returned.
+         * ```
+         * var gridInst = N([]).grid(".context")
+         *     .bind([{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]);
+         * gridInst.data("modified", "col01", "col02", "col03");
+         *     // [{ col01 : "", col02 : "", col03 : "" }]
+         * ```
+         * > This only works if the first argument is "modified", "selected", "checked", "insert", "update", or "delete".
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): JSONObject[];
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         *  - modified: Returns inserted, updated and deleted data as `JSONObject[]` type.
+         *  - selected: When the select option or multiselect option is set, the selected data is returned as `JSONObject[]` type.
+         *  - checked: When the checkAll option, checkAllTarget option, or checkOnlyTarget option is set, the checked data is returned as `JSONObject[]` type.
+         *  - insert: Returns the inserted data as `JSONObject[]` type.
+         *  - update: Returns the inserted data as `JSONObject[]` type.
+         *  - delete: Returns the inserted data as `JSONObject[]` type.
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        data(selFlag: false): NJS<NC.JSONObject[]>;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        data(): JSONObject[];
         /**
          * Returns the context element.
          *
@@ -608,23 +999,65 @@ declare namespace NU {
         contextBodyTemplate(sel?: NJS<HTMLElement[]> | JQuery.Selector): NJS<HTMLElement[]>;
         select(row?: number | number[], isAppend?: boolean): NJS<number[]> | NU.Grid;
         check(row?: number | number[], isAppend?: boolean): NJS<number[]> | NU.Grid;
+        /**
+         * Binds data to elements with an id attribute value within the element specified by the context option and creates row elements equal to the length of data.
+         *
+         * @param {NJS<NC.JSONObject[]>} [data] - Specifies the data to bind.
+         * @param {"append" | "grid.bind" | "grid.update"} [callType]
+         *  - append: Merges previously bound data and newly bound data and adds new row elements to previously created row elements.
+         *  - grid.bind: This is an option for processing status inside a component. Set opts.scrollPaging.idx to 0.
+         *  - grid.dataFilter: This is an option for processing status inside a component. This is a flag to branch the logic processed when called from the logic for the grid data filter function.
+         *  - grid.sort: This is an option for processing status inside a component. This is a flag to branch the logic processed when called from the logic for the grid data sort function.
+         *  - grid.update: This is an option for processing status inside a component. This is a flag to branch the logic processed when called from the logic for two-way data binding(update function).
+         * > When the "append" argument value is set, the scrollPaging.size option value is automatically set to 0, disabling the scroll paging feature.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         bind(data?: NJS<NC.JSONObject[]>, callType?: "append" | "grid.bind" | "grid.dataFilter" | "grid.sort" | "grid.update"): NU.Grid;
         add(data?: number | JSONObject, row?: number): NU.Grid;
         remove(row?: number): NU.Grid;
         revert(row?: number): NU.Grid;
         validate(row?: number): boolean;
-        val(row: number, key: string, val?: NC.Primitive | NC.Primitive[]): NC.Primitive | NC.Primitive[] | NU.Grid;
+        val(row: number, key: string): NC.Primitive | NC.Primitive[];
+        val(row: number, key: string, val?: NC.Primitive | NC.Primitive[]): NU.Grid;
         move(fromRow: number, toRow: number): NU.Grid;
         copy(fromRow: number, toRow: number): NU.Grid;
         show(colIdxs: number): NU.Grid;
         hide(colIdxs: number): NU.Grid;
+        /**
+         * Processes real-time data synchronization logic for two-way data binding between data components.
+         *
+         * @param {number} row - The index of the row to be updated.
+         * @param {string} [key] - This is the column name of the row data to be updated.
+         * @return {NU.Form} Returns the `Form` instance for chaining.
+         */
         update(row: number, key?: string): NU.Grid;
     }
 
     interface Pagination {
         options: NU.Options.Pagination;
         linkEles: NU.Objects.Pagination.LinkEles;
-        data(selFlag?: false): NJS<NC.JSONObject[]> | NC.JSONObject;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041006.html }
+         */
+        data(selFlag: false): NJS<NC.JSONObject[]>;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041006.html }
+         */
+        data(): JSONObject[];
         /**
          * Returns the context element.
          *
@@ -634,7 +1067,17 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
-        bind(data?: NJS<NC.JSONObject[]>, totalCount?: number): NU.Pagination;
+        /**
+         * Creates a Pagination element by binding data to the element specified with the context option.
+         *
+         * @param {NJS<NC.JSONObject[]> | number} [data] - Specify data to bind or set totalCount.
+         * If the argument type is number, it is set to totalCount, and if the argument type is array type, it is set to data.
+         * @param {number} [totalCount] - Enter the total number of rows of data for pagination.
+         * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
+        bind(data?: NJS<NC.JSONObject[]> | number, totalCount?: number): NU.Pagination;
         totalCount(): number;
         totalCount(totalCount: number): NU.Pagination;
         pageNo(): number;
@@ -648,7 +1091,59 @@ declare namespace NU {
 
     interface Tree {
         options: NU.Options.Tree;
-        data(selFlag: any, ...args: any[]): any;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         *  - selected: Returns the data of the selected node as `JSONObject[]` type.
+         *  - checked: Returns the data of the checked node as `JSONObject[]` type.
+         *  - checkedInLastNode: Returns the data of the last node of all checked elements in `JSONObject[]` type.
+         * @param {...string} cols - If you specify the property name of the data as an argument from the second argument to the nth argument of the data method, an object from which only the specified property value is extracted is returned.
+         * ```
+         * var treeInst = N([]).tree(".context")
+         *     .bind([{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]);
+         * treeInst.data("checked", "col01", "col02", "col03");
+         *     // [{ col01 : "", col02 : "", col03 : "" }]
+         * ```
+         * > This only works if the first argument is "selected", "selected", "checked", or "checkedInLastNode".
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html }
+         */
+        data(selFlag: "selected" | "checked" | "checkedInLastNode", ...cols: string[]): JSONObject[];
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @param {true} selFlag - Depending on the argument values, it returns the following data:
+         *  - undefined(If the selFlag option is not specified): Returns data of type `JSONObject[]`.
+         *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
+         *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
+         *  - selected: Returns the data of the selected node as `JSONObject[]` type.
+         *  - checked: Returns the data of the checked node as `JSONObject[]` type.
+         *  - checkedInLastNode: Returns the data of the last node of all checked elements in `JSONObject[]` type.
+         * ```
+         * var treeInst = N([]).tree(".context")
+         *     .bind([{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]);
+         * treeInst.data("checked", "col01", "col02", "col03");
+         *     // [{ col01 : "", col02 : "", col03 : "" }]
+         * ```
+         * > This only works if the first argument is "selected", "checked", or "checkedInLastNode".
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html }
+         */
+        data(selFlag: false): NJS<NC.JSONObject[]>;
+        /**
+         * Returns the latest data bound to the component.
+         *
+         * @return {JSONObject[]} The data currently bound to the component is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html }
+         */
+        data(): JSONObject[];
         /**
          * Returns the context element.
          *
@@ -658,6 +1153,14 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Creates a Tree within the element specified by the context option.
+         *
+         * @param {NJS<NC.JSONObject[]>} [data] - Specifies the data to bind.
+         * @return {NU.Tree} Returns the `Tree` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         */
         bind(data?: NJS<NC.JSONObject[]>): NU.Tree;
         select(val?: NC.Primitive): NC.Primitive | NU.Tree;
         expand(): NU.Tree;

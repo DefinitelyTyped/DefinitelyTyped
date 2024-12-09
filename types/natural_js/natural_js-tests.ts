@@ -97,8 +97,8 @@ N([{}]).formatter({
     "limit" : [[ND.FormatRules.TRIMTOEMPTY], [ND.FormatRules.LIMIT, "13", "..."]],
     "etc" : [[ND.FormatRules.DATE, 12]]
 }).format(1);
-N.formatter.rrn("1234567890123", [7, "*"]);
-N.formatter.trimtoval("", ["1"]);
+N.formatter[ND.FormatRules.RRN]("1234567890123", [7, "*"]);
+N.formatter[ND.FormatRules.TRIMTOVAL]("", ["1"]);
 new N.validator(N([{}]), {
     "numeric" : [[ND.ValidationRules.REQUIRED], [ND.ValidationRules.COMMAS_INTEGER]],
     "generic" : [[ND.ValidationRules.REQUIRED], [ND.ValidationRules.KOREAN]],
@@ -109,8 +109,8 @@ N([{}]).validator({
     "generic" : [[ND.ValidationRules.REQUIRED], [ND.ValidationRules.KOREAN]],
     "limit" : [[ND.ValidationRules.REQUIRED], [ND.ValidationRules.ALPHABET]]
 }).validate(1);
-N.validator.rrn("123456-7890123");
-N.validator.minlength("123456-7890123", [6]);
+N.validator[ND.ValidationRules.RRN]("123456-7890123");
+N.validator[ND.ValidationRules.MINLENGTH]("123456-7890123", [6]);
 N([]).datasort("key", false);
 N.data.sort([{}], "key", true);
 
