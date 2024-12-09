@@ -332,4 +332,4 @@ declare class PaystackInline {
     paymentRequestContainer: HTMLDivElement;
 }
 
-export default PaystackInline;
+export=PaystackInline;
