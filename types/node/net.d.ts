@@ -486,17 +486,18 @@ declare module "net" {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
     interface ListenOptions extends Abortable {
-        port?: number | undefined;
-        host?: string | undefined;
         backlog?: number | undefined;
-        path?: string | undefined;
         exclusive?: boolean | undefined;
-        readableAll?: boolean | undefined;
-        writableAll?: boolean | undefined;
+        host?: string | undefined;
         /**
          * @default false
          */
         ipv6Only?: boolean | undefined;
+        reusePort?: boolean | undefined;
+        path?: string | undefined;
+        port?: number | undefined;
+        readableAll?: boolean | undefined;
+        writableAll?: boolean | undefined;
     }
     interface ServerOpts {
         /**

@@ -31,6 +31,7 @@ import * as net from "node:net";
 
     server.listen({
         ipv6Only: true,
+        reusePort: true,
         signal: new AbortSignal(),
     });
 
