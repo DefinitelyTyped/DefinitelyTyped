@@ -132,7 +132,7 @@ declare namespace React {
     type JSXElementConstructor<P> =
         | ((
             props: P,
-        ) => ReactNode)
+        ) => ReactNode | Promise<ReactNode>)
         // constructor signature must match React.Component
         | (new(props: P) => Component<any, any>);
 
@@ -1036,7 +1036,7 @@ declare namespace React {
      * ```
      */
     interface FunctionComponent<P = {}> {
-        (props: P): ReactNode;
+        (props: P): ReactNode | Promise<ReactNode>;
         /**
          * Ignored by React.
          * @deprecated Only kept in types for backwards compatibility. Will be removed in a future major release.
