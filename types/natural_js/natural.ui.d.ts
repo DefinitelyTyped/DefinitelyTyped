@@ -656,6 +656,14 @@ declare namespace NU {
          */
         bind(data?: NJS<NC.JSONObject[]>): NU.Select;
         /**
+         * Returns the index of the selected option.
+         *
+         * @return {number} Index of selected option
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         */
+        index(): number;
+        /**
          * Select the option corresponding to the specified index.
          *
          * @param {number} idx - Index of the option to select
@@ -665,13 +673,11 @@ declare namespace NU {
          */
         index(idx: number): NU.Select;
         /**
-         * Returns the index of the selected option.
+         * Returns the value of the selected option.
          *
-         * @return {number} Index of selected option
-         *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @return {NC.Primitive | NC.Primitive[]} Selected option value.
          */
-        index(): number;
+        val(): NC.Primitive | NC.Primitive[];
         /**
          * Select the option corresponding to the specified value.
          *
@@ -679,12 +685,6 @@ declare namespace NU {
          * @return {NU.Select} Returns the `Select` instance for chaining.
          */
         val(val?: NC.Primitive | NC.Primitive[]): NU.Select;
-        /**
-         * Returns the value of the selected option.
-         *
-         * @return {NC.Primitive | NC.Primitive[]} Selected option value.
-         */
-        val(): NC.Primitive | NC.Primitive[];
         /**
          * Removes option elements and row data objects equal to the value specified by the val argument..
          *
@@ -789,9 +789,9 @@ declare namespace NU {
          * ```
          * // After directly modifying the bound data, bind only to elements that have the id attribute values “col01”, “col02”, and “col03”.
          * var data = formInstance.data()[formInstance.row()]
-         * data.col01 = "abc";
+         * data.col01 = "val";
          * data.col02 = "123";
-         * data.col03 = "가나다";
+         * data.col03 = "temp";
          * formInstance.bind(0, data, "col01", "col02", "col03");
          * ```
          * @return {NU.Form} Returns the `Form` instance for chaining.

@@ -183,6 +183,8 @@ select.data(true).forEach(function (item) {});
 select.context("option").get().forEach(function (item) {});
 const idx = select.index();
 const sltInst = select.index(1);
+const val = select.val();
+const sltInst02 = select.val("val");
 
 let form = N([{a:1}]).form({
     context: N(".form", cont.view),
@@ -195,6 +197,8 @@ form = N([{a:1}]).form(N(".form", cont.view));
 form.data().forEach(function (item) {});
 form.data(true).forEach(function (item) {});
 form.context("option").get().forEach(function (item) {});
+form.val("col01");
+form.val("col01", "value");
 
 new N.list([{age: 18}, {age: 22}], N(".list", cont.view)).bind();
 N([{age: 18}, {age: 22}]).list({
