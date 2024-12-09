@@ -1,4 +1,4 @@
-import { StyledComponent } from "@emotion/styled";
+import { StyledComponent } from "@emotion/styled/types/index";
 import * as React from "react";
 import * as StyledSystem from "styled-system";
 
@@ -15,7 +15,8 @@ export interface BoxProps
 
 export type BoxType = StyledComponent<
     React.JSX.IntrinsicElements["div"],
-    Omit<React.JSX.IntrinsicElements["div"] & BoxProps, keyof React.ClassAttributes<any>>
+    Omit<React.JSX.IntrinsicElements["div"] & BoxProps, keyof React.ClassAttributes<any>>,
+    {}
 >;
 
 export const Box: BoxType;
