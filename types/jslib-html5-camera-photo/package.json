@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/jslib-html5-camera-photo": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Glen Cheney",
-            "githubUsername": "Vestride"
-        }
-    ]
+    "owners": []
 }
