@@ -261,6 +261,20 @@ declare module "util" {
      */
     export function getSystemErrorMap(): Map<number, [string, string]>;
     /**
+     * Returns the string message for a numeric error code that comes from a Node.js
+     * API.
+     * The mapping between error codes and string messages is platform-dependent.
+     *
+     * ```js
+     * fs.access('file/that/does/not/exist', (err) => {
+     *   const name = util.getSystemErrorMessage(err.errno);
+     *   console.error(name);  // no such file or directory
+     * });
+     * ```
+     * @since v22.12.0
+     */
+    export function getSystemErrorMessage(err: number): string;
+    /**
      * The `util.log()` method prints the given `string` to `stdout` with an included
      * timestamp.
      *
