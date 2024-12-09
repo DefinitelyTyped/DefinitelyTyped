@@ -45,6 +45,7 @@ declare module "dgram" {
     interface SocketOptions extends Abortable {
         type: SocketType;
         reuseAddr?: boolean | undefined;
+        reusePort?: boolean | undefined;
         /**
          * @default false
          */
