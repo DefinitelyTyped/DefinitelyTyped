@@ -11,17 +11,17 @@ export interface Options {
 }
 
 export interface QQUserProfile {
-    ret: number
-    msg: string
-    nickname: string
-    figureurl: string
-    figureurl_1: string
-    figureurl_2: string
-    figureurl_qq_1: string
-    figureurl_qq_2: string
-    figureurl_qq: string
-    gender: string
-  }
+    ret: number;
+    msg: string;
+    nickname: string;
+    figureurl: string;
+    figureurl_1: string;
+    figureurl_2: string;
+    figureurl_qq_1: string;
+    figureurl_qq_2: string;
+    figureurl_qq: string;
+    gender: string;
+}
 
 export interface User extends Profile {
     provider: "qq";

@@ -9,16 +9,15 @@ import AipKg = require("./AipKg");
 import AipSpeech = require("./AipSpeech");
 import HttpClient = require("./http/httpClient");
 
-
 export {
-  AipImageProcess as imageprocess,
-  AipImageSearch as imageSearch,
-  AipImageClassify as imageClassify,
-  AipImageCensor as contentCensor,
-  AipFace as face,
-  AipOcr as ocr,
-  AipNlp as nlp,
-  AipKg as kg,
-  AipSpeech as speech,
-  HttpClient
+    AipFace as face,
+    AipImageCensor as contentCensor,
+    AipImageClassify as imageClassify,
+    AipImageProcess as imageprocess,
+    AipImageSearch as imageSearch,
+    AipKg as kg,
+    AipNlp as nlp,
+    AipOcr as ocr,
+    AipSpeech as speech,
+    HttpClient,
 };
