@@ -782,7 +782,7 @@ declare namespace NU {
          * @param {...string} [cols] - If you specify the property name of the data from the third to the nth argument of the bind method, only the elements whose property name and id attribute value match will be bound to the data.
          * ```
          * // Data to bind
-         * var data = [{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]
+         * var data = [{ col01: "", col02: "", col03: "", col04: "", col05: "", col06: "" }]
          * // Binds only to elements that have the id attribute values “col01”, “col02”, and “col03”.
          * formInstance.bind(0, data, "col01", "col02", "col03");
          * ```
@@ -796,15 +796,63 @@ declare namespace NU {
          * ```
          * @return {NU.Form} Returns the `Form` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040705.html }
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
          */
         bind(row: number, data?: NJS<NC.JSONObject[]>, ...cols: string[]): NU.Form;
+        /**
+         * Add new row data.
+         *
+         * When creating row data, a data object is created with the id attribute name and value of the input elements in the context element.
+         *
+         * @param {number | NC.JSONObject} [data] - If you specify a data object, the generated data and the specified data are merged and bound.
+         * > If the data argument is of type number, it is specified as the row(args[1]) argument.
+         * @param {number} [row] - If you specify the row index where new data will be added as the row argument, the row data will be added immediately before the specified row index.
+         * @return {NU.Form} Returns the `Form` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         */
         add(data?: number | NC.JSONObject, row?: number): NU.Form;
+        /**
+         * Removes the data object bound to the Form from the data array.
+         * > If rowStatus is `insert`, remove the row data, otherwise change rowStatus to "delete".
+         *
+         * @return {NU.Form} Returns the `Form` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         */
         remove(): NU.Form;
+        /**
+         * Reverts to the state where the initial data was bound or the initial data state created when adding.
+         *
+         * @return {NU.Form} Returns the `Form` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         */
         revert(): NU.Form;
+        /**
+         * Returns validation results for all added/modified data.
+         *
+         * @return {boolean} Returns true if validation is successful, false if validation fails, and displays a failure message in a tooltip next to the corresponding input element.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         */
         validate(): boolean;
+        /**
+         * Retrieves the property value of the data object bound to the component.
+         *
+         * @param {string} key - Property name of data object.
+         * @return {NC.Primitive | NC.Primitive[]} The value specified by the key argument.
+         */
         val(key: string): NC.Primitive | NC.Primitive[];
-        val(key: string, val?: NC.Primitive | NC.Primitive[], notify?: boolean): NU.Form;
+        /**
+         * Updates or adds property values of the data object bound to the component.
+         *
+         * @param {string} key - Property name of data object
+         * @param {NC.Primitive | NC.Primitive[]} [val] - Property value of data object
+         * @param {boolean} [notify] - If set to false, data change notification will not be displayed to components referencing the same data.
+         * @return {NU.Form} Returns the `Form` instance for chaining.
+         */
+        val(key: string, val: NC.Primitive | NC.Primitive[], notify?: boolean): NU.Form;
         /**
          * Processes real-time data synchronization logic for two-way data binding between data components.
          *
@@ -841,9 +889,9 @@ declare namespace NU {
          * @param {...string} cols - If you specify the property name of the data as an argument from the second argument to the nth argument of the data method, an object from which only the specified property value is extracted is returned.
          * ```
          * var listInst = N([]).list(".context")
-         *     .bind([{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]);
+         *     .bind([{ col01: "", col02: "", col03: "", col04: "", col05: "", col06: "" }]);
          * listInst.data("modified", "col01", "col02", "col03");
-         *     // [{ col01 : "", col02 : "", col03 : "" }]
+         *     // [{ col01: "", col02: "", col03: "" }]
          * ```
          * > This only works if the first argument is "modified", "selected", "checked", "insert", "update", or "delete".
          * @return {JSONObject[]} The data currently bound to the component is returned.
@@ -903,13 +951,87 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
          */
         bind(data?: NJS<NC.JSONObject[]>, callType?: "append" | "list.bind" | "list.update"): NU.List;
+        /**
+         * Add new row elements and data.
+         *
+         * When creating row data, a data object is created with the id attribute name and value of the input elements in the context element.
+         *
+         * @param {number | NC.JSONObject} [data] - If you specify a data object, the generated data and the specified data are merged and bound.
+         * > If the data argument is of type number, it is specified as the row(args[1]) argument.
+         * @param {number} [row] - If you specify the row index where new data will be added as the row argument, the row data will be added immediately before the specified row index.
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         add(data?: number | NC.JSONObject, row?: number): NU.List;
-        remove(row?: number): NU.List;
+        /**
+         * Removes the data object bound to the Form from the data array.
+         * > If rowStatus is `insert`, remove the row data, otherwise change rowStatus to "delete".
+         *
+         * @param {number} [row] - Specifies the index of the row to remove.
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
+        remove(row: number): NU.List;
+        /**
+         * Reverts to the state where the initial data was bound or the initial data state created when adding.
+         *
+         * @param {number} [row] - Specifies the index of the row to remove. If not specified, reverts the entire row data.
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         revert(row?: number): NU.List;
+        /**
+         * Returns validation results for all added/modified data.
+         *
+         * @param {number} [row] - Specifies the index of the row to validation. If not specified, validates the entire row data.
+         * @return {boolean} Returns true if validation is successful, false if validation fails, and displays a failure message in a tooltip next to the corresponding input element.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         validate(row?: number): boolean;
+        /**
+         * Retrieves the property value of the data object bound to the component.
+         *
+         * @param {number} row - The row index from which the value is to be retrieved.
+         * @param {string} key - Property name of data object.
+         * @return {NC.Primitive | NC.Primitive[]} The value specified by the key argument.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         val(row: number, key: string): NC.Primitive | NC.Primitive[];
-        val(row: number, key: string, val?: NC.Primitive | NC.Primitive[]): NU.List;
+        /**
+         * Updates or adds property values of the data object bound to the component.
+         *
+         * @param {number} row - The index of the row where the value is to be modified.
+         * @param {string} key - Property name of data object
+         * @param {NC.Primitive | NC.Primitive[]} [val] - Property value of data object
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
+        val(row: number, key: string, val: NC.Primitive | NC.Primitive[]): NU.List;
+        /**
+         * Move element and row data from one location to another within a list.
+         *
+         * @param {number} fromRow - The index of the item to move from.
+         * @param {number} toRow - The index of the new position for the item.
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         move(fromRow: number, toRow: number): NU.List;
+        /**
+         * Copy element and row data from one location to another within a list.
+         *
+         * @param {number} fromRow - The index of the item to copy from.
+         * @param {number} toRow - The index of the new position for the item.
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
         copy(fromRow: number, toRow: number): NU.List;
         /**
          * Processes real-time data synchronization logic for two-way data binding between data components.
@@ -917,6 +1039,8 @@ declare namespace NU {
          * @param {number} row - The index of the row to be updated.
          * @param {string} [key] - This is the column name of the row data to be updated.
          * @return {NU.Form} Returns the `Form` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
          */
         update(row: number, key?: string): NU.List;
     }
@@ -927,12 +1051,21 @@ declare namespace NU {
          * The default row(tbody) element of a grid. Create row elements by duplicating this element.
          */
         tempRowEle: NJS<HTMLElement[]>;
+        /**
+         * It is a structured collection of elements that make up a table.
+         */
         tableMap: NU.Objects.Grid.TableMap;
+        /**
+         * These are thead elements of the table.
+         */
         thead: NJS<HTMLElement[]>;
         /**
          * This is an element specified by the context option of the list component. An instance of the original context element is assigned to the processed element.
          */
         contextEle: NJS<HTMLElement[]>;
+        /**
+         * A collection of id values for elements for which the rowSpan property is defined.
+         */
         rowSpanIds: NJS<string[]>;
         /**
          * Returns the latest data bound to the component.
@@ -950,9 +1083,9 @@ declare namespace NU {
          * @param {...string} cols - If you specify the property name of the data as an argument from the second argument to the nth argument of the data method, an object from which only the specified property value is extracted is returned.
          * ```
          * var gridInst = N([]).grid(".context")
-         *     .bind([{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]);
+         *     .bind([{ col01: "", col02: "", col03: "", col04: "", col05: "", col06: "" }]);
          * gridInst.data("modified", "col01", "col02", "col03");
-         *     // [{ col01 : "", col02 : "", col03 : "" }]
+         *     // [{ col01: "", col02: "", col03: "" }]
          * ```
          * > This only works if the first argument is "modified", "selected", "checked", "insert", "update", or "delete".
          * @return {JSONObject[]} The data currently bound to the component is returned.
@@ -995,10 +1128,66 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
-        contextHead(sel?: NJS<HTMLElement[]> | JQuery.Selector): NJS<HTMLElement[]>;
-        contextBodyTemplate(sel?: NJS<HTMLElement[]> | JQuery.Selector): NJS<HTMLElement[]>;
-        select(row?: number | number[], isAppend?: boolean): NJS<number[]> | NU.Grid;
-        check(row?: number | number[], isAppend?: boolean): NJS<number[]> | NU.Grid;
+        /**
+         * Returns the thead element of the table.
+         *
+         * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
+         * @return {NJS<HTMLElement[]>} The table's thead element or the element selected in the table's thead is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        contextHead(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Returns the default tbody element of a table element.
+         *
+         * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
+         * @return {NJS<HTMLElement[]>} The default tbody element of a table element or the element selected in the default tbody element of a table element is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        contextBodyTemplate(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Returns the index of the selected row.
+         * > To use the select method, the `select` or `multiselect` option must be set to true.
+         *
+         * @return {NJS<number[]>} Index of selected row
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        select(): NJS<number[]>;
+        /**
+         * Select a row.
+         * > To use the select method, the `select` or `multiselect` option must be set to true.
+         *
+         * @param {number | number[]} row
+         *  - number: Specifies the row index to select.
+         *  - number[]: When selecting multiple items at once, specify the row index as an array.
+         * @param {boolean} [isAppend] - If you do not enter it or enter false, all selected rows will be deselected and then selected again. If you enter true, the existing selected rows will be maintained and selected.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        select(row: number | number[], isAppend?: boolean): NU.Grid;
+        /**
+         * Returns the index of the row where the checkbox elements specified by the `checkAllTarget` and `checkSingleTarget` options are checked.
+         *
+         * @return {NJS<number[]>} Index of checked row
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        check(): NJS<number[]>;
+        /**
+         * Checks the checkbox elements specified with the checkAllTarget` and `checkSingleTarget` options.
+         *
+         * @param {number | number[]} row
+         *  - number: Specifies the row index to check.
+         *  - number[]: When checking multiple items at once, specify the row index as an array.
+         * @param {boolean} [isAppend] - If you do not enter it or enter false, all checked rows will be dechecked and then checked again. If you enter true, the existing checked rows will be maintained and checked.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        check(row: number | number[], isAppend?: boolean): NU.Grid;
         /**
          * Binds data to elements with an id attribute value within the element specified by the context option and creates row elements equal to the length of data.
          *
@@ -1015,22 +1204,114 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
          */
         bind(data?: NJS<NC.JSONObject[]>, callType?: "append" | "grid.bind" | "grid.dataFilter" | "grid.sort" | "grid.update"): NU.Grid;
+        /**
+         * Add new row elements and data.
+         *
+         * When creating row data, a data object is created with the id attribute name and value of the input elements in the context element.
+         *
+         * @param {number | NC.JSONObject} [data] - If you specify a data object, the generated data and the specified data are merged and bound.
+         * > If the data argument is of type number, it is specified as the row(args[1]) argument.
+         * @param {number} [row] - If you specify the row index where new data will be added as the row argument, the row data will be added immediately before the specified row index.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         add(data?: number | JSONObject, row?: number): NU.Grid;
-        remove(row?: number): NU.Grid;
+        /**
+         * Removes the data object bound to the Form from the data array.
+         * > If rowStatus is `insert`, remove the row data, otherwise change rowStatus to "delete".
+         *
+         * @param {number} [row] - Specifies the index of the row to remove.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        remove(row: number): NU.Grid;
+        /**
+         * Reverts to the state where the initial data was bound or the initial data state created when adding.
+         *
+         * @param {number} [row] - Specifies the index of the row to remove. If not specified, reverts the entire row data.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         revert(row?: number): NU.Grid;
+        /**
+         * Returns validation results for all added/modified data.
+         *
+         * @param {number} [row] - Specifies the index of the row to validation. If not specified, validates the entire row data.
+         * @return {boolean} Returns true if validation is successful, false if validation fails, and displays a failure message in a tooltip next to the corresponding input element.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         validate(row?: number): boolean;
+        /**
+         * Retrieves the property value of the data object bound to the component.
+         *
+         * @param {number} row - The row index from which the value is to be retrieved.
+         * @param {string} key - Property name of data object.
+         * @return {NC.Primitive | NC.Primitive[]} The value specified by the key argument.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         val(row: number, key: string): NC.Primitive | NC.Primitive[];
-        val(row: number, key: string, val?: NC.Primitive | NC.Primitive[]): NU.Grid;
+        /**
+         * Updates or adds property values of the data object bound to the component.
+         *
+         * @param {number} row - The index of the row where the value is to be modified.
+         * @param {string} key - Property name of data object
+         * @param {NC.Primitive | NC.Primitive[]} [val] - Property value of data object
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
+        val(row: number, key: string, val: NC.Primitive | NC.Primitive[]): NU.Grid;
+        /**
+         * Move element and row data from one location to another within a list.
+         *
+         * @param {number} fromRow - The index of the item to move from.
+         * @param {number} toRow - The index of the new position for the item.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         move(fromRow: number, toRow: number): NU.Grid;
+        /**
+         * Copy element and row data from one location to another within a list.
+         *
+         * @param {number} fromRow - The index of the item to copy from.
+         * @param {number} toRow - The index of the new position for the item.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         copy(fromRow: number, toRow: number): NU.Grid;
+        /**
+         * Shows hidden columns again.
+         *
+         * @param {number} colIdxs - The indices of the columns to be shown.
+         * @return {NU.Grid} - Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         show(colIdxs: number): NU.Grid;
+        /**
+         * Hides the selected column.
+         *
+         * @param {number} colIdxs - The index of the column to be hidden.
+         * @return {NU.Grid} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         */
         hide(colIdxs: number): NU.Grid;
         /**
          * Processes real-time data synchronization logic for two-way data binding between data components.
          *
          * @param {number} row - The index of the row to be updated.
          * @param {string} [key] - This is the column name of the row data to be updated.
-         * @return {NU.Form} Returns the `Form` instance for chaining.
+         * @return {NU.Form} Returns the `Grid` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
          */
         update(row: number, key?: string): NU.Grid;
     }
@@ -1078,14 +1359,96 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
          */
         bind(data?: NJS<NC.JSONObject[]> | number, totalCount?: number): NU.Pagination;
+        /**
+         * Gets the Total count value.
+         *
+         * @return {number} Total count of data to be displayed by pagination.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
         totalCount(): number;
+        /**
+         * Specifies the Total count value.
+         * > Since only the option value of N.pagination is changed, the bind method must be executed after executing this function for the changed value to be displayed in pagination.
+         *
+         * @param {number} totalCount - Total count of data to be displayed by pagination.
+         * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
         totalCount(totalCount: number): NU.Pagination;
+        /**
+         * Gets the currently selected page number.
+         *
+         * @return {number} Tpage number.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
         pageNo(): number;
+        /**
+         * Sets the specified page number.
+         * > Since only the option value of N.pagination is changed, the bind method must be executed after executing this function for the changed value to be displayed in pagination.
+         *
+         * @param {number} pageNo - page number.
+         * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
         pageNo(pageNo: number): NU.Pagination;
+        /**
+         * Gets the count per page value.
+         *
+         * @return {number} Count per page.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
         countPerPage(): number;
+        /**
+         * Sets the specified count per page value.
+         * > Since only the option value of N.pagination is changed, the bind method must be executed after executing this function for the changed value to be displayed in pagination.
+         *
+         * @param {number} countPerPage - Count per page.
+         * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
         countPerPage(countPerPage: number): NU.Pagination;
+        /**
+         * Gets the value of the count per page set.
+         *
+         * @return {number} Count per page set.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
         countPerPageSet(): number;
+        /**
+         * Sets the specified count per page set.
+         * > Since only the option value of N.pagination is changed, the bind method must be executed after executing this function for the changed value to be displayed in pagination.
+         *
+         * @param {number} countPerPageSet - count per page set.
+         * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         */
         countPerPageSet(countPerPageSet: number): NU.Pagination;
+        /**
+         * Returns a paging information object.
+         *
+         * @return {NU.Options.CurrPageNavInfo} currPageNavInfo object information.
+         *  - pageNo: Current page number.
+         *  - countPerPage: Row count per page.
+         *  - countPerPageSet: Page count per page set.
+         *  - currSelPageSet: Current page set number.
+         *  - pageCount: Total page count.
+         *  - pageSetCount: Total page set count.
+         *  - totalCount: Total row count.
+         *  - startPage: First page number in the current page set.
+         *  - startRowIndex: First row index on the selected page.
+         *  - startRowNum: First row number of the selected page.
+         *  - endPage: Last page number in the current page set.
+         *  - endRowIndex: Last row index on the selected page.
+         *  - endRowNum: Last row number of the selected page.
+         */
         currPageNavInfo(): NU.Options.CurrPageNavInfo;
     }
 
@@ -1104,9 +1467,9 @@ declare namespace NU {
          * @param {...string} cols - If you specify the property name of the data as an argument from the second argument to the nth argument of the data method, an object from which only the specified property value is extracted is returned.
          * ```
          * var treeInst = N([]).tree(".context")
-         *     .bind([{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]);
+         *     .bind([{ col01: "", col02: "", col03: "", col04: "", col05: "", col06: "" }]);
          * treeInst.data("checked", "col01", "col02", "col03");
-         *     // [{ col01 : "", col02 : "", col03 : "" }]
+         *     // [{ col01: "", col02: "", col03: "" }]
          * ```
          * > This only works if the first argument is "selected", "selected", "checked", or "checkedInLastNode".
          * @return {JSONObject[]} The data currently bound to the component is returned.
@@ -1126,9 +1489,9 @@ declare namespace NU {
          *  - checkedInLastNode: Returns the data of the last node of all checked elements in `JSONObject[]` type.
          * ```
          * var treeInst = N([]).tree(".context")
-         *     .bind([{ col01 : "", col02 : "", col03 : "", col04 : "", col05 : "", col06 : "" }]);
+         *     .bind([{ col01: "", col02: "", col03: "", col04: "", col05: "", col06: "" }]);
          * treeInst.data("checked", "col01", "col02", "col03");
-         *     // [{ col01 : "", col02 : "", col03 : "" }]
+         *     // [{ col01: "", col02: "", col03: "" }]
          * ```
          * > This only works if the first argument is "selected", "checked", or "checkedInLastNode".
          * @return {JSONObject[]} The data currently bound to the component is returned.
@@ -1162,8 +1525,38 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
          */
         bind(data?: NJS<NC.JSONObject[]>): NU.Tree;
-        select(val?: NC.Primitive): NC.Primitive | NU.Tree;
+        /**
+         * Returns the selected node value.
+         *
+         * @return {NC.Primitive} Selected node value.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         */
+        select(): NC.Primitive;
+        /**
+         * Select a node.
+         *
+         * @param {NC.Primitive} [val] - Specifies the node value to select.
+         * @return {NU.Tree} Returns the `Tree` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         */
+        select(val?: NC.Primitive): NU.Tree;
+        /**
+         * Expand all tree nodes.
+         *
+         * @return {NU.Tree} Returns the `Tree` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         */
         expand(): NU.Tree;
+        /**
+         * Collapses all tree nodes.
+         *
+         * @return {NU.Tree} Returns the `Tree` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         */
         collapse(): NU.Tree;
     }
 

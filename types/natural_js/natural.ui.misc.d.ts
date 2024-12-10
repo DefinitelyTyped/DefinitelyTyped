@@ -548,26 +548,77 @@ declare namespace NU {
         };
 
         type CurrPageNavInfo = {
+            /**
+             * Current page number.
+             */
             pageNo: number;
+            /**
+             * Row count per page.
+             */
             countPerPage: number;
+            /**
+             * Page count per page set.
+             */
             countPerPageSet: number;
+            /**
+             * Total row count.
+             */
             totalCount: number;
+            /**
+             * Total page count.
+             */
             pageCount: number;
+            /**
+             * Total page set count.
+             */
             pageSetCount: number;
+            /**
+             * Current page set number.
+             */
             currSelPageSet: number;
+            /**
+             * First page number in the current page set.
+             */
             startPage: number;
+            /**
+             * Last page number in the current page set.
+             */
             endPage: number;
+            /**
+             * First row index on the selected page.
+             */
             startRowIndex: number;
+            /**
+             * First row number of the selected page.
+             */
             startRowNum: number;
+            /**
+             * Last row index on the selected page.
+             */
             endRowIndex: number;
+            /**
+             * Last row number of the selected page.
+             */
             endRowNum: number;
         };
         type Pagination = {
             data?: NJS<NC.JSONObject>;
             context?: NJS<HTMLElement[]> | null;
+            /**
+             * Total row count.
+             */
             totalCount?: number;
+            /**
+             * Row count per page.
+             */
             countPerPage?: number;
+            /**
+             * Page count per page set.
+             */
             countPerPageSet?: number;
+            /**
+             * Current page number.
+             */
             pageNo?: number;
             onChange?: NU.EventHandlers.Pagination.OnChange | null;
             blockOnChangeWhenBind?: boolean;
