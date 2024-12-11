@@ -4,6 +4,8 @@
         "jsx-dev-runtime.d.ts",
         "jsx-runtime.d.ts",
         "test/index.ts",
+        "test/canary.tsx",
+        "test/experimental.tsx",
         "test/tsx.tsx",
         "test/cssProperties.tsx",
         "test/elementAttributes.tsx",

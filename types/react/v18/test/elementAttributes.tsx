@@ -133,26 +133,26 @@ const eventCallbacksTestCases = [
 
 function formActionsTest() {
     <form
-        // @ts-expect-error Form Actions are not supported in React 18.
+        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         action={formData => {
-            // $ExpectType any
+            // $ExpectType FormData
             formData;
         }}
     >
         <input type="text" name="title" defaultValue="Hello" />
         <input
             type="submit"
-            // @ts-expect-error Form Actions are not supported in React 18.
+            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
-                // $ExpectType any
+                // $ExpectType FormData
                 formData;
             }}
             value="Save"
         />
         <button
-            // @ts-expect-error Form Actions are not supported in React 18.
+            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
-                // $ExpectType any
+                // $ExpectType FormData
                 formData;
             }}
         >

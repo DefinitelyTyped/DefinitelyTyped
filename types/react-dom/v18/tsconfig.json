@@ -1,6 +1,8 @@
 {
     "files": [
         "index.d.ts",
+        "test/canary-tests.tsx",
+        "test/experimental-tests.tsx",
         "test/react-dom-tests.tsx"
     ],
     "compilerOptions": {
