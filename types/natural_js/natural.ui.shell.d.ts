@@ -173,7 +173,7 @@ declare namespace NUS {
          *     onRemove: function(docId) {
          *         // onRemove event that applies only to the document being added.
          *     },
-         *     stateless: false // Whether the tab content is maintained
+         *     stateless: false // Whether to maintain the state of tab content
          * }
          * ```
          * > Events set here are executed after the global event is executed.

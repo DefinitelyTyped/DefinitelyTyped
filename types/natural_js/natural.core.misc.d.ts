@@ -42,6 +42,26 @@ declare namespace NC {
         ANDROID = "android"
     }
 
+    /**
+     * Represents a message resource object that stores localized strings organized
+     * by language and message keys. This type is typically used for managing
+     * translations or multilingual support in an application.
+     *
+     * The structure of the object is as follows:
+     * - The first level keys represent message identifiers.
+     * - The second level keys correspond to specific languages or locales.
+     * - The values are the translated strings in the defined language or locale.
+     *
+     * Example:
+     * ```
+     * {
+     *   "greeting": {
+     *     "en_US": "Hello",
+     *     "ko_KR": "안녕하세요"
+     *   }
+     * }
+     * ```
+     */
     type MessageResourceObj = {
         [key: string]: {
             [key: string]: string;
