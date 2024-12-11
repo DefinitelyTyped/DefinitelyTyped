@@ -45,10 +45,22 @@
 declare module "node:sqlite" {
     interface DatabaseSyncOptions {
         /**
-         * If `true`, the database is opened by the constructor.
-         * When this value is `false`, the database must be opened via the `open()` method.
+         * If `true`, the database is opened by the constructor. When
+         * this value is `false`, the database must be opened via the `open()` method.
+         * @since v22.5.0
+         * @default true
          */
         open?: boolean | undefined;
+        /**
+         * If `true`, foreign key constraints
+         * are enabled. This is recommended but can be disabled for compatibility with
+         * legacy database schemas. The enforcement of foreign key constraints can be
+         * enabled and disabled after opening the database using
+         * [`PRAGMA foreign_keys`](https://www.sqlite.org/pragma.html#pragma_foreign_keys).
+         * @since v22.10.0
+         * @default true
+         */
+        enableForeignKeyConstraints?: boolean | undefined;
     }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
