@@ -8,12 +8,12 @@ declare class ND {
      * The formatting rule can be specified in two types as follows:
      * - If you specify the rules as an object option:
      *   ```
-     *   // { "columnPropertyName" : [["ruleName", arguments[0], arguments[1]...]] }
+     *   // { "columnPropertyName": [["ruleName", arguments[0], arguments[1]...]] }
      *   new N.formatter(data, {
-     *       "numeric" : [["trimtoempty"], ["numeric", "#,###.##0000"]],
-     *       "generic" : [["trimtoempty"], ["generic", "@@ABCD"]],
-     *       "limit" : [["trimtoempty"], ["limit", "13", "..."]],
-     *       "etc" : [["date", 12]]
+     *       "numeric": [["trimtoempty"], ["numeric", "#,###.##0000"]],
+     *       "generic": [["trimtoempty"], ["generic", "@@ABCD"]],
+     *       "limit": [["trimtoempty"], ["limit", "13", "..."]],
+     *       "etc": [["date", 12]]
      *   }).format();
      *   ```
      * - If you specify the rules by providing a jQuery object which includes elements with data-validate attributes:
@@ -27,7 +27,7 @@ declare class ND {
      *
      *   <script type="text/javascript">
      *       N(".formatter").cont({
-     *           init : function(view, request) {
+     *           init: function(view, request) {
      *               N.formatter(data, N(".formatter-context", view)).format();
      *           }
      *       });
@@ -52,11 +52,11 @@ declare class ND {
      * You can specify the validation rules in two ways as follows:
      * - Specifying rules as object options:
      *    ```
-     *    // { "columnName" : [["ruleName", arguments[0], arguments[1] ... ] }
+     *    // { "columnName": [["ruleName", arguments[0], arguments[1] ... ] }
      *    N.validator(data, {
-     *        "numeric" : [["required"], ["integer+commas"]],
-     *        "generic" : [["required"], ["korean"]],
-     *        "limit" : [["required"], ["alphabet"]]
+     *        "numeric": [["required"], ["integer+commas"]],
+     *        "generic": [["required"], ["korean"]],
+     *        "limit": [["required"], ["alphabet"]]
      *    }).validate();
      *    ```
      *
@@ -71,7 +71,7 @@ declare class ND {
      *
      *    <script type="text/javascript">
      *        N(".validator").cont({
-     *            init : function(view, request) {
+     *            init: function(view, request) {
      *                N.validator(data, N(".validator-context", view)).validate();
      *            }
      *        });
@@ -98,25 +98,25 @@ declare class ND {
      * If you specify a function, only the rows for which the function returns true are filtered.
      * ```
      * var fData = N.data.filter([
-     *     { name : "John", age : 18 },
-     *     { name : "Mike", age : 16 },
-     *     { name : "Mike", age : 14 }
+     *     { name: "John", age: 18 },
+     *     { name: "Mike", age: 16 },
+     *     { name: "Mike", age: 14 }
      * ], function(item) {
      *     return item.name === "Mike" && item.age === 16;
      * });
      *
-     * console.log(fData); // [{ name : "Mike", age : 16 }]
+     * console.log(fData); // [{ name: "Mike", age: 16 }]
      * ```
      *
      * If you specify a condition string, only the rows that match the condition are filtered.
      * ```
      * var fData = N.data.filter([
-     *     { name : "John", age : 18 },
-     *     { name : "Mike", age : 16 },
-     *     { name : "Mike", age : 14 }
+     *     { name: "John", age: 18 },
+     *     { name: "Mike", age: 16 },
+     *     { name: "Mike", age: 14 }
      * ], 'name === "Mike"');
      *
-     * console.log(fData); // [{ name : "Mike", age : 16 }, { name : "Mike", age : 14 }]
+     * console.log(fData); // [{ name: "Mike", age: 16 }, { name: "Mike", age: 14 }]
      * ```
      * > Processing conditions with a function is faster than specifying them with a string.
      *
@@ -131,7 +131,7 @@ declare class ND {
      *
      * @this {NJS<NC.JSONObject[]>} - Data to be sorted
      * @param {string} key - The property name of the JSON object to be used as the sorting criteria
-     * @param {string} reverse - If set to true, sorts in descending order.
+     * @param {string} [reverse] - If set to true, sorts in descending order.
      * @return {NJS<NC.JSONObject[]>} A new JSON object array containing the sorted elements.
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html }
@@ -154,12 +154,12 @@ declare class ND {
          * The formatting rule can be specified in two types as follows:
          * - If you specify the rules as an object option:
          *   ```
-         *   // { "columnPropertyName" : [["ruleName", arguments[0], arguments[1]...]] }
+         *   // { "columnPropertyName": [["ruleName", arguments[0], arguments[1]...]] }
          *   new N.formatter(data, {
-         *       "numeric" : [["trimtoempty"], ["numeric", "#,###.##0000"]],
-         *       "generic" : [["trimtoempty"], ["generic", "@@ABCD"]],
-         *       "limit" : [["trimtoempty"], ["limit", "13", "..."]],
-         *       "etc" : [["date", 12]]
+         *       "numeric": [["trimtoempty"], ["numeric", "#,###.##0000"]],
+         *       "generic": [["trimtoempty"], ["generic", "@@ABCD"]],
+         *       "limit": [["trimtoempty"], ["limit", "13", "..."]],
+         *       "etc": [["date", 12]]
          *   }).format();
          *   ```
          * - If you specify the rules by providing a jQuery object which includes elements with data-validate attributes:
@@ -173,7 +173,7 @@ declare class ND {
          *
          *   <script type="text/javascript">
          *       N(".formatter").cont({
-         *           init : function(view, request) {
+         *           init: function(view, request) {
          *               N.formatter(data, N(".formatter-context", view)).format();
          *           }
          *       });
@@ -354,7 +354,7 @@ declare class ND {
          *      ```
          *  - args[1]:: If "date", a date picker is applied to the element specified as the third argument. If "month", a month picker is applied.
          *  - args[2]:: You can specify options to create the Datepicker for the element designated as the third argument of the function.
-         * @param {NJS<HTMLElement[]>} ele - If this argument is specified, the NU.datepicker component is automatically applied.
+         * @param {NJS<HTMLElement[]>} [ele] - If this argument is specified, the NU.datepicker component is automatically applied.
          * @return {string} The formatted string.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
@@ -364,7 +364,7 @@ declare class ND {
          * Convert to time format.
          *
          * @param {string} str - The string to be formatted.
-         * @param {[number]} args - Specifies the time format.
+         * @param {[number]} [args] - Specifies the time format.
          * number If you specify the length by type, it is converted as follows:
          *  - 2: hour
          *  - 4: hour:minute
@@ -395,7 +395,7 @@ declare class ND {
          *  - args[0]: - String to be replaced
          *  - args[1]: - String to replace
          *  - args[2]: - This is an argument used inside Formatter that is not generally used.
-         * @param {NJS<HTMLElement[]>} ele - This is an argument used inside Formatter that is not generally used.
+         * @param {NJS<HTMLElement[]>} [ele] - This is an argument used inside Formatter that is not generally used.
          * @return {string} The formatted string.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
@@ -574,11 +574,11 @@ declare class ND {
          * You can specify the validation rules in two ways as follows:
          * - Specifying rules as object options:
          *    ```
-         *    // { "columnName" : [["ruleName", arguments[0], arguments[1] ... ] }
+         *    // { "columnName": [["ruleName", arguments[0], arguments[1] ... ] }
          *    N.validator(data, {
-         *        "numeric" : [["required"], ["integer+commas"]],
-         *        "generic" : [["required"], ["korean"]],
-         *        "limit" : [["required"], ["alphabet"]]
+         *        "numeric": [["required"], ["integer+commas"]],
+         *        "generic": [["required"], ["korean"]],
+         *        "limit": [["required"], ["alphabet"]]
          *    }).validate();
          *    ```
          *
@@ -593,7 +593,7 @@ declare class ND {
          *
          *    <script type="text/javascript">
          *        N(".validator").cont({
-         *            init : function(view, request) {
+         *            init: function(view, request) {
          *                N.validator(data, N(".validator-context", view)).validate();
          *            }
          *        });
@@ -1040,25 +1040,25 @@ declare class ND {
          * If you specify a function, only the rows for which the function returns true are filtered.
          * ```
          * var fData = N.data.filter([
-         *     { name : "John", age : 18 },
-         *     { name : "Mike", age : 16 },
-         *     { name : "Mike", age : 14 }
+         *     { name: "John", age: 18 },
+         *     { name: "Mike", age: 16 },
+         *     { name: "Mike", age: 14 }
          * ], function(item) {
          *     return item.name === "Mike" && item.age === 16;
          * });
          *
-         * console.log(fData); // [{ name : "Mike", age : 16 }]
+         * console.log(fData); // [{ name: "Mike", age: 16 }]
          * ```
          *
          * If you specify a condition string, only the rows that match the condition are filtered.
          * ```
          * var fData = N.data.filter([
-         *     { name : "John", age : 18 },
-         *     { name : "Mike", age : 16 },
-         *     { name : "Mike", age : 14 }
+         *     { name: "John", age: 18 },
+         *     { name: "Mike", age: 16 },
+         *     { name: "Mike", age: 14 }
          * ], 'name === "Mike"');
          *
-         * console.log(fData); // [{ name : "Mike", age : 16 }, { name : "Mike", age : 14 }]
+         * console.log(fData); // [{ name: "Mike", age: 16 }, { name: "Mike", age: 14 }]
          * ```
          * > Processing conditions with a function is faster than specifying them with a string.
          *
@@ -1074,7 +1074,7 @@ declare class ND {
          *
          * @param {NJS<NC.JSONObject[]> | NC.JSONObject[]} arr - Data to be sorted
          * @param {string} key - The property name of the JSON object to be used as the sorting criteria
-         * @param {string} reverse - If set to true, sorts in descending order.
+         * @param {string} [reverse] - If set to true, sorts in descending order.
          * @return {NJS<NC.JSONObject[]>} A new JSON object array containing the sorted elements.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html }

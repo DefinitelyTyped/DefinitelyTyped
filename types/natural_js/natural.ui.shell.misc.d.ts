@@ -2,8 +2,10 @@ declare namespace NUS {
 
     namespace Options {
         type NotifyPosition = {
-            top?: number;
+            left?: number;
             right?: number;
+            top?: number;
+            bottom?: number;
         }
         type Notify = {
             position?: NotifyPosition;
@@ -19,9 +21,21 @@ declare namespace NUS {
             [key: string]: DocOpts;
         }
         type DocOpts = {
+            /**
+             * Document id
+             */
             docId?: string;
+            /**
+             * Document name
+             */
             docNm?: string;
+            /**
+             * Document url
+             */
             url?: string;
+            /**
+             * Specifies whether to block responses when the location.href when requesting to the server is different from the location.href when receiving the response from the server.
+             */
             urlSync?: boolean;
             onBeforeLoad?: EventHandlers.Documents.OnBeforeLoad | null;
             onLoad?: EventHandlers.Documents.OnLoad | null;
@@ -126,6 +140,9 @@ declare namespace NUS {
             }
             type LoadContent = {
                 (this: NUS.Documents): void;
+            }
+            type Reload = {
+                (this: NA.Communicator, html?: string, request?: NA.Request): void;
             }
         }
     }

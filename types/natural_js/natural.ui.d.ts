@@ -11,7 +11,7 @@ declare class NU {
      * @this {NJS<HTMLElement[]>} - The context element on which the modal overlay of Alert will be displayed.
      * @param {NU.Options.Alert | string} msg - Specifies an initialization option object for the component or a string representing the contents of the warning message.
      * @param {string[]} [vars] - This is an array of strings to replace the message variable with.
-     * @returns {NU.Alert} An instance of an alert object, configured according to the provided options.
+     * @returns {NU.Alert} An instance of an Alert object, configured according to the provided options.
      *
      * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040103.html }
      */

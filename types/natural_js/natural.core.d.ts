@@ -36,9 +36,9 @@ declare class NC {
      *      > The callback function is executed as many times as there are instances.
      *      ```
      *      var all = N(".grid01", ".grid02").instance(function(instanceId, instance) {
-     *          // this : instance
-     *          // instanceId : identifier of the stored instance
-     *          // instance : stored instance
+     *          // this: instance
+     *          // instanceId: identifier of the stored instance
+     *          // instance: stored instance
      *      });
      *      ```
      *   3. Returns all instances stored with the instanceId `name` in the selected elements.
@@ -51,9 +51,9 @@ declare class NC {
      *      > The callback function is executed as many times as there are instances.
      *      ```
      *      var all = N(".grid01", ".grid02").instance("name", function(instanceId, instance) {
-     *          // this : instance
-     *          // instanceId : identifier of the stored instance
-     *          // instance : stored instance
+     *          // this: instance
+     *          // instanceId: identifier of the stored instance
+     *          // instance: stored instance
      *      });
      *      ```
      *   5. Stores the instance with instanceId `name` in the selected elements.
@@ -103,9 +103,9 @@ declare class NC {
      * When specifying a single value, specify the value as a string, and when selecting two or more options, specify the value as an array of strings.
      *
      * If a function is specified, the callback function is executed for each selected option element. The arguments for the callback function are as follows:
-     *  - this : The selected option element
-     *  - arguments[0] : The index of the selected option element
-     *  - arguments[1] : The selected option element
+     *  - this: The selected option element
+     *  - args[0]: The index of the selected option element
+     *  - args[1]: The selected option element
      * @return {string|string[] | NJS<HTMLElement[]> | this} If the vals argument is not provided, the selected value is returned. If the vals argument is specified, the elements that match the specified value are selected.
      * If only one is selected, a value of type string is returned, and if two or more are selected, the values are returned in an array.
      *
@@ -505,7 +505,7 @@ declare class NC {
          *
          * @param {string} str - The date string to be converted.
          * @param {string} format - The format of the date string (e.g. "YYYYMMDD").
-         * @param {boolean} [isString=false] - Optional. If true, returns the components as strings; otherwise, returns them as numbers.
+         * @param {boolean} [isString] - Optional. If true, returns the components as strings; otherwise, returns them as numbers.
          * @return {string[] | number[]} An array of strings or numbers representing the date components.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
@@ -515,29 +515,29 @@ declare class NC {
          * Converts a string to a NC.Date object based on the specified format.
          *
          * @param {string} str - The date and time string to be converted.
-         *  - "19991231"  : "1999-12-31 00:00:00"
-         *  - "1999123103" : "1999-12-31 03:00:00"
-         *  - "199912310348" : "1999-12-31 03:48:00"
-         *  - "19991231034856" : "1999-12-31 03:48:56"
+         *  - "19991231": "1999-12-31 00:00:00"
+         *  - "1999123103": "1999-12-31 03:00:00"
+         *  - "199912310348": "1999-12-31 03:48:00"
+         *  - "19991231034856": "1999-12-31 03:48:56"
          * @param {string} format - The expected format of the date and time string.
-         *  - Y : Year
-         *  - m : Month
-         *  - d : Day
-         *  - H : Hour
-         *  - i : Minute
-         *  - s : Second
-         *  - e.g., "19991231" : "Ymd"
-         *  - e.g., "3112" : "dm"
-         *  - e.g., "12311999" : "mdY"
-         *  - e.g., "19991231120159" : "YmdHis"
+         *  - Y: Year
+         *  - m: Month
+         *  - d: Day
+         *  - H: Hour
+         *  - i: Minute
+         *  - s: Second
+         *  - e.g., "19991231": "Ymd"
+         *  - e.g., "3112": "dm"
+         *  - e.g., "12311999": "mdY"
+         *  - e.g., "19991231120159": "YmdHis"
          *
          * > If the format argument is not provided, it is automatically set depending on the length of the input date string as follows:
-         * > - 4 digits : "Y"
-         * > - 6 digits : "Y-m"
-         * > - 8 digits : "Y-m-d"
-         * > - 10 digits : "Y-m-d H"
-         * > - 12 digits : "Y-m-d H:i"
-         * > - 14 digits : "Y-m-d H:i:s"
+         * > - 4 digits: "Y"
+         * > - 6 digits: "Y-m"
+         * > - 8 digits: "Y-m-d"
+         * > - 10 digits: "Y-m-d H"
+         * > - 12 digits: "Y-m-d H:i"
+         * > - 14 digits: "Y-m-d H:i:s"
          *
          * > Date and time separator characters such as dash (-) and colon (:) are defined by the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html) N.context.attr("data").formatter.date object functions. You can change these separator characters by modifying the return string of these functions.
          *
@@ -551,12 +551,12 @@ declare class NC {
          *
          * @param {string} str - The date string to be formatted.
          * @param {string} [format] - An optional format string that determines the output format. If not provided, a default format will be used.
-         *  - Y : Year
-         *  - m : Month
-         *  - d : Day
-         *  - e.g., "19991231" : "Ymd"
-         *  - e.g., "3112" : "dm"
-         *  - e.g., "12311999" : "mdY"
+         *  - Y: Year
+         *  - m: Month
+         *  - d: Day
+         *  - e.g., "19991231": "Ymd"
+         *  - e.g., "3112": "dm"
+         *  - e.g., "12311999": "mdY"
          * @return {string} The formatted date string.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html }
@@ -750,17 +750,17 @@ declare class NC {
          * Message resources must be created as object types and configure locale-specific message sets as follows.
          * ```
          * var message = {
-         *     "ko_KR" : {
-         *         messageKey : "안녕 {0}."
+         *     "ko_KR": {
+         *         messageKey: "안녕 {0}."
          *     },
-         *     "en_US" : {
-         *         messageKey : "Hello {0}."
+         *     "en_US": {
+         *         messageKey: "Hello {0}."
          *     }
          * }
          *
          * var msg = N.message.get(message, "key", ["Natural-JS"]);
          *
-         * // msg : "Hello Natural-JS."
+         * // msg: "Hello Natural-JS."
          * ```
          * @param {string} key - This is the key of the message to retrieve from the message resource object.
          *                       The message string containing variables to be replaced. Variables are denoted by placeholders such as {0}, {1}, etc.
@@ -904,16 +904,16 @@ declare interface Date {
      * > Referenced the library from [http://www.svendtofte.com/javascript/javascript-date-string-formatting/](http://www.svendtofte.com/javascript/javascript-date-string-formatting/) and [http://www.php.net/date](http://www.php.net/date).
      *
      * @param {string} input - Date format string.
-     *  - Y : Year
-     *  - m : Month
-     *  - d : Day
-     *  - H : Hour
-     *  - i : Minute
-     *  - s : Second
-     *  - e.g., "1999-12-31" : "Y-m-d"
-     *  - e.g., "31/12" : "d/m"
-     *  - e.g., "12-31-1999" : "m-d-Y"
-     *  - e.g., "1999-12-31-12:01:59" : "Y-m-d H:i:s"
+     *  - Y: Year
+     *  - m: Month
+     *  - d: Day
+     *  - H: Hour
+     *  - i: Minute
+     *  - s: Second
+     *  - e.g., "1999-12-31": "Y-m-d"
+     *  - e.g., "31/12": "d/m"
+     *  - e.g., "12-31-1999": "m-d-Y"
+     *  - e.g., "1999-12-31-12:01:59": "Y-m-d H:i:s"
      * @param {number} [time] - A Timestamp value that sets the default date for the Date object.
      * @return {string} The formatted date string.
      */

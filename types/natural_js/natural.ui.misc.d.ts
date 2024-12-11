@@ -48,11 +48,11 @@ declare namespace NU {
              * > 메시지에 선언된 `{index}`와 같은 변수가 vars 옵션으로 설정 한 array의 index에 해당하는 값으로 치환됩니다.
              * ```
              * N(window).alert({
-             *     msg : "{0} {1}-JS.",
-             *     vars : ["Hello", "Natural"]
+             *     msg: "{0} {1}-JS.",
+             *     vars: ["Hello", "Natural"]
              * }).show();
              *
-             * // Result message : "Hello Natural-JS"
+             * // Result message: "Hello Natural-JS"
              * ```
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }

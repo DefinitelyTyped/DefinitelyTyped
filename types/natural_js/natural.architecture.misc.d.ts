@@ -188,7 +188,7 @@ declare namespace NA {
              * InitFunction is a user-defined function that is called after the view has finished loading and the Controller object has been initialized.
              * ```
              * N(".view").cont({
-             *     init : function(view, request) {
+             *     init: function(view, request) {
              *     }
              * });
              * ```

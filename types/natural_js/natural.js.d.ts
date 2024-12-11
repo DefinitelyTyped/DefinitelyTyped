@@ -220,7 +220,7 @@ declare namespace N {
      *    > After adding to a form element created with add() and then calling bind(), or calling bind() after add() or bind() after bind(), the data synchronization logic for the form's input elements may have issues. In this case, be sure to execute the unbind method in between.
      *    > ```
      *    > var formInst = N([]).form().add();
-     *    > formInst.unbind().bind(0, [{ "col01" : "abcd" }])
+     *    > formInst.unbind().bind(0, [{ "col01": "abcd" }])
      *    > ```
      *  - When the value of an input element is changed or the val method is used to change data, the rowStatus property is created, with "insert" for input, "update" for modification, and "delete" for deletion.
      *
