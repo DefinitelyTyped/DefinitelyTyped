@@ -61,6 +61,15 @@ declare module "node:sqlite" {
          * @default true
          */
         enableForeignKeyConstraints?: boolean | undefined;
+        /**
+         * If `true`, SQLite will accept
+         * [double-quoted string literals](https://www.sqlite.org/quirks.html#dblquote).
+         * This is not recommended but can be
+         * enabled for compatibility with legacy database schemas.
+         * @since v22.10.0
+         * @default false
+         */
+        enableDoubleQuotedStringLiterals?: boolean | undefined;
     }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
