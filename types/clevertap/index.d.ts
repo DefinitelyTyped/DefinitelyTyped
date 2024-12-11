@@ -44,8 +44,8 @@ interface Query {
 }
 
 interface MessageReportQuery {
-  from: string;
-  to: string;
+    from: string;
+    to: string;
 }
 
 interface QueryOptions {
