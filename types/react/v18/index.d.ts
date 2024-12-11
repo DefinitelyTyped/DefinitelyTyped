@@ -400,6 +400,7 @@ declare namespace React {
     ) => CElement<P, T>;
 
     type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
+    /** @deprecated */
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
     type DOMFactory<P extends DOMAttributes<T>, T extends Element> = (
