@@ -768,7 +768,7 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     const emptyObject: React.ReactNode = {};
     // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
-    // @ts-expect-error Promises as ReactNode is not supported in React 18.
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const promise: React.ReactNode = Promise.resolve("React");
 
     const asyncTests = async function asyncTests() {

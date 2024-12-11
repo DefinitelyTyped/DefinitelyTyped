@@ -371,7 +371,7 @@ function useConcurrentHooks() {
 
         // The function must be synchronous, even if it can start an asynchronous update
         // it's no different from an useEffect callback in this respect
-        // @ts-expect-error
+        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         startTransition(async () => {});
 
         // Unlike Effect callbacks, though, there is no possible destructor to return
@@ -392,7 +392,7 @@ function startTransitionTest() {
     });
 
     // callback must be synchronous
-    // @ts-expect-error
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.startTransition(async () => {});
 }
 
