@@ -10,7 +10,7 @@ declare global {
     namespace Chai {
         interface Assert {
             /**
-             * It works in similar way as deep.equal but it doesn’t checks the arrays order (at any level of nested objects and arrays).
+             * It works in similar way as deepEqual but it doesn’t checks the arrays order (at any level of nested objects and arrays).
              * The array elements can be any JS entity (boolean, null, number, string, object, array…).
              *
              * T   Type of the objects.
@@ -21,7 +21,7 @@ declare global {
             deepEqualInAnyOrder: <T>(actual: T, expected: T, message?: string) => void;
 
             /**
-             * It works in similar way as not.deep.equal but it doesn’t checks the arrays order (at any level of nested objects and arrays).
+             * It works in similar way as notDeepEqual but it doesn’t checks the arrays order (at any level of nested objects and arrays).
              * The array elements can be any JS entity (boolean, null, number, string, object, array…).
              *
              * T   Type of the objects.
