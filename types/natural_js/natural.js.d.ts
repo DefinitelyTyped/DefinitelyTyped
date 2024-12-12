@@ -4,8 +4,8 @@
  * N() extends the jQuery() function, thus it can be replaced with $() or jQuery(). However, local functions of the N object cannot be used within jQuery or $ objects.
  */
 declare function N(
-    selector?: string | Element | Array<Element> | JQuery<Element> | JQuery.Node | JQuery.PlainObject | ((this: Document, readyCallback: (this: Document) => void) => void) | NJS<Element> | undefined,
-    context?: Element | Document | JQuery<Element> | string | NJS<Element> | undefined): NJS<any>;
+    selector?: string | Element | Array<Element> | JQuery<Element> | JQuery.Node | JQuery.PlainObject | ((this: Document, readyCallback: (this: Document) => void) => void) | NJS<Element>,
+    context?: Element | Document | JQuery<Element> | string | NJS<Element>): NJS<any>;
 
 declare interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
 
@@ -94,12 +94,12 @@ declare namespace N {
      * > For Natural-ARCHITECTURE-based pages to function properly, they must be loaded with the N.comm library, N.popup, or N.tab components.
      *
      * > When selecting an element on a page, you must `find` on a view or specify view as the `context` argument (second argument) to a jQuery function.
-     * > Otherwise, unintended elements from other block pages may be selected, resulting in unpredictable errors.
-     * > For more information, please refer to the [Restrictions and Tips](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0601.html) menu.
+     * Otherwise, unintended elements from other block pages may be selected, resulting in unpredictable errors.
+     * For more information, please refer to the [Restrictions and Tips](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0601.html) menu.
      *
      * > When `N(".view").cont()` is executed, a `pageid data attribute value` such as `data-pageid="view"` is created in the `.view` element specified by the selector.
-     * > The `pageid` is `.(dot), #(sharp), [(left bracket), ](right bracket), '(single quote), :(colon), ((left bracket), ), )(right bracket), >(right arrow bracket), " "(space), -(hyphen)` characters are removed to create pageid, so the page identification value is defined not to include the special characters.
-     * > For example, `N("page.view-01").cont()` creates a pageid of `pageview01` with the dot and hyphen removed.
+     * The `pageid` is `.(dot), #(sharp), [(left bracket), ](right bracket), '(single quote), :(colon), ((left bracket), ), )(right bracket), >(right arrow bracket), " "(space), -(hyphen)` characters are removed to create pageid, so the page identification value is defined not to include the special characters.
+     * For example, `N("page.view-01").cont()` creates a pageid of `pageview01` with the dot and hyphen removed.
      *
      * To control a specific page, such as a block page or tab content, you can get a Controller object as follows.
      * ```

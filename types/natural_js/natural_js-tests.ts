@@ -116,7 +116,10 @@ N.data.sort([{}], "key", true);
 
 N(".area").alert("Hello").show();
 const alertInst = new N.alert(N(".area"), {
-    msg: "Hello"
+    msg: "Hello",
+    onHide: function (msgContext, msgContents) {
+        console.log(msgContext, msgContents);
+    }
 }).show();
 alertInst.options.msg = "Hello";
 alertInst.context("span").each(function (index, element) {});
@@ -133,10 +136,10 @@ new N.button(N(".button"), {
 }).disable();
 
 N(".input").datepicker({
-    maxYear: 2050
+    maxYear: 300
 }).show();
 new N.datepicker(N(".input"), {
-    minDate: "20190101",
+    minDate: "20190101"
 }).show();
 
 let popup = new N.popup(N(".popup"), {

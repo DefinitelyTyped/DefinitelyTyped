@@ -644,7 +644,7 @@ declare namespace NU {
          * > If the context element is a checkbox and is checked, the elements created when data is bound are also created in a checked state.
          *
          * > When data is bound to a radio or checkbox input element, the element set as context has an id attribute and a name attribute, and only the name attribute is added to the additionally created option element.
-         * > When binding an event to a created checkbox or radio, if you select an element with the id selector, the event is applied only to the first option element, so select the element with the name attribute.
+         * When binding an event to a created checkbox or radio, if you select an element with the id selector, the event is applied only to the first option element, so select the element with the name attribute.
          * ```
          * $("input[name='name']").on("click", function(e) { ... });
          * ```
@@ -775,7 +775,7 @@ declare namespace NU {
          * Binds data to elements that have an id attribute value within the element specified by the context option.
          *
          * > If you change only the data and bind it again, N.form may not work properly.
-         * > When rebinding to a context element that has data bound to it, you must first run the unbind method and then run the bind method.
+         * When rebinding to a context element that has data bound to it, you must first run the unbind method and then run the bind method.
          *
          * @param {number} row - Specifies the row index of the data array to bind.
          * @param {NJS<NC.JSONObject[]>} [data] - Specifies the data to bind.

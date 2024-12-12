@@ -18,7 +18,7 @@ declare namespace NA {
              *
              * "application/x-www-form-urlencoded": The initial default type.
              *
-             * "multipart/form-data": The type that allows file <input> element(s) to upload file data.
+             * "multipart/form-data": The type that allows file `<input>` element(s) to upload file data.
              *
              * "text/plain": A type introduced in HTML5.
              */
@@ -71,8 +71,8 @@ declare namespace NA {
              * If set to `true`, the parameter object specified as an argument of the N function in `N().comm` can be specified as an array type.
              *
              * > When using Communicator with `N(params).comm(url).submit()`, if the object type of params is array and the dataIsArray option is set to false, only the first object of array is transmitted.
-             * > The cause of this problem is that if you call the get function after setting the argument of the jQuery function to `array(jQuery([{}]))` or `object($({}))`, both return `array([{}])`.
-             * > Even if it is inconvenient, when transmitting an array to the server, set dataIsArray to true or use an array in an object.
+             * The cause of this problem is that if you call the get function after setting the argument of the jQuery function to `array(jQuery([{}]))` or `object($({}))`, both return `array([{}])`.
+             * Even if it is inconvenient, when transmitting an array to the server, set dataIsArray to true or use an array in an object.
              *
              * > When `Communicator` is used with `N.comm(params, url).submit()`, even if the dataIsArray option is not set to true, params is not created as a jQuery object, so it is sent as an array type.
              *

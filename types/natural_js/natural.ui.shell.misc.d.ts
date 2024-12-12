@@ -29,9 +29,9 @@ declare namespace NUS {
             /**
              * An instance of the element that displays the message is assigned.
              *
-             * @default null
+             * @default undefined
              */
-            context?: NJS<HTMLElement[]> | null;
+            context?: NJS<HTMLElement[]>;
             /**
              * Set the time in seconds for the message to be displayed.
              *
@@ -168,11 +168,11 @@ declare namespace NUS {
             /**
              * Specifies the element to apply N.docs to.
              *
-             * @default null
+             * @default undefined
              *
              * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
              */
-            context?: NJS<HTMLElement[]> | null;
+            context?: NJS<HTMLElement[]>;
             /**
              * If set to true, N.docs are created in the tab-based Multiple-Document Interface(MDI) format, and if set to false, N.docs are created in the general Single-Document Interface(SDI) format.
              *  - true: Displays tab and page content.
