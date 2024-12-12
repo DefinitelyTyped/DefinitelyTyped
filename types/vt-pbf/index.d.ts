@@ -1,15 +1,15 @@
 import * as GJ from "geojson";
-import * as geojsonvt from "geojson-vt"
+import * as geojsonvt from "geojson-vt";
 
 type RawGeometry = number | RawGeometry[];
 
 interface Layers {
-  [layerName: string]: ReturnType<typeof geojsonvt>;
+    [layerName: string]: ReturnType<typeof geojsonvt>;
 }
 
 interface LayerOptions {
-  version?: number;
-  extent?: number; // 0 - 4096
+    version?: number;
+    extent?: number; // 0 - 4096
 }
 
 interface FeatureWrapper {
@@ -36,4 +36,4 @@ declare class GeoJSONWrapper {
     feature(i: number): FeatureWrapper;
 }
 
-export {fromVectorTileJs, fromGeojsonVt, GeoJSONWrapper};
+export { fromGeojsonVt, fromVectorTileJs, GeoJSONWrapper };
