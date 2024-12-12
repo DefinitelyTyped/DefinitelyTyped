@@ -117,6 +117,19 @@ export class InterleavedBuffer {
     clearUpdateRanges(): void;
 
     /**
+     * A callback function that is executed after the Renderer has transferred the attribute array data to the GPU.
+     */
+    onUploadCallback: () => void;
+
+    /**
+     * Sets the value of the {@link onUploadCallback} property.
+     * @see Example: {@link https://threejs.org/examples/#webgl_buffergeometry | WebGL / BufferGeometry} this is used to free memory after the buffer has been transferred to the GPU.
+     * @see {@link onUploadCallback}
+     * @param callback function that is executed after the Renderer has transferred the attribute array data to the GPU.
+     */
+    onUpload(callback: () => void): this;
+
+    /**
      * Copies another {@link InterleavedBuffer} to this {@link InterleavedBuffer} instance.
      * @param source
      */
