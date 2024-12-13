@@ -1,4 +1,4 @@
-import { PositiveInteger, ReferencePath } from "./state";
+import { AssignmentObject, JSONataExpression, PositiveInteger, ReferencePath } from "./state";
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html#error-handling-error-representation
 export type Errors =
@@ -19,6 +19,8 @@ export interface Catch {
     ErrorEquals: Errors[];
     Next: string;
     ResultPath?: ReferencePath | null;
+    Assign?: AssignmentObject;
+    Output?: JSONataExpression;
 }
 
 // https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html#error-handling-retrying-after-an-error

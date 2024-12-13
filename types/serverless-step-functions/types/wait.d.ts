@@ -1,4 +1,4 @@
-import { EndOrNext, Path, PositiveInteger } from "./state";
+import { AssignmentObject, EndOrNext, JSONataExpression, Path, PositiveInteger, QueryLanguage } from "./state";
 
 /**
  * The Wait State (identified by "Type":"Wait") can be used to delay the state machine from continuing for a specified time.
@@ -10,34 +10,45 @@ export type Wait =
     & {
         Type: "Wait";
         Comment?: string;
+
+        // Common fields
+        QueryLanguage?: QueryLanguage;
+        Assign?: AssignmentObject;
+
+        // JSONata style fields
+        Output?: JSONataExpression;
+
+        // JSONPath style fields
         InputPath?: Path | null;
         OutputPath?: Path | null;
     }
     & EndOrNext
-    & SecondsOrTimestamp;
+    & WaitConfiguration;
 
-export type SecondsOrTimestamp =
+export type WaitConfiguration =
+    // JSONata style configurations
     | {
-        Seconds?: PositiveInteger;
+        Seconds: PositiveInteger | JSONataExpression;
         SecondsPath?: never;
         Timestamp?: never;
         TimestampPath?: never;
     }
     | {
         Seconds?: never;
-        SecondsPath?: Path;
+        SecondsPath?: never;
+        Timestamp: string | JSONataExpression;
+        TimestampPath?: never;
+    }
+    // JSONPath style configurations
+    | {
+        Seconds?: never;
+        SecondsPath: Path;
         Timestamp?: never;
         TimestampPath?: never;
     }
     | {
         Seconds?: never;
         SecondsPath?: never;
-        Timestamp?: string;
-        TimestampPath?: never;
-    }
-    | {
-        Seconds?: never;
-        SecondsPath?: never;
         Timestamp?: never;
-        TimestampPath?: Path;
+        TimestampPath: Path;
     };
