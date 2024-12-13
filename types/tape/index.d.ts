@@ -279,6 +279,12 @@ declare namespace tape {
             property: PropertyKey,
             desc?: PropertyDescriptor,
         ): InterceptResults;
+
+        assertion<Args extends readonly any[], R>(
+            this: Test,
+            fn: (this: Test, ...args: Args) => R,
+            ...args: Args
+        ): R;
     }
 
     export type SyncCallback = (...args: unknown[]) => unknown;
