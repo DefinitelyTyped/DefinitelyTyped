@@ -5,7 +5,7 @@ const awn = new AWN({
         enabled: true,
         prefix: "",
         suffix: "",
-    }
+    },
 });
 
 const confirmed = () => console.log("Confirmed");
