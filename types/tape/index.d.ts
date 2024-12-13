@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import Through = require("@ljharb/through");
+import mockProperty = require("mock-property");
 
 /**
  * Create a new test with an optional name string and optional opts object.
@@ -264,6 +265,69 @@ declare namespace tape {
          * Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order.
          */
         teardown(callback: () => void | Promise<void>): void;
+
+        captureFn<X extends SyncOrAsyncCallback>(this: Test, original: X): WrappedFn<X>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        capture<T extends SyncOrAsyncCallback>(
+            this: Test,
+            obj: Record<PropertyKey, unknown> | unknown[],
+            method: PropertyKey,
+            implementation?: T,
+        ): WrapResults;
+        intercept(
+            obj: Record<PropertyKey, unknown> | unknown[],
+            property: PropertyKey,
+            desc?: PropertyDescriptor,
+        ): InterceptResults;
+    }
+
+    export type SyncCallback = (...args: unknown[]) => unknown;
+    export type SyncOrAsyncCallback = (...args: unknown[]) => unknown;
+
+    export interface ReturnCall {
+        args: unknown[];
+        receiver: {};
+        returned: unknown;
+    }
+
+    export interface ThrowCall {
+        args: unknown[];
+        receiver: {};
+        threw: true;
+    }
+
+    export interface Call {
+        type: "get" | "set";
+        success: boolean;
+        value: unknown;
+        args: unknown[];
+        receiver: unknown;
+    }
+
+    export type RestoreFunction = ReturnType<typeof mockProperty>;
+
+    export interface WrapResults {
+        (): WrappedCall[];
+        restore?: RestoreFunction;
+    }
+
+    export interface WrappedFn<T extends SyncOrAsyncCallback> {
+        (this: ThisParameterType<T>, ...args: Parameters<T>): ReturnType<T>;
+        calls?: WrappedCall[];
+    }
+
+    export interface WrapObject<T extends SyncOrAsyncCallback> {
+        __proto__: null;
+        wrapped: WrappedFn<T>;
+        calls: WrappedCall[];
+        results: WrapResults;
+    }
+
+    export type WrappedCall = ReturnCall | ThrowCall;
+
+    export interface InterceptResults {
+        (): Call[];
+        restore: RestoreFunction;
     }
 }
 
