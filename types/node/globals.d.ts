@@ -518,6 +518,8 @@ declare global {
     } ? T
         : typeof import("undici-types").Request;
 
+    type RequestInfo = Request | string;
+
     interface ResponseInit extends _ResponseInit {}
 
     interface Response extends _Response {}
