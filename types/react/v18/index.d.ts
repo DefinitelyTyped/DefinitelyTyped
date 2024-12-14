@@ -2010,7 +2010,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T = undefined>(): MutableRefObject<T | undefined>;
+    function useRef<T = undefined>(initialValue?: undefined): MutableRefObject<T | undefined>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
