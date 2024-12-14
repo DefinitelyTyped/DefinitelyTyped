@@ -1,5 +1,5 @@
-import { GPUStorageTextureAccess } from "../../renderers/webgpu/utils/WebGPUConstants.js";
 import { Texture } from "../../textures/Texture.js";
+import { NodeAccess } from "../core/constants.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
 import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
@@ -10,7 +10,7 @@ export default class StorageTextureNode extends TextureNode {
 
     readonly isStorageTextureNode: true;
 
-    access: GPUStorageTextureAccess;
+    access: NodeAccess;
 
     constructor(
         value: Texture,
@@ -18,7 +18,9 @@ export default class StorageTextureNode extends TextureNode {
         storeNode?: Node | null,
     );
 
-    setAccess(value: GPUStorageTextureAccess): this;
+    setAccess(value: NodeAccess): this;
+
+    toReadWrite(): this;
 
     toReadOnly(): this;
 

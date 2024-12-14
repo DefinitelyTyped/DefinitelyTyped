@@ -1,5 +1,5 @@
-import { Camera, ColorRepresentation, Scene } from "three";
-import { PassNode, ShaderNodeObject } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
+import { Camera, ColorRepresentation, PassNode, Scene } from "three/webgpu";
 
 declare class TRAAPassNode extends PassNode {
     readonly isTRAAPassNode: true;

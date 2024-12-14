@@ -1,6 +1,8 @@
 import { AnimationBlendMode } from "../constants.js";
+import { Object3D } from "../core/Object3D.js";
 import { Vector3 } from "../math/Vector3.js";
 import { Bone } from "../objects/Bone.js";
+import { Mesh } from "../objects/Mesh.js";
 import { KeyframeTrack, KeyframeTrackJSON } from "./KeyframeTrack.js";
 
 export interface AnimationClipJSON {
@@ -47,7 +49,7 @@ export class AnimationClip {
         fps: number,
         noLoop: boolean,
     ): AnimationClip;
-    static findByName(clipArray: AnimationClip[], name: string): AnimationClip;
+    static findByName(objectOrClipArray: AnimationClip[] | Object3D | Mesh, name: string): AnimationClip;
     static CreateClipsFromMorphTargetSequences(
         morphTargets: MorphTarget[],
         fps: number,

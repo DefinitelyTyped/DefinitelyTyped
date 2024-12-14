@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/three",
-    "version": "0.170.9999",
+    "version": "0.171.9999",
     "projects": [
         "https://threejs.org/"
     ],
@@ -17,7 +17,7 @@
         "./addons/*": "./examples/jsm/*",
         "./src/*": "./src/*",
         "./webgpu": "./build/three.webgpu.js",
-        "./tsl": "./build/three.webgpu.js"
+        "./tsl": "./build/three.tsl.js"
     },
     "dependencies": {
         "@tweenjs/tween.js": "~23.1.3",

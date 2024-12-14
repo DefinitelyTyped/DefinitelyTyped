@@ -29,7 +29,7 @@ import {
     mx_worley_noise_vec2,
     mx_worley_noise_vec3,
 } from "three/src/nodes/materialx/lib/mx_noise.js";
-import { float, vec2 } from "three/webgpu";
+import { float, vec2 } from "three/tsl";
 
 mx_select(true, 1, 0);
 mx_negate_if(true, 1);
