@@ -23,7 +23,7 @@ import {
     mx_worley_noise_vec3,
     vec2,
     vec3,
-} from "three/webgpu";
+} from "three/tsl";
 
 mx_aastep(0, 1);
 

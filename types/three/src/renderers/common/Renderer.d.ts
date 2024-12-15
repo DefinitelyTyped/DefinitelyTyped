@@ -21,6 +21,7 @@ import Attributes from "./Attributes.js";
 import Backend from "./Backend.js";
 import Background from "./Background.js";
 import Bindings from "./Bindings.js";
+import ClippingContext from "./ClippingContext.js";
 import Color4 from "./Color4.js";
 import Geometries from "./Geometries.js";
 import Info from "./Info.js";
@@ -257,6 +258,9 @@ declare class Renderer {
     computeAsync(computeNodes: ComputeNode | ComputeNode[]): Promise<void>;
     hasFeatureAsync(name: string): Promise<void>;
     hasFeature(name: string): false | void;
+    hasInitialized(): boolean;
+    initTextureAsync(texture: Texture): Promise<void>;
+    initTexture(texture: Texture): false | undefined;
     copyFramebufferToTexture(framebufferTexture: FramebufferTexture, rectangle?: Rectangle | null): void;
     copyTextureToTexture(
         srcTexture: Texture,
@@ -274,7 +278,13 @@ declare class Renderer {
         index?: number,
         faceIndex?: number,
     ): Promise<import("../../core/BufferAttribute.js").TypedArray>;
-    _projectObject(object: Object3D, camera: Camera, groupOrder: number, renderList: RenderList): void;
+    _projectObject(
+        object: Object3D,
+        camera: Camera,
+        groupOrder: number,
+        renderList: RenderList,
+        clippingContext: ClippingContext | null,
+    ): void;
     _renderBundles(bundles: Bundle[], sceneRef: Scene, lightsNode: LightsNode): void;
     _renderTransparents(
         renderList: RenderItem[],
@@ -298,6 +308,7 @@ declare class Renderer {
         material: Material,
         group: GeometryGroup,
         lightsNode: LightsNode,
+        clippingContext?: ClippingContext | null,
         passId?: string | null,
     ): void;
     _renderObjectDirect(
@@ -307,6 +318,7 @@ declare class Renderer {
         camera: Camera,
         lightsNode: LightsNode,
         group: GeometryGroup,
+        clippingContext: ClippingContext | null,
         passId?: string,
     ): void;
     _createObjectPipeline(
@@ -315,6 +327,7 @@ declare class Renderer {
         scene: Scene,
         camera: Camera,
         lightsNode: LightsNode,
+        clippingContext: ClippingContext | null,
         passId?: string,
     ): void;
     get compile(): (scene: Object3D, camera: Camera, targetScene?: Object3D | null) => Promise<void>;

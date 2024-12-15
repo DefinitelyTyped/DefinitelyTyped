@@ -1,5 +1,4 @@
-import { Camera, DirectionalLightShadow, Light, Object3D } from "three";
-import { Node } from "three/tsl";
+import { Camera, DirectionalLightShadow, Light, Node, Object3D } from "three/webgpu";
 import { CSMFrustum } from "./CSMFrustum.js";
 
 export type CSMShadowNodeMode = "uniform" | "logarithmic" | "practical" | "custom";

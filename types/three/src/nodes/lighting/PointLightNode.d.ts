@@ -2,6 +2,7 @@ import { PointLight } from "../../lights/PointLight.js";
 import Node from "../core/Node.js";
 import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
 import AnalyticLightNode from "./AnalyticLightNode.js";
+import PointShadowNode from "./PointShadowNode.js";
 
 export const directPointLight: (
     color: NodeRepresentation,
@@ -15,6 +16,8 @@ declare class PointLightNode extends AnalyticLightNode<PointLight> {
     decayExponentNode: Node;
 
     constructor(light?: PointLight | null);
+
+    setupShadowNode(): ShaderNodeObject<PointShadowNode>;
 }
 
 export default PointLightNode;
