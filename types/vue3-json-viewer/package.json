@@ -6,7 +6,6 @@
         "https://github.com/qiuquanwu/vue3-json-viewer"
     ],
     "dependencies": {
-        "clipboard": "^2.0.10",
         "vue": "^3.2.0"
     },
     "devDependencies": {
