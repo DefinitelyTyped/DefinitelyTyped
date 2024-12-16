@@ -423,10 +423,10 @@ declare namespace NU {
 
         type Button = {
             /**
-             * Button을 적용할 context 요소를 지정합니다.
+             * Specifies the context element to which the Button will be applied.
              *
-             * Button의 context 요소는 반드시 a 나 button, input[type=button] 태그로 작성해야 합니다.
-             * > Button은 한번에 여러 요소를 선택해서 context로 지정할 수 있습니다.
+             * Button's context element must be written with `a`, `button`, or `input[type=button]` tag.
+             * > Buttons can select multiple elements at once and specify them as context.
              * ```
              * <a class="button-context" data-opts='{ "size": "big" }'>Button</a>
              * <input class="button-context" type="button" value="Button" data-opts='{ "color": "primary" }'>
@@ -439,9 +439,9 @@ declare namespace NU {
              */
             context?: NJS<HTMLElement[]>;
             /**
-             * 버튼의 크기를 설정합니다.
+             * Set the size of the button.
              *
-             * 크기는 "none", "smaller", "small", "medium", "large", "big" 중 하나를 지정할 수 있습니다.
+             * The size can be one of "none", "smaller", "small", "medium", "large", or "big".
              *
              * @default "none"
              *
@@ -450,13 +450,13 @@ declare namespace NU {
             size?: ButtonSize;
             /**
              * X
-             * 버튼의 색상을 설정합니다.
+             * Sets the color of the button.
              *
-             * 색상은 "none", "primary", "primary_container", "secondary", "secondary_container", "tertiary", "tertiary_container" 중 하나를 지정할 수 있습니다.
+             * The color can be one of the following: "none", "primary", "primary_container", "secondary", "secondary_container", "tertiary", "tertiary_container".
              *
-             * 버튼 색상의 Naming 과 기본값은 [Material Design 3 의 Color roles](https://m3.material.io/styles/color/roles) 를 기반으로 합니다.
+             * Naming and default values for button colors are based on [Color roles in Material Design 3](https://m3.material.io/styles/color/roles).
              *
-             * 버튼의 스타일을 변경하려면 natural.ui.css 파일의 "btn_" 로 시작하는 클래스를 수정하면 됩니다.
+             * To change the style of the button, simply edit the class starting with "btn_" in the natural.ui.css file.
              * ```
              * a.btn_{color}__,input[type='button'].btn_{color}__,button.btn_{color}__ {
              *     color: var(--md-sys-color-on-tertiary);
@@ -471,11 +471,11 @@ declare namespace NU {
              */
             color?: ButtonColor;
             /**
-             * 버튼의 배경을 채울지 외곽선만 표시할지 설정 합니다.
+             * Configures whether the button should have a filled background or just an outline.
              *
-             * 타입은 "none", "filled", "outlined", "elevated" 중 하나를 지정할 수 있습니다.
+             * The type can be one of "none", "filled", "outlined", or "elevated".
              *
-             * "filled", "outlined" 의 색상은 color 옵션으로 정의한 색상으로 지정 됩니다. color 옵션이 "none" 이면 버튼의 배경이나 외곽선이 표시되지 않습니다.
+             * The colors for "filled" and "outlined" types are determined by the `color` option. If the `color` option is set to "none", the button's background or outline will not be displayed.
              *
              * @default "none"
              *
@@ -483,7 +483,7 @@ declare namespace NU {
              */
             type?: ButtonType;
             /**
-             * true로 설정하면 버튼이 비활성화된 상태로 생성됩니다.
+             * If set to true, the button will be created in a disabled state.
              *
              * @default false
              *
@@ -491,14 +491,14 @@ declare namespace NU {
              */
             disable?: boolean;
             /**
-             * 버튼의 옵션이 적용되기 전에 실행되는 이벤트핸들러를 정의 합니다.
+             * Defines the event handler that is executed before the button options are applied.
              *
-             * > 외부 버튼 라이브러리를 사용할때 버튼요소의 외부나 내부에 필요한 HTML 요소를 추가하거나 다른 용도로 HTML 요소의 편집이 필요할 때 활용 할 수 있습니다.
+             * > This can be used when utilizing an external button library, to add necessary HTML elements inside or outside the button element, or to edit the HTML elements for other purposes.
              * ```
              * onBeforeCreate: function(context, opts) {
-             *     // this: Button 인스턴스
-             *     // context: context 요소
-             *     // opts: 버튼을 생성할 때 지정된 옵션
+             *     // this: Button instance
+             *     // context: context element
+             *     // opts: The options specified when the button is created
              * }
              * ```
              *
@@ -508,14 +508,14 @@ declare namespace NU {
              */
             onBeforeCreate?: NU.EventHandlers.Button.OnBeforeCreate | null;
             /**
-             * 버튼의 옵션이 적용된 후에 실행되는 이벤트핸들러를 정의 합니다.
+             * Defines the event handler that is executed after the button options are applied.
              *
-             * > 외부 버튼 라이브러리를 사용할때 버튼요소에 효과 이벤트를 정의하거나 다른 용도로 버튼 처리가 필요할 때 활용 할 수 있습니다.
+             * > This can be used when utilizing an external button library, to define effect events for the button element or to process the button for other purposes.
              * ```
              * onCreate: function(context, opts) {
-             *     // this: Button 인스턴스
-             *     // context: context 요소
-             *     // opts: 버튼을 생성할 때 지정된 옵션
+             *     // this: Button instance
+             *     // context: context element
+             *     // opts: The options specified when the button is created
              * }
              * ```
              *
@@ -528,7 +528,7 @@ declare namespace NU {
 
         type Datepicker = {
             /**
-             * Datepicker가 적용될 입력 요소를 지정합니다.
+             * Specifies the input element to which the Datepicker will be applied.
              * ```
              * <input class="datepicker-context" type="text">
              * ```
@@ -547,7 +547,7 @@ declare namespace NU {
              */
             contents?: NJS<HTMLElement[]>;
             /**
-             * true로 설정하면 연도와 월만 선택할 수 있는 Monthpicker가 표시됩니다.
+             * If set to true, a Monthpicker will be displayed where only the year and month can be selected.
              *
              * @default false
              *
@@ -555,7 +555,7 @@ declare namespace NU {
              */
             monthonly?: boolean;
             /**
-             * false로 설정하면 입력 요소에 커서가 Focus 되었을 때 Datepicker가 표시되지 않습니다.
+             * If set to false, the Datepicker will not be displayed when the cursor is focused on the input element.
              *
              * @default true
              *
@@ -563,7 +563,7 @@ declare namespace NU {
              */
             focusin?: boolean;
             /**
-             * top으로 설정하면 연도 선택 요소가 상단에 생성됩니다.
+             * If set to top, the year selection element will be created at the top.
              *
              * @default "left"
              *
@@ -571,7 +571,7 @@ declare namespace NU {
              */
             yearsPanelPosition?: "left" | "top";
             /**
-             * top으로 설정하면 월 선택 요소가 상단에 생성됩니다.
+             * If set to top, the month selection element will be created at the top.
              *
              * @default "left"
              *
@@ -579,7 +579,7 @@ declare namespace NU {
              */
             monthsPanelPosition?: "left" | "top";
             /**
-             * yearsPanelPosition 옵션 값이 "top" 일 때 선택 가능한 이전 연도의 개수를 설정합니다.
+             * When the yearsPanelPosition option value is "top", sets the number of previous years that can be selected.
              *
              * @default 200
              *
@@ -587,7 +587,7 @@ declare namespace NU {
              */
             minYear?: number;
             /**
-             * yearsPanelPosition 옵션 값이 "top" 일 때 선택 가능한 이후 연도의 개수를 설정합니다.
+             * When the yearsPanelPosition option value is "top", sets the number of future years that can be selected.
              *
              * @default 200
              *
@@ -595,7 +595,7 @@ declare namespace NU {
              */
             maxYear?: number;
             /**
-             * true로 설정하면 연도 변경 시 변경된 날짜가 입력 요소에 바로 반영됩니다.
+             * If set to true, when the year changes, the changed date will be reflected immediately in the input element.
              *
              * @default false
              *
@@ -603,7 +603,7 @@ declare namespace NU {
              */
             yearChangeInput?: boolean;
             /**
-             * true로 설정하면 월 변경 시 변경된 날짜가 입력 요소에 바로 반영됩니다.
+             * If set to true, when the month changes, the changed date will be immediately reflected in the input element.
              *
              * @default false
              *
@@ -611,7 +611,7 @@ declare namespace NU {
              */
             monthChangeInput?: boolean;
             /**
-             * true로 설정하면 좌우로 터치 드래그했을 때 월이 변경됩니다.
+             * If set to true, the month will change when you touch and drag left or right.
              *
              * @default false
              *
@@ -619,7 +619,7 @@ declare namespace NU {
              */
             touchMonthChange?: boolean;
             /**
-             * true로 설정하면 마우스 휠을 스크롤했을 때 월이 변경됩니다.
+             * If set to true, the month will change when you scroll the mouse wheel.
              *
              * @default false
              *
@@ -627,7 +627,7 @@ declare namespace NU {
              */
             scrollMonthChange?: boolean;
             /**
-             * 설정된 날짜보다 빠른 날짜를 선택하거나 입력하면 입력이 차단됩니다.
+             * If you select or enter a date earlier than the set date, input will be blocked.
              *
              * @default null
              *
@@ -635,7 +635,7 @@ declare namespace NU {
              */
             minDate?: string;
             /**
-             * 설정된 날짜 이후의 날짜를 선택하거나 입력하면 입력이 차단됩니다.
+             * If you select or enter a date after the set date, input will be blocked.
              *
              * @default null
              *
@@ -643,9 +643,9 @@ declare namespace NU {
              */
             maxDate?: string;
             /**
-             * holiday 옵션을 설정하면 Datepicker에 휴일을 표시해 줍니다.
+             * If you configure the holiday option, the Datepicker will display holidays.
              *
-             * 아래와 같이 repeat 객체와 once 객체로 휴일들을 설정할 수 있습니다.
+             * Holidays can be configured using `repeat` and `once` objects as shown below:
              * ```
              * {
              *     "repeat": {
@@ -662,24 +662,25 @@ declare namespace NU {
              *     }
              * }
              * ```
-             * repeat 객체에는 매년 반복되는 휴일들을 연도를 제외하고 입력합니다. once 객체는 매년 반복되지 않는 휴일들을 연월일 형식으로 입력합니다.
+             * The `repeat` object specifies holidays that recur every year by providing the month and date (without the year).
+             * The `once` object specifies holidays that do not recur every year and requires the full date in `YYYYMMDD` format.
              *
-             * 같은 날짜에 휴일이 2개 이상일 경우 Array 타입으로 휴일명을 여러 개 지정하면 됩니다.
+             * If there are multiple holidays on the same date, you can specify multiple holiday names as an array.
              *
-             * [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html)의 N.context.attr("ui").datepicker.holiday 프로퍼티에 설정하면 모든 Datepicker에 적용됩니다.
+             * You can configure this in the `N.context.attr("ui").datepicker.holiday` property of the [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html) so that it is applied to all Datepickers:
              * ```
              * N.comm("getHolidayList.json").submit(function(data) {
              *     var once = {};
              *     N(data).each(function() {
              *         once[this.holidayDate] = this.holidayName;
              *     });
-             *     if(N.context.attr("ui").datepicker.holiday === undefined) {
+             *     if (N.context.attr("ui").datepicker.holiday === undefined) {
              *         N.context.attr("ui").datepicker.holiday = {};
              *     }
              *     N.context.attr("ui").datepicker.holiday.once = once;
              * });
              * ```
-             * > 휴일로 표시되는 요소에는 "datepicker_holiday__" class 속성 값이 추가됩니다.
+             * > Elements marked as holidays will have an additional class attribute value of `datepicker_holiday__`.
              *
              * @default { "repeat": null, "once": null }
              *
@@ -694,13 +695,13 @@ declare namespace NU {
                 } | null;
             };
             /**
-             * 연도가 변경되었을 때 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed when the year is changed.
              * ```
              * onChangeYear: function(context, year, e) {
-             *     // this: Datepicker 인스턴스
-             *     // context: context 요소
-             *     // year: 선택된 연도
-             *     // e: 이벤트 객체
+             *     // this: Datepicker instance
+             *     // context: context element
+             *     // year: selected year
+             *     // e: event object
              * }
              * ```
              *
@@ -710,14 +711,14 @@ declare namespace NU {
              */
             onChangeYear?: NU.EventHandlers.Datepicker.OnChangeYear | null;
             /**
-             * 월이 변경되었을 때 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed when the month is changed.
              * ```
              * onChangeMonth: function(context, month, year, e) {
-             *     // this: Datepicker 인스턴스
-             *     // context: context 요소
-             *     // month: 선택된 월
-             *     // year: 선택된 연도
-             *     // e: 이벤트 객체
+             *     // this: Datepicker instance
+             *     // context: context element
+             *     // month: selected month
+             *     // year: selected year
+             *     // e: event object
              * }
              * ```
              *
@@ -727,18 +728,18 @@ declare namespace NU {
              */
             onChangeMonth?: NU.EventHandlers.Datepicker.OnChangeMonth | null;
             /**
-             * 날짜나 월(monthonly 옵션이 true로 설정되었을 경우)이 선택되었을 때 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines the event handler that is executed when a date or a month (if the `monthonly` option is set to true) is selected.
              * ```
              * onSelect: function(context, selDate, monthonly) {
-             *     // this: Datepicker 인스턴스
-             *     // context: context 요소
-             *     // selDate: 선택된 날짜의 Date 객체
+             *     // this: Datepicker instance
+             *     // context: context element
+             *     // selDate: Selected date as a Date object
              *     //      selDate = {
-             *     //          obj: Date 객체,
-             *     //          format: Date 포멧(Formatter > 포맷 룰 목록 탭 > "date" 룰의 "string 타입으로 데이트 포맷 룰을 지정" 참고
+             *     //          obj: Date object,
+             *     //          format: Date format (Refer to Formatter > Format Rule List Tab > "Specify a date format rule as a string" for "date" rule)
              *     //      }
              *     //      selDate.obj.formatDate("Y-m-d") => "2024-09-26";
-             *     // monthonly: monthonly 옵션 값
+             *     // monthonly: value of the monthonly option
              * }
              * ```
              *
@@ -748,12 +749,12 @@ declare namespace NU {
              */
             onSelect?: NU.EventHandlers.Datepicker.OnSelect | null;
             /**
-             * 데이트피커가 표시되기 전에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines the event handler that is executed before the date picker is displayed.
              * ```
              * onBeforeShow: function(context, contents) {
-             *     // this: Datepicker 인스턴스
-             *     // context: context 요소
-             *     // contents: Datepicker 판넬 요소
+             *     // this: Datepicker instance
+             *     // context: context element
+             *     // contents: Datepicker panel element
              * }
              * ```
              *
@@ -763,12 +764,12 @@ declare namespace NU {
              */
             onBeforeShow?: NU.EventHandlers.Datepicker.OnBeforeShow | null;
             /**
-             * 데이트피커가 표시된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that runs after the datepicker is displayed.
              * ```
              * onShow: function(context, contents) {
-             *     // this: Datepicker 인스턴스
-             *     // context: context 요소
-             *     // contents: Datepicker 판넬 요소
+             *     // this: Datepicker instance
+             *     // context: context element
+             *     // contents: Datepicker panel element
              * }
              * ```
              *
@@ -778,12 +779,12 @@ declare namespace NU {
              */
             onShow?: NU.EventHandlers.Datepicker.OnShow | null;
             /**
-             * 데이트피커가 닫히기 전에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that runs before the datepicker is closed.
              * ```
              * onBeforeHide: function(context, contents) {
-             *     // this: Datepicker 인스턴스
-             *     // context: context 요소
-             *     // contents: Datepicker 판넬 요소
+             *     // this: Datepicker instance
+             *     // context: context element
+             *     // contents: Datepicker panel element
              * }
              * ```
              *
@@ -793,11 +794,11 @@ declare namespace NU {
              */
             onBeforeHide?: NU.EventHandlers.Datepicker.OnBeforeHide | null;
             /**
-             * 데이트피커가 닫힌 후에(닫히는 효과가 끝난 후) 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that runs after the datepicker is closed (after the closing effect ends).
              * ```
              * onHide: function(context) {
-             *     // this: Datepicker 인스턴스
-             *     // context: context 요소
+             *     // this: Datepicker instance
+             *     // context: context element
              * }
              * ```
              *
@@ -810,9 +811,9 @@ declare namespace NU {
 
         type Popup = {
             /**
-             * Popup으로 생성할 페이지 안에 있는 Block 요소를 지정합니다.
+             * Specifies the Block element inside the page to create as a popup.
              *
-             * > 페이지 안의 요소를 팝업으로 만들기 때문에 url 옵션을 설정하면 안 됩니다.
+             * > Since the element inside the page is turned into a popup, the `url` option must not be set.
              * ```
              * N("context").popup();
              * ```
@@ -823,11 +824,11 @@ declare namespace NU {
              */
             context?: NJS<HTMLElement[]>;
             /**
-             * 팝업으로 만들 페이지의 url을 지정합니다.
+             * Specifies the URL of the page to be displayed in a popup.
              *
-             * > 팝업 페이지 로딩이 완료되면 팝업 페이지의 init 메서드가 호출됩니다.
+             * > Once the popup page has finished loading, the `init` method of the popup page will be called.
              *
-             * > 다른 페이지를 로드하여 팝업을 생성하기 때문에 context 옵션을 지정하면 안 됩니다.
+             * > Since a different page is being loaded to create the popup, the `context` option should not be specified.
              * ```
              * N().popup("url");
              * ```
@@ -838,10 +839,10 @@ declare namespace NU {
              */
             url?: string,
             /**
-             * 팝업의 제목을 설정합니다. 설정하지 않으면 타이틀바가 생성되지 않습니다.
+             * Sets the title of the popup. If not set, the title bar is not created.
              *
-             * > url 옵션을 설정한 경우 불러오는 페이지의 view 요소의 title 속성으로도 설정할 수 있습니다.
-             * context를 지정하여 팝업을 생성하는 경우에는 context 요소의 title 속성으로 설정할 수 있습니다.
+             * > If the `url` option is specified, the title can also be set using the `title` attribute of the `view` element from the loaded page.
+             * When creating a popup by specifying a context, the title can be set using the `title` attribute of the context element.
              *
              * @default null
              *
@@ -849,7 +850,7 @@ declare namespace NU {
              */
             title?: string;
             /**
-             * false로 설정하면 기본 버튼(확인/취소 버튼) 관련 요소들을 생성하지 않습니다.
+             * If set to false, it does not create basic button-related elements (OK/Cancel buttons).
              *
              * @default true
              *
@@ -857,7 +858,8 @@ declare namespace NU {
              */
             button?: boolean;
             /**
-             * true로 설정하면 전체 화면을 가리는 overlay 요소를 생성하여 팝업의 콘텐츠를 제외하고 모든 이벤트를 차단합니다.
+             * If set to true, it creates an overlay element that covers the entire screen,
+             * blocking all interactions except for the popup content.
              *
              * @default true
              *
@@ -918,9 +920,9 @@ declare namespace NU {
              */
             height?: number | NU.EventHandlers.Popup.Height;
             /**
-             * 업의 Controller object에서 부모 페이지의 Controller object를 참조하기 위한 옵션입니다.
+             * An option for referencing the parent page's Controller object from the popup's Controller object.
              *
-             * 팝업 인스턴스를 생성하는 페이지의 Controller object를 opener 옵션으로 설정하면 팝업의 Controller object의 opener 속성으로 전달됩니다.
+             * When you assign the Controller object of the page creating the popup to the opener option, it will be passed to the popup’s Controller object as its opener property.
              *
              * > This only works when you set the url option to create another page as popup content.
              *
@@ -930,9 +932,9 @@ declare namespace NU {
              */
             opener?: NA.Objects.Controller.Object | null,
             /**
-             * 팝업이 닫혔을 때 팝업 요소를 감출 것 인지, 제거할 것 인지를 설정합니다.
-             *  - hide: 팝업 요소를 숨겨서 이전 상태를 유지합니다.
-             *  - remove: 팝업 요소를 제거하여 상태를 초기화합니다.
+             * Sets whether to hide or remove the popup element when the popup is closed.
+             *  - hide: Hides the popup element and maintains the previous state.
+             *  - remove: Removes the popup element to reset its state.
              *
              * @default "hide"
              *
@@ -948,7 +950,8 @@ declare namespace NU {
              */
             alwaysOnTop?: boolean;
             /**
-             * false로 설정하면 msgContext(modal 옵션이 true 일 때 화면에 덮는 요소)를 클릭해도 팝업이 닫히지 않습니다.
+             * If set to false, the popup will not close when clicking the msgContext
+             * (the element covering the screen when the modal option is true).
              *
              * @default true
              *
@@ -956,7 +959,7 @@ declare namespace NU {
              */
             overlayClose?: boolean;
             /**
-             * false로 설정하면 ESC 키를 눌러도 팝업이 닫히지 않습니다.
+             * If set to false, the popup will not close when pressing the ESC key.
              *
              * @default true
              *
@@ -1095,17 +1098,17 @@ declare namespace NU {
              */
             onRemove?: NU.EventHandlers.Popup.OnRemove | null;
             /**
-             * 팝업이 열릴 때마다 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed every time the popup is opened.
              *
-             * > 문자열로 함수명만 정의하고 실제 이벤트 핸들러 메서드는 불러오는 팝업 콘텐츠의 Controller object에 정의 한 함수명으로 구현되어 있어야 합니다.
+             * > The function name is defined as a string, and the actual event handler method must be implemented in the Controller object of the popup content using the specified function name.
              *
-             * > open 메서드의 첫 번째 인수가 onOpen 이벤트 핸들러 함수의 첫 번째 인수(onOpenData)로 전달됩니다.
+             * > The first argument of the `open` method is passed as the first argument (`onOpenData`) to the onOpen event handler function.
              *
-             * > 팝업 콘텐츠가 처음 로딩될 경우 Controller object의 init 함수가 실행된 다음 onOpen 함수가 실행됩니다.
+             * > If the popup content is loaded for the first time, the `init` function of the Controller object is executed before the `onOpen` function.
              *
-             * > This only works when you set the url option to create another page as popup content.
+             * > This only works when you set the `url` option to load another page as popup content.
              *
-             *  - 팝업 인스턴스
+             *  - Popup instance example:
              * ```
              * N(".popup").cont({
              *     ...
@@ -1120,7 +1123,7 @@ declare namespace NU {
              *     ...
              * });
              * ```
-             *  - 팝업의 Controller object
+             *  - Popup's Controller object example:
              * ```
              * N(".popup").cont({
              *     ...
@@ -1139,11 +1142,11 @@ declare namespace NU {
              */
             onOpen?: string | NU.EventHandlers.Popup.OnOpen | null,
             /**
-             * onOpen 이벤트 핸들러 함수의 첫 번째 인수로 전달할 부모 페이지의 데이터를 설정합니다.
+             * Sets the data of the parent page to pass as the first argument of the onOpen event handler function.
              *
-             * open 메서드의 첫 번째 인수 값이 이 값으로 설정됩니다.
+             * The first argument value of the open method will be set to this value.
              *
-             * > This only works when you set the url option to create another page as popup content.
+             * > This only works when you set the `url` option to create another page as popup content.
              *
              * @default null
              *
@@ -1151,19 +1154,19 @@ declare namespace NU {
              */
             onOpenData?: any | null,
             /**
-             * 팝업이 닫힐 때마다 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed whenever the popup is closed.
              * ```
              * onClose: function(onCloseData) {
-             *     // this: Popup 인스턴스
-             *     // onCloseData: 팝업에서 호출 한 (Controller object).caller.close 함수의 첫 번째 인수 값이 전달됩니다.
+             *     // this: Popup instance
+             *     // onCloseData: The first argument passed to the caller's close function of the Controller object invoked from the popup.
              * }
              * ```
-             * > 팝업 콘텐츠 로딩이 완료되면 팝업의 Controller object에 caller라는 속성이 생성됩니다. 이 caller는 이 팝업을 생성한 부모페이지의 Popup instance입니다.
-             * 팝업에서 자체 팝업을 닫을 때는 팝업의 Controller object에서 `this.caller.close(onCloseData);` 명령을 실행하면 됩니다. 이 명령을 실행하면 팝업이 닫히면서 onClose 이벤트 핸들러 함수의 첫 번째 인수로 onCloseData가 전달됩니다.
+             * > When the popup content loading is complete, a `caller` property is created on the Controller object of the popup. The `caller` refers to the Popup instance of the parent page that created this popup.
+             * To close its own popup, this popup can execute the command `this.caller.close(onCloseData);` from the Controller object. When this command is executed and the popup closes, the `onClose` event handler function receives the `onCloseData` as its first argument.
              *
-             * > This only works when you set the url option to create another page as popup content.
+             * > This only works when you set the `url` option to create another page as the popup content.
              *
-             *  - 팝업 인스턴스
+             *  - Popup instance example
              * ```
              * N(".popup").cont({
              *    ...
@@ -1180,7 +1183,7 @@ declare namespace NU {
              *    ...
              * });
              * ```
-             *  - 팝업의 Controller object
+             *  - Controller object of the popup
              * ```
              * N(".popup").cont({
              *     ...
@@ -1202,11 +1205,11 @@ declare namespace NU {
              */
             onClose?: NU.EventHandlers.Popup.OnClose | null,
             /**
-             * onClose 이벤트 핸들러 함수의 첫 번째 인수로 전달할 팝업 페이지의 데이터를 설정합니다.
+             * Sets the data of the popup page to be passed as the first argument of the onClose event handler.
              *
-             * 팝업의 Controller object의 this.caller.close 메서드의 첫 번째 인수 값이 이 값으로 설정됩니다.
+             * The value of the first argument of the `this.caller.close` method in the popup's Controller object is set to this value.
              *
-             * > This only works when you set the url option to create another page as popup content.
+             * > This only works when you set the `url` option to create another page as popup content.
              *
              * @default null
              *
@@ -1214,15 +1217,15 @@ declare namespace NU {
              */
             onCloseData?: any | null,
             /**
-             * 팝업 콘텐츠 로딩이 완료되었을 때 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines the event handler that runs when the popup content has finished loading.
              *
              * ```
              * onLoad: function(cont) {
-             *     // this: Popup 인스턴스
-             *     // cont: 팝업의 Controller object
+             *     // this: Popup instance
+             *     // cont: The Controller object for the popup
              * }
              * ```
-             * > This only works when you set the url option to create another page as popup content.
+             * > This only works when you set the `url` option to create another page as popup content.
              *
              * @default null
              *
@@ -1230,9 +1233,10 @@ declare namespace NU {
              */
             onLoad?: NU.EventHandlers.Popup.OnLoad | null,
             /**
-             * true로 설정하면 팝업의 콘텐츠를 팝업이 초기화될 때 미리 로딩하고 false로 설정하면 팝업을 처음 열 때 팝업의 콘텐츠를 로딩합니다.
+             * If set to true, the popup's content is preloaded when the popup is initialized;
+             * if set to false, the popup's content is loaded when the popup is opened for the first time.
              *
-             * > url 옵션을 설정하여 다른 페이지를 팝업 콘텐츠로 생성했을 때만 작동합니다.
+             * > This option works only when the `url` option is set to create popup content from another page.
              *
              * @default false
              *
@@ -1240,7 +1244,7 @@ declare namespace NU {
              */
             preload?: boolean,
             /**
-             * false로 설정하면 브라우저의 크기를 조절하거나 부모 콘텐츠의 높이가 동적으로 변경되었을 때 블록 오버레이의 크기와 팝업의 위치를 자동으로 조정하지 않습니다.
+             * If set to false, it does not automatically adjust the size of the block overlay and the position of the popup when resizing the browser window or when the parent's content height changes dynamically.
              *
              * @default true
              *
@@ -1248,11 +1252,11 @@ declare namespace NU {
              */
             dynPos?: boolean;
             /**
-             * true로 설정하면 팝업 요소 위에서 마우스 휠로 스크롤할 때 브라우저의 윈도우 스크롤을 비활성화합니다.
+             * If set to true, it disables the browser's window scroll when scrolling with the mouse wheel over a popup element.
              *
-             * 팝업 요소가 처음이나 마지막으로 스크롤되었을 때 브라우저 윈도우 스크롤이 위나 아래로 스크롤되는 브라우저의 기본 동작을 차단합니다.
+             * This blocks the browser's default behavior of scrolling up or down when the popup element reaches its top or bottom scroll limit.
              *
-             * > modal 옵션이 true로 설정되어 있을 때만 작동합니다.
+             * > Only works when the modal option is set to true.
              *
              * @default true
              *
@@ -1260,7 +1264,7 @@ declare namespace NU {
              */
             windowScrollLock?: boolean;
             /**
-             * 로 설정하면 제목 표시 줄로 팝업 대화 상자를 드래그할 수 있습니다.
+             * Enables dragging the popup dialog box using the title bar when set to `true`.
              *
              * @default false
              *
@@ -1268,7 +1272,7 @@ declare namespace NU {
              */
             draggable?: boolean;
             /**
-             * false로 설정하면 팝업을 화면 바깥으로 드롭했을 때 자동으로 내부로 이동시키지 않습니다.
+             * When set to `false`, the popup will not automatically move back inside the screen if dropped outside of it.
              *
              * @default true
              *
@@ -1301,7 +1305,7 @@ declare namespace NU {
 
         type EachTab = {
             /**
-             * 탭 콘텐츠로 생성할 페이지의 URL을 지정합니다.
+             * Specifies the URL of the page to be created as tab content.
              *
              * @default undefined
              *
@@ -1309,9 +1313,9 @@ declare namespace NU {
              */
             url?: string;
             /**
-             * true로 설정하면 Tab이 초기화된 후 해당 탭과 탭 콘텐츠가 기본으로 선택됩니다.
+             * If set to true, the tab and its content will be selected by default after the tabs are initialized.
              *
-             * > active 옵션은 기본으로 표시할 탭 1개만 true로 설정해야 합니다.
+             * > The `active` option should be set to true for only one tab to be displayed by default.
              *
              * @default false
              *
@@ -1319,9 +1323,9 @@ declare namespace NU {
              */
             active?: boolean;
             /**
-             * true로 설정하면 탭 콘텐츠가 최초로 선택되었을 때 페이지를 로딩하지 않고 탭이 초기화될 때 페이지를 미리 로딩합니다.
+             * If set to true, the page for the tab content will be preloaded during the tab initialization instead of loading it the first time the tab is selected.
              *
-             * 탭을 초기화할 때 탭 콘텐츠의 요소나 Controller object를 참조해야 할 때 사용합니다.
+             * This is used when you need to reference elements or the Controller object of the tab content during initialization.
              *
              * @default false
              *
@@ -1329,11 +1333,11 @@ declare namespace NU {
              */
             preload?: boolean;
             /**
-             * 탭이 열릴 때마다 불러온 콘텐츠에서 실행될 onOpen 이벤트 핸들러 함수의 이름을 문자열로 지정합니다.
-             *  - onOpen 이벤트 핸들러 함수는 로딩될 페이지의 Controller object에 지정한 이름으로 정의되어 있어야 합니다.
-             *  - onOpen 이벤트 핸들러 함수는의 첫 번째 인수는 open 함수를 호출할 때 두 번째 인수로 지정한 onOpenData입니다.
-             *  - 탭 콘텐츠가 처음 로딩될 때 N.cont 오브젝트의 init 함수가 실행된 다음 onOpen 함수가 실행됩니다.
-             *  - onActive 이벤트가 정의되어 있으면 onActive 함수가 실행된 다음 onOpen 함수가 실행됩니다.
+             * Specifies the name of the `onOpen` event handler function as a string that will be executed in the loaded content whenever a tab is opened.
+             *  - The `onOpen` event handler function must be defined in the Controller object of the page being loaded with the specified name.
+             *  - The first argument of the `onOpen` event handler function is the `onOpenData` specified as the second argument when calling the `open` function.
+             *  - When tab content is loaded for the first time, the `init` function of the Controller object is executed, followed by the `onOpen` function.
+             *  - If an `onActive` event is defined, the `onActive` function is executed first, followed by the `onOpen` function.
              *
              * @default undefined
              *
@@ -1341,7 +1345,7 @@ declare namespace NU {
              */
             onOpen?: string | NU.EventHandlers.Tab.OnOpen;
             /**
-             * true로 설정하면 지정 한 탭이 비활성화된 상태로 생성됩니다.
+             * When set to `true`, the specified tab is created in a disabled state.
              *
              * @default false
              *
@@ -1349,28 +1353,32 @@ declare namespace NU {
              */
             disable?: boolean;
             /**
-             * true로 설정하면 탭 콘텐츠의 상태를 유지하지 않고 탭을 선택할 때마다 연결된 탭 콘텐츠의 내용을 다시 불러와 초기화합니다.
+             * When set to `true`, the status of tab content is not preserved, and the associated tab content is reloaded and initialized each time the tab is selected.
              *
              * @default false
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
              */
-            stateless?: boolean
+            stateless?: boolean;
         };
         type Tab = {
             /**
-             * Tab 을 적용할 context 요소를 지정합니다.
+             * Specifies the context element where the Tab will be applied.
              *
-             * Tab 의 context 요소는 반드시 div 태그 안에 ul, li와 div 태그로 작성해야 합니다.
+             * The context element for the Tab must be written using the `div` tag,
+             * containing `ul`, `li`, and additional `div` tags.
              *
-             *  - tab
-             *    - tab 요소는 ul 태그의 li 태그를 사용합니다.
-             *    - tab 링크(a 태그) 태그의 href 속성 값과 tab contents(div) 태그의 id 속성 값을 맞춰 줍니다.
-             *  - tab contents
-             *    - tab contents 요소는 div 태그를 사용합니다.
-             *    - tab(li)의 순서와 개수에 맞춰 tab contents(div)를 생성합니다.
-             *    - tab contents(div) 태그의 id 속성과 tab 링크(a 태그)의 href 속성 값을 맞춰 줍니다.
-             *    - 탭 옵션에 url 옵션을 설정하여 다른 페이지를 불러올 수 있고 tab contents 요소(div) 안에 직접 콘텐츠를 작성해도 됩니다.
+             *  - Tab
+             *    - The tab elements are created using the `li` tags inside a `ul` tag.
+             *    - The `href` attribute of the tab link (`<a>` tag) should match the `id` attribute
+             *      of the corresponding tab content (`<div>` tag).
+             *  - Tab contents
+             *    - Tab content elements must be created using `div` tags.
+             *    - The number and order of `tab contents` (`div`) should match the tabs (`li`).
+             *    - The `id` attribute of the tab contents (`div` tags) should match the `href` attribute of
+             *      the tab links (`<a>` tags).
+             *    - You can set a URL option in the tab options to load other pages, or you can directly
+             *      write the content inside the tab content element (`div`).
              * ```
              * <div class="tab-context">
              *     <ul>
@@ -1394,21 +1402,21 @@ declare namespace NU {
              */
             context?: NJS<HTMLElement[]>;
             /**
-             * 탭 요소들의 인스턴스만 할당되어있는 변수입니다.
+             * A variable that only contains instances of tab link elements.
              *
              * @default null
              */
             links?: NJS<HTMLElement[]> | null;
             /**
-             * 탭 컨텐츠 요소들의 인스턴스만 할당되어있는 변수입니다.
+             * A variable that only contains instances of tab content elements.
              *
              * @default null
              */
             contents?: NJS<HTMLElement[]> | null;
             /**
-             * 탭 요소의 data-opts 속성이 아닌 object array 타입으로 개별 탭의 옵션을 지정합니다.
+             * Instead of using the `data-opts` attribute of a tab element, you can specify the options for individual tabs as an array of objects.
              *
-             * 옵션은 탭의 순서와 개수만큼 옵션 object로 설정합니다.
+             * The options should be configured as objects according to the order and number of tabs.
              * ```
              * N("#tab").tab({
              *     tabOpts: [
@@ -1418,9 +1426,9 @@ declare namespace NU {
              *     ]
              * });
              * ```
-             * 탭 태그(li)에 직접 data-opts 속성으로 옵션을 지정할 수도 있습니다.
+             * You can also specify options via the `data-opts` attribute directly on the tab tags (`<li>` elements).
              *
-             * 개별 옵션에 대한 설명은 [선언형 옵션](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040505.html) 탭을 참고 바랍니다.
+             * For detailed explanations of individual options, please refer to the [declarative options](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040505.html) tab.
              *
              * @default []
              *
@@ -1428,9 +1436,10 @@ declare namespace NU {
              */
             tabOpts?: NU.Options.EachTab[];
             /**
-             * true로 설정하면 탭이 초기화될 때 탭과 탭 콘텐츠를 랜덤으로 보여줍니다. false로 설정하면 첫 번째 탭을 보여줍니다.
+             * If set to `true`, the tab and tab content will be displayed randomly when the tab is initialized.
+             * If set to `false`, the first tab will be displayed.
              *
-             * > 탭 옵션 중 active 옵션이 true로 설정되어 있으면 active 옵션이 먼저 적용됩니다.
+             * > If the `active` option is set to `true` among the tab options, the `active` option will take precedence.
              *
              * @default false
              *
@@ -1438,9 +1447,11 @@ declare namespace NU {
              */
             randomSel?: boolean;
             /**
-             * 탭 옵션에 url 옵션을 설정하여 다른 페이지를 로드할 경우 탭 콘텐츠의 Controller(N.cont) object에서 Tab 인스턴스를 생성한 부모페이지의 Controller object를 참조하기 위한 옵션입니다.
+             * This option allows the Controller (N.cont) object of the parent page, where the Tab instance was created,
+             * to be referenced from the Controller object in the tab content when the `url` option is set in the tab options to load another page.
              *
-             * Tab 인스턴스 생성 시 opener 옵션에 Controller object를 지정하면 탭 콘텐츠 페이지의 Controller object의 opener 속성으로 전달됩니다.
+             * When creating a Tab instance, you can specify the Controller object in the `opener` option.
+             * This will pass the Controller object of the parent page into the `opener` property of the tab content page's Controller object.
              *
              * @default null
              *
@@ -1448,18 +1459,19 @@ declare namespace NU {
              */
             opener?: NA.Objects.Controller.Object | null;
             /**
-             * 탭이 활성화될 때마다 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed every time a tab is activated.
+             *
              * ```
              * onActive: function(tabIdx, tabEle, contentEle, tabEles, contentEles) {
-             *     // this: Tab 인스턴스
-             *     // tabIdx: 활성화된 탭의 Index
-             *     // tabEle: 활성화된 탭의 요소
-             *     // contentEle: 활성화된 탭의 콘텐츠 요소
-             *     // tabEles: 전체 탭 요소
-             *     // contentEles: 전체 콘텐츠 요소
+             *     // this: Tab instance
+             *     // tabIdx: Index of the activated tab
+             *     // tabEle: Element of the activated tab
+             *     // contentEle: Element of the activated content
+             *     // tabEles: All tab elements
+             *     // contentEles: All content elements
              * }
              * ```
-             * > 탭 콘텐츠가 처음 로딩될 경우 Controller object의 init 함수가 실행된 다음 onActive 함수가 실행됩니다.
+             * > When tab content is loaded for the first time, the `init` function of the Controller object is executed before the `onActive` function is executed.
              *
              * @default null
              *
@@ -1467,22 +1479,15 @@ declare namespace NU {
              */
             onActive?: NU.EventHandlers.Tab.OnActive | null;
             /**
+             * Defines an event handler that is executed when tab content loading is complete.
              *
-             *
-             * @default null
-             *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
-             */
-            onLoad?: NU.EventHandlers.Tab.OnLoad | null;
-            /**
-             * 탭 콘텐츠 로딩이 완료되었을 때 실행되는 이벤트 핸들러를 정의합니다.
              * ```
              * onLoad: function(tabIdx, tabEle, contentEle, cont) {
-             *     // this: Tab 인스턴스
-             *     // tabIdx: 활성화된 탭의 Index
-             *     // tabEle: 활성화된 탭의 요소
-             *     // contentEle: 활성화된 탭의 콘텐츠 요소
-             *     // cont: 로딩된 탭 콘텐츠의 Controller object
+             *     // this: Tab instance
+             *     // tabIdx: Index of the activated tab
+             *     // tabEle: Element of the activated tab
+             *     // contentEle: Element of the activated content
+             *     // cont: Controller object of the loaded tab content
              * }
              * ```
              *
@@ -1490,11 +1495,19 @@ declare namespace NU {
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
              */
+            onLoad?: NU.EventHandlers.Tab.OnLoad | null;
+            /**
+             * If set to `true`, the `onActive` event is not triggered when the tab is created, and the default tab is selected.
+             *
+             * @default false
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             */
             blockOnActiveWhenCreate?: boolean;
             /**
-             * true로 설정하면 마우스 드래그나 터치 또는 처음 / 마지막 버튼으로 탭들을 스크롤할 수 있습니다.
+             * When set to true, tabs can be scrolled using mouse drag, touch, or the first/last buttons.
              *
-             * 처음 / 마지막 버튼으로 탭들을 스크롤하려면 ul 태그 처음과 마지막 자식 요소로 a 태그와 span 태그를 작성해 주면 됩니다.
+             * To scroll tabs using the first/last buttons, you need to include `a` tags and `span` tags as the first and last child elements of the `ul` tag.
              * ```
              * <div>
              *     <a href="#"><span></span></a> <!-- First button -->
@@ -1508,7 +1521,7 @@ declare namespace NU {
              *     <div id="tab2">tab2</div>
              *     <div id="tab3">tab3</div>
              * </div>
-             * ````
+             * ```
              *
              * @default false
              *
@@ -1516,9 +1529,9 @@ declare namespace NU {
              */
             tabScroll?: boolean;
             /**
-             * 탭 요소에 영향을 주는 스타일(CSS)에 의해 마지막 탭이 잘리거나 여백이 생길 수 있습니다. 이때 tabScrollCorrection 객체의 속성으로 다음 옵션 값들을 조절하여 정상적으로 표시되게 할 수 있습니다.
-             *  - tabContainerWidthCorrectionPx: 마지막 탭이 잘리거나 여백이 생겼을 때 1씩 증감하여 탭의 모양을 보정할 수 있는 옵션입니다.
-             *  - tabContainerWidthReCalcDelayTime: 탭이 처음 표시될 때 탭이 잘리거나 여백이 생겼을 때 1씩 증감해서 탭의 모양을 보정할 수 있는 옵션입니다.
+             * Due to styles (CSS) applied to tab elements, the last tab may be either cut off or have additional spacing. In such cases, you can adjust the following options in the `tabScrollCorrection` object to display the tabs correctly:
+             *  - tabContainerWidthCorrectionPx: An option that allows you to increment or decrement by 1 to correct the tab appearance when the last tab is cut off or has extra spacing.
+             *  - tabContainerWidthReCalcDelayTime: An option that allows you to re-adjust the tab appearance by incrementing or decrementing by 1 when the tabs are first displayed and are either cut off or have extra spacing.
              * ```
              * N("#tab").tab({
              *     tabScrollCorrection: {
@@ -1527,7 +1540,7 @@ declare namespace NU {
              *     }
              * });
              * ```
-             * [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html)의 N.context.attr("ui").tab 프로퍼티에 tabScrollCorrection 옵션을 설정하면 전체 Tab 컴포넌트에 적용됩니다.
+             * [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html) If you set the `tabScrollCorrection` option in the N.context.attr("ui").tab property of the configuration, it will be applied to all Tab components.
              *
              * @default { tabContainerWidthCorrectionPx: 0, tabContainerWidthReCalcDelayTime: 0 }
              *
@@ -1541,7 +1554,7 @@ declare namespace NU {
 
         type Select = {
             /**
-             * Select에 바인딩할 데이터를 지정합니다.
+             * Specifies the data to bind to the Select element.
              *
              * @default undefined
              *
@@ -1549,9 +1562,9 @@ declare namespace NU {
              */
             data?: NJS<NC.JSONObject>;
             /**
-             * Select를 적용할 context 요소를 지정합니다.
+             * Specifies the context element where the Select will be applied.
              *
-             * Select의 context 요소는 반드시 select 나 input[type=checkbox], input[type=radio] 태그로 작성해야 합니다.
+             * The context element for Select must be written as a `select` or input tags with `type=checkbox` or `type=radio`.
              * ```
              * <select class="select-context">
              *     <option value="">Select</option>
@@ -1567,7 +1580,7 @@ declare namespace NU {
              */
             context?: NJS<HTMLElement[]>;
             /**
-             * 선택 요소의 name 속성에 바인딩될 데이터의 프로퍼티명을 지정합니다.
+             * Specifies the property name of the data to be bound to the name attribute of the selected element.
              *
              * @default null
              *
@@ -1575,7 +1588,7 @@ declare namespace NU {
              */
             key?: string;
             /**
-             * 선택 요소의 value 속성에 바인딩될 데이터의 프로퍼티명을 지정합니다.
+             * Specifies the property name of the data to be bound to the value attribute of the selected element.
              *
              * @default null
              *
@@ -1583,7 +1596,7 @@ declare namespace NU {
              */
             val?: string;
             /**
-             * false로 설정하면 select 요소에서 기본 option 들을 비우고 나서 데이터를 바인딩합니다.
+             * If set to `false`, clears the default options in the select element before binding the data.
              *
              * @default true
              *
@@ -1591,9 +1604,9 @@ declare namespace NU {
              */
             append?: boolean;
             /**
-             * context가 input[type=checkbox]이나 input[type=radio] 일 경우 선택 요소의 배치 방향을 설정합니다.
-             *  - h: 가로
-             *  - v: 세로
+             * If the context is `input[type=checkbox]` or `input[type=radio]`, specifies the direction in which the selected elements are placed.
+             *  - h: Horizontal
+             *  - v: Vertical
              *
              * @default "h"
              *
@@ -1613,7 +1626,7 @@ declare namespace NU {
              */
             type?: 0 | 1 | 2 | 3 | 4;
             /**
-             * radio 나 checkbox 일때 기본 템플릿 요소의 인스턴스가 할당되어있는 변수 입니다.
+             * This variable is assigned with the instance of the default template element when it's a radio or checkbox.
              *
              * @default null
              *
@@ -1624,9 +1637,9 @@ declare namespace NU {
 
         type Form = {
             /**
-             * Form에 바인딩할 데이터를 지정합니다.
+             * Specifies the data to bind to the Form.
              *
-             * Form은 단일 데이터를 표현하는 컴포넌트이지만 바인딩되는 데이터는 json object array 타입입니다.
+             * Although the Form represents a single data component, the bound data is of a JSON object array type.
              *
              * @default undefined
              *
@@ -1634,9 +1647,9 @@ declare namespace NU {
              */
             data?: NJS<NC.JSONObject>;
             /**
-             * data옵션으로 지정한 목록 데이터에서 폼에 바인딩할 행의 index 값을 입력합니다.
+             * Specifies the index value of the row from the list data indicated by the data option to bind to the form.
              *
-             * 기본값은 –1이지만 값을 입력하지 않으면 0으로 세팅되어 목록 데이터의 첫 번째 행 데이터를 바인딩합니다.
+             * The default value is -1, but if no value is entered, it will be set to 0, binding the first row of the list data to the form.
              *
              * @default -1
              *
@@ -1644,13 +1657,13 @@ declare namespace NU {
              */
             row?: number;
             /**
-             * Form을 적용할 context 요소를 지정합니다.
+             * Specifies the context element to apply to the Form.
              *
-             * Form의 context 요소는 table, div, section 등 영역을 표현하는 태그로 작성하면 됩니다.
+             * The context element of the Form can be written as tags that represent regions such as table, div, section, etc.
              *
-             * 데이터의 프로퍼티명과 요소의 id 속성 값이 같으면 데이터가 바인딩됩니다.
+             * If the property name of the data matches the id attribute value of the element, the data is bound.
              *
-             * > Natural-JS의 모든 데이터 관련 컴포넌트는 빠른 바인딩 속도를 위해 어쩔 수 없이 id 속성을 사용합니다.
+             * > All data-related components of Natural-JS use the id attribute for fast binding speed, which is inevitable.
              * ```
              * <table class="form-context">
              *     <tr>
@@ -1678,7 +1691,7 @@ declare namespace NU {
              */
             context?: NJS<HTMLElement[]>;
             /**
-             * false로 설정하면 입력 요소에서 focus-out 되었을 때 입력 값에 대한 유효성 검증을 실행하지 않습니다.
+             * When set to `false`, validation of input values is not performed when focus is lost from input elements.
              *
              * @default true
              *
@@ -1686,10 +1699,10 @@ declare namespace NU {
              */
             validate?: boolean;
             /**
-             * true로 설정하면 폼에 데이터를 바인딩하거나 생성 한 다음 같은 폼 요소에 다시 데이터를 바인딩하기 전에 unbind 메서드를 자동으로 호출해 주어서 폼 요소를 재 활용할 수 있게 해 줍니다.
-             * > 폼의 context 요소는 다시 생성되지 않기 때문에 원칙적으로 add 메서드와 bind 메서드는 용도에 따라 구분해서 사용해야 합니다.
-             * 이미 데이터가 바인딩된 폼 요소에 unbind 메서드를 호출해도 완벽하게 이전 상태로 되돌릴 수는 없습니다.
-             * 어쩔 수 없는 경우가 아니면 사용을 권장하지 않습니다.
+             * When set to `true`, the `unbind` method is automatically called before rebinding the same form elements, allowing for the reuse of form elements.
+             * > The context element of the form is not recreated, so the purpose of the `add` and `bind` methods should be clearly distinguished.
+             * Even if the `unbind` method is called for form elements already bound with data, it cannot perfectly restore the previous state.
+             * Use is not recommended unless absolutely necessary.
              *
              * @default false
              *
@@ -1697,13 +1710,13 @@ declare namespace NU {
              */
             autoUnbind?: boolean;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * An internal variable used within the system.
              *
              * @default null
              */
             state?: "add" | "bind" | "revert" | "update" | NJS<NC.JSONObject> | null;
             /**
-             * true로 설정하면 data를 bind 할 때 데이터의 HTML이 적용됩니다.
+             * When set to `true`, HTML of data is applied while binding to the form.
              *
              * @default false
              *
@@ -1711,7 +1724,7 @@ declare namespace NU {
              */
             html?: boolean;
             /**
-             * true로 설정하면 add 메서드를 호출했을 때 로우 데이터가 데이터 목록의 맨 앞에 추가됩니다.
+             * When set to `true`, row data is added to the top of the data list when the `add` method is called.
              *
              * @default true
              *
@@ -1719,9 +1732,9 @@ declare namespace NU {
              */
             addTop?: boolean;
             /**
-             * 대상 요소의 data-format 속성이 아닌 객체 타입으로 format 룰을 지정합니다.
+             * Specifies format rules as an object type rather than using the data-format attribute of the target element.
              *
-             * > 옵션 오브젝트는 [Formatter 생성자](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030103.html) 의 rules 인수의 설명을 참고해서 작성 바랍니다.
+             * > Refer to the `rules` parameter description of [Formatter Constructor](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030103.html) for constructing the option object.
              *
              * @default null
              *
@@ -1729,9 +1742,9 @@ declare namespace NU {
              */
             fRules?: ND.FormatRuleObject | null;
             /**
-             * 대상 요소의 data-validate 속성이 아닌 객체 타입으로 유효성 검증 룰을 지정합니다.
+             * Specifies validation rules as an object type rather than using the data-validate attribute of the target element.
              *
-             * > 옵션 오브젝트는 [Validator 생성자](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030203.html) 의 rules 인수의 설명을 참고해서 작성 바랍니다.
+             * > Refer to the `rules` parameter description of [Validator Constructor](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030203.html) for constructing the option object.
              *
              * @default null
              *
@@ -1739,7 +1752,7 @@ declare namespace NU {
              */
             vRules?: ND.ValidationRuleObject | null;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * An internal variable used within the system.
              *
              * @default null
              *
@@ -1747,7 +1760,7 @@ declare namespace NU {
              */
             extObj?: NU.List | NU.Grid | null;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * An internal variable used within the system.
              *
              * @default -1
              *
@@ -1755,17 +1768,13 @@ declare namespace NU {
              */
             extRow?: number;
             /**
-             * true로 설정하면 revert 기능이 활성화되고 revert 메서드를 사용할 수 있습니다.
-             *
-             * > revert 기능이 활성화되면 최초 바인딩된 데이터가 메모리에 적제되므로 메모리 사용량이 증가합니다.
+             * When set to `true`, the revert functionality is enabled, and the revert method can be used.
              *
              * @default false
-             *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
              */
             revert?: boolean;
             /**
-             * true 로 설정하면 요소 검색을 캐싱하여 성능이 조금 개선 됩니다.
+             * If set to true, element searching is cached, slightly improving performance.
              *
              * @default true
              *
@@ -1773,10 +1782,10 @@ declare namespace NU {
              */
             cache?: boolean;
             /**
-             * true로 설정하면 unbind 기능이 활성화되고 unbind 메서드를 사용할 수 있습니다.
-             * > unbind 기능이 활성화되면 최초 바인딩된 데이터가 메모리에 적제되므로 메모리 사용량이 증가합니다.
+             * If set to true, the unbind feature is enabled, allowing the use of the unbind method.
+             * > Enabling the unbind feature retains initially bound data in memory, which increases memory usage.
              *
-             * > 폼의 context 요소는 다시 생성되지 않기 때문에 원칙적으로 add 메서드와 bind 메서드는 용도에 따라 구분해서 사용해야 합니다. 이미 데이터가 바인딩된 폼 요소에 unbind 메서드를 호출해도 완벽하게 이전 상태로 되돌릴 수는 없습니다. 어쩔 수 없는 경우가 아니면 사용을 권장하지 않습니다.
+             * > Since context elements in the form are not regenerated, add and bind methods must be distinctly used based on their purposes. Even when the unbind method is called on form elements with already bound data, it may not fully restore the previous state. Therefore, it is not recommended except in cases of necessity.
              *
              * @default true
              *
@@ -1784,9 +1793,9 @@ declare namespace NU {
              */
             unbind?: boolean;
             /**
-             * true로 설정하면 컴포넌트 초기화 전에 입력 요소에 바인딩되어 있는 이벤트와 format, validate, dataSync 등의 컴포넌트 이벤트의 충돌을 방지해 줍니다.
+             * If set to true, it prevents conflicts between events already bound to input elements and component-specific events such as format, validate, and dataSync before the component is initialized.
              *
-             * > format이 정상적으로 동작하지 않거나 바인딩되어 있는 데이터가 의도한 대로 핸들링되지 않을 때, 알 수 없는 오류가 발생했을 때 true로 설정 바랍니다.
+             * > If format does not work correctly, or bound data is not handled as intended, or an unknown error occurs, consider setting this to true.
              *
              * @default false
              *
@@ -1794,19 +1803,19 @@ declare namespace NU {
              */
             tpBind?: boolean;
             /**
-             * 데이터 프로퍼티 값이 요소에 바인딩되기 전에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that executes before data property values are bound to elements.
              *
-             * > [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html)에 전역 옵션으로 설정할 경우 Form을 사용하는 모든 컴포넌트(Grid, List)들에서도 적용됩니다.
-             * onBeforeBindValue 이벤트를 사용하면 Form, Grid, List 로 바인딩 할 모든 값들과 요소들을 한번에 핸들링할 수 있습니다.
+             * > [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html) can be set as a global option to apply to all components (Grid, List) that use Form.
+             * If you use the onBeforeBindValue event, you can handle all the values and elements to be bound with Form, Grid, or List at once.
              *
-             * > onBeforeBindValue 이벤트를 N.config에 전역 이벤트 옵션으로 설정하면 컴포넌트 초기화 시 정의 한 onBeforeBindValue 이벤트 핸들러의 결괏값이 전역 이벤트 핸들러의 val(arguments[1]) 인수로 지정됩니다. 때문에 다른 이벤트들처럼 전역으로 설정한 이벤트 핸들러를 컴포넌트 이벤트에서 중단할 수 없습니다.
+             * > When the onBeforeBindValue event is set as a global event option in N.config, the result of the handler defined during component initialization is passed as the argument (val) of the global handler. Therefore, unlike other events, global event handlers cannot be interrupted in component events.
              * ```
              * onBeforeBindValue: function(ele, val, action) {
-             *     // this: Form 인스턴스
-             *     // ele: 바인딩될 요소
-             *     // val: 바인딩될 값
-             *     // action: Form 인스턴스의 메서드 명 - "bind" | "val"
-             *     return val; // 반드시 처리된 값을 다시 리턴해야 합니다.
+             *     // this: Form instance
+             *     // ele: element to be bound
+             *     // val: value to be bound
+             *     // action: method name of the Form instance - "bind" | "val"
+             *     return val; // The processed value must be returned.
              * }
              * ```
              *
@@ -1816,16 +1825,16 @@ declare namespace NU {
              */
             onBeforeBindValue?: NU.EventHandlers.Form.OnBeforeBindValue | null;
             /**
-             * 데이터 프로퍼티 값이 요소에 바인딩된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that executes after data property values are bound to elements.
              *
-             * > [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html)에 전역 옵션으로 설정할 경우 Form을 사용하는 모든 컴포넌트(Grid, List)들에서도 적용됩니다.
-             * onBindValue 이벤트를 사용하면 Form, Grid, List 로 바인딩 한 모든 값들과 요소들을 한번에 핸들링할 수 있습니다.
+             * > [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html) can be set as a global option to apply to all components (Grid, List) that use Form.
+             * The onBindValue event allows you to handle all the values and elements bound with Form, Grid, or List at once.
              * ```
              * onBindValue: function(ele, val, action) {
-             *     // this: Form 인스턴스
-             *     // ele: 바인딩된 요소
-             *     // val: 바인딩된 값
-             *     // action: Form 인스턴스의 메서드 명 - "bind" | "val"
+             *     // this: Form instance
+             *     // ele: bound element
+             *     // val: bound value
+             *     // action: method name of the Form instance - "bind" | "val"
              * }
              * ```
              *
@@ -1835,14 +1844,14 @@ declare namespace NU {
              */
             onBindValue?: NU.EventHandlers.Form.OnBindValue | null;
             /**
-             * 폼에 데이터가 바인딩되기 전에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that executes before data property values are bound to elements.
              *
-             * > [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html)에 전역 옵션으로 설정할 경우 Form을 사용하는 모든 컴포넌트(Grid, List)들에서도 적용됩니다.
+             * > [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html) can be set as a global option to apply to all components (Grid, List) that use Form.
              * ```
              * onBeforeBind: function(context, rowData) {
-             *     // this: Form 인스턴스
-             *     // context: context 요소
-             *     // rowData: 폼에 바인딩될 데이터
+             *     // this: Form instance
+             *     // context: context element
+             *     // rowData: data to be bound to the form
              * }
              * ```
              *
@@ -1852,14 +1861,14 @@ declare namespace NU {
              */
             onBeforeBind?: NU.EventHandlers.Form.OnBeforeBind | null;
             /**
-             * 데이터가 바인딩이 완료된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that executes after data is fully bound.
              *
-             * > [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html)에 전역 옵션으로 설정할 경우 Form을 사용하는 모든 컴포넌트(Grid, List)들에서도 적용됩니다.
+             * > [Config(natural.config.js)](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0102.html&tab=html/naturaljs/refr/refr010205.html) can be set as a global option to apply to all components (Grid, List) that use Form.
              * ```
              * onBind: function(context, rowData) {
-             *     // this: Form 인스턴스
-             *     // context: context 요소
-             *     // rowData: 바인딩된 데이터
+             *     // this: Form instance
+             *     // context: context element
+             *     // rowData: bound data
              * }
              * ```
              *
@@ -1869,7 +1878,7 @@ declare namespace NU {
              */
             onBind?: NU.EventHandlers.Form.OnBind | null;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * Internal variable used within the class.
              *
              * @default null
              *
@@ -1880,13 +1889,13 @@ declare namespace NU {
 
         type List = {
             /**
-             * List에 바인딩할 데이터를 지정합니다.
+             * Specifies the data to be bound to the List.
              *
-             * List의 context 요소는 반드시 ul과 li 태그로 작성해야 합니다.
+             * The context elements of the List must be written with `ul` and `li` tags.
              *
-             * 행 데이터의 프로퍼티명과 요소의 id 속성 값이 같으면 데이터가 바인딩됩니다.
+             * If the property name of a row's data matches the id attribute value of an element, the data will be bound to that element.
              *
-             * > Natural-JS의 모든 데이터 관련 컴포넌트는 빠른 바인딩 속도를 위해 어쩔 수 없이 id 속성을 사용합니다.
+             * > All data-related components in Natural-JS unavoidably use id attributes for faster binding performance.
              * ```
              * <ul class="list-context">
              *     <li>
@@ -1904,19 +1913,19 @@ declare namespace NU {
              */
             data?: NJS<NC.JSONObject>;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * A variable used internally.
              *
              * @default -1
              */
             row?: number;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * A variable used internally.
              *
              * @default -1
              */
             beforeRow?: number;
             /**
-             * List를 적용할 context 요소를 지정합니다.
+             * Specifies the context elements to which the List will be applied.
              *
              * @default null
              *
@@ -1924,11 +1933,11 @@ declare namespace NU {
              */
             context?: NJS<HTMLElement[]>;
             /**
-             * 리스트 body의 높이를 지정합니다.
+             * Specifies the height of the list body.
              *
-             * 설정한 값이 0보다 크면 리스트 바디에 스크롤바가 생기면서 설정한 높이로 고정됩니다. 0으로 설정하면 모든 데이터를 리스트 바디에 보여 줍니다.
+             * If the specified value is greater than 0, a scrollbar will appear within the list body, and its height will be fixed to the specified value. If set to 0, all data will be displayed in the list body.
              *
-             * > Pagination(Pagination) 컴포넌트와 결합하여 페이징 된 데이터를 List에 바인딩할 때는 0으로 설정하여 모든 데이터를 한번에 표시하는 것을 권장합니다.
+             * > When binding paginated data to a List combined with the Pagination component, setting this to `0` to display all the data at once is recommended.
              *
              * @default 0
              *
@@ -1936,7 +1945,7 @@ declare namespace NU {
              */
             height?: number;
             /**
-             * false로 설정하면 입력 요소에서 focus-out 되었을 때 입력 값에 대한 유효성 검증을 실행하지 않습니다.
+             * If set to false, validation of the input value is not performed when the input element loses focus.
              *
              * @default true
              *
@@ -1944,7 +1953,7 @@ declare namespace NU {
              */
             validate?: boolean;
             /**
-             * true로 설정하면 data를 bind 할 때 데이터의 HTML이 적용됩니다.
+             * If set to true, HTML of the data is applied when binding the data.
              *
              * @default false
              *
@@ -1952,9 +1961,9 @@ declare namespace NU {
              */
             html?: boolean;
             /**
-             * true로 설정하면 add 메서드를 호출했을 때 행 요소와 로우 데이터가 목록의 맨 앞에 추가됩니다.
+             * If set to true, a new row element and row data will be added to the beginning of the list when the `add` method is called.
              *
-             * > addTop 옵션을 false로 설정하면 데이터 동기화 문제가 발생하여 scrollPaging.size와 createRowDelay 옵션의 설정 값이 0으로 강제 설정됩니다. 이로 인해 데이터 바인딩 성능이 저하될 수 있습니다.
+             * > If the `addTop` option is set to false, a data synchronization issue might occur, forcing the `scrollPaging.size` and `createRowDelay` option values to be set to 0. This may degrade data binding performance.
              *
              * @default true
              *
@@ -1962,9 +1971,9 @@ declare namespace NU {
              */
             addTop?: boolean;
             /**
-             * true로 설정하면 add 메서드를 호출했을 때 추가된 행이 자동으로 선택됩니다.
+             * If set to true, the row added by the `add` method will be automatically selected.
              *
-             * > select 옵션이 true로 설정되어 있어야 합니다.
+             * > The `select` option must be set to true.
              *
              * @default false
              *
@@ -1972,7 +1981,7 @@ declare namespace NU {
              */
             addSelect?: boolean;
             /**
-             * true로 설정하면 리스트 바디의 높이를 마우스로 조절할 수 있습니다.
+             * If set to true, the height of the list body can be adjusted with the mouse.
              *
              * @default false
              *
@@ -1980,9 +1989,9 @@ declare namespace NU {
              */
             vResizable?: boolean;
             /**
-             * true로 설정하면 데이터 목록 요소 위에서 마우스 휠로 스크롤할 때 브라우저의 윈도우 스크롤을 비활성화합니다.
+             * If set to true, window scrolling in the browser will be disabled when scrolling with a mouse wheel over the data list element.
              *
-             * 데이터 목록 요소가 처음이나 마지막으로 스크롤되었을 때 브라우저 윈도우 스크롤이 위나 아래로 스크롤되는 브라우저의 기본 동작을 차단합니다.
+             * The browser's default behavior of scrolling up or down the window when reaching the start or end of the data list element will be prevented.
              *
              * @default true
              *
@@ -1990,7 +1999,8 @@ declare namespace NU {
              */
             windowScrollLock?: boolean;
             /**
-             * true로 설정하면 행을 선택(단일 행 선택)했을 때 onSelect 이벤트가 발생하고 행 요소(tbody)의 class 속성에 list_selected__ 값이 토글 됩니다.
+             * If set to true, the `onSelect` event is triggered when a row is selected (single row selection),
+             * and the class attribute of the row element (`tbody`) is toggled with the value `list_selected__`.
              *
              * @default false
              *
@@ -1998,9 +2008,9 @@ declare namespace NU {
              */
             select?: boolean;
             /**
-             * false로 설정하면 select 옵션이 true 일 때 선택된 행을 다시 선택해도 선택이 취소되지 않습니다.
+             * If set to false, selecting an already selected row (with the `select` option set to true) will not deselect it.
              *
-             * > multiselect 옵션이 true 일 경우에는 unselect 옵션이 적용되지 않습니다.
+             * > The `unselect` option is not applied when the `multiselect` option is true.
              *
              * @default true
              *
@@ -2008,7 +2018,8 @@ declare namespace NU {
              */
             unselect?: boolean;
             /**
-             * true로 설정하면 행을 선택(다중 행 선택)했을 때 onSelect 이벤트가 발생하고 행 요소(tbody)의 class 속성에 list_selected__ 값이 토글 됩니다.
+             * If set to true, the `onSelect` event is triggered when multiple rows are selected (multi-row selection),
+             * and the class attribute of the row element (`tbody`) is toggled with the value `list_selected__`.
              *
              * @default false
              *
@@ -2016,11 +2027,13 @@ declare namespace NU {
              */
             multiselect?: boolean;
             /**
-             * checkAllTarget 옵션으로 지정한 모든 체크박스를 선택하기 위한 input[type=checkbox] 요소를 지정합니다.
+             * Specifies an `input[type=checkbox]` element used to select all checkboxes
+             * targeted by the `checkAllTarget` option.
              *
-             * > Grid와 달리 jQuery selector 문자열로 지정하지 않고 정확하게 해당 요소가 선택된 jQuery object 타입으로 지정해야 합니다.
+             * > Unlike grids, this should not be specified as a jQuery selector string,
+             *   but as an exact jQuery object type representing the specific element.
              *
-             * > 체크박스를 체크만 하고 클릭 이벤트를 발생시키지 않습니다.
+             * > Only toggles the checkbox state without triggering a click event.
              *
              * @default null
              *
@@ -2028,17 +2041,19 @@ declare namespace NU {
              */
             checkAll?: JQuery.Selector;
             /**
-             * 리스트의 행을 다중 선택하기 위한 input[type=checkbox] 요소를 지정합니다.
+             * Specifies an `input[type=checkbox]` element used for multi-row selection in the list.
              *
-             * 지정된 요소는 check 함수로 선택된 행의 인덱스를 가져오거나 선택할 수 있습니다.
+             * The specified element can be used with the `check` function to retrieve
+             * or set the index of selected rows.
              *
-             * > checkSingleTarget 대상 요소는 반드시 li 요소 안에 있어야 합니다.
+             * > `checkSingleTarget` elements must be inside an `li` element.
              *
-             * > jQuery selector 구문으로 지정하며 selector의 context는 리스트의 행 요소(li)로 자동 지정됩니다.
+             * > Use jQuery selector syntax, where the selector context is automatically set to list row elements (`li`).
              *
-             * > checkAllTarget 옵션과 checkSingleTarget 옵션은 둘 중 하나만 사용할 수 있습니다.
+             * > Only one of `checkAllTarget` and `checkSingleTarget` can be used.
              *
-             * > 체크박스에 id 속성을 설정하여 데이터를 바인딩하면 제대로 작동하지 않을 수 있습니다. 선택된 행의 인덱스를 가져오는 용도로만 사용 바랍니다.
+             * > Binding data via the `id` attribute on checkboxes may cause issues.
+             *   Use this functionality only for retrieving the indexes of selected rows.
              *
              * @default null
              *
@@ -2046,17 +2061,19 @@ declare namespace NU {
              */
             checkAllTarget?: JQuery.Selector;
             /**
-             * 리스트의 행을 단일 선택하기 위한 input[type=checkbox] 요소를 지정합니다.
+             * Specifies an `input[type=checkbox]` element used for single-row selection in the list.
              *
-             * 지정된 요소는 check 함수로 선택된 행의 인덱스를 가져오거나 선택할 수 있습니다.
+             * The specified element can be used with the `check` function to retrieve
+             * or set the index of the selected row.
              *
-             * > checkSingleTarget 대상 요소는 반드시 li 요소 안에 있어야 합니다.
+             * > `checkSingleTarget` elements must be inside an `li` element.
              *
-             * > jQuery selector 구문으로 지정하며 selector의 context는 리스트의 행 요소(li)로 자동 지정됩니다.
+             * > Use jQuery selector syntax, where the selector context is automatically set to list row elements (`li`).
              *
-             * > checkAllTarget 옵션과 checkSingleTarget 옵션은 둘 중 하나만 사용할 수 있습니다.
+             * > Only one of `checkAllTarget` and `checkSingleTarget` can be used.
              *
-             * > 체크박스에 id 속성을 설정하여 데이터를 바인딩하면 제대로 작동하지 않을 수 있습니다. 선택된 행의 인덱스를 가져오는 용도로만 사용 바랍니다.
+             * > Binding data via the `id` attribute on checkboxes may cause issues.
+             *   Use this functionality only for retrieving the indexes of selected rows.
              *
              * @default null
              *
@@ -2064,7 +2081,7 @@ declare namespace NU {
              */
             checkSingleTarget?: JQuery.Selector;
             /**
-             * true로 설정하면 행에 마우스가 over 되었을 때 행 요소에 "list_hover__" 클래스 속성 값이 추가되고 out 되면 추가된 클래스 속성 값이 제거됩니다.
+             * When set to `true`, the "list_hover__" class attribute value is added to the row element when the mouse is over the row, and the added class attribute value is removed when the mouse is out.
              *
              * @default false
              *
@@ -2072,9 +2089,9 @@ declare namespace NU {
              */
             hover?: boolean;
             /**
-             * true로 설정하면 revert 기능이 활성화되고 revert 메서드를 사용할 수 있습니다.
+             * When set to `true`, the revert feature is enabled, and the `revert` method can be used.
              *
-             * > revert 기능이 활성화되면 최초 바인딩된 데이터가 메모리에 적제되므로 메모리 사용량이 증가합니다.
+             * > Enabling the revert feature stores the initially bound data in memory, which will increase memory usage.
              *
              * @default false
              *
@@ -2082,10 +2099,9 @@ declare namespace NU {
              */
             revert?: boolean;
             /**
-             * 1 이상으로 설정하면 바인딩할 때 리스트의 각 행이 별도로 생성됩니다.
-             * 이때 다음 행이 생성되기까지의 시간 간격을 설정합니다.
+             * When set to a value greater than 1, each row of the list is created separately when binding. At this time, the interval between the creation of the next row is set.
              *
-             * > 0으로 설정하면 모든 행을 한번에 생성하여 데이터를 바인딩하는 동안 브라우저가 멈출 수도 있습니다.
+             * > If set to 0, all rows are created at once, which can cause the browser to freeze during data binding.
              *
              * @default 1
              *
@@ -2093,11 +2109,11 @@ declare namespace NU {
              */
             createRowDelay?: number;
             /**
-             * 스크롤 페이징 할 때 한번에 바인딩할 행 수를 지정합니다.
+             * Specifies the number of rows to bind at once during scroll paging.
              *
-             * List는 스크롤 페이징 기능이 기본적으로 활성화되며 0을 지정하면 스크롤 페이징 기능이 비활성화됩니다.
+             * The list has scroll paging enabled by default, and specifying 0 disables the scroll paging feature.
              *
-             * size 옵션 값은 다음과 같이 scrollPaging 옵션 객체의 하위 속성으로 지정해야 합니다.
+             * The `size` option value should be specified as a nested property of the `scrollPaging` option object, like this:
              * ```
              * ...
              *     scrollPaging: {
@@ -2105,9 +2121,9 @@ declare namespace NU {
              *     }
              * ...
              * ```
-             * > 너무 작게 지정하면 스크롤이 생성되지 않아 데이터가 모두 표시되지 않습니다. 반드시 행들이 리스트 바디를 넘칠 수 있는 양을 지정해 주어야 합니다.
+             * > If set too small, the scroll may not be created, leaving all the data displayed. Ensure to set an amount allowing rows to overflow the list body.
              *
-             * > 너무 크게 지정하면 스크롤 페이징이 작동될 때 브라우저에 부하가 발생되므로 리스트에 입력 요소나 이미지가 들어 있다면 100 이하로 설정하고 그렇지 않다면 1000 이하로 설정하는 것을 권장합니다.
+             * > If set too high, the browser may experience a performance load when scroll paging is triggered. If the list contains input elements or images, set it below 100; otherwise, set it below 1000 for optimal performance.
              *
              * @default { idx: 0, size: 100 }
              *
@@ -2118,9 +2134,9 @@ declare namespace NU {
                 size?: number;
             };
             /**
-             * 대상 요소의 data-format 속성이 아닌 객체 타입으로 format 룰을 지정합니다.
+             * Specifies the format rules in an object type instead of the target element’s `data-format` attribute.
              *
-             * > 옵션 오브젝트는 [Formatter 생성자](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030103.html) 의 rules 인수의 설명을 참고해서 작성 바랍니다.
+             * > Refer to the description of the `rules` argument in the [Formatter Constructor](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030103.html) for how to construct the option object.
              *
              * @default null
              *
@@ -2128,9 +2144,9 @@ declare namespace NU {
              */
             fRules?: ND.FormatRuleObject | null;
             /**
-             * 대상 요소의 data-validate 속성이 아닌 객체 타입으로 유효성 검증 룰을 지정합니다.
+             * Specifies validation rules in an object type instead of the target element’s `data-validate` attribute.
              *
-             * > 옵션 오브젝트는 [Validator 생성자](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030203.html) 의 rules 인수의 설명을 참고해서 작성 바랍니다.
+             * > Refer to the description of the `rules` argument in the [Validator Constructor](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030203.html) for how to construct the option object.
              *
              * @default null
              *
@@ -2138,7 +2154,7 @@ declare namespace NU {
              */
             vRules?: ND.ValidationRuleObject | null;
             /**
-             * false로 설정하면 두 번째 인수에 "append" 옵션을 지정하여 bind 메서드를 호출했을 때 append 된 행으로 자동 스크롤되지 않습니다.
+             * When set to `false`, rows appended using the `bind` method's second argument with the "append" option do not automatically scroll into view.
              *
              * @default true
              *
@@ -2146,7 +2162,7 @@ declare namespace NU {
              */
             appendScroll?: boolean;
             /**
-             * false로 설정하면 add 메서드를 호출했을 때 추가된 행으로 스크롤되지 않습니다.
+             * If set to false, added rows will not automatically scroll into view when the add method is called.
              *
              * @default true
              *
@@ -2154,7 +2170,7 @@ declare namespace NU {
              */
             addScroll?: boolean;
             /**
-             * false로 설정하면 select 메서드를 호출했을 때 선택된 마지막 행으로 스크롤되지 않습니다.
+             * If set to false, the last selected row will not scroll into view when the select method is called.
              *
              * @default true
              *
@@ -2162,7 +2178,7 @@ declare namespace NU {
              */
             selectScroll?: boolean;
             /**
-             * false로 설정하면 check 메서드를 호출했을 때 체크된 마지막 행으로 스크롤되지 않습니다.
+             * If set to false, the last checked row will not scroll into view when the check method is called.
              *
              * @default true
              *
@@ -2170,7 +2186,7 @@ declare namespace NU {
              */
             checkScroll?: boolean;
             /**
-             * false로 설정하면 validate 메서드를 호출했을 때 유효성 검증에 실패 한 마지막 행으로 스크롤되지 않습니다.
+             * If set to false, the last row that failed validation will not scroll into view when the validate method is called.
              *
              * @default true
              *
@@ -2178,7 +2194,7 @@ declare namespace NU {
              */
             validateScroll?: boolean;
             /**
-             * true 로 설정하면 요소 검색을 캐싱하여 성능이 조금 개선 됩니다.
+             * If set to true, caching is applied during element searching to slightly improve performance.
              *
              * @default true
              *
@@ -2186,9 +2202,9 @@ declare namespace NU {
              */
             cache?: boolean;
             /**
-             * true로 설정하면 컴포넌트 초기화 전에 입력 요소에 바인딩되어 있는 이벤트와 format, validate, dataSync 등의 컴포넌트 이벤트의 충돌을 방지해 줍니다.
+             * If set to true, it prevents conflicts between existing binding events (such as format, validate, and dataSync) and component events before initializing the component.
              *
-             * > format이 정상적으로 동작하지 않거나 바인딩되어 있는 데이터가 의도한 대로 핸들링되지 않을 때, 알 수 없는 오류가 발생했을 때 true로 설정 바랍니다.
+             * > If format does not function correctly, bound data is not handled as intended, or unknown errors occur, consider setting this option to true.
              *
              * @default false
              *
@@ -2196,16 +2212,16 @@ declare namespace NU {
              */
             tpBind?: boolean;
             /**
-             * bind 하거나 add 했을 때 생성된 행 요소에 데이터가 바인딩되기 전에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed before data is bound to the row element created when bound or added.
              * ```
              * rowHandlerBeforeBind: function(rowIdx, rowEle, rowData) {
-             *     // this: List 인스턴스
-             *     // rowIdx: 생성된 행 index
-             *     // rowEle: 생성된 행 요소(li)
-             *     // rowData: 생성될 행의 Data
+             *     // this: List instance
+             *     // rowIdx: Index of the created row
+             *     // rowEle: Created row element (li)
+             *     // rowData: Data for the row to be created
              * }
              * ```
-             * > rowHandlerBeforeBind 이벤트 핸들러는 행 요소가 생성될 때마다 실행됩니다.
+             * > The `rowHandlerBeforeBind` event handler is executed each time a row element is created.
              *
              * @default null
              *
@@ -2213,16 +2229,16 @@ declare namespace NU {
              */
             rowHandlerBeforeBind?: NU.EventHandlers.List.RowHandlerBeforeBind | null;
             /**
-             * bind 하거나 add 했을 때 생성된 행 요소에 데이터가 바인딩된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed after data is bound to the row element created when bound or added.
              * ```
              * rowHandler: function(rowIdx, rowEle, rowData) {
-             *     // this: List 인스턴스
-             *     // rowIdx: 생성된 행 index
-             *     // rowEle: 생성된 행 요소(li)
-             *     // rowData: 생성된 행의 Data
+             *     // this: List instance
+             *     // rowIdx: Index of the created row
+             *     // rowEle: Created row element (li)
+             *     // rowData: Bound data of the created row
              * }
              * ```
-             * > rowHandler 이벤트 핸들러는 행 요소가 생성될 때마다 실행됩니다.
+             * > The `rowHandler` event handler is executed each time a row element is created.
              *
              * @default null
              *
@@ -2230,22 +2246,22 @@ declare namespace NU {
              */
             rowHandler?: NU.EventHandlers.List.RowHandler | null;
             /**
-             * 행이 선택 되기전에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed before a row is selected.
              * ```
              * onBeforeSelect: function(rowIdx, rowEle, rowData, beforeRowIdx, e) {
-             *     // this: List 인스턴스
-             *     // rowIdx: 선택된 행 index
-             *     // rowEle: 선택된 행 요소(li)
-             *     // rowData: 선택된 행 data
-             *     // beforeRowIdx: 바로 전에 선택된 행의 index
-             *     // e: click 이벤트 객체
+             *     // this: List instance
+             *     // rowIdx: The index of the selected row
+             *     // rowEle: The selected row element (li)
+             *     // rowData: The data of the selected row
+             *     // beforeRowIdx: The index of the row previously selected
+             *     // e: The click event object
              * }
              * ```
-             * > onBeforeSelect 이벤트 핸들러에서 false 를 반환하면 행이 선택되지 않습니다. 이때 onSelect 이벤트는 onBeforeSelect 이벤트와 같은 조건으로 실행 됩니다.
+             * > If false is returned in the onBeforeSelect event handler, the row will not be selected. In this case, the onSelect event will be executed under the same conditions as the onBeforeSelect event.
              *
-             * > select 나 multiselect 옵션이 true로 설정되었을 경우에만 실행됩니다.
+             * > This is executed only if the `select` or `multiselect` option is set to true.
              *
-             * > unselect 옵션이 false로 설정되었을 경우 선택이 해제되면 rowIdx 인수 값에 -1을 반환하고 선택되면 선택된 행의 인덱스를 반환합니다.
+             * > If the `unselect` option is set to false and selection is canceled, the `rowIdx` argument returns -1. If selected, it returns the index of the selected row.
              *
              * @default null
              *
@@ -2253,20 +2269,20 @@ declare namespace NU {
              */
             onBeforeSelect?: NU.EventHandlers.List.OnBeforeSelect | null;
             /**
-             * 행이 선택된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed after a row is selected.
              * ```
              * onSelect: function(rowIdx, rowEle, rowData, beforeRowIdx, e) {
-             *     // this: List 인스턴스
-             *     // rowIdx: 선택된 행 index
-             *     // rowEle: 선택된 행 요소(li)
-             *     // rowData: 선택된 행 data
-             *     // beforeRowIdx: 바로 전에 선택된 행의 index
-             *     // e: click 이벤트 객체
+             *     // this: List instance
+             *     // rowIdx: Index of the selected row
+             *     // rowEle: Element of the selected row (li)
+             *     // rowData: Data of the selected row
+             *     // beforeRowIdx: Index of the previously selected row
+             *     // e: click event object
              * }
              * ```
-             * > select 나 multiselect 옵션이 true로 설정되었을 경우에만 실행됩니다.
+             * > Executed only when the `select` or `multiselect` option is set to `true`.
              *
-             * > unselect 옵션이 false로 설정되었을 경우 선택이 해제되면 rowIdx 인수 값에 -1을 반환하고 선택되면 선택된 행의 인덱스를 반환합니다.
+             * > When the `unselect` option is set to `false`, it returns `-1` in `rowIdx` when deselected and the index of the selected row when selected.
              *
              * @default null
              *
@@ -2274,17 +2290,17 @@ declare namespace NU {
              */
             onSelect?: NU.EventHandlers.List.OnSelect | null;
             /**
-             * 데이터가 바인딩이 완료된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed after the data is bound.
              * ```
              * onBind: function(context, data, isFirstPage, isLastPage) {
-             *     // this: List 인스턴스
-             *     // context: context 요소
-             *     // data: 바인딩된 데이터
-             *     // isFirstPage: 스크롤 페이징 할 때 첫 페이지인지 여부(스크롤 페이징 하지 않으면 true 반환)
-             *     // isLastPage: 스크롤 페이징 할 때 마지막 페이지 인지 여부(스크롤 페이징 하지 않으면 true 반환)
+             *     // this: List instance
+             *     // context: Context element
+             *     // data: Bound data
+             *     // isFirstPage: Whether it is the first page when scroll paging (returns true if not scroll-paging)
+             *     // isLastPage: Whether it is the last page when scroll paging (returns true if not scroll-paging)
              * }
              * ```
-             * > 스크롤 페이징이 활성화되었을 경우 페이징 된 데이터가 바인딩될 때마다 실행됩니다.
+             * > Executed whenever paged data is bound when scroll paging is enabled.
              *
              * @default null
              *
@@ -2310,7 +2326,7 @@ declare namespace NU {
 
         type Grid = {
             /**
-             * Grid에 바인딩할 데이터를 지정합니다.
+             * Specifies the data to be bound to the Grid.
              *
              * @default undefined
              *
@@ -2318,7 +2334,7 @@ declare namespace NU {
              */
             data?: NJS<NC.JSONObject>;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * This variable is used internally.
              *
              * @default -1
              *
@@ -2326,7 +2342,7 @@ declare namespace NU {
              */
             row?: number;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * This variable is used internally.
              *
              * @default -1
              *
@@ -2334,28 +2350,27 @@ declare namespace NU {
              */
             beforeRow?: number;
             /**
-             * Grid를 적용할 context 요소를 지정합니다.
+             * Specifies the context element to which the Grid is applied.
              *
-             * Grid의 context 요소는 반드시 table 태그로 작성해야 합니다.
+             * The context element for the Grid must always be written as a `table` tag.
              *
              *  - thead - Grid header
-             *    - 그리드의 컬럼 타이틀을 작성합니다.
-             *    - thead의 셀은 th 태그를 사용합니다.
-             *    - header가 필요 없으면 작성하지 않아도 되지만 헤더에서 구동되는 sortable 나 filter 등의 옵션은 사용할 수 없습니다.
-             *    - thead 태그 안에 tr 태그를 여러 개 작성할 수 있습니다.
+             *    - Creates column titles for the grid.
+             *    - The cells in the `thead` must be written using the `th` tag.
+             *    - If the header is not needed, you don't need to include it, but sortable or filter options that work on the header cannot be used.
+             *    - Multiple `tr` tags can be written inside the `thead` tag.
              *  - tbody - Grid body
-             *    - 행을 표현하는 최상위 요소는 tbody이고 목록 데이터의 길이만큼 tbody가 복제됩니다.
-             *    - tbody의 셀은 td 태그를 사용합니다.
-             *    - 행 데이터의 프로퍼티명과 요소의 id 속성 값이 같으면 데이터가 바인딩됩니다.
-             *      > Natural-JS의 모든 데이터 관련 컴포넌트는 빠른 바인딩 속도를 위해 어쩔 수 없이 id 속성을 사용합니다.
+             *    - The top-level element representing rows is `tbody`, and it is replicated by the length of the list data.
+             *    - Cells in the `tbody` are written with the `td` tag.
+             *    - If a row's property name matches the value of an element's `id` attribute, data binding is applied.
+             *      > All data-related components in Natural-JS inevitably use the id attribute for fast binding speed.
              *
-             *      > 1개의 셀(td) 안에 2개 이상의 컬럼 데이터를 바인딩하려면 셀안에 요소를 2개 이상 만들고 id 속성 값을 추가해 주면 됩니다.
-             *      이때 thead의 th에 data-id 속성 값에 정렬/필터 등의 기준이 되는 데이터 프로퍼티명을 설정해 주어야 합니다.
+             *      > To bind more than one column's data in a single cell (`td`), add more than one element into the cell and include the `id` attribute values. In this case, the `data-id` attribute value in the `thead`'s `th` must set the property name used for sorting/filtering, etc.
              *
-             *    - tbody 태그 안에 tr 태그를 여러 개 작성하여 행 그룹을 만들 수 있습니다.
+             *    - You can create row groups by writing multiple `tr` tags inside the `tbody` tag.
              *  - tfoot - Grid footer
-             *    - Grid footer가 필요 없으면 작성하지 않아도 됩니다.
-             *    - tfoot의 셀은 td 태그를 사용합니다.
+             *    - If the Grid footer is not needed, it does not need to be included.
+             *    - Cells in the `tfoot` are written with the `td` tag.
              * ```
              * <table class="grid-context">
              *     <thead>
@@ -2386,11 +2401,11 @@ declare namespace NU {
              */
             context?: NJS<HTMLElement[]>;
             /**
-             * 그리드 body의 높이를 지정합니다.
+             * Specifies the height of the grid body.
              *
-             * 설정한 값이 0보다 크면 헤더가 고정되고 그리드 바디에 스크롤바가 생기면서 설정한 높이로 고정됩니다. 0으로 설정하면 헤더를 고정하지 않고 모든 데이터를 그리드 바디에 보여 줍니다.
+             * If the value is greater than 0, the header is fixed, and a scrollbar will appear in the grid body, fixed at the specified height. If set to 0, the header will not be fixed, and all data will be displayed in the grid body.
              *
-             * > Pagination(Pagination) 컴포넌트와 결합하여 페이징 된 데이터를 List에 바인딩할 때는 0으로 설정하여 모든 데이터를 한번에 표시하는 것을 권장합니다.
+             * > When using the grid with a Pagination component to bind paginated data to the list, it is recommended to set this to 0 to display all data at once.
              *
              * @default 0
              *
@@ -2398,15 +2413,15 @@ declare namespace NU {
              */
             height?: number;
             /**
-             * 지정한 열들은 고정되고 다른 열 들은 가로로 스크롤될 수 있게 해 줍니다.
+             * Specifies which columns are fixed, allowing other columns to scroll horizontally.
              *
-             * 0으로 설정하면 열을 고정하지 않고 1 이상의 숫자로 설정하면 첫 번째 열부터 설정한 숫자(열 개수)만큼 열을 고정해 줍니다.
+             * If set to 0, no columns will be fixed. Setting a number greater than or equal to 1 will fix that many columns starting from the first column.
              *
-             * > 헤더(thead) 영역은 반드시 있어야 하고 푸터(tfoot) 영역은 없어야 합니다.
+             * > The header (thead) section is required, and the footer (tfoot) section must not be present.
              *
-             * > 그리드의 헤더나 바디가 2행 이상의 세트로 구성되어 있거나 height 옵션이 0보다 크면 작동하지 않습니다.
+             * > This option will not work if the grid's header or body consists of more than two sets of rows or if the height option is greater than 0.
              *
-             * > 고정된 셀들이 비 정상적으로 표시되면 misc.fixedcolHeadMarginTop, misc.fixedcolHeadMarginLeft, misc.fixedcolHeadHeight, misc.fixedcolBodyMarginTop, misc.fixedcolBodyMarginLeft, fixedcolBodyBindHeight, fixedcolBodyAddHeight 옵션 값 들을 조절해 주세요.
+             * > If the fixed cells are displayed abnormally, adjust the values of the options: misc.fixedcolHeadMarginTop, misc.fixedcolHeadMarginLeft, misc.fixedcolHeadHeight, misc.fixedcolBodyMarginTop, misc.fixedcolBodyMarginLeft, fixedcolBodyBindHeight, and fixedcolBodyAddHeight.
              *
              * @default 0
              *
@@ -2414,17 +2429,17 @@ declare namespace NU {
              */
             fixedcol?: number;
             /**
-             * true로 설정하면 컬럼을 숨기거나 보이게 할 수 있는 기능과 상세 팝업을 자동으로 생성해 주는 기능이 활성화됩니다.
+             * When set to true, activates the functionality to hide or show columns and automatically generates a detailed popup.
              *
-             * 그리드의 마지막 열 다음에 위의 기능을 실행하는 버튼을 생성해 줍니다.
+             * A button for executing the above functionality is created after the last column of the grid.
              *
-             * true로 설정하면 그리드 헤더에 정의되어 있는 모든 컬럼들을 모두 상세 팝업에 보여주고 array에 컬럼 명 들을 지정하여 옵션으로 설정하면 지정한 컬럼들만 보여 줍니다.
+             * If set to true, all columns defined in the grid header will be shown in the detailed popup. If an array of column names is provided as an option, only the specified columns will be shown.
              *
-             * > 컬럼들의 제목은 그리드 헤더의 제목 텍스트를 그대로 사용하기 때문에 그리드 헤더에 정의되어 있지 않은 컬럼은 표시되지 않습니다. 그리드 헤더에 없는 컬럼을 상세 팝업에 표시하려면 그리드에 컬럼을 추가하고 그리드를 초기화 한 다음 hide 메서드로 추가한 컬럼을 숨기면 상세 팝업에서만 볼 수 있습니다.
+             * > The column titles are extracted directly from the grid header's title text, so columns not defined in the grid header will not be displayed. To show columns not in the grid header within the detailed popup, add the columns to the grid, initialize it, and then use the hide method to hide the added columns in the grid while keeping them visible in the popup.
              *
-             * > fixedcol 옵션으로 열이 고정된 경우 컬럼 숨기기/보이기 기능이 제대로 작동하지 않을 수 있습니다.
+             * > When used in conjunction with the fixedcol option, the column hiding/showing feature might not work correctly.
              *
-             * > 상세 팝업의 컬럼 타이틀 정보는 tbody의 td 나 td 안에 있는 요소들의 id 값을 기준으로 추출됩니다. 그러나 tbody의 td 안에 id 속성을 가진 요소가 2개 이상 존재하거나 그리드 헤더와 바디의 요소 구성이 많이 다를 경우에는 제대로 추출이 되지 않을 수 있습니다. 이때는 th 요소의 data-id 속성에 추출될 컬럼명을 선언해 주면 정상적으로 작동됩니다.
+             * > The column title information in the detailed popup is extracted based on the id values of the elements in the td inside the tbody. If there are two or more elements with id attributes inside a td or if the composition of elements in the grid header and body is too different, the extraction may not be accurate. In this case, declare the column name to be extracted in the data-id attribute of the th elements to ensure it works correctly.
              *
              * @default false
              *
@@ -2432,7 +2447,7 @@ declare namespace NU {
              */
             more?: boolean | string[];
             /**
-             * false로 설정하면 입력 요소에서 focus-out 되었을 때 입력 값에 대한 유효성 검증을 실행하지 않습니다.
+             * If set to false, disables validation of input values when the input element loses focus.
              *
              * @default true
              *
@@ -2440,7 +2455,7 @@ declare namespace NU {
              */
             validate?: boolean;
             /**
-             * true로 설정하면 data를 bind 할 때 데이터의 HTML이 적용됩니다.
+             * If set to true, the data's HTML will be applied when binding data.
              *
              * @default false
              *
@@ -2448,10 +2463,10 @@ declare namespace NU {
              */
             html?: boolean;
             /**
-             * true로 설정하면 add 메서드를 호출했을 때 행 요소와 로우 데이터가 목록의 맨 앞에 추가됩니다.
+             * If set to true, when the add method is called, the row element and row data are added to the beginning of the list.
              *
-             * > addTop 옵션을 false로 설정하면 데이터 동기화 문제가 발생하여 scrollPaging.size와 createRowDelay 옵션의 설정 값이 0으로 강제 설정됩니다.
-             * 이로 인해 데이터 바인딩 성능이 저하될 수 있습니다.
+             * > When the addTop option is set to false, data synchronization issues can occur, so the settings for the scrollPaging.size and createRowDelay options are forced to 0.
+             * This may reduce data binding performance.
              *
              * @default true
              *
@@ -2459,9 +2474,9 @@ declare namespace NU {
              */
             addTop?: boolean;
             /**
-             * true로 설정하면 add 메서드를 호출했을 때 추가된 행이 자동으로 선택됩니다.
+             * If set to true, the row added when the add method is called will be automatically selected.
              *
-             * > select 옵션이 true로 설정되어 있어야 합니다.
+             * > The select option must be set to true.
              *
              * @default false
              *
@@ -2469,13 +2484,12 @@ declare namespace NU {
              */
             addSelect?: boolean;
             /**
-             * true로 설정하면 선택 한 컬럼을 기준으로 데이터를 필터링할 수 있습니다.
+             * When set to true, you can filter the data based on the selected column.
              *
-             * > filter 옵션이 false 인 상태에서 th 요소의 속성으로 data-filter="true" 옵션을 선언해 주면 컬럼 별로 필터 기능을 활성화할 수 있습니다.
+             * > If the filter option is set to false, you can activate the filtering function for each column by declaring the attribute `data-filter="true"` in the `th` element.
              *
-             * > 필터링될 컬럼의 정보는 tbody의 td 나 td 안에 있는 요소들의 id 값을 기준으로 필터링됩니다.
-             * 그러나 tbody의 td 안에 id 속성을 가진 요소가 2개 이상 존재하거나 그리드 헤더와 바디의 요소 구성이 많이 다를 경우에는 제대로 필터링되지 않을 수 있습니다.
-             * 이때는 th 요소의 data-id 속성에 필터링될 컬럼명을 선언해 주면 정상적으로 작동됩니다.
+             * > The information for the filtered column is based on the value of the `id` of `td` elements in the `tbody` or elements within the `td`. However, if there are two or more elements with the `id` attribute inside a `td` in the `tbody` or if the structure of the grid header and body differs greatly, filtering may not work properly.
+             * In this case, declare the column name to be filtered in the `data-id` attribute of the `th` element to make it work correctly.
              *
              * @default false
              *
@@ -2483,13 +2497,13 @@ declare namespace NU {
              */
             filter?: boolean;
             /**
-             * true로 설정하면 컬럼의 넓이를 조절할 수 있습니다.
+             * When set to true, you can adjust the width of the column.
              *
-             * > colgroup의 col 태그를 사용하여 셀의 넓이를 지정했을 때 resizable 옵션이 true 이면 그리드가 초기화될 때 col 태그에 정의되어 있는 셀의 넓이 값을 thead의 th에 이관하고 colgroup 태그를 제거합니다. 때문에 컬럼 리사이징 기능을 사용하려면 col 태그에 넓이를 지정하지 말고 thead의 th에 컬럼 넓이를 설정하는 것을 권장합니다.
+             * > If you specify the width of cells using the `col` tag in the `colgroup`, and if the `resizable` option is true, the grid transfers the width value defined in the `col` tag to the `thead`'s `th` and removes the `colgroup` tag during initialization. Therefore, it is recommended to set column widths in the `thead`'s `th` instead of using the `col` tag when using the column resizing functionality.
              *
-             * > thead의 th에 colspan 속성이 있을 경우 컬럼 리사이즈 기능이 제대로 작동하지 않을 수 있습니다.
+             * > The column resizing function may not work properly when there is a `colspan` attribute in a `th` in the `thead`.
              *
-             * > 컬럼 리사이징 할 때 그리드의 모양이 깨지면 misc.resizableCorrectionWidth, misc.resizableLastCellCorrectionWidth, misc.resizeBarCorrectionLeft, misc.resizeBarCorrectionHeight 옵션 값 들을 조절해 주세요.
+             * > If the grid's layout breaks while resizing columns, please adjust the values of the options `misc.resizableCorrectionWidth`, `misc.resizableLastCellCorrectionWidth`, `misc.resizeBarCorrectionLeft`, and `misc.resizeBarCorrectionHeight`.
              *
              * @default false
              *
@@ -2497,7 +2511,7 @@ declare namespace NU {
              */
             resizable?: boolean;
             /**
-             * true로 설정하면 그리드 바디의 높이를 조절할 수 있습니다.
+             * When set to true, you can adjust the height of the grid body.
              *
              * @default false
              *
@@ -2505,11 +2519,10 @@ declare namespace NU {
              */
             vResizable?: boolean;
             /**
-             * true로 설정하면 선택 한 컬럼을 기준으로 데이터를 정렬할 수 있습니다.
+             * When set to true, you can sort the data based on the selected column.
              *
-             * > 정렬될 컬럼의 정보는 tbody의 td 나 td 안에 있는 요소들의 id 값을 기준으로 정렬합니다.
-             * 그러나 tbody의 td 안에 id 속성을 가진 요소가 2개 이상 존재하거나 그리드 헤더와 바디의 요소 구성이 많이 다를 경우에는 제대로 정렬이 되지 않을 수 있습니다.
-             * 이때는 th 요소의 data-id 속성에 정렬될 컬럼명을 선언해 주면 정상적으로 작동됩니다.
+             * > The information for the sorted column is based on the value of the `id` of `td` elements in the `tbody` or elements within the `td`. However, if there are two or more elements with the `id` attribute inside a `td` in the `tbody` or if the structure of the grid header and body differs greatly, sorting may not work properly.
+             * In this case, declare the column name to be sorted in the `data-id` attribute of the `th` element to make it work correctly.
              *
              * @default false
              *
@@ -2517,9 +2530,9 @@ declare namespace NU {
              */
             sortable?: boolean;
             /**
-             * true로 설정하면 데이터 목록 요소 위에서 마우스 휠로 스크롤할 때 브라우저의 윈도우 스크롤을 비활성화합니다.
+             * If set to true, disables the browser's window scroll while scrolling with the mouse wheel over the data list element.
              *
-             * 데이터 목록 요소가 처음이나 마지막으로 스크롤되었을 때 브라우저 윈도우 스크롤이 위나 아래로 스크롤되는 브라우저의 기본 동작을 차단합니다.
+             * Prevents the browser's default behavior of scrolling up or down the browser window when the data list element is scrolled to the top or bottom.
              *
              * @default true
              *
@@ -2527,7 +2540,8 @@ declare namespace NU {
              */
             windowScrollLock?: boolean;
             /**
-             * true로 설정하면 행을 선택(단일 행 선택)했을 때 onSelect 이벤트가 발생하고 행 요소(tbody)의 class 속성에 grid_selected__ 값이 토글 됩니다.
+             * If set to true, the onSelect event is triggered upon selecting a row (single-row selection),
+             * and the class attribute of the row element (tbody) toggles a value prefixed with `grid_selected__`.
              *
              * @default false
              *
@@ -2535,9 +2549,9 @@ declare namespace NU {
              */
             select?: boolean;
             /**
-             * false로 설정하면 select 옵션이 true 일 때 선택된 행을 다시 선택해도 선택이 취소되지 않습니다.
+             * If set to false, the selected row will not be deselected even if it is reselected while the select option is true.
              *
-             * > multiselect 옵션이 true 일 경우에는 unselect 옵션이 적용되지 않습니다.
+             * > The unselect option will not be applied if the multiselect option is true.
              *
              * @default true
              *
@@ -2545,7 +2559,8 @@ declare namespace NU {
              */
             unselect?: boolean;
             /**
-             * true로 설정하면 행을 선택(다중 행 선택)했을 때 onSelect 이벤트가 발생하고 행 요소(tbody)의 class 속성에 grid_selected__ 값이 토글 됩니다.
+             * If set to true, the onSelect event is triggered upon selecting a row (multi-row selection),
+             * and the class attribute of the row element (tbody) toggles a value prefixed with `grid_selected__`.
              *
              * @default false
              *
@@ -2553,13 +2568,13 @@ declare namespace NU {
              */
             multiselect?: boolean;
             /**
-             * checkAllTarget 옵션으로 지정한 모든 체크박스를 선택하기 위한 input[type=checkbox] 요소를 지정합니다.
+             * Specifies the input[type=checkbox] element to select all checkboxes designated by the `checkAllTarget` option.
              *
-             * > 지정한 요소는 반드시 thead 영역에 있어야 합니다.
+             * > The specified element must be in the `thead` section.
              *
-             * > jQuery selector 구문으로 지정하며 selector의 context는 그리드의 헤더 요소(thead)로 자동 지정됩니다.
+             * > It is specified using a jQuery selector, and the context of the selector is automatically set to the header element (`thead`) of the grid.
              *
-             * > 체크박스를 체크만 하고 클릭 이벤트를 발생시키지 않습니다.
+             * > This option only checks the checkbox without triggering the click event.
              *
              * @default null
              *
@@ -2567,17 +2582,17 @@ declare namespace NU {
              */
             checkAll?: JQuery.Selector;
             /**
-             * 그리드의 행을 다중 선택하기 위한 input[type=checkbox] 요소를 지정합니다.
+             * Specifies the input[type=checkbox] element for selecting multiple rows in the grid.
              *
-             * 지정된 요소는 check 함수로 선택된 행의 인덱스를 가져오거나 선택할 수 있습니다.
+             * The specified element can be used to get or select the indices of rows selected using the `check` function.
              *
-             * > checkSingleTarget 대상 요소는 반드시 tbody 요소 안에 있어야 합니다.
+             * > The `checkSingleTarget` element must reside within the `tbody` section.
              *
-             * > jQuery selector 구문으로 지정하며 selector의 context는 그리드의 행 요소(tbody)로 자동 지정됩니다.
+             * > It is specified using a jQuery selector, and the context of the selector is automatically set to the row element (`tbody`) of the grid.
              *
-             * > checkAllTarget 옵션과 checkSingleTarget 옵션은 둘 중 하나만 사용할 수 있습니다.
+             * > Only one of the `checkAllTarget` or `checkSingleTarget` options can be used.
              *
-             * > 체크박스에 id 속성을 설정하여 데이터를 바인딩하면 제대로 작동하지 않을 수 있습니다. 선택된 행의 인덱스를 가져오는 용도로만 사용 바랍니다.
+             * > If an `id` attribute is set on the checkbox and bound to data, it might not work correctly. Please use it only for retrieving the indices of selected rows.
              *
              * @default null
              *
@@ -2585,17 +2600,17 @@ declare namespace NU {
              */
             checkAllTarget?: JQuery.Selector;
             /**
-             * 그리드의 행을 단일 선택하기 위한 input[type=checkbox] 요소를 지정합니다.
+             * Specifies the input[type=checkbox] element for single row selection in the grid.
              *
-             * 지정된 요소는 check 함수로 선택된 행의 인덱스를 가져오거나 선택할 수 있습니다.
+             * The specified element can be used to get or select the indices of rows selected using the `check` function.
              *
-             * > checkSingleTarget 대상 요소는 반드시 tbody 요소 안에 있어야 합니다.
+             * > The `checkSingleTarget` element must reside within the `tbody` section.
              *
-             * > jQuery selector 구문으로 지정하며 selector의 context는 그리드의 행 요소(tbody)로 자동 지정됩니다.
+             * > It is specified using a jQuery selector, and the context of the selector is automatically set to the row element (`tbody`) of the grid.
              *
-             * > checkAllTarget 옵션과 checkSingleTarget 옵션은 둘 중 하나만 사용할 수 있습니다.
+             * > Only one of the `checkAllTarget` or `checkSingleTarget` options can be used.
              *
-             * > 체크박스에 id 속성을 설정하여 데이터를 바인딩하면 제대로 작동하지 않을 수 있습니다. 선택된 행의 인덱스를 가져오는 용도로만 사용 바랍니다.
+             * > If an `id` attribute is set on the checkbox and bound to data, it might not work correctly. Please use it only for retrieving the indices of selected rows.
              *
              * @default null
              *
@@ -2603,7 +2618,7 @@ declare namespace NU {
              */
             checkSingleTarget?: JQuery.Selector;
             /**
-             * true로 설정하면 행에 마우스가 over 되었을 때 행 요소에 "list_hover__" 클래스 속성 값이 추가되고 out 되면 추가된 클래스 속성 값이 제거됩니다.
+             * When set to true, the "list_hover__" class attribute is added to the row element when the mouse hovers over it and is removed when the mouse moves out.
              *
              * @default false
              *
@@ -2611,9 +2626,9 @@ declare namespace NU {
              */
             hover?: boolean;
             /**
-             * true로 설정하면 revert 기능이 활성화되고 revert 메서드를 사용할 수 있습니다.
+             * When set to true, the revert functionality is enabled, and the `revert` method can be used.
              *
-             * > revert 기능이 활성화되면 최초 바인딩된 데이터가 메모리에 적제되므로 메모리 사용량이 증가합니다.
+             * > Enabling the revert functionality stores the initially bound data in memory, which increases memory usage.
              *
              * @default false
              *
@@ -2621,9 +2636,10 @@ declare namespace NU {
              */
             revert?: boolean;
             /**
-             * 1 이상으로 설정하면 바인딩할 때 그리드의 각 행이 별도로 생성됩니다. 이때 다음 행이 생성되기까지의 시간 간격을 설정합니다.
+             * If set to a value greater than or equal to 1, each row of the grid is created separately during binding.
+             * At this point, you can configure the time interval until the next row is created.
              *
-             * > 0으로 설정하면 모든 행을 한번에 생성하여 데이터를 바인딩하는 동안 브라우저가 멈출 수도 있습니다.
+             * > If set to 0, all rows are created at once, which may cause the browser to freeze during data binding.
              *
              * @default 1
              *
@@ -2631,11 +2647,11 @@ declare namespace NU {
              */
             createRowDelay?: number;
             /**
-             * 스크롤 페이징 할 때 한번에 바인딩할 행 수를 지정합니다.
+             * Specifies the number of rows to bind at once during scroll paging.
              *
-             * 헤더 고정형 List는 스크롤 페이징 기능이 기본적으로 활성화되며 0을 지정하면 스크롤 페이징 기능이 비활성화됩니다.
+             * For header-fixed lists, the scroll paging functionality is enabled by default, and setting the value to 0 will disable scroll paging.
              *
-             * size 옵션 값은 다음과 같이 scrollPaging 옵션 객체의 하위 속성으로 지정해야 합니다.
+             * The `size` option value should be specified as a subproperty of the `scrollPaging` option object as follows:
              * ```
              * ...
              *     scrollPaging: {
@@ -2643,10 +2659,10 @@ declare namespace NU {
              *     }
              * ...
              * ```
-             * > 너무 작게 지정하면 스크롤이 생성되지 않아 데이터가 모두 표시되지 않습니다.
-             * 반드시 행들이 그리드 바디를 넘칠 수 있는 양을 지정해 주어야 합니다.
+             * > Setting it too small may result in no scroll bar being created, and data may not be fully displayed.
+             * Ensure you specify a value large enough so that rows can exceed the grid body.
              *
-             * > 너무 크게 지정하면 스크롤 페이징이 작동될 때 브라우저에 부하가 발생되므로 그리드에 입력 요소나 이미지가 들어 있다면 100 이하로 설정하고 그렇지 않다면 1000 이하로 설정하는 것을 권장합니다.
+             * > If set too high, it might strain the browser during scroll paging. If the grid contains input elements or images, it is recommended to set it to 100 or below; otherwise, 1000 or below is advisable.
              *
              * @default { idx: 0, size: 100 }
              *
@@ -2657,9 +2673,9 @@ declare namespace NU {
                 size?: number;
             };
             /**
-             * 대상 요소의 data-format 속성이 아닌 객체 타입으로 format 룰을 지정합니다.
+             * Specifies format rules as an object type instead of the `data-format` attribute of the target element.
              *
-             * > 옵션 오브젝트는 [Formatter 생성자](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030103.html) 의 rules 인수의 설명을 참고해서 작성 바랍니다.
+             * > Refer to the description of the `rules` parameter of the [Formatter constructor](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030103.html) to write the option object.
              *
              * @default null
              *
@@ -2667,9 +2683,9 @@ declare namespace NU {
              */
             fRules?: ND.FormatRuleObject | null;
             /**
-             * 대상 요소의 data-validate 속성이 아닌 객체 타입으로 유효성 검증 룰을 지정합니다.
+             * Specifies validation rules as an object type instead of the `data-validate` attribute of the target element.
              *
-             * > 옵션 오브젝트는 [Validator 생성자](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030203.html) 의 rules 인수의 설명을 참고해서 작성 바랍니다.
+             * > Refer to the description of the `rules` parameter of the [Validator constructor](https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030203.html) to write the option object.
              *
              * @default null
              *
@@ -2677,7 +2693,7 @@ declare namespace NU {
              */
             vRules?: ND.ValidationRuleObject | null;
             /**
-             * alse로 설정하면 두 번째 인수에 "append" 옵션을 지정하여 bind 메서드를 호출했을 때 append 된 행으로 자동 스크롤되지 않습니다.
+             * If set to false, the `bind` method won't automatically scroll to the appended row when the "append" option is specified as the second argument.
              *
              * @default true
              *
@@ -2685,7 +2701,7 @@ declare namespace NU {
              */
             appendScroll?: boolean;
             /**
-             * false로 설정하면 add 메서드를 호출했을 때 추가된 행으로 스크롤되지 않습니다.
+             * If set to false, the `add` method won't scroll to the newly added row.
              *
              * @default true
              *
@@ -2693,7 +2709,7 @@ declare namespace NU {
              */
             addScroll?: boolean;
             /**
-             * false로 설정하면 select 메서드를 호출했을 때 선택된 마지막 행으로 스크롤되지 않습니다.
+             * If set to false, the `select` method won't scroll to the last selected row.
              *
              * @default true
              *
@@ -2701,7 +2717,7 @@ declare namespace NU {
              */
             selectScroll?: boolean;
             /**
-             * false로 설정하면 check 메서드를 호출했을 때 체크된 마지막 행으로 스크롤되지 않습니다.
+             * If set to false, the `check` method won't scroll to the last checked row.
              *
              * @default true
              *
@@ -2709,7 +2725,7 @@ declare namespace NU {
              */
             checkScroll?: boolean;
             /**
-             * false로 설정하면 validate 메서드를 호출했을 때 유효성 검증에 실패 한 마지막 행으로 스크롤되지 않습니다.
+             * If set to false, the `validate` method won't scroll to the last row that failed validation.
              *
              * @default true
              *
@@ -2717,7 +2733,7 @@ declare namespace NU {
              */
             validateScroll?: boolean;
             /**
-             * true 로 설정하면 요소 검색을 캐싱하여 성능이 조금 개선 됩니다.
+             * Improves performance slightly by caching the search for elements if set to true.
              *
              * @default true
              *
@@ -2725,9 +2741,9 @@ declare namespace NU {
              */
             cache?: boolean;
             /**
-             * true로 설정하면 컴포넌트 초기화 전에 입력 요소에 바인딩되어 있는 이벤트와 format, validate, dataSync 등의 컴포넌트 이벤트의 충돌을 방지해 줍니다.
+             * Prevents conflicts between events already bound to input elements and component events such as format, validate, and dataSync before the component is initialized, if set to true.
              *
-             * > format이 정상적으로 동작하지 않거나 바인딩되어 있는 데이터가 의도한 대로 핸들링되지 않을 때, 알 수 없는 오류가 발생했을 때 true로 설정 바랍니다.
+             * > Please set it to true if the format does not work correctly, the bound data is not handled as intended, or unexpected errors occur.
              *
              * @default false
              *
@@ -2735,13 +2751,13 @@ declare namespace NU {
              */
             tpBind?: boolean;
             /**
-             * true로 설정하면 엑셀에서 복사한 셀 데이터를 그리드에 붙여넣기(Ctrl + V)할 수 있습니다.
+             * Allows pasting (Ctrl + V) data copied from Excel into the grid if set to true.
              *
              * > In addition to data copied from Excel, you can also paste text that separates rows with the Enter key (\n) and columns with the Tab key (\t).
              *
-             * > 텍스트 입력 커서가 표시되는 셀을 기준으로 id 속성을 갖고 있는 요소들에 순서대로 붙여 넣기 합니다. 입력 요소가 아닌 경우에도 id 속성이 있으면 셀 값이 업데이트됩니다.
+             * > Based on the selected cell where the text input cursor is displayed, the values are pasted in order into elements that have an `id` attribute. If the element is not an input element but still has an `id` attribute, the cell value is updated.
              *
-             * > readonly 또는 disabled 속성을 갖고 있는 요소는 값을 입력하지 않습니다.
+             * > Elements with readonly or disabled attributes do not accept any values.
              *
              * @default false
              *
@@ -2749,16 +2765,16 @@ declare namespace NU {
              */
             pastiable?: boolean;
             /**
-             * bind 하거나 add 했을 때 생성된 행 요소에 데이터가 바인딩되기 전에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed before data is bound to the row element created when bind or add is called.
              * ```
              * rowHandlerBeforeBind: function(rowIdx, rowEle, rowData) {
-             *     // this: Grid 인스턴스
-             *     // rowIdx: 생성된 행 index
-             *     // rowEle: 생성된 행 요소(li)
-             *     // rowData: 생성될 행의 Data
+             *     // this: Grid instance
+             *     // rowIdx: Index of the created row
+             *     // rowEle: Created row element (li)
+             *     // rowData: Data of the row to be created
              * }
              * ```
-             * > rowHandlerBeforeBind 이벤트 핸들러는 행 요소가 생성될 때마다 실행됩니다.
+             * > The `rowHandlerBeforeBind` event handler is executed every time a row element is created.
              *
              * @default null
              *
@@ -2766,16 +2782,16 @@ declare namespace NU {
              */
             rowHandlerBeforeBind?: NU.EventHandlers.Grid.RowHandlerBeforeBind | null;
             /**
-             * bind 하거나 add 했을 때 생성된 행 요소에 데이터가 바인딩된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed after data is bound to the row element created when bind or add is called.
              * ```
              * rowHandler: function(rowIdx, rowEle, rowData) {
-             *     // this: Grid 인스턴스
-             *     // rowIdx: 생성된 행 index
-             *     // rowEle: 생성된 행 요소(li)
-             *     // rowData: 생성된 행의 Data
+             *     // this: Grid instance
+             *     // rowIdx: Index of the created row
+             *     // rowEle: Created row element (li)
+             *     // rowData: Data of the created row
              * }
              * ```
-             * > rowHandler 이벤트 핸들러는 행 요소가 생성될 때마다 실행됩니다.
+             * > The `rowHandler` event handler is executed every time a row element is created.
              *
              * @default null
              *
@@ -2783,22 +2799,22 @@ declare namespace NU {
              */
             rowHandler?: NU.EventHandlers.Grid.RowHandler | null;
             /**
-             * 행이 선택 되기전에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed before a row is selected.
              * ```
              * onBeforeSelect: function(rowIdx, rowEle, rowData, beforeRowIdx, e) {
-             *     // this: Grid 인스턴스
-             *     // rowIdx: 선택된 행 index
-             *     // rowEle: 선택된 행 요소(li)
-             *     // rowData: 선택된 행 data
-             *     // beforeRowIdx: 바로 전에 선택된 행의 index
-             *     // e: click 이벤트 객체
+             *     // this: Grid instance
+             *     // rowIdx: Index of the selected row
+             *     // rowEle: Element (li) of the selected row
+             *     // rowData: Data of the selected row
+             *     // beforeRowIdx: Index of the row that was previously selected
+             *     // e: Click event object
              * }
              * ```
-             * > onBeforeSelect 이벤트 핸들러에서 false 를 반환하면 행이 선택되지 않습니다. 이때 onSelect 이벤트는 onBeforeSelect 이벤트와 같은 조건으로 실행 됩니다.
+             * > If the `onBeforeSelect` event handler returns `false`, the row selection is canceled. In this case, the `onSelect` event is executed under the same condition as the `onBeforeSelect` event.
              *
-             * > select 나 multiselect 옵션이 true로 설정되었을 경우에만 실행됩니다.
+             * > Executes only when the `select` or `multiselect` option is set to `true`.
              *
-             * > unselect 옵션이 false로 설정되었을 경우 선택이 해제되면 rowIdx 인수 값에 -1을 반환하고 선택되면 선택된 행의 인덱스를 반환합니다.
+             * > If the `unselect` option is set to `false`, the `rowIdx` argument returns `-1` when selection is canceled, and the index of the selected row when a row is selected.
              *
              * @default null
              *
@@ -2806,20 +2822,20 @@ declare namespace NU {
              */
             onBeforeSelect?: NU.EventHandlers.Grid.OnBeforeSelect | null;
             /**
-             * 행이 선택된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed after a row is selected.
              * ```
              * onSelect: function(rowIdx, rowEle, rowData, beforeRowIdx, e) {
-             *     // this: Grid 인스턴스
-             *     // rowIdx: 선택된 행 index
-             *     // rowEle: 선택된 행 요소(li)
-             *     // rowData: 선택된 행 data
-             *     // beforeRowIdx: 바로 전에 선택된 행의 index
-             *     // e: click 이벤트 객체
+             *     // this: Grid instance
+             *     // rowIdx: Index of the selected row
+             *     // rowEle: Element (li) of the selected row
+             *     // rowData: Data of the selected row
+             *     // beforeRowIdx: Index of the row that was previously selected
+             *     // e: Click event object
              * }
              * ```
-             * > select 나 multiselect 옵션이 true로 설정되었을 경우에만 실행됩니다.
+             * > Executes only when the `select` or `multiselect` option is set to `true`.
              *
-             * > unselect 옵션이 false로 설정되었을 경우 선택이 해제되면 rowIdx 인수 값에 -1을 반환하고 선택되면 선택된 행의 인덱스를 반환합니다.
+             * > If the `unselect` option is set to `false`, the `rowIdx` argument returns `-1` when selection is canceled, and the index of the selected row when a row is selected.
              *
              * @default null
              *
@@ -2827,17 +2843,17 @@ declare namespace NU {
              */
             onSelect?: NU.EventHandlers.Grid.OnSelect | null;
             /**
-             * 데이터가 바인딩이 완료된 후에 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines an event handler that is executed after data binding is completed.
              * ```
              * onBind: function(context, data, isFirstPage, isLastPage) {
-             *     // this: Grid 인스턴스
-             *     // context: context 요소
-             *     // data: 바인딩된 데이터
-             *     // isFirstPage: 스크롤 페이징 할 때 첫 페이지인지 여부(스크롤 페이징 하지 않으면 true 반환)
-             *     // isLastPage: 스크롤 페이징 할 때 마지막 페이지 인지 여부(스크롤 페이징 하지 않으면 true 반환)
+             *     // this: Grid instance
+             *     // context: Context element
+             *     // data: Bound data
+             *     // isFirstPage: Whether it is the first page in scroll paging (returns `true` if scroll paging is not enabled)
+             *     // isLastPage: Whether it is the last page in scroll paging (returns `true` if scroll paging is not enabled)
              * }
              * ```
-             * > 스크롤 페이징이 활성화되었을 경우 페이징 된 데이터가 바인딩될 때마다 실행됩니다.
+             * > Executes whenever paginated data is bound if scroll paging is enabled.
              *
              * @default null
              *
@@ -2845,7 +2861,7 @@ declare namespace NU {
              */
             onBind?: NU.EventHandlers.Grid.OnBind | null;
             /**
-             * 기타 상수
+             * Miscellaneous constants.
              *
              * @default {
              *     resizableCorrectionWidth: 0,
@@ -2866,7 +2882,7 @@ declare namespace NU {
              */
             misc?: NU.Options.GridMisc;
             /**
-             * 내부에서 사용되는 변수입니다.
+             * Variables used internally.
              *
              * @default -1
              *
@@ -2983,11 +2999,11 @@ declare namespace NU {
         };
         type Pagination = {
             /**
-             * Pagination에 바인딩할 데이터를 지정합니다.
+             * Specifies the data to be bound to the Pagination.
              *
-             * > data옵션이 지정되면 totalCount 값이 자동으로 계산되어 설정되므로 totalCount 값을 0으로 설정하거나 설정하지 않아야 합니다.
+             * > If the `data` option is specified, the `totalCount` value is automatically calculated and set. Therefore, you must not set the `totalCount` value to 0 or configure it manually.
              *
-             * > DB 페이징을 하는 경우 data 옵션을 지정하지 말고 totalCount 값만 서버에서 가져와 설정하기 바랍니다.
+             * > In case of paging via the database, do not specify the `data` option. Instead, fetch and configure only the `totalCount` value from the server.
              *
              * @default undefined
              *
@@ -2995,16 +3011,16 @@ declare namespace NU {
              */
             data?: NJS<NC.JSONObject>;
             /**
-             * Pagination을 적용할 context 요소를 지정합니다.
+             * Specifies the context element to which Pagination will be applied.
              *
-             * Pagination의 context 요소는 반드시 div 태그 안에 ul, li 태그로 작성해야 합니다.
+             * The context element for Pagination must use `div` tags containing `ul` and `li` tags.
              *
-             *  - 처음 페이지, 마지막 페이지, 이전 페이지, 다음 페이지
-             *    - ul 태그의 li 태그에 a 태그를 넣어서 작성합니다.
-             *    - 처음 페이지와 이전 페이지 요소, 마지막 페이지와 다음 페이지 요소는 ul 태그를 분리하여 작성합니다.
-             *    - 처음 페이지, 마지막 페이지 링크와 관련된 태그들을 작성하지 않으면 관련 기능이 비활성화됩니다.
-             *  - 페이지 인덱스
-             *    - ul 태그의 li 태그에 a 태그를 넣어서 작성합니다.
+             *  - First page, Last page, Previous page, Next page:
+             *    - Write `ul` tags with `li` tags containing `a` tags.
+             *    - Separate `ul` tags for first/previous and last/next page elements.
+             *    - If related tags for first and last page links are not written, the corresponding functionalities are disabled.
+             *  - Page index:
+             *    - Write `ul` tags with `li` tags containing `a` tags.
              * ```
              * <div class="pagination-context">
              *     <ul>
@@ -3029,7 +3045,7 @@ declare namespace NU {
             /**
              * Total row count.
              *
-             * > DB 페이징을 하는 경우 data 옵션을 지정하지 말고 totalCount 값만 서버에서 가져와 설정하기 바랍니다.
+             * > In case of paging via the database, do not specify the `data` option. Instead, fetch and configure only the `totalCount` value from the server.
              *
              * @default 0
              *
@@ -3053,7 +3069,7 @@ declare namespace NU {
              */
             countPerPageSet?: number;
             /**
-             * Pagination을 초기화한 다음 최초로 표시할 페이지의 번호를 설정합니다.
+             * Sets the initial page number to display after Pagination is initialized.
              *
              * @default 1
              *
@@ -3061,17 +3077,17 @@ declare namespace NU {
              */
             pageNo?: number;
             /**
-             * 페이지가 전환될 때 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines the event handler to execute when a page is switched.
              * ```
              * onChange: function(pageNo, selEle, selData, currPageNavInfo) {
-             *     // this: Pagination 인스턴스
-             *     // pageNo: 페이지 번호
-             *     // selEle: 선택된 페이지 이동 요소
-             *     // selData: 선택된 페이지의 데이터 목록
-             *     // currPageNavInfo: 이벤트가 발생했을 때의 페이지 정보
+             *     // this: Pagination instance
+             *     // pageNo: Page number
+             *     // selEle: Selected page navigation element
+             *     // selData: Selected page's data list
+             *     // currPageNavInfo: Current page navigation info
              * }
              * ```
-             * currPageNavInfo 객체 정보
+             * `currPageNavInfo` Object Information:
              *  - pageNo: Current page number.
              *  - countPerPage: Row count per page.
              *  - countPerPageSet: Page count per page set.
@@ -3086,9 +3102,9 @@ declare namespace NU {
              *  - endRowIndex: Last row index on the selected page.
              *  - endRowNum: Last row number of the selected page.
              *
-             * DB 페이징을 하는 경우 서버에서 totalCount 값을 먼저 가져온 다음 onChange 이벤트 핸들러의 currPageNavInfo 인수 값을 서버에 파라미터로 전송하여 페이징 된 데이터를 조회할 수 있습니다.
+             * For database paging, fetch the `totalCount` value from the server first, then pass the `currPageNavInfo` argument of the `onChange` event handler to the server to fetch paged data.
              *
-             * 이 페이징 된 데이터를 onChange 이벤트에서 Grid 나 List에 페이지가 바뀔 때마다 바인딩해 주면 됩니다.
+             * Bind the paged data to the Grid or List whenever the page changes in the `onChange` event.
              * ```
              * var grid = N(data).grid(".grid-context");
              *
@@ -3104,7 +3120,7 @@ declare namespace NU {
              *         }).bind();
              *     });
              * ```
-             * > blockOnChangeWhenBind 옵션이 true로 설정되어있을 경우 페이징 버튼들을 클릭할 때만 이벤트가 실행됩니다.
+             * > If `blockOnChangeWhenBind` is set to `true`, the event is executed only when the paging buttons are clicked.
              *
              * @default null
              *
@@ -3112,7 +3128,7 @@ declare namespace NU {
              */
             onChange?: NU.EventHandlers.Pagination.OnChange | null;
             /**
-             * true로 설정하면 bind 메서드를 호출할 때 onChange 이벤트를 실행하지 않습니다.
+             * When set to `true`, the `onChange` event is not executed when the bind method is called.
              *
              * @default false
              *
@@ -3120,7 +3136,7 @@ declare namespace NU {
              */
             blockOnChangeWhenBind?: boolean;
             /**
-             * 페이징 상태정보 객체가 할당되어있는 변수 입니다.
+             * A variable assigned to hold the paging state information object.
              *
              * @default null
              *
@@ -3131,7 +3147,7 @@ declare namespace NU {
 
         type Tree = {
             /**
-             * Tree에 바인딩할 데이터를 지정합니다.
+             * Specifies the data to bind to the Tree.
              *
              * @default undefined
              *
@@ -3139,7 +3155,7 @@ declare namespace NU {
              */
             data?: NJS<NC.JSONObject>;
             /**
-             * Tree를 적용할 요소를 지정합니다.
+             * Specifies the element to apply the Tree.
              *
              * @default null
              *
@@ -3147,7 +3163,7 @@ declare namespace NU {
              */
             context?: NJS<HTMLElement[]>;
             /**
-             * 노드 명으로 표시될 데이터의 프로퍼티명을 지정합니다.
+             * Specifies the property name of the data to be displayed as the node name.
              *
              * @default null
              *
@@ -3155,7 +3171,7 @@ declare namespace NU {
              */
             key?: string;
             /**
-             * 노드 값으로 설정될 데이터의 프로퍼티명을 지정합니다.
+             * Specifies the property name of the data to be set as the node value.
              *
              * @default null
              *
@@ -3163,9 +3179,9 @@ declare namespace NU {
              */
             val?: string;
             /**
-             * 노드 레벨로 설정될 데이터의 프로퍼티명을 지정합니다.
+             * Specifies the property name of the data to be set as the node level.
              *
-             * > level 옵션은 필수 옵션이 아니지만 지정하면 트리 렌더링 속도가 더 빨라집니다.
+             * > The level option is not mandatory, but specifying it enhances the Tree rendering speed.
              *
              * @default null
              *
@@ -3173,7 +3189,7 @@ declare namespace NU {
              */
             level?: string;
             /**
-             * 부모노드 값으로 설정될 데이터의 프로퍼티명을 지정합니다.
+             * Specifies the property name of the data to be set as the parent node value.
              *
              * @default null
              *
@@ -3181,10 +3197,10 @@ declare namespace NU {
              */
             parent?: string;
             /**
-             * true로 설정하면 폴더 노드를 선택할 수 있습니다.
+             * When set to `true`, folder nodes can be selected.
              *
-             * > 옵션 값이 true 이면 [+]아이콘을 클릭하여 폴더를 확장할 수 있고 노드명을 클릭하면 노드가 선택됩니다.
-             * 옵션 값이 false 이면 폴더 노드명을 클릭했을 때 폴더가 선택되지 않고 폴더를 확장합니다.
+             * > If the option is `true`, users can click the [+] icon to expand the folder, and clicking on the node name will select it.
+             * If the option is `false`, clicking on a folder node name will not select the folder but only expand it.
              *
              * @default false
              *
@@ -3192,9 +3208,9 @@ declare namespace NU {
              */
             folderSelectable?: boolean;
             /**
-             * true로 설정하면 체크박스가 노드명 앞에 추가됩니다.
+             * If set to true, checkboxes will be added before the node name.
              *
-             * > 체크박스가 체크되면 하위 노드들이 모두 체크되고 onCheck 이벤트 핸들러가 실행됩니다.
+             * > When a checkbox is checked, all child nodes are also checked, and the `onCheck` event handler is executed.
              *
              * @default false
              *
@@ -3202,13 +3218,13 @@ declare namespace NU {
              */
             checkbox?: boolean;
             /**
-             * 노드가 선택되었을 때 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines the event handler to be executed when a node is selected.
              * ```
              * onSelect: function(selNodeIndex, selNodeEle, selNodeData) {
-             *     // this: Tree 인스턴스
-             *     // selNodeIndex: 선택된 노드의 index
-             *     // selNodeEle: 선택된 노드의 요소
-             *     // selNodeData: 선택된 노드의 row data
+             *     // this: Tree instance
+             *     // selNodeIndex: The index of the selected node
+             *     // selNodeEle: The element of the selected node
+             *     // selNodeData: The row data of the selected node
              * }
              * ```
              *
@@ -3218,20 +3234,20 @@ declare namespace NU {
              */
             onSelect?: NU.EventHandlers.Tree.OnSelect | null;
             /**
-             * 노드가 체크되었을 때 실행되는 이벤트 핸들러를 정의합니다.
+             * Defines the event handler to be executed when a node is checked.
              *
              * ```
              * onCheck: function(selNodeIndex, selNodeEle, selNodeData
              *                     , checkedElesIndexes, checkedEles, checkedElesData
              *                     , checkFlag) {
-             *     // this: Tree 인스턴스
-             *     // selNodeIndex: 선택된 노드의 index
-             *     // selNodeEle: 선택된 노드의 요소
-             *     // selNodeData: 선택된 노드의 row data
-             *     // checkedElesIndexes: 체크된 노드들의 index
-             *     // selNodeEle: 체크된 노드들의 요소
-             *     // selNodeData: 체크된 노드들의 row data
-             *     // checkFlag: 체크 여부
+             *     // this: Tree instance
+             *     // selNodeIndex: The index of the selected node
+             *     // selNodeEle: The element of the selected node
+             *     // selNodeData: The row data of the selected node
+             *     // checkedElesIndexes: The indexes of the checked nodes
+             *     // selNodeEle: The elements of the checked nodes
+             *     // selNodeData: The row data of the checked nodes
+             *     // checkFlag: Whether the checkbox was checked
              * }
              * ```
              *
