@@ -200,7 +200,7 @@ declare namespace NA {
                 (this: Object, view: NJS<HTMLElement[]>, request: NA.Request): void
             }
 
-            interface Object {
+            interface BaseObject {
                 [key: string]: any;
                 /**
                  * The initializer function that is called to set up the initial state or configuration.
@@ -233,6 +233,25 @@ declare namespace NA {
                  */
                 opener?: Object;
             }
+
+            type NTOptions = {
+                /**
+                 * After the component is initialized, the specified function is immediately executed.
+                 *  - string: Function name
+                 *  - ...any[]: Arguments of the function
+                 *
+                 * @default undefined
+                 *
+                 * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+                 */
+                "action"?: [string, ...any[]]
+            };
+            type Object = BaseObject & {
+                [K in `p.grid.${string}`]: (NTOptions | NU.Options.Grid) | NU.Grid;
+            } & {
+                [K in `p.tree.${string}`]: (NTOptions | NU.Options.Tree) | NU.Tree;
+            };
+
         }
 
         namespace Config {
