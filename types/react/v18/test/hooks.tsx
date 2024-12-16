@@ -179,8 +179,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useRef();
     // $ExpectType MutableRefObject<number | undefined>
     React.useRef<number>();
-    // don't just accept a potential undefined if there is a generic argument
-    // @ts-expect-error
+    // $ExpectType MutableRefObject<number | undefined>
     React.useRef<number>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
     // $ExpectType MutableRefObject<number>
