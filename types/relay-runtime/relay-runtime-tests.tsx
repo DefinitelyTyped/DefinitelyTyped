@@ -18,6 +18,7 @@ import {
     LiveState,
     Network,
     PreloadableConcreteRequest,
+    PreloadableQueryRegistry,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -375,6 +376,10 @@ const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
         metadata: {},
     },
 };
+
+if (preloadableNode.params.id !== null) {
+    const module = PreloadableQueryRegistry.get(preloadableNode.params.id);
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
