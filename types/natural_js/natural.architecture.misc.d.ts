@@ -108,6 +108,12 @@ declare namespace NA {
             }
         }
 
+        namespace Controller {
+            type OnOpen = {
+                (this: NA.Objects.Controller.Object, onOpenData?: any): void;
+            }
+        }
+
         namespace Request {
             type Reload = {
                 (this: NA.Communicator, html?: string | NA.Controller, request?: NA.Request): void;
@@ -224,7 +230,7 @@ declare namespace NA {
                  * If the popup page is called by N.popup or N.tab components, this is the instance of the calling component.
                  * With this instance, you can control the parent page.
                  */
-                caller?: BaseObject & NT.Objects.Controller.Object;
+                caller?: NU.Popup & NU.Tab; // FIXME
                 /**
                  * If the popup page is called by N.popup or N.tab components, this is the controller object instance of the parent page.
                  *
@@ -233,6 +239,10 @@ declare namespace NA {
                  * > The opener attribute should be specified with the Controller object of the parent page when creating an instance of N.popup or N.tab components.
                  */
                 opener?: BaseObject & NT.Objects.Controller.Object;
+                /**
+                 * This is a function implementation of the onOpen option specified as a string in pop-ups and tabs.
+                 */
+                onOpen?: Callbacks.Controller.OnOpen
             }
 
             type Object = BaseObject & NT.Objects.Controller.InitialObject;

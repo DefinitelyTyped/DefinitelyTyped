@@ -10,7 +10,7 @@ declare namespace NT {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
-            action?: [string, ...any[]];
+            action?: string | [string, ...any[]];
             /**
              * Purpose of Form - When you enter the string "search-box", the specified area is created as a search box Form. You can specify more detailed options with the object type.
              *
