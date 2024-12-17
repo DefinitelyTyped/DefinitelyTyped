@@ -16,6 +16,14 @@ declare namespace EW {
     }
 
     interface ReadAllHeader {
+        /**
+         * Returns a JavaScript object that contains the HTTP headers 
+         * as properties.
+         * 
+         * The key for each property is the name of the HTTP header, 
+         * normalized to lower-case. The value is an array of strings, 
+         * containing one string for each HTTP header with the same name.
+         */
         getHeaders(): Headers;
     }
 
@@ -464,7 +472,7 @@ declare namespace EW {
     {
     }
 
-    interface EgressOriginResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
+    interface EgressOriginResponse extends MutatesHeaders, ReadsHeaders, ReadAllHeader, HasStatus {
     }
 
     // onClientResponse
@@ -473,7 +481,7 @@ declare namespace EW {
     {
     }
 
-    interface EgressClientResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
+    interface EgressClientResponse extends MutatesHeaders, ReadsHeaders, ReadAllHeader, HasStatus {
     }
 
     // responseProvider
