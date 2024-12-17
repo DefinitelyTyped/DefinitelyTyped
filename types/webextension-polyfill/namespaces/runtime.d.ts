@@ -580,7 +580,7 @@ export namespace Runtime {
                 message: unknown,
                 sender: MessageSender,
                 sendResponse: (message: unknown) => void,
-            ) => Promise<unknown> | true | undefined
+            ) => Promise<unknown> | true | void
         >;
 
         /**
@@ -598,7 +598,7 @@ export namespace Runtime {
                 message: unknown,
                 sender: MessageSender,
                 sendResponse: (message: unknown) => void,
-            ) => Promise<unknown> | true | undefined
+            ) => Promise<unknown> | true | void
         >;
 
         /**
