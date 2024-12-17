@@ -1020,6 +1020,10 @@
             "libraryName": "constant-case",
             "asOfVersion": "1.1.2"
         },
+        "consul": {
+            "libraryName": "consul",
+            "asOfVersion": "2.0.0"
+        },
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
