@@ -101,7 +101,7 @@ declare namespace NA {
     namespace Callbacks {
         namespace Communicator {
             type Submit = {
-                (this: NA.Communicator, data?: object | object[] | NA.Controller, request?: NA.Request): void;
+                (this: NA.Communicator, data?: NC.JSONObject | NC.JSONObject[] | string | object | object[] | NA.Controller, request?: NA.Request): void;
             }
             type Error = {
                 (this: NA.Communicator, xhr: JQuery.jqXHR, textStatus: JQuery.Ajax.TextStatus, e: Error, request: NA.Request, submitCallback: Submit): void;
@@ -184,6 +184,7 @@ declare namespace NA {
         }
 
         namespace Controller {
+            import JSONObject = NC.JSONObject;
             /**
              * InitFunction is a user-defined function that is called after the view has finished loading and the Controller object has been initialized.
              * ```
@@ -234,23 +235,7 @@ declare namespace NA {
                 opener?: Object;
             }
 
-            type NTOptions = {
-                /**
-                 * After the component is initialized, the specified function is immediately executed.
-                 *  - string: Function name
-                 *  - ...any[]: Arguments of the function
-                 *
-                 * @default undefined
-                 *
-                 * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
-                 */
-                "action"?: [string, ...any[]]
-            };
-            type Object = BaseObject & {
-                [K in `p.grid.${string}`]: (NTOptions | NU.Options.Grid) | NU.Grid;
-            } & {
-                [K in `p.tree.${string}`]: (NTOptions | NU.Options.Tree) | NU.Tree;
-            };
+            type Object = BaseObject & NT.Objects.Controller.InitialObject;
 
         }
 

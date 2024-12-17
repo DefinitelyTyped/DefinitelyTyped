@@ -654,7 +654,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
          */
-        bind(data?: NJS<NC.JSONObject[]>): NU.Select;
+        bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[]): NU.Select;
         /**
          * Returns the index of the selected option.
          *
@@ -798,7 +798,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
          */
-        bind(row: number, data?: NJS<NC.JSONObject[]>, ...cols: string[]): NU.Form;
+        bind(row: number, data?: NJS<NC.JSONObject[] | NC.JSONObject[]>, ...cols: string[]): NU.Form;
         /**
          * Add new row data.
          *
@@ -950,7 +950,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
          */
-        bind(data?: NJS<NC.JSONObject[]>, callType?: "append" | "list.bind" | "list.update"): NU.List;
+        bind(data?: NJS<NC.JSONObject[] | NC.JSONObject[]>, callType?: "append" | "list.bind" | "list.update"): NU.List;
         /**
          * Add new row elements and data.
          *
@@ -1203,7 +1203,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
          */
-        bind(data?: NJS<NC.JSONObject[]>, callType?: "append" | "grid.bind" | "grid.dataFilter" | "grid.sort" | "grid.update"): NU.Grid;
+        bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[], callType?: "append" | "grid.bind" | "grid.dataFilter" | "grid.sort" | "grid.update"): NU.Grid;
         /**
          * Add new row elements and data.
          *
@@ -1358,7 +1358,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
          */
-        bind(data?: NJS<NC.JSONObject[]> | number, totalCount?: number): NU.Pagination;
+        bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[] | number, totalCount?: number): NU.Pagination;
         /**
          * Gets the Total count value.
          *
@@ -1524,7 +1524,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
          */
-        bind(data?: NJS<NC.JSONObject[]>): NU.Tree;
+        bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[]): NU.Tree;
         /**
          * Returns the selected node value.
          *
@@ -1553,11 +1553,12 @@ declare namespace NU {
         /**
          * Collapses all tree nodes.
          *
+         * @param {boolean} isFirstNodeOpen - If set to true, all nodes except the first will be collapsed.
          * @return {NU.Tree} Returns the `Tree` instance for chaining.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
          */
-        collapse(): NU.Tree;
+        collapse(isFirstNodeOpen?: boolean): NU.Tree;
     }
 
 }

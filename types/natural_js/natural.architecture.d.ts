@@ -115,11 +115,43 @@ declare namespace NA {
          *     N.log(cont); // cont: Controller object
          * });
          * ```
-         * @return {JQuery.jqXHR | NA.Communicator} The jqXHR object or the Communicator instance depending on the submission context.
+         * @return {NA.Communicator} The jqXHR object or the Communicator instance depending on the submission context.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
          */
-        submit(callback: NA.Callbacks.Communicator.Submit): JQuery.jqXHR | NA.Communicator;
+        submit(callback: NA.Callbacks.Communicator.Submit): NA.Communicator;
+        /**
+         * Registers a callback function to be executed when a successful response is received from the server.
+         *
+         * If the `callback` argument is not provided to the `submit` function, a Promise-compatible `xhr` object is returned, allowing the use of async/await syntax.
+         *
+         * ```
+         * // JSON Data
+         * const fn1 = async () => {
+         *     const data = await N.comm("data.json").submit();
+         * };
+         *
+         * // Catch exception
+         * const fn2 = async () => {
+         *     const data = await N.comm("data.json").submit().then((data) => {
+         *         console.log(data);
+         *     }).catch((e) => {
+         *         console.error(e);
+         *     });
+         * };
+         *
+         * // HTML page
+         * const fn3 = async () => {
+         *     const data = await N("#page-container").comm("page.html").submit();
+         *     console.log(data); // HTML Text
+         * };
+         * ```
+         *
+         * @return {JQuery.jqXHR} The jqXHR object or the Communicator instance depending on the submission context.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
+         */
+        submit(): JQuery.jqXHR;
         /**
          * Registers a callback function that will be executed when an error response is received from the server after calling the submit function or when an error occurs in the callback function of the submit method.
          * > You can call the error method multiple times to register multiple callback functions.
