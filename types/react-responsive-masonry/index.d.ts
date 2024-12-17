@@ -32,5 +32,5 @@ export interface ResponsiveMasonryProps {
     style?: CSSProperties;
 }
 
-export default function Masonry(props: MasonryProps): ReactElement;
-export function ResponsiveMasonry(props: ResponsiveMasonryProps): ReactElement;
+export default function Masonry(props: MasonryProps): JSX.Element;
+export function ResponsiveMasonry(props: ResponsiveMasonryProps): JSX.Element;
