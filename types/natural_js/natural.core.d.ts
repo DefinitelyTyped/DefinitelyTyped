@@ -1,3 +1,5 @@
+import JSONObject = NC.JSONObject;
+
 /**
  * The NC class is a CORE package of Natural-JS that provides various utilities and methods for collection manipulation, event binding, instance handling, value management, event retrieval, locale setting, etc.
  */
@@ -765,11 +767,11 @@ declare class NC {
          * @param {string} key - This is the key of the message to retrieve from the message resource object.
          *                       The message string containing variables to be replaced. Variables are denoted by placeholders such as {0}, {1}, etc.
          * @param {string[]} [vars] - An optional array of strings. Each entry in this array provides a replacement for the corresponding placeholder in the message string.
-         * @return {void} This method does not return a value.
+         * @return {string} Message string, if there is no message string corresponding to key, the key value is returned as is.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010110.html }
          */
-        get(resource: NC.MessageResourceObj, key: string, vars?: string[]): void;
+        get(resource: NC.MessageResourceObj, key: string, vars?: string[]): string;
     };
     /**
      * Array utilities for various array operations.
@@ -779,19 +781,19 @@ declare class NC {
          * Removes duplicate objects from an array based on a specified key.
          * If no key is provided, it removes duplicate primitive values.
          *
-         * @param {Array} arr - The array from which duplicates are to be removed.
+         * @param {JSONObject[] | NJS<JSONObject[]>} arr - The array from which duplicates are to be removed.
          * @param {string} [key] - Optional. The property name on which duplication check is based.
-         * @return {Array} A new array with duplicates removed.
+         * @return {JSONObject[]} A new array with duplicates removed.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010111.html }
          */
-        deduplicate(arr: [], key?: string): [];
+        deduplicate(arr: JSONObject[] | NJS<JSONObject[]>, key?: string): JSONObject[];
     };
     /**
      * Provides utilities for processing JSON data.
      */
     static json: {
-        mapFromKeys(obj: object | object[]): object | object[];
+        mapFromKeys(obj: JSONObject | JSONObject[]): JSONObject | JSONObject[];
         /**
          * Merges two JSON arrays based on a specified key.
          *
@@ -799,14 +801,14 @@ declare class NC {
          * > - If you specify the object's property name as the third argument, duplicate elements are excluded based on that property.
          * > - Even if the objects specified by the arr1 argument are merged, their memory references do not change.
          *
-         * @param {object[]} arr1 - The first JSON array to merge.
-         * @param {object[]} arr2 - The second JSON array to merge.
+         * @param {JSONObject[] | NJS<JSONObject[]>} arr1 - The first JSON array to merge.
+         * @param {JSONObject[] | NJS<JSONObject[]>} arr2 - The second JSON array to merge.
          * @param {string} key - The key used to identify and merge objects from the arrays.
-         * @return {object[]} The merged JSON array containing objects from both arrays.
+         * @return {JSONObject[]} The merged JSON array containing objects from both arrays.
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010112.html }
          */
-        mergeJsonArray(arr1: object[], arr2: object[], key: string): object[]; // Merge JSON Array by key
+        mergeJsonArray(arr1: JSONObject[] | NJS<JSONObject[]>, arr2: JSONObject[] | NJS<JSONObject[]>, key: string): JSONObject[];
         /**
          * Formats the given data to a string representation with specified indentation.
          *
@@ -816,7 +818,7 @@ declare class NC {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010112.html }
          */
-        format(oData: object | object[] | string, sIndent: number): string | null; // Formats the json object beautifully.
+        format(oData: object | object[] | string, sIndent: number): string | null;
     };
     /**
      * Provides utilities for processing event.

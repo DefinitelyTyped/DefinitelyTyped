@@ -1,6 +1,5 @@
 declare namespace NT {
     namespace Options {
-        import JSONObject = NC.JSONObject;
         type Extra = {
             /**
              * After the component is initialized, the specified function is immediately executed.
@@ -12,6 +11,23 @@ declare namespace NT {
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
              */
             action?: [string, ...any[]];
+            /**
+             * Purpose of Form - When you enter the string "search-box", the specified area is created as a search box Form. You can specify more detailed options with the object type.
+             *
+             * @default undefined
+             *
+             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             */
+            usage?: string | {
+                "search-box": {
+                    defaultButton?: JQuery.Selector,
+                    events?: {
+                        event: string,
+                        target: JQuery.Selector,
+                        handler: NT.Objects.Controller.EventHandler
+                    }[]
+                }
+            }
         };
         /**
          * Represents a function type for filtering an array of JSON objects.
@@ -68,7 +84,7 @@ declare namespace NT {
              * Data filter - Filters the common code data before binding.
              *
              * ```
-             * "filter" : function (data) {
+             * "filter": function (data) {
              *     // If you process data (original data) and return it, the processed data is bound.
              *     return N(N.array.deduplicate(data, "age")).datasort("age"); // Sort after removing duplicates.
              * }
@@ -112,7 +128,7 @@ declare namespace NT {
             } & {
                 [K in `p.tab.${string}`]: (NT.Options.Extra & NU.Options.Tab);
             } & {
-                [K in `p.select.${string}`]: [string, string?, string?, Function?] | NT.Options.Select;
+                [K in `p.select.${string}`]: [string, string?, string?, NT.Options.SelectFilter?] | NT.Options.Select;
             } & {
                 [K in `p.form.${string}`]: (NT.Options.Extra & NU.Options.Form);
             } & {

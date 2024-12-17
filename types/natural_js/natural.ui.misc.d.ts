@@ -1560,7 +1560,7 @@ declare namespace NU {
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
              */
-            data?: NJS<NC.JSONObject>;
+            data?: NJS<NC.JSONObject[]>;
             /**
              * Specifies the context element where the Select will be applied.
              *
@@ -1645,7 +1645,7 @@ declare namespace NU {
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
              */
-            data?: NJS<NC.JSONObject>;
+            data?: NJS<NC.JSONObject[]>;
             /**
              * Specifies the index value of the row from the list data indicated by the data option to bind to the form.
              *
@@ -1911,7 +1911,7 @@ declare namespace NU {
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
              */
-            data?: NJS<NC.JSONObject>;
+            data?: NJS<NC.JSONObject[]>;
             /**
              * A variable used internally.
              *
@@ -2332,7 +2332,7 @@ declare namespace NU {
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
              */
-            data?: NJS<NC.JSONObject>;
+            data?: NJS<NC.JSONObject[]>;
             /**
              * This variable is used internally.
              *
@@ -3009,7 +3009,7 @@ declare namespace NU {
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
              */
-            data?: NJS<NC.JSONObject>;
+            data?: NJS<NC.JSONObject[]>;
             /**
              * Specifies the context element to which Pagination will be applied.
              *
@@ -3153,7 +3153,7 @@ declare namespace NU {
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
              */
-            data?: NJS<NC.JSONObject>;
+            data?: NJS<NC.JSONObject[]>;
             /**
              * Specifies the element to apply the Tree.
              *

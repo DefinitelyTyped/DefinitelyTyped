@@ -798,7 +798,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
          */
-        bind(row: number, data?: NJS<NC.JSONObject[] | NC.JSONObject[]>, ...cols: string[]): NU.Form;
+        bind(row: number, data?: NJS<NC.JSONObject[]> | NC.JSONObject[], ...cols: string[]): NU.Form;
         /**
          * Add new row data.
          *
@@ -934,9 +934,61 @@ declare namespace NU {
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
-        contextBodyTemplate(sel?: NJS<HTMLElement[]> | JQuery.Selector): NJS<HTMLElement[]>;
-        select(row?: number | number[], isAppend?: boolean): NJS<number[]> | NU.List;
-        check(row?: number | number[], isAppend?: boolean): NJS<number[]> | NU.List;
+        /**
+         * Returns the row element (li) of the element specified by the context option.
+         *
+         * If you modify the returned element and then run the bind function, rows will be created with the modified element.
+         *
+         * The contextBodyTemplate function allows you to modify row elements of N.list even after N.list has been initialized.
+         *
+         * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
+         * @return {NJS<HTMLElement[]>} The default tbody element of a table element or the element selected in the default tbody element of a table element is returned.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
+        contextBodyTemplate(sel?: JQuery.Selector): NJS<HTMLElement[]>;
+        /**
+         * Returns the index of the selected row.
+         * > To use the select method, the `select` or `multiselect` option must be set to true.
+         *
+         * @return {NJS<number[]>} Index of selected row
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
+        select(): number[];
+        /**
+         * Select a row.
+         * > To use the select method, the `select` or `multiselect` option must be set to true.
+         *
+         * @param {number | number[]} row
+         *  - number: Specifies the row index to select.
+         *  - number[]: When selecting multiple items at once, specify the row index as an array.
+         * @param {boolean} [isAppend] - If you do not enter it or enter false, all selected rows will be deselected and then selected again. If you enter true, the existing selected rows will be maintained and selected.
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
+        select(row: number | number[], isAppend?: boolean): NU.List;
+        /**
+         * Returns the index of the row where the checkbox elements specified by the `checkAllTarget` and `checkSingleTarget` options are checked.
+         *
+         * @return {NJS<number[]>} Index of checked row
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
+        check(): NJS<number[]>;
+        /**
+         * Checks the checkbox elements specified with the checkAllTarget` and `checkSingleTarget` options.
+         *
+         * @param {number | number[]} row
+         *  - number: Specifies the row index to check.
+         *  - number[]: When checking multiple items at once, specify the row index as an array.
+         * @param {boolean} [isAppend] - If you do not enter it or enter false, all checked rows will be dechecked and then checked again. If you enter true, the existing checked rows will be maintained and checked.
+         * @return {NU.List} Returns the `List` instance for chaining.
+         *
+         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         */
+        check(row: number | number[], isAppend?: boolean): NU.List;
         /**
          * Binds data to elements with an id attribute value within the element specified by the context option and creates row elements equal to the length of data.
          *
@@ -950,7 +1002,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
          */
-        bind(data?: NJS<NC.JSONObject[] | NC.JSONObject[]>, callType?: "append" | "list.bind" | "list.update"): NU.List;
+        bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[], callType?: "append" | "list.bind" | "list.update"): NU.List;
         /**
          * Add new row elements and data.
          *
@@ -1138,7 +1190,11 @@ declare namespace NU {
          */
         contextHead(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
-         * Returns the default tbody element of a table element.
+         * Returns the row element (tbody) of the element specified by the context option.
+         *
+         * If you modify the returned element and then run the bind function, rows will be created with the modified element.
+         *
+         * The contextBodyTemplate function allows you to modify row elements in N.grid even after N.grid has been initialized.
          *
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The default tbody element of a table element or the element selected in the default tbody element of a table element is returned.
@@ -1154,7 +1210,7 @@ declare namespace NU {
          *
          * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
          */
-        select(): NJS<number[]>;
+        select(): number[];
         /**
          * Select a row.
          * > To use the select method, the `select` or `multiselect` option must be set to true.

@@ -224,7 +224,7 @@ declare namespace NA {
                  * If the popup page is called by N.popup or N.tab components, this is the instance of the calling component.
                  * With this instance, you can control the parent page.
                  */
-                caller?: Object;
+                caller?: BaseObject & NT.Objects.Controller.Object;
                 /**
                  * If the popup page is called by N.popup or N.tab components, this is the controller object instance of the parent page.
                  *
@@ -232,7 +232,7 @@ declare namespace NA {
                  *
                  * > The opener attribute should be specified with the Controller object of the parent page when creating an instance of N.popup or N.tab components.
                  */
-                opener?: Object;
+                opener?: BaseObject & NT.Objects.Controller.Object;
             }
 
             type Object = BaseObject & NT.Objects.Controller.InitialObject;
