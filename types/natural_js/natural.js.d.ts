@@ -38,6 +38,7 @@ declare namespace N {
     const isString: typeof NC.isString;
     const isNumeric: typeof NC.isNumeric;
     const isPlainObject: typeof NC.isPlainObject;
+    const isEmptyObject: typeof NC.isEmptyObject;
     const isArray: typeof NC.isArray;
     const isArraylike: typeof NC.isArraylike;
     const isWrappedSet: typeof NC.isWrappedSet;
