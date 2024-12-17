@@ -12,7 +12,7 @@ declare class NA {
     /**
      * N.comm is a library that supports Ajax communication with the server, such as requesting content or data from the server or passing parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html
      */
     comm(url: string | NA.Options.Request): NA.Communicator;
     /**
@@ -22,7 +22,7 @@ declare class NA {
      *
      * When a page file is requested, it is passed as the second argument of the init function of the Controller object or as a member variable (this.request) of the Controller object. You can verify the request information or receive page parameters with the passed request object.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html
      */
     request(): NA.Request;
     /**
@@ -62,7 +62,7 @@ declare class NA {
      * var page01Cont = N("#page01").instance("cont");
      * page01Cont.gridInst.bind([]);
      * ```
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0201.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0201.html
      */
     cont(contObj: NA.Objects.Controller.Object): NA.Objects.Controller.Object;
 }
@@ -117,7 +117,7 @@ declare namespace NA {
          * ```
          * @return {NA.Communicator} The jqXHR object or the Communicator instance depending on the submission context.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html
          */
         submit(callback: NA.Callbacks.Communicator.Submit): NA.Communicator;
         /**
@@ -149,7 +149,7 @@ declare namespace NA {
          *
          * @return {JQuery.jqXHR} The jqXHR object or the Communicator instance depending on the submission context.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html
          */
         submit(): JQuery.jqXHR;
         /**
@@ -178,7 +178,7 @@ declare namespace NA {
          *
          * @return {NA.Communicator} Returns the `Communicator` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0203.html&tab=html/naturaljs/refr/refr020305.html
          */
         error(callback: NA.Callbacks.Communicator.Error): NA.Communicator;
         /**
@@ -188,7 +188,7 @@ declare namespace NA {
          *
          * When requesting an HTML page, the request object is passed as the second argument of the `init` function of the Controller object or as a member variable (`this.request`) of the Controller object. You can check the request information or retrieve the request parameter object using the provided request object.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html
          */
         request: NA.Request;
     }
@@ -215,7 +215,7 @@ declare namespace NA {
          *
          * @return {NA.Communicator} Returns the passed parameter value.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html
          */
         attr(name: string): any;
         /**
@@ -238,7 +238,7 @@ declare namespace NA {
          *
          * @return {NA.Communicator} Returns the Communicator object.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html
          */
         attr(name: string, obj: any): NA.Communicator;
         removeAttr(name: string): NA.Communicator;
@@ -247,7 +247,7 @@ declare namespace NA {
          *
          * @return {object} Returns all GET parameters as an object.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html
          */
         param(): object;
         /**
@@ -262,7 +262,7 @@ declare namespace NA {
          *
          * @return {NA.Options.Request} The options used for the request.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html
          */
         get(): NA.Options.Request;
         /**
@@ -271,7 +271,7 @@ declare namespace NA {
          * @param {string} key - Property name of request options
          * @return {any} Value corresponding to the key value specified in request options
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html
          */
         get(key: string): any;
         /**
@@ -298,7 +298,7 @@ declare namespace NA {
          * ```
          * @return {NA.Communicator} Returns the Communicator instance to allow for method chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0204.html&tab=html/naturaljs/refr/refr020403.html
          */
         reload(callback?: NA.Callbacks.Request.Reload): NA.Communicator;
     }
@@ -309,7 +309,7 @@ declare namespace NA {
         /**
          * Aspect-oriented programming(AOP) processing class.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0202.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0202.html
          */
         aop: {
             pointcuts: {
@@ -329,7 +329,7 @@ declare namespace NA {
          * @param {string} name - data name.
          * @return {any} Stored data.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0206.html&tab=html/naturaljs/refr/refr020602.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0206.html&tab=html/naturaljs/refr/refr020602.html
          */
         attr(name: string): any;
         /**
@@ -339,7 +339,7 @@ declare namespace NA {
          * @param {any} obj - Data to store.
          * @return {this} The current object, for chainability.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0206.html&tab=html/naturaljs/refr/refr020602.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0206.html&tab=html/naturaljs/refr/refr020602.html
          */
         attr(name: string, obj: any): NA.Context;
     }

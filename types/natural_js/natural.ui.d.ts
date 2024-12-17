@@ -13,7 +13,7 @@ declare class NU {
      * @param {string[]} [vars] - This is an array of strings to replace the message variable with.
      * @returns {NU.Alert} An instance of an Alert object, configured according to the provided options.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040103.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040103.html
      */
     alert(msg: NU.Options.Alert | string, vars?: string[]): NU.Alert;
     /**
@@ -26,7 +26,7 @@ declare class NU {
      * @param {NU.Options.Button} [opts] - Specifies the initialization option object for the component.
      * @returns {NU.Button} An instance of a Button object, configured according to the provided options.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040203.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040203.html
      */
     button(opts?: NU.Options.Button): NU.Button;
     /**
@@ -39,7 +39,7 @@ declare class NU {
      * @param {NU.Options.Datepicker} [opts] - Specifies the initialization option object for the component.
      * @returns {NU.Datepicker} An instance of a Datepicker object, configured according to the provided options.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040303.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040303.html
      */
     datepicker(opts?: NU.Options.Datepicker): NU.Datepicker;
     /**
@@ -52,7 +52,7 @@ declare class NU {
      * @param {NU.Options.Popup} [opts] - Specifies the initialization option object for the component.
      * @returns {NU.Popup} An instance of a Popup object, configured according to the provided options.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040403.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040403.html
      */
     popup(opts?: NU.Options.Popup): NU.Popup;
     /**
@@ -65,7 +65,7 @@ declare class NU {
      * @param {NU.Options.Tab} [opts] - Specifies the initialization option object for the component.
      * @returns {NU.Tab} An instance of a Tab object, configured according to the provided options.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040503.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040503.html
      */
     tab(opts?: NU.Options.Tab): NU.Tab;
     /**
@@ -78,7 +78,7 @@ declare class NU {
      * @param {NU.Options.Select | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
      * @returns {NU.Select} An instance of a Select object, configured according to the provided parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040603.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040603.html
      */
     select(opts?: NU.Options.Select | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Select;
     /**
@@ -91,7 +91,7 @@ declare class NU {
      * @param {NU.Options.Form | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
      * @returns {NU.Form} An instance of a Form object, configured according to the provided parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040703.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040703.html
      */
     form(opts?: NU.Options.Form | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Form;
     /**
@@ -104,7 +104,7 @@ declare class NU {
      * @param {NU.Options.List | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
      * @returns {NU.List} An instance of a List object, configured according to the provided parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040803.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040803.html
      */
     list(opts?: NU.Options.List | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.List;
     /**
@@ -117,7 +117,7 @@ declare class NU {
      * @param {NU.Options.Grid | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
      * @returns {NU.Grid} An instance of a Grid object, configured according to the provided parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040903.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040903.html
      */
     grid(opts?: NU.Options.Grid | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Grid;
     /**
@@ -130,7 +130,7 @@ declare class NU {
      * @param {NU.Options.Pagination | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
      * @returns {NU.Pagination} An instance of a Pagination object, configured according to the provided parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041003.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041003.html
      */
     pagination(opts: NU.Options.Pagination | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Pagination;
     /**
@@ -143,7 +143,7 @@ declare class NU {
      * @param {NU.Options.Tree | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
      * @returns {NU.Tree} An instance of a Tree object, configured according to the provided parameters.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041103.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041103.html
      */
     tree(opts: NU.Options.Tree | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Tree;
 
@@ -183,7 +183,7 @@ declare class NU {
          * @param {string[]} [vars] - This is an array of strings to replace the message variable with.
          * @returns {NU.Alert} An instance of an Alert object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040103.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040103.html
          */
         new(obj: NJS<HTMLElement[]>, msg: NU.Options.Alert | string, vars?: string[]): NU.Alert;
         wrapEle(): void;
@@ -202,7 +202,7 @@ declare class NU {
          * @param {NU.Options.Button} [opts] - Specifies the initialization option object for the component.
          * @returns {NU.Button} An instance of a Button object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040203.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040203.html
          */
         new(obj: NJS<HTMLElement[]>, opts?: NU.Options.Button): NU.Button;
         wrapEle(): void;
@@ -219,7 +219,7 @@ declare class NU {
          * @param {NU.Options.Datepicker} [opts] - Specifies the initialization option object for the component.
          * @returns {NU.Datepicker} An instance of a Datepicker object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040303.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040303.html
          */
         new(obj: NJS<HTMLElement[]>, opts?: NU.Options.Datepicker): NU.Datepicker;
         checkMinMaxDate(): boolean;
@@ -240,7 +240,7 @@ declare class NU {
          * @param {NU.Options.Popup} [opts] - Specifies the initialization option object for the component.
          * @returns {NU.Popup} An instance of a Popup object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040403.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040403.html
          */
         new(obj: NJS<HTMLElement[]>, opts?: NU.Options.Popup): NU.Popup;
         wrapEle(): void;
@@ -259,7 +259,7 @@ declare class NU {
          * @param {NU.Options.Tab} [opts] - Specifies the initialization option object for the component.
          * @returns {NU.Tab} An instance of a Tab object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040503.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040503.html
          */
         new(obj: NJS<HTMLElement[]>, opts?: NU.Options.Tab): NU.Tab;
         wrapEle(): void;
@@ -278,7 +278,7 @@ declare class NU {
          * @param {NU.Options.Select | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
          * @returns {NU.Select} An instance of a Select object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040603.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040603.html
          */
         new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Select | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Select;
         wrapEle(): void;
@@ -295,7 +295,7 @@ declare class NU {
          * @param {NU.Options.Form | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
          * @returns {NU.Form} An instance of a Form object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040703.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040703.html
          */
         new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Form | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Form;
     };
@@ -311,7 +311,7 @@ declare class NU {
          * @param {NU.Options.List | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
          * @returns {NU.List} An instance of a List object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040803.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040803.html
          */
         new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.List | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.List;
         createScroll(): void;
@@ -329,7 +329,7 @@ declare class NU {
          * @param {NU.Options.Grid | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
          * @returns {NU.Grid} An instance of a Grid object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040903.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040903.html
          */
         new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Grid | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Grid;
         tableCells(tbl: any, opt_cellValueGetter: any): any[][];
@@ -358,7 +358,7 @@ declare class NU {
          * @param {NU.Options.Pagination | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
          * @returns {NU.Pagination} An instance of a Pagination object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041003.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041003.html
          */
         new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Pagination | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Pagination;
         wrapEle: NU.Objects.Pagination.LinkEles
@@ -376,7 +376,7 @@ declare class NU {
          * @param {NU.Options.Tree | NJS<HTMLElement[]} [opts] - Specifies the component's initialization options object or context element.
          * @returns {NU.Tree} An instance of a Tree object, configured according to the provided parameters.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041103.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041103.html
          */
         new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Tree | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Tree;
     };
@@ -393,7 +393,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -401,7 +401,7 @@ declare namespace NU {
          *
          * @return {NU.Alert} Returns the `Alert` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html
          */
         show(): NU.Alert;
         /**
@@ -409,7 +409,7 @@ declare namespace NU {
          *
          * @return {NU.Alert} Returns the `Alert` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html
          */
         hide(): NU.Alert;
         /**
@@ -417,7 +417,7 @@ declare namespace NU {
          *
          * @return {NU.Alert} Returns the `Alert` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040105.html
          */
         remove(): NU.Alert;
     }
@@ -430,7 +430,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -438,7 +438,7 @@ declare namespace NU {
          *
          * @return {NU.Button} Returns the `Button` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html
          */
         disable(): NU.Button;
         /**
@@ -446,7 +446,7 @@ declare namespace NU {
          *
          * @return {NU.Button} Returns the `Button` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040206.html
          */
         enable(): NU.Button;
     }
@@ -459,7 +459,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -467,7 +467,7 @@ declare namespace NU {
          *
          * @return {NU.Datepicker} Returns the `Datepicker` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html
          */
         show(): NU.Datepicker;
         /**
@@ -475,7 +475,7 @@ declare namespace NU {
          *
          * @return {NU.Datepicker} Returns the `Datepicker` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040306.html
          */
         hide(): NU.Datepicker;
     }
@@ -488,7 +488,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -498,7 +498,7 @@ declare namespace NU {
          * > Pass onOpenData as the first argument to the onOpen function specified by the onOpen event option.
          * @return {NU.Popup} Returns the `Popup` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html
          */
         open(onOpenData?: any): NU.Popup;
         /**
@@ -508,7 +508,7 @@ declare namespace NU {
          * > Pass onCloseData as the first argument to the onClose function specified by the onClose event option.
          * @return {NU.Popup} Returns the `Popup` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html
          */
         close(onCloseData?: any): NU.Popup;
         /**
@@ -516,7 +516,7 @@ declare namespace NU {
          *
          * @return {NU.Popup} Returns the `Popup` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040405.html
          */
         remove(): NU.Popup;
     }
@@ -529,7 +529,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -541,7 +541,7 @@ declare namespace NU {
          * @param {boolean} [isFirst] - This is an option used inside a component that is set to true when a tab is instantiated and the default active tab is automatically selected.
          * @return {NU.Tab} - Returns the `Tab` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html
          */
         open(idx: number, onOpenData?: any, isFirst?: boolean): NU.Tab;
         /**
@@ -557,7 +557,7 @@ declare namespace NU {
          * @return {NJS<HTMLElement[]>} return.content - Activated tab content element.
          * @return {NA.Objects.Controller.Object} return.cont - Controller object of the activated tab content.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html
          */
         open(idx?: number, onOpenData?: any, isFirst?: boolean): {
             index: number;
@@ -571,7 +571,7 @@ declare namespace NU {
          * @param {number} idx - The index of the tab to disable.
          * @return {NU.Tab} Returns the `Tab` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html
          */
         disable(idx: number): NU.Tab;
         /**
@@ -580,7 +580,7 @@ declare namespace NU {
          * @param {number} idx - The index of the tab to be enabled.
          * @return {NU.Tab} Returns the `Tab` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html
          */
         enable(idx: number): NU.Tab;
         /**
@@ -590,7 +590,7 @@ declare namespace NU {
          * @param {number} [idx] - Enter the tab index where the controller object you want to look up is located. If no index is provided, the method returns the controller object that is active.
          * @return {NA.Objects.Controller.Object} The controller object corresponding to the specified index.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040506.html
          */
         cont(idx?: number): NA.Objects.Controller.Object;
     }
@@ -607,7 +607,7 @@ declare namespace NU {
          *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
         data(selFlag: true): JSONObject[];
         /**
@@ -619,7 +619,7 @@ declare namespace NU {
          *  - false: Returns data of the original type of type `NJS<NC.JSONObject[]>` bound to the component.
          * @return {NJS<NC.JSONObject[]>} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
         data(selFlag: false): NJS<NC.JSONObject[]>;
         /**
@@ -627,7 +627,7 @@ declare namespace NU {
          *
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
         data(): JSONObject[];
         /**
@@ -636,7 +636,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -652,7 +652,7 @@ declare namespace NU {
          * @param {NJS<NC.JSONObject[]>} [data] - Specifies the data to bind.
          * @return {NU.Select} Returns the `Select` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
         bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[]): NU.Select;
         /**
@@ -660,7 +660,7 @@ declare namespace NU {
          *
          * @return {number} Index of selected option
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
         index(): number;
         /**
@@ -669,7 +669,7 @@ declare namespace NU {
          * @param {number} idx - Index of the option to select
          * @return {NU.Select} Returns the `Select` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
         index(idx: number): NU.Select;
         /**
@@ -698,7 +698,7 @@ declare namespace NU {
          * @param {boolean} [selFlag] - For select elements, setting it to true will select nothing and setting it to false will select the default (first) option element.
          * @return {NU.Select} - Returns the `Select` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
         reset(selFlag?: boolean): NU.Select;
     }
@@ -723,7 +723,7 @@ declare namespace NU {
          * > This only works if you specify the first argument as true.
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         data(selFlag: true, ...cols: string[]): JSONObject[];
         /**
@@ -736,7 +736,7 @@ declare namespace NU {
          *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         data(selFlag: false): NJS<NC.JSONObject[]>;
         /**
@@ -744,7 +744,7 @@ declare namespace NU {
          *
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         data(): JSONObject[];
         /**
@@ -753,7 +753,7 @@ declare namespace NU {
          * @param {string} [before] - If "before" is specified, the index of the data bound just before is returned.
          * @return {number} Row index.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         row(before?: "before"): number;
         /**
@@ -762,7 +762,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         bindEvents: {
@@ -796,7 +796,7 @@ declare namespace NU {
          * ```
          * @return {NU.Form} Returns the `Form` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         bind(row: number, data?: NJS<NC.JSONObject[]> | NC.JSONObject[], ...cols: string[]): NU.Form;
         /**
@@ -809,7 +809,7 @@ declare namespace NU {
          * @param {number} [row] - If you specify the row index where new data will be added as the row argument, the row data will be added immediately before the specified row index.
          * @return {NU.Form} Returns the `Form` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         add(data?: number | NC.JSONObject, row?: number): NU.Form;
         /**
@@ -818,7 +818,7 @@ declare namespace NU {
          *
          * @return {NU.Form} Returns the `Form` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         remove(): NU.Form;
         /**
@@ -826,7 +826,7 @@ declare namespace NU {
          *
          * @return {NU.Form} Returns the `Form` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         revert(): NU.Form;
         /**
@@ -834,7 +834,7 @@ declare namespace NU {
          *
          * @return {boolean} Returns true if validation is successful, false if validation fails, and displays a failure message in a tooltip next to the corresponding input element.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
         validate(): boolean;
         /**
@@ -896,7 +896,7 @@ declare namespace NU {
          * > This only works if the first argument is "modified", "selected", "checked", "insert", "update", or "delete".
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): JSONObject[];
         /**
@@ -914,7 +914,7 @@ declare namespace NU {
          *  - delete: Returns the inserted data as `JSONObject[]` type.
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         data(selFlag: false): NJS<NC.JSONObject[]>;
         /**
@@ -922,7 +922,7 @@ declare namespace NU {
          *
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         data(): JSONObject[];
         /**
@@ -931,7 +931,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -944,7 +944,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The default tbody element of a table element or the element selected in the default tbody element of a table element is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         contextBodyTemplate(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -953,7 +953,7 @@ declare namespace NU {
          *
          * @return {NJS<number[]>} Index of selected row
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         select(): number[];
         /**
@@ -966,7 +966,7 @@ declare namespace NU {
          * @param {boolean} [isAppend] - If you do not enter it or enter false, all selected rows will be deselected and then selected again. If you enter true, the existing selected rows will be maintained and selected.
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         select(row: number | number[], isAppend?: boolean): NU.List;
         /**
@@ -974,7 +974,7 @@ declare namespace NU {
          *
          * @return {NJS<number[]>} Index of checked row
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         check(): NJS<number[]>;
         /**
@@ -986,7 +986,7 @@ declare namespace NU {
          * @param {boolean} [isAppend] - If you do not enter it or enter false, all checked rows will be dechecked and then checked again. If you enter true, the existing checked rows will be maintained and checked.
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         check(row: number | number[], isAppend?: boolean): NU.List;
         /**
@@ -1000,7 +1000,7 @@ declare namespace NU {
          * > When the "append" argument value is set, the scrollPaging.size option value is automatically set to 0, disabling the scroll paging feature.
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[], callType?: "append" | "list.bind" | "list.update"): NU.List;
         /**
@@ -1013,7 +1013,7 @@ declare namespace NU {
          * @param {number} [row] - If you specify the row index where new data will be added as the row argument, the row data will be added immediately before the specified row index.
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         add(data?: number | NC.JSONObject, row?: number): NU.List;
         /**
@@ -1023,7 +1023,7 @@ declare namespace NU {
          * @param {number} [row] - Specifies the index of the row to remove.
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         remove(row: number): NU.List;
         /**
@@ -1032,7 +1032,7 @@ declare namespace NU {
          * @param {number} [row] - Specifies the index of the row to remove. If not specified, reverts the entire row data.
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         revert(row?: number): NU.List;
         /**
@@ -1041,7 +1041,7 @@ declare namespace NU {
          * @param {number} [row] - Specifies the index of the row to validation. If not specified, validates the entire row data.
          * @return {boolean} Returns true if validation is successful, false if validation fails, and displays a failure message in a tooltip next to the corresponding input element.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         validate(row?: number): boolean;
         /**
@@ -1051,7 +1051,7 @@ declare namespace NU {
          * @param {string} key - Property name of data object.
          * @return {NC.Primitive | NC.Primitive[]} The value specified by the key argument.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         val(row: number, key: string): NC.Primitive | NC.Primitive[];
         /**
@@ -1062,7 +1062,7 @@ declare namespace NU {
          * @param {NC.Primitive | NC.Primitive[]} [val] - Property value of data object
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         val(row: number, key: string, val: NC.Primitive | NC.Primitive[]): NU.List;
         /**
@@ -1072,7 +1072,7 @@ declare namespace NU {
          * @param {number} toRow - The index of the new position for the item.
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         move(fromRow: number, toRow: number): NU.List;
         /**
@@ -1082,7 +1082,7 @@ declare namespace NU {
          * @param {number} toRow - The index of the new position for the item.
          * @return {NU.List} Returns the `List` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         copy(fromRow: number, toRow: number): NU.List;
         /**
@@ -1092,7 +1092,7 @@ declare namespace NU {
          * @param {string} [key] - This is the column name of the row data to be updated.
          * @return {NU.Form} Returns the `Form` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
         update(row: number, key?: string): NU.List;
     }
@@ -1142,7 +1142,7 @@ declare namespace NU {
          * > This only works if the first argument is "modified", "selected", "checked", "insert", "update", or "delete".
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): JSONObject[];
         /**
@@ -1160,7 +1160,7 @@ declare namespace NU {
          *  - delete: Returns the inserted data as `JSONObject[]` type.
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         data(selFlag: false): NJS<NC.JSONObject[]>;
         /**
@@ -1168,7 +1168,7 @@ declare namespace NU {
          *
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         data(): JSONObject[];
         /**
@@ -1177,7 +1177,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -1186,7 +1186,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The table's thead element or the element selected in the table's thead is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         contextHead(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -1199,7 +1199,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The default tbody element of a table element or the element selected in the default tbody element of a table element is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         contextBodyTemplate(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -1208,7 +1208,7 @@ declare namespace NU {
          *
          * @return {NJS<number[]>} Index of selected row
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         select(): number[];
         /**
@@ -1221,7 +1221,7 @@ declare namespace NU {
          * @param {boolean} [isAppend] - If you do not enter it or enter false, all selected rows will be deselected and then selected again. If you enter true, the existing selected rows will be maintained and selected.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         select(row: number | number[], isAppend?: boolean): NU.Grid;
         /**
@@ -1229,7 +1229,7 @@ declare namespace NU {
          *
          * @return {NJS<number[]>} Index of checked row
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         check(): NJS<number[]>;
         /**
@@ -1241,7 +1241,7 @@ declare namespace NU {
          * @param {boolean} [isAppend] - If you do not enter it or enter false, all checked rows will be dechecked and then checked again. If you enter true, the existing checked rows will be maintained and checked.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         check(row: number | number[], isAppend?: boolean): NU.Grid;
         /**
@@ -1257,7 +1257,7 @@ declare namespace NU {
          * > When the "append" argument value is set, the scrollPaging.size option value is automatically set to 0, disabling the scroll paging feature.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[], callType?: "append" | "grid.bind" | "grid.dataFilter" | "grid.sort" | "grid.update"): NU.Grid;
         /**
@@ -1270,7 +1270,7 @@ declare namespace NU {
          * @param {number} [row] - If you specify the row index where new data will be added as the row argument, the row data will be added immediately before the specified row index.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         add(data?: number | JSONObject, row?: number): NU.Grid;
         /**
@@ -1280,7 +1280,7 @@ declare namespace NU {
          * @param {number} [row] - Specifies the index of the row to remove.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         remove(row: number): NU.Grid;
         /**
@@ -1289,7 +1289,7 @@ declare namespace NU {
          * @param {number} [row] - Specifies the index of the row to remove. If not specified, reverts the entire row data.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         revert(row?: number): NU.Grid;
         /**
@@ -1298,7 +1298,7 @@ declare namespace NU {
          * @param {number} [row] - Specifies the index of the row to validation. If not specified, validates the entire row data.
          * @return {boolean} Returns true if validation is successful, false if validation fails, and displays a failure message in a tooltip next to the corresponding input element.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         validate(row?: number): boolean;
         /**
@@ -1308,7 +1308,7 @@ declare namespace NU {
          * @param {string} key - Property name of data object.
          * @return {NC.Primitive | NC.Primitive[]} The value specified by the key argument.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         val(row: number, key: string): NC.Primitive | NC.Primitive[];
         /**
@@ -1319,7 +1319,7 @@ declare namespace NU {
          * @param {NC.Primitive | NC.Primitive[]} [val] - Property value of data object
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         val(row: number, key: string, val: NC.Primitive | NC.Primitive[]): NU.Grid;
         /**
@@ -1329,7 +1329,7 @@ declare namespace NU {
          * @param {number} toRow - The index of the new position for the item.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         move(fromRow: number, toRow: number): NU.Grid;
         /**
@@ -1339,7 +1339,7 @@ declare namespace NU {
          * @param {number} toRow - The index of the new position for the item.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         copy(fromRow: number, toRow: number): NU.Grid;
         /**
@@ -1348,7 +1348,7 @@ declare namespace NU {
          * @param {number} colIdxs - The indices of the columns to be shown.
          * @return {NU.Grid} - Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         show(colIdxs: number): NU.Grid;
         /**
@@ -1357,7 +1357,7 @@ declare namespace NU {
          * @param {number} colIdxs - The index of the column to be hidden.
          * @return {NU.Grid} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         hide(colIdxs: number): NU.Grid;
         /**
@@ -1367,7 +1367,7 @@ declare namespace NU {
          * @param {string} [key] - This is the column name of the row data to be updated.
          * @return {NU.Form} Returns the `Grid` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
         update(row: number, key?: string): NU.Grid;
     }
@@ -1384,7 +1384,7 @@ declare namespace NU {
          *    > When binding data retrieved with the data method to another data-related component, you must set it to "false" to bind the original type of data to enable two-way data binding.
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041006.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041006.html
          */
         data(selFlag: false): NJS<NC.JSONObject[]>;
         /**
@@ -1392,7 +1392,7 @@ declare namespace NU {
          *
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041006.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041006.html
          */
         data(): JSONObject[];
         /**
@@ -1401,7 +1401,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -1412,7 +1412,7 @@ declare namespace NU {
          * @param {number} [totalCount] - Enter the total number of rows of data for pagination.
          * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[] | number, totalCount?: number): NU.Pagination;
         /**
@@ -1420,7 +1420,7 @@ declare namespace NU {
          *
          * @return {number} Total count of data to be displayed by pagination.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         totalCount(): number;
         /**
@@ -1430,7 +1430,7 @@ declare namespace NU {
          * @param {number} totalCount - Total count of data to be displayed by pagination.
          * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         totalCount(totalCount: number): NU.Pagination;
         /**
@@ -1438,7 +1438,7 @@ declare namespace NU {
          *
          * @return {number} Tpage number.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         pageNo(): number;
         /**
@@ -1448,7 +1448,7 @@ declare namespace NU {
          * @param {number} pageNo - page number.
          * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         pageNo(pageNo: number): NU.Pagination;
         /**
@@ -1456,7 +1456,7 @@ declare namespace NU {
          *
          * @return {number} Count per page.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         countPerPage(): number;
         /**
@@ -1466,7 +1466,7 @@ declare namespace NU {
          * @param {number} countPerPage - Count per page.
          * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         countPerPage(countPerPage: number): NU.Pagination;
         /**
@@ -1474,7 +1474,7 @@ declare namespace NU {
          *
          * @return {number} Count per page set.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         countPerPageSet(): number;
         /**
@@ -1484,7 +1484,7 @@ declare namespace NU {
          * @param {number} countPerPageSet - count per page set.
          * @return {NU.Pagination} Returns the `Pagination` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041005.html
          */
         countPerPageSet(countPerPageSet: number): NU.Pagination;
         /**
@@ -1530,7 +1530,7 @@ declare namespace NU {
          * > This only works if the first argument is "selected", "selected", "checked", or "checkedInLastNode".
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html
          */
         data(selFlag: "selected" | "checked" | "checkedInLastNode", ...cols: string[]): JSONObject[];
         /**
@@ -1552,7 +1552,7 @@ declare namespace NU {
          * > This only works if the first argument is "selected", "checked", or "checkedInLastNode".
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html
          */
         data(selFlag: false): NJS<NC.JSONObject[]>;
         /**
@@ -1560,7 +1560,7 @@ declare namespace NU {
          *
          * @return {JSONObject[]} The data currently bound to the component is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html
          */
         data(): JSONObject[];
         /**
@@ -1569,7 +1569,7 @@ declare namespace NU {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -1578,7 +1578,7 @@ declare namespace NU {
          * @param {NJS<NC.JSONObject[]>} [data] - Specifies the data to bind.
          * @return {NU.Tree} Returns the `Tree` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html
          */
         bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[]): NU.Tree;
         /**
@@ -1586,7 +1586,7 @@ declare namespace NU {
          *
          * @return {NC.Primitive} Selected node value.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html
          */
         select(): NC.Primitive;
         /**
@@ -1595,7 +1595,7 @@ declare namespace NU {
          * @param {NC.Primitive} [val] - Specifies the node value to select.
          * @return {NU.Tree} Returns the `Tree` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html
          */
         select(val?: NC.Primitive): NU.Tree;
         /**
@@ -1603,7 +1603,7 @@ declare namespace NU {
          *
          * @return {NU.Tree} Returns the `Tree` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html
          */
         expand(): NU.Tree;
         /**
@@ -1612,7 +1612,7 @@ declare namespace NU {
          * @param {boolean} isFirstNodeOpen - If set to true, all nodes except the first will be collapsed.
          * @return {NU.Tree} Returns the `Tree` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041105.html
          */
         collapse(isFirstNodeOpen?: boolean): NU.Tree;
     }

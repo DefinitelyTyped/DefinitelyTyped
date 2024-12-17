@@ -40,7 +40,7 @@ declare class ND {
      *
      * @returns {ND.Formatter} A new N.format instance.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html
      */
     formatter(rules?: NJS<HTMLElement[]> | HTMLElement | ND.FormatRuleObject | string): ND.Formatter;
     /**
@@ -86,7 +86,7 @@ declare class ND {
      *
      * @returns {ND.Validator} A new N.validate instance.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html
      */
     validator(rules?: NJS<HTMLElement[]> | HTMLElement | ND.ValidationRuleObject | string): ND.Validator;
     /**
@@ -123,7 +123,7 @@ declare class ND {
      * > Specifying conditions with a string does not support and(&&) or or(||) expressions and supports only a single condition expression.
      * @return {NJS<NC.JSONObject[]>} A new JSON object array containing the elements that satisfy the provided condition.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html
      */
     datafilter(condition: ND.ConditionCallback | string): NJS<NC.JSONObject[]>;
     /**
@@ -134,7 +134,7 @@ declare class ND {
      * @param {string} [reverse] - If set to true, sorts in descending order.
      * @return {NJS<NC.JSONObject[]>} A new JSON object array containing the sorted elements.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html
      */
     datasort(key: string, reverse?: boolean): NJS<NC.JSONObject[]>;
     /**
@@ -186,7 +186,7 @@ declare class ND {
          *
          * @returns {ND.Formatter} A new N.format instance.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html
          */
         new(data: NJS<NC.JSONObject[]>, rules?: NJS<HTMLElement[]> | HTMLElement | ND.FormatRuleObject | string): ND.Formatter;
         /**
@@ -195,7 +195,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         commas(str: string): string;
         /**
@@ -207,7 +207,7 @@ declare class ND {
          * - args[1]: Character to replace
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         rrn(str: string, args: [number, string]): string;
         /**
@@ -216,7 +216,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         ssn(str: string): string;
         /**
@@ -225,7 +225,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         kbrn(str: string): string;
         /**
@@ -234,7 +234,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         kcn(str: string): string;
         /**
@@ -243,7 +243,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         upper(str: string): string;
         /**
@@ -252,7 +252,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         lower(str: string): string;
         /**
@@ -261,7 +261,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         capitalize(str: string): string;
         /**
@@ -270,7 +270,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         zipcode(str: string): string;
         /**
@@ -279,7 +279,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         phone(str: string): string;
         /**
@@ -290,7 +290,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         realnum(str: string): string;
         /**
@@ -299,7 +299,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         trimtoempty(str: string): string;
         /**
@@ -308,7 +308,7 @@ declare class ND {
          * @param {string} str - The string to be formatted.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         trimtozero(str: string): string;
         /**
@@ -319,7 +319,7 @@ declare class ND {
          *  - args[0]: String to replace
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         trimtoval(str: string, args: [string]): string;
         /**
@@ -357,7 +357,7 @@ declare class ND {
          * @param {NJS<HTMLElement[]>} [ele] - If this argument is specified, the NU.datepicker component is automatically applied.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         date(str: string, args: [number | string, "date" | "month", NU.Options.Datepicker], ele?: NJS<HTMLElement[]>): string;
         /**
@@ -371,7 +371,7 @@ declare class ND {
          *  - 6: hour:minute:second
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         time(str: string, args?: [number]): string;
         /**
@@ -384,7 +384,7 @@ declare class ND {
          * @param {NJS<HTMLElement[]>} ele - An element that will display the original, uncut string as the title attribute.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         limit(str: string, args: [number, string], ele: NJS<HTMLElement[]>): string;
         /**
@@ -398,7 +398,7 @@ declare class ND {
          * @param {NJS<HTMLElement[]>} [ele] - This is an argument used inside Formatter that is not generally used.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         replace(str: string, args: [string, number, boolean], ele?: NJS<HTMLElement[]>): string;
         /**
@@ -410,7 +410,7 @@ declare class ND {
          *  - args[1]: - Filler character.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         lpad(str: string, args: [number, string]): string;
         /**
@@ -422,7 +422,7 @@ declare class ND {
          *  - args[1]: - Filler character.
          * @return {string} The formatted string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         rpad(str: string, args: [number, string]): string;
         /**
@@ -440,7 +440,7 @@ declare class ND {
          *              If not entered, it will be replaced with the "*" character.
          * @return {string} The masked string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         mask(str: string, args: [ND.FormatMaskingRules, string]): string;
         /**
@@ -497,7 +497,7 @@ declare class ND {
          *  - args[0]: - User format string
          * @return {string} The masked string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         generic(str: string, args: [string]): string;
         /**
@@ -558,7 +558,7 @@ declare class ND {
          *    - round: Rounding (possible to handle decimal points)
          * @return {string} The masked string.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
         numeric(str: string, args: [string, "ceil" | "floor" | "round"]): string;
     };
@@ -608,7 +608,7 @@ declare class ND {
          *
          * @returns {ND.Validator} A new N.validate instance.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html
          */
         new(data: NJS<NC.JSONObject[]>, rules?: NJS<HTMLElement[]> | HTMLElement | ND.ValidationRuleObject | string): ND.Validator;
         /**
@@ -617,7 +617,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         required(str: string): boolean;
         /**
@@ -626,7 +626,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         alphabet(str: string): boolean;
         /**
@@ -635,7 +635,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         integer(str: string): boolean;
         /**
@@ -644,7 +644,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         korean(str: string): boolean;
         /**
@@ -653,7 +653,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         alphabet_integer(str: string): boolean;
         /**
@@ -662,7 +662,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         integer_korean(str: string): boolean;
         /**
@@ -671,7 +671,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         alphabet_korean(str: string): boolean;
         /**
@@ -680,7 +680,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         alphabet_integer_korean(str: string): boolean;
         /**
@@ -689,7 +689,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         dash_integer(str: string): boolean;
         /**
@@ -698,7 +698,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         commas_integer(str: string): boolean;
         /**
@@ -707,7 +707,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         number(str: string): boolean;
         /**
@@ -716,7 +716,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         email(str: string): boolean;
         /**
@@ -725,7 +725,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         url(str: string): boolean;
         /**
@@ -734,7 +734,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         zipcode(str: string): boolean;
         /**
@@ -745,7 +745,7 @@ declare class ND {
          *  - args[0]: - Decimal point length.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         decimal(str: string, args: NC.Primitive[]): boolean;
         /**
@@ -756,7 +756,7 @@ declare class ND {
          *  - args[0]: - If true, true is returned even if only 1 of the last 4 digits of the phone number is entered.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         phone(str: string, args: [boolean]): boolean;
         /**
@@ -765,7 +765,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         rrn(str: string): boolean;
         /**
@@ -774,7 +774,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         ssn(str: string): boolean;
         /**
@@ -783,7 +783,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         frn(str: string): boolean;
         /**
@@ -792,7 +792,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         frn_rrn(str: string): boolean;
         /**
@@ -801,7 +801,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         kbrn(str: string): boolean;
         /**
@@ -810,7 +810,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         kcn(str: string): boolean;
         /**
@@ -819,7 +819,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         date(str: string): boolean;
         /**
@@ -828,7 +828,7 @@ declare class ND {
          * @param {string} str - The string to be checked.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         time(str: string): boolean;
         /**
@@ -839,7 +839,7 @@ declare class ND {
          *  - args[0]: String to compare.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         accept(str: string, args: [string]): boolean;
         /**
@@ -850,7 +850,7 @@ declare class ND {
          *  - args[0]: String to compare.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         notaccept(str: string, args: [string]): boolean;
         /**
@@ -861,7 +861,7 @@ declare class ND {
          *  - args[0]: String to compare.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         match(str: string, args: [string]): boolean;
         /**
@@ -872,7 +872,7 @@ declare class ND {
          *  - args[0]: String to compare.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         notmatch(str: string, args: [string]): boolean;
         /**
@@ -883,7 +883,7 @@ declare class ND {
          *  - args[0]: String to compare.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         acceptfileext(str: string, args: [string]): boolean;
         /**
@@ -894,7 +894,7 @@ declare class ND {
          *  - args[0]: String to compare.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         notacceptfileext(str: string, args: [string]): boolean;
         /**
@@ -905,7 +905,7 @@ declare class ND {
          *  - args[0]: jQuery selector string to select input element.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         equalTo(str: string, args: [JQuery.Selector]): boolean;
         /**
@@ -916,7 +916,7 @@ declare class ND {
          *  - args[0]: Maximum string length to allow.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         maxlength(str: string, args: [number]): boolean;
         /**
@@ -927,7 +927,7 @@ declare class ND {
          *  - args[0]: Minimum string length to allow.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         minlength(str: string, args: [number]): boolean;
         /**
@@ -939,7 +939,7 @@ declare class ND {
          *  - args[1]: Maximum string length to allow.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         rangelength(str: string, args: [number, number]): boolean;
         /**
@@ -952,7 +952,7 @@ declare class ND {
          *    > If not entered, the N.context.attr("core").charByteLength value from Config(natural.config.js) is applied.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         maxbyte(str: string, args:[number, number]): boolean;
         /**
@@ -965,7 +965,7 @@ declare class ND {
          *    > If not entered, the N.context.attr("core").charByteLength value from Config(natural.config.js) is applied.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         minbyte(str: string, args: [number, number]): boolean;
         /**
@@ -979,7 +979,7 @@ declare class ND {
          *    > If not entered, the N.context.attr("core").charByteLength value from Config(natural.config.js) is applied.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         rangebyte(str: string, args: [number, number, number]): boolean;
         /**
@@ -990,7 +990,7 @@ declare class ND {
          *  - args[0]: Maximum number value to allow.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         maxvalue(str: string, args: [number, number]): boolean;
         /**
@@ -1001,7 +1001,7 @@ declare class ND {
          *  - args[0]: Minimum number value to allow.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         minvalue(str: string, args: [number, number]): boolean;
         /**
@@ -1013,7 +1013,7 @@ declare class ND {
          *  - args[1]: Maximum number value to allow.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         rangevalue(str: string, args: [number, number]): boolean;
         /**
@@ -1026,7 +1026,7 @@ declare class ND {
          * behavior of the pattern.
          * @return {boolean} - Validation result.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
         regexp(str: string, args: [string, string]): boolean;
     };
@@ -1065,7 +1065,7 @@ declare class ND {
          * > Specifying conditions with a string does not support and(&&) or or(||) expressions and supports only a single condition expression.
          * @return {NJS<NC.JSONObject[]>} A new JSON object array containing the elements that satisfy the provided condition.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html
          */
         filter(arr: NJS<NC.JSONObject[]> | NC.JSONObject[], condition: ND.ConditionCallback | string): NJS<NC.JSONObject[]> | NC.JSONObject[];
         sortBy(key: string, reverse: 1 | -1): (a: number, b: number) => 1 | -1 | 0;
@@ -1077,7 +1077,7 @@ declare class ND {
          * @param {string} [reverse] - If set to true, sorts in descending order.
          * @return {NJS<NC.JSONObject[]>} A new JSON object array containing the sorted elements.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html
          */
         sort(arr: NJS<NC.JSONObject[]> | NC.JSONObject[], key: string, reverse?: boolean): NJS<NC.JSONObject[]> | NC.JSONObject[];
     };

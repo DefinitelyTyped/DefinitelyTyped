@@ -8,7 +8,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             action?: [string, ...any[]];
             /**
@@ -16,7 +16,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             usage?: string | {
                 "search-box": {
@@ -45,7 +45,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             code?: string;
             /**
@@ -53,7 +53,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             comm?: string;
             /**
@@ -61,7 +61,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             data?: JSONObject[];
             /**
@@ -69,7 +69,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             key?: string;
             /**
@@ -77,7 +77,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             val?: string;
             /**
@@ -92,7 +92,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             filter?: SelectFilter;
             /**
@@ -100,7 +100,7 @@ declare namespace NT {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             selected?: string;
         }
@@ -111,7 +111,7 @@ declare namespace NT {
             /**
              * EventHandler is a type definition for a callback function used to handle events.
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html
              */
             type EventHandler = {
                 (this: HTMLElement, e: JQuery.Event, ...args: any[]): void;

@@ -36,7 +36,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             context?: Window | NJS<HTMLElement[]>;
             /**
@@ -46,7 +46,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             msg: string | NJS<HTMLElement[]>;
             /**
@@ -63,7 +63,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             vars?: string[];
             /**
@@ -71,7 +71,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             html?: boolean;
             /**
@@ -79,7 +79,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             top?: number;
             /**
@@ -87,7 +87,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             left?: number;
             /**
@@ -105,7 +105,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             width?: number | NU.EventHandlers.Alert.Width;
             /**
@@ -124,7 +124,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             height?: number | NU.EventHandlers.Alert.Height;
             /**
@@ -133,7 +133,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             title?: string;
             /**
@@ -141,7 +141,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             button?: boolean;
             /**
@@ -149,7 +149,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             okButtonOpts?: NU.Options.Button | null;
             /**
@@ -157,7 +157,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             cancelButtonOpts?: NU.Options.Button | null;
             /**
@@ -167,7 +167,7 @@ declare namespace NU {
              *
              * @default "remove"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             closeMode?: "hide" | "remove";
             /**
@@ -175,7 +175,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             modal?: boolean;
             /**
@@ -183,7 +183,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             overlayClose?: boolean;
             /**
@@ -192,7 +192,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             overlayColor?: "string" | null;
             /**
@@ -200,7 +200,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             escClose?: boolean;
             /**
@@ -208,7 +208,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             confirm?: boolean;
             /**
@@ -216,7 +216,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             alwaysOnTop?: boolean;
             /**
@@ -227,7 +227,7 @@ declare namespace NU {
              *
              * @default "div, span, ul, p, nav, article, section, header, footer, aside"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             alwaysOnTopCalcTarget?: string;
             /**
@@ -235,7 +235,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             dynPos?: boolean;
             /**
@@ -246,7 +246,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             windowScrollLock?: boolean;
             /**
@@ -254,7 +254,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             draggable?: boolean;
             /**
@@ -262,7 +262,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             draggableOverflowCorrection?: boolean;
             /**
@@ -271,7 +271,7 @@ declare namespace NU {
              *
              * @default { top: 0, bottom: 0, left: 0, right: 0 }
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             draggableOverflowCorrectionAddValues?: {
                 top?: number;
@@ -284,7 +284,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             saveMemory?: boolean;
             /**
@@ -302,7 +302,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             onOk?: NU.EventHandlers.Alert.OnOk | null;
             /**
@@ -320,7 +320,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             onCancel?: NU.EventHandlers.Alert.OnCancel | null;
             /**
@@ -335,7 +335,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             onBeforeShow?: NU.EventHandlers.Alert.OnBeforeShow | null;
             /**
@@ -350,7 +350,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             onShow?: NU.EventHandlers.Alert.OnShow | null;
             /**
@@ -366,7 +366,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             onBeforeHide?: NU.EventHandlers.Alert.OnBeforeHide | null;
             /**
@@ -382,7 +382,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             onHide?: NU.EventHandlers.Alert.OnHide | null;
             /**
@@ -398,7 +398,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             onBeforeRemove?: NU.EventHandlers.Alert.OnBeforeRemove | null;
             /**
@@ -414,7 +414,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0401.html&tab=html/naturaljs/refr/refr040104.html
              */
             onRemove?: NU.EventHandlers.Alert.OnRemove | null;
             isInput?: boolean;
@@ -435,7 +435,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -445,7 +445,7 @@ declare namespace NU {
              *
              * @default "none"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html
              */
             size?: ButtonSize;
             /**
@@ -467,7 +467,7 @@ declare namespace NU {
              *
              * @default "none"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html
              */
             color?: ButtonColor;
             /**
@@ -479,7 +479,7 @@ declare namespace NU {
              *
              * @default "none"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html
              */
             type?: ButtonType;
             /**
@@ -487,7 +487,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html
              */
             disable?: boolean;
             /**
@@ -504,7 +504,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html
              */
             onBeforeCreate?: NU.EventHandlers.Button.OnBeforeCreate | null;
             /**
@@ -521,7 +521,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html
              */
             onCreate?: NU.EventHandlers.Button.OnCreate | null;
         };
@@ -535,7 +535,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -543,7 +543,7 @@ declare namespace NU {
              *
              * @default N('<div class="datepicker__"></div>')
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             contents?: NJS<HTMLElement[]>;
             /**
@@ -551,7 +551,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             monthonly?: boolean;
             /**
@@ -559,7 +559,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             focusin?: boolean;
             /**
@@ -567,7 +567,7 @@ declare namespace NU {
              *
              * @default "left"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             yearsPanelPosition?: "left" | "top";
             /**
@@ -575,7 +575,7 @@ declare namespace NU {
              *
              * @default "left"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             monthsPanelPosition?: "left" | "top";
             /**
@@ -583,7 +583,7 @@ declare namespace NU {
              *
              * @default 200
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             minYear?: number;
             /**
@@ -591,7 +591,7 @@ declare namespace NU {
              *
              * @default 200
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             maxYear?: number;
             /**
@@ -599,7 +599,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             yearChangeInput?: boolean;
             /**
@@ -607,7 +607,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             monthChangeInput?: boolean;
             /**
@@ -615,7 +615,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             touchMonthChange?: boolean;
             /**
@@ -623,7 +623,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             scrollMonthChange?: boolean;
             /**
@@ -631,7 +631,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             minDate?: string;
             /**
@@ -639,7 +639,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             maxDate?: string;
             /**
@@ -684,7 +684,7 @@ declare namespace NU {
              *
              * @default { "repeat": null, "once": null }
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             holiday?: {
                 "repeat"?: {
@@ -707,7 +707,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             onChangeYear?: NU.EventHandlers.Datepicker.OnChangeYear | null;
             /**
@@ -724,7 +724,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             onChangeMonth?: NU.EventHandlers.Datepicker.OnChangeMonth | null;
             /**
@@ -745,7 +745,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             onSelect?: NU.EventHandlers.Datepicker.OnSelect | null;
             /**
@@ -760,7 +760,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             onBeforeShow?: NU.EventHandlers.Datepicker.OnBeforeShow | null;
             /**
@@ -775,7 +775,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             onShow?: NU.EventHandlers.Datepicker.OnShow | null;
             /**
@@ -790,7 +790,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             onBeforeHide?: NU.EventHandlers.Datepicker.OnBeforeHide | null;
             /**
@@ -804,7 +804,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             onHide?: NU.EventHandlers.Datepicker.OnHide | null;
         };
@@ -820,7 +820,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -835,7 +835,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             url?: string,
             /**
@@ -846,7 +846,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             title?: string;
             /**
@@ -854,7 +854,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             button?: boolean;
             /**
@@ -863,7 +863,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             modal?: boolean,
             /**
@@ -871,7 +871,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             top?: number;
             /**
@@ -879,7 +879,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             left?: number;
             /**
@@ -897,7 +897,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             width?: NU.EventHandlers.Popup.Width | number;
             /**
@@ -916,7 +916,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             height?: number | NU.EventHandlers.Popup.Height;
             /**
@@ -928,7 +928,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             opener?: NA.Objects.Controller.Object | null,
             /**
@@ -938,7 +938,7 @@ declare namespace NU {
              *
              * @default "hide"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             closeMode?: "hide" | "remove";
             /**
@@ -946,7 +946,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             alwaysOnTop?: boolean;
             /**
@@ -955,7 +955,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             overlayClose?: boolean;
             /**
@@ -963,7 +963,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             escClose?: boolean;
             /**
@@ -981,7 +981,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onOk?: NU.EventHandlers.Popup.OnOk | null;
             /**
@@ -1000,7 +1000,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onCancel?: NU.EventHandlers.Popup.OnCancel | null;
             /**
@@ -1015,7 +1015,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onBeforeShow?: NU.EventHandlers.Popup.OnBeforeShow | null;
             /**
@@ -1030,7 +1030,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onShow?: NU.EventHandlers.Popup.OnShow | null;
             /**
@@ -1046,7 +1046,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onBeforeHide?: NU.EventHandlers.Popup.OnBeforeHide | null;
             /**
@@ -1062,7 +1062,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onHide?: NU.EventHandlers.Popup.OnHide | null;
             /**
@@ -1078,7 +1078,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onBeforeRemove?: NU.EventHandlers.Popup.OnBeforeRemove | null;
             /**
@@ -1094,7 +1094,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onRemove?: NU.EventHandlers.Popup.OnRemove | null;
             /**
@@ -1138,7 +1138,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onOpen?: string | NU.EventHandlers.Popup.OnOpen | null,
             /**
@@ -1150,7 +1150,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onOpenData?: any | null,
             /**
@@ -1201,7 +1201,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onClose?: NU.EventHandlers.Popup.OnClose | null,
             /**
@@ -1213,7 +1213,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onCloseData?: any | null,
             /**
@@ -1229,7 +1229,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             onLoad?: NU.EventHandlers.Popup.OnLoad | null,
             /**
@@ -1240,7 +1240,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             preload?: boolean,
             /**
@@ -1248,7 +1248,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             dynPos?: boolean;
             /**
@@ -1260,7 +1260,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             windowScrollLock?: boolean;
             /**
@@ -1268,7 +1268,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             draggable?: boolean;
             /**
@@ -1276,7 +1276,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             draggableOverflowCorrection?: boolean;
             /**
@@ -1285,7 +1285,7 @@ declare namespace NU {
              *
              * @default { top: 0, bottom: 0, left: 0, right: 0 }
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             draggableOverflowCorrectionAddValues?: {
                 top?: number;
@@ -1298,7 +1298,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             saveMemory?: boolean;
         };
@@ -1309,7 +1309,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             url?: string;
             /**
@@ -1319,7 +1319,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             active?: boolean;
             /**
@@ -1329,7 +1329,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             preload?: boolean;
             /**
@@ -1341,7 +1341,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             onOpen?: string | NU.EventHandlers.Tab.OnOpen;
             /**
@@ -1349,7 +1349,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             disable?: boolean;
             /**
@@ -1357,7 +1357,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             stateless?: boolean;
         };
@@ -1398,7 +1398,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -1432,7 +1432,7 @@ declare namespace NU {
              *
              * @default []
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             tabOpts?: NU.Options.EachTab[];
             /**
@@ -1443,7 +1443,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             randomSel?: boolean;
             /**
@@ -1455,7 +1455,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             opener?: NA.Objects.Controller.Object | null;
             /**
@@ -1475,7 +1475,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             onActive?: NU.EventHandlers.Tab.OnActive | null;
             /**
@@ -1493,7 +1493,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             onLoad?: NU.EventHandlers.Tab.OnLoad | null;
             /**
@@ -1501,7 +1501,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             blockOnActiveWhenCreate?: boolean;
             /**
@@ -1525,7 +1525,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             tabScroll?: boolean;
             /**
@@ -1544,7 +1544,7 @@ declare namespace NU {
              *
              * @default { tabContainerWidthCorrectionPx: 0, tabContainerWidthReCalcDelayTime: 0 }
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             tabScrollCorrection?: {
                 tabContainerWidthCorrectionPx?: number;
@@ -1558,7 +1558,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             data?: NJS<NC.JSONObject[]>;
             /**
@@ -1576,7 +1576,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -1584,7 +1584,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             key?: string;
             /**
@@ -1592,7 +1592,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             val?: string;
             /**
@@ -1600,7 +1600,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             append?: boolean;
             /**
@@ -1610,7 +1610,7 @@ declare namespace NU {
              *
              * @default "h"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             direction?: "h" | "v";
             /**
@@ -1622,7 +1622,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             type?: 0 | 1 | 2 | 3 | 4;
             /**
@@ -1630,7 +1630,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             template?: NJS<HTMLElement[]> | null;
         };
@@ -1643,7 +1643,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             data?: NJS<NC.JSONObject[]>;
             /**
@@ -1653,7 +1653,7 @@ declare namespace NU {
              *
              * @default -1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             row?: number;
             /**
@@ -1687,7 +1687,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -1695,7 +1695,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             validate?: boolean;
             /**
@@ -1706,7 +1706,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             autoUnbind?: boolean;
             /**
@@ -1720,7 +1720,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             html?: boolean;
             /**
@@ -1728,7 +1728,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             addTop?: boolean;
             /**
@@ -1738,7 +1738,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             fRules?: ND.FormatRuleObject | null;
             /**
@@ -1748,7 +1748,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             vRules?: ND.ValidationRuleObject | null;
             /**
@@ -1756,7 +1756,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             extObj?: NU.List | NU.Grid | null;
             /**
@@ -1764,7 +1764,7 @@ declare namespace NU {
              *
              * @default -1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             extRow?: number;
             /**
@@ -1778,7 +1778,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             cache?: boolean;
             /**
@@ -1789,7 +1789,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             unbind?: boolean;
             /**
@@ -1799,7 +1799,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             tpBind?: boolean;
             /**
@@ -1821,7 +1821,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             onBeforeBindValue?: NU.EventHandlers.Form.OnBeforeBindValue | null;
             /**
@@ -1840,7 +1840,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             onBindValue?: NU.EventHandlers.Form.OnBindValue | null;
             /**
@@ -1857,7 +1857,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             onBeforeBind?: NU.EventHandlers.Form.OnBeforeBind | null;
             /**
@@ -1874,7 +1874,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             onBind?: NU.EventHandlers.Form.OnBind | null;
             /**
@@ -1882,7 +1882,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             InitialData?: NJS<NC.JSONObject>;
         };
@@ -1909,7 +1909,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             data?: NJS<NC.JSONObject[]>;
             /**
@@ -1929,7 +1929,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -1941,7 +1941,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             height?: number;
             /**
@@ -1949,7 +1949,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             validate?: boolean;
             /**
@@ -1957,7 +1957,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             html?: boolean;
             /**
@@ -1967,7 +1967,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             addTop?: boolean;
             /**
@@ -1977,7 +1977,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             addSelect?: boolean;
             /**
@@ -1985,7 +1985,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             vResizable?: boolean;
             /**
@@ -1995,7 +1995,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             windowScrollLock?: boolean;
             /**
@@ -2004,7 +2004,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             select?: boolean;
             /**
@@ -2014,7 +2014,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             unselect?: boolean;
             /**
@@ -2023,7 +2023,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             multiselect?: boolean;
             /**
@@ -2037,7 +2037,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             checkAll?: JQuery.Selector;
             /**
@@ -2057,7 +2057,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             checkAllTarget?: JQuery.Selector;
             /**
@@ -2077,7 +2077,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             checkSingleTarget?: JQuery.Selector;
             /**
@@ -2085,7 +2085,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             hover?: boolean;
             /**
@@ -2095,7 +2095,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             revert?: boolean;
             /**
@@ -2105,7 +2105,7 @@ declare namespace NU {
              *
              * @default 1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             createRowDelay?: number;
             /**
@@ -2127,7 +2127,7 @@ declare namespace NU {
              *
              * @default { idx: 0, size: 100 }
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             scrollPaging?: {
                 idx?: number;
@@ -2140,7 +2140,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             fRules?: ND.FormatRuleObject | null;
             /**
@@ -2150,7 +2150,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             vRules?: ND.ValidationRuleObject | null;
             /**
@@ -2158,7 +2158,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             appendScroll?: boolean;
             /**
@@ -2166,7 +2166,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             addScroll?: boolean;
             /**
@@ -2174,7 +2174,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             selectScroll?: boolean;
             /**
@@ -2182,7 +2182,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             checkScroll?: boolean;
             /**
@@ -2190,7 +2190,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             validateScroll?: boolean;
             /**
@@ -2198,7 +2198,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             cache?: boolean;
             /**
@@ -2208,7 +2208,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             tpBind?: boolean;
             /**
@@ -2225,7 +2225,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             rowHandlerBeforeBind?: NU.EventHandlers.List.RowHandlerBeforeBind | null;
             /**
@@ -2242,7 +2242,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             rowHandler?: NU.EventHandlers.List.RowHandler | null;
             /**
@@ -2265,7 +2265,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             onBeforeSelect?: NU.EventHandlers.List.OnBeforeSelect | null;
             /**
@@ -2286,7 +2286,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             onSelect?: NU.EventHandlers.List.OnSelect | null;
             /**
@@ -2304,7 +2304,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             onBind?: NU.EventHandlers.List.OnBind | null;
         };
@@ -2330,7 +2330,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             data?: NJS<NC.JSONObject[]>;
             /**
@@ -2338,7 +2338,7 @@ declare namespace NU {
              *
              * @default -1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             row?: number;
             /**
@@ -2346,7 +2346,7 @@ declare namespace NU {
              *
              * @default -1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             beforeRow?: number;
             /**
@@ -2397,7 +2397,7 @@ declare namespace NU {
              *
              * @default -1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -2409,7 +2409,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             height?: number;
             /**
@@ -2425,7 +2425,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             fixedcol?: number;
             /**
@@ -2443,7 +2443,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             more?: boolean | string[];
             /**
@@ -2451,7 +2451,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             validate?: boolean;
             /**
@@ -2459,7 +2459,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             html?: boolean;
             /**
@@ -2470,7 +2470,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             addTop?: boolean;
             /**
@@ -2480,7 +2480,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             addSelect?: boolean;
             /**
@@ -2493,7 +2493,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             filter?: boolean;
             /**
@@ -2507,7 +2507,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             resizable?: boolean;
             /**
@@ -2515,7 +2515,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             vResizable?: boolean;
             /**
@@ -2526,7 +2526,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             sortable?: boolean;
             /**
@@ -2536,7 +2536,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             windowScrollLock?: boolean;
             /**
@@ -2545,7 +2545,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             select?: boolean;
             /**
@@ -2555,7 +2555,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             unselect?: boolean;
             /**
@@ -2564,7 +2564,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             multiselect?: boolean;
             /**
@@ -2578,7 +2578,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             checkAll?: JQuery.Selector;
             /**
@@ -2596,7 +2596,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             checkAllTarget?: JQuery.Selector;
             /**
@@ -2614,7 +2614,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             checkSingleTarget?: JQuery.Selector;
             /**
@@ -2622,7 +2622,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             hover?: boolean;
             /**
@@ -2632,7 +2632,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             revert?: boolean;
             /**
@@ -2643,7 +2643,7 @@ declare namespace NU {
              *
              * @default 1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             createRowDelay?: number;
             /**
@@ -2666,7 +2666,7 @@ declare namespace NU {
              *
              * @default { idx: 0, size: 100 }
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             scrollPaging?: {
                 idx?: number;
@@ -2679,7 +2679,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             fRules?: ND.FormatRuleObject | null;
             /**
@@ -2689,7 +2689,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             vRules?: ND.ValidationRuleObject | null;
             /**
@@ -2697,7 +2697,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             appendScroll?: boolean;
             /**
@@ -2705,7 +2705,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             addScroll?: boolean;
             /**
@@ -2713,7 +2713,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             selectScroll?: boolean;
             /**
@@ -2721,7 +2721,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             checkScroll?: boolean;
             /**
@@ -2729,7 +2729,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             validateScroll?: boolean;
             /**
@@ -2737,7 +2737,7 @@ declare namespace NU {
              *
              * @default true
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             cache?: boolean;
             /**
@@ -2747,7 +2747,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             tpBind?: boolean;
             /**
@@ -2761,7 +2761,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             pastiable?: boolean;
             /**
@@ -2778,7 +2778,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             rowHandlerBeforeBind?: NU.EventHandlers.Grid.RowHandlerBeforeBind | null;
             /**
@@ -2795,7 +2795,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             rowHandler?: NU.EventHandlers.Grid.RowHandler | null;
             /**
@@ -2818,7 +2818,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             onBeforeSelect?: NU.EventHandlers.Grid.OnBeforeSelect | null;
             /**
@@ -2839,7 +2839,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             onSelect?: NU.EventHandlers.Grid.OnSelect | null;
             /**
@@ -2857,7 +2857,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             onBind?: NU.EventHandlers.Grid.OnBind | null;
             /**
@@ -2878,7 +2878,7 @@ declare namespace NU {
              *     fixedcolRootContainer: null
              * }
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             misc?: NU.Options.GridMisc;
             /**
@@ -2886,7 +2886,7 @@ declare namespace NU {
              *
              * @default -1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             currMoveToRow?: number;
         };
@@ -2897,7 +2897,7 @@ declare namespace NU {
              *
              * @default 1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             pageNo: number;
             /**
@@ -2905,7 +2905,7 @@ declare namespace NU {
              *
              * @default 10
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             countPerPage: number;
             /**
@@ -2913,7 +2913,7 @@ declare namespace NU {
              *
              * @default 10
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             countPerPageSet: number;
             /**
@@ -2921,7 +2921,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             totalCount: number;
             /**
@@ -2929,7 +2929,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             pageCount: number;
             /**
@@ -2937,7 +2937,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             pageSetCount: number;
             /**
@@ -2945,7 +2945,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             currSelPageSet: number;
             /**
@@ -2953,7 +2953,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             startPage: number;
             /**
@@ -2961,7 +2961,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             endPage: number;
             /**
@@ -2969,7 +2969,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             startRowIndex: number;
             /**
@@ -2977,7 +2977,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             startRowNum: number;
             /**
@@ -2985,7 +2985,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             endRowIndex: number;
             /**
@@ -2993,7 +2993,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             endRowNum: number;
         };
@@ -3007,7 +3007,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             data?: NJS<NC.JSONObject[]>;
             /**
@@ -3039,7 +3039,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -3049,7 +3049,7 @@ declare namespace NU {
              *
              * @default 0
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             totalCount?: number;
             /**
@@ -3057,7 +3057,7 @@ declare namespace NU {
              *
              * @default 10
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             countPerPage?: number;
             /**
@@ -3065,7 +3065,7 @@ declare namespace NU {
              *
              * @default 10
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             countPerPageSet?: number;
             /**
@@ -3073,7 +3073,7 @@ declare namespace NU {
              *
              * @default 1
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             pageNo?: number;
             /**
@@ -3124,7 +3124,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             onChange?: NU.EventHandlers.Pagination.OnChange | null;
             /**
@@ -3132,7 +3132,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             blockOnChangeWhenBind?: boolean;
             /**
@@ -3140,7 +3140,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             currPageNavInfo?: NU.Options.CurrPageNavInfo | null;
         };
@@ -3151,7 +3151,7 @@ declare namespace NU {
              *
              * @default undefined
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             data?: NJS<NC.JSONObject[]>;
             /**
@@ -3159,7 +3159,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -3167,7 +3167,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             key?: string;
             /**
@@ -3175,7 +3175,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             val?: string;
             /**
@@ -3185,7 +3185,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             level?: string;
             /**
@@ -3193,7 +3193,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             parent?: string;
             /**
@@ -3204,7 +3204,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             folderSelectable?: boolean;
             /**
@@ -3214,7 +3214,7 @@ declare namespace NU {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             checkbox?: boolean;
             /**
@@ -3230,7 +3230,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             onSelect?: NU.EventHandlers.Tree.OnSelect | null;
             /**
@@ -3253,7 +3253,7 @@ declare namespace NU {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             onCheck?: NU.EventHandlers.Tree.OnCheck | null;
         };

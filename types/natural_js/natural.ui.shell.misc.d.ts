@@ -15,7 +15,7 @@ declare namespace NUS {
              *
              * @default { top: 10, right: 10 }
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html
              */
             position?: NotifyPosition;
             /**
@@ -23,7 +23,7 @@ declare namespace NUS {
              *
              * @default N("body")
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html
              */
             container?: NJS<HTMLElement[]>;
             /**
@@ -37,7 +37,7 @@ declare namespace NUS {
              *
              * @default 7
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html
              */
             displayTime?: number;
             /**
@@ -45,7 +45,7 @@ declare namespace NUS {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html
              */
             alwaysOnTop?: boolean;
             /**
@@ -53,7 +53,7 @@ declare namespace NUS {
              *
              * @default false
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html
              */
             html?: boolean;
             /**
@@ -65,7 +65,7 @@ declare namespace NUS {
              *
              * @default "div, span, ul, p, nav, article, section, header, footer, aside"
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html
              */
             alwaysOnTopCalcTarget?: string;
         };
@@ -76,7 +76,7 @@ declare namespace NUS {
         /**
          * This is an option that can be set whenever tab content is added to the Documents component.
          *
-         * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         type DocOpts = {
             /**
@@ -170,7 +170,7 @@ declare namespace NUS {
              *
              * @default undefined
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             context?: NJS<HTMLElement[]>;
             /**
@@ -180,7 +180,7 @@ declare namespace NUS {
              *
              * @default true
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             multi?: boolean;
             /**
@@ -191,7 +191,7 @@ declare namespace NUS {
              *
              * @default 0
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             maxStateful?: number;
             /**
@@ -203,7 +203,7 @@ declare namespace NUS {
              *
              * @default 0
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             maxTabs?: number;
             /**
@@ -211,7 +211,7 @@ declare namespace NUS {
              *
              * @default false
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             addLast?: boolean;
             /**
@@ -219,7 +219,7 @@ declare namespace NUS {
              *
              * @default false
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             tabScroll?: boolean;
             /**
@@ -237,7 +237,7 @@ declare namespace NUS {
              *
              * @default { rightCorrectionPx: 0 }
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             tabScrollCorrection?: {
                 rightCorrectionPx?: number;
@@ -249,7 +249,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             closeAllRedirectURL?: string | null;
             msgContext?: NJS<Window[]>;
@@ -258,7 +258,7 @@ declare namespace NUS {
              *
              * @default false
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             entireLoadIndicator?: boolean;
             /**
@@ -266,7 +266,7 @@ declare namespace NUS {
              *
              * @default false
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             entireLoadScreenBlock?: boolean;
             /**
@@ -275,7 +275,7 @@ declare namespace NUS {
              *
              * @default []
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             entireLoadExcludeURLs?: string[];
             entireLoadRequestCnt?: number;
@@ -296,7 +296,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onBeforeLoad?: EventHandlers.Documents.OnBeforeLoad | null;
             /**
@@ -315,7 +315,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onLoad?: EventHandlers.Documents.OnLoad | null;
             /**
@@ -331,7 +331,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onBeforeEntireLoad?: EventHandlers.Documents.OnBeforeEntireLoad | null;
             /**
@@ -369,7 +369,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onEntireLoad?: EventHandlers.Documents.OnEntireLoad | null;
             /**
@@ -387,7 +387,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onBeforeActive?: EventHandlers.Documents.OnBeforeActive | null;
             /**
@@ -405,7 +405,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onActive?: EventHandlers.Documents.OnActive | null;
             /**
@@ -423,7 +423,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onBeforeInactive?: EventHandlers.Documents.OnBeforeInactive | null;
             /**
@@ -441,7 +441,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onInactive?: EventHandlers.Documents.OnInactive | null;
             /**
@@ -459,7 +459,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onBeforeRemoveState?: EventHandlers.Documents.OnBeforeRemoveState | null;
             /**
@@ -475,7 +475,7 @@ declare namespace NUS {
              * }
              * ```
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onRemoveState?: EventHandlers.Documents.OnRemoveState | null;
             /**
@@ -493,7 +493,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onBeforeRemove?: EventHandlers.Documents.OnBeforeRemove | null;
             /**
@@ -511,7 +511,7 @@ declare namespace NUS {
              *
              * @default null
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             onRemove?: EventHandlers.Documents.OnRemove | null;
             docs?: DocsObject;
@@ -520,7 +520,7 @@ declare namespace NUS {
              *
              * @default false
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             alwaysOnTop?: boolean;
             /**
@@ -531,7 +531,7 @@ declare namespace NUS {
              *
              * @default "div, span, ul, p, nav, article, section, header, footer, aside"
              *
-             * @see {@link @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html }
+             * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050203.html
              */
             alwaysOnTopCalcTarget?: string;
             order?: string[];

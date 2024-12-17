@@ -9,7 +9,7 @@ declare class NUS {
      * @param {NUS.Options.Notify} [opts] - Specifies the initialization option object for the component.
      * @returns {NUS.Notify} An instance of a Notify object, configured according to the provided options.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050103.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050103.html
      */
     notify(opts?: NUS.Options.Notify): NUS.Notify;
     /**
@@ -22,7 +22,7 @@ declare class NUS {
      * @param {NUS.Options.Documents} [opts] - Specifies the initialization option object for the component.
      * @returns {NUS.Documents} An instance of a Documents object, configured according to the provided options.
      *
-     * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050202.html }
+     * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050202.html
      */
     docs(opts?: NUS.Options.Documents): NUS.Documents;
 
@@ -38,7 +38,7 @@ declare class NUS {
          * @param {NUS.Options.Notify} [opts] - Specifies the initialization option object for the component.
          * @returns {NUS.Notify} An instance of a Notify object, configured according to the provided options.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050103.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050103.html
          */
         new(position: NUS.Options.NotifyPosition, opts?: NUS.Options.Notify): NUS.Notify;
         add(msg: string, url: string): void;
@@ -56,7 +56,7 @@ declare class NUS {
          * @param {NUS.Options.Documents} [opts] - Specifies the initialization option object for the component.
          * @returns {NUS.Documents} An instance of a Documents object, configured according to the provided options.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050202.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050202.html
          */
         new(obj: NJS<HTMLElement[]>, opts?: NUS.Options.Documents): NUS.Documents;
         createLoadIndicator(): NUS.Documents;
@@ -87,7 +87,7 @@ declare namespace NUS {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050105.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -97,7 +97,7 @@ declare namespace NUS {
          * @param {string} [url] - An optional URL associated with the notification.
          * @return {NUS.Notify} Returns the `Notify` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050105.html
          */
         add(msg: string, url?: string): NUS.Notify;
         /**
@@ -106,7 +106,7 @@ declare namespace NUS {
          * @param {NJS<HTMLElement[]>} msgBoxEle - The element(s) representing the message box to be removed.
          * @return {NUS.Notify} Returns the `Notify` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050105.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050105.html
          */
         remove(msgBoxEle: NJS<HTMLElement[]>): NUS.Notify;
     }
@@ -120,7 +120,7 @@ declare namespace NUS {
          * @param {JQuery.Selector} [sel] - An optional jQuery selector to refine the context.
          * @return {NJS<HTMLElement[]>} The context element or the element selected in the context is returned.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         context(sel?: JQuery.Selector): NJS<HTMLElement[]>;
         /**
@@ -179,7 +179,7 @@ declare namespace NUS {
          * > Events set here are executed after the global event is executed.
          * @return {NUS.Documents} Returns the `Documents` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         add(docId: string, docNm: string, docOpts: NUS.Options.DocOpts): NUS.Documents;
         /**
@@ -190,7 +190,7 @@ declare namespace NUS {
          * @param {boolean} [isNotLoaded] - Arguments used inside the component.
          * @return {NUS.Documents} Returns the `Documents` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         active(docId: string, isFromDocsTabList?: boolean, isNotLoaded?: boolean): NUS.Documents;
         /**
@@ -200,7 +200,7 @@ declare namespace NUS {
          * @param {NUS.Callbacks.Documents.RemoveState} [callback] - Specify a callback function to be executed when you click the OK button in the warning window that appears when the maximum number of state maintenance is exceeded.
          * @return {NUS.Documents} Returns the `Documents` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         removeState(docId?: string | NUS.Callbacks.Documents.RemoveState, callback?: NUS.Callbacks.Documents.RemoveState): NUS.Documents;
         /**
@@ -210,7 +210,7 @@ declare namespace NUS {
          * @param {boolean} [unconditional] - Specifies whether to immediately remove the page without prompting even if there is modified data.
          * @return {NUS.Documents} Returns the `Documents` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         remove(docId: string, unconditional?: boolean): NUS.Documents;
         /**
@@ -218,7 +218,7 @@ declare namespace NUS {
          *
          * @return {NUS.Options.DocsObject}
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         doc(): NUS.Options.DocsObject;
         /**
@@ -234,7 +234,7 @@ declare namespace NUS {
          * @param {string} docId - The unique identifier of the document.
          * @return {NA.Objects.Controller.Object} The controller object associated with the document ID.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         cont(docId: string): NA.Objects.Controller.Object;
         /**
@@ -251,7 +251,7 @@ declare namespace NUS {
          * ```
          * @return {NUS.Documents} Returns the `Documents` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
         reload(docId: string, callback?: NUS.Callbacks.Documents.Reload): NUS.Documents;
     }
@@ -265,7 +265,7 @@ declare namespace NUS {
          *
          * @return {DocumentsRequest} Returns the `DocumentsRequest` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050204.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050204.html
          */
         attr(name: string, obj?: any): DocumentsRequest;
         removeAttr(name: string): DocumentsRequest;
@@ -274,7 +274,7 @@ declare namespace NUS {
          *
          * @return {object} Returns all GET parameters as an object.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050204.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050204.html
          */
         param(): object;
         /**
@@ -289,7 +289,7 @@ declare namespace NUS {
          *
          * @return {DocumentsRequest} Returns the `DocumentsRequest` instance for chaining.
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050204.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050204.html
          */
         get(): DocumentsRequest;
         /**
@@ -298,7 +298,7 @@ declare namespace NUS {
          * @param {string} key - Property name of request options
          * @return {any} Value corresponding to the key value specified in request options
          *
-         * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050204.html }
+         * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050204.html
          */
         get(key: string): any;
     }
