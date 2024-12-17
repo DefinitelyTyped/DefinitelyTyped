@@ -1,5 +1,6 @@
 declare namespace NT {
     namespace Options {
+        import JSONObject = NC.JSONObject;
         type Extra = {
             /**
              * After the component is initialized, the specified function is immediately executed.
@@ -12,6 +13,16 @@ declare namespace NT {
              */
             action?: [string, ...any[]];
         };
+        /**
+         * Represents a function type for filtering an array of JSON objects.
+         *
+         * @callback SelectFilter
+         * @param {NJS<JSONObject[]>} data - Data to process.
+         * @returns {NJS<JSONObject[]>} - Processed data.
+         */
+        type SelectFilter = {
+            (data: NJS<JSONObject[]>): NJS<JSONObject[]>;
+        }
         type Select = {
             /**
              * Common code classification code - Set the classification code value of the code list to bind.
@@ -67,7 +78,7 @@ declare namespace NT {
              *
              * @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/template/documents/template-guide.html }
              */
-            filter?: Function; // TODO Define the Function
+            filter?: SelectFilter;
             /**
              * Default selected value - Set the value of the default selection when the component is initialized.
              *
