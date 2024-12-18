@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "type": "module",
+    "name": "@types/async-alpine",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/Accudio/async-alpine"
+    ],
+    "dependencies": {
+        "@types/alpinejs": "*"
+    },
+    "devDependencies": {
+        "@types/async-alpine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bastien Robert",
+            "githubUsername": "bastienrobert"
+        }
+    ]
+}
