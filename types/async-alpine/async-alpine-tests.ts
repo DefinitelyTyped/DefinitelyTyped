@@ -6,42 +6,42 @@
  * are not intended as functional tests.
  */
 
-import AsyncAlpine, { type AlpineAsyncOptions } from "async-alpine";
 import Alpine, { type DirectiveCallback } from "alpinejs";
+import AsyncAlpine, { type AlpineAsyncOptions } from "async-alpine";
 
 // init plugin
 Alpine.plugin(AsyncAlpine);
 
 // setup options
 const options: AlpineAsyncOptions = {
-    defaultStrategy: 'idle',
-    keepRelativeURLs: false
+    defaultStrategy: "idle",
+    keepRelativeURLs: false,
 };
 Alpine.asyncOptions(options);
 
 // listen plugin events
-window.addEventListener('async-alpine:load', (event) => {
-    console.log('async-alpine:load', event.detail.id);
+window.addEventListener("async-alpine:load", (event) => {
+    console.log("async-alpine:load", event.detail.id);
 });
 
 // usage: data
 Alpine.asyncData(
-    'myComponent',
-    () => import('./async-alpine_async-component-tests.js')
+    "myComponent",
+    () => import("./async-alpine_async-component-tests.js"),
 );
 
 // usage: url
-Alpine.asyncUrl('myComponent', './async-alpine_async-component-tests.ts');
+Alpine.asyncUrl("myComponent", "./async-alpine_async-component-tests.ts");
 
 // usage: alias
-Alpine.asyncAlias('./[name].ts')
+Alpine.asyncAlias("./[name].ts");
 Alpine.asyncAlias((name) => import(`/${name}.ts`));
 
 // directive with async data
 function directive(): DirectiveCallback {
     return (el) => {
-        el._x_async = 'init';
+        el._x_async = "init";
         el._x_async = undefined;
     };
 }
-directive()
+directive();

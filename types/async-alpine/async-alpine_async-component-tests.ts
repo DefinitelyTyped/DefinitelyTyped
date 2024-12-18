@@ -5,9 +5,9 @@ interface ComponentState {
 
 export default function myComponent(): ComponentState {
     return {
-        message: '',
+        message: "",
         init() {
-            this.message = 'my component has initialised!'
-        }
-    }
+            this.message = "my component has initialised!";
+        },
+    };
 }
