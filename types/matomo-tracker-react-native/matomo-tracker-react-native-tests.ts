@@ -34,11 +34,16 @@ useMatomo().trackLink({ link: "" });
 // $ExpectType Promise<Response> | undefined
 useMatomo().trackScreenView({ name: "" });
 // $ExpectType Promise<Response> | undefined
-useMatomo().trackSiteSearch({ keyword: ""});
+useMatomo().trackSiteSearch({ keyword: "" });
 // $ExpectType Promise<Response> | undefined
-useMatomo().trackSiteSearch({ keyword: "", category: "", count: 0, userInfo: {
-    uid: '123',
-    lang: 'en-US',
-    dimension1: 'something',
-    dimension2: 'else',
-}});
+useMatomo().trackSiteSearch({
+    keyword: "",
+    category: "",
+    count: 0,
+    userInfo: {
+        uid: "123",
+        lang: "en-US",
+        dimension1: "something",
+        dimension2: "else",
+    },
+});

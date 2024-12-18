@@ -16,7 +16,7 @@ export type UserInfo = {
     s?: number;
     cookie?: number;
     uadata?: object;
-} & Partial<Record<`dimension${number}`, string>>
+} & Partial<Record<`dimension${number}`, string>>;
 
 export interface AppStart {
     userInfo?: UserInfo;
