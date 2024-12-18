@@ -41,7 +41,7 @@ declare class NUS {
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050103.html
          */
         new(position: NUS.Options.NotifyPosition, opts?: NUS.Options.Notify): NUS.Notify;
-        add(msg: string, url: string): void;
+        add(msg: string, url?: string): void;
         wrapEle(): void;
     };
 

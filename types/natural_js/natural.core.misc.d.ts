@@ -32,7 +32,7 @@ declare namespace NC {
     /**
      * Enumeration representing types of web browsers.
      */
-    enum BrowserType {
+    const enum BrowserType {
         OPERA = "opera",
         FIREFOX = "firefox",
         SAFARI = "safari",
@@ -68,7 +68,7 @@ declare namespace NC {
         }
     }
 
-    enum ObjectType {
+    const enum ObjectType {
         NUMBER = "number",
         STRING = "string",
         ARRAY = "array",

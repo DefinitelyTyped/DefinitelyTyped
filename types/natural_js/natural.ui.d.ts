@@ -1,5 +1,3 @@
-import JSONObject = NC.JSONObject;
-
 declare class NU {
     /**
      * Create an object instance of Alert with the N() function.
@@ -609,7 +607,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
-        data(selFlag: true): JSONObject[];
+        data(selFlag: true): NC.JSONObject[];
         /**
          * Returns the latest data bound to the component.
          *
@@ -629,7 +627,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040605.html
          */
-        data(): JSONObject[];
+        data(): NC.JSONObject[];
         /**
          * Returns the context element.
          *
@@ -725,7 +723,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
-        data(selFlag: true, ...cols: string[]): JSONObject[];
+        data(selFlag: true, ...cols: string[]): NC.JSONObject[];
         /**
          * Returns the latest data bound to the component.
          *
@@ -746,7 +744,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040706.html
          */
-        data(): JSONObject[];
+        data(): NC.JSONObject[];
         /**
          * Returns the index of the data bound to the Form from the bound data array.
          *
@@ -898,7 +896,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
-        data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): JSONObject[];
+        data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): NC.JSONObject[];
         /**
          * Returns the latest data bound to the component.
          *
@@ -924,7 +922,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
-        data(): JSONObject[];
+        data(): NC.JSONObject[];
         /**
          * Returns the context element.
          *
@@ -1144,7 +1142,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
-        data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): JSONObject[];
+        data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): NC.JSONObject[];
         /**
          * Returns the latest data bound to the component.
          *
@@ -1170,7 +1168,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
-        data(): JSONObject[];
+        data(): NC.JSONObject[];
         /**
          * Returns the context element.
          *
@@ -1272,7 +1270,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
-        add(data?: number | JSONObject, row?: number): NU.Grid;
+        add(data?: number | NC.JSONObject, row?: number): NU.Grid;
         /**
          * Removes the data object bound to the Form from the data array.
          * > If rowStatus is `insert`, remove the row data, otherwise change rowStatus to "delete".
@@ -1394,7 +1392,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041006.html
          */
-        data(): JSONObject[];
+        data(): NC.JSONObject[];
         /**
          * Returns the context element.
          *
@@ -1532,7 +1530,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html
          */
-        data(selFlag: "selected" | "checked" | "checkedInLastNode", ...cols: string[]): JSONObject[];
+        data(selFlag: "selected" | "checked" | "checkedInLastNode", ...cols: string[]): NC.JSONObject[];
         /**
          * Returns the latest data bound to the component.
          *
@@ -1562,7 +1560,7 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041106.html
          */
-        data(): JSONObject[];
+        data(): NC.JSONObject[];
         /**
          * Returns the context element.
          *

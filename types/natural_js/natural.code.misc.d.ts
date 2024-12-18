@@ -1,6 +1,6 @@
 declare namespace NCD {
 
-    enum SeverityLevels {
+    const enum SeverityLevels {
         BLOCKER = "Blocker",
         CRITICAL = "Critical",
         MAJOR = "Major",

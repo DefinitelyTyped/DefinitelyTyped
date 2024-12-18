@@ -21,6 +21,8 @@ declare interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
     };
 
     selector: string;
+
+    [index: number]: T extends Array<any> ? T[number] : never;
 }
 
 /**
@@ -280,7 +282,6 @@ declare namespace N {
      */
     namespace notify {
         const add: typeof NUS.notify.add;
-        // const add: (msg: string, url: string) => void;
     }
     /**
      * Documents(N.docs) is a page container that displays menu pages based on Natural-JS in either MDI (Multi Document Interface) or SDI (Single Document Interface) structures.

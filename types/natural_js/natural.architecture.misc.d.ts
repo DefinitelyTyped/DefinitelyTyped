@@ -101,7 +101,7 @@ declare namespace NA {
     namespace Callbacks {
         namespace Communicator {
             type Submit = {
-                (this: NA.Communicator, data?: NC.JSONObject | NC.JSONObject[] | string | object | object[] | NA.Controller, request?: NA.Request): void;
+                (this: NA.Communicator, data?: NC.JSONObject | NC.JSONObject[] | NC.Primitive | object | object[] | NA.Controller, request?: NA.Request): void;
             }
             type Error = {
                 (this: NA.Communicator, xhr: JQuery.jqXHR, textStatus: JQuery.Ajax.TextStatus, e: Error, request: NA.Request, submitCallback: Submit): void;
@@ -138,7 +138,7 @@ declare namespace NA {
              * Enctype.PLAIN - Represents the MIME type `text/plain`.
              * This encoding type sends data without any encoding for the key-value pairs.
              */
-            enum Enctype {
+            const enum Enctype {
                 URLENCODED = "application/x-www-form-urlencoded",
                 MULTIPART = "multipart/form-data",
                 PLAIN = "text/plain",
@@ -149,7 +149,7 @@ declare namespace NA {
              *
              * @enum {string}
              */
-            enum DataType {
+            const enum DataType {
                 JSON = "json",
                 XML = "xml",
                 SCRIPT = "script",
@@ -176,7 +176,7 @@ declare namespace NA {
              *
              * @enum {string}
              */
-            enum HttpMethod {
+            const enum HttpMethod {
                 POST = "POST",
                 GET = "GET",
                 PUT = "PUT",
@@ -190,19 +190,6 @@ declare namespace NA {
         }
 
         namespace Controller {
-            import JSONObject = NC.JSONObject;
-            /**
-             * InitFunction is a user-defined function that is called after the view has finished loading and the Controller object has been initialized.
-             * ```
-             * N(".view").cont({
-             *     init: function(view, request) {
-             *     }
-             * });
-             * ```
-             *
-             * @param {NJS<HTMLElement[]>} view - View element.
-             * @param {NA.Request} request - Instance of the Communicator.request
-             */
             type InitFunction = {
                 (this: Object, view: NJS<HTMLElement[]>, request: NA.Request): void
             }
@@ -245,7 +232,7 @@ declare namespace NA {
                 onOpen?: Callbacks.Controller.OnOpen
             }
 
-            type Object = BaseObject & NT.Objects.Controller.InitialObject;
+            type Object = BaseObject & (NT.Objects.Controller.InitialObject | {});
 
         }
 

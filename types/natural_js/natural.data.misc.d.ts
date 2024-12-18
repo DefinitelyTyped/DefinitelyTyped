@@ -1,6 +1,6 @@
 declare namespace ND {
 
-    enum FormatRules {
+    const enum FormatRules {
         COMMAS = "commas",
         RRN = "rrn",
         SSN = "ssn",
@@ -25,7 +25,7 @@ declare namespace ND {
         GENERIC = "generic",
         NUMERIC = "numeric"
     }
-    enum FormatMaskingRules {
+    const enum FormatMaskingRules {
         PHONE = "phone",
         EMAIL = "email",
         ADDRESS = "address",
@@ -33,7 +33,7 @@ declare namespace ND {
         RRN = "rrn"
     }
 
-    enum ValidationRules {
+    const enum ValidationRules {
         REQUIRED = "required",
         ALPHABET = "alphabet",
         INTEGER = "integer",

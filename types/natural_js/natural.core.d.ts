@@ -1,5 +1,3 @@
-import JSONObject = NC.JSONObject;
-
 /**
  * The NC class is a CORE package of Natural-JS that provides various utilities and methods for collection manipulation, event binding, instance handling, value management, event retrieval, locale setting, etc.
  */
@@ -631,7 +629,7 @@ declare class NC {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010107.html
          */
-        toData(eles: NJS<HTMLElement[]>): JSONObject;
+        toData(eles: NJS<HTMLElement[]>): NC.JSONObject;
 
         /**
          * The effect of changes displayed on elements when data is synchronized by ND.ds is defined.
@@ -787,13 +785,13 @@ declare class NC {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010111.html
          */
-        deduplicate(arr: JSONObject[] | NJS<JSONObject[]>, key?: string): JSONObject[];
+        deduplicate(arr: NC.JSONObject[] | NJS<NC.JSONObject[]>, key?: string): NC.JSONObject[];
     };
     /**
      * Provides utilities for processing JSON data.
      */
     static json: {
-        mapFromKeys(obj: JSONObject | JSONObject[]): JSONObject | JSONObject[];
+        mapFromKeys(obj: NC.JSONObject | NC.JSONObject[]): NC.JSONObject | NC.JSONObject[];
         /**
          * Merges two JSON arrays based on a specified key.
          *
@@ -808,7 +806,7 @@ declare class NC {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010112.html
          */
-        mergeJsonArray(arr1: JSONObject[] | NJS<JSONObject[]>, arr2: JSONObject[] | NJS<JSONObject[]>, key: string): JSONObject[];
+        mergeJsonArray(arr1: NC.JSONObject[] | NJS<NC.JSONObject[]>, arr2: NC.JSONObject[] | NJS<NC.JSONObject[]>, key: string): NC.JSONObject[];
         /**
          * Formats the given data to a string representation with specified indentation.
          *

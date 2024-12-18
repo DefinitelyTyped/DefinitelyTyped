@@ -1,6 +1,6 @@
 declare namespace NU {
 
-    enum ButtonSize {
+    const enum ButtonSize {
         NONE = "none",
         SMALLER = "smaller",
         SMALL = "small",
@@ -8,7 +8,7 @@ declare namespace NU {
         LARGE = "large",
         BIG = "big"
     }
-    enum ButtonColor {
+    const enum ButtonColor {
         NONE = "none",
         PRIMARY = "primary",
         PRIMARY_CONTAINER = "primary_container",
@@ -3269,10 +3269,10 @@ declare namespace NU {
                 (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): number;
             }
             type OnOk = {
-                (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): undefined | 0;
+                (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void | 0;
             }
             type OnCancel = {
-                (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): undefined | 0;
+                (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void | 0;
             }
             type OnBeforeShow = {
                 (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void;
@@ -3312,7 +3312,7 @@ declare namespace NU {
                 (this: NU.Datepicker, context: NJS<HTMLElement[]>, selDate: NC.Date, monthonly: boolean): void;
             }
             type OnBeforeShow = {
-                (this: NU.Datepicker, context: NJS<HTMLElement[]>, contents: NJS<HTMLElement[]>): undefined | false;
+                (this: NU.Datepicker, context: NJS<HTMLElement[]>, contents: NJS<HTMLElement[]>): void | false;
             }
             type OnShow = {
                 (this: NU.Datepicker, context: NJS<HTMLElement[]>, contents: NJS<HTMLElement[]>): void;
@@ -3332,10 +3332,10 @@ declare namespace NU {
                 (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): number;
             }
             type OnOk = {
-                (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): undefined | 0;
+                (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void | 0;
             }
             type OnCancel = {
-                (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): undefined | 0;
+                (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void | 0;
             }
             type OnBeforeShow = {
                 (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void;
@@ -3398,10 +3398,10 @@ declare namespace NU {
                 (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NC.JSONObject): void;
             }
             type OnBeforeSelect = {
-                (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): undefined | false;
+                (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): void | false;
             }
             type OnSelect = {
-                (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): void;
+                (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject[]>, beforeRowIdx: number, e: JQuery.Event): void;
             }
             type OnBind = {
                 (this: NU.List, context: NJS<HTMLElement[]>, data: NJS<NC.JSONObject>, isFirstPage: boolean, isLastPage: boolean): void;
@@ -3415,10 +3415,10 @@ declare namespace NU {
                 (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NC.JSONObject): void;
             }
             type OnBeforeSelect = {
-                (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): undefined | false;
+                (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): void | false;
             }
             type OnSelect = {
-                (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): void;
+                (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject[]>, beforeRowIdx: number, e: JQuery.Event): void;
             }
             type OnBind = {
                 (this: NU.Grid, context: NJS<HTMLElement[]>, data: NJS<NC.JSONObject>, isFirstPage: boolean, isLastPage: boolean): void;
