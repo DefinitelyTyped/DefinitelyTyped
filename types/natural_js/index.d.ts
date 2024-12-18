@@ -10,6 +10,7 @@
 /// <reference path="natural.ui.shell.d.ts" />
 /// <reference path="natural.ui.shell.misc.d.ts" />
 /// <reference path="natural.template.d.ts" />
+/// <reference path="natural.template.misc.d.ts" />
 /// <reference path="natural.code.d.ts" />
 /// <reference path="natural.code.misc.d.ts" />
 /// <reference path="natural.js.d.ts" />
