@@ -610,8 +610,6 @@ declare namespace PDFKit.Mixins {
     interface PDFOutline {
         initOutline(): void;
         endOutline(): void;
-
-        outline: PDFOutline;
     }
 }
 
@@ -757,6 +755,11 @@ declare namespace PDFKit {
         output(fn: any): void;
         end(): void;
         toString(): string;
+
+        /**
+         * The root outline
+         */
+        outline: PDFOutline;
     }
 }
 
