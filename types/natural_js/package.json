@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/natural_js",
-    "version": "1.0.0-PRE.SNAPSHOT",
+    "version": "1.0.0",
     "nonNpm": true,
     "nonNpmDescription": "Natural-JS",
     "projects": [
