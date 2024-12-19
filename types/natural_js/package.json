@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/natural_js",
-    "version": "1.0.0",
+    "version": "1.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "Natural-JS",
     "projects": [
@@ -13,18 +13,10 @@
     "devDependencies": {
         "@types/natural_js": "workspace:."
     },
-    "author": {
-        "name": "Goldman Kim",
-        "email": "bbalganjjm@gmail.com"
-    },
     "owners": [
         {
             "name": "Goldman Kim",
             "githubUsername": "bbalganjjm"
         }
-    ],
-    "bugs": {
-        "url": "https://github.com/bbalganjjm/natural_js/issues",
-        "email": "bbalganjjm@gmail.com"
-    }
+    ]
 }
