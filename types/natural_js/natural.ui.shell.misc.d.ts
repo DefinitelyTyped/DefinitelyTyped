@@ -541,43 +541,43 @@ declare namespace NUS {
 
     namespace EventHandlers {
         namespace Documents {
-            type OnBeforeEntireLoad = {
+            interface OnBeforeEntireLoad {
                 (this: NUS.Documents, docId?: string): void;
             }
-            type OnErrorEntireLoad = {
+            interface OnErrorEntireLoad {
                 (this: NUS.Documents, e: Error, request: NA.Request, xhr: JQueryXHR, textStatus: "success" | "error", submitCallback: NA.Callbacks.Communicator.Submit): void;
             }
-            type OnEntireLoad = {
+            interface OnEntireLoad {
                 (this: NUS.Documents, docId: string, entireLoadRequestCnt: number, entireLoadRequestMaxCnt: number): void;
             }
-            type OnBeforeLoad = {
+            interface OnBeforeLoad {
                 (this: NUS.Documents, docId: string, target: NJS<HTMLElement[]>): void;
             }
-            type OnLoad = {
+            interface OnLoad {
                 (this: NUS.Documents, docId: string): void;
             }
-            type OnBeforeActive = {
+            interface OnBeforeActive {
                 (this: NUS.Documents, docId: string, isFromDocsTabList: boolean, isNotLoaded: boolean): void;
             }
-            type OnActive = {
+            interface OnActive {
                 (this: NUS.Documents, docId: string, isFromDocsTabList: boolean, isNotLoaded: boolean): void;
             }
-            type OnBeforeInactive = {
+            interface OnBeforeInactive {
                 (this: NUS.Documents, docId?: string): void;
             }
-            type OnInactive = {
+            interface OnInactive {
                 (this: NUS.Documents, docId?: string): void;
             }
-            type OnBeforeRemoveState = {
+            interface OnBeforeRemoveState {
                 (this: NUS.Documents, docId?: string): void;
             }
-            type OnRemoveState = {
+            interface OnRemoveState {
                 (this: NUS.Documents, docId?: string): void;
             }
-            type OnBeforeRemove = {
+            interface OnBeforeRemove {
                 (this: NUS.Documents, docId?: string): void;
             }
-            type OnRemove = {
+            interface OnRemove {
                 (this: NUS.Documents, docId?: string): void;
             }
         }
@@ -585,13 +585,13 @@ declare namespace NUS {
 
     namespace Callbacks {
         namespace Documents {
-            type RemoveState = {
+            interface RemoveState {
                 (this: NUS.Documents, docId?: string): void;
             }
-            type LoadContent = {
+            interface LoadContent {
                 (this: NUS.Documents): void;
             }
-            type Reload = {
+            interface Reload {
                 (this: NA.Communicator, html?: string, request?: NA.Request): void;
             }
         }

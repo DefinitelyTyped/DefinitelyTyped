@@ -100,22 +100,22 @@ declare namespace NA {
 
     namespace Callbacks {
         namespace Communicator {
-            type Submit = {
+            interface Submit {
                 (this: NA.Communicator, data?: NC.JSONObject | NC.JSONObject[] | NC.Primitive | object | object[] | NA.Controller, request?: NA.Request): void;
             }
-            type Error = {
+            interface Error {
                 (this: NA.Communicator, xhr: JQuery.jqXHR, textStatus: JQuery.Ajax.TextStatus, e: Error, request: NA.Request, submitCallback: Submit): void;
             }
         }
 
         namespace Controller {
-            type OnOpen = {
+            interface OnOpen {
                 (this: NA.Objects.Controller.Object, onOpenData?: any): void;
             }
         }
 
         namespace Request {
-            type Reload = {
+            interface Reload {
                 (this: NA.Communicator, html?: string | NA.Controller, request?: NA.Request): void;
             }
         }
@@ -190,7 +190,7 @@ declare namespace NA {
         }
 
         namespace Controller {
-            type InitFunction = {
+            interface InitFunction {
                 (this: Object, view: NJS<HTMLElement[]>, request: NA.Request): void
             }
 

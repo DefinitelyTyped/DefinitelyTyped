@@ -97,7 +97,7 @@ declare namespace ND {
         }];
     }[];
 
-    type ConditionCallback = {
+    interface ConditionCallback {
         (item: object): boolean;
-    };
+    }
 }
