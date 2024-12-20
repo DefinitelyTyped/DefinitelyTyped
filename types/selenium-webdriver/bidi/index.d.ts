@@ -1,4 +1,4 @@
-import EventEmitter from "node:events";
+import { EventEmitter } from 'events';
 
 export interface BuildInfo {
     version: string;
@@ -30,7 +30,7 @@ export interface Params {
     };
 }
 
-declare class Index extends EventEmitter {
+export class Index extends EventEmitter {
     id: boolean
     connected: boolean
     events: string[]
