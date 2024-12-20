@@ -18,10 +18,14 @@ N.gc.ds();
 N.gc.minimum();
 N.string.trimToZero("");
 N.string.rpad("Hello", 10, "World");
+N.date.dateList(2024, 12).forEach(function (date) {
+    date.forEach(function (date) {
+        date.formatDate("Y-m-d");
+    })
+});
 N.element.toOpts(N("div"));
 N.browser.scrollbarWidth();
 N.browser.cookie("test", "test cookie value", 1, "localhost");
-new Date().formatDate("Y-m-d");
 
 const selector = N("asdf").selector;
 
@@ -81,7 +85,7 @@ N(".context").cont({
     }
 });
 
-N.ds.instance(class {}, true)
+N.ds.instance(N().grid(), true)
     .remove()
     .notify(1, "");
 

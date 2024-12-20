@@ -90,7 +90,7 @@ declare class NC {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010103.html
      */
-    instance(name: string | NC.InstanceCallback, instance?: NC.Instance): void | NJS<NC.Instance[]> | NC.Instance[] | NC.Instance | NC;
+    instance(name: string | NC.InstanceCallback, instance?: NC.Instance): undefined | NJS<NC.Instance[]> | NC.Instance[] | NC.Instance | NC;
     /**
      * Gets or selects the selected values of elements such as select, select[multiple=multiple], input[type=radio], and input[type=checkbox].
      *
@@ -292,7 +292,7 @@ declare class NC {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html
      */
-    static toSelector(el: NJS<HTMLElement[]> | HTMLElement | HTMLElement[] | any): string;
+    static toSelector(el: NC.Selector): string;
     /**
      * A function that takes a variable number of arguments and returns an array of
      * JQuery.Deferred objects, ensuring that the deferred tasks are executed in serial order.
@@ -302,7 +302,7 @@ declare class NC {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010104.html
      */
-    static serialExecute(...args: Function[]): JQuery.Deferred<any>[];
+    static serialExecute(...args: unknown[]): JQuery.Deferred<any>[];
     /**
      * Provides methods to perform different levels of garbage collection.
      */
@@ -589,7 +589,7 @@ declare class NC {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010108.html
          */
-        dateList(year: number, month: number): [NC.JSONObject[]];
+        dateList(year: number, month: number): [Date, Date, Date, Date, Date, Date, Date][];
     };
     /**
      * Provides utility methods for working with HTML elements, including converting data attributes to options objects, creating JSON data objects, defining data change effects, and calculating maximum z-index.
@@ -876,7 +876,7 @@ declare class NC {
     /**
      * Used in N.formatter to process user formats.
      *
-     * @reference Mask JavaScript API(http://www.pengoworks.com/workshop/js/mask/, dswitzer@pengoworks.com)
+     * @see http://www.pengoworks.com/workshop/js/mask/ Mask JavaScript API(dswitzer@pengoworks.com)
      */
     static mask: {
         new(m: any): {
@@ -896,7 +896,7 @@ declare class NC {
 /**
  * Extends the JavaScript Date object to provide additional utility functions for date manipulation and formatting.
  */
-declare interface Date {
+interface Date {
     /**
      * Returns a string created with the date of the Date object in the specified format.
      * > This is a function that extends to the Javascript Date object.

@@ -1,5 +1,6 @@
 declare namespace ND {
 
+    /* eslint-disable-next-line @definitelytyped/no-const-enum */
     const enum FormatRules {
         COMMAS = "commas",
         RRN = "rrn",
@@ -25,6 +26,8 @@ declare namespace ND {
         GENERIC = "generic",
         NUMERIC = "numeric"
     }
+
+    /* eslint-disable-next-line @definitelytyped/no-const-enum */
     const enum FormatMaskingRules {
         PHONE = "phone",
         EMAIL = "email",
@@ -33,6 +36,7 @@ declare namespace ND {
         RRN = "rrn"
     }
 
+    /* eslint-disable-next-line @definitelytyped/no-const-enum */
     const enum ValidationRules {
         REQUIRED = "required",
         ALPHABET = "alphabet",
@@ -77,24 +81,24 @@ declare namespace ND {
         REGEXP = "regexp"
     }
 
-    type FormatRuleObject = {
+    interface FormatRuleObject {
         [key: string]: [FormatRules, ...NC.Primitive[]][];
-    };
+    }
 
-    type ValidationRuleObject = {
+    interface ValidationRuleObject {
         [key: string]: [ValidationRules, ...NC.Primitive[]][];
-    };
+    }
 
-    type FormatResultObject = {
+    interface FormatResultObject {
         [key: string]: string;
-    };
+    }
 
     type ValidateResultObject = {
-        [key: string]: [{
+        [key: string]: {
             rule: string,
             result: boolean;
             msg: string | null;
-        }];
+        }[];
     }[];
 
     interface ConditionCallback {

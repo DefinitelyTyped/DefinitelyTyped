@@ -138,6 +138,7 @@ declare namespace NA {
              * Enctype.PLAIN - Represents the MIME type `text/plain`.
              * This encoding type sends data without any encoding for the key-value pairs.
              */
+            /* eslint-disable-next-line @definitelytyped/no-const-enum */
             const enum Enctype {
                 URLENCODED = "application/x-www-form-urlencoded",
                 MULTIPART = "multipart/form-data",
@@ -146,9 +147,8 @@ declare namespace NA {
 
             /**
              * An enumeration for different types of data formats that can be used.
-             *
-             * @enum {string}
              */
+            /* eslint-disable-next-line @definitelytyped/no-const-enum */
             const enum DataType {
                 JSON = "json",
                 XML = "xml",
@@ -173,9 +173,8 @@ declare namespace NA {
              * - TRACE: Performs a message loop-back test along the path to the target resource.
              * - CONNECT: Establishes a tunnel to the server identified by the target resource.
              * - PATCH: Used to apply partial modifications to a resource.
-             *
-             * @enum {string}
              */
+            /* eslint-disable-next-line @definitelytyped/no-const-enum */
             const enum HttpMethod {
                 POST = "POST",
                 GET = "GET",
@@ -237,14 +236,14 @@ declare namespace NA {
         }
 
         namespace Config {
-            type FilterConfig = {
+            interface FilterConfig {
                 beforeInitFilters: object[];
                 afterInitFilters: object[];
                 beforeSendFilters: object[];
                 successFilters: object[];
                 errorFilters: object[];
                 completeFilters: object[];
-            };
+            }
         }
     }
 

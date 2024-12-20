@@ -1,5 +1,6 @@
 declare namespace NU {
 
+    /* eslint-disable-next-line @definitelytyped/no-const-enum */
     const enum ButtonSize {
         NONE = "none",
         SMALLER = "smaller",
@@ -8,6 +9,8 @@ declare namespace NU {
         LARGE = "large",
         BIG = "big"
     }
+
+    /* eslint-disable-next-line @definitelytyped/no-const-enum */
     const enum ButtonColor {
         NONE = "none",
         PRIMARY = "primary",
@@ -17,7 +20,9 @@ declare namespace NU {
         TERTIARY = "tertiary",
         TERTIARY_CONTAINER = "tertiary_container"
     }
-    enum ButtonType {
+
+    /* eslint-disable-next-line @definitelytyped/no-const-enum */
+    const enum ButtonType {
         NONE = "none",
         FILLED = "filled",
         OUTLINED = "outlined",
@@ -25,7 +30,7 @@ declare namespace NU {
     }
 
     namespace Options {
-        type Alert = {
+        interface Alert {
             /**
              * Specifies the area where the message dialog for Alert will be displayed.
              *
@@ -419,9 +424,9 @@ declare namespace NU {
             onRemove?: NU.EventHandlers.Alert.OnRemove | null;
             isInput?: boolean;
             isWindow?: boolean;
-        };
+        }
 
-        type Button = {
+        interface Button {
             /**
              * Specifies the context element to which the Button will be applied.
              *
@@ -524,9 +529,9 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0402.html&tab=html/naturaljs/refr/refr040204.html
              */
             onCreate?: NU.EventHandlers.Button.OnCreate | null;
-        };
+        }
 
-        type Datepicker = {
+        interface Datepicker {
             /**
              * Specifies the input element to which the Datepicker will be applied.
              * ```
@@ -807,9 +812,9 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0403.html&tab=html/naturaljs/refr/refr040304.html
              */
             onHide?: NU.EventHandlers.Datepicker.OnHide | null;
-        };
+        }
 
-        type Popup = {
+        interface Popup {
             /**
              * Specifies the Block element inside the page to create as a popup.
              *
@@ -1152,7 +1157,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            onOpenData?: any | null,
+            onOpenData?: any,
             /**
              * Defines an event handler that is executed whenever the popup is closed.
              * ```
@@ -1215,7 +1220,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            onCloseData?: any | null,
+            onCloseData?: any,
             /**
              * Defines the event handler that runs when the popup content has finished loading.
              *
@@ -1301,9 +1306,9 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
             saveMemory?: boolean;
-        };
+        }
 
-        type EachTab = {
+        interface EachTab {
             /**
              * Specifies the URL of the page to be created as tab content.
              *
@@ -1360,8 +1365,8 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0405.html&tab=html/naturaljs/refr/refr040504.html
              */
             stateless?: boolean;
-        };
-        type Tab = {
+        }
+        interface Tab {
             /**
              * Specifies the context element where the Tab will be applied.
              *
@@ -1550,9 +1555,9 @@ declare namespace NU {
                 tabContainerWidthCorrectionPx?: number;
                 tabContainerWidthReCalcDelayTime?: number;
             }
-        };
+        }
 
-        type Select = {
+        interface Select {
             /**
              * Specifies the data to bind to the Select element.
              *
@@ -1633,9 +1638,9 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040604.html
              */
             template?: NJS<HTMLElement[]> | null;
-        };
+        }
 
-        type Form = {
+        interface Form {
             /**
              * Specifies the data to bind to the Form.
              *
@@ -1885,9 +1890,9 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040704.html
              */
             InitialData?: NJS<NC.JSONObject>;
-        };
+        }
 
-        type List = {
+        interface List {
             /**
              * Specifies the data to be bound to the List.
              *
@@ -2307,9 +2312,9 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040804.html
              */
             onBind?: NU.EventHandlers.List.OnBind | null;
-        };
+        }
 
-        type GridMisc = {
+        interface GridMisc {
             resizableCorrectionWidth?: number;
             resizableLastCellCorrectionWidth?: number;
             resizeBarCorrectionLeft?: number;
@@ -2322,9 +2327,9 @@ declare namespace NU {
             fixedcolBodyBindHeight?: number;
             fixedcolBodyAddHeight?: number;
             fixedcolRootContainer?: JQuery.Selector | null;
-        };
+        }
 
-        type Grid = {
+        interface Grid {
             /**
              * Specifies the data to be bound to the Grid.
              *
@@ -2889,9 +2894,9 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040904.html
              */
             currMoveToRow?: number;
-        };
+        }
 
-        type CurrPageNavInfo = {
+        interface CurrPageNavInfo {
             /**
              * Current page number.
              *
@@ -2996,8 +3001,8 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             endRowNum: number;
-        };
-        type Pagination = {
+        }
+        interface Pagination {
             /**
              * Specifies the data to be bound to the Pagination.
              *
@@ -3143,9 +3148,9 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041004.html
              */
             currPageNavInfo?: NU.Options.CurrPageNavInfo | null;
-        };
+        }
 
-        type Tree = {
+        interface Tree {
             /**
              * Specifies the data to bind to the Tree.
              *
@@ -3256,7 +3261,7 @@ declare namespace NU {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041104.html
              */
             onCheck?: NU.EventHandlers.Tree.OnCheck | null;
-        };
+        }
 
     }
 
@@ -3269,10 +3274,10 @@ declare namespace NU {
                 (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): number;
             }
             interface OnOk {
-                (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void | 0;
+                (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): undefined | 0;
             }
             interface OnCancel {
-                (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void | 0;
+                (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): undefined | 0;
             }
             interface OnBeforeShow {
                 (this: NU.Alert, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void;
@@ -3312,7 +3317,7 @@ declare namespace NU {
                 (this: NU.Datepicker, context: NJS<HTMLElement[]>, selDate: NC.Date, monthonly: boolean): void;
             }
             interface OnBeforeShow {
-                (this: NU.Datepicker, context: NJS<HTMLElement[]>, contents: NJS<HTMLElement[]>): void | false;
+                (this: NU.Datepicker, context: NJS<HTMLElement[]>, contents: NJS<HTMLElement[]>): undefined | false;
             }
             interface OnShow {
                 (this: NU.Datepicker, context: NJS<HTMLElement[]>, contents: NJS<HTMLElement[]>): void;
@@ -3332,10 +3337,10 @@ declare namespace NU {
                 (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): number;
             }
             interface OnOk {
-                (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void | 0;
+                (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): undefined | 0;
             }
             interface OnCancel {
-                (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void | 0;
+                (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): undefined | 0;
             }
             interface OnBeforeShow {
                 (this: NU.Popup, msgContext?: NJS<HTMLElement[]>, msgContents?: NJS<HTMLElement[]>): void;
@@ -3398,7 +3403,7 @@ declare namespace NU {
                 (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NC.JSONObject): void;
             }
             interface OnBeforeSelect {
-                (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): void | false;
+                (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): undefined | false;
             }
             interface OnSelect {
                 (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject[]>, beforeRowIdx: number, e: JQuery.Event): void;
@@ -3415,7 +3420,7 @@ declare namespace NU {
                 (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NC.JSONObject): void;
             }
             interface OnBeforeSelect {
-                (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): void | false;
+                (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): undefined | false;
             }
             interface OnSelect {
                 (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject[]>, beforeRowIdx: number, e: JQuery.Event): void;
@@ -3456,23 +3461,23 @@ declare namespace NU {
 
     namespace Objects {
         namespace Grid {
-            type TableMap = {
+            interface TableMap {
                 colgroup: HTMLElement[][];
                 thead: HTMLTableCellElement[][];
                 tbody: HTMLTableCellElement[][];
                 tfoot: HTMLTableCellElement[][];
-            };
+            }
         }
 
         namespace Pagination {
-            type LinkEles = {
+            interface LinkEles {
                 body: HTMLElement[][];
                 page: HTMLElement[][];
                 first: HTMLElement[][];
                 prev: HTMLElement[][];
                 next: HTMLElement[][];
                 last: HTMLElement[][];
-            };
+            }
         }
     }
 

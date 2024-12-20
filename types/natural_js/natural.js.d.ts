@@ -4,10 +4,10 @@
  * N() extends the jQuery() function, thus it can be replaced with $() or jQuery(). However, local functions of the N object cannot be used within jQuery or $ objects.
  */
 declare function N(
-    selector?: string | Element | Array<Element> | JQuery<Element> | JQuery.Node | JQuery.PlainObject | ((this: Document, readyCallback: (this: Document) => void) => void) | NJS<Element>,
+    selector?: NC.Selector,
     context?: Element | Document | JQuery<Element> | string | NJS<Element>): NJS<any>;
 
-declare interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
+interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
 
     version: {
         "Natural-JS": string;

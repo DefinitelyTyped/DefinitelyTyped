@@ -7,7 +7,7 @@ declare class NCD {
             UseTheComponentsValMethod(codes: string, excludes: string[], report: NCD.CodeInspectionResult[]): void;
         };
         report: {
-            console(data: NCD.CodeInspectionResult[], url: string): false | void;
+            console(data: NCD.CodeInspectionResult[], url: string): false | undefined;
         }
     }
 

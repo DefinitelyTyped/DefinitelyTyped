@@ -1,13 +1,13 @@
 declare namespace NUS {
 
     namespace Options {
-        type NotifyPosition = {
+        interface NotifyPosition {
             left?: number;
             right?: number;
             top?: number;
             bottom?: number;
         }
-        type Notify = {
+        interface Notify {
             /**
              * Set where the message will appear.
              *
@@ -68,9 +68,9 @@ declare namespace NUS {
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050104.html
              */
             alwaysOnTopCalcTarget?: string;
-        };
+        }
 
-        type DocsObject = {
+        interface DocsObject {
             [key: string]: DocOpts;
         }
         /**
@@ -78,7 +78,7 @@ declare namespace NUS {
          *
          * @see @see {@link https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
-        type DocOpts = {
+        interface DocOpts {
             /**
              * Document id
              */
@@ -163,8 +163,8 @@ declare namespace NUS {
              * @default false
              */
             stateless?: boolean
-        };
-        type Documents = {
+        }
+        interface Documents {
             /**
              * Specifies the element to apply N.docs to.
              *

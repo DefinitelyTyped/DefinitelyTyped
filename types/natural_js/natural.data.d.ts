@@ -92,7 +92,6 @@ declare class ND {
     /**
      * Extracts data that matches the specified condition.
      *
-     * @this {NJS<NC.JSONObject[]>} - The data to filter
      * @param {ND.ConditionCallback | string} condition - Specifies the filtering condition.
      *
      * If you specify a function, only the rows for which the function returns true are filtered.
@@ -125,23 +124,22 @@ declare class ND {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html
      */
-    datafilter(condition: ND.ConditionCallback | string): NJS<NC.JSONObject[]>;
+    datafilter(this: NJS<NC.JSONObject[]>, condition: ND.ConditionCallback | string): NJS<NC.JSONObject[]>;
     /**
      * Sorts the data based on the specified "key" argument value.
      *
-     * @this {NJS<NC.JSONObject[]>} - Data to be sorted
      * @param {string} key - The property name of the JSON object to be used as the sorting criteria
      * @param {string} [reverse] - If set to true, sorts in descending order.
      * @return {NJS<NC.JSONObject[]>} A new JSON object array containing the sorted elements.
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html
      */
-    datasort(key: string, reverse?: boolean): NJS<NC.JSONObject[]>;
+    datasort(this: NJS<NC.JSONObject[]>, key: string, reverse?: boolean): NJS<NC.JSONObject[]>;
     /**
      * This class handles data synchronization logic for two-way data binding.
      */
     static ds: {
-        instance(inst: Function, isReg?: boolean): ND.DataSync;
+        instance(inst: NC.Instance, isReg?: boolean): ND.DataSync;
     };
     static formatter: {
         /**
@@ -321,6 +319,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         trimtoval(str: string, args: [string]): string;
         /**
          * Converts or formats a date string according to specified options and returns the formatted date string.
@@ -373,6 +372,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         time(str: string, args?: [number]): string;
         /**
          * Cuts the string to a specified length.
@@ -499,6 +499,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         generic(str: string, args: [string]): string;
         /**
          * Format a numeric string using a custom format.
@@ -758,6 +759,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         phone(str: string, args: [boolean]): boolean;
         /**
          * Checks if it matches the South Korea's resident registration number format.
@@ -841,6 +843,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         accept(str: string, args: [string]): boolean;
         /**
          * Checks whether an unspecified value has been entered.
@@ -852,6 +855,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         notaccept(str: string, args: [string]): boolean;
         /**
          * Checks whether the specified value is included.
@@ -863,6 +867,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         match(str: string, args: [string]): boolean;
         /**
          * Checks whether the specified value is not included.
@@ -874,6 +879,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         notmatch(str: string, args: [string]): boolean;
         /**
          * Checks whether the specified file extension has been entered.
@@ -885,6 +891,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         acceptfileext(str: string, args: [string]): boolean;
         /**
          * Checks whether an unspecified file extension has been entered.
@@ -896,6 +903,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         notacceptfileext(str: string, args: [string]): boolean;
         /**
          * Checks whether the value of the specified input element is equal to the value.
@@ -907,6 +915,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         equalTo(str: string, args: [JQuery.Selector]): boolean;
         /**
          * Checks whether the input string length is less than the specified length.
@@ -918,6 +927,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         maxlength(str: string, args: [number]): boolean;
         /**
          * Checks whether the input string length is greater than the specified length.
@@ -929,6 +939,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
+        /* eslint-disable-next-line @definitelytyped/no-single-element-tuple-type */
         minlength(str: string, args: [number]): boolean;
         /**
          * Checks whether the input string length is between the specified lengths.

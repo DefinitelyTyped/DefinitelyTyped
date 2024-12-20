@@ -1,6 +1,6 @@
 declare namespace NT {
     namespace Options {
-        type Extra = {
+        interface Extra {
             /**
              * After the component is initialized, the specified function is immediately executed.
              *  - string: Function name
@@ -28,18 +28,17 @@ declare namespace NT {
                     }[]
                 }
             }
-        };
+        }
         /**
          * Represents a function type for filtering an array of JSON objects.
          *
-         * @callback SelectFilter
          * @param {NJS<JSONObject[]>} data - Data to process.
          * @returns {NJS<JSONObject[]>} - Processed data.
          */
         interface SelectFilter {
             (data: NJS<NC.JSONObject[]>): NJS<NC.JSONObject[]>;
         }
-        type Select = {
+        interface Select {
             /**
              * Common code classification code - Set the classification code value of the code list to bind.
              *

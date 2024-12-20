@@ -5,26 +5,24 @@ declare class NUS {
      * var notify = N(position).notify(opts);
      * ```
      *
-     * @this {NJS<NUS.Options.NotifyPosition>} - Set where the message will appear.
      * @param {NUS.Options.Notify} [opts] - Specifies the initialization option object for the component.
      * @returns {NUS.Notify} An instance of a Notify object, configured according to the provided options.
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0501.html&tab=html/naturaljs/refr/refr050103.html
      */
-    notify(opts?: NUS.Options.Notify): NUS.Notify;
+    notify(this: NJS<NUS.Options.NotifyPosition>, opts?: NUS.Options.Notify): NUS.Notify;
     /**
      * Create an object instance of Documents with the N() function.
      * ```
      * var docs = N(context).docs(opts);
      * ```
      *
-     * @this {NJS<HTMLElement[]>} - The context element to which the Documents will be applied.
      * @param {NUS.Options.Documents} [opts] - Specifies the initialization option object for the component.
      * @returns {NUS.Documents} An instance of a Documents object, configured according to the provided options.
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050202.html
      */
-    docs(opts?: NUS.Options.Documents): NUS.Documents;
+    docs(this: NJS<HTMLElement[]>, opts?: NUS.Options.Documents): NUS.Documents;
 
     static notify: {
         /**
@@ -70,7 +68,7 @@ declare class NUS {
         closeBtnControl(): void;
         inactivateTab(): void;
         activateTab(docId_: string, isFromDocsTabList_?: boolean, isNotLoaded_?: boolean): void;
-        showTabContents(docId_: string): boolean | void;
+        showTabContents(docId_: string): boolean | undefined;
         hideTabContents(docId_: string): void;
         remove(targetTabEle: NJS<HTMLElement[]>): void;
     };
