@@ -1,3 +1,5 @@
+// import N from "@bbalganjjm/natural_js";
+
 N([{}, {}]).each((index, element) => {});
 N(".button").remove_(1, 2).instance((instanceName, instance) => {});
 N(".button").tpBind("click", function () {});
