@@ -1,2 +1,2 @@
-import Toastify from '../index'
-export default Toastify
+import Toastify from "../index";
+export default Toastify;
