@@ -1,5 +1,4 @@
 declare namespace ND {
-
     /* eslint-disable-next-line @definitelytyped/no-const-enum */
     const enum FormatRules {
         COMMAS = "commas",
@@ -24,7 +23,7 @@ declare namespace ND {
         RPAD = "rpad",
         MASK = "mask",
         GENERIC = "generic",
-        NUMERIC = "numeric"
+        NUMERIC = "numeric",
     }
 
     /* eslint-disable-next-line @definitelytyped/no-const-enum */
@@ -33,7 +32,7 @@ declare namespace ND {
         EMAIL = "email",
         ADDRESS = "address",
         NAME = "name",
-        RRN = "rrn"
+        RRN = "rrn",
     }
 
     /* eslint-disable-next-line @definitelytyped/no-const-enum */
@@ -78,7 +77,7 @@ declare namespace ND {
         MAXVALUE = "maxvalue",
         MINVALUE = "minvalue",
         RANGEVALUE = "rangevalue",
-        REGEXP = "regexp"
+        REGEXP = "regexp",
     }
 
     interface FormatRuleObject {
@@ -95,7 +94,7 @@ declare namespace ND {
 
     type ValidateResultObject = {
         [key: string]: {
-            rule: string,
+            rule: string;
             result: boolean;
             msg: string | null;
         }[];

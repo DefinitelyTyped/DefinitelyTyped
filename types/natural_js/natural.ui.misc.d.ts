@@ -1,5 +1,4 @@
 declare namespace NU {
-
     /* eslint-disable-next-line @definitelytyped/no-const-enum */
     const enum ButtonSize {
         NONE = "none",
@@ -7,7 +6,7 @@ declare namespace NU {
         SMALL = "small",
         MEDIUM = "medium",
         LARGE = "large",
-        BIG = "big"
+        BIG = "big",
     }
 
     /* eslint-disable-next-line @definitelytyped/no-const-enum */
@@ -18,7 +17,7 @@ declare namespace NU {
         SECONDARY = "secondary",
         SECONDARY_CONTAINER = "secondary_container",
         TERTIARY = "tertiary",
-        TERTIARY_CONTAINER = "tertiary_container"
+        TERTIARY_CONTAINER = "tertiary_container",
     }
 
     /* eslint-disable-next-line @definitelytyped/no-const-enum */
@@ -26,7 +25,7 @@ declare namespace NU {
         NONE = "none",
         FILLED = "filled",
         OUTLINED = "outlined",
-        ELEVATED = "elevated"
+        ELEVATED = "elevated",
     }
 
     namespace Options {
@@ -282,7 +281,7 @@ declare namespace NU {
                 top?: number;
                 bottom?: number;
                 left?: number;
-                right?: number
+                right?: number;
             };
             /**
              * When set to true, saves memory usage by removing unnecessary reference elements.
@@ -693,10 +692,10 @@ declare namespace NU {
              */
             holiday?: {
                 "repeat"?: {
-                    [key: string]: string | string[]
+                    [key: string]: string | string[];
                 } | null;
                 "once"?: {
-                    [key: string]: string | string[]
+                    [key: string]: string | string[];
                 } | null;
             };
             /**
@@ -842,7 +841,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            url?: string,
+            url?: string;
             /**
              * Sets the title of the popup. If not set, the title bar is not created.
              *
@@ -870,7 +869,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            modal?: boolean,
+            modal?: boolean;
             /**
              * The position(px) to the top of the popup.
              *
@@ -935,7 +934,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            opener?: NA.Objects.Controller.Object | null,
+            opener?: NA.Objects.Controller.Object | null;
             /**
              * Sets whether to hide or remove the popup element when the popup is closed.
              *  - hide: Hides the popup element and maintains the previous state.
@@ -1145,7 +1144,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            onOpen?: string | NU.EventHandlers.Popup.OnOpen | null,
+            onOpen?: string | NU.EventHandlers.Popup.OnOpen | null;
             /**
              * Sets the data of the parent page to pass as the first argument of the onOpen event handler function.
              *
@@ -1157,7 +1156,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            onOpenData?: any,
+            onOpenData?: any;
             /**
              * Defines an event handler that is executed whenever the popup is closed.
              * ```
@@ -1208,7 +1207,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            onClose?: NU.EventHandlers.Popup.OnClose | null,
+            onClose?: NU.EventHandlers.Popup.OnClose | null;
             /**
              * Sets the data of the popup page to be passed as the first argument of the onClose event handler.
              *
@@ -1220,7 +1219,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            onCloseData?: any,
+            onCloseData?: any;
             /**
              * Defines the event handler that runs when the popup content has finished loading.
              *
@@ -1236,7 +1235,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            onLoad?: NU.EventHandlers.Popup.OnLoad | null,
+            onLoad?: NU.EventHandlers.Popup.OnLoad | null;
             /**
              * If set to true, the popup's content is preloaded when the popup is initialized;
              * if set to false, the popup's content is loaded when the popup is opened for the first time.
@@ -1247,7 +1246,7 @@ declare namespace NU {
              *
              * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0404.html&tab=html/naturaljs/refr/refr040404.html
              */
-            preload?: boolean,
+            preload?: boolean;
             /**
              * If set to false, it does not automatically adjust the size of the block overlay and the position of the popup when resizing the browser window or when the parent's content height changes dynamically.
              *
@@ -1296,7 +1295,7 @@ declare namespace NU {
                 top?: number;
                 bottom?: number;
                 left?: number;
-                right?: number
+                right?: number;
             };
             /**
              * When set to true, saves memory usage by removing unnecessary reference elements.
@@ -1554,7 +1553,7 @@ declare namespace NU {
             tabScrollCorrection?: {
                 tabContainerWidthCorrectionPx?: number;
                 tabContainerWidthReCalcDelayTime?: number;
-            }
+            };
         }
 
         interface Select {
@@ -3262,7 +3261,6 @@ declare namespace NU {
              */
             onCheck?: NU.EventHandlers.Tree.OnCheck | null;
         }
-
     }
 
     namespace EventHandlers {
@@ -3311,7 +3309,13 @@ declare namespace NU {
                 (this: NU.Datepicker, context: NJS<HTMLElement[]>, selYearStr: string, e: JQuery.Event): void;
             }
             interface OnChangeMonth {
-                (this: NU.Datepicker, context: NJS<HTMLElement[]>, selMonthStr: string, selYearStr: string, e: JQuery.Event): void;
+                (
+                    this: NU.Datepicker,
+                    context: NJS<HTMLElement[]>,
+                    selMonthStr: string,
+                    selYearStr: string,
+                    e: JQuery.Event,
+                ): void;
             }
             interface OnSelect {
                 (this: NU.Datepicker, context: NJS<HTMLElement[]>, selDate: NC.Date, monthonly: boolean): void;
@@ -3375,18 +3379,41 @@ declare namespace NU {
                 (this: NA.Objects.Controller.Object, onOpenData?: any): void;
             }
             interface OnActive {
-                (this: NU.Tab, selTabIdx: number, selTabEle: NJS<HTMLElement[]>, selContentEle: NJS<HTMLElement[]>, links: NJS<HTMLElement[]>, contents: NJS<HTMLElement[]>): void;
+                (
+                    this: NU.Tab,
+                    selTabIdx: number,
+                    selTabEle: NJS<HTMLElement[]>,
+                    selContentEle: NJS<HTMLElement[]>,
+                    links: NJS<HTMLElement[]>,
+                    contents: NJS<HTMLElement[]>,
+                ): void;
             }
             interface OnLoad {
-                (this: NU.Tab, selTabIdx: number, selTabEle: NJS<HTMLElement[]>, selContentEle: NJS<HTMLElement[]>, cont: NA.Objects.Controller.Object): void;
+                (
+                    this: NU.Tab,
+                    selTabIdx: number,
+                    selTabEle: NJS<HTMLElement[]>,
+                    selContentEle: NJS<HTMLElement[]>,
+                    cont: NA.Objects.Controller.Object,
+                ): void;
             }
         }
         namespace Form {
             interface OnBeforeBindValue {
-                (this: NU.Form, ele: NJS<HTMLElement[]>, val: NC.Primitive | NC.Primitive[], action: "bind" | "val"): NC.Primitive | NC.Primitive[];
+                (
+                    this: NU.Form,
+                    ele: NJS<HTMLElement[]>,
+                    val: NC.Primitive | NC.Primitive[],
+                    action: "bind" | "val",
+                ): NC.Primitive | NC.Primitive[];
             }
             interface OnBindValue {
-                (this: NU.Form, ele: NJS<HTMLElement[]>, val: NC.Primitive | NC.Primitive[], action: "bind" | "val"): void;
+                (
+                    this: NU.Form,
+                    ele: NJS<HTMLElement[]>,
+                    val: NC.Primitive | NC.Primitive[],
+                    action: "bind" | "val",
+                ): void;
             }
             interface OnBeforeBind {
                 (this: NU.Form, context: NJS<HTMLElement[]>, vals: NC.JSONObject): void;
@@ -3403,13 +3430,33 @@ declare namespace NU {
                 (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NC.JSONObject): void;
             }
             interface OnBeforeSelect {
-                (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): undefined | false;
+                (
+                    this: NU.List,
+                    rowIdx: number,
+                    rowEle: NJS<HTMLElement[]>,
+                    rowData: NJS<NC.JSONObject>,
+                    beforeRowIdx: number,
+                    e: JQuery.Event,
+                ): undefined | false;
             }
             interface OnSelect {
-                (this: NU.List, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject[]>, beforeRowIdx: number, e: JQuery.Event): void;
+                (
+                    this: NU.List,
+                    rowIdx: number,
+                    rowEle: NJS<HTMLElement[]>,
+                    rowData: NJS<NC.JSONObject[]>,
+                    beforeRowIdx: number,
+                    e: JQuery.Event,
+                ): void;
             }
             interface OnBind {
-                (this: NU.List, context: NJS<HTMLElement[]>, data: NJS<NC.JSONObject>, isFirstPage: boolean, isLastPage: boolean): void;
+                (
+                    this: NU.List,
+                    context: NJS<HTMLElement[]>,
+                    data: NJS<NC.JSONObject>,
+                    isFirstPage: boolean,
+                    isLastPage: boolean,
+                ): void;
             }
         }
         namespace Grid {
@@ -3420,18 +3467,44 @@ declare namespace NU {
                 (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NC.JSONObject): void;
             }
             interface OnBeforeSelect {
-                (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject>, beforeRowIdx: number, e: JQuery.Event): undefined | false;
+                (
+                    this: NU.Grid,
+                    rowIdx: number,
+                    rowEle: NJS<HTMLElement[]>,
+                    rowData: NJS<NC.JSONObject>,
+                    beforeRowIdx: number,
+                    e: JQuery.Event,
+                ): undefined | false;
             }
             interface OnSelect {
-                (this: NU.Grid, rowIdx: number, rowEle: NJS<HTMLElement[]>, rowData: NJS<NC.JSONObject[]>, beforeRowIdx: number, e: JQuery.Event): void;
+                (
+                    this: NU.Grid,
+                    rowIdx: number,
+                    rowEle: NJS<HTMLElement[]>,
+                    rowData: NJS<NC.JSONObject[]>,
+                    beforeRowIdx: number,
+                    e: JQuery.Event,
+                ): void;
             }
             interface OnBind {
-                (this: NU.Grid, context: NJS<HTMLElement[]>, data: NJS<NC.JSONObject>, isFirstPage: boolean, isLastPage: boolean): void;
+                (
+                    this: NU.Grid,
+                    context: NJS<HTMLElement[]>,
+                    data: NJS<NC.JSONObject>,
+                    isFirstPage: boolean,
+                    isLastPage: boolean,
+                ): void;
             }
         }
         namespace Pagination {
             interface OnChange {
-                (this: NU.Pagination, pageNo: number, selEle: NJS<HTMLElement[]>, selData: NC.JSONObject[], currPageNavInfo: NU.Options.CurrPageNavInfo): void;
+                (
+                    this: NU.Pagination,
+                    pageNo: number,
+                    selEle: NJS<HTMLElement[]>,
+                    selData: NC.JSONObject[],
+                    currPageNavInfo: NU.Options.CurrPageNavInfo,
+                ): void;
             }
         }
         namespace Tree {
@@ -3439,9 +3512,16 @@ declare namespace NU {
                 (this: NU.Tree, selNodeIndex: number, selNodeEle: NJS<HTMLElement[]>, selNodeData: NC.JSONObject): void;
             }
             interface OnCheck {
-                (this: NU.Tree, selNodeIndex: number, selNodeEle: NJS<HTMLElement[]>, selNodeData: NC.JSONObject
-                    , checkedElesIndexes: number[], checkedEles: NJS<HTMLElement[]>, checkedElesData: NC.JSONObject[]
-                    , checkFlag: boolean): void;
+                (
+                    this: NU.Tree,
+                    selNodeIndex: number,
+                    selNodeEle: NJS<HTMLElement[]>,
+                    selNodeData: NC.JSONObject,
+                    checkedElesIndexes: number[],
+                    checkedEles: NJS<HTMLElement[]>,
+                    checkedElesData: NC.JSONObject[],
+                    checkFlag: boolean,
+                ): void;
             }
         }
     }
@@ -3480,5 +3560,4 @@ declare namespace NU {
             }
         }
     }
-
 }

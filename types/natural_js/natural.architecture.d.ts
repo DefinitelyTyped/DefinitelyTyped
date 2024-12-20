@@ -1,5 +1,4 @@
 declare class NA {
-
     static ajax: {
         (url: string, settings?: JQuery.AjaxSettings): JQuery.jqXHR;
         (settings?: JQuery.AjaxSettings): JQuery.jqXHR;
@@ -7,7 +6,7 @@ declare class NA {
     static comm: NA.Communicator;
     static cont: NA.Controller;
     static context: NA.Context;
-    static config: NA.Config
+    static config: NA.Config;
 
     /**
      * N.comm is a library that supports Ajax communication with the server, such as requesting content or data from the server or passing parameters.
@@ -68,7 +67,6 @@ declare class NA {
 }
 
 declare namespace NA {
-
     class Communicator {
         constructor(obj: NJS<NC.JSONObject[]> | string, url?: string | NA.Options.Request);
         xhr: JQuery.jqXHR;
@@ -347,5 +345,4 @@ declare namespace NA {
     interface Config {
         filterConfig: NA.Objects.Config.FilterConfig;
     }
-
 }

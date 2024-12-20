@@ -20,14 +20,14 @@ declare namespace NT {
              */
             usage?: string | {
                 "search-box": {
-                    defaultButton?: JQuery.Selector,
+                    defaultButton?: JQuery.Selector;
                     events?: {
-                        event: string,
-                        target: JQuery.Selector,
-                        handler: NT.Objects.Controller.EventHandler
-                    }[]
-                }
-            }
+                        event: string;
+                        target: JQuery.Selector;
+                        handler: NT.Objects.Controller.EventHandler;
+                    }[];
+                };
+            };
         }
         /**
          * Represents a function type for filtering an array of JSON objects.
@@ -116,62 +116,91 @@ declare namespace NT {
                 (this: HTMLElement, e: JQuery.Event, ...args: any[]): void;
             }
 
-            type InitialObject = {
-                [K in `p.alert.${string}`]: (NT.Options.Extra & NU.Options.Alert);
-            } & {
-                [K in `p.button.${string}`]: (NT.Options.Extra & NU.Options.Button);
-            } & {
-                [K in `p.datepicker.${string}`]: (NT.Options.Extra & NU.Options.Datepicker);
-            } & {
-                [K in `p.popup.${string}`]: (NT.Options.Extra & NU.Options.Popup);
-            } & {
-                [K in `p.tab.${string}`]: (NT.Options.Extra & NU.Options.Tab);
-            } & {
-                [K in `p.select.${string}`]: [string, string?, string?, NT.Options.SelectFilter?] | NT.Options.Select;
-            } & {
-                [K in `p.form.${string}`]: (NT.Options.Extra & NU.Options.Form);
-            } & {
-                [K in `p.list.${string}`]: (NT.Options.Extra & NU.Options.List);
-            } & {
-                [K in `p.grid.${string}`]: (NT.Options.Extra & NU.Options.Grid);
-            } & {
-                [K in `p.pagination.${string}`]: (NT.Options.Extra & NU.Options.Pagination);
-            } & {
-                [K in `p.tree.${string}`]: (NT.Options.Extra & NU.Options.Tree);
-            } & {
-                [K in `c.${string}`]: (...args: any[]) => NA.Communicator;
-            } & {
-                [K in `e.${string}`]: EventHandler | {
-                    target: JQuery.Selector,
-                    handler: EventHandler
+            type InitialObject =
+                & {
+                    [K in `p.alert.${string}`]: (NT.Options.Extra & NU.Options.Alert);
                 }
-            };
+                & {
+                    [K in `p.button.${string}`]: (NT.Options.Extra & NU.Options.Button);
+                }
+                & {
+                    [K in `p.datepicker.${string}`]: (NT.Options.Extra & NU.Options.Datepicker);
+                }
+                & {
+                    [K in `p.popup.${string}`]: (NT.Options.Extra & NU.Options.Popup);
+                }
+                & {
+                    [K in `p.tab.${string}`]: (NT.Options.Extra & NU.Options.Tab);
+                }
+                & {
+                    [K in `p.select.${string}`]:
+                        | [string, string?, string?, NT.Options.SelectFilter?]
+                        | NT.Options.Select;
+                }
+                & {
+                    [K in `p.form.${string}`]: (NT.Options.Extra & NU.Options.Form);
+                }
+                & {
+                    [K in `p.list.${string}`]: (NT.Options.Extra & NU.Options.List);
+                }
+                & {
+                    [K in `p.grid.${string}`]: (NT.Options.Extra & NU.Options.Grid);
+                }
+                & {
+                    [K in `p.pagination.${string}`]: (NT.Options.Extra & NU.Options.Pagination);
+                }
+                & {
+                    [K in `p.tree.${string}`]: (NT.Options.Extra & NU.Options.Tree);
+                }
+                & {
+                    [K in `c.${string}`]: (...args: any[]) => NA.Communicator;
+                }
+                & {
+                    [K in `e.${string}`]: EventHandler | {
+                        target: JQuery.Selector;
+                        handler: EventHandler;
+                    };
+                };
 
-            type Object = NA.Objects.Controller.BaseObject & InitialObject & {
-                [K in `p.alert.${string}`]: NU.Alert;
-            } & {
-                [K in `p.button.${string}`]: NU.Button;
-            } & {
-                [K in `p.datepicker.${string}`]: NU.Datepicker;
-            } & {
-                [K in `p.popup.${string}`]: NU.Popup;
-            } & {
-                [K in `p.tab.${string}`]: NU.Tab;
-            } & {
-                [K in `p.select.${string}`]: NU.Select;
-            } & {
-                [K in `p.form.${string}`]: NU.Form;
-            } & {
-                [K in `p.list.${string}`]: NU.List;
-            } & {
-                [K in `p.grid.${string}`]: NU.Grid;
-            } & {
-                [K in `p.pagination.${string}`]: NU.Pagination;
-            } & {
-                [K in `p.tree.${string}`]: NU.Tree;
-            } & {
-                [K in `e.${string}`]: NJS<HTMLElement[]>
-            };
+            type Object =
+                & NA.Objects.Controller.BaseObject
+                & InitialObject
+                & {
+                    [K in `p.alert.${string}`]: NU.Alert;
+                }
+                & {
+                    [K in `p.button.${string}`]: NU.Button;
+                }
+                & {
+                    [K in `p.datepicker.${string}`]: NU.Datepicker;
+                }
+                & {
+                    [K in `p.popup.${string}`]: NU.Popup;
+                }
+                & {
+                    [K in `p.tab.${string}`]: NU.Tab;
+                }
+                & {
+                    [K in `p.select.${string}`]: NU.Select;
+                }
+                & {
+                    [K in `p.form.${string}`]: NU.Form;
+                }
+                & {
+                    [K in `p.list.${string}`]: NU.List;
+                }
+                & {
+                    [K in `p.grid.${string}`]: NU.Grid;
+                }
+                & {
+                    [K in `p.pagination.${string}`]: NU.Pagination;
+                }
+                & {
+                    [K in `p.tree.${string}`]: NU.Tree;
+                }
+                & {
+                    [K in `e.${string}`]: NJS<HTMLElement[]>;
+                };
         }
     }
 }

@@ -2,7 +2,6 @@
  * The NC class is a CORE package of Natural-JS that provides various utilities and methods for collection manipulation, event binding, instance handling, value management, event retrieval, locale setting, etc.
  */
 declare class NC {
-
     /**
      * Removes an element from the collection based on the provided index or identifier.
      *
@@ -90,7 +89,10 @@ declare class NC {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010103.html
      */
-    instance(name: string | NC.InstanceCallback, instance?: NC.Instance): undefined | NJS<NC.Instance[]> | NC.Instance[] | NC.Instance | NC;
+    instance(
+        name: string | NC.InstanceCallback,
+        instance?: NC.Instance,
+    ): undefined | NJS<NC.Instance[]> | NC.Instance[] | NC.Instance | NC;
     /**
      * Gets or selects the selected values of elements such as select, select[multiple=multiple], input[type=radio], and input[type=checkbox].
      *
@@ -806,7 +808,11 @@ declare class NC {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0101.html&tab=html/naturaljs/refr/refr010112.html
          */
-        mergeJsonArray(arr1: NC.JSONObject[] | NJS<NC.JSONObject[]>, arr2: NC.JSONObject[] | NJS<NC.JSONObject[]>, key: string): NC.JSONObject[];
+        mergeJsonArray(
+            arr1: NC.JSONObject[] | NJS<NC.JSONObject[]>,
+            arr2: NC.JSONObject[] | NJS<NC.JSONObject[]>,
+            key: string,
+        ): NC.JSONObject[];
         /**
          * Formats the given data to a string representation with specified indentation.
          *
@@ -890,7 +896,6 @@ declare class NC {
             setNumeric(_v: string, _p: string, _d: boolean): string;
         };
     };
-
 }
 
 /**

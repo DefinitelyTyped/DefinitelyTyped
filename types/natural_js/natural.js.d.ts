@@ -5,10 +5,10 @@
  */
 declare function N(
     selector?: NC.Selector,
-    context?: Element | Document | JQuery<Element> | string | NJS<Element>): NJS<any>;
+    context?: Element | Document | JQuery<Element> | string | NJS<Element>,
+): NJS<any>;
 
 interface NJS<T> extends Omit<JQuery, "select">, NC, NA, ND, NU, NUS {
-
     version: {
         "Natural-JS": string;
         "Natural-CORE": string;
@@ -57,7 +57,6 @@ declare namespace N {
     const json: typeof NC.json;
     const event: typeof NC.event;
     const mask: typeof NC.mask;
-
 
     // === Natural-ARCHITECTURE
     /**

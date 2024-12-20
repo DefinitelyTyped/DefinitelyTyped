@@ -72,7 +72,10 @@ declare class NU {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040603.html
      */
-    select(this: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Select | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Select;
+    select(
+        this: NJS<NC.JSONObject[]> | NC.JSONObject[],
+        opts?: NU.Options.Select | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+    ): NU.Select;
     /**
      * Creates a new Form instance.
      * ```
@@ -84,7 +87,10 @@ declare class NU {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040703.html
      */
-    form(this: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Form | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Form;
+    form(
+        this: NJS<NC.JSONObject[]> | NC.JSONObject[],
+        opts?: NU.Options.Form | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+    ): NU.Form;
     /**
      * Creates a new List instance.
      * ```
@@ -96,7 +102,10 @@ declare class NU {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040803.html
      */
-    list(this: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.List | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.List;
+    list(
+        this: NJS<NC.JSONObject[]> | NC.JSONObject[],
+        opts?: NU.Options.List | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+    ): NU.List;
     /**
      * Creates a new Grid instance.
      * ```
@@ -108,7 +117,10 @@ declare class NU {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040903.html
      */
-    grid(this: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Grid | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Grid;
+    grid(
+        this: NJS<NC.JSONObject[]> | NC.JSONObject[],
+        opts?: NU.Options.Grid | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+    ): NU.Grid;
     /**
      * Creates a new Pagination instance.
      * ```
@@ -120,7 +132,10 @@ declare class NU {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041003.html
      */
-    pagination(this: NJS<NC.JSONObject[]> | NC.JSONObject[], opts: NU.Options.Pagination | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Pagination;
+    pagination(
+        this: NJS<NC.JSONObject[]> | NC.JSONObject[],
+        opts: NU.Options.Pagination | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+    ): NU.Pagination;
     /**
      * Creates a new Tree instance.
      * ```
@@ -132,7 +147,10 @@ declare class NU {
      *
      * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041103.html
      */
-    tree(this: NJS<NC.JSONObject[]> | NC.JSONObject[], opts: NU.Options.Tree | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Tree;
+    tree(
+        this: NJS<NC.JSONObject[]> | NC.JSONObject[],
+        opts: NU.Options.Tree | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+    ): NU.Tree;
 
     static ui: {
         iteration: {
@@ -213,7 +231,14 @@ declare class NU {
         wrapEle(): void;
         createContents(): any;
         yearPaging(yearItems: NJS<HTMLElement[]>, currYear: number | string, addCnt: number, absolute?: boolean): void;
-        selectItems(opts: NU.Options.Datepicker, value: string, format: string, yearsPanel: NJS<HTMLElement[]>, monthsPanel: NJS<HTMLElement[]>, daysPanel: NJS<HTMLElement[]>): void;
+        selectItems(
+            opts: NU.Options.Datepicker,
+            value: string,
+            format: string,
+            yearsPanel: NJS<HTMLElement[]>,
+            monthsPanel: NJS<HTMLElement[]>,
+            daysPanel: NJS<HTMLElement[]>,
+        ): void;
     };
 
     static popup: {
@@ -267,7 +292,10 @@ declare class NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0406.html&tab=html/naturaljs/refr/refr040603.html
          */
-        new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Select | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Select;
+        new(
+            data: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            opts?: NU.Options.Select | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+        ): NU.Select;
         wrapEle(): void;
     };
 
@@ -284,7 +312,10 @@ declare class NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0407.html&tab=html/naturaljs/refr/refr040703.html
          */
-        new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Form | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Form;
+        new(
+            data: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            opts?: NU.Options.Form | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+        ): NU.Form;
     };
 
     static list: {
@@ -300,7 +331,10 @@ declare class NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040803.html
          */
-        new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.List | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.List;
+        new(
+            data: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            opts?: NU.Options.List | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+        ): NU.List;
         createScroll(): void;
         vResize(contextWrapEle: NJS<NC.JSONObject[]>): void;
     };
@@ -318,7 +352,10 @@ declare class NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040903.html
          */
-        new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Grid | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Grid;
+        new(
+            data: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            opts?: NU.Options.Grid | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+        ): NU.Grid;
         tableCells(tbl: any, opt_cellValueGetter: any): any[][];
         tableMap(): NU.Objects.Grid.TableMap;
         setTheadCellInfo(): void;
@@ -330,7 +367,14 @@ declare class NU {
         resize(): void;
         sort(): void;
         dataFilter(): void;
-        rowSpan(i: number, rowEle: NJS<HTMLElement[]>, bfRowEle: NJS<HTMLElement[]>, rowData: NC.JSONObject, bfRowData: NC.JSONObject, colId: string): void;
+        rowSpan(
+            i: number,
+            rowEle: NJS<HTMLElement[]>,
+            bfRowEle: NJS<HTMLElement[]>,
+            rowData: NC.JSONObject,
+            bfRowData: NC.JSONObject,
+            colId: string,
+        ): void;
         paste(): void;
     };
 
@@ -347,9 +391,16 @@ declare class NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0410.html&tab=html/naturaljs/refr/refr041003.html
          */
-        new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Pagination | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Pagination;
-        wrapEle: NU.Objects.Pagination.LinkEles
-        changePageSet(linkEles: NU.Objects.Pagination.LinkEles, opts: NU.Options.Pagination, isRemake: boolean): NU.Options.CurrPageNavInfo;
+        new(
+            data: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            opts?: NU.Options.Pagination | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+        ): NU.Pagination;
+        wrapEle: NU.Objects.Pagination.LinkEles;
+        changePageSet(
+            linkEles: NU.Objects.Pagination.LinkEles,
+            opts: NU.Options.Pagination,
+            isRemake: boolean,
+        ): NU.Options.CurrPageNavInfo;
     };
 
     static tree: {
@@ -365,13 +416,14 @@ declare class NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0411.html&tab=html/naturaljs/refr/refr041103.html
          */
-        new(data: NJS<NC.JSONObject[]> | NC.JSONObject[], opts?: NU.Options.Tree | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>): NU.Tree;
+        new(
+            data: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            opts?: NU.Options.Tree | Omit<NJS<HTMLElement[]>, keyof NJS<HTMLElement[]>>,
+        ): NU.Tree;
     };
-
 }
 
 declare namespace NU {
-
     interface Alert {
         options: NU.Options.Alert;
         /**
@@ -885,7 +937,10 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0408.html&tab=html/naturaljs/refr/refr040806.html
          */
-        data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): NC.JSONObject[];
+        data(
+            selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete",
+            ...cols: string[]
+        ): NC.JSONObject[];
         /**
          * Returns the latest data bound to the component.
          *
@@ -1131,7 +1186,10 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
-        data(selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete", ...cols: string[]): NC.JSONObject[];
+        data(
+            selFlag: "modified" | "selected" | "checked" | "insert" | "update" | "delete",
+            ...cols: string[]
+        ): NC.JSONObject[];
         /**
          * Returns the latest data bound to the component.
          *
@@ -1246,7 +1304,10 @@ declare namespace NU {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0409.html&tab=html/naturaljs/refr/refr040906.html
          */
-        bind(data?: NJS<NC.JSONObject[]> | NC.JSONObject[], callType?: "append" | "grid.bind" | "grid.dataFilter" | "grid.sort" | "grid.update"): NU.Grid;
+        bind(
+            data?: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            callType?: "append" | "grid.bind" | "grid.dataFilter" | "grid.sort" | "grid.update",
+        ): NU.Grid;
         /**
          * Add new row elements and data.
          *
@@ -1603,7 +1664,4 @@ declare namespace NU {
          */
         collapse(isFirstNodeOpen?: boolean): NU.Tree;
     }
-
 }
-
-

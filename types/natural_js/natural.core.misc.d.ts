@@ -1,5 +1,4 @@
 declare namespace NC {
-
     type Primitive = string | number | boolean | null;
     type JSONValue = Primitive | JSONObject | JSONValue[];
     interface JSONObject {
@@ -11,7 +10,7 @@ declare namespace NC {
         format: string;
     }
 
-    type EventObject = object[]
+    type EventObject = object[];
     interface EventsObject {
         [key: string]: EventObject;
     }
@@ -19,10 +18,24 @@ declare namespace NC {
     interface RuleObj {
         id: {
             [key: string]: [string, ...NC.Primitive[]][];
-        }
+        };
     }
 
-    type Instance = NA.Controller | NU.Alert | NU.Button | NU.Datepicker | NU.Popup | NU.Tab | NU.Select | NU.Form | NU.List | NU.Grid | NU.Pagination | NU.Tree | NUS.Notify | NUS.Documents;
+    type Instance =
+        | NA.Controller
+        | NU.Alert
+        | NU.Button
+        | NU.Datepicker
+        | NU.Popup
+        | NU.Tab
+        | NU.Select
+        | NU.Form
+        | NU.List
+        | NU.Grid
+        | NU.Pagination
+        | NU.Tree
+        | NUS.Notify
+        | NUS.Documents;
     interface InstanceCallback {
         (this: NC.Instance, instanceName: string, instance: NC.Instance): void;
     }
@@ -42,7 +55,7 @@ declare namespace NC {
         CHROME = "chrome",
         IE = "ie",
         IOS = "ios",
-        ANDROID = "android"
+        ANDROID = "android",
     }
 
     /**
@@ -68,7 +81,7 @@ declare namespace NC {
     interface MessageResourceObj {
         [key: string]: {
             [key: string]: string;
-        }
+        };
     }
 
     /* eslint-disable-next-line @definitelytyped/no-const-enum */
@@ -78,8 +91,17 @@ declare namespace NC {
         ARRAY = "array",
         OBJECT = "object",
         FUNCTION = "function",
-        DATE = "date"
+        DATE = "date",
     }
 
-    type Selector = string | Element | Array<Element> | JQuery<Element> | JQuery.Node | JQuery.PlainObject | ((this: Document, readyCallback: (this: Document) => void) => void) | NJS<Element> | JQuery
+    type Selector =
+        | string
+        | Element
+        | Array<Element>
+        | JQuery<Element>
+        | JQuery.Node
+        | JQuery.PlainObject
+        | ((this: Document, readyCallback: (this: Document) => void) => void)
+        | NJS<Element>
+        | JQuery;
 }

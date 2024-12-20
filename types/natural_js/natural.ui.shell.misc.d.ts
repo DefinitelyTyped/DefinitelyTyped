@@ -1,5 +1,4 @@
 declare namespace NUS {
-
     namespace Options {
         interface NotifyPosition {
             left?: number;
@@ -162,7 +161,7 @@ declare namespace NUS {
              *
              * @default false
              */
-            stateless?: boolean
+            stateless?: boolean;
         }
         interface Documents {
             /**
@@ -545,10 +544,22 @@ declare namespace NUS {
                 (this: NUS.Documents, docId?: string): void;
             }
             interface OnErrorEntireLoad {
-                (this: NUS.Documents, e: Error, request: NA.Request, xhr: JQueryXHR, textStatus: "success" | "error", submitCallback: NA.Callbacks.Communicator.Submit): void;
+                (
+                    this: NUS.Documents,
+                    e: Error,
+                    request: NA.Request,
+                    xhr: JQueryXHR,
+                    textStatus: "success" | "error",
+                    submitCallback: NA.Callbacks.Communicator.Submit,
+                ): void;
             }
             interface OnEntireLoad {
-                (this: NUS.Documents, docId: string, entireLoadRequestCnt: number, entireLoadRequestMaxCnt: number): void;
+                (
+                    this: NUS.Documents,
+                    docId: string,
+                    entireLoadRequestCnt: number,
+                    entireLoadRequestMaxCnt: number,
+                ): void;
             }
             interface OnBeforeLoad {
                 (this: NUS.Documents, docId: string, target: NJS<HTMLElement[]>): void;
@@ -596,5 +607,4 @@ declare namespace NUS {
             }
         }
     }
-
 }

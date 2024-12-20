@@ -1,5 +1,4 @@
 declare class NCD {
-
     static inspection: {
         test(codes: string, rules?: string[]): boolean | NCD.CodeInspectionResult[];
         rules: {
@@ -8,8 +7,8 @@ declare class NCD {
         };
         report: {
             console(data: NCD.CodeInspectionResult[], url: string): false | undefined;
-        }
-    }
+        };
+    };
 
     static addSourceURL(codes: string, sourceURL: string): string;
 }

@@ -72,11 +72,9 @@ declare class NUS {
         hideTabContents(docId_: string): void;
         remove(targetTabEle: NJS<HTMLElement[]>): void;
     };
-
 }
 
 declare namespace NUS {
-
     interface Notify {
         options: NUS.Options.Notify;
         /**
@@ -200,7 +198,10 @@ declare namespace NUS {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0502.html&tab=html/naturaljs/refr/refr050205.html
          */
-        removeState(docId?: string | NUS.Callbacks.Documents.RemoveState, callback?: NUS.Callbacks.Documents.RemoveState): NUS.Documents;
+        removeState(
+            docId?: string | NUS.Callbacks.Documents.RemoveState,
+            callback?: NUS.Callbacks.Documents.RemoveState,
+        ): NUS.Documents;
         /**
          * Removes the contents of the specified tab.
          *
@@ -300,5 +301,4 @@ declare namespace NUS {
          */
         get(key: string): any;
     }
-
 }

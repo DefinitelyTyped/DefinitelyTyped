@@ -186,7 +186,10 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html
          */
-        new(data: NJS<NC.JSONObject[]>, rules?: NJS<HTMLElement[]> | HTMLElement | ND.FormatRuleObject | string): ND.Formatter;
+        new(
+            data: NJS<NC.JSONObject[]>,
+            rules?: NJS<HTMLElement[]> | HTMLElement | ND.FormatRuleObject | string,
+        ): ND.Formatter;
         /**
          * Adds commas(,) at thousand separators. It processes only the part before the decimal point, if present.
          *
@@ -358,7 +361,11 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0301.html&tab=html/naturaljs/refr/refr030106.html
          */
-        date(str: string, args: [number | string, "date" | "month", NU.Options.Datepicker], ele?: NJS<HTMLElement[]>): string;
+        date(
+            str: string,
+            args: [number | string, "date" | "month", NU.Options.Datepicker],
+            ele?: NJS<HTMLElement[]>,
+        ): string;
         /**
          * Convert to time format.
          *
@@ -611,7 +618,10 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html
          */
-        new(data: NJS<NC.JSONObject[]>, rules?: NJS<HTMLElement[]> | HTMLElement | ND.ValidationRuleObject | string): ND.Validator;
+        new(
+            data: NJS<NC.JSONObject[]>,
+            rules?: NJS<HTMLElement[]> | HTMLElement | ND.ValidationRuleObject | string,
+        ): ND.Validator;
         /**
          * Checks required input.
          *
@@ -965,7 +975,7 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0302.html&tab=html/naturaljs/refr/refr030206.html
          */
-        maxbyte(str: string, args:[number, number]): boolean;
+        maxbyte(str: string, args: [number, number]): boolean;
         /**
          * Checks whether the byte length of input string is greater than the specified length.
          *
@@ -1078,7 +1088,10 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html
          */
-        filter(arr: NJS<NC.JSONObject[]> | NC.JSONObject[], condition: ND.ConditionCallback | string): NJS<NC.JSONObject[]> | NC.JSONObject[];
+        filter(
+            arr: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            condition: ND.ConditionCallback | string,
+        ): NJS<NC.JSONObject[]> | NC.JSONObject[];
         sortBy(key: string, reverse: 1 | -1): (a: number, b: number) => 1 | -1 | 0;
         /**
          * Sorts the data based on the specified "key" argument value.
@@ -1090,12 +1103,15 @@ declare class ND {
          *
          * @see https://bbalganjjm.github.io/natural_js/?page=html/naturaljs/refr/refr0303.html&tab=html/naturaljs/refr/refr030302.html
          */
-        sort(arr: NJS<NC.JSONObject[]> | NC.JSONObject[], key: string, reverse?: boolean): NJS<NC.JSONObject[]> | NC.JSONObject[];
+        sort(
+            arr: NJS<NC.JSONObject[]> | NC.JSONObject[],
+            key: string,
+            reverse?: boolean,
+        ): NJS<NC.JSONObject[]> | NC.JSONObject[];
     };
 }
 
 declare namespace ND {
-
     interface Formatter {
         /**
          * TODO Please add a comment.
@@ -1125,5 +1141,4 @@ declare namespace ND {
          */
         notify(row: number, key: string): DataSync;
     }
-
 }
