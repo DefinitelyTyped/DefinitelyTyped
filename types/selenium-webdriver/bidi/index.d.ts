@@ -1,36 +1,36 @@
 import EventEmitter from "node:events";
 
-interface BuildInfo {
+export interface BuildInfo {
     version: string;
 }
 
-interface OsInfo {
+export interface OsInfo {
     arch: string;
     name: string;
     version: string;
 }
 
-interface ResultData {
+export interface ResultData {
     build: BuildInfo;
     message: string;
     os: OsInfo;
     ready: boolean;
 }
 
-interface StatusResult {
+export interface StatusResult {
     id: number;
     result: ResultData;
     type: string;
 }
 
-interface Params {
+export interface Params {
     method: string;
     params: {
         [key: string]: any;
     };
 }
 
-export class Index extends EventEmitter {
+declare class Index extends EventEmitter {
     id: boolean
     connected: boolean
     events: string[]
