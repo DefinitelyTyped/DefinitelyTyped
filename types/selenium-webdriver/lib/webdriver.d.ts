@@ -11,10 +11,10 @@ import {
     WebElementPromise,
     Window,
 } from "..";
+import { Index as BIDI } from "../bidi";
 import { HttpResponse } from "../devtools/networkinterceptor";
 import { Command, Executor } from "./command";
 import { FileDetector } from "./input";
-import { Index as BIDI } from '../bidi';
 export {};
 
 type ConditionFn<T> = (webdriver: WebDriver) => T | null | Promise<T | null>;
@@ -674,7 +674,6 @@ export class WebDriver {
      * @returns {BIDI}
      */
     getBidi(): Promise<BIDI>;
-
 
     /**
      * Retrieves 'webSocketDebuggerUrl' by sending a http request using debugger address

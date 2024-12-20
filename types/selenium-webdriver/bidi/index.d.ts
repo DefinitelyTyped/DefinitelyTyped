@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface BuildInfo {
     version: string;
@@ -31,10 +31,10 @@ export interface Params {
 }
 
 export class Index extends EventEmitter {
-    id: boolean
-    connected: boolean
-    events: string[]
-    browsingContexts: string[]
+    id: boolean;
+    connected: boolean;
+    events: string[];
+    browsingContexts: string[];
 
     /**
      * Create a new websocket connection
@@ -77,7 +77,7 @@ export class Index extends EventEmitter {
      * @param browsingContexts
      * @returns {Promise<void>}
      */
-    subscribe(events: string| string[], browsingContexts?:string| string[]): Promise<void>;
+    subscribe(events: string | string[], browsingContexts?: string | string[]): Promise<void>;
 
     /**
      * Unsubscribe to events
@@ -85,7 +85,7 @@ export class Index extends EventEmitter {
      * @param browsingContexts
      * @returns {Promise<void>}
      */
-    unsubscribe(events: string| string[], browsingContexts?: string| string[]): Promise<void>;
+    unsubscribe(events: string | string[], browsingContexts?: string | string[]): Promise<void>;
 
     /**
      * Close ws connection.
