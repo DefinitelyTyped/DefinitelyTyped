@@ -161,12 +161,13 @@ declare module "node:sqlite" {
             ...anonymousParameters: SupportedValueType[]
         ): unknown[];
         /**
-         * This method returns the source SQL of the prepared statement with parameter
-         * placeholders replaced by values. This method is a wrapper around [`sqlite3_expanded_sql()`](https://www.sqlite.org/c3ref/expanded_sql.html).
+         * The source SQL text of the prepared statement with parameter
+         * placeholders replaced by the values that were used during the most recent
+         * execution of this prepared statement. This property is a wrapper around
+         * [`sqlite3_expanded_sql()`](https://www.sqlite.org/c3ref/expanded_sql.html).
          * @since v22.5.0
-         * @return The source SQL expanded to include parameter values.
          */
-        expandedSQL(): string;
+        readonly expandedSQL: string;
         /**
          * This method executes a prepared statement and returns the first result as an
          * object. If the prepared statement does not return any results, this method
@@ -224,11 +225,10 @@ declare module "node:sqlite" {
          */
         setReadBigInts(enabled: boolean): void;
         /**
-         * This method returns the source SQL of the prepared statement. This method is a
+         * The source SQL text of the prepared statement. This property is a
          * wrapper around [`sqlite3_sql()`](https://www.sqlite.org/c3ref/expanded_sql.html).
          * @since v22.5.0
-         * @return The source SQL used to create this prepared statement.
          */
-        sourceSQL(): string;
+        readonly sourceSQL: string;
     }
 }
