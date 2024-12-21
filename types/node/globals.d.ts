@@ -249,19 +249,21 @@ declare global {
         };
 
     /**
-     * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
-     * Data is stored unencrypted in the file specified by the `--localstorage-file` CLI flag.
+     * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). Data is stored
+     * unencrypted in the file specified by the `--localstorage-file` CLI flag.
+     * The maximum amount of data that can be stored is 10 MB.
      * Any modification of this data outside of the Web Storage API is not supported.
      * Enable this API with the `--experimental-webstorage` CLI flag.
+     * `localStorage` data is not stored per user or per request when used in the context
+     * of a server, it is shared across all users and requests.
      * @since v22.4.0
      */
     var localStorage: Storage;
 
     /**
-     * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
-     * Data is stored in memory, with a storage quota of 10 MB.
-     * Any modification of this data outside of the Web Storage API is not supported.
-     * Enable this API with the `--experimental-webstorage` CLI flag.
+     * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage). Data is stored in
+     * memory, with a storage quota of 10 MB. `sessionStorage` data persists only within
+     * the currently running process, and is not shared between workers.
      * @since v22.4.0
      */
     var sessionStorage: Storage;
