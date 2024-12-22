@@ -65,12 +65,6 @@ const Test = () => {
                     <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
                     <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
                     <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
                 </Masonry>
             </ResponsiveMasonry>
         </>
