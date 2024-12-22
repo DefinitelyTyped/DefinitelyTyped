@@ -45,7 +45,7 @@ const Test = () => {
             <ResponsiveMasonry
                 columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
                 className="responsive-masonry"
-                style={{ padding: '20px' }}
+                style={{ padding: "20px" }}
             >
                 <Masonry
                     containerTag="section"
@@ -54,16 +54,22 @@ const Test = () => {
                     gutter="40px"
                     columnsCount={5}
                     className="masonry-grid"
-                    style={{ background: '#f0f0f0' }}
-                    itemStyle={{ margin: '10px' }}
+                    style={{ background: "#f0f0f0" }}
+                    itemStyle={{ margin: "10px" }}
                 >
                     <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
-                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+                    <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
                     <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
                 </Masonry>
             </ResponsiveMasonry>
