@@ -339,3 +339,8 @@ declare const event5: "event5";
     emitter.prependOnceListener('error', onError);
     emitter.removeListener('error', onError);
 }
+
+interface Implementing extends events.EventEmitter {}
+declare class Implementing implements events.EventEmitter {        
+    addListener(eventName: 'event', listener: (arg: boolean) => void): this;
+}
