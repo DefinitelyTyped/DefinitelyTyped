@@ -196,7 +196,7 @@ declare module "module" {
             context: ResolveHookContext,
             nextResolve: (
                 specifier: string,
-                context?: ResolveHookContext,
+                context?: Partial<ResolveHookContext>,
             ) => ResolveFnOutput | Promise<ResolveFnOutput>,
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
         interface LoadHookContext {
@@ -236,7 +236,7 @@ declare module "module" {
         type LoadHook = (
             url: string,
             context: LoadHookContext,
-            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>,
+            nextLoad: (url: string, context?: Partial<LoadHookContext>) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
         namespace constants {
             /**
