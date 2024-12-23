@@ -1147,7 +1147,7 @@
 /types/cordova-plugin-ms-adal/                            @KaiWalter
 /types/cordova-plugin-native-keyboard/                    @lobo87
 /types/cordova-plugin-ouralabs/                           @Justin-Credible
-/types/cordova-plugin-qrscanner/                          @bitjson @jab
+/types/cordova-plugin-qrscanner/                          @bitjson
 /types/cordova-plugin-safariviewcontroller/               @bendingbender
 /types/cordova-plugin-save-dialog/                        @dodomorandi
 /types/cordova-plugin-spinner/                            @Justin-Credible
@@ -3618,7 +3618,7 @@
 /types/is-weakref/                                        @LeoDog896
 /types/is-windows/                                        @mizunashi-mana @ExE-Boss
 /types/isaac/                                             @mo
-/types/isarray/                                           @claasahl
+/types/isarray/                                           @claasahl @ljharb
 /types/isbn-utils/                                        @elhaard
 /types/iscroll/                                           @csrakowski @devlato
 /types/iscroll/v4/                                        @borisyankov @csrakowski
@@ -8512,6 +8512,7 @@
 /types/vscode-webview/                                    @mjbvz
 /types/vscode-windows-registry/                           @bpasero
 /types/vssln-parser/                                      @erik-kallen
+/types/vt-pbf/                                            @skwash
 /types/vtex.js/                                           @IncognitaDev
 /types/vue-barcode-reader/                                @julisch94
 /types/vue-chartkick/                                     @cnsmedia
@@ -8536,6 +8537,7 @@
 /types/vue2-editor/                                       @suryadana
 /types/vue2-hammer/                                       @ptandler
 /types/vue3-carousel-3d/                                  @tevem1207
+/types/vue3-json-viewer/                                  @String10
 /types/vuelidate/                                         @janesser @shadrus
 /types/vusion__webfonts-generator/                        @atlowChemi
 /types/vxna__mini-html-webpack-template/                  @peterblazejewicz
