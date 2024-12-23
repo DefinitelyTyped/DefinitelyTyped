@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview TypeScript declarations for the publicly documented APIs of the
+ * @file TypeScript declarations for the publicly documented APIs of the
  * IMA HTML5 client-side SDK. Also used to generate JavaScript externs.
  * @see https://developers.google.com/interactive-media-ads/docs/sdks/html5/client-side/reference/js
  */
@@ -546,7 +546,6 @@ declare namespace google.ima {
       /**
        * The URL is invalid or is not supported by the current browser.
        * IMA Error code 1022
-       * @export
        */
       UNSUPPORTED_URL = 1022,
       /**
@@ -1879,7 +1878,7 @@ declare namespace google.ima {
   /** Utility functions for Secure Signals. */
   namespace secureSignals {
     /** Clears all cached Secure Signals from local storage. */
-    export function clearAllCache(): void;
+    function clearAllCache(): void;
   }
   /** Object holding the SDK-wide settings. */
   const settings: ImaSdkSettings;
