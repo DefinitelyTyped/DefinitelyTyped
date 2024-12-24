@@ -11,7 +11,7 @@ export interface LazyLoadProps {
     throttle?: number | boolean | undefined;
     debounce?: number | boolean | undefined;
     placeholder?: ReactNode | undefined;
-    scrollContainer?: string | Element | undefined;
+    scrollContainer?: string | undefined;
     unmountIfInvisible?: boolean | undefined;
     preventLoading?: boolean | undefined;
     className?: string | undefined;
