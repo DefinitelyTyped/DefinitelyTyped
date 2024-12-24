@@ -103,25 +103,26 @@ declare module "events" {
     interface EventEmitter<Events extends EventMap<Events> = {}> extends NodeJS.EventEmitter<Events> {}
     type EventMap<Events> = Record<keyof Events, unknown[]>;
     type Args<Events extends EventMap<Events>, EventName> = EventName extends keyof Events ? (
-            | Events[EventName]
-            | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
-                ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
-                : never)
+        | Events[EventName]
+        | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
+            ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
+            : never)
         )
         : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
             ? EventEmitter.EventEmitterBuiltInEventMap[EventName]
             : any[]);
-    type EventNames<Events extends EventMap<Events>> = {} extends Events ? (string | symbol)
-        : (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap);
-    type Listener<Events extends EventMap<Events>, EventName> = EventName extends keyof Events ?
+            type EventNames<Events extends EventMap<Events>> = {} extends Events ? (string | symbol)
+            : (keyof Events | keyof EventEmitter.EventEmitterBuiltInEventMap);
+    type EventNameParam<Events extends EventMap<Events>, EventName> = {} extends Events ? string | symbol : EventName | EventNames<Events>;
+    type Listener<Events extends EventMap<Events>, EventName> = {} extends Events ? ((...args: any[]) => void) | ((...args: never) => void): (EventName extends keyof Events ?
             | ((...args: Events[EventName]) => void)
             | (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
                 ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
                 : never)
         : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
             ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
-            : (...args: any[]) => void);
-
+            : ((...args: any[]) => void))
+);
     /**
      * The `EventEmitter` class is defined and exposed by the `node:events` module:
      *
@@ -621,12 +622,8 @@ declare module "events" {
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
                  */
-                addListener<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                    listener: Listener<Events, EventName>,
-                ): this;
-                addListener<EventName extends string | symbol>(
-                    eventName: EventName,
+                addListener<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
@@ -660,12 +657,8 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                on<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                    listener: Listener<Events, EventName>,
-                ): this;
-                on<EventName extends string | symbol>(
-                    eventName: EventName,
+                on<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
@@ -697,12 +690,8 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                once<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                    listener: Listener<Events, EventName>,
-                ): this;
-                once<EventName extends string | symbol>(
-                    eventName: EventName,
+                once<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
@@ -787,24 +776,16 @@ declare module "events" {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeListener<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                    listener: Listener<Events, EventName>,
-                ): this;
-                removeListener<EventName extends string | symbol>(
-                    eventName: EventName,
+                removeListener<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
                  * Alias for `emitter.removeListener()`.
                  * @since v10.0.0
                  */
-                off<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                    listener: Listener<Events, EventName>,
-                ): this;
-                off<EventName extends string | symbol>(
-                    eventName: EventName,
+                off<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
@@ -849,11 +830,8 @@ declare module "events" {
                  * ```
                  * @since v0.1.26
                  */
-                listeners<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                ): Array<Listener<Events, EventName>>;
-                listeners<EventName extends string | symbol>(
-                    eventName: EventName,
+                listeners<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                 ): Array<Listener<Events, EventName>>;
                 /**
                  * Returns a copy of the array of listeners for the event named `eventName`,
@@ -885,11 +863,8 @@ declare module "events" {
                  * ```
                  * @since v9.4.0
                  */
-                rawListeners<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                ): Array<Listener<Events, EventName>>;
-                rawListeners<EventName extends string | symbol>(
-                    eventName: EventName,
+                rawListeners<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                 ): Array<Listener<Events, EventName>>;
                 /**
                  * Synchronously calls each of the listeners registered for the event named `eventName`, in the order they were registered, passing the supplied arguments
@@ -947,12 +922,8 @@ declare module "events" {
                  * @param eventName The name of the event being listened for
                  * @param listener The event handler function
                  */
-                listenerCount<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                    listener?: Listener<Events, EventName>,
-                ): number;
-                listenerCount<EventName extends string | symbol>(
-                    eventName: EventName,
+                listenerCount<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                     listener?: Listener<Events, EventName>,
                 ): number;
                 /**
@@ -972,12 +943,8 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependListener<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                    listener: Listener<Events, EventName>,
-                ): this;
-                prependListener<EventName extends string | symbol>(
-                    eventName: EventName,
+                prependListener<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
@@ -995,12 +962,8 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependOnceListener<EventName extends EventNames<Events>>(
-                    eventName: EventName,
-                    listener: Listener<Events, EventName>,
-                ): this;
-                prependOnceListener<EventName extends string | symbol>(
-                    eventName: EventName,
+                prependOnceListener<EventName>(
+                    eventName: EventNameParam<Events, EventName>,
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
