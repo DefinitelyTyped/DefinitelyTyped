@@ -343,25 +343,6 @@ declare namespace GoogleAppsScript {
                         /**Unsets the values for this field.*/
                         unsetValues: boolean;
                     }
-                    /**Representation of field, which is a typed key-value pair.*/
-                    interface LabelField {
-                        /**Only present if valueType is dateString. RFC 3339 formatted date: YYYY-MM-DD.*/
-                        dateString: string[];
-                        /**The identifier of this label field.*/
-                        id: string;
-                        /**Only present if `valueType` is `integer`.*/
-                        integer: string[];
-                        /**This is always drive#labelField.*/
-                        kind: string;
-                        /**Only present if `valueType` is `selection`*/
-                        selection: string[];
-                        /**Only present if `valueType` is `text`.*/
-                        text: string[];
-                        /**Only present if `valueType` is `user`.*/
-                        user: Drive_v3.Drive.V3.Schema.User[];
-                        /**The field type. While new values may be supported in the future, the following are currently allowed: * `dateString` * `integer` * `selection` * `text` * `user`*/
-                        valueType: string;
-                    }
                     /**Representation of label and label fields.*/
                     interface Label {
                         /**A map of the fields on the label, keyed by the field's ID.*/
