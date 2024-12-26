@@ -1147,6 +1147,14 @@ function createFolder() {
     console.log("Created Folder:", folder.name, folder.id);
 }
 
+// Example showing how to create a folder
+function createDrive() {
+    const drive = Drive.Drives.create({
+        name: "Test Folder",
+    }, "request-id");
+    console.log("Created Folder:", drive.name, drive.id);
+}
+
 // Example: List Drives (Shared Drives)
 function listDrives() {
     const driveList = Drive.Drives.list();
