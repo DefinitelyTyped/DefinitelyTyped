@@ -1333,11 +1333,11 @@
     const instance = new OO.ui.CopyTextLayout({
         copyText: "Text to copy",
         textInput: {
-            placeholder: "Placeholder"
+            placeholder: "Placeholder",
         },
         button: {
-            flags: ["progressive"]
-        }
+            flags: ["progressive"],
+        },
     });
 
     // $ExpectType TextInputWidget
@@ -1354,17 +1354,17 @@
 
     instance.on("copy", success => {
         success; // $ExpectType boolean
-    })
+    });
 
     const instanceMultilineFalse = new OO.ui.CopyTextLayout({
         copyText: "Text to copy",
         textInput: {
-            placeholder: "Placeholder"
+            placeholder: "Placeholder",
         },
         button: {
-            flags: ["progressive"]
+            flags: ["progressive"],
         },
-        multiline: false
+        multiline: false,
     });
 
     // $ExpectType TextInputWidget
@@ -1374,12 +1374,12 @@
         copyText: "Text to copy",
         textInput: {
             placeholder: "Placeholder",
-            rows: 3
+            rows: 3,
         },
         button: {
-            flags: ["progressive"]
+            flags: ["progressive"],
         },
-        multiline: true
+        multiline: true,
     });
 
     // $ExpectType MultilineTextInputWidget
