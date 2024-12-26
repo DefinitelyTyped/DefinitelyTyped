@@ -111,6 +111,8 @@ declare namespace GoogleAppsScript {
                 // Gets a file's metadata by ID.
                 get(fileId: string): Drive.Schema.File;
                 // Gets a file's metadata by ID.
+                get(fileId: string, optionalArgs: Record<string, any> & { alt: "media" }): string;
+                // Gets a file's metadata by ID.
                 get(fileId: string, optionalArgs: Record<string, any>): Drive.Schema.File;
                 // Insert a new file.
                 insert(resource: Schema.File): Drive.Schema.File;

@@ -1148,6 +1148,16 @@ function createFolder() {
     console.log("Created Folder:", folder.name, folder.id);
 }
 
+function getFile() {
+    const file = Drive.Files.get("FileID");
+    console.log(file.name);
+}
+
+function getRawFile() {
+    const fileBlob: string = Drive.Files.get("FileID", { alt: "media" });
+    console.log(fileBlob);
+}
+
 // Example showing how to create a folder
 function createDrive() {
     const drive = Drive.Drives.create({
