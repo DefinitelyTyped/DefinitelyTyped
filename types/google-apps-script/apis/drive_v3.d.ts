@@ -1349,7 +1349,14 @@ declare namespace GoogleAppsScript {
                         /** Gets a file's metadata or content by ID. If you provide the URL parameter `alt=media`, then the response includes the file contents in the response body. Downloading content with `alt=media` only works if the file is stored in Drive. To download Google Docs, Sheets, and Slides use [`files.export`](/drive/api/reference/rest/v3/files/export) instead. For more information, see [Download & export files](/drive/api/guides/manage-downloads).
                         @param fileId The ID of the file.*/
                         get(fileId: string): Drive_v3.Drive.V3.Schema.File;
-                        /** Gets a file's metadata or content by ID. If you provide the URL parameter `alt=media`, then the response includes the file contents in the response body. Downloading content with `alt=media` only works if the file is stored in Drive. To download Google Docs, Sheets, and Slides use [`files.export`](/drive/api/reference/rest/v3/files/export) instead. For more information, see [Download & export files](/drive/api/guides/manage-downloads).
+                        /** Gets a file's content by ID. If you provide the URL parameter `alt=media`, then the response includes the file contents in the response body. Downloading content with `alt=media` only works if the file is stored in Drive. To download Google Docs, Sheets, and Slides use [`files.export`](/drive/api/reference/rest/v3/files/export) instead. For more information, see [Download & export files](/drive/api/guides/manage-downloads).
+                        @param fileId The ID of the file.
+                        @param optionalArgs Optional arguments.*/
+                        get(
+                            fileId: string,
+                            optionalArgs: Record<string, any> & { alt: "media" },
+                        ): string;
+                        /** Gets a file's metadata or content by ID.
                         @param fileId The ID of the file.
                         @param optionalArgs Optional arguments.*/
                         get(
