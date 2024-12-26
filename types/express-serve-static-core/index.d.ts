@@ -97,16 +97,21 @@ type GetRouteParameter<S extends string> = RemoveTail<
 >;
 
 // prettier-ignore
-export type RouteParameters<Route extends string> = string extends Route ? ParamsDictionary
+export type RouteParameters<Route extends string> = Route extends `${infer Required}{${infer Optional}}${infer Next}` ?
+    ParseRouteParameters<Required> & Partial<ParseRouteParameters<Optional>> & RouteParameters<Next> :
+    ParseRouteParameters<Route>;
+
+export type ParseRouteParameters<Route extends string> = string extends Route ? ParamsDictionary
     : Route extends `${string}(${string}` ? ParamsDictionary // TODO: handling for regex parameters
     : Route extends `${string}:${infer Rest}` ?
             & (
                 GetRouteParameter<Rest> extends never ? ParamsDictionary
-                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string }
+                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string } // TODO: Remove old `?` handling when support for Express 4 is dropped
                     : { [P in GetRouteParameter<Rest>]: string }
             )
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
     : {};
+
 
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 export interface IRouterMatcher<
