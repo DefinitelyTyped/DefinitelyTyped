@@ -1117,6 +1117,7 @@ function driveFileOperations() {
     const fileList = Drive.Files.list({
         q: "mimeType = 'application/vnd.google-apps.document' and trashed = false", // Example query
         pageSize: 10, // Optional: Limit the number of results
+        fields: "files(id, name)", // Optional: List of fields in the response
     });
 
     if (fileList.files && fileList.files.length > 0) {
