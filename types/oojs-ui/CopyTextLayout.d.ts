@@ -50,7 +50,8 @@ declare namespace OO.ui {
             T extends TextInputWidget | MultilineTextInputWidget =
                 | TextInputWidget
                 | MultilineTextInputWidget
-        > extends FieldLayout.Prototype<T> {
+        > extends FieldLayout.Prototype<T>
+        {
             /**
              * Handle button click events.
              *
