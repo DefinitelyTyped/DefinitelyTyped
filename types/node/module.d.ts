@@ -165,9 +165,9 @@ declare module "module" {
         }
         interface ResolveFnOutput {
             /**
-             * A hint to the load hook (it might be ignored)
+             * A hint to the load hook (it might be ignored); can be an intermediary value.
              */
-            format?: string | null | undefined;
+            format?: string | ModuleFormat | null | undefined;
             /**
              * The import attributes to use when caching the module (optional; if excluded the input will be used)
              */
@@ -205,9 +205,9 @@ declare module "module" {
              */
             conditions: string[];
             /**
-             * The format optionally supplied by the `resolve` hook chain
+             * The format optionally supplied by the `resolve` hook chain (can be an intermediary value).
              */
-            format: ModuleFormat;
+            format: string | ModuleFormat;
             /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
