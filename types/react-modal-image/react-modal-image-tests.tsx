@@ -1,36 +1,33 @@
 import * as React from "react";
-import ModalImage, { Lightbox, ModalImageProps } from "react-modal-image";
+import ModalImage, { Lightbox, LightboxProps, ModalImageProps } from "react-modal-image";
 
-const props: ModalImageProps = {
-    /* The small image to display */
-    small: "https://example.com/image-small.jpg",
+// @ts-ignore - props.small is required.
+<ModalImage />;
 
-    /* The large image to display */
-    large: "https://example.com/image-large.jpg",
+<ModalImage small="image-small.jpg" />;
 
-    /* The alt tag for the image */
-    alt: "Example Image",
+<ModalImage
+    className="example-class"
+    alt="Example Image"
+    small="image-small.jpg"
+    smallSrcSet="small-src-set"
+    medium="image-medium.jpg"
+    large="image-large.jpg"
+    hideDownload={true}
+    hideZoom={true}
+    showRotate={true}
+    imageBackgroundColor="#000"
+/>;
 
-    /* Should the download button be hidden? */
-    hideDownload: true,
+<Lightbox />;
 
-    /* Should the zoom button be hidden? */
-    hideZoom: true,
-
-    /* The color to display in the background. */
-    imageBackgroundColor: "#000",
-
-    /* The class name for the modal */
-    className: "example-class",
-};
-
-class ReactModalImageTest extends React.Component {
-    render() {
-        return (
-            <>
-                <ModalImage {...props} />
-                <Lightbox {...props} />
-            </>
-        );
-    }
-}
+<Lightbox
+    medium="image-medium.jpg"
+    large="image-large.jpg"
+    alt="Example Image"
+    onClose={() => {}}
+    hideDownload={true}
+    hideZoom={true}
+    showRotate={true}
+    imageBackgroundColor="#000"
+/>;
