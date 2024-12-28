@@ -443,35 +443,39 @@ declare module "fs" {
         prependOnceListener<K extends keyof ReadStreamEvents>(event: K, listener: ReadStreamEvents[K]): this;
     }
 
-      /**
+    /**
      * The Keys are events of the ReadStream and the values are the functions that are called when the event is emitted.
      */
     type ReadStreamEvents = {
-        close: () => void,
-        data: (chunk: Buffer | string) => void,
-        end: () => void,
-        error: (err: Error) => void,
-        open: (fd: number) => void,
-        pause: () => void,
-        readable: () => void,
-        ready: () => void,
-        resume: () => void
+        close: () => void;
+        data: (chunk: Buffer | string) => void;
+        end: () => void;
+        error: (err: Error) => void;
+        open: (fd: number) => void;
+        pause: () => void;
+        readable: () => void;
+        ready: () => void;
+        resume: () => void;
     } & CustomEvents;
 
-    type CustomEvents = {[Key in string & {} | symbol]: (...args: any[]) => void}
+    /**
+     * string & {} allows to allow any kind of strings for the event
+     * but still allows to have auto completion for the normal events.
+     */
+    type CustomEvents = { [Key in string & {} | symbol]: (...args: any[]) => void };
 
     /**
      * The Keys are events of the WriteStream and the values are the functions that are called when the event is emitted.
      */
     type WriteStreamEvents = {
-        close: () => void,
-        drain: () => void,
-        error: (err: Error) => void,
-        finish: () => void,
-        open: (fd: number) => void,
-        pipe: (src: stream.Readable) => void,
-        ready: () => void,
-        unpipe: (src: stream.Readable) => void,
+        close: () => void;
+        drain: () => void;
+        error: (err: Error) => void;
+        finish: () => void;
+        open: (fd: number) => void;
+        pipe: (src: stream.Readable) => void;
+        ready: () => void;
+        unpipe: (src: stream.Readable) => void;
     } & CustomEvents;
     /**
      * * Extends `stream.Writable`
