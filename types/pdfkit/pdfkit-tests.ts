@@ -353,3 +353,6 @@ const optionalPDF: PDFKit.PDFDocument = new PDFDocument({
         ModDate: undefined,
     },
 });
+
+// Test outlines
+doc.outline.addItem("A");

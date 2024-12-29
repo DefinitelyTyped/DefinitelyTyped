@@ -12,12 +12,14 @@ import {
     fetchQuery,
     FragmentRefs,
     getDefaultMissingFieldHandlers,
+    getRefetchMetadata,
     getRequest,
     graphql,
     isPromise,
     LiveState,
     Network,
     PreloadableConcreteRequest,
+    PreloadableQueryRegistry,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -375,6 +377,10 @@ const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
         metadata: {},
     },
 };
+
+if (preloadableNode.params.id !== null) {
+    const module = PreloadableQueryRegistry.get(preloadableNode.params.id);
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
@@ -903,3 +909,30 @@ export function handleResult<T, E>(result: Result<T, E>) {
         const errors: readonly E[] = result.errors;
     }
 }
+
+// ~~~~~~~~~~~~~~~~~~
+// Metadata
+// ~~~~~~~~~~~~~~~~~~
+
+const refetchMetadata: {
+    fragmentRefPathInResponse: readonly (string | number)[];
+    identifierInfo:
+        | {
+            identifierField: string;
+            identifierQueryVariableName: string;
+        }
+        | null
+        | undefined;
+    refetchableRequest: ConcreteRequest;
+    refetchMetadata: {
+        operation: string | ConcreteRequest;
+        fragmentPathInResult: string[];
+        identifierInfo?:
+            | {
+                identifierField: string;
+                identifierQueryVariableName: string;
+            }
+            | null
+            | undefined;
+    };
+} = getRefetchMetadata(node.fragment, "getRefetchMetadata()");
