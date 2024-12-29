@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/tape",
-    "version": "5.7.9999",
+    "version": "5.8.9999",
     "exports": {
         ".": "./index.d.ts",
         "./lib/default_stream": "./lib/default_stream.d.ts",

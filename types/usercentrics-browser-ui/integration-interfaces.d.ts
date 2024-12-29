@@ -25,8 +25,13 @@ export interface BaseTCFUserDecision {
     /** Indicates if the user gave consent (true) or denied consent (false) */
     consent?: boolean;
 
-    /** The id of the purpose/vendor the consent decision belongs to */
-    id: number;
+    /**
+     * The id of the purpose/vendor the consent decision belongs to.
+     * Note: Different pages in the Usercentrics docs disagree on the type, so both are allowed:
+     * https://usercentrics.com/docs/web/implementation/ui/interfaces/#basetcfuserdecision (number)
+     * https://usercentrics.com/docs/web/features/api/control-functionality/#updatecategoriesconsents (string)
+     */
+    id: number | string;
 }
 
 /**

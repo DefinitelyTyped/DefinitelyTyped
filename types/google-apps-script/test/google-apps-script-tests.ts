@@ -1117,6 +1117,7 @@ function driveFileOperations() {
     const fileList = Drive.Files.list({
         q: "mimeType = 'application/vnd.google-apps.document' and trashed = false", // Example query
         pageSize: 10, // Optional: Limit the number of results
+        fields: "files(id, name)", // Optional: List of fields in the response
     });
 
     if (fileList.files && fileList.files.length > 0) {
@@ -1145,6 +1146,24 @@ function createFolder() {
         mimeType: MimeType.FOLDER,
     });
     console.log("Created Folder:", folder.name, folder.id);
+}
+
+function getFile() {
+    const file = Drive.Files.get("FileID");
+    console.log(file.name);
+}
+
+function getRawFile() {
+    const fileBlob: string = Drive.Files.get("FileID", { alt: "media" });
+    console.log(fileBlob);
+}
+
+// Example showing how to create a folder
+function createDrive() {
+    const drive = Drive.Drives.create({
+        name: "Test Folder",
+    }, "request-id");
+    console.log("Created Folder:", drive.name, drive.id);
 }
 
 // Example: List Drives (Shared Drives)
