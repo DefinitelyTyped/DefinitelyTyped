@@ -1,4 +1,4 @@
-import { IntrinsicFunction, Path, ReferencePath } from "./state";
+import { IntrinsicFunction, JSONataExpression, QueryLanguage, ReferencePath } from "./state";
 
 /**
  * The Fail State (identified by "Type":"Fail") terminates the state machine and marks it as a failure.
@@ -10,26 +10,31 @@ export type Fail =
     & {
         Type: "Fail";
         Comment?: string;
-    }
-    & Cause
-    & Error;
 
-export type Cause =
-    | {
-        Cause?: string;
-        CausePath?: never;
+        // Common fields
+        QueryLanguage?: QueryLanguage;
     }
-    | {
-        Cause?: never;
-        CausePath?: ReferencePath | IntrinsicFunction;
-    };
+    & ErrorConfig
+    & CauseConfig;
 
-export type Error =
+// Error configuration
+export type ErrorConfig =
     | {
-        Error?: string;
+        Error?: string | JSONataExpression;
         ErrorPath?: never;
     }
     | {
         Error?: never;
         ErrorPath?: ReferencePath | IntrinsicFunction;
+    };
+
+// Cause configuration
+export type CauseConfig =
+    | {
+        Cause?: string | JSONataExpression;
+        CausePath?: never;
+    }
+    | {
+        Cause?: never;
+        CausePath?: ReferencePath | IntrinsicFunction;
     };

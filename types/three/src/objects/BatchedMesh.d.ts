@@ -19,10 +19,10 @@ export interface BatchedMeshGeometryRange {
 }
 
 /**
- * A special version of {@link Mesh} with multi draw batch rendering support. Use {@link BatchedMesh} if you have to
- * render a large number of objects with the same material but with different world transformations. The  usage of
- * {@link BatchedMesh} will help you to reduce the number of draw calls and thus improve the overall rendering
- * performance in your application.
+ * A special version of {@link Mesh} with multi draw batch rendering support. Use BatchedMesh if you have to render a
+ * large number of objects with the same material but with different geometries or world transformations. The usage of
+ * BatchedMesh will help you to reduce the number of draw calls and thus improve the overall rendering performance in
+ * your application.
  *
  * If the {@link https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_multi_draw WEBGL_multi_draw extension} is not
  * supported then a less performant fallback is used.

@@ -1,4 +1,4 @@
-// For Library Version: 1.130.0
+// For Library Version: 1.131.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -9305,15 +9305,18 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * A `SemanticFormElement` element is a special `FormElement` that contains semantically connected fields.
-   * These field controls are divided by delimiter controls. In display mode, they are rendered as one condensed
-   * string, in edit mode as separate fields.
+   * A `SemanticFormElement` element is a special {@link sap.ui.layout.form.FormElement FormElement} that
+   * contains semantically connected fields. These field controls are divided by delimiter controls. In display
+   * mode, they are rendered as one condensed string, in edit mode as separate fields.
    *
-   * **Note:** Please use the `ColumnLayout` as `layout` of the `Form`. For other layouts, the field arrangement
-   * might not be suitable in every case.
+   * Only controls implementing the {@link sap.ui.core.ISemanticFormContent ISemanticFormContent} interface
+   * are supported.
+   *
+   * **Note:** Please use the {@link sap.ui.layout.form.ColumnLayout ColumnLayout} as {@link sap.ui.layout.form.Form#setLayout layout }
+   * of the {@link sap.ui.layout.form.Form Form}. For other layouts, the field arrangement might not be suitable
+   * in every case.
    *
    * @since 1.86.0
-   * @experimental (since 1.86)
    */
   export default class SemanticFormElement extends FormElement {
     /**
@@ -9411,13 +9414,11 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
     /**
      * Gets content of aggregation {@link #getFieldLabels fieldLabels}.
      *
-     * Labels of the individual fields. Can either be a `Label` control or a string.
+     * Labels of the individual fields.
      *
-     * If a `Label` control is used, the properties of the `Label` can be set.
-     *
-     * These labels are not rendered directly. If the `Label` property of `SemanticFormElement` is not set,
-     * the texts of the labels are concatenated into the `Label` property of `SemanticFormElement`. Otherwise
-     * the set `Label` is shown.
+     * These labels are not rendered directly. If the {@link #getLabel label} aggregation of `SemanticFormElement`
+     * is not set, the texts of the labels are concatenated into the {@link #setLabel label} aggregation of
+     * `SemanticFormElement`. Otherwise the set `Label` is shown.
      *
      * **Note:** If this aggregation is used, a label is assigned to every single field of `SemanticFormElement`.
      * The order of the labels and the fields must be the same.
@@ -9496,8 +9497,6 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
   }
   /**
    * Describes the settings that can be provided to the SemanticFormElement constructor.
-   *
-   * @experimental (since 1.86)
    */
   export interface $SemanticFormElementSettings extends $FormElementSettings {
     /**
@@ -9506,13 +9505,11 @@ declare module "sap/ui/layout/form/SemanticFormElement" {
     delimiter?: string | PropertyBindingInfo;
 
     /**
-     * Labels of the individual fields. Can either be a `Label` control or a string.
+     * Labels of the individual fields.
      *
-     * If a `Label` control is used, the properties of the `Label` can be set.
-     *
-     * These labels are not rendered directly. If the `Label` property of `SemanticFormElement` is not set,
-     * the texts of the labels are concatenated into the `Label` property of `SemanticFormElement`. Otherwise
-     * the set `Label` is shown.
+     * These labels are not rendered directly. If the {@link #getLabel label} aggregation of `SemanticFormElement`
+     * is not set, the texts of the labels are concatenated into the {@link #setLabel label} aggregation of
+     * `SemanticFormElement`. Otherwise the set `Label` is shown.
      *
      * **Note:** If this aggregation is used, a label is assigned to every single field of `SemanticFormElement`.
      * The order of the labels and the fields must be the same.

@@ -177,7 +177,7 @@ export function latLng(
 
 export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
-    constructor(latlngs: LatLngBoundsLiteral);
+    constructor(latlngs: LatLngExpression[]);
     extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
     pad(bufferRatio: number): LatLngBounds; // Returns a new LatLngBounds
     getCenter(): LatLng;

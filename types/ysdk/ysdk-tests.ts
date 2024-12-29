@@ -283,7 +283,10 @@ async function Misc() {
     ysdk.dispatchEvent("EXIT");
 
     // $ExpectType () => void
-    ysdk.onEvent("EXIT", () => {});
+    ysdk.on("EXIT", () => {});
+
+    // $ExpectType () => void
+    ysdk.onEvent(ysdk.EVENTS.EXIT, () => {});
 
     // $ExpectType string
     ysdk.deviceInfo.type;

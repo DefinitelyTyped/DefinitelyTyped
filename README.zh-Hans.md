@@ -457,7 +457,7 @@ Definitely Typed 是 GitHub 上最活跃的软件源之一。你可能想知道�
 
 > 如果 PR 仅仅更改了模块中的类型，并且包含了相应的测试，合并过程会大大加快。
 
-被类型定义所有者（在定义文件的标头列明）批准的 PR 通常合并得更快；提交新类型定义的 PR 需要更多时间，因为它们需要维护人员花更多的时间审核。每一个 PR 在合并之前都会由 TypeScript 或 Definitely Typed 的团队成员进行审核，所以请耐心等待，因为人为因素可能导致延迟。通过查看 [新拉取请求状态板](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)，可以看到维护人员在开启的 PR 上的工作进度。
+被类型定义所有者（在定义文件的标头列明）批准的 PR 通常合并得更快；提交新类型定义的 PR 需要更多时间，因为它们需要维护人员花更多的时间审核。每一个 PR 在合并之前都会由 TypeScript 或 Definitely Typed 的团队成员进行审核，所以请耐心等待，因为人为因素可能导致延迟。通过查看 [新拉取请求状态板](https://github.com/orgs/DefinitelyTyped/projects/1)，可以看到维护人员在开启的 PR 上的工作进度。
 
 #### 我想给流行项目提交更改，为什么它们受到了特殊对待？
 

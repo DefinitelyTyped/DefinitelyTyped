@@ -1,78 +1,90 @@
 import { Catch, Retry } from "./errors";
-import { Concurrency, EndOrNext, JsonObject, Path, Percentage, ReferencePath, State } from "./state";
+import {
+    AssignmentObject,
+    EndOrNext,
+    JSONataExpression,
+    JsonObject,
+    Path,
+    PositiveInteger,
+    QueryLanguage,
+    ReferencePath,
+    Resource,
+    State,
+} from "./state";
+
+export interface ItemProcessor {
+    StartAt: string;
+    States: {
+        [state: string]: State;
+    };
+    ProcessorConfig?: JsonObject;
+}
+
+export interface ItemReader {
+    Resource: Resource;
+    ReaderConfig?: {
+        MaxItems?: PositiveInteger | JSONataExpression;
+        MaxItemsPath?: ReferencePath;
+    };
+    Arguments?: JsonObject | JSONataExpression;
+    Parameters?: JsonObject;
+}
+
+export interface ItemBatcher {
+    BatchInput?: JsonObject | JSONataExpression;
+    MaxItemsPerBatch?: PositiveInteger | JSONataExpression;
+    MaxItemsPerBatchPath?: ReferencePath;
+    MaxInputBytesPerBatch?: PositiveInteger | JSONataExpression;
+    MaxInputBytesPerBatchPath?: ReferencePath;
+}
+
+export interface ResultWriter {
+    Resource: Resource;
+    Arguments?: JsonObject | JSONataExpression;
+    Parameters?: JsonObject;
+}
 
 /**
- * The Map State (identified by "Type": "Map") causes the interpreter to process all the elements of an array, potentially in parallel, with the processing of each element independent of the others.
+ * The Map State (identified by "Type":"Map") causes the interpreter to process all the elements of an array, potentially in parallel.
  *
  * @see https://states-language.net/#map-state
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-map-state.html
  */
-export type Map = InlineMap | DistributedMap;
-
-/**
- * @see https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html#map-state-inline-additional-fields
- */
-export type InlineMap = {
+export type Map = {
     Type: "Map";
     Comment?: string;
+    ItemProcessor: ItemProcessor;
+
+    // Common fields
+    QueryLanguage?: QueryLanguage;
+    Assign?: AssignmentObject;
+
+    // JSONata style fields
+    Items?: JsonObject | JSONataExpression;
+    Output?: JSONataExpression;
+
+    // JSONPath style fields
     InputPath?: Path | null;
     OutputPath?: Path | null;
-    ItemProcessor: {
-        ProcessorConfig: {
-            Mode: "INLINE";
-        };
-        StartAt: string;
-        States: {
-            [state: string]: State;
-        };
-    };
-    ItemsPath?: ReferencePath;
-    ItemSelector?: JsonObject;
-    MaxConcurrency?: number;
-    ResultPath?: ReferencePath | null;
-    ResultSelector?: JsonObject;
-    Retry?: Retry[];
-    Catch?: Catch[];
-
-    /**
-     * @deprecated
-     */
-    Iterator?: any;
-    /**
-     * @deprecated
-     */
     Parameters?: JsonObject;
-} & EndOrNext;
-
-/**
- * @see https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html#map-state-distributed-additional-fields
- */
-export type DistributedMap = {
-    Type: "Map";
-    Comment?: string;
-    InputPath?: Path | null;
-    OutputPath?: Path | null;
-    ItemProcessor: {
-        ProcessorConfig: {
-            Mode: "DISTRIBUTED";
-            ExecutionType: "STANDARD" | "EXPRESS";
-        };
-        StartAt: string;
-        States: {
-            [state: string]: State;
-        };
-    };
-    ItemReader?: JsonObject;
-    ItemsPath?: ReferencePath;
-    ItemSelector?: JsonObject;
-    ItemBatcher?: JsonObject;
-    MaxConcurrency?: Concurrency;
-    ToleratedFailurePercentage?: Percentage;
-    ToleratedFailureCount?: number;
-    Label?: string;
-    ResultWriter?: JsonObject;
     ResultPath?: ReferencePath | null;
     ResultSelector?: JsonObject;
+
+    // Item processing configuration
+    ItemReader?: ItemReader;
+    ItemSelector?: JsonObject | JSONataExpression;
+    ItemBatcher?: ItemBatcher;
+    ResultWriter?: ResultWriter;
+
+    // Execution configuration
+    MaxConcurrency?: PositiveInteger | JSONataExpression;
+    MaxConcurrencyPath?: ReferencePath;
+    ToleratedFailurePercentage?: number | JSONataExpression;
+    ToleratedFailurePercentagePath?: ReferencePath;
+    ToleratedFailureCount?: PositiveInteger | JSONataExpression;
+    ToleratedFailureCountPath?: ReferencePath;
+
+    // Error handling
     Retry?: Retry[];
     Catch?: Catch[];
 } & EndOrNext;

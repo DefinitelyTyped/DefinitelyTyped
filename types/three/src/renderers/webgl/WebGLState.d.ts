@@ -67,7 +67,7 @@ declare class WebGLState {
         blendDstAlpha?: BlendingDstFactor,
         premultiplyAlpha?: boolean,
     ): void;
-    setMaterial(material: Material, frontFaceCW: boolean): void;
+    setMaterial(material: Material, frontFaceCW: boolean, hardwareClippingPlanes: number): void;
     setFlipSided(flipSided: boolean): void;
     setCullFace(cullFace: CullFace): void;
     setLineWidth(width: number): void;

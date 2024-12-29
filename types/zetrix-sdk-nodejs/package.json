@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/zetrix-sdk-nodejs",
+    "version": "1.0.9999",
+    "projects": ["https://github.com/Zetrix-Chain/zetrix-sdk-nodejs-ts"],
+    "devDependencies": {
+        "@types/zetrix-sdk-nodejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Izad Imran Tan",
+            "githubUsername": "izadimrantan"
+        }
+    ],
+    "dependencies": {}
+}

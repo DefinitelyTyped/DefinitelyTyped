@@ -234,10 +234,6 @@ export interface MaterialJSON {
  * Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
  */
 export class Material extends EventDispatcher<{ dispose: {} }> {
-    static get type(): string;
-
-    get type(): string;
-
     constructor();
 
     /**
@@ -246,6 +242,12 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @defaultValue `true`
      */
     readonly isMaterial: true;
+
+    /**
+     * Value is the string 'Material'. This shouldn't be changed, and can be used to find all objects of this type in a
+     * scene.
+     */
+    type: string;
 
     /**
      * Enables alpha hashed transparency, an alternative to {@link .transparent} or {@link .alphaTest}. The material

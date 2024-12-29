@@ -2,19 +2,19 @@ async function topLevel() {
     // Language Model
 
     // Negative tests
-    await window.ai.languageModel.create({
+    await self.ai.languageModel.create({
         systemPrompt: "foo",
         // @ts-expect-error - System prompt cannot be part of the array if systemPrompt is specified.
         initialPrompts: [{ role: "system" }],
     });
-    await window.ai.languageModel.create({
+    await self.ai.languageModel.create({
         // @ts-expect-error - System prompt must be first element of the initialPrompt array.
         initialPrompts: [{ role: "user" }, { role: "system" }],
     });
 
     // Positive tests
     // System prompt in create options
-    const languageModel1 = await window.ai.languageModel.create({
+    const languageModel1 = await self.ai.languageModel.create({
         topK: 1,
         temperature: 0,
         signal: (new AbortController()).signal,
@@ -28,7 +28,7 @@ async function topLevel() {
     });
 
     // System prompt in initial prompts
-    const languageModel2 = await window.ai.languageModel.create({
+    const languageModel2 = await self.ai.languageModel.create({
         initialPrompts: [
             { role: "system", content: "foo" },
             { role: "assistant", content: "foo" },
@@ -37,7 +37,7 @@ async function topLevel() {
     });
     console.log(languageModel2);
 
-    const languageModelCapabilities = await window.ai.languageModel.capabilities();
+    const languageModelCapabilities = await self.ai.languageModel.capabilities();
     console.log(
         languageModelCapabilities.available,
         languageModelCapabilities.defaultTopK,
@@ -107,7 +107,7 @@ async function topLevel() {
 
     // Summarizer
 
-    const summarizer = await window.ai.summarizer.create({
+    const summarizer = await self.ai.summarizer.create({
         length: "short",
         format: "plain-text",
         type: "tl;dr",
@@ -120,7 +120,7 @@ async function topLevel() {
         },
     });
 
-    const summarizerCapabilities = await window.ai.summarizer.capabilities();
+    const summarizerCapabilities = await self.ai.summarizer.capabilities();
     console.log(
         summarizerCapabilities.available,
         summarizerCapabilities.supportsType("teaser"),
@@ -145,7 +145,7 @@ async function topLevel() {
 
     // Writer
 
-    const writer = await window.ai.writer.create({
+    const writer = await self.ai.writer.create({
         tone: "casual",
         format: "plain-text",
         length: "long",
@@ -158,7 +158,7 @@ async function topLevel() {
         },
     });
 
-    const writerCapabilities = await window.ai.writer.capabilities();
+    const writerCapabilities = await self.ai.writer.capabilities();
     console.log(
         writerCapabilities.available,
         writerCapabilities.supportsTone("casual"),
@@ -180,7 +180,7 @@ async function topLevel() {
 
     // Rewriter
 
-    const rewriter = await window.ai.rewriter.create({
+    const rewriter = await self.ai.rewriter.create({
         tone: "as-is",
         format: "plain-text",
         length: "as-is",
@@ -193,7 +193,7 @@ async function topLevel() {
         },
     });
 
-    const rewriterCapabilities = await window.ai.rewriter.capabilities();
+    const rewriterCapabilities = await self.ai.rewriter.capabilities();
     console.log(
         rewriterCapabilities.available,
         rewriterCapabilities.supportsTone("more-casual"),
@@ -218,7 +218,7 @@ async function topLevel() {
 
     // Translator
 
-    const translator = await window.ai.translator.create({
+    const translator = await self.ai.translator.create({
         sourceLanguage: "de",
         targetLanguage: "en",
         signal: (new AbortController()).signal,
@@ -234,7 +234,7 @@ async function topLevel() {
         translator.targetLanguage,
     );
 
-    const translatorCapabilities = await window.ai.translator.capabilities();
+    const translatorCapabilities = await self.ai.translator.capabilities();
     console.log(
         translatorCapabilities.available,
         translatorCapabilities.languagePairAvailable("de", "en"),
@@ -255,7 +255,7 @@ async function topLevel() {
 
     // Language detector
 
-    const languageDetector = await window.ai.languageDetector.create({
+    const languageDetector = await self.ai.languageDetector.create({
         signal: (new AbortController()).signal,
         monitor(m: AICreateMonitor) {
             m.addEventListener("downloadprogress", (e) => {
@@ -264,7 +264,7 @@ async function topLevel() {
         },
     });
 
-    const languageDetectorCapabilities = await window.ai.languageDetector.capabilities();
+    const languageDetectorCapabilities = await self.ai.languageDetector.capabilities();
     console.log(
         languageDetectorCapabilities.available,
         languageDetectorCapabilities.languageAvailable("de"),

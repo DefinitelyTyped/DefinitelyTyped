@@ -1,4 +1,5 @@
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, TextureNode, UniformNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 declare class TransitionNode extends TempNode {
     textureNodeA: TextureNode;

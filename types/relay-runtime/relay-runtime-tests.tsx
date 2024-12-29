@@ -12,12 +12,14 @@ import {
     fetchQuery,
     FragmentRefs,
     getDefaultMissingFieldHandlers,
+    getRefetchMetadata,
     getRequest,
     graphql,
     isPromise,
     LiveState,
     Network,
     PreloadableConcreteRequest,
+    PreloadableQueryRegistry,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -176,15 +178,21 @@ const environment = new Environment({
         }
     },
     relayFieldLogger: arg => {
-        if (arg.kind === "missing_field.log") {
+        if (arg.kind === "missing_required_field.log") {
             console.log(arg.fieldPath, arg.owner);
-        } else if (arg.kind === "missing_field.throw") {
+        } else if (arg.kind === "missing_required_field.throw") {
             console.log(arg.fieldPath, arg.owner);
         } else if (arg.kind === "relay_resolver.error") {
             console.log(arg.fieldPath, arg.owner);
-        } else {
-            arg.kind; // $ExpectType "relay_field_payload.error"
+        } else if (arg.kind === "relay_field_payload.error") {
+            arg.kind;
             console.log(arg.fieldPath, arg.owner, arg.error);
+        } else if (arg.kind === "missing_expected_data.throw") {
+            arg.kind;
+            console.log(arg.fieldPath, arg.owner, arg.handled);
+        } else {
+            arg.kind; // $ExpectType "missing_expected_data.log"
+            console.log(arg.fieldPath, arg.owner);
         }
     },
 });
@@ -369,6 +377,10 @@ const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
         metadata: {},
     },
 };
+
+if (preloadableNode.params.id !== null) {
+    const module = PreloadableQueryRegistry.get(preloadableNode.params.id);
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
@@ -640,6 +652,12 @@ const operationWithCacheConfig = createOperationDescriptor(request, variables, c
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
 
+__internal.fetchQueryDeduped(
+    environment,
+    operation.request.identifier,
+    () => environment.execute({ operation }),
+);
+
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // MULTI ACTOR ENVIRONMENT
 // ~~~~~~~~~~~~~~~~~~~~~~~
@@ -891,3 +909,30 @@ export function handleResult<T, E>(result: Result<T, E>) {
         const errors: readonly E[] = result.errors;
     }
 }
+
+// ~~~~~~~~~~~~~~~~~~
+// Metadata
+// ~~~~~~~~~~~~~~~~~~
+
+const refetchMetadata: {
+    fragmentRefPathInResponse: readonly (string | number)[];
+    identifierInfo:
+        | {
+            identifierField: string;
+            identifierQueryVariableName: string;
+        }
+        | null
+        | undefined;
+    refetchableRequest: ConcreteRequest;
+    refetchMetadata: {
+        operation: string | ConcreteRequest;
+        fragmentPathInResult: string[];
+        identifierInfo?:
+            | {
+                identifierField: string;
+                identifierQueryVariableName: string;
+            }
+            | null
+            | undefined;
+    };
+} = getRefetchMetadata(node.fragment, "getRefetchMetadata()");
