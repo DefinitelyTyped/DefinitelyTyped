@@ -271,4 +271,9 @@ tape(name, (test: tape.Test) => {
     const captureResults = test.capture(a, "push", () => "foo");
     captureResults(); // $ExpectType WrappedCall[]
     captureResults.restore; // $ExpectType RestoreFunction
+
+    function isFortyTwo(this: tape.Test, actual: unknown, message?: string) {
+        this.equal(actual, 42, message ?? "expected " + actual);
+    }
+    t.assertion(isFortyTwo, "not 42", "a message!"); // $ExpectType void
 });
