@@ -2,7 +2,7 @@
 /// <reference types="react" />
 
 declare function jasmineEnzyme(): void;
-export default jasmineEnzyme;
+export = jasmineEnzyme;
 
 declare global {
     namespace jasmine {

@@ -1,4 +1,5 @@
-import { NodeRepresentation, ShaderNodeObject, TempNode, TextureNode, UniformNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 export default class RGBShiftNode extends TempNode {
     textureNode: TextureNode;

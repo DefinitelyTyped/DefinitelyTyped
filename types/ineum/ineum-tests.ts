@@ -74,6 +74,7 @@ ineum("reportEvent", "log", {
     meta: {
         itemsInCart: 5,
     },
+    customMetric: 123.2342,
 });
 
 // $ExpectType void

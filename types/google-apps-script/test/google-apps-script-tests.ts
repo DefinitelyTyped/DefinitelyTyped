@@ -1073,3 +1073,108 @@ const sheetRange = () => {
     range.createDataSourcePivotTable(dataSource);
     range.createDataSourceTable(dataSource);
 };
+
+// Drive v3 API - Test File
+
+function driveFileOperations() {
+    // Create a new file
+    const createdFile = Drive.Files.create({
+        name: "test_create",
+        description: "This is a description for a test file.",
+        mimeType: MimeType.GOOGLE_DOCS, // Example MIME type
+    });
+    console.log("Created File:", createdFile.name, createdFile.id, createdFile.mimeType);
+
+    // Get a file (replace with a valid Drive ID)
+    const driveId = "YOUR_DRIVE_ID_HERE"; // <--- REPLACE with an actual Drive ID
+    try {
+        const drive = Drive.Drives.get(driveId); // Use Drives.get to get Drive metadata
+
+        if (drive) { // Check if the Drive exists (Drives.get returns null if not found)
+            // Update a file (using a blob)
+            const blob = Utilities.newBlob(
+                "Hello world!\nRepo Link: https://github.dev/DefinitelyTyped/DefinitelyTyped",
+                MimeType.PLAIN_TEXT,
+            );
+            const updatedFile = Drive.Files.update({ name: "test_updated" }, createdFile.id, blob, {
+                addParents: [drive.id],
+            }); // addParents takes an array
+            console.log("Updated File:", updatedFile.name, updatedFile.id);
+        } else {
+            console.error("Drive not found:", driveId);
+        }
+    } catch (e) {
+        console.error("Error getting Drive:", e);
+    }
+
+    // Remove a file
+    // Comment out to keep the test file
+    Drive.Files.remove(createdFile.id);
+
+    // Other operations (examples)
+
+    // List files (Example showing how to use the 'q' parameter)
+    const fileList = Drive.Files.list({
+        q: "mimeType = 'application/vnd.google-apps.document' and trashed = false", // Example query
+        pageSize: 10, // Optional: Limit the number of results
+        fields: "files(id, name)", // Optional: List of fields in the response
+    });
+
+    if (fileList.files && fileList.files.length > 0) {
+        console.log("Files found:");
+        fileList.files.forEach(file => console.log(file.name, file.id));
+    } else {
+        console.log("No files found.");
+    }
+
+    // Get file metadata (example with optional fields)
+    const metadata = Drive.Files.get(createdFile.id, { fields: "name,mimeType,webViewLink" });
+    console.log("File Metadata:", metadata);
+
+    // Copy a file
+    const copiedFile = Drive.Files.copy({ name: "test_copy" }, createdFile.id);
+    console.log("Copied File:", copiedFile.name, copiedFile.id);
+
+    // (Don't forget to remove the copied file if you want to clean up)
+    Drive.Files.remove(copiedFile.id);
+}
+
+// Example showing how to create a folder
+function createFolder() {
+    const folder = Drive.Files.create({
+        name: "Test Folder",
+        mimeType: MimeType.FOLDER,
+    });
+    console.log("Created Folder:", folder.name, folder.id);
+}
+
+function getFile() {
+    const file = Drive.Files.get("FileID");
+    console.log(file.name);
+}
+
+function getRawFile() {
+    const fileBlob: string = Drive.Files.get("FileID", { alt: "media" });
+    console.log(fileBlob);
+}
+
+// Example showing how to create a folder
+function createDrive() {
+    const drive = Drive.Drives.create({
+        name: "Test Folder",
+    }, "request-id");
+    console.log("Created Folder:", drive.name, drive.id);
+}
+
+// Example: List Drives (Shared Drives)
+function listDrives() {
+    const driveList = Drive.Drives.list();
+    if (driveList && driveList.drives && driveList.drives.length > 0) {
+        console.log("Drives found:");
+        driveList.drives.forEach(drive => {
+            console.log(drive.name, drive.id);
+        });
+    } else {
+        console.log("No shared Drives found.");
+    }
+}

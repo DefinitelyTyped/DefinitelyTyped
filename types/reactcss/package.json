@@ -5,7 +5,7 @@
     "projects": [
         "http://reactcss.com/"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/react": "*"
     },
     "devDependencies": {

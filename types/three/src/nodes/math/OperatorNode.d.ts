@@ -10,6 +10,7 @@ export type OperatorNodeOp =
     | ">>"
     | "<<"
     | "=="
+    | "!="
     | "&&"
     | "||"
     | "^^"
@@ -42,6 +43,7 @@ export const mul: Operator;
 export const div: Operator;
 export const modInt: Operator;
 export const equal: Operator;
+export const notEqual: Operator;
 export const lessThan: Operator;
 export const greaterThan: Operator;
 export const lessThanEqual: Operator;
@@ -65,6 +67,7 @@ declare module "../tsl/TSLCore.js" {
         div: typeof div;
         modInt: typeof modInt;
         equal: typeof equal;
+        notEqual: typeof notEqual;
         lessThan: typeof lessThan;
         greaterThan: typeof greaterThan;
         lessThanEqual: typeof lessThanEqual;

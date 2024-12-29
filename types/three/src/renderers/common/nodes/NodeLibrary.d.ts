@@ -19,7 +19,7 @@ declare class NodeLibrary {
         (color: NodeRepresentation, exposure: NodeRepresentation) => ShaderNodeObject<Node>
     >;
     constructor();
-    fromMaterial(material: Material): Material | null;
+    fromMaterial(material: Material): Material | NodeMaterial | null;
     addToneMapping(
         toneMappingNode: (color: NodeRepresentation, exposure: NodeRepresentation) => ShaderNodeObject<Node>,
         toneMapping: ToneMapping,
@@ -30,9 +30,7 @@ declare class NodeLibrary {
     getMaterialNodeClass(materialType: string): (new() => NodeMaterial) | null;
     addMaterial(materialNodeClass: {
         new(): NodeMaterial;
-    }, materialClass: {
-        new(): Material;
-    }): void;
+    }, materialClassType: string): void;
     getLightNodeClass(light: Light): (new(light: Light) => AnalyticLightNode<Light>) | null;
     addLight<TLight extends Light>(lightNodeClass: {
         new(light: TLight): AnalyticLightNode<TLight>;

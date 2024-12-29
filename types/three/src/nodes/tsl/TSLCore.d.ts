@@ -172,6 +172,8 @@ type ConstructedNode<T> = T extends new(...args: any[]) => infer R ? (R extends 
 
 export type NodeOrType = Node | string;
 
+export const defined: (v: unknown) => unknown;
+
 export const getConstNodeType: (value: NodeOrType) => string | null;
 
 export class ShaderNode<T = {}, R extends Node = Node> {
@@ -271,3 +273,4 @@ export const arrayBuffer: (value: ArrayBuffer) => ShaderNodeObject<ConstNode<Arr
 
 export const element: (node: NodeRepresentation, indexNode: NodeRepresentation) => ShaderNodeObject<Node>;
 export const convert: (node: NodeRepresentation, types: string) => ShaderNodeObject<Node>;
+export const split: (node: NodeRepresentation, channels?: string) => ShaderNodeObject<Node>;

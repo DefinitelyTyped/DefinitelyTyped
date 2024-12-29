@@ -18,36 +18,43 @@ declare class NumberNodeUniform extends NumberUniform {
     nodeUniform: NodeUniform<number>;
     constructor(nodeUniform: NodeUniform<number>);
     getValue(): number;
+    getType(): string | null;
 }
 declare class Vector2NodeUniform extends Vector2Uniform {
     nodeUniform: NodeUniform<Vector2>;
     constructor(nodeUniform: NodeUniform<Vector2>);
     getValue(): Vector2;
+    getType(): string | null;
 }
 declare class Vector3NodeUniform extends Vector3Uniform {
     nodeUniform: NodeUniform<Vector3>;
     constructor(nodeUniform: NodeUniform<Vector3>);
     getValue(): Vector3;
+    getType(): string | null;
 }
 declare class Vector4NodeUniform extends Vector4Uniform {
     nodeUniform: NodeUniform<Vector4>;
     constructor(nodeUniform: NodeUniform<Vector4>);
     getValue(): Vector4;
+    getType(): string | null;
 }
 declare class ColorNodeUniform extends ColorUniform {
     nodeUniform: NodeUniform<Color>;
     constructor(nodeUniform: NodeUniform<Color>);
     getValue(): Color;
+    getType(): string | null;
 }
 declare class Matrix3NodeUniform extends Matrix3Uniform {
     nodeUniform: NodeUniform<Matrix3>;
     constructor(nodeUniform: NodeUniform<Matrix3>);
     getValue(): Matrix3;
+    getType(): string | null;
 }
 declare class Matrix4NodeUniform extends Matrix4Uniform {
     nodeUniform: NodeUniform<Matrix4>;
     constructor(nodeUniform: NodeUniform<Matrix4>);
     getValue(): Matrix4;
+    getType(): string | null;
 }
 export {
     ColorNodeUniform,

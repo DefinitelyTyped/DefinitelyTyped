@@ -2098,6 +2098,34 @@ declare namespace googletag {
              * @see [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
              */
             triggers?: Partial<Record<InterstitialTrigger, boolean>> | null;
+
+            /**
+             * Whether local storage consent is required to display this interstitial ad.
+             *
+             * GPT uses local storage to enforce a [frequency
+             * cap](https://support.google.com/admanager/answer/9840201#frequency) for
+             * interstitial ads. However, users who have not provided local storage
+             * consent are still eligible to be served interstitial ads. Setting this
+             * property to `true` opts out of the default behavior, and ensures
+             * interstial ads are only shown to users who have provided local storage
+             * consent.
+             *
+             * @example
+             *  // Opt out of showing interstitials to users
+             *  // without local storage consent.
+             *  const interstitialSlot = googletag.defineOutOfPageSlot(
+             *      "/1234567/sports",
+             *      googletag.enums.OutOfPageFormat.INTERSTITIAL)!;
+             *
+             *  interstitialSlot.setConfig({
+             *    interstitial: {
+             *      requireStorageAccess: true, // defaults to false
+             *    }
+             *  });
+             *
+             * @see [Traffic web interstitials](https://support.google.com/admanager/answer/9840201)
+             */
+            requireStorageAccess?: boolean | null;
         }
 
         /**
