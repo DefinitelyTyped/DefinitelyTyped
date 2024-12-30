@@ -12,7 +12,7 @@ zipfile.outputStream;
 // $ExpectType ZipFile
 zipfile.on("error", (err) => {
     console.error("error", err);
-})
+});
 
 zipfile.outputStream.pipe(fs.createWriteStream("output.zip")).on("close", () => {
     console.log("done");
