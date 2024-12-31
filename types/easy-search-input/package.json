@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/easy-search-input",
-   "version": "1.0.9999",
+    "version": "1.0.9999",
     "devDependencies": {
       "@types/easy-search-input": "workspace:."
     },
@@ -9,12 +9,11 @@
     "owners": [
       {
         "name": "Kristopher Jafeth",
-        "url": "https://kristopherjafeth.com",
         "githubUsername": "kristopherjafeth"
       }
     ],
     "projects": [
-      "https://github.com/kristopherjafeth/easy-search-input"
+      "https://github.com/tu-usuario-github/easy-search-input"
     ]
   }
   
