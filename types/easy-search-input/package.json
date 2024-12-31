@@ -1,0 +1,10 @@
+{
+    "name": "easy-search-input",
+    "version": "1.0.0",
+    "description": "Type definitions for easy-search-input",
+    "license": "MIT",
+    "dependencies": {
+      "react": "*"
+    }
+  }
+  
