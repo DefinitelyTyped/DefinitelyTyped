@@ -3,7 +3,8 @@
     "name": "@types/easy-search-input",
     "version": "1.0.9999",
     "devDependencies": {
-      "@types/easy-search-input": "workspace:."
+      "@types/easy-search-input": "workspace:.",
+      "@types/react": "^18.0.0"
     },
     "dependencies": {},
     "owners": [
