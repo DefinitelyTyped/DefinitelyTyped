@@ -1,4 +1,4 @@
-import React from "react";
+import React = require('react');
 
 /**
  * Props para el componente EasySearchInput.

@@ -1,20 +1,21 @@
 {
-    "private": true,
-    "name": "@types/easy-search-input",
-    "version": "1.0.9999",
-    "devDependencies": {
-      "@types/easy-search-input": "workspace:.",
-      "@types/react": "^18.0.0"
-    },
-    "dependencies": {},
-    "owners": [
-      {
-        "name": "Kristopher Jafeth",
-        "githubUsername": "kristopherjafeth"
-      }
-    ],
-    "projects": [
-      "https://github.com/kristopherjafeth/easy-search-input"
-    ]
-  }
-  
+  "private": true,
+  "name": "@types/easy-search-input",
+  "version": "1.0.9999",
+  "devDependencies": {
+    "@types/easy-search-input": "file:../index.d.ts",
+    "@types/react": "19.0.2"
+  },
+  "dependencies": {
+    "react": "^18.0.0"
+  },
+  "owners": [
+    {
+      "name": "Kristopher Jafeth",
+      "githubUsername": "kristopherjafeth"
+    }
+  ],
+  "projects": [
+    "https://github.com/kristopherjafeth/easy-search-input"
+  ]
+}
