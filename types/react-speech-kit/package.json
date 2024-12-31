@@ -3,7 +3,7 @@
     "name": "@types/react-speech-kit",
     "version": "3.0.9999",
     "projects": [
-        "https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)"
+        "https://github.com/MikeyParton/react-speech-kit"
     ],
     "devDependencies": {
         "@types/react-speech-kit": "workspace:."
@@ -13,5 +13,8 @@
             "name": "Sam Q",
             "githubUsername": "SamQuail"
         }
-    ]
+    ],
+    "dependencies": {
+        "react-speech-kit": "^3.0.1"
+    }
 }

@@ -16,6 +16,7 @@
     },
     "files": [
         "index.d.ts",
-        "react-speech-kit-tests.ts"
+        "tests/speech-synthesis-tests.tsx",
+        "tests/speech-recognition-tests.tsx"
     ]
 }
