@@ -12,11 +12,11 @@
         "types": [],
         "noEmit": true,
         "jsx": "react",
-        "forceConsistentCasingInFileNames": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "tests/speech-synthesis-tests.tsx",
-        "tests/speech-recognition-tests.tsx"
+        "test/speech-synthesis-tests.tsx",
+        "test/speech-recognition-tests.tsx"
     ]
 }
