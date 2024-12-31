@@ -1,34 +1,39 @@
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-  name: string;
-  length: number;
-  extras?: string[];
+export interface SpeakOptions {
+  text: string;
+  voice?: SpeechSynthesisVoice;
+  rate?: number;
+  pitch?: number;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-  /*~ For example, given this definition, someone could write:
-   *~   import { subProp } from 'yourModule';
-   *~   subProp.foo();
-   *~ or
-   *~   import * as yourMod from 'yourModule';
-   *~   yourMod.subProp.foo();
-   */
-  function foo(): void;
+export interface UseSpeechSynthesisReturn {
+  speak: (options: SpeakOptions) => void;
+  cancel: () => void;
+  speaking: boolean;
+  supported: boolean;
+  voices: SpeechSynthesisVoice[];
 }
+
+export interface UseSpeechSynthesisOptions {
+  onEnd?: () => void;
+}
+
+export interface ListenOptions {
+  interimResults?: boolean;
+  lang: string;
+}
+
+export interface UseSpeechRecognitionReturn {
+  listen: (options: ListenOptions) => void;
+  stop: () => void;
+  listening: boolean;
+  supported: boolean;
+}
+
+export interface UseSpeechRecognitionOptions {
+  onEnd?: () => void;
+  onResult?: (result: SpeechRecognitionResult) => void;
+  onError?: (event: ErrorEvent) => void;
+}
+
+export function useSpeechSynthesis(options?: UseSpeechSynthesisOptions): UseSpeechSynthesisReturn;
+export function useSpeechRecognition(options?: UseSpeechRecognitionOptions): UseSpeechRecognitionReturn;
