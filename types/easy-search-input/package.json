@@ -1,10 +1,20 @@
 {
-    "name": "easy-search-input",
-    "version": "1.0.0",
-    "description": "Type definitions for easy-search-input",
-    "license": "MIT",
-    "dependencies": {
-      "react": "*"
-    }
+    "private": true,
+    "name": "@types/easy-search-input",
+    "version": "1.0.0.9999",
+    "devDependencies": {
+      "@types/easy-search-input": "workspace:."
+    },
+    "dependencies": {},
+    "owners": [
+      {
+        "name": "Kristopher Jafeth",
+        "url": "https://kristopherjafeth.com",
+        "githubUsername": "kristopherjafeth"
+      }
+    ],
+    "projects": [
+      "https://github.com/kristopherjafeth/easy-search-input"
+    ]
   }
   
