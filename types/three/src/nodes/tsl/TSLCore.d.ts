@@ -172,6 +172,11 @@ type ConstructedNode<T> = T extends new(...args: any[]) => infer R ? (R extends 
 
 export type NodeOrType = Node | string;
 
+declare class ShaderCallNodeInternal extends Node {
+}
+
+declare class ShaderNodeInternal extends Node {}
+
 export const defined: (v: unknown) => unknown;
 
 export const getConstNodeType: (value: NodeOrType) => string | null;
@@ -209,13 +214,26 @@ export function nodeImmutable<T>(
     ...params: ProxiedTuple<GetConstructors<T>>
 ): ShaderNodeObject<ConstructedNode<T>>;
 
-export function Fn<R extends Node = ShaderNodeObject<Node>>(jsFunc: () => R): () => R;
-export function Fn<T extends any[], R extends Node = ShaderNodeObject<Node>>(
-    jsFunc: (args: T) => R,
-): (...args: ProxiedTuple<T>) => R;
-export function Fn<T extends { [key: string]: unknown }, R extends Node = ShaderNodeObject<Node>>(
-    jsFunc: (args: T) => R,
-): (args: ProxiedObject<T>) => R;
+interface Layout {
+    name: string;
+    type: string;
+    inputs: { name: string; type: string }[];
+}
+
+interface ShaderNodeFn<Args extends readonly unknown[]> {
+    (...args: Args): ShaderNodeObject<ShaderCallNodeInternal>;
+    shaderNode: ShaderNodeObject<ShaderNodeInternal>;
+    setLayout: (layout: Layout) => this;
+    once: () => this;
+}
+
+export function Fn(jsFunc: () => void): ShaderNodeFn<[]>;
+export function Fn<T extends readonly unknown[]>(
+    jsFunc: (args: T) => void,
+): ShaderNodeFn<ProxiedTuple<T>>;
+export function Fn<T extends { readonly [key: string]: unknown }>(
+    jsFunc: (args: T) => void,
+): ShaderNodeFn<[ProxiedObject<T>]>;
 
 /**
  * @deprecated tslFn() has been renamed to Fn()

@@ -1,6 +1,13 @@
 import { CoordinateSystem } from "../../constants.js";
 import Renderer from "./Renderer.js";
 
+declare module "../../core/Object3D.js" {
+    interface Object3D {
+        // See https://github.com/mrdoob/three.js/pull/28683
+        count: number;
+    }
+}
+
 export interface BackendParameters {
     canvas?: HTMLCanvasElement | undefined;
 }

@@ -198,6 +198,13 @@ export class WebGLRenderer implements Renderer {
      */
     toneMappingExposure: number;
 
+    /**
+     * The normalized resolution scale for the transmission render target, measured in percentage of viewport
+     * dimensions. Lowering this value can result in significant improvements to {@link MeshPhysicalMaterial}
+     * transmission performance. Default is `1`.
+     */
+    transmissionResolutionScale: number;
+
     info: WebGLInfo;
 
     shadowMap: WebGLShadowMap;

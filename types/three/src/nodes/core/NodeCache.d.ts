@@ -39,13 +39,34 @@ interface NodeData {
 interface BufferAttributeData {
     node: BufferAttributeNode;
 }
+/**
+ * This utility class is used in {@link NodeBuilder} as an internal
+ * cache data structure for node data.
+ */
 declare class NodeCache {
     id: number;
     nodesData: WeakMap<Node | TypedArray | InterleavedBuffer | BufferAttribute, NodeData | BufferAttributeData>;
     parent: NodeCache | null;
+    /**
+     * Constructs a new node cache.
+     *
+     * @param {NodeCache?} parent - A reference to a parent cache.
+     */
     constructor(parent?: NodeCache | null);
+    /**
+     * Returns the data for the given node.
+     *
+     * @param {Node} node - The node.
+     * @return {Object?} The data for the node.
+     */
     getData(node: Node): NodeData | undefined;
     getData(node: TypedArray | InterleavedBuffer | BufferAttribute): BufferAttributeData | undefined;
+    /**
+     * Sets the data for a given node.
+     *
+     * @param {Node} node - The node.
+     * @param {Object} data - The data that should be cached.
+     */
     setData(node: Node, data: NodeData): void;
     setData(node: TypedArray | InterleavedBuffer | BufferAttribute, data: BufferAttributeData): void;
 }
