@@ -13,8 +13,5 @@
             "name": "Sam Q",
             "githubUsername": "SamQuail"
         }
-    ],
-    "dependencies": {
-        "react-speech-kit": "^3.0.1"
-    }
+    ]
 }
