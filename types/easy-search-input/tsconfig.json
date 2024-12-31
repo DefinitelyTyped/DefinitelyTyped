@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "strict": true,                // Requiere validación estricta
+      "baseUrl": "../../",           // Define la base para las referencias
+      "paths": {
+        "easy-search-input": ["easy-search-input"] // Ruta para el módulo
+      },
+      "target": "ES6",               // Define el objetivo de compilación
+      "module": "ES6",               // Usa el módulo ES6 para exportar
+      "esModuleInterop": true,       // Permite interoperabilidad con ES Modules
+      "skipLibCheck": true           // Omite la verificación de bibliotecas
+    },
+    "include": ["index.d.ts"]
+  }
+  
