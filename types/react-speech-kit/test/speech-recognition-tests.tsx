@@ -1,6 +1,5 @@
 import { useSpeechRecognition } from "react-speech-kit";
 
-
 // $ExpectType UseSpeechRecognitionReturn
 const { listen, listening, stop, supported } = useSpeechRecognition({
     onResult: (result: SpeechRecognitionResult): void => {

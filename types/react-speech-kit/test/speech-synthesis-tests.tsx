@@ -1,7 +1,5 @@
 import { useSpeechSynthesis } from "react-speech-kit";
 
-
-
 // $ExpectType UseSpeechSynthesisReturn
 const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis();
 
