@@ -340,7 +340,7 @@ export interface CookieOptions {
     maxAge?: number | undefined;
     /** Indicates if the cookie should be signed. */
     signed?: boolean | undefined;
-    /** Expiry date of the cookie in GMT. If not specified or set to 0, creates a session cookie. */
+    /** Expiry date of the cookie in GMT. If not specified (undefined), creates a session cookie. */
     expires?: Date | undefined;
     /** Flags the cookie to be accessible only by the web server. */
     httpOnly?: boolean | undefined;

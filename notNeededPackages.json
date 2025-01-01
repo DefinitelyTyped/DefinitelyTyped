@@ -6175,6 +6175,10 @@
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
         },
+        "tedious": {
+            "libraryName": "tedious",
+            "asOfVersion": "18.0.0"
+        },
         "temp-dir": {
             "libraryName": "temp-dir",
             "asOfVersion": "2.0.0"
