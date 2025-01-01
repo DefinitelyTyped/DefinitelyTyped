@@ -961,7 +961,6 @@
         "gulp-cheerio",
         "gulp-coffeeify",
         "gulp-dtsm",
-        "gulp-espower",
         "gulp-imagemin",
         "gulp-load-plugins",
         "gulp-mocha",
