@@ -1693,6 +1693,10 @@
             "libraryName": "ethereumjs-util",
             "asOfVersion": "6.1.0"
         },
+        "euclidean-rhythms": {
+            "libraryName": "euclidean-rhythms",
+            "asOfVersion": "3.0.0"
+        },
         "eventemitter2": {
             "libraryName": "eventemitter2",
             "asOfVersion": "4.1.0"
