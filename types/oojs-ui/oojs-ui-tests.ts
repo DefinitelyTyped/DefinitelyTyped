@@ -1325,6 +1325,68 @@
 }
 // #endregion
 
+// #region OO.ui.CopyTextLayout
+{
+    // $ExpectType ActionFieldLayout<TextInputWidget>
+    new OO.ui.CopyTextLayout.super(new OO.ui.TextInputWidget(), new OO.ui.ButtonWidget());
+
+    const instance = new OO.ui.CopyTextLayout({
+        copyText: "Text to copy",
+        textInput: {
+            placeholder: "Placeholder",
+        },
+        button: {
+            flags: ["progressive"],
+        },
+    });
+
+    // $ExpectType TextInputWidget
+    instance.getField();
+
+    // $ExpectType void
+    instance.onButtonClick();
+
+    // $ExpectType void
+    instance.onInputFocus();
+
+    // $ExpectType void
+    instance.selectText();
+
+    instance.on("copy", success => {
+        success; // $ExpectType boolean
+    });
+
+    const instanceMultilineFalse = new OO.ui.CopyTextLayout({
+        copyText: "Text to copy",
+        textInput: {
+            placeholder: "Placeholder",
+        },
+        button: {
+            flags: ["progressive"],
+        },
+        multiline: false,
+    });
+
+    // $ExpectType TextInputWidget
+    instanceMultilineFalse.getField();
+
+    const instanceMultilineTrue = new OO.ui.CopyTextLayout({
+        copyText: "Text to copy",
+        textInput: {
+            placeholder: "Placeholder",
+            rows: 3,
+        },
+        button: {
+            flags: ["progressive"],
+        },
+        multiline: true,
+    });
+
+    // $ExpectType MultilineTextInputWidget
+    instanceMultilineTrue.getField();
+}
+// #endregion
+
 // #region OO.ui.DecoratedOptionWidget
 {
     // $ExpectType OptionWidget
