@@ -1,0 +1,36 @@
+{
+  "private": true,
+  "name": "@types/tg-web-app",
+  "version": "8.0.9999",
+  "projects": [
+    "https://telegram.org/js/telegram-web-app.js?56"
+  ],
+  "devDependencies": {
+    "@types/telegram-mini-app": "workspace:."
+  },
+  "types": "index.d.ts",
+  "owners": [
+    {
+      "name": "Никита Иванов",
+      "githubUsername": "dartweider2000"
+    }
+  ],
+  "keywords": [
+    "web app",
+    "mini app",
+    "telegram",
+    "telegram web app",
+    "telegram mini app",
+    "telegram-web-app",
+    "telegram-mini-app",
+    "typescript",
+    "types",
+    "@types"
+  ],
+  "author": {
+    "name": "Nikita Ivanov",
+    "email": "nikita.ivanov574477333@gmail.com",
+    "url": "https://t.me/dartweider2000"
+  },
+  "license": "MIT"
+}
