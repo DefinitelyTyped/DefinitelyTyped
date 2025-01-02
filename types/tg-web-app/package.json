@@ -6,8 +6,9 @@
     "https://telegram.org/js/telegram-web-app.js?56"
   ],
   "nonNpm": true,
+  "nonNpmDescription": "tg-web-app",
   "devDependencies": {
-    "@types/telegram-mini-app": "workspace:."
+    "@types/tg-web-app": "workspace:."
   },
   "owners": [
     {
