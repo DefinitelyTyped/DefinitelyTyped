@@ -2032,27 +2032,60 @@ function testContextMenusUpdate() {
     chrome.contextMenus.update(1, { visible: 1 });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/permissions
 function testPermissions() {
     const permissions: chrome.permissions.Permissions = {
+        permissions: ["tabs"],
         origins: ["https://example.com/*"],
     };
-    chrome.permissions.contains(permissions, (exists: boolean) => {});
-    chrome.permissions.remove(permissions, (wasRemoved: boolean) => {});
-    chrome.permissions.request(permissions, (wasAdded: boolean) => {});
-    chrome.permissions.getAll((permissions: chrome.permissions.Permissions) => {});
-}
 
-async function testPermissionsForPromise() {
-    const permissions: chrome.permissions.Permissions = {
-        origins: ["https://example.com/*"],
-    };
-    if (await chrome.permissions.contains(permissions)) {
-        let wasRemoved: boolean = await chrome.permissions.remove(permissions);
-    } else {
-        let wasAdded: boolean = await chrome.permissions.request(permissions);
-    }
+    chrome.permissions.contains(permissions); // $ExpectType Promise<boolean>
+    chrome.permissions.contains(permissions, (result: boolean) => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.contains(permissions, () => {}).then(() => {});
+    // @ts-expect-error : 'test' is not a recognized permission.
+    chrome.permissions.contains({ permissions: ["test"] });
 
-    const existing: chrome.permissions.Permissions = await chrome.permissions.getAll();
+    chrome.permissions.getAll(); // $ExpectType Promise<Permissions>
+    chrome.permissions.getAll((permissions: chrome.permissions.Permissions) => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.getAll(() => {}).then(() => {});
+
+    chrome.permissions.request(permissions); // $ExpectType Promise<boolean>
+    chrome.permissions.request(permissions, (granted: boolean) => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.request(permissions, () => {}).then(() => {});
+    // @ts-expect-error : 'test' is not a recognized permission.
+    chrome.permissions.request({ permissions: ["test"] });
+
+    chrome.permissions.remove(permissions); // $ExpectType Promise<boolean>
+    chrome.permissions.remove(permissions, (removed: boolean) => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.remove(permissions, () => {}).then(() => {});
+    // @ts-expect-error : 'test' is not a recognized permission.
+    chrome.permissions.remove({ permissions: ["test"] });
+
+    chrome.permissions.onAdded.addListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onAdded.removeListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onAdded.hasListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onAdded.hasListeners(); // $ExpectType boolean
+
+    chrome.permissions.onRemoved.addListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onRemoved.removeListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onRemoved.hasListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onRemoved.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
