@@ -41,7 +41,7 @@ export interface Details {
     isBada: boolean;
     isSamsung: boolean;
     isRaspberry: boolean;
-    isBot: boolean;
+    isBot: string | boolean;
     isCurl: boolean;
     isAndroidTablet: boolean;
     isWinJs: boolean;
