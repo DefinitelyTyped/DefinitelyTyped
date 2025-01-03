@@ -211,14 +211,14 @@ export interface WebApp {
   */
     onEvent: <T extends keyof EventMap>(
         eventType: T,
-        eventHandler: (data: EventMap[T] extends (infer R)[] ? R : never) => CallbackReturnValue
+        eventHandler: (data: EventMap[T] extends (infer R)[] ? R : never) => CallbackReturnValue,
     ) => void;
     /**
     A method that deletes a previously set event handler.
   */
     offEvent: <T extends keyof EventMap>(
         eventType: T,
-        eventHandler: (data: EventMap[T] extends (infer R)[] ? R : never) => CallbackReturnValue
+        eventHandler: (data: EventMap[T] extends (infer R)[] ? R : never) => CallbackReturnValue,
     ) => void;
     /**
     A method used to send data to the bot. When this method is called, a service message is sent to the bot containing the data data of the length up to 4096 bytes, and the Mini App is closed. See the field web_app_data in the class Message.
@@ -231,7 +231,7 @@ export interface WebApp {
   */
     switchInlineQuery: (
         query: (string & {}) | "",
-        choose_chat_types?: ("users" | "bots" | "groups" | "channels")[]
+        choose_chat_types?: ("users" | "bots" | "groups" | "channels")[],
     ) => void;
     /**
     A method that opens a link in an external browser. The Mini App will not be closed.
@@ -240,7 +240,7 @@ export interface WebApp {
     Note that this method can be called only in response to user interaction with the Mini App interface (e.g. a click inside the Mini App or on the main button)
   */
     openLink: (url: string, options?: { try_instant_view: boolean }) => void;
-    /** 
+    /**
     A method that opens a telegram link inside the Telegram app. The Mini App will not be closed after this method is called.
 
     Up to Bot API 7.0 The Mini App will be closed after this method is called.
@@ -353,7 +353,7 @@ export interface WebAppInitData {
     The value of the start_param parameter will also be passed in the GET-parameter tgWebAppStartParam, so the Mini App can load the correct interface right away.
   */
     start_param?: string;
-    /** 
+    /**
     Optional. Time in seconds, after which a message can be sent via the answerWebAppQuery method.
   */
     can_send_after?: number;
@@ -392,7 +392,7 @@ export interface WebAppUser {
     Optional. Username of the user or bot.
   */
     username?: string;
-    /** 
+    /**
     Optional. IETF language tag of the user's language. Returns in user field only.
   */
     language_code?: string;
@@ -419,7 +419,7 @@ export interface WebAppChat {
     Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
   */
     id: number;
-    /** 
+    /**
     Type of chat, can be either “group”, “supergroup” or “channel”
   */
     type: "group" | "supergroup" | "channel";
@@ -768,16 +768,16 @@ export interface CloudStorage {
   */
     getItem: (
         key: string,
-        callback: (error: CloudStorageCallbackError, value?: string) => CallbackReturnValue
+        callback: (error: CloudStorageCallbackError, value?: string) => CallbackReturnValue,
     ) => CloudStorage;
     /**
     Bot API 6.9+ A method that receives values from the cloud storage using the specified keys. The keys should contain 1-128 characters, only A-Z, a-z, 0-9, _ and - are allowed. In case of an error, the callback function will be called and the first argument will contain the error. In case of success, the first argument will be null and the values will be passed as the second argument.
-  
-    When you create keys list, make it "as const": ["key1", "key2", "key3"] as const. Then throw that list into function. 
+
+    When you create keys list, make it "as const": ["key1", "key2", "key3"] as const. Then throw that list into function.
     */
     getItems: <TKeys extends readonly string[]>(
         keys: TKeys,
-        callback: (error: CloudStorageCallbackError, values: Record<TKeys[number], string>) => CallbackReturnValue
+        callback: (error: CloudStorageCallbackError, values: Record<TKeys[number], string>) => CallbackReturnValue,
     ) => CloudStorage;
     /**
     Bot API 6.9+ A method that removes a value from the cloud storage using the specified key. The key should contain 1-128 characters, only A-Z, a-z, 0-9, _ and - are allowed. If an optional callback parameter was passed, the callback function will be called. In case of an error, the first argument will contain the error. In case of success, the first argument will be null and the second argument will be a boolean indicating whether the value was removed.
@@ -796,7 +796,7 @@ export interface CloudStorage {
 export type CloudStorageCallbackError = string | null;
 export type SuccessCloudStorageCallback = (
     error: CloudStorageCallbackError,
-    success: boolean | null
+    success: boolean | null,
 ) => CallbackReturnValue;
 
 export interface BiometricManager {
@@ -844,7 +844,7 @@ export interface BiometricManager {
   */
     authenticate: (
         params: BiometricAuthenticateParams,
-        callback?: (success: boolean, token?: string) => CallbackReturnValue
+        callback?: (success: boolean, token?: string) => CallbackReturnValue,
     ) => BiometricManager;
     /**
     Bot API 7.2+ A method that updates the biometric token in secure storage on the device. To remove the token, pass an empty string. If an optional callback parameter was passed, the callback function will be called and the first argument will be a boolean indicating whether the token was updated.
@@ -1121,7 +1121,7 @@ export interface EventMap {
     eventHandler receives an object with the single field button_id – the value of the field id of the pressed button. If no buttons were pressed, the field button_id will be null.
   */
     popupClosed: { button_id: (string & {}) | "" | null }[];
-    /**  
+    /**
     Bot API 6.4+ Occurs when the QR code scanner catches a code with text data.
     eventHandler receives an object with the single field data containing text data from the QR code.
   */
@@ -1380,13 +1380,14 @@ export interface PopupParams {
     buttons?: PopupButton[] & { length: 1 | 2 | 3 };
 }
 
-export type PopupButton = {
-    /**
+export type PopupButton =
+    & {
+        /**
     Optional. Identifier of the button, 0-64 characters. Set to empty string by default.
     If the button is pressed, its id is returned in the callback and the popupClosed event.
   */
-    id?: (string & {}) | "";
-    /**
+        id?: (string & {}) | "";
+        /**
       Optional. Type of the button. Set to default by default.
     Can be one of these values:
     - default, a button with the default style,
@@ -1395,17 +1396,18 @@ export type PopupButton = {
     - cancel, a button with the localized text “Cancel”,
     - destructive, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
     */
-    type?: "ok" | "close" | "cancel" | "default" | "destructive";
-    /**
+        type?: "ok" | "close" | "cancel" | "default" | "destructive";
+        /**
     Optional. The text to be displayed on the button, 0-64 characters. Required if type is default or destructive. Irrelevant for other types.
   */
-    text?: string;
-} & (
-    | {
-          type: "ok" | "close" | "cancel";
-      }
-    | { type: "default" | "destructive"; text: string }
-);
+        text?: string;
+    }
+    & (
+        | {
+            type: "ok" | "close" | "cancel";
+        }
+        | { type: "default" | "destructive"; text: string }
+    );
 
 export interface ScanQrPopupParams {
     /**
@@ -1414,33 +1416,35 @@ export interface ScanQrPopupParams {
     text?: string;
 }
 
-export type RequestContactData = {
-    status: "sent" | "cancelled";
-    response?: string;
-    responseUnsafe?: {
-        auth_data: string;
-        hash: string;
-        contact: {
-            first_name: string;
-            last_name: string;
-            phone_number: string;
-            user_id: number;
+export type RequestContactData =
+    & {
+        status: "sent" | "cancelled";
+        response?: string;
+        responseUnsafe?: {
+            auth_data: string;
+            hash: string;
+            contact: {
+                first_name: string;
+                last_name: string;
+                phone_number: string;
+                user_id: number;
+            };
         };
-    };
-} & (
-    | {
-          status: "sent";
-          response: string;
-          responseUnsafe: {
-              auth_data: string;
-              hash: string;
-              contact: {
-                  first_name: string;
-                  last_name: string;
-                  phone_number: string;
-                  user_id: number;
-              };
-          };
-      }
-    | { status: "cancelled" }
-);
+    }
+    & (
+        | {
+            status: "sent";
+            response: string;
+            responseUnsafe: {
+                auth_data: string;
+                hash: string;
+                contact: {
+                    first_name: string;
+                    last_name: string;
+                    phone_number: string;
+                    user_id: number;
+                };
+            };
+        }
+        | { status: "cancelled" }
+    );

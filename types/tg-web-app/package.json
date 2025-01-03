@@ -1,19 +1,19 @@
 {
-  "private": true,
-  "name": "@types/tg-web-app",
-  "version": "8.0.9999",
-  "projects": [
-    "https://telegram.org/js/telegram-web-app.js?56"
-  ],
-  "nonNpm": true,
-  "nonNpmDescription": "tg-web-app",
-  "devDependencies": {
-    "@types/tg-web-app": "workspace:."
-  },
-  "owners": [
-    {
-      "name": "Никита Иванов",
-      "githubUsername": "dartweider2000"
-    }
-  ]
+    "private": true,
+    "name": "@types/tg-web-app",
+    "version": "8.0.9999",
+    "projects": [
+        "https://telegram.org/js/telegram-web-app.js?56"
+    ],
+    "nonNpm": true,
+    "nonNpmDescription": "tg-web-app",
+    "devDependencies": {
+        "@types/tg-web-app": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Никита Иванов",
+            "githubUsername": "dartweider2000"
+        }
+    ]
 }
