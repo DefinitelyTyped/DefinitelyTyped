@@ -1575,7 +1575,7 @@ declare namespace GoogleAppsScript {
                     }
                     interface AboutCollection {
                         /**Gets information about the user, the user's Drive, and system capabilities.*/
-                        get(optionalArgs: object): Drive_v3.Drive.V3.Schema.About;
+                        get(optionalArgs: Record<string, any>): Drive_v3.Drive.V3.Schema.About;
                     }
                 }
             }

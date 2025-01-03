@@ -60,6 +60,10 @@
             "libraryName": "agenda",
             "asOfVersion": "4.1.0"
         },
+        "agent-base": {
+            "libraryName": "agent-base",
+            "asOfVersion": "5.0.0"
+        },
         "aggregate-error": {
             "libraryName": "aggregate-error",
             "asOfVersion": "2.2.0"
@@ -603,6 +607,10 @@
         "change-case": {
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
+        },
+        "chardet": {
+            "libraryName": "chardet",
+            "asOfVersion": "1.0.0"
         },
         "chartist": {
             "libraryName": "chartist",
@@ -1688,6 +1696,10 @@
         "ethereumjs-util": {
             "libraryName": "ethereumjs-util",
             "asOfVersion": "6.1.0"
+        },
+        "euclidean-rhythms": {
+            "libraryName": "euclidean-rhythms",
+            "asOfVersion": "3.0.0"
         },
         "eventemitter2": {
             "libraryName": "eventemitter2",
@@ -4623,6 +4635,10 @@
             "libraryName": "qrcode-generator",
             "asOfVersion": "1.0.6"
         },
+        "qrcode.react": {
+            "libraryName": "qrcode.react",
+            "asOfVersion": "3.0.0"
+        },
         "quadstore": {
             "libraryName": "quadstore",
             "asOfVersion": "8.0.0"
@@ -5027,6 +5043,10 @@
             "libraryName": "react-leaflet",
             "asOfVersion": "3.0.0"
         },
+        "react-leaflet-markercluster": {
+            "libraryName": "react-leaflet-markercluster",
+            "asOfVersion": "4.2.1"
+        },
         "react-loader-spinner": {
             "libraryName": "react-loader-spinner",
             "asOfVersion": "4.0.0"
@@ -5222,6 +5242,10 @@
         "react-resize-detector": {
             "libraryName": "react-resize-detector",
             "asOfVersion": "6.1.0"
+        },
+        "react-responsive": {
+            "libraryName": "react-responsive",
+            "asOfVersion": "9.0.0"
         },
         "react-rnd": {
             "libraryName": "react-rnd",
@@ -6814,6 +6838,10 @@
         "wordpress__rich-text": {
             "libraryName": "@wordpress/rich-text",
             "asOfVersion": "6.10.0"
+        },
+        "wordpress__shortcode": {
+            "libraryName": "@wordpress/shortcode",
+            "asOfVersion": "4.14.0"
         },
         "wordpress__token-list": {
             "libraryName": "@wordpress/token-list",

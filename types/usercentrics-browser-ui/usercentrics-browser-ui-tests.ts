@@ -1,21 +1,23 @@
 async function getConsentSettingsFromUsercentrics() {
-    if (!("_ucCmp" in window)) {
+    if (!("_ucCmp" in window) && !("__ucCmp" in window)) {
         return;
     }
 
-    const isInitialized = await window._ucCmp.isInitialized();
+    const ucCmp = window._ucCmp ?? window.__ucCmp;
+
+    const isInitialized = await ucCmp.isInitialized();
     if (!isInitialized) {
         return;
     }
 
-    const consentDetails = await window._ucCmp.getConsentDetails();
+    const consentDetails = await ucCmp.getConsentDetails();
     const userCentricsServices = consentDetails.services;
 
     // $ExpectType boolean | undefined
     userCentricsServices["foo"].consent?.given;
 
     // $ExpectType boolean
-    await window._ucCmp.isConsentRequired();
+    await ucCmp.isConsentRequired();
 
     /*
       Adding serviceConsents example data from the docs and one with id of type number
@@ -29,5 +31,5 @@ async function getConsentSettingsFromUsercentrics() {
         { id: 12345567, consent: false },
     ];
 
-    await window._ucCmp.updateServicesConsents(serviceConsents);
+    await ucCmp.updateServicesConsents(serviceConsents);
 }

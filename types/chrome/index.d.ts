@@ -21,53 +21,53 @@ declare namespace chrome {
      */
     export namespace accessibilityFeatures {
         /** **ChromeOS only.** Spoken feedback (text-to-speech). */
-        export var spokenFeedback: chrome.types.ChromeSetting;
+        export var spokenFeedback: chrome.types.ChromeSetting<boolean>;
         /** **ChromeOS only.** Enlarged cursor. */
-        export var largeCursor: chrome.types.ChromeSetting;
+        export var largeCursor: chrome.types.ChromeSetting<boolean>;
         /** **ChromeOS only.** Sticky modifier keys (like shift or alt). */
-        export var stickyKeys: chrome.types.ChromeSetting;
+        export var stickyKeys: chrome.types.ChromeSetting<boolean>;
         /** **ChromeOS only.** High contrast rendering mode. */
-        export var highContrast: chrome.types.ChromeSetting;
+        export var highContrast: chrome.types.ChromeSetting<boolean>;
         /** **ChromeOS only.** Full screen magnification. */
-        export var screenMagnifier: chrome.types.ChromeSetting;
+        export var screenMagnifier: chrome.types.ChromeSetting<boolean>;
         /** **ChromeOS only.** Auto mouse click after mouse stops moving. */
-        export var autoclick: chrome.types.ChromeSetting;
+        export var autoclick: chrome.types.ChromeSetting<boolean>;
         /** **ChromeOS only.** Virtual on-screen keyboard. */
-        export var virtualKeyboard: chrome.types.ChromeSetting;
+        export var virtualKeyboard: chrome.types.ChromeSetting<boolean>;
         /**
          * **ChromeOS only.**
          * Caret highlighting.
          * @since Chrome 51
          */
-        export var caretHighlight: chrome.types.ChromeSetting;
+        export var caretHighlight: chrome.types.ChromeSetting<boolean>;
         /**
          * **ChromeOS only.**
          * Cursor highlighting.
          * @since Chrome 51
          */
-        export var cursorHighlight: chrome.types.ChromeSetting;
+        export var cursorHighlight: chrome.types.ChromeSetting<boolean>;
         /**
          * **ChromeOS only.**
          * Focus highlighting.
          * @since Chrome 51
          */
-        export var focusHighlight: chrome.types.ChromeSetting;
+        export var focusHighlight: chrome.types.ChromeSetting<boolean>;
         /**
          * **ChromeOS only.**
          * Select-to-speak.
          * @since Chrome 51
          */
-        export var selectToSpeak: chrome.types.ChromeSetting;
+        export var selectToSpeak: chrome.types.ChromeSetting<boolean>;
         /**
          * **ChromeOS only.**
          * Switch Access.
          * @since Chrome 51
          */
-        export var switchAccess: chrome.types.ChromeSetting;
+        export var switchAccess: chrome.types.ChromeSetting<boolean>;
         /**
          * @since Chrome 42
          */
-        export var animationPolicy: chrome.types.ChromeSetting;
+        export var animationPolicy: chrome.types.ChromeSetting<"allowed" | "once" | "none">;
     }
 
     ////////////////////
@@ -6678,72 +6678,49 @@ declare namespace chrome {
      */
     export namespace permissions {
         export interface Permissions {
-            /**
-             * Optional.
-             * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
-             */
-            permissions?: string[] | undefined;
-            /**
-             * Optional.
-             * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional host permission list in the manifest (optional_permissions in MV2, optional_host_permissions in MV3). For example, if http://*.example.com/ or http://* appears in the optional permissions, you can request an origin of http://help.example.com/. Any path is ignored.
-             */
-            origins?: string[] | undefined;
-        }
-
-        export interface PermissionsRemovedEvent {
-            addListener(
-                callback: (/** The permissions that have been removed*/ permissions: Permissions) => void,
-            ): void;
-        }
-
-        export interface PermissionsAddedEvent {
-            addListener(callback: (/** The newly-acquired permissions*/ permissions: Permissions) => void): void;
+            /** The list of host permissions, including those specified in the `optional_permissions` or `permissions` keys in the manifest, and those associated with [Content Scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts). */
+            origins?: string[];
+            /** List of named permissions (does not include hosts or origins). */
+            permissions?: chrome.runtime.ManifestPermissions[];
         }
 
         /**
          * Checks if the extension has the specified permissions.
-         * @return A Promise that resolves with boolean: True if the extension has the specified permissions.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function contains(permissions: Permissions): Promise<boolean>;
-        /**
-         * Checks if the extension has the specified permissions.
-         * Parameter result: True if the extension has the specified permissions.
-         */
         export function contains(permissions: Permissions, callback: (result: boolean) => void): void;
+
         /**
          * Gets the extension's current set of permissions.
-         * @return A Promise that resolves with Permissions object describing the extension's active permissions.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function getAll(): Promise<Permissions>;
-        /**
-         * Gets the extension's current set of permissions.
-         */
         export function getAll(callback: (permissions: Permissions) => void): void;
+
         /**
-         * Requests access to the specified permissions. These permissions must be defined in the optional_permissions or optional_host_permissions (MV3 only) fields of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
-         * @return A Promise that resolves with boolean: True if the user granted the specified permissions.
+         * Requests access to the specified permissions, displaying a prompt to the user if necessary.
+         * These permissions must either be defined in the optional_permissions field of the manifest or be required permissions that were withheld by the user.
+         * Paths on origin patterns will be ignored.
+         * You can request subsets of optional origin permissions; for example, if you specify `*://*\/*` in the `optional_permissions` section of the manifest, you can request `http://example.com/`.
+         * If there are any problems requesting the permissions, {@link runtime.lastError} will be set.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function request(permissions: Permissions): Promise<boolean>;
+        export function request(permissions: Permissions, callback: (granted: boolean) => void): void;
+
         /**
-         * Requests access to the specified permissions. These permissions must be defined in the optional_permissions or optional_host_permissions (MV3 only) fields of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
-         * Parameter granted: True if the user granted the specified permissions.
-         */
-        export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
-        /**
-         * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
-         * @return A Promise that resolves with boolean: True if the permissions were removed.
+         * Removes access to the specified permissions. If there are any problems removing the permissions, {@link runtime.lastError} will be set.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function remove(permissions: Permissions): Promise<boolean>;
-        /**
-         * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
-         * Parameter removed: True if the permissions were removed.
-         */
-        export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
+        export function remove(permissions: Permissions, callback: (removed: boolean) => void): void;
 
         /** Fired when access to permissions has been removed from the extension. */
-        export var onRemoved: PermissionsRemovedEvent;
+        export const onRemoved: chrome.events.Event<(permissions: Permissions) => void>;
+
         /** Fired when the extension acquires new permissions. */
-        export var onAdded: PermissionsAddedEvent;
+        export const onAdded: chrome.events.Event<(permissions: Permissions) => void>;
     }
 
     ////////////////////
@@ -7237,46 +7214,49 @@ declare namespace chrome {
      * @since Chrome 18
      */
     export namespace privacy {
+        /**
+         * The IP handling policy of WebRTC.
+         * @since Chrome 48
+         */
+        export type IPHandlingPolicy =
+            | "default"
+            | "default_public_and_private_interfaces"
+            | "default_public_interface_only"
+            | "disable_non_proxied_udp";
+
         export interface Services {
             /** @since Chrome 20 */
-            spellingServiceEnabled: chrome.types.ChromeSetting;
-            searchSuggestEnabled: chrome.types.ChromeSetting;
-            instantEnabled: chrome.types.ChromeSetting;
-            alternateErrorPagesEnabled: chrome.types.ChromeSetting;
-            safeBrowsingEnabled: chrome.types.ChromeSetting;
+            spellingServiceEnabled: chrome.types.ChromeSetting<boolean>;
+            searchSuggestEnabled: chrome.types.ChromeSetting<boolean>;
+            alternateErrorPagesEnabled: chrome.types.ChromeSetting<boolean>;
+            safeBrowsingEnabled: chrome.types.ChromeSetting<boolean>;
             /** @deprecated since Chrome 70. Please use privacy.services.autofillAddressEnabled and privacy.services.autofillCreditCardEnabled. */
-            autofillEnabled: chrome.types.ChromeSetting;
-            translationServiceEnabled: chrome.types.ChromeSetting;
+            autofillEnabled: chrome.types.ChromeSetting<boolean>;
+            translationServiceEnabled: chrome.types.ChromeSetting<boolean>;
             /** @since Chrome 38 */
-            passwordSavingEnabled: chrome.types.ChromeSetting;
+            passwordSavingEnabled: chrome.types.ChromeSetting<boolean>;
             /** @since Chrome 42 */
-            hotwordSearchEnabled: chrome.types.ChromeSetting;
-            /** @since Chrome 42 */
-            safeBrowsingExtendedReportingEnabled: chrome.types.ChromeSetting;
+            safeBrowsingExtendedReportingEnabled: chrome.types.ChromeSetting<boolean>;
             /** @since Chrome 70 */
-            autofillAddressEnabled: chrome.types.ChromeSetting;
+            autofillAddressEnabled: chrome.types.ChromeSetting<boolean>;
             /** @since Chrome 70 */
-            autofillCreditCardEnabled: chrome.types.ChromeSetting;
+            autofillCreditCardEnabled: chrome.types.ChromeSetting<boolean>;
         }
 
         export interface Network {
-            networkPredictionEnabled: chrome.types.ChromeSetting;
-            /** @deprecated since Chrome 48. Please use privacy.network.webRTCIPHandlingPolicy. */
-            webRTCMultipleRoutesEnabled: chrome.types.ChromeSetting;
-            /** @deprecated since Chrome 48. Please use privacy.network.webRTCIPHandlingPolicy. */
-            webRTCNonProxiedUdpEnabled: chrome.types.ChromeSetting;
+            networkPredictionEnabled: chrome.types.ChromeSetting<boolean>;
             /** @since Chrome 48 */
-            webRTCIPHandlingPolicy: chrome.types.ChromeSetting;
+            webRTCIPHandlingPolicy: chrome.types.ChromeSetting<IPHandlingPolicy>;
         }
 
         export interface Websites {
-            thirdPartyCookiesAllowed: chrome.types.ChromeSetting;
-            referrersEnabled: chrome.types.ChromeSetting;
-            hyperlinkAuditingEnabled: chrome.types.ChromeSetting;
+            thirdPartyCookiesAllowed: chrome.types.ChromeSetting<boolean>;
+            referrersEnabled: chrome.types.ChromeSetting<boolean>;
+            hyperlinkAuditingEnabled: chrome.types.ChromeSetting<boolean>;
             /** @since Chrome 21. Available on Windows and ChromeOS only. */
-            protectedContentEnabled: chrome.types.ChromeSetting;
+            protectedContentEnabled: chrome.types.ChromeSetting<boolean>;
             /** @since Chrome 65 */
-            doNotTrackEnabled: chrome.types.ChromeSetting;
+            doNotTrackEnabled: chrome.types.ChromeSetting<boolean>;
         }
 
         /** Settings that enable or disable features that require third-party network services provided by Google and your default search provider. */
@@ -7359,7 +7339,7 @@ declare namespace chrome {
 
         export interface ProxyErrorEvent extends chrome.events.Event<(details: ErrorDetails) => void> {}
 
-        export var settings: chrome.types.ChromeSetting;
+        export var settings: chrome.types.ChromeSetting<ProxyConfig>;
         /** Notifies about proxy errors. */
         export var onProxyError: ProxyErrorEvent;
     }
@@ -11526,93 +11506,107 @@ declare namespace chrome {
      * @since Chrome 13
      */
     export namespace types {
-        type settingsScope = "regular" | "regular_only" | "incognito_persistent" | "incognito_session_only" | undefined;
+        /**
+         * The scope of the ChromeSetting. One of
+         * * `regular`: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
+         * * `regular_only`: setting for the regular profile only (not inherited by the incognito profile),
+         * * `incognito_persistent`: setting for the incognito profile that survives browser restarts (overrides regular preferences)
+         * * `incognito_session_only`: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
+         * @since Chrome 44
+         */
+        export type ChromeSettingScope = "regular" | "regular_only" | "incognito_persistent" | "incognito_session_only";
 
-        export interface ChromeSettingClearDetails {
-            /**
-             * Optional.
-             * The scope of the ChromeSetting. One of
-             * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-             * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-             * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-             * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-             */
-            scope?: settingsScope;
-        }
+        /**
+         * One of
+         * * `not_controllable`: cannot be controlled by any extension
+         * * `controlled_by_other_extensions`: controlled by extensions with higher precedence
+         * * `controllable_by_this_extension`: can be controlled by this extension
+         * * `controlled_by_this_extension`: controlled by this extension
+         * @since Chrome 44
+         */
+        export type LevelOfControl =
+            | "not_controllable"
+            | "controlled_by_other_extensions"
+            | "controllable_by_this_extension"
+            | "controlled_by_this_extension";
 
-        export interface ChromeSettingSetDetails extends ChromeSettingClearDetails {
+        /** Which setting to change. */
+        export interface ChromeSettingSetDetails<T> {
             /**
              * The value of the setting.
              * Note that every setting has a specific value type, which is described together with the setting. An extension should not set a value of a different type.
              */
-            value: any;
-            /**
-             * Optional.
-             * The scope of the ChromeSetting. One of
-             * • regular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),
-             * • regular_only: setting for the regular profile only (not inherited by the incognito profile),
-             * • incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),
-             * • incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
-             */
-            scope?: settingsScope;
+            value: T;
+            /** Where to set the setting (default: regular). */
+            scope?: ChromeSettingScope;
         }
 
+        /** Which setting to consider. */
         export interface ChromeSettingGetDetails {
-            /** Optional. Whether to return the value that applies to the incognito session (default false). */
-            incognito?: boolean | undefined;
+            /** Whether to return the value that applies to the incognito session (default false). */
+            incognito?: boolean;
         }
 
-        /**
-         * @param details Details of the currently effective value.
-         */
-        export type DetailsCallback = (details: ChromeSettingGetResultDetails) => void;
-
-        export interface ChromeSettingGetResultDetails {
-            /**
-             * One of
-             * • not_controllable: cannot be controlled by any extension
-             * • controlled_by_other_extensions: controlled by extensions with higher precedence
-             * • controllable_by_this_extension: can be controlled by this extension
-             * • controlled_by_this_extension: controlled by this extension
-             */
-            levelOfControl:
-                | "not_controllable"
-                | "controlled_by_other_extensions"
-                | "controllable_by_this_extension"
-                | "controlled_by_this_extension";
+        /** Details of the currently effective value */
+        export interface ChromeSettingGetResult<T> {
+            /** The level of control of the setting. */
+            levelOfControl: LevelOfControl;
             /** The value of the setting. */
-            value: any;
+            value: T;
             /**
-             * Optional.
              * Whether the effective value is specific to the incognito session.
              * This property will only be present if the incognito property in the details parameter of get() was true.
              */
-            incognitoSpecific?: boolean | undefined;
+            incognitoSpecific?: boolean;
         }
 
-        export interface ChromeSettingChangedEvent extends chrome.events.Event<DetailsCallback> {}
+        /** Which setting to clear. */
+        export interface ChromeSettingClearDetails {
+            /** Where to clear the setting (default: regular). */
+            scope?: ChromeSettingScope;
+        }
 
-        /** An interface that allows access to a Chrome browser setting. See accessibilityFeatures for an example. */
-        export interface ChromeSetting {
+        /** Details of the currently effective value. */
+        export interface ChromeSettingOnChangeDetails<T> {
+            /**
+             * Whether the effective value is specific to the incognito session. T
+             * his property will only be present if the incognito property in the details parameter of get() was true.
+             */
+            incognitoSpecific?: boolean;
+            /** The value of the setting. */
+            value: T;
+            /** The level of control of the setting. */
+            levelOfControl: LevelOfControl;
+        }
+
+        /**
+         * An interface that allows access to a Chrome browser setting.
+         * See {@link chrome.accessibilityFeatures} for an example.
+         */
+        export interface ChromeSetting<T> {
             /**
              * Sets the value of a setting.
-             * @param details Which setting to change.
-             * @param callback Optional. Called at the completion of the set operation.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            set(details: ChromeSettingSetDetails, callback?: Function): void;
+            set(details: ChromeSettingSetDetails<T>, callback: () => void): void;
+            set(details: ChromeSettingSetDetails<T>): Promise<void>;
+
             /**
              * Gets the value of a setting.
-             * @param details Which setting to consider.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            get(details: ChromeSettingGetDetails, callback?: DetailsCallback): void;
+            get(details: ChromeSettingGetDetails, callback: (details: ChromeSettingGetResult<T>) => void): void;
+            get(details: ChromeSettingGetDetails): Promise<ChromeSettingGetResult<T>>;
+
             /**
              * Clears the setting, restoring any default value.
-             * @param details Which setting to clear.
-             * @param callback Optional. Called at the completion of the clear operation.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
-            clear(details: ChromeSettingClearDetails, callback?: Function): void;
+            clear(details: ChromeSettingClearDetails, callback: () => void): void;
+            clear(details: ChromeSettingClearDetails): Promise<void>;
+
             /** Fired after the setting changes. */
-            onChange: ChromeSettingChangedEvent;
+            onChange: chrome.events.Event<(details: ChromeSettingOnChangeDetails<T>) => void>;
         }
     }
 

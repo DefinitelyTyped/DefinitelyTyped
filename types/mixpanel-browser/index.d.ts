@@ -111,6 +111,7 @@ export interface Config {
     record_mask_text_selector: string;
     record_max_ms: number;
     record_sessions_percent: number;
+    record_canvas: boolean;
 }
 
 export type VerboseResponse =
