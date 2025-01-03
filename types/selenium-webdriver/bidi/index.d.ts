@@ -62,7 +62,7 @@ export class Index extends EventEmitter {
      * Resolve connection
      * @returns {Promise<void>}
      */
-    waitForConnection(): Promise<void>;
+    waitForConnection(): Promise<unknown>;
 
     /**
      * Sends a bidi request
