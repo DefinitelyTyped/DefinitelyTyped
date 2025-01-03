@@ -93,6 +93,7 @@ declare const event5: "event5";
 
     result = events.EventEmitter.defaultMaxListeners;
 
+    // @ts-expect-error
     const promise: Promise<any[]> = events.once(new events.EventEmitter<T>(), "error");
 
     result = emitter.getMaxListeners();
@@ -112,10 +113,15 @@ declare const event5: "event5";
 {
     let result: Promise<number[]>;
 
+    // @ts-expect-error
     result = events.once(emitter, event1);
+    // @ts-expect-error
     result = events.once(emitter, event2);
+    // this is still valid, because event3 args are typed as `any`
     result = events.once(emitter, event3);
+    // @ts-expect-error
     result = events.once(emitter, event4);
+    // @ts-expect-error
     result = events.once(emitter, event5);
 
     emitter.emit("event1", "hello", 42);
@@ -246,4 +252,12 @@ declare const event5: "event5";
     emitter.emit(s1, "hello", false);
     // @ts-expect-error
     emitter.emit(s2, "hello", false);
+}
+
+{
+    const result1: Promise<[string, number]> = events.once(emitter, event1);
+    const result2: Promise<[boolean]> = events.once(emitter, event2);
+    const result3: Promise<[]> = events.once(emitter, event3);
+    const result4: Promise<string[]> = events.once(emitter, event4);
+    const result5: Promise<unknown[]> = events.once(emitter, event5);
 }
