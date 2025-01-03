@@ -8,7 +8,7 @@ interface T {
     event5: unknown[];
 }
 
-type NotAny<T> = 0 extends T&1 ? never : T;
+type NotAny<T> = 0 extends T & 1 ? never : T;
 
 const emitter = new events.EventEmitter<T>();
 declare const listener1: (...args: T["event1"]) => void;
@@ -22,7 +22,9 @@ declare const event3: "event3";
 declare const event4: "event4";
 declare const event5: "event5";
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function expectNotAnyOrNeverArray<T extends unknown[]>(input: 0 extends T&1 ? never : T extends (infer U)[] ? [U] extends [never] ? never : NotAny<U>[] : T): void;
+declare function expectNotAnyOrNeverArray<T extends unknown[]>(
+    input: 0 extends T & 1 ? never : T extends (infer U)[] ? [U] extends [never] ? never : NotAny<U>[] : T,
+): void;
 
 {
     // @ts-expect-error
@@ -277,7 +279,7 @@ declare function expectNotAnyOrNeverArray<T extends unknown[]>(input: 0 extends 
 
 {
     const iter = events.on(emitter, event1);
-    iter.next().then(({value}) => {
+    iter.next().then(({ value }) => {
         expectNotAnyOrNeverArray(value);
         const result: [string, number] = value;
         // @ts-expect-error
