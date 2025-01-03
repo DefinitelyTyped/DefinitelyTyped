@@ -8,6 +8,8 @@ interface T {
     event5: unknown[];
 }
 
+type NotAny<T> = 0 extends T&1 ? never : T;
+
 const emitter = new events.EventEmitter<T>();
 declare const listener1: (...args: T["event1"]) => void;
 declare const listener2: (...args: T["event2"]) => void;
@@ -19,6 +21,17 @@ declare const event2: "event2";
 declare const event3: "event3";
 declare const event4: "event4";
 declare const event5: "event5";
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function expectNotAnyOrNeverArray<T extends unknown[]>(input: 0 extends T&1 ? never : T extends (infer U)[] ? [U] extends [never] ? never : NotAny<U>[] : T): void;
+
+{
+    // @ts-expect-error
+    expectNotAnyOrNeverArray([] as any[]);
+    // @ts-expect-error
+    expectNotAnyOrNeverArray([]);
+
+    expectNotAnyOrNeverArray(["test"]);
+}
 
 {
     let result: events.EventEmitter<T>;
@@ -117,7 +130,7 @@ declare const event5: "event5";
     result = events.once(emitter, event1);
     // @ts-expect-error
     result = events.once(emitter, event2);
-    // this is still valid, because event3 args are typed as `any`
+    // this is still valid, because event3 args are typed as `never[]`
     result = events.once(emitter, event3);
     // @ts-expect-error
     result = events.once(emitter, event4);
@@ -260,4 +273,20 @@ declare const event5: "event5";
     const result3: Promise<[]> = events.once(emitter, event3);
     const result4: Promise<string[]> = events.once(emitter, event4);
     const result5: Promise<unknown[]> = events.once(emitter, event5);
+}
+
+{
+    const iter = events.on(emitter, event1);
+    iter.next().then(({value}) => {
+        expectNotAnyOrNeverArray(value);
+        const result: [string, number] = value;
+        // @ts-expect-error
+        const badResult: [boolean] = value;
+    });
+    const result: Promise<IteratorResult<[string, number], [string, number]>> = iter.next();
+}
+
+{
+    const iter = events.on(new events.EventEmitter(), "error");
+    const result: Promise<IteratorResult<number[], number[]>> = iter.next();
 }

@@ -100,13 +100,12 @@ declare module "events" {
         lowWaterMark?: number | undefined;
     }
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
-    type EventMap<T> = RecordOf<T> | DefaultEventMap;
+    type EventMap<T> = Record<keyof T, any> | DefaultEventMap;
     type DefaultEventMap = [never];
     type AnyRest = [...args: any[]];
     type Args<K, T> = T extends DefaultEventMap ? AnyRest : (
         K extends keyof T ? T[K] : never
     );
-    type RecordOf<T> = [T] extends [Record<infer K, [infer V]>] ? Record<K, [V]> : [T] extends [Record<infer K, Array<infer V>>] ? Record<K, Array<V>> : never;
     type EventMapKey<T> = T extends DefaultEventMap ? string | symbol : keyof T
     type Key<K, T> = T extends DefaultEventMap ? string | symbol : K | keyof T;
     type Key2<K, T> = T extends DefaultEventMap ? string | symbol : K & keyof T;
@@ -120,9 +119,7 @@ declare module "events" {
     type Listener2<K, T> = Listener<K, T, Function>;
     type EventMapValue<T extends EventMap<T>, K> =
         T extends DefaultEventMap ? any[] :
-            K extends keyof T ? T[K] : never
-    type EventEmitterLike<T extends EventMap<T>> = T extends EventEmitter<T> ? EventEmitter<T> : NodeJS.EventEmitter<T>;
-
+            K extends keyof T ? T[K] : never;
 
     /**
      * The `EventEmitter` class is defined and exposed by the `node:events` module:
@@ -313,9 +310,14 @@ declare module "events" {
          * @since v13.6.0, v12.16.0
          * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
          */
-        static on(
-            emitter: NodeJS.EventEmitter,
-            eventName: string | symbol,
+        static on<T extends EventMap<T> = DefaultEventMap, K extends EventMapKey<T> = any>(
+            emitter: EventEmitter<T>,
+            eventName: K,
+            options?: StaticEventEmitterIteratorOptions,
+        ): NodeJS.AsyncIterator<EventMapValue<T, K>, EventMapValue<T, K>>;
+        static on<T extends EventMap<T> = DefaultEventMap, K extends EventMapKey<T> = any>(
+            emitter: NodeJS.EventEmitter<T>,
+            eventName: K,
             options?: StaticEventEmitterIteratorOptions,
         ): NodeJS.AsyncIterator<any[]>;
         static on(
