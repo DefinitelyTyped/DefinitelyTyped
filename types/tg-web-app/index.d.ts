@@ -775,7 +775,7 @@ export interface CloudStorage {
   
     When you create keys list, make it "as const": ["key1", "key2", "key3"] as const. Then throw that list into function. 
     */
-    getItems: <TKeys extends string[]>(
+    getItems: <TKeys extends readonly string[]>(
         keys: TKeys,
         callback: (error: CloudStorageCallbackError, values: Record<TKeys[number], string>) => CallbackReturnValue
     ) => CloudStorage;
@@ -1056,7 +1056,7 @@ export interface LocationData {
     speed_accuracy: number | null;
 }
 
-interface EventMap {
+export interface EventMap {
     /**
     Bot API 8.0+ Occurs when the Mini App becomes active (e.g., opened from minimized state or selected among tabs).
     eventHandler receives no parameters.
@@ -1377,7 +1377,7 @@ export interface PopupParams {
     /**
     Optional. List of buttons to be displayed in the popup, 1-3 buttons. Set to [{“type”:“close”}] by default.
   */
-    buttons?: [PopupButton] | [PopupButton, PopupButton] | [PopupButton, PopupButton, PopupButton];
+    buttons?: PopupButton[] & { length: 1 | 2 | 3 };
 }
 
 export type PopupButton = {
