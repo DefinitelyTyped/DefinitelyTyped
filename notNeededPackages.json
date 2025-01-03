@@ -6835,6 +6835,10 @@
             "libraryName": "@wordpress/rich-text",
             "asOfVersion": "6.10.0"
         },
+        "wordpress__shortcode": {
+            "libraryName": "@wordpress/shortcode",
+            "asOfVersion": "4.14.0"
+        },
         "wordpress__token-list": {
             "libraryName": "@wordpress/token-list",
             "asOfVersion": "1.10.0"
