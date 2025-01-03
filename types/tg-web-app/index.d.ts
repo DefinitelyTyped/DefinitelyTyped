@@ -35,7 +35,7 @@ export interface WebApp {
     The color scheme currently used in the Telegram app. Either “light” or “dark”.
     Also available as the CSS variable var(--tg-color-scheme).
   */
-    colorScheme: string;
+    colorScheme: "light" | "dark";
     /**
     An object containing the current theme settings used in the Telegram app.
   */
