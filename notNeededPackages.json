@@ -2353,6 +2353,10 @@
             "libraryName": "hashids",
             "asOfVersion": "2.0.0"
         },
+        "hcaptcha__react-hcaptcha": {
+            "libraryName": "@hcaptcha/react-hcaptcha",
+            "asOfVersion": "0.3.7"
+        },
         "hedron": {
             "libraryName": "hedron",
             "asOfVersion": "1.0.1"
