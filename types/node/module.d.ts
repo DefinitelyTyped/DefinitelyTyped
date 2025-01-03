@@ -167,7 +167,7 @@ declare module "module" {
             /**
              * A hint to the load hook (it might be ignored); can be an intermediary value.
              */
-            format?: string | ModuleFormat | null | undefined;
+            format?: string | null | undefined;
             /**
              * The import attributes to use when caching the module (optional; if excluded the input will be used)
              */
