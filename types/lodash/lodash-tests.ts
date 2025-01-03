@@ -6892,6 +6892,8 @@ fp.now(); // $ExpectType number
     _("").template(options); // $ExpectType TemplateExecutor
     _.chain("").template(); // $ExpectType FunctionChain<TemplateExecutor>
     _.chain("").template(options); // $ExpectType FunctionChain<TemplateExecutor>
+    _.template("", {escape: null, evaluate: null, interpolate: / /}); // $ExpectType TemplateExecutor
+    _.template("", {escape: null, evaluate: / /, interpolate: null}); // $ExpectType TemplateExecutor
 
     const result2 = fp.template("");
     result2(); // $ExpectType string
