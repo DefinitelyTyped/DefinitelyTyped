@@ -1625,6 +1625,10 @@
             "libraryName": "empty-trash",
             "asOfVersion": "3.0.0"
         },
+        "engine.io-client": {
+            "libraryName": "engine.io-client",
+            "asOfVersion": "6.0.0"
+        },
         "enhanced-resolve": {
             "libraryName": "enhanced-resolve",
             "asOfVersion": "5.0.0"
