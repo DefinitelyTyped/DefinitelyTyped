@@ -1631,7 +1631,7 @@ export interface SetEnvInfo {
     /** The environment variable's name. */
     key: string;
     /** The environment variable's value. */
-    value: string;
+    val: string;
 }
 
 export interface SignalInfo {
