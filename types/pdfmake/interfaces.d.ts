@@ -1041,7 +1041,7 @@ export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties
  *
  * For images other than SVG, use a {@link ContentImage} instead.
  */
-export interface ContentSvg extends ContentBase, ForbidOtherElementProperties<"svg"> {
+export interface ContentSvg extends ContentBase, ContentLink, ForbidOtherElementProperties<"svg"> {
     /**
      * Renders the given SVG content string as an image.
      *
