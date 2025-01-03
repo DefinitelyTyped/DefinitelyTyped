@@ -1,4 +1,4 @@
-import { middleware, newInstance, options } from "apicache";
+import { middleware, newInstance, options, clear } from "apicache";
 
 let cache = middleware;
 
@@ -10,6 +10,8 @@ options({
 });
 
 options();
+
+clear();
 
 cache = newInstance({
     statusCodes: {
