@@ -100,7 +100,7 @@ declare module "events" {
         lowWaterMark?: number | undefined;
     }
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
-    type EventMap<T> = Record<keyof T, any> | DefaultEventMap;
+    type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
     type DefaultEventMap = [never];
     type AnyRest = [...args: any[]];
     type Args<K, T> = T extends DefaultEventMap ? AnyRest : (
