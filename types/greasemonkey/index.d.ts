@@ -1,3 +1,4 @@
+export = GM;
 // This definition is based on the API reference of Greasemonkey
 // https://wiki.greasespot.net/Greasemonkey_Manual:API
 // TypeScript Version: 3.2
