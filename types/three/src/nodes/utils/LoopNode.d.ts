@@ -12,7 +12,7 @@ interface LoopNodeObjectParameter {
     condition: string;
 }
 
-type LoopNodeParameter = number | LoopNodeObjectParameter;
+type LoopNodeParameter = Node | number | LoopNodeObjectParameter;
 
 declare class LoopNode extends Node {
     params: unknown[];
