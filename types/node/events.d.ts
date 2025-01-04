@@ -135,6 +135,7 @@ declare module "events" {
      * @since v0.1.26
      */
     class EventEmitter<T extends EventMap<T> = DefaultEventMap> {
+        declare private _type?: T;
         constructor(options?: EventEmitterOptions);
 
         [EventEmitter.captureRejectionSymbol]?<K>(error: Error, event: Key<K, T>, ...args: Args<K, T>): void;
