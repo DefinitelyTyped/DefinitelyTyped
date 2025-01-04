@@ -91,5 +91,5 @@ export class Index extends EventEmitter {
      * Close ws connection.
      * @returns {Promise<void>}
      */
-    close(): Promise<void>;
+    close(): Promise<unknown>;
 }
