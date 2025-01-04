@@ -532,6 +532,7 @@ async function testPromisify() {
 
     const readStream = fs.createReadStream("./index.d.ts", {
         fd: handle,
+        signal: new AbortSignal(),
     });
     const _rom = readStream.readableObjectMode; // $ExpectType boolean
 

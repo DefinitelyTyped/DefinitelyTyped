@@ -9,6 +9,7 @@ export interface Connection extends events.EventEmitter {
     connection: {
         serverProperties: ServerProperties;
     };
+    updateSecret(newSecret: Buffer, reason: string, callback?: (err: any) => void): void;
 }
 
 export interface Channel extends events.EventEmitter {

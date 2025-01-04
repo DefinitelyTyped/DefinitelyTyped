@@ -444,6 +444,7 @@ export class WebGLRenderer implements Renderer {
      * @param dstTexture Specifies the destination texture.
      * @param srcRegion Specifies the bounds
      * @param dstPosition Specifies the pixel offset into the dstTexture where the copy will occur.
+     * @param srcLevel Specifies the source mipmap level of the texture.
      * @param dstLevel Specifies the destination mipmap level of the texture.
      */
     copyTextureToTexture(
@@ -451,6 +452,7 @@ export class WebGLRenderer implements Renderer {
         dstTexture: Texture,
         srcRegion?: Box2 | Box3 | null,
         dstPosition?: Vector2 | Vector3 | null,
+        srcLevel?: number,
         dstLevel?: number,
     ): void;
 

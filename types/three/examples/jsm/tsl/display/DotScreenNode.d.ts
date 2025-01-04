@@ -1,5 +1,5 @@
-import { Vector2 } from "three";
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, UniformNode } from "three/tsl";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Node, TempNode, UniformNode, Vector2 } from "three/webgpu";
 
 declare class DotScreenNode extends TempNode {
     inputNode: Node;

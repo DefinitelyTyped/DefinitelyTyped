@@ -35,10 +35,20 @@ class CustomPlugin implements Plugin {
 
     hooks: Plugin.Hooks;
     variableResolvers: Plugin.VariableResolvers;
+    configurationVariablesSources: Plugin.ConfigurationVariablesSources;
 
     constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
         this.hooks = {
             "command:start": () => {},
+        };
+        // Both sync and async variable resolvers are supported
+        this.configurationVariablesSources = {
+            sync: {
+                resolve: () => {},
+            },
+            async: {
+                resolve: async () => {},
+            },
         };
         this.variableResolvers = {
             echo: async (source) => source.slice(5),
@@ -438,6 +448,7 @@ const awsServerless: Aws.Serverless = {
     functions: {
         testFunction: {
             handler: "testhandler",
+            architecture: "x86_64",
             name: "testname",
             description: "testdescription",
             memorySize: 1,

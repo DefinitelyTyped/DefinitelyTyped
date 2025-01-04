@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
-export = tape;
+import Through = require("@ljharb/through");
+import mockProperty = require("mock-property");
 
 /**
  * Create a new test with an optional name string and optional opts object.
@@ -22,7 +23,7 @@ declare namespace tape {
      */
     interface TestOptions {
         /** See test.skip. */
-        skip?: boolean | undefined;
+        skip?: boolean | string | undefined;
         /** Set a timeout for the test, after which it will fail. See tape.timeoutAfter. */
         timeout?: number | undefined;
         /**
@@ -92,7 +93,7 @@ declare namespace tape {
         opts?: {
             noOnly?: boolean;
             exit?: boolean;
-            stream?: ReturnType<typeof import("through")>;
+            stream?: ReturnType<typeof Through>;
         } & StreamOptions,
     ): typeof tape;
 
@@ -241,6 +242,7 @@ declare namespace tape {
          * Assert that the function call fn() does not throw an exception.
          */
         doesNotThrow(fn: () => void, msg?: string, extra?: AssertOptions): void;
+        // we actually do want any function-like value here, especially constructors
         doesNotThrow(fn: () => void, exceptionExpected: RegExp | Function, msg?: string, extra?: AssertOptions): void;
 
         /**
@@ -263,5 +265,76 @@ declare namespace tape {
          * Register a callback to run after the individual test has completed. Multiple registered teardown callbacks will run in order.
          */
         teardown(callback: () => void | Promise<void>): void;
+
+        captureFn<X extends SyncOrAsyncCallback>(this: Test, original: X): WrappedFn<X>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        capture<T extends SyncOrAsyncCallback>(
+            this: Test,
+            obj: Record<PropertyKey, unknown> | unknown[],
+            method: PropertyKey,
+            implementation?: T,
+        ): WrapResults;
+        intercept(
+            obj: Record<PropertyKey, unknown> | unknown[],
+            property: PropertyKey,
+            desc?: PropertyDescriptor,
+        ): InterceptResults;
+
+        assertion<Args extends readonly any[], R>(
+            this: Test,
+            fn: (this: Test, ...args: Args) => R,
+            ...args: Args
+        ): R;
+    }
+
+    export type SyncCallback = (...args: unknown[]) => unknown;
+    export type SyncOrAsyncCallback = (...args: unknown[]) => unknown;
+
+    export interface ReturnCall {
+        args: unknown[];
+        receiver: {};
+        returned: unknown;
+    }
+
+    export interface ThrowCall {
+        args: unknown[];
+        receiver: {};
+        threw: true;
+    }
+
+    export interface Call {
+        type: "get" | "set";
+        success: boolean;
+        value: unknown;
+        args: unknown[];
+        receiver: unknown;
+    }
+
+    export type RestoreFunction = ReturnType<typeof mockProperty>;
+
+    export interface WrapResults {
+        (): WrappedCall[];
+        restore?: RestoreFunction;
+    }
+
+    export interface WrappedFn<T extends SyncOrAsyncCallback> {
+        (this: ThisParameterType<T>, ...args: Parameters<T>): ReturnType<T>;
+        calls?: WrappedCall[];
+    }
+
+    export interface WrapObject<T extends SyncOrAsyncCallback> {
+        __proto__: null;
+        wrapped: WrappedFn<T>;
+        calls: WrappedCall[];
+        results: WrapResults;
+    }
+
+    export type WrappedCall = ReturnCall | ThrowCall;
+
+    export interface InterceptResults {
+        (): Call[];
+        restore: RestoreFunction;
     }
 }
+
+export = tape;

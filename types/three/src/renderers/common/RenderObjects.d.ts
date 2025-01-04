@@ -5,6 +5,7 @@ import LightsNode from "../../nodes/lighting/LightsNode.js";
 import { Scene } from "../../scenes/Scene.js";
 import Bindings from "./Bindings.js";
 import ChainMap from "./ChainMap.js";
+import ClippingContext from "./ClippingContext.js";
 import Geometries from "./Geometries.js";
 import Info from "./Info.js";
 import Nodes from "./nodes/Nodes.js";
@@ -37,6 +38,7 @@ declare class RenderObjects {
         camera: Camera,
         lightsNode: LightsNode,
         renderContext: RenderContext,
+        clippingContext: ClippingContext | null,
         passId?: string | undefined,
     ): RenderObject;
     getChainMap(
@@ -56,6 +58,7 @@ declare class RenderObjects {
         camera: Camera,
         lightsNode: LightsNode,
         renderContext: RenderContext,
+        clippingContext: ClippingContext | null,
         passId: string | undefined,
     ): RenderObject;
 }

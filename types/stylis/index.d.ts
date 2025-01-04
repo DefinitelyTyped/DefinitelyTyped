@@ -112,7 +112,7 @@ export function node(
     length: number,
 ): Element;
 
-export function copy(value: string, root: Element, type: string): Element;
+export function copy(root: Element, props: Partial<Element>): Element;
 export function char(): number;
 export function next(): number;
 export function peek(): number;

@@ -65,7 +65,7 @@ declare namespace Tampermonkey {
     type RequestEventListener<TResponse> = (this: TResponse, response: TResponse) => void;
 
     interface Request<TContext = object> {
-        method?: "GET" | "HEAD" | "POST";
+        method?: "GET" | "HEAD" | "POST" | "PUT" | "DELETE";
         /** The destination URL */
         url: string | URL;
         /**
@@ -73,7 +73,7 @@ declare namespace Tampermonkey {
          * by Safari and Android browsers)
          */
         headers?: RequestHeaders;
-        /** Data to send via a POST request */
+        /** Data to send via a POST or PUT request */
         data?: string | Blob | File | object | any[] | FormData | URLSearchParams;
         /** Controls what to happen when a redirect is detected (build 6180+, enforces fetch mode). */
         redirect?: "follow" | "error" | "manual";

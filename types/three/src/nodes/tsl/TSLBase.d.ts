@@ -19,3 +19,8 @@ export * from "../math/OperatorNode.js";
 export * from "../utils/Discard.js";
 export * from "../utils/RemapNode.js";
 export * from "./TSLCore.js";
+
+/**
+ * @deprecated
+ */
+export function addNodeElement(name: string): void;

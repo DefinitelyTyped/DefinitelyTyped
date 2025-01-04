@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eleventy-plugin-toc",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jdsteinbach/eleventy-plugin-toc#readme"
+    ],
+    "dependencies": {
+        "11ty.ts": "*"
+    },
+    "devDependencies": {
+        "@types/eleventy-plugin-toc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

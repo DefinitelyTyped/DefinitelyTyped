@@ -1,4 +1,4 @@
-// For Library Version: 1.130.0
+// For Library Version: 1.131.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -5476,7 +5476,8 @@ declare module "sap/ui/table/RowSettings" {
      *
      * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
      * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided through the associated {@link sap.ui.table.RowSettings#setHighlightText highlightText }
      * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`
@@ -5526,7 +5527,8 @@ declare module "sap/ui/table/RowSettings" {
      *
      * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
      * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided through the associated {@link sap.ui.table.RowSettings#setHighlightText highlightText }
      * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`
@@ -5600,7 +5602,8 @@ declare module "sap/ui/table/RowSettings" {
      *
      * If the highlight is set to {@link sap.ui.core.MessageType sap.ui.core.MessageType.None} (default), no
      * highlights are visible. Valid values for the `highlight` property are values of the enumerations {@link sap.ui.core.MessageType }
-     * or {@link sap.ui.core.IndicationColor}.
+     * or {@link sap.ui.core.IndicationColor} (only values of `Indication01` to `Indication10` are supported
+     * for accessibility contrast reasons).
      *
      * Accessibility support is provided through the associated {@link sap.ui.table.RowSettings#setHighlightText highlightText }
      * property. If the `highlight` property is set to a value of {@link sap.ui.core.MessageType}, the `highlightText`

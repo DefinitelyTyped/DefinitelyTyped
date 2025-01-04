@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react",
-    "version": "18.3.9999",
+    "version": "19.0.9999",
     "projects": [
         "https://react.dev/"
     ],
@@ -20,6 +20,11 @@
             },
             "types": {
                 "default": "./canary.d.ts"
+            }
+        },
+        "./compiler-runtime": {
+            "types": {
+                "default": "./compiler-runtime.d.ts"
             }
         },
         "./experimental": {
@@ -56,7 +61,6 @@
         }
     },
     "dependencies": {
-        "@types/prop-types": "*",
         "csstype": "^3.0.2"
     },
     "devDependencies": {

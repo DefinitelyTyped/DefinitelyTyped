@@ -1,5 +1,5 @@
-import { Node, NodeRepresentation, ShaderNodeObject, TempNode, TextureNode, UniformNode } from "three/tsl";
-import { Camera } from "three/webgpu";
+import { NodeRepresentation, ShaderNodeObject } from "three/tsl";
+import { Camera, Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
 
 declare class SSRNode extends TempNode {
     colorNode: ShaderNodeObject<Node>;

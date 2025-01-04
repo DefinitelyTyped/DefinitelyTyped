@@ -48,7 +48,7 @@ declare module "module" {
          * @since v13.7.0, v12.17.0
          * @return Returns `module.SourceMap` if a source map is found, `undefined` otherwise.
          */
-        function findSourceMap(path: string, error?: Error): SourceMap;
+        function findSourceMap(path: string, error?: Error): SourceMap | undefined;
         interface SourceMapPayload {
             file: string;
             version: number;
@@ -125,7 +125,14 @@ declare module "module" {
         interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
-        type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
+        type ModuleFormat =
+            | "builtin"
+            | "commonjs"
+            | "commonjs-typescript"
+            | "json"
+            | "module"
+            | "module-typescript"
+            | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
         interface GlobalPreloadContext {
             port: MessagePort;
@@ -349,6 +356,16 @@ declare module "module" {
          * directory if it is enabled, or `undefined` otherwise.
          */
         static getCompileCacheDir(): string | undefined;
+        /**
+         * Flush the [module compile cache](https://nodejs.org/docs/latest-v22.x/api/module.html#module-compile-cache)
+         * accumulated from modules already loaded
+         * in the current Node.js instance to disk. This returns after all the flushing
+         * file system operations come to an end, no matter they succeed or not. If there
+         * are any errors, this will fail silently, since compile cache misses should not
+         * interfere with the actual operation of the application.
+         * @since v22.10.0
+         */
+        static flushCompileCache(): void;
         constructor(id: string, parent?: Module);
     }
     global {

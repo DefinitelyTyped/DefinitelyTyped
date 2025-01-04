@@ -1,5 +1,5 @@
-import { Camera, Scene } from "three";
-import { PassNode, ShaderNodeObject, UniformNode } from "three/tsl";
+import { ShaderNodeObject } from "three/tsl";
+import { Camera, PassNode, Scene, UniformNode } from "three/webgpu";
 
 declare class PixelationPassNode extends PassNode {
     pixelSize: UniformNode<number>;

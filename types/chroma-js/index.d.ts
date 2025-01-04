@@ -461,7 +461,7 @@ declare namespace chroma {
         (c: string[]): Scale;
 
         (value: number | null | undefined): OutType;
-
+        domain(): number[];
         domain(d?: number[], n?: number, mode?: string): this;
 
         mode(mode: InterpolationMode): this;

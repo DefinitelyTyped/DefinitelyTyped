@@ -14,6 +14,9 @@
     },
     "files": [
         "index.d.ts",
+        "lib/default_stream.d.ts",
+        "lib/test.d.ts",
+        "lib/results.d.ts",
         "tape-tests.ts"
     ]
 }

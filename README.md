@@ -578,7 +578,7 @@ Roughly:
 
 > PRs which only change the types of a module and have corresponding tests changes will be merged much faster
 
-PRs that have been approved by an owner listed in the definition's `package.json` are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
+PRs that have been approved by an owner listed in the definition's `package.json` are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [Pull Request Status Board](https://github.com/orgs/DefinitelyTyped/projects/1) to see progress as maintainers work through the open PRs.
 
 #### I'd like to submit a change to a very popular project, why are they treated differently?
 

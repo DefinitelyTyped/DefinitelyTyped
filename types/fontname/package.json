@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fontname",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/danbovey/fontname#readme"
+    ],
+    "devDependencies": {
+        "@types/fontname": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pavlos Vinieratos",
+            "githubUsername": "pvinis"
+        }
+    ]
+}

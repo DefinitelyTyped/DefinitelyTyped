@@ -117,11 +117,11 @@ declare module "../index" {
         /**
         * The "escape" delimiter.
         **/
-        escape?: RegExp | undefined;
+        escape?: RegExp | null | undefined;
         /**
         * The "evaluate" delimiter.
         **/
-        evaluate?: RegExp | undefined;
+        evaluate?: RegExp | null | undefined;
         /**
         * An object to import into the template as local variables.
         */
@@ -129,7 +129,7 @@ declare module "../index" {
         /**
         * The "interpolate" delimiter.
         */
-        interpolate?: RegExp | undefined;
+        interpolate?: RegExp | null | undefined;
         /**
         * Used to reference the data object in the template text.
         */

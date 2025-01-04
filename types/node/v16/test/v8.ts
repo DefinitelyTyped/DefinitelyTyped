@@ -64,3 +64,12 @@ v8.startupSnapshot.setDeserializeMainFunction((shelf: BookShelf): void => {
     const name = `${book}.${lang}`;
     console.log(shelf.storage.get(name));
 }, shelf);
+
+v8.deserialize(Buffer.from([0]));
+v8.deserialize(new Uint8Array());
+v8.deserialize(new DataView(new ArrayBuffer(1)));
+
+// @ts-expect-error ArrayBuffer is not a valid deserialize parameter
+v8.deserialize(new ArrayBuffer(1));
+// @ts-expect-error String is not a valid deserialize parameter
+v8.deserialize("Hello World!");

@@ -43,6 +43,11 @@ function suspenseTest() {
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.unstable_SuspenseList>;
 
+function ownerStacks() {
+    // $ExpectType string | null
+    const ownerStack = React.captureOwnerStack();
+}
+
 function useEvent() {
     // Implicit any
     // @ts-expect-error
@@ -136,8 +141,3 @@ function taintTests() {
         true,
     );
 }
-
-<div inert={true} />;
-<div inert={false} />;
-<div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
- inert="" />;

@@ -382,6 +382,14 @@ docker.createVolume({ Name: "volumeName" }, (err, volume) => {
     volume.remove({ abortSignal: new AbortController().signal }, (err, data) => {
         // NOOP
     });
+
+    volume.remove({ force: true }, (err, data) => {
+        // NOOP
+    });
+
+    volume.remove({ force: true, abortSignal: new AbortController().signal }, (err, data) => {
+        // NOOP
+    });
 });
 
 docker.createNetwork({ Name: "networkName" }).then(network => {
