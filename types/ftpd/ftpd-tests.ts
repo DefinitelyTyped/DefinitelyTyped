@@ -10,7 +10,7 @@ var options: ftpd.FtpServerOptions = {
         return "/";
     },
     logLevel: ftpd.LogLevel.ERROR,
-    allowedCommands: []
+    allowedCommands: [],
 };
 
 var host: string = "10.0.0.42";
