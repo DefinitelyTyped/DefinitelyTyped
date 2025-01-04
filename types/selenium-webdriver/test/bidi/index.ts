@@ -1,4 +1,4 @@
-import { StatusResult, Index } from "../../bidi"; // Adjust path as needed
+import { Index, StatusResult } from "../../bidi"; // Adjust path as needed
 
 function testStatusMethod() {
     const mockStatusResult: StatusResult = {
@@ -14,7 +14,7 @@ function testStatusMethod() {
 
     class MockIndex extends (Index as any) {
         constructor() {
-            super("ws://mockurl"); 
+            super("ws://mockurl");
         }
 
         get status(): Promise<StatusResult> {
