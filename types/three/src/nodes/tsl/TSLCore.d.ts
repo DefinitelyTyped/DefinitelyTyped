@@ -35,15 +35,29 @@ export interface NodeElements {
 
 export function addMethodChaining(name: string, nodeElement: unknown): void;
 
-export type SwizzleCharacter = "x" | "y" | "z" | "w" | "r" | "g" | "b" | "a" | "s" | "t" | "p" | "q";
+type XYZWCharacter = "x" | "y" | "z" | "w";
+type RGBACharacter = "r" | "g" | "b" | "a";
+type STPQCharacter = "s" | "t" | "p" | "q";
 
-export type SwizzleOption = Exclude<
-    | `${SwizzleCharacter}`
-    | `${SwizzleCharacter}${SwizzleCharacter}`
-    | `${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}`
-    | `${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}`,
-    "abs" | "sqrt"
->;
+type XYZWSwizzle =
+    | `${XYZWCharacter}`
+    | `${XYZWCharacter}${XYZWCharacter}`
+    | `${XYZWCharacter}${XYZWCharacter}${XYZWCharacter}`
+    | `${XYZWCharacter}${XYZWCharacter}${XYZWCharacter}${XYZWCharacter}`;
+
+type RGBASwizzle =
+    | `${RGBACharacter}`
+    | `${RGBACharacter}${RGBACharacter}`
+    | `${RGBACharacter}${RGBACharacter}${RGBACharacter}`
+    | `${RGBACharacter}${RGBACharacter}${RGBACharacter}${RGBACharacter}`;
+
+type STPQSwizzle =
+    | `${STPQCharacter}`
+    | `${STPQCharacter}${STPQCharacter}`
+    | `${STPQCharacter}${STPQCharacter}${STPQCharacter}`
+    | `${STPQCharacter}${STPQCharacter}${STPQCharacter}${STPQCharacter}`;
+
+export type SwizzleOption = XYZWSwizzle | RGBASwizzle | STPQSwizzle;
 
 export type Swizzable<T extends Node = Node> =
     & T
