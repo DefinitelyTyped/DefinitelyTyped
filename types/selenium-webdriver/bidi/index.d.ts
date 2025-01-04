@@ -69,7 +69,7 @@ export class Index extends EventEmitter {
      * @param params
      * @returns {Promise<any>}
      */
-    send(params: Params): Promise<void>;
+    send(params: Params): Promise<unknown>;
 
     /**
      * Subscribe to events
