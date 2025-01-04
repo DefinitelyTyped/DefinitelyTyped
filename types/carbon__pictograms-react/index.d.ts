@@ -1,4 +1,4 @@
-/** 1183 pictograms in total */
+/** 1187 pictograms in total */
 
 export interface CarbonPictogramProps extends
     Omit<
@@ -641,6 +641,7 @@ export const InternetOfThings: CarbonPictogramType;
 export const Invoice: CarbonPictogramType;
 export const IotMunich: CarbonPictogramType;
 export const ItInfrastructureSoftware: CarbonPictogramType;
+export const JapanMtFuji: CarbonPictogramType;
 export const Java: CarbonPictogramType;
 export const Javascript: CarbonPictogramType;
 export const Juice: CarbonPictogramType;
@@ -694,6 +695,7 @@ export const MachineLearning_07: CarbonPictogramType;
 export const MadridCathedral: CarbonPictogramType;
 export const MadridSkyscrapers: CarbonPictogramType;
 export const MadridStatue: CarbonPictogramType;
+export const MagicWand: CarbonPictogramType;
 export const Magnify: CarbonPictogramType;
 export const MailVerse: CarbonPictogramType;
 export const MainframeQualitiesOfService: CarbonPictogramType;
@@ -889,6 +891,7 @@ export const RecycleBin: CarbonPictogramType;
 export const RedHatApplications: CarbonPictogramType;
 export const RedefiningFinancialServices: CarbonPictogramType;
 export const ReducingCost: CarbonPictogramType;
+export const ReferenceArchitecture: CarbonPictogramType;
 export const Refinery: CarbonPictogramType;
 export const Refresh: CarbonPictogramType;
 export const RelationshipDiagram: CarbonPictogramType;
@@ -1099,6 +1102,10 @@ export const Toggle: CarbonPictogramType;
 export const TokyoCherryBlossom: CarbonPictogramType;
 export const TokyoGates: CarbonPictogramType;
 export const TokyoTemple: CarbonPictogramType;
+/**
+ * @deprecated
+ * This icon has been replaced by `JapanMtFuji`
+ */
 export const TokyoVolcano: CarbonPictogramType;
 export const ToneAnalyzer: CarbonPictogramType;
 export const ToolOverload: CarbonPictogramType;
@@ -1204,6 +1211,7 @@ export const Websphere: CarbonPictogramType;
 export const WeddingCake: CarbonPictogramType;
 export const Wheat: CarbonPictogramType;
 export const Whistle: CarbonPictogramType;
+export const WhitePaper: CarbonPictogramType;
 export const Wifi: CarbonPictogramType;
 export const WindPower: CarbonPictogramType;
 export const Windows: CarbonPictogramType;
