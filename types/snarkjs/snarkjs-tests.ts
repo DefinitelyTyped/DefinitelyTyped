@@ -57,6 +57,7 @@ groth16.prove(fileName, any);
 groth16.exportSolidityCallData(groth16Proof, publicSignals);
 
 // $ExpectType Promise<{ proof: Groth16Proof; publicSignals: PublicSignals; }>
+groth16.fullProve(circuitSignals, fileName, fileName, any, undefined, { singleThread: true });
 groth16.fullProve(circuitSignals, fileName, fileName, any);
 groth16.fullProve(circuitSignals, fileName, any);
 
@@ -123,6 +124,7 @@ fflonk.exportSolidityVerifier(any, any);
 fflonk.exportSolidityCallData(publicSignals, fflonkProof);
 
 // $ExpectType Promise<{ proof: FflonkProof; publicSignals: PublicSignals; }>
+fflonk.fullProve(circuitSignals, fileName, fileName, any, undefined, { singleThread: true });
 fflonk.fullProve(circuitSignals, fileName, fileName, any);
 fflonk.fullProve(circuitSignals, fileName, fileName);
 
@@ -200,6 +202,7 @@ plonk.prove(fileName, any);
 plonk.exportSolidityCallData(plonkProof, publicSignals);
 
 // $ExpectType Promise<{ proof: PlonkProof; publicSignals: PublicSignals; }>
+plonk.fullProve(circuitSignals, fileName, fileName, any, undefined, { singleThread: true });
 plonk.fullProve(circuitSignals, fileName, fileName, any);
 plonk.fullProve(circuitSignals, fileName, fileName);
 
