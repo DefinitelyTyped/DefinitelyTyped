@@ -983,5 +983,7 @@ declare namespace chroma {
 declare var chroma: chroma.ChromaStatic;
 
 export type Color = chroma.Color;
+export type Scale = chroma.Scale;
+export type Cubehelix = chroma.Cubehelix;
 export default chroma;
 export as namespace chroma;
