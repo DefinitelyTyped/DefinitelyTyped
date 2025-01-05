@@ -50,6 +50,7 @@ const groth16Proof: Groth16Proof = {
 };
 
 // $ExpectType Promise<{ proof: Groth16Proof; publicSignals: PublicSignals; }>
+groth16.prove(fileName, any, any, { singleThread: true });
 groth16.prove(fileName, any, any);
 groth16.prove(fileName, any);
 
@@ -113,6 +114,7 @@ const fflonkProof: FflonkProof = {
 };
 
 // $ExpectType Promise<{ proof: FflonkProof; publicSignals: PublicSignals; }>
+fflonk.prove(fileName, any, any, { singleThread: true });
 fflonk.prove(fileName, any, any);
 fflonk.prove(fileName, any);
 
@@ -195,6 +197,7 @@ const plonkProof: PlonkProof = {
 };
 
 // $ExpectType Promise<{ proof: PlonkProof; publicSignals: PublicSignals; }>
+plonk.prove(fileName, any, any, { singleThread: true });
 plonk.prove(fileName, any, any);
 plonk.prove(fileName, any);
 
