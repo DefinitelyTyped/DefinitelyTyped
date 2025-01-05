@@ -99,7 +99,7 @@ export namespace groth16 {
         zkeyFileName: ZKArtifact,
         logger?: any,
         wtnsCalcOptions?: any,
-        proverOptions?: {singleThread?: boolean},
+        proverOptions?: { singleThread?: boolean },
     ): Promise<{
         proof: Groth16Proof;
         publicSignals: PublicSignals;
@@ -108,7 +108,7 @@ export namespace groth16 {
         zkeyFileName: ZKArtifact,
         witnessFileName: ZKArtifact,
         logger?: any,
-        options?: {singleThread?: boolean},
+        options?: { singleThread?: boolean },
     ): Promise<{
         proof: Groth16Proof;
         publicSignals: PublicSignals;
@@ -130,7 +130,7 @@ export namespace fflonk {
         zkeyFilename: ZKArtifact,
         logger?: any,
         wtnsCalcOptions?: any,
-        proverOptions?: {singleThread?: boolean},
+        proverOptions?: { singleThread?: boolean },
     ): Promise<{
         proof: FflonkProof;
         publicSignals: PublicSignals;
@@ -139,7 +139,7 @@ export namespace fflonk {
         zkeyFileName: ZKArtifact,
         witnessFileName: ZKArtifact,
         logger?: any,
-        options?: {singleThread?: boolean},
+        options?: { singleThread?: boolean },
     ): Promise<{
         proof: FflonkProof;
         publicSignals: PublicSignals;
@@ -161,7 +161,7 @@ export namespace plonk {
         zkeyFileName: ZKArtifact,
         logger?: any,
         wtnsCalcOptions?: any,
-        proverOptions?: {singleThread?: boolean},
+        proverOptions?: { singleThread?: boolean },
     ): Promise<{
         proof: PlonkProof;
         publicSignals: PublicSignals;
@@ -170,7 +170,7 @@ export namespace plonk {
         zkeyFileName: ZKArtifact,
         witnessFileName: ZKArtifact,
         logger?: any,
-        options?: {singleThread?: boolean},
+        options?: { singleThread?: boolean },
     ): Promise<{
         proof: PlonkProof;
         publicSignals: PublicSignals;
