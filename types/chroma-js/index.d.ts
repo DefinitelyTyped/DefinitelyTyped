@@ -982,5 +982,6 @@ declare namespace chroma {
 
 declare var chroma: chroma.ChromaStatic;
 
-export = chroma;
+export type Color = chroma.Color;
+export default chroma;
 export as namespace chroma;

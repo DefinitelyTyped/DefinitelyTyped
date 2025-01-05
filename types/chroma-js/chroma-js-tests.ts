@@ -1,5 +1,4 @@
-import { Color } from "chroma-js";
-import chroma = require("chroma-js");
+import chroma, { Color } from "chroma-js";
 
 function test_chroma() {
     chroma("hotpink");
