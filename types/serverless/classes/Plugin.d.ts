@@ -27,6 +27,7 @@ declare namespace Plugin {
                                     | "boolean"
                                     /** Multiple strings, e.g. serverless cmd --option value1 --option value2 */
                                     | "multiple";
+                                default?: string | boolean | string[];
                             };
                         };
                     };
@@ -38,6 +39,14 @@ declare namespace Plugin {
                         usage?: string | undefined;
                         required?: boolean | undefined;
                         shortcut?: string | undefined;
+                        type?:
+                            /** String, e.g. serverless cmd --option value */
+                            | "string"
+                            /** Boolean, e.g. serverless cmd --option */
+                            | "boolean"
+                            /** Multiple strings, e.g. serverless cmd --option value1 --option value2 */
+                            | "multiple";
+                        default?: string | boolean | string[];
                     };
                 }
                 | undefined;
@@ -56,7 +65,8 @@ declare namespace Plugin {
             };
     }
 
-    type ConfigurationVariablesSource = (variableSource: any) => Promise<any>;
+    // eslint-disable-next-line @definitelytyped/no-any-union
+    type ConfigurationVariablesSource = (variableSource: any) => Promise<any> | any;
 
     interface ConfigurationVariablesSources {
         [variablePrefix: string]:

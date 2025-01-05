@@ -8,7 +8,6 @@ import { ShaderMaterial, ShaderMaterialParameters } from "three";
 
 export class MeshGouraudMaterial extends ShaderMaterial {
     isMeshGouraudMaterial: true;
-    type: "MeshGouraudMaterial";
 
     constructor(parameters?: ShaderMaterialParameters);
 

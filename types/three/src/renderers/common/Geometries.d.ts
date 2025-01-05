@@ -26,6 +26,7 @@ declare class Geometries extends DataMap<{
     initGeometry(renderObject: RenderObject): void;
     updateAttributes(renderObject: RenderObject): void;
     updateAttribute(attribute: BufferAttribute | InterleavedBufferAttribute, type: AttributeType): void;
+    getIndirect(renderObject: RenderObject): import("./IndirectStorageBufferAttribute.js").default | null;
     getIndex(renderObject: RenderObject): BufferAttribute | null;
 }
 export default Geometries;

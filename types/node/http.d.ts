@@ -141,6 +141,7 @@ declare module "http" {
         "content-range"?: string | undefined;
         "content-security-policy"?: string | undefined;
         "content-security-policy-report-only"?: string | undefined;
+        "content-type"?: string | undefined;
         cookie?: string | string[] | undefined;
         dav?: string | string[] | undefined;
         dnt?: string | undefined;
@@ -161,7 +162,7 @@ declare module "http" {
         location?: string | undefined;
         "max-forwards"?: string | undefined;
         origin?: string | undefined;
-        prgama?: string | string[] | undefined;
+        pragma?: string | string[] | undefined;
         "proxy-authenticate"?: string | string[] | undefined;
         "proxy-authorization"?: string | undefined;
         "public-key-pins"?: string | undefined;

@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/arangodb",
     "version": "3.5.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "ArangoDB",
     "projects": [
         "https://github.com/arangodb/arangodb"

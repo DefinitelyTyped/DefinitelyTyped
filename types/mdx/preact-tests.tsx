@@ -69,7 +69,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -133,7 +133,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -197,7 +197,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -261,7 +261,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -325,7 +325,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -389,7 +389,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -453,7 +453,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -517,7 +517,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },

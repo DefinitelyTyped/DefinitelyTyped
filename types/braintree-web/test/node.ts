@@ -198,6 +198,10 @@ braintree.client.create(
                 hostedFieldsInstance.tokenize(
                     {
                         vault: true,
+                        fieldsToTokenize: ["number", "cvv"],
+                        billingAddress: {
+                            postalCode: "12345",
+                        },
                     },
                     (tokenizeErr: braintree.BraintreeError, payload: braintree.HostedFieldsTokenizePayload) => {
                         if (tokenizeErr) {

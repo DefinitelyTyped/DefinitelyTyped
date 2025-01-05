@@ -1,5 +1,4 @@
 import {
-    ColorSpace,
     MagnificationTextureFilter,
     MinificationTextureFilter,
     PixelFormatGPU,
@@ -20,7 +19,7 @@ export interface RenderTargetOptions {
     format?: number | undefined; // RGBAFormat
     type?: TextureDataType | undefined; // UnsignedByteType
     anisotropy?: number | undefined; // 1
-    colorSpace?: ColorSpace | undefined;
+    colorSpace?: string | undefined;
     internalFormat?: PixelFormatGPU | null | undefined; // null
     depthBuffer?: boolean | undefined; // true
     stencilBuffer?: boolean | undefined; // false

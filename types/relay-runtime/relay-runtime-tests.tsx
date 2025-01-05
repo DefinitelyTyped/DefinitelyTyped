@@ -12,12 +12,14 @@ import {
     fetchQuery,
     FragmentRefs,
     getDefaultMissingFieldHandlers,
+    getRefetchMetadata,
     getRequest,
     graphql,
     isPromise,
     LiveState,
     Network,
     PreloadableConcreteRequest,
+    PreloadableQueryRegistry,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -43,6 +45,7 @@ const storeWithNullOptions = new Store(source, {
     operationLoader: null,
     gcReleaseBufferSize: null,
     queryCacheExpirationTime: null,
+    resolverContext: null,
 });
 const storeWithOptions = new Store(source, {
     gcScheduler: () => undefined,
@@ -52,6 +55,11 @@ const storeWithOptions = new Store(source, {
     },
     gcReleaseBufferSize: 10,
     queryCacheExpirationTime: 1000,
+    resolverContext: {
+        customStore: {
+            nickName: "Lorem",
+        },
+    },
 });
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -128,28 +136,63 @@ const environment = new Environment({
     ],
     log: logEvent => {
         switch (logEvent.name) {
-            case "network.start":
-            case "network.complete":
-            case "network.error":
+            case "suspense.fragment":
+            case "suspense.query":
+            case "queryresource.fetch":
+            case "queryresource.retain":
+            case "fragmentresource.missing_data":
+            case "pendingoperation.found":
             case "network.info":
+            case "network.start":
+            case "network.next":
+            case "network.error":
+            case "network.complete":
             case "network.unsubscribe":
             case "execute.start":
-            case "queryresource.fetch":
-            case "read.missing_required_field":
+            case "execute.next.start":
+            case "execute.next.end":
+            case "execute.async.module":
+            case "execute.error":
+            case "execute.complete":
+            case "execute.normalize.start":
+            case "execute.normalize.end":
+            case "store.datachecker.start":
+            case "store.datachecker.end":
+            case "store.publish":
+            case "store.snapshot":
+            case "store.lookup.start":
+            case "store.lookup.end":
+            case "store.restore":
+            case "store.gc.start":
+            case "store.gc.interrupted":
+            case "store.gc.end":
+            case "store.notify.start":
+            case "store.notify.complete":
+            case "store.notify.subscription":
+            case "entrypoint.root.consume":
+            case "liveresolver.batch.start":
+            case "liveresolver.batch.end":
+            case "useFragment.subscription.missedUpdates":
             default:
                 break;
         }
     },
     relayFieldLogger: arg => {
-        if (arg.kind === "missing_field.log") {
+        if (arg.kind === "missing_required_field.log") {
             console.log(arg.fieldPath, arg.owner);
-        } else if (arg.kind === "missing_field.throw") {
+        } else if (arg.kind === "missing_required_field.throw") {
             console.log(arg.fieldPath, arg.owner);
         } else if (arg.kind === "relay_resolver.error") {
             console.log(arg.fieldPath, arg.owner);
-        } else {
-            arg.kind; // $ExpectType "relay_field_payload.error"
+        } else if (arg.kind === "relay_field_payload.error") {
+            arg.kind;
             console.log(arg.fieldPath, arg.owner, arg.error);
+        } else if (arg.kind === "missing_expected_data.throw") {
+            arg.kind;
+            console.log(arg.fieldPath, arg.owner, arg.handled);
+        } else {
+            arg.kind; // $ExpectType "missing_expected_data.log"
+            console.log(arg.fieldPath, arg.owner);
         }
     },
 });
@@ -334,6 +377,10 @@ const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
         metadata: {},
     },
 };
+
+if (preloadableNode.params.id !== null) {
+    const module = PreloadableQueryRegistry.get(preloadableNode.params.id);
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
@@ -605,6 +652,12 @@ const operationWithCacheConfig = createOperationDescriptor(request, variables, c
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
 const operationWithAll = createOperationDescriptor(request, variables, cacheConfig, dataID);
 
+__internal.fetchQueryDeduped(
+    environment,
+    operation.request.identifier,
+    () => environment.execute({ operation }),
+);
+
 // ~~~~~~~~~~~~~~~~~~~~~~~
 // MULTI ACTOR ENVIRONMENT
 // ~~~~~~~~~~~~~~~~~~~~~~~
@@ -856,3 +909,30 @@ export function handleResult<T, E>(result: Result<T, E>) {
         const errors: readonly E[] = result.errors;
     }
 }
+
+// ~~~~~~~~~~~~~~~~~~
+// Metadata
+// ~~~~~~~~~~~~~~~~~~
+
+const refetchMetadata: {
+    fragmentRefPathInResponse: readonly (string | number)[];
+    identifierInfo:
+        | {
+            identifierField: string;
+            identifierQueryVariableName: string;
+        }
+        | null
+        | undefined;
+    refetchableRequest: ConcreteRequest;
+    refetchMetadata: {
+        operation: string | ConcreteRequest;
+        fragmentPathInResult: string[];
+        identifierInfo?:
+            | {
+                identifierField: string;
+                identifierQueryVariableName: string;
+            }
+            | null
+            | undefined;
+    };
+} = getRefetchMetadata(node.fragment, "getRefetchMetadata()");

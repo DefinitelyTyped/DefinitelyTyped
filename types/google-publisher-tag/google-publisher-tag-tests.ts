@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20241021
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/c6dc88ce60192f3641021b17f05533748f3b6bca
+// Tests for Google Publisher Tag 1.20241202
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/11a67de54de9180e5f3cf31c23c402f43071cdca
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -672,7 +672,7 @@ function test_googletag_config_publisherProvidedSignalsConfig() {
         pps: {
             taxonomies: {
                 "IAB_AUDIENCE_1_1": { values: ["6", "626"] },
-                // '6' = 'Demographic | Age Range | 18-20'
+                // '6' = 'Demographic | Age Range | 30-34'
                 // '626' = 'Interest | Sports | Darts'
                 "IAB_CONTENT_2_2": { values: ["48", "127"] },
                 // '48' = 'Books and Literature | Fiction'
@@ -744,6 +744,22 @@ function test_googletag_config_interstitialConfig_triggers() {
     });
 }
 
+// Test for googletag.config.InterstitialConfig.requireStorageAccess
+function test_googletag_config_interstitialConfig_requireStorageAccess() {
+    // Opt out of showing interstitials to users
+    // without local storage consent.
+    const interstitialSlot = googletag.defineOutOfPageSlot(
+        "/1234567/sports",
+        googletag.enums.OutOfPageFormat.INTERSTITIAL,
+    )!;
+
+    interstitialSlot.setConfig({
+        interstitial: {
+            requireStorageAccess: true, // defaults to false
+        },
+    });
+}
+
 // Test for googletag.secureSignals.BidderSignalProvider
 function test_googletag_secureSignals_bidderSignalProvider() {
     // id is provided
@@ -801,7 +817,6 @@ function test_googletag_events_slotRenderEndedEvent() {
         console.log("Creative Template ID:", event.creativeTemplateId);
         console.log("Is backfill?:", event.isBackfill);
         console.log("Is empty?:", event.isEmpty);
-        console.log("Label IDs:", event.labelIds);
         console.log("Line Item ID:", event.lineItemId);
         console.log("Size:", event.size);
         console.log("Slot content changed?", event.slotContentChanged);

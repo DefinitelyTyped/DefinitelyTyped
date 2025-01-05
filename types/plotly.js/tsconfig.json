@@ -16,6 +16,7 @@
     "files": [
         "index.d.ts",
         "test/index-tests.ts",
-        "test/core-tests.ts"
+        "test/core-tests.ts",
+        "test/register-tests.ts"
     ]
 }

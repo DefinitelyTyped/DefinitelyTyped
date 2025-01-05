@@ -1,6 +1,6 @@
 import { MagnificationTextureFilter, MinificationTextureFilter, Wrapping } from "../constants.js";
+import { TextureImageData } from "./DataTexture.js";
 import { Texture } from "./Texture.js";
-import { Texture3DImageData } from "./types.js";
 
 /**
  * Creates a three-dimensional texture from raw data, with parameters to divide it into width, height, and depth
@@ -93,4 +93,6 @@ export class Data3DTexture extends Texture {
     unpackAlignment: number;
 }
 
-export {};
+export interface Texture3DImageData extends TextureImageData {
+    depth: number;
+}

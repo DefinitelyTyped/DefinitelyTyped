@@ -16,6 +16,7 @@ const bt: BuyTrade = {
 const et: ExchangeTrade = {
     send: "bitcoin" as CryptoId,
     receive: "ethereum" as CryptoId,
+    quoteId: "123",
 };
 
 const sft: SellFiatTrade = {

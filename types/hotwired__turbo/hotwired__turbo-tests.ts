@@ -91,3 +91,19 @@ document.addEventListener("turbo:before-render", function(e) {
 document.addEventListener("turbo:frame-missing", function(event) {
     event.detail.visit(event.detail.response, {});
 });
+
+document.addEventListener("turbo:submit-start", function(event) {
+    event.detail.formSubmission.stop();
+});
+
+document.addEventListener("turbo:submit-end", function(event) {
+    if (event.detail.success) {
+        // $ExpectType FetchResponse
+        event.detail.fetchResponse;
+    } else {
+        // $ExpectType Error|undefined
+        event.detail.error;
+        // $ExpectType FetchResponse|undefined
+        event.detail.fetchResponse;
+    }
+});

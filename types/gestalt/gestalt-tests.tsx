@@ -324,7 +324,7 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <Pog />;
-<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>().current} />;
+<Popover onDismiss={() => {}} anchor={React.useRef<HTMLAnchorElement>(undefined).current} />;
 <Popovereducational accessibilityLabel="" anchor={null} onDismiss={() => undefined} />;
 
 <Pulsar />;

@@ -1,5 +1,5 @@
 import { Camera } from "../../cameras/Camera.js";
-import { ColorSpace, ShadowMapType, ToneMapping } from "../../constants.js";
+import { ShadowMapType, ToneMapping } from "../../constants.js";
 import { BufferAttribute } from "../../core/BufferAttribute.js";
 import { BufferGeometry, GeometryGroup } from "../../core/BufferGeometry.js";
 import { Object3D } from "../../core/Object3D.js";
@@ -21,9 +21,11 @@ import Attributes from "./Attributes.js";
 import Backend from "./Backend.js";
 import Background from "./Background.js";
 import Bindings from "./Bindings.js";
+import ClippingContext from "./ClippingContext.js";
 import Color4 from "./Color4.js";
 import Geometries from "./Geometries.js";
 import Info from "./Info.js";
+import Lighting from "./Lighting.js";
 import NodeLibrary from "./nodes/NodeLibrary.js";
 import Nodes from "./nodes/Nodes.js";
 import Pipelines from "./Pipelines.js";
@@ -42,9 +44,17 @@ interface Rectangle {
     z: number;
     w: number;
 }
+interface DeviceLostInfo {
+    api: "WebGL" | "WebGPU";
+    message: string;
+    reason: string | null;
+    originalEvent: unknown;
+}
 export interface RendererParameters {
     logarithmicDepthBuffer?: boolean | undefined;
     alpha?: boolean | undefined;
+    depth?: boolean | undefined;
+    stencil?: boolean | undefined;
     antialias?: boolean | undefined;
     samples?: number | undefined;
     getFallback?: ((error: unknown) => Backend) | null | undefined;
@@ -60,7 +70,7 @@ declare class Renderer {
     autoClearStencil: boolean;
     alpha: boolean;
     logarithmicDepthBuffer: boolean;
-    outputColorSpace: ColorSpace;
+    outputColorSpace: string;
     toneMapping: ToneMapping;
     toneMappingExposure: number;
     sortObjects: boolean;
@@ -68,9 +78,8 @@ declare class Renderer {
     stencil: boolean;
     clippingPlanes: readonly Plane[];
     info: Info;
-    nodes: {
-        library: NodeLibrary;
-    };
+    library: NodeLibrary;
+    lighting: Lighting;
     _getFallback: ((error: unknown) => Backend) | null;
     _pixelRatio: number;
     _width: number;
@@ -134,6 +143,8 @@ declare class Renderer {
         group: GeometryGroup,
         passId?: string,
     ) => void;
+    _isDeviceLost: boolean;
+    onDeviceLost: (info: DeviceLostInfo) => void;
     _initialized: boolean;
     _initPromise: Promise<void> | null;
     _compilationPromises: Promise<void>[] | null;
@@ -167,12 +178,14 @@ declare class Renderer {
     get coordinateSystem(): import("../../constants.js").CoordinateSystem;
     compileAsync(scene: Object3D, camera: Camera, targetScene?: Object3D | null): Promise<void>;
     renderAsync(scene: Scene, camera: Camera): Promise<void>;
+    waitForGPU(): Promise<void>;
     setMRT(mrt: MRTNode | null): this;
     getMRT(): MRTNode | null;
+    _onDeviceLost(info: DeviceLostInfo): void;
     _renderBundle(bundle: Bundle, sceneRef: Scene, lightsNode: LightsNode): void;
     render(scene: Scene, camera: Camera): Promise<void> | undefined;
     _getFrameBufferTarget(): RenderTarget<Texture> | null;
-    _renderScene(scene: Scene, camera: Camera, useFrameBufferTarget?: boolean): RenderContext;
+    _renderScene(scene: Scene, camera: Camera, useFrameBufferTarget?: boolean): RenderContext | undefined;
     getMaxAnisotropy(): number;
     getActiveCubeFace(): number;
     getActiveMipmapLevel(): number;
@@ -213,7 +226,7 @@ declare class Renderer {
     clearDepthAsync(): Promise<void>;
     clearStencilAsync(): Promise<void>;
     get currentToneMapping(): ToneMapping;
-    get currentColorSpace(): ColorSpace;
+    get currentColorSpace(): string;
     dispose(): void;
     setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipmapLevel?: number): void;
     getRenderTarget(): RenderTarget<Texture> | null;
@@ -241,9 +254,13 @@ declare class Renderer {
             lightsNode: LightsNode,
         ) => void)
         | null;
+    compute(computeNodes: ComputeNode | ComputeNode[]): Promise<void> | undefined;
     computeAsync(computeNodes: ComputeNode | ComputeNode[]): Promise<void>;
     hasFeatureAsync(name: string): Promise<void>;
     hasFeature(name: string): false | void;
+    hasInitialized(): boolean;
+    initTextureAsync(texture: Texture): Promise<void>;
+    initTexture(texture: Texture): false | undefined;
     copyFramebufferToTexture(framebufferTexture: FramebufferTexture, rectangle?: Rectangle | null): void;
     copyTextureToTexture(
         srcTexture: Texture,
@@ -261,9 +278,28 @@ declare class Renderer {
         index?: number,
         faceIndex?: number,
     ): Promise<import("../../core/BufferAttribute.js").TypedArray>;
-    _projectObject(object: Object3D, camera: Camera, groupOrder: number, renderList: RenderList): void;
+    _projectObject(
+        object: Object3D,
+        camera: Camera,
+        groupOrder: number,
+        renderList: RenderList,
+        clippingContext: ClippingContext | null,
+    ): void;
     _renderBundles(bundles: Bundle[], sceneRef: Scene, lightsNode: LightsNode): void;
-    _renderObjects(renderList: RenderItem[], camera: Camera, scene: Scene, lightsNode: LightsNode): void;
+    _renderTransparents(
+        renderList: RenderItem[],
+        doublePassList: RenderItem[],
+        camera: Camera,
+        scene: Scene,
+        lightsNode: LightsNode,
+    ): void;
+    _renderObjects(
+        renderList: RenderItem[],
+        camera: Camera,
+        scene: Scene,
+        lightsNode: LightsNode,
+        passId?: string | null,
+    ): void;
     renderObject(
         object: Object3D,
         scene: Scene,
@@ -272,6 +308,8 @@ declare class Renderer {
         material: Material,
         group: GeometryGroup,
         lightsNode: LightsNode,
+        clippingContext?: ClippingContext | null,
+        passId?: string | null,
     ): void;
     _renderObjectDirect(
         object: Object3D,
@@ -280,6 +318,7 @@ declare class Renderer {
         camera: Camera,
         lightsNode: LightsNode,
         group: GeometryGroup,
+        clippingContext: ClippingContext | null,
         passId?: string,
     ): void;
     _createObjectPipeline(
@@ -288,9 +327,9 @@ declare class Renderer {
         scene: Scene,
         camera: Camera,
         lightsNode: LightsNode,
+        clippingContext: ClippingContext | null,
         passId?: string,
     ): void;
-    get compute(): (computeNodes: ComputeNode | ComputeNode[]) => Promise<void>;
     get compile(): (scene: Object3D, camera: Camera, targetScene?: Object3D | null) => Promise<void>;
 }
 export default Renderer;

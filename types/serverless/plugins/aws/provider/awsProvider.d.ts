@@ -719,6 +719,7 @@ declare namespace Aws {
         events?: Event[] | undefined;
         disableLogs?: boolean | undefined;
         url?: boolean | FunctionUrlConfig | undefined;
+        architecture?: "x86_64" | "arm64" | undefined;
     }
 
     interface AwsFunctionHandler extends AwsFunction {

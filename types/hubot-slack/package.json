@@ -10,7 +10,7 @@
         "@slack/rtm-api": "*",
         "@slack/web-api": "*",
         "@slack/types": "*",
-        "@types/hubot": "*"
+        "@types/hubot": "<11"
     },
     "devDependencies": {
         "@types/hubot-slack": "workspace:."

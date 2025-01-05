@@ -1,4 +1,13 @@
 import isArray from "isarray";
 
-isArray([]); // => true
-isArray({}); // => false
+isArray([]); // $ExpectType boolean
+isArray({}); // $ExpectType boolean
+
+function test(v: unknown) {
+    if (isArray(v)) {
+        v; // $ExpectType unknown[]
+    }
+}
+
+test([]); // $ExpectType void
+test({}); // $ExpectType void

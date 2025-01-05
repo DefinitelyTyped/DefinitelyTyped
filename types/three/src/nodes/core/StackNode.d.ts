@@ -1,6 +1,7 @@
+import { ShaderNodeObject } from "../tsl/TSLCore.js";
 import Node from "./Node.js";
 
-export default class StackNode extends Node {
+declare class StackNode extends Node {
     isStackNode: true;
     nodes: Node[];
     outputNode: Node | null;
@@ -11,17 +12,21 @@ export default class StackNode extends Node {
 
     If(boolNode: Node, method: () => void): this;
 
-    ElseIf(node: Node, method: () => void): this;
+    ElseIf(boolNode: Node, method: () => void): this;
 
-    Else(node: Node, method: () => void): this;
+    Else(method: () => void): this;
 
     /**
      * @deprecated Use {@link StackNode#ElseIf Else()} instead.
      */
-    elseif(node: Node, method: () => void): this;
+    elseif(boolNode: Node, method: () => void): this;
 
     /**
      * @deprecated Use {@link StackNode#Else Else()} instead.
      */
-    else(node: Node, method: () => void): this;
+    else(method: () => void): this;
 }
+
+export default StackNode;
+
+export const stack: () => ShaderNodeObject<StackNode>;

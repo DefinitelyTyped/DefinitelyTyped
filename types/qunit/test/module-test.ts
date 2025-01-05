@@ -17,6 +17,8 @@ QUnit.module("basic tests for importing QUnit", function(hooks) {
         assert.ok(true, "this is a todo");
     });
 
+    QUnit.test.todo("todo test example w/o callback");
+
     QUnit.test.only("only test example", function(assert) {
         assert.ok(true, "only this is called");
     });
@@ -24,6 +26,8 @@ QUnit.module("basic tests for importing QUnit", function(hooks) {
     QUnit.test.skip("skip test example", function(assert) {
         assert.ok(true, "this is skiped");
     });
+
+    QUnit.test.skip("skip test example w/o callback");
 
     QUnit.test.if("if test example", true, function(assert) {
         assert.ok(true, "this is called if true");

@@ -55,7 +55,6 @@ export { default as JoinNode } from "./utils/JoinNode.js";
 export { default as LoopNode } from "./utils/LoopNode.js";
 export { default as MatcapUVNode } from "./utils/MatcapUVNode.js";
 export { default as MaxMipLevelNode } from "./utils/MaxMipLevelNode.js";
-export { default as OscNode, OscNodeMethod } from "./utils/OscNode.js";
 export { default as ReflectorNode, ReflectorNodeParameters } from "./utils/ReflectorNode.js";
 export { default as RemapNode } from "./utils/RemapNode.js";
 export { default as RotateNode } from "./utils/RotateNode.js";
@@ -64,7 +63,6 @@ export { default as SetNode } from "./utils/SetNode.js";
 export { default as SplitNode } from "./utils/SplitNode.js";
 export { default as SpriteSheetUVNode } from "./utils/SpriteSheetUVNode.js";
 export { default as StorageArrayElementNode } from "./utils/StorageArrayElementNode.js";
-export { default as TimerNode, TimerNodeScope } from "./utils/TimerNode.js";
 export { default as TriplanarTexturesNode } from "./utils/TriplanarTexturesNode.js";
 
 // accessors
@@ -72,6 +70,7 @@ export { default as BatchNode } from "./accessors/BatchNode.js";
 export { default as BufferAttributeNode } from "./accessors/BufferAttributeNode.js";
 export { default as BufferNode } from "./accessors/BufferNode.js";
 export { default as CubeTextureNode } from "./accessors/CubeTextureNode.js";
+export { default as InstancedMeshNode } from "./accessors/InstancedMeshNode.js";
 export { default as InstanceNode } from "./accessors/InstanceNode.js";
 export { default as MaterialNode, MaterialNodeScope } from "./accessors/MaterialNode.js";
 export { default as MaterialReferenceNode } from "./accessors/MaterialReferenceNode.js";
@@ -94,34 +93,15 @@ export { default as UserDataNode, NodeUserData } from "./accessors/UserDataNode.
 export { default as VertexColorNode } from "./accessors/VertexColorNode.js";
 
 // display
-export { default as AfterImageNode } from "./display/AfterImageNode.js";
-export { default as AnaglyphPassNode } from "./display/AnaglyphPassNode.js";
-export { default as AnamorphicNode } from "./display/AnamorphicNode.js";
-export { default as BloomNode } from "./display/BloomNode.js";
 export { default as BumpMapNode } from "./display/BumpMapNode.js";
 export { default as ColorSpaceNode } from "./display/ColorSpaceNode.js";
-export { default as DenoiseNode } from "./display/DenoiseNode.js";
-export { default as DepthOfFieldNode } from "./display/DepthOfFieldNode.js";
-export { default as DotScreenNode } from "./display/DotScreenNode.js";
-export { default as FilmNode } from "./display/FilmNode.js";
 export { default as FrontFacingNode } from "./display/FrontFacingNode.js";
-export { default as FXAANode } from "./display/FXAANode.js";
-export { default as GaussianBlurNode } from "./display/GaussianBlurNode.js";
-export { default as GTAONode } from "./display/GTAONode.js";
-export { default as Lut3DNode } from "./display/Lut3DNode.js";
 export { default as NormalMapNode } from "./display/NormalMapNode.js";
-export { default as ParallaxBarrierPassNode } from "./display/ParallaxBarrierPassNode.js";
 export { default as PassNode, PassNodeScope } from "./display/PassNode.js";
-export { default as PixelationPassNode } from "./display/PixelationPassNode.js";
 export { default as PosterizeNode } from "./display/PosterizeNode.js";
 export { default as RenderOutputNode } from "./display/RenderOutputNode.js";
-export { default as RGBShiftNode } from "./display/RGBShiftNode.js";
 export { default as ScreenNode, ScreenNodeScope } from "./display/ScreenNode.js";
-export { default as SobelOperatorNode } from "./display/SobelOperatorNode.js";
-export { default as SSAAPassNode } from "./display/SSAAPassNode.js";
-export { default as StereoPassNode } from "./display/StereoPassNode.js";
 export { default as ToneMappingNode } from "./display/ToneMappingNode.js";
-export { default as TransitionNode } from "./display/TransitionNode.js";
 export { default as ViewportDepthNode, ViewportDepthNodeScope } from "./display/ViewportDepthNode.js";
 export { default as ViewportDepthTextureNode } from "./display/ViewportDepthTextureNode.js";
 export { default as ViewportSharedTextureNode } from "./display/ViewportSharedTextureNode.js";
@@ -158,11 +138,11 @@ export { default as IESSpotLightNode } from "./lighting/IESSpotLightNode.js";
 export { default as IrradianceNode } from "./lighting/IrradianceNode.js";
 export { default as LightingContextNode } from "./lighting/LightingContextNode.js";
 export { default as LightingNode } from "./lighting/LightingNode.js";
-export { default as LightNode, LightNodeScope } from "./lighting/LightNode.js";
 export { default as LightProbeNode } from "./lighting/LightProbeNode.js";
 export { default as LightsNode } from "./lighting/LightsNode.js";
 export { default as PointLightNode } from "./lighting/PointLightNode.js";
 export { default as RectAreaLightNode, RectAreaLightTexturesLib } from "./lighting/RectAreaLightNode.js";
+export { default as ShadowNode } from "./lighting/ShadowNode.js";
 export { default as SpotLightNode } from "./lighting/SpotLightNode.js";
 
 // pmrem

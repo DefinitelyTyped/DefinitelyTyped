@@ -44,7 +44,7 @@ declare class ArcballControls extends Controls<ArcballControlsEventMap> {
     focusAnimationTime: number;
 
     /**
-     * If true, camera's near and far values will be adjusted every time zoom is performed trying to mantain the same
+     * If true, camera's near and far values will be adjusted every time zoom is performed trying to maintain the same
      * visible portion given by initial near and far values ( {@link PerspectiveCamera} only ). Default is false.
      */
     adjustNearFar: boolean;
@@ -68,6 +68,11 @@ declare class ArcballControls extends Controls<ArcballControlsEventMap> {
      * Set to true to enable animations for rotation (damping) and focus operation. Default is true.
      */
     enableAnimations: boolean;
+
+    /**
+     * Enable or disable camera focusing on double-tap (or click) operations. Default is true.
+     */
+    enableFocus: boolean;
 
     /**
      * When set to true, a grid will appear when panning operation is being performed (desktop interaction only). Default is false.

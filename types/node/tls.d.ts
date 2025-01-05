@@ -810,6 +810,12 @@ declare module "tls" {
          */
         ALPNCallback?: ((arg: { servername: string; protocols: string[] }) => string | undefined) | undefined;
         /**
+         * Treat intermediate (non-self-signed)
+         * certificates in the trust CA certificate list as trusted.
+         * @since v22.9.0, v20.18.0
+         */
+        allowPartialTrustChain?: boolean | undefined;
+        /**
          * Optionally override the trusted CA certificates. Default is to trust
          * the well-known CAs curated by Mozilla. Mozilla's CAs are completely
          * replaced when CAs are explicitly specified using this option.

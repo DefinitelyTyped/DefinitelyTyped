@@ -28,15 +28,16 @@ export * from "./utils/FunctionOverloadingNode.js";
 export * from "./utils/LoopNode.js";
 export * from "./utils/MatcapUVNode.js";
 export * from "./utils/MaxMipLevelNode.js";
-export * from "./utils/OscNode.js";
+export * from "./utils/Oscillators.js";
 export * from "./utils/Packing.js";
+export * from "./utils/PostProcessingUtils.js";
 export * from "./utils/ReflectorNode.js";
 export * from "./utils/RemapNode.js";
 export * from "./utils/RotateNode.js";
 export * from "./utils/RTTNode.js";
 export * from "./utils/SpriteSheetUVNode.js";
 export * from "./utils/SpriteUtils.js";
-export * from "./utils/TimerNode.js";
+export * from "./utils/Timer.js";
 export * from "./utils/TriplanarTexturesNode.js";
 export * from "./utils/UVUtils.js";
 export * from "./utils/ViewportUtils.js";
@@ -46,12 +47,14 @@ export * from "./tsl/TSLBase.js";
 
 // accessors
 export * from "./accessors/AccessorsUtils.js";
+export * from "./accessors/Arrays.js";
 export * from "./accessors/BatchNode.js";
 export * from "./accessors/Bitangent.js";
 export * from "./accessors/BufferAttributeNode.js";
 export * from "./accessors/BufferNode.js";
 export * from "./accessors/Camera.js";
 export * from "./accessors/CubeTextureNode.js";
+export * from "./accessors/InstancedMeshNode.js";
 export * from "./accessors/InstanceNode.js";
 export * from "./accessors/MaterialNode.js";
 export * from "./accessors/MaterialProperties.js";
@@ -82,39 +85,17 @@ export * from "./accessors/VelocityNode.js";
 export * from "./accessors/VertexColorNode.js";
 
 // display
-export * from "./display/AfterImageNode.js";
-export * from "./display/AnaglyphPassNode.js";
-export * from "./display/AnamorphicNode.js";
-export * from "./display/BleachBypass.js";
-export * from "./display/BlendMode.js";
-export * from "./display/BloomNode.js";
+export * from "./display/BlendModes.js";
 export * from "./display/BumpMapNode.js";
 export * from "./display/ColorAdjustment.js";
 export * from "./display/ColorSpaceNode.js";
-export * from "./display/DenoiseNode.js";
-export * from "./display/DepthOfFieldNode.js";
-export * from "./display/DotScreenNode.js";
-export * from "./display/FilmNode.js";
 export * from "./display/FrontFacingNode.js";
-export * from "./display/FXAANode.js";
-export * from "./display/GaussianBlurNode.js";
-export * from "./display/GTAONode.js";
-export * from "./display/Lut3DNode.js";
-export * from "./display/MotionBlur.js";
 export * from "./display/NormalMapNode.js";
-export * from "./display/ParallaxBarrierPassNode.js";
-export * from "./display/PixelationPassNode.js";
 export * from "./display/PosterizeNode.js";
 export * from "./display/RenderOutputNode.js";
-export * from "./display/RGBShiftNode.js";
 export * from "./display/ScreenNode.js";
-export * from "./display/Sepia.js";
-export * from "./display/SobelOperatorNode.js";
-export * from "./display/SSAAPassNode.js";
-export * from "./display/StereoPassNode.js";
 export * from "./display/ToneMappingNode.js";
 export * from "./display/ToonOutlinePassNode.js";
-export * from "./display/TransitionNode.js";
 export * from "./display/ViewportDepthNode.js";
 export * from "./display/ViewportDepthTextureNode.js";
 export * from "./display/ViewportSharedTextureNode.js";
@@ -142,12 +123,18 @@ export * from "./fog/FogRangeNode.js";
 export * from "./geometry/RangeNode.js";
 
 // gpgpu
+export * from "./gpgpu/AtomicFunctionNode.js";
+export * from "./gpgpu/BarrierNode.js";
+export * from "./gpgpu/ComputeBuiltinNode.js";
 export * from "./gpgpu/ComputeNode.js";
+export * from "./gpgpu/WorkgroupInfoNode.js";
 
 // lighting
+export * from "./accessors/Lights.js";
 export * from "./lighting/LightingContextNode.js";
-export * from "./lighting/LightNode.js";
 export * from "./lighting/LightsNode.js";
+export * from "./lighting/PointLightNode.js";
+export * from "./lighting/ShadowNode.js";
 
 // pmrem
 export * from "./pmrem/PMREMNode.js";
@@ -171,5 +158,6 @@ export { default as V_GGX_SmithCorrelated } from "./functions/BSDF/V_GGX_SmithCo
 export * from "./lighting/LightUtils.js";
 
 export { default as getGeometryRoughness } from "./functions/material/getGeometryRoughness.js";
+export { default as getParallaxCorrectNormal } from "./functions/material/getParallaxCorrectNormal.js";
 export { default as getRoughness } from "./functions/material/getRoughness.js";
 export { default as getShIrradianceAt } from "./functions/material/getShIrradianceAt.js";

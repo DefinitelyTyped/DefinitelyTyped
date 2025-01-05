@@ -1,7 +1,6 @@
 import {
     AnyMapping,
     AnyPixelFormat,
-    ColorSpace,
     MagnificationTextureFilter,
     Mapping,
     MinificationTextureFilter,
@@ -38,7 +37,7 @@ export interface TextureJSON {
     format: AnyPixelFormat;
     internalFormat: PixelFormatGPU | null;
     type: TextureDataType;
-    colorSpace: ColorSpace;
+    colorSpace: string;
 
     minFilter: MinificationTextureFilter;
     magFilter: MagnificationTextureFilter;
@@ -99,7 +98,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**
@@ -369,7 +368,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @see {@link THREE.TextureDataType}
      * @defaultValue {@link THREE.NoColorSpace}
      */
-    colorSpace: ColorSpace;
+    colorSpace: string;
 
     /**
      * Indicates whether a texture belongs to a render target or not

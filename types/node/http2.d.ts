@@ -1269,7 +1269,10 @@ declare module "http2" {
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
         Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
-    > extends ServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response> {}
+    > extends ServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response> {
+        streamResetBurst?: number | undefined;
+        streamResetRate?: number | undefined;
+    }
     export interface SecureServerOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
         Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse,

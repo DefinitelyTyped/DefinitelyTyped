@@ -1,5 +1,4 @@
 import {
-    ColorSpace,
     MagnificationTextureFilter,
     Mapping,
     MinificationTextureFilter,
@@ -8,7 +7,6 @@ import {
     Wrapping,
 } from "../constants.js";
 import { Texture } from "./Texture.js";
-import { TextureImageData } from "./types.js";
 
 /**
  * Creates a texture directly from raw data, width and height.
@@ -64,7 +62,7 @@ export class DataTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        colorSpace?: ColorSpace,
+        colorSpace?: string,
     );
 
     /**
@@ -110,4 +108,10 @@ export class DataTexture extends Texture {
      * @defaultValue `1`
      */
     unpackAlignment: number;
+}
+
+export interface TextureImageData {
+    data: Uint8Array | Uint8ClampedArray;
+    height: number;
+    width: number;
 }

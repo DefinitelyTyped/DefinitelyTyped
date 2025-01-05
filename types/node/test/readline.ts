@@ -1,4 +1,3 @@
-import * as fs from "node:fs";
 import * as readline from "node:readline";
 import * as readlinePromises from "node:readline/promises";
 import * as stream from "node:stream";
@@ -6,37 +5,43 @@ import * as stream from "node:stream";
 const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
 {
-    const options: readline.ReadLineOptions = {
-        input: new fs.ReadStream(),
-    };
     const input: NodeJS.ReadableStream = new stream.Readable();
     const output: NodeJS.WritableStream = new stream.Writable();
-    const completer: readline.Completer = str => [["asd"], "asd"];
+    const syncCompleter: readline.Completer = function(str) {
+        // $ExpectType string
+        str;
+        return [["test"], "test"];
+    };
+    const asyncCompleter: readline.AsyncCompleter = function(str, callback) {
+        // $ExpectType string
+        str;
+        // $ExpectType (err?: Error | null | undefined, result?: CompleterResult | undefined) => void
+        callback;
+    };
     const terminal = false;
 
     let result: readline.ReadLine;
 
-    result = readline.createInterface(options);
     result = readline.createInterface(input);
     result = readline.createInterface(input, output);
-    result = readline.createInterface(input, output, completer);
-    result = readline.createInterface(input, output, completer, terminal);
-    result = readline.createInterface({
-        input,
-        completer(str: string): readline.CompleterResult {
-            return [["test"], "test"];
-        },
-    });
-    result = readline.createInterface({
-        input,
-        completer(str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
-            callback(null, [["test"], "test"]);
-        },
-    });
-    result = readline.createInterface({
-        input,
-        tabSize: 4,
-    });
+    result = readline.createInterface(input, output, syncCompleter);
+    result = readline.createInterface(input, output, asyncCompleter);
+    result = readline.createInterface(input, output, syncCompleter, terminal);
+    result = readline.createInterface(input, output, asyncCompleter, terminal);
+
+    result = readline.createInterface({ input });
+    result = readline.createInterface({ input, output });
+    result = readline.createInterface({ input, completer: syncCompleter });
+    result = readline.createInterface({ input, completer: asyncCompleter });
+    result = readline.createInterface({ input, terminal });
+    result = readline.createInterface({ input, history: ["foo"] });
+    result = readline.createInterface({ input, historySize: 20 });
+    result = readline.createInterface({ input, removeHistoryDuplicates: true });
+    result = readline.createInterface({ input, prompt: "prompt >" });
+    result = readline.createInterface({ input, crlfDelay: 200 });
+    result = readline.createInterface({ input, escapeCodeTimeout: 200 });
+    result = readline.createInterface({ input, tabSize: 4 });
+    result = readline.createInterface({ input, signal: new AbortSignal() });
 }
 
 {
@@ -321,35 +326,39 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
 }
 
 {
-    const options: readline.ReadLineOptions = {
-        input: new fs.ReadStream(),
-    };
     const input: NodeJS.ReadableStream = new stream.Readable();
     const output: NodeJS.WritableStream = new stream.Writable();
-    const completer: readline.Completer = str => [["asd"], "asd"];
+    const syncCompleter: readlinePromises.Completer = function(str) {
+        // $ExpectType string
+        str;
+        return [["test"], "test"];
+    };
+    const asyncCompleter: readlinePromises.Completer = async function(str) {
+        // $ExpectType string
+        str;
+        return [["test"], "test"];
+    };
     const terminal = false;
 
     let result: readlinePromises.Interface;
 
-    result = readlinePromises.createInterface(options);
     result = readlinePromises.createInterface(input);
     result = readlinePromises.createInterface(input, output);
-    result = readlinePromises.createInterface(input, output, completer);
-    result = readlinePromises.createInterface(input, output, completer, terminal);
-    result = readlinePromises.createInterface({
-        input,
-        completer(str: string): readline.CompleterResult {
-            return [["test"], "test"];
-        },
-    });
-    result = readlinePromises.createInterface({
-        input,
-        completer(str: string, callback: (err: any, result: readline.CompleterResult) => void): any {
-            callback(null, [["test"], "test"]);
-        },
-    });
-    result = readlinePromises.createInterface({
-        input,
-        tabSize: 4,
-    });
+    result = readlinePromises.createInterface(input, output, syncCompleter);
+    result = readlinePromises.createInterface(input, output, asyncCompleter);
+    result = readlinePromises.createInterface(input, output, syncCompleter, terminal);
+    result = readlinePromises.createInterface(input, output, asyncCompleter, terminal);
+
+    result = readlinePromises.createInterface({ input, output });
+    result = readlinePromises.createInterface({ input, completer: syncCompleter });
+    result = readlinePromises.createInterface({ input, completer: asyncCompleter });
+    result = readlinePromises.createInterface({ input, terminal });
+    result = readlinePromises.createInterface({ input, history: ["foo"] });
+    result = readlinePromises.createInterface({ input, historySize: 20 });
+    result = readlinePromises.createInterface({ input, removeHistoryDuplicates: true });
+    result = readlinePromises.createInterface({ input, prompt: "prompt >" });
+    result = readlinePromises.createInterface({ input, crlfDelay: 200 });
+    result = readlinePromises.createInterface({ input, escapeCodeTimeout: 200 });
+    result = readlinePromises.createInterface({ input, tabSize: 4 });
+    result = readlinePromises.createInterface({ input, signal: new AbortSignal() });
 }

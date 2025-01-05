@@ -157,3 +157,21 @@ clevertap.targets(clevertap.TARGET_RESULT, resultPayload, { debug: 1 }, (res: an
 
 // or if you prefer Promises
 clevertap.targets(clevertap.TARGET_RESULT, resultPayload, { debug: 1 }).then((res: any) => {});
+
+// List all Message Reports in a date range
+const MessageReportPayload = { from: "20210101", to: "20210201" };
+
+// callback style
+clevertap.getMessageReports(MessageReportPayload, { debug: 1 }, (res: any) => {});
+
+// or if you prefer Promises
+clevertap.getMessageReports(MessageReportPayload, { debug: 1 }).then((res: any) => {});
+
+// When the dates are incorrectly inputed as integers
+const ErroneousMessageReportPayload = { from: 20210101, to: 20210201 };
+// callback style
+// @ts-expect-error
+clevertap.getMessageReports(ErroneousMessageReportPayload, { debug: 1 }, (res: any) => {});
+// or if you prefer Promises
+// @ts-expect-error
+clevertap.getMessageReports(ErroneousMessageReportPayload, { debug: 1 }).then((res: any) => {});

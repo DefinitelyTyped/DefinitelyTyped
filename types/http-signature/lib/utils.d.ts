@@ -1,5 +1,5 @@
 export const HASH_ALGOS: Record<"sha1" | "sha256" | "sha512", boolean>;
-export const PK_ALGOS: Record<"rsa" | "dsa" | "ecdsa", boolean>;
+export const PK_ALGOS: Record<"rsa" | "dsa" | "ecdsa" | "ed25519", boolean>;
 export const HEADER: Record<string, string>;
 
 export class HttpSignatureError extends Error {
