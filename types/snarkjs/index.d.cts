@@ -98,6 +98,8 @@ export namespace groth16 {
         wasmFile: ZKArtifact,
         zkeyFileName: ZKArtifact,
         logger?: any,
+        wtnsCalcOptions?: any,
+        proverOptions?: {singleThread?: boolean},
     ): Promise<{
         proof: Groth16Proof;
         publicSignals: PublicSignals;
@@ -126,6 +128,8 @@ export namespace fflonk {
         wasmFilename: ZKArtifact,
         zkeyFilename: ZKArtifact,
         logger?: any,
+        wtnsCalcOptions?: any,
+        proverOptions?: {singleThread?: boolean},
     ): Promise<{
         proof: FflonkProof;
         publicSignals: PublicSignals;
@@ -154,6 +158,8 @@ export namespace plonk {
         wasmFile: ZKArtifact,
         zkeyFileName: ZKArtifact,
         logger?: any,
+        wtnsCalcOptions?: any,
+        proverOptions?: {singleThread?: boolean},
     ): Promise<{
         proof: PlonkProof;
         publicSignals: PublicSignals;
