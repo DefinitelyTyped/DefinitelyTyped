@@ -2,18 +2,8 @@
  * Various tests of func, fn and call
  */
 
-import {
-    call,
-    code,
-    FunctionCallNode,
-    FunctionNode,
-    glslFn,
-    Node,
-    ProxiedObject,
-    Swizzable,
-    uv,
-    wgslFn,
-} from "three/webgpu";
+import { call, code, glslFn, ProxiedObject, Swizzable, uv, wgslFn } from "three/tsl";
+import { FunctionCallNode, FunctionNode, Node } from "three/webgpu";
 
 export const mx_noise = code("whatever");
 const includes = [mx_noise];

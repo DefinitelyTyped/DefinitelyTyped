@@ -35,6 +35,10 @@ export interface MMDAnimationHelperMixer {
     duration?: number | undefined;
 }
 
+/**
+ * @deprecated The module has been deprecated and will be removed with r172. Please migrate to
+ * https://github.com/takahirox/three-mmd-loader instead.
+ */
 export class MMDAnimationHelper {
     constructor(params?: MMDAnimationHelperParameter);
     meshes: SkinnedMesh[];

@@ -240,7 +240,7 @@ export type ExchangeMaximum =
     | "NONE"; // exchange does not have a maximum trade size
 
 export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget";
-export type ExchangeKYCType = "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
+export type ExchangeKYCType = "KYC-required" | "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
 
 export interface ExchangeProviderInfo {
     name: string; // changenow
@@ -286,6 +286,7 @@ export interface ExchangeTrade {
     partnerPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
     signature?: string | undefined; // Evercoin only, passed from createTrade response to confirmTrade request
     orderId?: string | undefined; // internal ID assigned to the trade by the exchange
+    quoteId?: string | undefined;
     statusUrl?: string | undefined; // internal URL + ID assigned to the trade by the exchange to check status
     status?: ExchangeTradeStatus | undefined; // state of trade after confirmTrade
     error?: string | undefined; // something went wrong after confirmTrade
@@ -321,6 +322,7 @@ export interface ExchangeTrade {
         | undefined;
     // locally used fields
     offerType?: "bestRate" | "favorite" | undefined;
+    tradeForm?: FormResponse;
 }
 
 export interface ExtendedExchangeTrade extends ExchangeTrade {
@@ -349,10 +351,13 @@ export interface ConfirmExchangeTradeRequest {
     receiveAddress: string; // address hash
     refundAddress: string; // address hash (optional because Changelly doesn't support it)
     extraField?: string | undefined; // XRP destination tag, XMR label id, ...
+    returnUrl?: string; // URL where to return after the trade is done
 }
 
 export interface WatchExchangeTradeResponse {
     status?: ExchangeTradeStatus | undefined; // state of trade after confirmTrade
+    sendAddress?: string; // exchange address for send tx
+    partnerPaymentExtraId?: string; // Extra ID for payments to exchange for networks that require it (destinationTag)
     receiveTxHash?: string | undefined;
     rate?: number | undefined;
     receiveStringAmount?: string | undefined; // "0.01"

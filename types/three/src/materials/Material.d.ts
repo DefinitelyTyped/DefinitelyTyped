@@ -244,6 +244,12 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     readonly isMaterial: true;
 
     /**
+     * Value is the string 'Material'. This shouldn't be changed, and can be used to find all objects of this type in a
+     * scene.
+     */
+    type: string;
+
+    /**
      * Enables alpha hashed transparency, an alternative to {@link .transparent} or {@link .alphaTest}. The material
      * will not be rendered if opacity is lower than a random threshold. Randomization introduces some grain or noise,
      * but approximates alpha blending without the associated problems of sorting. Using TAARenderPass can reduce the
@@ -508,12 +514,6 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @default false
      */
     transparent: boolean;
-
-    /**
-     * Value is the string 'Material'. This shouldn't be changed, and can be used to find all objects of this type in a scene.
-     * @default 'Material'
-     */
-    type: string;
 
     /**
      * UUID of this material instance. This gets automatically assigned, so this shouldn't be edited.

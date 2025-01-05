@@ -473,6 +473,7 @@ declare namespace Dockerode {
 
     interface VolumeRemoveOptions {
         abortSignal?: AbortSignal;
+        force?: boolean | undefined;
     }
 
     interface VolumeCreateResponse {
@@ -1168,6 +1169,7 @@ declare namespace Dockerode {
                     Name: string;
                     Options: { [option: string]: string };
                 };
+                Subpath?: string;
             }
             | undefined;
         TmpfsOptions?:

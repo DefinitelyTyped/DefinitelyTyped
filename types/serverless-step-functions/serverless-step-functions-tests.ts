@@ -94,6 +94,122 @@ const stepFunctions: StepFunctions = {
                 Team: "Atlantis",
             },
         },
+        accountApplicationService: {
+            name: "AccountApplicationService",
+            definition: {
+                Comment: "This is a state machine for account application service",
+                StartAt: "Verification",
+                States: {
+                    Verification: {
+                        Type: "Parallel",
+                        QueryLanguage: "JSONata",
+                        Branches: [
+                            {
+                                StartAt: "Check Identity",
+                                States: {
+                                    "Check Identity": {
+                                        Type: "Pass",
+                                        QueryLanguage: "JSONata",
+                                        End: true,
+                                        Output: {
+                                            isIdentityValid:
+                                                "{% $match($states.input.data.identity.email, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/) and $match($states.input.data.identity.ssn, /^(\\d{3}-?\\d{2}-?\\d{4}|XXX-XX-XXXX)$/) %}",
+                                        },
+                                    },
+                                },
+                            },
+                            {
+                                StartAt: "Check Address",
+                                States: {
+                                    "Check Address": {
+                                        Type: "Pass",
+                                        QueryLanguage: "JSONata",
+                                        End: true,
+                                        Output: {
+                                            isAddressValid:
+                                                "{% $not(null in $each($states.input.data.address, function($v) { $length($trim($v)) > 0 ? $v : null })) %}",
+                                        },
+                                    },
+                                },
+                            },
+                        ],
+                        Assign: {
+                            inputPayload: "{% $states.context.Execution.Input %}",
+                            isCustomerValid: "{% $states.result.isIdentityValid and $states.result.isAddressValid %}",
+                        },
+                        Next: "Approve or Deny?",
+                    },
+                    "Approve or Deny?": {
+                        Type: "Choice",
+                        QueryLanguage: "JSONata",
+                        Choices: [
+                            {
+                                Next: "Add Account",
+                                Condition: "{% $isCustomerValid %}",
+                            },
+                        ],
+                        Default: "Deny Message",
+                    },
+                    "Add Account": {
+                        Type: "Task",
+                        QueryLanguage: "JSONata",
+                        Resource: "arn:aws:states:::dynamodb:putItem",
+                        Arguments: {
+                            TableName: "${AccountsTable}",
+                            Item: {
+                                PK: {
+                                    S: "{% $uuid() %}",
+                                },
+                                email: {
+                                    S: "{% $inputPayload.data.identity.email %}",
+                                },
+                                name: {
+                                    S: "{% $inputPayload.data.firstname & ' ' & $inputPayload.data.lastname  %}",
+                                },
+                                address: {
+                                    S: "{% $join($each($inputPayload.data.address, function($v) { $v }), ', ') %}",
+                                },
+                                timestamp: {
+                                    S: "{% $now() %}",
+                                },
+                            },
+                        },
+                        Next: "Home Insurance Interests",
+                    },
+                    "Home Insurance Interests": {
+                        Type: "Task",
+                        QueryLanguage: "JSONata",
+                        Resource: "arn:aws:states:::sqs:sendMessage",
+                        Arguments: {
+                            QueueUrl: "${HomeInsuranceInterestQueueArn}",
+                            MessageBody:
+                                "{% ($e := $inputPayload.data.identity.email; $n := $inputPayload.data.firstname & ' ' & $inputPayload.data.lastname; $inputPayload.data.interests[category = 'home']{'customer': $n, 'email': $e, 'totalAssetValue': $sum(estimatedValue), category: {type: yearBuilt}}) %}",
+                        },
+                        Next: "Approved Message",
+                    },
+                    "Approved Message": {
+                        Type: "Task",
+                        Resource: "arn:aws:states:::sns:publish",
+                        Parameters: {
+                            TopicArn: "${SendCustomerNotificationSNSTopicArn}",
+                            "Message.$":
+                                "States.Format('Hello {}, your application has been approved.', $inputPayload.data.firstname)",
+                        },
+                        End: true,
+                    },
+                    "Deny Message": {
+                        Type: "Task",
+                        Resource: "arn:aws:states:::sns:publish",
+                        Parameters: {
+                            TopicArn: "${SendCustomerNotificationSNSTopicArn}",
+                            "Message.$":
+                                "States.Format('Hello {}, your application has been denied because validation of provided data failed', $inputPayload.data.firstname)",
+                        },
+                        End: true,
+                    },
+                },
+            },
+        },
     },
     validate: true,
     noOutput: false,

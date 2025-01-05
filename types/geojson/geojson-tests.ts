@@ -1,8 +1,10 @@
 import {
     Feature,
     FeatureCollection,
+    GeoJSON,
     GeoJsonGeometryTypes,
     GeoJsonTypes,
+    Geometry,
     GeometryCollection,
     GeometryObject,
     LineString,
@@ -479,3 +481,40 @@ for (const { geometry } of collectionDefault.features) {
             break;
     }
 }
+
+// Features & collections with null geometries should be assignable to GeoJSON
+const featureWithNullGeometry = {
+    type: "Feature" as const,
+    geometry: null,
+    properties: null,
+};
+const featureCollectionWithNullGeometry = {
+    type: "FeatureCollection" as const,
+    features: [featureWithNullGeometry],
+};
+const featureWithNullGeometryAsFeature: Feature<Geometry | null> = featureWithNullGeometry;
+const featureCollectionWithNullGeometryAsFeatureCollection: FeatureCollection<Geometry | null> =
+    featureCollectionWithNullGeometry;
+const featureWithNullGeometryAsGeoJSON: GeoJSON<Geometry | null> = featureWithNullGeometry;
+const featureCollectionWithNullGeometryAsGeoJSON: GeoJSON<Geometry | null> = featureCollectionWithNullGeometry;
+
+// Top level geojson should be generic to allow geometry and properties types to be modified
+const geoJsonWithSpecificGeometryAndProperties: GeoJSON<Point, { a: number }>[] = [
+    {
+        type: "Feature",
+        geometry: point,
+        properties: { a: 34 },
+    },
+    {
+        type: "FeatureCollection",
+        features: [
+            {
+                type: "Feature",
+                // @ts-expect-error -- Geometry does not adhere to the specified type
+                geometry: lineString,
+                // @ts-expect-error -- Properties does not adhere to the specified type
+                properties: {},
+            },
+        ],
+    },
+];

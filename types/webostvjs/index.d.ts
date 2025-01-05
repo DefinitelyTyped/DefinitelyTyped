@@ -361,13 +361,13 @@ export interface DeviceInfo {
      * - true: The device supports Ultra HD resolution.
      * - false: The device does not support Ultra HD resolution.
      */
-    uhd?: boolean | undefined;
+    uhd: boolean;
     /**
      * Indicates whether the device supports 8K UHD resolution.
      * - true: The device supports 8K UHD resolution.
      * - false: The device does not support 8K UHD resolution.
      */
-    uhd8K?: boolean | undefined;
+    uhd8K: boolean;
     /**
      * Indicates whether the display type of device is OLED or not.
      * - true: The display type is OLED.
@@ -385,19 +385,41 @@ export interface DeviceInfo {
      * true: The device supports HDR10.
      * false: The device does not support HDR10.
      */
-    hdr10?: boolean | undefined;
+    hdr10: boolean;
     /**
      * Indicate whether the device supports Dolby Vision.
      * true: The device supports Dolby Vision.
      * false: The device does not support Dolby Vision.
      */
-    dolbyVision?: boolean | undefined;
+    dolbyVision: boolean;
     /**
      * Indicate whether the device supports Dolby Atmos.
      * true: The device supports Dolby Atmos.
      * false: The device does not support Dolby Atmos.
      */
-    dolbyAtmos?: boolean | undefined;
+    dolbyAtmos: boolean;
+    /**
+     * The brand name of the device.
+     */
+    brandName: string;
+    /**
+     * The manufacturer of the device.
+     */
+    manufacturer: string;
+    /**
+     * The mainboard maker of the device.
+     */
+    mainboardMaker?: string | undefined;
+    /**
+     * The platform business type of the device.
+     */
+    platformBizType: string;
+    /**
+     * Indicates whether the device supports tuner or not.
+     * true: The device supports tuner.
+     * false: The device is tunerless.
+     */
+    tuner: boolean;
 }
 
 export interface OnCompleteSuccessResponse {

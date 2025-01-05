@@ -6,7 +6,7 @@
         "https://github.com/monterail/vuelidate"
     ],
     "dependencies": {
-        "vue": "^2.6.11"
+        "vue": "^2.7.15"
     },
     "devDependencies": {
         "@types/vuelidate": "workspace:."

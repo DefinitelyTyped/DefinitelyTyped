@@ -1,5 +1,11 @@
 import * as Redux from "redux";
-import configureStore, { MockStore, MockStoreCreator } from "redux-mock-store";
+import defaultExport, { configureStore, legacy_configureStore, MockStore, MockStoreCreator } from "redux-mock-store";
+
+// check that all exports are the same
+const expectType = <T>(value: T) => value;
+expectType<typeof defaultExport>(configureStore);
+expectType<typeof configureStore>(defaultExport);
+expectType<typeof configureStore>(legacy_configureStore);
 
 // Redux store API tests
 // The following test are taken from ../redux/redux-tests.ts

@@ -20,6 +20,7 @@
 /// <reference path="CheckboxMultiselectInputWidget.d.ts" />
 /// <reference path="CheckboxMultiselectWidget.d.ts" />
 /// <reference path="ComboBoxInputWidget.d.ts" />
+/// <reference path="CopyTextLayout.d.ts" />
 /// <reference path="DecoratedOptionWidget.d.ts" />
 /// <reference path="Dialog.d.ts" />
 /// <reference path="DropdownInputWidget.d.ts" />

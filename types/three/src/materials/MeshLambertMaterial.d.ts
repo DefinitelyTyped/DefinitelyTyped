@@ -48,11 +48,6 @@ export class MeshLambertMaterial extends Material {
     readonly isMeshLambertMaterial: true;
 
     /**
-     * @default 'MeshLambertMaterial'
-     */
-    type: string;
-
-    /**
      * @default new THREE.Color( 0xffffff )
      */
     color: Color;

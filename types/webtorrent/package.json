@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/webtorrent",
-    "version": "0.109.9999",
+    "version": "0.110.9999",
     "projects": [
         "https://github.com/feross/webtorrent",
         "https://webtorrent.io"

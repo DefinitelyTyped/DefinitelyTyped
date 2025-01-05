@@ -1,4 +1,12 @@
-import { EndOrNext, JsonObject, JsonValue, Path, ReferencePath } from "./state";
+import {
+    AssignmentObject,
+    EndOrNext,
+    JSONataExpression,
+    JsonObject,
+    Path,
+    QueryLanguage,
+    ReferencePath,
+} from "./state";
 
 /**
  * The Pass State (identified by "Type":"Pass") by default passes its input to its output, performing no work.
@@ -8,12 +16,20 @@ import { EndOrNext, JsonObject, JsonValue, Path, ReferencePath } from "./state";
  */
 export type Pass = {
     Type: "Pass";
+    Comment?: string;
     Next?: string;
     End?: boolean;
-    Comment?: string;
+
+    // Common fields
+    QueryLanguage?: QueryLanguage;
+    Assign?: AssignmentObject;
+
+    // JSONata style fields
+    Output?: JSONataExpression;
+
+    // JSONPath style fields
     InputPath?: Path | null;
     OutputPath?: Path | null;
-    Result?: JsonValue;
-    ResultPath?: ReferencePath | null;
     Parameters?: JsonObject;
+    ResultPath?: ReferencePath | null;
 } & EndOrNext;

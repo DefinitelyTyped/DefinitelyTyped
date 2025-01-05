@@ -6,7 +6,7 @@ export const id: number;
 /**
  * clears cache target (key or group), or entire cache if no value passed, returns new index.
  */
-export function clear(target: string | any[]): any;
+export function clear(target?: string | any[]): any;
 
 /** used to create a new ApiCache instance with the same options as the current one */
 export function clone(): any;

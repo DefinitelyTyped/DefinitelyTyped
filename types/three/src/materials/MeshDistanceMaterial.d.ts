@@ -24,11 +24,6 @@ export class MeshDistanceMaterial extends Material {
     readonly isMeshDistanceMaterial: true;
 
     /**
-     * @default 'MeshDistanceMaterial'
-     */
-    type: string;
-
-    /**
      * @default null
      */
     map: Texture | null;

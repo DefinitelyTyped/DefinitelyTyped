@@ -697,22 +697,14 @@ export type NormalMapTypes = typeof TangentSpaceNormalMap | typeof ObjectSpaceNo
 export const NoColorSpace: "";
 export const SRGBColorSpace: "srgb";
 export const LinearSRGBColorSpace: "srgb-linear";
-export const DisplayP3ColorSpace: "display-p3";
-export const LinearDisplayP3ColorSpace = "display-p3-linear";
 export type ColorSpace =
     | typeof NoColorSpace
     | typeof SRGBColorSpace
-    | typeof LinearSRGBColorSpace
-    | typeof DisplayP3ColorSpace
-    | typeof LinearDisplayP3ColorSpace;
+    | typeof LinearSRGBColorSpace;
 
 export const LinearTransfer: "linear";
 export const SRGBTransfer: "srgb";
 export type ColorSpaceTransfer = typeof LinearTransfer | typeof SRGBTransfer;
-
-export const Rec709Primaries: "rec709";
-export const P3Primaries: "p3";
-export type ColorSpacePrimaries = typeof Rec709Primaries | typeof P3Primaries;
 
 // Stencil Op types
 export const ZeroStencilOp: 0;

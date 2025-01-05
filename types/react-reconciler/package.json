@@ -5,7 +5,7 @@
     "projects": [
         "https://reactjs.org/"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/react": "*"
     },
     "devDependencies": {

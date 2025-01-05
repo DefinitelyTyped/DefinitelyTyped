@@ -7,16 +7,22 @@ function test_deviceInfo() {
         deviceInfo.screenHeight; // $ExpectType number
         deviceInfo.screenWidth; // $ExpectType number
         deviceInfo.sdkVersion; // $ExpectType string
-        deviceInfo.uhd; // $ExpectType boolean | undefined
+        deviceInfo.uhd; // $ExpectType boolean
         deviceInfo.version; // $ExpectType string
         deviceInfo.versionDot; // $ExpectType number
         deviceInfo.versionMajor; // $ExpectType number
         deviceInfo.versionMinor; // $ExpectType number
-        deviceInfo.uhd8K; // $ExpectType boolean | undefined
+        deviceInfo.uhd8K; // $ExpectType boolean
         deviceInfo.oled; // $ExpectType boolean | undefined
-        deviceInfo.hdr10; // $ExpectType boolean | undefined
-        deviceInfo.dolbyVision; // $ExpectType boolean | undefined
-        deviceInfo.dolbyAtmos; // $ExpectType boolean | undefined
+        deviceInfo.ddrSize; // $ExpectType string | undefined
+        deviceInfo.hdr10; // $ExpectType boolean
+        deviceInfo.dolbyVision; // $ExpectType boolean
+        deviceInfo.dolbyAtmos; // $ExpectType boolean
+        deviceInfo.brandName; // $ExpectType string
+        deviceInfo.manufacturer; // $ExpectType string
+        deviceInfo.mainboardMaker; // $ExpectType string | undefined
+        deviceInfo.platformBizType; // $ExpectType string
+        deviceInfo.tuner; // $ExpectType boolean
     });
 }
 

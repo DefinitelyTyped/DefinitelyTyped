@@ -1276,6 +1276,8 @@ export interface PublicKeyAuthContext extends AuthContextBase {
     signature?: Buffer;
     /** The data used to verify the key, or `undefined` if the client is only checking the validity of the key. */
     blob?: Buffer;
+    /** The explicit hash algorithm to be used during verification (passed to key.verify()). */
+    hashAlgo?: string;
 }
 
 export interface PublicKey {
@@ -1631,7 +1633,7 @@ export interface SetEnvInfo {
     /** The environment variable's name. */
     key: string;
     /** The environment variable's value. */
-    value: string;
+    val: string;
 }
 
 export interface SignalInfo {

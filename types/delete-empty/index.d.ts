@@ -20,7 +20,7 @@ declare namespace deleteEmpty {
     }
 
     interface FilterFunction {
-        (file: string, regex: RegExp): string;
+        (file: string, regex: RegExp): boolean;
     }
 }
 

@@ -7,11 +7,22 @@ import { Matrix4 } from "../math/Matrix4.js";
 import { Sphere } from "../math/Sphere.js";
 import { Mesh } from "./Mesh.js";
 
+export interface BatchedMeshGeometryRange {
+    vertexStart: number;
+    vertexCount: number;
+    reservedVertexCount: number;
+    indexStart: number;
+    indexCount: number;
+    reservedIndexCount: number;
+    start: number;
+    count: number;
+}
+
 /**
- * A special version of {@link Mesh} with multi draw batch rendering support. Use {@link BatchedMesh} if you have to
- * render a large number of objects with the same material but with different world transformations. The  usage of
- * {@link BatchedMesh} will help you to reduce the number of draw calls and thus improve the overall rendering
- * performance in your application.
+ * A special version of {@link Mesh} with multi draw batch rendering support. Use BatchedMesh if you have to render a
+ * large number of objects with the same material but with different geometries or world transformations. The usage of
+ * BatchedMesh will help you to reduce the number of draw calls and thus improve the overall rendering performance in
+ * your application.
  *
  * If the {@link https://developer.mozilla.org/en-US/docs/Web/API/WEBGL_multi_draw WEBGL_multi_draw extension} is not
  * supported then a less performant fallback is used.
@@ -79,6 +90,12 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
      * The maximum number of individual geometries that can be stored in the {@link BatchedMesh}. Read only.
      */
     get maxInstanceCount(): number;
+
+    get instanceCount(): number;
+
+    get unusedVertexCount(): number;
+
+    get unusedIndexCount(): number;
 
     /**
      * Read-only flag to check if a given object is of type {@link BatchedMesh}.
@@ -151,8 +168,8 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
      */
     getGeometryRangeAt(
         geometryId: number,
-        target?: { start: number; count: number },
-    ): { start: number; count: number } | null;
+        target?: BatchedMeshGeometryRange,
+    ): BatchedMeshGeometryRange | null;
 
     /**
      * Get the geometryIndex of the defined instance.
@@ -209,6 +226,12 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     addInstance(geometryId: number): number;
 
     /**
+     * @param geometryId The id of a geometry to remove from the [name] that was previously added via "addGeometry". Any
+     * instances referencing this geometry will also be removed as a side effect.
+     */
+    deleteGeometry(geometryId: number): this;
+
+    /**
      * Removes an existing instance from the BatchedMesh using the given instanceId.
      * @param instanceId The id of an instance to remove from the BatchedMesh that was previously added via
      * "addInstance".
@@ -222,6 +245,28 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
      * @param geometry The geometry to substitute at the given geometry id.
      */
     setGeometryAt(geometryId: number, geometry: BufferGeometry): number;
+
+    /**
+     * Repacks the sub geometries in [name] to remove any unused space remaining from previously deleted geometry,
+     * freeing up space to add new geometry.
+     */
+    optimize(): this;
+
+    /**
+     * Resizes the available space in BatchedMesh's vertex and index buffer attributes to the provided sizes. If the
+     * provided arguments shrink the geometry buffers but there is not enough unused space at the end of the geometry
+     * attributes then an error is thrown.
+     * @param maxVertexCount the max number of vertices to be used by all unique geometries to resize to.
+     * @param maxIndexCount the max number of indices to be used by all unique geometries to resize to.
+     */
+    setGeometrySize(maxVertexCount: number, maxIndexCount: number): void;
+
+    /**
+     * Resizes the necessary buffers to support the provided number of instances. If the provided arguments shrink the
+     * number of instances but there are not enough unused ids at the end of the list then an error is thrown.
+     * @param maxInstanceCount the max number of individual instances that can be added and rendered by the BatchedMesh.
+     */
+    setInstanceCount(maxInstanceCount: number): void;
 
     getBoundingBoxAt(geometryId: number, target: Box3): Box3 | null;
     getBoundingSphereAt(geometryId: number, target: Sphere): Sphere | null;

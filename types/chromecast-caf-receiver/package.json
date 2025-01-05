@@ -12,6 +12,18 @@
     },
     "owners": [
         {
+            "name": "Joey Parrish",
+            "githubUsername": "joeyparrish"
+        },
+        {
+            "name": "Julian Domingo",
+            "githubUsername": "juliandomingo"
+        },
+        {
+            "name": "Theodore Abshire",
+            "githubUsername": "theodab"
+        },
+        {
             "name": "Sergio Arbeo",
             "githubUsername": "Serabe"
         },

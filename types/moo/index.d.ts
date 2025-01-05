@@ -70,7 +70,7 @@ export interface Lexer {
     /**
      * Returns a string with a pretty error message.
      */
-    formatError(token: Token, message?: string): string;
+    formatError(token?: Token, message?: string): string;
     /**
      * @deprecated since 0.5.0. Now just returns true
      */

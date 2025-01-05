@@ -60,11 +60,16 @@ export interface ReaderPaginationFragment extends ReaderFragment {
     };
 }
 
+export interface RefetchableIdentifierInfo {
+    readonly identifierField: string;
+    readonly identifierQueryVariableName: string;
+}
+
 export interface ReaderRefetchMetadata {
     readonly connection?: ReaderPaginationMetadata | null | undefined;
     readonly operation: string | ConcreteRequest;
     readonly fragmentPathInResult: string[];
-    readonly identifierField?: string | null | undefined;
+    readonly identifierInfo?: RefetchableIdentifierInfo | null | undefined;
 }
 
 // Stricter form of ConnectionMetadata

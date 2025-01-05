@@ -240,6 +240,8 @@ function test_scale() {
 function test_types() {
     const color: chroma.Color = chroma("orange");
     const scale: chroma.Scale = chroma.scale("RdYlBu");
+    const scale1: Scale = scale.domain([1, 10]);
+    const minmax: number[] = scale.domain();
 }
 
 // the following should actually, pass, but TS can't disambiguate between a parameter
