@@ -3577,6 +3577,10 @@
             "libraryName": "metro-transform-worker",
             "asOfVersion": "0.76.3"
         },
+        "meyda": {
+            "libraryName": "meyda",
+            "asOfVersion": "5.3.0"
+        },
         "micro": {
             "libraryName": "micro",
             "asOfVersion": "10.0.0"
