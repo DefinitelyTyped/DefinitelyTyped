@@ -4927,6 +4927,10 @@
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
         },
+        "react-cropper": {
+            "libraryName": "react-cropper",
+            "asOfVersion": "2.0.0"
+        },
         "react-datepicker": {
             "libraryName": "react-datepicker",
             "asOfVersion": "7.0.0"
