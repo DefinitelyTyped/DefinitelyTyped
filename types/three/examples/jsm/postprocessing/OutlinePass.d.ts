@@ -59,6 +59,6 @@ export class OutlinePass extends Pass {
     updateTextureMatrix(): void;
     getPrepareMaskMaterial(): ShaderMaterial;
     getEdgeDetectionMaterial(): ShaderMaterial;
-    getSeperableBlurMaterial(): ShaderMaterial;
+    getSeparableBlurMaterial(): ShaderMaterial;
     getOverlayMaterial(): ShaderMaterial;
 }

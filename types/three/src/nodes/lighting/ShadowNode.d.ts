@@ -2,6 +2,7 @@ import { Light } from "../../lights/Light.js";
 import { LightShadow } from "../../lights/LightShadow.js";
 import Node from "../core/Node.js";
 import { NodeRepresentation, ShaderNodeObject } from "../tsl/TSLCore.js";
+import ShadowBaseNode from "./ShadowBaseNode.js";
 
 export const BasicShadowFilter: (
     depthTexture: NodeRepresentation,
@@ -25,7 +26,7 @@ export const VSMShadowFilter: (
     shadowCoord: NodeRepresentation,
 ) => ShaderNodeObject<Node>;
 
-declare class ShadowNode extends Node {
+declare class ShadowNode extends ShadowBaseNode {
     constructor(light: Light, shadow: LightShadow | null);
 }
 

@@ -14,60 +14,125 @@ declare namespace chrome {
     // Accessibility Features
     ////////////////////
     /**
-     * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request accessibilityFeatures.read permission. For modifying feature state, the extension needs accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
-     * @since Chrome 37
-     * Permissions: "accessibilityFeatures.read"
-     * Important: This API works only on Chrome OS.
+     * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request `accessibilityFeatures.read` permission. For modifying feature state, the extension needs `accessibilityFeatures.modify` permission. Note that `accessibilityFeatures.modify` does not imply `accessibilityFeatures.read` permission.
+     * Permissions: "accessibilityFeatures.read", "accessibilityFeatures.modify"
      */
     export namespace accessibilityFeatures {
-        /** **ChromeOS only.** Spoken feedback (text-to-speech). */
-        export var spokenFeedback: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Enlarged cursor. */
-        export var largeCursor: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Sticky modifier keys (like shift or alt). */
-        export var stickyKeys: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** High contrast rendering mode. */
-        export var highContrast: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Full screen magnification. */
-        export var screenMagnifier: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Auto mouse click after mouse stops moving. */
-        export var autoclick: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Virtual on-screen keyboard. */
-        export var virtualKeyboard: chrome.types.ChromeSetting<boolean>;
+        /** `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission. */
+        export const animationPolicy: chrome.types.ChromeSetting<"allowed" | "once" | "none">;
+
         /**
-         * **ChromeOS only.**
-         * Caret highlighting.
+         * Auto mouse click after mouse stops moving. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const autoclick: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Caret highlighting. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var caretHighlight: chrome.types.ChromeSetting<boolean>;
+        export const caretHighlight: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * **ChromeOS only.**
-         * Cursor highlighting.
+         * Cursor color. The value indicates whether the feature is enabled or not, doesn't indicate the color of it.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         * @since Chrome 85
+         */
+        export const cursorColor: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Cursor highlighting. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var cursorHighlight: chrome.types.ChromeSetting<boolean>;
+        export const cursorHighlight: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * **ChromeOS only.**
-         * Focus highlighting.
+         * Dictation. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         * @since Chrome 90
+         */
+        export const dictation: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Docked magnifier. The value indicates whether docked magnifier feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         * @since Chrome 87
+         */
+        export const dockedMagnifier: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Focus highlighting. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var focusHighlight: chrome.types.ChromeSetting<boolean>;
+        export const focusHighlight: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * **ChromeOS only.**
-         * Select-to-speak.
+         * High contrast rendering mode. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const highContrast: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Enlarged cursor. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const largeCursor: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Full screen magnification. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const screenMagnifier: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Select-to-speak. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var selectToSpeak: chrome.types.ChromeSetting<boolean>;
+        export const selectToSpeak: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * **ChromeOS only.**
-         * Switch Access.
+         * Spoken feedback (text-to-speech). The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const spokenFeedback: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Sticky modifier keys (like shift or alt). The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const stickyKeys: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Switch Access. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var switchAccess: chrome.types.ChromeSetting<boolean>;
+        export const switchAccess: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * @since Chrome 42
+         * Virtual on-screen keyboard. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          */
-        export var animationPolicy: chrome.types.ChromeSetting<"allowed" | "once" | "none">;
+        export const virtualKeyboard: chrome.types.ChromeSetting<boolean>;
     }
 
     ////////////////////
@@ -112,8 +177,6 @@ declare namespace chrome {
             popup: string;
         }
 
-        export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
-
         export interface TabIconDetails {
             /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
             path?: string | { [index: number]: string } | undefined;
@@ -133,9 +196,19 @@ declare namespace chrome {
             tabId?: number | undefined;
         }
 
+        /**
+         * The collection of user-specified settings relating to an extension's action.
+         * @since Chrome 91
+         */
         export interface UserSettings {
             /** Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user). */
             isOnToolbar: boolean;
+        }
+
+        /** @since Chrome 130 */
+        export interface UserSettingsChange {
+            /** Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user). */
+            isOnToolbar?: boolean;
         }
 
         /**
@@ -358,7 +431,13 @@ declare namespace chrome {
         export function setTitle(details: TitleDetails, callback: () => void): void;
 
         /** Fired when an action icon is clicked. This event will not fire if the action has a popup. */
-        export var onClicked: BrowserClickedEvent;
+        export const onClicked: chrome.events.Event<(tab: chrome.tabs.Tab) => void>;
+
+        /**
+         * Fired when user-specified settings relating to an extension's action change.
+         * @since Chrome 130
+         */
+        export const onUserSettingsChanged: chrome.events.Event<(change: UserSettingsChange) => void>;
     }
 
     ////////////////////
@@ -6678,72 +6757,49 @@ declare namespace chrome {
      */
     export namespace permissions {
         export interface Permissions {
-            /**
-             * Optional.
-             * List of named permissions (does not include hosts or origins). Anything listed here must appear in the optional_permissions list in the manifest.
-             */
-            permissions?: string[] | undefined;
-            /**
-             * Optional.
-             * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional host permission list in the manifest (optional_permissions in MV2, optional_host_permissions in MV3). For example, if http://*.example.com/ or http://* appears in the optional permissions, you can request an origin of http://help.example.com/. Any path is ignored.
-             */
-            origins?: string[] | undefined;
-        }
-
-        export interface PermissionsRemovedEvent {
-            addListener(
-                callback: (/** The permissions that have been removed*/ permissions: Permissions) => void,
-            ): void;
-        }
-
-        export interface PermissionsAddedEvent {
-            addListener(callback: (/** The newly-acquired permissions*/ permissions: Permissions) => void): void;
+            /** The list of host permissions, including those specified in the `optional_permissions` or `permissions` keys in the manifest, and those associated with [Content Scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts). */
+            origins?: string[];
+            /** List of named permissions (does not include hosts or origins). */
+            permissions?: chrome.runtime.ManifestPermissions[];
         }
 
         /**
          * Checks if the extension has the specified permissions.
-         * @return A Promise that resolves with boolean: True if the extension has the specified permissions.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function contains(permissions: Permissions): Promise<boolean>;
-        /**
-         * Checks if the extension has the specified permissions.
-         * Parameter result: True if the extension has the specified permissions.
-         */
         export function contains(permissions: Permissions, callback: (result: boolean) => void): void;
+
         /**
          * Gets the extension's current set of permissions.
-         * @return A Promise that resolves with Permissions object describing the extension's active permissions.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function getAll(): Promise<Permissions>;
-        /**
-         * Gets the extension's current set of permissions.
-         */
         export function getAll(callback: (permissions: Permissions) => void): void;
+
         /**
-         * Requests access to the specified permissions. These permissions must be defined in the optional_permissions or optional_host_permissions (MV3 only) fields of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
-         * @return A Promise that resolves with boolean: True if the user granted the specified permissions.
+         * Requests access to the specified permissions, displaying a prompt to the user if necessary.
+         * These permissions must either be defined in the optional_permissions field of the manifest or be required permissions that were withheld by the user.
+         * Paths on origin patterns will be ignored.
+         * You can request subsets of optional origin permissions; for example, if you specify `*://*\/*` in the `optional_permissions` section of the manifest, you can request `http://example.com/`.
+         * If there are any problems requesting the permissions, {@link runtime.lastError} will be set.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function request(permissions: Permissions): Promise<boolean>;
+        export function request(permissions: Permissions, callback: (granted: boolean) => void): void;
+
         /**
-         * Requests access to the specified permissions. These permissions must be defined in the optional_permissions or optional_host_permissions (MV3 only) fields of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
-         * Parameter granted: True if the user granted the specified permissions.
-         */
-        export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
-        /**
-         * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
-         * @return A Promise that resolves with boolean: True if the permissions were removed.
+         * Removes access to the specified permissions. If there are any problems removing the permissions, {@link runtime.lastError} will be set.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         export function remove(permissions: Permissions): Promise<boolean>;
-        /**
-         * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
-         * Parameter removed: True if the permissions were removed.
-         */
-        export function remove(permissions: Permissions, callback?: (removed: boolean) => void): void;
+        export function remove(permissions: Permissions, callback: (removed: boolean) => void): void;
 
         /** Fired when access to permissions has been removed from the extension. */
-        export var onRemoved: PermissionsRemovedEvent;
+        export const onRemoved: chrome.events.Event<(permissions: Permissions) => void>;
+
         /** Fired when the extension acquires new permissions. */
-        export var onAdded: PermissionsAddedEvent;
+        export const onAdded: chrome.events.Event<(permissions: Permissions) => void>;
     }
 
     ////////////////////
