@@ -1,9 +1,9 @@
-import View from './view';
-import { HooksOptions } from './hooks';
+import { HooksOptions } from "./hooks";
+import View from "./view";
 
-export type DefaultsKeys = 'debounce' | 'throttle';
+export type DefaultsKeys = "debounce" | "throttle";
 export type Defaults = Record<DefaultsKeys, any>;
-export type ConnectFunction = (el: HTMLElement) => object
+export type ConnectFunction = (el: HTMLElement) => object;
 export type ConnectParams = object | ConnectFunction;
 
 export interface EventMetadata {
@@ -19,7 +19,7 @@ export interface EventMetadata {
 export interface DomOptions {
   jsQuerySelectorAll?: (sourceEl: HTMLElement, query: any, defaultQuery: () => Node[]) => Node[];
   onPatchStart?: (container: Node) => void;
-  onPatchEnd?: (container: Node) => void,
+  onPatchEnd?: (container: Node) => void;
   onNodeAdded?: (node: Node) => void;
   onBeforeElUpdated?: (fromEl: HTMLElement, toEl: HTMLElement) => void;
 }

@@ -1,6 +1,6 @@
 import LiveSocket from "./live_socket";
 
-export type OnReply = (reply: any, ref: number) => any
+export type OnReply = (reply: any, ref: number) => any;
 export type CallbackRef = (customEvent: any, bypass: boolean) => string;
 
 export interface ViewHookInterface {

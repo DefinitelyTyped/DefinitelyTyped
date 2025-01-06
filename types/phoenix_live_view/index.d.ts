@@ -24,11 +24,11 @@
 // Version 0.17.0 added LiveSocket.execJS() method for executing JavaScript utility operations on the client
 // See: https://github.com/phoenixframework/phoenix_live_view/blob/master/CHANGELOG.md#enhancements-17
 
+import { Hook, HooksOptions, ViewHookInterface } from "./hooks";
 import LiveSocket, { isUsedInput } from "./live_socket";
-import ViewHook from "./view_hook";
 import SocketOptions from "./socket_options";
-import { ViewHookInterface, Hook, HooksOptions } from "./hooks";
 import UploadEntry from "./upload_entry";
+import ViewHook from "./view_hook";
 
 /** Creates a ViewHook instance for the given element and callbacks.
  *
@@ -52,4 +52,4 @@ import UploadEntry from "./upload_entry";
  * @returns {ViewHook} Returns the ViewHook instance for the custom element.
  */
 export function createHook(el: HTMLElement, callbacks?: object): ViewHook;
-export { LiveSocket, isUsedInput, SocketOptions, ViewHookInterface, Hook, HooksOptions, UploadEntry };
+export { Hook, HooksOptions, isUsedInput, LiveSocket, SocketOptions, UploadEntry, ViewHookInterface };
