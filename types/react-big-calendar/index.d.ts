@@ -298,7 +298,7 @@ export interface Messages<TEvent extends object = Event> {
     date?: React.ReactNode | undefined;
     time?: React.ReactNode | undefined;
     event?: React.ReactNode | undefined;
-    allDay?: string | undefined;
+    allDay?: React.ReactNode | undefined;
     week?: React.ReactNode | undefined;
     work_week?: React.ReactNode | undefined;
     day?: React.ReactNode | undefined;
