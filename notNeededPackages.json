@@ -2817,6 +2817,10 @@
             "libraryName": "expect",
             "asOfVersion": "25.1.0"
         },
+        "jest-preset-stylelint": {
+            "libraryName": "jest-preset-stylelint",
+            "asOfVersion": "5.0.0"
+        },
         "jest-validate": {
             "libraryName": "jest-validate",
             "asOfVersion": "25.1.0"
