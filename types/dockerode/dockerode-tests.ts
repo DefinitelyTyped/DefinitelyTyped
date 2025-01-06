@@ -147,6 +147,18 @@ container.start((err, data) => {
     // NOOP
 });
 
+container.exec({
+    Cmd: ["echo", "hello"],
+    AttachStdin: true,
+    AttachStdout: true,
+    AttachStderr: true,
+    Tty: true,
+    User: "root",
+    ConsoleSize: [80, 24],
+}, (err, data) => {
+    // NOOP
+});
+
 container.remove((err, data) => {
     // NOOP
 });

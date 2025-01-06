@@ -1108,6 +1108,7 @@ declare namespace Dockerode {
         User?: string | undefined;
         WorkingDir?: string | undefined;
         abortSignal?: AbortSignal;
+        ConsoleSize?: [number, number];
     }
 
     interface ExecInspectInfo {
