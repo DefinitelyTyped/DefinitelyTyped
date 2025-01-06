@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/express-sse",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/dpskvn/express-sse"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/eventsource": "*"
+    },
+    "devDependencies": {
+        "@types/express-sse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aleksei Pokoev",
+            "githubUsername": "powerleks"
+        }
+    ]
+}
