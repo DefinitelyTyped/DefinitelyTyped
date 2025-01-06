@@ -53,6 +53,7 @@ const viewer3 = OpenSeadragon({
     id: "openseadragon",
     prefixUrl: "openseadragon/images/",
     showNavigator: false,
+    drawer: 'canvas',
     tileSources: {
         type: "legacy-image-pyramid",
         levels: [
