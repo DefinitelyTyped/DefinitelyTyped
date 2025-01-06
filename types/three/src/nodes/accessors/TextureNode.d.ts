@@ -31,7 +31,12 @@ export default class TextureNode extends UniformNode<Texture> {
 
     getSampler(): boolean;
 
+    /**
+     * @deprecated
+     */
     uv(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
+
+    sample(uvNode: NodeRepresentation): ShaderNodeObject<Node>;
 
     blur(amountNode: NodeRepresentation): ShaderNodeObject<Node>;
 
