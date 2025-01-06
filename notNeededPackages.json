@@ -3873,6 +3873,10 @@
             "libraryName": "node-sql-parser",
             "asOfVersion": "1.1.0"
         },
+        "node-ssh": {
+            "libraryName": "node-ssh",
+            "asOfVersion": "11.0.0"
+        },
         "node-vault": {
             "libraryName": "node-vault",
             "asOfVersion": "0.9.13"
