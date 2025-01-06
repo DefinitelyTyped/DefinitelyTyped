@@ -230,6 +230,7 @@ declare namespace OpenSeadragon {
     interface Options {
         id?: string | undefined;
         element?: HTMLElement | undefined;
+        drawer?: 'webgl' | 'canvas' | 'html';
         tileSources?:
             | string
             | TileSourceOptions
