@@ -1,19 +1,19 @@
 import { Socket } from "phoenix";
-import { HooksOptions, LiveSocket, SocketOptions, UploadEntry, ViewHook } from "phoenix_live_view";
+import { Hook, HooksOptions, LiveSocket, SocketOptions, UploadEntry, } from "./index";
 
 function test_socket() {
     // Hooks
-    const testHook: ViewHook = {
+    const testHook: Hook = {
         mounted() {
             const hook = this;
-            console.log("TestHook mounted", { element: this.el, viewName: this.viewName });
-            hook.pushEvent("hook-mounted", { name: "testHook" }, (reply, ref) => {
+            console.log("TestHook mounted", { element: this.el });
+            hook.pushEvent("hook-mounted", { name: "testHook" }, (reply: any, ref: number) => {
                 console.log(`Got hook-mounted reply ${JSON.stringify(reply)} ref ${ref}`);
             });
         },
     };
 
-    const testHookWithExtendedPrototype: ViewHook<{ handleClick: (event: MouseEvent) => void }> = {
+    const testHookWithExtendedPrototype: Hook<{ handleClick: (event: MouseEvent) => void }> = {
         mounted() {
             this.handleClick = (event: MouseEvent) => {
                 console.log("click", event);
@@ -43,12 +43,23 @@ function test_socket() {
         test: testUploader,
     };
 
+    const MyMetadata = {
+        click: (e: PointerEvent, el: HTMLElement) => {
+            return {
+                ctrlKey: e.ctrlKey,
+                metaKey: e.metaKey,
+                detail: e.detail || 1,
+            }
+        }
+    };
+
     const opts: SocketOptions = {
         params: {
             _csrf_token: "1234",
         },
         hooks: MyHooks,
         uploaders: MyUploaders,
+        metadata: MyMetadata
     };
 
     const liveSocket = new LiveSocket("/live", Socket, opts);
