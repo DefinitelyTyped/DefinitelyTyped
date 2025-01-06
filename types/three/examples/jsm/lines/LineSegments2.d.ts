@@ -1,4 +1,4 @@
-import { Mesh, WebGLRenderer } from "three";
+import { Mesh, Vector2, WebGLRenderer } from "three";
 
 import { LineMaterial } from "./LineMaterial.js";
 import { LineSegmentsGeometry } from "./LineSegmentsGeometry.js";
@@ -17,6 +17,8 @@ export class LineSegments2 extends Mesh {
      * Read-only flag to check if a given object is of type LineSegments2.
      */
     readonly isLineSegments2: true;
+
+    resolution: Vector2;
 
     /**
      * @param geometry (optional) Pair(s) of vertices representing each line segment.

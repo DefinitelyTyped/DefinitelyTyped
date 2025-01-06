@@ -1435,6 +1435,7 @@ customSymbol = d3Shape.symbolTriangle;
 customSymbol = d3Shape.symbolTriangle2;
 customSymbol = d3Shape.symbolWye;
 customSymbol = d3Shape.symbolX;
+customSymbol = d3Shape.symbolTimes;
 
 // -----------------------------------------------------------------------------------
 // Test pointRadial

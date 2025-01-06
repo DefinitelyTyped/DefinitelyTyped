@@ -193,7 +193,11 @@ export function addIgnoringRule(pattern: RegExp | string): void;
  *
  * Do *not* reuse the headers between users, or even between requests.
  */
-export function getBrowserTimingHeader(options?: { nonce?: string; hasToRemoveScriptWrapper?: boolean }): string;
+export function getBrowserTimingHeader(options?: {
+    nonce?: string;
+    hasToRemoveScriptWrapper?: boolean;
+    allowTransactionlessInjection?: boolean;
+}): string;
 
 /**
  * Instrument a particular method to improve visibility into a transaction,
