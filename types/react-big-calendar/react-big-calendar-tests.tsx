@@ -341,7 +341,7 @@ class CalendarResource {
                         date: <div>Date</div>,
                         time: <div>Time</div>,
                         event: <div>Event</div>,
-                        allDay: "All Day",
+                        allDay: <div>All Day</div>,
                         week: <div>Week</div>,
                         work_week: <div>Work Week</div>,
                         day: <div>Day</div>,
