@@ -138,3 +138,27 @@ function taintTests() {
         true,
     );
 }
+
+function viewTransitionTests() {
+    const ViewTransition = React.unstable_ViewTransition;
+
+    <ViewTransition />;
+    <ViewTransition name="auto" />;
+    <ViewTransition name="foo" />;
+    // autocomplete should display "auto"
+    <ViewTransition name="" />;
+
+    <ViewTransition>
+        <div />
+    </ViewTransition>;
+
+    const Null = () => null;
+    <ViewTransition>
+        <Null />
+    </ViewTransition>;
+
+    const Div = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
+    <ViewTransition>
+        <Div />
+    </ViewTransition>;
+}
