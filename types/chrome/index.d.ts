@@ -112,8 +112,6 @@ declare namespace chrome {
             popup: string;
         }
 
-        export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
-
         export interface TabIconDetails {
             /** Optional. Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'  */
             path?: string | { [index: number]: string } | undefined;
@@ -133,9 +131,19 @@ declare namespace chrome {
             tabId?: number | undefined;
         }
 
+        /**
+         * The collection of user-specified settings relating to an extension's action.
+         * @since Chrome 91
+         */
         export interface UserSettings {
             /** Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user). */
             isOnToolbar: boolean;
+        }
+
+        /** @since Chrome 130 */
+        export interface UserSettingsChange {
+            /** Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user). */
+            isOnToolbar?: boolean;
         }
 
         /**
@@ -358,7 +366,13 @@ declare namespace chrome {
         export function setTitle(details: TitleDetails, callback: () => void): void;
 
         /** Fired when an action icon is clicked. This event will not fire if the action has a popup. */
-        export var onClicked: BrowserClickedEvent;
+        export const onClicked: chrome.events.Event<(tab: chrome.tabs.Tab) => void>;
+
+        /**
+         * Fired when user-specified settings relating to an extension's action change.
+         * @since Chrome 130
+         */
+        export const onUserSettingsChanged: chrome.events.Event<(change: UserSettingsChange) => void>;
     }
 
     ////////////////////

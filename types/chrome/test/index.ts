@@ -1266,19 +1266,23 @@ function testBrowserAcionSetTitle() {
     chrome.browserAction.setTitle(undefined);
 }
 
-// https://developer.chrome.com/docs/extensions/reference/action/
-async function testActionForPromise() {
+// https://developer.chrome.com/docs/extensions/reference/api/action
+async function testAction() {
     await chrome.action.disable();
     await chrome.action.enable();
     await chrome.action.disable(0);
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});
     await chrome.action.getBadgeText({});
+    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
+    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
     const getBackTextColor1: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({});
     const getBackTextColor2: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({ tabId: 0 });
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
     await chrome.action.getUserSettings();
+    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
+    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
     const isEnabled1: boolean = await chrome.action.isEnabled();
     const isEnabled2: boolean = await chrome.action.isEnabled(0);
     await chrome.action.openPopup({ windowId: 1 });
@@ -1288,14 +1292,28 @@ async function testActionForPromise() {
     await chrome.action.setIcon({ path: { "16": "path/to/icon.png" } });
     await chrome.action.setPopup({ popup: "popup1" });
     await chrome.action.setTitle({ title: "title1" });
-}
 
-// https://developer.chrome.com/docs/extensions/reference/action/
-async function testActionForCallback() {
-    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
-    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
-    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
-    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
+    chrome.action.onClicked.addListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.removeListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListeners();
+
+    chrome.action.onUserSettingsChanged.addListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.removeListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.hasListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.hasListeners();
 }
 
 // https://developer.chrome.com/docs/extensions/reference/alarms/
