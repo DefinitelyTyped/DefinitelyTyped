@@ -14,60 +14,125 @@ declare namespace chrome {
     // Accessibility Features
     ////////////////////
     /**
-     * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request accessibilityFeatures.read permission. For modifying feature state, the extension needs accessibilityFeatures.modify permission. Note that accessibilityFeatures.modify does not imply accessibilityFeatures.read permission.
-     * @since Chrome 37
-     * Permissions: "accessibilityFeatures.read"
-     * Important: This API works only on Chrome OS.
+     * Use the chrome.accessibilityFeatures API to manage Chrome's accessibility features. This API relies on the ChromeSetting prototype of the type API for getting and setting individual accessibility features. In order to get feature states the extension must request `accessibilityFeatures.read` permission. For modifying feature state, the extension needs `accessibilityFeatures.modify` permission. Note that `accessibilityFeatures.modify` does not imply `accessibilityFeatures.read` permission.
+     * Permissions: "accessibilityFeatures.read", "accessibilityFeatures.modify"
      */
     export namespace accessibilityFeatures {
-        /** **ChromeOS only.** Spoken feedback (text-to-speech). */
-        export var spokenFeedback: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Enlarged cursor. */
-        export var largeCursor: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Sticky modifier keys (like shift or alt). */
-        export var stickyKeys: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** High contrast rendering mode. */
-        export var highContrast: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Full screen magnification. */
-        export var screenMagnifier: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Auto mouse click after mouse stops moving. */
-        export var autoclick: chrome.types.ChromeSetting<boolean>;
-        /** **ChromeOS only.** Virtual on-screen keyboard. */
-        export var virtualKeyboard: chrome.types.ChromeSetting<boolean>;
+        /** `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission. */
+        export const animationPolicy: chrome.types.ChromeSetting<"allowed" | "once" | "none">;
+
         /**
-         * **ChromeOS only.**
-         * Caret highlighting.
+         * Auto mouse click after mouse stops moving. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const autoclick: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Caret highlighting. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var caretHighlight: chrome.types.ChromeSetting<boolean>;
+        export const caretHighlight: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * **ChromeOS only.**
-         * Cursor highlighting.
+         * Cursor color. The value indicates whether the feature is enabled or not, doesn't indicate the color of it.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         * @since Chrome 85
+         */
+        export const cursorColor: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Cursor highlighting. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var cursorHighlight: chrome.types.ChromeSetting<boolean>;
+        export const cursorHighlight: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * **ChromeOS only.**
-         * Focus highlighting.
+         * Dictation. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         * @since Chrome 90
+         */
+        export const dictation: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Docked magnifier. The value indicates whether docked magnifier feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         * @since Chrome 87
+         */
+        export const dockedMagnifier: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Focus highlighting. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var focusHighlight: chrome.types.ChromeSetting<boolean>;
+        export const focusHighlight: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * **ChromeOS only.**
-         * Select-to-speak.
+         * High contrast rendering mode. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const highContrast: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Enlarged cursor. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const largeCursor: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Full screen magnification. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const screenMagnifier: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Select-to-speak. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var selectToSpeak: chrome.types.ChromeSetting<boolean>;
+        export const selectToSpeak: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * **ChromeOS only.**
-         * Switch Access.
+         * Spoken feedback (text-to-speech). The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const spokenFeedback: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Sticky modifier keys (like shift or alt). The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
+         */
+        export const stickyKeys: chrome.types.ChromeSetting<boolean>;
+
+        /**
+         * Switch Access. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          * @since Chrome 51
          */
-        export var switchAccess: chrome.types.ChromeSetting<boolean>;
+        export const switchAccess: chrome.types.ChromeSetting<boolean>;
+
         /**
-         * @since Chrome 42
+         * Virtual on-screen keyboard. The value indicates whether the feature is enabled or not.
+         * `get()` requires `accessibilityFeatures.read` permission. `set()` and `clear()` require `accessibilityFeatures.modify` permission.
+         * @platform ChromeOS only
          */
-        export var animationPolicy: chrome.types.ChromeSetting<"allowed" | "once" | "none">;
+        export const virtualKeyboard: chrome.types.ChromeSetting<boolean>;
     }
 
     ////////////////////
