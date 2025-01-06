@@ -1,5 +1,5 @@
 import { Socket } from "phoenix";
-import { Hook, HooksOptions, LiveSocket, SocketOptions, UploadEntry, } from "./index";
+import { Hook, HooksOptions, LiveSocket, SocketOptions, UploadEntry, } from "phoenix_live_view";
 
 function test_socket() {
     // Hooks
