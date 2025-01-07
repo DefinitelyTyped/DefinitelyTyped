@@ -928,7 +928,7 @@ const copyOptions: grunt.file.IFileWriteStringOption = {
              * For example, if a "sample" task was run as grunt sample:foo:bar,
              * inside the task function, this.flags would be {foo: true, bar: true}.
              */
-            flags: grunt.IFlag[];
+            flags: grunt.IFlag;
 
             /**
              * The number of grunt.log.error calls that occurred during this task.
