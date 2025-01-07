@@ -2509,6 +2509,10 @@
             "libraryName": "humanize-url",
             "asOfVersion": "2.1.0"
         },
+        "i18n-js": {
+            "libraryName": "i18n-js",
+            "asOfVersion": "4.0.1"
+        },
         "i18next": {
             "libraryName": "i18next",
             "asOfVersion": "13.0.0"

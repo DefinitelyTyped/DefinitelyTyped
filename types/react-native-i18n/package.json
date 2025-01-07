@@ -6,7 +6,7 @@
         "https://github.com/AlexanderZaytsev/react-native-i18n"
     ],
     "dependencies": {
-        "@types/i18n-js": "*"
+        "@types/i18n-js": "<4"
     },
     "devDependencies": {
         "@types/react-native-i18n": "workspace:."
