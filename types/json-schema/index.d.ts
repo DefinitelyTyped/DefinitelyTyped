@@ -54,7 +54,7 @@ export type JSONSchema4Version = string;
  * JSON Schema V4
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04
  */
-export type JSONSchema4 = {
+export interface JSONSchema4 {
     id?: string | undefined;
     $ref?: string | undefined;
     $schema?: JSONSchema4Version | undefined;
@@ -229,7 +229,7 @@ export type JSONSchema4 = {
     [k: string]: any;
 
     format?: string | undefined;
-};
+}
 
 // ==================================================================================================
 // JSON Schema Draft 06
