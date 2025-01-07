@@ -49,6 +49,9 @@ function test_socket() {
         },
         hooks: MyHooks,
         uploaders: MyUploaders,
+        // These come from the Phoenix SocketConnectOption
+        reconnectAfterMs: (tries: number) => tries * tries,
+        debug: true
     };
 
     const liveSocket = new LiveSocket("/live", Socket, opts);

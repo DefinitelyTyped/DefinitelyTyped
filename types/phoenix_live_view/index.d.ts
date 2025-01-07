@@ -41,13 +41,12 @@ export interface DomOptions {
 
 export type ViewLogger = (view: View, kind: string, msg: any, obj: any) => void;
 
-export interface SocketOptions extends SocketConnectOption {
+export interface SocketOptions extends Partial<SocketConnectOption> {
     bindingPrefix?: string | undefined;
     defaults?: Defaults | undefined;
     dom?: DomOptions | undefined;
     hooks?: HooksOptions | undefined;
     loaderTimeout?: number | undefined;
-    params?: object | undefined;
     uploaders?: object | undefined;
     viewLogger?: ViewLogger | undefined;
 }
