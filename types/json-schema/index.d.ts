@@ -280,7 +280,7 @@ export type JSONSchema6Version = string;
  * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01
  */
 export type JSONSchema6Definition = JSONSchema6 | boolean;
-export type JSONSchema6 = {
+export interface JSONSchema6 {
     $id?: string | undefined;
     $ref?: string | undefined;
     $schema?: JSONSchema6Version | undefined;
@@ -545,7 +545,9 @@ export type JSONSchema6 = {
      * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01#section-8
      */
     format?: string | undefined;
-};
+
+    [k: string]: any;
+}
 
 // ==================================================================================================
 // JSON Schema Draft 07
@@ -605,7 +607,7 @@ export type JSONSchema7Version = string;
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
  */
 export type JSONSchema7Definition = JSONSchema7 | boolean;
-export type JSONSchema7 = {
+export interface JSONSchema7 {
     $id?: string | undefined;
     $ref?: string | undefined;
     $schema?: JSONSchema7Version | undefined;
@@ -712,7 +714,9 @@ export type JSONSchema7 = {
     readOnly?: boolean | undefined;
     writeOnly?: boolean | undefined;
     examples?: JSONSchema7Type | undefined;
-};
+    // "additional vocabularies can be defined for more complex annotation-based applications"
+    [k: string]: any;
+}
 
 export interface ValidationResult {
     valid: boolean;
