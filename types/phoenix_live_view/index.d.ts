@@ -19,7 +19,7 @@
 // Version 0.17.0 added LiveSocket.execJS() method for executing JavaScript utility operations on the client
 // See: https://github.com/phoenixframework/phoenix_live_view/blob/master/CHANGELOG.md#enhancements-17
 
-import { Socket } from "phoenix";
+import { Socket, SocketConnectOption } from "phoenix";
 
 export interface Defaults {
     debounce?: number | undefined;
@@ -41,8 +41,7 @@ export interface DomOptions {
 
 export type ViewLogger = (view: View, kind: string, msg: any, obj: any) => void;
 
-export interface SocketOptions {
-    longPollFallbackMs?: number | undefined;
+export interface SocketOptions extends SocketConnectOption {
     bindingPrefix?: string | undefined;
     defaults?: Defaults | undefined;
     dom?: DomOptions | undefined;
@@ -65,7 +64,8 @@ export type BindCallback = (
 
 export class LiveSocket {
     // phxSocket should be the Socket class (LiveSocket will use the constructor)
-    constructor(url: string, phxSocket: any, opts: SocketOptions);
+    constructor(url: string, phxSocket: any, opts: Partial<SocketOptions>);
+
 
     // public
     connect(): void;
