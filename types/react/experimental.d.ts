@@ -125,6 +125,10 @@ declare module "." {
 
     export interface ViewTransitionProps {
         /**
+         * Assigns the {@link https://developer.chrome.com/blog/view-transitions-update-io24#view-transition-class `view-transition-class`} class to the underlying DOM node.
+         */
+        className?: string | undefined;
+        /**
          * group="normal" is required for future compatibility reasons.
          */
         group: "normal";

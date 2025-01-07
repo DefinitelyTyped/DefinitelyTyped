@@ -148,6 +148,7 @@ function viewTransitionTests() {
     // @ts-expect-error -- `group` is missing
     <ViewTransition />;
     <ViewTransition group="normal" />;
+    <ViewTransition group="normal" className="enter-slide-in exit-fade-out update-cross-fade" />;
     <ViewTransition group="normal" name="auto" />;
     <ViewTransition group="normal" name="foo" />;
     // autocomplete should display "auto"
