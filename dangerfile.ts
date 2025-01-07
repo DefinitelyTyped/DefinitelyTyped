@@ -2,7 +2,7 @@ import fs = require("fs");
 import os = require("os");
 import path = require("path");
 import cp = require("child_process");
-import { suggestionsDir, mangleScopedPackage } from "@definitelytyped/utils";
+import { mangleScopedPackage, suggestionsDir } from "@definitelytyped/utils";
 import { danger, fail, markdown } from "danger";
 const lines: string[] = [];
 const missingProperty = /module exports a property named '(.+?)', which is missing/;
