@@ -1,2 +1,2 @@
-import Toastify from "../index";
+import Toastify = require('../index')
 export default Toastify;
