@@ -65,7 +65,6 @@ export class LiveSocket {
     // phxSocket should be the Socket class (LiveSocket will use the constructor)
     constructor(url: string, phxSocket: any, opts: Partial<SocketOptions>);
 
-
     // public
     connect(): void;
     disableDebug(): void;
