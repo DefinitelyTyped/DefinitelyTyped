@@ -106,7 +106,7 @@ export type ParseRouteParameters<Route extends string> = string extends Route ? 
     : Route extends `${string}:${infer Rest}` ?
             & (
                 GetRouteParameter<Rest> extends never ? ParamsDictionary
-                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string } // TODO: Remove old `?` handling when support for Express 5 is promoted to "latest"
+                    : GetRouteParameter<Rest> extends `${infer ParamName}?` ? { [P in ParamName]?: string } // TODO: Remove old `?` handling when Express 5 is promoted to "latest"
                     : { [P in GetRouteParameter<Rest>]: string }
             )
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
