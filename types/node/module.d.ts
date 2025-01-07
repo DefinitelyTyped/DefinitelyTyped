@@ -311,6 +311,10 @@ declare module "module" {
         static wrap(code: string): string;
         static createRequire(path: string | URL): NodeRequire;
         static builtinModules: string[];
+        static findPackageJSON(
+            specifier: string | URL,
+            base?: string | URL,
+        ): undefined | string
         static isBuiltin(moduleName: string): boolean;
         static Module: typeof Module;
         static register<Data = any>(
