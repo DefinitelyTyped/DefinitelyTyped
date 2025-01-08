@@ -27,7 +27,7 @@
 import { Hook, HooksOptions, ViewHookInterface } from "./hooks";
 import LiveSocket, { isUsedInput } from "./live_socket";
 import SocketOptions from "./socket_options";
-import UploadEntry from "./upload_entry";
+import UploadEntry, { Uploader, UploadersOptions } from "./upload_entry";
 import ViewHook from "./view_hook";
 
 /** Creates a ViewHook instance for the given element and callbacks.
@@ -52,4 +52,14 @@ import ViewHook from "./view_hook";
  * @returns {ViewHook} Returns the ViewHook instance for the custom element.
  */
 export function createHook(el: HTMLElement, callbacks?: object): ViewHook;
-export { Hook, HooksOptions, isUsedInput, LiveSocket, SocketOptions, UploadEntry, ViewHookInterface };
+export {
+  Hook,
+  HooksOptions,
+  isUsedInput,
+  LiveSocket,
+  SocketOptions,
+  UploadEntry,
+  Uploader,
+  UploadersOptions,
+  ViewHookInterface,
+};

@@ -1,10 +1,14 @@
 import { HooksOptions } from "./hooks";
+import { UploadersOptions } from "./upload_entry";
 import View from "./view";
 
-export type DefaultsKeys = "debounce" | "throttle";
-export type Defaults = Record<DefaultsKeys, any>;
 export type ConnectFunction = (el: HTMLElement) => object;
 export type ConnectParams = object | ConnectFunction;
+
+export interface Defaults {
+  debounce?: number;
+  throttle?: number;
+}
 
 export interface EventMetadata {
   click?: (e: PointerEvent, el: HTMLElement) => any;
@@ -140,7 +144,7 @@ export default interface SocketOptions {
   /*
    * @param {object} [opts.uploaders] - The optional object for referencing LiveView uploader callbacks.
    */
-  uploaders?: object;
+  uploaders?: UploadersOptions;
   /*
    * @param {integer} [opts.loaderTimeout] - The optional delay in milliseconds to wait before apply
    * loading states.

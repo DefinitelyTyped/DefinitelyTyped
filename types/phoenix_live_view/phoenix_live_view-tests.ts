@@ -27,7 +27,9 @@ function test_socket() {
   };
 
   // Uploaders
-  function testUploader(entries: UploadEntry[], _onViewError: any) {
+  function testUploader(entries: UploadEntry[], onViewError: (cb: () => void) => void) {
+    onViewError(() => console.log("uploader view error"));
+
     entries.forEach((entry) => {
       console.log(`file: ${entry.file.name}`);
       console.log(`meta: ${JSON.stringify(entry.meta)}`);

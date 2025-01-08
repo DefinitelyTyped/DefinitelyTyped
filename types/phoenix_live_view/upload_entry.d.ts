@@ -1,17 +1,28 @@
+import LiveSocket from "./live_socket";
 import View from "./view";
 
 export interface LiveViewFile extends File {
-  _phxRef?: string | undefined;
+  meta?: () => object;
+  _phxRef?: string;
 }
 
+export type Uploader = (
+  entries: UploadEntry[],
+  onError: (cb: () => void) => void,
+  resp: any,
+  liveSocket: LiveSocket,
+) => any;
+
+export type UploadersOptions = Record<string, Uploader>;
+
 export default class UploadEntry {
-  static isActive(fileEl: any, file: any): boolean;
-  static isPreflighted(fileEl: any, file: any): boolean;
-  static isPreflightInProgress(file: any): boolean;
-  static markPreflightInProgress(file: any): void;
+  static isActive(fileEl: HTMLInputElement, file: LiveViewFile): boolean;
+  static isPreflighted(fileEl: HTMLInputElement, file: LiveViewFile): boolean;
+  static isPreflightInProgress(file: LiveViewFile): boolean;
+  static markPreflightInProgress(file: LiveViewFile): void;
   constructor(fileEl: HTMLInputElement, file: LiveViewFile, view: View, autoUpload: any);
 
-  ref: any;
+  ref: string; // DT
   fileEl: HTMLInputElement; // DT
   file: LiveViewFile; // DT
   view: View; // DT
@@ -33,17 +44,17 @@ export default class UploadEntry {
   onDone(callback: any): void;
   onElUpdated(): void;
   toPreflightPayload(): {
-    last_modified: any;
-    name: any;
-    relative_path: any;
-    size: any;
-    type: any;
-    ref: any;
+    last_modified: number;
+    name: string;
+    relative_path: string;
+    size: number;
+    type: string;
+    ref: string;
     meta: any;
   };
-  uploader(uploaders: any): {
-    name: any;
-    callback: any;
+  uploader(uploaders: UploadersOptions): {
+    name: string;
+    callback: Uploader;
   };
   zipPostFlight(resp: any): void;
 }
