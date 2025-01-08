@@ -1971,7 +1971,7 @@ function testContextMenusRemove() {
 
 function testContextMenusRemoveAll() {
     chrome.contextMenus.removeAll(); // $ExpectType Promise<void>
-    chrome.contextMenus.removeAll(() => console.log("removed all"));
+    chrome.contextMenus.removeAll(() => console.log("removed all")); // $ExpectType void
     // @ts-expect-error
     chrome.contextMenus.removeAll((invalid: any) => console.log("removed"));
 }
