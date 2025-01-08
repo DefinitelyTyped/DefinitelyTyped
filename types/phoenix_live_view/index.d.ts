@@ -26,7 +26,7 @@
 
 import { Hook, HooksOptions, ViewHookInterface } from "./hooks";
 import LiveSocket, { isUsedInput } from "./live_socket";
-import SocketOptions from "./socket_options";
+import SocketOptions, { Defaults, DomOptions, EventMetadata } from "./socket_options";
 import UploadEntry, { Uploader, UploadersOptions } from "./upload_entry";
 import ViewHook from "./view_hook";
 
@@ -53,6 +53,9 @@ import ViewHook from "./view_hook";
  */
 export function createHook(el: HTMLElement, callbacks?: object): ViewHook;
 export {
+  Defaults,
+  DomOptions,
+  EventMetadata,
   Hook,
   HooksOptions,
   isUsedInput,
