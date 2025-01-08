@@ -122,6 +122,11 @@ declare class OrbitControls extends Controls<OrbitControlsEventMap> {
     rotateSpeed: number;
 
     /**
+     * How fast to rotate the camera when the keyboard is used. Default is 1.
+     */
+    keyRotateSpeed: number;
+
+    /**
      * Enable or disable camera panning. Default is true.
      */
     enablePan: boolean;

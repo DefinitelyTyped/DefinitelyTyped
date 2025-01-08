@@ -304,30 +304,35 @@ function realTabsOnly() {
     );
 }
 
-// contrived settings example
+// https://developer.chrome.com/docs/extensions/reference/api/proxy
 function proxySettings() {
-    chrome.proxy.settings.get({ incognito: true }, details => {
-        var val = details.value;
-        var level: string = details.levelOfControl;
-        var incognito: boolean = details.incognitoSpecific!;
+    chrome.proxy.settings.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<ProxyConfig>>
+    chrome.proxy.settings.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<ProxyConfig>
     });
+    // @ts-expect-error
+    chrome.proxy.settings.get({}, () => {}).then(() => {});
 
-    // bare minimum set call
-    chrome.proxy.settings.set({ value: "something" });
+    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.proxy.settings.set({ value: { mode: "" }, scope: "regular" }, () => {}).then(() => {});
 
-    // add a scope and callback
-    chrome.proxy.settings.set(
-        {
-            value: "something",
-            scope: "regular",
-        },
-        () => {},
-    );
+    chrome.proxy.settings.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.proxy.settings.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.proxy.settings.clear({ scope: "regular" }, () => {}).then(() => {});
 
-    chrome.proxy.settings.clear({});
-
-    // clear with a scope set
-    chrome.proxy.settings.clear({ scope: "regular" });
+    chrome.proxy.settings.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<ProxyConfig>
+    });
+    chrome.proxy.settings.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<ProxyConfig>
+    });
+    chrome.proxy.settings.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<ProxyConfig>
+    });
+    chrome.proxy.settings.onChange.hasListeners(); // $ExpectType boolean
 }
 
 function testNotificationCreation() {
@@ -1045,30 +1050,6 @@ async function testSearchForPromise() {
     }
 }
 
-// https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/
-async function testDeclarativeNetRequest() {
-    chrome.declarativeNetRequest.getDynamicRules(rules => {
-        // $ExpectType Rule[]
-        rules;
-
-        const rule = rules[0];
-        rule.action; // $ExpectType RuleAction
-        rule.condition; // $ExpectType RuleCondition
-        rule.id; // $ExpectType number
-        rule.priority; // $ExpectType number | undefined
-    });
-
-    chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
-        // $ExpectType number
-        count;
-    });
-
-    chrome.declarativeNetRequest.getEnabledRulesets(sets => {
-        // $ExpectType string[]
-        sets;
-    });
-}
-
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-enable
 function testBrowserAcionEnable() {
     chrome.browserAction.enable();
@@ -1261,19 +1242,23 @@ function testBrowserAcionSetTitle() {
     chrome.browserAction.setTitle(undefined);
 }
 
-// https://developer.chrome.com/docs/extensions/reference/action/
-async function testActionForPromise() {
+// https://developer.chrome.com/docs/extensions/reference/api/action
+async function testAction() {
     await chrome.action.disable();
     await chrome.action.enable();
     await chrome.action.disable(0);
     await chrome.action.enable(0);
     await chrome.action.getBadgeBackgroundColor({});
     await chrome.action.getBadgeText({});
+    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
+    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
     const getBackTextColor1: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({});
     const getBackTextColor2: chrome.action.ColorArray = await chrome.action.getBadgeTextColor({ tabId: 0 });
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
     await chrome.action.getUserSettings();
+    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
+    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
     const isEnabled1: boolean = await chrome.action.isEnabled();
     const isEnabled2: boolean = await chrome.action.isEnabled(0);
     await chrome.action.openPopup({ windowId: 1 });
@@ -1283,14 +1268,28 @@ async function testActionForPromise() {
     await chrome.action.setIcon({ path: { "16": "path/to/icon.png" } });
     await chrome.action.setPopup({ popup: "popup1" });
     await chrome.action.setTitle({ title: "title1" });
-}
 
-// https://developer.chrome.com/docs/extensions/reference/action/
-async function testActionForCallback() {
-    chrome.action.getBadgeTextColor({}, (color: chrome.action.ColorArray) => void 0);
-    chrome.action.getBadgeTextColor({ tabId: 0 }, (color: chrome.action.ColorArray) => void 0);
-    chrome.action.isEnabled(0, (isEnabled: boolean) => void 0);
-    chrome.action.isEnabled(undefined, (isEnabled: boolean) => void 0);
+    chrome.action.onClicked.addListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.removeListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListener((tab) => {
+        tab; // $ExpectType Tab
+    });
+    chrome.action.onClicked.hasListeners();
+
+    chrome.action.onUserSettingsChanged.addListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.removeListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.hasListener((change) => {
+        change; // $ExpectType UserSettingsChange
+    });
+    chrome.action.onUserSettingsChanged.hasListeners();
 }
 
 // https://developer.chrome.com/docs/extensions/reference/alarms/
@@ -1742,11 +1741,99 @@ async function testWindowsForPromise() {
     await chrome.windows.getLastFocused({});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest
-async function testDeclarativeNetRequestForPromise() {
+// https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest
+async function testDeclarativeNetRequest() {
+    chrome.declarativeNetRequest.DYNAMIC_RULESET_ID === "_dynamic";
+
+    chrome.declarativeNetRequest.DomainType.FIRST_PARTY === "firstParty";
+    chrome.declarativeNetRequest.DomainType.THIRD_PARTY === "thirdParty";
+
+    chrome.declarativeNetRequest.GETMATCHEDRULES_QUOTA_INTERVAL === 10;
+
+    chrome.declarativeNetRequest.GUARANTEED_MINIMUM_STATIC_RULES === 30000;
+
+    chrome.declarativeNetRequest.HeaderOperation.APPEND === "append";
+    chrome.declarativeNetRequest.HeaderOperation.REMOVE === "remove";
+    chrome.declarativeNetRequest.HeaderOperation.SET === "set";
+
+    chrome.declarativeNetRequest.MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL === 20;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES === 5000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_DYNAMIC_RULES === 30000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_ENABLED_STATIC_RULESETS === 50;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_REGEX_RULES === 1000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_SESSION_RULES === 5000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_STATIC_RULESETS === 100;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES === 5000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_UNSAFE_SESSION_RULES === 5000;
+
+    chrome.declarativeNetRequest.RequestMethod.CONNECT === "connect";
+    chrome.declarativeNetRequest.RequestMethod.DELETE === "delete";
+    chrome.declarativeNetRequest.RequestMethod.GET === "get";
+    chrome.declarativeNetRequest.RequestMethod.HEAD === "head";
+    chrome.declarativeNetRequest.RequestMethod.OPTIONS === "options";
+    chrome.declarativeNetRequest.RequestMethod.OTHER === "other";
+    chrome.declarativeNetRequest.RequestMethod.PATCH === "patch";
+    chrome.declarativeNetRequest.RequestMethod.POST === "post";
+    chrome.declarativeNetRequest.RequestMethod.PUT === "put";
+
+    chrome.declarativeNetRequest.ResourceType.CSP_REPORT === "csp_report";
+    chrome.declarativeNetRequest.ResourceType.FONT === "font";
+    chrome.declarativeNetRequest.ResourceType.IMAGE === "image";
+    chrome.declarativeNetRequest.ResourceType.MAIN_FRAME === "main_frame";
+    chrome.declarativeNetRequest.ResourceType.MEDIA === "media";
+    chrome.declarativeNetRequest.ResourceType.OBJECT === "object";
+    chrome.declarativeNetRequest.ResourceType.OTHER === "other";
+    chrome.declarativeNetRequest.ResourceType.PING === "ping";
+    chrome.declarativeNetRequest.ResourceType.SCRIPT === "script";
+    chrome.declarativeNetRequest.ResourceType.STYLESHEET === "stylesheet";
+    chrome.declarativeNetRequest.ResourceType.SUB_FRAME === "sub_frame";
+    chrome.declarativeNetRequest.ResourceType.WEBBUNDLE === "webbundle";
+    chrome.declarativeNetRequest.ResourceType.WEBSOCKET === "websocket";
+    chrome.declarativeNetRequest.ResourceType.WEBTRANSPORT === "webtransport";
+    chrome.declarativeNetRequest.ResourceType.XMLHTTPREQUEST === "xmlhttprequest";
+
+    chrome.declarativeNetRequest.RuleActionType.ALLOW === "allow";
+    chrome.declarativeNetRequest.RuleActionType.ALLOW_ALL_REQUESTS === "allowAllRequests";
+    chrome.declarativeNetRequest.RuleActionType.BLOCK === "block";
+    chrome.declarativeNetRequest.RuleActionType.MODIFY_HEADERS === "modifyHeaders";
+    chrome.declarativeNetRequest.RuleActionType.REDIRECT === "redirect";
+    chrome.declarativeNetRequest.RuleActionType.UPGRADE_SCHEME === "upgradeScheme";
+
+    chrome.declarativeNetRequest.SESSION_RULESET_ID === "_session";
+
+    chrome.declarativeNetRequest.UnsupportedRegexReason.MEMORY_LIMIT_EXCEEDED === "memoryLimitExceeded";
+    chrome.declarativeNetRequest.UnsupportedRegexReason.SYNTAX_ERROR === "syntaxError";
+
     await chrome.declarativeNetRequest.getAvailableStaticRuleCount();
+    chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
+        // $ExpectType number
+        count;
+    });
     await chrome.declarativeNetRequest.getDynamicRules();
+    chrome.declarativeNetRequest.getDynamicRules(rules => {
+        // $ExpectType Rule[]
+        rules;
+
+        const rule = rules[0];
+        rule.action; // $ExpectType RuleAction
+        rule.condition; // $ExpectType RuleCondition
+        rule.id; // $ExpectType number
+        rule.priority; // $ExpectType number | undefined
+    });
+
     await chrome.declarativeNetRequest.getEnabledRulesets();
+    chrome.declarativeNetRequest.getEnabledRulesets(sets => {
+        // $ExpectType string[]
+        sets;
+    });
     await chrome.declarativeNetRequest.getMatchedRules({});
     await chrome.declarativeNetRequest.getMatchedRules();
     await chrome.declarativeNetRequest.getSessionRules();
@@ -1755,9 +1842,7 @@ async function testDeclarativeNetRequestForPromise() {
     await chrome.declarativeNetRequest.updateDynamicRules({});
     await chrome.declarativeNetRequest.updateEnabledRulesets({});
     await chrome.declarativeNetRequest.updateSessionRules({});
-}
 
-async function testDynamicRules() {
     await chrome.declarativeNetRequest.updateDynamicRules({});
     await chrome.declarativeNetRequest.updateDynamicRules({
         addRules: [{
@@ -2027,27 +2112,60 @@ function testContextMenusUpdate() {
     chrome.contextMenus.update(1, { visible: 1 });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/permissions
 function testPermissions() {
     const permissions: chrome.permissions.Permissions = {
+        permissions: ["tabs"],
         origins: ["https://example.com/*"],
     };
-    chrome.permissions.contains(permissions, (exists: boolean) => {});
-    chrome.permissions.remove(permissions, (wasRemoved: boolean) => {});
-    chrome.permissions.request(permissions, (wasAdded: boolean) => {});
-    chrome.permissions.getAll((permissions: chrome.permissions.Permissions) => {});
-}
 
-async function testPermissionsForPromise() {
-    const permissions: chrome.permissions.Permissions = {
-        origins: ["https://example.com/*"],
-    };
-    if (await chrome.permissions.contains(permissions)) {
-        let wasRemoved: boolean = await chrome.permissions.remove(permissions);
-    } else {
-        let wasAdded: boolean = await chrome.permissions.request(permissions);
-    }
+    chrome.permissions.contains(permissions); // $ExpectType Promise<boolean>
+    chrome.permissions.contains(permissions, (result: boolean) => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.contains(permissions, () => {}).then(() => {});
+    // @ts-expect-error : 'test' is not a recognized permission.
+    chrome.permissions.contains({ permissions: ["test"] });
 
-    const existing: chrome.permissions.Permissions = await chrome.permissions.getAll();
+    chrome.permissions.getAll(); // $ExpectType Promise<Permissions>
+    chrome.permissions.getAll((permissions: chrome.permissions.Permissions) => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.getAll(() => {}).then(() => {});
+
+    chrome.permissions.request(permissions); // $ExpectType Promise<boolean>
+    chrome.permissions.request(permissions, (granted: boolean) => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.request(permissions, () => {}).then(() => {});
+    // @ts-expect-error : 'test' is not a recognized permission.
+    chrome.permissions.request({ permissions: ["test"] });
+
+    chrome.permissions.remove(permissions); // $ExpectType Promise<boolean>
+    chrome.permissions.remove(permissions, (removed: boolean) => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.permissions.remove(permissions, () => {}).then(() => {});
+    // @ts-expect-error : 'test' is not a recognized permission.
+    chrome.permissions.remove({ permissions: ["test"] });
+
+    chrome.permissions.onAdded.addListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onAdded.removeListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onAdded.hasListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onAdded.hasListeners(); // $ExpectType boolean
+
+    chrome.permissions.onRemoved.addListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onRemoved.removeListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onRemoved.hasListener((permissions) => {
+        permissions; // $ExpectType Permissions
+    });
+    chrome.permissions.onRemoved.hasListeners(); // $ExpectType boolean
 }
 
 // https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
@@ -2524,7 +2642,7 @@ function testUserScripts() {
     chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
     chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
 
-    const scripts: chrome.userScripts.RegisteredUserScript[] = [
+    const scripts = [
         {
             id: "scriptId1",
             js: [{ code: "console.log(\"Hello from scriptId1!\");" }],
@@ -2536,14 +2654,26 @@ function testUserScripts() {
             matches: ["*://example.org/*"],
         },
     ];
+
+    const badScripts = [
+        {
+            id: "badScriptId",
+            matches: ["*://example.com/*"],
+        },
+    ];
+
     chrome.userScripts.register(scripts); // $ExpectType Promise<void>
     chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
+    // @ts-expect-error Missing required property 'js'.
+    chrome.userScripts.register(badScripts);
 
     chrome.userScripts.unregister(userScriptFilter); // $ExpectType Promise<void>
     chrome.userScripts.unregister(userScriptFilter, () => void 0); // $ExpectType void
 
     chrome.userScripts.update(scripts); // $ExpectType Promise<void>
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
+    // @ts-expect-error Missing required property 'js'.
+    chrome.userScripts.update(badScripts);
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/platformKeys
@@ -2698,4 +2828,972 @@ function testPrintingMetrics() {
         jobInfo; // $ExpectType PrintJobInfo
     });
     chrome.printingMetrics.onPrintJobFinished.hasListeners();
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/accessibilityFeatures
+function testAccessibilityFeatures() {
+    // animationPolicy
+    chrome.accessibilityFeatures.animationPolicy.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<"allowed" | "once" | "none">>
+    chrome.accessibilityFeatures.animationPolicy.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<"allowed" | "once" | "none">
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.animationPolicy.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.animationPolicy.set({ value: "allowed", scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.animationPolicy.set({ value: "allowed", scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.animationPolicy.set({ value: "allowed", scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.animationPolicy.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.animationPolicy.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.animationPolicy.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.animationPolicy.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<"allowed" | "once" | "none">
+    });
+    chrome.accessibilityFeatures.animationPolicy.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<"allowed" | "once" | "none">
+    });
+    chrome.accessibilityFeatures.animationPolicy.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<"allowed" | "once" | "none">
+    });
+    chrome.accessibilityFeatures.animationPolicy.onChange.hasListeners(); // $ExpectType boolean
+
+    // autoclick
+    chrome.accessibilityFeatures.autoclick.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.autoclick.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.autoclick.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.autoclick.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.autoclick.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.autoclick.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.autoclick.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.autoclick.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.autoclick.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.autoclick.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.autoclick.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.autoclick.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.autoclick.onChange.hasListeners(); // $ExpectType boolean
+
+    // caretHighlight
+    chrome.accessibilityFeatures.caretHighlight.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.caretHighlight.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.caretHighlight.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.caretHighlight.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.caretHighlight.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.caretHighlight.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.caretHighlight.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.caretHighlight.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.caretHighlight.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.caretHighlight.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.caretHighlight.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.caretHighlight.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.caretHighlight.onChange.hasListeners(); // $ExpectType boolean
+
+    // cursorColor
+    chrome.accessibilityFeatures.cursorColor.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.cursorColor.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorColor.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorColor.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.cursorColor.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorColor.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorColor.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.cursorColor.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorColor.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorColor.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorColor.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorColor.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorColor.onChange.hasListeners(); // $ExpectType boolean
+
+    // cursorHighlight
+    chrome.accessibilityFeatures.cursorHighlight.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.cursorHighlight.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorHighlight.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorHighlight.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.cursorHighlight.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorHighlight.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorHighlight.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.cursorHighlight.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.cursorHighlight.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.cursorHighlight.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorHighlight.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorHighlight.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.cursorHighlight.onChange.hasListeners(); // $ExpectType boolean
+
+    // dictation
+    chrome.accessibilityFeatures.dictation.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.dictation.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dictation.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dictation.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.dictation.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dictation.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dictation.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.dictation.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dictation.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dictation.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dictation.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dictation.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dictation.onChange.hasListeners(); // $ExpectType boolean
+
+    // dockedMagnifier
+    chrome.accessibilityFeatures.dockedMagnifier.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.dockedMagnifier.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dockedMagnifier.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dockedMagnifier.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.dockedMagnifier.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dockedMagnifier.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dockedMagnifier.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.dockedMagnifier.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.dockedMagnifier.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.dockedMagnifier.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dockedMagnifier.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dockedMagnifier.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.dockedMagnifier.onChange.hasListeners(); // $ExpectType boolean
+
+    // focusHighlight
+    chrome.accessibilityFeatures.focusHighlight.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.focusHighlight.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.focusHighlight.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.focusHighlight.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.focusHighlight.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.focusHighlight.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.focusHighlight.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.focusHighlight.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.focusHighlight.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.focusHighlight.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.focusHighlight.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.focusHighlight.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.focusHighlight.onChange.hasListeners(); // $ExpectType boolean
+
+    // highContrast
+    chrome.accessibilityFeatures.highContrast.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.highContrast.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.highContrast.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.highContrast.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.highContrast.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.highContrast.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.highContrast.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.highContrast.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.highContrast.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.highContrast.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.highContrast.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.highContrast.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.highContrast.onChange.hasListeners(); // $ExpectType boolean
+
+    // largeCursor
+    chrome.accessibilityFeatures.largeCursor.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.largeCursor.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.largeCursor.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.largeCursor.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.largeCursor.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.largeCursor.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.largeCursor.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.largeCursor.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.largeCursor.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.largeCursor.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.largeCursor.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.largeCursor.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.largeCursor.onChange.hasListeners(); // $ExpectType boolean
+
+    // screenMagnifier
+    chrome.accessibilityFeatures.screenMagnifier.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.screenMagnifier.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.screenMagnifier.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.screenMagnifier.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.screenMagnifier.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.screenMagnifier.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.screenMagnifier.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.screenMagnifier.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.screenMagnifier.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.screenMagnifier.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.screenMagnifier.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.screenMagnifier.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.screenMagnifier.onChange.hasListeners(); // $ExpectType boolean
+
+    // selectToSpeak
+    chrome.accessibilityFeatures.selectToSpeak.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.selectToSpeak.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.selectToSpeak.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.selectToSpeak.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.selectToSpeak.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.selectToSpeak.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.selectToSpeak.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.selectToSpeak.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.selectToSpeak.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.selectToSpeak.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.selectToSpeak.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.selectToSpeak.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.selectToSpeak.onChange.hasListeners(); // $ExpectType boolean
+
+    // spokenFeedback
+    chrome.accessibilityFeatures.spokenFeedback.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.spokenFeedback.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.spokenFeedback.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.spokenFeedback.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.spokenFeedback.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.spokenFeedback.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.spokenFeedback.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.spokenFeedback.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.spokenFeedback.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.spokenFeedback.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.spokenFeedback.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.spokenFeedback.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.spokenFeedback.onChange.hasListeners(); // $ExpectType boolean
+
+    // stickyKeys
+    chrome.accessibilityFeatures.stickyKeys.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.stickyKeys.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.stickyKeys.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.stickyKeys.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.stickyKeys.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.stickyKeys.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.stickyKeys.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.stickyKeys.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.stickyKeys.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.stickyKeys.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.stickyKeys.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.stickyKeys.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.stickyKeys.onChange.hasListeners(); // $ExpectType boolean
+
+    // switchAccess
+    chrome.accessibilityFeatures.switchAccess.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.switchAccess.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.switchAccess.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.switchAccess.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.switchAccess.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.switchAccess.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.switchAccess.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.switchAccess.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.switchAccess.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.switchAccess.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.switchAccess.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.switchAccess.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.switchAccess.onChange.hasListeners(); // $ExpectType boolean
+
+    // virtualKeyboard
+    chrome.accessibilityFeatures.virtualKeyboard.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.accessibilityFeatures.virtualKeyboard.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.accessibilityFeatures.virtualKeyboard.get({}, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.virtualKeyboard.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.virtualKeyboard.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.virtualKeyboard.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.virtualKeyboard.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.accessibilityFeatures.virtualKeyboard.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.accessibilityFeatures.virtualKeyboard.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.accessibilityFeatures.virtualKeyboard.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.virtualKeyboard.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.virtualKeyboard.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.accessibilityFeatures.virtualKeyboard.onChange.hasListeners(); // $ExpectType boolean
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/privacy
+function testPrivacy() {
+    // virtualKeyboard
+    chrome.privacy.services.alternateErrorPagesEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.alternateErrorPagesEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.alternateErrorPagesEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.alternateErrorPagesEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.alternateErrorPagesEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.alternateErrorPagesEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.alternateErrorPagesEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.alternateErrorPagesEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.alternateErrorPagesEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.alternateErrorPagesEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.alternateErrorPagesEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.alternateErrorPagesEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.alternateErrorPagesEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // autofillAddressEnabled
+    chrome.privacy.services.autofillAddressEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.autofillAddressEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.autofillAddressEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillAddressEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.autofillAddressEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.autofillAddressEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillAddressEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.autofillAddressEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.autofillAddressEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillAddressEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillAddressEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillAddressEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillAddressEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // autofillCreditCardEnabled
+    chrome.privacy.services.autofillCreditCardEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.autofillCreditCardEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.autofillCreditCardEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillCreditCardEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.autofillCreditCardEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.autofillCreditCardEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillCreditCardEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.autofillCreditCardEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.autofillCreditCardEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillCreditCardEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillCreditCardEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillCreditCardEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillCreditCardEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // autofillEnabled
+    chrome.privacy.services.autofillEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.autofillEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.autofillEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.autofillEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.autofillEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.autofillEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.autofillEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.autofillEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.autofillEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // passwordSavingEnabled
+    chrome.privacy.services.passwordSavingEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.passwordSavingEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.passwordSavingEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.passwordSavingEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.passwordSavingEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.passwordSavingEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.passwordSavingEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.passwordSavingEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.passwordSavingEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.passwordSavingEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.passwordSavingEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.passwordSavingEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.passwordSavingEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // safeBrowsingEnabled
+    chrome.privacy.services.safeBrowsingEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.safeBrowsingEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.safeBrowsingEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.safeBrowsingEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.safeBrowsingEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.safeBrowsingEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.safeBrowsingEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.safeBrowsingEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.safeBrowsingEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.safeBrowsingEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.safeBrowsingEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.safeBrowsingEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.safeBrowsingEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // safeBrowsingExtendedReportingEnabled
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.set({ value: true, scope: "regular" }, () => {}).then(
+        () => {},
+    );
+
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.safeBrowsingExtendedReportingEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // searchSuggestEnabled
+    chrome.privacy.services.searchSuggestEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.searchSuggestEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.searchSuggestEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.searchSuggestEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.searchSuggestEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.searchSuggestEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.searchSuggestEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.searchSuggestEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.searchSuggestEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.searchSuggestEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.searchSuggestEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.searchSuggestEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.searchSuggestEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // spellingServiceEnabled
+    chrome.privacy.services.spellingServiceEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.spellingServiceEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.spellingServiceEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.spellingServiceEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.spellingServiceEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.spellingServiceEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.spellingServiceEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.spellingServiceEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.spellingServiceEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.spellingServiceEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.spellingServiceEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.spellingServiceEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.spellingServiceEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // translationServiceEnabled
+    chrome.privacy.services.translationServiceEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.services.translationServiceEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.services.translationServiceEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.services.translationServiceEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.translationServiceEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.translationServiceEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.translationServiceEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.services.translationServiceEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.services.translationServiceEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.services.translationServiceEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.translationServiceEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.translationServiceEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.services.translationServiceEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // networkPredictionEnabled
+    chrome.privacy.network.networkPredictionEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.network.networkPredictionEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.network.networkPredictionEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.network.networkPredictionEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.network.networkPredictionEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.network.networkPredictionEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.network.networkPredictionEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.network.networkPredictionEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.network.networkPredictionEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.network.networkPredictionEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.network.networkPredictionEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.network.networkPredictionEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.network.networkPredictionEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // webRTCIPHandlingPolicy
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<IPHandlingPolicy>>
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<IPHandlingPolicy>
+    });
+    // @ts-expect-error
+    chrome.privacy.network.webRTCIPHandlingPolicy.get({}, () => {}).then(() => {});
+
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({ value: "default", scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({ value: "default", scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.network.webRTCIPHandlingPolicy.set({ value: "default", scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.network.webRTCIPHandlingPolicy.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.network.webRTCIPHandlingPolicy.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.network.webRTCIPHandlingPolicy.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.network.webRTCIPHandlingPolicy.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<IPHandlingPolicy>
+    });
+    chrome.privacy.network.webRTCIPHandlingPolicy.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<IPHandlingPolicy>
+    });
+    chrome.privacy.network.webRTCIPHandlingPolicy.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<IPHandlingPolicy>
+    });
+    chrome.privacy.network.webRTCIPHandlingPolicy.onChange.hasListeners(); // $ExpectType boolean
+
+    // doNotTrackEnabled
+    chrome.privacy.websites.doNotTrackEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.websites.doNotTrackEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.websites.doNotTrackEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.websites.doNotTrackEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.doNotTrackEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.doNotTrackEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.doNotTrackEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.doNotTrackEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.doNotTrackEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.doNotTrackEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.doNotTrackEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.doNotTrackEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.doNotTrackEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // hyperlinkAuditingEnabled
+    chrome.privacy.websites.hyperlinkAuditingEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.websites.hyperlinkAuditingEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.websites.hyperlinkAuditingEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.websites.hyperlinkAuditingEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.hyperlinkAuditingEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.hyperlinkAuditingEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.hyperlinkAuditingEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.hyperlinkAuditingEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.hyperlinkAuditingEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.hyperlinkAuditingEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.hyperlinkAuditingEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.hyperlinkAuditingEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.hyperlinkAuditingEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // protectedContentEnabled
+    chrome.privacy.websites.protectedContentEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.websites.protectedContentEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.websites.protectedContentEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.websites.protectedContentEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.protectedContentEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.protectedContentEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.protectedContentEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.protectedContentEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.protectedContentEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.protectedContentEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.protectedContentEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.protectedContentEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.protectedContentEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // referrersEnabled
+    chrome.privacy.websites.referrersEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.websites.referrersEnabled.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.websites.referrersEnabled.get({}, () => {}).then(() => {});
+
+    chrome.privacy.websites.referrersEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.referrersEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.referrersEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.referrersEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.referrersEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.referrersEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.referrersEnabled.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.referrersEnabled.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.referrersEnabled.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.referrersEnabled.onChange.hasListeners(); // $ExpectType boolean
+
+    // thirdPartyCookiesAllowed
+    chrome.privacy.websites.thirdPartyCookiesAllowed.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
+    chrome.privacy.websites.thirdPartyCookiesAllowed.get({ incognito: false }, (details) => { // $ExpectType void
+        details; // $ExpectType ChromeSettingGetResult<boolean>
+    });
+    // @ts-expect-error
+    chrome.privacy.websites.thirdPartyCookiesAllowed.get({}, () => {}).then(() => {});
+
+    chrome.privacy.websites.thirdPartyCookiesAllowed.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.thirdPartyCookiesAllowed.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.thirdPartyCookiesAllowed.set({ value: true, scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.thirdPartyCookiesAllowed.clear({ scope: "regular" }); // $ExpectType Promise<void>
+    chrome.privacy.websites.thirdPartyCookiesAllowed.clear({ scope: "regular" }, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.privacy.websites.thirdPartyCookiesAllowed.clear({ scope: "regular" }, () => {}).then(() => {});
+
+    chrome.privacy.websites.thirdPartyCookiesAllowed.onChange.addListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.thirdPartyCookiesAllowed.onChange.removeListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.thirdPartyCookiesAllowed.onChange.hasListener(details => {
+        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
+    });
+    chrome.privacy.websites.thirdPartyCookiesAllowed.onChange.hasListeners(); // $ExpectType boolean
 }

@@ -40,7 +40,7 @@ export type MaterialNodeScope =
     | typeof MaterialNode.POINT_WIDTH
     | typeof MaterialNode.DISPERSION
     | typeof MaterialNode.LIGHT_MAP
-    | typeof MaterialNode.AO_MAP
+    | typeof MaterialNode.AO
     | typeof MaterialNode.REFRACTION_RATIO;
 
 export default class MaterialNode extends Node {
@@ -80,7 +80,7 @@ export default class MaterialNode extends Node {
     static POINT_WIDTH: "pointWidth";
     static DISPERSION: "dispersion";
     static LIGHT_MAP: "light";
-    static AO_MAP: "ao";
+    static AO: "ao";
     static REFRACTION_RATIO: "refractionRatio";
 
     scope: MaterialNodeScope;
@@ -125,5 +125,5 @@ export const materialLineDashOffset: ShaderNodeObject<MaterialNode>;
 export const materialPointWidth: ShaderNodeObject<MaterialNode>;
 export const materialDispersion: ShaderNodeObject<MaterialNode>;
 export const materialLightMap: ShaderNodeObject<MaterialNode>;
-export const materialAOMap: ShaderNodeObject<MaterialNode>;
+export const materialAO: ShaderNodeObject<MaterialNode>;
 export const materialAnisotropyVector: ShaderNodeObject<UniformNode<Vector2>>;

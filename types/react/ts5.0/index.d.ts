@@ -1863,7 +1863,6 @@ declare namespace React {
      * @param callback A function which causes state updates that can be deferred.
      */
     export function startTransition(scope: TransitionFunction): void;
-    export function startTransition(scope: TransitionFunction): void;
 
     /**
      * Wrap any code rendering and triggering updates to your components into `act()` calls.

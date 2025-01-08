@@ -1,4 +1,4 @@
-import { DatabaseSync } from "node:sqlite";
+import { DatabaseSync, StatementSync } from "node:sqlite";
 import { TextEncoder } from "node:util";
 
 {
@@ -31,4 +31,10 @@ import { TextEncoder } from "node:util";
     result.lastInsertRowid; // $ExpectType number | bigint
 
     database.close();
+}
+
+{
+    let statement!: StatementSync;
+    statement.expandedSQL; // $ExpectType string
+    statement.sourceSQL; // $ExpectType string
 }

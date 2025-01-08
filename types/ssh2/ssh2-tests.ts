@@ -376,8 +376,8 @@ new ssh2.Server({
             && ctx.key.algo === pubKey.type
             && buffersEqual(ctx.key.data, pubKeySSH)
         ) {
-            if (ctx.signature && ctx.blob) {
-                if (pubKey.verify(ctx.blob, ctx.signature)) {
+            if (ctx.signature && ctx.blob && ctx.hashAlgo) {
+                if (pubKey.verify(ctx.blob, ctx.signature, ctx.hashAlgo)) {
                     ctx.accept();
                 } else {
                     ctx.reject();

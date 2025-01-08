@@ -10,6 +10,7 @@ import {
     Wrapping,
 } from "../constants.js";
 import { EventDispatcher } from "../core/EventDispatcher.js";
+import { RenderTarget } from "../core/RenderTarget.js";
 import { Matrix3 } from "../math/Matrix3.js";
 import { Vector2 } from "../math/Vector2.js";
 import { CompressedTextureMipmap } from "./CompressedTexture.js";
@@ -425,6 +426,8 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @defaultValue {@link THREE.UVMapping}
      */
     static DEFAULT_MAPPING: Mapping;
+
+    renderTarget: RenderTarget | null;
 
     /**
      * A callback function, called when the texture is updated _(e.g., when needsUpdate has been set to true and then the texture is used)_.

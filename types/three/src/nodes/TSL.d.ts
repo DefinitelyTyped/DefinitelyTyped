@@ -115,9 +115,7 @@ export * from "./code/ScriptableNode.js";
 export * from "./code/ScriptableValueNode.js";
 
 // fog
-export * from "./fog/FogExp2Node.js";
-export * from "./fog/FogNode.js";
-export * from "./fog/FogRangeNode.js";
+export * from "./fog/Fog.js";
 
 // geometry
 export * from "./geometry/RangeNode.js";
@@ -134,6 +132,7 @@ export * from "./accessors/Lights.js";
 export * from "./lighting/LightingContextNode.js";
 export * from "./lighting/LightsNode.js";
 export * from "./lighting/PointLightNode.js";
+export * from "./lighting/ShadowBaseNode.js";
 export * from "./lighting/ShadowNode.js";
 
 // pmrem
