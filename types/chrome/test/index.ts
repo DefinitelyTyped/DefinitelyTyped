@@ -1050,30 +1050,6 @@ async function testSearchForPromise() {
     }
 }
 
-// https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/
-async function testDeclarativeNetRequest() {
-    chrome.declarativeNetRequest.getDynamicRules(rules => {
-        // $ExpectType Rule[]
-        rules;
-
-        const rule = rules[0];
-        rule.action; // $ExpectType RuleAction
-        rule.condition; // $ExpectType RuleCondition
-        rule.id; // $ExpectType number
-        rule.priority; // $ExpectType number | undefined
-    });
-
-    chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
-        // $ExpectType number
-        count;
-    });
-
-    chrome.declarativeNetRequest.getEnabledRulesets(sets => {
-        // $ExpectType string[]
-        sets;
-    });
-}
-
 // https://developer.chrome.com/docs/extensions/reference/browserAction/#method-enable
 function testBrowserAcionEnable() {
     chrome.browserAction.enable();
@@ -1765,11 +1741,99 @@ async function testWindowsForPromise() {
     await chrome.windows.getLastFocused({});
 }
 
-// https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest
-async function testDeclarativeNetRequestForPromise() {
+// https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest
+async function testDeclarativeNetRequest() {
+    chrome.declarativeNetRequest.DYNAMIC_RULESET_ID === "_dynamic";
+
+    chrome.declarativeNetRequest.DomainType.FIRST_PARTY === "firstParty";
+    chrome.declarativeNetRequest.DomainType.THIRD_PARTY === "thirdParty";
+
+    chrome.declarativeNetRequest.GETMATCHEDRULES_QUOTA_INTERVAL === 10;
+
+    chrome.declarativeNetRequest.GUARANTEED_MINIMUM_STATIC_RULES === 30000;
+
+    chrome.declarativeNetRequest.HeaderOperation.APPEND === "append";
+    chrome.declarativeNetRequest.HeaderOperation.REMOVE === "remove";
+    chrome.declarativeNetRequest.HeaderOperation.SET === "set";
+
+    chrome.declarativeNetRequest.MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL === 20;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES === 5000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_DYNAMIC_RULES === 30000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_ENABLED_STATIC_RULESETS === 50;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_REGEX_RULES === 1000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_SESSION_RULES === 5000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_STATIC_RULESETS === 100;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES === 5000;
+
+    chrome.declarativeNetRequest.MAX_NUMBER_OF_UNSAFE_SESSION_RULES === 5000;
+
+    chrome.declarativeNetRequest.RequestMethod.CONNECT === "connect";
+    chrome.declarativeNetRequest.RequestMethod.DELETE === "delete";
+    chrome.declarativeNetRequest.RequestMethod.GET === "get";
+    chrome.declarativeNetRequest.RequestMethod.HEAD === "head";
+    chrome.declarativeNetRequest.RequestMethod.OPTIONS === "options";
+    chrome.declarativeNetRequest.RequestMethod.OTHER === "other";
+    chrome.declarativeNetRequest.RequestMethod.PATCH === "patch";
+    chrome.declarativeNetRequest.RequestMethod.POST === "post";
+    chrome.declarativeNetRequest.RequestMethod.PUT === "put";
+
+    chrome.declarativeNetRequest.ResourceType.CSP_REPORT === "csp_report";
+    chrome.declarativeNetRequest.ResourceType.FONT === "font";
+    chrome.declarativeNetRequest.ResourceType.IMAGE === "image";
+    chrome.declarativeNetRequest.ResourceType.MAIN_FRAME === "main_frame";
+    chrome.declarativeNetRequest.ResourceType.MEDIA === "media";
+    chrome.declarativeNetRequest.ResourceType.OBJECT === "object";
+    chrome.declarativeNetRequest.ResourceType.OTHER === "other";
+    chrome.declarativeNetRequest.ResourceType.PING === "ping";
+    chrome.declarativeNetRequest.ResourceType.SCRIPT === "script";
+    chrome.declarativeNetRequest.ResourceType.STYLESHEET === "stylesheet";
+    chrome.declarativeNetRequest.ResourceType.SUB_FRAME === "sub_frame";
+    chrome.declarativeNetRequest.ResourceType.WEBBUNDLE === "webbundle";
+    chrome.declarativeNetRequest.ResourceType.WEBSOCKET === "websocket";
+    chrome.declarativeNetRequest.ResourceType.WEBTRANSPORT === "webtransport";
+    chrome.declarativeNetRequest.ResourceType.XMLHTTPREQUEST === "xmlhttprequest";
+
+    chrome.declarativeNetRequest.RuleActionType.ALLOW === "allow";
+    chrome.declarativeNetRequest.RuleActionType.ALLOW_ALL_REQUESTS === "allowAllRequests";
+    chrome.declarativeNetRequest.RuleActionType.BLOCK === "block";
+    chrome.declarativeNetRequest.RuleActionType.MODIFY_HEADERS === "modifyHeaders";
+    chrome.declarativeNetRequest.RuleActionType.REDIRECT === "redirect";
+    chrome.declarativeNetRequest.RuleActionType.UPGRADE_SCHEME === "upgradeScheme";
+
+    chrome.declarativeNetRequest.SESSION_RULESET_ID === "_session";
+
+    chrome.declarativeNetRequest.UnsupportedRegexReason.MEMORY_LIMIT_EXCEEDED === "memoryLimitExceeded";
+    chrome.declarativeNetRequest.UnsupportedRegexReason.SYNTAX_ERROR === "syntaxError";
+
     await chrome.declarativeNetRequest.getAvailableStaticRuleCount();
+    chrome.declarativeNetRequest.getAvailableStaticRuleCount(count => {
+        // $ExpectType number
+        count;
+    });
     await chrome.declarativeNetRequest.getDynamicRules();
+    chrome.declarativeNetRequest.getDynamicRules(rules => {
+        // $ExpectType Rule[]
+        rules;
+
+        const rule = rules[0];
+        rule.action; // $ExpectType RuleAction
+        rule.condition; // $ExpectType RuleCondition
+        rule.id; // $ExpectType number
+        rule.priority; // $ExpectType number | undefined
+    });
+
     await chrome.declarativeNetRequest.getEnabledRulesets();
+    chrome.declarativeNetRequest.getEnabledRulesets(sets => {
+        // $ExpectType string[]
+        sets;
+    });
     await chrome.declarativeNetRequest.getMatchedRules({});
     await chrome.declarativeNetRequest.getMatchedRules();
     await chrome.declarativeNetRequest.getSessionRules();
@@ -1778,9 +1842,7 @@ async function testDeclarativeNetRequestForPromise() {
     await chrome.declarativeNetRequest.updateDynamicRules({});
     await chrome.declarativeNetRequest.updateEnabledRulesets({});
     await chrome.declarativeNetRequest.updateSessionRules({});
-}
 
-async function testDynamicRules() {
     await chrome.declarativeNetRequest.updateDynamicRules({});
     await chrome.declarativeNetRequest.updateDynamicRules({
         addRules: [{

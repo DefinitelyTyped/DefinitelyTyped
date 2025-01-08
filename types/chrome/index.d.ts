@@ -12797,37 +12797,74 @@ declare namespace chrome {
 
     export namespace declarativeNetRequest {
         /** Ruleset ID for the dynamic rules added by the extension. */
-        export const DYNAMIC_RULESET_ID: string;
+        export const DYNAMIC_RULESET_ID: "_dynamic";
 
-        /** Time interval within which MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL getMatchedRules calls can be made, specified in minutes.
-         * Additional calls will fail immediately and set runtime.lastError.
-         * Note: getMatchedRules calls associated with a user gesture are exempt from the quota.
+        /**
+         * Time interval within which `MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL getMatchedRules` calls can be made, specified in minutes.
+         * Additional calls will fail immediately and set {@link runtime.lastError}.
+         * Note: `getMatchedRules` calls associated with a user gesture are exempt from the quota.
          */
-        export const GETMATCHEDRULES_QUOTA_INTERVAL: number;
+        export const GETMATCHEDRULES_QUOTA_INTERVAL: 10;
 
-        /** The minimum number of static rules guaranteed to an extension across its enabled static rulesets.
+        /**
+         * The minimum number of static rules guaranteed to an extension across its enabled static rulesets.
          * Any rules above this limit will count towards the global rule limit.
+         * @since Chrome 89
          */
-        export const GUARANTEED_MINIMUM_STATIC_RULES: number;
+        export const GUARANTEED_MINIMUM_STATIC_RULES: 30000;
 
-        /** The number of times getMatchedRules can be called within a period of GETMATCHEDRULES_QUOTA_INTERVAL. */
-        export const MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL: number;
+        /** The number of times `getMatchedRules` can be called within a period of `GETMATCHEDRULES_QUOTA_INTERVAL`. */
+        export const MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL: 20;
+
+        /** The maximum number of dynamic rules that an extension can add. */
+        export const MAX_NUMBER_OF_DYNAMIC_RULES: 30000;
+
+        /**
+         * The maximum number of static `Rulesets` an extension can enable at any one time.
+         * @since Chrome 94
+         */
+        export const MAX_NUMBER_OF_ENABLED_STATIC_RULESETS: 50;
 
         /** The maximum number of combined dynamic and session scoped rules an extension can add. */
-        export const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: number;
+        export const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: 5000;
 
-        /** The maximum number of regular expression rules that an extension can add.
+        /**
+         * The maximum number of regular expression rules that an extension can add.
          * This limit is evaluated separately for the set of dynamic rules and those specified in the rule resources file.
          */
-        export const MAX_NUMBER_OF_REGEX_RULES: number;
+        export const MAX_NUMBER_OF_REGEX_RULES: 1000;
 
-        /** The maximum number of static Rulesets an extension can specify as part of the "rule_resources" manifest key. */
-        export const MAX_NUMBER_OF_STATIC_RULESETS: number;
+        /**
+         * The maximum number of session scoped rules that an extension can add.
+         * @since Chrome 120
+         */
+        export const MAX_NUMBER_OF_SESSION_RULES: 5000;
 
-        /** Ruleset ID for the session-scoped rules added by the extension. */
-        export const SESSION_RULESET_ID: string;
+        /** The maximum number of static `Rulesets` an extension can specify as part of the `"rule_resources"` manifest key. */
+        export const MAX_NUMBER_OF_STATIC_RULESETS: 100;
 
-        /** This describes the HTTP request method of a network request.  */
+        /**
+         * The maximum number of "unsafe" dynamic rules that an extension can add.
+         * @since Chrome 120
+         */
+        export const MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES: 5000;
+
+        /**
+         * The maximum number of "unsafe" session scoped rules that an extension can add.
+         * @since Chrome 120
+         */
+        export const MAX_NUMBER_OF_UNSAFE_SESSION_RULES: 5000;
+
+        /**
+         * Ruleset ID for the session-scoped rules added by the extension.
+         * @since Chrome 90
+         */
+        export const SESSION_RULESET_ID: "_session";
+
+        /**
+         * This describes the HTTP request method of a network request.
+         * @since Chrome 91
+         */
         export enum RequestMethod {
             CONNECT = "connect",
             DELETE = "delete",
@@ -12837,6 +12874,7 @@ declare namespace chrome {
             PATCH = "patch",
             POST = "post",
             PUT = "put",
+            OTHER = "other",
         }
 
         /** This describes the resource type of the network request. */
@@ -12853,37 +12891,59 @@ declare namespace chrome {
             CSP_REPORT = "csp_report",
             MEDIA = "media",
             WEBSOCKET = "websocket",
+            WEBTRANSPORT = "webtransport",
+            WEBBUNDLE = "webbundle",
             OTHER = "other",
         }
 
         /** Describes the kind of action to take if a given RuleCondition matches. */
         export enum RuleActionType {
+            /** Block the network request. */
             BLOCK = "block",
+            /** Redirect the network request. */
             REDIRECT = "redirect",
+            /** Allow the network request. The request won't be intercepted if there is an allow rule which matches it. */
             ALLOW = "allow",
+            /** Upgrade the network request url's scheme to https if the request is http or ftp. */
             UPGRADE_SCHEME = "upgradeScheme",
+            /** Modify request/response headers from the network request. */
             MODIFY_HEADERS = "modifyHeaders",
+            /** Allow all requests within a frame hierarchy, including the frame request itself. */
             ALLOW_ALL_REQUESTS = "allowAllRequests",
         }
 
-        /** Describes the reason why a given regular expression isn't supported. */
+        /**
+         * Describes the reason why a given regular expression isn't supported.
+         * @since Chrome 87
+         */
         export enum UnsupportedRegexReason {
+            /** The regular expression is syntactically incorrect, or uses features not available in the RE2 syntax. */
             SYNTAX_ERROR = "syntaxError",
+            /** The regular expression exceeds the memory limit. */
             MEMORY_LIMIT_EXCEEDED = "memoryLimitExceeded",
         }
 
-        /** TThis describes whether the request is first or third party to the frame in which it originated.
+        /**
+         * This describes whether the request is first or third party to the frame in which it originated.
          * A request is said to be first party if it has the same domain (eTLD+1) as the frame in which the request originated.
          */
         export enum DomainType {
+            /** The network request is first party to the frame in which it originated. */
             FIRST_PARTY = "firstParty",
+            /* The network request is third party to the frame in which it originated. */
             THIRD_PARTY = "thirdParty",
         }
 
-        /** This describes the possible operations for a "modifyHeaders" rule. */
+        /**
+         * This describes the possible operations for a "modifyHeaders" rule.
+         * @since Chrome 86
+         */
         export enum HeaderOperation {
+            /** Adds a new entry for the specified header. This operation is not supported for request headers. */
             APPEND = "append",
+            /** Sets a new value for the specified header, removing any existing headers with the same name. */
             SET = "set",
+            /** Removes all entries for the specified header. */
             REMOVE = "remove",
         }
 
