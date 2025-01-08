@@ -1,12 +1,14 @@
 /// <reference types="node" />
 
+import SocketOptions from "./socket_options"
+
 export function isUsedInput(el: any): any;
 export default class LiveSocket {
-  constructor(url: any, phxSocket: any, opts?: {});
+  constructor(url: any, phxSocket: any, opts: Partial<SocketOptions>);
   unloaded: boolean;
   socket: any;
   bindingPrefix: any;
-  opts: {};
+  opts: any;
   params: any;
   viewLogger: any;
   metadataCallbacks: any;
@@ -18,7 +20,7 @@ export default class LiveSocket {
   outgoingMainEl: any;
   clickStartedAtTarget: any;
   linkRef: number;
-  roots: {};
+  roots: any;
   href: string;
   pendingLink: any;
   currentLocation: any;

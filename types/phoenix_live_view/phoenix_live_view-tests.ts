@@ -55,7 +55,7 @@ function test_socket() {
     },
   };
 
-  const opts: SocketOptions = {
+  const opts = {
     params: {
       _csrf_token: "1234",
     },
