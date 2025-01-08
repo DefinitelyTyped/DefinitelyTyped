@@ -1,8 +1,8 @@
 import { Socket } from "phoenix";
-import { Hook, HooksOptions, LiveSocket, SocketOptions, UploadEntry } from "phoenix_live_view";
+import { DomOptions, EventMetadata, Hook, LiveSocket, SocketOptions, UploadEntry, Uploader } from "phoenix_live_view";
 
 function test_socket() {
-  // Hooks
+  // Hook
   const testHook: Hook = {
     mounted() {
       const hook = this;
@@ -13,6 +13,7 @@ function test_socket() {
     },
   };
 
+  // Hook with click handler
   const testHookWithExtendedPrototype: Hook<{ handleClick: (event: MouseEvent) => void }> = {
     mounted() {
       this.handleClick = (event: MouseEvent) => {
@@ -27,25 +28,17 @@ function test_socket() {
   };
 
   // Uploaders
-  function testUploader(entries: UploadEntry[], onViewError: (cb: () => void) => void) {
+  const testUploader: Uploader = (entries: UploadEntry[], onViewError: (cb: () => void) => void) => {
     onViewError(() => console.log("uploader view error"));
 
     entries.forEach((entry) => {
       console.log(`file: ${entry.file.name}`);
       console.log(`meta: ${JSON.stringify(entry.meta)}`);
     });
-  }
-
-  const MyHooks: HooksOptions = {
-    test: testHook,
-    testWithExtendedPrototype: testHookWithExtendedPrototype,
   };
 
-  const MyUploaders = {
-    test: testUploader,
-  };
-
-  const MyMetadata = {
+  // Metadata
+  const metadata: Partial<EventMetadata> = {
     click: (e: PointerEvent, el: HTMLElement) => {
       return {
         ctrlKey: e.ctrlKey,
@@ -55,14 +48,32 @@ function test_socket() {
     },
   };
 
-  const opts = {
+  // DOM
+  const dom: Partial<DomOptions> = {
+    onBeforeElUpdated(from: HTMLElement, to: HTMLElement) {
+      for (const attr of from.attributes) {
+        if (attr.name.startsWith("data-js-")) {
+          to.setAttribute(attr.name, attr.value);
+        }
+      }
+    },
+  };
+
+  const opts: Partial<SocketOptions> = {
+    longPollFallbackMs: 2500,
+    reconnectAfterMs: (tries: number) => tries * tries,
     params: {
       _csrf_token: "1234",
     },
-    hooks: MyHooks,
-    uploaders: MyUploaders,
-    reconnectAfterMs: (tries: number) => tries * tries,
-    metadata: MyMetadata,
+    hooks: {
+      test: testHook,
+      testWithExtendedPrototype: testHookWithExtendedPrototype,
+    },
+    uploaders: {
+      test: testUploader,
+    },
+    metadata: metadata,
+    dom: dom,
   };
 
   const liveSocket = new LiveSocket("/live", Socket, opts);

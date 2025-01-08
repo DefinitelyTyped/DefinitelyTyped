@@ -2,9 +2,6 @@ import { HooksOptions } from "./hooks";
 import { UploadersOptions } from "./upload_entry";
 import View from "./view";
 
-export type ConnectFunction = (el: HTMLElement) => object;
-export type ConnectParams = object | ConnectFunction;
-
 export interface Defaults {
   debounce: number;
   throttle: number;
@@ -36,7 +33,7 @@ export default interface SocketOptions {
    * Defaults to WebSocket with automatic LongPoll fallback if WebSocket is not defined.
    * To fallback to LongPoll when WebSocket attempts fail, use `longPollFallbackMs: 2500`.
    */
-  transport: any; // DT - this should be a type that has a constructor with a URL argument.
+  transport: new(endpoint: string) => object;
   /*
    * @param {Function} [opts.longPollFallbackMs] - The millisecond time to attempt the primary transport
    * before falling back to the LongPoll transport. Disabled by default.
@@ -50,7 +47,7 @@ export default interface SocketOptions {
    * @param {Function} [opts.encode] - The function to encode outgoing messages.
    * Defaults to JSON encoder.
    */
-  encode: (msg: object, callback: (encoded: string) => any) => any;
+  encode: (payload: object, callback: (encoded: any) => any) => any;
   /*
    * @param {Function} [opts.decode] - The function to decode incoming messages.
    * Defaults to JSON:
@@ -59,7 +56,7 @@ export default interface SocketOptions {
    * (payload, callback) => callback(JSON.parse(payload))
    * ```
    */
-  decode: (payload: any, callback: (decoded: any) => any) => any;
+  decode: (payload: string, callback: (decoded: any) => any) => any;
   /*
    * @param {number} [opts.timeout] - The default timeout in milliseconds to trigger push timeouts.
    * Defaults to `DEFAULT_TIMEOUT`
@@ -110,7 +107,7 @@ export default interface SocketOptions {
    * @param {string} [opts.binaryType] - The binary type to use for binary WebSocket frames.
    * Defaults to "arraybuffer"
    */
-  binaryType: string;
+  binaryType: "arraybuffer" | "blob";
   /*
    * @param {vsn} [opts.vsn] - The serializer's protocol version to send on connect.
    * Defaults to DEFAULT_VSN.
@@ -131,7 +128,7 @@ export default interface SocketOptions {
    *
    *     (el) => {view: el.getAttribute("data-my-view-name", token: window.myToken}
    */
-  params: ConnectParams;
+  params: object | ((el: HTMLElement) => object);
   /*
    * @param {string} [opts.bindingPrefix] - The optional prefix to use for all phx DOM annotations.
    * Defaults to "phx-".
@@ -200,7 +197,9 @@ export default interface SocketOptions {
    */
   localStorage: object;
   /*
-   * Undocumented
+   * @param {object} [opts.dom] - For integration with client-side libraries which
+   * require a broader access to full DOM management, the LiveSocket constructor
+   * accepts a `dom` option with an `onBeforeElUpdated` callback.
    */
   dom: Partial<DomOptions>;
 }
